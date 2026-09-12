@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import {
   X,
@@ -89,6 +89,15 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
   );
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string | null>(null);
   const [isLoadingPdf, setIsLoadingPdf] = useState(false);
+  const blobUrlCacheRef = useRef<Map<string, string>>(new Map());
+
+  const currentAttachment = useMemo(() => {
+    return attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
+  }, [attachments, selectedAttachmentId]);
+
+  const currentAttachmentId = currentAttachment?.id;
+  const currentAttachmentStorageKey = currentAttachment?.storageKey;
+  const currentAttachmentUrl = currentAttachment?.url;
 
   // Highlighter State
   const [isHighlightMode, setIsHighlightMode] = useState<boolean>(false);
@@ -246,28 +255,52 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
     }
   }, [initialNotes]);
 
-  // Load PDF Blob on select
+  // Load PDF Blob on select (cached to prevent scroll reset)
   useEffect(() => {
     let isMounted = true;
     if (!isOpen) return;
 
-    const loadPdf = async () => {
-      const current = attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
-      if (!current) {
-        setPdfBlobUrl(null);
-        return;
-      }
+    if (!currentAttachment) {
+      setPdfBlobUrl(null);
+      return;
+    }
 
+    const key = currentAttachmentStorageKey || currentAttachmentId;
+    if (!key && !currentAttachmentUrl) {
+      setPdfBlobUrl(null);
+      return;
+    }
+
+    // 1. Direct Web URL
+    if (currentAttachmentUrl) {
+      setPdfBlobUrl(currentAttachmentUrl);
+      return;
+    }
+
+    // 2. Check cache first
+    if (key && blobUrlCacheRef.current.has(key)) {
+      const cached = blobUrlCacheRef.current.get(key)!;
+      setPdfBlobUrl(cached);
+      return;
+    }
+
+    // 3. Load from IndexedDB
+    const loadPdf = async () => {
       setIsLoadingPdf(true);
       try {
-        const url = await getPdfBlobUrl(current.id);
+        const url = await getPdfBlobUrl(key);
         if (isMounted) {
-          setPdfBlobUrl(url || current.url || null);
+          if (url) {
+            blobUrlCacheRef.current.set(key, url);
+            setPdfBlobUrl(url);
+          } else {
+            setPdfBlobUrl(currentAttachmentUrl || null);
+          }
         }
       } catch (err) {
         console.error('Failed to load PDF in Split Study:', err);
         if (isMounted) {
-          setPdfBlobUrl(current.url || null);
+          setPdfBlobUrl(currentAttachmentUrl || null);
         }
       } finally {
         if (isMounted) {
@@ -276,14 +309,12 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
       }
     };
 
-    if (attachments.length > 0) {
-      loadPdf();
-    }
+    loadPdf();
 
     return () => {
       isMounted = false;
     };
-  }, [isOpen, selectedAttachmentId, attachments]);
+  }, [isOpen, selectedAttachmentId, currentAttachmentId, currentAttachmentStorageKey, currentAttachmentUrl]);
 
   // Global mousemove & mouseup listeners for smooth dragging resizer
   useEffect(() => {
@@ -328,8 +359,6 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
   }, [isDragging, pdfWidthPercent]);
 
   if (!isOpen) return null;
-
-  const currentAttachment = attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
 
   const handleManualSave = () => {
     onSaveNotes(notesContent);

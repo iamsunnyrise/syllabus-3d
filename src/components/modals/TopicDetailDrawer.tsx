@@ -83,6 +83,8 @@ const DrawerTabSkeleton: React.FC<{ label?: string }> = ({ label = 'Loading sect
   </div>
 );
 
+const EMPTY_PDF_ATTACHMENTS: TopicPdfAttachment[] = [];
+
 interface TopicDetailDrawerProps {
   topic: Topic | null;
   subjectName?: string;
@@ -1715,7 +1717,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       topicName={liveTopic.name}
                       subjectName={subjectName}
                       chapterName={chapterName}
-                      attachments={liveTopic.pdfAttachments || []}
+                      attachments={liveTopic.pdfAttachments || EMPTY_PDF_ATTACHMENTS}
                       onAddAttachment={(newAttachment) => {
                         if (addTopicPdfAttachment) {
                           addTopicPdfAttachment(liveTopic.id, newAttachment);

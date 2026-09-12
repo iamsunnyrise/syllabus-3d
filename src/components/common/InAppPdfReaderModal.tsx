@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import {
   ArrowLeft,
@@ -130,6 +130,28 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [commentSearchQuery, setCommentSearchQuery] = useState<string>('');
   const [commentCategoryFilter, setCommentCategoryFilter] = useState<CommentCategory | 'all'>('all');
 
+  // Cache blob URLs to avoid regenerating object URLs and destroying viewer during scroll or re-renders
+  const blobUrlCacheRef = useRef<Map<string, string>>(new Map());
+
+  // Stable active attachment resolution
+  const currentAttachment = useMemo(() => {
+    return attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
+  }, [attachments, selectedAttachmentId]);
+
+  const currentAttachmentId = currentAttachment?.id;
+  const currentAttachmentStorageKey = currentAttachment?.storageKey;
+  const currentAttachmentUrl = currentAttachment?.url;
+
+  // Memoized page navigation callbacks to prevent child prop reference changes
+  const handlePageChange = useCallback((page: number, total: number) => {
+    setCurrentPage(page);
+    setTotalPages(total);
+  }, []);
+
+  const handleLoadSuccess = useCallback((total: number) => {
+    setTotalPages(total);
+  }, []);
+
   // Sync selected attachment when initialAttachmentId changes
   useEffect(() => {
     if (initialAttachmentId) {
@@ -137,7 +159,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     } else if (attachments.length > 0 && !selectedAttachmentId) {
       setSelectedAttachmentId(attachments[0].id);
     }
-  }, [initialAttachmentId, attachments]);
+  }, [initialAttachmentId, attachments.length]);
 
   // Load Saved Highlights & Comments when attachment changes
   useEffect(() => {
@@ -149,34 +171,46 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     }
   }, [selectedAttachmentId]);
 
-  // Load PDF Blob when selected attachment changes
+  // Load PDF Blob when selected attachment changes (cached to prevent scroll reset)
   useEffect(() => {
     let isMounted = true;
     if (!isOpen) return;
 
-    const current = attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
-    if (!current) {
+    if (!currentAttachment) {
       setPdfBlobUrl(null);
       return;
     }
 
+    const key = currentAttachmentStorageKey || currentAttachmentId;
+    if (!key && !currentAttachmentUrl) {
+      setPdfBlobUrl(null);
+      return;
+    }
+
+    // 1. Direct Web/Online URL
+    if (currentAttachmentUrl) {
+      setPdfBlobUrl(currentAttachmentUrl);
+      return;
+    }
+
+    // 2. Check memory cache first (instant & zero reload)
+    if (key && blobUrlCacheRef.current.has(key)) {
+      const cached = blobUrlCacheRef.current.get(key)!;
+      setPdfBlobUrl(cached);
+      return;
+    }
+
+    // 3. Load from IndexedDB only if not cached
     const loadPdfData = async () => {
       setIsLoading(true);
       setLoadError(null);
 
       try {
-        if (current.url) {
-          if (isMounted) {
-            setPdfBlobUrl(current.url);
-          }
-          return;
-        }
-
-        const id = current.storageKey || current.id;
-        const blobUrl = await getPdfBlobUrl(id);
+        const blobUrl = await getPdfBlobUrl(key);
 
         if (isMounted) {
           if (blobUrl) {
+            blobUrlCacheRef.current.set(key, blobUrl);
             setPdfBlobUrl(blobUrl);
           } else {
             setLoadError('Unable to load PDF from storage. The file may need to be re-uploaded.');
@@ -199,7 +233,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, selectedAttachmentId, attachments]);
+  }, [isOpen, selectedAttachmentId, currentAttachmentId, currentAttachmentStorageKey, currentAttachmentUrl]);
 
   // Fullscreen Change Listener to keep isFullscreen state synced
   useEffect(() => {
@@ -428,8 +462,6 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   };
 
   if (!isOpen) return null;
-
-  const currentAttachment = attachments.find(a => a.id === selectedAttachmentId) || attachments[0];
 
   const handleDownload = () => {
     if (!currentAttachment) return;
@@ -1145,11 +1177,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               onScaleChange={setScale}
               fitMode={fitMode}
               onFitModeChange={setFitMode}
-              onLoadSuccess={(total) => setTotalPages(total)}
-              onPageChange={(page, total) => {
-                setCurrentPage(page);
-                setTotalPages(total);
-              }}
+              onLoadSuccess={handleLoadSuccess}
+              onPageChange={handlePageChange}
               isHighlightMode={isHighlightMode}
               highlightColor={highlightColor}
               highlightTool={highlightTool}

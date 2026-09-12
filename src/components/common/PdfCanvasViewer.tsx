@@ -115,6 +115,12 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   const [containerHeight, setContainerHeight] = useState<number>(() => typeof window !== 'undefined' ? window.innerHeight : 600);
   const [defaultAspect, setDefaultAspect] = useState<number>(1.414); // Standard A4 ratio fallback
 
+  // Scroll tracking and debounced parent page notification
+  const scrollRafRef = useRef<number | null>(null);
+  const pageChangeTimeoutRef = useRef<any>(null);
+  const lastScrollTopRef = useRef<number>(0);
+  const isInitialLoadRef = useRef<boolean>(true);
+
   const scale = propScale !== undefined ? propScale : internalScale;
   const setScale = (newScale: number | ((prev: number) => number)) => {
     if (onScaleChange && typeof newScale === 'number') {
@@ -128,26 +134,51 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
     }
   };
 
-  // ResizeObserver to dynamically track container width and height
+  // Debounced ResizeObserver to avoid canvas destruction when vertical scrollbar appears/disappears
   useEffect(() => {
     if (!containerRef.current) return;
+    let resizeTimer: any = null;
+
     const updateSize = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.clientWidth || window.innerWidth);
-        setContainerHeight(containerRef.current.clientHeight || window.innerHeight);
-      }
+      if (!containerRef.current) return;
+      // Using offsetWidth avoids micro 15px shifts when scrollbar toggles
+      const measuredW = containerRef.current.clientWidth || window.innerWidth;
+      const measuredH = containerRef.current.clientHeight || window.innerHeight;
+
+      setContainerWidth(prev => {
+        // 20px threshold: Ignore vertical scrollbar width (15-17px) changes to prevent redraw loops
+        if (Math.abs(prev - measuredW) >= 20) {
+          return measuredW;
+        }
+        return prev;
+      });
+
+      setContainerHeight(prev => {
+        if (Math.abs(prev - measuredH) >= 20) {
+          return measuredH;
+        }
+        return prev;
+      });
     };
+
     updateSize();
 
     const resizeObserver = new ResizeObserver(() => {
-      updateSize();
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateSize, 120);
     });
     resizeObserver.observe(containerRef.current);
 
-    window.addEventListener('resize', updateSize);
+    const handleWindowResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateSize, 120);
+    };
+    window.addEventListener('resize', handleWindowResize);
+
     return () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
       resizeObserver.disconnect();
-      window.removeEventListener('resize', updateSize);
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
@@ -179,6 +210,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         setPdfDoc(doc);
         setNumPages(doc.numPages);
         setCurrentPage(1);
+        isInitialLoadRef.current = true;
 
         // Instantly get page 1 aspect ratio to set placeholder heights accurately
         try {
@@ -205,28 +237,66 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
     return () => {
       isCancelled = true;
+      if (pageChangeTimeoutRef.current) {
+        clearTimeout(pageChangeTimeoutRef.current);
+      }
+      if (scrollRafRef.current) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
     };
   }, [pdfUrl]);
 
-  // Scroll listener to track current page
+  // Restore scroll position across parent re-renders
+  useEffect(() => {
+    if (isInitialLoadRef.current) {
+      isInitialLoadRef.current = false;
+      return;
+    }
+    if (containerRef.current && lastScrollTopRef.current > 0) {
+      // If scrollTop was unintentionally wiped back to 0 while container still has scroll height
+      if (containerRef.current.scrollTop === 0 && containerRef.current.scrollHeight > containerRef.current.clientHeight + 100) {
+        containerRef.current.scrollTop = lastScrollTopRef.current;
+      }
+    }
+  });
+
+  // Throttled scroll listener using requestAnimationFrame to track current page smoothly
   const handleScroll = () => {
     if (!containerRef.current || numPages === 0) return;
     const container = containerRef.current;
-    const scrollTop = container.scrollTop;
-    const pageEls = container.querySelectorAll<HTMLDivElement>('[data-page-number]');
+    lastScrollTopRef.current = container.scrollTop;
 
-    for (let i = 0; i < pageEls.length; i++) {
-      const el = pageEls[i];
-      const offsetTop = el.offsetTop - container.offsetTop;
-      if (scrollTop >= offsetTop - 150 && scrollTop < offsetTop + el.clientHeight) {
-        const pNum = Number(el.getAttribute('data-page-number'));
-        if (pNum && pNum !== currentPage) {
-          setCurrentPage(pNum);
-          onPageChange?.(pNum, numPages);
+    if (scrollRafRef.current !== null) return;
+
+    scrollRafRef.current = requestAnimationFrame(() => {
+      scrollRafRef.current = null;
+      if (!containerRef.current) return;
+      const currentContainer = containerRef.current;
+      const scrollTop = currentContainer.scrollTop;
+      const pageEls = currentContainer.querySelectorAll<HTMLDivElement>('[data-page-number]');
+
+      for (let i = 0; i < pageEls.length; i++) {
+        const el = pageEls[i];
+        // el.offsetTop is relative to containerRef (container has relative position)
+        const offsetTop = el.offsetTop;
+        const elHeight = el.offsetHeight || 800;
+
+        if (scrollTop >= offsetTop - 120 && scrollTop < offsetTop + elHeight - 120) {
+          const pNum = Number(el.getAttribute('data-page-number'));
+          if (pNum && pNum !== currentPage) {
+            setCurrentPage(pNum);
+            // Debounce parent onPageChange so rapid scrolling does not trigger high-frequency parent re-renders
+            if (pageChangeTimeoutRef.current) {
+              clearTimeout(pageChangeTimeoutRef.current);
+            }
+            pageChangeTimeoutRef.current = setTimeout(() => {
+              onPageChange?.(pNum, numPages);
+            }, 80);
+          }
+          break;
         }
-        break;
       }
-    }
+    });
   };
 
   const scrollToPage = (pageNum: number) => {
@@ -423,7 +493,7 @@ interface PdfPageItemProps {
   onPushCommentToNotes?: (comment: PdfComment) => void;
 }
 
-const PdfPageItem: React.FC<PdfPageItemProps> = ({
+const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   pageNum,
   docId,
   pdfDoc,
@@ -459,6 +529,13 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
   const [renderedWidth, setRenderedWidth] = useState<number>(0);
   const [renderedHeight, setRenderedHeight] = useState<number>(0);
 
+  // Sync aspect ratio when defaultAspect is computed from page 1
+  useEffect(() => {
+    if (defaultAspect > 0 && renderedHeight === 0) {
+      setPageAspect(defaultAspect);
+    }
+  }, [defaultAspect, renderedHeight]);
+
   // Active Drawing State
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState<{ x: number; y: number } | null>(null);
@@ -479,10 +556,11 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
       (entries) => {
         if (entries[0]?.isIntersecting) {
           setIsVisible(true);
+          observer.disconnect(); // Once visible, disconnect observer to save memory
         }
       },
       {
-        rootMargin: '1000px 0px', // Pre-renders 2 pages ahead smoothly
+        rootMargin: '800px 0px', // Pre-renders smoothly ahead of viewport
         threshold: 0.01
       }
     );
@@ -683,9 +761,11 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
   };
 
   // Estimate placeholder height
+  const effectiveWidth = Math.max(containerWidth, 320);
   const placeholderHeight = fitMode === 'fit-page'
-    ? Math.min(containerHeight - 40, (containerWidth - 32) * pageAspect) * scale
-    : containerWidth * pageAspect * scale;
+    ? Math.min(containerHeight - 40, (effectiveWidth - 32) * pageAspect) * scale
+    : effectiveWidth * pageAspect * scale;
+  const finalItemHeight = renderedHeight > 0 ? renderedHeight : Math.max(200, Math.floor(placeholderHeight));
 
   const activeColorMeta = HIGHLIGHT_COLORS[highlightColor] || HIGHLIGHT_COLORS.yellow;
 
@@ -693,15 +773,17 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
     <div
       ref={wrapperRef}
       data-page-number={pageNum}
-      className={`relative flex justify-center items-center shadow-lg bg-white overflow-hidden transition-all ${
+      className={`relative flex justify-center items-center shadow-lg bg-white overflow-hidden ${
         fitMode === 'fit-page' ? 'rounded-lg border border-[#292E42]/60' : 'w-full'
       }`}
       style={{
-        minHeight: `${Math.max(200, Math.floor(placeholderHeight))}px`,
-        width: fitMode === 'fit-page' ? 'auto' : '100%'
+        minHeight: `${finalItemHeight}px`,
+        height: `${finalItemHeight}px`,
+        width: fitMode === 'fit-page' ? 'auto' : '100%',
+        contain: 'layout'
       }}
     >
-      {isRendering && (
+      {isRendering && renderedHeight === 0 && (
         <div className="absolute inset-0 bg-[#1A1B26]/30 backdrop-blur-xs flex items-center justify-center text-white z-10 pointer-events-none">
           <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[#1A1B26]/90 border border-[#292E42] text-[#7AA2F7] shadow-xl">
             <Loader2 className="w-3.5 h-3.5 animate-spin text-[#7AA2F7]" />
@@ -715,8 +797,8 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
         className="relative mx-auto max-w-full"
         onClick={handlePageClick}
         style={{
-          width: renderedWidth > 0 ? `${renderedWidth}px` : 'auto',
-          height: renderedHeight > 0 ? `${renderedHeight}px` : 'auto'
+          width: renderedWidth > 0 ? `${renderedWidth}px` : (fitMode === 'fit-page' ? 'auto' : '100%'),
+          height: `${finalItemHeight}px`
         }}
       >
         <canvas ref={canvasRef} className="block max-w-full" />
@@ -851,5 +933,5 @@ const PdfPageItem: React.FC<PdfPageItemProps> = ({
       </div>
     </div>
   );
-};
+});
 
