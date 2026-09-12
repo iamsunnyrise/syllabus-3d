@@ -27,7 +27,8 @@ import {
   Sparkles,
   Calendar,
   Trophy,
-  FolderOpen
+  FolderOpen,
+  ArrowRight
 } from 'lucide-react';
 import { EditSubjectModal } from '../modals/EditSubjectModal';
 import { EditChapterModal } from '../modals/EditChapterModal';
@@ -1563,113 +1564,105 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] hover:bg-slate-50/70 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/40 shadow-xs hover:shadow-lg hover:shadow-blue-500/[0.03] dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                 >
-                  {/* Subtle Top Glow Accent */}
+                  {/* Top Glow Accent Bar on Hover */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{
                       background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`
                     }}
                   />
 
-                  {/* Top Row: Thumbnail Squircle + Title & Chapters + Right Action */}
+                  {/* Ambient Accent Radial Glow in Corner on Hover */}
+                  <div
+                    className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-xl pointer-events-none transition-opacity duration-300"
+                    style={{ backgroundColor: accentColor }}
+                  />
+
+                  {/* Top Row: Thumbnail Squircle + Title & Chapters + Right Status Pill */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">
                       {/* Modern Adaptive Squircle Thumbnail */}
-                      <div className={`w-11 sm:w-12 h-11 sm:h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
-                        <BadgeIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2] mb-0.5" />
-                        <span className="text-[8.5px] sm:text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+                      <div className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
+                        <BadgeIcon className="w-5 h-5 stroke-[2.2] mb-0.5" />
+                        <span className="text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                           {badgeStyle.badgeText}
                         </span>
                       </div>
 
                       {/* Subject Name (Title Case) & Chapter Meta */}
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[14px] sm:text-[15px] font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
+                        <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 leading-snug">
                           {formatTitleCase(subject.name)}
                         </h3>
-                        <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5">
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
                           <span>{subject.chapters.length} {subject.chapters.length === 1 ? 'Chapter' : 'Chapters'}</span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span>{subjectTotalTopics} Topics</span>
+                          <span>{subjectTotalTopics} {subjectTotalTopics === 1 ? 'Topic' : 'Topics'}</span>
                         </p>
                       </div>
                     </div>
 
-                    {/* Right: Progress Status Pill & Quick Controls */}
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {/* Status Pill */}
-                      <div className={`px-2 sm:px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono tabular-nums font-bold flex items-center gap-1 shrink-0 ${
-                        isMastered
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-black'
-                          : hasStarted
-                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
-                          : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border border-slate-200/70 dark:border-white/[0.06]'
-                      }`}>
-                        {isMastered ? (
-                          <>
-                            <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
-                            <span>100%</span>
-                          </>
-                        ) : hasStarted ? (
-                          <>
-                            <Zap className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-current" />
-                            <span>{percent}%</span>
-                          </>
-                        ) : (
-                          <span>0%</span>
-                        )}
-                      </div>
-
-                      {/* Edit Subject Action */}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setEditingSubject(subject);
-                        }}
-                        className="w-7 h-7 rounded-xl bg-slate-100/80 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-                        title="Edit Subject"
-                        aria-label={`Edit ${subject.name}`}
-                      >
-                        <Edit2 className="w-3.5 h-3.5 stroke-[2]" />
-                      </button>
-
-                      {/* Action Chevron */}
-                      <div className="hidden sm:flex w-7 h-7 rounded-xl bg-slate-100/80 dark:bg-white/[0.06] items-center justify-center text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">
-                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </div>
+                    {/* Right: Clean Progress Status Pill (No edit or chevron buttons) */}
+                    <div className="shrink-0 pt-0.5">
+                      {isMastered ? (
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                          <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span>100% Mastered</span>
+                        </div>
+                      ) : percent > 0 ? (
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                          <Zap className="w-3.5 h-3.5 fill-current" />
+                          <span>{percent}%</span>
+                        </div>
+                      ) : subjectInProgressTopics > 0 ? (
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span>In Progress</span>
+                        </div>
+                      ) : (
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-medium flex items-center gap-1 bg-slate-100/80 dark:bg-white/[0.05] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]">
+                          <span>Not Started</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   {/* Progress Bar & Bottom Meta */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="w-full h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden">
+                  <div className="space-y-2 pt-1">
+                    {/* Progress Bar with accent gradient */}
+                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
                           width: `${percent}%`,
-                          backgroundColor: accentColor
+                          background: percent > 0 ? `linear-gradient(90deg, ${accentColor}b3, ${accentColor})` : 'transparent'
                         }}
                       />
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] font-mono pt-0.5">
-                      <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                        <span>{subjectCompletedTopics}/{subjectTotalTopics} Mastered</span>
+                    <div className="flex items-center justify-between text-xs font-mono pt-0.5">
+                      <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-medium">
+                        <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
+                        <span><strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong>/{subjectTotalTopics} Mastered</span>
                       </span>
 
                       {weakTopicsInSubject > 0 ? (
-                        <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[10px]">
-                          <AlertTriangle className="w-3 h-3" />
+                        <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[11px]">
+                          <AlertTriangle className="w-3 h-3 stroke-[2.5]" />
                           <span>{weakTopicsInSubject} Weak</span>
                         </span>
-                      ) : (
-                        <span className="text-slate-400 dark:text-slate-500 text-[10px]">
-                          {percent}% Completed
+                      ) : isMastered ? (
+                        <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200/60 dark:border-emerald-500/20 text-[11px]">
+                          <Trophy className="w-3 h-3" />
+                          <span>All Done</span>
                         </span>
+                      ) : (
+                        <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium transition-colors">
+                          <span>{subjectTotalTopics - subjectCompletedTopics} remaining</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </div>
                       )}
                     </div>
                   </div>
