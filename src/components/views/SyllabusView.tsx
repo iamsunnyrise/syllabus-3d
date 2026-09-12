@@ -81,9 +81,15 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     setSearchTerm('');
   }, []);
 
+  const lastInitialSubjectRef = useRef<string | null>(initialSubjectId || null);
+
   useEffect(() => {
-    if (initialSubjectId && currentExam?.subjects.some(s => s.id === initialSubjectId)) {
-      setSelectedSubjectId(initialSubjectId);
+    if (initialSubjectId && initialSubjectId !== lastInitialSubjectRef.current) {
+      lastInitialSubjectRef.current = initialSubjectId;
+      if (currentExam?.subjects.some(s => s.id === initialSubjectId)) {
+        setSelectedSubjectId(initialSubjectId);
+        setSelectedChapterId(null);
+      }
     }
   }, [initialSubjectId, currentExam]);
 
@@ -96,10 +102,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     }
     if (selectedSubjectId) {
       setSelectedSubjectId(null);
+      lastInitialSubjectRef.current = null;
+      if (onSelectSubjectId) onSelectSubjectId('');
       return true; // handled Level 2 -> Level 1
     }
     return false; // at Level 1, allow parent to navigate to previous view / overview
-  }, [selectedChapterId, selectedSubjectId, clearSearch]);
+  }, [selectedChapterId, selectedSubjectId, clearSearch, onSelectSubjectId]);
 
   // Register with Parent App for unified popstate and Header back button
   useEffect(() => {
@@ -139,6 +147,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     soundManager.playClick();
     setSelectedSubjectId(subjectId);
     setSelectedChapterId(null);
+    lastInitialSubjectRef.current = subjectId;
     clearSearch();
     if (onSelectSubjectId) onSelectSubjectId(subjectId);
     window.history.pushState({ subjectId }, '');
@@ -148,7 +157,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     soundManager.playClick();
     setSelectedSubjectId(null);
     setSelectedChapterId(null);
+    lastInitialSubjectRef.current = null;
     clearSearch();
+    if (onSelectSubjectId) onSelectSubjectId('');
   };
 
   const handleSelectChapter = (chapterId: string) => {
@@ -877,7 +888,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   // ═══════════════════════════════════════════════════════════════════
   // LEVEL 2: SUBJECT CHAPTERS DIRECTORY (Matching Reference Hierarchy)
   // ═══════════════════════════════════════════════════════════════════
-  if (activeSubject && !selectedChapterId) {
+  if (activeSubject && (!selectedChapterId || !activeChapter)) {
     const totalSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.length, 0);
     const completedSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'completed').length, 0);
     const subjectPercent = totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0;

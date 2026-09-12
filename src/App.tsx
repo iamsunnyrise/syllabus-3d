@@ -165,6 +165,9 @@ export const App: React.FC = () => {
   // Navigate with History Push
   const handleNavigate = useCallback((newView: AppView) => {
     if (newView === currentView) return;
+    if (newView !== 'syllabus') {
+      setTargetSubjectId('');
+    }
     if (newView === 'overview') {
       setViewHistory([]);
     } else {
@@ -789,6 +792,7 @@ export const App: React.FC = () => {
                   <SubjectsView
                     onNavigate={handleNavigate}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
+                    onNavigateToSubject={handleNavigateToSubject}
                   />
                 </ViewErrorBoundary>
               )}

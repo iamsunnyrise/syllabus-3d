@@ -9,9 +9,10 @@ import { Plus } from 'lucide-react';
 interface SubjectsViewProps {
   onNavigate: (view: AppView) => void;
   onOpenTopicDrawer: (topic: Topic, subName: string, chName: string) => void;
+  onNavigateToSubject?: (subjectId: string) => void;
 }
 
-export const SubjectsView: React.FC<SubjectsViewProps> = ({ onNavigate }) => {
+export const SubjectsView: React.FC<SubjectsViewProps> = ({ onNavigate, onNavigateToSubject }) => {
   const { currentExam, subjectStats } = useSyllabus();
   const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
   const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
@@ -86,7 +87,13 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onNavigate }) => {
                   percentage={stat.percentage}
                   weakCount={stat.weakCount}
                   lastStudied={stat.lastStudied}
-                  onClick={() => onNavigate('syllabus')}
+                  onClick={() => {
+                    if (onNavigateToSubject) {
+                      onNavigateToSubject(subject.id);
+                    } else {
+                      onNavigate('syllabus');
+                    }
+                  }}
                 />
                 <button
                   onClick={(e) => {
