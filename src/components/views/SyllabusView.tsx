@@ -1139,35 +1139,27 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         </div>
                       </div>
 
-                      {/* Right: Status Pill & Action Chevron */}
-                      <div className="flex items-center gap-1.5 shrink-0 uppercase">
-                        {/* Status Pill */}
-                        <div className={`px-2 sm:px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono tabular-nums font-bold flex items-center gap-1 shrink-0 uppercase ${
-                          isChapterMastered
-                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-black'
-                            : hasChapterStarted
-                            ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
-                            : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border border-slate-200/70 dark:border-white/[0.06]'
-                        }`}>
-                          {isChapterMastered ? (
-                            <>
-                              <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
-                              <span>100%</span>
-                            </>
-                          ) : hasChapterStarted ? (
-                            <>
-                              <Zap className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-current" />
-                              <span>{chapterPercent}%</span>
-                            </>
-                          ) : (
-                            <span>0%</span>
-                          )}
-                        </div>
-
-                        {/* Action Chevron */}
-                        <div className="w-7 h-7 rounded-xl bg-slate-100/80 dark:bg-white/[0.06] flex items-center justify-center text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">
-                          <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                        </div>
+                      {/* Right: Status Pill */}
+                      <div className={`px-2 sm:px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono tabular-nums font-bold flex items-center gap-1 shrink-0 uppercase ${
+                        isChapterMastered
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-black'
+                          : hasChapterStarted
+                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                          : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border border-slate-200/70 dark:border-white/[0.06]'
+                      }`}>
+                        {isChapterMastered ? (
+                          <>
+                            <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
+                            <span>100%</span>
+                          </>
+                        ) : hasChapterStarted ? (
+                          <>
+                            <Zap className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-current" />
+                            <span>{chapterPercent}%</span>
+                          </>
+                        ) : (
+                          <span>0%</span>
+                        )}
                       </div>
                     </div>
 
