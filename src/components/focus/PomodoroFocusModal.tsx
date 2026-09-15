@@ -397,57 +397,58 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md select-none animate-fade-in font-sans"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4 bg-black/85 sm:backdrop-blur-md select-none animate-fade-in font-sans"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-2xl sm:rounded-3xl bg-white dark:bg-[#12141F] border border-[#E2E8F0] dark:border-[#282C40] shadow-2xl p-3 sm:p-6 flex flex-col justify-between overflow-hidden max-h-[95vh] sm:max-h-[92vh] my-auto transition-all"
+        className="relative w-full h-[100dvh] max-h-[100dvh] sm:h-auto sm:max-h-[92vh] sm:max-w-xl rounded-none sm:rounded-3xl bg-[#F7F6F0] dark:bg-[#0E1017] sm:border sm:border-slate-200/80 sm:dark:border-[#222638] shadow-2xl p-3.5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all pt-[max(env(safe-area-inset-top,0.75rem),0.75rem)] pb-[max(env(safe-area-inset-bottom,0.75rem),0.75rem)] pl-[max(env(safe-area-inset-left,0.75rem),0.75rem)] pr-[max(env(safe-area-inset-right,0.75rem),0.75rem)]"
         onClick={e => e.stopPropagation()}
       >
-        {/* Subtle Ambient Radial Glow */}
+        {/* Subtle Ambient Radial Glows */}
         <div
-          className="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none transition-all duration-700"
+          className="absolute -top-24 -right-24 w-80 h-80 rounded-full blur-3xl opacity-20 pointer-events-none transition-all duration-700"
           style={{ background: modeConfig.gradStart }}
         />
         <div
-          className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-15 pointer-events-none transition-all duration-700"
+          className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full blur-3xl opacity-15 pointer-events-none transition-all duration-700"
           style={{ background: modeConfig.gradEnd }}
         />
 
         {/* 1. TOP HEADER TOOLBAR */}
-        <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-[#E2E8F0] dark:border-[#222638] shrink-0 relative z-10">
-          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 dark:border-white/[0.06] shrink-0 relative z-10">
+          <div className="flex items-center gap-2.5 min-w-0">
             <div
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-white shadow-xs transition-transform active:scale-95 shrink-0"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center font-bold text-white shadow-sm transition-transform active:scale-95 shrink-0"
               style={{ background: `linear-gradient(135deg, ${modeConfig.gradStart}, ${modeConfig.gradEnd})` }}
             >
-              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+              {React.createElement(modeConfig.icon || Zap, { className: 'w-4 h-4 sm:w-5 sm:h-5' })}
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
-                <h3 className="text-xs sm:text-sm font-black text-[#11120F] dark:text-[#F8FAFC] uppercase tracking-wide font-mono truncate">
-                  {isSettingsOpen ? 'Protocol Config' : '3D Focus Chamber'}
-                </h3>
-                <span className="text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-black/[0.06] dark:bg-white/[0.08] text-[#2563EB] dark:text-[#7AA2F7] font-mono shrink-0">
-                  v2.5
-                </span>
-              </div>
-              <p className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] dark:text-[#7AA2F7] flex items-center gap-1 truncate max-w-[150px] xs:max-w-[220px] sm:max-w-none">
-                <Sparkles className="w-3 h-3 inline shrink-0" />
-                <span className="truncate">
-                  {isSettingsOpen
-                    ? 'Chamber & Overlay Customization'
-                    : session.isLoopActive
-                    ? `Multi-Loop Active • Loop ${session.currentLoop || 1} of ${session.targetLoops || 4}`
-                    : 'Executive Study Session • +25 XP / cycle'}
-                </span>
+              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight leading-tight truncate">
+                {isSettingsOpen ? 'Chamber Protocols' : modeConfig.label}
+              </h2>
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5 truncate">
+                {isSettingsOpen ? (
+                  <span>Timer & Sound Preferences</span>
+                ) : session.isLoopActive ? (
+                  <>
+                    <Clock className="w-3 h-3 text-amber-500 shrink-0" />
+                    <span className="truncate">Loop {session.currentLoop || 1} of {session.targetLoops || 4} Active</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-3 h-3 text-emerald-500 shrink-0" />
+                    <span className="truncate">Deep Focus Session • +25 XP</span>
+                  </>
+                )}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             {/* Picture-in-Picture Popout Window */}
             <button
+              type="button"
               onClick={async () => {
                 soundManager.playClick();
                 if (isPiPActive) {
@@ -456,47 +457,53 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   await requestPictureInPicture();
                 }
               }}
-              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all cursor-pointer shadow-xs active:scale-95 ${
+              className={`w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
                 isPiPActive
                   ? 'bg-emerald-500 text-white shadow-sm'
-                  : 'bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                  : 'bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
-              title={isPiPActive ? 'Exit Picture-in-Picture' : 'Pop out Picture-in-Picture Floating Window'}
+              title={isPiPActive ? 'Exit Picture-in-Picture' : 'Picture-in-Picture Floating Window'}
+              aria-label="Picture-in-Picture"
             >
-              <PictureInPicture2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <PictureInPicture2 className="w-4 h-4" />
             </button>
 
             {/* Minimize to In-App Floating Capsule */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 showFloatingOverlay();
                 onClose();
               }}
-              className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[#2563EB] dark:text-[#7AA2F7] hover:bg-[#F1F5F9] dark:hover:bg-[#222638] transition-all cursor-pointer shadow-xs active:scale-95"
+              className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-blue-600 dark:text-[#7AA2F7] hover:bg-slate-50 dark:hover:bg-white/[0.1] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
               title="Minimize to In-App Floating Capsule"
+              aria-label="Minimize timer"
             >
-              <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Minimize2 className="w-4 h-4" />
             </button>
 
             {/* Settings Toggle */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 setIsSettingsOpen(prev => !prev);
               }}
-              className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all cursor-pointer shadow-xs active:scale-95 ${
+              className={`w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
                 isSettingsOpen
-                  ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D]'
-                  : 'bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                  ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-slate-900 shadow-sm'
+                  : 'bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Configure Focus Protocols"
+              aria-label="Timer settings"
             >
-              <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Settings className="w-4 h-4" />
             </button>
 
             {/* Close Modal Button */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 if (isRunning || isPaused) {
@@ -504,10 +511,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 }
                 onClose();
               }}
-              className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[#85877E] hover:text-[#11120F] dark:hover:text-white cursor-pointer shadow-xs active:scale-95"
-              title="Close Modal (Timer runs in background/floating capsule)"
+              className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center cursor-pointer shadow-xs active:scale-95"
+              title="Close Focus Mode"
+              aria-label="Close"
             >
-              <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -516,17 +524,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         {isSettingsOpen ? (
           <div className="py-2 sm:py-3 space-y-3 sm:space-y-4 overflow-y-auto flex-1 animate-fade-in text-xs relative z-10">
             {/* Focus Duration */}
-            <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] space-y-2 sm:space-y-2.5">
+            <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] space-y-2.5 shadow-xs">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-emerald-500" />
-                  <span className="font-bold text-[#11120F] dark:text-[#F8FAFC]">
+                  <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
                     Focus Study Duration
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-sm font-extrabold text-[#11120F] dark:text-white font-mono">
+                <div className="flex items-center gap-1 text-sm font-extrabold text-slate-900 dark:text-white font-mono">
                   <span>{focusDurationMinutes}</span>
-                  <span className="text-[11px] text-[#85877E] font-normal">min</span>
+                  <span className="text-xs text-slate-400 font-normal">min</span>
                 </div>
               </div>
 
@@ -543,23 +551,24 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     setSessionMode('pomodoro', val);
                   }
                 }}
-                className="w-full accent-emerald-500 cursor-pointer"
+                className="w-full accent-emerald-500 cursor-pointer h-1.5 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none"
               />
 
               <div className="flex items-center gap-1 sm:gap-1.5 pt-1">
                 {[15, 25, 45, 60, 90].map(mins => (
                   <button
                     key={mins}
+                    type="button"
                     onClick={() => {
                       setFocusDurationMinutes(mins);
                       if (session.mode === 'pomodoro' && isIdle) {
                         setSessionMode('pomodoro', mins);
                       }
                     }}
-                    className={`flex-1 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold font-mono transition-all cursor-pointer ${
+                    className={`flex-1 py-1.5 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer ${
                       focusDurationMinutes === mins
-                        ? 'bg-emerald-500 text-white shadow-xs'
-                        : 'bg-[#F8FAFC] dark:bg-[#12141F] border border-[#E2E8F0] dark:border-[#282C40] text-[#65675F] dark:text-[#94A3B8]'
+                        ? 'bg-emerald-500 text-white shadow-xs font-black'
+                        : 'bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {mins}m
@@ -569,17 +578,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             </div>
 
             {/* Break Duration */}
-            <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] space-y-2 sm:space-y-2.5">
+            <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] space-y-2.5 shadow-xs">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Coffee className="w-4 h-4 text-amber-500" />
-                  <span className="font-bold text-[#11120F] dark:text-[#F8FAFC]">
+                  <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
                     Break Rest Duration
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-sm font-extrabold text-[#11120F] dark:text-white font-mono">
+                <div className="flex items-center gap-1 text-sm font-extrabold text-slate-900 dark:text-white font-mono">
                   <span>{breakDurationMinutes}</span>
-                  <span className="text-[11px] text-[#85877E] font-normal">min</span>
+                  <span className="text-xs text-slate-400 font-normal">min</span>
                 </div>
               </div>
               <input
@@ -595,22 +604,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     setSessionMode('break', val);
                   }
                 }}
-                className="w-full accent-amber-500 cursor-pointer"
+                className="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none"
               />
               <div className="flex items-center gap-1 sm:gap-1.5 pt-1">
                 {[5, 10, 15, 20].map(mins => (
                   <button
                     key={mins}
+                    type="button"
                     onClick={() => {
                       setBreakDurationMinutes(mins);
                       if (session.mode === 'break' && isIdle) {
                         setSessionMode('break', mins);
                       }
                     }}
-                    className={`flex-1 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold font-mono transition-all cursor-pointer ${
+                    className={`flex-1 py-1.5 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer ${
                       breakDurationMinutes === mins
-                        ? 'bg-amber-500 text-white shadow-xs'
-                        : 'bg-[#F8FAFC] dark:bg-[#12141F] border border-[#E2E8F0] dark:border-[#282C40] text-[#65675F] dark:text-[#94A3B8]'
+                        ? 'bg-amber-500 text-white shadow-xs font-black'
+                        : 'bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {mins}m
@@ -620,77 +630,91 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             </div>
 
             {/* Multi-Loop Cycle Protocol Button */}
-            <div className="pt-1 sm:pt-2">
+            <div className="pt-2 space-y-2">
               <button
+                type="button"
                 onClick={() => setIsLoopModalOpen(true)}
-                className="w-full py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#11120F] to-[#25281E] hover:from-[#2563EB] hover:to-[#1D4ED8] dark:from-[#7AA2F7] dark:to-[#5B8BF5] text-white dark:text-[#0B0B0D] font-black text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98"
+                className="w-full py-3 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-slate-900 font-black text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98"
               >
                 <Clock className="w-4 h-4" />
                 <span>Configure Multi-Loop Cycle ({targetLoops} Loops)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsSettingsOpen(false)}
+                className="w-full py-2.5 px-4 rounded-2xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-all active:scale-98"
+              >
+                <span>Done & Return to Chamber</span>
               </button>
             </div>
           </div>
         ) : (
           /* VIEW B: MAIN ACTIVE 3D FOCUS CHAMBER */
-          <div className="py-1.5 sm:py-2.5 space-y-2 sm:space-y-3 flex-1 flex flex-col justify-between overflow-y-auto no-scrollbar animate-fade-in relative z-10">
+          <div className="py-2 space-y-2.5 sm:space-y-3 flex-1 flex flex-col justify-between overflow-y-auto no-scrollbar animate-fade-in relative z-10">
             {/* 1. TOPIC SELECTOR BAR */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
+                type="button"
                 onClick={() => setIsTopicSearchOpen(prev => !prev)}
-                className="w-full flex items-center justify-between p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-xs cursor-pointer shadow-xs hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all group"
+                className="w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-xs cursor-pointer shadow-xs hover:border-blue-500/50 dark:hover:border-[#7AA2F7]/50 transition-all group"
               >
-                <div className="flex items-center gap-2 truncate">
+                <div className="flex items-center gap-2.5 truncate min-w-0">
                   <div
-                    className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full animate-pulse shrink-0"
+                    className="w-2.5 h-2.5 rounded-full shrink-0 animate-pulse"
                     style={{ background: modeConfig.accentColor }}
                   />
-                  <span className="font-bold text-[#11120F] dark:text-[#F8FAFC] truncate">
-                    {selectedTopic ? selectedTopic.topic.name : 'Select Topic to Track Focus'}
-                  </span>
-                  {selectedTopic && (
-                    <span className="text-[10.5px] sm:text-[11px] text-[#65675F] dark:text-[#94A3B8] truncate font-mono">
-                      • {selectedTopic.subjectName}
+                  <div className="flex items-center gap-2 truncate min-w-0">
+                    <span className="font-bold text-slate-900 dark:text-white truncate text-xs sm:text-[13px]">
+                      {selectedTopic ? selectedTopic.topic.name : 'Select Topic to Track Focus'}
                     </span>
-                  )}
+                    {selectedTopic && (
+                      <span className="text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-300 font-mono truncate shrink-0">
+                        {selectedTopic.subjectName}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <span className="text-[10px] text-[#85877E] dark:text-[#64748B] group-hover:text-[#11120F] dark:group-hover:text-white transition-colors">
-                    Change
-                  </span>
-                  <Search className="w-3.5 h-3.5 text-[#85877E] shrink-0" />
+                <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] text-[11px] font-bold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-[#7AA2F7] transition-colors shrink-0">
+                  <span>Change</span>
+                  <Search className="w-3 h-3" />
                 </div>
               </button>
 
               {isTopicSearchOpen && (
-                <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] shadow-2xl p-2 z-30 max-h-52 overflow-y-auto space-y-1 animate-scale-up">
+                <div className="absolute top-full left-0 right-0 mt-1.5 rounded-2xl bg-white dark:bg-[#161822] border border-slate-200 dark:border-white/[0.1] shadow-2xl p-2.5 z-30 max-h-56 overflow-y-auto space-y-1 animate-scale-up">
                   <input
                     type="text"
                     placeholder="Search syllabus topics..."
                     value={topicSearchTerm}
                     onChange={e => setTopicSearchTerm(e.target.value)}
                     autoFocus
-                    className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#12141F] border border-[#E2E8F0] dark:border-[#282C40] text-xs mb-1.5 focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/[0.08] text-xs mb-1.5 focus:outline-none focus:border-blue-500 dark:focus:border-[#7AA2F7] text-slate-900 dark:text-white"
                   />
-                  {filteredTopics.map(t => (
-                    <div
-                      key={t.topic.id}
-                      onClick={() => {
-                        setSelectedTopicId(t.topic.id);
-                        setSessionTopic(t.topic.id, t.topic.name, t.subjectName);
-                        setIsTopicSearchOpen(false);
-                      }}
-                      className="p-2.5 rounded-xl hover:bg-[#F8FAFC] dark:hover:bg-[#222638] cursor-pointer flex items-center justify-between text-xs transition-colors"
-                    >
-                      <span className="font-bold text-[#11120F] dark:text-[#F8FAFC] truncate">{t.topic.name}</span>
-                      <span className="text-[11px] text-[#85877E] font-mono shrink-0 ml-2">{t.subjectName}</span>
-                    </div>
-                  ))}
+                  {filteredTopics.length === 0 ? (
+                    <div className="p-3 text-center text-xs text-slate-400">No topics found</div>
+                  ) : (
+                    filteredTopics.map(t => (
+                      <div
+                        key={t.topic.id}
+                        onClick={() => {
+                          setSelectedTopicId(t.topic.id);
+                          setSessionTopic(t.topic.id, t.topic.name, t.subjectName);
+                          setIsTopicSearchOpen(false);
+                        }}
+                        className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/[0.08] cursor-pointer flex items-center justify-between text-xs transition-colors"
+                      >
+                        <span className="font-bold text-slate-900 dark:text-white truncate">{t.topic.name}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono shrink-0 ml-2">{t.subjectName}</span>
+                      </div>
+                    ))
+                  )}
                 </div>
               )}
             </div>
 
-            {/* 2. MODE SWITCHER TABS (Pomodoro, Break, Stopwatch, Custom) */}
-            <div className="grid grid-cols-4 gap-1 p-0.5 sm:p-1 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40]">
+            {/* 2. MODE SWITCHER TABS */}
+            <div className="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-200/70 dark:bg-black/40 border border-slate-200/60 dark:border-white/[0.06] shrink-0">
               {[
                 { id: 'pomodoro' as TimerMode, label: 'Pomodoro', icon: Zap },
                 { id: 'break' as TimerMode, label: 'Break', icon: Coffee },
@@ -702,69 +726,72 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 return (
                   <button
                     key={tab.id}
+                    type="button"
                     onClick={() => {
                       let dur = focusDurationMinutes;
                       if (tab.id === 'break') dur = breakDurationMinutes;
                       else if (tab.id === 'timer') dur = customTimerMinutes;
                       setSessionMode(tab.id, dur);
                     }}
-                    className={`flex items-center justify-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-0.5 sm:px-1 text-[11px] sm:text-xs font-bold rounded-lg sm:rounded-xl transition-all cursor-pointer active:scale-95 ${
+                    className={`flex items-center justify-center gap-1 sm:gap-1.5 py-2 px-1 text-xs font-bold rounded-xl transition-all cursor-pointer active:scale-95 ${
                       isActive
-                        ? modeConfig.activeTabBg
-                        : 'text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                        ? `${modeConfig.activeTabBg} font-black shadow-xs`
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
-                    <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
                     <span className="truncate">{tab.label}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* 3. 1-CLICK DURATION PRESETS STRIP */}
-            {modeConfig.presets.length > 0 && (
-              <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                <span className="text-[10px] font-mono font-bold text-[#85877E] shrink-0 pl-1">
-                  Preset:
-                </span>
-                {modeConfig.presets.map(p => {
-                  const isCurrent = currentDurationMins === p.mins;
-                  return (
+            {/* 3. PRESETS & QUICK ADJUSTMENT STRIP */}
+            <div className="flex items-center justify-between gap-1.5 shrink-0 overflow-x-auto no-scrollbar py-0.5">
+              {/* Presets */}
+              {modeConfig.presets.length > 0 && (
+                <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar">
+                  {modeConfig.presets.map(p => {
+                    const isCurrent = currentDurationMins === p.mins;
+                    return (
+                      <button
+                        key={p.mins}
+                        type="button"
+                        onClick={() => handleApplyPreset(p.mins)}
+                        className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
+                          isCurrent
+                            ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs font-black'
+                            : 'bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                      >
+                        <span>{p.label}</span>
+                        <span className="text-[10px] opacity-70 font-sans font-normal hidden xs:inline">({p.tag})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Granular Micro-adjustments when idle */}
+              {isIdle && session.mode !== 'stopwatch' && (
+                <div className="flex items-center gap-1 shrink-0 ml-auto pl-1">
+                  {[-5, -1, 1, 5].map(delta => (
                     <button
-                      key={p.mins}
-                      onClick={() => handleApplyPreset(p.mins)}
-                      className={`flex items-center gap-1 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl text-[10.5px] sm:text-xs font-mono font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
-                        isCurrent
-                          ? 'bg-black/10 dark:bg-white/10 text-[#11120F] dark:text-white border border-black/15 dark:border-white/20 shadow-xs'
-                          : 'bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[#65675F] dark:text-[#94A3B8] hover:border-black/20 dark:hover:border-white/20'
-                      }`}
+                      key={delta}
+                      type="button"
+                      onClick={() => handleQuickAdjust(delta)}
+                      className="px-2 py-1 rounded-lg bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-[#7AA2F7] transition-all cursor-pointer active:scale-95 shrink-0"
                     >
-                      <span>{p.label}</span>
-                      <span className="text-[9px] opacity-70 font-sans font-normal">({p.tag})</span>
+                      {delta > 0 ? `+${delta}m` : `${delta}m`}
                     </button>
-                  );
-                })}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
 
-            {/* 4. GRANULAR MINUTE ADJUSTMENT (When idle) */}
-            {isIdle && session.mode !== 'stopwatch' && (
-              <div className="flex items-center justify-center gap-1.5 sm:gap-2">
-                {[-5, -1, 1, 5].map(delta => (
-                  <button
-                    key={delta}
-                    onClick={() => handleQuickAdjust(delta)}
-                    className="px-2 sm:px-2.5 py-0.5 rounded-md sm:rounded-lg bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-[10px] sm:text-[11px] font-mono font-bold text-[#65675F] dark:text-[#94A3B8] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all cursor-pointer active:scale-95"
-                  >
-                    {delta > 0 ? `+${delta}m` : `${delta}m`}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* 5. LUXURY 3D RADIAL GAUGE DIAL */}
-            <div className="flex flex-col items-center justify-center my-0.5 sm:my-1 relative">
-              <div className="relative w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center">
+            {/* 4. LUXURY 3D RADIAL GAUGE DIAL */}
+            <div className="flex flex-col items-center justify-center my-auto py-2 sm:py-3 relative shrink-0">
+              <div className="relative w-52 h-52 sm:w-64 sm:h-64 flex items-center justify-center">
                 
                 {/* SVG Dial Gauge */}
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 240 240">
@@ -788,7 +815,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeDasharray="2, 6"
-                    className="text-black/10 dark:text-white/10"
+                    className="text-slate-300/60 dark:text-white/10"
                     fill="transparent"
                   />
 
@@ -799,7 +826,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     r={radius}
                     stroke="currentColor"
                     strokeWidth="8"
-                    className="text-[#E2E8F0] dark:text-[#1F2335]"
+                    className="text-slate-200 dark:text-white/[0.07]"
                     fill="transparent"
                   />
 
@@ -826,16 +853,16 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                       r="5.5"
                       fill={modeConfig.gradEnd}
                       className="animate-pulse"
-                      style={{ filter: `drop-shadow(0 0 6px ${modeConfig.glow})` }}
+                      style={{ filter: `drop-shadow(0 0 8px ${modeConfig.glow})` }}
                     />
                   )}
                 </svg>
 
-                {/* Centered Luxury Digital Display */}
+                {/* Centered Digital Display */}
                 <div className="absolute flex flex-col items-center justify-center text-center px-4">
                   {/* Mode / Loop Indicator Pill */}
-                  <div className="flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.06] dark:border-white/[0.08] mb-0.5 sm:mb-1">
-                    <span className="text-[9px] sm:text-[10px] font-extrabold uppercase font-mono tracking-wider text-[#65675F] dark:text-[#94A3B8]">
+                  <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-200/60 dark:bg-white/[0.08] border border-slate-300/50 dark:border-white/[0.08] mb-1">
+                    <span className="text-[10px] sm:text-[11px] font-extrabold uppercase font-mono tracking-wider text-slate-600 dark:text-slate-300">
                       {session.mode === 'pomodoro' && session.isLoopActive
                         ? `LOOP ${session.currentLoop || 1} / ${session.targetLoops || 4}`
                         : modeConfig.label}
@@ -843,29 +870,29 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   </div>
 
                   {/* High-Precision Numbers */}
-                  <span className="text-3xl sm:text-5xl font-black text-[#11120F] dark:text-[#F8FAFC] font-mono tracking-tight tabular-nums drop-shadow-xs">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white font-mono tracking-tight tabular-nums drop-shadow-xs">
                     {session.mode === 'stopwatch'
                       ? formatTime(session.stopwatchElapsedSec)
                       : formatTime(session.remainingSec)}
                   </span>
                   
                   {/* Status Indicator Badge */}
-                  <div className="flex items-center gap-1 sm:gap-1.5 mt-1 sm:mt-1.5 px-2 sm:px-2.5 py-0.5 rounded-full">
+                  <div className="flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06]">
                     <span
                       className={`w-2 h-2 rounded-full ${
                         isRunning
                           ? 'bg-emerald-500 animate-ping'
                           : isPaused
                           ? 'bg-amber-500'
-                          : 'bg-zinc-400'
+                          : 'bg-slate-400'
                       }`}
                     />
-                    <span className={`text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider ${
+                    <span className={`text-[11px] font-extrabold uppercase tracking-wider ${
                       isRunning
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : isPaused
                         ? 'text-amber-600 dark:text-amber-400'
-                        : 'text-[#85877E] dark:text-[#94A3B8]'
+                        : 'text-slate-500 dark:text-slate-400'
                     }`}>
                       {isRunning
                         ? (session.mode === 'break' ? 'Resting' : 'Focus Active')
@@ -876,7 +903,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   </div>
 
                   {/* Micro Progress Readout */}
-                  <span className="text-[9px] sm:text-[10px] font-mono font-semibold text-[#85877E] dark:text-[#64748B] mt-0.5">
+                  <span className="text-[10px] sm:text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400 mt-1">
                     {session.mode === 'stopwatch'
                       ? 'Live Study Chrono'
                       : `${Math.round(progressPercent * 100)}% Complete • ${Math.ceil(session.remainingSec / 60)}m left`}
@@ -885,75 +912,80 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               </div>
             </div>
 
-            {/* 6. EXECUTIVE CONTROL ACTION BAR */}
-            <div className="flex items-center justify-center gap-2.5 sm:gap-3 pt-0.5 sm:pt-1">
+            {/* 5. PRIMARY CONTROL ACTION BAR */}
+            <div className="flex items-center justify-center gap-3 shrink-0 py-1">
               {/* Reset Button */}
               <button
+                type="button"
                 onClick={() => {
                   soundManager.playClick();
                   resetTimer();
                 }}
-                className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-xs font-bold text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95"
-                title="Reset Timer to Initial State"
+                className="w-12 h-12 rounded-2xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center"
+                title="Reset Timer"
+                aria-label="Reset timer"
               >
-                <RotateCcw className="w-4 h-4" />
+                <RotateCcw className="w-5 h-5" />
               </button>
 
-              {/* Primary Tactile Start / Pause Button */}
+              {/* Primary Play / Pause Button */}
               <button
+                type="button"
                 onClick={handleTogglePlay}
-                className="flex-1 max-w-[210px] py-2.5 sm:py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-2xl text-xs sm:text-xs font-black shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer text-white"
+                className="flex-1 max-w-[240px] h-12 sm:h-13 px-6 rounded-2xl text-sm font-black shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer text-white"
                 style={{
                   background: isRunning
                     ? 'linear-gradient(135deg, #EF4444, #DC2626)'
                     : isPaused
                     ? 'linear-gradient(135deg, #10B981, #059669)'
                     : `linear-gradient(135deg, ${modeConfig.gradStart}, ${modeConfig.gradEnd})`,
-                  boxShadow: `0 4px 14px ${modeConfig.glow}`
+                  boxShadow: `0 6px 20px ${modeConfig.glow}`
                 }}
               >
                 {isRunning ? (
-                  <Pause className="w-4 h-4 fill-current" />
+                  <Pause className="w-5 h-5 fill-current" />
                 ) : (
-                  <Play className="w-4 h-4 fill-current ml-0.5" />
+                  <Play className="w-5 h-5 fill-current ml-0.5" />
                 )}
                 <span>{isRunning ? 'Pause' : isPaused ? 'Resume' : 'Start Focus'}</span>
-                <span className="text-[10px] font-mono opacity-80 px-1.5 py-0.2 rounded bg-black/20 text-white font-normal hidden sm:inline">
+                <span className="text-[10px] font-mono opacity-80 px-1.5 py-0.5 rounded bg-black/20 text-white font-normal hidden sm:inline">
                   Space
                 </span>
               </button>
 
               {/* Skip / Next Loop Button */}
               <button
+                type="button"
                 onClick={handleSkipNext}
-                className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] text-xs font-bold text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95"
+                className="w-12 h-12 rounded-2xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center"
                 title={session.isLoopActive ? 'Skip to Next Interval' : 'Finish / Skip Timer'}
+                aria-label="Skip interval"
               >
-                <SkipForward className="w-4 h-4" />
+                <SkipForward className="w-5 h-5" />
               </button>
             </div>
 
-            {/* 7. AMBIENT SOUNDTRACK STRIP WITH EQUALIZER */}
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] space-y-1.5 sm:space-y-2">
-              <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#65675F] dark:text-[#94A3B8]">
+            {/* 6. AMBIENT SOUNDTRACK STRIP */}
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] space-y-2 shrink-0">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
                 <div className="flex items-center gap-1.5">
-                  <Headphones className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
+                  <Headphones className="w-4 h-4 text-blue-600 dark:text-[#7AA2F7]" />
                   <span>Ambience Soundscapes</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  {/* Equalizer Waveform when audio active */}
+                <div className="flex items-center gap-2">
+                  {/* Equalizer Waveform */}
                   {isRunning && activeSound !== 'none' && (
-                    <div className="flex items-end gap-0.5 h-3 px-1.5 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-400/10 border border-emerald-500/20">
-                      <span className="w-0.5 h-3 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-bounce" />
-                      <span className="w-0.5 h-2 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-bounce [animation-delay:0.15s]" />
-                      <span className="w-0.5 h-3 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-bounce [animation-delay:0.3s]" />
+                    <div className="flex items-end gap-0.5 h-3.5 px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
+                      <span className="w-0.5 h-3.5 bg-emerald-500 rounded-full animate-bounce" />
+                      <span className="w-0.5 h-2.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.15s]" />
+                      <span className="w-0.5 h-3.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.3s]" />
                     </div>
                   )}
 
                   {/* Volume Slider */}
-                  <div className="flex items-center gap-1">
-                    <Volume2 className="w-3 h-3 text-[#85877E]" />
+                  <div className="flex items-center gap-1.5">
+                    <Volume2 className="w-3.5 h-3.5 text-slate-400" />
                     <input
                       type="range"
                       min="0"
@@ -961,18 +993,18 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                       step="0.05"
                       value={soundVolume}
                       onChange={e => setSoundVolume(Number(e.target.value))}
-                      className="w-12 sm:w-18 h-1 bg-black/10 dark:bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#2563EB] dark:accent-[#7AA2F7]"
+                      className="w-16 sm:w-20 h-1 bg-slate-200 dark:bg-white/15 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:accent-[#7AA2F7]"
                       title={`Volume: ${Math.round(soundVolume * 100)}%`}
                     />
-                    <span className="text-[9px] sm:text-[10px] font-mono text-[#85877E] w-5 text-right">
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-6 text-right">
                       {Math.round(soundVolume * 100)}%
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Sound Option Chips */}
-              <div className="grid grid-cols-5 gap-1">
+              {/* Sound Chips */}
+              <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
                 {[
                   { id: 'rain' as AmbientSoundType, label: 'Rain', icon: CloudRain },
                   { id: 'ocean' as AmbientSoundType, label: 'Ocean', icon: Waves },
@@ -985,17 +1017,18 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   return (
                     <button
                       key={snd.id}
+                      type="button"
                       onClick={() => {
                         soundManager.playClick();
                         setActiveSound(snd.id);
                       }}
-                      className={`py-1 sm:py-1.5 px-0.5 sm:px-1 text-[10px] sm:text-[11px] font-bold rounded-lg sm:rounded-xl cursor-pointer transition-all active:scale-95 flex items-center justify-center gap-0.5 sm:gap-1 ${
+                      className={`py-1.5 px-1 text-xs font-bold rounded-xl cursor-pointer transition-all active:scale-95 flex items-center justify-center gap-1 ${
                         isSndActive
-                          ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                          : 'bg-[#F8FAFC] dark:bg-[#12141F] text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white border border-transparent hover:border-black/10 dark:hover:border-white/10'
+                          ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-slate-900 shadow-xs font-black'
+                          : 'bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
-                      <SndIcon className="w-3 h-3 shrink-0" />
+                      <SndIcon className="w-3.5 h-3.5 shrink-0" />
                       <span className="truncate">{snd.label}</span>
                     </button>
                   );
@@ -1003,79 +1036,85 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               </div>
             </div>
 
-            {/* 8. BENTO PERFORMANCE SUMMARY STRIP (Footer) */}
-            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 pt-1 border-t border-[#E2E8F0] dark:border-[#222638]">
-              {/* Bento Card 1: Goal/Topic */}
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] flex flex-col justify-center">
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#85877E] uppercase font-bold flex items-center gap-1">
-                  <Target className="w-3 h-3 text-[#2563EB] dark:text-[#7AA2F7]" />
+            {/* 7. BENTO PERFORMANCE SUMMARY STRIP (Footer) */}
+            <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-200/70 dark:border-white/[0.06] shrink-0">
+              {/* Target */}
+              <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-center">
+                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold flex items-center gap-1">
+                  <Target className="w-3 h-3 text-blue-500" />
                   <span>Target</span>
                 </span>
-                <span className="text-[10.5px] sm:text-[11px] font-bold text-[#11120F] dark:text-[#F8FAFC] truncate">
+                <span className="text-xs font-bold text-slate-900 dark:text-white truncate mt-0.5">
                   {selectedTopic ? selectedTopic.topic.name : 'General Focus'}
                 </span>
               </div>
 
-              {/* Bento Card 2: Loops */}
+              {/* Loops */}
               <button
+                type="button"
                 onClick={() => setIsLoopModalOpen(true)}
-                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] flex flex-col justify-center cursor-pointer hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-colors text-left"
+                className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-center cursor-pointer hover:border-blue-500/50 dark:hover:border-[#7AA2F7]/50 transition-colors text-left"
                 title="Configure Multi-Loop Cycles"
               >
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#85877E] uppercase font-bold flex items-center gap-1">
+                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold flex items-center gap-1">
                   <Clock className="w-3 h-3 text-amber-500" />
                   <span>Cycles</span>
                 </span>
-                <span className="text-[10.5px] sm:text-[11px] font-bold text-[#11120F] dark:text-[#F8FAFC] truncate">
+                <span className="text-xs font-bold text-slate-900 dark:text-white truncate mt-0.5">
                   {session.isLoopActive
                     ? `${session.currentLoop || 1}/${session.targetLoops || 4} Active`
                     : `${targetLoops} Loops Set`}
                 </span>
               </button>
 
-              {/* Bento Card 3: XP Reward */}
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] flex flex-col justify-center">
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#85877E] uppercase font-bold flex items-center gap-1">
+              {/* Reward */}
+              <div className="p-2 sm:p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-center">
+                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold flex items-center gap-1">
                   <Award className="w-3 h-3 text-emerald-500" />
                   <span>Reward</span>
                 </span>
-                <span className="text-[10.5px] sm:text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-mono truncate">
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono truncate mt-0.5">
                   +25 XP Boost
                 </span>
               </div>
             </div>
-
           </div>
         )}
 
         {/* VIEW C: MULTI-LOOP POMODORO MODAL POPUP */}
         {isLoopModalOpen && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-            <div className="w-full max-w-xs rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] shadow-2xl p-4 sm:p-5 space-y-3 sm:space-y-4 animate-scale-up">
-              <div className="flex items-center gap-2 text-[#11120F] dark:text-[#F8FAFC]">
-                <Clock className="w-5 h-5 text-[#2563EB] dark:text-[#7AA2F7]" />
-                <h3 className="text-sm font-black">Multi-Loop Study Protocol</h3>
+          <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+            <div className="w-full max-w-sm rounded-3xl bg-white dark:bg-[#161824] border border-slate-200 dark:border-white/[0.1] shadow-2xl p-5 space-y-4 animate-scale-up">
+              <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-[#7AA2F7]/10 flex items-center justify-center text-blue-600 dark:text-[#7AA2F7]">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black tracking-tight">Multi-Loop Study Protocol</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Automatic cycle iterations</p>
+                </div>
               </div>
 
-              <p className="text-xs text-[#65675F] dark:text-[#94A3B8]">
-                How many focus + rest cycles would you like to run in this deep session?
+              <p className="text-xs text-slate-600 dark:text-slate-300">
+                Kitne focus + rest cycles run karna chahte hain is session me?
               </p>
 
               {/* Counter with +/- buttons */}
-              <div className="flex items-center justify-between p-2 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#12141F] border border-[#E2E8F0] dark:border-[#282C40]">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-black/40 border border-slate-200/80 dark:border-white/[0.08]">
                 <button
                   type="button"
                   onClick={() => setTargetLoops(prev => Math.max(1, prev - 1))}
-                  className="w-8 h-8 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] flex items-center justify-center text-sm font-bold text-[#11120F] dark:text-white cursor-pointer active:scale-95 shadow-xs"
+                  className="w-9 h-9 rounded-xl bg-white dark:bg-white/[0.08] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-center text-slate-700 dark:text-white cursor-pointer active:scale-95 shadow-xs"
+                  aria-label="Decrease loops"
                 >
-                  <Minus className="w-3.5 h-3.5" />
+                  <Minus className="w-4 h-4" />
                 </button>
 
                 <div className="text-center">
-                  <span className="text-xl font-black font-mono text-[#11120F] dark:text-white">
+                  <span className="text-2xl font-black font-mono text-slate-900 dark:text-white tabular-nums">
                     {targetLoops}
                   </span>
-                  <span className="text-[10px] text-[#85877E] font-mono block">
+                  <span className="text-[10px] text-slate-400 font-mono block font-bold uppercase">
                     Cycles
                   </span>
                 </div>
@@ -1083,14 +1122,15 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setTargetLoops(prev => Math.min(12, prev + 1))}
-                  className="w-8 h-8 rounded-lg sm:rounded-xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#282C40] flex items-center justify-center text-sm font-bold text-[#11120F] dark:text-white cursor-pointer active:scale-95 shadow-xs"
+                  className="w-9 h-9 rounded-xl bg-white dark:bg-white/[0.08] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-center text-slate-700 dark:text-white cursor-pointer active:scale-95 shadow-xs"
+                  aria-label="Increase loops"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
 
               {/* Estimated Duration Calculation */}
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[11px] text-emerald-800 dark:text-emerald-300">
+              <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-800 dark:text-emerald-300">
                 Total Study Time: <strong className="font-mono">{targetLoops * focusDurationMinutes}m</strong> focus + <strong className="font-mono">{targetLoops * breakDurationMinutes}m</strong> rest = <strong className="font-mono">{Math.round((targetLoops * (focusDurationMinutes + breakDurationMinutes)) / 60 * 10) / 10} hours</strong>.
               </div>
 
@@ -1098,7 +1138,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsLoopModalOpen(false)}
-                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-bold text-[#65675F] hover:bg-[#F1F5F9] dark:hover:bg-[#222638] cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.08] cursor-pointer transition-colors"
                 >
                   Cancel
                 </button>
@@ -1106,9 +1146,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 <button
                   type="button"
                   onClick={handleStartLoopFlow}
-                  className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-[#0B0B0D] text-xs font-black shadow-sm transition-all cursor-pointer active:scale-95"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-slate-900 text-xs font-black shadow-md transition-all cursor-pointer active:scale-95"
                 >
-                  Start Cycle Protocol
+                  Start Protocol
                 </button>
               </div>
             </div>
