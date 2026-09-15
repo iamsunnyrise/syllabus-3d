@@ -213,8 +213,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <div className="flex items-center justify-between pb-3.5 border-b border-[#E2E8F0] dark:border-[#383838]">
             <div className="flex items-center gap-3 min-w-0">
               {/* 3D App Icon with Metallic Rim */}
-              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#181926] via-[#23263B] to-[#0A0B12] p-2 flex items-center justify-center border border-white/20 shadow-md shrink-0">
-                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+              <div className="w-9 h-9 rounded-2xl bg-[#2B2B2B] dark:bg-[#383838] p-1 flex items-center justify-center border border-amber-500/30 shadow-md shrink-0">
+                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-xs" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
