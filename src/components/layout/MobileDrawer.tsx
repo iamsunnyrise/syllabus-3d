@@ -374,6 +374,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                           onSelectView(item.id);
                           onClose();
                         }}
+                        aria-current={isActive ? 'page' : undefined}
                         className={`w-full min-h-[46px] flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs transition-all active:scale-[0.98] cursor-pointer group tap-bounce ${
                           isActive
                             ? 'bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#2563EB] dark:text-[#7AA2F7] font-black border border-[#BFDBFE] dark:border-[#7AA2F7]/40 shadow-xs'

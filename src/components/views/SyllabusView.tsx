@@ -1018,24 +1018,26 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           
           {/* Executive Header & Search Toolbar */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
               <div>
-                <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                  Chapters & Syllabus Modules
-                </h2>
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                    Chapters &amp; Syllabus Modules
+                  </h2>
+                  <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                    {filteredChapters.length} of {activeSubject.chapters.length} Chapters
+                  </span>
+                </div>
                 <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#94A3B8] font-medium mt-0.5">
                   Select a chapter to study topics, monitor completion, and track revisions
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1A1B29] border border-slate-200/70 dark:border-white/[0.06] text-[11px] sm:text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
-                  <span>{filteredChapters.length} of {activeSubject.chapters.length} Chapters</span>
-                </div>
                 <button
                   type="button"
                   onClick={() => onOpenAddTopic(activeSubject.id)}
-                  className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-[#0F172A] dark:bg-white hover:bg-[#2563EB] dark:hover:bg-[#7AA2F7] text-white dark:text-black text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-[0.97] tap-bounce shrink-0"
+                  className="btn-primary py-1.5 text-xs shrink-0"
                   title={`Add new topic to ${activeSubject.name}`}
                 >
                   <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -1044,21 +1046,22 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               </div>
             </div>
 
-            {/* Clean Full-Width Search Input */}
-            <div className="relative w-full">
+            {/* Clean Bounded Search Input */}
+            <div className="relative w-full max-w-md sm:max-w-lg">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder={`Search chapters in ${activeSubject.name}...`}
-                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
               />
               {searchInput && (
                 <button
                   onClick={clearSearch}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
                   title="Clear search"
+                  aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -1405,11 +1408,16 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         
         {/* Executive Header & Search Toolbar */}
         <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
-              <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                Exam Subjects & Syllabus Modules
-              </h2>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                  Exam Subjects &amp; Syllabus Modules
+                </h2>
+                <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                  {filteredSubjects.length} of {currentExam.subjects.length} Subjects
+                </span>
+              </div>
               <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium mt-0.5">
                 Click any subject to open chapters, subtopics, and revision tracker
               </p>
@@ -1423,11 +1431,11 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-xs font-black transition-all cursor-pointer shadow-xs active:scale-[0.97] shrink-0 border border-white/20"
+                  className="btn-secondary py-1.5 text-xs font-bold shrink-0"
                   title="Extract complete syllabus from PDF or text using AI"
                 >
-                  <Sparkles className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>AI Syllabus Architect</span>
+                  <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7]" />
+                  <span>AI Architect</span>
                 </button>
               )}
               <button
@@ -1436,32 +1444,30 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   soundManager.playClick();
                   setIsAddSubjectOpen(true);
                 }}
-                className="flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#2563EB] hover:bg-blue-600 dark:bg-[#7AA2F7] dark:hover:bg-[#6894f6] text-white dark:text-[#0B0C15] text-xs font-black transition-all cursor-pointer shadow-xs active:scale-[0.97] shrink-0"
+                className="btn-primary py-1.5 text-xs font-bold shrink-0"
               >
                 <Plus className="w-3.5 h-3.5 stroke-[3]" />
                 <span>Add Subject</span>
               </button>
-              <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-slate-50 dark:bg-[#1A1B29] border border-slate-200/70 dark:border-white/[0.06] text-[11px] sm:text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
-                <span>{filteredSubjects.length} of {currentExam.subjects.length} Subjects</span>
-              </div>
             </div>
           </div>
 
-          {/* Full-Width Search Input with Ambient Glow */}
-          <div className="relative w-full">
+          {/* Bounded Search Input for Visual Balance */}
+          <div className="relative w-full max-w-md sm:max-w-lg">
             <Search className="w-4 h-4 text-slate-400 dark:text-slate-300 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search subjects, chapters, topics..."
-              className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+              className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
             />
             {searchInput && (
               <button
                 onClick={clearSearch}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
                 title="Clear search"
+                aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -1601,26 +1607,21 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Right: Clean Progress Status Pill (All in CAPITAL letters) */}
+                    {/* Right: Clean Consolidated Percentage Pill */}
                     <div className="shrink-0 pt-0.5 uppercase">
                       {isMastered ? (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 uppercase">
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                           <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                          <span>100% MASTERED</span>
+                          <span>100%</span>
                         </div>
                       ) : percent > 0 ? (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 uppercase">
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
                           <Zap className="w-3.5 h-3.5 fill-current" />
                           <span>{percent}%</span>
                         </div>
-                      ) : subjectInProgressTopics > 0 ? (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 uppercase">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span>IN PROGRESS</span>
-                        </div>
                       ) : (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-semibold flex items-center gap-1 bg-slate-100/80 dark:bg-white/[0.05] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06] uppercase">
-                          <span>NOT STARTED</span>
+                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-semibold flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]">
+                          <span>0%</span>
                         </div>
                       )}
                     </div>
@@ -1640,9 +1641,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     </div>
 
                     <div className="flex items-center justify-between text-xs font-mono pt-0.5 uppercase">
-                      <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold uppercase">
+                      <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold">
                         <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
-                        <span><strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong>/{subjectTotalTopics} MASTERED</span>
+                        <span><strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong> of {subjectTotalTopics} Topics Mastered</span>
                       </span>
 
                       {weakTopicsInSubject > 0 ? (
@@ -1650,14 +1651,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <AlertTriangle className="w-3 h-3 stroke-[2.5]" />
                           <span>{weakTopicsInSubject} WEAK</span>
                         </span>
-                      ) : isMastered ? (
-                        <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200/60 dark:border-emerald-500/20 text-[11px] uppercase">
-                          <Trophy className="w-3 h-3" />
-                          <span>ALL DONE</span>
-                        </span>
                       ) : (
                         <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-semibold transition-colors uppercase">
-                          <span>{subjectTotalTopics - subjectCompletedTopics} REMAINING</span>
+                          <span>View Modules</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </div>
                       )}

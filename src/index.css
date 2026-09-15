@@ -303,6 +303,53 @@
   }
 }
 
+@layer components {
+  /* ══════════════════════════════════════════════════════════════════
+     🎯 UNIFIED 5-TIER BUTTON SYSTEM (Usability Heuristic #4: Consistency)
+     ══════════════════════════════════════════════════════════════════ */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-bold text-xs sm:text-[13px] 
+           rounded-xl transition-all duration-150 select-none cursor-pointer 
+           active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 
+           focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950;
+  }
+
+  /* 1. Primary CTA Button */
+  .btn-primary {
+    @apply btn-base px-3.5 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 
+           text-white shadow-xs hover:shadow-sm border border-blue-500/30 gap-1.5;
+  }
+
+  /* 2. Secondary / Surface Action Button */
+  .btn-secondary {
+    @apply btn-base px-3 sm:px-3.5 py-2 bg-slate-100 dark:bg-white/[0.06] 
+           hover:bg-slate-200/80 dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-200 
+           border border-slate-200/80 dark:border-white/[0.08] shadow-2xs gap-1.5;
+  }
+
+  /* 3. Ghost / Low-Emphasis Button */
+  .btn-ghost {
+    @apply btn-base px-2.5 py-1.5 bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] 
+           text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white gap-1;
+  }
+
+  /* 4. Danger / Destructive Button */
+  .btn-danger {
+    @apply btn-base px-3.5 py-2 bg-rose-500/10 hover:bg-rose-500 active:bg-rose-600 
+           text-rose-600 dark:text-rose-400 hover:text-white border border-rose-500/20 gap-1.5;
+  }
+
+  /* 5. Standard Square Icon Button (min 36-40px, accessible touch target) */
+  .btn-icon {
+    @apply inline-flex items-center justify-center w-9 h-9 min-w-[36px] min-h-[36px] 
+           rounded-xl bg-slate-100/80 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 
+           hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-white/[0.1] 
+           border border-slate-200/70 dark:border-white/[0.08] transition-all cursor-pointer 
+           active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50;
+  }
+}
+
 /* ♿ Skip to Main Content Link for Keyboard & Screen Reader Users */
 .skip-link {
   position: absolute;

@@ -190,14 +190,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <h1 className="text-[13px] font-black tracking-tight text-[#11120F] dark:text-[#F5F5F7] uppercase group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors leading-none shrink-0">
+                <span
+                  role="presentation"
+                  className="text-[13px] font-black tracking-tight text-[#11120F] dark:text-[#F5F5F7] uppercase group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors leading-none shrink-0"
+                >
                   SYLLABUS 3D
-                </h1>
+                </span>
                 <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/15 dark:bg-emerald-500/25 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black tracking-widest font-mono shrink-0">
                   PRO
                 </span>
               </div>
-              <p className="text-[10.5px] font-medium text-slate-500 dark:text-[#94A3B8] mt-0.5 truncate">
+              <p className="text-xs font-medium text-slate-500 dark:text-[#94A3B8] mt-0.5 truncate">
                 Discipline & Mastery
               </p>
             </div>
@@ -220,31 +223,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </div>
 
-        {/* Action Buttons: AI Architect, Add Custom Topic & 3D Focus Chamber */}
-        <div className="space-y-1">
-          {onOpenAiArchitect && (
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                onOpenAiArchitect();
-              }}
-              className="group relative w-full py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-blue-600/15 via-indigo-600/15 to-purple-600/15 hover:from-blue-600/25 hover:to-purple-600/25 text-blue-700 dark:text-[#93C5FD] border border-blue-500/30 dark:border-[#7AA2F7]/30 font-bold text-[12px] shadow-2xs flex items-center justify-between cursor-pointer transition-all duration-200 active:scale-95 tap-bounce"
-              title="AI Syllabus Architect (PDF & Text)"
-            >
-              <div className="flex items-center gap-1.5 min-w-0">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
-                <span className="truncate">AI Architect</span>
-              </div>
-              <span className="px-1.5 py-0.5 rounded text-[9.5px] font-mono font-black bg-blue-600 text-white dark:bg-[#7AA2F7] dark:text-[#0B0C15] shrink-0">
-                PDF
-              </span>
-            </button>
-          )}
-
+        {/* Action Buttons: Primary Add Custom Topic + Compact Tools Row */}
+        <div className="space-y-1.5">
           {onOpenAddTopic && (
             <button
+              type="button"
               onClick={onOpenAddTopic}
-              className="group relative w-full py-1.5 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-[12.5px] shadow-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 overflow-hidden border border-blue-700/30 dark:border-transparent tap-bounce"
+              className="btn-primary w-full py-1.5 px-2.5 text-xs justify-center"
               title="Add Custom Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -252,25 +237,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
           )}
 
-          {onOpenFocus && (
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                onOpenFocus();
-              }}
-              className="group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] text-slate-800 dark:text-[#93C5FD] border border-slate-200/80 dark:border-white/[0.08] text-[12.5px] font-black shadow-2xs transition-all duration-200 cursor-pointer active:scale-95 tap-bounce"
-              title="3D Focus Chamber"
-            >
-              <div className="flex items-center gap-1.5 min-w-0">
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-[#7AA2F7] group-hover:scale-125 transition-transform shrink-0" />
-                <Timer className="w-3.5 h-3.5 text-blue-600 dark:text-[#93C5FD] shrink-0" />
-                <span className="truncate">3D Focus Chamber</span>
-              </div>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white dark:bg-white/[0.08] text-slate-700 dark:text-[#93C5FD] border border-slate-200/80 dark:border-white/[0.08] shrink-0">
-                Timer
-              </span>
-            </button>
-          )}
+          <div className="grid grid-cols-2 gap-1.5">
+            {onOpenAiArchitect && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenAiArchitect();
+                }}
+                className="btn-secondary py-1.5 px-2 text-xs justify-center"
+                title="AI Syllabus Architect (PDF & Text)"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
+                <span className="truncate">AI Studio</span>
+              </button>
+            )}
+
+            {onOpenFocus && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenFocus();
+                }}
+                className="btn-secondary py-1.5 px-2 text-xs justify-center"
+                title="3D Focus Chamber"
+              >
+                <Timer className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
+                <span className="truncate">Chamber</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Categorized Navigation List (Tradewise Pro Aesthetic) */}
@@ -287,19 +284,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   return (
                     <button
                       key={item.id}
+                      type="button"
                       onClick={() => {
                         soundManager.playClick();
                         onSelectView(item.id);
                       }}
-                      className={`group relative w-full flex items-center justify-between px-2.5 py-1 rounded-xl text-[12px] font-bold transition-all duration-150 cursor-pointer ${
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
                         isActive
-                          ? 'bg-blue-50 text-blue-700 font-black border border-blue-200/80 shadow-xs dark:bg-gradient-to-r dark:from-blue-600/25 dark:to-indigo-600/20 dark:text-[#93C5FD] dark:border dark:border-[#7AA2F7]/40 dark:shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                          ? 'bg-blue-600 text-white font-black shadow-xs shadow-blue-500/25 dark:bg-blue-600 dark:text-white'
                           : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-blue-600 dark:bg-[#7AA2F7]" />
+                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-white dark:bg-white" />
                       )}
 
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -308,14 +307,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             src="/dashboard_icon_3d.png"
                             alt="Dashboard"
                             className={`w-4 h-4 object-contain shrink-0 transition-transform ${
-                              isActive ? 'scale-110 drop-shadow-sm' : 'opacity-80 group-hover:scale-110'
+                              isActive ? 'scale-110 drop-shadow-sm brightness-0 invert' : 'opacity-80 group-hover:scale-110'
                             }`}
                           />
                         ) : (
                           <Icon
-                            className={`w-4 h-4 stroke-[2] shrink-0 transition-transform ${
+                            className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
                                 isActive
-                                  ? 'text-blue-600 dark:text-[#93C5FD]'
+                                  ? 'text-white'
                                   : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
                             }`}
                           />
@@ -328,7 +327,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-black shrink-0 ${
                             isActive
-                              ? 'bg-white/20 dark:bg-[#7AA2F7]/25 text-white dark:text-[#7AA2F7]'
+                              ? 'bg-white/20 text-white'
                               : item.badgeColor
                           }`}
                         >
@@ -362,7 +361,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
             />
           </div>
-          <p className="text-[9.5px] text-slate-500 dark:text-slate-300 leading-tight truncate">
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug truncate">
             Keep pushing — consistency beats intensity.
           </p>
         </div>
@@ -408,10 +407,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 )}
               </div>
               <div className="truncate">
-                <h4 className="text-[12px] font-bold text-[#191A17] dark:text-white truncate leading-tight">
+                <p className="text-xs font-bold text-[#191A17] dark:text-white truncate leading-tight">
                   {profileSafe.name || user?.name || 'Aspirant'}
-                </h4>
-                <p className="text-[10px] text-[#65675F] dark:text-slate-300 leading-none truncate">
+                </p>
+                <p className="text-[11px] text-[#65675F] dark:text-slate-300 leading-none truncate">
                   {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
               </div>
