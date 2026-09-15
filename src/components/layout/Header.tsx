@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
   return (
-    <header className="sticky top-0 z-30 bg-[#FAEED9]/90 dark:bg-[#090C15]/85 backdrop-blur-2xl border-b border-[#E6D3B1] dark:border-white/[0.08] shadow-[0_1px_3px_rgba(56,55,13,0.04),0_4px_12px_-2px_rgba(56,55,13,0.03)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.6)] px-2 sm:px-6 py-2 sm:py-2.5 pt-safe pl-safe pr-safe transition-colors print:hidden">
+    <header className="sticky top-0 z-30 bg-[#FAEED9]/90 dark:bg-[#2B2B2B]/95 backdrop-blur-2xl border-b border-[#E6D3B1] dark:border-[#383838] shadow-[0_1px_3px_rgba(56,55,13,0.04),0_4px_12px_-2px_rgba(56,55,13,0.03)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] px-2 sm:px-6 py-2 sm:py-2.5 pt-safe pl-safe pr-safe transition-colors print:hidden">
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
         {/* Left Side: Mobile Menu Button, Desktop Gemini Collapse Toggle, Back Nav & Exam Selector */}

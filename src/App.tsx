@@ -638,13 +638,9 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090B10] text-[#0F172A] dark:text-[#F1F5F9]">
-      {/* 🌌 Atmospheric Depth Ambient Aurora Glows (Dark Mode Only, GPU-Accelerated) */}
-      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-blue-600/10 via-indigo-500/5 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 -left-48 w-[500px] h-[500px] bg-sky-500/5 rounded-full blur-[160px]" />
-        <div className="absolute top-2/3 -right-48 w-[550px] h-[550px] bg-indigo-600/6 rounded-full blur-[170px]" />
-      </div>
+    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#1F1F1F] text-[#0F172A] dark:text-[#F4F4F5]">
+      {/* 🌑 Clean Neutral Ambient Canvas (Dark Mode, GPU-Accelerated) */}
+      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#1F1F1F]" />
 
       {/* ☀️ Pristine Atmospheric Ambient Mesh (Light Mode Only, GPU-Accelerated) */}
       <div className="block dark:hidden fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden">
@@ -1016,7 +1012,7 @@ export const App: React.FC = () => {
         <div
           role="status"
           aria-live="polite"
-          className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2 rounded-2xl bg-[#0F172A]/90 dark:bg-[#1E1F2E]/95 text-white border border-[#334155]/60 dark:border-[#383A52] shadow-2xl backdrop-blur-md items-center gap-2.5 animate-fade-in pointer-events-none select-none"
+          className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2 rounded-2xl bg-[#0F172A]/90 dark:bg-[#2B2B2B]/95 text-white border border-[#334155]/60 dark:border-[#383838] shadow-2xl backdrop-blur-md items-center gap-2.5 animate-fade-in pointer-events-none select-none"
         >
           <div className="w-5 h-5 rounded-lg bg-[#2563EB]/25 dark:bg-[#7AA2F7]/25 text-[#60A5FA] dark:text-[#7AA2F7] flex items-center justify-center font-bold text-xs">
             ⌨️

@@ -54,17 +54,17 @@ export default {
           600: '#8D7A02',
           900: '#38370D'
         },
-        // Dark Mode System: Background #1A1B26, Foreground #C0CAF5, Accent #7AA2F7
+        // Dark Mode System: Background #1F1F1F, Surface #2B2B2B, Elevated #383838
         dark: {
-          bg: '#1A1B26',
-          surface: '#24283B',
-          elevated: '#292E42',
-          border: '#292E42',
-          'text-primary': '#C0CAF5',
-          'text-secondary': '#A9B1D6',
-          'text-muted': '#787C99',
-          accent: '#7AA2F7',
-          'accent-soft': '#3D59A1'
+          bg: '#1F1F1F',
+          surface: '#2B2B2B',
+          elevated: '#383838',
+          border: '#383838',
+          'text-primary': '#FFFFFF',
+          'text-secondary': '#D4D4D8',
+          'text-muted': '#A1A1AA',
+          accent: '#60A5FA',
+          'accent-soft': '#383838'
         }
       },
       fontSize: {

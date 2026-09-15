@@ -154,7 +154,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#0A0D16]/95 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/[0.08] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
+      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#2B2B2B]/95 backdrop-blur-2xl border-r border-slate-200/80 dark:border-[#383838] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
         isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_20px_rgba(15,23,42,0.04)]'
       }`}
     >
@@ -332,7 +332,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Bottom Cards Area */}
       <div className="space-y-1.5 pt-1.5 border-t border-[#E2E8F0] dark:border-slate-700/60">
         {/* Tradewise-Style Discipline Score Progress Card */}
-        <div className="p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#162035] border border-slate-200/80 dark:border-slate-700/60 space-y-1 shadow-2xs">
+        <div className="p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#383838] border border-slate-200/80 dark:border-[#444444] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200">
               Discipline Score
@@ -341,7 +341,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {overallStats.completionPercentage}/100
             </span>
           </div>
-          <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-[#0D1424] overflow-hidden">
+          <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-[#242424] overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-lime-400 rounded-full transition-all duration-500"
               style={{ width: `${Math.max(5, overallStats.completionPercentage)}%` }}
@@ -357,7 +357,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           href="https://mock-percentile-tracker.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="group w-full flex items-center justify-between p-1.5 px-2 rounded-xl bg-white dark:bg-[#162035] border border-[#E2E8F0] dark:border-slate-700/60 hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all shadow-2xs active:scale-98"
+          className="group w-full flex items-center justify-between p-1.5 px-2 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all shadow-2xs active:scale-98"
         >
           <div className="flex items-center gap-1.5 min-w-0">
             <img src="/mock_tracker_logo.png" alt="Mock Tracker" className="w-4 h-4 shrink-0 object-contain rounded-md" />
@@ -372,7 +372,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </a>
 
         {/* User Profile & Level Card */}
-        <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#162035] border border-[#E2E8F0] dark:border-slate-700/60 space-y-1 shadow-2xs">
+        <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 min-w-0">
               <div
@@ -434,7 +434,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               haptics.selection();
               onOpenShortcuts();
             }}
-            className="w-full flex items-center gap-2 px-2 py-1 rounded-xl bg-white dark:bg-[#162035] border border-[#E2E8F0] dark:border-slate-700/60 hover:border-[#2563EB] dark:hover:border-[#7AA2F7] text-[#65675F] hover:text-[#0F172A] dark:text-[#CBD5E1] dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-98 tap-bounce shadow-2xs"
+            className="w-full flex items-center gap-2 px-2 py-1 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] text-[#65675F] hover:text-[#0F172A] dark:text-[#CBD5E1] dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-98 tap-bounce shadow-2xs"
             title="Keyboard Shortcuts Cheatsheet"
             aria-label="Keyboard Shortcuts Cheatsheet"
           >
