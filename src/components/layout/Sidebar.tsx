@@ -230,10 +230,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               type="button"
               onClick={onOpenAddTopic}
               className="btn-primary w-full py-1.5 px-2.5 text-xs justify-center"
-              title="Add Custom Topic"
+              title="Add Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Add Custom Topic</span>
+              <span>Add Topic</span>
             </button>
           )}
 

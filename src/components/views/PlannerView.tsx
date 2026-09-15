@@ -421,24 +421,25 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <p className="text-[11px] font-bold text-slate-900 dark:text-white leading-tight">
                   {completedTodayCount} of {totalTodayCount} Done
                 </p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-wider">
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 tracking-normal">
                   Today's Velocity
                 </p>
               </div>
             </div>
 
-            {/* + Add Study Target Button */}
+            {/* + Add Target Button */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 setTargetDate(getTodayDateString());
                 setShowAddModal(true);
               }}
-              className="w-full sm:w-auto px-4 sm:px-4.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-xs sm:text-[13px] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2 tap-bounce shrink-0"
-              title="Add Study Target"
+              className="btn-primary py-2 px-3.5 sm:px-4 text-xs sm:text-[13px] font-bold"
+              title="Add Target"
             >
-              <Plus className="w-4 h-4 stroke-[3]" />
-              <span>Add Study Target</span>
+              <Plus className="w-4 h-4 stroke-[2.5]" />
+              <span>Add Target</span>
             </button>
           </div>
         </div>
@@ -520,28 +521,31 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
         {/* Smart Suggestions Strip */}
         {smartSuggestions.length > 0 && (
-          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center gap-2 overflow-x-auto no-scrollbar">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1.5">
+          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center gap-2.5 overflow-x-auto no-scrollbar">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
               <span>Suggested:</span>
             </span>
             {smartSuggestions.map((sug, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-xs shrink-0"
+                className="flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-xs shrink-0 shadow-2xs"
               >
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 truncate max-w-[150px] sm:max-w-[200px]">
-                  {sug.topicName}
-                </span>
-                <span className="text-[10px] font-mono text-slate-400 hidden sm:inline">
-                  {sug.subjectName}
-                </span>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[160px] sm:max-w-[200px]">
+                    {sug.topicName}
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
+                    • {sug.subjectName}
+                  </span>
+                </div>
                 <button
                   type="button"
                   onClick={() => handleAddSuggestion(sug.topicName, sug.subjectName, sug.subjectColor, sug.topicId)}
-                  className="px-2 py-0.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold cursor-pointer transition-all active:scale-95"
+                  className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1"
                 >
-                  + Add
+                  <Plus className="w-3 h-3 stroke-[2.5]" />
+                  <span>Add</span>
                 </button>
               </div>
             ))}
@@ -550,123 +554,131 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
 
-      {/* ═══════════════ 2. VIEW CONTROLS & SUBJECT FILTER BAR ═══════════════ */}
-      <div className="flex flex-row items-center justify-between gap-2 overflow-x-auto pb-1 no-scrollbar">
-        
-        {/* Kanban vs Calendar vs Master Routine Switcher */}
-        <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200/70 dark:border-white/[0.06] shadow-2xs shrink-0">
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              setViewMode('kanban');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
-              viewMode === 'kanban'
-                ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <LayoutGrid className="w-3.5 h-3.5 text-blue-500" />
-            <span>Target Board</span>
-          </button>
+      {/* ═══════════════ 2. CONSOLIDATED VIEW CONTROLS & SUBJECT FILTER TOOLBAR ═══════════════ */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 pb-0.5">
+        {/* Left: View Mode Tabs & Clear Conquered Button */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
+          <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200/70 dark:border-white/[0.06] shadow-2xs">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setViewMode('kanban');
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                viewMode === 'kanban'
+                  ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5 text-blue-500" />
+              <span>Target Board</span>
+            </button>
 
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              setViewMode('calendar');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
-              viewMode === 'calendar'
-                ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <CalendarDays className="w-3.5 h-3.5 text-indigo-500" />
-            <span>Weekly Calendar</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setViewMode('calendar');
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                viewMode === 'calendar'
+                  ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <CalendarDays className="w-3.5 h-3.5 text-indigo-500" />
+              <span>Calendar</span>
+            </button>
 
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              setViewMode('routine');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
-              viewMode === 'routine'
-                ? 'bg-white dark:bg-[#1E202E] text-blue-600 dark:text-blue-400 shadow-xs font-black'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <Clock className="w-3.5 h-3.5 text-amber-500" />
-            <span>Master Routine &amp; Timetable</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setViewMode('routine');
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                viewMode === 'routine'
+                  ? 'bg-white dark:bg-[#1E202E] text-blue-600 dark:text-blue-400 shadow-xs font-black'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-500" />
+              <span>Routine</span>
+            </button>
+          </div>
+
+          {/* Clear Conquered Button (if any) */}
+          {viewMode !== 'routine' && completedTasks.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                clearCompletedPlannerTasks();
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-[11px] sm:text-xs font-bold text-slate-600 hover:text-rose-500 dark:text-slate-400 hover:border-rose-500/30 transition-all cursor-pointer active:scale-95 shadow-2xs shrink-0"
+              title="Clear completed tasks"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Clear Done ({completedTasks.length})</span>
+            </button>
+          )}
         </div>
 
-        {/* Clear Conquered Button (if any) */}
-        {viewMode !== 'routine' && completedTasks.length > 0 && (
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              clearCompletedPlannerTasks();
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-[11px] sm:text-xs font-bold text-slate-600 hover:text-rose-500 dark:text-slate-400 hover:border-rose-500/30 transition-all cursor-pointer active:scale-95 shadow-2xs shrink-0"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Clear Done ({completedTasks.length})</span>
-          </button>
+        {/* Right: Subject Filter Pills (Inline on desktop/tablet) */}
+        {viewMode !== 'routine' && currentExam && currentExam.subjects.length > 0 && (
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar min-w-0">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setSelectedSubjectFilter('all');
+              }}
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+                selectedSubjectFilter === 'all'
+                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
+                  : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5 text-blue-500" />
+              <span>All</span>
+              <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
+                selectedSubjectFilter === 'all' ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+              }`}>
+                {plannerTasks.length}
+              </span>
+            </button>
+            {currentExam.subjects.map(s => {
+              const count = plannerTasks.filter(t => t.subjectName === s.name).length;
+              const isSelected = selectedSubjectFilter === s.name;
+              const SubjIcon = getSubjectIcon(s.name);
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setSelectedSubjectFilter(s.name);
+                  }}
+                  className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+                    isSelected
+                      ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
+                      : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
+                  }`}
+                >
+                  <SubjIcon className="w-3.5 h-3.5" style={{ color: isSelected ? undefined : s.color }} />
+                  <span>{formatTitleCase(s.name)}</span>
+                  <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
+                    isSelected ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+                  }`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         )}
       </div>
-
-      {/* ═══════════════ 3. SUBJECT FILTER PILLS ═══════════════ */}
-      {viewMode !== 'routine' && currentExam && currentExam.subjects.length > 0 && (
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              setSelectedSubjectFilter('all');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
-              selectedSubjectFilter === 'all'
-                ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
-                : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5 text-blue-500" />
-            <span>All Tasks</span>
-            <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-              selectedSubjectFilter === 'all' ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
-            }`}>
-              {plannerTasks.length}
-            </span>
-          </button>
-          {currentExam.subjects.map(s => {
-            const count = plannerTasks.filter(t => t.subjectName === s.name).length;
-            const isSelected = selectedSubjectFilter === s.name;
-            const SubjIcon = getSubjectIcon(s.name);
-            return (
-              <button
-                key={s.id}
-                onClick={() => {
-                  soundManager.playClick();
-                  setSelectedSubjectFilter(s.name);
-                }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
-                  isSelected
-                    ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
-                    : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
-                }`}
-              >
-                <SubjIcon className="w-3.5 h-3.5" style={{ color: isSelected ? undefined : s.color }} />
-                <span>{formatTitleCase(s.name)}</span>
-                <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-                  isSelected ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
-                }`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
 
       {/* ═══════════════ 4. MAIN WORKSPACE VIEW (KANBAN / CALENDAR / ROUTINE) ═══════════════ */}
       {viewMode === 'routine' ? (
@@ -769,9 +781,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       <div className={`p-1.5 rounded-xl ${col.badgeCol}`}>
                         <ColIcon className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                       </div>
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                      <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
                         {col.title}
-                      </h3>
+                      </h2>
                     </div>
                     <span className={`px-2 py-0.5 text-[10.5px] font-bold rounded-full font-mono tabular-nums ${col.badgeCol}`}>
                       {col.tasks.length}
@@ -795,7 +807,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             {col.id === 'in_progress' && 'Ready For Sprint'}
                             {col.id === 'completed' && 'Awaiting Conquests'}
                           </p>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 max-w-[160px] leading-tight mx-auto">
+                          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-[180px] leading-snug mx-auto">
                             {col.id === 'upcoming' && 'Schedule targets for upcoming days.'}
                             {col.id === 'today' && "Ready for today's high-yield targets."}
                             {col.id === 'in_progress' && 'Start a focus sprint on any target.'}
@@ -804,15 +816,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         </div>
                         {(col.id === 'upcoming' || col.id === 'today') && (
                           <button
+                            type="button"
                             onClick={() => {
                               soundManager.playClick();
                               setTargetColumn(col.id as any);
                               setTargetDate(getTodayDateString());
                               setShowAddModal(true);
                             }}
-                            className="mt-0.5 px-3 py-1 rounded-lg bg-white dark:bg-[#1E2030] hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-[11px] font-bold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30 transition-all cursor-pointer active:scale-95 shadow-2xs"
+                            className="mt-1 px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-500/15 hover:bg-blue-600 dark:hover:bg-blue-600 text-blue-700 dark:text-blue-300 hover:text-white dark:hover:text-white border border-blue-200 dark:border-blue-500/30 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs"
                           >
-                            + Add Target
+                            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                            <span>Add Target</span>
                           </button>
                         )}
                       </div>
