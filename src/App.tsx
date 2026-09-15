@@ -720,8 +720,6 @@ export const App: React.FC = () => {
           onOpenMobileMenu={() => setIsMobileDrawerOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleDesktopSidebar={toggleDesktopSidebar}
-          canGoBack={currentView !== 'overview'}
-          onGoBack={handleBack}
         />
 
         <main

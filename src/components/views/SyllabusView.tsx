@@ -1356,22 +1356,27 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
 
           {/* Metric 2: Days Left */}
-          <div className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
+          <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
             <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
               <Zap className="w-4 h-4 fill-current" />
             </div>
             <div className="min-w-0">
               <div className="text-xs sm:text-[13px] font-black font-mono tabular-nums text-amber-600 dark:text-amber-400 truncate">
-                {daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}
+                {daysRemaining > 0 ? (
+                  <>
+                    <span className="inline min-[380px]:hidden">{daysRemaining}d Left</span>
+                    <span className="hidden min-[380px]:inline">{daysRemaining} Days Left</span>
+                  </>
+                ) : 'Exam Today'}
               </div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
                 Runway Remaining
               </div>
             </div>
           </div>
 
           {/* Metric 3: Pacing Forecast */}
-          <div className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
+          <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
             <div className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
               <Target className="w-4 h-4" />
             </div>
@@ -1380,7 +1385,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 {pacingForecast ? `${pacingForecast.requiredDailyPace} / day` : 'On Track'}
               </div>
               <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
-                {pacingForecast ? `Finish: ${pacingForecast.finishLineForecastDate}` : 'Required Pace'}
+                {pacingForecast ? `Finish: ${pacingForecast.finishLineForecastDate.replace(/,\s*\d{4}/, '')}` : 'Required Pace'}
               </div>
             </div>
           </div>
