@@ -49,6 +49,20 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 }) => {
   const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile } = useSyllabus();
 
+  // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
+  const profileSafe = profile || {
+    name: 'Aspirant',
+    level: 1,
+    levelTitle: 'Novice Scholar',
+    avatarColor: 'from-[#2563EB] to-indigo-600',
+    avatarUrl: '',
+    avatarEmoji: '🦁'
+  };
+  const plannerTasksSafe = Array.isArray(plannerTasks) ? plannerTasks : [];
+  const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
+  const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
+  const platformsSafe = Array.isArray(platforms) ? platforms : [];
+
   // Mobile Swipe-to-Dismiss Drawer Gesture State
   const drawerTouchStartX = useRef<number | null>(null);
   const [drawerDragX, setDrawerDragX] = useState(0);
@@ -77,7 +91,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
   if (!isOpen) return null;
 
-  const todayTasksCount = plannerTasks.filter(t => t.status === 'today').length;
+  const todayTasksCount = plannerTasksSafe.filter(t => t.status === 'today').length;
 
   const sections = [
     {
@@ -116,7 +130,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           label: 'Study Station & Hub',
           subtitle: 'External web test resources',
           icon: Globe,
-          badge: platforms.length > 0 ? `${platforms.length}` : null,
+          badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
           badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
           iconBg: 'bg-indigo-500/15 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
         }
@@ -148,7 +162,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           label: 'Spaced Revision',
           subtitle: 'Retain & master before forgetting',
           icon: RotateCw,
-          badge: dueRevisions.length > 0 ? `${dueRevisions.length}` : null,
+          badge: dueRevisionsSafe.length > 0 ? `${dueRevisionsSafe.length}` : null,
           badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-black',
           iconBg: 'bg-amber-500/15 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30'
         },
@@ -157,7 +171,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           label: 'Weak Topics & Traps',
           subtitle: 'High-priority focus risk areas',
           icon: AlertTriangle,
-          badge: weakTopics.length > 0 ? `${weakTopics.length}` : null,
+          badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
           badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-black',
           iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
         }
@@ -213,7 +227,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <div className="flex items-center justify-between pb-3.5 border-b border-[#E2E8F0] dark:border-[#383838]">
             <div className="flex items-center gap-3 min-w-0">
               {/* 3D App Icon with Metallic Rim */}
-              <div className="w-9 h-9 rounded-2xl bg-[#2B2B2B] dark:bg-[#383838] p-1 flex items-center justify-center border border-amber-500/30 shadow-md shrink-0">
+              <div className="w-9 h-9 rounded-2xl bg-slate-100 dark:bg-[#383838] p-1 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] shadow-xs shrink-0">
                 <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-xs" />
               </div>
               <div className="min-w-0">
@@ -250,21 +264,21 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             <div className="flex items-center gap-2.5 min-w-0">
               <div
                 className={`w-9 h-9 rounded-xl bg-gradient-to-tr ${
-                  profile.avatarColor || 'from-[#2563EB] to-indigo-600'
+                  profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
                 } flex items-center justify-center text-white text-base font-bold shadow-xs border border-white/20 shrink-0 overflow-hidden`}
               >
-                {profile.avatarUrl ? (
-                  <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
+                {profileSafe.avatarUrl ? (
+                  <img src={profileSafe.avatarUrl} alt={profileSafe.name} className="w-full h-full object-cover" />
                 ) : (
-                  <span>{profile.avatarEmoji || '🦁'}</span>
+                  <span>{profileSafe.avatarEmoji || '🦁'}</span>
                 )}
               </div>
               <div className="min-w-0">
                 <h4 className="text-xs font-black text-slate-900 dark:text-white truncate leading-tight">
-                  {profile.name || 'Aspirant'}
+                  {profileSafe.name || 'Aspirant'}
                 </h4>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5 truncate">
-                  Lvl {profile.level} · {profile.levelTitle}
+                  Lvl {profileSafe.level || 1} · {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
               </div>
             </div>
@@ -278,7 +292,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                   onOpenProfileSwitcher();
                 }}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#2B2B2B] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#383838] text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition-colors cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#2B2B2B] text-blue-600 dark:text-[#7AA2F7] border border-slate-200 dark:border-[#383838] text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition-colors cursor-pointer shrink-0 active:scale-95"
               >
                 <Users className="w-3 h-3" />
                 <span>Switch</span>

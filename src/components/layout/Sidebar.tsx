@@ -63,6 +63,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const { profile, dueRevisions, weakTopics, plannerTasks, platforms, overallStats } = useSyllabus();
   const { user } = useAuth();
 
+  // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
+  const profileSafe = profile || {
+    name: 'Aspirant',
+    level: 1,
+    levelTitle: 'Novice Scholar',
+    avatarColor: 'from-[#2563EB] to-indigo-600',
+    avatarUrl: '',
+    avatarEmoji: '🦁'
+  };
+  const plannerTasksSafe = Array.isArray(plannerTasks) ? plannerTasks : [];
+  const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
+  const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
+  const platformsSafe = Array.isArray(platforms) ? platforms : [];
+  const overallStatsSafe = overallStats || { completionPercentage: 0 };
+
   const navSections = [
     {
       title: 'CORE MODULES',
@@ -86,7 +101,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'planner' as AppView,
           label: 'Study Planner',
           icon: CalendarCheck,
-          badge: plannerTasks.filter(t => t.status === 'today').length || null,
+          badge: plannerTasksSafe.filter(t => t.status === 'today').length || null,
           badgeColor: 'bg-[#2563EB] text-white shadow-[0_0_8px_rgba(37,99,235,0.4)]'
         },
         {
@@ -105,15 +120,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'revision' as AppView,
           label: 'Spaced Revision',
           icon: RotateCw,
-          badge: dueRevisions.length ? `${dueRevisions.length} due` : null,
-          badgeColor: 'bg-[#C49A3A] text-white shadow-[0_0_8px_rgba(196,154,58,0.5)]'
+          badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length} due` : null,
+          badgeColor: 'bg-amber-500 text-white shadow-xs'
         },
         {
           id: 'weak' as AppView,
           label: 'Weak Topics',
           icon: AlertTriangle,
-          badge: weakTopics.length || null,
-          badgeColor: 'bg-[#B94A48] text-white shadow-[0_0_8px_rgba(185,74,72,0.5)]'
+          badge: weakTopicsSafe.length || null,
+          badgeColor: 'bg-rose-500 text-white shadow-xs'
         },
         {
           id: 'mindmap' as AppView,
@@ -138,8 +153,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'platforms' as AppView,
           label: 'Study Station & Hub',
           icon: Globe,
-          badge: platforms.length || null,
-          badgeColor: 'bg-[#5A4FCF] text-white shadow-[0_0_8px_rgba(90,79,207,0.5)]'
+          badge: platformsSafe.length || null,
+          badgeColor: 'bg-indigo-500 text-white shadow-xs'
         },
         {
           id: 'settings' as AppView,
@@ -170,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             title="Go to Dashboard"
           >
-            <div className="w-8.5 h-8.5 rounded-xl bg-[#2B2B2B] dark:bg-[#383838] border border-amber-500/30 dark:border-amber-500/25 shadow-xs flex items-center justify-center p-1 shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-8.5 h-8.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex items-center justify-center p-1 shrink-0 group-hover:scale-105 transition-transform">
               <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-xs" />
             </div>
             <div className="min-w-0">
@@ -196,7 +211,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 haptics.light();
                 onToggleCollapse();
               }}
-              className="p-1.5 rounded-xl text-[#65675F] dark:text-[#CBD5E1] hover:text-[#11120F] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#181822] border border-transparent hover:border-[#E2E8F0] dark:hover:border-[#333446] transition-all cursor-pointer shrink-0 active:scale-95 group"
+              className="p-1.5 rounded-xl text-[#65675F] dark:text-[#CBD5E1] hover:text-[#11120F] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-transparent hover:border-[#E2E8F0] dark:hover:border-white/[0.08] transition-all cursor-pointer shrink-0 active:scale-95 group"
               title="Close sidebar (Ctrl+B)"
               aria-label="Close sidebar"
             >
@@ -229,7 +244,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {onOpenAddTopic && (
             <button
               onClick={onOpenAddTopic}
-              className="group relative w-full py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-[#E1A837] to-[#C99126] hover:from-[#D19827] hover:to-[#B8801A] text-[#38370D] font-black text-[12.5px] shadow-sm dark:bg-gradient-to-r dark:from-blue-600 dark:to-indigo-600 dark:hover:bg-[#7AA2F7] dark:text-white flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 overflow-hidden border border-[#8D7A02]/40 dark:border-transparent tap-bounce"
+              className="group relative w-full py-1.5 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-[12.5px] shadow-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 overflow-hidden border border-blue-700/30 dark:border-transparent tap-bounce"
               title="Add Custom Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -243,15 +258,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 soundManager.playClick();
                 onOpenFocus();
               }}
-              className="group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#F5E8CF] hover:bg-[#EBDABF] dark:bg-[#141A2E] dark:hover:bg-[#1B2340] text-[#38370D] dark:text-[#93C5FD] border border-[#E6D3B1] dark:border-[#7AA2F7]/40 text-[12.5px] font-black shadow-2xs transition-all duration-200 cursor-pointer active:scale-95 tap-bounce"
+              className="group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] text-slate-800 dark:text-[#93C5FD] border border-slate-200/80 dark:border-white/[0.08] text-[12.5px] font-black shadow-2xs transition-all duration-200 cursor-pointer active:scale-95 tap-bounce"
               title="3D Focus Chamber"
             >
               <div className="flex items-center gap-1.5 min-w-0">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8D7A02] dark:bg-[#7AA2F7] group-hover:scale-125 transition-transform shrink-0" />
-                <Timer className="w-3.5 h-3.5 text-[#8D7A02] dark:text-[#93C5FD] shrink-0" />
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-[#7AA2F7] group-hover:scale-125 transition-transform shrink-0" />
+                <Timer className="w-3.5 h-3.5 text-blue-600 dark:text-[#93C5FD] shrink-0" />
                 <span className="truncate">3D Focus Chamber</span>
               </div>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FFFDF8] dark:bg-[#7AA2F7]/25 text-[#38370D] dark:text-[#93C5FD] border border-[#E6D3B1] dark:border-transparent shrink-0">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white dark:bg-white/[0.08] text-slate-700 dark:text-[#93C5FD] border border-slate-200/80 dark:border-white/[0.08] shrink-0">
                 Timer
               </span>
             </button>
@@ -259,10 +274,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Categorized Navigation List (Tradewise Pro Aesthetic) */}
-        <div className="space-y-2 pt-1 border-t border-[#E6D3B1] dark:border-slate-700/60">
+        <div className="space-y-2 pt-1 border-t border-slate-200/80 dark:border-white/[0.08]">
           {navSections.map(section => (
             <div key={section.title} className="space-y-0.5">
-              <div className="px-2 pt-0.5 pb-0.5 text-[10px] font-extrabold tracking-wider text-[#6B6615] dark:text-slate-300 uppercase">
+              <div className="px-2 pt-0.5 pb-0.5 text-[10px] font-extrabold tracking-wider text-slate-400 dark:text-slate-400 uppercase">
                 {section.title}
               </div>
               <nav className="space-y-0.5">
@@ -278,13 +293,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       }}
                       className={`group relative w-full flex items-center justify-between px-2.5 py-1 rounded-xl text-[12px] font-bold transition-all duration-150 cursor-pointer ${
                         isActive
-                          ? 'bg-[#E1A837]/25 text-[#38370D] font-black border border-[#E1A837]/60 shadow-xs dark:bg-gradient-to-r dark:from-blue-600/25 dark:to-indigo-600/20 dark:text-[#93C5FD] dark:border dark:border-[#7AA2F7]/40 dark:shadow-[0_0_15px_rgba(59,130,246,0.2)]'
-                          : 'text-[#4E4B11] dark:text-slate-100 hover:bg-[#F5E8CF]/80 dark:hover:bg-white/[0.1] hover:text-[#38370D] dark:hover:text-white'
+                          ? 'bg-blue-50 text-blue-700 font-black border border-blue-200/80 shadow-xs dark:bg-gradient-to-r dark:from-blue-600/25 dark:to-indigo-600/20 dark:text-[#93C5FD] dark:border dark:border-[#7AA2F7]/40 dark:shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                          : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-[#E1A837] dark:bg-[#7AA2F7]" />
+                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-blue-600 dark:bg-[#7AA2F7]" />
                       )}
 
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -300,8 +315,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           <Icon
                             className={`w-4 h-4 stroke-[2] shrink-0 transition-transform ${
                                 isActive
-                                  ? 'text-[#8D7A02] dark:text-[#93C5FD]'
-                                  : 'text-[#6B6615] dark:text-slate-200 group-hover:scale-110 group-hover:text-[#38370D] dark:group-hover:text-white'
+                                  ? 'text-blue-600 dark:text-[#93C5FD]'
+                                  : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
                             }`}
                           />
                         )}
@@ -338,13 +353,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
               Discipline Score
             </span>
             <span className="text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400">
-              {overallStats.completionPercentage}/100
+              {overallStatsSafe.completionPercentage}/100
             </span>
           </div>
           <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-[#242424] overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-lime-400 rounded-full transition-all duration-500"
-              style={{ width: `${Math.max(5, overallStats.completionPercentage)}%` }}
+              style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
             />
           </div>
           <p className="text-[9.5px] text-slate-500 dark:text-slate-300 leading-tight truncate">
@@ -365,7 +380,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="text-[12px] font-bold text-[#191A17] dark:text-white block leading-tight group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD] truncate">
                 Mock Tracker
               </span>
-              <span className="text-[10px] text-[#65675F] dark:text-slate-300 block leading-none truncate">Score &amp; Percentiles</span>
+              <span className="text-[10px] text-[#65675F] dark:text-slate-300 block leading-none truncate">Score & Percentiles</span>
             </div>
           </div>
           <ExternalLink className="w-3 h-3 text-[#2563EB] dark:text-[#93C5FD] shrink-0" />
@@ -377,34 +392,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex items-center gap-1.5 min-w-0">
               <div
                 className={`w-6 h-6 rounded-lg bg-gradient-to-br ${
-                  profile.avatarColor || 'from-[#2563EB] to-indigo-600'
+                  profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
                 } text-white dark:text-black font-black flex items-center justify-center text-[11px] shrink-0 shadow-2xs overflow-hidden`}
               >
-                {(profile.avatarUrl || user?.avatarUrl) ? (
+                {(profileSafe.avatarUrl || user?.avatarUrl) ? (
                   <img
-                    src={profile.avatarUrl || user?.avatarUrl}
-                    alt={profile.name || user?.name}
+                    src={profileSafe.avatarUrl || user?.avatarUrl}
+                    alt={profileSafe.name || user?.name || 'Aspirant'}
                     className="w-full h-full object-cover"
                   />
-                ) : profile.avatarEmoji ? (
-                  <span className="text-[11px] leading-none drop-shadow">{profile.avatarEmoji}</span>
+                ) : profileSafe.avatarEmoji ? (
+                  <span className="text-[11px] leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
                 ) : (
-                  (profile.name || user?.name ? (profile.name || user?.name).charAt(0).toUpperCase() : 'A')
+                  (profileSafe.name || user?.name ? (profileSafe.name || user?.name).charAt(0).toUpperCase() : 'A')
                 )}
               </div>
               <div className="truncate">
                 <h4 className="text-[12px] font-bold text-[#191A17] dark:text-white truncate leading-tight">
-                  {profile.name || user?.name}
+                  {profileSafe.name || user?.name || 'Aspirant'}
                 </h4>
                 <p className="text-[10px] text-[#65675F] dark:text-slate-300 leading-none truncate">
-                  {profile.levelTitle}
+                  {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1 shrink-0">
               <span className="px-1 py-0.5 text-[10px] font-bold rounded-md bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#1D4ED8] dark:text-[#7AA2F7] font-mono border border-[#BFDBFE] dark:border-[#7AA2F7]/30 leading-none">
-                Lvl {profile.level}
+                Lvl {profileSafe.level || 1}
               </span>
 
               {onOpenProfileSwitcher && (

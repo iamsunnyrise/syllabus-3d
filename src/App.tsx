@@ -663,48 +663,52 @@ export const App: React.FC = () => {
       )}
 
       {/* Desktop Sidebar Navigation */}
-      <Sidebar
-        activeView={currentView}
-        onSelectView={handleNavigate}
-        onOpenAddTopic={() => handleOpenAddTopic()}
-        onOpenAiArchitect={handleOpenAiArchitect}
-        onOpenFocus={() => handleLaunchFocus(undefined)}
-        onOpenShortcuts={() => setIsShortcutsOpen(true)}
-        onOpenProfileSwitcher={() => setIsProfileSwitcherOpen(true)}
-        isCollapsed={isSidebarCollapsed}
-        onToggleCollapse={toggleDesktopSidebar}
-      />
+      <ViewErrorBoundary sectionName="Desktop Sidebar Navigation" onReset={() => window.location.reload()}>
+        <Sidebar
+          activeView={currentView}
+          onSelectView={handleNavigate}
+          onOpenAddTopic={() => handleOpenAddTopic()}
+          onOpenAiArchitect={handleOpenAiArchitect}
+          onOpenFocus={() => handleLaunchFocus(undefined)}
+          onOpenShortcuts={() => setIsShortcutsOpen(true)}
+          onOpenProfileSwitcher={() => setIsProfileSwitcherOpen(true)}
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={toggleDesktopSidebar}
+        />
+      </ViewErrorBoundary>
 
       {/* Mobile Drawer (Left Hamburger Sheet) */}
-      <MobileDrawer
-        isOpen={isMobileDrawerOpen}
-        onClose={() => setIsMobileDrawerOpen(false)}
-        activeView={currentView}
-        onSelectView={(view) => {
-          setIsMobileDrawerOpen(false);
-          handleNavigate(view);
-        }}
-        onOpenAddTopic={() => {
-          setIsMobileDrawerOpen(false);
-          handleOpenAddTopic();
-        }}
-        onOpenAiArchitect={() => {
-          setIsMobileDrawerOpen(false);
-          handleOpenAiArchitect();
-        }}
-        onOpenFocus={() => {
-          setIsMobileDrawerOpen(false);
-          handleLaunchFocus(undefined);
-        }}
-        onOpenSearch={() => {
-          setIsMobileDrawerOpen(false);
-          setIsSearchOpen(true);
-        }}
-        onOpenProfileSwitcher={() => {
-          setIsMobileDrawerOpen(false);
-          setIsProfileSwitcherOpen(true);
-        }}
-      />
+      <ViewErrorBoundary sectionName="Mobile Drawer Navigation" onReset={() => setIsMobileDrawerOpen(false)}>
+        <MobileDrawer
+          isOpen={isMobileDrawerOpen}
+          onClose={() => setIsMobileDrawerOpen(false)}
+          activeView={currentView}
+          onSelectView={(view) => {
+            setIsMobileDrawerOpen(false);
+            handleNavigate(view);
+          }}
+          onOpenAddTopic={() => {
+            setIsMobileDrawerOpen(false);
+            handleOpenAddTopic();
+          }}
+          onOpenAiArchitect={() => {
+            setIsMobileDrawerOpen(false);
+            handleOpenAiArchitect();
+          }}
+          onOpenFocus={() => {
+            setIsMobileDrawerOpen(false);
+            handleLaunchFocus(undefined);
+          }}
+          onOpenSearch={() => {
+            setIsMobileDrawerOpen(false);
+            setIsSearchOpen(true);
+          }}
+          onOpenProfileSwitcher={() => {
+            setIsMobileDrawerOpen(false);
+            setIsProfileSwitcherOpen(true);
+          }}
+        />
+      </ViewErrorBoundary>
 
       {/* Main Workspace Frame (Gemini-Style Smooth Width Transition) */}
       <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
