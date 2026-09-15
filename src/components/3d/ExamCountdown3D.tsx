@@ -105,7 +105,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
         {/* Clean Meta Header with Quick Edit Trigger */}
         <div className="relative z-10 flex items-center justify-between gap-2 min-w-0">
           <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-            <div className="w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#415C9E] text-white dark:text-[#0B0B0D] flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#415C9E] text-white dark:text-[#0B0B0D] flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
               <Target className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 stroke-[2.4]" />
             </div>
             <div className="min-w-0">

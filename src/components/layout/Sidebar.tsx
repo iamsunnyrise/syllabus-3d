@@ -185,8 +185,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             title="Go to Dashboard"
           >
-            <div className="w-8.5 h-8.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex items-center justify-center p-1 shrink-0 group-hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-xs" />
+            <div className="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex items-center justify-center p-1 shrink-0 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/logo.png" alt="Logo" className="w-full h-full max-w-full max-h-full object-contain drop-shadow-xs" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">

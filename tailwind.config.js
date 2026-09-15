@@ -103,6 +103,9 @@ export default {
         '2xl': '18px',
         '3xl': '24px'
       },
+      spacing: {
+        '8.5': '2.125rem',
+      },
       keyframes: {
         'slide-up': {
           '0%': { opacity: '0', transform: 'translateY(8px)' },

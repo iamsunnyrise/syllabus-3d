@@ -457,7 +457,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   await requestPictureInPicture();
                 }
               }}
-              className={`w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
+              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
                 isPiPActive
                   ? 'bg-emerald-500 text-white shadow-sm'
                   : 'bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -476,7 +476,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 showFloatingOverlay();
                 onClose();
               }}
-              className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-blue-600 dark:text-[#7AA2F7] hover:bg-slate-50 dark:hover:bg-white/[0.1] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+              className="w-9 h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-blue-600 dark:text-[#7AA2F7] hover:bg-slate-50 dark:hover:bg-white/[0.1] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
               title="Minimize to In-App Floating Capsule"
               aria-label="Minimize timer"
             >
@@ -490,7 +490,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 soundManager.playClick();
                 setIsSettingsOpen(prev => !prev);
               }}
-              className={`w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
+              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 ${
                 isSettingsOpen
                   ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-slate-900 shadow-sm'
                   : 'bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -511,7 +511,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 }
                 onClose();
               }}
-              className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center cursor-pointer shadow-xs active:scale-95"
+              className="w-9 h-9 rounded-xl bg-white dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center cursor-pointer shadow-xs active:scale-95"
               title="Close Focus Mode"
               aria-label="Close"
             >
