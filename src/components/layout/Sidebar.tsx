@@ -361,7 +361,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
             />
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug truncate">
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed break-words">
             Keep pushing — consistency beats intensity.
           </p>
         </div>
@@ -408,10 +408,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-[#191A17] dark:text-white truncate leading-tight">
-                  {profileSafe.name || user?.name || 'Aspirant'}
+                  {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
                 <p className="text-[11px] text-[#65675F] dark:text-slate-300 leading-none truncate">
-                  {profileSafe.levelTitle || 'Novice Scholar'}
+                  {profileSafe.name || user?.name || 'Active Profile'}
                 </p>
               </div>
             </div>

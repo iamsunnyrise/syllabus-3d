@@ -112,7 +112,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           {/* Top Row: Phase Pill + Live Date + Quick Metrics */}
           <div className="flex items-center justify-between gap-1.5 sm:gap-2">
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-              <div className="h-6.5 sm:h-7.5 inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 dark:bg-[#7AA2F7]/15 border border-blue-500/20 dark:border-[#7AA2F7]/30 text-[#2563EB] dark:text-[#7AA2F7] text-[10px] sm:text-[11px] font-black tracking-wide uppercase truncate">
+              <div className="h-6.5 sm:h-7.5 inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 dark:bg-[#7AA2F7]/15 border border-blue-500/20 dark:border-[#7AA2F7]/30 text-[#2563EB] dark:text-[#7AA2F7] text-xs font-bold tracking-normal truncate">
                 <span>{greetingIcon}</span>
                 <span>{greetingPhase}</span>
               </div>
@@ -149,8 +149,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
           </div>
 
-          {/* Middle Row: Personalized Aspirant Name & Executive Mission Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 pt-0">
+          {/* Middle Row: Personalized Aspirant Name, Mission Header & Action Buttons */}
+          <div className="space-y-2.5 pt-0.5">
             <div className="min-w-0">
               <h1 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight flex items-center flex-wrap">
                 <span>{greeting},&nbsp;</span>
@@ -158,34 +158,36 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   {userName}
                 </span>
               </h1>
-              <p className="text-xs sm:text-[12.5px] text-slate-600 dark:text-slate-200 mt-0.5 font-medium leading-relaxed">
+              <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-200 mt-0.5 font-medium leading-relaxed max-w-2xl">
                 {overallStats.completionPercentage > 0
                   ? `You have conquered ${overallStats.completionPercentage}% of ${examName}. Keep your streak alive!`
                   : `Your mission control for ${examName} is active. Master concepts and crush your targets!`}
               </p>
             </div>
 
-            {/* Quick Action Trigger Buttons (Hidden in print) */}
-            <div className="grid grid-cols-2 gap-1.5 sm:flex sm:items-center sm:gap-2 shrink-0 no-print mt-1 sm:mt-0">
+            {/* Quick Action Trigger Buttons (Integrated cleanly with greeting flow) */}
+            <div className="flex items-center gap-2 flex-wrap pt-0.5 no-print">
               {onOpenFocus && (
                 <button
+                  type="button"
                   onClick={() => {
                     soundManager.playCompleteChime();
                     onOpenFocus();
                   }}
-                  className="w-full sm:w-auto justify-center px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] dark:from-[#7AA2F7] dark:to-[#5B8BF5] text-white dark:text-[#0A0B10] text-xs sm:text-[13px] font-extrabold shadow-sm hover:shadow-md hover:opacity-95 active:scale-[0.97] transition-all duration-150 flex items-center gap-1.5 cursor-pointer tap-bounce"
+                  className="btn-primary py-1.5 px-3.5 text-xs font-bold"
                   title="Launch Focus Chamber"
                 >
-                  <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                  <Sparkles className="w-3.5 h-3.5 stroke-[2.5]" />
                   <span>Focus Mode</span>
                 </button>
               )}
               <button
+                type="button"
                 onClick={() => {
                   soundManager.playClick();
                   onNavigate('planner');
                 }}
-                className="w-full sm:w-auto justify-center px-3 py-1.5 sm:py-2 rounded-xl bg-white dark:bg-[#1E293B] border border-slate-200/90 dark:border-slate-700/70 text-slate-800 dark:text-slate-100 text-xs sm:text-[13px] font-bold shadow-2xs hover:border-[#2563EB] dark:hover:border-[#7AA2F7] hover:bg-slate-50 dark:hover:bg-[#25354D] active:scale-[0.97] transition-all duration-150 flex items-center gap-1.5 cursor-pointer tap-bounce"
+                className="btn-secondary py-1.5 px-3 text-xs font-bold"
                 title="View Today's Daily Planner"
               >
                 <CalendarCheck className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7] shrink-0" />
@@ -318,7 +320,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               </div>
 
               {/* Status Segment Meter */}
-              <div className="p-3 rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 space-y-2.5">
                 <div className="flex justify-between items-center text-xs font-bold font-mono">
                   <span className="text-[#2563EB] dark:text-[#7AA2F7] flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#7AA2F7]" />
@@ -330,7 +332,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   </span>
                 </div>
 
-                <div className="w-full h-2.5 rounded-full bg-slate-200/80 dark:bg-[#0D1424] overflow-hidden flex p-0.5 shadow-inner border border-slate-200/50 dark:border-slate-700/50">
+                <div className="w-full h-3 rounded-full bg-slate-200/80 dark:bg-[#0D1424] overflow-hidden flex p-0.5 shadow-inner border border-slate-200/50 dark:border-slate-700/50">
                   <div
                     className="h-full bg-emerald-500 rounded-l-full transition-all duration-500"
                     style={{ width: `${(overallStats.completedCount / (overallStats.totalTopics || 1)) * 100}%` }}
@@ -417,10 +419,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5 min-w-0">
                   <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping shrink-0" />
-                  <span className="text-[10px] font-mono font-black text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                  <span className="text-xs font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
                     ACTIVE ROUTINE BLOCK
                   </span>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-300">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-300">
                     ({format12Hour(activeSlot.startTime)} - {format12Hour(activeSlot.endTime)})
                   </span>
                 </div>

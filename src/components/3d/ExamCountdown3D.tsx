@@ -110,9 +110,9 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <h3 className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-[#F5F5F7] uppercase tracking-wide truncate">
-                  {currentExam.name} COUNTDOWN
-                </h3>
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
+                  {currentExam.name} Countdown
+                </h2>
                 <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0">
                   Live
                 </span>
@@ -156,7 +156,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
               <span className={`text-xl sm:text-2xl md:text-3xl font-black font-mono tabular-nums tracking-tight block ${c.color} drop-shadow-xs transition-transform group-hover:scale-105`}>
                 {String(c.value).padStart(2, '0')}
               </span>
-              <span className="text-[9.5px] sm:text-[10.5px] font-bold text-slate-600 dark:text-slate-200 uppercase tracking-widest block font-mono mt-0.5">
+              <span className="text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-100 uppercase tracking-wider block font-mono mt-1">
                 {c.label}
               </span>
             </div>

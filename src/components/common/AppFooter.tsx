@@ -109,7 +109,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
             <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2563EB]/10 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#93C5FD] border border-[#2563EB]/20 dark:border-[#7AA2F7]/30">
               v2.4 PRO
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Offline Ready • Cloud Synced</span>
             </span>

@@ -318,7 +318,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Right Side Tools */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {!isOnline && (
             <div
               className="h-9 flex items-center gap-1 px-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[10px] sm:text-[11px] font-mono font-bold animate-pulse cursor-help shrink-0"
@@ -332,6 +332,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Quick Search */}
           <button
+            type="button"
             onClick={onOpenSearch}
             className="h-9 w-9 md:w-auto p-0 md:px-3 rounded-xl bg-white dark:bg-[#18181D] border border-slate-200/80 dark:border-white/[0.08] text-[#65675F] dark:text-slate-200 hover:text-[#191A17] dark:hover:text-white hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all flex items-center justify-center md:justify-start gap-1.5 cursor-pointer shadow-subtle-depth text-xs font-medium shrink-0 active:scale-95"
             title="Search Topics (Cmd + K)"
@@ -353,6 +354,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Safety PIN Lock Trigger */}
           {isConfigured && (
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 haptics.medium();
@@ -368,6 +370,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Theme Toggle (Light <-> Dark) */}
           <button
+            type="button"
             onClick={() => {
               soundManager.playClick();
               haptics.light();
@@ -386,6 +389,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* User Profile Avatar / Switcher Trigger */}
           <button
+            type="button"
             onClick={() => {
               soundManager.playClick();
               haptics.light();
