@@ -319,13 +319,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             }`}
                           />
                         )}
-                        <span className="truncate text-[13px] font-bold">{item.label}</span>
+                        <span className="truncate text-[13px] font-bold mr-2">{item.label}</span>
                       </div>
 
                       {/* Badge / Pill */}
                       {item.badge !== null && (
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-black shrink-0 ${
+                          className={`ml-auto px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
                             isActive
                               ? 'bg-white/20 text-white'
                               : item.badgeColor

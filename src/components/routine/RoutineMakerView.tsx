@@ -6,6 +6,7 @@ import {
   Printer,
   RotateCcw,
   CheckCircle2,
+  Check,
   Calendar,
   Layers,
   Flame,
@@ -162,21 +163,21 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
     <div className="space-y-4 sm:space-y-6 animate-fade-in print:space-y-2">
       
       {/* ═════════════════ 1. EXECUTIVE ROUTINE HEADER ═════════════════ */}
-      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#12141F] border border-slate-200/80 dark:border-white/10 shadow-subtle-depth relative overflow-hidden print:border-none print:shadow-none print:p-0">
+      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#12141F] border border-slate-200/80 dark:border-white/10 shadow-subtle-depth relative overflow-hidden print:border-none print:shadow-none print:p-0">
         <div className="absolute -top-24 -right-24 w-80 h-80 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-3xl pointer-events-none print:hidden" />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-amber-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl pointer-events-none print:hidden" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start gap-3 sm:gap-4 min-w-0">
-            <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/25 shrink-0 print:hidden">
+            <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/25 shrink-0 print:hidden">
               <Clock className="w-6 h-6 stroke-[2.2]" />
             </div>
 
             <div className="space-y-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                  Master Daily Routine & Timetable
-                </h1>
+                <h2 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                  Master Daily Routine &amp; Timetable
+                </h2>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 shrink-0">
                   {routineSlots.length} Blocks Configured
                 </span>
@@ -191,19 +192,21 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           {/* Action CTAs */}
           <div className="flex items-center gap-2 flex-wrap shrink-0 print:hidden">
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 setIsTemplatesModalOpen(true);
               }}
-              className="px-3.5 py-2 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+              className="btn-secondary py-1.5 px-3 text-xs font-bold"
             >
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span>Proven Templates</span>
             </button>
 
             <button
+              type="button"
               onClick={handlePrint}
-              className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+              className="btn-secondary py-1.5 px-3 text-xs font-bold"
               title="Print Desk Routine Cheatsheet"
             >
               <Printer className="w-4 h-4" />
@@ -211,14 +214,15 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
             </button>
 
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 setEditingSlot(null);
                 setIsSlotModalOpen(true);
               }}
-              className="px-4 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black shadow-md shadow-blue-500/25 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+              className="btn-secondary py-1.5 px-3.5 text-xs font-bold"
             >
-              <Plus className="w-4 h-4 stroke-[3]" />
+              <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Add Custom Slot</span>
             </button>
           </div>
@@ -227,8 +231,8 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
         {/* ═════════ Concise Metric Strip ═════════ */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-white/10 relative z-10 print:hidden">
           {/* Daily Adherence */}
-          <div className="p-3 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#181B2B] border border-slate-200/70 dark:border-white/10 space-y-0.5">
-            <span className="text-[9.5px] sm:text-[10px] font-bold text-slate-400 uppercase font-mono tracking-wider">
+          <div className="p-3 rounded-2xl bg-slate-50/90 dark:bg-[#181B2B] border border-slate-200/70 dark:border-white/10 space-y-0.5">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono tracking-normal">
               Discipline Score
             </span>
             <div className="flex items-baseline gap-1.5">
@@ -242,8 +246,8 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           </div>
 
           {/* Planned Hours */}
-          <div className="p-3 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#181B2B] border border-slate-200/70 dark:border-white/10 space-y-0.5">
-            <span className="text-[9.5px] sm:text-[10px] font-bold text-slate-400 uppercase font-mono tracking-wider">
+          <div className="p-3 rounded-2xl bg-slate-50/90 dark:bg-[#181B2B] border border-slate-200/70 dark:border-white/10 space-y-0.5">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono tracking-normal">
               Today's Study Load
             </span>
             <div className="flex items-baseline gap-1.5">
@@ -297,32 +301,32 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
 
       {/* ═════════════════ 2. LIVE ACTIVE SLOT SPOTLIGHT HUD ═════════════════ */}
       {activeSlot ? (
-        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#FFFDF8] via-[#FAF3E3] to-[#F5E8CF] dark:from-blue-900/40 dark:via-indigo-900/30 dark:to-purple-900/30 border-2 border-[#E1A837] dark:border-blue-500/50 shadow-xl shadow-[#E1A837]/10 dark:shadow-blue-500/10 relative overflow-hidden animate-fade-in print:hidden">
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FFFDF8] via-[#FAF3E3] to-[#F5E8CF] dark:from-blue-900/40 dark:via-indigo-900/30 dark:to-purple-900/30 border-2 border-[#E1A837] dark:border-blue-500/50 shadow-xl shadow-[#E1A837]/10 dark:shadow-blue-500/10 relative overflow-hidden animate-fade-in print:hidden">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#E1A837] via-[#C99126] to-[#8D7A02] dark:from-cyan-400 dark:via-blue-500 dark:to-indigo-500" />
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-[#E1A837] dark:bg-blue-500 text-[#38370D] dark:text-white shadow-xs animate-pulse">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#38370D] dark:bg-white animate-ping" />
-                  CURRENT ACTIVE STUDY SLOT
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-600 dark:bg-blue-500 text-white shadow-xs animate-pulse">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                  Current Active Study Slot
                 </span>
 
-                <span className="text-xs font-mono font-bold text-[#8D7A02] dark:text-cyan-300">
+                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-200">
                   {format12Hour(activeSlot.startTime)} - {format12Hour(activeSlot.endTime)} ({formatSlotDuration(activeSlot.startTime, activeSlot.endTime)})
                 </span>
 
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#E1A837]/20 dark:bg-white/10 text-[#38370D] dark:text-white border border-[#E1A837]/40 dark:border-transparent font-mono">
+                <span className="px-2 py-0.5 rounded-md text-xs font-semibold bg-amber-500/15 dark:bg-white/10 text-amber-800 dark:text-amber-200 border border-amber-500/30 dark:border-white/15 font-mono">
                   ⏳ {activeRemainingMins} mins remaining
                 </span>
               </div>
 
-              <h2 className="text-lg sm:text-2xl font-black text-[#38370D] dark:text-white tracking-tight truncate">
+              <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate">
                 {activeSlot.title}
-              </h2>
+              </h3>
 
               {activeSlot.notes && (
-                <p className="text-xs text-[#524F18] dark:text-blue-100/90 font-semibold line-clamp-1">
+                <p className="text-xs text-slate-600 dark:text-slate-300 font-medium line-clamp-1">
                   💡 Strategy: {activeSlot.notes}
                 </p>
               )}
@@ -331,11 +335,12 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
             {/* Quick Actions for Active Slot */}
             <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
               <button
+                type="button"
                 onClick={() => toggleSlotCompleteToday(activeSlot.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`btn-secondary py-1.5 px-3.5 text-xs font-bold ${
                   todayCompletedSlotIds.includes(activeSlot.id)
-                    ? 'bg-emerald-600 text-white font-black shadow-md'
-                    : 'bg-[#FFFDF8] hover:bg-[#F5E8CF] text-[#38370D] border border-[#E6D3B1] dark:bg-white/15 dark:hover:bg-white/25 dark:text-white dark:border-white/20'
+                    ? 'bg-emerald-600 text-white font-black hover:bg-emerald-700 border-emerald-600'
+                    : ''
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -344,8 +349,9 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
 
               {onOpenFocusChamber && (
                 <button
+                  type="button"
                   onClick={() => onOpenFocusChamber(activeSlot.topicName)}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#E1A837] to-[#C99126] hover:from-[#D19827] hover:to-[#B8801A] text-[#38370D] font-black text-xs shadow-md shadow-[#E1A837]/25 dark:from-emerald-500 dark:to-teal-500 dark:text-slate-950 transition-all cursor-pointer active:scale-95 flex items-center gap-1.5 border border-[#8D7A02]/30 dark:border-transparent"
+                  className="btn-primary py-1.5 px-4 text-xs font-bold"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
                   <span>Start Focus Chamber</span>
@@ -376,15 +382,16 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
 
       {/* ═════════════════ 3. DAY SELECTOR FILTER STRIP ═════════════════ */}
       <div className="flex items-center justify-between gap-2 overflow-x-auto pb-1 no-scrollbar print:hidden">
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-2xs shrink-0">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200/70 dark:border-white/[0.06] shadow-2xs shrink-0">
           <button
+            type="button"
             onClick={() => {
               soundManager.playClick();
               setSelectedDayFilter('all');
             }}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
               selectedDayFilter === 'all'
-                ? 'bg-white dark:bg-[#202234] text-slate-900 dark:text-white shadow-xs font-black'
+                ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -398,21 +405,22 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
             return (
               <button
                 key={day}
+                type="button"
                 onClick={() => {
                   soundManager.playClick();
                   setSelectedDayFilter(day);
                 }}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-600 text-white font-black shadow-xs'
+                    ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <span>{day}</span>
                 {isToday && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" title="Today" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" title="Today" />
                 )}
-                <span className="text-[10px] opacity-70">({count})</span>
+                <span className="text-[10px] opacity-70 font-mono">({count})</span>
               </button>
             );
           })}
@@ -435,7 +443,7 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
       {/* ═════════════════ 4. PHASE-WISE TIMELINE & SLOTS ═════════════════ */}
       {filteredSortedSlots.length === 0 ? (
         /* Empty State */
-        <div className="p-8 sm:p-12 text-center rounded-2xl sm:rounded-3xl border border-dashed border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-[#12141F]/50 space-y-4">
+        <div className="p-8 sm:p-12 text-center rounded-2xl border border-dashed border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-[#12141F]/50 space-y-4">
           <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-3xl">
             ⏰
           </div>
@@ -449,20 +457,22 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           </div>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
+              type="button"
               onClick={() => setIsTemplatesModalOpen(true)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 cursor-pointer flex items-center gap-1.5"
+              className="btn-secondary py-2 px-4 text-xs font-bold"
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 text-amber-500" />
               <span>Choose a Proven Template</span>
             </button>
             <button
+              type="button"
               onClick={() => {
                 setEditingSlot(null);
                 setIsSlotModalOpen(true);
               }}
-              className="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-1.5"
+              className="btn-primary py-2 px-4 text-xs font-bold"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Create First Slot</span>
             </button>
           </div>
@@ -481,12 +491,12 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                     <div className={`p-1.5 rounded-lg border ${group.iconColor}`}>
                       <Icon className="w-4 h-4" />
                     </div>
-                    <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider font-mono">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
                       {group.title}
                     </h3>
                   </div>
 
-                  <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 tabular-nums">
                     {group.timeRange} • {group.slots.length} Blocks
                   </span>
                 </div>
@@ -516,19 +526,18 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                             {/* Checkbox for Today */}
                             <button
                               type="button"
+                              role="checkbox"
+                              aria-checked={isCompleted}
+                              aria-label={`Mark "${slot.title}" as completed today`}
                               onClick={() => toggleSlotCompleteToday(slot.id)}
-                              className={`p-1 rounded-xl transition-transform active:scale-90 cursor-pointer shrink-0 mt-0.5 ${
+                              className={`w-5 h-5 rounded-md border-2 transition-all cursor-pointer shrink-0 mt-0.5 flex items-center justify-center active:scale-95 ${
                                 isCompleted
-                                  ? 'text-emerald-500 dark:text-emerald-400'
-                                  : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+                                  ? 'bg-emerald-600 border-emerald-600 text-white shadow-2xs'
+                                  : 'border-slate-300 dark:border-slate-600 hover:border-blue-500 bg-white dark:bg-[#1E202E]'
                               }`}
                               title={isCompleted ? 'Completed today! Click to uncheck' : 'Mark as completed today'}
                             >
-                              {isCompleted ? (
-                                <CheckCircle2 className="w-5 h-5 fill-emerald-500/20 stroke-[2.5]" />
-                              ) : (
-                                <div className="w-5 h-5 rounded-lg border-2 border-slate-300 dark:border-slate-600 hover:border-blue-500 transition-colors" />
-                              )}
+                              {isCompleted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </button>
 
                             <div className="space-y-1 min-w-0 flex-1">
@@ -542,8 +551,9 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                                   ({formatSlotDuration(slot.startTime, slot.endTime)})
                                 </span>
 
-                                <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold border ${cfg.badgeBg}`}>
-                                  {cfg.icon} {cfg.label}
+                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08]">
+                                  <span>{cfg.icon}</span>
+                                  <span>{cfg.label}</span>
                                 </span>
 
                                 {slot.subjectName && (
@@ -570,7 +580,7 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
 
                               {/* Strategy / Notes */}
                               {slot.notes && (
-                                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                                <p className="text-xs text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
                                   💡 {slot.notes}
                                 </p>
                               )}
