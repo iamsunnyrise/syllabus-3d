@@ -493,7 +493,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 1. TOP CHAPTER HERO BANNER */}
-        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
+        <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
           {/* Subtle Top Accent Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-80" />
 
@@ -613,44 +613,53 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 2. TOPICS CONTENT CONTAINER */}
-        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
           
           {/* Header Bar: Tab, Search & Add Topic */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-start sm:items-center justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <h2 className="text-[14px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
-                  Topics Content <span className="text-xs font-mono text-[#2563EB] dark:text-[#7AA2F7]">({filteredChapterTopics.length}/{totalInActiveChapter})</span>
-                </h2>
-                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium mt-0.5 line-clamp-1 sm:line-clamp-none">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
+                    Topics Content
+                  </h2>
+                  <span className="text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                    ({filteredChapterTopics.length}/{totalInActiveChapter})
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium mt-0.5 line-clamp-1 sm:line-clamp-none">
                   Click a topic to launch full study details, notes, revision, and questions
                 </p>
               </div>
 
               <button
+                type="button"
                 onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
-                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-[#0F172A] dark:bg-white hover:bg-[#2563EB] dark:hover:bg-[#7AA2F7] text-white dark:text-black text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-[0.97] tap-bounce shrink-0"
+                className="btn-primary py-1.5 sm:py-2 px-3 sm:px-3.5 text-xs font-bold shrink-0 self-start sm:self-center"
+                title="Add new topic to this chapter"
               >
-                <Plus className="w-3.5 sm:w-4 h-3.5 sm:h-4 stroke-[3]" />
+                <Plus className="w-3.5 sm:w-4 h-3.5 sm:h-4 stroke-[2.5]" />
                 <span>Add Topic</span>
               </button>
             </div>
 
-            {/* Clean Full-Width Search Input */}
-            <div className="relative w-full">
+            {/* Clean Bounded Search Input */}
+            <div className="relative w-full max-w-md sm:max-w-lg">
               <Search className="w-4 h-4 text-slate-400 dark:text-slate-300 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search topics in this chapter..."
-                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
               />
               {searchInput && (
                 <button
+                  type="button"
                   onClick={clearSearch}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
                   title="Clear search"
+                  aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -697,7 +706,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           {/* 3. TOPIC CARDS LIST (Executive Modern Study Cards) */}
           <div className="space-y-2.5 sm:space-y-3">
             {filteredChapterTopics.length === 0 ? (
-              <div className="py-10 sm:py-14 px-4 text-center rounded-3xl bg-slate-50/70 dark:bg-[#151622] border border-dashed border-slate-200 dark:border-white/[0.08] space-y-3.5">
+              <div className="py-10 sm:py-14 px-4 text-center rounded-2xl bg-slate-50/70 dark:bg-[#151622] border border-dashed border-slate-200 dark:border-white/[0.08] space-y-3.5">
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-[#1E2030] border border-slate-200 dark:border-white/[0.08] flex items-center justify-center mx-auto text-[#2563EB] dark:text-[#7AA2F7] shadow-2xs">
                   {searchTerm.trim() || statusFilter !== 'all' ? (
                     <FileText className="w-7 h-7 stroke-[1.8]" />
@@ -721,21 +730,23 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div className="pt-1 flex items-center justify-center gap-2">
                   {searchTerm.trim() || statusFilter !== 'all' ? (
                     <button
+                      type="button"
                       onClick={() => {
                         soundManager.playClick();
                         clearSearch();
                         setStatusFilter('all');
                       }}
-                      className="px-4 py-2 rounded-xl bg-white dark:bg-[#20212E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-black text-[#2563EB] dark:text-[#7AA2F7] border border-[#DBEAFE] dark:border-[#7AA2F7]/30 text-xs font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer active:scale-[0.97] shadow-2xs tap-bounce"
+                      className="btn-secondary py-2 px-4 text-xs font-bold inline-flex items-center gap-1.5"
                     >
                       Clear Search & Filters
                     </button>
                   ) : (
                     <button
+                      type="button"
                       onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
-                      className="px-4 py-2 rounded-xl bg-[#0F172A] hover:bg-[#2563EB] dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-[#0B0B0D] text-xs font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer active:scale-[0.97] shadow-2xs tap-bounce"
+                      className="btn-primary py-2 px-4 text-xs font-bold inline-flex items-center gap-1.5"
                     >
-                      <Plus className="w-4 h-4 stroke-[3]" />
+                      <Plus className="w-4 h-4 stroke-[2.5]" />
                       <span>Add First Topic</span>
                     </button>
                   )}
@@ -763,7 +774,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] space-y-2.5 sm:space-y-3 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-3 tap-bounce"
+                    className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] space-y-2.5 sm:space-y-3 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-3 tap-bounce"
                   >
                     {/* Subtle Top Glow Accent */}
                     <div
@@ -784,17 +795,17 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           </span>
                         </div>
 
-                        {/* Title in Clean All-Caps */}
+                        {/* Title in Natural Case & Semantic H3 */}
                         <div className="min-w-0 flex-1">
-                          <h4 className={`text-[13px] sm:text-[15px] font-black ${design.titleColor} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug break-words line-clamp-2 uppercase`}>
+                          <h3 className={`text-[13px] sm:text-[15px] font-bold ${design.titleColor} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
                             <span className={`hidden print:inline-block desk-checkbox ${topic.status === 'completed' ? 'is-checked' : ''}`} />
-                            {topic.name.toUpperCase()}
-                          </h4>
+                            {topic.name}
+                          </h3>
                         </div>
                       </div>
 
                       {/* Right: Status Pill & Action Chevron (Hidden in print) */}
-                      <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 no-print uppercase">
+                      <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 no-print">
                         <div
                           onClick={(e) => {
                             e.stopPropagation();
@@ -806,7 +817,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                               soundManager.playClick();
                             }
                           }}
-                          className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 transition-transform active:scale-[0.95] cursor-pointer select-none hover:opacity-90 shrink-0 uppercase ${design.statusPillClass}`}
+                          className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 transition-transform active:scale-[0.95] cursor-pointer select-none hover:opacity-90 shrink-0 ${design.statusPillClass}`}
                           title="Click to toggle status"
                         >
                           <BadgeIcon className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
@@ -822,26 +833,30 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     </div>
 
                     {/* Dedicated Meta Chips Row (Horizontal scroll on mobile, zero clumsy wrapping) */}
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-[#CBD5E1] overflow-x-auto no-scrollbar pt-0.5 uppercase">
-                      <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap uppercase">
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-[#CBD5E1] overflow-x-auto no-scrollbar pt-0.5">
+                      <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
                         <Layers className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
-                        <span>{topic.subtopics && topic.subtopics.length > 0 ? `${topic.subtopics.length} SUBTOPICS` : 'CORE CONCEPT'}</span>
+                        <span>{topic.subtopics && topic.subtopics.length > 0 ? `${topic.subtopics.length} Subtopics` : 'Core Concept'}</span>
                       </span>
 
-                      <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap uppercase">
-                        <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                        <span>{topic.studyTimeMinutes || 0}M STUDY</span>
-                      </span>
+                      {(topic.studyTimeMinutes || 0) > 0 && (
+                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
+                          <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                          <span>{topic.studyTimeMinutes}m Study</span>
+                        </span>
+                      )}
 
-                      <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap uppercase">
-                        <Target className="w-3 h-3 text-rose-500 dark:text-rose-400" />
-                        <span>{topic.accuracy || 0}% ACCURACY</span>
-                      </span>
+                      {topic.status !== 'not_started' && topic.accuracy !== undefined && topic.accuracy > 0 && (
+                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
+                          <Target className="w-3 h-3 text-rose-500 dark:text-rose-400" />
+                          <span>{topic.accuracy}% Accuracy</span>
+                        </span>
+                      )}
 
                       {topic.difficulty && (
-                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-[#CBD5E1] shrink-0 whitespace-nowrap uppercase">
+                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-[#CBD5E1] shrink-0 whitespace-nowrap">
                           <span className={`w-1.5 h-1.5 rounded-full ${topic.difficulty === 'Hard' ? 'bg-rose-500' : topic.difficulty === 'Medium' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
-                          <span>{topic.difficulty.toUpperCase()}</span>
+                          <span>{topic.difficulty}</span>
                         </span>
                       )}
 
@@ -923,7 +938,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 1. TOP SUBJECT HERO BANNER */}
-        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
+        <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
           {/* Subtle Top Accent Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-80" />
 
@@ -1014,7 +1029,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 2. CHAPTERS CONTENT CONTAINER */}
-        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
           
           {/* Executive Header & Search Toolbar */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
@@ -1072,7 +1087,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           {/* 3. CHAPTER CARDS LIST (2-Column Modern Responsive Bento Grid) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
             {filteredChapters.length === 0 ? (
-              <div className="col-span-full py-10 sm:py-14 px-4 text-center rounded-2xl sm:rounded-3xl bg-slate-50/70 dark:bg-[#1A1B29] border border-dashed border-slate-200/80 dark:border-white/[0.08] space-y-3.5">
+              <div className="col-span-full py-10 sm:py-14 px-4 text-center rounded-2xl bg-slate-50/70 dark:bg-[#1A1B29] border border-dashed border-slate-200/80 dark:border-white/[0.08] space-y-3.5">
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-[#202234] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-center mx-auto text-[#2563EB] dark:text-[#7AA2F7] shadow-2xs">
                   <FolderOpen className="w-7 h-7 stroke-[1.8]" />
                 </div>
@@ -1108,7 +1123,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter.id)}
-                    className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                    className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                   >
                     {/* Subtle Top Glow Accent */}
                     <div
@@ -1257,7 +1272,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       </div>
 
       {/* 1. EXECUTIVE STUDY COMMAND BAR (Clean & Modern Adaptive Header) */}
-      <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/[0.08] shadow-sm overflow-hidden text-slate-900 dark:text-white print:hidden space-y-4 sm:space-y-5">
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/[0.08] shadow-sm overflow-hidden text-slate-900 dark:text-white print:hidden space-y-4 sm:space-y-5">
         
         {/* Subtle Top Gradient Line */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-90" />
@@ -1404,7 +1419,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       </div>
 
       {/* 2. PORTAL CONTENT CONTAINER */}
-      <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth ring-1 ring-black/[0.02] dark:ring-white/[0.03] space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth ring-1 ring-black/[0.02] dark:ring-white/[0.03] space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
         
         {/* Executive Header & Search Toolbar */}
         <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
@@ -1478,7 +1493,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         {/* 3. DYNAMIC SUBJECT CARDS LIST (2-Column Modern Responsive Bento Grid) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
           {currentExam.subjects.length === 0 ? (
-            <div className="col-span-full py-12 sm:py-16 px-4 text-center rounded-2xl sm:rounded-3xl bg-slate-50/80 dark:bg-[#1A1B29] border-2 border-dashed border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-4">
+            <div className="col-span-full py-12 sm:py-16 px-4 text-center rounded-2xl bg-slate-50/80 dark:bg-[#1A1B29] border-2 border-dashed border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-4">
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-500/15 to-indigo-500/15 border border-blue-500/30 flex items-center justify-center mx-auto text-[#2563EB] dark:text-[#7AA2F7] shadow-sm">
                 <Sparkles className="w-8 h-8 stroke-[2]" />
               </div>
@@ -1530,7 +1545,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               </div>
             </div>
           ) : filteredSubjects.length === 0 ? (
-            <div className="col-span-full py-10 sm:py-14 px-4 text-center rounded-2xl sm:rounded-3xl bg-slate-50/70 dark:bg-[#1A1B29] border border-dashed border-slate-200/80 dark:border-white/[0.08] space-y-3.5">
+            <div className="col-span-full py-10 sm:py-14 px-4 text-center rounded-2xl bg-slate-50/70 dark:bg-[#1A1B29] border border-dashed border-slate-200/80 dark:border-white/[0.08] space-y-3.5">
               <div className="w-14 h-14 rounded-2xl bg-white dark:bg-[#202234] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-center mx-auto text-[#2563EB] dark:text-[#7AA2F7] shadow-2xs">
                 <BookOpen className="w-7 h-7 stroke-[1.8]" />
               </div>
@@ -1567,7 +1582,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#11131F] hover:bg-slate-50/70 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/40 shadow-xs hover:shadow-lg hover:shadow-blue-500/[0.03] dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/70 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/40 shadow-xs hover:shadow-lg hover:shadow-blue-500/[0.03] dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                 >
                   {/* Top Glow Accent Bar on Hover */}
                   <div
