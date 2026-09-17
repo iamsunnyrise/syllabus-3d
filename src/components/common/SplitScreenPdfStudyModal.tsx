@@ -37,6 +37,12 @@ import { getPdfBlobUrl, openPdfInNewTab, downloadPdfFile } from '../../utils/pdf
 import { soundManager } from '../../utils/soundEffects';
 import type { HighlightToolType } from './PdfCanvasViewer';
 import {
+  PdfColorTheme,
+  PDF_THEMES,
+  loadPdfColorTheme,
+  savePdfColorTheme
+} from '../../utils/pdfThemeStorage';
+import {
   PdfHighlight,
   HighlightColor,
   HIGHLIGHT_COLORS,
@@ -98,6 +104,24 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
   const currentAttachmentId = currentAttachment?.id;
   const currentAttachmentStorageKey = currentAttachment?.storageKey;
   const currentAttachmentUrl = currentAttachment?.url;
+
+  // Eye-Care Theme State
+  const [pdfColorTheme, setPdfColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
+  const [showThemeDropdown, setShowThemeDropdown] = useState<boolean>(false);
+
+  const handleSetPdfColorTheme = (theme: PdfColorTheme) => {
+    soundManager.playClick();
+    setPdfColorTheme(theme);
+    savePdfColorTheme(theme);
+    setShowThemeDropdown(false);
+  };
+
+  const handleQuickThemeToggle = () => {
+    soundManager.playClick();
+    const next: PdfColorTheme = pdfColorTheme === 'light' ? 'dark' : 'light';
+    setPdfColorTheme(next);
+    savePdfColorTheme(next);
+  };
 
   // Highlighter State
   const [isHighlightMode, setIsHighlightMode] = useState<boolean>(false);
@@ -619,6 +643,68 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
                     )}
                   </button>
 
+                  {/* Eye-Care Night Mode / Reading Themes Selector */}
+                  <div className="relative flex items-center">
+                    <button
+                      type="button"
+                      onClick={handleQuickThemeToggle}
+                      className={`px-2 py-1 rounded-l-lg border-y border-l text-xs font-bold flex items-center gap-1 cursor-pointer transition-all ${
+                        pdfColorTheme !== 'light'
+                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-xs'
+                          : 'bg-[#23232A] hover:bg-[#2E2E38] text-[#A1A1AA] hover:text-white border-[#272730]'
+                      }`}
+                      title={pdfColorTheme === 'light' ? 'Switch to Night Mode (Glare-free dark background)' : 'Switch to Day Mode (Original white)'}
+                    >
+                      <span className="text-xs leading-none">{PDF_THEMES[pdfColorTheme].badge}</span>
+                      <span className="hidden sm:inline text-[11px] font-medium">{PDF_THEMES[pdfColorTheme].shortLabel}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowThemeDropdown(prev => !prev)}
+                      className={`px-1 py-1 rounded-r-lg border text-xs font-bold cursor-pointer transition-all ${
+                        pdfColorTheme !== 'light'
+                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                          : 'bg-[#23232A] hover:bg-[#2E2E38] text-[#A1A1AA] hover:text-white border-[#272730]'
+                      }`}
+                      title="Choose Reading Mode: Soft Dark, OLED Pure Black, Sepia, Day"
+                    >
+                      <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${showThemeDropdown ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {showThemeDropdown && (
+                      <div className="absolute right-0 top-full mt-2 w-60 rounded-xl bg-[#181926] border border-[#2B2D3D] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
+                        <div className="px-2 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          Eye-Care Reading Themes
+                        </div>
+                        {(['dark', 'oled', 'sepia', 'light'] as PdfColorTheme[]).map(themeKey => {
+                          const item = PDF_THEMES[themeKey];
+                          const isSelected = pdfColorTheme === themeKey;
+                          return (
+                            <button
+                              key={themeKey}
+                              type="button"
+                              onClick={() => handleSetPdfColorTheme(themeKey)}
+                              className={`w-full text-left px-2.5 py-1.5 rounded-lg transition-all flex items-center justify-between cursor-pointer ${
+                                isSelected
+                                  ? 'bg-purple-600/30 text-white font-bold border border-purple-500/30'
+                                  : 'hover:bg-[#23232A] text-[#A1A1AA] hover:text-white'
+                              }`}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm">{item.badge}</span>
+                                <div>
+                                  <div className="text-xs font-semibold">{item.name}</div>
+                                  <div className="text-[10px] text-slate-400 font-normal leading-tight">{item.description}</div>
+                                </div>
+                              </div>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-purple-400 shrink-0" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleInsertCitation}
@@ -753,6 +839,8 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
                 <PdfCanvasViewer
                   pdfUrl={pdfBlobUrl}
                   docId={selectedAttachmentId}
+                  colorTheme={pdfColorTheme}
+                  onColorThemeChange={setPdfColorTheme}
                   isHighlightMode={isHighlightMode}
                   highlightColor={highlightColor}
                   highlightTool={highlightTool}

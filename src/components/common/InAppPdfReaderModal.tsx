@@ -35,6 +35,12 @@ import { TopicPdfAttachment } from '../../types/syllabus';
 import { getPdfBlobUrl } from '../../utils/pdfStorage';
 import { soundManager } from '../../utils/soundEffects';
 import type { PdfFitMode, HighlightToolType } from './PdfCanvasViewer';
+import {
+  PdfColorTheme,
+  PDF_THEMES,
+  loadPdfColorTheme,
+  savePdfColorTheme
+} from '../../utils/pdfThemeStorage';
 
 const PdfCanvasViewer = React.lazy(() => import('./PdfCanvasViewer').then(m => ({ default: m.PdfCanvasViewer })));
 import {
@@ -94,6 +100,22 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [scale, setScale] = useState<number>(1.0);
   const [fitMode, setFitMode] = useState<PdfFitMode>('fit-width');
   const [showZoomDropdown, setShowZoomDropdown] = useState<boolean>(false);
+  const [pdfColorTheme, setPdfColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
+  const [showThemeDropdown, setShowThemeDropdown] = useState<boolean>(false);
+
+  const handleSetPdfColorTheme = (theme: PdfColorTheme) => {
+    soundManager.playClick();
+    setPdfColorTheme(theme);
+    savePdfColorTheme(theme);
+    setShowThemeDropdown(false);
+  };
+
+  const handleQuickThemeToggle = () => {
+    soundManager.playClick();
+    const next: PdfColorTheme = pdfColorTheme === 'light' ? 'dark' : 'light';
+    setPdfColorTheme(next);
+    savePdfColorTheme(next);
+  };
 
   // Floating HUD auto-dim in fullscreen
   const [isHudVisible, setIsHudVisible] = useState(true);
@@ -746,6 +768,83 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               )}
             </div>
 
+            {/* EYE-CARE / NIGHT READING THEMES */}
+            <div className="relative flex items-center">
+              <button
+                type="button"
+                onClick={handleQuickThemeToggle}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-l-xl border-y border-l text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 ${
+                  pdfColorTheme !== 'light'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]'
+                    : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                }`}
+                title={pdfColorTheme === 'light' ? 'Switch to Night Mode (Glare-free dark background)' : 'Switch to Day Mode (Original white)'}
+              >
+                <span className="text-sm leading-none">{PDF_THEMES[pdfColorTheme].badge}</span>
+                <span className="hidden sm:inline font-medium">
+                  {pdfColorTheme === 'light' ? 'Night Mode' : PDF_THEMES[pdfColorTheme].shortLabel}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowZoomDropdown(false);
+                  setShowThemeDropdown(prev => !prev);
+                }}
+                className={`px-1.5 py-1.5 rounded-r-xl border text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 ${
+                  pdfColorTheme !== 'light'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                }`}
+                title="Choose Eye-Care Reading Mode: Night, OLED Pure Black, Sepia, Day"
+              >
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showThemeDropdown ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Reading Themes Menu */}
+              {showThemeDropdown && (
+                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-[#1F2335] border border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
+                  <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Eye-Care Reading Themes
+                  </div>
+                  {(['dark', 'oled', 'sepia', 'light'] as PdfColorTheme[]).map(themeKey => {
+                    const item = PDF_THEMES[themeKey];
+                    const isSelected = pdfColorTheme === themeKey;
+                    return (
+                      <button
+                        key={themeKey}
+                        type="button"
+                        onClick={() => handleSetPdfColorTheme(themeKey)}
+                        className={`w-full text-left px-2.5 py-2 rounded-lg transition-all flex items-center justify-between cursor-pointer ${
+                          isSelected
+                            ? 'bg-blue-600/30 text-white font-bold border border-blue-500/30'
+                            : 'hover:bg-[#24283B] text-[#A9B1D6] hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-base">{item.badge}</span>
+                          <div>
+                            <div className="text-xs font-semibold flex items-center gap-1.5">
+                              <span>{item.name}</span>
+                              {themeKey === 'dark' && (
+                                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-bold">
+                                  Recommended
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-[10px] text-slate-400 font-normal leading-tight mt-0.5">
+                              {item.description}
+                            </div>
+                          </div>
+                        </div>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-[#7AA2F7] shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             {/* Split Study Quick Switch */}
             {onOpenSplitStudy && (
               <button
@@ -1053,6 +1152,21 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             </button>
           </div>
 
+          {/* Eye-Care Night Mode Quick Toggle in Fullscreen HUD */}
+          <button
+            type="button"
+            onClick={handleQuickThemeToggle}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              pdfColorTheme !== 'light'
+                ? 'bg-amber-400 text-slate-950 font-black shadow-[0_0_12px_rgba(251,191,36,0.5)]'
+                : 'bg-white/10 hover:bg-white/20 text-white'
+            }`}
+            title={pdfColorTheme === 'light' ? 'Turn ON Eye-Care Night Mode' : `Reading Theme: ${PDF_THEMES[pdfColorTheme].name} (Click to toggle)`}
+          >
+            <span>{PDF_THEMES[pdfColorTheme].badge}</span>
+            <span className="hidden sm:inline">{PDF_THEMES[pdfColorTheme].shortLabel}</span>
+          </button>
+
           {/* Note Mode Toggle in Fullscreen HUD */}
           <button
             type="button"
@@ -1179,6 +1293,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               onFitModeChange={setFitMode}
               onLoadSuccess={handleLoadSuccess}
               onPageChange={handlePageChange}
+              colorTheme={pdfColorTheme}
+              onColorThemeChange={setPdfColorTheme}
               isHighlightMode={isHighlightMode}
               highlightColor={highlightColor}
               highlightTool={highlightTool}

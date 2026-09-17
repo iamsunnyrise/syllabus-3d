@@ -39,6 +39,13 @@ import {
   createPdfComment
 } from '../../utils/pdfCommentStorage';
 import { PdfStickyNotePin } from './PdfStickyNotePin';
+import {
+  PdfColorTheme,
+  PDF_THEMES,
+  loadPdfColorTheme,
+  savePdfColorTheme
+} from '../../utils/pdfThemeStorage';
+export type { PdfColorTheme };
 
 // Set up PDF.js worker
 if (typeof window !== 'undefined') {
@@ -75,6 +82,9 @@ interface PdfCanvasViewerProps {
   activeCommentId?: string | null;
   onSelectComment?: (commentId: string | null) => void;
   onPushCommentToNotes?: (comment: PdfComment) => void;
+  // Eye-Care Reading Themes (Day, Night Mode, OLED, Sepia)
+  colorTheme?: PdfColorTheme;
+  onColorThemeChange?: (theme: PdfColorTheme) => void;
 }
 
 export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
@@ -101,9 +111,14 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   onDeleteComment,
   activeCommentId = null,
   onSelectComment,
-  onPushCommentToNotes
+  onPushCommentToNotes,
+  colorTheme: propColorTheme,
+  onColorThemeChange
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [internalColorTheme, setInternalColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
+  const activeColorTheme = propColorTheme || internalColorTheme;
+
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [numPages, setNumPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -454,6 +469,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
                   activeCommentId={activeCommentId}
                   onSelectComment={onSelectComment}
                   onPushCommentToNotes={onPushCommentToNotes}
+                  colorTheme={activeColorTheme}
                 />
                 {fitMode === 'fit-width' && idx < numPages - 1 && (
                   <div className="w-full h-1 bg-[#1A1B26] border-y border-[#292E42]/50 shrink-0" />
@@ -491,6 +507,7 @@ interface PdfPageItemProps {
   activeCommentId?: string | null;
   onSelectComment?: (commentId: string | null) => void;
   onPushCommentToNotes?: (comment: PdfComment) => void;
+  colorTheme?: PdfColorTheme;
 }
 
 const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
@@ -516,7 +533,8 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   onDeleteComment,
   activeCommentId = null,
   onSelectComment,
-  onPushCommentToNotes
+  onPushCommentToNotes,
+  colorTheme = 'light'
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -768,18 +786,21 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   const finalItemHeight = renderedHeight > 0 ? renderedHeight : Math.max(200, Math.floor(placeholderHeight));
 
   const activeColorMeta = HIGHLIGHT_COLORS[highlightColor] || HIGHLIGHT_COLORS.yellow;
+  const themeConfig = PDF_THEMES[colorTheme] || PDF_THEMES.light;
 
   return (
     <div
       ref={wrapperRef}
       data-page-number={pageNum}
-      className={`relative flex justify-center items-center shadow-lg bg-white overflow-hidden ${
-        fitMode === 'fit-page' ? 'rounded-lg border border-[#292E42]/60' : 'w-full'
+      className={`relative flex justify-center items-center shadow-lg overflow-hidden transition-colors duration-200 ${
+        fitMode === 'fit-page' ? 'rounded-lg border' : 'w-full'
       }`}
       style={{
         minHeight: `${finalItemHeight}px`,
         height: `${finalItemHeight}px`,
         width: fitMode === 'fit-page' ? 'auto' : '100%',
+        backgroundColor: themeConfig.pageBgColor,
+        borderColor: themeConfig.pageBorderColor,
         contain: 'layout'
       }}
     >
@@ -801,7 +822,13 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
           height: `${finalItemHeight}px`
         }}
       >
-        <canvas ref={canvasRef} className="block max-w-full" />
+        <canvas
+          ref={canvasRef}
+          className="block max-w-full transition-[filter] duration-200"
+          style={{
+            filter: themeConfig.canvasFilter
+          }}
+        />
 
         {/* Interactive SVG Highlight & Annotation Layer */}
         {renderedWidth > 0 && renderedHeight > 0 && (
@@ -857,11 +884,11 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
                       width={`${h.rect.width * 100}%`}
                       height={`${h.rect.height * 100}%`}
                       fill={colorInfo.hex}
-                      fillOpacity={0.38}
+                      fillOpacity={themeConfig.highlightOpacity}
                       stroke={colorInfo.border}
                       strokeWidth={1}
                       rx={3}
-                      style={{ mixBlendMode: 'multiply' }}
+                      style={{ mixBlendMode: themeConfig.blendMode }}
                     />
                   )}
                   {h.type === 'freehand' && h.points && (
@@ -870,10 +897,10 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
                       fill="none"
                       stroke={colorInfo.hex}
                       strokeWidth={Math.max(14, 18 * scale)}
-                      strokeOpacity={0.42}
+                      strokeOpacity={themeConfig.highlightOpacity + 0.08}
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      style={{ mixBlendMode: 'multiply' }}
+                      style={{ mixBlendMode: themeConfig.blendMode }}
                     />
                   )}
                 </g>
@@ -888,12 +915,12 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
                 width={`${Math.abs(currentPoint.x - startPoint.x) * 100}%`}
                 height={`${Math.abs(currentPoint.y - startPoint.y) * 100}%`}
                 fill={activeColorMeta.hex}
-                fillOpacity={0.45}
+                fillOpacity={themeConfig.highlightOpacity + 0.05}
                 stroke={activeColorMeta.border}
                 strokeWidth={1.5}
                 strokeDasharray="3 3"
                 rx={3}
-                style={{ mixBlendMode: 'multiply' }}
+                style={{ mixBlendMode: themeConfig.blendMode }}
               />
             )}
 
@@ -903,10 +930,10 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
                 fill="none"
                 stroke={activeColorMeta.hex}
                 strokeWidth={Math.max(14, 18 * scale)}
-                strokeOpacity={0.48}
+                strokeOpacity={themeConfig.highlightOpacity + 0.1}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                style={{ mixBlendMode: 'multiply' }}
+                style={{ mixBlendMode: themeConfig.blendMode }}
               />
             )}
           </svg>
