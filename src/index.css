@@ -1270,17 +1270,25 @@ input, textarea, [contenteditable="true"], .selectable-text {
 }
 
 /* Primary High-Contrast Text in Dark Mode */
-.dark [class*="text-[#11120F]"],
-.dark [class*="text-[#191A17]"],
-.dark [class*="text-[#0F172A]"],
-.dark [class*="text-slate-900"],
-.dark [class*="text-slate-800"],
-.dark [class*="text-black"],
+.dark [class*="text-[#11120F]"]:not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
+.dark [class*="text-[#191A17]"]:not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
+.dark [class*="text-[#0F172A]"]:not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
+.dark [class*="text-slate-900"]:not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
+.dark [class*="text-slate-800"]:not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
+.dark .text-black:not(.dark\:text-black):not([class*="dark:text-black"]):not([class*="dark:text-slate-9"]):not([class*="dark:text-slate-8"]),
 .dark .dark\:text-white,
 .dark [class*="dark:text-white"],
 .dark [class*="dark:text-[#F5F5F7]"],
 .dark [class*="dark:text-[#C0CAF5]"] {
   color: #FFFFFF !important;
+}
+
+/* Explicit Dark Text Preserved in Dark Mode (e.g. for light pills/badges) */
+.dark .dark\:text-black,
+.dark [class*="dark:text-black"],
+.dark [class*="dark:text-slate-900"],
+.dark [class*="dark:text-slate-950"] {
+  color: #0F172A !important;
 }
 
 /* Secondary & Muted Text in Dark Mode (Neutral Light Graphite & Zinc) */

@@ -706,8 +706,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 }}
                 className={`p-2 sm:p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-center active:scale-95 ${
                   isEditing
-                    ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs'
-                    : 'bg-[#F8FAFC] dark:bg-[#20212E] border-[#E2E8F0] dark:border-[#272730] text-[#65675F] hover:text-[#11120F] dark:hover:text-white hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-xs'
+                    : 'bg-[#F8FAFC] dark:bg-[#20212E] border-[#E2E8F0] dark:border-[#272730] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
                 }`}
                 title={isEditing ? 'Close Edit Form' : 'Edit Topic Parameters'}
                 aria-label={isEditing ? 'Close Edit Form' : 'Edit Topic Parameters'}
@@ -843,7 +843,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                     <button
                       type="button"
                       onClick={handleAddSubtopicSubmit}
-                      className="px-4 py-2 rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black hover:bg-[#2563EB] dark:hover:bg-[#7AA2F7] text-xs font-bold transition-colors cursor-pointer"
+                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-sm"
                     >
                       + Add
                     </button>
@@ -860,7 +860,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-wider transition-colors cursor-pointer shadow-xs active:scale-95"
+                    className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-sm active:scale-95"
                   >
                     Save Changes
                   </button>
@@ -1172,8 +1172,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                         onClick={() => handleSaveAccuracy(chip.val)}
                         className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer border active:scale-95 ${
                           liveTopic.accuracy === chip.val
-                            ? 'bg-slate-900 dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                            : 'bg-slate-50 dark:bg-[#14151F] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500'
+                            ? 'bg-cyan-600 text-white border-cyan-500 shadow-xs font-bold'
+                            : 'bg-slate-50 dark:bg-[#14151F] text-slate-700 dark:text-slate-200 border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500'
                         }`}
                       >
                         {chip.label}
@@ -1208,7 +1208,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
                   {/* 1-Click Quick Add Buttons */}
                   <div className="space-y-1.5">
-                    <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                    <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider block">
                       Quick Add Minutes:
                     </span>
                     <div className="grid grid-cols-4 gap-1.5">
@@ -1217,7 +1217,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           key={mins}
                           type="button"
                           onClick={() => handleAddStudyMinutes(mins)}
-                          className="py-1.5 px-2 rounded-lg bg-slate-50 dark:bg-white/[0.04] hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 border border-slate-200/80 dark:border-white/[0.08] text-xs font-mono font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer active:scale-95 text-center"
+                          className="py-1.5 px-2 rounded-lg bg-slate-50 dark:bg-white/[0.08] hover:bg-blue-50 dark:hover:bg-blue-600 hover:text-blue-600 dark:hover:text-white hover:border-blue-300 dark:hover:border-blue-500 border border-slate-200/80 dark:border-white/15 text-xs font-mono font-bold text-slate-800 dark:text-slate-100 transition-all cursor-pointer active:scale-95 text-center"
                         >
                           +{mins}m
                         </button>
@@ -1228,7 +1228,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   {/* Live Topic Stopwatch */}
                   <div className="p-3 sm:p-3.5 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                      <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider block">
                         Live Stopwatch
                       </span>
                       <span className="text-lg sm:text-xl font-mono tabular-nums font-black text-slate-900 dark:text-white">
@@ -1274,7 +1274,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
                 {/* 4. PREPARATION STATUS SELECTOR (Segmented Pill Group) */}
                 <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#18181D] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-2.5">
-                  <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                  <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider block">
                     Preparation Status
                   </span>
                   <div
@@ -1283,7 +1283,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                     className="p-1 rounded-xl bg-slate-100 dark:bg-[#14151F] border border-slate-200/80 dark:border-white/[0.08] grid grid-cols-2 sm:grid-cols-4 gap-1"
                   >
                     {[
-                      { id: 'not_started', label: 'Not Started', icon: Circle, activeClasses: 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-bold' },
+                      { id: 'not_started', label: 'Not Started', icon: Circle, activeClasses: 'bg-white dark:bg-[#20212E] text-slate-900 dark:text-white shadow-xs font-bold' },
                       { id: 'in_progress', label: 'In Progress', icon: Zap, activeClasses: 'bg-amber-500 text-white shadow-xs font-bold' },
                       { id: 'completed', label: 'Mastered', icon: CheckCircle2, activeClasses: 'bg-emerald-600 text-white shadow-xs font-bold' },
                       { id: 'weak', label: 'Weak Topic', icon: AlertTriangle, activeClasses: 'bg-rose-600 text-white shadow-xs font-bold' },
@@ -1309,7 +1309,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           className={`py-1.5 px-2 rounded-lg text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95 ${
                             isSelected
                               ? st.activeClasses
-                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium'
                           }`}
                         >
                           <StatusIcon className="w-3.5 h-3.5 shrink-0" />
@@ -1336,7 +1336,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                             SM-2 Adaptive
                           </span>
                         </div>
-                        <span className="text-xs text-slate-500 dark:text-slate-400 font-mono block">
+                        <span className="text-xs text-slate-600 dark:text-slate-300 font-mono block">
                           Optimal recall curve: [{adaptiveIntervals.map(i => `${i}d`).join(' → ')}]
                         </span>
                       </div>
@@ -1349,11 +1349,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           ✓ Retained
                         </span>
                       ) : activeRevisionCard ? (
-                        <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-xs font-mono font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                        <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-xs font-mono font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/25">
                           Stage {activeRevisionCard.stage} of 4
                         </span>
                       ) : (
-                        <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-xs font-mono font-bold rounded-lg bg-[#F8FAFC] dark:bg-[#14151F] text-slate-500 dark:text-slate-400 border border-slate-200/80 dark:border-white/[0.08]">
+                        <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-xs font-mono font-bold rounded-lg bg-[#F8FAFC] dark:bg-[#14151F] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08]">
                           Unscheduled
                         </span>
                       )}
@@ -1372,15 +1372,37 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           key={stageNum}
                           className={`p-1.5 sm:p-2 rounded-lg border text-center transition-all ${
                             isPassed
-                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
                               : isCurrent
-                              ? 'bg-slate-900 dark:bg-white text-white dark:text-black border-transparent shadow-xs font-bold'
-                              : 'bg-[#F8FAFC] dark:bg-[#14151F] text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/[0.08]'
+                              ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-500/30 font-bold ring-1 ring-blue-400/50'
+                              : 'bg-slate-50 dark:bg-[#14151F] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08]'
                           }`}
                         >
-                          <div className="text-xs font-mono font-bold uppercase">Stage {stageNum}</div>
-                          <div className="text-xs font-mono font-bold tabular-nums">{intervalDays}d</div>
-                          <div className="text-xs mt-0.5 font-medium">
+                          <div className={`text-xs font-mono font-bold uppercase ${
+                            isPassed
+                              ? 'text-emerald-700 dark:text-emerald-300'
+                              : isCurrent
+                              ? 'text-blue-100'
+                              : 'text-slate-600 dark:text-slate-300'
+                          }`}>
+                            Stage {stageNum}
+                          </div>
+                          <div className={`text-xs font-mono font-black tabular-nums ${
+                            isPassed
+                              ? 'text-emerald-800 dark:text-emerald-200'
+                              : isCurrent
+                              ? 'text-white'
+                              : 'text-slate-900 dark:text-white'
+                          }`}>
+                            {intervalDays}d
+                          </div>
+                          <div className={`text-xs mt-0.5 font-medium ${
+                            isPassed
+                              ? 'text-emerald-600 dark:text-emerald-400'
+                              : isCurrent
+                              ? 'text-white font-bold'
+                              : 'text-slate-500 dark:text-slate-400'
+                          }`}>
                             {isPassed ? '✓ Passed' : isCurrent ? '● Active' : 'Upcoming'}
                           </div>
                         </div>
@@ -1390,7 +1412,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
                   {/* Schedule Details & 1-Click Action */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-1">
-                    <div className="text-xs font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                    <div className="text-xs font-mono text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                       <span>
                         {activeRevisionCard ? (
@@ -1425,9 +1447,9 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                             soundManager.playCompleteChime();
                             haptics.medium();
                           }}
-                          className="w-full sm:w-auto px-3 py-1.5 rounded-lg bg-[#0F172A] dark:bg-white text-white dark:text-black hover:bg-emerald-600 dark:hover:bg-emerald-400 text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all tap-bounce"
+                          className="w-full sm:w-auto px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all tap-bounce"
                         >
-                          <Zap className="w-3.5 h-3.5 text-amber-400" />
+                          <Zap className="w-3.5 h-3.5 text-amber-300" />
                           <span>⚡ Revise Today</span>
                         </button>
                       ) : (
@@ -1522,11 +1544,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           value={newSubtopicInput}
                           onChange={(e) => setNewSubtopicInput(e.target.value)}
                           placeholder="Add subtopic (or comma-separated like: Intro, PYQs, Mock)..."
-                          className="flex-1 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs font-semibold focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] text-[#11120F] dark:text-white placeholder-[#85877E]"
+                          className="flex-1 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#14151F] border border-slate-200/80 dark:border-white/10 text-xs font-semibold focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                         />
                         <button
                           type="submit"
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black hover:bg-[#2563EB] dark:hover:bg-[#7AA2F7] text-xs font-black uppercase tracking-wider cursor-pointer transition-all active:scale-95 shrink-0"
+                          className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-all active:scale-95 shrink-0 shadow-sm shadow-blue-500/25 flex items-center justify-center gap-1"
                         >
                           + Add
                         </button>
