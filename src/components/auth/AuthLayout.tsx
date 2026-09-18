@@ -1,6 +1,12 @@
 import React from 'react';
+import { ArrowLeft } from 'lucide-react';
 
-export const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface AuthLayoutProps {
+  children: React.ReactNode;
+  onBackToLanding?: () => void;
+}
+
+export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLanding }) => {
   return (
     <div className="min-h-screen w-full bg-[#FAF8F5] dark:bg-[#18181D] text-[#171717] dark:text-[#F5F5F7] flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 relative overflow-x-hidden selection:bg-[#D4AF37]/30 transition-colors duration-200">
       {/* Subtle Background Radial Glows */}
@@ -10,6 +16,16 @@ export const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
       {/* Centered Constrained Auth Card (420-460px max width) */}
       <div className="relative z-10 w-full max-w-[440px] p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-[#202020]/95 border border-[#EBD3A0] dark:border-[#272730] shadow-2xl backdrop-blur-xl animate-fade-in my-auto">
+        {onBackToLanding && (
+          <button
+            type="button"
+            onClick={onBackToLanding}
+            className="mb-4 inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Home</span>
+          </button>
+        )}
         {children}
       </div>
 

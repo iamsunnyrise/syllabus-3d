@@ -61,7 +61,14 @@ import {
   ChevronRight,
   ChevronDown,
   BookA,
-  Landmark
+  Landmark,
+  Underline as UnderlineIcon,
+  Strikethrough as StrikeIcon,
+  Printer,
+  Undo as UndoIcon,
+  Redo as RedoIcon,
+  Sliders,
+  Quote
 } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import { generateAndOpenNotesPdf } from '../../utils/pdfGenerator';
@@ -766,6 +773,14 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const [quizInputText, setQuizInputText] = useState<string>('');
   const [quizPromptCopied, setQuizPromptCopied] = useState<boolean>(false);
   const [userQuizAnswers, setUserQuizAnswers] = useState<Record<string, Record<string, string>>>({});
+
+  // MS Word-Grade Document Studio State
+  const [activeRibbonTab, setActiveRibbonTab] = useState<'home' | 'insert' | 'layout' | 'review' | 'view'>('home');
+  const [showOfficeRuler, setShowOfficeRuler] = useState<boolean>(true);
+  const [editorZoom, setEditorZoom] = useState<number>(100);
+  const [headingSelectOpen, setHeadingSelectOpen] = useState<boolean>(false);
+  const [highlightSelectOpen, setHighlightSelectOpen] = useState<boolean>(false);
+  const [calloutSelectOpen, setCalloutSelectOpen] = useState<boolean>(false);
 
   // Notion AI Notes Studio State
   const [isNotionAiModalOpen, setIsNotionAiModalOpen] = useState<boolean>(false);
@@ -4052,93 +4067,103 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   return (
     <div className="space-y-3" onPaste={handlePaste} onMouseUp={handleMouseUpSelection} onTouchEnd={handleMouseUpSelection}>
       
-      {/* 🌟 UNIFIED MASTER HEADER CARD (Clean Tabs & Organized Toolbar) */}
-      <div className="rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-sm relative divide-y divide-[#E2E8F0]/60 dark:divide-[#272730] no-print">
+      {/* 🌟 MS WORD OFFICE RIBBON STUDIO (Quick Access, Ribbon Tabs & Command Shelves) */}
+      <div className="rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-sm relative no-print overflow-hidden divide-y divide-[#E2E8F0]/80 dark:divide-[#272730]">
         
-        {/* Tier 1: Modern Multi-Note Tabs Track */}
-        <div className="p-2 px-3 rounded-t-2xl bg-[#F8FAFC]/80 dark:bg-[#12131C]/60 flex items-center justify-between gap-3">
-          {renderNoteTabs(false)}
-        </div>
-
-        {/* Tier 2: Sleek, Categorized Master Toolbar */}
-        <div className="p-2 px-3 rounded-b-2xl flex flex-wrap items-center justify-between gap-2.5">
-          
-          {/* Left Cluster: View Modes & Full Screen */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#0D0E15] p-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730]">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  setViewMode('study');
-                }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  viewMode === 'study'
-                    ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Study View</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  setViewMode('edit');
-                }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  viewMode === 'edit'
-                    ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Edit3 className="w-3.5 h-3.5" />
-                <span>Edit Notes</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  setViewMode('split');
-                }}
-                title="Side-by-side Live View"
-                className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  viewMode === 'split'
-                    ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <SplitSquareVertical className="w-3.5 h-3.5" />
-                <span>Split Live</span>
-              </button>
+        {/* Tier 1: Office Quick Access Bar & Multi-Note Tabs Track */}
+        <div className="p-2 px-3 bg-[#F8FAFC] dark:bg-[#11121A] flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+          {/* Quick Access Toolbar */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Office Word App Badge */}
+            <div className="flex items-center gap-2 pr-2.5 border-r border-slate-200 dark:border-slate-800">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-black shadow-xs text-xs select-none">
+                W
+              </div>
+              <div className="hidden lg:block select-none">
+                <div className="text-[12px] font-black text-slate-800 dark:text-slate-100 leading-tight">Document Studio</div>
+                <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">Word Engine v3.0</div>
+              </div>
             </div>
 
-            {/* Full Screen Focus Button */}
+            {/* Quick Save */}
             <button
               type="button"
-              onClick={() => {
-                soundManager.playCompleteChime();
-                setIsFullscreen(true);
-              }}
-              title="Open Fullscreen Immersive Reading Mode"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all active:scale-95 cursor-pointer shadow-xs"
+              onClick={handleSave}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95"
+              title="Save Notes (Ctrl + S)"
             >
-              <Maximize className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Full Screen</span>
+              {saveSuccess ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Save className="w-3.5 h-3.5" />}
+              <span className="hidden sm:inline">{saveSuccess ? 'Saved' : 'Save'}</span>
+            </button>
+
+            {/* Quick Print */}
+            <button
+              type="button"
+              onClick={() => { soundManager.playClick(); window.print(); }}
+              className="p-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              title="Print Document (Ctrl + P)"
+            >
+              <Printer className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Quick PDF Export */}
+            <button
+              type="button"
+              onClick={() => { soundManager.playClick(); handleExportPdf(); }}
+              className="p-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              title="Download Notes as PDF"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Fullscreen Zen Reading */}
+            <button
+              type="button"
+              onClick={() => { soundManager.playCompleteChime(); setIsFullscreen(true); }}
+              className="p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors cursor-pointer"
+              title="Fullscreen Immersive Reading (Zen Mode)"
+            >
+              <Maximize className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* Middle Cluster: Highlighter Widget (Box & Freefall) */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {renderHighlighterControlsWidget(false)}
+          {/* Note Tabs Bar Track */}
+          <div className="flex-1 min-w-0">
+            {renderNoteTabs(false)}
+          </div>
+        </div>
+
+        {/* Tier 2: Office Ribbon Tabs Bar */}
+        <div className="px-3 pt-1 bg-white dark:bg-[#151620] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1">
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'insert', label: 'Insert' },
+              { id: 'layout', label: 'Layout & Paper' },
+              { id: 'review', label: 'AI & Review' },
+              { id: 'view', label: 'View' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setActiveRibbonTab(tab.id as any);
+                }}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer rounded-t-lg border-b-2 ${
+                  activeRibbonTab === tab.id
+                    ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20'
+                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-[#1E1F2B]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
-          {/* Right Cluster: AI Tools, Utilities & Status */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {/* ✨ Notion AI Note Studio */}
+          {/* Right Action: Notion AI Studio & View Switcher */}
+          <div className="flex items-center gap-2 shrink-0 py-1">
+            {/* Notion AI Featured Button */}
             <button
               type="button"
               onClick={() => {
@@ -4146,277 +4171,657 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 setNotionAiPastedText(content);
                 setIsNotionAiModalOpen(true);
               }}
-              title="Notion AI Note Studio (Ctrl + J) — Select from 6 formats for Gemini / ChatGPT notes"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-black transition-all active:scale-95 cursor-pointer shadow-md hover:shadow-violet-500/25 shrink-0"
+              title="Notion AI Note Studio (Ctrl + J) — Select from 6 formats"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-black transition-all active:scale-95 cursor-pointer shadow-xs shrink-0"
             >
-              <Sparkles className="w-3.5 h-3.5 animate-[pulse_3s_ease-in-out_infinite] text-amber-300" />
+              <Sparkles className="w-3.5 h-3.5 animate-pulse text-amber-300" />
               <span>Notion AI</span>
               <span className="hidden sm:inline-block px-1 py-0.2 rounded text-[9px] bg-white/20 font-mono font-normal">
                 Ctrl+J
               </span>
             </button>
 
-            {/* ⋯ More Tools Dropdown */}
-            <div className="relative">
+            {/* Quick View Mode Pills */}
+            <div className="flex items-center gap-0.5 bg-slate-100 dark:bg-[#0D0E15] p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs">
               <button
                 type="button"
-                onClick={() => { soundManager.playClick(); setShowMoreToolsMenu(prev => !prev); }}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  showMoreToolsMenu
-                    ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'
-                    : 'bg-slate-50 dark:bg-[#0D0E15] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#1E1F2B] border border-slate-200 dark:border-[#272730]'
+                onClick={() => { soundManager.playClick(); setViewMode('study'); }}
+                className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                  viewMode === 'study'
+                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
-                title="More tools"
+                title="Study View"
               >
-                <MoreVertical className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">More</span>
+                <Eye className="w-3 h-3" />
+                <span className="hidden sm:inline">Study</span>
               </button>
+              <button
+                type="button"
+                onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
+                className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                  viewMode === 'edit'
+                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Edit Notes"
+              >
+                <Edit3 className="w-3 h-3" />
+                <span className="hidden sm:inline">Edit</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { soundManager.playClick(); setViewMode('split'); }}
+                className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                  viewMode === 'split'
+                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Split Live View"
+              >
+                <SplitSquareVertical className="w-3 h-3" />
+                <span className="hidden sm:inline">Split</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
-              {showMoreToolsMenu && (
-                <>
-                  <div className="fixed inset-0 z-[80]" onClick={() => setShowMoreToolsMenu(false)} />
-                  <div className="absolute right-0 top-full mt-1.5 z-[90] w-52 rounded-xl bg-white dark:bg-[#1A1B26] border border-slate-200 dark:border-slate-700 shadow-xl py-1 animate-fade-in">
+        {/* Tier 3: Ribbon Command Shelves (Contextual to active tab) */}
+        <div className="p-2 sm:px-3 sm:py-2 bg-[#F8FAFC] dark:bg-[#11121A] overflow-x-auto no-scrollbar min-h-[58px] flex items-center">
+          
+          {/* TAB 1: HOME RIBBON */}
+          {activeRibbonTab === 'home' && (
+            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+              {/* Group: Clipboard */}
+              <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer shadow-2xs"
+                    title="Copy All Content"
+                  >
+                    {copied ? <Check className="w-3 h-3 text-emerald-500 stroke-[3]" /> : <Copy className="w-3 h-3 text-slate-500" />}
+                    <span>{copied ? 'Copied' : 'Copy'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer shadow-2xs"
+                    title="Done & Save (Ctrl + S)"
+                  >
+                    <Save className="w-3 h-3 text-blue-500" />
+                    <span>Done</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Clipboard</span>
+              </div>
+
+              {/* Group: Font & Formatting */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-0.5">
+                  <button
+                    type="button"
+                    onClick={() => insertText('**', '**', 'Bold text')}
+                    className="p-1.5 px-2 rounded-lg text-xs font-black bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Bold (**text**)"
+                  >
+                    B
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('*', '*', 'Italic text')}
+                    className="p-1.5 px-2 rounded-lg text-xs font-serif italic bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Italic (*text*)"
+                  >
+                    I
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('<u>', '</u>', 'Underlined text')}
+                    className="p-1.5 px-2 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Underline (<u>text</u>)"
+                  >
+                    <UnderlineIcon className="w-3 h-3" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('~~', '~~', 'Strikethrough text')}
+                    className="p-1.5 px-2 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Strikethrough (~~text~~)"
+                  >
+                    <StrikeIcon className="w-3 h-3" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('`', '`', 'inline code')}
+                    className="p-1.5 px-2 rounded-lg text-xs font-mono bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Inline Code (`code`)"
+                  >
+                    `c`
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Font</span>
+              </div>
+
+              {/* Group: Headings / Styles */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => insertText('# ', '', 'Title Heading')}
+                    className="flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-black bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Heading 1 (# Heading)"
+                  >
+                    <Hash className="w-3 h-3 text-blue-500" />
+                    <span>H1</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('## ', '', 'Section Heading')}
+                    className="flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-bold bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Heading 2 (## Heading)"
+                  >
+                    <Hash className="w-3 h-3 text-indigo-500" />
+                    <span>H2</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('### ', '', 'Sub-section')}
+                    className="flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Heading 3 (### Heading)"
+                  >
+                    <Hash className="w-3 h-3 text-purple-500" />
+                    <span>H3</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Styles</span>
+              </div>
+
+              {/* Group: Highlighters */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => insertText('==', '==', 'Yellow highlight')}
+                    className="px-2 py-1 rounded-lg text-xs font-bold bg-yellow-400/25 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-400/40 border border-yellow-400/40 flex items-center gap-1 cursor-pointer"
+                    title="Yellow Highlight (==text==)"
+                  >
+                    <Highlighter className="w-3 h-3 text-yellow-500" />
+                    <span>Yellow</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('==g:', '==', 'Green highlight')}
+                    className="px-2 py-1 rounded-lg text-xs font-bold bg-emerald-400/25 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-400/40 border border-emerald-400/40 cursor-pointer"
+                    title="Green Highlight (==g:text==)"
+                  >
+                    🟢 Green
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('==p:', '==', 'Purple highlight')}
+                    className="px-2 py-1 rounded-lg text-xs font-bold bg-purple-400/25 text-purple-800 dark:text-purple-300 hover:bg-purple-400/40 border border-purple-400/40 cursor-pointer"
+                    title="Purple Highlight (==p:text==)"
+                  >
+                    🟣 Purple
+                  </button>
+                  {renderHighlighterControlsWidget(false)}
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Highlights</span>
+              </div>
+
+              {/* Group: Lists & Quotes */}
+              <div className="flex flex-col items-center justify-between pl-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => insertText('- ', '', 'Bullet item')}
+                    className="p-1.5 px-2 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Bullet List (- item)"
+                  >
+                    <List className="w-3 h-3" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('- [ ] ', '', 'High-yield task')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Task Checklist (- [ ] item)"
+                  >
+                    <CheckSquare className="w-3 h-3 text-emerald-500" />
+                    <span>Checklist</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('> ', '', 'Important quote')}
+                    className="p-1.5 px-2 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    title="Blockquote (> quote)"
+                  >
+                    <Quote className="w-3 h-3 text-slate-500" />
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Paragraph</span>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: INSERT RIBBON */}
+          {activeRibbonTab === 'insert' && (
+            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+              {/* Group: Tables */}
+              <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
+                <button
+                  type="button"
+                  onClick={insertComparisonTableTemplate}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/30 cursor-pointer shadow-2xs"
+                  title="Insert Concept Comparison Table"
+                >
+                  <TableIcon className="w-3.5 h-3.5" />
+                  <span>Comparison Table</span>
+                </button>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Tables</span>
+              </div>
+
+              {/* Group: Academic Callouts */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => insertText('> [!FORMULA]\n> ', '', 'Standard Equation: Speed = Distance / Time')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 border border-purple-500/30 cursor-pointer"
+                    title="Insert Formula Box (> [!FORMULA])"
+                  >
+                    <Sigma className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                    <span>Formula</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('> [!TIP]\n> ', '', 'Shortcut Method / Speed Trick')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/30 cursor-pointer"
+                    title="Insert Shortcut Tip Box (> [!TIP])"
+                  >
+                    <Zap className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    <span>Shortcut</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('> [!WARNING]\n> ', '', 'Common Exam Trap to Avoid')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 border border-rose-500/30 cursor-pointer"
+                    title="Insert Exam Trap / Warning (> [!WARNING])"
+                  >
+                    <AlertTriangle className="w-3 h-3 text-rose-600 dark:text-rose-400" />
+                    <span>Exam Trap</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('> [!RULE]\n> ', '', 'Fundamental Law / Golden Rule')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 cursor-pointer"
+                    title="Insert Golden Rule Box (> [!RULE])"
+                  >
+                    <BookOpen className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                    <span>Golden Rule</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Academic Callouts</span>
+              </div>
+
+              {/* Group: Media & Links */}
+              <div className="flex flex-col items-center justify-between pl-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => fileInputImageRef.current?.click()}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-500/10 text-blue-700 dark:text-blue-300 hover:bg-blue-500/20 border border-blue-500/30 cursor-pointer"
+                    title="Upload Image or Diagram (Ctrl+V supported)"
+                  >
+                    <ImageIcon className="w-3.5 h-3.5" />
+                    <span>+ Image</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('\n- ⏱️ [00:00] **Key Concept**: ', '', '')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-red-500/10 text-red-700 dark:text-red-300 hover:bg-red-500/20 border border-red-500/30 cursor-pointer"
+                    title="Insert Clickable Video Timestamp (e.g. ⏱️ [12:34])"
+                  >
+                    <Clock className="w-3 h-3 text-red-500" />
+                    <span>Timestamp</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('[✈️ Telegram: Channel / Resource](', ')', 'https://t.me/...')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold bg-[#229ED9]/10 text-[#0088cc] dark:text-[#64B5F6] hover:bg-[#229ED9]/20 border border-[#229ED9]/30 cursor-pointer"
+                    title="Insert Telegram Link"
+                  >
+                    <TelegramIcon className="w-3 h-3 fill-current" />
+                    <span>Telegram</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertText('```text\n', '\n```', 'Your raw equation or data')}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-mono bg-slate-200/60 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 border border-slate-300/60 dark:border-slate-700 cursor-pointer"
+                    title="Insert Code / Monospace Box"
+                  >
+                    <Code className="w-3 h-3" />
+                    <span>Code Block</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Media & Links</span>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: LAYOUT & PAPER RIBBON */}
+          {activeRibbonTab === 'layout' && (
+            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+              {/* Group: Paper Themes */}
+              <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
+                <div className="flex items-center gap-1 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                  {[
+                    { id: 'paper', label: '📄 Paper', title: 'Paper White (Day)' },
+                    { id: 'sepia', label: '📜 Sepia', title: 'Warm Sepia (Kindle)' },
+                    { id: 'sage', label: '🌿 Sage', title: 'Sage Mint (Fatigue Relief)' },
+                    { id: 'candle', label: '🕯️ Candle', title: 'Candlelight (Night)' },
+                    { id: 'oled', label: '🖤 OLED', title: 'Pitch Dark (AMOLED)' },
+                  ].map((thm) => (
+                    <button
+                      key={thm.id}
+                      type="button"
+                      onClick={() => handleSelectTheme(thm.id as any)}
+                      className={`px-2 py-0.5 rounded-md text-[11px] transition-all cursor-pointer ${
+                        readerTheme === thm.id || (thm.id === 'paper' && readerTheme === 'default')
+                          ? 'bg-blue-600 text-white shadow-xs font-black'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                      title={thm.title}
+                    >
+                      {thm.label}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Paper Themes</span>
+              </div>
+
+              {/* Group: Typography */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-1.5">
+                  {/* Font Family */}
+                  <div className="flex items-center gap-0.5 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-bold">
                     <button
                       type="button"
-                      onClick={() => { handleRepairTablesAndFormulas(); setShowMoreToolsMenu(false); }}
-                      disabled={!content.trim()}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 cursor-pointer"
+                      onClick={() => handleSelectFont('serif')}
+                      className={`px-2 py-0.5 rounded text-[11px] font-serif cursor-pointer ${
+                        readerFontFamily === 'serif' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400'
+                      }`}
                     >
-                      <TableIcon className="w-4 h-4 text-blue-500" />
-                      <span>Fix Tables & Formulas</span>
+                      Serif
                     </button>
                     <button
                       type="button"
-                      onClick={() => { handleCopyAiPrompt(); setShowMoreToolsMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
+                      onClick={() => handleSelectFont('sans')}
+                      className={`px-2 py-0.5 rounded text-[11px] font-sans cursor-pointer ${
+                        readerFontFamily === 'sans' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400'
+                      }`}
                     >
-                      <Bot className="w-4 h-4 text-purple-500" />
-                      <span>{promptCopied ? '✓ AI Prompt Copied' : 'Copy AI Prompt'}</span>
-                    </button>
-                    {onOpenSplitPdf && hasPdfAttachments && (
-                      <button
-                        type="button"
-                        onClick={() => { onOpenSplitPdf(); setShowMoreToolsMenu(false); }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
-                      >
-                        <Columns className="w-4 h-4 text-purple-500" />
-                        <span>Split PDF Sync</span>
-                      </button>
-                    )}
-                    {onOpenSplitLecture && (
-                      <button
-                        type="button"
-                        onClick={() => { onOpenSplitLecture(lectures?.[0]?.id, 0); setShowMoreToolsMenu(false); }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
-                      >
-                        <Clock className="w-4 h-4 text-red-500" />
-                        <span>Watch Lecture</span>
-                      </button>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => { toggleVoiceTyping(); setShowMoreToolsMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
-                    >
-                      {isListening ? <MicOff className="w-4 h-4 text-rose-500" /> : <Mic className="w-4 h-4 text-slate-500" />}
-                      <span>{isListening ? 'Stop Voice Typing' : 'Voice Typing'}</span>
-                    </button>
-                    <div className="mx-2 my-1 border-t border-slate-100 dark:border-slate-800" />
-                    <button
-                      type="button"
-                      onClick={() => { handleExportPdf(); setShowMoreToolsMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
-                    >
-                      <FileDown className="w-4 h-4 text-slate-500" />
-                      <span>Download PDF</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { handleCopy(); setShowMoreToolsMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
-                    >
-                      {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-500" />}
-                      <span>{copied ? 'Copied!' : 'Copy Notes'}</span>
+                      Sans
                     </button>
                   </div>
-                </>
-              )}
-            </div>
 
-            {/* Theme Switcher in Normal Toolbar (Study & Split Preview) */}
-            {(viewMode === 'study' || viewMode === 'split') && (
-              <div className="flex items-center gap-1 bg-[#F1F5F9] dark:bg-[#151620] p-1 rounded-xl border border-[#CBD5E1] dark:border-[#272738] text-xs font-bold shadow-xs">
-                <button
-                  type="button"
-                  onClick={() => handleSelectTheme('paper')}
-                  className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                    readerTheme === 'paper' || readerTheme === 'default'
-                      ? 'bg-white dark:bg-[#252838] text-slate-900 dark:text-white shadow-sm border border-slate-300 dark:border-white/20 font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
-                  }`}
-                  title="Paper White (Day Study)"
-                >
-                  📄 Paper
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTheme('sepia')}
-                  className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                    readerTheme === 'sepia'
-                      ? 'bg-[#F4E6C8] dark:bg-[#3D2C1C] text-[#3E2B1A] dark:text-[#F3E3CE] shadow-sm border border-[#DEC4A5] dark:border-[#6B4B2E] font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-[#3E2B1A] dark:hover:text-[#F3E3CE] hover:bg-[#F4E6C8]/40 dark:hover:bg-[#3D2C1C]/40'
-                  }`}
-                  title="Warm Kindle Sepia (Eye Comfort)"
-                >
-                  📜 Sepia
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTheme('sage')}
-                  className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                    readerTheme === 'sage'
-                      ? 'bg-[#DCEDDC] dark:bg-[#1A3320] text-[#1A3820] dark:text-[#E0F2E2] shadow-sm border border-[#BED9BC] dark:border-[#35613B] font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-[#1A3820] dark:hover:text-[#E0F2E2] hover:bg-[#DCEDDC]/40 dark:hover:bg-[#1A3320]/40'
-                  }`}
-                  title="Sage Mint (Eye Fatigue Relief)"
-                >
-                  🌿 Sage
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTheme('candle')}
-                  className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                    readerTheme === 'candle'
-                      ? 'bg-[#F7E6D0] dark:bg-[#3D2614] text-[#3F2510] dark:text-[#F9E2CA] shadow-sm border border-[#E0C5A3] dark:border-[#6C4221] font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-[#3F2510] dark:hover:text-[#F9E2CA] hover:bg-[#F7E6D0]/40 dark:hover:bg-[#3D2614]/40'
-                  }`}
-                  title="Candlelight Amber (Night Study)"
-                >
-                  🕯️ Candle
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTheme('oled')}
-                  className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                    readerTheme === 'oled' || readerTheme === 'midnight'
-                      ? 'bg-black text-white shadow-sm border border-black dark:border-white/30 font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10'
-                  }`}
-                  title="Pitch Dark OLED (AMOLED)"
-                >
-                  🖤 OLED
-                </button>
+                  {/* Font Size */}
+                  <div className="flex items-center gap-0.5 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-mono font-bold">
+                    {(['sm', 'base', 'lg', 'xl'] as ReaderFontSize[]).map((sz) => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => handleSelectFontSize(sz)}
+                        className={`px-1.5 py-0.5 rounded uppercase text-[10px] cursor-pointer ${
+                          readerFontSize === sz ? 'bg-blue-600 text-white shadow-xs font-black' : 'text-slate-500'
+                        }`}
+                      >
+                        {sz}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Spacing */}
+                  <div className="hidden sm:flex items-center gap-0.5 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                    {(['compact', 'relaxed', 'spacious'] as ReaderLineHeight[]).map((lh) => (
+                      <button
+                        key={lh}
+                        type="button"
+                        onClick={() => {
+                          setReaderLineHeight(lh);
+                          localStorage.setItem('syllabus3d_reader_line_height', lh);
+                          soundManager.playClick();
+                        }}
+                        className={`px-1.5 py-0.5 rounded capitalize text-[10px] cursor-pointer ${
+                          readerLineHeight === lh ? 'bg-blue-600 text-white shadow-xs font-black' : 'text-slate-500'
+                        }`}
+                      >
+                        {lh}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Typography</span>
               </div>
-            )}
 
-            {/* Font Family Switcher */}
-            <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#0D0E15] px-2 py-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold">
-              <button
-                type="button"
-                onClick={() => handleSelectFont('serif')}
-                className={`px-1.5 py-0.5 rounded font-serif cursor-pointer ${
-                  readerFontFamily === 'serif'
-                    ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-                }`}
-                title="Book Serif (Lora)"
-              >
-                Serif
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSelectFont('sans')}
-                className={`px-1.5 py-0.5 rounded font-sans cursor-pointer ${
-                  readerFontFamily === 'sans'
-                    ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-                }`}
-                title="Modern Sans"
-              >
-                Sans
-              </button>
-            </div>
-
-            {/* Font Size Adjuster (Visible in normal drawer toolbar) */}
-            <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#0D0E15] px-2 py-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-mono font-bold">
-              <span className="text-[10px] text-[#85877E]">Size:</span>
-              {(['sm', 'base', 'lg', 'xl'] as ReaderFontSize[]).map(size => (
+              {/* Group: Page Setup & Ruler */}
+              <div className="flex flex-col items-center justify-between pl-2.5 gap-1">
                 <button
-                  key={size}
                   type="button"
-                  onClick={() => handleSelectFontSize(size)}
-                  className={`px-1.5 py-0.5 rounded uppercase cursor-pointer transition-all active:scale-95 ${
-                    readerFontSize === size
-                      ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-black'
-                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  onClick={() => { soundManager.playClick(); setShowOfficeRuler(r => !r); }}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors cursor-pointer ${
+                    showOfficeRuler
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                      : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
                   }`}
-                  title={`Set text size to ${size.toUpperCase()}`}
+                  title="Toggle Word Margin Ruler"
                 >
-                  {size}
+                  <Ruler className="w-3.5 h-3.5" />
+                  <span>{showOfficeRuler ? 'Ruler: ON' : 'Ruler: OFF'}</span>
                 </button>
-              ))}
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Page Setup</span>
+              </div>
             </div>
+          )}
 
-            {/* Spacing / Leading Selector (Visible in drawer toolbar) */}
-            <div className="hidden sm:flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#0D0E15] px-2 py-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-mono font-bold">
-              <span className="text-[10px] text-[#85877E]">Spacing:</span>
-              {(['compact', 'relaxed', 'spacious'] as ReaderLineHeight[]).map(lh => (
+          {/* TAB 4: AI & REVIEW RIBBON */}
+          {activeRibbonTab === 'review' && (
+            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+              {/* Group: Notion AI Studio */}
+              <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setNotionAiPastedText(content);
+                      setIsNotionAiModalOpen(true);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 text-white text-xs font-black transition-all active:scale-95 cursor-pointer shadow-xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                    <span>Open AI Note Studio</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyAiPrompt}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 border border-purple-500/30 cursor-pointer"
+                    title="Copy AI Prompt to generate Cornell/Notion notes in ChatGPT/Claude"
+                  >
+                    <Bot className="w-3.5 h-3.5" />
+                    <span>{promptCopied ? '✓ Prompt Copied' : 'Copy AI Prompt'}</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">AI Assistant</span>
+              </div>
+
+              {/* Group: Speech & Audio */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
                 <button
-                  key={lh}
                   type="button"
-                  onClick={() => {
-                    setReaderLineHeight(lh);
-                    localStorage.setItem('syllabus3d_reader_line_height', lh);
-                    soundManager.playClick();
-                  }}
-                  className={`px-1.5 py-0.5 rounded capitalize text-[11px] cursor-pointer transition-all active:scale-95 ${
-                    readerLineHeight === lh
-                      ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-black'
-                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  onClick={toggleVoiceTyping}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                    isListening
+                      ? 'bg-rose-500 text-white border-rose-500 animate-pulse shadow-sm'
+                      : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50'
                   }`}
-                  title={`Set line spacing to ${lh}`}
+                  title="Voice Typing (Speech to Text)"
                 >
-                  {lh}
+                  {isListening ? <MicOff className="w-3.5 h-3.5 text-white" /> : <Mic className="w-3.5 h-3.5 text-rose-500" />}
+                  <span>{isListening ? 'Stop Voice Typing' : 'Voice Typing'}</span>
                 </button>
-              ))}
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Speech</span>
+              </div>
+
+              {/* Group: Document Repair */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <button
+                  type="button"
+                  onClick={handleRepairTablesAndFormulas}
+                  disabled={!content.trim()}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-500/10 text-blue-700 dark:text-blue-300 hover:bg-blue-500/20 border border-blue-500/30 disabled:opacity-40 cursor-pointer"
+                  title="Fix broken Markdown tables and LaTeX formulas automatically"
+                >
+                  <TableIcon className="w-3.5 h-3.5" />
+                  <span>Fix Tables & Formulas</span>
+                </button>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Repair</span>
+              </div>
+
+              {/* Group: Multi-View Sync */}
+              <div className="flex flex-col items-center justify-between pl-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  {onOpenSplitPdf && hasPdfAttachments && (
+                    <button
+                      type="button"
+                      onClick={onOpenSplitPdf}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 border border-purple-500/30 cursor-pointer"
+                      title="Split View PDF Sync"
+                    >
+                      <Columns className="w-3.5 h-3.5" />
+                      <span>Split PDF</span>
+                    </button>
+                  )}
+                  {onOpenSplitLecture && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenSplitLecture(lectures?.[0]?.id, 0)}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-red-500/10 text-red-700 dark:text-red-300 hover:bg-red-500/20 border border-red-500/30 cursor-pointer"
+                      title="Watch Lecture Video in Split View"
+                    >
+                      <Clock className="w-3.5 h-3.5 text-red-500" />
+                      <span>Lecture Sync</span>
+                    </button>
+                  )}
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Sync</span>
+              </div>
             </div>
+          )}
 
+          {/* TAB 5: VIEW RIBBON */}
+          {activeRibbonTab === 'view' && (
+            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+              {/* Group: Document Views */}
+              <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => { soundManager.playClick(); setViewMode('study'); }}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-all ${
+                      viewMode === 'study' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Study View</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-all ${
+                      viewMode === 'edit' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    <span>Edit Source</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { soundManager.playClick(); setViewMode('split'); }}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-all ${
+                      viewMode === 'split' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <SplitSquareVertical className="w-3.5 h-3.5" />
+                    <span>Split Live</span>
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Document Views</span>
+              </div>
 
-            {/* Auto-Save Status */}
-            <div className="flex items-center gap-1 px-2 py-1 rounded-xl bg-[#F8FAFC] dark:bg-[#0D0E15] border border-[#E2E8F0] dark:border-[#272730] text-[11px] font-mono font-bold">
-              {saveStatus === 'saving' ? (
-                <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                  <span className="text-amber-600 dark:text-amber-400">Saving</span>
-                </>
-              ) : saveStatus === 'saved' ? (
-                <>
-                  <Check className="w-3 h-3 text-emerald-500 stroke-[3]" />
-                  <span className="text-emerald-600 dark:text-emerald-400">Saved</span>
-                </>
-              ) : (
-                <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                  <span className="text-slate-400">Ready</span>
-                </>
-              )}
+              {/* Group: Zoom Presets */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  {[75, 100, 125, 150].map((zm) => (
+                    <button
+                      key={zm}
+                      type="button"
+                      onClick={() => { soundManager.playClick(); setEditorZoom(zm); }}
+                      className={`px-2 py-1 rounded-lg text-[11px] font-mono font-bold cursor-pointer transition-all ${
+                        editorZoom === zm
+                          ? 'bg-blue-600 text-white shadow-xs'
+                          : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                      }`}
+                    >
+                      {zm}%
+                    </button>
+                  ))}
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Zoom Presets</span>
+              </div>
+
+              {/* Group: Focus & Immersion */}
+              <div className="flex flex-col items-center justify-between pl-2.5 gap-1">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => { soundManager.playCompleteChime(); setIsFullscreen(true); }}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all cursor-pointer shadow-xs"
+                    title="Fullscreen Focus"
+                  >
+                    <Maximize className="w-3.5 h-3.5" />
+                    <span>Full Screen Zen</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { soundManager.playClick(); setShowOfficeRuler(r => !r); }}
+                    className={`p-1.5 rounded-lg border text-xs font-bold cursor-pointer ${
+                      showOfficeRuler
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                    }`}
+                    title="Toggle Margin Ruler"
+                  >
+                    <Ruler className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Focus</span>
+              </div>
             </div>
-
-            {/* Done button in edit mode */}
-            {viewMode !== 'study' && (
-              <button
-                onClick={handleSave}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95"
-                title="Done (Ctrl + S)"
-              >
-                {saveSuccess ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
-                <span>{saveSuccess ? 'Saved' : 'Done'}</span>
-              </button>
-            )}
-          </div>
+          )}
 
         </div>
       </div>
+
+      {/* Hidden File Input for Image Upload */}
+      <input
+        type="file"
+        ref={fileInputImageRef}
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="hidden"
+      />
 
       {/* AI Formatted Success Banner */}
       {aiFormattedNotice && (
@@ -4428,196 +4833,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           <button
             type="button"
             onClick={() => setAiFormattedNotice(false)}
-            className="p-1 text-slate-400 hover:text-white"
+            className="p-1 text-slate-400 hover:text-white cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
           </button>
-        </div>
-      )}
-
-      {/* 2. EDITING TOOLBAR (Visible in Edit and Split modes) */}
-      {viewMode !== 'study' && (
-        <div className="p-2 sm:p-2.5 rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-sm space-y-2">
-          {/* Quick Syntax Insertion Buttons */}
-          <div className="flex flex-wrap items-center gap-1">
-            <button
-              type="button"
-              onClick={() => insertText('**', '**', 'Bold Text')}
-              className="px-2 py-1 rounded-lg text-xs font-black bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
-              title="Bold (**text**)"
-            >
-              B
-            </button>
-            <button
-              type="button"
-              onClick={() => insertText('*', '*', 'Italic Text')}
-              className="px-2 py-1 rounded-lg text-xs font-serif italic bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
-              title="Italic (*text*)"
-            >
-              I
-            </button>
-            
-            {/* Highlighter Quick Insert Pill */}
-            <button
-              type="button"
-              onClick={() => insertText('==', '==', 'Yellow Highlight')}
-              className="px-2 py-1 rounded-lg text-xs font-bold bg-yellow-400/25 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-400/35 border border-yellow-400/35 flex items-center gap-1"
-              title="Yellow Highlight (==text==)"
-            >
-              <Highlighter className="w-3 h-3 text-yellow-500" />
-              <span>HL</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => insertText('==g:', '==', 'Green Highlight')}
-              className="px-1.5 py-1 rounded-lg text-xs font-bold bg-emerald-400/25 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-400/35 border border-emerald-400/35"
-              title="Green Highlight (==g:text==)"
-            >
-              🟢
-            </button>
-            <button
-              type="button"
-              onClick={() => insertText('==p:', '==', 'Purple Highlight')}
-              className="px-1.5 py-1 rounded-lg text-xs font-bold bg-purple-400/25 text-purple-800 dark:text-purple-300 hover:bg-purple-400/35 border border-purple-400/35"
-              title="Purple Highlight (==p:text==)"
-            >
-              🟣
-            </button>
-
-            <button
-              type="button"
-              onClick={() => insertText('# ', '', 'Main Heading')}
-              className="px-2 py-1 rounded-lg text-xs font-bold bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 flex items-center gap-0.5"
-              title="Heading 1"
-            >
-              <Hash className="w-3 h-3" /> 1
-            </button>
-            <button
-              type="button"
-              onClick={() => insertText('## ', '', 'Subheading')}
-              className="px-2 py-1 rounded-lg text-xs font-bold bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 flex items-center gap-0.5"
-              title="Heading 2"
-            >
-              <Hash className="w-3 h-3" /> 2
-            </button>
-
-            {/* Formula Block */}
-            <button
-              type="button"
-              onClick={() => insertText('> [!FORMULA]\n> ', '', 'Formula: Speed = Distance / Time')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 border border-purple-500/30 flex items-center gap-1"
-              title="Insert Formula Callout Card"
-            >
-              <Sigma className="w-3 h-3" />
-              <span>Formula</span>
-            </button>
-
-            {/* Shortcut Tip */}
-            <button
-              type="button"
-              onClick={() => insertText('> [!TIP]\n> ', '', 'Shortcut Method / Speed Trick')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 flex items-center gap-1"
-              title="Insert Shortcut Tip Card"
-            >
-              <Zap className="w-3 h-3" />
-              <span>Shortcut</span>
-            </button>
-
-            {/* Warning / Exam Trap */}
-            <button
-              type="button"
-              onClick={() => insertText('> [!WARNING]\n> ', '', 'Common Exam Trap to Avoid')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/30 flex items-center gap-1"
-              title="Insert Exam Trap / Warning Card"
-            >
-              <AlertTriangle className="w-3 h-3" />
-              <span>Trap</span>
-            </button>
-
-            {/* Golden Rule */}
-            <button
-              type="button"
-              onClick={() => insertText('> [!RULE]\n> ', '', 'Golden Rule / Fundamental Law')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/30 flex items-center gap-1"
-              title="Insert Golden Rule Card"
-            >
-              <BookOpen className="w-3 h-3" />
-              <span>Rule</span>
-            </button>
-
-            {/* Checklist */}
-            <button
-              type="button"
-              onClick={() => insertText('- [ ] ', '', 'High-yield practice question or concept')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 flex items-center gap-1"
-              title="Insert Checklist Item"
-            >
-              <CheckSquare className="w-3 h-3" />
-              <span>Checklist</span>
-            </button>
-
-            {/* Table */}
-            <button
-              type="button"
-              onClick={insertComparisonTableTemplate}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 flex items-center gap-1"
-              title="Insert Comparison Table"
-            >
-              <TableIcon className="w-3 h-3" />
-              <span>Table</span>
-            </button>
-
-            {/* Code / Monospace Block */}
-            <button
-              type="button"
-              onClick={() => insertText('```text\n', '\n```', 'Your raw equations or data')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-500/10 text-slate-600 dark:text-slate-400 hover:bg-slate-500/20 border border-slate-500/30 flex items-center gap-1"
-              title="Insert Code / Monospace Block"
-            >
-              <Code className="w-3 h-3" />
-              <span>Code Block</span>
-            </button>
-
-            {/* Timestamp Sync Button */}
-            <button
-              type="button"
-              onClick={() => insertText('\n- ⏱️ [00:00] **Key Concept**: ', '', '')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 border border-red-500/30 flex items-center gap-1 cursor-pointer"
-              title="Insert Clickable Video Timestamp (e.g. ⏱️ [12:34])"
-            >
-              <Clock className="w-3.5 h-3.5" />
-              <span>+ Timestamp</span>
-            </button>
-
-            {/* Telegram Link Quick-Insert Button */}
-            <button
-              type="button"
-              onClick={() => insertText('[✈️ Telegram: Channel / Resource](', ')', 'https://t.me/...')}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#229ED9]/10 text-[#0088cc] dark:text-[#64B5F6] hover:bg-[#229ED9]/20 border border-[#229ED9]/30 flex items-center gap-1 cursor-pointer"
-              title="Insert Clickable Telegram Link (e.g. https://t.me/...)"
-            >
-              <TelegramIcon className="w-3.5 h-3.5 fill-current" />
-              <span>+ Telegram</span>
-            </button>
-
-            {/* Image Upload Input */}
-            <input
-              type="file"
-              ref={fileInputImageRef}
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={() => fileInputImageRef.current?.click()}
-              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 border border-blue-500/30 flex items-center gap-1 cursor-pointer"
-              title="Upload Image or Paste Screenshot (Ctrl+V supported)"
-            >
-              <ImageIcon className="w-3 h-3" />
-              <span>+ Image</span>
-            </button>
-          </div>
         </div>
       )}
 
@@ -4699,160 +4918,354 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         </div>
       )}
 
-      {/* 3. MAIN CONTENT BODY ACCORDING TO VIEW MODE */}
-      {viewMode === 'edit' && (
-        /* Full Editor Mode (Hidden in Print) */
-        <div className="space-y-2 print:hidden" onPaste={handlePaste}>
-          <textarea
-            ref={textareaRef}
-            value={content}
-            onChange={e => updateContentAndSave(e.target.value)}
-            onPaste={handlePaste}
-            onKeyDown={handleEditorKeyDown}
-            onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
-            style={{ minHeight: '200px', height: 'auto' }}
-            placeholder={`Paste your notes from Gemini, ChatGPT, or Claude here, or write your own!\n\n✨ Notion AI Studio: After pasting, press Ctrl+J or click "✨ Notion AI" in the toolbar above to choose from 6 formats (Notion Master, Cornell, Active Recall Q&A, Speed Cheat Sheet, Deep Outline, Zero-Loss Normalizer) with 100% data preservation!\n\n> [!FORMULA]\n> Your formulas here\n\n> [!TIP]\n> Your shortcuts here\n\n> [!WARNING]\n> Exam traps here\n\n- [ ] Checklist items`}
-            rows={8}
-            className="w-full p-4 rounded-2xl bg-white dark:bg-[#12131A] border border-[#E2E8F0] dark:border-[#272730] font-sans tracking-tight text-xs sm:text-[13px] text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] dark:focus:ring-[#7AA2F7] shadow-sm resize-none select-text"
-          />
-          <div className="flex items-center justify-between px-3 py-1.5 text-[11px] font-mono text-slate-400 dark:text-slate-500 select-none">
-            <span>{wordCount} words · {charCount} chars</span>
-            <span className="hidden sm:inline">Markdown · UTF-8</span>
+      {/* 📏 MS WORD HORIZONTAL MARGIN RULER */}
+      {showOfficeRuler && (
+        <div className="w-full bg-[#E2E8F0] dark:bg-[#1A1C26] border border-[#CBD5E1] dark:border-[#272738] h-6 flex items-center px-4 relative select-none overflow-hidden rounded-t-xl text-[9px] font-mono text-slate-500 dark:text-slate-400 no-print">
+          <div className="flex items-center gap-1 text-slate-500 shrink-0 mr-2">
+            <Ruler className="w-3 h-3 text-blue-500" />
+            <span className="font-bold text-[8px] uppercase tracking-wider">Margin</span>
           </div>
-        </div>
-      )}
-
-      {viewMode === 'split' && (
-        /* Split Live View (Side-by-Side Editor & Live Render - Hidden in Print) */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print:hidden" onPaste={handlePaste}>
-          <div className="flex flex-col space-y-1.5">
-            <div className="text-[11px] font-bold text-[#85877E] uppercase font-mono flex items-center justify-between px-1">
-              <span>Markdown Source Editor</span>
-              <span>{wordCount} words</span>
+          <div className="flex-1 flex justify-between items-center px-8 relative h-full">
+            {/* Indent marker left */}
+            <div className="absolute left-6 top-0 bottom-0 flex flex-col justify-between py-0.5 pointer-events-none">
+              <span className="text-blue-600 dark:text-blue-400 text-[10px] leading-none">▼</span>
+              <span className="text-blue-600 dark:text-blue-400 text-[10px] leading-none">▲</span>
             </div>
-            <textarea
-              ref={textareaRef}
-              value={content}
-              onChange={e => updateContentAndSave(e.target.value)}
-              onPaste={handlePaste}
-              onKeyDown={handleEditorKeyDown}
-              onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
-              style={{ minHeight: '200px', height: 'auto' }}
-              placeholder="Type or paste markdown..."
-              rows={8}
-              className="flex-1 w-full p-3.5 rounded-2xl bg-white dark:bg-[#12131A] border border-[#E2E8F0] dark:border-[#272730] font-sans tracking-tight text-xs text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none select-text"
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1.5">
-            <div className="text-[11px] font-bold text-[#85877E] uppercase font-mono px-1">
-              <span>Live Visual Notes Preview ({activeNote.title})</span>
-            </div>
-            <div className={`flex-1 p-4 sm:p-5 rounded-2xl ${getThemeContainerClass()} overflow-y-auto max-h-[480px] custom-scrollbar select-text`} style={getThemeInlineStyle()}>
-              {renderFormattedNotes()}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Print-Only: Always render clean formatted study notes even if user was editing on screen */}
-      {viewMode !== 'study' && (
-        <div className="hidden print:block space-y-4">
-          <div className="p-0 select-text">
-            {renderFormattedNotes()}
-          </div>
-        </div>
-      )}
-
-      {viewMode === 'study' && (
-        /* Study Mode (Clean, magazine-quality visual notes with Freefall & Box Overlay) */
-        <div className="space-y-4">
-          <div className="relative" ref={notesContainerRef}>
-            <div className={`p-4 sm:p-7 rounded-3xl ${getThemeContainerClass()} min-h-[220px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none`} style={getThemeInlineStyle()}>
-              {renderFormattedNotes()}
-            </div>
-
-            {/* Freefall Canvas Overlay (Hidden in print) */}
-            <canvas
-              ref={canvasRef}
-              onMouseDown={startDrawing}
-              onMouseMove={drawMove}
-              onMouseUp={endDrawing}
-              onMouseLeave={endDrawing}
-              onTouchStart={startDrawing}
-              onTouchMove={drawMove}
-              onTouchEnd={endDrawing}
-              className={`absolute inset-0 z-20 rounded-3xl print:hidden ${
-                highlighterMode === 'freefall' && isHighlighterActive
-                  ? 'pointer-events-auto cursor-crosshair'
-                  : 'pointer-events-none'
-              }`}
-            />
-          </div>
-
-          {/* Attached Screenshots Gallery */}
-          {images && images.length > 0 && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-[#18181D]/90 border border-[#E2E8F0] dark:border-[#272730] shadow-sm space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-[#11120F] dark:text-[#F5F5F7] flex items-center gap-1.5 font-serif">
-                  <ImageIcon className="w-4 h-4 text-[#8B5CF6]" />
-                  Attached Screenshots & Diagrams ({images.length})
-                </span>
-                <span className="text-[11px] text-[#85877E]">Click image to view in full resolution</span>
+            {Array.from({ length: 17 }).map((_, i) => (
+              <div key={i} className="flex flex-col items-center h-full justify-between py-0.5">
+                <span className="text-[8px] font-bold text-slate-500 dark:text-slate-400">{i % 2 === 0 ? i / 2 + 1 : '·'}</span>
+                <div className={`w-[1px] ${i % 2 === 0 ? 'h-2 bg-slate-400 dark:bg-slate-500' : 'h-1 bg-slate-300 dark:bg-slate-600'}`} />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {images.map((img) => (
-                  <div
-                    key={img.id}
-                    className="relative group rounded-2xl overflow-hidden border border-slate-200 dark:border-[#272730] bg-[#121216] shadow-sm"
-                  >
-                    <div className="relative aspect-video flex items-center justify-center bg-black/40">
-                      <img
-                        src={img.dataUrl}
-                        alt={img.title}
-                        onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
-                        className="w-full h-full object-contain cursor-zoom-in hover:opacity-95 transition-opacity"
-                        loading="lazy"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
-                        className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                        title="View Fullscreen"
-                      >
-                        <Maximize2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                    <div className="px-3 py-2 bg-[#18181D]/95 border-t border-[#272730] flex items-center justify-between text-[11px] text-[#A1A1AA]">
-                      <span className="truncate font-medium max-w-[150px]">{img.title}</span>
-                      <div className="flex items-center gap-1.5">
-                        <a
-                          href={img.dataUrl}
-                          download={`${img.title || 'screenshot'}.png`}
-                          className="p-1 rounded hover:text-white cursor-pointer"
-                          title="Download"
+            ))}
+            {/* Indent marker right */}
+            <div className="absolute right-6 top-0 bottom-0 flex flex-col justify-between py-0.5 pointer-events-none">
+              <span className="text-blue-600 dark:text-blue-400 text-[10px] leading-none">▼</span>
+              <span className="text-blue-600 dark:text-blue-400 text-[10px] leading-none">▲</span>
+            </div>
+          </div>
+          <div className="text-[8px] text-slate-400 font-mono shrink-0 ml-2">A4 · 210mm</div>
+        </div>
+      )}
+
+      {/* 📄 DOCUMENT DESK (Elevated Paper Canvas with Margins & Shadow) */}
+      <div className={`w-full bg-[#EAEFF5] dark:bg-[#0A0B10] p-3 sm:p-6 ${showOfficeRuler ? 'rounded-b-2xl border-t-0' : 'rounded-2xl'} border border-[#CBD5E1] dark:border-[#272738] flex flex-col items-center min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
+        
+        {/* 1. EDIT MODE: Elevated A4 Document Page */}
+        {viewMode === 'edit' && (
+          <div className="w-full flex justify-center print:hidden" onPaste={handlePaste}>
+            <div
+              className="w-full max-w-[860px] bg-white dark:bg-[#14151E] rounded-xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-transform origin-top my-2 select-text"
+              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '640px' }}
+            >
+              {/* Document Running Header Watermark */}
+              <div className="px-6 sm:px-10 pt-5 pb-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">{subjectName || 'Syllabus 3D'}</span>
+                  <span>/</span>
+                  <span className="truncate max-w-[200px]">{chapterName || topicName}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-600 dark:text-blue-400 font-bold">{activeNote.title}</span>
+                  <span>•</span>
+                  <span>Page 1</span>
+                </div>
+              </div>
+
+              {/* Textarea inside paper */}
+              <textarea
+                ref={textareaRef}
+                value={content}
+                onChange={e => updateContentAndSave(e.target.value)}
+                onPaste={handlePaste}
+                onKeyDown={handleEditorKeyDown}
+                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(520, el.scrollHeight) + 'px'; }}
+                style={{ minHeight: '520px', height: 'auto' }}
+                placeholder={`Paste your notes from Gemini, ChatGPT, or Claude here, or write your own!\n\n✨ Notion AI Studio: After pasting, click "✨ Notion AI" in the ribbon above or press Ctrl+J to choose from 6 formats (Notion Master, Cornell, Active Recall Q&A, Speed Cheat Sheet, Deep Outline, Zero-Loss Normalizer) with 100% data preservation!\n\n> [!FORMULA]\n> Your formulas here\n\n> [!TIP]\n> Your shortcuts here\n\n> [!WARNING]\n> Exam traps here\n\n- [ ] Checklist items`}
+                rows={12}
+                className="w-full px-6 sm:px-10 py-6 font-sans text-xs sm:text-[14px] text-[#11120F] dark:text-[#E2E8F0] leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
+              />
+
+              {/* Document Running Footer Watermark */}
+              <div className="px-6 sm:px-10 py-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[10px] text-slate-400 font-mono select-none mt-auto">
+                <span>Syllabus 3D Document Studio • ISO 216 A4</span>
+                <span>{wordCount} words · {charCount} chars</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 2. SPLIT LIVE VIEW: Side-by-Side Dual Sheets */}
+        {viewMode === 'split' && (
+          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4 my-2 print:hidden" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }} onPaste={handlePaste}>
+            {/* Left Sheet: Markdown Editor */}
+            <div className="bg-white dark:bg-[#14151E] rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px]">
+              <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500 font-bold uppercase select-none">
+                <span>Source Markdown Page</span>
+                <span>{wordCount} words</span>
+              </div>
+              <textarea
+                ref={textareaRef}
+                value={content}
+                onChange={e => updateContentAndSave(e.target.value)}
+                onPaste={handlePaste}
+                onKeyDown={handleEditorKeyDown}
+                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(500, el.scrollHeight) + 'px'; }}
+                style={{ minHeight: '500px', height: 'auto' }}
+                placeholder="Type or paste markdown..."
+                rows={10}
+                className="w-full flex-1 p-5 font-sans text-xs text-[#11120F] dark:text-white leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
+              />
+            </div>
+
+            {/* Right Sheet: Live Rendered Page */}
+            <div className={`rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px] overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()}>
+              <div className="px-4 py-2.5 border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between text-[11px] font-mono text-slate-500 font-bold uppercase select-none">
+                <span>Live Visual Document</span>
+                <span>{activeNote.title}</span>
+              </div>
+              <div className="flex-1 p-5 overflow-y-auto max-h-[620px] custom-scrollbar select-text">
+                {renderFormattedNotes()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Print-Only: Always render clean formatted study notes even if user was editing on screen */}
+        {viewMode !== 'study' && (
+          <div className="hidden print:block space-y-4 w-full">
+            <div className="p-0 select-text">
+              {renderFormattedNotes()}
+            </div>
+          </div>
+        )}
+
+        {/* 3. STUDY MODE: Magazine-Quality Elevated A4 Reading Paper */}
+        {viewMode === 'study' && (
+          <div className="w-full max-w-[860px] my-2 select-text" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
+            <div className={`relative rounded-2xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
+              {/* Study Sheet Header */}
+              <div className="px-6 sm:px-10 pt-5 pb-3 border-b border-slate-200/40 dark:border-slate-700/40 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold uppercase tracking-wider">{subjectName || 'Syllabus 3D'}</span>
+                  <span>/</span>
+                  <span className="truncate max-w-[200px]">{topicName}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">{activeNote.title}</span>
+                  <span>•</span>
+                  <span>Study View</span>
+                </div>
+              </div>
+
+              {/* Formatted Notes Content */}
+              <div className="p-6 sm:p-10 min-h-[300px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
+                {renderFormattedNotes()}
+              </div>
+
+              {/* Freefall Canvas Overlay (Hidden in print) */}
+              <canvas
+                ref={canvasRef}
+                onMouseDown={startDrawing}
+                onMouseMove={drawMove}
+                onMouseUp={endDrawing}
+                onMouseLeave={endDrawing}
+                onTouchStart={startDrawing}
+                onTouchMove={drawMove}
+                onTouchEnd={endDrawing}
+                className={`absolute inset-0 z-20 print:hidden ${
+                  highlighterMode === 'freefall' && isHighlighterActive
+                    ? 'pointer-events-auto cursor-crosshair'
+                    : 'pointer-events-none'
+                }`}
+              />
+            </div>
+
+            {/* Attached Screenshots Gallery in Study Mode */}
+            {images && images.length > 0 && (
+              <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-[#18181D]/90 border border-[#E2E8F0] dark:border-[#272730] shadow-sm space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#11120F] dark:text-[#F5F5F7] flex items-center gap-1.5 font-serif">
+                    <ImageIcon className="w-4 h-4 text-[#8B5CF6]" />
+                    Attached Screenshots & Diagrams ({images.length})
+                  </span>
+                  <span className="text-[11px] text-[#85877E]">Click image to view in full resolution</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {images.map((img) => (
+                    <div
+                      key={img.id}
+                      className="relative group rounded-2xl overflow-hidden border border-slate-200 dark:border-[#272730] bg-[#121216] shadow-sm"
+                    >
+                      <div className="relative aspect-video flex items-center justify-center bg-black/40">
+                        <img
+                          src={img.dataUrl}
+                          alt={img.title}
+                          onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
+                          className="w-full h-full object-contain cursor-zoom-in hover:opacity-95 transition-opacity"
+                          loading="lazy"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
+                          className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                          title="View Fullscreen"
                         >
-                          <Download className="w-3.5 h-3.5" />
-                        </a>
-                        {onDeleteImage && (
-                          <button
-                            type="button"
-                            onClick={() => onDeleteImage(img.id)}
-                            className="p-1 rounded hover:text-rose-400 cursor-pointer"
-                            title="Delete Screenshot"
+                          <Maximize2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <div className="px-3 py-2 bg-[#18181D]/95 border-t border-[#272730] flex items-center justify-between text-[11px] text-[#A1A1AA]">
+                        <span className="truncate font-medium max-w-[150px]">{img.title}</span>
+                        <div className="flex items-center gap-1.5">
+                          <a
+                            href={img.dataUrl}
+                            download={`${img.title || 'screenshot'}.png`}
+                            className="p-1 rounded hover:text-white cursor-pointer"
+                            title="Download"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        )}
+                            <Download className="w-3.5 h-3.5" />
+                          </a>
+                          {onDeleteImage && (
+                            <button
+                              type="button"
+                              onClick={() => onDeleteImage(img.id)}
+                              className="p-1 rounded hover:text-rose-400 cursor-pointer"
+                              title="Delete Screenshot"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* 📊 MS WORD BOTTOM STATUS BAR */}
+      <div className="w-full bg-[#F1F5F9] dark:bg-[#12131C] border border-[#CBD5E1] dark:border-[#272738] rounded-xl px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs font-medium select-none shadow-xs no-print">
+        {/* Left: Document Info */}
+        <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-mono text-[11px] flex-wrap">
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-blue-600/10 text-blue-700 dark:text-blue-300 font-bold">
+            <FileText className="w-3 h-3" />
+            <span>PAGE 1 OF 1</span>
+          </div>
+          <span>{wordCount.toLocaleString()} words</span>
+          <span className="hidden sm:inline">•</span>
+          <span className="hidden sm:inline">{charCount.toLocaleString()} characters</span>
+          <span className="hidden md:inline">•</span>
+          <span className="hidden md:inline text-slate-500 dark:text-slate-400">⏱️ ~{Math.max(1, Math.ceil(wordCount / 200))} min read</span>
+          <div className="flex items-center gap-1.5 pl-2 border-l border-slate-300 dark:border-slate-700">
+            {saveStatus === 'saving' ? (
+              <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-bold">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
+                Saving...
+              </span>
+            ) : saveStatus === 'saved' ? (
+              <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold">
+                <Check className="w-3 h-3 stroke-[3]" />
+                Saved
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-slate-400">
+                <span className="w-2 h-2 rounded-full bg-slate-400" />
+                Ready
+              </span>
+            )}
+          </div>
         </div>
-      )}
+
+        {/* Center / Right: View Mode & Zoom Controls */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          {/* Quick View Switches */}
+          <div className="flex items-center gap-1 bg-white dark:bg-[#1A1B26] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+            <button
+              type="button"
+              onClick={() => { soundManager.playClick(); setViewMode('study'); }}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold cursor-pointer transition-all ${
+                viewMode === 'study' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+              title="Study Mode"
+            >
+              <Eye className="w-3 h-3" />
+            </button>
+            <button
+              type="button"
+              onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold cursor-pointer transition-all ${
+                viewMode === 'edit' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+              title="Edit Mode"
+            >
+              <Edit3 className="w-3 h-3" />
+            </button>
+            <button
+              type="button"
+              onClick={() => { soundManager.playClick(); setViewMode('split'); }}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold cursor-pointer transition-all ${
+                viewMode === 'split' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+              title="Split View"
+            >
+              <SplitSquareVertical className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Zoom Controls */}
+          <div className="flex items-center gap-1.5 bg-white dark:bg-[#1A1B26] px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] font-mono">
+            <button
+              type="button"
+              onClick={() => setEditorZoom(z => Math.max(75, z - 10))}
+              className="text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer px-1 font-bold"
+              title="Zoom Out"
+            >
+              -
+            </button>
+            <input
+              type="range"
+              min={75}
+              max={150}
+              step={5}
+              value={editorZoom}
+              onChange={e => setEditorZoom(Number(e.target.value))}
+              className="w-16 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              title={`Zoom: ${editorZoom}%`}
+            />
+            <button
+              type="button"
+              onClick={() => setEditorZoom(z => Math.min(150, z + 10))}
+              className="text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer px-1 font-bold"
+              title="Zoom In"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              onClick={() => setEditorZoom(100)}
+              className="font-bold text-blue-600 dark:text-blue-400 cursor-pointer min-w-[38px] text-right"
+              title="Click to reset zoom to 100%"
+            >
+              {editorZoom}%
+            </button>
+          </div>
+
+          {/* Full Screen Shortcut */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playCompleteChime();
+              setIsFullscreen(true);
+            }}
+            className="p-1.5 rounded-lg bg-white dark:bg-[#1A1B26] border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+            title="Fullscreen Reading Mode (Zen)"
+          >
+            <Maximize className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
 
       {/* Floating Selection Highlighter Tooltip in Study View (For Box Mode) */}
       {renderFloatingHighlighter()}

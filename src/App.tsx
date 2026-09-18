@@ -23,6 +23,7 @@ import { storageManager } from './services/storageManager';
 import { useTheme } from './context/ThemeContext';
 import { PinLockScreen } from './components/security/PinLockScreen';
 import { useInactivityLock } from './hooks/useInactivityLock';
+import { Sparkles } from 'lucide-react';
 
 // ⚡ Lazy Loaded Secondary Views (Code Splitting for Lightning-Fast Initial Load)
 const SyllabusView = lazy(() => import('./components/views/SyllabusView').then(m => ({ default: m.SyllabusView })));
@@ -36,6 +37,7 @@ const HeatmapView = lazy(() => import('./components/views/HeatmapView').then(m =
 const SettingsView = lazy(() => import('./components/views/SettingsView').then(m => ({ default: m.SettingsView })));
 const PlatformsView = lazy(() => import('./components/views/PlatformsView').then(m => ({ default: m.PlatformsView })));
 const PacingView = lazy(() => import('./components/views/PacingView').then(m => ({ default: m.PacingView })));
+const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
 const TopicDetailDrawer = lazy(() => import('./components/modals/TopicDetailDrawer').then(m => ({ default: m.TopicDetailDrawer })));
@@ -67,9 +69,10 @@ const ViewLoadingFallback: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { isAuthenticated, isLoading, authView } = useAuth();
+  const { isAuthenticated, isLoading, authView, setAuthView } = useAuth();
   const { isFullModalOpen, openFullModal, closeFullModal, setSessionTopic } = useTimer();
   useInactivityLock();
+  const [authEntryMode, setAuthEntryMode] = useState<'landing' | 'auth'>('landing');
   const [currentView, setCurrentView] = useState<AppView>('overview');
   const [viewHistory, setViewHistory] = useState<AppView[]>([]);
   const [targetSubjectId, setTargetSubjectId] = useState<string>('');
@@ -628,8 +631,24 @@ export const App: React.FC = () => {
   }
 
   if (!isAuthenticated) {
+    if (authEntryMode === 'landing') {
+      return (
+        <Suspense fallback={<InitialAuthLoading />}>
+          <LandingPage
+            onGetStarted={() => {
+              setAuthView('signup');
+              setAuthEntryMode('auth');
+            }}
+            onLogin={() => {
+              setAuthView('login');
+              setAuthEntryMode('auth');
+            }}
+          />
+        </Suspense>
+      );
+    }
     return (
-      <AuthLayout>
+      <AuthLayout onBackToLanding={() => setAuthEntryMode('landing')}>
         {authView === 'login' && <LoginView />}
         {authView === 'signup' && <SignUpView />}
         {authView === 'forgot_password' && <ForgotPasswordView />}
@@ -849,6 +868,30 @@ export const App: React.FC = () => {
               {currentView === 'settings' && (
                 <ViewErrorBoundary sectionName="App Settings" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <SettingsView />
+                </ViewErrorBoundary>
+              )}
+
+              {currentView === 'landing' && (
+                <ViewErrorBoundary sectionName="Product Overview" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
+                      <div className="flex items-center gap-2 text-xs font-bold">
+                        <Sparkles className="w-4 h-4 text-amber-300" />
+                        <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleNavigate('overview')}
+                        className="px-3.5 py-1.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95"
+                      >
+                        ← Back to Dashboard
+                      </button>
+                    </div>
+                    <LandingPage
+                      onGetStarted={() => handleNavigate('overview')}
+                      onLogin={() => handleNavigate('overview')}
+                    />
+                  </div>
                 </ViewErrorBoundary>
               )}
             </Suspense>

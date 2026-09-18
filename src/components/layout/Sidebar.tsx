@@ -16,7 +16,8 @@ import {
   Clock,
   Users,
   PanelLeftClose,
-  Sparkles
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -35,7 +36,8 @@ export type AppView =
   | 'analytics'
   | 'heatmap'
   | 'pacing'
-  | 'settings';
+  | 'settings'
+  | 'landing';
 
 interface SidebarProps {
   activeView: AppView;
@@ -384,6 +386,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <ExternalLink className="w-3 h-3 text-[#2563EB] dark:text-[#93C5FD] shrink-0" />
         </a>
+
+        {/* Product Tour & Landing Page */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            haptics.light();
+            onSelectView('landing');
+          }}
+          className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
+            activeView === 'landing'
+              ? 'bg-blue-600 text-white border border-blue-500 font-bold'
+              : 'bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+          }`}
+        >
+          <div className="flex items-center gap-1.5 min-w-0">
+            <Sparkles className={`w-4 h-4 shrink-0 ${activeView === 'landing' ? 'text-white' : 'text-blue-500'}`} />
+            <div className="min-w-0 text-left">
+              <span className={`text-[12px] font-bold block leading-tight truncate ${activeView === 'landing' ? 'text-white' : 'text-[#191A17] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]'}`}>
+                Product Overview
+              </span>
+              <span className={`text-[10px] block leading-none truncate ${activeView === 'landing' ? 'text-blue-100' : 'text-[#65675F] dark:text-slate-300'}`}>
+                Features & Landing
+              </span>
+            </div>
+          </div>
+          <ArrowRight className={`w-3 h-3 shrink-0 ${activeView === 'landing' ? 'text-white' : 'text-slate-400'}`} />
+        </button>
 
         {/* User Profile & Level Card */}
         <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] space-y-1 shadow-2xs">
