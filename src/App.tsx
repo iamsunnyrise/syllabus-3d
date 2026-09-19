@@ -72,8 +72,15 @@ export const App: React.FC = () => {
   const { isAuthenticated, isLoading, authView, setAuthView } = useAuth();
   const { isFullModalOpen, openFullModal, closeFullModal, setSessionTopic } = useTimer();
   useInactivityLock();
-  const [authEntryMode, setAuthEntryMode] = useState<'landing' | 'auth'>('landing');
-  const [currentView, setCurrentView] = useState<AppView>('overview');
+  const [currentView, setCurrentView] = useState<AppView>(() => {
+    try {
+      const hasVisited = localStorage.getItem('syllabus3d_has_visited');
+      if (!hasVisited) {
+        return 'landing';
+      }
+    } catch {}
+    return 'overview';
+  });
   const [viewHistory, setViewHistory] = useState<AppView[]>([]);
   const [targetSubjectId, setTargetSubjectId] = useState<string>('');
 
@@ -630,25 +637,76 @@ export const App: React.FC = () => {
     return <InitialAuthLoading />;
   }
 
-  if (!isAuthenticated) {
-    if (authEntryMode === 'landing') {
-      return (
+  // 🌟 FIRST VISIT & PRODUCT OVERVIEW LANDING PAGE VIEW
+  // When user visits for the first time (or clicks "Product Overview" in sidebar):
+  // Renders the clean standalone Landing Page matching Picture 1 with top showcase banner.
+  // The Dashboard Header (Picture 2) and Sidebar are completely hidden on first visit!
+  if (currentView === 'landing') {
+    return (
+      <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#0B0D14] text-[#0F172A] dark:text-[#F4F4F5]">
+        {/* Top Product Overview banner (exactly like Picture 1) */}
+        <div className="p-3 sm:px-6 max-w-7xl w-full mx-auto animate-fade-in">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md">
+            <div className="flex items-center gap-2 text-xs font-bold">
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                try {
+                  localStorage.setItem('syllabus3d_has_visited', 'true');
+                } catch {}
+                if (!isAuthenticated) {
+                  setAuthView('login');
+                  setCurrentView('overview');
+                } else {
+                  handleNavigate('overview');
+                }
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95 shrink-0"
+            >
+              ← Back to Dashboard
+            </button>
+          </div>
+        </div>
+
         <Suspense fallback={<InitialAuthLoading />}>
           <LandingPage
             onGetStarted={() => {
-              setAuthView('signup');
-              setAuthEntryMode('auth');
+              soundManager.playClick();
+              try {
+                localStorage.setItem('syllabus3d_has_visited', 'true');
+              } catch {}
+              if (!isAuthenticated) {
+                setAuthView('signup');
+                setCurrentView('overview');
+              } else {
+                handleNavigate('overview');
+              }
             }}
             onLogin={() => {
-              setAuthView('login');
-              setAuthEntryMode('auth');
+              soundManager.playClick();
+              try {
+                localStorage.setItem('syllabus3d_has_visited', 'true');
+              } catch {}
+              if (!isAuthenticated) {
+                setAuthView('login');
+                setCurrentView('overview');
+              } else {
+                handleNavigate('overview');
+              }
             }}
           />
         </Suspense>
-      );
-    }
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
     return (
-      <AuthLayout onBackToLanding={() => setAuthEntryMode('landing')}>
+      <AuthLayout onBackToLanding={() => setCurrentView('landing')}>
         {authView === 'login' && <LoginView />}
         {authView === 'signup' && <SignUpView />}
         {authView === 'forgot_password' && <ForgotPasswordView />}
@@ -868,30 +926,6 @@ export const App: React.FC = () => {
               {currentView === 'settings' && (
                 <ViewErrorBoundary sectionName="App Settings" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <SettingsView />
-                </ViewErrorBoundary>
-              )}
-
-              {currentView === 'landing' && (
-                <ViewErrorBoundary sectionName="Product Overview" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
-                      <div className="flex items-center gap-2 text-xs font-bold">
-                        <Sparkles className="w-4 h-4 text-amber-300" />
-                        <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => handleNavigate('overview')}
-                        className="px-3.5 py-1.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95"
-                      >
-                        ← Back to Dashboard
-                      </button>
-                    </div>
-                    <LandingPage
-                      onGetStarted={() => handleNavigate('overview')}
-                      onLogin={() => handleNavigate('overview')}
-                    />
-                  </div>
                 </ViewErrorBoundary>
               )}
             </Suspense>
