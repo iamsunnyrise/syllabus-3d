@@ -274,37 +274,28 @@ export const YouTubeNotesView: React.FC = () => {
         setMetadata(meta);
       }
 
-      // Fetch transcript
+      // Fetch transcript if available
       let transcriptSegments: TranscriptSegment[] = [];
 
       if (manualTranscript.trim()) {
         // User pasted transcript manually
         transcriptSegments = parseManualTranscript(manualTranscript);
-      } else {
-        const transcriptResult = await fetchTranscript(videoId);
-        if (transcriptResult.success) {
-          transcriptSegments = transcriptResult.segments;
-        } else {
-          // Transcript unavailable — show manual paste option
-          setShowManualPaste(true);
-          setError(transcriptResult.errorMessage || 'Could not fetch transcript. Please paste it manually below.');
-          setViewState('input');
-          setIsGenerating(false);
-          return;
+      } else if (videoId) {
+        // Attempt to fetch caption transcript; if unavailable, Gemini will watch & analyze the video directly!
+        try {
+          const transcriptResult = await fetchTranscript(videoId);
+          if (transcriptResult.success && transcriptResult.segments && transcriptResult.segments.length > 0) {
+            transcriptSegments = transcriptResult.segments;
+          }
+        } catch {
+          // Silent fallback: Gemini multimodal video processing will handle it directly
         }
-      }
-
-      if (transcriptSegments.length === 0) {
-        setError('Transcript is empty. Please try another video or paste the transcript manually.');
-        setViewState('input');
-        setIsGenerating(false);
-        return;
       }
 
       setSegments(transcriptSegments);
 
-      // Update metadata with duration from transcript
-      if (meta) {
+      // Update metadata with duration from transcript if available
+      if (meta && transcriptSegments.length > 0) {
         const duration = estimateDurationFromTranscript(transcriptSegments);
         if (duration) {
           meta = { ...meta, duration };
@@ -1043,6 +1034,21 @@ export const YouTubeNotesView: React.FC = () => {
           </div>
         )}
 
+        {/* Optional Manual Transcript Toggle */}
+        <div className="flex items-center justify-center">
+          <button
+            type="button"
+            onClick={() => {
+              setShowManualPaste(!showManualPaste);
+              soundManager.playClick?.();
+            }}
+            className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium transition-colors cursor-pointer py-1 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <ClipboardPaste className="w-3.5 h-3.5 text-violet-500" />
+            <span>{showManualPaste ? 'Hide Custom Transcript' : 'Optional: Paste custom transcript / lecture text manually'}</span>
+          </button>
+        </div>
+
         {/* Manual Transcript Paste Area */}
         {showManualPaste && (
           <div className={`rounded-2xl border p-4 sm:p-5 animate-view-fade ${
@@ -1050,12 +1056,21 @@ export const YouTubeNotesView: React.FC = () => {
               ? 'bg-[#1E293B]/90 border-amber-500/30 shadow-lg'
               : 'bg-amber-50/50 border-amber-300 shadow-md'
           }`}>
-            <div className="flex items-center gap-2 mb-3">
-              <ClipboardPaste className="w-4 h-4 text-amber-500" />
-              <h3 className="text-sm font-bold text-amber-600 dark:text-amber-400">Paste Transcript Manually</h3>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <ClipboardPaste className="w-4 h-4 text-amber-500" />
+                <h3 className="text-sm font-bold text-amber-600 dark:text-amber-400">Paste Transcript Manually (Optional)</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowManualPaste(false)}
+                className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
-              Copy the transcript from YouTube (click "..." → "Show transcript") and paste it here.
+              Copy the transcript from YouTube (click &quot;...&quot; → &quot;Show transcript&quot;) and paste it here if you have custom notes.
             </p>
             <textarea
               value={manualTranscript}
@@ -1074,7 +1089,7 @@ export const YouTubeNotesView: React.FC = () => {
                   handleGenerate();
                   haptics.medium?.();
                 }}
-                className="mt-3 w-full py-3 px-6 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                className="mt-3 w-full py-3 px-6 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" /> Generate from Pasted Transcript
               </button>

@@ -96,12 +96,21 @@ export function getDefaultNoteSettings(): NoteGenerationSettings {
 async function callGeminiApi(
   prompt: string,
   apiKey: string,
-  options: { temperature?: number; maxOutputTokens?: number } = {}
+  options: { temperature?: number; maxOutputTokens?: number; videoUrl?: string } = {}
 ): Promise<string> {
-  const { temperature = 0.25, maxOutputTokens = 8192 } = options;
+  const { temperature = 0.25, maxOutputTokens = 8192, videoUrl } = options;
+
+  const parts: any[] = [{ text: prompt }];
+  if (videoUrl) {
+    parts.push({
+      file_data: {
+        file_uri: videoUrl
+      }
+    });
+  }
 
   const payload = {
-    contents: [{ parts: [{ text: prompt }] }],
+    contents: [{ parts }],
     generationConfig: {
       temperature,
       maxOutputTokens,
@@ -268,46 +277,70 @@ export async function generateYouTubeNotes(params: GenerateNotesParams): Promise
   // Stage 0: Video detected
   report(0);
 
-  // Stage 1: Transcript processing
-  report(1);
-  const chunks = segmentTranscriptIntoChunks(segments, 5000);
-
-  // Stage 2: Topic identification
-  report(2);
   const systemPrompt = buildSystemPrompt(settings, videoTitle, channelName);
-
   let rawNotes: string;
 
-  if (chunks.length <= 1) {
-    // Single chunk — direct generation
-    const fullText = segments.map(s => s.text).join(' ');
-    
-    // Stage 3: Important concepts extraction
+  if (segments.length === 0) {
+    // ── Direct Gemini Multimodal Analysis (No transcript needed!) ──
+    // Stage 1: Connecting to YouTube video
+    report(1);
+    // Stage 2: Topic identification
+    report(2);
+    // Stage 3: Video concepts extraction
     report(3);
-    
     // Stage 4: Notes structure generation
     report(4);
-    const prompt = buildNotesPrompt(systemPrompt, fullText);
-    rawNotes = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 8192 });
+
+    const directPrompt = `${systemPrompt}
+
+You are analyzing the educational YouTube video: "${videoTitle}" (${videoUrl || `https://www.youtube.com/watch?v=${videoId}`}) by "${channelName}".
+Please watch and listen to the entire video content, analyze all spoken explanations and on-screen diagrams, extract all key educational concepts, and generate exhaustive, beautifully structured study notes in ${settings.language === 'hindi' ? 'Hindi (हिन्दी)' : 'English'}.
+Follow all rules, structure, formulas, tables, and exam questions as instructed.`;
+
+    rawNotes = await callGeminiApi(directPrompt, apiKey, {
+      maxOutputTokens: 8192,
+      videoUrl: videoUrl || `https://www.youtube.com/watch?v=${videoId}`
+    });
   } else {
-    // Multi-chunk — chunked processing for long videos
-    const chunkNotes: string[] = [];
+    // ── Transcript-based generation ──
+    // Stage 1: Transcript processing
+    report(1);
+    const chunks = segmentTranscriptIntoChunks(segments, 5000);
 
-    for (let i = 0; i < chunks.length; i++) {
-      const chunk = chunks[i];
-      const context = `Part ${i + 1} of ${chunks.length} (${chunk.startTimestamp} — ${chunk.endTimestamp})`;
+    // Stage 2: Topic identification
+    report(2);
+
+    if (chunks.length <= 1) {
+      // Single chunk — direct generation
+      const fullText = segments.map(s => s.text).join(' ');
       
-      if (i === 0) report(3); // Important concepts extraction
+      // Stage 3: Important concepts extraction
+      report(3);
       
-      const prompt = buildNotesPrompt(systemPrompt, chunk.text, true, context);
-      const chunkResult = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 4096 });
-      chunkNotes.push(chunkResult);
+      // Stage 4: Notes structure generation
+      report(4);
+      const prompt = buildNotesPrompt(systemPrompt, fullText);
+      rawNotes = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 8192 });
+    } else {
+      // Multi-chunk — chunked processing for long videos
+      const chunkNotes: string[] = [];
+
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        const context = `Part ${i + 1} of ${chunks.length} (${chunk.startTimestamp} — ${chunk.endTimestamp})`;
+        
+        if (i === 0) report(3); // Important concepts extraction
+        
+        const prompt = buildNotesPrompt(systemPrompt, chunk.text, true, context);
+        const chunkResult = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 4096 });
+        chunkNotes.push(chunkResult);
+      }
+
+      // Stage 4: Notes structure generation (merge)
+      report(4);
+      const mergePrompt = buildMergePrompt(systemPrompt, chunkNotes, videoTitle);
+      rawNotes = await callGeminiApi(mergePrompt, apiKey, { maxOutputTokens: 8192 });
     }
-
-    // Stage 4: Notes structure generation (merge)
-    report(4);
-    const mergePrompt = buildMergePrompt(systemPrompt, chunkNotes, videoTitle);
-    rawNotes = await callGeminiApi(mergePrompt, apiKey, { maxOutputTokens: 8192 });
   }
 
   // Stage 5: Formatting notes
