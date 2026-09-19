@@ -20,11 +20,11 @@ export const AnimatedLogoIntro: React.FC<AnimatedLogoIntroProps> = ({ onComplete
       return () => clearTimeout(timer);
     }
 
-    // Fast, precise 1.8s sequence
-    const t1 = setTimeout(() => setPhase(1), 300); // 0.3s -> Olive sweep
-    const t2 = setTimeout(() => setPhase(2), 1000); // 1.0s -> Brand text
-    const t3 = setTimeout(() => setIsExiting(true), 1600); // 1.6s -> Exit
-    const t4 = setTimeout(() => onComplete(), 2000); // 2.0s -> Finish
+    // Fast, responsive 1.1s sequence
+    const t1 = setTimeout(() => setPhase(1), 150); // 0.15s -> Light sweep
+    const t2 = setTimeout(() => setPhase(2), 550); // 0.55s -> Brand text
+    const t3 = setTimeout(() => setIsExiting(true), 850); // 0.85s -> Exit
+    const t4 = setTimeout(() => onComplete(), 1100); // 1.1s -> Finish
 
     return () => {
       clearTimeout(t1);

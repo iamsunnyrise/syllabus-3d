@@ -2,22 +2,15 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.3-' + Date.now();
+const VERSION = 'v2.4.0';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
-// Pre-cache only essential static media and assets (NEVER precache index.html or root)
+// Pre-cache only lightweight essential shell assets for instant boot (media is cached on-demand)
 const PRECACHE_ASSETS = [
   '/manifest.json',
   '/favicon.png',
-  '/logo.png',
-  '/dashboard-hero.jpg',
-  '/planner_banner.png',
-  '/study_hub_banner.png',
-  '/syllabus_explorer_banner.png',
-  '/weak_traps_banner.png',
-  '/welcome_poster.png',
-  '/mock_tracker_logo.png'
+  '/pwa-192x192.png'
 ];
 
 // 1. INSTALL EVENT: Pre-cache static assets and skip waiting immediately

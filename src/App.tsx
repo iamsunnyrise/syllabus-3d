@@ -85,9 +85,13 @@ export const App: React.FC = () => {
   const [viewHistory, setViewHistory] = useState<AppView[]>([]);
   const [targetSubjectId, setTargetSubjectId] = useState<string>('');
 
-  // 3D Animated Startup Logo Experience
+  // 3D Animated Startup Logo Experience (Shown only once on first visit, never blocks return visits)
   const [showIntro, setShowIntro] = useState<boolean>(() => {
-    return !sessionStorage.getItem('syllabus3d_intro_seen');
+    try {
+      return !localStorage.getItem('syllabus3d_intro_seen');
+    } catch {
+      return false;
+    }
   });
 
   // Mobile Drawer State
@@ -735,7 +739,9 @@ export const App: React.FC = () => {
       {/* 3D Animated Startup Intro */}
       {showIntro && (
         <AnimatedLogoIntro onComplete={() => {
-          sessionStorage.setItem('syllabus3d_intro_seen', '1');
+          try {
+            localStorage.setItem('syllabus3d_intro_seen', '1');
+          } catch {}
           setShowIntro(false);
         }} />
       )}

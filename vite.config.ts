@@ -24,6 +24,12 @@ export default defineConfig({
             if (id.includes('canvas-confetti')) {
               return 'vendor-confetti';
             }
+            if (id.includes('firebase')) {
+              return 'vendor-firebase';
+            }
+            if (id.includes('katex')) {
+              return 'vendor-katex';
+            }
             if (id.includes('react') || id.includes('react-dom')) {
               return 'vendor-react';
             }
