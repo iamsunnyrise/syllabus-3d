@@ -29,7 +29,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
   const { isDark } = useTheme();
   const { dueRevisions } = useSyllabus();
 
-  const isHubActive = ['platforms', 'revision', 'weak', 'mindmap', 'analytics', 'settings'].includes(activeView);
+  const isHubActive = ['platforms', 'revision', 'weak', 'mindmap', 'analytics', 'settings', 'youtube-notes'].includes(activeView);
 
   return (
     <nav className="md:hidden fixed bottom-2.5 left-3 right-3 sm:left-6 sm:right-6 max-w-md mx-auto z-40 select-none pb-[calc(env(safe-area-inset-bottom,0px))] pointer-events-none animate-slide-up">

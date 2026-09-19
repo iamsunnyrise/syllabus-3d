@@ -17,7 +17,8 @@ import {
   Users,
   PanelLeftClose,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Video
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -37,6 +38,7 @@ export type AppView =
   | 'heatmap'
   | 'pacing'
   | 'settings'
+  | 'youtube-notes'
   | 'landing';
 
 interface SidebarProps {
@@ -112,6 +114,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           icon: Clock,
           badge: 'Live',
           badgeColor: 'bg-emerald-500/15 dark:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+        },
+        {
+          id: 'youtube-notes' as AppView,
+          label: 'AI YouTube Notes',
+          icon: Video,
+          badge: 'AI',
+          badgeColor: 'bg-red-500 text-white shadow-xs'
         }
       ]
     },

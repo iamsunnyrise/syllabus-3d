@@ -38,6 +38,7 @@ const SettingsView = lazy(() => import('./components/views/SettingsView').then(m
 const PlatformsView = lazy(() => import('./components/views/PlatformsView').then(m => ({ default: m.PlatformsView })));
 const PacingView = lazy(() => import('./components/views/PacingView').then(m => ({ default: m.PacingView })));
 const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
+const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
 const TopicDetailDrawer = lazy(() => import('./components/modals/TopicDetailDrawer').then(m => ({ default: m.TopicDetailDrawer })));
@@ -920,6 +921,12 @@ export const App: React.FC = () => {
                     onNavigate={handleNavigate}
                     onNavigateToSubject={handleNavigateToSubject}
                   />
+                </ViewErrorBoundary>
+              )}
+
+              {currentView === 'youtube-notes' && (
+                <ViewErrorBoundary sectionName="AI YouTube Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                  <YouTubeNotesView />
                 </ViewErrorBoundary>
               )}
 

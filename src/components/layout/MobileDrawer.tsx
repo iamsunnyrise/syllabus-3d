@@ -17,7 +17,8 @@ import {
   GraduationCap,
   Clock,
   Users,
-  Sparkles
+  Sparkles,
+  Video
 } from 'lucide-react';
 import { AppView } from './Sidebar';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -133,6 +134,13 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
           badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
           iconBg: 'bg-indigo-500/15 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
+        },
+        {
+          id: 'youtube-notes' as AppView,
+          label: 'AI YouTube Notes',
+          icon: Video,
+          badge: 'AI',
+          badgeColor: 'bg-red-500 text-white shadow-xs'
         }
       ]
     },

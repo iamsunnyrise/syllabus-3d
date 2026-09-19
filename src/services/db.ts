@@ -4,7 +4,7 @@
  */
 
 const DB_NAME = 'syllabus3d_app_db';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 export interface DBEntityStore {
   get<T>(storeName: string, key: string): Promise<T | null>;
@@ -28,7 +28,7 @@ function getDB(): Promise<IDBDatabase> {
 
     request.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result;
-      const storeNames = ['app_state', 'exams', 'planner_tasks', 'reflections', 'mistakes'];
+      const storeNames = ['app_state', 'exams', 'planner_tasks', 'reflections', 'mistakes', 'youtube_notes'];
       storeNames.forEach((name) => {
         if (!db.objectStoreNames.contains(name)) {
           db.createObjectStore(name);
