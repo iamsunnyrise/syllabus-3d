@@ -424,16 +424,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
                 } text-white dark:text-black font-black flex items-center justify-center text-[11px] shrink-0 shadow-2xs overflow-hidden`}
               >
-                {(profileSafe.avatarUrl || user?.avatarUrl) ? (
+                {profileSafe.avatarUrl ? (
                   <img
-                    src={profileSafe.avatarUrl || user?.avatarUrl}
-                    alt={profileSafe.name || user?.name || 'Aspirant'}
+                    src={profileSafe.avatarUrl}
+                    alt={profileSafe.name || 'Aspirant'}
                     className="w-full h-full object-cover"
                   />
                 ) : profileSafe.avatarEmoji ? (
                   <span className="text-[11px] leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
                 ) : (
-                  (profileSafe.name || user?.name ? (profileSafe.name || user?.name).charAt(0).toUpperCase() : 'A')
+                  (profileSafe.name ? profileSafe.name.charAt(0).toUpperCase() : 'A')
                 )}
               </div>
               <div className="truncate">
@@ -441,7 +441,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
                 <p className="text-[11px] text-[#65675F] dark:text-slate-300 leading-none truncate">
-                  {profileSafe.name || user?.name || 'Active Profile'}
+                  {profileSafe.name || 'Active Profile'}
                 </p>
               </div>
             </div>

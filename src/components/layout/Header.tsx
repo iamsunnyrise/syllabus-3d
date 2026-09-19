@@ -405,16 +405,16 @@ export const Header: React.FC<HeaderProps> = ({
             title={`Active Profile: ${profile.name || 'Aspirant'} (Click to switch)`}
             aria-label="Switch profile"
           >
-            {(profile.avatarUrl || user?.avatarUrl) ? (
+            {profile.avatarUrl ? (
               <img
-                src={profile.avatarUrl || user?.avatarUrl}
-                alt={profile.name || user?.name || 'User'}
+                src={profile.avatarUrl}
+                alt={profile.name || 'User'}
                 className="w-full h-full object-cover"
               />
             ) : profile.avatarEmoji ? (
               <span className="text-[13px] leading-none drop-shadow">{profile.avatarEmoji}</span>
             ) : (
-              (profile.name || user?.name || 'A').charAt(0).toUpperCase()
+              (profile.name || 'A').charAt(0).toUpperCase()
             )}
           </button>
         </div>

@@ -605,7 +605,8 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Save active profile's scoped dataset when it's not profile_default
   useEffect(() => {
-    if (activeProfileId && activeProfileId !== 'profile_default') {
+    // 🛡️ CRITICAL GUARD: Only save if the profile state belongs to activeProfileId
+    if (activeProfileId && activeProfileId !== 'profile_default' && profile.id === activeProfileId) {
       const activeData = {
         exams,
         profile,
@@ -619,7 +620,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       };
       storageManager.debouncedSave(`syllabus3d_profile_data_${activeProfileId}`, activeData);
     }
-  }, [activeProfileId, exams, profile, achievements, activityHistory, revisions, plannerTasks, platforms, top3Targets, reflectionsHistory]);
+  }, [activeProfileId, profile.id, exams, profile, achievements, activityHistory, revisions, plannerTasks, platforms, top3Targets, reflectionsHistory]);
 
   // Persist profiles list
   useEffect(() => {
@@ -628,6 +629,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Keep active profile in profiles list synchronized with profile state
   useEffect(() => {
+    // 🛡️ CRITICAL GUARD: Do not sync profiles list if profile state is from another profile!
+    if (!activeProfileId || profile.id !== activeProfileId) return;
+
     setProfiles(prev => {
       const idx = prev.findIndex(p => p.id === activeProfileId);
       if (idx === -1) return prev;
@@ -2572,8 +2576,51 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     soundManager.playClick();
   };
 
+  // ──── CLEAN DATASET GENERATOR (GUARANTEED ZERO-DATA LEAK) ────
+  const generateCleanExamDataset = useCallback((targetExamId: string, targetExamDate: string): Exam[] => {
+    // Check if targetExamId matches an official preset in INITIAL_EXAMS
+    const matchedExam = INITIAL_EXAMS.find(e => e.id === targetExamId)
+      || INITIAL_EXAMS.find(e => e.id === 'exam_ssc_cgl_2026')
+      || INITIAL_EXAMS[0];
+
+    const cleanExam: Exam = {
+      id: targetExamId,
+      name: matchedExam.name,
+      code: matchedExam.code,
+      targetYear: matchedExam.targetYear || 2026,
+      examDate: targetExamDate || matchedExam.examDate,
+      subjects: matchedExam.subjects.map(s => ({
+        ...s,
+        chapters: s.chapters.map(ch => ({
+          ...ch,
+          topics: ch.topics.map(t => ({
+            ...t,
+            status: 'not_started' as TopicStatus,
+            completionPercentage: 0,
+            accuracy: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            mockAttempts: 0,
+            isWeak: false,
+            notes: '',
+            noteItems: [],
+            mistakes: [],
+            pdfAttachments: [],
+            lectures: [],
+            audioMemos: [],
+            imageAttachments: []
+          }))
+        }))
+      }))
+    };
+
+    return [cleanExam];
+  }, []);
+
   // ──── MULTI-PROFILE ENGINE ────
   const saveActiveProfileDataSynchronously = useCallback((profileId: string) => {
+    if (!profileId) return;
     const dataset = {
       exams,
       profile,
@@ -2588,6 +2635,16 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     if (profileId === 'profile_default') {
       try {
+        storageManager.safeSetItem('syllabus3d_exams', exams);
+        storageManager.safeSetItem('syllabus3d_profile', profile);
+        storageManager.safeSetItem('syllabus3d_achievements', achievements);
+        storageManager.safeSetItem('syllabus3d_activity', activityHistory);
+        storageManager.safeSetItem('syllabus3d_revisions', revisions);
+        storageManager.safeSetItem('syllabus3d_planner', plannerTasks);
+        storageManager.safeSetItem('syllabus3d_platforms', platforms);
+        storageManager.safeSetItem('syllabus3d_top3_targets', top3Targets);
+        storageManager.safeSetItem('syllabus3d_reflections', reflectionsHistory);
+
         localStorage.setItem('syllabus3d_exams', JSON.stringify(exams));
         localStorage.setItem('syllabus3d_profile', JSON.stringify(profile));
         localStorage.setItem('syllabus3d_achievements', JSON.stringify(achievements));
@@ -2600,6 +2657,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       } catch (e) {}
     } else {
       try {
+        storageManager.safeSetItem(`syllabus3d_profile_data_${profileId}`, dataset);
         localStorage.setItem(`syllabus3d_profile_data_${profileId}`, JSON.stringify(dataset));
       } catch (e) {}
     }
@@ -2634,23 +2692,85 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } else {
       try {
         const raw = localStorage.getItem(`syllabus3d_profile_data_${profileId}`);
-        if (raw) return JSON.parse(raw);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            return {
+              exams: Array.isArray(parsed.exams) && parsed.exams.length > 0 ? parsed.exams : generateCleanExamDataset('exam_ssc_cgl_2026', '2026-10-15'),
+              profile: parsed.profile || {
+                ...INITIAL_PROFILE,
+                id: profileId,
+                name: 'Aspirant',
+                level: 1,
+                levelTitle: 'Syllabus Recruit',
+                xp: 0,
+                currentStreak: 0,
+                longestStreak: 0
+              },
+              achievements: Array.isArray(parsed.achievements) ? parsed.achievements : INITIAL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false, unlockedAt: null, progress: 0 })),
+              activityHistory: Array.isArray(parsed.activityHistory) ? parsed.activityHistory : [],
+              revisions: Array.isArray(parsed.revisions) ? parsed.revisions : [],
+              plannerTasks: Array.isArray(parsed.plannerTasks) ? parsed.plannerTasks : [],
+              platforms: Array.isArray(parsed.platforms) ? parsed.platforms : [],
+              top3Targets: Array.isArray(parsed.top3Targets) ? parsed.top3Targets : [],
+              reflectionsHistory: Array.isArray(parsed.reflectionsHistory) ? parsed.reflectionsHistory : []
+            };
+          }
+        }
       } catch (e) {}
       return null;
     }
-  }, []);
+  }, [generateCleanExamDataset]);
 
   const switchProfile = useCallback((targetProfileId: string) => {
-    if (targetProfileId === activeProfileId) return;
+    if (!targetProfileId || targetProfileId === activeProfileId) return;
 
-    // 1. Immediately save current active profile
+    // 1. Immediately flush debounced writes and save current active profile
+    storageManager.flushAll();
     saveActiveProfileDataSynchronously(activeProfileId);
 
     // 2. Load target profile's data
-    const targetDataset = loadProfileDataById(targetProfileId);
-    if (!targetDataset) return;
+    let targetDataset = loadProfileDataById(targetProfileId);
 
-    // 3. Update all React states
+    // 🛡️ Auto-Recovery Fallback: If dataset is missing/corrupted, construct clean isolated dataset from metadata
+    if (!targetDataset) {
+      const profMeta = profiles.find(p => p.id === targetProfileId);
+      const targetExamId = profMeta?.targetExamId || 'exam_ssc_cgl_2026';
+      const targetExamDate = profMeta?.targetExamDate || '2026-10-15';
+      const cleanExams = generateCleanExamDataset(targetExamId, targetExamDate);
+      targetDataset = {
+        exams: cleanExams,
+        profile: {
+          ...INITIAL_PROFILE,
+          id: targetProfileId,
+          name: profMeta?.name || 'Aspirant',
+          avatarUrl: profMeta?.avatarUrl,
+          avatarEmoji: profMeta?.avatarEmoji || '🦁',
+          avatarColor: profMeta?.avatarColor || 'from-indigo-500 to-purple-600',
+          selectedExamId: targetExamId,
+          targetExamDate: targetExamDate,
+          level: profMeta?.level || 1,
+          levelTitle: profMeta?.levelTitle || 'Syllabus Recruit',
+          xp: profMeta?.xp || 0,
+          currentStreak: profMeta?.currentStreak || 0,
+          longestStreak: profMeta?.longestStreak || 0,
+          soundEnabled: true
+        },
+        achievements: INITIAL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false, unlockedAt: null, progress: 0 })),
+        activityHistory: [],
+        revisions: [],
+        plannerTasks: [],
+        platforms: [],
+        top3Targets: [],
+        reflectionsHistory: []
+      };
+      try {
+        storageManager.safeSetItem(`syllabus3d_profile_data_${targetProfileId}`, targetDataset);
+        localStorage.setItem(`syllabus3d_profile_data_${targetProfileId}`, JSON.stringify(targetDataset));
+      } catch (e) {}
+    }
+
+    // 3. Update all React states atomically
     setExams(targetDataset.exams);
     setProfile(targetDataset.profile);
     setAchievements(targetDataset.achievements);
@@ -2667,26 +2787,32 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       localStorage.setItem('syllabus3d_active_profile_id', targetProfileId);
     } catch (e) {}
 
-    setProfiles(prev => prev.map(p =>
-      p.id === targetProfileId ? { ...p, lastActiveAt: new Date().toISOString() } : p
-    ));
+    setProfiles(prev => {
+      const updated = prev.map(p =>
+        p.id === targetProfileId ? { ...p, lastActiveAt: new Date().toISOString() } : p
+      );
+      try {
+        localStorage.setItem('syllabus3d_profiles', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
 
-    // Also sync Auth user session with the switched profile's name so all views update immediately
-    if (targetDataset.profile?.name && updateUserSession) {
+    // 5. Sync Auth session so all views update immediately
+    if (updateUserSession) {
       updateUserSession({
         name: targetDataset.profile.name,
-        avatarUrl: targetDataset.profile.avatarUrl
+        avatarUrl: targetDataset.profile.avatarUrl || undefined
       });
     }
 
     soundManager.playCompleteChime();
     haptics.success();
     confetti({
-      particleCount: 35,
-      spread: 50,
+      particleCount: 40,
+      spread: 60,
       origin: { y: 0.6 }
     });
-  }, [activeProfileId, saveActiveProfileDataSynchronously, loadProfileDataById, updateUserSession]);
+  }, [activeProfileId, profiles, saveActiveProfileDataSynchronously, loadProfileDataById, generateCleanExamDataset, updateUserSession]);
 
   const createProfile = useCallback((profileData: {
     name: string;
@@ -2697,18 +2823,22 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     targetExamDate?: string;
     cloneCurrentSyllabus?: boolean;
   }): string => {
-    // 1. Save current profile first
+    // 1. Immediately flush & save current active profile
+    storageManager.flushAll();
     saveActiveProfileDataSynchronously(activeProfileId);
 
     const newId = 'profile_' + Date.now();
+    const cleanExamId = profileData.targetExamId || 'exam_ssc_cgl_2026';
+    const cleanExamDate = profileData.targetExamDate || '2026-10-15';
+
     const newProfileItem: UserProfileItem = {
       id: newId,
       name: profileData.name.trim() || 'New Aspirant',
       avatarUrl: profileData.avatarUrl,
       avatarEmoji: profileData.avatarEmoji || '🦁',
-      avatarColor: profileData.avatarColor || 'from-blue-600 to-indigo-600',
-      targetExamId: profileData.targetExamId || 'exam_ssc_cgl_2025',
-      targetExamDate: profileData.targetExamDate || '2026-10-15',
+      avatarColor: profileData.avatarColor || 'from-indigo-500 to-purple-600',
+      targetExamId: cleanExamId,
+      targetExamDate: cleanExamDate,
       currentStreak: 0,
       longestStreak: 0,
       level: 1,
@@ -2719,18 +2849,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       lastActiveAt: new Date().toISOString()
     };
 
-    // 2. Build isolated dataset for new profile
+    // 2. Build isolated 100% clean dataset (NO data copied from old profile)
     const newDataset = {
-      exams: profileData.cloneCurrentSyllabus ? JSON.parse(JSON.stringify(exams)) : [
-        {
-          id: profileData.targetExamId || 'exam_ssc_cgl_2025',
-          name: exams.find(e => e.id === profileData.targetExamId)?.name || 'Target Exam',
-          code: exams.find(e => e.id === profileData.targetExamId)?.code || 'SSC_CGL',
-          examDate: profileData.targetExamDate || '2026-10-15',
-          targetYear: 2026,
-          subjects: []
-        }
-      ],
+      exams: generateCleanExamDataset(cleanExamId, cleanExamDate),
       profile: {
         ...INITIAL_PROFILE,
         id: newId,
@@ -2738,14 +2859,14 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         avatarUrl: newProfileItem.avatarUrl,
         avatarEmoji: newProfileItem.avatarEmoji,
         avatarColor: newProfileItem.avatarColor,
-        targetExamDate: newProfileItem.targetExamDate,
+        targetExamDate: cleanExamDate,
         currentStreak: 0,
         longestStreak: 0,
         level: 1,
         levelTitle: 'Syllabus Recruit',
         xp: 0,
         soundEnabled: true,
-        selectedExamId: newProfileItem.targetExamId
+        selectedExamId: cleanExamId
       },
       achievements: INITIAL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false, unlockedAt: null, progress: 0 })),
       activityHistory: [],
@@ -2756,8 +2877,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       reflectionsHistory: []
     };
 
-    // 3. Save new profile data synchronously
+    // 3. Save new profile data safely
     try {
+      storageManager.safeSetItem(`syllabus3d_profile_data_${newId}`, newDataset);
       localStorage.setItem(`syllabus3d_profile_data_${newId}`, JSON.stringify(newDataset));
     } catch (e) {}
 
@@ -2768,15 +2890,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       return updated;
     });
 
-    soundManager.playCompleteChime();
-    haptics.success();
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.6 }
-    });
-
-    // Set new profile data in state
+    // 5. Update state hooks to the new profile
     setExams(newDataset.exams);
     setProfile(newDataset.profile);
     setAchievements(newDataset.achievements);
@@ -2790,8 +2904,24 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setActiveProfileId(newId);
     try { localStorage.setItem('syllabus3d_active_profile_id', newId); } catch (e) {}
 
+    // 6. Sync Auth session
+    if (updateUserSession) {
+      updateUserSession({
+        name: newProfileItem.name,
+        avatarUrl: newProfileItem.avatarUrl || undefined
+      });
+    }
+
+    soundManager.playCompleteChime();
+    haptics.success();
+    confetti({
+      particleCount: 50,
+      spread: 60,
+      origin: { y: 0.6 }
+    });
+
     return newId;
-  }, [activeProfileId, exams, saveActiveProfileDataSynchronously]);
+  }, [activeProfileId, saveActiveProfileDataSynchronously, generateCleanExamDataset, updateUserSession]);
 
   const updateProfileById = useCallback((profileId: string, updates: Partial<UserProfileItem>) => {
     setProfiles(prev => {
@@ -2816,12 +2946,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         return next;
       });
 
-      // Synchronize auth session immediately so all views (Header, Sidebar, Overview, Settings) update
+      // Synchronize auth session immediately so all views update
       if (newName && updateUserSession) {
         updateUserSession({ name: newName });
       }
       if (updates.avatarUrl !== undefined && updateUserSession) {
-        updateUserSession({ avatarUrl: updates.avatarUrl });
+        updateUserSession({ avatarUrl: updates.avatarUrl || undefined });
       }
 
       // Also persist to active profile dataset immediately
@@ -2836,7 +2966,10 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           targetExamDate: updates.targetExamDate ?? activeData.profile.targetExamDate,
           selectedExamId: updates.targetExamId ?? activeData.profile.selectedExamId
         };
-        try { localStorage.setItem(`syllabus3d_profile_data_${profileId}`, JSON.stringify(activeData)); } catch (e) {}
+        try {
+          storageManager.safeSetItem(`syllabus3d_profile_data_${profileId}`, activeData);
+          localStorage.setItem(`syllabus3d_profile_data_${profileId}`, JSON.stringify(activeData));
+        } catch (e) {}
       }
     } else {
       const existing = loadProfileDataById(profileId);
@@ -2851,6 +2984,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           selectedExamId: updates.targetExamId ?? existing.profile.selectedExamId
         };
         try {
+          storageManager.safeSetItem(`syllabus3d_profile_data_${profileId}`, existing);
           localStorage.setItem(`syllabus3d_profile_data_${profileId}`, JSON.stringify(existing));
         } catch (e) {}
       }

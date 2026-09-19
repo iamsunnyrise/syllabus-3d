@@ -379,14 +379,14 @@ export const SettingsView: React.FC = () => {
               className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#3D5BA9] text-white dark:text-[#0B0B0D] flex items-center justify-center text-lg sm:text-2xl font-black shadow-md cursor-pointer overflow-hidden relative border-2 border-white dark:border-[#272730] active:scale-95 transition-transform"
               title="Click to Upload Profile Photo"
             >
-              {(profile.avatarUrl || user?.avatarUrl) ? (
+              {profile.avatarUrl ? (
                 <img
-                  src={profile.avatarUrl || user?.avatarUrl}
-                  alt={user?.name || profile.name}
+                  src={profile.avatarUrl}
+                  alt={profile.name}
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span>{(user?.name || profile.name || 'A').charAt(0).toUpperCase()}</span>
+                <span>{(profile.name || 'A').charAt(0).toUpperCase()}</span>
               )}
 
               {/* Hover Blur Overlay */}
@@ -427,7 +427,7 @@ export const SettingsView: React.FC = () => {
             ) : (
               <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 <h2 className="text-sm xs:text-base sm:text-lg font-black text-[#11120F] dark:text-[#F5F5F7] tracking-tight uppercase truncate">
-                  {profile.name || user?.name || 'Aspirant'}
+                  {profile.name || 'Aspirant'}
                 </h2>
                 <button
                   onClick={() => setIsEditingName(true)}
@@ -436,7 +436,7 @@ export const SettingsView: React.FC = () => {
                 >
                   <Edit2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </button>
-                {(profile.avatarUrl || user?.avatarUrl) && (
+                {profile.avatarUrl && (
                   <button
                     onClick={handleRemoveAvatar}
                     className="px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg text-[9px] sm:text-[10px] font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
