@@ -127,7 +127,7 @@ export async function parseSyllabusWithAi(
     };
   }
 
-  const model = options?.model || 'gemini-1.5-flash';
+  const model = options?.model || 'gemini-2.5-flash';
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   options?.onProgress?.('Synthesizing academic hierarchy with Gemini AI...');

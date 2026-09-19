@@ -160,6 +160,48 @@ async function fetchTranscriptFromProxy(videoId: string): Promise<TranscriptResu
   };
 }
 
+function extractCaptionTracksFromHtml(html: string): any[] | null {
+  const startIdx = html.indexOf('"captionTracks":');
+  if (startIdx === -1) return null;
+  const arrayStart = html.indexOf('[', startIdx);
+  if (arrayStart === -1) return null;
+  
+  let depth = 0;
+  let inString = false;
+  let escapeNext = false;
+  
+  for (let i = arrayStart; i < html.length; i++) {
+    const char = html[i];
+    if (escapeNext) {
+      escapeNext = false;
+      continue;
+    }
+    if (char === '\\') {
+      escapeNext = true;
+      continue;
+    }
+    if (char === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString) {
+      if (char === '[') depth++;
+      else if (char === ']') {
+        depth--;
+        if (depth === 0) {
+          const jsonStr = html.substring(arrayStart, i + 1);
+          try {
+            return JSON.parse(jsonStr);
+          } catch {
+            return null;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
 /**
  * Fallback strategy: Fetch YouTube page and extract caption tracks
  */
@@ -178,12 +220,8 @@ async function fetchTranscriptViaCorsProxy(videoId: string): Promise<TranscriptR
       const html = await response.text();
       
       // Extract captions URL from ytInitialPlayerResponse
-      const captionMatch = html.match(/"captionTracks":\s*(\[.*?\])/);
-      if (!captionMatch) continue;
-      
-      try {
-        const captionTracks = JSON.parse(captionMatch[1]);
-        if (!captionTracks || captionTracks.length === 0) continue;
+      const captionTracks = extractCaptionTracksFromHtml(html);
+      if (!captionTracks || captionTracks.length === 0) continue;
         
         // Prefer English or Hindi, otherwise take first available
         const preferredTrack =
@@ -212,9 +250,6 @@ async function fetchTranscriptViaCorsProxy(videoId: string): Promise<TranscriptR
             language: preferredTrack.languageCode || undefined,
           };
         }
-      } catch {
-        continue;
-      }
     } catch {
       continue;
     }

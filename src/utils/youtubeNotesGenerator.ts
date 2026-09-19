@@ -60,8 +60,12 @@ export type AiActionType = 'improve' | 'expand' | 'shorten' | 'translate' | 'mak
 
 // ─── Constants ──────────────────────────────────────────────────
 
-const GEMINI_MODEL = 'gemini-2.0-flash';
-const GEMINI_FALLBACK_MODEL = 'gemini-1.5-flash';
+const CANDIDATE_GEMINI_MODELS = [
+  'gemini-2.5-flash',
+  'gemini-2.5-flash-lite',
+  'gemini-2.5-pro',
+  'gemini-2.0-flash',
+];
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 const PROGRESS_STAGES = [
@@ -100,56 +104,95 @@ async function callGeminiApi(
 ): Promise<string> {
   const { temperature = 0.25, maxOutputTokens = 8192, videoUrl } = options;
 
-  const parts: any[] = [{ text: prompt }];
-  if (videoUrl) {
-    parts.push({
-      file_data: {
-        file_uri: videoUrl
+  const payloadWithVideo = videoUrl
+    ? {
+        contents: [
+          {
+            parts: [
+              {
+                file_data: {
+                  file_uri: videoUrl,
+                },
+              },
+              { text: prompt },
+            ],
+          },
+        ],
+        generationConfig: {
+          temperature,
+          maxOutputTokens,
+        },
       }
-    });
-  }
+    : null;
 
-  const payload = {
-    contents: [{ parts }],
+  const payloadTextOnly = {
+    contents: [{ parts: [{ text: prompt }] }],
     generationConfig: {
       temperature,
       maxOutputTokens,
     },
   };
 
-  // Try primary model
-  let endpoint = `${GEMINI_API_BASE}/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
-  let response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
+  let lastError = '';
 
-  // Fallback model
-  if (!response.ok) {
-    console.warn(`Gemini ${GEMINI_MODEL} failed (${response.status}), trying fallback...`);
-    endpoint = `${GEMINI_API_BASE}/${GEMINI_FALLBACK_MODEL}:generateContent?key=${apiKey}`;
-    response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+  // 1. If videoUrl is provided, attempt multimodal video processing across candidate models
+  if (payloadWithVideo) {
+    for (const model of CANDIDATE_GEMINI_MODELS) {
+      try {
+        const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payloadWithVideo),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text && text.trim()) {
+            return text.trim();
+          }
+        } else {
+          const errorData = await response.json().catch(() => ({}));
+          lastError = errorData?.error?.message || `Model ${model} returned HTTP ${response.status}`;
+          console.warn(`[Gemini] Multimodal ${model} failed (${response.status}):`, lastError);
+        }
+      } catch (err: any) {
+        lastError = err?.message || `Network error with model ${model}`;
+        console.warn(`[Gemini] Network error with ${model}:`, err);
+      }
+    }
+    console.warn('[Gemini] Multimodal video attempt concluded, falling back to text prompt...');
   }
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    const message = errorData?.error?.message || `Gemini API responded with status ${response.status}`;
-    throw new Error(message);
+  // 2. Text-only generation across candidate models
+  for (const model of CANDIDATE_GEMINI_MODELS) {
+    try {
+      const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadTextOnly),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text && text.trim()) {
+          return text.trim();
+        }
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        lastError = errorData?.error?.message || `Model ${model} returned HTTP ${response.status}`;
+        console.warn(`[Gemini] Text ${model} failed (${response.status}):`, lastError);
+      }
+    } catch (err: any) {
+      lastError = err?.message || `Network error with model ${model}`;
+      console.warn(`[Gemini] Network error with ${model}:`, err);
+    }
   }
 
-  const data = await response.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!text) {
-    throw new Error('Gemini API returned an empty response.');
-  }
-
-  return text.trim();
+  throw new Error(lastError || 'Gemini API call failed across all available models.');
 }
 
 // ─── Prompt Construction ────────────────────────────────────────

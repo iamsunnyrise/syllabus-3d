@@ -195,8 +195,8 @@ export const SettingsView: React.FC = () => {
     setIsTestingAiKey(true);
     setAiTestResult(null);
     try {
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${keyToTest}`,
+      let resp = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyToTest}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -206,8 +206,21 @@ export const SettingsView: React.FC = () => {
           })
         }
       );
+      if (!resp.ok) {
+        resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${keyToTest}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: 'Hello, respond with OK.' }] }],
+              generationConfig: { maxOutputTokens: 5 }
+            })
+          }
+        );
+      }
       if (resp.ok) {
-        setAiTestResult({ success: true, message: 'Connection verified! Gemini 2.0 Flash is operational and ready.' });
+        setAiTestResult({ success: true, message: 'Connection verified! Google Gemini AI is operational and ready.' });
         soundManager.playCompleteChime();
         haptics.success();
       } else {
