@@ -94,6 +94,30 @@ import {
 import { NotionAiNotesStudioModal } from '../modals/NotionAiNotesStudioModal';
 import { TelegramIcon } from '../../utils/telegramUtils';
 
+/**
+ * Automatically repairs nested or malformed markdown highlights:
+ * e.g. ==b:==Text==== -> ==b:Text==
+ * e.g. ====Text====   -> ==Text==
+ */
+export const repairMalformedHighlights = (rawText: string): string => {
+  if (!rawText || !rawText.includes('==')) return rawText;
+
+  let fixed = rawText;
+
+  // 1. Fix nested/doubled highlight tags like ==b:==Text==== or ==g:==Text==
+  fixed = fixed.replace(/==+([gpbr]:)?(?:==+)?([^=\n]+)==+/g, (_match, prefix, inner) => {
+    const cleanPrefix = prefix || '';
+    const cleanInner = (inner || '').trim();
+    if (!cleanInner) return '';
+    return `==${cleanPrefix}${cleanInner}==`;
+  });
+
+  // 2. Fix empty or orphan highlight tags like ==b:== or ====
+  fixed = fixed.replace(/==+(?:[gpbr]:)?==+/g, '');
+
+  return fixed;
+};
+
 interface ProfessionalNotesEditorProps {
   initialContent: string;
   initialNoteItems?: TopicNoteItem[];
@@ -640,13 +664,16 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // Multiple Notes Pages State
   const [noteItems, setNoteItems] = useState<TopicNoteItem[]>(() => {
     if (initialNoteItems && initialNoteItems.length > 0) {
-      return initialNoteItems;
+      return initialNoteItems.map(item => ({
+        ...item,
+        content: repairMalformedHighlights(item.content || '')
+      }));
     }
     return [
       {
         id: 'note_1',
         title: 'Main Notes',
-        content: initialContent || '',
+        content: repairMalformedHighlights(initialContent || ''),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       }
@@ -801,14 +828,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     if (prevTopicRef.current !== topicName) {
       prevTopicRef.current = topicName;
       if (initialNoteItems && initialNoteItems.length > 0) {
-        setNoteItems(initialNoteItems);
-        setActiveNoteId(initialNoteItems[0].id);
+        const sanitized = initialNoteItems.map(item => ({
+          ...item,
+          content: repairMalformedHighlights(item.content)
+        }));
+        setNoteItems(sanitized);
+        setActiveNoteId(sanitized[0].id);
       } else {
+        const sanitized = repairMalformedHighlights(initialContent || '');
         setNoteItems([
           {
             id: 'note_1',
             title: 'Main Notes',
-            content: initialContent || '',
+            content: sanitized,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           }
@@ -828,9 +860,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       !noteItems[0].content &&
       prevTopicRef.current === topicName
     ) {
-      setNoteItems(initialNoteItems);
-      if (!initialNoteItems.some(n => n.id === activeNoteId)) {
-        setActiveNoteId(initialNoteItems[0].id);
+      const sanitized = initialNoteItems.map(item => ({
+        ...item,
+        content: repairMalformedHighlights(item.content)
+      }));
+      setNoteItems(sanitized);
+      if (!sanitized.some(n => n.id === activeNoteId)) {
+        setActiveNoteId(sanitized[0].id);
       }
     }
   }, [initialNoteItems, topicName]);
@@ -852,9 +888,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
   // Debounced Auto-Save
   const updateContentAndSave = (newText: string, customItems?: TopicNoteItem[]) => {
+    const repairedText = repairMalformedHighlights(newText);
     const updatedItems = (customItems || noteItems).map(item => {
       if (item.id === activeNoteId) {
-        return { ...item, content: newText, updatedAt: new Date().toISOString() };
+        return { ...item, content: repairedText, updatedAt: new Date().toISOString() };
       }
       return item;
     });
@@ -1105,15 +1142,29 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // TEXT & BOX HIGHLIGHTER LOGIC
   // ----------------------------------------------------------------------------------
   const updateSelectionTooltip = useCallback(() => {
-    if (viewMode !== 'study') return;
+    if (viewMode === 'edit') {
+      setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
+      return;
+    }
+    if (!isHighlighterActive) {
+      setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
+      return;
+    }
 
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed) {
       setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
       return;
     }
+
+    // Ignore selections made inside input or textarea elements
+    if (sel.anchorNode?.parentElement?.closest('textarea, input')) {
+      setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
+      return;
+    }
+
     const text = sel.toString().trim();
-    if (!text || text.length < 2) {
+    if (!text || text.length < 1) {
       setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
       return;
     }
@@ -1121,18 +1172,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     try {
       const range = sel.getRangeAt(0);
       const rect = range.getBoundingClientRect();
-      if (rect && rect.width > 0) {
+      if (rect && (rect.width > 0 || rect.height > 0)) {
         const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
         const centerX = rect.left + rect.width / 2;
-        const clampedX = Math.min(window.innerWidth - 130, Math.max(130, centerX));
-        // On mobile, place below selection to avoid colliding with Android Chrome's top Copy/Share action bar
-        const isBelow = isMobile || rect.top < 65;
-        const posY = isBelow ? rect.bottom + 14 : rect.top - 8;
+        const clampedX = Math.min(window.innerWidth - 140, Math.max(140, centerX));
+        // On mobile or near top, place below selection to avoid colliding with status bar
+        const isBelow = isMobile || rect.top < 70;
+        const posY = isBelow ? rect.bottom + 12 : rect.top - 12;
+        const clampedY = Math.max(16, Math.min(window.innerHeight - 70, posY));
 
         setSelectionTooltip({
           visible: true,
           x: clampedX,
-          y: posY,
+          y: clampedY,
           isBelow,
           text
         });
@@ -1140,14 +1192,14 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     } catch (e) {
       // ignore
     }
-  }, [viewMode]);
+  }, [viewMode, isHighlighterActive]);
 
   const handleMouseUpSelection = () => {
     setTimeout(updateSelectionTooltip, 30);
   };
 
   useEffect(() => {
-    if (viewMode !== 'study') return;
+    if (viewMode === 'edit') return;
 
     let timeoutId: any = null;
     const handleSelectionChange = () => {
@@ -1162,36 +1214,76 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     };
   }, [viewMode, updateSelectionTooltip]);
 
-  const applyHighlight = (colorPrefix: '' | 'g:' | 'p:' | 'b:' | 'r:') => {
-    const text = selectionTooltip.text;
-    if (!text) return;
+  const applyHighlight = (colorPrefix: '' | 'g:' | 'p:' | 'b:' | 'r:', targetText?: string) => {
+    const rawText = (targetText || selectionTooltip.text || window.getSelection()?.toString() || '').trim();
+    if (!rawText) return;
+
+    // 1. Clean any existing markdown highlight tags (==, ==[gpbr]:, etc.)
+    const cleanText = rawText
+      .replace(/^==+(?:[gpbr]:)?(=+)?/, '')
+      .replace(/==+$/, '')
+      .trim();
+
+    if (!cleanText || cleanText.length < 1) return;
 
     soundManager.playCompleteChime();
     setSelectedHighlightColor(colorPrefix);
-    const newTag = `==${colorPrefix}${text}==`;
+    const newTag = `==${colorPrefix}${cleanText}==`;
+    const escaped = escapeRegExp(cleanText);
 
-    // Regex to match if this exact text is already highlighted with any prefix
-    const highlightPattern = new RegExp(`==(?:[gpbr]:)?${escapeRegExp(text)}==`, 'g');
+    // 2. Check if content already contains an existing highlight of this text (including malformed tags like ==b:==cleanText====)
+    const existingHighlightRegex = new RegExp(`==+(?:[gpbr]:)?(?:==+)?${escaped}==+`, 'g');
 
     let updated = content;
-    if (highlightPattern.test(content)) {
-      updated = content.replace(highlightPattern, newTag);
-    } else if (content.includes(text)) {
-      updated = content.replace(text, newTag);
+    if (existingHighlightRegex.test(content)) {
+      updated = content.replace(existingHighlightRegex, newTag);
+    } else if (content.includes(cleanText)) {
+      // Direct exact match
+      updated = content.replace(cleanText, newTag);
     } else {
-      updated = content + `\n${newTag}`;
+      // 3. Markdown-aware match (e.g. bold **Category 1:** inside selected text)
+      const words = cleanText.split(/(\s+)/);
+      const patternParts = words.map(w => {
+        if (/^\s+$/.test(w)) return '\\s+';
+        return '(?:\\*\\*|\\*|~~|`)*' + escapeRegExp(w) + '(?:\\*\\*|\\*|~~|`)*';
+      });
+      const mdRegex = new RegExp(patternParts.join(''), 'g');
+      if (mdRegex.test(content)) {
+        updated = content.replace(mdRegex, (match) => `==${colorPrefix}${match}==`);
+      } else {
+        // 4. Normalized whitespace fallback
+        const wsPattern = cleanText.replace(/\s+/g, '\\s+');
+        const wsRegex = new RegExp(wsPattern, 'i');
+        if (wsRegex.test(content)) {
+          updated = content.replace(wsRegex, (match) => `==${colorPrefix}${match}==`);
+        }
+      }
     }
 
+    updated = repairMalformedHighlights(updated);
     updateContentAndSave(updated);
     setSelectionTooltip({ visible: false, x: 0, y: 0, text: '' });
     window.getSelection()?.removeAllRanges();
   };
 
-  const removeHighlight = (text: string) => {
-    if (!text) return;
+  const removeHighlight = (targetText?: string) => {
+    const rawText = (targetText || selectionTooltip.text || window.getSelection()?.toString() || '').trim();
+    if (!rawText) return;
+
     soundManager.playClick();
-    const highlightPattern = new RegExp(`==(?:[gpbr]:)?${escapeRegExp(text)}==`, 'g');
-    let updated = content.replace(highlightPattern, text);
+    const cleanText = rawText
+      .replace(/^==+(?:[gpbr]:)?(=+)?/, '')
+      .replace(/==+$/, '')
+      .trim();
+
+    if (!cleanText) return;
+    const escaped = escapeRegExp(cleanText);
+
+    // Match any highlight tag wrapping this text (standard or malformed)
+    const highlightPattern = new RegExp(`==+(?:[gpbr]:)?(?:==+)?(${escaped})==+`, 'g');
+    let updated = content.replace(highlightPattern, '$1');
+    updated = repairMalformedHighlights(updated);
+
     updateContentAndSave(updated);
     setSelectionTooltip({ visible: false, x: 0, y: 0, text: '' });
     window.getSelection()?.removeAllRanges();
@@ -2117,59 +2209,42 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
     if (!text) return [];
 
-    const tokenRegex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|==[^=]+==|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/g;
-    const parts = text.split(tokenRegex);
+    // Pre-repair malformed highlight tags (e.g. ==b:==Text==== -> ==b:Text==)
+    const sanitizedText = repairMalformedHighlights(text);
+
+    // HIGHLIGHT MUST COME FIRST so bold/code inside highlights don't break the == tags!
+    const tokenRegex = /(==+[\s\S]+?==+|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/g;
+    const parts = sanitizedText.split(tokenRegex);
 
     return parts.map((part, index) => {
       const k = `${keyPrefix}-${index}`;
       if (!part) return null;
 
-      // Bold
-      if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
-        return (
-          <strong key={k} className="font-extrabold text-[#11120F] dark:text-white">
-            {part.slice(2, -2)}
-          </strong>
-        );
-      }
-      // Italic
-      if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
-        return (
-          <em key={k} className="italic text-[#4A4B45] dark:text-[#CBD5E1]">
-            {part.slice(1, -1)}
-          </em>
-        );
-      }
-      // Code / Key Term
-      if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
-        return (
-          <code
-            key={k}
-            className="px-1.5 py-0.5 mx-0.5 rounded-md bg-amber-500/15 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/25 font-bold"
-          >
-            {part.slice(1, -1)}
-          </code>
-        );
-      }
       // Multi-Color Highlights (==text==, ==g:text==, ==p:text==, ==b:text==, ==r:text==)
       if (part.startsWith('==') && part.endsWith('==') && part.length >= 4) {
-        const rawInner = part.slice(2, -2);
+        // Strip leading and trailing == signs (could be multiple = if corrupted)
+        const rawInner = part.replace(/^==+/, '').replace(/==+$/, '');
         let colorClass = 'bg-yellow-300/80 dark:bg-yellow-400/35 text-slate-950 dark:text-yellow-100 border-b-2 border-yellow-500/60';
         let highlightText = rawInner;
 
-        if (rawInner.startsWith('g:')) {
-          colorClass = 'bg-emerald-300/80 dark:bg-emerald-500/35 text-slate-950 dark:text-emerald-100 border-b-2 border-emerald-500/60';
-          highlightText = rawInner.slice(2);
-        } else if (rawInner.startsWith('p:')) {
-          colorClass = 'bg-purple-300/80 dark:bg-purple-500/35 text-slate-950 dark:text-purple-100 border-b-2 border-purple-500/60';
-          highlightText = rawInner.slice(2);
-        } else if (rawInner.startsWith('b:')) {
-          colorClass = 'bg-sky-300/80 dark:bg-sky-500/35 text-slate-950 dark:text-sky-100 border-b-2 border-sky-500/60';
-          highlightText = rawInner.slice(2);
-        } else if (rawInner.startsWith('r:')) {
-          colorClass = 'bg-rose-300/80 dark:bg-rose-500/35 text-slate-950 dark:text-rose-100 border-b-2 border-rose-500/60';
-          highlightText = rawInner.slice(2);
+        const colorMatch = highlightText.match(/^([gpbr]):\s*/);
+        if (colorMatch) {
+          const prefix = colorMatch[1];
+          highlightText = highlightText.slice(colorMatch[0].length);
+          if (prefix === 'g') {
+            colorClass = 'bg-emerald-300/80 dark:bg-emerald-500/35 text-slate-950 dark:text-emerald-100 border-b-2 border-emerald-500/60';
+          } else if (prefix === 'p') {
+            colorClass = 'bg-purple-300/80 dark:bg-purple-500/35 text-slate-950 dark:text-purple-100 border-b-2 border-purple-500/60';
+          } else if (prefix === 'b') {
+            colorClass = 'bg-sky-300/80 dark:bg-sky-500/35 text-slate-950 dark:text-sky-100 border-b-2 border-sky-500/60';
+          } else if (prefix === 'r') {
+            colorClass = 'bg-rose-300/80 dark:bg-rose-500/35 text-slate-950 dark:text-rose-100 border-b-2 border-rose-500/60';
+          }
         }
+
+        // Clean any lingering == inside highlightText if any remained
+        if (highlightText.startsWith('==')) highlightText = highlightText.replace(/^==+/, '');
+        if (highlightText.endsWith('==')) highlightText = highlightText.replace(/==+$/, '');
 
         return (
           <mark
@@ -2188,8 +2263,36 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             className={`${colorClass} px-1.5 py-0.5 mx-0.5 rounded font-bold shadow-xs transition-all cursor-pointer hover:opacity-85 hover:scale-[1.02]`}
             title="Click to change color or erase highlight 🖍️"
           >
-            {highlightText}
+            {parseInlineMarkdown(highlightText, `${k}-hl`)}
           </mark>
+        );
+      }
+
+      // Bold
+      if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+        return (
+          <strong key={k} className="font-extrabold text-[#11120F] dark:text-white">
+            {parseInlineMarkdown(part.slice(2, -2), `${k}-b`)}
+          </strong>
+        );
+      }
+      // Italic
+      if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
+        return (
+          <em key={k} className="italic text-[#4A4B45] dark:text-[#CBD5E1]">
+            {parseInlineMarkdown(part.slice(1, -1), `${k}-i`)}
+          </em>
+        );
+      }
+      // Code / Key Term
+      if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+        return (
+          <code
+            key={k}
+            className="px-1.5 py-0.5 mx-0.5 rounded-md bg-amber-500/15 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/25 font-bold"
+          >
+            {part.slice(1, -1)}
+          </code>
         );
       }
       // Strikethrough
@@ -3195,54 +3298,79 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         onMouseDown={e => e.preventDefault()}
         onTouchStart={e => e.stopPropagation()}
       >
-        <span className="text-[11px] font-bold text-[#A1A1B2] font-mono flex items-center gap-1">
-          <Highlighter className="w-3.5 h-3.5 text-amber-400" />
-          <span className="hidden sm:inline">Highlight:</span>
-        </span>
+        {/* Quick Highlight Button for active color */}
+        <button
+          type="button"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight(selectedHighlightColor, selectionTooltip.text)}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-md cursor-pointer transition-transform active:scale-95"
+          title="Apply current highlight"
+        >
+          <Highlighter className="w-3.5 h-3.5 text-slate-950" />
+          <span>Highlight</span>
+        </button>
+
+        <span className="h-4 w-[1px] bg-white/20 mx-0.5" />
 
         {/* 🟡 Yellow Highlight */}
         <button
           type="button"
-          onClick={() => applyHighlight('')}
-          className="w-5 h-5 rounded-full bg-yellow-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight('', selectionTooltip.text)}
+          className={`w-5 h-5 rounded-full bg-yellow-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
+            selectedHighlightColor === '' ? 'ring-2 ring-white scale-110' : ''
+          }`}
           title="Yellow (==text==)"
         />
 
         {/* 🟢 Green Highlight */}
         <button
           type="button"
-          onClick={() => applyHighlight('g:')}
-          className="w-5 h-5 rounded-full bg-emerald-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight('g:', selectionTooltip.text)}
+          className={`w-5 h-5 rounded-full bg-emerald-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
+            selectedHighlightColor === 'g:' ? 'ring-2 ring-white scale-110' : ''
+          }`}
           title="Green (==g:text==)"
         />
 
         {/* 🟣 Purple Highlight */}
         <button
           type="button"
-          onClick={() => applyHighlight('p:')}
-          className="w-5 h-5 rounded-full bg-purple-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight('p:', selectionTooltip.text)}
+          className={`w-5 h-5 rounded-full bg-purple-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
+            selectedHighlightColor === 'p:' ? 'ring-2 ring-white scale-110' : ''
+          }`}
           title="Purple (==p:text==)"
         />
 
         {/* 🔵 Blue Highlight */}
         <button
           type="button"
-          onClick={() => applyHighlight('b:')}
-          className="w-5 h-5 rounded-full bg-sky-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight('b:', selectionTooltip.text)}
+          className={`w-5 h-5 rounded-full bg-sky-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
+            selectedHighlightColor === 'b:' ? 'ring-2 ring-white scale-110' : ''
+          }`}
           title="Blue (==b:text==)"
         />
 
         {/* 🔴 Rose Highlight */}
         <button
           type="button"
-          onClick={() => applyHighlight('r:')}
-          className="w-5 h-5 rounded-full bg-rose-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30"
+          onMouseDown={e => e.preventDefault()}
+          onClick={() => applyHighlight('r:', selectionTooltip.text)}
+          className={`w-5 h-5 rounded-full bg-rose-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
+            selectedHighlightColor === 'r:' ? 'ring-2 ring-white scale-110' : ''
+          }`}
           title="Rose (==r:text==)"
         />
 
         {/* 🧽 Erase / Remove Highlight Button */}
         <button
           type="button"
+          onMouseDown={e => e.preventDefault()}
           onClick={() => removeHighlight(selectionTooltip.text)}
           className="px-2 py-0.5 ml-0.5 rounded-lg bg-rose-500/25 hover:bg-rose-500 text-rose-200 hover:text-white text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer border border-rose-500/40 active:scale-95"
           title="Remove Highlight (Erase ==tags==)"
@@ -3252,6 +3380,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         <button
           type="button"
+          onMouseDown={e => e.preventDefault()}
           onClick={() => setSelectionTooltip({ visible: false, x: 0, y: 0, text: '' })}
           className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/10 ml-0.5 cursor-pointer"
         >
@@ -3265,6 +3394,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // HIGHLIGHTER CONTROLS WIDGET (Box & Freefall Mode Switcher)
   // ----------------------------------------------------------------------------------
   const renderHighlighterControlsWidget = (isFloating: boolean = false) => {
+    const handleColorClick = (prefix: '' | 'g:' | 'p:' | 'b:' | 'r:', freefallRgba: string) => {
+      setSelectedHighlightColor(prefix);
+      setFreefallColor(freefallRgba);
+      setIsFreefallEraser(false);
+      soundManager.playClick();
+
+      // If text is currently selected in study view, apply highlight immediately!
+      const currentSel = window.getSelection()?.toString()?.trim() || selectionTooltip.text;
+      if (currentSel && highlighterMode === 'box') {
+        applyHighlight(prefix, currentSel);
+      }
+    };
+
     return (
       <div className={`flex items-center gap-2 p-1.5 px-2.5 rounded-2xl ${
         isFloating
@@ -3275,6 +3417,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {/* Highlighter ON/OFF Toggle */}
         <button
           type="button"
+          onMouseDown={e => e.preventDefault()}
           onClick={() => {
             setIsHighlighterActive(prev => !prev);
             soundManager.playClick();
@@ -3296,6 +3439,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             <div className="flex items-center gap-1 p-0.5 bg-black/5 dark:bg-white/5 rounded-xl border border-[#E2E8F0] dark:border-[#383A48]">
               <button
                 type="button"
+                onMouseDown={e => e.preventDefault()}
                 onClick={() => {
                   setHighlighterMode('box');
                   setIsFreefallEraser(false);
@@ -3313,6 +3457,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               </button>
               <button
                 type="button"
+                onMouseDown={e => e.preventDefault()}
                 onClick={() => {
                   setHighlighterMode('freefall');
                   soundManager.playClick();
@@ -3334,84 +3479,89 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               {/* Yellow */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedHighlightColor('');
-                  setFreefallColor('rgba(250, 204, 21, 0.42)');
-                  setIsFreefallEraser(false);
-                  soundManager.playClick();
-                }}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => handleColorClick('', 'rgba(250, 204, 21, 0.42)')}
                 className={`w-4 h-4 rounded-full bg-yellow-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
                   (highlighterMode === 'box' && selectedHighlightColor === '') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('250, 204, 21'))
                     ? 'ring-2 ring-amber-500 scale-110'
                     : ''
                 }`}
-                title="Yellow"
+                title="Yellow (Select text and click to highlight)"
               />
               {/* Green */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedHighlightColor('g:');
-                  setFreefallColor('rgba(52, 211, 153, 0.42)');
-                  setIsFreefallEraser(false);
-                  soundManager.playClick();
-                }}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => handleColorClick('g:', 'rgba(52, 211, 153, 0.42)')}
                 className={`w-4 h-4 rounded-full bg-emerald-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
                   (highlighterMode === 'box' && selectedHighlightColor === 'g:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('52, 211, 153'))
                     ? 'ring-2 ring-emerald-500 scale-110'
                     : ''
                 }`}
-                title="Green"
+                title="Green (Select text and click to highlight)"
               />
               {/* Purple */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedHighlightColor('p:');
-                  setFreefallColor('rgba(192, 132, 252, 0.42)');
-                  setIsFreefallEraser(false);
-                  soundManager.playClick();
-                }}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => handleColorClick('p:', 'rgba(192, 132, 252, 0.42)')}
                 className={`w-4 h-4 rounded-full bg-purple-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
                   (highlighterMode === 'box' && selectedHighlightColor === 'p:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('192, 132, 252'))
                     ? 'ring-2 ring-purple-500 scale-110'
                     : ''
                 }`}
-                title="Purple"
+                title="Purple (Select text and click to highlight)"
               />
               {/* Blue */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedHighlightColor('b:');
-                  setFreefallColor('rgba(56, 189, 248, 0.42)');
-                  setIsFreefallEraser(false);
-                  soundManager.playClick();
-                }}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => handleColorClick('b:', 'rgba(56, 189, 248, 0.42)')}
                 className={`w-4 h-4 rounded-full bg-sky-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
                   (highlighterMode === 'box' && selectedHighlightColor === 'b:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('56, 189, 248'))
                     ? 'ring-2 ring-sky-500 scale-110'
                     : ''
                 }`}
-                title="Blue"
+                title="Blue (Select text and click to highlight)"
               />
               {/* Rose */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedHighlightColor('r:');
-                  setFreefallColor('rgba(251, 113, 133, 0.42)');
-                  setIsFreefallEraser(false);
-                  soundManager.playClick();
-                }}
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => handleColorClick('r:', 'rgba(251, 113, 133, 0.42)')}
                 className={`w-4 h-4 rounded-full bg-rose-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
                   (highlighterMode === 'box' && selectedHighlightColor === 'r:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('251, 113, 133'))
                     ? 'ring-2 ring-rose-500 scale-110'
                     : ''
                 }`}
-                title="Rose"
+                title="Rose (Select text and click to highlight)"
               />
             </div>
+
+            {/* Box Mode Erase Button */}
+            {highlighterMode === 'box' && (
+              <div className="flex items-center pl-1.5 border-l border-[#E2E8F0] dark:border-[#383A48]">
+                <button
+                  type="button"
+                  onMouseDown={e => e.preventDefault()}
+                  onClick={() => {
+                    const currentSel = window.getSelection()?.toString()?.trim() || selectionTooltip.text;
+                    if (currentSel) {
+                      removeHighlight(currentSel);
+                    } else {
+                      soundManager.playClick();
+                      setPasteNotice('Select highlighted text to erase');
+                      setTimeout(() => setPasteNotice(null), 3000);
+                    }
+                  }}
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-bold text-rose-500 hover:text-rose-600 hover:bg-rose-500/10 border border-rose-500/30 transition-all cursor-pointer active:scale-95"
+                  title="Erase highlight from selected text 🧽"
+                >
+                  <Eraser className="w-3 h-3" />
+                  <span>Erase</span>
+                </button>
+              </div>
+            )}
 
             {/* Freefall Specific Tools (Pen Size, Eraser, Clear All) */}
             {highlighterMode === 'freefall' && (
@@ -3419,6 +3569,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 {/* Pen Size */}
                 <button
                   type="button"
+                  onMouseDown={e => e.preventDefault()}
                   onClick={() => setFreefallSize(6)}
                   className={`px-1.5 py-0.5 rounded text-[11px] font-mono ${freefallSize === 6 ? 'bg-slate-800 text-white dark:bg-white dark:text-black' : 'text-slate-400'}`}
                   title="Fine Pen (6px)"
@@ -3427,6 +3578,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </button>
                 <button
                   type="button"
+                  onMouseDown={e => e.preventDefault()}
                   onClick={() => setFreefallSize(14)}
                   className={`px-1.5 py-0.5 rounded text-[11px] font-mono ${freefallSize === 14 ? 'bg-slate-800 text-white dark:bg-white dark:text-black' : 'text-slate-400'}`}
                   title="Marker (14px)"
@@ -3435,6 +3587,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </button>
                 <button
                   type="button"
+                  onMouseDown={e => e.preventDefault()}
                   onClick={() => setFreefallSize(24)}
                   className={`px-1.5 py-0.5 rounded text-[11px] font-mono ${freefallSize === 24 ? 'bg-slate-800 text-white dark:bg-white dark:text-black' : 'text-slate-400'}`}
                   title="Thick Highlighter (24px)"
@@ -3445,6 +3598,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 {/* Eraser */}
                 <button
                   type="button"
+                  onMouseDown={e => e.preventDefault()}
                   onClick={() => {
                     setIsFreefallEraser(prev => !prev);
                     soundManager.playClick();
@@ -3462,6 +3616,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 {strokes.length > 0 && (
                   <button
                     type="button"
+                    onMouseDown={e => e.preventDefault()}
                     onClick={clearAllDrawings}
                     className="p-1 rounded text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors"
                     title="Clear All Drawings"
