@@ -101,7 +101,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'overview' as AppView,
           label: 'Dashboard',
-          subtitle: 'Main overview & daily stats',
           icon: LayoutDashboard,
           is3dIcon: true,
           badge: null,
@@ -111,7 +110,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'syllabus' as AppView,
           label: 'Syllabus Explorer',
-          subtitle: 'Modules, chapters & topics',
           icon: BookOpen,
           badge: null,
           badgeStyle: '',
@@ -120,7 +118,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'mindmap' as AppView,
           label: 'Concept Mind Map',
-          subtitle: 'Visual knowledge graph',
           icon: BrainCircuit,
           badge: null,
           badgeStyle: '',
@@ -129,7 +126,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'platforms' as AppView,
           label: 'Study Station & Hub',
-          subtitle: 'External web test resources',
           icon: Globe,
           badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
           badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
@@ -140,7 +136,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           label: 'AI YouTube Notes',
           icon: Video,
           badge: 'AI',
-          badgeColor: 'bg-red-500 text-white shadow-xs'
+          badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
+          iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
         }
       ]
     },
@@ -150,7 +147,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'planner' as AppView,
           label: 'Study Planner',
-          subtitle: 'Calendar & scheduled sessions',
           icon: CalendarCheck,
           badge: todayTasksCount > 0 ? `${todayTasksCount} today` : null,
           badgeStyle: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30 font-bold',
@@ -159,7 +155,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'pacing' as AppView,
           label: 'Target Pacing & Forecast',
-          subtitle: 'Finish-line calculator & buffer',
           icon: Clock,
           badge: null,
           badgeStyle: '',
@@ -168,7 +163,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'revision' as AppView,
           label: 'Spaced Revision',
-          subtitle: 'Retain & master before forgetting',
           icon: RotateCw,
           badge: dueRevisionsSafe.length > 0 ? `${dueRevisionsSafe.length}` : null,
           badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-black',
@@ -177,7 +171,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'weak' as AppView,
           label: 'Weak Topics & Traps',
-          subtitle: 'High-priority focus risk areas',
           icon: AlertTriangle,
           badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
           badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-black',
@@ -191,7 +184,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'analytics' as AppView,
           label: 'Analytics & Heatmap',
-          subtitle: 'Study intensity & metrics',
           icon: BarChart3,
           badge: null,
           badgeStyle: '',
@@ -200,7 +192,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         {
           id: 'settings' as AppView,
           label: 'App Settings',
-          subtitle: 'Theme, sounds & preferences',
           icon: Settings,
           badge: null,
           badgeStyle: '',
@@ -383,7 +374,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                           onClose();
                         }}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`w-full min-h-[46px] flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs transition-all active:scale-[0.98] cursor-pointer group tap-bounce ${
+                        className={`w-full min-h-[42px] flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all active:scale-[0.98] cursor-pointer group tap-bounce ${
                           isActive
                             ? 'bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#2563EB] dark:text-[#7AA2F7] font-black border border-[#BFDBFE] dark:border-[#7AA2F7]/40 shadow-xs'
                             : 'text-[#45474E] dark:text-[#C2C5D6] hover:bg-black/5 dark:hover:bg-white/5 border border-transparent hover:border-[#E2E8F0]/60 dark:hover:border-[#26283D]'
@@ -405,17 +396,10 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                             )}
                           </div>
 
-                          {/* Title & Micro Subtitle */}
-                          <div className="text-left min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-extrabold text-[13px] tracking-tight truncate text-[#11120F] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">
-                                {item.label}
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-medium text-[#85877E] dark:text-[#8E90A6] block truncate leading-tight">
-                              {item.subtitle}
-                            </span>
-                          </div>
+                          {/* Clean Single-Line Title */}
+                          <span className="font-extrabold text-[13px] tracking-tight truncate text-[#11120F] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">
+                            {item.label}
+                          </span>
                         </div>
 
                         {/* Right Pill Badge or Chevron */}
