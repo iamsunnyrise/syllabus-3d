@@ -150,6 +150,11 @@ export default {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        'wave': {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '20%, 60%': { transform: 'rotate(14deg)' },
+          '40%, 80%': { transform: 'rotate(-14deg)' },
+        },
       },
       animation: {
         'slide-up': 'slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards',
@@ -157,6 +162,7 @@ export default {
         'scale-in': 'scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'scale-up': 'scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'spin-slow': 'spin-slow 12s linear infinite',
+        'wave': 'wave 2s infinite ease-in-out',
       },
     },
   },

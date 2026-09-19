@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
 import {
@@ -13,12 +13,14 @@ import {
   Sparkles,
   ExternalLink,
   Flame,
-  TrendingUp
+  TrendingUp,
+  MoreVertical
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
 import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
+import { StudyDeskHeroIllustration } from '../dashboard/StudyDeskHeroIllustration';
 import { AppFooter } from '../common/AppFooter';
 import { soundManager } from '../../utils/soundEffects';
 import { useRoutine, format12Hour } from '../../context/RoutineContext';
@@ -75,6 +77,13 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const greetingIcon = hour < 12 ? '🌅' : hour < 17 ? '☀️' : '🌙';
   const formattedDate = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   const userName = profile.name || user?.name || user?.email?.split('@')[0] || 'Scholar';
+  const displayFirstName = (userName.split(' ')[0] || userName).toUpperCase();
+  const [isHeroMenuOpen, setIsHeroMenuOpen] = useState(false);
+
+  // Hero Circular Donut Gauge calculations (matching reference Image 2)
+  const heroDonutRadius = 38;
+  const heroDonutCircumference = 2 * Math.PI * heroDonutRadius;
+  const heroDonutOffset = heroDonutCircumference - (Math.min(100, Math.max(0, overallStats.completionPercentage)) / 100) * heroDonutCircumference;
 
   return (
     <div className="space-y-3 sm:space-y-3.5 pb-24 sm:pb-12">
@@ -102,98 +111,225 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl p-3 sm:p-4.5 md:p-5 bg-gradient-to-br from-white via-slate-50/90 to-white dark:from-[#181926]/90 dark:via-[#141522]/85 dark:to-[#0F1019]/95 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-elevated-card print:p-0 print:border-none print:shadow-none">
+      {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD (Refined to match Image 2) */}
+      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/95 dark:bg-[#161726]/90 backdrop-blur-2xl border border-purple-200/50 dark:border-white/[0.08] shadow-[0_12px_36px_-12px_rgba(124,58,237,0.14)] dark:shadow-[0_16px_48px_-15px_rgba(0,0,0,0.6)] print:p-0 print:border-none print:shadow-none">
         
         {/* Ambient Glow Orbs */}
-        <div className="absolute -top-12 -right-12 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-br from-[#2563EB]/10 to-[#3B82F6]/10 dark:from-[#7AA2F7]/25 dark:to-[#8B5CF6]/20 blur-3xl pointer-events-none print:hidden" />
+        <div className="absolute -top-16 -right-16 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-transparent dark:from-purple-500/20 dark:via-indigo-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
+        <div className="absolute -bottom-16 -left-16 w-56 sm:w-72 h-56 sm:h-72 rounded-full bg-gradient-to-tr from-amber-500/10 to-orange-500/5 dark:from-amber-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
 
-        <div className="relative z-10 space-y-2 sm:space-y-3">
-          {/* Top Row: Phase Pill + Live Date + Quick Metrics */}
-          <div className="flex items-center justify-between gap-1.5 sm:gap-2">
-            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-              <div className="h-6.5 sm:h-7.5 inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 dark:bg-[#7AA2F7]/15 border border-blue-500/20 dark:border-[#7AA2F7]/30 text-[#2563EB] dark:text-[#7AA2F7] text-xs font-bold tracking-normal truncate">
-                <span>{greetingIcon}</span>
+        <div className="relative z-10 space-y-4 sm:space-y-5">
+          
+          {/* ── TOP PILLS ROW: Phase Pill + Level Pill + Progress Pill + Kebab Menu ── */}
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
+              {/* 1. Warm Sun / Phase Pill */}
+              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 rounded-full bg-gradient-to-r from-[#FEF3C7] via-[#FFEDD5] to-[#FEF3C7] dark:from-[#78350F]/40 dark:via-[#7C2D12]/30 dark:to-[#78350F]/25 border border-amber-200/90 dark:border-amber-700/50 text-[#92400E] dark:text-[#FDE68A] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
+                <span className="text-sm sm:text-base leading-none select-none">{greetingIcon}</span>
                 <span>{greetingPhase}</span>
               </div>
-              <span className="hidden sm:inline-flex text-[11px] font-bold text-slate-500 dark:text-slate-400 items-center gap-1.5 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                {formattedDate}
-              </span>
-            </div>
 
-            {/* Elite Stats Badges */}
-            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-              {profile.currentStreak > 0 && (
-                <div 
-                  className="h-6.5 sm:h-7.5 flex items-center gap-1 px-2 sm:px-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-600 dark:text-amber-400 text-[10px] sm:text-[11px] font-mono font-black tabular-nums"
-                  title={`${profile.currentStreak} Day Consistency Streak`}
-                >
-                  <Flame className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-amber-500 fill-amber-500 shrink-0" />
-                  <span>{profile.currentStreak}d</span>
-                </div>
-              )}
-              <div 
-                className="h-6.5 sm:h-7.5 flex items-center gap-1 px-2 sm:px-2.5 rounded-lg sm:rounded-xl bg-blue-500/10 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] text-[10px] sm:text-[11px] font-mono font-black tabular-nums"
-                title={`Level ${profile.level} - ${profile.xp} Total XP`}
-              >
-                <TrendingUp className="w-3 sm:w-3.5 h-3 sm:h-3.5 shrink-0" />
+              {/* 2. Level Pill */}
+              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 px-3 sm:px-3.5 rounded-full bg-[#EDE9FE] dark:bg-[#3B0764]/40 border border-purple-200/70 dark:border-purple-800/40 text-[#6D28D9] dark:text-[#DDD6FE] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
+                <TrendingUp className="w-3.5 h-3.5 stroke-[2.8]" />
                 <span>Lvl {profile.level}</span>
               </div>
-              <div 
-                className="h-6.5 sm:h-7.5 flex items-center gap-1 px-2 sm:px-2.5 rounded-lg sm:rounded-xl bg-purple-500/10 dark:bg-purple-500/15 text-purple-700 dark:text-purple-300 text-[10px] sm:text-[11px] font-mono font-black tabular-nums"
-                title={`${overallStats.completionPercentage}% Syllabus Mastered`}
-              >
+
+              {/* 3. Progress Pill */}
+              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 px-3 sm:px-3.5 rounded-full bg-[#EDE9FE] dark:bg-[#3B0764]/40 border border-purple-200/70 dark:border-purple-800/40 text-[#6D28D9] dark:text-[#DDD6FE] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-[#7C3AED] dark:border-[#A78BFA] flex items-center justify-center shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED] dark:bg-[#A78BFA]" />
+                </span>
                 <span>{overallStats.completionPercentage}% Done</span>
               </div>
             </div>
+
+            {/* 4. Circular 3-Dots Menu Button */}
+            <div className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsHeroMenuOpen(prev => !prev)}
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200/90 dark:hover:bg-white/15 border border-slate-200/60 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-2xs active:scale-95 transition-all cursor-pointer"
+                title="Quick Options"
+              >
+                <MoreVertical className="w-4 h-4 stroke-[2.4]" />
+              </button>
+
+              {/* Quick Options Dropdown */}
+              {isHeroMenuOpen && (
+                <div className="absolute right-0 top-10 w-48 rounded-2xl bg-white dark:bg-[#1E2033] border border-slate-200/90 dark:border-slate-700/80 shadow-xl py-1.5 z-30 animate-scale-in">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsHeroMenuOpen(false);
+                      onNavigate('planner');
+                    }}
+                    className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
+                  >
+                    <CalendarCheck className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Daily Planner</span>
+                  </button>
+                  {onOpenFocus && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsHeroMenuOpen(false);
+                        onOpenFocus();
+                      }}
+                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Focus Mode</span>
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsHeroMenuOpen(false);
+                      onNavigate('syllabus');
+                    }}
+                    className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
+                  >
+                    <Target className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Full Syllabus</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Middle Row: Personalized Aspirant Name, Mission Header & Action Buttons */}
-          <div className="space-y-2.5 pt-0.5">
-            <div className="min-w-0">
-              <h1 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight flex items-center flex-wrap">
-                <span>{greeting},&nbsp;</span>
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-white dark:via-blue-200 dark:to-indigo-300 bg-clip-text text-transparent font-black">
-                  {userName}
-                </span>
-              </h1>
-              <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-200 mt-0.5 font-medium leading-relaxed max-w-2xl">
-                {overallStats.completionPercentage > 0
-                  ? `You have conquered ${overallStats.completionPercentage}% of ${examName}. Keep your streak alive!`
-                  : `Your mission control for ${examName} is active. Master concepts and crush your targets!`}
-              </p>
-            </div>
+          {/* ── MAIN CONTENT LAYOUT: Left Greeting & Actions + Right Gauge, Quote & 3D Desk ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+            
+            {/* Left Column: Greeting, Subtitle & Action Buttons */}
+            <div className="lg:col-span-6 xl:col-span-7 space-y-3 sm:space-y-4">
+              <div className="min-w-0">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center flex-wrap gap-x-1.5">
+                  <span>{greeting},&nbsp;</span>
+                  <span className="bg-gradient-to-r from-[#2563EB] via-[#6366F1] to-[#7C3AED] dark:from-indigo-400 dark:via-purple-300 dark:to-violet-200 bg-clip-text text-transparent font-black">
+                    {displayFirstName}
+                  </span>
+                  <span className="inline-block animate-wave origin-[70%_70%] text-2xl sm:text-3xl ml-1 select-none" role="img" aria-label="Waving hand">
+                    👋
+                  </span>
+                </h1>
+                <p className="text-sm sm:text-[15px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xl mt-1.5">
+                  You have conquered{' '}
+                  <span className="font-black text-[#6D28D9] dark:text-[#A78BFA]">
+                    {overallStats.completionPercentage}%
+                  </span>{' '}
+                  of {examName}. Keep your streak alive!
+                </p>
+              </div>
 
-            {/* Quick Action Trigger Buttons (Integrated cleanly with greeting flow) */}
-            <div className="flex items-center gap-2 flex-wrap pt-0.5 no-print">
-              {onOpenFocus && (
+              {/* Action Buttons: Focus Mode + Today */}
+              <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap pt-1 sm:pt-2 no-print">
+                {onOpenFocus && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playCompleteChime();
+                      onOpenFocus();
+                    }}
+                    className="h-11 sm:h-12 px-5 sm:px-6 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6366F1] to-[#7C3AED] hover:from-[#6D28D9] hover:via-[#4F46E5] hover:to-[#6D28D9] text-white font-black text-sm sm:text-[15px] shadow-[0_8px_25px_-4px_rgba(124,58,237,0.5)] flex items-center gap-2.5 active:scale-95 transition-all cursor-pointer border border-white/20"
+                    title="Launch Focus Chamber"
+                  >
+                    <Sparkles className="w-4 h-4 stroke-[2.5]" />
+                    <span>Focus Mode</span>
+                    <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold shrink-0 ml-0.5">
+                      <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+                    </span>
+                  </button>
+                )}
+
                 <button
                   type="button"
                   onClick={() => {
-                    soundManager.playCompleteChime();
-                    onOpenFocus();
+                    soundManager.playClick();
+                    onNavigate('planner');
                   }}
-                  className="btn-primary py-1.5 px-3.5 text-xs font-bold"
-                  title="Launch Focus Chamber"
+                  className="h-11 sm:h-12 px-4 sm:px-5 rounded-2xl bg-white dark:bg-[#1E2033] border-2 border-purple-200/90 dark:border-purple-800/60 hover:border-purple-300 dark:hover:border-purple-700 text-slate-900 dark:text-slate-100 font-black text-sm sm:text-[15px] shadow-2xs flex items-center gap-2.5 active:scale-95 transition-all cursor-pointer"
+                  title="View Today's Daily Planner"
                 >
-                  <Sparkles className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Focus Mode</span>
+                  <CalendarCheck className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+                  <span>Today ({completedTodayTasks.length}/{totalTasksToday})</span>
                 </button>
-              )}
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onNavigate('planner');
-                }}
-                className="btn-secondary py-1.5 px-3 text-xs font-bold"
-                title="View Today's Daily Planner"
-              >
-                <CalendarCheck className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7] shrink-0" />
-                <span>Today ({completedTodayTasks.length}/{totalTasksToday})</span>
-              </button>
+              </div>
             </div>
+
+            {/* Right Column: Donut Gauge, Quote & 3D Study Desk Artwork */}
+            <div className="lg:col-span-6 xl:col-span-5 flex items-center justify-between sm:justify-end gap-3 sm:gap-5 pt-2 lg:pt-0">
+              
+              {/* Circular Donut Gauge */}
+              <div className="flex flex-col items-center shrink-0">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
+                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                    <defs>
+                      <linearGradient id="heroDonutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#A855F7" />
+                        <stop offset="100%" stopColor="#6366F1" />
+                      </linearGradient>
+                      <filter id="heroDonutGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#8B5CF6" floodOpacity="0.4" />
+                      </filter>
+                    </defs>
+                    {/* Track */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r={heroDonutRadius}
+                      stroke="currentColor"
+                      strokeWidth="9"
+                      fill="transparent"
+                      className="text-purple-100 dark:text-purple-950/60"
+                    />
+                    {/* Foreground Progress */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r={heroDonutRadius}
+                      stroke="url(#heroDonutGrad)"
+                      strokeWidth="9"
+                      strokeDasharray={heroDonutCircumference}
+                      strokeDashoffset={heroDonutOffset}
+                      strokeLinecap="round"
+                      fill="transparent"
+                      filter="url(#heroDonutGlow)"
+                      className="transition-all duration-1000 ease-out"
+                    />
+                  </svg>
+                  
+                  {/* Gauge Center Text */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                    <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tabular-nums tracking-tight leading-none">
+                      {overallStats.completionPercentage}%
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 tracking-tight mt-0.5">
+                      Completed
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Motivational Handwritten Quote */}
+              <div className="flex flex-col items-start leading-tight select-none shrink-0 font-serif italic text-slate-800 dark:text-slate-100">
+                <span className="text-xs sm:text-sm font-bold tracking-tight">'Discipline</span>
+                <span className="text-xs sm:text-sm font-bold tracking-tight">Today</span>
+                <span className="text-xs sm:text-sm font-bold tracking-tight">A Stronger</span>
+                <span className="text-xs sm:text-sm font-bold tracking-tight">Tomorrow</span>
+                {/* Hand-drawn accent swoop underline */}
+                <svg className="w-14 sm:w-16 h-2 text-purple-500 dark:text-purple-400 mt-1" viewBox="0 0 80 8" fill="none">
+                  <path d="M2 5 Q 40 1, 78 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+              </div>
+
+              {/* 3D Study Desk Illustration (Stack of Books PLAN/STUDY/ACHIEVE + Sticky Note + Plant) */}
+              <div className="shrink-0">
+                <StudyDeskHeroIllustration className="w-32 sm:w-40 md:w-44 lg:w-48 h-auto" />
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>

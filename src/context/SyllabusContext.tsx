@@ -51,7 +51,7 @@ import {
 import { soundManager } from '../utils/soundEffects';
 import { haptics } from '../utils/haptics';
 import { useAuth } from './AuthContext';
-import confetti from 'canvas-confetti';
+import { fireCelebration as confetti } from '../utils/confettiHelper';
 import { storageManager, StorageHealthMetrics, FullAppSnapshot } from '../services/storageManager';
 import {
   fetchUserCloudData,

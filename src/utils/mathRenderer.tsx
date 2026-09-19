@@ -1,5 +1,6 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import { Copy, Check, Sigma } from 'lucide-react';
 import { soundManager } from './soundEffects';
 

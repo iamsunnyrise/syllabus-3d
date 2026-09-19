@@ -57,28 +57,45 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
 
-  // Strategy A: Navigation requests (HTML pages) → Network ALWAYS First with cache: 'no-cache'
+  // Strategy A: Navigation requests (HTML pages) → Fast Network-First with 1.2s timeout to cached app shell
   if (request.mode === 'navigate' || request.destination === 'document') {
     event.respondWith(
-      fetch(new Request(request.url, {
-        method: 'GET',
-        headers: request.headers,
-        cache: 'no-cache', // Bypass browser disk cache for HTML
-        mode: 'cors',
-        credentials: request.credentials,
-        redirect: 'follow'
-      }))
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const copy = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Offline fallback
-          return caches.match(request).then((cached) => cached || caches.match('/index.html'));
-        })
+      new Promise((resolve) => {
+        let timedOut = false;
+        const timer = setTimeout(() => {
+          timedOut = true;
+          caches.match(request).then((cached) => {
+            if (cached) {
+              resolve(cached);
+            }
+          });
+        }, 1200);
+
+        fetch(new Request(request.url, {
+          method: 'GET',
+          headers: request.headers,
+          cache: 'no-cache', // Bypass browser disk cache for HTML
+          mode: 'cors',
+          credentials: request.credentials,
+          redirect: 'follow'
+        }))
+          .then((networkResponse) => {
+            clearTimeout(timer);
+            if (networkResponse && networkResponse.status === 200) {
+              const copy = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+            }
+            if (!timedOut) {
+              resolve(networkResponse);
+            }
+          })
+          .catch(() => {
+            clearTimeout(timer);
+            caches.match(request).then((cached) => {
+              resolve(cached || caches.match('/index.html'));
+            });
+          });
+      })
     );
     return;
   }

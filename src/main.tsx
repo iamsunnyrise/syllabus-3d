@@ -9,7 +9,6 @@ import { RoutineProvider } from './context/RoutineContext';
 import { PinLockProvider } from './context/PinLockContext';
 import { GoogleDriveProvider } from './context/GoogleDriveContext';
 import './index.css';
-import 'katex/dist/katex.min.css';
 
 // Request Persistent Storage & Background Keep-Alive for Android / PWA
 if (typeof window !== 'undefined') {
@@ -65,10 +64,11 @@ if ('serviceWorker' in navigator && (import.meta.env.PROD || window.location.pro
         console.warn('[PWA] ServiceWorker registration warning:', err);
       });
 
-    // When the new Service Worker activates and claims clients, reload page seamlessly
+    // When an existing active Service Worker is replaced by a new update, reload page seamlessly
     let refreshing = false;
+    const hadController = Boolean(navigator.serviceWorker.controller);
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (!refreshing) {
+      if (hadController && !refreshing) {
         refreshing = true;
         window.location.reload();
       }

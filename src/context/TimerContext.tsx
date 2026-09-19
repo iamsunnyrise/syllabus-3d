@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useRef, useCallb
 import { TimerSessionState, FloatingTimerSettings, TimerMode } from '../types/timer';
 import { useSyllabus } from './SyllabusContext';
 import { soundManager } from '../utils/soundEffects';
-import confetti from 'canvas-confetti';
+import { fireCelebration } from '../utils/confettiHelper';
 
 interface StartTimerOptions {
   mode?: TimerMode;
@@ -190,7 +190,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
 
     soundManager.playCompleteChime();
-    confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
+    fireCelebration({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
 
     // Background Web Notification
     if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {

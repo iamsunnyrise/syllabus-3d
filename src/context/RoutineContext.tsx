@@ -5,7 +5,7 @@ import { useSyllabus } from './SyllabusContext';
 import { getTodayDateString } from '../utils/dateUtils';
 import { soundManager } from '../utils/soundEffects';
 import { haptics } from '../utils/haptics';
-import confetti from 'canvas-confetti';
+import { fireCelebration } from '../utils/confettiHelper';
 
 interface RoutineContextType {
   routineSlots: RoutineSlot[];
@@ -235,7 +235,7 @@ export const RoutineProvider: React.FC<{ children: React.ReactNode }> = ({ child
       if (!isCompleted) {
         soundManager.playCompleteChime();
         haptics.medium();
-        confetti({
+        fireCelebration({
           particleCount: 40,
           spread: 55,
           origin: { y: 0.75 }
@@ -268,7 +268,7 @@ export const RoutineProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setRoutineSlots(newSlots);
     soundManager.playCompleteChime();
     haptics.success();
-    confetti({
+    fireCelebration({
       particleCount: 60,
       spread: 70,
       origin: { y: 0.6 }
