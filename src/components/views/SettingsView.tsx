@@ -43,7 +43,12 @@ import {
   AlertCircle,
   Lock,
   KeyRound,
-  Cloud
+  Cloud,
+  Eye,
+  EyeOff,
+  ExternalLink,
+  Loader2,
+  Video
 } from 'lucide-react';
 import { soundManager, AudioSettings } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
@@ -55,8 +60,13 @@ import { usePinLock } from '../../context/PinLockContext';
 import { UserProfileItem } from '../../types/syllabus';
 import { GoogleDriveBackupModal } from '../modals/GoogleDriveBackupModal';
 import { getValidAccessToken } from '../../utils/googleDriveClient';
+import {
+  getStoredGeminiApiKey,
+  setStoredGeminiApiKey,
+  clearStoredGeminiApiKey
+} from '../../utils/youtubeNotesGenerator';
 
-type SettingsTab = 'profiles' | 'exam' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
+type SettingsTab = 'profiles' | 'exam' | 'ai' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
 
 export const SettingsView: React.FC = () => {
   const {
@@ -137,6 +147,82 @@ export const SettingsView: React.FC = () => {
   // Google Drive Cloud Backup Hub State
   const [showGoogleDriveModal, setShowGoogleDriveModal] = useState(false);
   const [gdriveConnected, setGdriveConnected] = useState(() => Boolean(getValidAccessToken()));
+
+  // Gemini AI Engine Configuration State
+  const [geminiApiKey, setGeminiApiKey] = useState(() => getStoredGeminiApiKey());
+  const [tempAiKey, setTempAiKey] = useState(() => getStoredGeminiApiKey());
+  const [showAiKeySecret, setShowAiKeySecret] = useState(false);
+  const [aiKeySaveSuccess, setAiKeySaveSuccess] = useState(false);
+  const [isTestingAiKey, setIsTestingAiKey] = useState(false);
+  const [aiTestResult, setAiTestResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const handleSaveGeminiKey = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const cleanKey = tempAiKey.trim();
+    if (!cleanKey) {
+      clearStoredGeminiApiKey();
+      setGeminiApiKey('');
+      setTempAiKey('');
+      setAiTestResult(null);
+      soundManager.playClick();
+      return;
+    }
+    setStoredGeminiApiKey(cleanKey);
+    setGeminiApiKey(cleanKey);
+    setAiKeySaveSuccess(true);
+    setAiTestResult(null);
+    soundManager.playCompleteChime();
+    haptics.success();
+    setTimeout(() => setAiKeySaveSuccess(false), 3000);
+  };
+
+  const handleRemoveGeminiKey = () => {
+    clearStoredGeminiApiKey();
+    setGeminiApiKey('');
+    setTempAiKey('');
+    setAiTestResult(null);
+    soundManager.playClick();
+    haptics.selection();
+  };
+
+  const handleTestGeminiKey = async () => {
+    const keyToTest = tempAiKey.trim() || geminiApiKey;
+    if (!keyToTest) {
+      setAiTestResult({ success: false, message: 'Please enter a valid API key first.' });
+      soundManager.playError();
+      return;
+    }
+    setIsTestingAiKey(true);
+    setAiTestResult(null);
+    try {
+      const resp = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${keyToTest}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: 'Hello, respond with OK.' }] }],
+            generationConfig: { maxOutputTokens: 5 }
+          })
+        }
+      );
+      if (resp.ok) {
+        setAiTestResult({ success: true, message: 'Connection verified! Gemini 2.0 Flash is operational and ready.' });
+        soundManager.playCompleteChime();
+        haptics.success();
+      } else {
+        const data = await resp.json().catch(() => ({}));
+        const msg = data?.error?.message || `HTTP ${resp.status} - Invalid or unauthorized API key.`;
+        setAiTestResult({ success: false, message: msg });
+        soundManager.playError();
+      }
+    } catch (err: any) {
+      setAiTestResult({ success: false, message: err?.message || 'Network error connecting to Google Gemini API.' });
+      soundManager.playError();
+    } finally {
+      setIsTestingAiKey(false);
+    }
+  };
 
   useEffect(() => {
     if (activeTab === 'data') {
@@ -511,6 +597,7 @@ export const SettingsView: React.FC = () => {
         {[
           { id: 'profiles' as SettingsTab, label: 'Profiles', icon: Users },
           { id: 'exam' as SettingsTab, label: 'Exam Target', icon: Target },
+          { id: 'ai' as SettingsTab, label: 'AI & Models', icon: Sparkles },
           { id: 'appearance' as SettingsTab, label: 'Appearance', icon: Palette },
           { id: 'sound' as SettingsTab, label: 'Sound & Audio', icon: Volume2 },
           { id: 'timer' as SettingsTab, label: 'Focus & Timer', icon: Clock },
@@ -892,6 +979,174 @@ export const SettingsView: React.FC = () => {
               )}
             </div>
           </form>
+        </div>
+      )}
+
+      {/* TAB: AI & INTELLIGENCE ENGINE */}
+      {activeTab === 'ai' && (
+        <div className="space-y-4 animate-fade-in">
+          {/* Header Card */}
+          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight flex items-center gap-2">
+                    <span>AI & Intelligence Engine</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-violet-600 to-cyan-500 text-white">
+                      Google Gemini
+                    </span>
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                    Configure your free Google Gemini API key to power AI YouTube Notes, Syllabus Parsing, and Academic Summaries.
+                  </p>
+                </div>
+              </div>
+
+              {/* Status Badge */}
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
+                  geminiApiKey
+                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                    : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 animate-pulse'
+                }`}>
+                  <span className={`w-2 h-2 rounded-full ${geminiApiKey ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                  <span>{geminiApiKey ? 'Connected & Active' : 'API Key Missing'}</span>
+                </span>
+              </div>
+            </div>
+
+            {/* API Key Form */}
+            <form onSubmit={handleSaveGeminiKey} className="space-y-3 pt-1">
+              <div className="space-y-1.5">
+                <label className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block">
+                  Google Gemini API Key
+                </label>
+                <div className="relative">
+                  <input
+                    type={showAiKeySecret ? 'text' : 'password'}
+                    value={tempAiKey}
+                    onChange={(e) => setTempAiKey(e.target.value)}
+                    placeholder="AIzaSy..."
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 pr-12 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-mono font-medium text-[#11120F] dark:text-white placeholder-slate-400 focus:outline-none focus:border-violet-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowAiKeySecret(!showAiKeySecret)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-1"
+                  >
+                    {showAiKeySecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  type="submit"
+                  className="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-black shadow-md shadow-violet-500/20 transition-all cursor-pointer active:scale-95 flex items-center gap-2"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>Save API Key</span>
+                </button>
+
+                <button
+                  type="button"
+                  disabled={isTestingAiKey || (!tempAiKey.trim() && !geminiApiKey)}
+                  onClick={handleTestGeminiKey}
+                  className="px-4 py-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] hover:bg-slate-100 dark:hover:bg-[#272838] text-[#11120F] dark:text-white border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold transition-all cursor-pointer active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                >
+                  {isTestingAiKey ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5 text-violet-500" />}
+                  <span>{isTestingAiKey ? 'Testing Connection...' : 'Test Connection'}</span>
+                </button>
+
+                {geminiApiKey && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveGeminiKey}
+                    className="px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 transition-colors cursor-pointer"
+                  >
+                    Remove Key
+                  </button>
+                )}
+
+                {aiKeySaveSuccess && (
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in">
+                    <Check className="w-4 h-4 stroke-[3]" />
+                    <span>API Key saved & synchronized across app!</span>
+                  </span>
+                )}
+              </div>
+
+              {/* Test Result Display */}
+              {aiTestResult && (
+                <div className={`p-3 rounded-xl border text-xs font-medium flex items-start gap-2.5 animate-fade-in ${
+                  aiTestResult.success
+                    ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-700 dark:text-emerald-400'
+                    : 'bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400'
+                }`}>
+                  {aiTestResult.success ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                  )}
+                  <span>{aiTestResult.message}</span>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {/* Guide Card: How to get Free Key */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-violet-500/5 to-cyan-500/5 border border-violet-500/20 space-y-3">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wide flex items-center gap-2">
+                <span>💡 Free Google Gemini API Key Guide</span>
+              </h4>
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
+              >
+                <span>Google AI Studio</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Google Gemini API is <strong>100% Free</strong>. No credit card is required. Free tier offers 15 requests per minute, which is more than enough for regular study notes generation and syllabus parsing.
+            </p>
+            <ol className="list-decimal pl-4 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+              <li>Open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-violet-600 dark:text-violet-400 underline font-semibold">Google AI Studio (aistudio.google.com)</a>.</li>
+              <li>Sign in with your Google account.</li>
+              <li>Click <strong>&quot;Create API Key&quot;</strong> and copy the generated key (starts with <code className="font-mono bg-violet-100 dark:bg-violet-900/30 px-1 py-0.5 rounded">AIzaSy...</code>).</li>
+              <li>Paste the key in the field above and click <strong>&quot;Save API Key&quot;</strong>.</li>
+            </ol>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] space-y-2">
+              <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-black text-xs uppercase tracking-wider">
+                <Video className="w-4 h-4" />
+                <span>AI YouTube Notes</span>
+              </div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                Paste any educational YouTube URL to generate structured notes with headings, KaTeX math equations, timestamps, and exam-focused questions.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] space-y-2">
+              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-black text-xs uppercase tracking-wider">
+                <BookOpen className="w-4 h-4" />
+                <span>AI Syllabus Architect</span>
+              </div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                Convert raw PDF notifications or syllabus text into organized 4-level subject, chapter, topic, and subtopic study tracks.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 

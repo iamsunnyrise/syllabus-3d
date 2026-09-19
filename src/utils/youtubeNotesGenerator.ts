@@ -495,3 +495,21 @@ export function getStoredGeminiApiKey(): string {
     ''
   );
 }
+
+export function setStoredGeminiApiKey(key: string): void {
+  if (typeof window === 'undefined') return;
+  const cleanKey = key.trim();
+  if (cleanKey) {
+    localStorage.setItem('syllabus3d_gemini_api_key', cleanKey);
+    localStorage.setItem('syllabus_gemini_api_key', cleanKey);
+  } else {
+    localStorage.removeItem('syllabus3d_gemini_api_key');
+    localStorage.removeItem('syllabus_gemini_api_key');
+  }
+}
+
+export function clearStoredGeminiApiKey(): void {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem('syllabus3d_gemini_api_key');
+  localStorage.removeItem('syllabus_gemini_api_key');
+}
