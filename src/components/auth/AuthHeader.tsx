@@ -23,11 +23,11 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle }) => {
       </button>
 
       {/* App Logo */}
-      <div className="w-16 h-16 sm:w-20 sm:h-20 mb-4 p-2 rounded-3xl bg-[#FAF8F5] dark:bg-[#18181D] border border-[#EBD3A0] dark:border-[#272730] shadow-xl flex items-center justify-center">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 mb-4 flex items-center justify-center shrink-0">
         <img
           src="/logo.png"
           alt="SYLLABUS 3D Logo"
-          className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
+          className="w-full h-full object-contain drop-shadow-xl hover:scale-105 transition-transform"
         />
       </div>
 

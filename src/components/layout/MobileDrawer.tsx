@@ -226,9 +226,9 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           {/* 1. BRANDING & EXAM TARGET HEADER */}
           <div className="flex items-center justify-between pb-3.5 border-b border-[#DDD6FE] dark:border-[#334155]">
             <div className="flex items-center gap-3 min-w-0">
-              {/* 3D App Icon with Metallic Rim */}
-              <div className="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-2xl bg-slate-100 dark:bg-[#0F172A] p-1 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] shadow-xs shrink-0 overflow-hidden">
-                <img src="/logo.png" alt="Logo" className="w-full h-full max-w-full max-h-full object-contain drop-shadow-xs" />
+              {/* 3D App Icon Badge */}
+              <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center shrink-0">
+                <img src="/logo.png" alt="Syllabus 3D Logo" className="w-full h-full object-contain drop-shadow-sm" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">

@@ -80,8 +80,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 p-0.5 shadow-md shadow-blue-500/20 flex items-center justify-center">
-              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain rounded-[10px]" />
+            <div className="relative w-9 h-9 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain drop-shadow-md" />
             </div>
             <div>
               <span className="text-base font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
@@ -575,8 +575,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#07090F] py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 p-0.5 flex items-center justify-center">
-              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain rounded-[9px]" />
+            <div className="w-8 h-8 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain drop-shadow-sm" />
             </div>
             <div>
               <span className="font-bold text-slate-900 dark:text-white">Syllabus 3D</span>
