@@ -196,7 +196,7 @@ export const SettingsView: React.FC = () => {
     setAiTestResult(null);
     try {
       let resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyToTest}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${keyToTest}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -208,7 +208,7 @@ export const SettingsView: React.FC = () => {
       );
       if (!resp.ok) {
         resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${keyToTest}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyToTest}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

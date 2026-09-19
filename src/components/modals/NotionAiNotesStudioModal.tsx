@@ -191,7 +191,7 @@ export const NotionAiNotesStudioModal: React.FC<NotionAiNotesStudioModalProps> =
 
   // Gemini API Key State & Model Selection
   const [geminiApiKey, setGeminiApiKey] = useState<string>('');
-  const [selectedModel, setSelectedModel] = useState<'gemini-2.0-flash' | 'gemini-1.5-flash'>('gemini-2.0-flash');
+  const [selectedModel, setSelectedModel] = useState<'gemini-3.6-flash' | 'gemini-2.5-flash'>('gemini-3.6-flash');
   const [showApiKeyDrawer, setShowApiKeyDrawer] = useState<boolean>(false);
   const [isGeneratingLive, setIsGeneratingLive] = useState<boolean>(false);
   const [liveError, setLiveError] = useState<string | null>(null);
@@ -993,25 +993,25 @@ export const NotionAiNotesStudioModal: React.FC<NotionAiNotesStudioModalProps> =
                 <div className="flex items-center p-0.5 rounded-lg bg-purple-100 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800/60 text-[10px] font-bold font-mono">
                   <button
                     type="button"
-                    onClick={() => { setSelectedModel('gemini-2.0-flash'); soundManager.playClick(); }}
+                    onClick={() => { setSelectedModel('gemini-3.6-flash'); soundManager.playClick(); }}
                     className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
-                      selectedModel === 'gemini-2.0-flash'
+                      selectedModel === 'gemini-3.6-flash'
                         ? 'bg-purple-600 text-white shadow-2xs'
                         : 'text-purple-700 dark:text-purple-300 hover:text-purple-900'
                     }`}
                   >
-                    2.0 Flash (Fastest)
+                    3.6 Flash (Latest)
                   </button>
                   <button
                     type="button"
-                    onClick={() => { setSelectedModel('gemini-1.5-flash'); soundManager.playClick(); }}
+                    onClick={() => { setSelectedModel('gemini-2.5-flash'); soundManager.playClick(); }}
                     className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
-                      selectedModel === 'gemini-1.5-flash'
+                      selectedModel === 'gemini-2.5-flash'
                         ? 'bg-purple-600 text-white shadow-2xs'
                         : 'text-purple-700 dark:text-purple-300 hover:text-purple-900'
                     }`}
                   >
-                    1.5 Flash
+                    2.5 Flash
                   </button>
                 </div>
 

@@ -244,14 +244,7 @@ export const YouTubeNotesView: React.FC = () => {
 
   // ── Handle Generate ──
   const handleGenerate = useCallback(async () => {
-    const activeApiKey = apiKey || getStoredGeminiApiKey();
-    if (!activeApiKey) {
-      setTempApiKeyInput('');
-      setShowApiKeyModal(true);
-      setError('Please add your free Google Gemini API key to generate notes. Click "Setup Free API Key" below.');
-      soundManager.playError?.();
-      return;
-    }
+    const activeApiKey = apiKey || getStoredGeminiApiKey() || (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
 
     if (!isValidUrl && !manualTranscript.trim()) {
       setError('Please enter a valid YouTube URL.');
@@ -438,13 +431,7 @@ export const YouTubeNotesView: React.FC = () => {
 
   // ── AI Action ──
   const handleAiAction = useCallback(async (action: AiActionType) => {
-    const activeApiKey = apiKey || getStoredGeminiApiKey();
-    if (!activeApiKey) {
-      setTempApiKeyInput('');
-      setShowApiKeyModal(true);
-      setError('Please add your free Gemini API key first to use AI actions.');
-      return;
-    }
+    const activeApiKey = apiKey || getStoredGeminiApiKey() || (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
 
     const textToProcess = selectedText || generatedNotes;
     if (!textToProcess) return;
@@ -718,57 +705,66 @@ export const YouTubeNotesView: React.FC = () => {
               className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-2xs ${
                 apiKey
                   ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/20'
-                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 animate-pulse'
+                  : 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/25 hover:bg-violet-500/20'
               }`}
             >
               <KeyRound className="w-3.5 h-3.5" />
               {apiKey ? (
                 <>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-                  <span>Gemini AI Connected (Click to change)</span>
+                  <span>Gemini 3.6 Connected (Personal Key)</span>
                 </>
               ) : (
                 <>
-                  <span className="w-2 h-2 rounded-full bg-amber-500 inline-block animate-ping" />
-                  <span>Setup Free Gemini Key</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  <span>⚡ 1-Click Direct AI Mode (gemini-3.6-flash)</span>
                 </>
               )}
             </button>
           </div>
         </div>
 
-        {/* API Key Setup Banner if not configured */}
-        {!apiKey && (
-          <div className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade ${
-            isDark
-              ? 'bg-amber-500/10 border-amber-500/30 text-amber-200'
-              : 'bg-amber-50 border-amber-300 text-amber-900 shadow-sm'
-          }`}>
-            <div className="flex items-start sm:items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-500 shrink-0 mt-0.5 sm:mt-0">
-                <KeyRound className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs sm:text-sm font-black">Google Gemini API Key Setup Required</p>
-                <p className="text-[11px] sm:text-xs opacity-80 mt-0.5">
-                  YouTube Video se structured notes generate karne ke liye Gemini API key zaroori hai. Ye Google AI Studio par <strong>100% FREE</strong> hai (koi credit card nahi chahiye).
-                </p>
-              </div>
+        {/* 1-Click Direct Generation Banner */}
+        <div className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade ${
+          isDark
+            ? 'bg-gradient-to-r from-violet-950/40 via-purple-950/30 to-indigo-950/40 border-violet-800/40 text-violet-200'
+            : 'bg-gradient-to-r from-violet-50 via-purple-50 to-indigo-50 border-violet-200 text-violet-950 shadow-sm'
+        }`}>
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-violet-500/20 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5 sm:mt-0">
+              <Sparkles className="w-5 h-5" />
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                setTempApiKeyInput(apiKey);
-                setShowApiKeyModal(true);
-                soundManager.playClick?.();
-              }}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-md shadow-amber-500/20 transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
-            >
-              <KeyRound className="w-3.5 h-3.5" />
-              <span>Setup Free API Key</span>
-            </button>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-xs sm:text-sm font-black">1-Click Direct Notes Generator</p>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-500/20 text-violet-700 dark:text-violet-300">
+                  gemini-3.6-flash
+                </span>
+              </div>
+              <p className="text-[11px] sm:text-xs opacity-85 mt-0.5">
+                {apiKey
+                  ? 'Aapki personal Google Gemini API Key active hai. Deep semantic analysis ke sath notes banenge.'
+                  : 'Google के लेटेस्ट gemini-3.6-flash & Smart Engine से सीधे नोट्स जनरेट करें। किसी API Key की आवश्यकता नहीं है!'}
+              </p>
+            </div>
           </div>
-        )}
+          <button
+            type="button"
+            onClick={() => {
+              setTempApiKeyInput(apiKey);
+              setShowApiKeyModal(true);
+              soundManager.playClick?.();
+            }}
+            className={`w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5 ${
+              apiKey
+                ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20'
+                : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-md shadow-violet-600/20'
+            }`}
+          >
+            <KeyRound className="w-3.5 h-3.5" />
+            <span>{apiKey ? 'Manage Gemini Key' : 'Optional: Add Personal Key'}</span>
+          </button>
+        </div>
 
         {/* URL Input Card */}
         <div className={`rounded-2xl border p-4 sm:p-5 transition-all duration-300 ${
@@ -1110,7 +1106,7 @@ export const YouTubeNotesView: React.FC = () => {
                 <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p>
               </div>
             </div>
-            {(!apiKey || error.toLowerCase().includes('api key')) && (
+            {(error.toLowerCase().includes('api key') || error.toLowerCase().includes('quota')) && (
               <button
                 type="button"
                 onClick={() => {
@@ -1121,7 +1117,7 @@ export const YouTubeNotesView: React.FC = () => {
                 className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shrink-0 shadow-sm flex items-center gap-1.5 cursor-pointer transition-all active:scale-95"
               >
                 <KeyRound className="w-3.5 h-3.5" />
-                <span>Enter Gemini API Key</span>
+                <span>Manage Gemini API Key</span>
               </button>
             )}
           </div>

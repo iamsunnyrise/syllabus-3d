@@ -1448,7 +1448,7 @@ export async function generateNotesWithLiveGemini(params: {
   chapterName?: string;
   examName?: string;
   format?: NoteFormatType;
-  model?: 'gemini-2.0-flash' | 'gemini-1.5-flash';
+  model?: 'gemini-3.6-flash' | 'gemini-2.5-flash';
   customPrompt?: string;
   apiKey?: string;
 }): Promise<string> {
@@ -1457,7 +1457,7 @@ export async function generateNotesWithLiveGemini(params: {
     throw new Error('Please enter a Google Gemini API Key to use live generative AI.');
   }
 
-  const selectedModel = params.model || 'gemini-2.0-flash';
+  const selectedModel = params.model || 'gemini-3.6-flash';
 
   const systemInstruction = `You are Notion AI & Expert Academic Notes Architect for ${params.examName || 'Competitive Exams (SSC CGL, UPSC, Banking)'}.
 Your task is to take the student's raw text and transform it into 10/10 interactive, engaging, and professional academic notes.
@@ -1499,10 +1499,10 @@ Zero conversational pleasantries, zero intro/outro chatter.`;
   });
 
   if (!response.ok) {
-    // If gemini-2.0-flash returned error, fallback to gemini-1.5-flash
-    if (selectedModel === 'gemini-2.0-flash') {
-      console.warn('Gemini 2.0 error, falling back to gemini-1.5-flash');
-      const fallbackEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // If gemini-3.6-flash returned error, fallback to gemini-2.5-flash
+    if (selectedModel === 'gemini-3.6-flash') {
+      console.warn('Gemini 3.6 error, falling back to gemini-2.5-flash');
+      const fallbackEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
       const fbResponse = await fetch(fallbackEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

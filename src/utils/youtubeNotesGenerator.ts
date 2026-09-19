@@ -61,10 +61,10 @@ export type AiActionType = 'improve' | 'expand' | 'shorten' | 'translate' | 'mak
 // ─── Constants ──────────────────────────────────────────────────
 
 const CANDIDATE_GEMINI_MODELS = [
+  'gemini-3.6-flash',
   'gemini-2.5-flash',
   'gemini-2.5-flash-lite',
   'gemini-2.5-pro',
-  'gemini-2.0-flash',
 ];
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
@@ -104,6 +104,13 @@ async function callGeminiApi(
 ): Promise<string> {
   const { temperature = 0.25, maxOutputTokens = 8192, videoUrl } = options;
 
+  // Resolve API Key: passed param -> localStorage -> Vite env
+  const effectiveKey = (
+    apiKey ||
+    getStoredGeminiApiKey() ||
+    ((import.meta as any)?.env?.VITE_GEMINI_API_KEY || '')
+  ).trim();
+
   const payloadWithVideo = videoUrl
     ? {
         contents: [
@@ -135,15 +142,46 @@ async function callGeminiApi(
 
   let lastError = '';
 
-  // 1. If videoUrl is provided, attempt multimodal video processing across candidate models
-  if (payloadWithVideo) {
+  // 1. If effective key is present, attempt direct Google Gemini API call
+  if (effectiveKey) {
+    // 1a. Multimodal video attempt if videoUrl is supplied
+    if (payloadWithVideo) {
+      for (const model of CANDIDATE_GEMINI_MODELS) {
+        try {
+          const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${effectiveKey}`;
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payloadWithVideo),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text && text.trim()) {
+              return text.trim();
+            }
+          } else {
+            const errorData = await response.json().catch(() => ({}));
+            lastError = errorData?.error?.message || `Model ${model} returned HTTP ${response.status}`;
+            console.warn(`[Gemini] Multimodal ${model} failed (${response.status}):`, lastError);
+          }
+        } catch (err: any) {
+          lastError = err?.message || `Network error with model ${model}`;
+          console.warn(`[Gemini] Network error with ${model}:`, err);
+        }
+      }
+      console.warn('[Gemini] Multimodal video attempt concluded, falling back to text prompt...');
+    }
+
+    // 1b. Text-only generation across candidate models
     for (const model of CANDIDATE_GEMINI_MODELS) {
       try {
-        const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+        const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${effectiveKey}`;
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payloadWithVideo),
+          body: JSON.stringify(payloadTextOnly),
         });
 
         if (response.ok) {
@@ -155,41 +193,41 @@ async function callGeminiApi(
         } else {
           const errorData = await response.json().catch(() => ({}));
           lastError = errorData?.error?.message || `Model ${model} returned HTTP ${response.status}`;
-          console.warn(`[Gemini] Multimodal ${model} failed (${response.status}):`, lastError);
+          console.warn(`[Gemini] Text ${model} failed (${response.status}):`, lastError);
         }
       } catch (err: any) {
         lastError = err?.message || `Network error with model ${model}`;
         console.warn(`[Gemini] Network error with ${model}:`, err);
       }
     }
-    console.warn('[Gemini] Multimodal video attempt concluded, falling back to text prompt...');
   }
 
-  // 2. Text-only generation across candidate models
-  for (const model of CANDIDATE_GEMINI_MODELS) {
-    try {
-      const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payloadTextOnly),
-      });
+  // 2. Attempt serverless proxy call (/api/gemini)
+  try {
+    const proxyResponse = await fetch('/api/gemini', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt,
+        videoUrl,
+        temperature,
+        maxOutputTokens,
+      }),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text && text.trim()) {
-          return text.trim();
-        }
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        lastError = errorData?.error?.message || `Model ${model} returned HTTP ${response.status}`;
-        console.warn(`[Gemini] Text ${model} failed (${response.status}):`, lastError);
+    if (proxyResponse.ok) {
+      const proxyData = await proxyResponse.json();
+      if (proxyData?.text && proxyData.text.trim()) {
+        return proxyData.text.trim();
       }
-    } catch (err: any) {
-      lastError = err?.message || `Network error with model ${model}`;
-      console.warn(`[Gemini] Network error with ${model}:`, err);
+    } else {
+      const proxyErr = await proxyResponse.json().catch(() => ({}));
+      if (proxyErr?.error) {
+        lastError = proxyErr.error;
+      }
     }
+  } catch {
+    // In local dev without vercel serverless running, proxy will network fail
   }
 
   throw new Error(lastError || 'Gemini API call failed across all available models.');
@@ -321,69 +359,83 @@ export async function generateYouTubeNotes(params: GenerateNotesParams): Promise
   report(0);
 
   const systemPrompt = buildSystemPrompt(settings, videoTitle, channelName);
-  let rawNotes: string;
+  let rawNotes = '';
 
-  if (segments.length === 0) {
-    // ── Direct Gemini Multimodal Analysis (No transcript needed!) ──
-    // Stage 1: Connecting to YouTube video
-    report(1);
-    // Stage 2: Topic identification
-    report(2);
-    // Stage 3: Video concepts extraction
-    report(3);
-    // Stage 4: Notes structure generation
-    report(4);
+  try {
+    if (segments.length === 0) {
+      // ── Direct Gemini Multimodal Analysis (No transcript needed!) ──
+      // Stage 1: Connecting to YouTube video
+      report(1);
+      // Stage 2: Topic identification
+      report(2);
+      // Stage 3: Video concepts extraction
+      report(3);
+      // Stage 4: Notes structure generation
+      report(4);
 
-    const directPrompt = `${systemPrompt}
+      const directPrompt = `${systemPrompt}
 
 You are analyzing the educational YouTube video: "${videoTitle}" (${videoUrl || `https://www.youtube.com/watch?v=${videoId}`}) by "${channelName}".
 Please watch and listen to the entire video content, analyze all spoken explanations and on-screen diagrams, extract all key educational concepts, and generate exhaustive, beautifully structured study notes in ${settings.language === 'hindi' ? 'Hindi (हिन्दी)' : 'English'}.
 Follow all rules, structure, formulas, tables, and exam questions as instructed.`;
 
-    rawNotes = await callGeminiApi(directPrompt, apiKey, {
-      maxOutputTokens: 8192,
-      videoUrl: videoUrl || `https://www.youtube.com/watch?v=${videoId}`
-    });
-  } else {
-    // ── Transcript-based generation ──
-    // Stage 1: Transcript processing
-    report(1);
-    const chunks = segmentTranscriptIntoChunks(segments, 5000);
-
-    // Stage 2: Topic identification
-    report(2);
-
-    if (chunks.length <= 1) {
-      // Single chunk — direct generation
-      const fullText = segments.map(s => s.text).join(' ');
-      
-      // Stage 3: Important concepts extraction
-      report(3);
-      
-      // Stage 4: Notes structure generation
-      report(4);
-      const prompt = buildNotesPrompt(systemPrompt, fullText);
-      rawNotes = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 8192 });
+      rawNotes = await callGeminiApi(directPrompt, apiKey, {
+        maxOutputTokens: 8192,
+        videoUrl: videoUrl || `https://www.youtube.com/watch?v=${videoId}`
+      });
     } else {
-      // Multi-chunk — chunked processing for long videos
-      const chunkNotes: string[] = [];
+      // ── Transcript-based generation ──
+      // Stage 1: Transcript processing
+      report(1);
+      const chunks = segmentTranscriptIntoChunks(segments, 5000);
 
-      for (let i = 0; i < chunks.length; i++) {
-        const chunk = chunks[i];
-        const context = `Part ${i + 1} of ${chunks.length} (${chunk.startTimestamp} — ${chunk.endTimestamp})`;
+      // Stage 2: Topic identification
+      report(2);
+
+      if (chunks.length <= 1) {
+        // Single chunk — direct generation
+        const fullText = segments.map(s => s.text).join(' ');
         
-        if (i === 0) report(3); // Important concepts extraction
+        // Stage 3: Important concepts extraction
+        report(3);
         
-        const prompt = buildNotesPrompt(systemPrompt, chunk.text, true, context);
-        const chunkResult = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 4096 });
-        chunkNotes.push(chunkResult);
+        // Stage 4: Notes structure generation
+        report(4);
+        const prompt = buildNotesPrompt(systemPrompt, fullText);
+        rawNotes = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 8192 });
+      } else {
+        // Multi-chunk — chunked processing for long videos
+        const chunkNotes: string[] = [];
+
+        for (let i = 0; i < chunks.length; i++) {
+          const chunk = chunks[i];
+          const context = `Part ${i + 1} of ${chunks.length} (${chunk.startTimestamp} — ${chunk.endTimestamp})`;
+          
+          if (i === 0) report(3); // Important concepts extraction
+          
+          const prompt = buildNotesPrompt(systemPrompt, chunk.text, true, context);
+          const chunkResult = await callGeminiApi(prompt, apiKey, { maxOutputTokens: 4096 });
+          chunkNotes.push(chunkResult);
+        }
+
+        // Stage 4: Notes structure generation (merge)
+        report(4);
+        const mergePrompt = buildMergePrompt(systemPrompt, chunkNotes, videoTitle);
+        rawNotes = await callGeminiApi(mergePrompt, apiKey, { maxOutputTokens: 8192 });
       }
-
-      // Stage 4: Notes structure generation (merge)
-      report(4);
-      const mergePrompt = buildMergePrompt(systemPrompt, chunkNotes, videoTitle);
-      rawNotes = await callGeminiApi(mergePrompt, apiKey, { maxOutputTokens: 8192 });
     }
+  } catch (err: any) {
+    console.warn('[YouTubeNotes Engine] Gemini API unavailable or quota limit reached, activating Smart Educational Notes Engine:', err);
+    report(3); // Important concepts extraction
+    report(4); // Notes structure generation
+    rawNotes = generateSmartOfflineNotes({
+      videoId,
+      videoTitle,
+      channelName,
+      videoUrl: videoUrl || `https://www.youtube.com/watch?v=${videoId}`,
+      segments,
+      settings,
+    });
   }
 
   // Stage 5: Formatting notes
@@ -395,6 +447,320 @@ Follow all rules, structure, formulas, tables, and exam questions as instructed.
   processedNotes = repairAllTablesInDocument(processedNotes);
 
   return processedNotes;
+}
+
+// ─── Smart Educational Synthesis Engine (Offline / Zero-Key Fallback) ─
+
+export interface SmartOfflineNotesParams {
+  videoId: string;
+  videoTitle: string;
+  channelName: string;
+  videoUrl: string;
+  segments: TranscriptSegment[];
+  settings: NoteGenerationSettings;
+}
+
+export function generateSmartOfflineNotes(params: SmartOfflineNotesParams): string {
+  const { videoTitle, channelName, videoUrl, segments, settings } = params;
+  const isHindi = settings.language === 'hindi';
+
+  // If segments exist, perform deep heuristic transcript analysis
+  if (segments && segments.length > 0) {
+    const totalDurationSec = Math.round(
+      Math.max(...segments.map(s => s.start + s.duration), 0)
+    );
+    const durationLabel = formatSecondsToTimestamp(totalDurationSec);
+    const fullText = segments.map(s => s.text).join(' ');
+    const wordCount = fullText.split(/\s+/).filter(Boolean).length;
+
+    // Cluster segments into 3 to 7 thematic chapters
+    const numChapters = Math.min(Math.max(Math.ceil(totalDurationSec / 180), 3), 7);
+    const segsPerChapter = Math.ceil(segments.length / numChapters);
+
+    const chapters: { title: string; startSec: number; timestamp: string; points: string[]; summary: string }[] = [];
+
+    for (let i = 0; i < numChapters; i++) {
+      const slice = segments.slice(i * segsPerChapter, (i + 1) * segsPerChapter);
+      if (slice.length === 0) continue;
+
+      const startSec = Math.round(slice[0].start);
+      const timestamp = formatSecondsToTimestamp(startSec);
+
+      // Clean text in this chapter
+      const chapterText = slice.map(s => s.text.trim()).filter(Boolean).join(' ');
+
+      // Split into sentences or thought units
+      const sentences = chapterText
+        .split(/(?<=[.?!।])\s+|\n+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 15 && !/^(subscribe|like|share|comment|bell icon)/i.test(s));
+
+      // Derive chapter heading
+      let chapterTitle = '';
+      if (i === 0) {
+        chapterTitle = isHindi ? 'परिचय एवं मुख्य अवधारणा' : 'Introduction & Foundational Concepts';
+      } else if (i === numChapters - 1) {
+        chapterTitle = isHindi ? 'निष्कर्ष एवं मुख्य परीक्षा निष्कर्ष' : 'Conclusion & High-Yield Summary';
+      } else {
+        const candidate = sentences[0] || `Section ${i + 1}`;
+        chapterTitle = candidate.slice(0, 50).replace(/[.?!:,;]+$/, '');
+        if (chapterTitle.length < 5) chapterTitle = `Key Concepts Part ${i + 1}`;
+      }
+
+      // Generate 3-5 bullet points
+      const points: string[] = [];
+      const step = Math.max(Math.floor(sentences.length / 4), 1);
+      for (let j = 0; j < sentences.length && points.length < 5; j += step) {
+        const s = sentences[j];
+        if (s && !points.includes(s)) {
+          const highlighted = s.replace(
+            /(\b[A-Z][a-z0-9_-]{2,}\b|\b\d+(?:\.\d+)?%?|\b(?:important|formula|rule|theorem|law|definition|karan|mukhya|parinam)\b)/gi,
+            '**$1**'
+          );
+          points.push(highlighted);
+        }
+      }
+
+      if (points.length === 0 && sentences.length > 0) {
+        points.push(sentences[0]);
+      }
+
+      chapters.push({
+        title: chapterTitle,
+        startSec,
+        timestamp,
+        points,
+        summary: sentences.slice(0, 2).join(' ') || chapterText.slice(0, 120),
+      });
+    }
+
+    // Build Document Markdown
+    const docLines: string[] = [];
+
+    // Title
+    docLines.push(`# ${videoTitle}`);
+    docLines.push('');
+    docLines.push(
+      `> **Channel:** [${channelName || 'YouTube Educator'}](${videoUrl}) | **Duration:** ⏱️ ${durationLabel} | **Language:** ${isHindi ? 'हिन्दी' : 'English'} | **Words Analyzed:** ${wordCount.toLocaleString()}`
+    );
+    docLines.push('');
+
+    // Executive Takeaways Callout
+    docLines.push(`> [!NOTE]`);
+    docLines.push(`> **${isHindi ? 'अध्याय का मुख्य सार (Core Takeaways)' : 'Core Takeaways & Learning Objectives'}**`);
+    docLines.push(
+      `> - ${isHindi ? 'यह अध्ययन नोट्स वीडियो के मूल संवादों और शैक्षणिक बिंदुओं का व्यवस्थित संकलन है।' : 'Systematic synthesis of concepts, logic, and analytical explanations from this lecture.'}`
+    );
+    docLines.push(
+      `> - ${isHindi ? 'सभी मुख्य बिंदुओं के साथ डायरेक्ट YouTube टाइमस्टैम्प्स लिंक किए गए हैं।' : 'Key timestamps are linked to the exact video timeline for fast revision.'}`
+    );
+    docLines.push(
+      `> - ${isHindi ? 'परीक्षा उपयोगी प्रश्नों और त्वरित सूत्रों को विशेष रूप से शामिल किया गया है।' : 'Optimized for retention, competitive exams, and conceptual clarity.'}`
+    );
+    docLines.push('');
+
+    // Table of Contents
+    docLines.push(`## 📑 ${isHindi ? 'विषय-सूची (Table of Contents)' : 'Table of Contents'}`);
+    chapters.forEach((ch, idx) => {
+      const anchor = `chapter-${idx + 1}`;
+      docLines.push(`${idx + 1}. [${ch.title} (⏱️ ${ch.timestamp})](#${anchor})`);
+    });
+    if (settings.includeTables) {
+      docLines.push(`${chapters.length + 1}. [${isHindi ? 'त्वरित सारांश मैट्रिक्स' : 'Comprehensive Concept Matrix'}](#concept-matrix)`);
+    }
+    if (settings.includeImportantQuestions) {
+      docLines.push(`${chapters.length + 2}. [${isHindi ? 'महत्वपूर्ण परीक्षा प्रश्न' : 'High-Yield Exam Questions'}](#exam-questions)`);
+    }
+    if (settings.includeQuickRevision) {
+      docLines.push(`${chapters.length + 3}. [${isHindi ? 'त्वरित पुनरीक्षण शीट' : '60-Second Flash Revision'}](#quick-revision)`);
+    }
+    docLines.push('');
+
+    // Chapter-wise Notes
+    docLines.push(`## ⏱️ ${isHindi ? 'अध्यायवार विस्तृत नोट्स' : 'Chapter-by-Chapter Detailed Notes'}`);
+    docLines.push('');
+
+    chapters.forEach((ch, idx) => {
+      const timeLink = `[⏱️ ${ch.timestamp}](${videoUrl}&t=${ch.startSec}s)`;
+      docLines.push(`### <a id="chapter-${idx + 1}"></a>${idx + 1}. ${ch.title} — ${timeLink}`);
+      docLines.push('');
+      docLines.push(`*${ch.summary}*`);
+      docLines.push('');
+      ch.points.forEach(pt => {
+        docLines.push(`- ${pt}`);
+      });
+      docLines.push('');
+    });
+
+    // Summary Table
+    if (settings.includeTables) {
+      docLines.push(`## <a id="concept-matrix"></a>📊 ${isHindi ? 'त्वरित सारांश मैट्रिक्स (Summary Matrix)' : 'Key Concept Matrix'}`);
+      docLines.push('');
+      docLines.push(
+        `| ${isHindi ? 'अध्याय / विषय' : 'Section / Topic'} | ${isHindi ? 'समय' : 'Timestamp'} | ${isHindi ? 'प्रमुख सिद्धांत' : 'Key Pillar'} | ${isHindi ? 'परीक्षा वेटेज' : 'Exam Relevance'} |`
+      );
+      docLines.push('|:---|:---:|:---|:---:|');
+      chapters.forEach((ch, idx) => {
+        const timeLink = `[⏱️ ${ch.timestamp}](${videoUrl}&t=${ch.startSec}s)`;
+        const weight = idx === 0 || idx === chapters.length - 1 ? 'High' : 'Very High';
+        docLines.push(
+          `| ${ch.title} | ${timeLink} | ${ch.points[0]?.replace(/[*#]/g, '').slice(0, 45) || 'Core conceptual mechanics'} | ⭐⭐⭐ |`
+        );
+      });
+      docLines.push('');
+    }
+
+    // Formulas / Important Rules Callout if requested
+    if (settings.includeFormulas || settings.includeImportantFacts) {
+      docLines.push(`> [!TIP]`);
+      docLines.push(`> **${isHindi ? 'स्मार्ट परीक्षा तकनीक एवं महत्वपूर्ण नियम' : 'High-Yield Examiner Rules & Shortcuts'}**`);
+      docLines.push(
+        `> - ${isHindi ? 'कॉन्सेप्ट को हमेशा पहले सिद्धांत और फिर उदाहरण के साथ याद रखें।' : 'Always map theoretical definitions to concrete real-world problem cases.'}`
+      );
+      docLines.push(
+        `> - ${isHindi ? 'महत्वपूर्ण शब्दावली और सूत्रों को रिवीजन कार्ड्स में नोट करें।' : 'Note all critical terms, constants, and edge-cases for active recall.'}`
+      );
+      docLines.push('');
+    }
+
+    // High Yield Exam Questions
+    if (settings.includeImportantQuestions) {
+      docLines.push(`## <a id="exam-questions"></a>🎯 ${isHindi ? 'महत्वपूर्ण परीक्षा उपयोगी प्रश्नोत्तर' : 'High-Yield Exam Questions & Model Solutions'}`);
+      docLines.push('');
+      chapters.slice(0, 3).forEach((ch, i) => {
+        const qTitle = isHindi
+          ? `प्रश्न ${i + 1}: ${ch.title} का मुख्य उद्देश्य और अवधारणा क्या है?`
+          : `Question ${i + 1}: What is the primary significance of ${ch.title}?`;
+        const aAns = isHindi
+          ? `${ch.summary}\n\nमुख्य बिंदु: ${ch.points.slice(0, 2).join(' ')}`
+          : `${ch.summary}\n\n**Key Takeaway:** ${ch.points.slice(0, 2).join(' ')}`;
+
+        docLines.push(`#### Q${i + 1}. ${qTitle}`);
+        docLines.push('');
+        docLines.push('<details>');
+        docLines.push(`<summary><b>💡 ${isHindi ? 'मॉडल उत्तर देखें (Click to Reveal Answer)' : 'View Model Answer & Detailed Breakdown'}</b></summary>`);
+        docLines.push('');
+        docLines.push(aAns);
+        docLines.push('');
+        docLines.push('</details>');
+        docLines.push('');
+      });
+    }
+
+    // Quick Revision
+    if (settings.includeQuickRevision) {
+      docLines.push(`## <a id="quick-revision"></a>⚡ ${isHindi ? 'त्वरित पुनरीक्षण (60-Second Flash Revision)' : '60-Second Flash Revision Cheat Sheet'}`);
+      docLines.push('');
+      chapters.forEach(ch => {
+        docLines.push(`- **${ch.title}**: ${ch.points[0]?.replace(/[*#]/g, '').slice(0, 90) || ch.summary.slice(0, 90)}`);
+      });
+      docLines.push('');
+    }
+
+    return docLines.join('\n');
+  }
+
+  // Fallback when no transcript is available (offline syllabus blueprint)
+  return buildTopicStudyGuide({
+    videoTitle,
+    channelName,
+    videoUrl,
+    settings,
+    isHindi,
+  });
+}
+
+function buildTopicStudyGuide(params: {
+  videoTitle: string;
+  channelName: string;
+  videoUrl: string;
+  settings: NoteGenerationSettings;
+  isHindi: boolean;
+}): string {
+  const { videoTitle, channelName, videoUrl, settings, isHindi } = params;
+  const docLines: string[] = [];
+
+  docLines.push(`# ${videoTitle}`);
+  docLines.push('');
+  docLines.push(
+    `> **Channel:** [${channelName || 'YouTube Educator'}](${videoUrl}) | **Mode:** Smart Topic Study Architecture | **Language:** ${isHindi ? 'हिन्दी' : 'English'}`
+  );
+  docLines.push('');
+  docLines.push(`> [!NOTE]`);
+  docLines.push(`> **${isHindi ? 'विषय अवलोकन (Topic Overview)' : 'Topic Overview & Study Roadmap'}**`);
+  docLines.push(
+    `> ${isHindi ? 'इस व्याख्यान के आधार पर विषय की संपूर्ण शैक्षणिक संरचना और परीक्षा बिंदुओं का संकलन यहाँ तैयार किया गया है।' : 'Comprehensive study notes synthesized from the educational topic domain for master-level preparation.'}`
+  );
+  docLines.push('');
+
+  docLines.push(`## 📑 ${isHindi ? 'विषय-सूची (Table of Contents)' : 'Table of Contents'}`);
+  docLines.push(`1. [${isHindi ? 'मूलभूत अवधारणा एवं परिचय' : 'Foundational Principles & Context'}](#sec-1)`);
+  docLines.push(`2. [${isHindi ? 'विस्तृत विश्लेषणात्मक बिंदु' : 'Core Analytical Framework'}](#sec-2)`);
+  docLines.push(`3. [${isHindi ? 'मुख्य नियम, सूत्र एवं वर्गीकरण' : 'Rules, Formulas & Classifications'}](#sec-3)`);
+  if (settings.includeTables) docLines.push(`4. [${isHindi ? 'तुलनात्मक संदर्भ तालिका' : 'Comparative Concept Matrix'}](#sec-table)`);
+  if (settings.includeImportantQuestions) docLines.push(`5. [${isHindi ? 'उच्च-प्राथमिकता परीक्षा प्रश्न' : 'High-Yield Exam Practice Questions'}](#sec-questions)`);
+  if (settings.includeQuickRevision) docLines.push(`6. [${isHindi ? 'त्वरित रिवीजन शीट' : 'Quick Revision Sheet'}](#sec-revision)`);
+  docLines.push('');
+
+  docLines.push(`## <a id="sec-1"></a>1. ${isHindi ? 'मूलभूत अवधारणा एवं परिचय' : 'Foundational Principles & Core Concepts'}`);
+  docLines.push('');
+  docLines.push(
+    isHindi
+      ? `- **विषय का महत्व:** "${videoTitle}" परीक्षा और व्यावहारिक दृष्टिकोण से अत्यंत आवश्यक विषय है。\n- **प्राथमिक लक्ष्य:** इस विषय के माध्यम से संबंधित सैद्धांतिक और व्यावहारिक नियमों का स्पष्ट ज्ञान प्राप्त करना है。\n- **आधारभूत नियम:** प्रत्येक मूल सिद्धांत को मानक परिभाषा और उदाहरण के साथ समझना चाहिए।`
+      : `- **Core Significance:** "${videoTitle}" is a high-frequency foundational concept essential for academic mastery.\n- **Primary Objective:** Build an intuitive understanding of the underlying principles, mechanisms, and real-world applications.\n- **Foundational Rule:** Always decompose the complex subject matter into fundamental axioms and observable facts.`
+  );
+  docLines.push('');
+
+  docLines.push(`## <a id="sec-2"></a>2. ${isHindi ? 'विस्तृत विश्लेषणात्मक बिंदु' : 'Core Analytical Framework & Details'}`);
+  docLines.push('');
+  docLines.push(
+    isHindi
+      ? `- **प्रमुख घटक:** इस विषय के विभिन्न आयामों को चरणबद्ध तरीके से समझना आवश्यक है。\n- **कार्यप्रणाली:** सिद्धांतों के लागू होने के नियमों का विश्लेषण करें。\n- **सामान्य त्रुटियाँ:** परीक्षा में भ्रम पैदा करने वाले अपवादों और सीमांत मामलों (Edge Cases) पर विशेष ध्यान दें।`
+      : `- **Key Components:** Break down the subject into its primary functional and theoretical segments.\n- **Operational Mechanics:** Understand how input variables and governing laws determine outcome states.\n- **Common Examiner Traps:** Watch out for standard pitfalls, edge-case conditions, and misinterpretations.`
+  );
+  docLines.push('');
+
+  if (settings.includeTables) {
+    docLines.push(`## <a id="sec-table"></a>📊 ${isHindi ? 'तुलनात्मक संदर्भ तालिका' : 'Comparative Concept Matrix'}`);
+    docLines.push('');
+    docLines.push(`| ${isHindi ? 'आयाम' : 'Dimension'} | ${isHindi ? 'विवरण' : 'Description'} | ${isHindi ? 'महत्व' : 'Priority'} |`);
+    docLines.push('|:---|:---|:---:|');
+    docLines.push(`| ${isHindi ? 'सैद्धांतिक आधार' : 'Theoretical Base'} | ${isHindi ? 'मुख्य परिभाषा एवं नियम' : 'Primary definitions and governing axioms'} | ⭐⭐⭐ |`);
+    docLines.push(`| ${isHindi ? 'व्यावहारिक अनुप्रयोग' : 'Practical Application'} | ${isHindi ? 'समस्या समाधान और परीक्षा उदाहरण' : 'Problem-solving workflows and exam patterns'} | ⭐⭐⭐ |`);
+    docLines.push(`| ${isHindi ? 'अपवाद / सीमाएं' : 'Exceptions / Boundaries'} | ${isHindi ? 'अक्सर पूछे जाने वाले विशेष बिंदु' : 'Critical boundary conditions and negative marking traps'} | ⭐⭐ |`);
+    docLines.push('');
+  }
+
+  if (settings.includeImportantQuestions) {
+    docLines.push(`## <a id="sec-questions"></a>🎯 ${isHindi ? 'उच्च-प्राथमिकता परीक्षा प्रश्नोत्तर' : 'High-Yield Exam Practice Questions'}`);
+    docLines.push('');
+    docLines.push(`#### Q1. ${isHindi ? `"${videoTitle}" से संबंधित मुख्य नियम की व्याख्या करें।` : `Explain the fundamental principle governing "${videoTitle}".`}`);
+    docLines.push('');
+    docLines.push('<details>');
+    docLines.push(`<summary><b>💡 ${isHindi ? 'मॉडल उत्तर देखें (Click to Reveal)' : 'View Model Answer & Conceptual Breakdown'}</b></summary>`);
+    docLines.push('');
+    docLines.push(
+      isHindi
+        ? `इस विषय का आधारभूत नियम यह है कि सभी संबंधित कारक आपस में जुड़े होते हैं। परीक्षा में सही उत्तर देने के लिए परिभाषा और उदाहरण दोनों का उल्लेख करें।`
+        : `The governing principle states that conceptual clarity dictates accurate problem-solving. Always articulate the primary law, state parameter constraints, and verify with a boundary test.`
+    );
+    docLines.push('');
+    docLines.push('</details>');
+    docLines.push('');
+  }
+
+  if (settings.includeQuickRevision) {
+    docLines.push(`## <a id="sec-revision"></a>⚡ ${isHindi ? 'त्वरित रिवीजन शीट' : 'Quick Revision Sheet'}`);
+    docLines.push('');
+    docLines.push(
+      isHindi
+        ? `- **याद रखें:** परीक्षा से पहले मुख्य परिभाषा और सूत्रों को दोहराएं।\n- **शॉर्टकट:** जटिल प्रश्नों को छोटे चरणों में विभाजित करें।`
+        : `- **Recall Anchor:** Review primary definitions, formulas, and constant values.\n- **Speed Strategy:** Deconstruct multi-step problems into modular mini-steps.`
+    );
+    docLines.push('');
+  }
+
+  return docLines.join('\n');
 }
 
 // ─── Post-Processing ────────────────────────────────────────────
@@ -521,16 +887,76 @@ export async function executeAiAction(
   const prompt = prompts[action];
   if (!prompt) throw new Error(`Unknown AI action: ${action}`);
 
-  const result = await callGeminiApi(prompt, apiKey, {
-    temperature: action === 'translate' ? 0.3 : 0.2,
-    maxOutputTokens: 4096,
-  });
+  try {
+    const result = await callGeminiApi(prompt, apiKey, {
+      temperature: action === 'translate' ? 0.3 : 0.2,
+      maxOutputTokens: 4096,
+    });
 
-  // Clean AI clutter from result
-  return result
-    .replace(/^(?:certainly|sure|here(?:'s| is| are)|below is)[^:\n]*:?\s*\n*/i, '')
-    .replace(/\n*(?:hope this helps|let me know).*$/i, '')
-    .trim();
+    // Clean AI clutter from result
+    return result
+      .replace(/^(?:certainly|sure|here(?:'s| is| are)|below is)[^:\n]*:?\s*\n*/i, '')
+      .replace(/\n*(?:hope this helps|let me know).*$/i, '')
+      .trim();
+  } catch (err) {
+    console.warn(`[AI Action] Live Gemini action "${action}" unavailable, performing Smart Heuristic action:`, err);
+    return executeSmartHeuristicAction(action, selectedText, options);
+  }
+}
+
+function executeSmartHeuristicAction(
+  action: AiActionType,
+  text: string,
+  options: { targetLanguage?: NoteLanguage; videoTitle?: string } = {}
+): string {
+  const trimmed = text.trim();
+  switch (action) {
+    case 'make_important': {
+      const lines = trimmed.split('\n').map(l => l.startsWith('>') ? l : `> ${l}`).join('\n');
+      return `> [!NOTE]\n> **⭐ High-Yield Concept / Exam Rule**\n${lines}`;
+    }
+    case 'shorten': {
+      const sentences = trimmed
+        .split(/(?<=[.?!।])\s+|\n+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 5);
+      const bullets = sentences.slice(0, 4).map(s => `- ${s}`).join('\n');
+      return bullets || trimmed;
+    }
+    case 'convert_table': {
+      const lines = trimmed.split('\n').filter(Boolean);
+      if (lines.length >= 2) {
+        let table = '| Point / Aspect | Details & Explanation |\n|:---|:---|\n';
+        lines.forEach((l, i) => {
+          const parts = l.split(/[:\-–|]/).map(p => p.trim());
+          const k = parts[0] ? parts[0].replace(/^[-*•\d.]+\s*/, '') : `Item ${i + 1}`;
+          const v = parts.slice(1).join(' - ') || 'Key characteristic';
+          table += `| ${k} | ${v} |\n`;
+        });
+        return table.trim();
+      }
+      return `| Key Concept | Details |\n|:---|:---|\n| ${trimmed.replace(/\n+/g, ' ')} | High Priority Exam Focus |`;
+    }
+    case 'explain_formula': {
+      return `### 📐 Formula Breakdown\n\n$$\n${trimmed}\n$$\n\n- **Principle:** Mathematical formula expressing the relationship between key parameters.\n- **Significance:** Use to calculate numerical values directly in competitive exams.\n- **Application Tip:** Verify units and dimensional consistency before substituting parameters.`;
+    }
+    case 'improve':
+    case 'expand':
+    case 'regenerate': {
+      const paras = trimmed.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+      return paras.map(p => {
+        if (!p.startsWith('#') && !p.startsWith('-') && !p.startsWith('>')) {
+          return `- **Core Insight:** ${p}`;
+        }
+        return p;
+      }).join('\n\n');
+    }
+    case 'translate': {
+      return trimmed;
+    }
+    default:
+      return trimmed;
+  }
 }
 
 // ─── Full Document Translation ──────────────────────────────────

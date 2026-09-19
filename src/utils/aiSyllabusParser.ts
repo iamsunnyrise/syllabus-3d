@@ -127,8 +127,7 @@ export async function parseSyllabusWithAi(
     };
   }
 
-  const model = options?.model || 'gemini-2.5-flash';
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const candidateModels = options?.model ? [options.model] : ['gemini-3.6-flash', 'gemini-2.5-flash'];
 
   options?.onProgress?.('Synthesizing academic hierarchy with Gemini AI...');
 
@@ -154,25 +153,38 @@ export async function parseSyllabusWithAi(
       }
     };
 
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
+    let candidateText = '';
+    let lastError = '';
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.warn('[AiSyllabusParser] Gemini API responded with error:', errText);
-      throw new Error(`Gemini API error (${response.status}): ${errText}`);
+    for (const model of candidateModels) {
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) {
+            candidateText = text;
+            break;
+          }
+        } else {
+          lastError = await response.text().catch(() => '');
+          console.warn(`[AiSyllabusParser] Model ${model} failed:`, lastError);
+        }
+      } catch (err: any) {
+        lastError = err?.message || 'Network error';
+      }
     }
 
-    const data = await response.json();
-    const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
     if (!candidateText) {
-      throw new Error('No content returned from Gemini API');
+      throw new Error(`Gemini API call failed: ${lastError}`);
     }
 
     const parsedJson = JSON.parse(candidateText);
