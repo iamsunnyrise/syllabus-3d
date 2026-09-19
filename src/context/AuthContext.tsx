@@ -11,6 +11,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   signup: (name: string, email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
+  loginWithDemoGoogle: (email?: string, name?: string) => Promise<void>;
   sendPhoneOtp: (phoneNumber: string) => Promise<boolean>;
   verifyPhoneOtp: (otp: string, fallbackPhone?: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -93,6 +94,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(authUser);
   };
 
+  const loginWithDemoGoogle = async (email?: string, name?: string) => {
+    const authUser = await authService.loginWithDemoGoogle(email, name);
+    setUser(authUser);
+  };
+
   const sendPhoneOtp = async (phoneNumber: string) => {
     return await authService.sendPhoneOtp(phoneNumber);
   };
@@ -153,6 +159,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         login,
         signup,
         loginWithGoogle,
+        loginWithDemoGoogle,
         sendPhoneOtp,
         verifyPhoneOtp,
         resetPassword,

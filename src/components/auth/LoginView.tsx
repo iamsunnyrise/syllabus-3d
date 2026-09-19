@@ -7,17 +7,19 @@ import { PasswordField } from './PasswordField';
 import { PrimaryAuthButton } from './PrimaryAuthButton';
 import { SocialLoginButton } from './SocialLoginButton';
 import { AuthErrorMessage } from './AuthErrorMessage';
+import { GoogleOAuthSetupModal } from './GoogleOAuthSetupModal';
 import { validateEmail, validatePassword } from '../../utils/authValidation';
 import { soundManager } from '../../utils/soundEffects';
 
 export const LoginView: React.FC = () => {
-  const { login, loginWithGoogle, setAuthView } = useAuth();
+  const { login, loginWithGoogle, loginWithDemoGoogle, setAuthView } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isGoogleSetupOpen, setIsGoogleSetupOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +54,13 @@ export const LoginView: React.FC = () => {
       await loginWithGoogle();
       soundManager.playCompleteChime();
     } catch (err: any) {
-      setErrors({ form: 'Google sign-in was cancelled or encountered an error.' });
+      if (err?.message === 'GOOGLE_SETUP_REQUIRED') {
+        setIsGoogleSetupOpen(true);
+      } else if (err?.message?.includes('cancelled')) {
+        // User voluntarily closed popup
+      } else {
+        setErrors({ form: err?.message || 'Google sign-in was cancelled or encountered an error.' });
+      }
     } finally {
       setIsGoogleLoading(false);
     }
@@ -117,6 +125,23 @@ export const LoginView: React.FC = () => {
           isLoading={isGoogleLoading}
         />
       </form>
+
+      {/* Google OAuth Setup / Connect Modal */}
+      <GoogleOAuthSetupModal
+        isOpen={isGoogleSetupOpen}
+        onClose={() => setIsGoogleSetupOpen(false)}
+        onSuccess={() => {
+          setIsGoogleSetupOpen(false);
+          handleGoogleLogin();
+        }}
+        onContinueDemo={async () => {
+          setIsGoogleSetupOpen(false);
+          try {
+            await loginWithDemoGoogle();
+            soundManager.playCompleteChime();
+          } catch {}
+        }}
+      />
 
       {/* Switch to Sign Up */}
       <div className="mt-6 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">

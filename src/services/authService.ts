@@ -38,6 +38,7 @@ export const authService: AuthAdapter & {
   login: (email: string, password?: string) => Promise<AuthUser>;
   signup: (name: string, email: string, password?: string) => Promise<AuthUser>;
   loginWithGoogle: () => Promise<AuthUser>;
+  loginWithDemoGoogle: (email?: string, name?: string) => Promise<AuthUser>;
   sendPhoneOtp: (phoneNumber: string, containerId?: string) => Promise<boolean>;
   verifyPhoneOtp: (otp: string, fallbackPhone?: string) => Promise<AuthUser>;
 } = {
@@ -188,6 +189,7 @@ export const authService: AuthAdapter & {
   },
 
   async loginWithGoogle(): Promise<AuthUser> {
+    // 1. Check if Firebase Google Auth is configured
     const { auth, provider, isConfigured } = (await import('./firebase')).initFirebase();
 
     if (isConfigured && auth && provider) {
@@ -197,7 +199,7 @@ export const authService: AuthAdapter & {
         const firebaseUser = cred.user;
 
         const authUser: AuthUser = {
-          id: firebaseUser.uid,
+          id: `g_${firebaseUser.uid}`,
           name: firebaseUser.displayName || 'Google Scholar',
           email: firebaseUser.email || 'scholar@gmail.com',
           avatarUrl: firebaseUser.photoURL || undefined,
@@ -214,11 +216,40 @@ export const authService: AuthAdapter & {
         if (err?.code === 'auth/popup-closed-by-user') {
           throw new Error('Google Sign-In was cancelled.');
         }
-        console.warn('Firebase Google Sign-In error, falling back to simulated OAuth:', err?.message);
+        console.warn('Firebase Google Sign-In error, attempting GIS:', err?.message);
       }
     }
 
-    return this.loginWithOAuth('google');
+    // 2. Check if Google Identity Services (GIS) is configured
+    const { signInWithGoogleGIS, getSavedGoogleClientId } = await import('./googleAuthService');
+    const clientId = getSavedGoogleClientId();
+
+    if (clientId) {
+      const authUser = await signInWithGoogleGIS();
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(authUser));
+      }
+      return authUser;
+    }
+
+    // 3. If neither Firebase nor Google Client ID is configured:
+    throw new Error('GOOGLE_SETUP_REQUIRED');
+  },
+
+  async loginWithDemoGoogle(email: string = 'scholar.aspirant@gmail.com', name: string = 'Aspirant Scholar'): Promise<AuthUser> {
+    const authUser: AuthUser = {
+      id: 'g_demo_' + Math.random().toString(36).substr(2, 9),
+      name: name,
+      email: email,
+      avatarUrl: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(name)}`,
+      provider: 'google',
+      createdAt: new Date().toISOString(),
+      lastLoginAt: new Date().toISOString()
+    };
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(authUser));
+    }
+    return authUser;
   },
 
   async sendPhoneOtp(phoneNumber: string, containerId: string = 'recaptcha-container'): Promise<boolean> {

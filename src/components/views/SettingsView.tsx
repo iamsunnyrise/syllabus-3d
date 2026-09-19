@@ -59,6 +59,7 @@ import { SetPinModal } from '../security/SetPinModal';
 import { usePinLock } from '../../context/PinLockContext';
 import { UserProfileItem } from '../../types/syllabus';
 import { GoogleDriveBackupModal } from '../modals/GoogleDriveBackupModal';
+import { GoogleAuthSettingsCard } from '../settings/GoogleAuthSettingsCard';
 import { getValidAccessToken } from '../../utils/googleDriveClient';
 import {
   getStoredGeminiApiKey,
@@ -1717,6 +1718,8 @@ export const SettingsView: React.FC = () => {
             </div>
           </div>
 
+          {/* Google 1-Click Identity & Cloud Auth Card */}
+          <GoogleAuthSettingsCard />
 
           {/* Dual-Tier IndexedDB Safety Snapshot Card */}
           <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42] space-y-2.5 sm:space-y-3">
