@@ -11,35 +11,39 @@
 
 @layer base {
   :root {
-    --color-background: #FAEED9;
-    --color-primary: #38370D;
-    --color-primary-accent: #E1A837;
-    --color-accent-light: #FFF9EE;
-    --color-secondary-accent: #8D7A02;
-    --color-surface: #FFFDF8;
-    --color-surface-soft: #F5E8CF;
-    --color-border: #E6D3B1;
-    --color-text-primary: #38370D;
-    --color-text-secondary: #4E4B11;
-    --color-text-muted: #6B6615;
-    --color-success: #16A34A;
-    --color-warning: #E1A837;
-    --color-error: #DC2626;
+    /* 🎨 Professional 5-Color Theme System (High-Contrast & Refined Aesthetic) */
+    /* 1. Primary: #0F172A | 2. Secondary: #7C3AED | 3. Accent: #22D3EE | 4. Tertiary: #A78BFA | 5. Background: #EDE9FE */
+    --color-background: #EDE9FE;
+    --color-primary: #0F172A;
+    --color-primary-accent: #7C3AED;
+    --color-accent-light: #EDE9FE;
+    --color-secondary-accent: #22D3EE;
+    --color-tertiary-accent: #A78BFA;
+    --color-surface: #FFFFFF;
+    --color-surface-soft: #F5F3FF;
+    --color-border: #DDD6FE;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #334155;
+    --color-text-muted: #475569;
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
   }
 
   .dark {
-    /* 🌑 Ultra-Refined Modern Charcoal & Dark Gray Theme (Matching User Reference) */
-    --color-background: #1F1F1F;
+    /* 🌑 Deep Midnight Slate & Royal Violet Theme (#0F172A, #7C3AED, #22D3EE, #A78BFA) */
+    --color-background: #0F172A;
     --color-primary: #FFFFFF;
-    --color-primary-accent: #60A5FA;
-    --color-accent-light: #93C5FD;
-    --color-secondary-accent: #C084FC;
-    --color-surface: #2B2B2B;
-    --color-surface-soft: #383838;
-    --color-border: #383838;
+    --color-primary-accent: #7C3AED;
+    --color-accent-light: #A78BFA;
+    --color-secondary-accent: #22D3EE;
+    --color-tertiary-accent: #A78BFA;
+    --color-surface: #1E293B;
+    --color-surface-soft: #334155;
+    --color-border: #334155;
     --color-text-primary: #FFFFFF;
-    --color-text-secondary: #D4D4D8;
-    --color-text-muted: #A1A1AA;
+    --color-text-secondary: #E2E8F0;
+    --color-text-muted: #94A3B8;
     --color-success: #10B981;
     --color-warning: #F59E0B;
     --color-error: #EF4444;
@@ -47,12 +51,12 @@
 
 
   ::selection {
-    background-color: rgba(225, 168, 55, 0.35);
-    color: #38370D;
+    background-color: rgba(124, 58, 237, 0.25);
+    color: #0F172A;
   }
 
   .dark ::selection {
-    background-color: rgba(255, 255, 255, 0.22);
+    background-color: rgba(34, 211, 238, 0.3);
     color: #FFFFFF;
   }
 
@@ -82,19 +86,23 @@
   }
 
   html:not(.dark) body {
-    background-color: #FAEED9 !important;
+    background-color: #EDE9FE !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(56, 55, 13, 0.04) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
-    color: #38370D !important;
+    color: #0F172A !important;
   }
 
   .dark body {
-    background-color: #1F1F1F !important;
-    background-image: none !important;
-    color: #F4F4F5 !important;
+    background-color: #0F172A !important;
+    background-image: 
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
+    background-attachment: fixed !important;
+    color: #F8FAFC !important;
   }
 
   /* App Titles & Headings → Plus Jakarta Sans Bold with editorial tracking */
@@ -125,10 +133,10 @@
     padding-right: 8px;
     padding-bottom: 2px;
     font-weight: 800;
-    color: #2563EB;
+    color: #7C3AED;
   }
   .dark .book-drop-cap::first-letter {
-    color: #7AA2F7;
+    color: #A78BFA;
   }
 
   /* 📖 Book Page Elevation & Spine Styling */
@@ -305,33 +313,33 @@
 
 @layer components {
   /* ══════════════════════════════════════════════════════════════════
-     🎯 UNIFIED 5-TIER BUTTON SYSTEM (Usability Heuristic #4: Consistency)
+     🎯 UNIFIED 5-TIER BUTTON SYSTEM (Professional 5-Color Palette)
      ══════════════════════════════════════════════════════════════════ */
   .btn-base {
     @apply inline-flex items-center justify-center font-bold text-xs sm:text-[13px] 
            rounded-xl transition-all duration-150 select-none cursor-pointer 
            active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none 
-           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50 
            focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950;
   }
 
-  /* 1. Primary CTA Button */
+  /* 1. Primary CTA Button (#7C3AED Vibrant Violet) */
   .btn-primary {
-    @apply btn-base px-3.5 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 
-           text-white shadow-xs hover:shadow-sm border border-blue-500/30 gap-1.5;
+    @apply btn-base px-3.5 sm:px-4 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] 
+           text-white shadow-xs hover:shadow-md border border-[#6D28D9]/40 gap-1.5;
   }
 
   /* 2. Secondary / Surface Action Button */
   .btn-secondary {
-    @apply btn-base px-3 sm:px-3.5 py-2 bg-slate-100 dark:bg-white/[0.06] 
-           hover:bg-slate-200/80 dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-200 
-           border border-slate-200/80 dark:border-white/[0.08] shadow-2xs gap-1.5;
+    @apply btn-base px-3 sm:px-3.5 py-2 bg-white dark:bg-[#1E293B] 
+           hover:bg-[#F5F3FF] dark:hover:bg-[#334155] text-[#0F172A] dark:text-[#F8FAFC] 
+           border border-[#DDD6FE] dark:border-[#334155] shadow-2xs gap-1.5;
   }
 
   /* 3. Ghost / Low-Emphasis Button */
   .btn-ghost {
-    @apply btn-base px-2.5 py-1.5 bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] 
-           text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white gap-1;
+    @apply btn-base px-2.5 py-1.5 bg-transparent hover:bg-[#EDE9FE]/70 dark:hover:bg-white/[0.08] 
+           text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white gap-1;
   }
 
   /* 4. Danger / Destructive Button */
@@ -343,10 +351,10 @@
   /* 5. Standard Square Icon Button (min 36-40px, accessible touch target) */
   .btn-icon {
     @apply inline-flex items-center justify-center w-9 h-9 min-w-[36px] min-h-[36px] 
-           rounded-xl bg-slate-100/80 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 
-           hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-white/[0.1] 
-           border border-slate-200/70 dark:border-white/[0.08] transition-all cursor-pointer 
-           active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50;
+           rounded-xl bg-white dark:bg-[#1E293B] text-[#334155] dark:text-slate-300 
+           hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F5F3FF] dark:hover:bg-[#334155] 
+           border border-[#DDD6FE] dark:border-[#334155] transition-all cursor-pointer 
+           active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50;
   }
 }
 
@@ -357,12 +365,12 @@
   left: 1rem;
   z-index: 9999;
   padding: 0.6rem 1.25rem;
-  background: #2563EB;
+  background: #7C3AED;
   color: #FFFFFF;
   font-weight: 800;
   font-size: 0.85rem;
   border-radius: 0.75rem;
-  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4);
   transition: top 0.2s ease;
   text-decoration: none;
 }
@@ -374,41 +382,46 @@
 }
 
 .dark .skip-link {
-  background: #7AA2F7;
+  background: #A78BFA;
   color: #0F172A;
 }
 
 
 /* ================================================================= */
-/*  HIGH-CONTRAST READABILITY NORMALIZERS (Outdoor Sunlight Friendly)*/
+/*  HIGH-CONTRAST READABILITY NORMALIZERS (WCAG AAA Text Visibility) */
 /* ================================================================= */
 
 /* ================================================================= */
-/*  WARM GOLDEN CREAM & HIGH-CONTRAST BISTRE LIGHT THEME NORMALIZERS */
-/*  Palette: #FAEED9 (Canvas), #E1A837 (Accent), #8D7A02 (Brass),    */
-/*           #38370D (High-Contrast Ink Text - WCAG AAA 11.4:1)      */
+/*  PROFESSIONAL 5-COLOR THEME NORMALIZERS                           */
+/*  Palette: #EDE9FE (Background Canvas), #FFFFFF (Surface Cards),   */
+/*           #0F172A (Primary High-Contrast Text - WCAG AAA 14.8:1),  */
+/*           #7C3AED (Secondary CTA), #22D3EE (Accent Glow),         */
+/*           #A78BFA (Tertiary Soft Badges)                          */
 /* ================================================================= */
 
 html:not(.dark):not(.sepia):not(.luxury) body {
-  background-color: #FAEED9 !important;
-  color: #38370D !important;
+  background-color: #EDE9FE !important;
+  color: #0F172A !important;
 }
 
 /* Canvas & App Background Normalizers */
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F7F6F0\],
 html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F7F6F0]"],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F8FAFC\],
-html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F8FAFC]"] {
-  background-color: #FAEED9 !important;
+html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F8FAFC]"],
+html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAEED9\],
+html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#FAEED9]"] {
+  background-color: #EDE9FE !important;
 }
 
-/* Clean Ivory Card Surfaces on Warm Canvas */
+/* Clean Pristine Card Surfaces on Lavender Canvas */
 html:not(.dark):not(.sepia):not(.luxury) .bg-white,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAF9F5\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAF8F5\],
+html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FFFDF8\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F4F6EE\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F4F6EC\] {
-  background-color: #FFFDF8 !important;
+  background-color: #FFFFFF !important;
 }
 
 /* Wells, Elevated Containers & Soft Surfaces */
@@ -417,11 +430,12 @@ html:not(.dark):not(.sepia):not(.luxury) .bg-slate-100,
 html:not(.dark):not(.sepia):not(.luxury) .bg-gray-50,
 html:not(.dark):not(.sepia):not(.luxury) .bg-gray-100,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#EEEEE8\],
+html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F5E8CF\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F1F5F9\] {
-  background-color: #F5E8CF !important;
+  background-color: #F5F3FF !important;
 }
 
-/* Warm Golden Sand Borders for Crisp Definition */
+/* Soft Lilac Borders for Crisp Definition */
 html:not(.dark):not(.sepia):not(.luxury) .border-slate-200,
 html:not(.dark):not(.sepia):not(.luxury) [class*="border-slate-200"],
 html:not(.dark):not(.sepia):not(.luxury) .border-slate-100,
@@ -430,21 +444,23 @@ html:not(.dark):not(.sepia):not(.luxury) .border-gray-200,
 html:not(.dark):not(.sepia):not(.luxury) [class*="border-gray-200"],
 html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D8D8CF\],
 html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D0D0C5\],
+html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E6D3B1\],
 html:not(.dark):not(.sepia):not(.luxury) [class*="border-[#D8D8CF]"],
 html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E2E8F0\] {
-  border-color: #E6D3B1 !important;
+  border-color: #DDD6FE !important;
 }
 
 html:not(.dark):not(.sepia):not(.luxury) .border-\[\#EEEEE8\],
+html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D8C29A\],
 html:not(.dark):not(.sepia):not(.luxury) .border-slate-300 {
-  border-color: #D8C29A !important;
+  border-color: #C4B5FD !important;
 }
 
 /* ══════════════════════════════════════════════════════════════════
    HIGH-CONTRAST TEXT VISIBILITY (WCAG AAA Compliance - "TEXT VISIBLE")
-   Primary: #38370D (11.4:1 contrast ratio against #FAEED9, 16.5:1 on #FFFDF8)
-   Secondary: #4E4B11 (7.8:1 contrast ratio)
-   Muted: #6B6615 (5.5:1 contrast ratio, zero washed-out light gray)
+   Primary: #0F172A (14.8:1 contrast ratio against #EDE9FE, 18.2:1 on #FFFFFF)
+   Secondary: #334155 (9.8:1 contrast ratio)
+   Muted: #475569 (7.0:1 contrast ratio, zero washed-out light gray)
    ══════════════════════════════════════════════════════════════════ */
 
 /* Primary Headings, Titles & Emphasized Text */
@@ -462,8 +478,9 @@ html:not(.dark):not(.sepia):not(.luxury) .text-gray-900,
 html:not(.dark):not(.sepia):not(.luxury) .text-gray-800,
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#11120F\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#191A17\],
+html:not(.dark):not(.sepia):not(.luxury) .text-\[\#38370D\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#0F172A\] {
-  color: #38370D !important;
+  color: #0F172A !important;
 }
 
 /* Secondary Body, Descriptions & Labels */
@@ -474,8 +491,9 @@ html:not(.dark):not(.sepia):not(.luxury) .text-gray-600,
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#65675F\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#3D4039\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#3F423B\],
+html:not(.dark):not(.sepia):not(.luxury) .text-\[\#4E4B11\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#475569\] {
-  color: #4E4B11 !important;
+  color: #334155 !important;
   font-weight: 600;
 }
 
@@ -486,37 +504,39 @@ html:not(.dark):not(.sepia):not(.luxury) .text-gray-500,
 html:not(.dark):not(.sepia):not(.luxury) .text-gray-400,
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#85877E\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#55594E\],
+html:not(.dark):not(.sepia):not(.luxury) .text-\[\#6B6615\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#64748B\] {
-  color: #6B6615 !important;
+  color: #475569 !important;
   font-weight: 600;
 }
 
 /* Placeholders with high legibility */
 html:not(.dark):not(.sepia):not(.luxury) input::placeholder,
 html:not(.dark):not(.sepia):not(.luxury) textarea::placeholder {
-  color: #8D7A02 !important;
-  opacity: 0.85;
+  color: #64748B !important;
+  opacity: 0.9;
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   PRIMARY ACCENTS (#E1A837) & SECONDARY ACCENTS (#8D7A02)
+   PRIMARY ACTIONS (#7C3AED), ACCENTS (#22D3EE) & TERTIARY (#A78BFA)
    ══════════════════════════════════════════════════════════════════ */
 
-/* Golden Honey Buttons & Badges */
+/* Vibrant Violet Buttons & Badges */
 html:not(.dark):not(.sepia):not(.luxury) .bg-blue-600,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#2563EB\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#1D4ED8\],
 html:not(.dark):not(.sepia):not(.luxury) .bg-brand-500 {
-  background: linear-gradient(135deg, #E1A837 0%, #C99126 100%) !important;
-  color: #38370D !important;
-  font-weight: 800 !important;
-  border-color: #8D7A02 !important;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-color: #6D28D9 !important;
+  box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.3) !important;
 }
 
 html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-blue-700:hover,
 html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-blue-600:hover {
-  background: linear-gradient(135deg, #D19827 0%, #B8801A 100%) !important;
-  color: #38370D !important;
+  background: linear-gradient(135deg, #6D28D9 0%, #5B21B6 100%) !important;
+  color: #FFFFFF !important;
 }
 
 /* Accent Text */
@@ -526,12 +546,13 @@ html:not(.dark):not(.sepia):not(.luxury) .text-\[\#2563EB\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#1D4ED8\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#596B35\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#354126\],
+html:not(.dark):not(.sepia):not(.luxury) .text-\[\#8D7A02\],
 html:not(.dark):not(.sepia):not(.luxury) .text-\[\#4A5A2B\] {
-  color: #8D7A02 !important;
+  color: #7C3AED !important;
   font-weight: 700;
 }
 
-/* Soft Golden Accent Backgrounds / Pills / Badges */
+/* Soft Lavender Accent Backgrounds / Pills / Badges */
 html:not(.dark):not(.sepia):not(.luxury) .bg-blue-50,
 html:not(.dark):not(.sepia):not(.luxury) .bg-blue-100,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#EFF6FF\],
@@ -540,9 +561,9 @@ html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#2563EB\]\/15,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/10,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/15,
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/20 {
-  background-color: rgba(225, 168, 55, 0.22) !important;
-  color: #38370D !important;
-  border-color: rgba(141, 122, 2, 0.4) !important;
+  background-color: rgba(124, 58, 237, 0.12) !important;
+  color: #6D28D9 !important;
+  border-color: rgba(167, 139, 250, 0.4) !important;
 }
 
 /* Accent Borders */
@@ -550,8 +571,9 @@ html:not(.dark):not(.sepia):not(.luxury) .border-blue-200,
 html:not(.dark):not(.sepia):not(.luxury) .border-blue-300,
 html:not(.dark):not(.sepia):not(.luxury) .border-blue-500,
 html:not(.dark):not(.sepia):not(.luxury) .border-\[\#2563EB\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#596B35\] {
-  border-color: #E1A837 !important;
+html:not(.dark):not(.sepia):not(.luxury) .border-\[\#596B35\],
+html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E1A837\] {
+  border-color: #A78BFA !important;
 }
 
 /* Interactive Hover States */
@@ -559,18 +581,19 @@ html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-slate-100:hover,
 html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-slate-50:hover,
 html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-\[\#EEEEE8\]:hover,
 html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-\[\#FAF9F5\]:hover {
-  background-color: #F5E8CF !important;
-  color: #38370D !important;
+  background-color: #F5F3FF !important;
+  color: #0F172A !important;
 }
 
 html:not(.dark):not(.sepia):not(.luxury) .hover\:text-blue-600:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:text-\[\#596B35\]:hover {
-  color: #8D7A02 !important;
+html:not(.dark):not(.sepia):not(.luxury) .hover\:text-\[\#596B35\],
+html:not(.dark):not(.sepia):not(.luxury) .hover\:text-\[\#8D7A02\]:hover {
+  color: #7C3AED !important;
 }
 
 /* Focus Rings */
 html:not(.dark) :focus-visible {
-  outline: 2px solid #8D7A02 !important;
+  outline: 2px solid #7C3AED !important;
   outline-offset: 2px !important;
 }
 
@@ -1200,8 +1223,8 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-[#1E1E24]"],
 .dark [class*="dark:bg-[#202020]"],
 .dark [class*="dark:bg-[#2B2B2B]"] {
-  background-color: #2B2B2B !important;
-  border-color: #383838 !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -1227,8 +1250,8 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-white/[0.03]"],
 .dark [class*="dark:bg-white/[0.06]"],
 .dark [class*="dark:bg-[#383838]"] {
-  background-color: #383838 !important;
-  border-color: #444444 !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
@@ -1253,7 +1276,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:border-white/20"],
 .dark [class*="border-slate-200"],
 .dark [class*="border-slate-300"] {
-  border-color: #383838 !important;
+  border-color: #334155 !important;
 }
 
 /* 4. Razor-Sharp High-Contrast Typography in Dark Mode */

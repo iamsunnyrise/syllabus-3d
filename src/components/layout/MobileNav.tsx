@@ -36,8 +36,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       <div
         className={`pointer-events-auto flex items-center justify-between px-2 py-1.5 rounded-3xl backdrop-blur-2xl border transition-all duration-300 relative ${
           isDark
-            ? 'bg-[#2B2B2B]/95 border-[#383838] shadow-[0_12px_40px_rgba(0,0,0,0.55)]'
-            : 'bg-[#FFFDF8]/95 border-[#E6D3B1] shadow-[0_16px_40px_rgba(56,55,13,0.12),0_2px_8px_rgba(56,55,13,0.06)]'
+            ? 'bg-[#1E293B]/95 border-[#334155] shadow-[0_12px_40px_rgba(0,0,0,0.55)]'
+            : 'bg-white/95 border-[#DDD6FE] shadow-[0_16px_40px_rgba(124,58,237,0.12),0_2px_8px_rgba(15,23,42,0.06)]'
         }`}
       >
         {/* Top Subtle Ambient Glass Shine Bevel */}

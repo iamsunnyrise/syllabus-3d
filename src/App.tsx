@@ -643,10 +643,10 @@ export const App: React.FC = () => {
   // The Dashboard Header (Picture 2) and Sidebar are completely hidden on first visit!
   if (currentView === 'landing') {
     return (
-      <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#0B0D14] text-[#0F172A] dark:text-[#F4F4F5]">
+      <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#EDE9FE] dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC]">
         {/* Top Product Overview banner (exactly like Picture 1) */}
         <div className="p-3 sm:px-6 max-w-7xl w-full mx-auto animate-fade-in">
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6D28D9] to-[#22D3EE] text-white shadow-md">
             <div className="flex items-center gap-2 text-xs font-bold">
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
@@ -665,7 +665,7 @@ export const App: React.FC = () => {
                   handleNavigate('overview');
                 }
               }}
-              className="px-3.5 py-1.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95 shrink-0"
+              className="px-3.5 py-1.5 rounded-xl bg-white text-[#7C3AED] hover:bg-violet-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95 shrink-0"
             >
               ← Back to Dashboard
             </button>
@@ -715,15 +715,15 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#1F1F1F] text-[#0F172A] dark:text-[#F4F4F5]">
+    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#EDE9FE] dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC]">
       {/* 🌑 Clean Neutral Ambient Canvas (Dark Mode, GPU-Accelerated) */}
-      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#1F1F1F]" />
+      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#0F172A]" />
 
       {/* ☀️ Pristine Atmospheric Ambient Mesh (Light Mode Only, GPU-Accelerated) */}
       <div className="block dark:hidden fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-blue-500/[0.04] via-indigo-400/[0.02] to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 -left-48 w-[500px] h-[500px] bg-sky-400/[0.025] rounded-full blur-[160px]" />
-        <div className="absolute top-2/3 -right-48 w-[550px] h-[550px] bg-indigo-400/[0.025] rounded-full blur-[170px]" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-[#7C3AED]/[0.08] via-[#A78BFA]/[0.05] to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 -left-48 w-[500px] h-[500px] bg-[#22D3EE]/[0.05] rounded-full blur-[160px]" />
+        <div className="absolute top-2/3 -right-48 w-[550px] h-[550px] bg-[#7C3AED]/[0.05] rounded-full blur-[170px]" />
       </div>
 
       {/* ♿ Skip to Main Content Link for Keyboard & Screen Reader Users */}
@@ -1091,9 +1091,9 @@ export const App: React.FC = () => {
         <div
           role="status"
           aria-live="polite"
-          className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2 rounded-2xl bg-[#0F172A]/90 dark:bg-[#2B2B2B]/95 text-white border border-[#334155]/60 dark:border-[#383838] shadow-2xl backdrop-blur-md items-center gap-2.5 animate-fade-in pointer-events-none select-none"
+          className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2 rounded-2xl bg-[#0F172A]/90 dark:bg-[#1E293B]/95 text-white border border-[#334155]/60 dark:border-[#334155] shadow-2xl backdrop-blur-md items-center gap-2.5 animate-fade-in pointer-events-none select-none"
         >
-          <div className="w-5 h-5 rounded-lg bg-[#2563EB]/25 dark:bg-[#7AA2F7]/25 text-[#60A5FA] dark:text-[#7AA2F7] flex items-center justify-center font-bold text-xs">
+          <div className="w-5 h-5 rounded-lg bg-[#7C3AED]/25 dark:bg-[#A78BFA]/25 text-[#22D3EE] dark:text-[#A78BFA] flex items-center justify-center font-bold text-xs">
             ⌨️
           </div>
           <span className="text-xs sm:text-[13px] font-bold tracking-tight">

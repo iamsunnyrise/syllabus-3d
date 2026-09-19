@@ -219,15 +219,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           transform: drawerDragX < 0 ? `translateX(${drawerDragX}px)` : undefined,
           transition: drawerDragX === 0 ? 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none'
         }}
-        className="relative w-[88%] max-w-[335px] bg-white dark:bg-[#2B2B2B] border-r border-[#E2E8F0] dark:border-[#383838] flex flex-col justify-between z-10 shadow-[0_0_60px_rgba(0,0,0,0.6)] animate-slide-right overflow-y-auto custom-scrollbar"
+        className="relative w-[88%] max-w-[335px] bg-white dark:bg-[#1E293B] border-r border-[#DDD6FE] dark:border-[#334155] flex flex-col justify-between z-10 shadow-[0_0_60px_rgba(0,0,0,0.6)] animate-slide-right overflow-y-auto custom-scrollbar"
       >
         <div className="p-4 sm:p-5 space-y-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pl-[max(1rem,env(safe-area-inset-left,0px))]">
           
           {/* 1. BRANDING & EXAM TARGET HEADER */}
-          <div className="flex items-center justify-between pb-3.5 border-b border-[#E2E8F0] dark:border-[#383838]">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#DDD6FE] dark:border-[#334155]">
             <div className="flex items-center gap-3 min-w-0">
               {/* 3D App Icon with Metallic Rim */}
-              <div className="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-2xl bg-slate-100 dark:bg-[#383838] p-1 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] shadow-xs shrink-0 overflow-hidden">
+              <div className="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-2xl bg-slate-100 dark:bg-[#0F172A] p-1 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] shadow-xs shrink-0 overflow-hidden">
                 <img src="/logo.png" alt="Logo" className="w-full h-full max-w-full max-h-full object-contain drop-shadow-xs" />
               </div>
               <div className="min-w-0">
@@ -260,7 +260,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </div>
 
           {/* 1.5 ACTIVE PROFILE CARD & SWITCHER */}
-          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#383838] border border-slate-200/80 dark:border-[#444444] flex items-center justify-between gap-2.5 shadow-2xs">
+          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200/80 dark:border-[#334155] flex items-center justify-between gap-2.5 shadow-2xs">
             <div className="flex items-center gap-2.5 min-w-0">
               <div
                 className={`w-9 h-9 rounded-xl bg-gradient-to-tr ${
@@ -292,7 +292,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                   onOpenProfileSwitcher();
                 }}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#2B2B2B] text-blue-600 dark:text-[#7AA2F7] border border-slate-200 dark:border-[#383838] text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition-colors cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#1E293B] text-[#7C3AED] dark:text-[#A78BFA] border border-[#DDD6FE] dark:border-[#334155] text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition-colors cursor-pointer shrink-0 active:scale-95"
               >
                 <Users className="w-3 h-3" />
                 <span>Switch</span>

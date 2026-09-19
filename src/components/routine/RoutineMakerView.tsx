@@ -301,8 +301,8 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
 
       {/* ═════════════════ 2. LIVE ACTIVE SLOT SPOTLIGHT HUD ═════════════════ */}
       {activeSlot ? (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FFFDF8] via-[#FAF3E3] to-[#F5E8CF] dark:from-blue-900/40 dark:via-indigo-900/30 dark:to-purple-900/30 border-2 border-[#E1A837] dark:border-blue-500/50 shadow-xl shadow-[#E1A837]/10 dark:shadow-blue-500/10 relative overflow-hidden animate-fade-in print:hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#E1A837] via-[#C99126] to-[#8D7A02] dark:from-cyan-400 dark:via-blue-500 dark:to-indigo-500" />
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white via-violet-50/60 to-[#EDE9FE]/80 dark:from-slate-900/60 dark:via-purple-950/40 dark:to-slate-900/60 border-2 border-[#7C3AED]/40 dark:border-[#7C3AED]/50 shadow-xl shadow-[#7C3AED]/10 dark:shadow-[#7C3AED]/10 relative overflow-hidden animate-fade-in print:hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#7C3AED] via-[#A78BFA] to-[#22D3EE] dark:from-cyan-400 dark:via-purple-500 dark:to-indigo-500" />
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1.5 min-w-0">

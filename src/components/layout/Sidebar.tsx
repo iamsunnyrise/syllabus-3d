@@ -171,7 +171,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#2B2B2B]/95 backdrop-blur-2xl border-r border-slate-200/80 dark:border-[#383838] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
+      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur-2xl border-r border-[#DDD6FE]/80 dark:border-[#334155] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
         isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_20px_rgba(15,23,42,0.04)]'
       }`}
     >
@@ -294,8 +294,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       aria-current={isActive ? 'page' : undefined}
                       className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
                         isActive
-                          ? 'bg-blue-600 text-white font-black shadow-xs shadow-blue-500/25 dark:bg-blue-600 dark:text-white'
-                          : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                          ? 'bg-[#7C3AED] text-white font-black shadow-xs shadow-[#7C3AED]/30 dark:bg-[#7C3AED] dark:text-white'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-[#EDE9FE]/70 dark:hover:bg-white/[0.06] hover:text-[#0F172A] dark:hover:text-white'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
