@@ -19,7 +19,12 @@ import {
   Play,
   Plus,
   Trophy,
-  Zap
+  Zap,
+  Calculator,
+  BrainCircuit,
+  BookMarked,
+  ShieldCheck,
+  Award
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
@@ -29,6 +34,36 @@ import { StudyDeskHeroIllustration } from '../dashboard/StudyDeskHeroIllustratio
 import { AppFooter } from '../common/AppFooter';
 import { soundManager } from '../../utils/soundEffects';
 import { useRoutine, format12Hour } from '../../context/RoutineContext';
+
+const SUBJECT_ICON_MAP: Record<string, React.ElementType> = {
+  BookOpen,
+  Calculator,
+  BrainCircuit,
+  Globe,
+  TrendingUp,
+  BookMarked,
+  ShieldCheck,
+  Sparkles,
+  Award,
+  Zap,
+  Flame,
+  Target,
+  Layers,
+};
+
+const renderSubjectIcon = (iconStr: string | undefined, color?: string) => {
+  if (!iconStr) {
+    return <BookOpen className="w-3.5 h-3.5 shrink-0" style={{ color: color || '#2563EB' }} />;
+  }
+  const IconComp = SUBJECT_ICON_MAP[iconStr];
+  if (IconComp) {
+    return <IconComp className="w-3.5 h-3.5 shrink-0" style={{ color: color || '#2563EB' }} />;
+  }
+  if (iconStr.length <= 4 && !/^[a-zA-Z]+$/.test(iconStr)) {
+    return <span className="text-xs leading-none select-none">{iconStr}</span>;
+  }
+  return <BookOpen className="w-3.5 h-3.5 shrink-0" style={{ color: color || '#2563EB' }} />;
+};
 
 interface OverviewViewProps {
   onNavigate: (view: AppView) => void;
@@ -628,8 +663,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   >
                     <div className="flex items-center justify-between gap-1.5">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-sm shrink-0 w-6 h-6 rounded-lg bg-white dark:bg-[#151622] flex items-center justify-center border border-slate-200/50 dark:border-slate-700/50 shadow-2xs">
-                          {sub.icon || '📚'}
+                        <span className="w-6 h-6 rounded-lg bg-white dark:bg-[#151622] flex items-center justify-center border border-slate-200/50 dark:border-slate-700/50 shadow-2xs shrink-0 overflow-hidden">
+                          {renderSubjectIcon(sub.icon, sub.color)}
                         </span>
                         <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">
                           {sub.name}
