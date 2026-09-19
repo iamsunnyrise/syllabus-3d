@@ -181,9 +181,9 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({
         {/* Modal Header */}
         <div className="p-4 sm:p-5 border-b border-[#DDD6FE] dark:border-[#334155] flex items-center justify-between bg-[#F5F3FF]/70 dark:bg-[#1E293B]/60 shrink-0">
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${selectedColor} flex items-center justify-center text-white shadow-md text-xl border-2 border-white dark:border-[#334155] overflow-hidden shrink-0`}>
+            <div className={`w-12 h-12 min-w-12 min-h-12 max-w-12 max-h-12 aspect-square rounded-2xl bg-gradient-to-tr ${selectedColor} flex items-center justify-center text-white shadow-md text-xl border-2 border-white dark:border-[#334155] overflow-hidden shrink-0`}>
               {avatarTab !== 'emoji' && avatarUrl ? (
-                <img src={avatarUrl} alt="Avatar Preview" className="w-full h-full object-cover" />
+                <img src={avatarUrl} alt="Avatar Preview" className="w-full h-full object-cover aspect-square block rounded-xl" />
               ) : (
                 <span className="leading-none drop-shadow">{selectedEmoji}</span>
               )}

@@ -129,12 +129,16 @@ export const ProfileSwitcherModal: React.FC<ProfileSwitcherModalProps> = ({
                   {/* Left: Avatar & Profile Details */}
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
                     <div
-                      className={`w-13 h-13 min-w-[52px] min-h-[52px] rounded-2xl bg-gradient-to-tr ${
+                      className={`w-14 h-14 min-w-[56px] min-h-[56px] max-w-[56px] max-h-[56px] rounded-2xl bg-gradient-to-tr ${
                         p.avatarColor || 'from-[#7C3AED] to-[#22D3EE]'
-                      } flex items-center justify-center text-white shadow-md text-2xl border-2 border-white dark:border-[#334155] shrink-0 overflow-hidden relative`}
+                      } flex items-center justify-center text-white shadow-md text-2xl border-2 border-white dark:border-[#334155] shrink-0 overflow-hidden relative aspect-square`}
                     >
                       {p.avatarUrl ? (
-                        <img src={p.avatarUrl} alt={p.name} className="w-full h-full object-cover" />
+                        <img
+                          src={p.avatarUrl}
+                          alt={p.name}
+                          className="w-full h-full object-cover aspect-square block rounded-xl"
+                        />
                       ) : (
                         <span className="leading-none drop-shadow">{p.avatarEmoji || '🦁'}</span>
                       )}

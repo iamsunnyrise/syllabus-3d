@@ -126,6 +126,8 @@ export default {
       },
       spacing: {
         '8.5': '2.125rem',
+        '13': '3.25rem',
+        '15': '3.75rem',
       },
       keyframes: {
         'slide-up': {
