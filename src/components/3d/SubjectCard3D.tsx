@@ -69,7 +69,7 @@ export const SubjectCard3D: React.FC<SubjectCard3DProps> = ({
           transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${isHovered ? 'translateZ(12px)' : 'translateZ(0px)'}`,
           transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
         }}
-        className="group relative cursor-pointer rounded-3xl bg-white dark:bg-slate-900/90 p-6 border border-slate-200/80 dark:border-slate-800/80 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden"
+        className="group relative cursor-pointer rounded-3xl bg-white dark:bg-slate-900/90 p-6 border border-slate-200/80 dark:border-slate-800/80 hover:border-violet-500/50 dark:hover:border-violet-400/50 shadow-md hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.22)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.35)] transition-all duration-300 overflow-hidden"
       >
         <div
           className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-20 pointer-events-none transition-opacity group-hover:opacity-40"

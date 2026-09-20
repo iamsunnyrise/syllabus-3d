@@ -659,7 +659,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                         onNavigate('syllabus');
                       }
                     }}
-                    className="p-2.5 rounded-xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-[#2563EB]/50 dark:hover:border-[#7AA2F7]/50 hover:bg-blue-50/30 dark:hover:bg-[#7AA2F7]/10 transition-all cursor-pointer group shadow-2xs flex flex-col justify-between gap-1.5 active:scale-[0.98] tap-bounce"
+                    className="p-2.5 rounded-xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-violet-500/50 dark:hover:border-violet-400/50 hover:bg-violet-50/20 dark:hover:bg-violet-500/10 hover:shadow-[0_10px_24px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_10px_26px_-6px_rgba(124,58,237,0.26)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-0.5 cursor-pointer group shadow-2xs flex flex-col justify-between gap-1.5 active:scale-[0.98] tap-bounce"
                   >
                     <div className="flex items-center justify-between gap-1.5">
                       <div className="flex items-center gap-2 min-w-0">
@@ -1061,7 +1061,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     onNavigate('syllabus');
                   }
                 }}
-                className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-[#2563EB]/50 dark:hover:border-[#7AA2F7]/50 transition-all duration-200 shadow-2xs hover:shadow-md cursor-pointer space-y-2.5 sm:space-y-3 group active:scale-[0.98] relative overflow-hidden tap-bounce print-avoid-break print:border print:border-black print:rounded-lg"
+                className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-violet-500/50 dark:hover:border-violet-400/50 hover:shadow-[0_14px_30px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_14px_32px_-6px_rgba(124,58,237,0.28)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer space-y-2.5 sm:space-y-3 group active:scale-[0.98] relative overflow-hidden tap-bounce print-avoid-break print:border print:border-black print:rounded-lg"
               >
                 {/* Subject Header Row */}
                 <div className="flex items-center justify-between gap-2">

@@ -774,7 +774,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] space-y-2.5 sm:space-y-3 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-3 tap-bounce"
+                    className="group relative p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/70 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_14px_30px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_14px_32px_-6px_rgba(124,58,237,0.28)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.015] hover:-translate-y-0.5 cursor-pointer active:scale-[0.99] space-y-2.5 sm:space-y-3 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-3 tap-bounce"
                   >
                     {/* Subtle Top Glow Accent */}
                     <div
@@ -788,7 +788,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     <div className="flex items-center justify-between gap-2 sm:gap-3">
                       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                         {/* Squircle Thumbnail Badge */}
-                        <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs relative overflow-hidden print:hidden ${design.boxClass}`}>
+                        <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs relative overflow-hidden print:hidden ${design.boxClass}`}>
                           <BadgeIcon className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.2] mb-0.5" />
                           <span className="text-[8px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none">
                             {design.badgeNum}
@@ -797,7 +797,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                         {/* Title in Natural Case & Semantic H3 */}
                         <div className="min-w-0 flex-1">
-                          <h3 className={`text-[13px] sm:text-[15px] font-bold ${design.titleColor} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
+                          <h3 className={`text-[13px] sm:text-[15px] font-bold ${design.titleColor} group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
                             <span className={`hidden print:inline-block desk-checkbox ${topic.status === 'completed' ? 'is-checked' : ''}`} />
                             {topic.name}
                           </h3>
@@ -826,7 +826,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         </div>
 
                         {/* Action Chevron */}
-                        <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-[#151622] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-center text-slate-500 dark:text-[#CBD5E1] group-hover:bg-[#11120F] group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all group-hover:translate-x-0.5 shadow-2xs shrink-0">
+                        <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-[#151622] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-center text-slate-500 dark:text-[#CBD5E1] group-hover:bg-violet-600 group-hover:text-white dark:group-hover:bg-violet-500 dark:group-hover:text-white group-hover:border-violet-600 dark:group-hover:border-violet-500 transition-all duration-300 group-hover:translate-x-1 shadow-2xs shrink-0">
                           <ChevronRight className="w-3.5 sm:w-4 h-3.5 sm:h-4 stroke-[2.5]" />
                         </div>
                       </div>
@@ -1123,7 +1123,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter.id)}
-                    className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/60 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/60 dark:hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                    className="group relative p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/70 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                   >
                     {/* Subtle Top Glow Accent */}
                     <div
@@ -1137,7 +1137,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
                         {/* Modern Adaptive Squircle Chapter Badge */}
-                        <div className={`w-11 sm:w-12 h-11 sm:h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
+                        <div className={`w-11 sm:w-12 h-11 sm:h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
                           <ChapterIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2] mb-0.5" />
                           <span className="text-[8.5px] sm:text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                             {chapterBadge.badgeText}
@@ -1146,7 +1146,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                         {/* Chapter Title & Meta */}
                         <div className="min-w-0 flex-1">
-                          <h3 className="text-[14px] sm:text-[15px] font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug uppercase">
+                          <h3 className="text-[14px] sm:text-[15px] font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-2 leading-snug uppercase">
                             {chapter.name.toUpperCase()}
                           </h3>
                           <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5 uppercase font-mono">
@@ -1582,7 +1582,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/70 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/40 shadow-xs hover:shadow-lg hover:shadow-blue-500/[0.03] dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group relative p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/80 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                 >
                   {/* Top Glow Accent Bar on Hover */}
                   <div
@@ -1602,7 +1602,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">
                       {/* Modern Adaptive Squircle Thumbnail */}
-                      <div className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
+                      <div className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs ${badgeStyle.containerClass}`}>
                         <BadgeIcon className="w-5 h-5 stroke-[2.2] mb-0.5" />
                         <span className="text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                           {badgeStyle.badgeText}
@@ -1611,7 +1611,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Subject Name & Chapter Meta (All in CAPITAL letters) */}
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1 leading-snug uppercase">
+                        <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 leading-snug uppercase">
                           {subject.name.toUpperCase()}
                         </h3>
                         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5 uppercase font-mono">
@@ -1667,9 +1667,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <span>{weakTopicsInSubject} WEAK</span>
                         </span>
                       ) : (
-                        <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-semibold transition-colors uppercase">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 font-bold transition-colors uppercase">
                           <span>View Modules</span>
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
                         </div>
                       )}
                     </div>
