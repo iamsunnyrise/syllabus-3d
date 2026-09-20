@@ -816,7 +816,7 @@ export const App: React.FC = () => {
           onTouchStart={handleMainTouchStart}
           onTouchMove={handleMainTouchMove}
           onTouchEnd={handleMainTouchEnd}
-          className="flex-1 p-3 sm:p-4 md:p-5 max-w-[1440px] w-full mx-auto pb-20 md:pb-6 touch-pan-y overscroll-contain focus:outline-none"
+          className="flex-1 p-3 sm:p-4 md:px-6 md:py-5 w-full pb-20 md:pb-6 touch-pan-y overscroll-contain focus:outline-none"
         >
           <div key={currentView} className="animate-view-fade">
             {/* Initial Dashboard View (Instant, Non-Lazy) */}
