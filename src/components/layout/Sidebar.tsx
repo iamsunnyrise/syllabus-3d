@@ -180,8 +180,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur-2xl border-r border-[#DDD6FE]/80 dark:border-[#334155] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
-        isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_20px_rgba(15,23,42,0.04)]'
+      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#090D16]/90 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/[0.08] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar relative ${
+        isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_24px_rgba(15,23,42,0.03)] dark:shadow-[1px_0_32px_rgba(0,0,0,0.5)]'
       }`}
     >
 
@@ -301,15 +301,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         onSelectView(item.id);
                       }}
                       aria-current={isActive ? 'page' : undefined}
-                      className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
+                      className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer select-none ${
                         isActive
-                          ? 'bg-[#7C3AED] text-white font-black shadow-xs shadow-[#7C3AED]/30 dark:bg-[#7C3AED] dark:text-white'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-[#EDE9FE]/70 dark:hover:bg-white/[0.06] hover:text-[#0F172A] dark:hover:text-white'
+                          ? 'bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] text-white font-black shadow-[0_4px_16px_rgba(124,58,237,0.35)] dark:shadow-[0_4px_20px_rgba(139,92,246,0.35)] border-t border-white/20'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-violet-500/10 dark:hover:bg-white/[0.06] hover:text-[#0F172A] dark:hover:text-white'
                       }`}
                     >
-                      {/* Active Left Indicator Bar */}
+                      {/* Active Left Indicator Bar with subtle glow */}
                       {isActive && (
-                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-white dark:bg-white" />
+                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
                       )}
 
                       <div className="flex items-center gap-2.5 min-w-0">

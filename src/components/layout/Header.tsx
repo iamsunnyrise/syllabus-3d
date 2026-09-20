@@ -105,7 +105,9 @@ export const Header: React.FC<HeaderProps> = ({
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
   return (
-    <header className="sticky top-0 z-30 bg-[#EDE9FE]/90 dark:bg-[#0F172A]/95 backdrop-blur-2xl border-b border-[#DDD6FE] dark:border-[#334155] shadow-[0_1px_3px_rgba(15,23,42,0.04),0_4px_12px_-2px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] px-2 sm:px-6 py-2 sm:py-2.5 pt-safe pl-safe pr-safe transition-colors print:hidden">
+    <header className="sticky top-0 z-30 bg-white/80 dark:bg-[#090D16]/85 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-[0_1px_3px_rgba(15,23,42,0.03),0_8px_24px_-4px_rgba(15,23,42,0.04)] dark:shadow-[0_8px_32px_-4px_rgba(0,0,0,0.6)] px-2 sm:px-6 py-2 sm:py-2.5 pt-safe pl-safe pr-safe transition-all print:hidden relative">
+      {/* Luminous Bottom Edge-Light Ribbon */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-violet-500/35 dark:via-cyan-400/35 to-transparent pointer-events-none" />
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
         {/* Left Side: Mobile Menu Button, Desktop Gemini Collapse Toggle, Back Nav & Exam Selector */}
@@ -368,7 +370,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Theme Toggle (Light <-> Dark) */}
+          {/* Theme Toggle (Light <-> Dark) with Atmospheric Glow */}
           <button
             type="button"
             onClick={() => {
@@ -376,14 +378,18 @@ export const Header: React.FC<HeaderProps> = ({
               haptics.light();
               handleThemeToggle();
             }}
-            className="h-9 w-9 rounded-xl bg-white dark:bg-[#18181D] border border-slate-200/80 dark:border-white/[0.08] text-[#64748B] hover:text-[#0F172A] dark:text-[#A1A1AA] dark:hover:text-white transition-all cursor-pointer shadow-subtle-depth active:scale-90 shrink-0 flex items-center justify-center"
+            className={`h-9 w-9 rounded-xl border transition-all duration-300 cursor-pointer active:scale-90 shrink-0 flex items-center justify-center ${
+              isDark
+                ? 'bg-[#131926] hover:bg-[#1A2336] border-amber-400/30 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.25)] ring-1 ring-amber-400/20'
+                : 'bg-white hover:bg-violet-50/60 border-slate-200/80 hover:border-violet-300 text-violet-600 shadow-[0_2px_10px_rgba(124,58,237,0.12)]'
+            }`}
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle theme"
           >
             {isDark ? (
-              <Sun className="w-4 h-4 text-[#F59E0B]" />
+              <Sun className="w-4 h-4 text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.6)] animate-spin-slow" />
             ) : (
-              <Moon className="w-4 h-4 text-[#2563EB]" />
+              <Moon className="w-4 h-4 text-violet-600 drop-shadow-[0_0_4px_rgba(124,58,237,0.4)]" />
             )}
           </button>
 
