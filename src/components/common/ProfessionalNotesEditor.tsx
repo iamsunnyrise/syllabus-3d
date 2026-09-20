@@ -741,6 +741,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     return 'paper';
   });
 
+  // Check if current reading view is dark/OLED for high-contrast typography
+  const isDarkTheme = readerTheme === 'oled' || readerTheme === 'midnight' || (typeof document !== 'undefined' && document.documentElement.classList.contains('dark'));
+
   // Book Study Mode Layout & Ergonomics (Persisted)
   const [readerLayout, setReaderLayout] = useState<ReaderLayout>(() => {
     return (localStorage.getItem('syllabus3d_reader_layout') as ReaderLayout) || 'single';
@@ -2069,7 +2072,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         return 'reader-theme-candle book-page-sheet border shadow-md transition-all duration-300';
       case 'oled':
       case 'midnight':
-        return 'reader-theme-oled border shadow-xl transition-all duration-300';
+        return 'reader-theme-oled dark border shadow-2xl transition-all duration-300';
       case 'paper':
       case 'default':
       default:
@@ -2094,7 +2097,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           : { backgroundColor: '#F9EFE1', color: '#442B15', borderColor: '#E6D2B8' };
       case 'oled':
       case 'midnight':
-        return { backgroundColor: '#000000', color: '#F8FAFC', borderColor: '#222533' };
+        return { backgroundColor: '#000000', color: '#FFFFFF', borderColor: '#1F2430' };
       case 'paper':
       default:
         return isDarkMode
@@ -2224,7 +2227,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       if (part.startsWith('==') && part.endsWith('==') && part.length >= 4) {
         // Strip leading and trailing == signs (could be multiple = if corrupted)
         const rawInner = part.replace(/^==+/, '').replace(/==+$/, '');
-        let colorClass = 'bg-yellow-300/80 dark:bg-yellow-400/35 text-slate-950 dark:text-yellow-100 border-b-2 border-yellow-500/60';
+        let colorClass = isDarkTheme
+          ? 'bg-yellow-400/35 text-yellow-100 border-b-2 border-yellow-400/80'
+          : 'bg-yellow-300/80 text-slate-950 border-b-2 border-yellow-500/60';
         let highlightText = rawInner;
 
         const colorMatch = highlightText.match(/^([gpbr]):\s*/);
@@ -2232,13 +2237,21 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           const prefix = colorMatch[1];
           highlightText = highlightText.slice(colorMatch[0].length);
           if (prefix === 'g') {
-            colorClass = 'bg-emerald-300/80 dark:bg-emerald-500/35 text-slate-950 dark:text-emerald-100 border-b-2 border-emerald-500/60';
+            colorClass = isDarkTheme
+              ? 'bg-emerald-500/35 text-emerald-100 border-b-2 border-emerald-400/80'
+              : 'bg-emerald-300/80 text-slate-950 border-b-2 border-emerald-500/60';
           } else if (prefix === 'p') {
-            colorClass = 'bg-purple-300/80 dark:bg-purple-500/35 text-slate-950 dark:text-purple-100 border-b-2 border-purple-500/60';
+            colorClass = isDarkTheme
+              ? 'bg-purple-500/35 text-purple-100 border-b-2 border-purple-400/80'
+              : 'bg-purple-300/80 text-purple-950 border-b-2 border-purple-500/60';
           } else if (prefix === 'b') {
-            colorClass = 'bg-sky-300/80 dark:bg-sky-500/35 text-slate-950 dark:text-sky-100 border-b-2 border-sky-500/60';
+            colorClass = isDarkTheme
+              ? 'bg-sky-500/35 text-sky-100 border-b-2 border-sky-400/80'
+              : 'bg-sky-300/80 text-sky-950 border-b-2 border-sky-500/60';
           } else if (prefix === 'r') {
-            colorClass = 'bg-rose-300/80 dark:bg-rose-500/35 text-slate-950 dark:text-rose-100 border-b-2 border-rose-500/60';
+            colorClass = isDarkTheme
+              ? 'bg-rose-500/35 text-rose-100 border-b-2 border-rose-400/80'
+              : 'bg-rose-300/80 text-rose-950 border-b-2 border-rose-500/60';
           }
         }
 
@@ -2271,7 +2284,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       // Bold
       if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
         return (
-          <strong key={k} className="font-extrabold text-[#11120F] dark:text-white">
+          <strong key={k} className={`font-extrabold ${isDarkTheme ? 'text-white' : 'text-[#11120F]'}`}>
             {parseInlineMarkdown(part.slice(2, -2), `${k}-b`)}
           </strong>
         );
@@ -2279,7 +2292,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       // Italic
       if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
         return (
-          <em key={k} className="italic text-[#4A4B45] dark:text-[#CBD5E1]">
+          <em key={k} className={`italic ${isDarkTheme ? 'text-[#CBD5E1]' : 'text-[#4A4B45]'}`}>
             {parseInlineMarkdown(part.slice(1, -1), `${k}-i`)}
           </em>
         );
@@ -2289,7 +2302,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         return (
           <code
             key={k}
-            className="px-1.5 py-0.5 mx-0.5 rounded-md bg-amber-500/15 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/25 font-bold"
+            className={`px-1.5 py-0.5 mx-0.5 rounded-md font-mono text-[11px] sm:text-xs border font-bold ${
+              isDarkTheme
+                ? 'bg-amber-400/20 text-amber-200 border-amber-400/35'
+                : 'bg-amber-500/15 text-amber-800 border-amber-500/25'
+            }`}
           >
             {part.slice(1, -1)}
           </code>
@@ -2888,40 +2905,58 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           i++;
         }
 
-        let borderCol = 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300';
+        let borderCol = isDarkTheme
+          ? 'border-cyan-500/40 bg-cyan-950/40 text-cyan-200'
+          : 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300';
         let IconComp = Info;
         let title = 'Key Note';
 
         if (calloutType === 'FORMULA' || calloutType === 'MATH') {
-          borderCol = 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300';
+          borderCol = isDarkTheme
+            ? 'border-purple-500/40 bg-purple-950/40 text-purple-200'
+            : 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300';
           IconComp = Sigma;
           title = 'Formula & Equations';
         } else if (calloutType === 'TIP' || calloutType === 'SHORTCUT' || calloutType === 'TRICK') {
-          borderCol = 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
+          borderCol = isDarkTheme
+            ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-200'
+            : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
           IconComp = Zap;
           title = 'Pro Tip & Speed Shortcut';
         } else if (calloutType === 'WARNING' || calloutType === 'TRAP' || calloutType === 'MISTAKE' || calloutType === 'CAUTION') {
-          borderCol = 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
+          borderCol = isDarkTheme
+            ? 'border-rose-500/40 bg-rose-950/40 text-rose-200'
+            : 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
           IconComp = AlertTriangle;
           title = 'Exam Trap & High-Frequency Mistake';
         } else if (calloutType === 'RULE' || calloutType === 'KEY' || calloutType === 'CONCEPT') {
-          borderCol = 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300';
+          borderCol = isDarkTheme
+            ? 'border-indigo-500/40 bg-indigo-950/40 text-indigo-200'
+            : 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300';
           IconComp = BookOpen;
           title = 'Golden Rule & Core Concept';
         } else if (calloutType === 'EXAMPLE' || calloutType === 'QUESTION') {
-          borderCol = 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
+          borderCol = isDarkTheme
+            ? 'border-amber-500/40 bg-amber-950/40 text-amber-200'
+            : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
           IconComp = Sparkles;
           title = 'Solved Exam Example';
         } else if (calloutType === 'VOCAB' || calloutType === 'WORD') {
-          borderCol = 'border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-200';
+          borderCol = isDarkTheme
+            ? 'border-amber-500/40 bg-amber-950/40 text-amber-200'
+            : 'border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-200';
           IconComp = BookA;
           title = 'Vocabulary Card';
         } else if (calloutType === 'QUIZ') {
-          borderCol = 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300';
+          borderCol = isDarkTheme
+            ? 'border-purple-500/40 bg-purple-950/40 text-purple-200'
+            : 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300';
           IconComp = CheckSquare;
           title = 'Active Recall Quiz';
         } else if (calloutType === 'GS' || calloutType === 'POLITY' || calloutType === 'MATRIX') {
-          borderCol = 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
+          borderCol = isDarkTheme
+            ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-200'
+            : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
           IconComp = Landmark;
           title = 'GS & Constitutional Pointer';
         }
@@ -2966,9 +3001,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 border-[#2563EB]/30 dark:border-[#7AA2F7]/30 flex items-center gap-2.5 text-slate-900 dark:text-white tracking-tight scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 ${
+                isDarkTheme ? 'border-[#7AA2F7]/50 text-white' : 'border-[#2563EB]/30 text-slate-900'
+              } flex items-center gap-2.5 tracking-tight scroll-mt-28 [break-inside:avoid]`}
             >
-              <span className="w-1.5 h-6 rounded-full bg-[#2563EB] dark:bg-[#7AA2F7] inline-block shrink-0" />
+              <span className={`w-1.5 h-6 rounded-full inline-block shrink-0 ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'}`} />
               <span>{parseInlineMarkdown(rawHeading, `h1-${i}`)}</span>
             </h1>
           );
@@ -2980,11 +3017,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${spacing.h2Margin} rounded-2xl border border-indigo-200/90 dark:border-indigo-800/60 border-l-4 border-l-indigo-600 dark:border-l-indigo-400 bg-gradient-to-r from-indigo-50/90 via-blue-50/40 to-white/30 dark:from-[#1A1C2E]/90 dark:via-[#161726]/60 dark:to-[#11121A]/30 p-3.5 sm:p-4 shadow-xs scroll-mt-28 [break-inside:avoid]`}
+              className={`${spacing.h2Margin} rounded-2xl border ${
+                isDarkTheme
+                  ? 'border-indigo-500/40 border-l-4 border-l-indigo-400 bg-gradient-to-r from-indigo-950/80 via-[#161726]/80 to-[#11121A]/80 shadow-md'
+                  : 'border-indigo-200/90 border-l-4 border-l-indigo-600 bg-gradient-to-r from-indigo-50/90 via-blue-50/40 to-white/30 shadow-xs'
+              } p-3.5 sm:p-4 scroll-mt-28 [break-inside:avoid]`}
             >
               <div className="flex items-center gap-3">
-                <span className="w-2 h-5 sm:h-6 rounded-full bg-indigo-600 dark:bg-indigo-400 shrink-0" />
-                <h2 className={`${fontFam} text-base sm:text-lg font-black text-indigo-950 dark:text-indigo-100 flex-1 leading-snug tracking-tight m-0`}>
+                <span className={`w-2 h-5 sm:h-6 rounded-full shrink-0 ${isDarkTheme ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
+                <h2 className={`${fontFam} text-base sm:text-lg font-black ${isDarkTheme ? 'text-indigo-100' : 'text-indigo-950'} flex-1 leading-snug tracking-tight m-0`}>
                   {parseInlineMarkdown(rawHeading, `h2-${i}`)}
                 </h2>
               </div>
@@ -2997,7 +3038,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs sm:text-sm font-black text-[#2563EB] dark:text-[#7AA2F7] ${spacing.h3Margin} uppercase tracking-wide flex items-center gap-1.5 font-mono scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs sm:text-sm font-black ${isDarkTheme ? 'text-[#93C5FD]' : 'text-[#2563EB]'} ${spacing.h3Margin} uppercase tracking-wide flex items-center gap-1.5 font-mono scroll-mt-28 [break-inside:avoid]`}
             >
               <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>{parseInlineMarkdown(rawHeading, `h3-${i}`)}</span>
@@ -3011,7 +3052,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-sm sm:text-base font-bold text-amber-700 dark:text-amber-400 ${spacing.h4Margin} flex items-center gap-2 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-sm sm:text-base font-bold ${isDarkTheme ? 'text-amber-300' : 'text-amber-700'} ${spacing.h4Margin} flex items-center gap-2 scroll-mt-28 [break-inside:avoid]`}
             >
               <span className="w-1.5 h-3.5 rounded-full bg-amber-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h4-${i}`)}</span>
@@ -3025,7 +3066,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs sm:text-sm font-bold text-emerald-700 dark:text-emerald-400 ${spacing.h4Margin} flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs sm:text-sm font-bold ${isDarkTheme ? 'text-emerald-300' : 'text-emerald-700'} ${spacing.h4Margin} flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
             >
               <span className="w-1.5 h-3 rounded-full bg-emerald-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h5-${i}`)}</span>
@@ -3039,7 +3080,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs font-semibold text-slate-600 dark:text-slate-400 ${spacing.h4Margin} uppercase tracking-wider flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs font-semibold ${isDarkTheme ? 'text-slate-300' : 'text-slate-600'} ${spacing.h4Margin} uppercase tracking-wider flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
             >
               <span className="w-1 h-2.5 rounded-full bg-slate-400 dark:bg-slate-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h6-${i}`)}</span>
@@ -3061,14 +3102,18 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             className={`flex items-center gap-3 ${spacing.checkboxMargin} rounded-xl cursor-pointer transition-all active:scale-[0.99] [break-inside:avoid] ${
               isDone
                 ? 'bg-emerald-500/10 text-slate-400 line-through'
-                : 'bg-white dark:bg-slate-800/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-[#E2E8F0] dark:border-[#272730]'
+                : isDarkTheme
+                ? 'bg-slate-900/90 text-slate-100 hover:bg-slate-800/90 border border-slate-700/60'
+                : 'bg-white text-slate-800 hover:bg-slate-100 border border-[#E2E8F0]'
             }`}
           >
             <div
               className={`w-5 h-5 rounded-lg flex items-center justify-center border transition-all shrink-0 ${
                 isDone
                   ? 'bg-emerald-500 border-emerald-500 text-white shadow-xs'
-                  : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900'
+                  : isDarkTheme
+                  ? 'border-slate-600 bg-slate-900'
+                  : 'border-slate-300 bg-white'
               }`}
             >
               {isDone && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -3091,10 +3136,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             style={spacing.listItemStyle}
             className={`flex items-start ${spacing.listItemGap} ${spacing.listItemMargin} pl-1`}
           >
-            <span className={`w-[5px] h-[5px] rounded-full bg-[#2563EB] dark:bg-[#7AA2F7] ${spacing.bulletDotMt} shrink-0`} />
+            <span className={`w-[5px] h-[5px] rounded-full ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'} ${spacing.bulletDotMt} shrink-0`} />
             <div
               style={{ lineHeight: spacing.lineHeight }}
-              className={`${fontSize} ${fontFam} font-medium text-[#334155] dark:text-[#CBD5E1] reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
+              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
             >
               {parseInlineMarkdown(rawBullet, `bullet-${i}`)}
             </div>
@@ -3113,12 +3158,12 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             style={spacing.listItemStyle}
             className={`flex items-start ${spacing.listItemGap} ${spacing.listItemMargin} pl-1`}
           >
-            <span className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[11px] font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">
+            <span className={`w-5 h-5 rounded-full ${isDarkTheme ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'} text-[11px] font-mono font-bold flex items-center justify-center shrink-0 mt-0.5`}>
               {num}.
             </span>
             <div
               style={{ lineHeight: spacing.lineHeight }}
-              className={`${fontSize} ${fontFam} font-medium text-[#334155] dark:text-[#CBD5E1] reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
+              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
             >
               {parseInlineMarkdown(numText, `num-${i}`)}
             </div>
@@ -3129,9 +3174,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       else if (line.trim() === '---' || line.trim() === '***') {
         elements.push(
           <div key={i} className="flex items-center justify-center gap-2 my-6 select-none" aria-hidden="true">
-            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+            <span className={`w-1 h-1 rounded-full ${isDarkTheme ? 'bg-slate-600' : 'bg-slate-300'}`} />
+            <span className={`w-1 h-1 rounded-full ${isDarkTheme ? 'bg-slate-600' : 'bg-slate-300'}`} />
+            <span className={`w-1 h-1 rounded-full ${isDarkTheme ? 'bg-slate-600' : 'bg-slate-300'}`} />
           </div>
         );
       }
@@ -3190,7 +3235,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           <p
             key={i}
             style={{ lineHeight: spacing.lineHeight, ...spacing.paragraphStyle }}
-            className={`${fontSize} ${fontFam} text-[#334155] dark:text-[#CBD5E1] ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column max-w-[68ch] ${
+            className={`${fontSize} ${fontFam} ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column max-w-[68ch] ${
               isFirstParagraph && readerFontFamily === 'serif' ? 'book-drop-cap' : ''
             }`}
           >
@@ -3211,7 +3256,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         }}
       >
         {/* Book Editorial Running Header */}
-        <div className="flex items-center justify-between pb-3.5 mb-6 border-b border-slate-200/60 dark:border-slate-800/60 text-[11px] sm:text-xs font-serif uppercase tracking-widest text-[#65675F] dark:text-[#94A3B8] select-none [break-inside:avoid] print:hidden">
+        <div className={`flex items-center justify-between pb-3.5 mb-6 border-b ${
+          isDarkTheme ? 'border-slate-800 text-[#94A3B8]' : 'border-slate-200/60 text-[#65675F]'
+        } text-[11px] sm:text-xs font-serif uppercase tracking-widest select-none [break-inside:avoid] print:hidden`}>
           <div className="flex items-center gap-2 truncate">
             <span className="font-bold text-amber-600 dark:text-amber-400">§ CHAPTER STUDY</span>
             <span>•</span>
@@ -3236,11 +3283,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         </div>
 
         {/* Book Editorial Running Footer */}
-        <div className="flex items-center justify-between pt-6 mt-8 border-t border-black/10 dark:border-white/10 text-[11px] font-serif text-[#65675F] dark:text-[#94A3B8] select-none [break-inside:avoid] print:hidden">
+        <div className={`flex items-center justify-between pt-6 mt-8 border-t ${
+          isDarkTheme ? 'border-white/10 text-[#94A3B8]' : 'border-black/10 text-[#65675F]'
+        } text-[11px] font-serif select-none [break-inside:avoid] print:hidden`}>
           <div className="flex items-center gap-2 truncate">
-            <span className="font-semibold text-slate-800 dark:text-slate-200">{activeNote.title}</span>
+            <span className={`font-semibold ${isDarkTheme ? 'text-slate-200' : 'text-slate-800'}`}>{activeNote.title}</span>
             <span>—</span>
-            <span className="italic text-slate-400 dark:text-slate-500 tracking-wide">Antigravity Reader Edition</span>
+            <span className={`italic ${isDarkTheme ? 'text-slate-400' : 'text-slate-400'} tracking-wide`}>Antigravity Reader Edition</span>
           </div>
           <div className="flex items-center gap-2 font-mono text-[10px] shrink-0 tabular-nums">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500/80" />
@@ -3640,7 +3689,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
     return createPortal(
       <div
-        className="fixed inset-0 z-[150] bg-[#F8FAFC] dark:bg-[#0B0B0E] text-[#11120F] dark:text-[#F5F5F7] flex flex-col animate-fade-in"
+        className={`fixed inset-0 z-[150] ${
+          isDarkTheme ? 'bg-[#000000] text-[#FFFFFF]' : 'bg-[#F8FAFC] dark:bg-[#0B0B0E] text-[#11120F] dark:text-[#F5F5F7]'
+        } flex flex-col animate-fade-in`}
         onMouseUp={handleMouseUpSelection}
         onTouchEnd={handleMouseUpSelection}
       >
@@ -3754,7 +3805,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* Fullscreen Zen Header Bar (Hides smoothly when isZenMode is true) */}
         {!isZenMode && (
-          <div className="px-4 sm:px-6 py-2.5 border-b border-[#E2E8F0] dark:border-[#272730] bg-white/85 dark:bg-[#12131C]/90 backdrop-blur-md flex flex-col gap-2 shrink-0 shadow-xs animate-fade-in">
+          <div className={`px-4 sm:px-6 py-2.5 border-b ${
+            isDarkTheme
+              ? 'border-white/10 bg-[#0C0D14]/95 text-white'
+              : 'border-[#E2E8F0] dark:border-[#272730] bg-white/85 dark:bg-[#12131C]/90 text-[#11120F] dark:text-white'
+          } backdrop-blur-md flex flex-col gap-2 shrink-0 shadow-xs animate-fade-in`}>
             <div className="flex items-center justify-between gap-3">
               {/* Breadcrumb & Title */}
               <div className="flex items-center gap-3 min-w-0">
@@ -3790,7 +3845,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </button>
 
                 {/* 🔤 Font Family Selector */}
-                <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#1C1D26] p-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold">
+                <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
                   <button
                     type="button"
                     onClick={() => handleSelectFont('serif')}
@@ -3830,7 +3885,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </div>
 
                 {/* 🎨 Eye-Care Theme Switcher (Paper, Sepia, Sage, Candle, OLED) */}
-                <div className="flex items-center gap-1 bg-[#F1F5F9] dark:bg-[#151620] p-1 rounded-xl border border-[#CBD5E1] dark:border-[#272738] text-xs font-bold shadow-xs">
+                <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F1F5F9] dark:bg-[#151620] border-[#CBD5E1] dark:border-[#272738]'} p-1 rounded-xl border text-xs font-bold shadow-xs`}>
                   <button
                     type="button"
                     onClick={() => handleSelectTheme('paper')}
@@ -3894,7 +3949,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </div>
 
                 {/* 📖 Book Spread Layout Selector */}
-                <div className="hidden md:flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#1C1D26] p-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold">
+                <div className={`hidden md:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
                   <button
                     type="button"
                     onClick={() => {
@@ -3930,7 +3985,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 </div>
 
                 {/* Line Spacing / Leading Selector */}
-                <div className="hidden xl:flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#1C1D26] p-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold">
+                <div className={`hidden xl:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
                   <span className="text-[10px] text-[#85877E] px-1 font-mono">Spacing:</span>
                   {(['compact', 'relaxed', 'spacious'] as ReaderLineHeight[]).map(lh => (
                     <button
@@ -5103,7 +5158,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       )}
 
       {/* 📄 DOCUMENT DESK (Elevated Paper Canvas with Margins & Shadow) */}
-      <div className={`w-full bg-[#EAEFF5] dark:bg-[#0A0B10] p-3 sm:p-6 ${showOfficeRuler ? 'rounded-b-2xl border-t-0' : 'rounded-2xl'} border border-[#CBD5E1] dark:border-[#272738] flex flex-col items-center min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
+      <div className={`w-full ${
+        isDarkTheme && (viewMode === 'study' || viewMode === 'split')
+          ? 'bg-[#06070B] border-[#1C1E2A]'
+          : 'bg-[#EAEFF5] dark:bg-[#0A0B10] border-[#CBD5E1] dark:border-[#272738]'
+      } p-3 sm:p-6 ${showOfficeRuler ? 'rounded-b-2xl border-t-0' : 'rounded-2xl'} border flex flex-col items-center min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
         
         {/* 1. EDIT MODE: Elevated A4 Document Page */}
         {viewMode === 'edit' && (
@@ -5174,7 +5233,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
             {/* Right Sheet: Live Rendered Page */}
             <div className={`rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px] overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()}>
-              <div className="px-4 py-2.5 border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between text-[11px] font-mono text-slate-500 font-bold uppercase select-none">
+              <div className={`px-4 py-2.5 border-b ${
+                isDarkTheme
+                  ? 'border-slate-800 text-slate-400'
+                  : 'border-slate-200/50 dark:border-slate-700/50 text-slate-500'
+              } flex items-center justify-between text-[11px] font-mono font-bold uppercase select-none`}>
                 <span>Live Visual Document</span>
                 <span>{activeNote.title}</span>
               </div>
@@ -5199,7 +5262,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           <div className="w-full max-w-[860px] my-2 select-text" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
             <div className={`relative rounded-2xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
               {/* Study Sheet Header */}
-              <div className="px-6 sm:px-10 pt-5 pb-3 border-b border-slate-200/40 dark:border-slate-700/40 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
+              <div className={`px-6 sm:px-10 pt-5 pb-3 border-b ${
+                isDarkTheme
+                  ? 'border-slate-800 text-slate-400'
+                  : 'border-slate-200/40 dark:border-slate-700/40 text-slate-400'
+              } flex items-center justify-between text-[11px] font-mono select-none`}>
                 <div className="flex items-center gap-2">
                   <span className="font-bold uppercase tracking-wider">{subjectName || 'Syllabus 3D'}</span>
                   <span>/</span>
