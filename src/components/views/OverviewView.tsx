@@ -407,7 +407,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                       stroke="currentColor"
                       strokeWidth="9"
                       fill="transparent"
-                      className="text-purple-100 dark:text-purple-950/60"
+                      className="text-purple-100 dark:text-purple-900/50"
                     />
                     {/* Foreground Progress */}
                     <circle
@@ -516,29 +516,50 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 140 140">
                 <defs>
                   <linearGradient id="masteryGaugeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#2563EB" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#6366F1" stopOpacity="1" />
+                    <stop offset="0%" stopColor="#3B82F6" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#8B5CF6" stopOpacity="1" />
                   </linearGradient>
                   <filter id="gaugeGlow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#2563EB" floodOpacity="0.3" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#3B82F6" floodOpacity="0.5" />
                   </filter>
                 </defs>
+
+                {/* Outer Track Rim (subtle border for crisp definition in dark mode) */}
+                <circle
+                  cx="70" cy="70" r={radius + 5.5}
+                  stroke="currentColor" strokeWidth="1"
+                  className="text-slate-300/40 dark:text-slate-700/50"
+                  fill="transparent"
+                />
+
+                {/* Main Gauge Track (High Contrast & Visible in OLED/Dark Mode) */}
                 <circle
                   cx="70" cy="70" r={radius}
                   stroke="currentColor" strokeWidth="11"
-                  className="text-slate-100 dark:text-slate-800"
+                  className="text-slate-200/90 dark:text-[#222A40]"
                   fill="transparent"
                 />
+
+                {/* Inner Track Rim */}
+                <circle
+                  cx="70" cy="70" r={radius - 5.5}
+                  stroke="currentColor" strokeWidth="1"
+                  className="text-slate-300/40 dark:text-slate-700/50"
+                  fill="transparent"
+                />
+
+                {/* Foreground Progress Arc */}
                 <circle
                   cx="70" cy="70" r={radius}
                   stroke="url(#masteryGaugeGrad)"
                   strokeWidth="11"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
-                  strokeLinecap="round"
+                  strokeLinecap={overallStats.completionPercentage > 0 ? 'round' : 'butt'}
                   filter="url(#gaugeGlow)"
                   className="transition-all duration-1000 ease-out"
                   fill="transparent"
+                  opacity={overallStats.completionPercentage > 0 ? 1 : 0}
                 />
               </svg>
 

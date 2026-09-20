@@ -25,7 +25,7 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
       <svg className="transform -rotate-90" width={size} height={size}>
         <circle
-          className={trackColor || 'text-slate-200 dark:text-slate-800'}
+          className={trackColor || 'text-slate-200 dark:text-slate-700/80'}
           strokeWidth={strokeWidth}
           stroke="currentColor"
           fill="transparent"
