@@ -280,8 +280,8 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
     @page {
-      size: A4;
-      margin: 14mm 16mm 14mm 16mm;
+      size: A4 portrait;
+      margin: 12mm 15mm 14mm 15mm;
     }
 
     * {
@@ -297,6 +297,10 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       line-height: 1.6;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     /* Floating Action Bar (hidden when printing) */
@@ -376,8 +380,10 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     /* Academic Header */
     .doc-header {
       border-bottom: 2.5px solid #11120F;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     .header-top {
@@ -385,6 +391,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
+      gap: 12px;
     }
 
     .exam-tag {
@@ -397,12 +404,14 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       color: #D4AF37;
       padding: 4px 10px;
       border-radius: 6px;
+      white-space: nowrap;
     }
 
     .doc-date {
       font-size: 12px;
       color: #64748B;
       font-weight: 500;
+      white-space: nowrap;
     }
 
     .hierarchy-path {
@@ -412,14 +421,15 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
+      line-height: 1.4;
     }
 
     .topic-title {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
       color: #11120F;
-      letter-spacing: -0.5px;
-      line-height: 1.25;
+      letter-spacing: -0.4px;
+      line-height: 1.3;
     }
 
     /* Headings */
@@ -432,6 +442,10 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       padding-bottom: 6px;
       border-bottom: 1.5px solid #E2E8F0;
       letter-spacing: -0.3px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-after: avoid-page;
+      page-break-after: avoid;
     }
 
     .note-h2 {
@@ -440,6 +454,10 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       color: #334155;
       margin-top: 18px;
       margin-bottom: 8px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-after: avoid-page;
+      page-break-after: avoid;
     }
 
     .note-h3 {
@@ -450,6 +468,10 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       letter-spacing: 0.5px;
       margin-top: 14px;
       margin-bottom: 6px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-after: avoid-page;
+      page-break-after: avoid;
     }
 
     .note-p {
@@ -457,6 +479,8 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       color: #2D3748;
       margin-bottom: 8px;
       line-height: 1.7;
+      orphans: 3;
+      widows: 3;
     }
 
     /* Callout Cards */
@@ -466,6 +490,8 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       border-radius: 12px;
       border-left: 4px solid #3B82F6;
       background: #F8FAFC;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     .callout-header {
@@ -538,6 +564,8 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       padding: 6px 0;
       font-size: 13px;
       color: #1F2937;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     .checklist-item .checkbox {
@@ -563,6 +591,8 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       margin-bottom: 6px;
       font-size: 13.5px;
       color: #334155;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     .bullet-item .bullet {
@@ -584,6 +614,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     .printable-table-wrapper {
       margin: 16px 0;
       overflow-x: auto;
+      break-inside: avoid;
       page-break-inside: avoid;
     }
 
@@ -618,6 +649,15 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       background: #F8FAFC;
     }
 
+    .printable-table tr {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .printable-table thead {
+      display: table-header-group;
+    }
+
     /* Printable Math Block */
     .printable-mathblock {
       margin: 16px 0;
@@ -627,6 +667,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       border-radius: 10px;
       text-align: center;
       font-size: 15px;
+      break-inside: avoid;
       page-break-inside: avoid;
     }
 
@@ -657,22 +698,67 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       font-size: 11px;
       color: #94A3B8;
       font-family: 'JetBrains Mono', monospace;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     /* Print Specific Media Rules */
     @media print {
-      body {
+      html, body {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background: #FFFFFF !important;
+        color: #0F172A !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
+
       .action-bar {
         display: none !important;
       }
+
       .page-container {
         box-shadow: none !important;
         border: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
         max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 4mm 6mm !important;
+        box-sizing: border-box !important;
+      }
+
+      .doc-header,
+      .doc-footer {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .note-h1,
+      .note-h2,
+      .note-h3 {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        break-after: avoid-page !important;
+        page-break-after: avoid !important;
+      }
+
+      .callout,
+      .printable-table-wrapper,
+      .printable-mathblock,
+      .checklist-item,
+      .bullet-item {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .printable-table tr {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .printable-table thead {
+        display: table-header-group !important;
       }
     }
   </style>
@@ -684,6 +770,9 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     <div class="brand">
       <span>✦ SYLLABUS 3D</span>
       <span style="opacity:0.6;font-size:12px">• Academic Master Notes</span>
+    </div>
+    <div class="print-tip" style="display:flex;align-items:center;gap:6px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.25);padding:5px 14px;border-radius:20px;font-size:11.5px;color:#D4AF37;font-weight:600;">
+      <span>💡 Print Settings: Margins <strong>Default</strong> • Background graphics <strong>ON</strong></span>
     </div>
     <div class="actions">
       <button class="btn-print" onclick="window.print()">
