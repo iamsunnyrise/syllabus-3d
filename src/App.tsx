@@ -932,7 +932,10 @@ export const App: React.FC = () => {
 
               {currentView === 'youtube-notes' && (
                 <ViewErrorBoundary sectionName="AI YouTube Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <YouTubeNotesView />
+                  <YouTubeNotesView
+                    onNavigateToSubject={handleNavigateToSubject}
+                    onOpenTopicDrawer={handleOpenTopicDrawer}
+                  />
                 </ViewErrorBoundary>
               )}
 

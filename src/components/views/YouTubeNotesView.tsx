@@ -42,7 +42,9 @@ import {
   KeyRound,
   Eye,
   EyeOff,
-  Lock
+  Lock,
+  BookmarkPlus,
+  FolderPlus
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { soundManager } from '../../utils/soundEffects';
@@ -87,14 +89,26 @@ import {
 } from '../../utils/youtubeNotesStorage';
 import { generateAndOpenNotesPdf } from '../../utils/pdfGenerator';
 import { MathBlock, InlineMath } from '../../utils/mathRenderer';
+import { AttachNoteToTopicModal } from '../modals/AttachNoteToTopicModal';
+import { Topic } from '../../types/syllabus';
 
 // ─── View States ────────────────────────────────────────────────
 
 type ViewState = 'input' | 'progress' | 'editor';
 
+// ─── Component Props ────────────────────────────────────────────
+
+export interface YouTubeNotesViewProps {
+  onNavigateToSubject?: (subjectId: string) => void;
+  onOpenTopicDrawer?: (topic: Topic, subjectName: string, chapterName: string) => void;
+}
+
 // ─── Component ──────────────────────────────────────────────────
 
-export const YouTubeNotesView: React.FC = () => {
+export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
+  onNavigateToSubject,
+  onOpenTopicDrawer
+}) => {
   const { isDark } = useTheme();
 
   // ── Core State ──
@@ -119,6 +133,16 @@ export const YouTubeNotesView: React.FC = () => {
   const [editContent, setEditContent] = useState('');
   const [currentNoteId, setCurrentNoteId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+
+  // ── Syllabus Topic Attachment ──
+  const [showAttachModal, setShowAttachModal] = useState(false);
+  const [attachTargetNote, setAttachTargetNote] = useState<SavedYouTubeNote | null>(null);
+  const [attachToast, setAttachToast] = useState<{
+    topic: Topic;
+    subjectName: string;
+    chapterName: string;
+    message: string;
+  } | null>(null);
 
   // ── Saved Notes ──
   const [savedNotes, setSavedNotes] = useState<SavedYouTubeNote[]>([]);
@@ -1185,6 +1209,18 @@ export const YouTubeNotesView: React.FC = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
+                          setAttachTargetNote(note);
+                          setShowAttachModal(true);
+                          soundManager.playClick?.();
+                        }}
+                        className="p-1 rounded-lg hover:bg-violet-100 dark:hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 transition-colors"
+                        title="Add to Syllabus Topic"
+                      >
+                        <BookmarkPlus className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
                           handleDuplicateNote(note.id);
                         }}
                         className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
@@ -1379,6 +1415,20 @@ export const YouTubeNotesView: React.FC = () => {
             </>
           ) : (
             <>
+              {/* Add to Syllabus Topic Button */}
+              <button
+                onClick={() => {
+                  setAttachTargetNote(null);
+                  setShowAttachModal(true);
+                  soundManager.playClick?.();
+                }}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold text-xs shadow-xs hover:shadow transition-all cursor-pointer active:scale-95 shrink-0"
+                title="Add this note into your syllabus subject, chapter and topic"
+              >
+                <BookmarkPlus className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span className="hidden sm:inline">Add to Topic</span>
+              </button>
+
               <button
                 onClick={() => { setIsEditing(true); setEditContent(generatedNotes); }}
                 className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
@@ -1576,8 +1626,45 @@ export const YouTubeNotesView: React.FC = () => {
             </button>
           </div>
 
+          {/* Syllabus Integration Card */}
+          <div className={`rounded-xl border p-3 mb-3 ${
+            isDark ? 'bg-[#1E293B]/80 border-[#334155]' : 'bg-white border-slate-200 shadow-xs'
+          }`}>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-between">
+              <span>Syllabus Integration</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] bg-violet-500/15 text-violet-600 dark:text-violet-400 font-mono font-bold">1-Click</span>
+            </h4>
+            <button
+              onClick={() => {
+                setAttachTargetNote(null);
+                setShowAttachModal(true);
+                soundManager.playClick?.();
+              }}
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-95"
+              title="Add this note into your syllabus subject, chapter and topic"
+            >
+              <FolderPlus className="w-4 h-4" />
+              <span>Add to Syllabus Topic</span>
+            </button>
+            <p className="text-[10px] text-slate-400 mt-1.5 text-center leading-tight">
+              Attach note &amp; video to any Subject &amp; Chapter
+            </p>
+          </div>
+
           {/* Quick Actions */}
           <div className="space-y-1">
+            <button
+              onClick={() => {
+                setAttachTargetNote(null);
+                setShowAttachModal(true);
+                soundManager.playClick?.();
+              }}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold ${
+                isDark ? 'text-violet-400 hover:bg-violet-500/10' : 'text-violet-600 hover:bg-violet-50'
+              }`}
+            >
+              <BookmarkPlus className="w-3.5 h-3.5" /> Add to Syllabus Topic
+            </button>
             <button
               onClick={handleNewNote}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium ${
@@ -1631,6 +1718,18 @@ export const YouTubeNotesView: React.FC = () => {
           <Download className="w-4 h-4 text-slate-400" />
           <span className="text-[9px] font-medium text-slate-400">PDF</span>
         </button>
+        <button
+          onClick={() => {
+            setAttachTargetNote(null);
+            setShowAttachModal(true);
+            soundManager.playClick?.();
+          }}
+          className="flex flex-col items-center gap-0.5 p-1.5 text-violet-600 dark:text-violet-400"
+          title="Add to Syllabus Topic"
+        >
+          <BookmarkPlus className="w-4 h-4" />
+          <span className="text-[9px] font-bold">To Topic</span>
+        </button>
         <button onClick={handleTranslateDocument} disabled={isAiActionRunning} className="flex flex-col items-center gap-0.5 p-1.5">
           <Languages className={`w-4 h-4 ${isAiActionRunning ? 'text-slate-300 animate-pulse' : 'text-slate-400'}`} />
           <span className="text-[9px] font-medium text-slate-400">Translate</span>
@@ -1681,6 +1780,64 @@ export const YouTubeNotesView: React.FC = () => {
               </button>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Attach Note to Syllabus Topic Modal */}
+      {showAttachModal && (
+        <AttachNoteToTopicModal
+          isOpen={showAttachModal}
+          onClose={() => {
+            setShowAttachModal(false);
+            setAttachTargetNote(null);
+          }}
+          noteTitle={attachTargetNote ? (attachTargetNote.customTitle || attachTargetNote.videoTitle) : (metadata?.title || 'YouTube Notes')}
+          notesContent={attachTargetNote ? attachTargetNote.notesContent : (isEditing ? editContent : generatedNotes)}
+          youtubeUrl={attachTargetNote ? attachTargetNote.youtubeUrl : url}
+          videoTitle={attachTargetNote ? attachTargetNote.videoTitle : metadata?.title}
+          channelName={attachTargetNote ? attachTargetNote.channelName : metadata?.channel}
+          thumbnailUrl={attachTargetNote ? attachTargetNote.thumbnailUrl : metadata?.thumbnailUrl}
+          onSuccess={(topic, subjectName, chapterName) => {
+            setShowAttachModal(false);
+            setAttachTargetNote(null);
+            setAttachToast({
+              topic,
+              subjectName,
+              chapterName,
+              message: `Attached to ${subjectName} › ${chapterName} › ${topic.name}`
+            });
+            setTimeout(() => setAttachToast(null), 6000);
+          }}
+        />
+      )}
+
+      {/* Attach Success Toast Notification */}
+      {attachToast && (
+        <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-3 p-3 sm:px-4 sm:py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl border border-white/10 dark:border-slate-200 animate-slide-up">
+          <div className="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+            <Check className="w-4 h-4 stroke-[3]" />
+          </div>
+          <div className="min-w-0 pr-1">
+            <p className="text-xs font-bold leading-tight">{attachToast.message}</p>
+            <p className="text-[10px] opacity-70 leading-none mt-0.5">Note is now part of your syllabus</p>
+          </div>
+          {onOpenTopicDrawer && (
+            <button
+              onClick={() => {
+                onOpenTopicDrawer(attachToast.topic, attachToast.subjectName, attachToast.chapterName);
+                setAttachToast(null);
+              }}
+              className="px-2.5 py-1 rounded-lg bg-violet-600 text-white dark:bg-violet-700 hover:bg-violet-500 text-[11px] font-bold transition-all shrink-0 cursor-pointer active:scale-95"
+            >
+              Open Topic
+            </button>
+          )}
+          <button
+            onClick={() => setAttachToast(null)}
+            className="p-1 rounded-lg hover:opacity-70 text-slate-400 dark:text-slate-600 shrink-0"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
 
