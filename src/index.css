@@ -11,35 +11,36 @@
 
 @layer base {
   :root {
-    /* 🎨 Luminous Light Mode System (High-Contrast & Refined Pearl Aesthetic) */
-    --color-background: #F8FAFC;
+    /* 🎨 Professional 5-Color Theme System (High-Contrast & Refined Aesthetic) */
+    /* 1. Primary: #0F172A | 2. Secondary: #7C3AED | 3. Accent: #22D3EE | 4. Tertiary: #A78BFA | 5. Background: #EDE9FE */
+    --color-background: #EDE9FE;
     --color-primary: #0F172A;
     --color-primary-accent: #7C3AED;
-    --color-accent-light: #F1F5F9;
+    --color-accent-light: #EDE9FE;
     --color-secondary-accent: #22D3EE;
     --color-tertiary-accent: #A78BFA;
     --color-surface: #FFFFFF;
-    --color-surface-soft: #F8FAFC;
-    --color-border: #E2E8F0;
+    --color-surface-soft: #F5F3FF;
+    --color-border: #DDD6FE;
     --color-text-primary: #0F172A;
     --color-text-secondary: #334155;
-    --color-text-muted: #64748B;
+    --color-text-muted: #475569;
     --color-success: #10B981;
     --color-warning: #F59E0B;
     --color-error: #EF4444;
   }
 
   .dark {
-    /* 🌑 Deep Obsidian Slate & Aurora Violet Theme (#090D16, #8B5CF6, #22D3EE, #A78BFA) */
-    --color-background: #090D16;
+    /* 🌑 Deep Midnight Slate & Royal Violet Theme (#0F172A, #7C3AED, #22D3EE, #A78BFA) */
+    --color-background: #0F172A;
     --color-primary: #FFFFFF;
-    --color-primary-accent: #8B5CF6;
+    --color-primary-accent: #7C3AED;
     --color-accent-light: #A78BFA;
     --color-secondary-accent: #22D3EE;
     --color-tertiary-accent: #A78BFA;
-    --color-surface: #111726;
-    --color-surface-soft: #1E293B;
-    --color-border: #1E293B;
+    --color-surface: #1E293B;
+    --color-surface-soft: #334155;
+    --color-border: #334155;
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #E2E8F0;
     --color-text-muted: #94A3B8;
@@ -85,21 +86,21 @@
   }
 
   html:not(.dark) body {
-    background-color: #F8FAFC !important;
+    background-color: #EDE9FE !important;
     background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(124, 58, 237, 0.08) 0%, transparent 65%),
-      radial-gradient(ellipse 60% 40% at 95% 25%, rgba(34, 211, 238, 0.06) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 50% at 5% 75%, rgba(245, 158, 11, 0.04) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #0F172A !important;
   }
 
   .dark body {
-    background-color: #090D16 !important;
+    background-color: #0F172A !important;
     background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.18) 0%, transparent 65%),
-      radial-gradient(ellipse 60% 40% at 95% 25%, rgba(34, 211, 238, 0.10) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 50% at 5% 75%, rgba(124, 58, 237, 0.10) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #F8FAFC !important;
   }
@@ -440,34 +441,6 @@
            border border-[#DDD6FE] dark:border-[#334155] transition-all cursor-pointer 
            active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50;
   }
-
-  /* 🌟 Atmospheric Luminous Surface & Card System */
-  .luminous-card {
-    @apply bg-white/90 dark:bg-[#111726]/90 backdrop-blur-xl 
-           border border-slate-200/80 dark:border-white/[0.08] 
-           shadow-luminous-light dark:shadow-luminous-dark 
-           transition-all duration-200;
-  }
-
-  .luminous-card-interactive {
-    @apply luminous-card hover:border-violet-500/40 dark:hover:border-violet-400/40 
-           hover:shadow-glow-primary hover:-translate-y-0.5 cursor-pointer;
-  }
-
-  .luminous-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold 
-           bg-white/80 dark:bg-white/10 backdrop-blur-md 
-           border border-slate-200/70 dark:border-white/10 
-           shadow-2xs text-slate-800 dark:text-slate-200;
-  }
-
-  .glow-beam-h {
-    @apply w-full h-[1px] bg-gradient-to-r from-transparent via-violet-500/35 dark:via-cyan-400/40 to-transparent;
-  }
-
-  .glow-spotlight-active {
-    @apply absolute -inset-1 rounded-2xl bg-gradient-to-r from-violet-600/20 via-blue-500/20 to-cyan-400/20 blur-sm -z-10;
-  }
 }
 
 /* ♿ Skip to Main Content Link for Keyboard & Screen Reader Users */
@@ -504,24 +477,26 @@
 /* ================================================================= */
 
 /* ================================================================= */
-/*  LUMINOUS THEME NORMALIZERS (Light & Dark High-Contrast System)   */
-/*  Palette: #F8FAFC (Background Canvas), #FFFFFF (Surface Cards),   */
+/*  PROFESSIONAL 5-COLOR THEME NORMALIZERS                           */
+/*  Palette: #EDE9FE (Background Canvas), #FFFFFF (Surface Cards),   */
 /*           #0F172A (Primary High-Contrast Text - WCAG AAA 14.8:1),  */
 /*           #7C3AED (Secondary CTA), #22D3EE (Accent Glow),         */
 /*           #A78BFA (Tertiary Soft Badges)                          */
 /* ================================================================= */
 
 html:not(.dark):not(.sepia):not(.luxury) body {
-  background-color: #F8FAFC !important;
+  background-color: #EDE9FE !important;
   color: #0F172A !important;
 }
 
 /* Canvas & App Background Normalizers */
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F7F6F0\],
 html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F7F6F0]"],
+html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F8FAFC\],
+html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F8FAFC]"],
 html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAEED9\],
 html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#FAEED9]"] {
-  background-color: #F8FAFC !important;
+  background-color: #EDE9FE !important;
 }
 
 /* Clean Pristine Card Surfaces on Lavender Canvas */

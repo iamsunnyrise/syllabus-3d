@@ -493,7 +493,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 1. TOP CHAPTER HERO BANNER */}
-        <div className="relative p-4 sm:p-6 rounded-2xl bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-luminous-light dark:shadow-luminous-dark space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
+        <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
           {/* Subtle Top Accent Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-80" />
 
@@ -1582,7 +1582,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-4 sm:p-5 rounded-2xl bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-xl hover:bg-white dark:hover:bg-[#13192B] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/40 dark:hover:border-violet-400/40 shadow-luminous-light dark:shadow-luminous-dark hover:shadow-glow-primary transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] hover:bg-slate-50/70 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/40 shadow-xs hover:shadow-lg hover:shadow-blue-500/[0.03] dark:hover:shadow-black/40 transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                 >
                   {/* Top Glow Accent Bar on Hover */}
                   <div

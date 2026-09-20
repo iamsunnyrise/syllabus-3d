@@ -237,14 +237,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD */}
-      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-2xl border border-slate-200/80 dark:border-white/[0.08] shadow-luminous-light dark:shadow-luminous-dark print:p-0 print:border-none print:shadow-none">
+      {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD (Refined to match Image 2) */}
+      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/95 dark:bg-[#161726]/90 backdrop-blur-2xl border border-purple-200/50 dark:border-white/[0.08] shadow-[0_12px_36px_-12px_rgba(124,58,237,0.14)] dark:shadow-[0_16px_48px_-15px_rgba(0,0,0,0.6)] print:p-0 print:border-none print:shadow-none">
         
         {/* Ambient Glow Orbs */}
-        <div className="absolute -top-16 -right-16 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-br from-violet-500/15 via-indigo-500/10 to-transparent dark:from-violet-500/25 dark:via-cyan-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
-        <div className="absolute -bottom-16 -left-16 w-56 sm:w-72 h-56 sm:h-72 rounded-full bg-gradient-to-tr from-cyan-500/10 via-amber-500/10 to-transparent dark:from-indigo-500/20 dark:via-purple-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
-        {/* Top Edge Specular Bevel */}
-        <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-white/80 dark:via-white/20 to-transparent pointer-events-none" />
+        <div className="absolute -top-16 -right-16 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-transparent dark:from-purple-500/20 dark:via-indigo-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
+        <div className="absolute -bottom-16 -left-16 w-56 sm:w-72 h-56 sm:h-72 rounded-full bg-gradient-to-tr from-amber-500/10 to-orange-500/5 dark:from-amber-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
 
         <div className="relative z-10 space-y-4 sm:space-y-5">
           
@@ -472,7 +470,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
         
         {/* CARD 1: Syllabus Mastery Engine */}
-        <div className="md:col-span-7 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-luminous-light dark:shadow-luminous-dark flex flex-col justify-between relative overflow-hidden space-y-4">
+        <div className="md:col-span-7 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between relative overflow-hidden space-y-4">
           
           {/* Header Row */}
           <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
@@ -745,7 +743,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
 
         {/* CARD 2: Daily Study Planner */}
-        <div className="md:col-span-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-luminous-light dark:shadow-luminous-dark flex flex-col justify-between space-y-3.5 relative overflow-hidden">
+        <div className="md:col-span-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between space-y-3.5 relative overflow-hidden">
           
           {/* Header Row */}
           <div className="relative z-10 flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-700/60">
@@ -946,7 +944,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 6. STUDY STATION & PLATFORMS */}
       {platforms.length > 0 && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#0D121F]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-luminous-light dark:shadow-luminous-dark space-y-3 sm:space-y-4 relative overflow-hidden">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth space-y-3 sm:space-y-4 relative overflow-hidden">
           
           {/* Subtle Ambient Glow */}
 
