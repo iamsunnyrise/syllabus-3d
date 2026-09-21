@@ -15,7 +15,7 @@ import {
   Flame,
   ArrowLeft
 } from 'lucide-react';
-import { useMocks, NavView } from '../../context/MockContext';
+import { MockProvider, useMocks, NavView } from '../../context/MockContext';
 import { audioFX } from '../../utils/mockAudioFX';
 
 // Sub-views
@@ -33,7 +33,7 @@ import { AddEditMockModal } from '../mock-tracker/forms/AddEditMockModal';
 import { GlobalSearchModal } from '../mock-tracker/common/GlobalSearchModal';
 import { ToastContainer } from '../mock-tracker/common/ToastContainer';
 
-export const MockTrackerView: React.FC = () => {
+const MockTrackerContent: React.FC = () => {
   const { 
     activeView, 
     setActiveView, 
@@ -221,3 +221,9 @@ export const MockTrackerView: React.FC = () => {
     </div>
   );
 };
+
+export const MockTrackerView: React.FC = () => (
+  <MockProvider>
+    <MockTrackerContent />
+  </MockProvider>
+);

@@ -30,7 +30,13 @@ export default defineConfig({
             if (id.includes('katex')) {
               return 'vendor-katex';
             }
-            if (id.includes('react') || id.includes('react-dom')) {
+            if (id.includes('three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('recharts') || id.includes('d3-') || id.includes('react-smooth')) {
+              return 'vendor-charts';
+            }
+            if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/') || id.includes('/react-is/') || id.includes('react/jsx-runtime')) {
               return 'vendor-react';
             }
             return 'vendor-common';
