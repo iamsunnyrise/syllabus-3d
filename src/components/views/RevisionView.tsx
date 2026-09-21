@@ -35,6 +35,18 @@ interface RevisionViewProps {
   onNavigate?: (view: any) => void;
 }
 
+const toNaturalCase = (text: string): string => {
+  if (!text) return '';
+  if (text === text.toUpperCase() && text.length > 2) {
+    return text
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  return text;
+};
+
 export const RevisionView: React.FC<RevisionViewProps> = ({
   onOpenRevisionSession,
   onOpenTopicDrawer,
@@ -249,10 +261,10 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 setTimeout(() => setJustSynced(false), 2200);
               }}
               title="Instantly re-verify and align spaced revision intervals with your syllabus topics"
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all border cursor-pointer active:scale-95 ${
+              className={`btn-secondary flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold ${
                 justSynced
                   ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-bold'
-                  : 'bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                  : ''
               }`}
             >
               <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-400'}`} />
@@ -365,33 +377,15 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       {/* 3. SEARCH & QUEUE FILTER TOOLBAR (Issues 1, 2, 11) */}
       <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
         
-        {/* Search & Tabs Row */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+        {/* Search & Tabs Row (Issue 6: Ergonomic bounded search & priority for tabs) */}
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
           
-          {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search topics in revision queue..."
-              className="w-full pl-10 pr-9 py-2 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg cursor-pointer"
-                title="Clear search"
-                aria-label="Clear search"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-
-          {/* Queue Tab Switchers (Issue 11: Unified active signifier) */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 overflow-x-auto no-scrollbar">
+          {/* Queue Tab Switchers (Primary Filter) */}
+          <div
+            role="tablist"
+            aria-label="Revision Queue Tabs"
+            className="flex items-center gap-1 p-1 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 overflow-x-auto no-scrollbar shrink-0"
+          >
             {[
               { id: 'today', label: 'Due Today', count: dueList.length, icon: Clock },
               { id: 'upcoming', label: 'Upcoming', count: upcomingList.length, icon: Calendar },
@@ -402,6 +396,8 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               return (
                 <button
                   key={tab.id}
+                  role="tab"
+                  aria-selected={isSel}
                   onClick={() => {
                     soundManager.playClick();
                     setActiveTab(tab.id as any);
@@ -414,7 +410,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 >
                   <TabIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{tab.label}</span>
-                  <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-mono tabular-nums ${
+                  <span className={`px-1.5 py-0.5 rounded-lg text-[10px] font-mono tabular-nums ${
                     isSel
                       ? 'bg-white/20 text-white font-bold'
                       : 'bg-slate-200 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'
@@ -425,19 +421,46 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               );
             })}
           </div>
+
+          {/* Clean Bounded Search Input (Issue 6: ~320px width on desktop) */}
+          <div className="relative w-full sm:w-72 md:w-80 shrink-0">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search queue..."
+              className="w-full pl-10 pr-9 py-2 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 shadow-2xs"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="btn-ghost absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg cursor-pointer"
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Subject Filter Pills (Issue 11: Unified active signifier) */}
+        {/* Subject Filter Pills (Issue 4: Differentiated secondary facet styling) */}
         {currentExam && currentExam.subjects.length > 0 && (
-          <div className="flex items-center gap-1.5 overflow-x-auto pt-2.5 border-t border-slate-100 dark:border-slate-800 no-scrollbar">
+          <div
+            role="group"
+            aria-label="Filter queue by subject"
+            className="flex items-center gap-1.5 overflow-x-auto pt-2.5 border-t border-slate-100 dark:border-slate-800 no-scrollbar"
+          >
             <button
               onClick={() => {
                 soundManager.playClick();
                 setSelectedSubjectFilter('all');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+              aria-pressed={selectedSubjectFilter === 'all'}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                 selectedSubjectFilter === 'all'
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white border-transparent shadow-xs font-bold'
+                  ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-500/50 shadow-2xs font-bold ring-1 ring-primary-500/30'
                   : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -458,16 +481,17 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     soundManager.playClick();
                     setSelectedSubjectFilter(s.name);
                   }}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+                  aria-pressed={isSelected}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                     isSelected
-                      ? 'bg-primary-600 dark:bg-primary-500 text-white border-transparent shadow-xs font-bold'
+                      ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-500/50 shadow-2xs font-bold ring-1 ring-primary-500/30'
                       : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <SubjIcon className="w-3.5 h-3.5 shrink-0" style={{ color: isSelected ? undefined : meta.color }} />
-                  <span>{s.name}</span>
-                  <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-mono tabular-nums ${
-                    isSelected ? 'bg-white/20 text-white font-bold' : 'bg-slate-200 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'
+                  <span>{toNaturalCase(s.name)}</span>
+                  <span className={`px-1.5 py-0.5 rounded-lg text-[10px] font-mono tabular-nums ${
+                    isSelected ? 'bg-primary-500/20 text-primary-700 dark:text-primary-300 font-bold' : 'bg-slate-200 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'
                   }`}>
                     {count}
                   </span>
@@ -538,25 +562,51 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           </span>
                         ) : null}
 
-                        {/* Plain text secondary metadata (prevents wall-of-badges effect) */}
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
-                          {rev.subjectName} • {rev.chapterName} • <span className="capitalize">{difficulty}</span>{accuracy !== undefined && accuracy > 0 ? ` • ${accuracy}% acc` : ''}
-                        </span>
+                        {/* Secondary Metadata with clear hierarchy (Issues 3 & 7) */}
+                        <div className="flex items-center gap-1.5 flex-wrap text-xs text-slate-500 dark:text-slate-400">
+                          <span className="font-semibold text-slate-700 dark:text-slate-200">
+                            {toNaturalCase(rev.subjectName)}
+                          </span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span>{toNaturalCase(rev.chapterName)}</span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-medium ${
+                            difficulty.toLowerCase() === 'hard'
+                              ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                              : difficulty.toLowerCase() === 'easy'
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                          }`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                            <span className="capitalize">{difficulty}</span>
+                          </span>
+                          {accuracy !== undefined && accuracy > 0 && (
+                            <>
+                              <span className="text-slate-300 dark:text-slate-600">•</span>
+                              <span className="font-mono text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                {accuracy}% acc
+                              </span>
+                            </>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Issue 7: Heading level 2 instead of h4 */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
-                        {rev.topicName}
+                      {/* Heading with Chapter breadcrumb to eliminate identical title ambiguity (Issue 5) */}
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate flex items-center gap-1.5">
+                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
+                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
+                        </span>
+                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
                       </h2>
                     </div>
                   </div>
 
-                  {/* Actions (Inspect + Review Card) (Issue 9: Tightened proximity & Issue 2 button styles) */}
+                  {/* Actions (Inspect + Review Card) (Issues 2 & 8) */}
                   <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
                     {onOpenTopicDrawer && topicObj && (
                       <button
                         onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer active:scale-95 shrink-0"
+                        className="btn-secondary px-3 py-1.5 text-xs font-semibold shrink-0"
                         title="View Topic Details"
                         aria-label={`Inspect ${rev.topicName}`}
                       >
@@ -566,11 +616,11 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
 
                     <button
                       onClick={onOpenRevisionSession}
-                      className="btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                      className="btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold text-primary-700 dark:text-primary-300 border-primary-200/70 dark:border-primary-800/60 hover:bg-primary-50 dark:hover:bg-primary-950/30 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0"
                       aria-label={`Review card for ${rev.topicName}`}
                     >
-                      <RotateCw className="w-3.5 h-3.5 stroke-[2.5]" />
-                      <span>Review Card</span>
+                      <RotateCw className="w-3.5 h-3.5 stroke-[2.2] text-primary-600 dark:text-primary-400" />
+                      <span>Review</span>
                     </button>
                   </div>
                 </div>
@@ -617,7 +667,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       soundManager.playClick();
                       setActiveTab('history');
                     }}
-                    className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+                    className="btn-secondary px-4 py-2 text-xs font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
                   >
                     <Trophy className="w-3.5 h-3.5 text-emerald-500" />
                     <span>View Mastered Vault ({historyList.length})</span>
@@ -630,7 +680,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       soundManager.playClick();
                       onNavigate('syllabus');
                     }}
-                    className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+                    className="btn-secondary px-4 py-2 text-xs font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
                   >
                     <BookOpen className="w-3.5 h-3.5 text-sky-500" />
                     <span>Explore Full Syllabus</span>
@@ -685,14 +735,41 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           </span>
                         )}
 
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
-                          {rev.subjectName} • {rev.chapterName} • <span className="capitalize">{difficulty}</span>{accuracy !== undefined && accuracy > 0 ? ` • ${accuracy}% acc` : ''}
-                        </span>
+                        {/* Secondary Metadata with clear hierarchy (Issues 3 & 7) */}
+                        <div className="flex items-center gap-1.5 flex-wrap text-xs text-slate-500 dark:text-slate-400">
+                          <span className="font-semibold text-slate-700 dark:text-slate-200">
+                            {toNaturalCase(rev.subjectName)}
+                          </span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span>{toNaturalCase(rev.chapterName)}</span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-medium ${
+                            difficulty.toLowerCase() === 'hard'
+                              ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                              : difficulty.toLowerCase() === 'easy'
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                          }`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                            <span className="capitalize">{difficulty}</span>
+                          </span>
+                          {accuracy !== undefined && accuracy > 0 && (
+                            <>
+                              <span className="text-slate-300 dark:text-slate-600">•</span>
+                              <span className="font-mono text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                {accuracy}% acc
+                              </span>
+                            </>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Issue 7: Heading level 2 instead of h4 */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
-                        {rev.topicName}
+                      {/* Heading with Chapter breadcrumb to eliminate identical title ambiguity (Issue 5) */}
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate flex items-center gap-1.5">
+                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
+                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
+                        </span>
+                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
                       </h2>
                     </div>
                   </div>
@@ -701,7 +778,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     {onOpenTopicDrawer && topicObj && (
                       <button
                         onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer active:scale-95 shrink-0"
+                        className="btn-secondary px-3 py-1.5 text-xs font-semibold shrink-0"
                         title="View Topic Details"
                         aria-label={`Inspect ${rev.topicName}`}
                       >
@@ -780,11 +857,18 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                         <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                           ✓ Mastered
                         </span>
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">{rev.subjectName} • {rev.chapterName}</span>
+                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
+                          <span className="font-semibold text-slate-700 dark:text-slate-200">{toNaturalCase(rev.subjectName)}</span>
+                          <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
+                          <span>{toNaturalCase(rev.chapterName)}</span>
+                        </span>
                       </div>
-                      {/* Issue 7: Heading level 2 instead of h4 */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
-                        {rev.topicName}
+                      {/* Heading with Chapter breadcrumb */}
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate flex items-center gap-1.5">
+                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
+                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
+                        </span>
+                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
                       </h2>
                     </div>
                   </div>
