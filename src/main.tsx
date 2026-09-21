@@ -8,6 +8,7 @@ import { TimerProvider } from './context/TimerContext';
 import { RoutineProvider } from './context/RoutineContext';
 import { PinLockProvider } from './context/PinLockContext';
 import { GoogleDriveProvider } from './context/GoogleDriveContext';
+import { MockProvider } from './context/MockContext';
 import './index.css';
 
 // Request Persistent Storage & Background Keep-Alive for Android / PWA
@@ -85,7 +86,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <RoutineProvider>
               <TimerProvider>
                 <PinLockProvider>
-                  <App />
+                  <MockProvider>
+                    <App />
+                  </MockProvider>
                 </PinLockProvider>
               </TimerProvider>
             </RoutineProvider>

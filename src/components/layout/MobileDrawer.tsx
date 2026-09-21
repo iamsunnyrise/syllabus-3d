@@ -18,7 +18,8 @@ import {
   Clock,
   Users,
   Sparkles,
-  Video
+  Video,
+  Trophy
 } from 'lucide-react';
 import { AppView } from './Sidebar';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -138,6 +139,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           badge: 'AI',
           badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
           iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
+        },
+        {
+          id: 'mock-tracker' as AppView,
+          label: 'Mock Test Tracker',
+          icon: Trophy,
+          badge: '3D Pro',
+          badgeStyle: 'bg-[#00D2FF]/20 text-[#00D2FF] border-[#00D2FF]/30 font-black',
+          iconBg: 'bg-gradient-to-tr from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/30'
         }
       ]
     },

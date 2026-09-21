@@ -18,7 +18,8 @@ import {
   PanelLeftClose,
   Sparkles,
   ArrowRight,
-  Video
+  Video,
+  Trophy
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -39,6 +40,7 @@ export type AppView =
   | 'pacing'
   | 'settings'
   | 'youtube-notes'
+  | 'mock-tracker'
   | 'landing';
 
 interface SidebarProps {
@@ -121,6 +123,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           icon: Video,
           badge: 'AI',
           badgeColor: 'bg-purple-500/15 dark:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30'
+        },
+        {
+          id: 'mock-tracker' as AppView,
+          label: 'Mock Test Tracker',
+          icon: Trophy,
+          badge: '3D Pro',
+          badgeColor: 'bg-gradient-to-r from-[#00d2ff] to-[#7c3aed] text-white shadow-glow-cyan'
         }
       ]
     },

@@ -39,6 +39,7 @@ const PlatformsView = lazy(() => import('./components/views/PlatformsView').then
 const PacingView = lazy(() => import('./components/views/PacingView').then(m => ({ default: m.PacingView })));
 const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
 const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
+const MockTrackerView = lazy(() => import('./components/views/MockTrackerView').then(m => ({ default: m.MockTrackerView })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
 const TopicDetailDrawer = lazy(() => import('./components/modals/TopicDetailDrawer').then(m => ({ default: m.TopicDetailDrawer })));
@@ -936,6 +937,12 @@ export const App: React.FC = () => {
                     onNavigateToSubject={handleNavigateToSubject}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
                   />
+                </ViewErrorBoundary>
+              )}
+
+              {currentView === 'mock-tracker' && (
+                <ViewErrorBoundary sectionName="Mock Test Tracker" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                  <MockTrackerView />
                 </ViewErrorBoundary>
               )}
 
