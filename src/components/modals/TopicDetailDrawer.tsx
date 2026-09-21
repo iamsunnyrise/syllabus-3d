@@ -880,6 +880,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
           {/* Tab Navigation */}
           <div
             ref={tabBarRef}
+            role="tablist"
+            aria-label="Topic study tabs"
             className={`flex items-center pt-2 pb-0 border-b border-[#E2E8F0] dark:border-[#272730] bg-white dark:bg-[#18181D] gap-1 overflow-x-auto no-scrollbar no-print ${
               isFullScreen ? 'px-4 sm:px-8' : 'px-2.5 sm:px-6'
             }`}
@@ -929,11 +931,15 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 <button
                   key={tab.id}
                   data-tab-id={tab.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${tab.id}`}
+                  id={`tab-${tab.id}`}
                   onClick={() => switchTab(tab.id as any)}
                   className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2.5 sm:py-3 border-b-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
-                      ? 'border-[#11120F] dark:border-white text-[#11120F] dark:text-white font-black'
-                      : 'border-transparent text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                      ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-bold bg-blue-50/40 dark:bg-blue-950/20'
+                      : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                   title={`${tab.label} (Press ${tabIdx + 1})`}
                 >
@@ -941,7 +947,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   <span className="sm:hidden">{tab.mobileLabel}</span>
                   <span className="hidden sm:inline">{tab.label}</span>
                   {tab.badge && (
-                    <span className={`px-1.5 sm:px-2 py-0.5 rounded-md text-[9.5px] sm:text-[10px] font-mono font-bold ${tab.badgeColor}`}>
+                    <span className={`px-1.5 sm:px-2 py-0.5 rounded-md text-2xs font-mono font-bold ${
+                      isActive
+                        ? tab.badgeColor
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/10'
+                    }`}>
                       <span className="sm:hidden">{tab.mobileBadge || tab.badge}</span>
                       <span className="hidden sm:inline">{tab.badge}</span>
                     </span>

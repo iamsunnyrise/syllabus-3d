@@ -60,6 +60,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
+  ChevronUp,
   BookA,
   Landmark,
   Underline as UnderlineIcon,
@@ -806,6 +807,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
   // MS Word-Grade Document Studio State
   const [activeRibbonTab, setActiveRibbonTab] = useState<'home' | 'insert' | 'layout' | 'review' | 'view'>('home');
+  const [isRibbonCollapsed, setIsRibbonCollapsed] = useState<boolean>(false);
   const [showOfficeRuler, setShowOfficeRuler] = useState<boolean>(true);
   const [editorZoom, setEditorZoom] = useState<number>(100);
   const [headingSelectOpen, setHeadingSelectOpen] = useState<boolean>(false);
@@ -4433,11 +4435,26 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 <span className="hidden sm:inline">Split</span>
               </button>
             </div>
+
+            {/* Collapse/Expand Ribbon Command Shelf */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setIsRibbonCollapsed(prev => !prev);
+              }}
+              className="p-1 sm:p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#181822] text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+              title={isRibbonCollapsed ? "Expand formatting shelf" : "Collapse formatting shelf (more vertical space)"}
+              aria-expanded={!isRibbonCollapsed}
+            >
+              {isRibbonCollapsed ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
+            </button>
           </div>
         </div>
 
-        {/* Tier 3: Ribbon Command Shelves (Contextual to active tab) */}
-        <div className="p-2 sm:px-3 sm:py-2 bg-[#F8FAFC] dark:bg-[#11121A] overflow-x-auto no-scrollbar min-h-[58px] flex items-center">
+        {/* Tier 3: Ribbon Command Shelves (Contextual to active tab, collapsible) */}
+        {!isRibbonCollapsed && (
+          <div className="px-2.5 py-1.5 bg-[#F8FAFC] dark:bg-[#11121A] overflow-x-auto no-scrollbar min-h-[46px] flex items-center border-t border-slate-100 dark:border-slate-800/60">
           
           {/* TAB 1: HOME RIBBON */}
           {activeRibbonTab === 'home' && (
@@ -5020,9 +5037,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               </div>
             </div>
           )}
-
         </div>
-      </div>
+      )}
+    </div>
 
       {/* Hidden File Input for Image Upload */}
       <input
@@ -5200,7 +5217,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               />
 
               {/* Document Running Footer Watermark */}
-              <div className="px-6 sm:px-10 py-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[10px] text-slate-400 font-mono select-none mt-auto">
+              <div className="px-6 sm:px-10 py-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono select-none mt-auto">
                 <span>Syllabus 3D Document Studio • ISO 216 A4</span>
                 <span>{wordCount} words · {charCount} chars</span>
               </div>

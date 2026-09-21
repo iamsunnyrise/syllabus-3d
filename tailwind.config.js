@@ -88,6 +88,7 @@ export default {
         }
       },
       fontSize: {
+        '2xs': ['0.6875rem', { lineHeight: '0.875rem' }],
         'heading-xl': ['1.5rem', { lineHeight: '1.3', letterSpacing: '-0.025em', fontWeight: '800' }],
         'heading-lg': ['1.25rem', { lineHeight: '1.3', letterSpacing: '-0.02em', fontWeight: '700' }],
         'heading-md': ['1.1rem', { lineHeight: '1.35', letterSpacing: '-0.015em', fontWeight: '700' }],

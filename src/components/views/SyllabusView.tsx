@@ -617,9 +617,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           
           {/* Header Bar: Tab, Search & Add Topic */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
-            <div className="flex items-start sm:items-center justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
                   <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
                     Topics Content
                   </h2>
@@ -627,31 +627,32 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     ({filteredChapterTopics.length}/{totalInActiveChapter})
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium mt-0.5 line-clamp-1 sm:line-clamp-none">
-                  Click a topic to launch full study details, notes, revision, and questions
-                </p>
+
+                <button
+                  type="button"
+                  onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
+                  className="btn-primary py-1.5 px-3 text-xs shrink-0"
+                  title="Add new topic to this chapter"
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Add Topic</span>
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
-                className="btn-primary py-1.5 sm:py-2 px-3 sm:px-3.5 text-xs font-bold shrink-0 self-start sm:self-center"
-                title="Add new topic to this chapter"
-              >
-                <Plus className="w-3.5 sm:w-4 h-3.5 sm:h-4 stroke-[2.5]" />
-                <span>Add Topic</span>
-              </button>
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium line-clamp-1 sm:line-clamp-none">
+                Click a topic to launch full study details, notes, revision, and questions
+              </p>
             </div>
 
-            {/* Clean Bounded Search Input */}
-            <div className="relative w-full max-w-md sm:max-w-lg">
+            {/* Clean Bounded Search Input (Optimal ~320px width) */}
+            <div className="relative w-full sm:w-80 shrink-0">
               <Search className="w-4 h-4 text-slate-400 dark:text-slate-300 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search topics in this chapter..."
-                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+                className="w-full pl-9 pr-8 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
               />
               {searchInput && (
                 <button
@@ -797,7 +798,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                         {/* Title in Natural Case & Semantic H3 */}
                         <div className="min-w-0 flex-1">
-                          <h3 className={`text-[13px] sm:text-[15px] font-bold ${design.titleColor} group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
+                          <h3 className={`text-[13px] sm:text-[15px] font-bold normal-case ${design.titleColor} group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
                             <span className={`hidden print:inline-block desk-checkbox ${topic.status === 'completed' ? 'is-checked' : ''}`} />
                             {topic.name}
                           </h3>
@@ -1146,8 +1147,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                         {/* Chapter Title & Meta */}
                         <div className="min-w-0 flex-1">
-                          <h3 className="text-[14px] sm:text-[15px] font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-2 leading-snug uppercase">
-                            {chapter.name.toUpperCase()}
+                          <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-2 leading-snug normal-case">
+                            {chapter.name}
                           </h3>
                           <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5 uppercase font-mono">
                             <span>{totalInChapter} {totalInChapter === 1 ? 'TOPIC' : 'TOPICS'}</span>
@@ -1609,10 +1610,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         </span>
                       </div>
 
-                      {/* Subject Name & Chapter Meta (All in CAPITAL letters) */}
+                      {/* Subject Name & Chapter Meta */}
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 leading-snug uppercase">
-                          {subject.name.toUpperCase()}
+                        <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 leading-snug normal-case">
+                          {subject.name}
                         </h3>
                         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5 uppercase font-mono">
                           <span>{subject.chapters.length} {subject.chapters.length === 1 ? 'CHAPTER' : 'CHAPTERS'}</span>
