@@ -120,7 +120,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'AI YouTube Notes',
           icon: Video,
           badge: 'AI',
-          badgeColor: 'bg-red-500 text-white shadow-xs'
+          badgeColor: 'bg-purple-500/15 dark:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30'
         }
       ]
     },

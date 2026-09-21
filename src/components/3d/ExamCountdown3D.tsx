@@ -102,26 +102,26 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
         {/* Subtle Ambient Radial Backlight */}
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-500/5 dark:bg-[#7AA2F7]/10 rounded-full blur-2xl pointer-events-none" />
 
-        {/* Clean Meta Header with Quick Edit Trigger */}
-        <div className="relative z-10 flex items-center justify-between gap-2 min-w-0">
-          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#415C9E] text-white dark:text-[#0B0B0D] flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
-              <Target className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 stroke-[2.4]" />
+        {/* Clean Meta Header with Quick Edit Trigger (Issue 15) */}
+        <div className="relative z-10 flex items-center justify-between gap-3 min-w-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#2563EB] to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+              <Target className="w-4 h-4 stroke-[2.4]" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
                   {currentExam.name} Countdown
                 </h2>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0">
+                <span className="px-1.5 py-0.5 rounded text-2xs font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0">
                   Live
                 </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] font-medium text-slate-500 dark:text-slate-300 flex items-center gap-1.5 mt-0.5 font-mono">
-                <Calendar className="w-3 h-3 text-[#2563EB] dark:text-[#7AA2F7] shrink-0" />
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5 font-mono">
+                <Calendar className="w-3 h-3 text-primary-600 dark:text-primary-400 shrink-0" />
                 <span>Exam Date: <strong className="text-slate-700 dark:text-slate-200">{formattedDate}</strong></span>
                 {timeLeft.isProjected && (
-                  <span className="text-amber-500 dark:text-amber-400 text-[9px] font-bold">
+                  <span className="text-amber-500 dark:text-amber-400 text-2xs font-bold">
                     (Next Cycle)
                   </span>
                 )}
@@ -135,10 +135,11 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
               soundManager.playClick();
               setIsEditModalOpen(true);
             }}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-[#1E293B] hover:bg-slate-200 dark:hover:bg-[#25354D] border border-slate-200/80 dark:border-slate-600/60 text-slate-700 dark:text-slate-200 text-[11px] font-bold transition-all cursor-pointer shrink-0 active:scale-95"
+            className="btn-secondary py-1.5 px-3 text-xs shrink-0"
             title="Edit Exam Date & Target"
+            aria-label="Edit Exam Date & Target"
           >
-            <Edit2 className="w-3 h-3 text-[#2563EB] dark:text-[#7AA2F7]" />
+            <Edit2 className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
             <span className="hidden xs:inline">Edit Target</span>
           </button>
         </div>

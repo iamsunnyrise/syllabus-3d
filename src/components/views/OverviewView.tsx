@@ -74,6 +74,18 @@ interface OverviewViewProps {
   onOpenFocus?: () => void;
 }
 
+const toNaturalCase = (text: string): string => {
+  if (!text) return '';
+  if (text === text.toUpperCase() && text.length > 2) {
+    return text
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  return text;
+};
+
 export const OverviewView: React.FC<OverviewViewProps> = ({
   onNavigate,
   onNavigateToSubject,
@@ -470,7 +482,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
         
         {/* CARD 1: Syllabus Mastery Engine */}
-        <div className="md:col-span-7 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between relative overflow-hidden space-y-4">
+        <div className="md:col-span-7 p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between relative overflow-hidden space-y-4">
           
           {/* Header Row */}
           <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
@@ -647,11 +659,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
           </div>
 
-          {/* Subject Mastery Breakdown */}
+          {/* Subject Mastery Breakdown (Issues 7 & 11) */}
           <div className="relative z-10 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 font-mono flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                 <span>Subject Mastery Breakdown</span>
               </span>
               {subjectProgressList.length > 0 && (
@@ -660,9 +672,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     soundManager.playClick();
                     onNavigate('syllabus');
                   }}
-                  className="text-[10px] font-mono text-[#2563EB] dark:text-[#7AA2F7] hover:underline font-bold cursor-pointer"
+                  className="btn-secondary py-1 px-2.5 text-xs gap-1"
+                  title="View all subjects in syllabus"
                 >
-                  {subjectProgressList.length} Subjects Total →
+                  <span>View All</span>
+                  <ArrowRight className="w-3 h-3" />
                 </button>
               )}
             </div>
@@ -687,11 +701,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                         <span className="w-6 h-6 rounded-lg bg-white dark:bg-[#151622] flex items-center justify-center border border-slate-200/50 dark:border-slate-700/50 shadow-2xs shrink-0 overflow-hidden">
                           {renderSubjectIcon(sub.icon, sub.color)}
                         </span>
-                        <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">
+                        <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                           {sub.name}
                         </span>
                       </div>
-                      <span className="text-[11px] font-mono font-black tabular-nums text-slate-700 dark:text-slate-200 shrink-0">
+                      <span className="text-xs font-mono font-bold tabular-nums text-slate-700 dark:text-slate-200 shrink-0">
                         {sub.percentage}%
                       </span>
                     </div>
@@ -706,7 +720,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                           }}
                         />
                       </div>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 shrink-0">
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">
                         {sub.completedTopics}/{sub.totalTopics}
                       </span>
                     </div>
@@ -720,7 +734,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             )}
           </div>
 
-          {/* Smart Next Recommended Target HUD */}
+          {/* Smart Next Recommended Target HUD (Issues 8 & 13) */}
           {nextRecommendedTopic ? (
             <div className="relative z-10 p-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-purple-950/30 border border-blue-200/80 dark:border-blue-800/50 flex items-center justify-between gap-3 shadow-2xs">
               <div className="flex items-center gap-2.5 min-w-0">
@@ -729,18 +743,20 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                    <span className="text-2xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                       Recommended Focus
                     </span>
-                    <span className={`px-1.5 py-0.2 rounded text-[9px] font-bold border ${nextRecommendedTopic.badgeColor}`}>
+                    <span className={`px-1.5 py-0.5 rounded text-2xs font-bold border ${nextRecommendedTopic.badgeColor}`}>
                       {nextRecommendedTopic.badge}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white truncate mt-0.5">
+                  <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate mt-0.5">
                     {nextRecommendedTopic.topic.name}
                   </p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
-                    {nextRecommendedTopic.subjectName} • {nextRecommendedTopic.chapterName}
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                    <span>{toNaturalCase(nextRecommendedTopic.subjectName)}</span>
+                    <span className="mx-1.5 text-slate-300 dark:text-slate-600">•</span>
+                    <span>{toNaturalCase(nextRecommendedTopic.chapterName)}</span>
                   </p>
                 </div>
               </div>
@@ -754,22 +770,23 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     onNavigate('syllabus');
                   }
                 }}
-                className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-md shadow-blue-500/20 active:scale-95 transition-all tap-bounce cursor-pointer"
+                className="btn-primary px-4 py-2 text-xs sm:text-sm font-bold shadow-sm flex items-center gap-2 shrink-0"
+                aria-label={`Start studying recommended topic: ${nextRecommendedTopic.topic.name}`}
               >
-                <Play className="w-3 h-3 fill-white" />
-                <span>Study</span>
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>Start Study</span>
               </button>
             </div>
           ) : null}
         </div>
 
         {/* CARD 2: Daily Study Planner */}
-        <div className="md:col-span-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between space-y-3.5 relative overflow-hidden">
+        <div className="md:col-span-5 p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between space-y-3.5 relative overflow-hidden">
           
           {/* Header Row */}
           <div className="relative z-10 flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-700/60">
             <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-amber-500 to-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-amber-500/20 shrink-0">
+              <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-amber-500/20 shrink-0">
                 <CalendarCheck className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
               </div>
               <div>
@@ -803,7 +820,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   soundManager.playClick();
                   onNavigate('planner');
                 }}
-                className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 text-slate-700 dark:text-slate-200 hover:text-[#2563EB] dark:hover:text-[#7AA2F7] hover:border-[#2563EB]/40 dark:hover:border-[#7AA2F7]/40 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] tap-bounce"
+                className="btn-secondary py-1.5 px-3 text-xs"
                 title="Open Full Study Planner"
               >
                 <span>Planner</span>
@@ -963,16 +980,14 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 6. STUDY STATION & PLATFORMS */}
+      {/* 6. STUDY STATION & HUB LAUNCHER */}
       {platforms.length > 0 && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth space-y-3 sm:space-y-4 relative overflow-hidden">
+        <div className="p-3.5 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth space-y-3 sm:space-y-4 relative overflow-hidden">
           
-          {/* Subtle Ambient Glow */}
-
           {/* Header */}
           <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
             <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center font-bold shadow-md shadow-indigo-600/20 shrink-0">
+              <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center font-bold shadow-md shadow-indigo-600/20 shrink-0">
                 <Globe className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
               </div>
               <div>
@@ -990,7 +1005,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 soundManager.playClick();
                 onNavigate('platforms');
               }}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 text-slate-700 dark:text-slate-200 hover:text-[#2563EB] dark:hover:text-[#7AA2F7] hover:border-[#2563EB]/40 dark:hover:border-[#7AA2F7]/40 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] tap-bounce"
+              className="btn-secondary py-1.5 px-3 text-xs"
             >
               <span>View All</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -1006,10 +1021,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   soundManager.playClick();
                   window.open(plat.url, '_blank', 'noopener,noreferrer');
                 }}
-                className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-indigo-500/40 dark:hover:border-indigo-400/50 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex items-center gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-md active:scale-[0.97] tap-bounce"
+                className="p-2.5 sm:p-3.5 rounded-xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-indigo-500/40 dark:hover:border-indigo-400/50 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex items-center gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-md active:scale-[0.97] tap-bounce"
               >
                 <div
-                  className="w-8 sm:w-9 h-8 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-sm sm:text-base shadow-xs border border-white/20 shrink-0 transition-transform group-hover:scale-105"
+                  className="w-8 sm:w-9 h-8 sm:h-9 rounded-lg flex items-center justify-center text-sm sm:text-base shadow-xs border border-white/20 shrink-0 transition-transform group-hover:scale-105"
                   style={{ backgroundColor: plat.color || '#5A4FCF' }}
                 >
                   {plat.icon || '⚡'}
@@ -1021,7 +1036,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     </span>
                     <ExternalLink className="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
-                  <span className="inline-block mt-0.5 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 bg-black/5 dark:bg-white/10">
+                  <span className="inline-block mt-0.5 px-1.5 py-0.5 rounded text-2xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 bg-black/5 dark:bg-white/10">
                     {plat.category === 'course' ? 'Course' : 'Mock'}
                   </span>
                 </div>
@@ -1032,12 +1047,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       )}
 
       {/* 7. SUBJECT MASTERY BREAKDOWN */}
-      <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+      <div className="p-3.5 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
         
-        {/* Header */}
+        {/* Header (Issue 11: Standardized View All link) */}
         <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#4D76D6] text-white flex items-center justify-center font-bold shadow-md shadow-[#2563EB]/20 dark:shadow-[#7AA2F7]/25 shrink-0">
+            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-gradient-to-tr from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#4D76D6] text-white flex items-center justify-center font-bold shadow-md shadow-[#2563EB]/20 dark:shadow-[#7AA2F7]/25 shrink-0">
               <Layers className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
             </div>
             <div>
@@ -1045,7 +1060,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Subject Mastery Curriculum
                 </h3>
-                <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold bg-[#EFF6FF] dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] border border-[#DBEAFE] dark:border-[#7AA2F7]/25">
+                <span className="px-2 py-0.5 rounded-lg text-2xs font-mono font-bold bg-[#EFF6FF] dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] border border-[#DBEAFE] dark:border-[#7AA2F7]/25">
                   {subjectStats.length} Subjects
                 </span>
               </div>
@@ -1060,9 +1075,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               soundManager.playClick();
               onNavigate('subjects');
             }}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 text-slate-700 dark:text-slate-200 hover:text-[#2563EB] dark:hover:text-[#7AA2F7] hover:border-[#2563EB]/40 dark:hover:border-[#7AA2F7]/40 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] shrink-0 tap-bounce no-print"
+            className="btn-secondary py-1.5 px-3 text-xs shrink-0 no-print"
+            title="View all subjects in curriculum"
           >
-            <span>Explore All</span>
+            <span>View All</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
