@@ -1601,7 +1601,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                   {/* Top Row: Thumbnail Squircle + Title & Chapters + Right Status Pill */}
                   <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="flex items-start gap-3 min-w-0 flex-1">
                       {/* Modern Adaptive Squircle Thumbnail */}
                       <div className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs ${badgeStyle.containerClass}`}>
                         <BadgeIcon className="w-5 h-5 stroke-[2.2] mb-0.5" />
@@ -1612,7 +1612,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Subject Name & Chapter Meta */}
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 leading-snug normal-case">
+                        <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug normal-case break-words">
                           {subject.name}
                         </h3>
                         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5 uppercase font-mono">
