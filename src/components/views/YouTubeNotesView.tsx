@@ -44,7 +44,11 @@ import {
   EyeOff,
   Lock,
   BookmarkPlus,
-  FolderPlus
+  FolderPlus,
+  PanelLeftClose,
+  PanelLeftOpen,
+  PanelRightClose,
+  PanelRightOpen
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { soundManager } from '../../utils/soundEffects';
@@ -150,9 +154,26 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
   const [editingTitle, setEditingTitle] = useState<string | null>(null);
   const [tempTitle, setTempTitle] = useState('');
 
-  // ── TOC ──
+  // ── TOC & Sidebars ──
   const [tocEntries, setTocEntries] = useState<{ level: number; text: string; id: string }[]>([]);
-  const [showToc, setShowToc] = useState(true);
+  const [showToc, setShowToc] = useState<boolean>(() => typeof window !== 'undefined' ? window.innerWidth >= 1024 : true);
+  const [showToolsPanel, setShowToolsPanel] = useState<boolean>(() => typeof window !== 'undefined' ? window.innerWidth >= 1280 : true);
+
+  const handleToggleToc = useCallback(() => {
+    soundManager.playClick?.();
+    haptics.light?.();
+    setShowToc(prev => !prev);
+  }, []);
+
+  const handleToggleTools = useCallback(() => {
+    soundManager.playClick?.();
+    haptics.light?.();
+    if (typeof window !== 'undefined' && window.innerWidth < 1280) {
+      setShowAiPanel(prev => !prev);
+    } else {
+      setShowToolsPanel(prev => !prev);
+    }
+  }, []);
 
   // ── AI Actions ──
   const [selectedText, setSelectedText] = useState('');
@@ -1387,8 +1408,38 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           >
             <ArrowLeft className="w-4 h-4 text-slate-500" />
           </button>
+
+          {/* Toggle Contents Sidebar Button */}
+          {tocEntries.length > 0 && (
+            <button
+              onClick={handleToggleToc}
+              className={`flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
+                showToc
+                  ? 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border border-violet-500/30 shadow-2xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700'
+              }`}
+              title={showToc ? 'Collapse Contents sidebar' : 'Expand Contents sidebar'}
+              aria-label="Toggle Table of Contents"
+              aria-expanded={showToc}
+            >
+              {showToc ? (
+                <PanelLeftClose className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
+              ) : (
+                <PanelLeftOpen className="w-3.5 h-3.5" />
+              )}
+              <span className="hidden sm:inline">Contents</span>
+              <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full ${
+                showToc
+                  ? 'bg-violet-500/25 text-violet-800 dark:text-violet-200'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+              }`}>
+                {tocEntries.length}
+              </span>
+            </button>
+          )}
+
           <div className="min-w-0">
-            <p className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[200px] sm:max-w-md">
+            <p className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[140px] sm:max-w-xs md:max-w-md">
               {metadata?.title || 'YouTube Notes'}
             </p>
             <p className="text-[10px] text-slate-400 truncate">
@@ -1398,6 +1449,30 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         </div>
 
         <div className="flex items-center gap-1">
+          {/* Toggle Tools & AI Sidebar */}
+          <button
+            onClick={handleToggleTools}
+            className={`flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
+              (typeof window !== 'undefined' && window.innerWidth < 1280 ? showAiPanel : showToolsPanel)
+                ? 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border border-violet-500/30 shadow-2xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700'
+            }`}
+            title={showToolsPanel ? 'Collapse Tools & AI sidebar' : 'Expand Tools & AI sidebar'}
+            aria-label="Toggle Tools & AI sidebar"
+            aria-expanded={showToolsPanel}
+          >
+            <Sparkles className={`w-3.5 h-3.5 ${
+              (typeof window !== 'undefined' && window.innerWidth < 1280 ? showAiPanel : showToolsPanel)
+                ? 'text-violet-600 dark:text-violet-400'
+                : 'text-slate-500'
+            }`} />
+            <span className="hidden md:inline">Tools &amp; AI</span>
+            {showToolsPanel ? (
+              <PanelRightClose className="w-3.5 h-3.5 hidden xl:inline" />
+            ) : (
+              <PanelRightOpen className="w-3.5 h-3.5 hidden xl:inline" />
+            )}
+          </button>
           {isEditing ? (
             <>
               <button
@@ -1481,13 +1556,30 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
       </div>
 
       {/* 3-Column Layout */}
-      <div className="flex">
+      <div className="flex relative">
         {/* Left: Table of Contents (Desktop only) */}
         {showToc && tocEntries.length > 0 && (
-          <aside className={`hidden lg:block w-56 flex-shrink-0 border-r p-3 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] ${
-            isDark ? 'border-[#334155] bg-[#0F172A]/50' : 'border-[#DDD6FE]/60 bg-slate-50/50'
+          <aside className={`hidden lg:block w-56 xl:w-60 flex-shrink-0 border-r p-3.5 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] transition-all duration-200 animate-view-fade ${
+            isDark ? 'border-[#334155] bg-[#0F172A]/80' : 'border-[#DDD6FE]/60 bg-slate-50/80'
           }`}>
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Contents</h4>
+            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/80 dark:border-slate-700/60">
+              <span className="text-[11px] font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-violet-500" />
+                Contents ({tocEntries.length})
+              </span>
+              <button
+                onClick={() => {
+                  soundManager.playClick?.();
+                  haptics.light?.();
+                  setShowToc(false);
+                }}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-all cursor-pointer active:scale-95"
+                title="Collapse Contents sidebar"
+                aria-label="Collapse Contents"
+              >
+                <PanelLeftClose className="w-3.5 h-3.5" />
+              </button>
+            </div>
             <nav className="space-y-0.5">
               {tocEntries.map((entry, i) => (
                 <button
@@ -1509,12 +1601,57 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </aside>
         )}
 
+        {/* Collapsed Left Rail Trigger */}
+        {!showToc && tocEntries.length > 0 && (
+          <div className="hidden lg:block sticky top-[48px] h-fit z-10 py-2 pl-2 shrink-0">
+            <button
+              onClick={() => {
+                soundManager.playClick?.();
+                haptics.light?.();
+                setShowToc(true);
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
+              title="Expand Table of Contents"
+            >
+              <PanelLeftOpen className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
+              <span className="text-2xs font-mono font-bold uppercase tracking-wider">Contents</span>
+            </button>
+          </div>
+        )}
+
         {/* Center: Notes Content */}
         <main
           ref={notesContainerRef}
-          className="flex-1 min-w-0 p-4 sm:p-5 md:p-6 overflow-y-auto"
+          className={`flex-1 min-w-0 p-4 sm:p-5 md:p-6 lg:p-8 overflow-y-auto transition-all duration-300 ${
+            !showToc && !showToolsPanel ? 'max-w-4xl mx-auto' : ''
+          }`}
           style={{ maxHeight: 'calc(100vh - 42px - 80px)' }}
         >
+          {/* Zen / Focus reading banner when both sidebars are collapsed */}
+          {!showToc && !showToolsPanel && tocEntries.length > 0 && (
+            <div className="mb-4 flex items-center justify-between px-3.5 py-2 rounded-xl bg-violet-50/80 dark:bg-violet-950/20 border border-violet-200/60 dark:border-violet-800/40 text-violet-700 dark:text-violet-300 text-xs animate-view-fade">
+              <span className="flex items-center gap-2 font-medium">
+                <BookOpen className="w-3.5 h-3.5 text-violet-500" />
+                <span>Distraction-Free Reading Mode (Sidebars Collapsed)</span>
+              </span>
+              <div className="flex items-center gap-2 font-bold text-2xs">
+                <button
+                  onClick={() => setShowToc(true)}
+                  className="hover:underline text-violet-600 dark:text-violet-400 cursor-pointer"
+                >
+                  Show Contents
+                </button>
+                <span>·</span>
+                <button
+                  onClick={() => setShowToolsPanel(true)}
+                  className="hover:underline text-violet-600 dark:text-violet-400 cursor-pointer"
+                >
+                  Show Tools &amp; AI
+                </button>
+              </div>
+            </div>
+          )}
+
           {isEditing ? (
             <textarea
               ref={textareaRef}
@@ -1543,10 +1680,48 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           )}
         </main>
 
+        {/* Collapsed Right Rail Trigger */}
+        {!showToolsPanel && (
+          <div className="hidden xl:block sticky top-[48px] h-fit z-10 py-2 pr-2 shrink-0 ml-auto">
+            <button
+              onClick={() => {
+                soundManager.playClick?.();
+                haptics.light?.();
+                setShowToolsPanel(true);
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
+              title="Expand Tools & AI sidebar"
+            >
+              <span className="text-2xs font-mono font-bold uppercase tracking-wider">Tools &amp; AI</span>
+              <Sparkles className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
+              <PanelRightOpen className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
+            </button>
+          </div>
+        )}
+
         {/* Right: AI Actions & Tools (Desktop only) */}
-        <aside className={`hidden xl:block w-60 flex-shrink-0 border-l p-3 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] ${
-          isDark ? 'border-[#334155] bg-[#0F172A]/50' : 'border-[#DDD6FE]/60 bg-slate-50/50'
-        }`}>
+        {showToolsPanel && (
+          <aside className={`hidden xl:block w-60 xl:w-64 flex-shrink-0 border-l p-3 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] transition-all duration-200 animate-view-fade ${
+            isDark ? 'border-[#334155] bg-[#0F172A]/50' : 'border-[#DDD6FE]/60 bg-slate-50/50'
+          }`}>
+            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/70 dark:border-slate-800">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-violet-500" />
+                Tools &amp; AI
+              </span>
+              <button
+                onClick={() => {
+                  soundManager.playClick?.();
+                  haptics.light?.();
+                  setShowToolsPanel(false);
+                }}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors cursor-pointer active:scale-95"
+                title="Collapse Tools & AI sidebar"
+                aria-label="Collapse Tools & AI"
+              >
+                <PanelRightClose className="w-3.5 h-3.5" />
+              </button>
+            </div>
           {/* Video Info Mini */}
           {metadata && (
             <div className={`rounded-xl border p-3 mb-3 ${
@@ -1697,6 +1872,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             )}
           </div>
         </aside>
+      )}
       </div>
 
       {/* Mobile Bottom Action Bar */}
@@ -1780,6 +1956,46 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </button>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Mobile Table of Contents Slide-up Panel */}
+      {showToc && tocEntries.length > 0 && (
+        <div className={`lg:hidden fixed bottom-28 md:bottom-12 left-3 right-3 max-h-[60vh] z-40 rounded-2xl border p-4 shadow-2xl overflow-y-auto animate-view-fade ${
+          isDark ? 'bg-[#1E293B] border-[#334155]' : 'bg-white border-[#DDD6FE]'
+        }`}>
+          <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200/70 dark:border-slate-800">
+            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+              <BookOpen className="w-4 h-4 text-violet-500" /> Contents ({tocEntries.length})
+            </h4>
+            <button
+              onClick={() => setShowToc(false)}
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+              title="Close Contents"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <nav className="space-y-1">
+            {tocEntries.map((entry, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  scrollToHeading(entry.id);
+                  setShowToc(false);
+                }}
+                className={`block w-full text-left text-xs font-medium py-1.5 px-2.5 rounded-lg truncate transition-colors ${
+                  entry.level === 1
+                    ? 'text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-800/80'
+                    : entry.level === 2
+                      ? 'pl-4 text-slate-700 dark:text-slate-300'
+                      : 'pl-7 text-slate-500 dark:text-slate-400'
+                } hover:bg-violet-50 dark:hover:bg-violet-500/10 active:scale-[0.98]`}
+              >
+                {entry.text}
+              </button>
+            ))}
+          </nav>
         </div>
       )}
 
