@@ -386,24 +386,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </p>
         </div>
 
-        {/* Mock Tracker Quick Link */}
-        <a
-          href="https://mock-percentile-tracker.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group w-full flex items-center justify-between p-1.5 px-2 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all shadow-2xs active:scale-98"
+        {/* Mock Tracker Direct View Button */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            haptics.light();
+            onSelectView('mock-tracker');
+          }}
+          className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
+            activeView === 'mock-tracker'
+              ? 'bg-gradient-to-r from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/40 font-bold'
+              : 'bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+          }`}
         >
           <div className="flex items-center gap-1.5 min-w-0">
-            <img src="/mock_tracker_logo.png" alt="Mock Tracker" className="w-4 h-4 shrink-0 object-contain rounded-md" />
-            <div className="min-w-0">
-              <span className="text-[12px] font-bold text-[#191A17] dark:text-white block leading-tight group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD] truncate">
+            <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-[#00D2FF] to-[#7C3AED] flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+              🏆
+            </div>
+            <div className="min-w-0 text-left">
+              <span className={`text-[12px] font-bold block leading-tight truncate ${
+                activeView === 'mock-tracker' ? 'text-[#7C3AED] dark:text-[#00D2FF]' : 'text-[#191A17] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]'
+              }`}>
                 Mock Tracker
               </span>
               <span className="text-[10px] text-[#65675F] dark:text-slate-300 block leading-none truncate">Score & Percentiles</span>
             </div>
           </div>
-          <ExternalLink className="w-3 h-3 text-[#2563EB] dark:text-[#93C5FD] shrink-0" />
-        </a>
+          <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-[#00D2FF]/15 text-[#0284c7] dark:text-[#00D2FF] border border-[#00D2FF]/30 shrink-0">
+            3D Pro
+          </span>
+        </button>
 
         {/* Product Tour & Landing Page */}
         <button

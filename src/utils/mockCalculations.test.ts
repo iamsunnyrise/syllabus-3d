@@ -44,11 +44,15 @@ describe('Mock Percentile Tracker Calculations Engine', () => {
       isClearedCutoff: true,
       timeTakenMinutes: 58,
       totalTimeMinutes: 60,
-      isLive: false,
+      createdAt: Date.now(),
+      negativeMarks: 5,
+      attemptRate: 85,
+      weakAreas: ['Geometry'],
       sections: [
         {
+          id: 'sec-1',
+          mockId: 'test-1',
           sectionName: 'Quantitative Aptitude',
-          subject: 'Quantitative Aptitude',
           totalQuestions: 25,
           attempted: 22,
           correct: 20,
@@ -57,8 +61,8 @@ describe('Mock Percentile Tracker Calculations Engine', () => {
           accuracy: 90.9,
           score: 39,
           maxMarks: 50,
-          timeSpentMinutes: 20,
-          negativeMarkingRate: 0.5
+          timeTakenMinutes: 20,
+          status: 'Mastered'
         }
       ]
     };
