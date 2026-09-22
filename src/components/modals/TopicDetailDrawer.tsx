@@ -286,87 +286,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     setActiveTab(targetTab);
   }, [activeTab, DRAWER_TABS]);
 
-  const swipeStartX = useRef<number | null>(null);
-  const swipeStartY = useRef<number | null>(null);
-  const swipeStartTime = useRef<number>(0);
-  const isHorizontalSwipe = useRef<boolean | null>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
-
-  // Helper to prevent swipe from hijacking form inputs, sliders, audio/video controls, or text selection
-  const isInteractiveTarget = (target: EventTarget | null): boolean => {
-    if (!(target instanceof HTMLElement)) return false;
-    return Boolean(
-      target.closest(
-        'input, textarea, select, button, a, [contenteditable="true"], [role="slider"], .no-swipe, [data-no-swipe], audio, video, iframe'
-      )
-    );
-  };
-
-  const handleContentTouchStart = (e: React.TouchEvent) => {
-    if (isInteractiveTarget(e.target)) {
-      swipeStartX.current = null;
-      swipeStartY.current = null;
-      isHorizontalSwipe.current = false;
-      return;
-    }
-
-    swipeStartX.current = e.touches[0].clientX;
-    swipeStartY.current = e.touches[0].clientY;
-    swipeStartTime.current = Date.now();
-    isHorizontalSwipe.current = null;
-  };
-
-  const handleContentTouchMove = (e: React.TouchEvent) => {
-    if (swipeStartX.current === null || swipeStartY.current === null) return;
-
-    const diffX = e.touches[0].clientX - swipeStartX.current;
-    const diffY = e.touches[0].clientY - swipeStartY.current;
-
-    // Detect direction once movement threshold is crossed
-    if (isHorizontalSwipe.current === null) {
-      if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
-        if (Math.abs(diffX) > Math.abs(diffY) * 1.25) {
-          isHorizontalSwipe.current = true;
-        } else {
-          isHorizontalSwipe.current = false;
-        }
-      }
-    }
-  };
-
-  const handleContentTouchEnd = (e: React.TouchEvent) => {
-    if (
-      isHorizontalSwipe.current === true &&
-      swipeStartX.current !== null &&
-      e.changedTouches.length > 0
-    ) {
-      const diffX = e.changedTouches[0].clientX - swipeStartX.current;
-      const duration = Date.now() - swipeStartTime.current;
-
-      const isFastFlick = duration < 350 && Math.abs(diffX) > 30;
-      const isNormalSwipe = Math.abs(diffX) > 45;
-
-      if (isFastFlick || isNormalSwipe) {
-        const currentIdx = DRAWER_TABS.indexOf(activeTab);
-
-        if (diffX < 0) {
-          // Swiped Left -> Go to Next Tab (e.g. Overview -> Lectures)
-          if (currentIdx < DRAWER_TABS.length - 1) {
-            switchTab(DRAWER_TABS[currentIdx + 1]);
-          }
-        } else if (diffX > 0) {
-          // Swiped Right -> Go to Previous Tab (e.g. Lectures -> Overview)
-          if (currentIdx > 0) {
-            switchTab(DRAWER_TABS[currentIdx - 1]);
-          }
-        }
-      }
-    }
-
-    swipeStartX.current = null;
-    swipeStartY.current = null;
-    isHorizontalSwipe.current = null;
-  };
 
   // Auto-scroll the tab bar horizontally so the active tab stays centered in view
   useEffect(() => {
@@ -964,75 +884,10 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
             })}
           </div>
 
-          {/* Mobile Swipe Navigation Indicator Bar */}
-          <div className="sm:hidden flex items-center justify-between px-4 py-1.5 bg-[#F8FAFC] dark:bg-[#12131F] border-b border-[#E2E8F0]/60 dark:border-[#272730]/60 text-[11px] font-mono text-[#65675F] dark:text-[#94A3B8] select-none no-print">
-            <button
-              type="button"
-              disabled={activeTab === 'overview'}
-              onClick={() => {
-                const idx = DRAWER_TABS.indexOf(activeTab);
-                if (idx > 0) {
-                  switchTab(DRAWER_TABS[idx - 1]);
-                }
-              }}
-              className={`flex items-center gap-1 font-bold px-2 py-0.5 rounded-lg border transition-all ${
-                activeTab === 'overview'
-                  ? 'opacity-30 border-transparent cursor-not-allowed'
-                  : 'hover:bg-black/5 dark:hover:bg-white/5 border-[#E2E8F0] dark:border-[#272730] text-[#191A17] dark:text-[#F5F5F7] cursor-pointer active:scale-95'
-              }`}
-              title="Previous Tab (Swipe Right)"
-            >
-              <span>‹ Prev</span>
-            </button>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold text-[#2563EB] dark:text-[#7AA2F7]">
-                Swipe ‹ › to navigate
-              </span>
-              <div className="flex items-center gap-1">
-                {DRAWER_TABS.map(t => (
-                  <button
-                    type="button"
-                    key={t}
-                    onClick={() => switchTab(t)}
-                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      activeTab === t
-                        ? 'w-4 bg-[#2563EB] dark:bg-[#7AA2F7]'
-                        : 'w-1.5 bg-[#CBD5E1] dark:bg-[#383A52] hover:bg-[#94A3B8]'
-                    }`}
-                    title={`Switch to ${t}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              disabled={activeTab === 'mistakes'}
-              onClick={() => {
-                const idx = DRAWER_TABS.indexOf(activeTab);
-                if (idx < DRAWER_TABS.length - 1) {
-                  switchTab(DRAWER_TABS[idx + 1]);
-                }
-              }}
-              className={`flex items-center gap-1 font-bold px-2 py-0.5 rounded-lg border transition-all ${
-                activeTab === 'mistakes'
-                  ? 'opacity-30 border-transparent cursor-not-allowed'
-                  : 'hover:bg-black/5 dark:hover:bg-white/5 border-[#E2E8F0] dark:border-[#272730] text-[#191A17] dark:text-[#F5F5F7] cursor-pointer active:scale-95'
-              }`}
-              title="Next Tab (Swipe Left)"
-            >
-              <span>Next ›</span>
-            </button>
-          </div>
-
-          {/* Content Area with Touch Handlers for Smooth Swipe Navigation */}
+          {/* Content Area */}
           <div
-            onTouchStart={handleContentTouchStart}
-            onTouchMove={handleContentTouchMove}
-            onTouchEnd={handleContentTouchEnd}
             className={`flex-1 overflow-y-auto space-y-5 overscroll-contain pb-[max(2.5rem,env(safe-area-inset-bottom,0px))] topic-drawer-content ${
-              isFullScreen ? 'p-4 sm:p-8' : 'p-4 sm:p-6'
+              isFullScreen ? 'p-3 sm:p-8' : (activeTab === 'notes' ? 'p-2 sm:p-6' : 'p-3.5 sm:p-6')
             }`}
           >
             <div className={isFullScreen ? 'max-w-6xl mx-auto w-full space-y-5' : 'space-y-5'}>

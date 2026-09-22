@@ -226,7 +226,7 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto shrink-0 flex-wrap">
+        <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto shrink-0">
           <input
             type="file"
             ref={fileInputRef}
@@ -239,9 +239,9 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
             type="button"
             disabled={isUploading}
             onClick={() => fileInputRef.current?.click()}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold shadow-sm transition-all cursor-pointer disabled:opacity-50 active:scale-95"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold shadow-sm transition-all cursor-pointer disabled:opacity-50 active:scale-95 whitespace-nowrap"
           >
-            <Upload className="w-3.5 h-3.5" />
+            <Upload className="w-3.5 h-3.5 shrink-0" />
             <span>{isUploading ? 'Saving...' : '+ Upload PDF'}</span>
           </button>
 
@@ -251,11 +251,12 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
               setShowTelegramInput(p => !p);
               setShowUrlInput(false);
             }}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#229ED9] hover:bg-[#1E88C7] text-white text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#229ED9] hover:bg-[#1E88C7] text-white text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95 whitespace-nowrap"
             title="Attach Telegram notes or PDF link"
           >
-            <TelegramIcon className="w-3.5 h-3.5 fill-white" />
-            <span>+ Telegram Notes</span>
+            <TelegramIcon className="w-3.5 h-3.5 fill-white shrink-0" />
+            <span className="hidden sm:inline">+ Telegram Notes</span>
+            <span className="sm:hidden">+ Telegram</span>
           </button>
 
           <button
@@ -264,11 +265,12 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
               setShowUrlInput(p => !p);
               setShowTelegramInput(false);
             }}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold transition-all cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold transition-all cursor-pointer whitespace-nowrap"
             title="Attach PDF via link"
           >
-            <LinkIcon className="w-3.5 h-3.5" />
-            <span>Link URL</span>
+            <LinkIcon className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">Link URL</span>
+            <span className="sm:hidden">URL</span>
           </button>
         </div>
       </div>

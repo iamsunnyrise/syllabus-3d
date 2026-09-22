@@ -329,13 +329,13 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
     <div className="flex items-center justify-between gap-2 w-full select-none">
       {/* Scrollable Tabs Track with Navigation Buttons */}
       <div className="flex-1 flex items-center gap-1 min-w-0 relative">
-        {/* Left Arrow Button (shown when overflowing) */}
+        {/* Left Arrow Button (shown when overflowing on desktop) */}
         {hasOverflow && (
           <button
             type="button"
             onClick={scrollLeftBy}
             disabled={!canScrollLeft}
-            className={`p-1 rounded-xl border text-xs transition-all shrink-0 z-10 flex items-center justify-center ${
+            className={`hidden sm:flex p-1 rounded-xl border text-xs transition-all shrink-0 z-10 items-center justify-center ${
               canScrollLeft
                 ? 'bg-white dark:bg-[#1E1F2B] border-slate-300/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-[#252636] text-slate-700 dark:text-slate-200 cursor-pointer shadow-xs hover:scale-105 active:scale-95'
                 : 'opacity-20 border-transparent text-slate-400 cursor-default pointer-events-none'
@@ -477,16 +477,16 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
 
         {/* Right Fade Gradient Mask when scrollable */}
         {canScrollRight && (
-          <div className="absolute right-6 top-0 bottom-0 w-6 bg-gradient-to-l from-white dark:from-[#151620] to-transparent pointer-events-none z-[5]" />
+          <div className="hidden sm:block absolute right-6 top-0 bottom-0 w-6 bg-gradient-to-l from-white dark:from-[#151620] to-transparent pointer-events-none z-[5]" />
         )}
 
-        {/* Right Arrow Button (shown when overflowing) */}
+        {/* Right Arrow Button (shown when overflowing on desktop) */}
         {hasOverflow && (
           <button
             type="button"
             onClick={scrollRightBy}
             disabled={!canScrollRight}
-            className={`p-1 rounded-xl border text-xs transition-all shrink-0 z-10 flex items-center justify-center ${
+            className={`hidden sm:flex p-1 rounded-xl border text-xs transition-all shrink-0 z-10 items-center justify-center ${
               canScrollRight
                 ? 'bg-white dark:bg-[#1E1F2B] border-slate-300/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-[#252636] text-slate-700 dark:text-slate-200 cursor-pointer shadow-xs hover:scale-105 active:scale-95'
                 : 'opacity-20 border-transparent text-slate-400 cursor-default pointer-events-none'
@@ -503,11 +503,12 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
         <button
           type="button"
           onClick={() => setShowAddTemplatesMenu(prev => !prev)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] hover:bg-[#1D4ED8] dark:hover:bg-[#6090F5] text-xs font-black transition-all active:scale-95 cursor-pointer shadow-sm"
+          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] hover:bg-[#1D4ED8] dark:hover:bg-[#6090F5] text-xs font-black transition-all active:scale-95 cursor-pointer shadow-sm"
           title="Create a new Note Page for this topic"
         >
           <Plus className="w-3.5 h-3.5 stroke-[3]" />
-          <span>+ Add Note</span>
+          <span className="hidden sm:inline">+ Add Note</span>
+          <span className="sm:hidden text-xs">+ Note</span>
         </button>
 
         {/* Quick Note Templates Dropdown */}
@@ -4282,8 +4283,95 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       {/* 🌟 MS WORD OFFICE RIBBON STUDIO (Quick Access, Ribbon Tabs & Command Shelves) */}
       <div className="rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-sm relative no-print overflow-hidden divide-y divide-[#E2E8F0]/80 dark:divide-[#272730]">
         
-        {/* Tier 1: Office Quick Access Bar & Multi-Note Tabs Track */}
-        <div className="p-2 px-3 bg-[#F8FAFC] dark:bg-[#11121A] flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+        {/* Tier 1 (Mobile): Note Tabs Full Track + Quick Action Strip */}
+        <div className="sm:hidden p-2 bg-[#F8FAFC] dark:bg-[#11121A] space-y-2">
+          {/* Mobile Note Tabs Full-Width Track */}
+          <div className="w-full">
+            {renderNoteTabs(false)}
+          </div>
+
+          {/* Mobile Action Strip: App Badge, View Mode Toggle, Save, AI & Zen */}
+          <div className="flex items-center justify-between gap-1.5 pt-1.5 border-t border-slate-200/70 dark:border-slate-800">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-black text-[11px] shadow-2xs shrink-0 select-none">
+                W
+              </div>
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate max-w-[120px]">
+                {activeNote.title}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1 shrink-0">
+              {/* Quick View Mode Toggle Pills */}
+              <div className="flex items-center p-0.5 rounded-lg bg-slate-200/80 dark:bg-slate-800 text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => { soundManager.playClick(); setViewMode('study'); }}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    viewMode === 'study'
+                      ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                  title="Study Mode"
+                >
+                  <Eye className="w-3 h-3" />
+                  <span>Read</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    viewMode === 'edit'
+                      ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                  title="Edit Mode"
+                >
+                  <Edit3 className="w-3 h-3" />
+                  <span>Edit</span>
+                </button>
+              </div>
+
+              {/* Quick Save */}
+              <button
+                type="button"
+                onClick={handleSave}
+                className="flex items-center justify-center p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-all cursor-pointer shadow-xs active:scale-95"
+                title="Save Notes"
+              >
+                {saveSuccess ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Save className="w-3.5 h-3.5" />}
+              </button>
+
+              {/* Notion AI */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setNotionAiPastedText(content);
+                  setIsNotionAiModalOpen(true);
+                }}
+                className="flex items-center gap-1 px-2 py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-[11px] font-bold shadow-xs active:scale-95 cursor-pointer"
+                title="Notion AI Note Studio"
+              >
+                <Sparkles className="w-3 h-3 text-amber-300" />
+                <span>AI</span>
+              </button>
+
+              {/* Fullscreen Zen Reading */}
+              <button
+                type="button"
+                onClick={() => { soundManager.playCompleteChime(); setIsFullscreen(true); }}
+                className="p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors cursor-pointer"
+                title="Fullscreen Immersive Reading (Zen Mode)"
+              >
+                <Maximize className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Tier 1 (Desktop): Office Quick Access Bar & Multi-Note Tabs Track */}
+        <div className="hidden sm:flex p-2 px-3 bg-[#F8FAFC] dark:bg-[#11121A] items-center justify-between gap-3">
           {/* Quick Access Toolbar */}
           <div className="flex items-center gap-2 shrink-0">
             {/* Office Word App Badge */}
@@ -4345,7 +4433,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           </div>
         </div>
 
-        {/* Tier 2: Office Ribbon Tabs Bar */}
+        {/* Desktop Ribbon Studio (Tier 2 Tabs + Tier 3 Shelves) */}
+        <div className="hidden sm:block">
+          {/* Tier 2: Office Ribbon Tabs Bar */}
         <div className="px-3 pt-1 bg-white dark:bg-[#151620] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
           <div className="flex items-center gap-1">
             {[
@@ -5039,6 +5129,133 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           )}
         </div>
       )}
+      </div>
+
+      {/* Mobile Quick Formatting Bar (Only in Edit mode on phones) */}
+      {viewMode === 'edit' && (
+        <div className="sm:hidden px-2 py-1.5 bg-[#F8FAFC] dark:bg-[#11121A] flex items-center gap-1 overflow-x-auto no-scrollbar border-t border-[#E2E8F0] dark:border-[#272730]">
+          <button
+            type="button"
+            onClick={() => insertText('**', '**', 'Bold text')}
+            className="w-7 h-7 rounded-lg text-xs font-black bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Bold"
+          >
+            B
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('*', '*', 'Italic text')}
+            className="w-7 h-7 rounded-lg text-xs font-serif italic bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Italic"
+          >
+            I
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('<u>', '</u>', 'Underlined')}
+            className="w-7 h-7 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Underline"
+          >
+            <UnderlineIcon className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('`', '`', 'code')}
+            className="w-7 h-7 rounded-lg text-[11px] font-mono bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Inline Code"
+          >
+            `c`
+          </button>
+
+          <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800 shrink-0 mx-0.5" />
+
+          <button
+            type="button"
+            onClick={() => insertText('# ', '', 'Title Heading')}
+            className="px-1.5 h-7 rounded-lg text-[11px] font-black bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-700 flex items-center gap-0.5 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Heading 1"
+          >
+            H1
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('## ', '', 'Section Heading')}
+            className="px-1.5 h-7 rounded-lg text-[11px] font-bold bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 flex items-center gap-0.5 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Heading 2"
+          >
+            H2
+          </button>
+
+          <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800 shrink-0 mx-0.5" />
+
+          <button
+            type="button"
+            onClick={() => insertText('- ', '', 'Bullet item')}
+            className="w-7 h-7 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Bullet List"
+          >
+            <List className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('- [ ] ', '', 'Checklist task')}
+            className="w-7 h-7 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Checklist"
+          >
+            <CheckSquare className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('> ', '', 'Important note')}
+            className="w-7 h-7 rounded-lg text-xs bg-white dark:bg-[#181822] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Quote / Callout"
+          >
+            <Quote className="w-3.5 h-3.5 text-slate-500" />
+          </button>
+
+          <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800 shrink-0 mx-0.5" />
+
+          <button
+            type="button"
+            onClick={() => insertText('> [!FORMULA]\n> ', '', 'Speed = Distance / Time')}
+            className="px-1.5 h-7 rounded-lg text-[10px] font-mono font-bold bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 border border-purple-500/30 flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Formula Box"
+          >
+            <Sigma className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+            <span>Formula</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('> [!TIP]\n> ', '', 'Shortcut Trick')}
+            className="px-1.5 h-7 rounded-lg text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/30 flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Shortcut / Tip"
+          >
+            <Zap className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+            <span>Tip</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => insertText('> [!WARNING]\n> ', '', 'Common Exam Trap')}
+            className="px-1.5 h-7 rounded-lg text-[10px] font-mono font-bold bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 border border-rose-500/30 flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Exam Trap"
+          >
+            <AlertTriangle className="w-3 h-3 text-rose-600 dark:text-rose-400" />
+            <span>Trap</span>
+          </button>
+
+          <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800 shrink-0 mx-0.5" />
+
+          <button
+            type="button"
+            onClick={insertComparisonTableTemplate}
+            className="px-2 h-7 rounded-lg text-[11px] font-bold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/30 flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs active:scale-95"
+            title="Insert Comparison Table"
+          >
+            <TableIcon className="w-3 h-3" />
+            <span>Table</span>
+          </button>
+        </div>
+      )}
     </div>
 
       {/* Hidden File Input for Image Upload */}
@@ -5147,7 +5364,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
       {/* 📏 MS WORD HORIZONTAL MARGIN RULER */}
       {showOfficeRuler && (
-        <div className="w-full bg-[#E2E8F0] dark:bg-[#1A1C26] border border-[#CBD5E1] dark:border-[#272738] h-6 flex items-center px-4 relative select-none overflow-hidden rounded-t-xl text-[9px] font-mono text-slate-500 dark:text-slate-400 no-print">
+        <div className="hidden sm:flex w-full bg-[#E2E8F0] dark:bg-[#1A1C26] border border-[#CBD5E1] dark:border-[#272738] h-6 items-center px-4 relative select-none overflow-hidden rounded-t-xl text-[9px] font-mono text-slate-500 dark:text-slate-400 no-print">
           <div className="flex items-center gap-1 text-slate-500 shrink-0 mr-2">
             <Ruler className="w-3 h-3 text-blue-500" />
             <span className="font-bold text-[8px] uppercase tracking-wider">Margin</span>
@@ -5179,24 +5396,24 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         isDarkTheme && (viewMode === 'study' || viewMode === 'split')
           ? 'bg-[#06070B] border-[#1C1E2A]'
           : 'bg-[#EAEFF5] dark:bg-[#0A0B10] border-[#CBD5E1] dark:border-[#272738]'
-      } p-3 sm:p-6 ${showOfficeRuler ? 'rounded-b-2xl border-t-0' : 'rounded-2xl'} border flex flex-col items-center min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
+      } p-1 sm:p-6 ${showOfficeRuler ? 'sm:rounded-b-2xl sm:border-t-0 rounded-2xl' : 'rounded-2xl'} border flex flex-col items-center min-h-[420px] sm:min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
         
         {/* 1. EDIT MODE: Elevated A4 Document Page */}
         {viewMode === 'edit' && (
           <div className="w-full flex justify-center print:hidden" onPaste={handlePaste}>
             <div
-              className="w-full max-w-[860px] bg-white dark:bg-[#14151E] rounded-xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-transform origin-top my-2 select-text"
-              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '640px' }}
+              className="w-full max-w-[860px] bg-white dark:bg-[#14151E] rounded-xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-transform origin-top my-1 sm:my-2 select-text"
+              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '520px' }}
             >
               {/* Document Running Header Watermark */}
-              <div className="px-6 sm:px-10 pt-5 pb-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">{subjectName || 'Syllabus 3D'}</span>
+              <div className="px-3.5 sm:px-10 pt-3.5 sm:pt-5 pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider shrink-0">{subjectName || 'Syllabus 3D'}</span>
                   <span>/</span>
-                  <span className="truncate max-w-[200px]">{chapterName || topicName}</span>
+                  <span className="truncate max-w-[140px] sm:max-w-[200px]">{chapterName || topicName}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">{activeNote.title}</span>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="text-blue-600 dark:text-blue-400 font-bold truncate max-w-[100px]">{activeNote.title}</span>
                   <span>•</span>
                   <span>Page 1</span>
                 </div>
@@ -5209,16 +5426,16 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 onChange={e => updateContentAndSave(e.target.value)}
                 onPaste={handlePaste}
                 onKeyDown={handleEditorKeyDown}
-                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(520, el.scrollHeight) + 'px'; }}
-                style={{ minHeight: '520px', height: 'auto' }}
+                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(420, el.scrollHeight) + 'px'; }}
+                style={{ minHeight: '420px', height: 'auto' }}
                 placeholder={`Paste your notes from Gemini, ChatGPT, or Claude here, or write your own!\n\n✨ Notion AI Studio: After pasting, click "✨ Notion AI" in the ribbon above or press Ctrl+J to choose from 6 formats (Notion Master, Cornell, Active Recall Q&A, Speed Cheat Sheet, Deep Outline, Zero-Loss Normalizer) with 100% data preservation!\n\n> [!FORMULA]\n> Your formulas here\n\n> [!TIP]\n> Your shortcuts here\n\n> [!WARNING]\n> Exam traps here\n\n- [ ] Checklist items`}
                 rows={12}
-                className="w-full px-6 sm:px-10 py-6 font-sans text-xs sm:text-[14px] text-[#11120F] dark:text-[#E2E8F0] leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
+                className="w-full px-3.5 sm:px-10 py-3.5 sm:py-6 font-sans text-xs sm:text-[14px] text-[#11120F] dark:text-[#E2E8F0] leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
               />
 
               {/* Document Running Footer Watermark */}
-              <div className="px-6 sm:px-10 py-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono select-none mt-auto">
-                <span>Syllabus 3D Document Studio • ISO 216 A4</span>
+              <div className="px-3.5 sm:px-10 py-2 sm:py-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-mono select-none mt-auto">
+                <span className="truncate max-w-[160px] sm:max-w-none">Syllabus 3D Document Studio • A4</span>
                 <span>{wordCount} words · {charCount} chars</span>
               </div>
             </div>
@@ -5279,25 +5496,25 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           <div className="w-full max-w-[860px] my-2 select-text" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
             <div className={`relative rounded-2xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
               {/* Study Sheet Header */}
-              <div className={`px-6 sm:px-10 pt-5 pb-3 border-b ${
+              <div className={`px-3.5 sm:px-10 pt-3.5 sm:pt-5 pb-2.5 sm:pb-3 border-b ${
                 isDarkTheme
                   ? 'border-slate-800 text-slate-400'
                   : 'border-slate-200/40 dark:border-slate-700/40 text-slate-400'
               } flex items-center justify-between text-[11px] font-mono select-none`}>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold uppercase tracking-wider">{subjectName || 'Syllabus 3D'}</span>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="font-bold uppercase tracking-wider shrink-0">{subjectName || 'Syllabus 3D'}</span>
                   <span>/</span>
-                  <span className="truncate max-w-[200px]">{topicName}</span>
+                  <span className="truncate max-w-[140px] sm:max-w-[200px]">{topicName}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold">{activeNote.title}</span>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="font-bold truncate max-w-[100px]">{activeNote.title}</span>
                   <span>•</span>
-                  <span>Study View</span>
+                  <span>Read View</span>
                 </div>
               </div>
 
               {/* Formatted Notes Content */}
-              <div className="p-6 sm:p-10 min-h-[300px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
+              <div className="p-3.5 sm:p-10 min-h-[260px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
                 {renderFormattedNotes()}
               </div>
 
