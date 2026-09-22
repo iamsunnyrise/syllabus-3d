@@ -56,17 +56,17 @@ const CreateProfileModal = lazy(() => import('./components/modals/CreateProfileM
 const ViewLoadingFallback: React.FC = () => (
   <div className="w-full space-y-5 animate-view-fade select-none pb-12">
     {/* Banner Skeleton */}
-    <div className="w-full h-44 sm:h-56 rounded-3xl skeleton-shimmer border border-[#E2E8F0]/40 dark:border-[#28293D]/40 shadow-xs" />
+    <div className="w-full h-44 sm:h-56 rounded-3xl skeleton-shimmer bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 shadow-2xs" />
 
     {/* Bento Cards 3-Grid Skeleton */}
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-      <div className="h-32 rounded-2xl skeleton-shimmer border border-[#E2E8F0]/30 dark:border-[#28293D]/30" />
-      <div className="h-32 rounded-2xl skeleton-shimmer border border-[#E2E8F0]/30 dark:border-[#28293D]/30" />
-      <div className="h-32 rounded-2xl skeleton-shimmer border border-[#E2E8F0]/30 dark:border-[#28293D]/30" />
+      <div className="h-32 rounded-2xl skeleton-shimmer bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5" />
+      <div className="h-32 rounded-2xl skeleton-shimmer bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5" />
+      <div className="h-32 rounded-2xl skeleton-shimmer bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5" />
     </div>
 
     {/* Content Table/List Skeleton */}
-    <div className="w-full h-64 rounded-2xl skeleton-shimmer border border-[#E2E8F0]/30 dark:border-[#28293D]/30" />
+    <div className="w-full h-64 rounded-2xl skeleton-shimmer bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5" />
   </div>
 );
 

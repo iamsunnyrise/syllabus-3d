@@ -92,16 +92,16 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
             {showMenu && (
               <div 
                 onClick={(e) => e.stopPropagation()}
-                className="absolute right-0 top-7 z-30 w-36 rounded-xl bg-darkElevated border border-white/10 shadow-2xl py-1 text-xs text-slate-200 animate-fadeIn"
+                className="absolute right-0 top-7 z-30 w-38 rounded-xl bg-white dark:bg-darkElevated border border-slate-200 dark:border-white/10 shadow-2xl py-1 text-xs text-slate-700 dark:text-slate-200 animate-fadeIn backdrop-blur-md"
               >
                 <button
                   onClick={() => {
                     setShowMenu(false);
                     setViewingMockDetail(mock);
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 font-medium"
                 >
-                  <BarChart className="w-3.5 h-3.5 text-electric-blue" />
+                  <BarChart className="w-3.5 h-3.5 text-blue-600 dark:text-electric-blue" />
                   <span>View Details</span>
                 </button>
                 <button
@@ -110,9 +110,9 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
                     setEditingMock(mock);
                     setIsAddModalOpen(true);
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 font-medium"
                 >
-                  <Edit3 className="w-3.5 h-3.5 text-mint-dark" />
+                  <Edit3 className="w-3.5 h-3.5 text-emerald-600 dark:text-mint-dark" />
                   <span>Edit</span>
                 </button>
                 <button
@@ -120,9 +120,9 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
                     setShowMenu(false);
                     duplicateMock(mock.id);
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 font-medium"
                 >
-                  <Copy className="w-3.5 h-3.5 text-lavender" />
+                  <Copy className="w-3.5 h-3.5 text-purple-600 dark:text-lavender" />
                   <span>Duplicate</span>
                 </button>
                 <button
@@ -130,12 +130,12 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
                     setShowMenu(false);
                     toggleMockSelection(mock.id);
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 font-medium"
                 >
-                  <GitCompare className="w-3.5 h-3.5 text-sky" />
+                  <GitCompare className="w-3.5 h-3.5 text-sky-600 dark:text-sky" />
                   <span>{isSelected ? 'Deselect' : 'Compare'}</span>
                 </button>
-                <div className="my-1 border-t border-white/10" />
+                <div className="my-1 border-t border-slate-200 dark:border-white/10" />
                 <button
                   onClick={() => {
                     setShowMenu(false);
@@ -143,7 +143,7 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
                       deleteMock(mock.id);
                     }
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-alert-red/20 text-alert-red flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 hover:bg-rose-50 dark:hover:bg-alert-red/20 text-rose-600 dark:text-alert-red flex items-center gap-2 font-medium"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete</span>
@@ -159,11 +159,11 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
         onClick={() => setViewingMockDetail(mock)}
         className="cursor-pointer"
       >
-        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-electric-blue transition-colors line-clamp-1">
+        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-electric-blue transition-colors line-clamp-1">
           {mock.testName}
         </h3>
 
-        <div className="flex items-center gap-3 mt-1 text-xs text-slate-400">
+        <div className="flex items-center gap-2.5 sm:gap-3 mt-1 text-xs text-slate-500 dark:text-slate-400 font-mono">
           <span>{mock.exam} ({mock.tier})</span>
           <span>•</span>
           <span className="flex items-center gap-1">
@@ -171,7 +171,7 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
             {mock.date}
           </span>
           <span>•</span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 tabular-nums">
             <Clock className="w-3 h-3" />
             {mock.timeTakenMinutes}m
           </span>
@@ -181,28 +181,28 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
       {/* 3-Metric Score Block */}
       <div 
         onClick={() => setViewingMockDetail(mock)}
-        className="mt-4 p-3 rounded-xl bg-darkContainer/50 light:bg-slate-100/70 border border-white/5 light:border-slate-200 grid grid-cols-3 gap-2 text-center cursor-pointer"
+        className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 grid grid-cols-3 gap-2 text-center cursor-pointer"
       >
         <div>
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Score</div>
-          <div className={`text-base sm:text-lg font-extrabold ${
-            mock.isClearedCutoff ? 'text-mint-dark dark:text-mint' : 'text-slate-200 light:text-slate-800'
+          <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Score</div>
+          <div className={`text-base sm:text-lg font-black font-mono tabular-nums ${
+            mock.isClearedCutoff ? 'text-emerald-600 dark:text-mint' : 'text-slate-900 dark:text-slate-100'
           }`}>
             {mock.score}
-            <span className="text-[10px] text-slate-400 font-normal ml-0.5">/{mock.maxMarks}</span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal ml-0.5">/{mock.maxMarks}</span>
           </div>
         </div>
 
         <div>
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Accuracy</div>
-          <div className="text-base sm:text-lg font-extrabold text-electric-blue">
+          <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Accuracy</div>
+          <div className="text-base sm:text-lg font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">
             {mock.accuracy}%
           </div>
         </div>
 
         <div>
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Percentile</div>
-          <div className="text-base sm:text-lg font-extrabold text-lavender">
+          <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Percentile</div>
+          <div className="text-base sm:text-lg font-black font-mono tabular-nums text-purple-600 dark:text-lavender">
             {mock.percentile}%
           </div>
         </div>

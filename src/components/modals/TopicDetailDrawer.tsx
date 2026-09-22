@@ -732,16 +732,16 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
           {/* EDIT TOPIC FORM PANEL (Appears directly beneath header when pencil is clicked) */}
           {isEditing && (
-            <div className="p-4 sm:p-6 bg-white dark:bg-[#18181D] border-b-2 border-[#2563EB] dark:border-[#7AA2F7] shadow-md animate-fade-in no-print">
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#E2E8F0] dark:border-[#272730]">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+            <div className="p-4 sm:p-6 bg-white dark:bg-[#18181D] border-b-2 border-blue-600 dark:border-blue-400 shadow-md animate-fade-in no-print">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200 dark:border-white/10">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold text-blue-600 dark:text-blue-400">
                   <Edit3 className="w-4 h-4" />
                   <span>Edit Topic Parameters</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="text-xs font-mono text-[#85877E] hover:text-[#11120F] dark:hover:text-white cursor-pointer"
+                  className="text-xs font-mono text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer"
                 >
                   Close Form ✕
                 </button>
@@ -750,14 +750,14 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
               <form onSubmit={handleSaveTopicDetails} className="space-y-3.5">
                 {/* Topic Name */}
                 <div>
-                  <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#191A17] dark:text-[#F5F5F7] mb-1">
+                  <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
                     Topic Title
                   </label>
                   <input
                     type="text"
                     value={editName}
                     onChange={e => setEditName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-bold text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                     placeholder="Topic Name"
                     required
                   />
@@ -766,13 +766,13 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 <div className="grid grid-cols-2 gap-3">
                   {/* Difficulty */}
                   <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#191A17] dark:text-[#F5F5F7] mb-1">
+                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
                       Difficulty Level
                     </label>
                     <select
                       value={editDifficulty}
                       onChange={e => setEditDifficulty(e.target.value as DifficultyLevel)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 cursor-pointer"
                     >
                       <option value="Easy">Easy</option>
                       <option value="Medium">Medium</option>
@@ -782,8 +782,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
                   {/* Weightage Marks (Optional) */}
                   <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#191A17] dark:text-[#F5F5F7] mb-1">
-                      Weightage Marks <span className="text-[10px] text-[#85877E] font-normal">(Optional)</span>
+                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                      Weightage Marks <span className="text-[10px] text-slate-400 font-normal">(Optional)</span>
                     </label>
                     <input
                       type="number"
@@ -792,14 +792,14 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       value={editWeightage !== undefined ? editWeightage : ''}
                       onChange={e => setEditWeightage(e.target.value === '' ? undefined : Number(e.target.value))}
                       placeholder="e.g. 4 (optional)"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                     />
                   </div>
                 </div>
 
                 {/* Subtopics Checklist Management */}
                 <div>
-                  <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#191A17] dark:text-[#F5F5F7] mb-1">
+                  <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
                     Subtopics & Concept Checkpoints ({liveTopic.subtopics ? liveTopic.subtopics.length : 0})
                   </label>
                   
@@ -809,13 +809,13 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       {liveTopic.subtopics.map((st, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between px-3 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs"
+                          className="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs"
                         >
-                          <span className="truncate text-[#191A17] dark:text-[#F5F5F7] font-semibold">{st}</span>
+                          <span className="truncate text-slate-900 dark:text-slate-100 font-semibold">{st}</span>
                           <button
                             type="button"
                             onClick={() => deleteSubtopic(liveTopic.id, idx)}
-                            className="p-1 rounded text-rose-500 hover:bg-rose-500/10 cursor-pointer"
+                            className="p-1 rounded text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors"
                             title="Remove subtopic"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -838,29 +838,29 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                         }
                       }}
                       placeholder="Add subtopic (or comma-separated values)..."
-                      className="flex-1 px-3.5 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs font-medium text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-900 dark:text-slate-100 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                     />
                     <button
                       type="button"
                       onClick={handleAddSubtopicSubmit}
-                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-sm"
+                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs active:scale-95"
                     >
                       + Add
                     </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E2E8F0] dark:border-[#272730]">
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 dark:border-white/10">
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
-                    className="px-4 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold text-[#65675F] dark:text-[#A1A1AA] hover:text-[#191A17] dark:hover:text-white cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-sm active:scale-95"
+                    className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-xs active:scale-95"
                   >
                     Save Changes
                   </button>

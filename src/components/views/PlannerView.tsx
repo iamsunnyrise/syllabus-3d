@@ -44,6 +44,7 @@ import {
 import { PlannerColumnStatus, PlannerTask, Topic, TaskPriority, TaskCategory } from '../../types/syllabus';
 import { getTodayDateString } from '../../utils/dateUtils';
 import { soundManager } from '../../utils/soundEffects';
+import { haptics } from '../../utils/haptics';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { RoutineMakerView } from '../routine/RoutineMakerView';
 import confetti from 'canvas-confetti';
@@ -222,6 +223,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
     if (task && task.status !== 'completed') {
       soundManager.playCompleteChime();
+      haptics.success();
       confetti({
         particleCount: 40,
         spread: 60,
@@ -231,6 +233,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         gravity: 1.2,
         ticks: 120
       });
+    } else {
+      soundManager.playClick();
+      haptics.light();
     }
   }, [plannerTasks, togglePlannerTask]);
 
@@ -620,7 +625,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               title="Clear completed tasks"
             >
               <RotateCcw className="w-3 h-3" />
-              <span>Clear Done ({completedTasks.length})</span>
+              <span>Clear Done (<span className="tabular-nums font-mono">{completedTasks.length}</span>)</span>
             </button>
           )}
         </div>
@@ -720,11 +725,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           {/* Mobile Column Segmented Filter (Hidden on Desktop) */}
           <div className="sm:hidden flex items-center gap-1 p-1 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto no-scrollbar shadow-2xs">
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
+                haptics.light();
                 setMobileActiveColumn('all');
               }}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all ${
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all tap-bounce active:scale-[0.97] ${
                 mobileActiveColumn === 'all'
                   ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/60 dark:border-blue-500/30 font-black shadow-xs'
                   : 'text-slate-600 dark:text-slate-400'
@@ -744,11 +751,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               return (
                 <button
                   key={col.id}
+                  type="button"
                   onClick={() => {
                     soundManager.playClick();
+                    haptics.light();
                     setMobileActiveColumn(col.id);
                   }}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all tap-bounce active:scale-[0.97] ${
                     isActive
                       ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/60 dark:border-blue-500/30 font-black shadow-xs'
                       : 'text-slate-600 dark:text-slate-400'
