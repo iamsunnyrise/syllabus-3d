@@ -502,37 +502,58 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
       <div className="relative shrink-0">
         <button
           type="button"
-          onClick={() => setShowAddTemplatesMenu(prev => !prev)}
-          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] hover:bg-[#1D4ED8] dark:hover:bg-[#6090F5] text-xs font-black transition-all active:scale-95 cursor-pointer shadow-sm"
+          onClick={() => {
+            soundManager.playClick();
+            setShowAddTemplatesMenu(prev => !prev);
+          }}
+          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] hover:bg-[#1D4ED8] dark:hover:bg-[#6090F5] text-xs font-black transition-all active:scale-95 cursor-pointer shadow-sm shrink-0"
           title="Create a new Note Page for this topic"
         >
           <Plus className="w-3.5 h-3.5 stroke-[3]" />
-          <span className="hidden sm:inline">+ Add Note</span>
-          <span className="sm:hidden text-xs">+ Note</span>
+          <span className="hidden sm:inline">Add Note</span>
+          <span className="sm:hidden text-xs">Note</span>
         </button>
 
-        {/* Quick Note Templates Dropdown */}
-        {showAddTemplatesMenu && (
-          <>
-            {/* Click-outside backdrop */}
+        {/* Note Templates Modal / Bottom Sheet (Rendered via createPortal to eliminate overflow clipping) */}
+        {showAddTemplatesMenu && createPortal(
+          <div
+            className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs select-none"
+            onClick={() => setShowAddTemplatesMenu(false)}
+          >
             <div
-              className="fixed inset-0 z-[80]"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowAddTemplatesMenu(false);
-              }}
-            />
-            <div
-              className="absolute right-0 top-full mt-2 w-68 sm:w-72 max-h-[min(420px,calc(100vh-200px))] overflow-y-auto overscroll-contain rounded-2xl bg-white dark:bg-[#181822] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl p-1.5 z-[100] animate-fade-in text-xs font-bold custom-scrollbar"
+              className="w-full sm:max-w-md bg-white dark:bg-[#151620] border-t sm:border border-slate-200 dark:border-slate-800 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-fade-in"
               onClick={e => e.stopPropagation()}
             >
-              <div className="sticky top-0 bg-white/95 dark:bg-[#181822]/95 backdrop-blur-xs px-2.5 py-1.5 text-[11px] uppercase font-mono text-slate-400 border-b border-[#E2E8F0] dark:border-[#272730] flex items-center justify-between z-10">
-                <span>Choose Note Template:</span>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">7 templates</span>
+              {/* Header */}
+              <div className="p-4 px-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/90 dark:bg-[#11121A]/90 backdrop-blur-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-blue-600/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                    <Plus className="w-4 h-4 stroke-[3]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                      Choose Note Template
+                    </h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Select layout for your new note page (7 Templates)
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAddTemplatesMenu(false)}
+                  className="p-1.5 rounded-xl hover:bg-slate-200/80 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
+                  title="Close"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4 stroke-[2.5]" />
+                </button>
               </div>
-              
-              <div className="py-1 space-y-0.5">
-                {/* 🎯 Interactive Quiz / MCQ Practice */}
+
+              {/* Template Items List */}
+              <div className="p-3 overflow-y-auto overscroll-contain space-y-2 custom-scrollbar">
+                {/* 1. 🎯 Interactive Quiz / MCQ Practice */}
                 <button
                   type="button"
                   onClick={() => {
@@ -540,17 +561,23 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     setShowQuizImportModal(true);
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-indigo-50/70 dark:hover:bg-indigo-950/40 text-slate-800 dark:text-white cursor-pointer transition-colors border-b border-indigo-100 dark:border-indigo-900/40"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-indigo-50/40 dark:bg-indigo-950/20 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-indigo-500 via-blue-500 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-xs">
-                    <Sparkles className="w-3.5 h-3.5" />
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-500 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-5 h-5 text-amber-300" />
                   </div>
-                  <div>
-                    <div className="font-bold text-indigo-600 dark:text-indigo-400">🎯 Interactive Quiz / MCQ</div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Import Gemini link or test</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-indigo-700 dark:text-indigo-400 text-sm">🎯 Interactive Quiz / MCQ</span>
+                      <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 font-bold">New</span>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Practice 4-option MCQ questions with instant feedback and answer explanations
+                    </p>
                   </div>
                 </button>
 
+                {/* 2. 📄 Blank Notes Page */}
                 <button
                   type="button"
                   onClick={() => {
@@ -558,14 +585,20 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     handleAddNewNote();
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-[#F8FAFC] dark:hover:bg-[#232330] text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-slate-50/60 dark:bg-[#1C1D28]/60 hover:bg-slate-100 dark:hover:bg-[#232434] border border-slate-200/60 dark:border-slate-800 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <img src="/notes_icon_3d.png" alt="Notes" className="w-5 h-5 object-contain shrink-0 drop-shadow-xs pointer-events-none" />
-                  <div>
-                    <div className="font-bold">📄 Blank Notes Page</div>
-                    <div className="text-[11px] text-slate-400 font-normal">Start with clean canvas</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <FileText className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-slate-900 dark:text-white text-sm">📄 Blank Notes Page</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Start with a clean canvas for your handwritten or typed study notes
+                    </p>
                   </div>
                 </button>
+
+                {/* 3. 🧮 Formula & Shortcuts */}
                 <button
                   type="button"
                   onClick={() => {
@@ -576,14 +609,20 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     );
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-[#F7F6F0] dark:hover:bg-[#232330] text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-purple-50/40 dark:bg-purple-950/20 hover:bg-purple-50 dark:hover:bg-purple-950/40 border border-purple-200/60 dark:border-purple-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <Sigma className="w-4 h-4 text-purple-500" />
-                  <div>
-                    <div className="font-bold">🧮 Formula & Shortcuts</div>
-                    <div className="text-[11px] text-slate-400 font-normal">Formulas, equations & tricks</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <Sigma className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-purple-700 dark:text-purple-300 text-sm">🧮 Formula & Shortcuts</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      LaTeX formulas, derivation blocks, equations & speed calculation tricks
+                    </p>
                   </div>
                 </button>
+
+                {/* 4. 📊 Comparison Table */}
                 <button
                   type="button"
                   onClick={() => {
@@ -594,14 +633,20 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     );
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-[#F7F6F0] dark:hover:bg-[#232330] text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-cyan-50/40 dark:bg-cyan-950/20 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-cyan-200/60 dark:border-cyan-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <TableIcon className="w-4 h-4 text-cyan-500" />
-                  <div>
-                    <div className="font-bold">📊 Comparison Table</div>
-                    <div className="text-[11px] text-slate-400 font-normal">Side-by-side concept matrix</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <TableIcon className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-cyan-700 dark:text-cyan-300 text-sm">📊 Comparison Table</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Side-by-side concept matrix for comparative analysis and differences
+                    </p>
                   </div>
                 </button>
+
+                {/* 5. ⚠️ Rules & Traps Guide */}
                 <button
                   type="button"
                   onClick={() => {
@@ -612,14 +657,20 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     );
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-[#F7F6F0] dark:hover:bg-[#232330] text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-rose-50/40 dark:bg-rose-950/20 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200/60 dark:border-rose-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <AlertTriangle className="w-4 h-4 text-rose-500" />
-                  <div>
-                    <div className="font-bold">⚠️ Rules & Traps Guide</div>
-                    <div className="text-[11px] text-slate-400 font-normal">Mistakes & examiner traps</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <AlertTriangle className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-rose-700 dark:text-rose-300 text-sm">⚠️ Rules & Traps Guide</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Examiner traps, negative marking warnings & golden conceptual rules
+                    </p>
                   </div>
                 </button>
+
+                {/* 6. 🎯 PYQ & Solved Tricks */}
                 <button
                   type="button"
                   onClick={() => {
@@ -630,17 +681,58 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     );
                     soundManager.playClick();
                   }}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-[#F7F6F0] dark:hover:bg-[#232330] text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-amber-50/40 dark:bg-amber-950/20 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  <div>
-                    <div className="font-bold">🎯 PYQ & Solved Tricks</div>
-                    <div className="text-[11px] text-slate-400 font-normal">Previous year questions</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-amber-700 dark:text-amber-300 text-sm">🎯 PYQ & Solved Tricks</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Previous year questions with examiner solutions and speed techniques
+                    </p>
+                  </div>
+                </button>
+
+                {/* 7. 🎓 Cornell Study System */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAddTemplatesMenu(false);
+                    handleAddNewNote(
+                      'Cornell Notes',
+                      `# Cornell Note-Taking System\n> [!CUE]\n> Key Questions & Recall Cues:\n> - What is the core theorem / law?\n> - Which condition must hold true?\n\n### Core Notes & Explanations\n- Detailed explanation with key principles\n- Step-by-step logic breakdown\n- Highlighted keywords: ==important concept==\n\n> [!SUMMARY]\n> Executive Summary:\n> In 2-3 sentences, capture the overall lesson takeaway for active recall revision.`
+                    );
+                    soundManager.playClick();
+                  }}
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-emerald-50/40 dark:bg-emerald-950/20 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <BookOpen className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">🎓 Cornell Study System</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
+                      Structured cue column, lecture breakdown notes, and quick summary block
+                    </p>
                   </div>
                 </button>
               </div>
+
+              {/* Footer */}
+              <div className="p-3 bg-slate-50 dark:bg-[#11121A] border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span>All templates support Markdown & LaTeX</span>
+                <button
+                  type="button"
+                  onClick={() => setShowAddTemplatesMenu(false)}
+                  className="px-3 py-1 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-          </>
+          </div>,
+          document.body
         )}
       </div>
     </div>
