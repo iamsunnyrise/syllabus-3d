@@ -19,10 +19,13 @@ import {
   Users,
   Sparkles,
   Video,
-  Trophy
+  Trophy,
+  Smartphone,
+  Download
 } from 'lucide-react';
 import { AppView } from './Sidebar';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { usePWA } from '../../hooks/usePWA';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 
@@ -50,6 +53,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onOpenProfileSwitcher
 }) => {
   const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile } = useSyllabus();
+  const { isInstallable, isInstalled, triggerInstall } = usePWA();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
   const profileSafe = profile || {
@@ -435,6 +439,43 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             ))}
           </div>
         </div>
+
+        {/* 5.5. INSTALL APP ON PHONE (PWA) */}
+        {!isInstalled && (
+          <div className="px-3 py-2 border-t border-[#E2E8F0]/80 dark:border-[#28293D] bg-white/40 dark:bg-[#1C1D2A]/60">
+            <button
+              type="button"
+              onClick={async () => {
+                soundManager.playClick();
+                haptics.medium();
+                if (isInstallable) {
+                  const success = await triggerInstall();
+                  if (success) onClose();
+                } else {
+                  onSelectView('settings');
+                  onClose();
+                }
+              }}
+              className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] tap-bounce cursor-pointer group"
+              title="Install App on Phone"
+              aria-label="Install App on Phone"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30 group-hover:scale-110 transition-transform">
+                  <Smartphone className="w-4 h-4 text-white" />
+                </div>
+                <div className="text-left min-w-0">
+                  <div className="text-[12px] font-black tracking-tight flex items-center gap-1.5 leading-tight">
+                    <span>Install App on Phone</span>
+                    <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[8.5px] font-mono leading-none">PWA</span>
+                  </div>
+                  <div className="text-[10px] text-blue-100/90 font-medium truncate">Offline ready & instant 1-tap open</div>
+                </div>
+              </div>
+              <Download className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform shrink-0 ml-1.5" />
+            </button>
+          </div>
+        )}
 
         {/* 6. EXECUTIVE FOOTER WITH LIVE CLOUD RADAR */}
         <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-[#E2E8F0] dark:border-[#383838] bg-white/50 dark:bg-[#242424]/90 flex items-center justify-between text-[10px] font-mono text-[#85877E] dark:text-[#7A7C93] select-none">

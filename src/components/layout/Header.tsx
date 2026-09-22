@@ -368,6 +368,28 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
+          {/* Install App Trigger (PWA) */}
+          {!isInstalled && (
+            <button
+              type="button"
+              onClick={async () => {
+                soundManager.playClick();
+                haptics.medium();
+                if (isInstallable) {
+                  await triggerInstall();
+                } else {
+                  onOpenSettings();
+                }
+              }}
+              className="h-9 px-2 sm:px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-500/30 dark:border-blue-400/30 text-blue-600 dark:text-[#7AA2F7] transition-all cursor-pointer shadow-subtle-depth active:scale-95 shrink-0 flex items-center gap-1.5 text-xs font-bold"
+              title="Install Syllabus 3D App on Device"
+              aria-label="Install App"
+            >
+              <Download className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7]" />
+              <span className="hidden sm:inline">Install App</span>
+            </button>
+          )}
+
           {/* Theme Toggle (Light <-> Dark) */}
           <button
             type="button"

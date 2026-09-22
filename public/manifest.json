@@ -29,10 +29,22 @@
   ],
   "shortcuts": [
     {
-      "name": "Focus Chamber",
-      "short_name": "Focus",
-      "description": "Open 3D Pomodoro Focus Chamber",
-      "url": "/?view=focus",
+      "name": "Mock Test Tracker",
+      "short_name": "Mocks",
+      "description": "Log tests, track percentiles and diagnostic analytics",
+      "url": "/?view=mock-tracker",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "YouTube Notes",
+      "short_name": "Notes",
+      "description": "Generate AI lecture notes and revise attachments",
+      "url": "/?view=youtube-notes",
       "icons": [
         {
           "src": "/logo.png",
@@ -53,10 +65,10 @@
       ]
     },
     {
-      "name": "Revision Queue",
-      "short_name": "Revise",
-      "description": "Practice due spaced repetition cards",
-      "url": "/?view=revision",
+      "name": "Syllabus Explorer",
+      "short_name": "Syllabus",
+      "description": "Explore 3D interactive syllabus tree",
+      "url": "/?view=syllabus",
       "icons": [
         {
           "src": "/logo.png",

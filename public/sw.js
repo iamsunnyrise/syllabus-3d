@@ -2,15 +2,21 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.5.0';
+const VERSION = 'v2.6.0';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
-// Pre-cache only lightweight essential shell assets for instant boot (media is cached on-demand)
+// Pre-cache essential shell assets for instant boot even completely offline
 const PRECACHE_ASSETS = [
+  '/',
+  '/index.html',
   '/manifest.json',
   '/favicon.png',
-  '/pwa-192x192.png'
+  '/logo.png',
+  '/dashboard_icon_3d.png',
+  '/pwa-192x192.png',
+  '/pwa-512x512.png',
+  '/apple-touch-icon.png'
 ];
 
 // 1. INSTALL EVENT: Pre-cache static assets and skip waiting immediately
