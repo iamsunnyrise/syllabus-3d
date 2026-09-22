@@ -22,7 +22,9 @@ import {
   ChevronRight,
   Flame,
   FileText,
-  AlertTriangle
+  AlertTriangle,
+  Footprints,
+  Headphones
 } from 'lucide-react';
 import { getTodayDateString, formatDateReadable, isDatePastOrToday } from '../../utils/dateUtils';
 import { RevisionRecord, Topic } from '../../types/syllabus';
@@ -30,6 +32,7 @@ import { soundManager } from '../../utils/soundEffects';
 
 interface RevisionViewProps {
   onOpenRevisionSession: () => void;
+  onOpenWalkAndRevise?: () => void;
   onOpenTopicDrawer?: (topic: Topic, subName: string, chName: string) => void;
   onOpenFocus?: (topicId?: string) => void;
   onNavigate?: (view: any) => void;
@@ -49,6 +52,7 @@ const toNaturalCase = (text: string): string => {
 
 export const RevisionView: React.FC<RevisionViewProps> = ({
   onOpenRevisionSession,
+  onOpenWalkAndRevise,
   onOpenTopicDrawer,
   onOpenFocus,
   onNavigate
@@ -270,6 +274,23 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-400'}`} />
               <span>{justSynced ? '✓ Synced Topics!' : 'Live Resync'}</span>
             </button>
+
+            {/* 🚶 Walk & Revise (Hands-Free Audio Revision Mode) */}
+            {onOpenWalkAndRevise && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenWalkAndRevise();
+                }}
+                title="Hands-free continuous audio revision with lock screen & earphone support"
+                className="flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 hover:border-purple-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs"
+              >
+                <Footprints className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                <span>Walk & Revise</span>
+                <Headphones className="w-3 h-3 opacity-70 ml-0.5" />
+              </button>
+            )}
 
             {/* Issue 5: Undisputed primary CTA without uppercase */}
             <button

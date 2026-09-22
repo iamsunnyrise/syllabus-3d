@@ -24,7 +24,9 @@ import {
   BrainCircuit,
   BookMarked,
   ShieldCheck,
-  Award
+  Award,
+  Footprints,
+  Headphones
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
@@ -72,6 +74,8 @@ interface OverviewViewProps {
   onOpenRevisionSession: () => void;
   onOpenAddTopic?: () => void;
   onOpenFocus?: () => void;
+  onOpenWalkAndRevise?: () => void;
+  onOpenBacklogRescue?: () => void;
 }
 
 const toNaturalCase = (text: string): string => {
@@ -93,6 +97,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   onOpenRevisionSession: _onOpenRevisionSession,
   onOpenAddTopic,
   onOpenFocus,
+  onOpenWalkAndRevise,
+  onOpenBacklogRescue,
 }) => {
   const {
     overallStats,
@@ -331,6 +337,32 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     <Target className="w-3.5 h-3.5 text-blue-600" />
                     <span>Full Syllabus</span>
                   </button>
+                  {onOpenWalkAndRevise && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsHeroMenuOpen(false);
+                        onOpenWalkAndRevise();
+                      }}
+                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
+                    >
+                      <Footprints className="w-3.5 h-3.5 text-purple-600" />
+                      <span>Walk & Revise</span>
+                    </button>
+                  )}
+                  {onOpenBacklogRescue && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsHeroMenuOpen(false);
+                        onOpenBacklogRescue();
+                      }}
+                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
+                    >
+                      <Zap className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Backlog Rescue</span>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -392,6 +424,36 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   <CalendarCheck className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
                   <span>Today ({completedTodayTasks.length}/{totalTasksToday})</span>
                 </button>
+
+                {onOpenWalkAndRevise && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onOpenWalkAndRevise();
+                    }}
+                    className="h-11 sm:h-12 px-3.5 sm:px-4 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 hover:border-purple-500/50 font-black text-xs sm:text-[13px] shadow-2xs flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
+                    title="Walk & Revise - Hands-Free Audio Revision Mode"
+                  >
+                    <Footprints className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+                    <span>Walk & Revise</span>
+                  </button>
+                )}
+
+                {onOpenBacklogRescue && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onOpenBacklogRescue();
+                    }}
+                    className="h-11 sm:h-12 px-3.5 sm:px-4 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 font-black text-xs sm:text-[13px] shadow-2xs flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
+                    title="Smart Backlog Rescue - Adaptive Routine Generator"
+                  >
+                    <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse shrink-0" />
+                    <span>Backlog Rescue</span>
+                  </button>
+                )}
               </div>
             </div>
 

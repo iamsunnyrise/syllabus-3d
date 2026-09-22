@@ -52,6 +52,7 @@ import confetti from 'canvas-confetti';
 interface PlannerViewProps {
   onOpenFocusChamber?: (topicId?: string) => void;
   onOpenTopicDrawer?: (topic: Topic, subName: string, chName: string) => void;
+  onOpenBacklogRescue?: () => void;
 }
 
 const formatYMD = (d: Date) => {
@@ -75,7 +76,8 @@ const formatTitleCase = (str: string): string => {
 
 export const PlannerView: React.FC<PlannerViewProps> = ({
   onOpenFocusChamber,
-  onOpenTopicDrawer
+  onOpenTopicDrawer,
+  onOpenBacklogRescue
 }) => {
   const {
     plannerTasks,
@@ -446,6 +448,22 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Add Target</span>
             </button>
+
+            {/* ⚡ Smart Backlog Rescue Button */}
+            {onOpenBacklogRescue && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenBacklogRescue();
+                }}
+                className="flex items-center gap-1.5 py-2 px-3 sm:px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs"
+                title="Smart Backlog Rescue - Adaptive Routine Generator"
+              >
+                <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
+                <span>Backlog Rescue</span>
+              </button>
+            )}
           </div>
         </div>
 

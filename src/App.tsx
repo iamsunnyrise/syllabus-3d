@@ -52,6 +52,8 @@ const FloatingTimerPermissionModal = lazy(() => import('./components/modals/Floa
 const KeyboardShortcutsModal = lazy(() => import('./components/modals/KeyboardShortcutsModal').then(m => ({ default: m.KeyboardShortcutsModal })));
 const ProfileSwitcherModal = lazy(() => import('./components/modals/ProfileSwitcherModal').then(m => ({ default: m.ProfileSwitcherModal })));
 const CreateProfileModal = lazy(() => import('./components/modals/CreateProfileModal').then(m => ({ default: m.CreateProfileModal })));
+const WalkAndReviseModal = lazy(() => import('./components/modals/WalkAndReviseModal').then(m => ({ default: m.WalkAndReviseModal })));
+const SmartBacklogRescueModal = lazy(() => import('./components/modals/SmartBacklogRescueModal').then(m => ({ default: m.SmartBacklogRescueModal })));
 
 const ViewLoadingFallback: React.FC = () => (
   <div className="w-full space-y-5 animate-view-fade select-none pb-12">
@@ -143,6 +145,26 @@ export const App: React.FC = () => {
     setIsAiArchitectOpen(false);
   }, []);
 
+  // 🚶 Walk & Revise Modal State & Handlers
+  const [isWalkAndReviseOpen, setIsWalkAndReviseOpen] = useState(false);
+  const handleOpenWalkAndRevise = useCallback(() => {
+    setIsWalkAndReviseOpen(true);
+    window.history.pushState({ modal: 'walk_and_revise' }, '');
+  }, []);
+  const handleCloseWalkAndRevise = useCallback(() => {
+    setIsWalkAndReviseOpen(false);
+  }, []);
+
+  // ⚡ Smart Backlog Rescue Modal State & Handlers
+  const [isBacklogRescueOpen, setIsBacklogRescueOpen] = useState(false);
+  const handleOpenBacklogRescue = useCallback(() => {
+    setIsBacklogRescueOpen(true);
+    window.history.pushState({ modal: 'backlog_rescue' }, '');
+  }, []);
+  const handleCloseBacklogRescue = useCallback(() => {
+    setIsBacklogRescueOpen(false);
+  }, []);
+
   const showShortcutToast = useCallback((msg: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     setShortcutToast(msg);
@@ -223,6 +245,14 @@ export const App: React.FC = () => {
       setIsRevisionSessionOpen(false);
       return;
     }
+    if (isWalkAndReviseOpen) {
+      setIsWalkAndReviseOpen(false);
+      return;
+    }
+    if (isBacklogRescueOpen) {
+      setIsBacklogRescueOpen(false);
+      return;
+    }
     if (isProfileSwitcherOpen) {
       setIsProfileSwitcherOpen(false);
       return;
@@ -259,6 +289,8 @@ export const App: React.FC = () => {
     isAiArchitectOpen,
     isAddTopicOpen,
     isRevisionSessionOpen,
+    isWalkAndReviseOpen,
+    isBacklogRescueOpen,
     isFullModalOpen,
     currentView,
     viewHistory,
@@ -287,6 +319,14 @@ export const App: React.FC = () => {
       }
       if (isRevisionSessionOpen) {
         setIsRevisionSessionOpen(false);
+        return;
+      }
+      if (isWalkAndReviseOpen) {
+        setIsWalkAndReviseOpen(false);
+        return;
+      }
+      if (isBacklogRescueOpen) {
+        setIsBacklogRescueOpen(false);
         return;
       }
       if (isFullModalOpen) {
@@ -318,6 +358,8 @@ export const App: React.FC = () => {
     isAiArchitectOpen,
     isAddTopicOpen,
     isRevisionSessionOpen,
+    isWalkAndReviseOpen,
+    isBacklogRescueOpen,
     isFullModalOpen,
     currentView,
     viewHistory,
@@ -394,6 +436,14 @@ export const App: React.FC = () => {
         }
         if (isRevisionSessionOpen) {
           setIsRevisionSessionOpen(false);
+          return;
+        }
+        if (isWalkAndReviseOpen) {
+          setIsWalkAndReviseOpen(false);
+          return;
+        }
+        if (isBacklogRescueOpen) {
+          setIsBacklogRescueOpen(false);
           return;
         }
         if (isFullModalOpen) {
@@ -834,6 +884,8 @@ export const App: React.FC = () => {
                   }}
                   onOpenAddTopic={() => handleOpenAddTopic()}
                   onOpenFocus={() => handleLaunchFocus(undefined)}
+                  onOpenWalkAndRevise={handleOpenWalkAndRevise}
+                  onOpenBacklogRescue={handleOpenBacklogRescue}
                 />
               </ViewErrorBoundary>
             )}
@@ -845,6 +897,7 @@ export const App: React.FC = () => {
                   <PlannerView
                     onOpenFocusChamber={handleLaunchFocus}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
+                    onOpenBacklogRescue={handleOpenBacklogRescue}
                   />
                 </ViewErrorBoundary>
               )}
@@ -888,6 +941,7 @@ export const App: React.FC = () => {
                       setIsRevisionSessionOpen(true);
                       window.history.pushState({ modal: 'revision' }, '');
                     }}
+                    onOpenWalkAndRevise={handleOpenWalkAndRevise}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
                     onOpenFocus={handleLaunchFocus}
                     onNavigate={handleNavigate}
@@ -1037,6 +1091,28 @@ export const App: React.FC = () => {
               isOpen={isRevisionSessionOpen}
               onClose={() => setIsRevisionSessionOpen(false)}
               onOpenTopic={handleOpenTopicDrawer}
+            />
+          </ViewErrorBoundary>
+        )}
+
+        {isWalkAndReviseOpen && (
+          <ViewErrorBoundary sectionName="Walk & Revise Audio Player" onReset={handleCloseWalkAndRevise}>
+            <WalkAndReviseModal
+              isOpen={isWalkAndReviseOpen}
+              onClose={handleCloseWalkAndRevise}
+            />
+          </ViewErrorBoundary>
+        )}
+
+        {isBacklogRescueOpen && (
+          <ViewErrorBoundary sectionName="Smart Backlog Rescue Modal" onReset={handleCloseBacklogRescue}>
+            <SmartBacklogRescueModal
+              isOpen={isBacklogRescueOpen}
+              onClose={handleCloseBacklogRescue}
+              onNavigateToPlanner={() => {
+                handleCloseBacklogRescue();
+                handleNavigate('planner');
+              }}
             />
           </ViewErrorBoundary>
         )}
