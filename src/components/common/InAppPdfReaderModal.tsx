@@ -22,6 +22,7 @@ import {
   PenTool,
   Eraser,
   RotateCcw,
+  RotateCw,
   Trash2,
   Sparkles,
   Palette,
@@ -99,6 +100,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.0);
   const [fitMode, setFitMode] = useState<PdfFitMode>('fit-width');
+  const [rotation, setRotation] = useState<number>(0);
+  const [isAutoRotate, setIsAutoRotate] = useState<boolean>(true);
   const [showZoomDropdown, setShowZoomDropdown] = useState<boolean>(false);
   const [pdfColorTheme, setPdfColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
   const [showThemeDropdown, setShowThemeDropdown] = useState<boolean>(false);
@@ -323,6 +326,12 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             if (next) setIsHighlightMode(false);
             return next;
           });
+        }
+      } else if (e.key === 'r' || e.key === 'R') {
+        // Rotate PDF 90 degrees clockwise
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          soundManager.playClick();
+          setRotation(r => (r + 90) % 360);
         }
       } else if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z')) {
         // Undo last highlight
@@ -768,6 +777,39 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               )}
             </div>
 
+            {/* ROTATE 90° CLOCKWISE */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setRotation(r => (r + 90) % 360);
+              }}
+              className="flex items-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border border-[#292E42] transition-colors cursor-pointer active:scale-95 shadow-sm"
+              title={`Rotate 90° clockwise (Shortcut: R)${rotation > 0 ? ` - Current: ${rotation}°` : ''}`}
+            >
+              <RotateCw className="w-3.5 h-3.5" />
+              {rotation > 0 && (
+                <span className="text-[10px] font-mono font-bold text-[#7AA2F7]">{rotation}°</span>
+              )}
+            </button>
+
+            {/* AUTO-ROTATE TO MATCH PHONE ORIENTATION */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setIsAutoRotate(prev => !prev);
+              }}
+              className={`hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 ${
+                isAutoRotate
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)] font-black'
+                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+              }`}
+              title={isAutoRotate ? 'Auto-Rotate ON: Automatically matches PDF orientation to device tilt' : 'Auto-Rotate OFF: Manual orientation'}
+            >
+              <span className="text-[11px] font-mono">Auto</span>
+            </button>
+
             {/* EYE-CARE / NIGHT READING THEMES */}
             <div className="relative flex items-center">
               <button
@@ -1152,6 +1194,37 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             </button>
           </div>
 
+          {/* Rotate 90° Clockwise in Fullscreen HUD */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setRotation(r => (r + 90) % 360);
+            }}
+            className="flex items-center gap-1 p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white cursor-pointer active:scale-95"
+            title={`Rotate 90° (Shortcut: R)${rotation > 0 ? ` (${rotation}°)` : ''}`}
+          >
+            <RotateCw className="w-3 h-3" />
+            {rotation > 0 && (
+              <span className="text-[10px] font-mono font-bold text-[#7AA2F7]">{rotation}°</span>
+            )}
+          </button>
+
+          {/* Auto-Rotate Toggle in Fullscreen HUD */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsAutoRotate(prev => !prev);
+            }}
+            className={`hidden sm:flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
+              isAutoRotate ? 'bg-emerald-500/30 text-emerald-300 font-bold' : 'bg-white/10 text-white/70 hover:text-white'
+            }`}
+            title={isAutoRotate ? 'Auto-Rotate ON' : 'Auto-Rotate OFF'}
+          >
+            Auto
+          </button>
+
           {/* Eye-Care Night Mode Quick Toggle in Fullscreen HUD */}
           <button
             type="button"
@@ -1291,6 +1364,10 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               onScaleChange={setScale}
               fitMode={fitMode}
               onFitModeChange={setFitMode}
+              rotation={rotation}
+              onRotationChange={setRotation}
+              isAutoRotate={isAutoRotate}
+              onAutoRotateChange={setIsAutoRotate}
               onLoadSuccess={handleLoadSuccess}
               onPageChange={handlePageChange}
               colorTheme={pdfColorTheme}
@@ -1566,7 +1643,105 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
         </div>
       )}
 
-      {/* 5. FLOATING QUICK-BACK PILL FOR MOBILE (HIDDEN IN FULLSCREEN) */}
+      {/* 5. MOBILE FLOATING QUICK ZOOM & ORIENTATION DOCK */}
+      <div className="sm:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#16161E]/95 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.65)] text-white select-none">
+        {/* Zoom Out */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setFitMode('custom');
+            setScale(s => Math.max(s - 0.2, 0.4));
+          }}
+          className="p-1.5 rounded-full hover:bg-white/10 active:scale-90 text-[#A9B1D6]"
+          title="Zoom Out (-)"
+        >
+          <ZoomOut className="w-3.5 h-3.5" />
+        </button>
+
+        {/* Scale Indicator / Reset to 100% */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            if (scale !== 1.0 || fitMode !== 'fit-width') {
+              setScale(1.0);
+              setFitMode('fit-width');
+            } else {
+              setScale(1.6);
+              setFitMode('custom');
+            }
+          }}
+          className="px-2 py-0.5 rounded-md bg-white/10 text-[11px] font-mono font-bold text-[#7AA2F7] active:scale-95"
+          title="Tap to Reset Zoom (100% Fit Width)"
+        >
+          {Math.round(scale * 100)}%
+        </button>
+
+        {/* Zoom In */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setFitMode('custom');
+            setScale(s => Math.min(s + 0.2, 3.5));
+          }}
+          className="p-1.5 rounded-full hover:bg-white/10 active:scale-90 text-[#A9B1D6]"
+          title="Zoom In (+)"
+        >
+          <ZoomIn className="w-3.5 h-3.5" />
+        </button>
+
+        <div className="w-[1px] h-3.5 bg-white/20 mx-0.5" />
+
+        {/* Fit Mode Toggle */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setFitMode(prev => (prev === 'fit-page' ? 'fit-width' : 'fit-page'));
+          }}
+          className={`p-1.5 rounded-full transition-all active:scale-90 ${
+            fitMode === 'fit-page' ? 'bg-[#7AA2F7] text-[#16161E]' : 'text-[#A9B1D6] hover:bg-white/10'
+          }`}
+          title={fitMode === 'fit-page' ? 'Fit Page' : 'Fit Width'}
+        >
+          {fitMode === 'fit-page' ? <Shrink className="w-3.5 h-3.5" /> : <Expand className="w-3.5 h-3.5" />}
+        </button>
+
+        {/* Rotate 90° Clockwise */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setRotation(r => (r + 90) % 360);
+          }}
+          className="p-1.5 rounded-full hover:bg-white/10 active:scale-90 text-[#A9B1D6] flex items-center gap-0.5"
+          title="Rotate 90°"
+        >
+          <RotateCw className="w-3.5 h-3.5" />
+          {rotation > 0 && <span className="text-[10px] font-mono font-bold text-[#7AA2F7]">{rotation}°</span>}
+        </button>
+
+        {/* Auto-Rotate Toggle */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setIsAutoRotate(prev => !prev);
+          }}
+          className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-all active:scale-90 flex items-center gap-1 ${
+            isAutoRotate
+              ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40'
+              : 'text-[#A9B1D6] hover:bg-white/10'
+          }`}
+          title={isAutoRotate ? 'Auto-Rotate ON (matches device tilt)' : 'Auto-Rotate OFF'}
+        >
+          <span>Auto</span>
+        </button>
+      </div>
+
+      {/* 6. FLOATING QUICK-BACK PILL FOR MOBILE (HIDDEN IN FULLSCREEN) */}
       {!isFullscreen && (
         <button
           type="button"
@@ -1574,11 +1749,11 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             soundManager.playClick();
             onClose();
           }}
-          className="fixed bottom-6 right-6 sm:hidden px-4 py-2.5 rounded-full bg-[#7AA2F7] hover:bg-[#6090F5] text-[#1A1B26] text-xs font-bold shadow-2xl flex items-center gap-1.5 z-50 active:scale-95 cursor-pointer border border-white/20"
+          className="fixed bottom-16 right-4 sm:hidden px-3.5 py-2 rounded-full bg-[#7AA2F7] hover:bg-[#6090F5] text-[#1A1B26] text-xs font-bold shadow-2xl flex items-center gap-1.5 z-40 active:scale-95 cursor-pointer border border-white/20"
           title="Back to Topic"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Topic</span>
+          <span>Back</span>
         </button>
       )}
     </div>,

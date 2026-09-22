@@ -66,6 +66,10 @@ interface PdfCanvasViewerProps {
   onScaleChange?: (newScale: number) => void;
   fitMode?: PdfFitMode;
   onFitModeChange?: (mode: PdfFitMode) => void;
+  rotation?: number;
+  onRotationChange?: (newRotation: number) => void;
+  isAutoRotate?: boolean;
+  onAutoRotateChange?: (autoRotate: boolean) => void;
   // Highlighter props
   isHighlightMode?: boolean;
   highlightColor?: HighlightColor;
@@ -98,6 +102,10 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   onScaleChange,
   fitMode = 'fit-width',
   onFitModeChange,
+  rotation: propRotation,
+  onRotationChange,
+  isAutoRotate: propIsAutoRotate,
+  onAutoRotateChange,
   isHighlightMode = false,
   highlightColor = 'yellow',
   highlightTool = 'area',
@@ -123,18 +131,55 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   const [numPages, setNumPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [internalScale, setInternalScale] = useState<number>(1.0);
-  const [rotation, setRotation] = useState<number>(0);
+  const [internalRotation, setInternalRotation] = useState<number>(0);
+  const [internalAutoRotate, setInternalAutoRotate] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>(() => typeof window !== 'undefined' ? window.innerWidth : 800);
   const [containerHeight, setContainerHeight] = useState<number>(() => typeof window !== 'undefined' ? window.innerHeight : 600);
   const [defaultAspect, setDefaultAspect] = useState<number>(1.414); // Standard A4 ratio fallback
 
+  // Controlled or uncontrolled rotation & auto-rotate
+  const rotation = propRotation !== undefined ? propRotation : internalRotation;
+  const isAutoRotate = propIsAutoRotate !== undefined ? propIsAutoRotate : internalAutoRotate;
+
+  const setRotation = (newRot: number | ((prev: number) => number)) => {
+    const nextVal = typeof newRot === 'function' ? newRot(rotation) : newRot;
+    const normalized = ((nextVal % 360) + 360) % 360;
+    if (onRotationChange) {
+      onRotationChange(normalized);
+    } else {
+      setInternalRotation(normalized);
+    }
+  };
+
+  const setIsAutoRotate = (val: boolean | ((prev: boolean) => boolean)) => {
+    const nextVal = typeof val === 'function' ? val(isAutoRotate) : val;
+    if (onAutoRotateChange) {
+      onAutoRotateChange(nextVal);
+    } else {
+      setInternalAutoRotate(nextVal);
+    }
+  };
+
   // Scroll tracking and debounced parent page notification
   const scrollRafRef = useRef<number | null>(null);
   const pageChangeTimeoutRef = useRef<any>(null);
   const lastScrollTopRef = useRef<number>(0);
   const isInitialLoadRef = useRef<boolean>(true);
+
+  // Touch Pinch-to-zoom & double tap state
+  const touchPinchRef = useRef<{
+    startDist: number;
+    startScale: number;
+    isPinching: boolean;
+  }>({
+    startDist: 0,
+    startScale: 1.0,
+    isPinching: false
+  });
+  const lastTapRef = useRef<{ time: number; x: number; y: number }>({ time: 0, x: 0, y: 0 });
+  const pinchRafRef = useRef<number | null>(null);
 
   const scale = propScale !== undefined ? propScale : internalScale;
   const setScale = (newScale: number | ((prev: number) => number)) => {
@@ -148,6 +193,131 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
       setInternalScale(newScale);
     }
   };
+
+  // Auto-rotate logic based on mobile orientation & PDF page aspect ratio
+  useEffect(() => {
+    if (!isAutoRotate || !pdfDoc) return;
+
+    const isLandscapeDevice = containerWidth > containerHeight;
+    const isLandscapePage = defaultAspect < 0.95; // Page is wider than tall (slides/tables)
+
+    if (isLandscapeDevice && isLandscapePage) {
+      // Landscape slides on landscape device -> standard upright 0°
+      if (rotation !== 0) setRotation(0);
+    } else if (!isLandscapeDevice && isLandscapePage) {
+      // Landscape slides on portrait phone -> auto-rotate 90° so it fills screen vertically!
+      if (rotation !== 90) setRotation(90);
+    } else if (!isLandscapeDevice && !isLandscapePage) {
+      // Portrait page on portrait phone -> standard upright 0°
+      if (rotation !== 0) setRotation(0);
+    }
+  }, [isAutoRotate, containerWidth, containerHeight, defaultAspect, pdfDoc]);
+
+  // Screen orientation change listener for fast, seamless adaptation
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      if (!containerRef.current) return;
+      const measuredW = containerRef.current.clientWidth || window.innerWidth;
+      const measuredH = containerRef.current.clientHeight || window.innerHeight;
+      setContainerWidth(measuredW);
+      setContainerHeight(measuredH);
+    };
+
+    window.addEventListener('orientationchange', handleOrientationChange);
+    if (typeof window !== 'undefined' && window.screen?.orientation) {
+      window.screen.orientation.addEventListener('change', handleOrientationChange);
+    }
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
+      if (typeof window !== 'undefined' && window.screen?.orientation) {
+        window.screen.orientation.removeEventListener('change', handleOrientationChange);
+      }
+    };
+  }, []);
+
+  // Pinch-to-zoom and double-tap touch event handlers on container
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        // Multi-touch pinch start
+        const t1 = e.touches[0];
+        const t2 = e.touches[1];
+        const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+        touchPinchRef.current = {
+          startDist: dist,
+          startScale: scale,
+          isPinching: true
+        };
+        if (e.cancelable) e.preventDefault();
+      } else if (e.touches.length === 1 && !isHighlightMode && !isCommentMode) {
+        // Double-tap zoom toggle
+        const now = Date.now();
+        const t = e.touches[0];
+        const timeDiff = now - lastTapRef.current.time;
+        const distDiff = Math.hypot(t.clientX - lastTapRef.current.x, t.clientY - lastTapRef.current.y);
+
+        if (timeDiff > 50 && timeDiff < 320 && distDiff < 40) {
+          if (e.cancelable) e.preventDefault();
+          soundManager.playClick();
+          if (scale > 1.25) {
+            // Reset to 1.0 fit width
+            setScale(1.0);
+            if (onFitModeChange) onFitModeChange('fit-width');
+          } else {
+            // Zoom into 1.8x
+            setScale(1.8);
+            if (onFitModeChange) onFitModeChange('custom');
+          }
+          lastTapRef.current = { time: 0, x: 0, y: 0 };
+        } else {
+          lastTapRef.current = { time: now, x: t.clientX, y: t.clientY };
+        }
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2 && touchPinchRef.current.isPinching) {
+        if (e.cancelable) e.preventDefault();
+        const t1 = e.touches[0];
+        const t2 = e.touches[1];
+        const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+        const ratio = dist / (touchPinchRef.current.startDist || 1);
+        const newScale = Math.min(Math.max(touchPinchRef.current.startScale * ratio, 0.4), 4.0);
+
+        if (pinchRafRef.current) cancelAnimationFrame(pinchRafRef.current);
+        pinchRafRef.current = requestAnimationFrame(() => {
+          setScale(Math.round(newScale * 100) / 100);
+          if (fitMode !== 'custom' && onFitModeChange) {
+            onFitModeChange('custom');
+          }
+        });
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (touchPinchRef.current.isPinching && e.touches.length < 2) {
+        touchPinchRef.current.isPinching = false;
+        soundManager.playClick();
+      }
+    };
+
+    container.addEventListener('touchstart', onTouchStart, { passive: false });
+    container.addEventListener('touchmove', onTouchMove, { passive: false });
+    container.addEventListener('touchend', onTouchEnd);
+    container.addEventListener('touchcancel', onTouchEnd);
+
+    return () => {
+      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchmove', onTouchMove);
+      container.removeEventListener('touchend', onTouchEnd);
+      container.removeEventListener('touchcancel', onTouchEnd);
+      if (pinchRafRef.current) cancelAnimationFrame(pinchRafRef.current);
+    };
+  }, [scale, fitMode, isHighlightMode, isCommentMode, onFitModeChange]);
 
   // Debounced ResizeObserver to avoid canvas destruction when vertical scrollbar appears/disappears
   useEffect(() => {
@@ -440,7 +610,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         )}
 
         {!isLoading && !error && numPages > 0 && (
-          <div className={`w-full mx-auto flex flex-col items-center ${
+          <div className={`w-full mx-auto flex flex-col items-center ${scale > 1.05 ? 'min-w-max' : ''} ${
             fitMode === 'fit-page' ? 'max-w-5xl' : 'max-w-none w-full'
           }`}>
             {Array.from({ length: numPages }, (_, idx) => idx + 1).map((pageNum, idx) => (
@@ -792,13 +962,14 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
     <div
       ref={wrapperRef}
       data-page-number={pageNum}
-      className={`relative flex justify-center items-center shadow-lg overflow-hidden transition-colors duration-200 ${
+      className={`relative flex justify-center items-center shadow-lg ${scale > 1.05 ? 'overflow-visible' : 'overflow-hidden'} transition-colors duration-200 ${
         fitMode === 'fit-page' ? 'rounded-lg border' : 'w-full'
       }`}
       style={{
         minHeight: `${finalItemHeight}px`,
         height: `${finalItemHeight}px`,
-        width: fitMode === 'fit-page' ? 'auto' : '100%',
+        width: fitMode === 'fit-page' ? 'auto' : (renderedWidth > containerWidth ? `${renderedWidth}px` : '100%'),
+        minWidth: renderedWidth > containerWidth ? `${renderedWidth}px` : (fitMode === 'fit-page' ? 'auto' : '100%'),
         backgroundColor: themeConfig.pageBgColor,
         borderColor: themeConfig.pageBorderColor,
         contain: 'layout'
@@ -815,7 +986,7 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
 
       {/* Page Canvas Container with Synchronized Highlight Layer */}
       <div
-        className="relative mx-auto max-w-full"
+        className={`relative mx-auto ${scale > 1.05 ? 'max-w-none' : 'max-w-full'}`}
         onClick={handlePageClick}
         style={{
           width: renderedWidth > 0 ? `${renderedWidth}px` : (fitMode === 'fit-page' ? 'auto' : '100%'),
@@ -824,7 +995,7 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
       >
         <canvas
           ref={canvasRef}
-          className="block max-w-full transition-[filter] duration-200"
+          className={`block ${scale > 1.05 ? 'max-w-none' : 'max-w-full'} transition-[filter] duration-200`}
           style={{
             filter: themeConfig.canvasFilter
           }}
