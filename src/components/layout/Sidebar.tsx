@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -19,7 +19,10 @@ import {
   Sparkles,
   ArrowRight,
   Video,
-  Trophy
+  Trophy,
+  ChevronDown,
+  Search,
+  X
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -42,6 +45,21 @@ export type AppView =
   | 'youtube-notes'
   | 'mock-tracker'
   | 'landing';
+
+interface NavItem {
+  id: AppView;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isDashboard?: boolean;
+  badge: React.ReactNode;
+  badgeColor: string;
+  shortcut?: string;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
 
 interface SidebarProps {
   activeView: AppView;
@@ -84,7 +102,55 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const platformsSafe = Array.isArray(platforms) ? platforms : [];
   const overallStatsSafe = overallStats || { completionPercentage: 0 };
 
-  const navSections = [
+  // 🧭 Raycast-style Nav Search & Collapsible Groups State
+  const [navQuery, setNavQuery] = useState('');
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
+
+  const toggleSection = (title: string) => {
+    soundManager.playClick();
+    haptics.selection();
+    setCollapsedSections(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
+
+  // ⌨️ Power-User Keyboard Shortcuts (Alt+1 through Alt+6)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target?.tagName === 'INPUT' ||
+        target?.tagName === 'TEXTAREA' ||
+        target?.isContentEditable
+      ) {
+        return;
+      }
+
+      if (e.altKey && ['1', '2', '3', '4', '5', '6'].includes(e.key)) {
+        e.preventDefault();
+        const shortcutMap: Record<string, AppView> = {
+          '1': 'overview',
+          '2': 'syllabus',
+          '3': 'planner',
+          '4': 'pacing',
+          '5': 'youtube-notes',
+          '6': 'mock-tracker'
+        };
+        const dest = shortcutMap[e.key];
+        if (dest) {
+          soundManager.playClick();
+          haptics.light();
+          onSelectView(dest);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onSelectView]);
+
+  const navSections: NavSection[] = [
     {
       title: 'CORE MODULES',
       items: [
@@ -94,42 +160,48 @@ export const Sidebar: React.FC<SidebarProps> = ({
           icon: LayoutDashboard,
           isDashboard: true,
           badge: null,
-          badgeColor: ''
+          badgeColor: '',
+          shortcut: '1'
         },
         {
           id: 'syllabus' as AppView,
           label: 'Syllabus Explorer',
           icon: BookOpen,
           badge: null,
-          badgeColor: ''
+          badgeColor: '',
+          shortcut: '2'
         },
         {
           id: 'planner' as AppView,
           label: 'Study Planner',
           icon: CalendarCheck,
           badge: plannerTasksSafe.filter(t => t.status === 'today').length || null,
-          badgeColor: 'bg-[#2563EB] text-white shadow-[0_0_8px_rgba(37,99,235,0.4)]'
+          badgeColor: 'bg-[#2563EB] text-white shadow-[0_0_8px_rgba(37,99,235,0.4)]',
+          shortcut: '3'
         },
         {
           id: 'pacing' as AppView,
           label: 'Target Pacing',
           icon: Clock,
           badge: 'Live',
-          badgeColor: 'bg-emerald-500/15 dark:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+          badgeColor: 'bg-emerald-500/15 dark:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+          shortcut: '4'
         },
         {
           id: 'youtube-notes' as AppView,
           label: 'AI YouTube Notes',
           icon: Video,
           badge: 'AI',
-          badgeColor: 'bg-purple-500/15 dark:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30'
+          badgeColor: 'bg-purple-500/15 dark:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30',
+          shortcut: '5'
         },
         {
           id: 'mock-tracker' as AppView,
           label: 'Mock Test Tracker',
           icon: Trophy,
           badge: '3D Pro',
-          badgeColor: 'bg-gradient-to-r from-[#00d2ff] to-[#7c3aed] text-white shadow-glow-cyan'
+          badgeColor: 'bg-gradient-to-r from-[#00d2ff] to-[#7c3aed] text-white shadow-glow-cyan',
+          shortcut: '6'
         }
       ]
     },
@@ -186,6 +258,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ]
     }
   ];
+
+  // 🔍 Real-Time Raycast Navigation Filter
+  const filteredSections = useMemo(() => {
+    const query = navQuery.trim().toLowerCase();
+    if (!query) return navSections;
+
+    return navSections
+      .map(section => ({
+        ...section,
+        items: section.items.filter(
+          item =>
+            item.label.toLowerCase().includes(query) ||
+            item.id.toLowerCase().includes(query)
+        )
+      }))
+      .filter(section => section.items.length > 0);
+  }, [navSections, navQuery]);
 
   return (
     <aside
@@ -290,76 +379,141 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* Categorized Navigation List (Tradewise Pro Aesthetic) */}
+        {/* Raycast-Style Quick Filter Bar */}
+        <div className="relative pt-0.5">
+          <div className="relative flex items-center">
+            <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
+            <input
+              type="text"
+              value={navQuery}
+              onChange={e => setNavQuery(e.target.value)}
+              placeholder="Filter views... (Alt+1..6)"
+              className="w-full h-7.5 pl-8 pr-7 rounded-lg text-xs bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50 dark:focus:border-purple-400/50 focus:ring-1 focus:ring-purple-500/30 transition-all font-medium"
+            />
+            {navQuery && (
+              <button
+                type="button"
+                onClick={() => setNavQuery('')}
+                className="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-0.5"
+                title="Clear filter"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Categorized Navigation List (Raycast / Linear Pro Aesthetic) */}
         <div className="space-y-2 pt-1 border-t border-slate-200/80 dark:border-white/[0.08]">
-          {navSections.map(section => (
-            <div key={section.title} className="space-y-0.5">
-              <div className="px-2 pt-0.5 pb-0.5 text-[10px] font-extrabold tracking-wider text-slate-400 dark:text-slate-400 uppercase">
-                {section.title}
-              </div>
-              <nav className="space-y-0.5">
-                {section.items.map(item => {
-                  const Icon = item.icon;
-                  const isActive = activeView === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        onSelectView(item.id);
-                      }}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
-                        isActive
-                          ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
-                      }`}
-                    >
-                      {/* Active Left Indicator Bar */}
-                      {isActive && (
-                        <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-gradient-to-b from-purple-500 to-indigo-600 dark:from-purple-400 dark:to-cyan-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
-                      )}
-
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        {item.isDashboard ? (
-                          <img
-                            src="/dashboard_icon_3d.png"
-                            alt="Dashboard"
-                            className={`w-4 h-4 object-contain shrink-0 transition-transform ${
-                              isActive ? 'scale-110 drop-shadow-sm' : 'opacity-80 group-hover:scale-110'
-                            }`}
-                          />
-                        ) : (
-                          <Icon
-                            className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
-                                isActive
-                                  ? 'text-purple-600 dark:text-purple-400'
-                                  : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
-                            }`}
-                          />
-                        )}
-                        <span className="truncate text-[13px] font-bold mr-2">{item.label}</span>
-                      </div>
-
-                      {/* Badge / Pill */}
-                      {item.badge !== null && (
-                        <span
-                          className={`ml-auto px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
-                            isActive
-                              ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
-                              : item.badgeColor
-                          }`}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
+          {filteredSections.length === 0 ? (
+            <div className="py-4 text-center">
+              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">No matching views</p>
+              <button
+                type="button"
+                onClick={() => setNavQuery('')}
+                className="text-[11px] text-purple-600 dark:text-purple-400 font-bold mt-1 hover:underline cursor-pointer"
+              >
+                Clear filter
+              </button>
             </div>
-          ))}
+          ) : (
+            filteredSections.map(section => {
+              const isCollapsedSection = Boolean(collapsedSections[section.title]);
+              return (
+                <div key={section.title} className="space-y-0.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleSection(section.title)}
+                    className="w-full flex items-center justify-between px-2 pt-1 pb-0.5 text-[10px] font-mono font-extrabold tracking-wider text-slate-400 dark:text-slate-400 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>{section.title}</span>
+                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-200/70 dark:bg-white/[0.08] text-slate-600 dark:text-slate-300">
+                        {section.items.length}
+                      </span>
+                    </div>
+                    <ChevronDown
+                      className={`w-3 h-3 text-slate-400 group-hover/sec:text-slate-600 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
+                        isCollapsedSection ? '-rotate-90' : 'rotate-0'
+                      }`}
+                    />
+                  </button>
+
+                  {!isCollapsedSection && (
+                    <nav className="space-y-0.5 animate-fade-in">
+                      {section.items.map(item => {
+                        const Icon = item.icon;
+                        const isActive = activeView === item.id;
+                        return (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              onSelectView(item.id);
+                            }}
+                            aria-current={isActive ? 'page' : undefined}
+                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
+                              isActive
+                                ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
+                                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
+                            }`}
+                          >
+                            {/* Active Left Indicator Bar */}
+                            {isActive && (
+                              <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-gradient-to-b from-purple-500 to-indigo-600 dark:from-purple-400 dark:to-cyan-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
+                            )}
+
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              {item.isDashboard ? (
+                                <img
+                                  src="/dashboard_icon_3d.png"
+                                  alt="Dashboard"
+                                  className={`w-4 h-4 object-contain shrink-0 transition-transform ${
+                                    isActive ? 'scale-110 drop-shadow-sm' : 'opacity-80 group-hover:scale-110'
+                                  }`}
+                                />
+                              ) : (
+                                <Icon
+                                  className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
+                                      isActive
+                                        ? 'text-purple-600 dark:text-purple-400'
+                                        : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
+                                  }`}
+                                />
+                              )}
+                              <span className="truncate text-[13px] font-bold mr-2">{item.label}</span>
+                            </div>
+
+                            {/* Badge / Pill / Keyboard Hint */}
+                            <div className="flex items-center gap-1.5 ml-auto shrink-0">
+                              {item.badge !== null && (
+                                <span
+                                  className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
+                                    isActive
+                                      ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
+                                      : item.badgeColor
+                                  }`}
+                                >
+                                  {item.badge}
+                                </span>
+                              )}
+
+                              {item.shortcut && !item.badge && (
+                                <kbd className="opacity-0 group-hover:opacity-100 text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded bg-slate-200/70 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 transition-opacity border border-slate-300/40 dark:border-white/[0.06] shadow-2xs">
+                                  ⌥{item.shortcut}
+                                </kbd>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </nav>
+                  )}
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
 

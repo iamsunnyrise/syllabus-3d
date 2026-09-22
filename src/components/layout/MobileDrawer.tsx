@@ -231,12 +231,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           transform: drawerDragX < 0 ? `translateX(${drawerDragX}px)` : undefined,
           transition: drawerDragX === 0 ? 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none'
         }}
-        className="relative w-[88%] max-w-[335px] bg-white dark:bg-[#1E293B] border-r border-[#DDD6FE] dark:border-[#334155] flex flex-col justify-between z-10 shadow-[0_0_60px_rgba(0,0,0,0.6)] animate-slide-right overflow-y-auto custom-scrollbar"
+        className="relative w-[88%] max-w-[335px] bg-white dark:bg-[#0E101B] border-r border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between z-10 shadow-[0_0_60px_rgba(0,0,0,0.6)] animate-slide-right overflow-y-auto custom-scrollbar"
       >
         <div className="p-4 sm:p-5 space-y-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pl-[max(1rem,env(safe-area-inset-left,0px))]">
           
           {/* 1. BRANDING & EXAM TARGET HEADER */}
-          <div className="flex items-center justify-between pb-3.5 border-b border-[#DDD6FE] dark:border-[#334155]">
+          <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/[0.08]">
             <div className="flex items-center gap-3 min-w-0">
               {/* 3D App Icon Badge */}
               <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center shrink-0">
@@ -264,7 +264,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 haptics.light();
                 onClose();
               }}
-              className="w-8 h-8 rounded-xl text-[#85877E] hover:text-[#11120F] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-transparent hover:border-[#E2E8F0] dark:hover:border-[#2E3048] flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
+              className="w-8 h-8 rounded-xl text-[#85877E] hover:text-[#11120F] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200/80 dark:hover:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
               title="Close Navigation Drawer"
             >
               <X className="w-4 h-4" />
@@ -272,7 +272,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </div>
 
           {/* 1.5 ACTIVE PROFILE CARD & SWITCHER */}
-          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200/80 dark:border-[#334155] flex items-center justify-between gap-2.5 shadow-2xs">
+          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between gap-2.5 shadow-2xs">
             <div className="flex items-center gap-2.5 min-w-0">
               <div
                 className={`w-9 h-9 rounded-xl bg-gradient-to-tr ${
@@ -304,7 +304,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                   onOpenProfileSwitcher();
                 }}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#1E293B] text-[#7C3AED] dark:text-[#A78BFA] border border-[#DDD6FE] dark:border-[#334155] text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition-colors cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#191C2C] text-[#7C3AED] dark:text-[#A78BFA] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-bold shadow-2xs hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0 active:scale-95"
               >
                 <Users className="w-3 h-3" />
                 <span>Switch</span>
@@ -353,7 +353,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                   onOpenFocus();
                 }}
-                className="py-2.5 px-3 rounded-2xl bg-[#F8FAFC] dark:bg-[#161724] hover:bg-[#F1F5F9] dark:hover:bg-[#1C1E2F] text-[#11120F] dark:text-[#F5F5F7] font-black text-xs flex items-center justify-center gap-1.5 shadow-xs border border-[#E2E8F0] dark:border-[#26283D] active:scale-95 transition-all cursor-pointer tap-bounce"
+                className="py-2.5 px-3 rounded-2xl bg-slate-50 dark:bg-[#131522] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs border border-slate-200/80 dark:border-white/[0.08] active:scale-95 transition-all cursor-pointer tap-bounce"
               >
                 <Timer className="w-4 h-4 text-[#C49A3A]" />
                 <span>Focus Mode</span>
@@ -370,7 +370,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   <h5 className="text-[10px] font-mono font-extrabold tracking-widest text-[#85877E] dark:text-[#787A91] uppercase">
                     {sec.title}
                   </h5>
-                  <div className="flex-1 h-[1px] bg-[#EEEEE8] dark:bg-[#1F2133]" />
+                  <div className="flex-1 h-[1px] bg-slate-200/80 dark:bg-white/[0.08]" />
                 </div>
 
                 <div className="space-y-1">
@@ -389,8 +389,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                         aria-current={isActive ? 'page' : undefined}
                         className={`w-full min-h-[42px] flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all active:scale-[0.98] cursor-pointer group tap-bounce ${
                           isActive
-                            ? 'bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#2563EB] dark:text-[#7AA2F7] font-black border border-[#BFDBFE] dark:border-[#7AA2F7]/40 shadow-xs'
-                            : 'text-[#45474E] dark:text-[#C2C5D6] hover:bg-black/5 dark:hover:bg-white/5 border border-transparent hover:border-[#E2E8F0]/60 dark:hover:border-[#26283D]'
+                            ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-1.5">
@@ -442,7 +442,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
         {/* 5.5. INSTALL APP ON PHONE (PWA) */}
         {!isInstalled && (
-          <div className="px-3 py-2 border-t border-[#E2E8F0]/80 dark:border-[#28293D] bg-white/40 dark:bg-[#1C1D2A]/60">
+          <div className="px-3 py-2 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-[#131522]/60">
             <button
               type="button"
               onClick={async () => {
@@ -478,7 +478,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         )}
 
         {/* 6. EXECUTIVE FOOTER WITH LIVE CLOUD RADAR */}
-        <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-[#E2E8F0] dark:border-[#383838] bg-white/50 dark:bg-[#242424]/90 flex items-center justify-between text-[10px] font-mono text-[#85877E] dark:text-[#7A7C93] select-none">
+        <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-slate-200/80 dark:border-white/[0.08] bg-white/50 dark:bg-[#0E101B]/90 flex items-center justify-between text-[10px] font-mono text-[#85877E] dark:text-[#7A7C93] select-none">
           <span className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />

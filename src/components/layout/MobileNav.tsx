@@ -126,12 +126,12 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       <div
         className={`pointer-events-auto flex items-center justify-between px-1.5 py-1 rounded-[26px] backdrop-blur-2xl border transition-all duration-300 relative ${
           isDark
-            ? 'bg-[#151724]/95 border-[#282B42] shadow-[0_16px_40px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.06)]'
-            : 'bg-white/96 border-slate-200/90 shadow-[0_16px_40px_rgba(15,23,42,0.14),0_4px_12px_rgba(15,23,42,0.06)]'
+            ? 'bg-[#0E101B]/95 border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)]'
+            : 'bg-white/95 border-slate-200/90 shadow-[0_16px_40px_rgba(15,23,42,0.14),0_4px_12px_rgba(15,23,42,0.06)]'
         }`}
       >
         {/* Top Subtle Ambient Glass Shine Bevel */}
-        <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-blue-500/30 dark:via-[#7AA2F7]/35 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-purple-500/40 dark:via-purple-400/40 to-transparent pointer-events-none" />
 
         {navItems.map((item) => {
           return (
@@ -153,7 +153,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               aria-current={item.isActive ? 'page' : undefined}
             >
               {item.isActive && (
-                <span className="absolute inset-x-1 inset-y-1 bg-slate-100 dark:bg-white/[0.08] border border-slate-200/60 dark:border-white/10 rounded-xl -z-10 shadow-2xs transition-all duration-300" />
+                <span className="absolute inset-x-1 inset-y-1 bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/30 rounded-xl -z-10 shadow-2xs transition-all duration-300" />
               )}
               {item.renderIcon(item.isActive)}
               <span className="text-[10px] sm:text-[11px] mt-1 tracking-tight font-sans leading-none">
