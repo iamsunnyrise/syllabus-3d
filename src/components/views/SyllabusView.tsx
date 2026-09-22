@@ -1299,10 +1299,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
               {currentExam.name ? formatTitleCase(currentExam.name) : 'SSC CGL'} Mastery Hub
             </h1>
-
-            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium">
-              Complete exam curriculum, chapter breakdown, mastery tracking, and pacing forecast.
-            </p>
           </div>
 
           {/* Quick Progress Ring Callout */}
@@ -1434,9 +1430,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   {filteredSubjects.length} of {currentExam.subjects.length} Subjects
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium mt-0.5">
-                Click any subject to open chapters, subtopics, and revision tracker
-              </p>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
