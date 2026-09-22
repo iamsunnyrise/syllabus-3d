@@ -30,19 +30,19 @@ export const PerformanceInsightsList: React.FC = () => {
             <Card3DTilt
               key={insight.id}
               maxTilt={3}
-              className={`p-5 rounded-2xl border transition-all shadow-3d-dark space-y-3 ${
+              className={`p-5 rounded-2xl border transition-all shadow-sm dark:shadow-3d-dark space-y-3 ${
                 isPositive
-                  ? 'bg-gradient-to-br from-mint/10 via-darkSurface to-darkContainer light:from-emerald-50 light:via-white light:to-white border-mint/20'
+                  ? 'bg-gradient-to-br from-emerald-50 via-white to-white dark:from-mint/10 dark:via-darkSurface dark:to-darkContainer border-emerald-200 dark:border-mint/20'
                   : isWarning
-                    ? 'bg-gradient-to-br from-alert-red/10 via-darkSurface to-darkContainer light:from-rose-50 light:via-white light:to-white border-alert-red/20'
-                    : 'bg-darkSurface light:bg-white border-white/5 light:border-slate-200'
+                    ? 'bg-gradient-to-br from-rose-50 via-white to-white dark:from-alert-red/10 dark:via-darkSurface dark:to-darkContainer border-rose-200 dark:border-alert-red/20'
+                    : 'bg-white dark:bg-darkSurface border-slate-200 dark:border-white/5'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  {isPositive && <CheckCircle2 className="w-4 h-4 text-mint-dark dark:text-mint shrink-0" />}
+                  {isPositive && <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-mint shrink-0" />}
                   {isWarning && <AlertTriangle className="w-4 h-4 text-alert-red shrink-0" />}
-                  {!isPositive && !isWarning && <Info className="w-4 h-4 text-electric-blue shrink-0" />}
+                  {!isPositive && !isWarning && <Info className="w-4 h-4 text-blue-600 dark:text-electric-blue shrink-0" />}
                   
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
                     {insight.title}
@@ -56,7 +56,7 @@ export const PerformanceInsightsList: React.FC = () => {
                 )}
               </div>
 
-              <p className="text-xs text-slate-300 light:text-slate-700 leading-relaxed">
+              <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
                 {insight.message}
               </p>
             </Card3DTilt>

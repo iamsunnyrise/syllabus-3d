@@ -135,6 +135,17 @@ export default {
         darkContainer: '#0E1630',
         darkCard: '#0C1228',
         darkBorder: 'rgba(255, 255, 255, 0.09)',
+        lavender: '#A855F7',
+        pinkAccent: '#EC4899',
+        sky: '#00D2FF',
+        orangeAccent: '#FB923C',
+        amberAccent: '#F59E0B',
+        luxury: {
+          charcoal: '#171717',
+          gray: '#6B7280',
+          gold: '#D4AF37',
+          champagne: '#F5E6C8',
+        },
         lightBg: '#F5E6C8',
         lightSurface: '#FFFDF9',
         lightContainer: '#EADCBF',
@@ -246,5 +257,10 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addVariant }) {
+      addVariant('light', ':is(.light &, :root:not(.dark) &)');
+      addVariant('warm-cream', '.warm-cream &');
+    }
+  ],
 }

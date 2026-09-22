@@ -67,13 +67,13 @@ export const WeakSectionDiagnostic: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-darkContainer/40 border border-white/5 flex items-center justify-between gap-4">
+            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-darkContainer/40 border border-emerald-200 dark:border-white/5 flex items-center justify-between gap-4">
               <div>
-                <div className="text-[10px] font-bold text-mint-dark uppercase tracking-wider">
+                <div className="text-[11px] font-black text-emerald-700 dark:text-mint uppercase tracking-wider">
                   No Critical Weaknesses
                 </div>
-                <div className="text-sm font-bold text-white mt-1">Balanced Performance</div>
-                <p className="text-xs text-slate-400 mt-0.5">All sections maintain &gt;75% accuracy</p>
+                <div className="text-sm font-black text-slate-900 dark:text-white mt-1">Balanced Performance</div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">All sections maintain &gt;75% accuracy</p>
               </div>
               <div className="text-2xl">🎉</div>
             </div>
@@ -88,7 +88,7 @@ export const WeakSectionDiagnostic: React.FC = () => {
             <Card3DTilt
               key={idx}
               maxTilt={3}
-              className="p-5 border border-alert-red/20 rounded-2xl bg-darkSurface light:bg-white shadow-3d-dark space-y-3"
+              className="p-5 border border-alert-red/30 rounded-2xl bg-white dark:bg-darkSurface shadow-sm dark:shadow-3d-dark space-y-3"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -110,10 +110,10 @@ export const WeakSectionDiagnostic: React.FC = () => {
 
               {/* Specific Diagnosis Reasons */}
               <div className="space-y-1.5 pt-1 text-xs">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Identified Bottlenecks:
                 </div>
-                <ul className="list-disc list-inside text-slate-300 light:text-slate-700 text-xs space-y-1">
+                <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 text-xs space-y-1 font-medium">
                   {diag.reasons.map((r, i) => (
                     <li key={i}>{r}</li>
                   ))}
@@ -121,10 +121,10 @@ export const WeakSectionDiagnostic: React.FC = () => {
               </div>
 
               {/* Actionable Remedy */}
-              <div className="p-3 rounded-xl bg-darkContainer/60 light:bg-slate-50 border border-white/5 text-xs text-slate-300 light:text-slate-700 flex items-start gap-2">
-                <Sparkles className="w-4 h-4 text-electric-blue shrink-0 mt-0.5" />
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-darkContainer/60 border border-slate-200 dark:border-white/5 text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2 font-medium">
+                <Sparkles className="w-4 h-4 text-blue-600 dark:text-electric-blue shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-electric-blue">Remedy Action: </span>
+                  <span className="font-bold text-blue-600 dark:text-electric-blue">Remedy Action: </span>
                   {diag.recommendation}
                 </div>
               </div>

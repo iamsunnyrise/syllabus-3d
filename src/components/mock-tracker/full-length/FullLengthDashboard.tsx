@@ -9,38 +9,38 @@ export const FullLengthDashboard: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Top Full Length Highlights Banner */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-darkElevated via-darkSurface to-darkContainer light:from-slate-50 light:via-white light:to-sky-50 border border-white/10 light:border-slate-200 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 rounded-3xl bg-gradient-to-r from-white via-slate-50 to-sky-50 dark:from-darkElevated dark:via-darkSurface dark:to-darkContainer border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-electric-blue/15 border border-electric-blue/30 text-electric-blue text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 dark:bg-electric-blue/15 border border-sky-300 dark:border-electric-blue/30 text-sky-800 dark:text-electric-blue text-xs font-bold uppercase tracking-wider">
             <Target className="w-3.5 h-3.5" />
             <span>Dedicated Exam Simulation Center</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-2">
             Full Length Mock Analytics
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mt-1 font-medium leading-relaxed">
             Exclusively tracking 100-Question / 200-Mark complete exam simulations. Chapter and sectional drills are filtered out to guarantee pure exam readiness accuracy.
           </p>
         </div>
 
         {/* Clearance Streak & Cutoff Success Badges */}
         <div className="flex items-center gap-3">
-          <div className="p-4 rounded-2xl bg-darkSurface/80 light:bg-white border border-mint/30 shadow-glow-mint text-center min-w-[120px]">
-            <div className="flex items-center justify-center gap-1 text-mint-dark dark:text-mint text-xs font-bold uppercase">
-              <Flame className="w-4 h-4 fill-mint-dark" />
+          <div className="p-4 rounded-2xl bg-white dark:bg-darkSurface/80 border border-emerald-200 dark:border-mint/30 shadow-sm text-center min-w-[120px]">
+            <div className="flex items-center justify-center gap-1 text-emerald-700 dark:text-mint text-xs font-bold uppercase">
+              <Flame className="w-4 h-4 fill-emerald-600 dark:fill-mint" />
               <span>Clear Streak</span>
             </div>
-            <div className="text-2xl font-black text-white light:text-slate-900 mt-1">
-              {fullLengthKPIs.consecutiveClearanceStreak} <span className="text-xs font-semibold text-slate-400">Mocks</span>
+            <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+              {fullLengthKPIs.consecutiveClearanceStreak} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Mocks</span>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-darkSurface/80 light:bg-white border border-electric-blue/30 shadow-glow-blue text-center min-w-[120px]">
-            <div className="flex items-center justify-center gap-1 text-electric-blue text-xs font-bold uppercase">
+          <div className="p-4 rounded-2xl bg-white dark:bg-darkSurface/80 border border-sky-200 dark:border-electric-blue/30 shadow-sm text-center min-w-[120px]">
+            <div className="flex items-center justify-center gap-1 text-sky-700 dark:text-electric-blue text-xs font-bold uppercase">
               <ShieldCheck className="w-4 h-4" />
               <span>Cutoff Rate</span>
             </div>
-            <div className="text-2xl font-black text-white light:text-slate-900 mt-1">
+            <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">
               {fullLengthKPIs.fullLengthCutoffRate}%
             </div>
           </div>

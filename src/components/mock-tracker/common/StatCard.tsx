@@ -39,7 +39,7 @@ export const StatCard: React.FC<StatCardProps> = ({
     >
       {/* Top row */}
       <div className="flex items-center justify-between">
-        <span className="text-xs font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+        <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200">
           {title}
         </span>
         {icon && (
@@ -72,7 +72,7 @@ export const StatCard: React.FC<StatCardProps> = ({
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-1 font-medium">
+        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-1 font-semibold">
           {subtitle}
         </p>
       )}

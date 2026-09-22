@@ -62,21 +62,21 @@ export const FullLengthTrendSection: React.FC = () => {
               Full Length Performance Trend
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
             Progression curve with 135-mark cutoff benchmark and percentile trajectory
           </p>
         </div>
 
         {/* Range Filters: 7 Mocks | 15 Mocks | 30 Mocks | All */}
-        <div className="flex items-center p-1 rounded-xl bg-darkContainer/70 light:bg-slate-100 border border-white/5 light:border-slate-200 self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-xl bg-slate-100 dark:bg-darkContainer/70 border border-slate-200 dark:border-white/5 self-start sm:self-auto">
           {(['7', '15', '30', 'ALL'] as WindowFilter[]).map((w) => (
             <button
               key={w}
               onClick={() => setWindowFilter(w)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                 windowFilter === w
-                  ? 'bg-electric-blue text-darkBg shadow-glow-blue'
-                  : 'text-slate-400 hover:text-white light:hover:text-slate-900'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 dark:bg-electric-blue text-white dark:text-darkBg shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/5'
               }`}
             >
               {w === 'ALL' ? 'All Mocks' : `${w} Mocks`}
@@ -125,24 +125,24 @@ export const FullLengthTrendSection: React.FC = () => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="p-3.5 rounded-xl bg-darkSurface/95 light:bg-white/95 border border-white/10 light:border-slate-200 shadow-2xl backdrop-blur-md text-xs space-y-1.5">
-                        <div className="font-bold text-white light:text-slate-900">{data.fullName}</div>
-                        <div className="text-slate-400">Date: {data.date}</div>
+                      <div className="p-3.5 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-md text-xs space-y-1.5">
+                        <div className="font-bold text-slate-900 dark:text-white">{data.fullName}</div>
+                        <div className="text-slate-600 dark:text-slate-400 font-medium">Date: {data.date}</div>
                         <div className="pt-1 flex items-center justify-between gap-4 font-bold text-sm">
-                          <span className="text-slate-400">Score:</span>
-                          <span className="text-electric-blue">{data.score} / {data.maxMarks}</span>
+                          <span className="text-slate-600 dark:text-slate-400 font-semibold">Score:</span>
+                          <span className="text-blue-600 dark:text-electric-blue">{data.score} / {data.maxMarks}</span>
                         </div>
-                        <div className="flex items-center justify-between text-slate-400">
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400 font-medium">
                           <span>Accuracy:</span>
-                          <span className="text-mint-dark dark:text-mint font-bold">{data.accuracy}%</span>
+                          <span className="text-emerald-700 dark:text-mint font-bold">{data.accuracy}%</span>
                         </div>
-                        <div className="flex items-center justify-between text-slate-400">
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400 font-medium">
                           <span>Percentile:</span>
-                          <span className="text-lavender font-bold">{data.percentile}%ile</span>
+                          <span className="text-purple-700 dark:text-lavender font-bold">{data.percentile}%ile</span>
                         </div>
-                        <div className="pt-1 border-t border-white/10 flex items-center justify-between">
-                          <span className="text-slate-400">Cutoff:</span>
-                          <span className={data.isClearedCutoff ? 'text-mint-dark font-bold' : 'text-alert-red font-bold'}>
+                        <div className="pt-1 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
+                          <span className="text-slate-600 dark:text-slate-400 font-semibold">Cutoff:</span>
+                          <span className={data.isClearedCutoff ? 'text-emerald-700 dark:text-mint font-bold' : 'text-alert-red font-bold'}>
                             {data.isClearedCutoff ? `Cleared (+${(data.score - data.cutoffMarks).toFixed(1)})` : `Failed (${(data.score - data.cutoffMarks).toFixed(1)})`}
                           </span>
                         </div>

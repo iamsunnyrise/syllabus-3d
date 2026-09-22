@@ -14,52 +14,52 @@ export const PercentileHeroCard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* 3D Visual Hero Panel */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-darkElevated via-darkSurface to-darkContainer light:from-white light:via-slate-50 light:to-sky-50 border border-white/10 light:border-slate-200 shadow-2xl">
+      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-white via-slate-50 to-sky-50 dark:from-darkElevated dark:via-darkSurface dark:to-darkContainer border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Metrics & Gap Summary */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-lavender/15 border border-lavender/30 text-lavender text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-lavender/15 border border-purple-300 dark:border-lavender/30 text-purple-700 dark:text-lavender text-xs font-bold uppercase tracking-wider">
               <TrendingUp className="w-3.5 h-3.5" />
               <span>Competitive Percentile Engine</span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Percentile Trajectory & Target Gap
             </h2>
 
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed font-medium">
               Your percentile represents the percentage of all test-takers you outperform. 
               {percentileGap > 0 ? (
                 <>
-                  {' '}You are currently <span className="font-bold text-mint-dark dark:text-mint">{percentileGap.toFixed(1)}%ile</span> away from your goal of <span className="font-bold text-electric-blue">{targetPercentile}%ile</span>.
+                  {' '}You are currently <span className="font-bold text-emerald-700 dark:text-mint">{percentileGap.toFixed(1)}%ile</span> away from your goal of <span className="font-bold text-blue-700 dark:text-electric-blue">{targetPercentile}%ile</span>.
                 </>
               ) : (
                 <>
-                  {' '}Congratulations! You have reached your target percentile milestone of <span className="font-bold text-mint-dark dark:text-mint">{targetPercentile}%ile</span>!
+                  {' '}Congratulations! You have reached your target percentile milestone of <span className="font-bold text-emerald-700 dark:text-mint">{targetPercentile}%ile</span>!
                 </>
               )}
             </p>
 
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-3 gap-3 pt-2">
-              <div className="p-3.5 rounded-2xl bg-darkSurface/60 light:bg-white border border-white/5 light:border-slate-200">
-                <div className="text-[10px] text-slate-400 font-semibold uppercase">Current Avg</div>
-                <div className="text-xl font-black text-white light:text-slate-900 mt-0.5">
+              <div className="p-3.5 rounded-2xl bg-white dark:bg-darkSurface/60 border border-slate-200 dark:border-white/5 shadow-2xs">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide">Current Avg</div>
+                <div className="text-xl font-black text-slate-900 dark:text-white mt-0.5">
                   {currentPercentile > 0 ? `${currentPercentile}%` : '0%'}
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-darkSurface/60 light:bg-white border border-white/5 light:border-slate-200">
-                <div className="text-[10px] text-slate-400 font-semibold uppercase">Target</div>
-                <div className="text-xl font-black text-electric-blue mt-0.5">
+              <div className="p-3.5 rounded-2xl bg-white dark:bg-darkSurface/60 border border-slate-200 dark:border-white/5 shadow-2xs">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide">Target</div>
+                <div className="text-xl font-black text-blue-600 dark:text-electric-blue mt-0.5">
                   {targetPercentile}%
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-darkSurface/60 light:bg-white border border-white/5 light:border-slate-200">
-                <div className="text-[10px] text-slate-400 font-semibold uppercase">Gap to Close</div>
-                <div className="text-xl font-black text-mint-dark dark:text-mint mt-0.5">
+              <div className="p-3.5 rounded-2xl bg-white dark:bg-darkSurface/60 border border-slate-200 dark:border-white/5 shadow-2xs">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide">Gap to Close</div>
+                <div className="text-xl font-black text-emerald-600 dark:text-mint mt-0.5">
                   {percentileGap > 0 ? `${percentileGap.toFixed(1)}%` : '0.0%'}
                 </div>
               </div>

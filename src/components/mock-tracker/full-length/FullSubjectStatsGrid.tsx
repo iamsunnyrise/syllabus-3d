@@ -16,7 +16,7 @@ export const FullSubjectStatsGrid: React.FC = () => {
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
             Subject-Wise Aggregate Performance
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
             Average accuracy, marks scored, and time allocation across full exam simulations
           </p>
         </div>
@@ -27,7 +27,7 @@ export const FullSubjectStatsGrid: React.FC = () => {
           <Card3DTilt
             key={idx}
             maxTilt={4}
-            className="p-5 border border-white/5 light:border-slate-200 rounded-2xl bg-darkSurface light:bg-white shadow-3d-dark space-y-4"
+            className="p-5 border border-slate-200 dark:border-white/5 rounded-2xl bg-white dark:bg-darkSurface shadow-sm dark:shadow-3d-dark space-y-4"
           >
             {/* Subject Header */}
             <div className="flex items-center justify-between">
@@ -49,14 +49,14 @@ export const FullSubjectStatsGrid: React.FC = () => {
             {/* Score & Accuracy Progress */}
             <div>
               <div className="flex items-baseline justify-between">
-                <span className="text-xs font-semibold text-slate-400">Avg Score</span>
-                <div className="text-lg font-black text-white light:text-slate-900">
-                  {sub.averageScore} <span className="text-xs text-slate-400 font-normal">/ {sub.maxMarks} M</span>
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Avg Score</span>
+                <div className="text-lg font-black text-slate-900 dark:text-white">
+                  {sub.averageScore} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">/ {sub.maxMarks} M</span>
                 </div>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full h-2 rounded-full bg-darkContainer light:bg-slate-100 mt-1.5 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-darkContainer mt-1.5 overflow-hidden">
                 <div
                   style={{ width: `${(sub.averageScore / (sub.maxMarks || 50)) * 100}%`, backgroundColor: sub.color }}
                   className="h-full rounded-full transition-all duration-500"
@@ -65,17 +65,17 @@ export const FullSubjectStatsGrid: React.FC = () => {
             </div>
 
             {/* Metric Row */}
-            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5 light:border-slate-100 text-xs">
-              <div className="p-2 rounded-xl bg-darkContainer/50 light:bg-slate-50">
-                <div className="text-[10px] text-slate-400 font-semibold">Accuracy</div>
-                <div className="text-sm font-black text-mint-dark dark:text-mint mt-0.5">
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-white/5 text-xs">
+              <div className="p-2 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/60 dark:border-transparent">
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Accuracy</div>
+                <div className="text-sm font-black text-emerald-700 dark:text-mint mt-0.5">
                   {sub.averageAccuracy}%
                 </div>
               </div>
 
-              <div className="p-2 rounded-xl bg-darkContainer/50 light:bg-slate-50">
-                <div className="text-[10px] text-slate-400 font-semibold">Avg Time</div>
-                <div className="text-sm font-black text-electric-blue mt-0.5 flex items-center gap-1">
+              <div className="p-2 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/60 dark:border-transparent">
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Avg Time</div>
+                <div className="text-sm font-black text-blue-600 dark:text-electric-blue mt-0.5 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   <span>{sub.averageTimeMinutes}m</span>
                 </div>

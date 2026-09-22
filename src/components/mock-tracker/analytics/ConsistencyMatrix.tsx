@@ -11,52 +11,52 @@ export const ConsistencyMatrix: React.FC = () => {
   return (
     <Card3DTilt
       maxTilt={2}
-      className="p-6 rounded-3xl border border-white/5 light:border-slate-200 bg-darkSurface light:bg-white shadow-3d-dark space-y-6"
+      className="p-6 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-darkSurface shadow-sm dark:shadow-3d-dark space-y-6"
     >
       <div>
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-mint-dark dark:text-mint">
+        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-mint">
           <Activity className="w-4 h-4" />
           <span>Performance Stability & Consistency</span>
         </div>
-        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">
+        <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-1">
           Variance & Standard Deviation Across Attempts
         </h3>
-        <p className="text-xs text-slate-400 mt-0.5">
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
           Measures how reliably you reproduce your peak scores across consecutive tests
         </p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-darkContainer/50 light:bg-slate-50 border border-white/5 space-y-1">
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Stability Index</div>
-          <div className="text-2xl font-black text-mint-dark dark:text-mint">
-            {matrix.stabilityIndex} <span className="text-xs font-semibold text-slate-400">/ 100</span>
+        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/70 dark:border-white/5 space-y-1">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase">Stability Index</div>
+          <div className="text-2xl font-black text-emerald-700 dark:text-mint">
+            {matrix.stabilityIndex} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">/ 100</span>
           </div>
-          <p className="text-[10px] text-slate-400">Higher = Rock solid consistency</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Higher = Rock solid consistency</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-darkContainer/50 light:bg-slate-50 border border-white/5 space-y-1">
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Score Std Dev (σ)</div>
-          <div className="text-2xl font-black text-electric-blue">
+        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/70 dark:border-white/5 space-y-1">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase">Score Std Dev (σ)</div>
+          <div className="text-2xl font-black text-blue-600 dark:text-electric-blue">
             ±{matrix.scoreStdDev}
           </div>
-          <p className="text-[10px] text-slate-400">Average score fluctuation margin</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Average score fluctuation margin</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-darkContainer/50 light:bg-slate-50 border border-white/5 space-y-1">
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">Score Variance (σ²)</div>
-          <div className="text-2xl font-black text-white light:text-slate-900">
+        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/70 dark:border-white/5 space-y-1">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase">Score Variance (σ²)</div>
+          <div className="text-2xl font-black text-slate-900 dark:text-white">
             {matrix.scoreVariance}
           </div>
-          <p className="text-[10px] text-slate-400">Statistical dispersion</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Statistical dispersion</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-darkContainer/50 light:bg-slate-50 border border-white/5 space-y-1">
-          <div className="text-[10px] text-slate-400 font-semibold uppercase">%ile Std Dev</div>
-          <div className="text-2xl font-black text-lavender">
+        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200/70 dark:border-white/5 space-y-1">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase">%ile Std Dev</div>
+          <div className="text-2xl font-black text-purple-700 dark:text-lavender">
             ±{matrix.percentileStdDev}%
           </div>
-          <p className="text-[10px] text-slate-400">Rank band stability</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Rank band stability</p>
         </div>
       </div>
     </Card3DTilt>

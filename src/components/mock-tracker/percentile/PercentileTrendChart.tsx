@@ -47,14 +47,14 @@ export const PercentileTrendChart: React.FC = () => {
               Percentile Progression Curve
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
             Chronological growth curve against your {settings.targetPercentile}th percentile target benchmark
           </p>
         </div>
       </div>
 
       {chartData.length === 0 ? (
-        <div className="h-64 flex items-center justify-center text-slate-400 text-sm">
+        <div className="h-64 flex items-center justify-center text-slate-500 dark:text-slate-400 text-sm font-medium">
           No mock tests logged yet.
         </div>
       ) : (
@@ -68,28 +68,28 @@ export const PercentileTrendChart: React.FC = () => {
 
               <XAxis 
                 dataKey="index" 
-                tickFormatter={(v) => `M#${v}`}
+                tickFormatter={(val) => `M#${val}`}
                 stroke={isDark ? "#64748B" : "#94A3B8"}
                 fontSize={11}
                 tickLine={false}
               />
 
               <YAxis 
-                domain={[70, 100]}
+                domain={[50, 100]} 
                 stroke={isDark ? "#64748B" : "#94A3B8"}
                 fontSize={11}
                 tickLine={false}
               />
 
-              <Tooltip
+              <Tooltip 
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="p-3 rounded-xl bg-darkSurface/95 light:bg-white/95 border border-white/10 light:border-slate-200 shadow-2xl backdrop-blur-md text-xs space-y-1">
-                        <div className="font-bold text-white light:text-slate-900">{data.fullName}</div>
-                        <div className="text-slate-400">Date: {data.date}</div>
-                        <div className="text-lavender font-extrabold text-sm pt-1">
+                      <div className="p-3 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-md text-xs space-y-1">
+                        <div className="font-bold text-slate-900 dark:text-white">{data.fullName}</div>
+                        <div className="text-slate-600 dark:text-slate-400 font-medium">Date: {data.date}</div>
+                        <div className="text-purple-700 dark:text-lavender font-black text-sm pt-1">
                           {data.percentile}%ile ({data.score} Marks)
                         </div>
                       </div>
