@@ -75,10 +75,10 @@ export const MockComparisonModal: React.FC = () => {
       <div className="space-y-6">
         
         {/* Comparison Summary Banner */}
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-electric-blue/10 via-darkContainer to-mint/10 border border-electric-blue/20 flex flex-wrap items-center justify-between gap-4">
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-500/10 via-slate-50 to-emerald-500/10 dark:from-electric-blue/15 dark:via-darkContainer dark:to-mint/15 border border-blue-200 dark:border-electric-blue/20 flex flex-wrap items-center justify-between gap-4 shadow-xs">
           <div>
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Performance Evolution</div>
-            <div className="text-sm sm:text-base font-extrabold text-white light:text-slate-900 mt-1">
+            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Performance Evolution</div>
+            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1">
               Comparing &quot;{baseMock.testName}&quot; vs &quot;{targetMock.testName}&quot;
             </div>
           </div>
@@ -94,23 +94,23 @@ export const MockComparisonModal: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-white/10 light:border-slate-200 text-slate-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3 px-3">Metric</th>
                 {selectedMocks.map(m => (
                   <th key={m.id} className="py-3 px-3">
-                    <div className="text-white light:text-slate-900 font-bold line-clamp-1">{m.testName}</div>
-                    <div className="text-[10px] text-slate-400 font-normal">{m.date} • {m.testPlatform}</div>
+                    <div className="text-slate-900 dark:text-white font-bold line-clamp-1">{m.testName}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-normal font-mono tabular-nums">{m.date} • {m.testPlatform}</div>
                   </th>
                 ))}
                 {selectedMocks.length === 2 && <th className="py-3 px-3">Net Delta</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 light:divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
               {/* Score */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Total Score</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Total Score</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-black text-sm text-electric-blue">
+                  <td key={m.id} className="py-3 px-3 font-black text-sm text-blue-600 dark:text-electric-blue font-mono tabular-nums">
                     {m.score} / {m.maxMarks}
                   </td>
                 ))}
@@ -121,9 +121,9 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Percentile */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Percentile</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Percentile</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-extrabold text-sm text-lavender">
+                  <td key={m.id} className="py-3 px-3 font-extrabold text-sm text-purple-600 dark:text-lavender font-mono tabular-nums">
                     {m.percentile}%ile
                   </td>
                 ))}
@@ -134,9 +134,9 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Accuracy */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Accuracy</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Accuracy</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-mint-dark dark:text-mint">
+                  <td key={m.id} className="py-3 px-3 font-bold text-emerald-600 dark:text-mint font-mono tabular-nums">
                     {m.accuracy}%
                   </td>
                 ))}
@@ -147,9 +147,9 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Attempt Rate */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Attempt Rate</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Attempt Rate</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-slate-200 light:text-slate-800">
+                  <td key={m.id} className="py-3 px-3 font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums">
                     {m.attemptRate}% ({m.attempted}/{m.totalQuestions} Qs)
                   </td>
                 ))}
@@ -160,9 +160,9 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Negative Marks */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Negative Loss</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Negative Loss</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-alert-red">
+                  <td key={m.id} className="py-3 px-3 font-bold text-rose-600 dark:text-alert-red font-mono tabular-nums">
                     -{m.negativeMarks} Marks ({m.wrong} wrong)
                   </td>
                 ))}
@@ -173,9 +173,9 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Time Taken */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Time Taken</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Time Taken</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-medium text-slate-300 light:text-slate-700">
+                  <td key={m.id} className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300 font-mono tabular-nums">
                     {m.timeTakenMinutes} min / {m.totalTimeMinutes}m
                   </td>
                 ))}
@@ -186,7 +186,7 @@ export const MockComparisonModal: React.FC = () => {
 
               {/* Cutoff Status */}
               <tr>
-                <td className="py-3 px-3 font-semibold text-slate-400">Cutoff Status</td>
+                <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Cutoff Status</td>
                 {selectedMocks.map(m => (
                   <td key={m.id} className="py-3 px-3">
                     <Badge variant={m.isClearedCutoff ? 'success' : 'alert'} size="sm">
@@ -195,7 +195,7 @@ export const MockComparisonModal: React.FC = () => {
                   </td>
                 ))}
                 {selectedMocks.length === 2 && (
-                  <td className="py-3 px-3 text-slate-400">
+                  <td className="py-3 px-3 text-slate-500 dark:text-slate-400 font-medium">
                     {baseMock.isClearedCutoff === targetMock.isClearedCutoff ? 'Consistent' : 'Status Changed'}
                   </td>
                 )}
@@ -207,7 +207,7 @@ export const MockComparisonModal: React.FC = () => {
         {/* Section Comparison Cards */}
         {baseMock.sections.length > 0 && targetMock.sections.length > 0 && (
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Section Performance Comparison
             </h4>
 
@@ -216,29 +216,28 @@ export const MockComparisonModal: React.FC = () => {
                 const targetSec = targetMock.sections.find(s => s.sectionName === baseSec.sectionName);
                 if (!targetSec) return null;
                 const secScoreDiff = targetSec.score - baseSec.score;
-                const secAccDiff = targetSec.accuracy - baseSec.accuracy;
 
                 return (
                   <div
                     key={baseSec.id}
-                    className="p-4 rounded-xl bg-darkContainer/50 light:bg-slate-50 border border-white/5 space-y-2"
+                    className="p-4 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 space-y-2 shadow-2xs"
                   >
-                    <div className="flex items-center justify-between text-xs font-bold text-white light:text-slate-900">
+                    <div className="flex items-center justify-between text-xs font-bold text-slate-900 dark:text-white">
                       <span>{baseSec.sectionName}</span>
                       {getDeltaBadge(secScoreDiff, 'M')}
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-                      <div className="p-2 rounded-lg bg-darkSurface light:bg-white border border-white/5">
-                        <div className="text-[10px] text-slate-400 font-semibold truncate">Mock 1</div>
-                        <div className="font-extrabold text-electric-blue">{baseSec.score} M</div>
-                        <div className="text-[10px] text-mint-dark">{baseSec.accuracy}% Acc</div>
+                      <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">Mock 1</div>
+                        <div className="font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">{baseSec.score} M</div>
+                        <div className="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-mint">{baseSec.accuracy}% Acc</div>
                       </div>
 
-                      <div className="p-2 rounded-lg bg-darkSurface light:bg-white border border-white/5">
-                        <div className="text-[10px] text-slate-400 font-semibold truncate">Mock 2</div>
-                        <div className="font-extrabold text-electric-blue">{targetSec.score} M</div>
-                        <div className="text-[10px] text-mint-dark">{targetSec.accuracy}% Acc</div>
+                      <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">Mock 2</div>
+                        <div className="font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">{targetSec.score} M</div>
+                        <div className="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-mint">{targetSec.accuracy}% Acc</div>
                       </div>
                     </div>
                   </div>

@@ -56,13 +56,13 @@ export const TimeManagementAnalytics: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2 text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-darkContainer light:bg-slate-100 border border-white/5">
-            <span className="text-slate-400">Total Avg Time: </span>
-            <span className="font-bold text-white light:text-slate-900">{totalAvgTime} min</span>
+          <div className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-darkContainer border border-slate-200 dark:border-white/5">
+            <span className="text-slate-500 dark:text-slate-400 font-medium">Total Avg Time: </span>
+            <span className="font-bold text-slate-900 dark:text-white font-mono tabular-nums">{totalAvgTime} min</span>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-darkContainer light:bg-slate-100 border border-white/5">
-            <span className="text-slate-400">Pace: </span>
-            <span className="font-bold text-mint-dark dark:text-mint">{avgSpeedSec}s / Q</span>
+          <div className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-darkContainer border border-slate-200 dark:border-white/5">
+            <span className="text-slate-500 dark:text-slate-400 font-medium">Pace: </span>
+            <span className="font-bold text-emerald-600 dark:text-mint font-mono tabular-nums">{avgSpeedSec}s / Q</span>
           </div>
         </div>
       </div>
@@ -95,9 +95,9 @@ export const TimeManagementAnalytics: React.FC = () => {
                 if (active && payload && payload.length) {
                   const data = payload[0].payload;
                   return (
-                    <div className="p-3 rounded-xl bg-darkSurface/95 light:bg-white/95 border border-white/10 shadow-xl text-xs space-y-1">
-                      <div className="font-bold text-white light:text-slate-900">{data.fullName}</div>
-                      <div className="text-electric-blue font-extrabold text-sm">
+                    <div className="p-3 rounded-xl bg-white/95 dark:bg-darkSurface/95 border border-slate-200 dark:border-white/10 shadow-xl text-xs space-y-1">
+                      <div className="font-bold text-slate-900 dark:text-white">{data.fullName}</div>
+                      <div className="text-blue-600 dark:text-electric-blue font-extrabold text-sm font-mono tabular-nums">
                         {data.time} Minutes Average
                       </div>
                     </div>

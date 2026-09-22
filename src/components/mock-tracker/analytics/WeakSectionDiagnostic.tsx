@@ -35,11 +35,11 @@ export const WeakSectionDiagnostic: React.FC = () => {
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Strongest Subject Pillar</span>
               </div>
-              <div className="text-base font-extrabold text-white light:text-slate-900 mt-1">
+              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1">
                 {strongestSubject.label}
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {strongestSubject.averageAccuracy}% Accuracy • {strongestSubject.averageScore} / {strongestSubject.maxMarks} M avg
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium font-mono">
+                <span className="tabular-nums">{strongestSubject.averageAccuracy}%</span> Accuracy • <span className="tabular-nums">{strongestSubject.averageScore} / {strongestSubject.maxMarks}</span> M avg
               </p>
             </div>
             <div className="text-2xl font-black text-mint-dark dark:text-mint">
@@ -55,11 +55,11 @@ export const WeakSectionDiagnostic: React.FC = () => {
                   <ShieldAlert className="w-3.5 h-3.5" />
                   <span>Primary Bottleneck Section</span>
                 </div>
-                <div className="text-base font-extrabold text-white light:text-slate-900 mt-1">
+                <div className="text-base font-extrabold text-slate-900 dark:text-white mt-1">
                   {weakSections[0].sectionName}
                 </div>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  {weakSections[0].averageAccuracy}% Accuracy • {weakSections[0].averageAttemptRate}% Attempt Rate
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium font-mono">
+                  <span className="tabular-nums">{weakSections[0].averageAccuracy}%</span> Accuracy • <span className="tabular-nums">{weakSections[0].averageAttemptRate}%</span> Attempt Rate
                 </p>
               </div>
               <div className="text-2xl font-black text-alert-red">
