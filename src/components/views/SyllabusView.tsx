@@ -291,47 +291,47 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   // 1. Subject Badge Helper (Level 1)
   const getSubjectBadgeStyle = (subjectName: string) => {
     const lower = subjectName.toLowerCase();
-    if (lower.includes('quant') || lower.includes('math')) {
+    if (lower.includes('quant') || lower.includes('math') || lower.includes('arithmetic')) {
       return {
         badgeText: 'MATH',
         icon: Calculator,
-        containerClass: 'bg-rose-50 dark:bg-rose-500/10 border border-rose-200/80 dark:border-rose-500/25 text-rose-600 dark:text-rose-400',
-        accentColor: '#F43F5E',
-        accentBg: 'bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400'
-      };
-    }
-    if (lower.includes('gk') || lower.includes('general awareness') || lower.includes('general knowledge') || lower.includes('gs')) {
-      return {
-        badgeText: 'GK/GS',
-        icon: Globe,
-        containerClass: 'bg-sky-50 dark:bg-sky-500/10 border border-sky-200/80 dark:border-sky-500/25 text-sky-600 dark:text-sky-400',
-        accentColor: '#0EA5E9',
-        accentBg: 'bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400'
+        containerClass: 'bg-blue-50 dark:bg-blue-500/10 border border-blue-200/80 dark:border-blue-500/25 text-[#2563EB] dark:text-[#7AA2F7]',
+        accentColor: '#2563EB',
+        accentBg: 'bg-blue-500/10 dark:bg-blue-500/20 text-[#2563EB] dark:text-[#7AA2F7]'
       };
     }
     if (lower.includes('reasoning') || lower.includes('intelligence')) {
       return {
         badgeText: 'REAS',
         icon: BrainCircuit,
-        containerClass: 'bg-violet-50 dark:bg-violet-500/10 border border-violet-200/80 dark:border-violet-500/25 text-violet-600 dark:text-violet-400',
-        accentColor: '#8B5CF6',
-        accentBg: 'bg-violet-500/10 dark:bg-violet-500/20 text-violet-600 dark:text-violet-400'
+        containerClass: 'bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200/80 dark:border-indigo-500/25 text-[#6366F1] dark:text-[#818CF8]',
+        accentColor: '#6366F1',
+        accentBg: 'bg-indigo-500/10 dark:bg-indigo-500/20 text-[#6366F1] dark:text-[#818CF8]'
       };
     }
     if (lower.includes('english') || lower.includes('comprehension')) {
       return {
         badgeText: 'ENG',
         icon: BookOpen,
-        containerClass: 'bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200/80 dark:border-emerald-500/25 text-emerald-600 dark:text-emerald-400',
-        accentColor: '#10B981',
-        accentBg: 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+        containerClass: 'bg-purple-50 dark:bg-purple-500/10 border border-purple-200/80 dark:border-purple-500/25 text-[#8B5CF6] dark:text-[#A78BFA]',
+        accentColor: '#8B5CF6',
+        accentBg: 'bg-purple-500/10 dark:bg-purple-500/20 text-[#8B5CF6] dark:text-[#A78BFA]'
+      };
+    }
+    if (lower.includes('gk') || lower.includes('general awareness') || lower.includes('general knowledge') || lower.includes('gs') || lower.includes('awareness')) {
+      return {
+        badgeText: 'GK/GS',
+        icon: Globe,
+        containerClass: 'bg-teal-50 dark:bg-teal-500/10 border border-teal-200/80 dark:border-teal-500/25 text-[#0D9488] dark:text-[#2DD4BF]',
+        accentColor: '#0D9488',
+        accentBg: 'bg-teal-500/10 dark:bg-teal-500/20 text-[#0D9488] dark:text-[#2DD4BF]'
       };
     }
     return {
       badgeText: subjectName.slice(0, 4).toUpperCase(),
       icon: Layers,
       containerClass: 'bg-blue-50 dark:bg-blue-500/10 border border-blue-200/80 dark:border-blue-500/25 text-blue-600 dark:text-blue-400',
-      accentColor: '#3B82F6',
+      accentColor: '#2563EB',
       accentBg: 'bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400'
     };
   };
@@ -342,43 +342,43 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     const badgeText = `CH ${formattedNum}`;
     const lower = subjectName.toLowerCase();
 
-    if (lower.includes('quant') || lower.includes('math')) {
+    if (lower.includes('quant') || lower.includes('math') || lower.includes('arithmetic')) {
       return {
         badgeText,
         icon: Calculator,
-        containerClass: 'bg-rose-50 dark:bg-rose-500/10 border border-rose-200/80 dark:border-rose-500/25 text-rose-600 dark:text-rose-400',
-        accentColor: '#F43F5E'
-      };
-    }
-    if (lower.includes('gk') || lower.includes('general awareness') || lower.includes('general knowledge') || lower.includes('gs')) {
-      return {
-        badgeText,
-        icon: Globe,
-        containerClass: 'bg-sky-50 dark:bg-sky-500/10 border border-sky-200/80 dark:border-sky-500/25 text-sky-600 dark:text-sky-400',
-        accentColor: '#0EA5E9'
+        containerClass: 'bg-blue-50 dark:bg-blue-500/10 border border-blue-200/80 dark:border-blue-500/25 text-[#2563EB] dark:text-[#7AA2F7]',
+        accentColor: '#2563EB'
       };
     }
     if (lower.includes('reasoning') || lower.includes('intelligence')) {
       return {
         badgeText,
         icon: BrainCircuit,
-        containerClass: 'bg-violet-50 dark:bg-violet-500/10 border border-violet-200/80 dark:border-violet-500/25 text-violet-600 dark:text-violet-400',
-        accentColor: '#8B5CF6'
+        containerClass: 'bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200/80 dark:border-indigo-500/25 text-[#6366F1] dark:text-[#818CF8]',
+        accentColor: '#6366F1'
       };
     }
     if (lower.includes('english') || lower.includes('comprehension')) {
       return {
         badgeText,
         icon: BookOpen,
-        containerClass: 'bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200/80 dark:border-emerald-500/25 text-emerald-600 dark:text-emerald-400',
-        accentColor: '#10B981'
+        containerClass: 'bg-purple-50 dark:bg-purple-500/10 border border-purple-200/80 dark:border-purple-500/25 text-[#8B5CF6] dark:text-[#A78BFA]',
+        accentColor: '#8B5CF6'
+      };
+    }
+    if (lower.includes('gk') || lower.includes('general awareness') || lower.includes('general knowledge') || lower.includes('gs') || lower.includes('awareness')) {
+      return {
+        badgeText,
+        icon: Globe,
+        containerClass: 'bg-teal-50 dark:bg-teal-500/10 border border-teal-200/80 dark:border-teal-500/25 text-[#0D9488] dark:text-[#2DD4BF]',
+        accentColor: '#0D9488'
       };
     }
     return {
       badgeText,
       icon: FolderOpen,
       containerClass: 'bg-blue-50 dark:bg-blue-500/10 border border-blue-200/80 dark:border-blue-500/25 text-blue-600 dark:text-blue-400',
-      accentColor: '#3B82F6'
+      accentColor: '#2563EB'
     };
   };
 
@@ -1124,67 +1124,28 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter.id)}
-                    className="group relative p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/70 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                    className="group p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#121422] hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 shadow-xs transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3 overflow-hidden select-none tap-bounce"
                   >
-                    {/* Subtle Top Glow Accent */}
-                    <div
-                      className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`
-                      }}
-                    />
-
-                    {/* Top Row: Thumbnail + Title + Right Action */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        {/* Modern Adaptive Squircle Chapter Badge */}
-                        <div className={`w-11 sm:w-12 h-11 sm:h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
-                          <ChapterIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2] mb-0.5" />
-                          <span className="text-[8.5px] sm:text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
-                            {chapterBadge.badgeText}
-                          </span>
+                    {/* Row 1: Left (Icon Squircle + Chapter Name) | Right (Percentage %) */}
+                    <div className="flex items-center justify-between gap-3 min-w-0">
+                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                        <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${chapterBadge.containerClass}`}>
+                          <ChapterIcon className="w-5 h-5 stroke-[2]" />
                         </div>
 
-                        {/* Chapter Title & Meta */}
-                        <div className="min-w-0 flex-1">
-                          <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-[#F5F5F7] tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-2 leading-snug normal-case">
-                            {chapter.name}
-                          </h3>
-                          <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1.5 uppercase font-mono">
-                            <span>{totalInChapter} {totalInChapter === 1 ? 'TOPIC' : 'TOPICS'}</span>
-                            <span className="text-slate-300 dark:text-slate-600">•</span>
-                            <span>{completedInChapter} MASTERED</span>
-                          </p>
-                        </div>
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug">
+                          {chapter.name}
+                        </h3>
                       </div>
 
-                      {/* Right: Status Pill */}
-                      <div className={`px-2 sm:px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono tabular-nums font-bold flex items-center gap-1 shrink-0 uppercase ${
-                        isChapterMastered
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-black'
-                          : hasChapterStarted
-                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
-                          : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border border-slate-200/70 dark:border-white/[0.06]'
-                      }`}>
-                        {isChapterMastered ? (
-                          <>
-                            <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
-                            <span>100%</span>
-                          </>
-                        ) : hasChapterStarted ? (
-                          <>
-                            <Zap className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-current" />
-                            <span>{chapterPercent}%</span>
-                          </>
-                        ) : (
-                          <span>0%</span>
-                        )}
-                      </div>
+                      <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-mono tabular-nums shrink-0">
+                        {chapterPercent}%
+                      </span>
                     </div>
 
-                    {/* Progress Bar & Bottom Meta */}
-                    <div className="space-y-1.5 pt-1">
-                      <div className="w-full h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden">
+                    {/* Row 2: Left (Progress Bar) | Right (Fraction e.g. 3/5) */}
+                    <div className="flex items-center justify-between gap-3 sm:gap-4">
+                      <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-500"
                           style={{
@@ -1194,34 +1155,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         />
                       </div>
 
-                      <div className="flex items-center justify-between text-[11px] font-mono pt-0.5 uppercase">
-                        <div className="flex items-center gap-2">
-                          {weakInChapter > 0 ? (
-                            <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[10px] uppercase">
-                              <AlertTriangle className="w-3 h-3" />
-                              <span>{weakInChapter} WEAK</span>
-                            </span>
-                          ) : (
-                            <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">
-                              {completedInChapter}/{totalInChapter} MASTERED
-                            </span>
-                          )}
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            soundManager.playClick();
-                            onOpenAddTopic(activeSubject.id, chapter.id);
-                          }}
-                          className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-bold text-[11px] cursor-pointer uppercase"
-                          title={`Add new topic to ${chapter.name}`}
-                        >
-                          <Plus className="w-3 h-3 stroke-[3]" />
-                          <span>ADD TOPIC</span>
-                        </button>
-                      </div>
+                      <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
+                        {completedInChapter}/{totalInChapter}
+                      </span>
                     </div>
                   </div>
                 );
@@ -1564,11 +1500,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               const BadgeIcon = badgeStyle.icon;
               const subjectTotalTopics = subject.chapters.reduce((a, c) => a + c.topics.length, 0);
               const subjectCompletedTopics = subject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'completed').length, 0);
-              const subjectInProgressTopics = subject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'in_progress').length, 0);
-              const weakTopicsInSubject = subject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'weak').length, 0);
-              const percent = subjectTotalTopics > 0 ? Math.round((subjectCompletedTopics / subjectTotalTopics) * 100) : 0;
-              const isMastered = percent === 100;
-              const hasStarted = percent > 0 || subjectInProgressTopics > 0;
+              const totalChapters = subject.chapters.length;
+              const completedChapters = subject.chapters.filter(ch => ch.topics.length > 0 && ch.topics.every(t => t.status === 'completed')).length;
+
+              const percent = subjectTotalTopics > 0
+                ? Math.round((subjectCompletedTopics / subjectTotalTopics) * 100)
+                : (totalChapters > 0 ? Math.round((completedChapters / totalChapters) * 100) : 0);
 
               const accentColor = subject.color || badgeStyle.accentColor;
 
@@ -1576,102 +1513,40 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#131522] sm:bg-gradient-to-r sm:from-white sm:via-white sm:to-violet-50/25 sm:dark:from-[#11131F] sm:dark:via-[#11131F] sm:dark:to-[#171A2E]/40 hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.98] flex flex-col justify-between gap-3 sm:gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#121422] hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 shadow-xs transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3 overflow-hidden select-none tap-bounce"
                 >
-                  {/* Top Glow Accent Bar (Subtle on Mobile, Hover on Desktop) */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-[2.5px] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`
-                    }}
-                  />
-
-                  {/* Ambient Accent Radial Glow in Corner on Hover */}
-                  <div
-                    className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-xl pointer-events-none transition-opacity duration-300"
-                    style={{ backgroundColor: accentColor }}
-                  />
-
-                  {/* Top Row: Thumbnail Squircle + Title & Chapters + Right Status Pill */}
-                  <div className="flex items-start justify-between gap-2.5 sm:gap-3">
-                    <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 flex-1">
-                      {/* Modern Adaptive Squircle Thumbnail */}
-                      <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs ${badgeStyle.containerClass}`}>
-                        <BadgeIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] mb-0.5" />
-                        <span className="text-[9px] sm:text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
-                          {badgeStyle.badgeText}
-                        </span>
+                  {/* Row 1: Left (Icon Squircle + Subject Name) | Right (Percentage %) */}
+                  <div className="flex items-center justify-between gap-3 min-w-0">
+                    <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
+                        <BadgeIcon className="w-5 h-5 stroke-[2]" />
                       </div>
 
-                      {/* Subject Name & Chapter Meta */}
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug normal-case break-words">
-                          {subject.name}
-                        </h3>
-                        <p className="text-[11px] sm:text-xs font-semibold sm:font-bold text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1 flex items-center gap-1.5 font-mono">
-                          <span>{subject.chapters.length} <span className="hidden sm:inline">{subject.chapters.length === 1 ? 'CHAPTER' : 'CHAPTERS'}</span><span className="sm:hidden inline">Ch</span></span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span>{subjectTotalTopics} <span className="hidden sm:inline">{subjectTotalTopics === 1 ? 'TOPIC' : 'TOPICS'}</span><span className="sm:hidden inline">Topics</span></span>
-                        </p>
-                      </div>
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug">
+                        {subject.name}
+                      </h3>
                     </div>
 
-                    {/* Right: Clean Consolidated Percentage Pill */}
-                    <div className="shrink-0 pt-0.5 uppercase">
-                      {isMastered ? (
-                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                          <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                          <span>100%</span>
-                        </div>
-                      ) : percent > 0 ? (
-                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
-                          <Zap className="w-3.5 h-3.5 fill-current" />
-                          <span>{percent}%</span>
-                        </div>
-                      ) : (
-                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-semibold flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]">
-                          <span>0%</span>
-                        </div>
-                      )}
-                    </div>
+                    <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-mono tabular-nums shrink-0">
+                      {percent}%
+                    </span>
                   </div>
 
-                  {/* Progress Bar & Bottom Meta */}
-                  <div className="space-y-1.5 sm:space-y-2 pt-0.5 sm:pt-1">
-                    {/* Progress Bar with accent gradient */}
-                    <div className="w-full h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {/* Row 2: Left (Progress Bar) | Right (Fraction e.g. 6/7) */}
+                  <div className="flex items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
                           width: `${percent}%`,
-                          background: percent > 0 ? `linear-gradient(90deg, ${accentColor}b3, ${accentColor})` : 'transparent'
+                          backgroundColor: accentColor
                         }}
                       />
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono pt-0.5 uppercase gap-2">
-                      <span className="flex items-center gap-1 sm:gap-1.5 text-slate-600 dark:text-slate-300 font-semibold min-w-0 truncate">
-                        <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isMastered ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
-                        <span className="truncate">
-                          <strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong>
-                          <span className="sm:inline hidden"> of {subjectTotalTopics} Topics Mastered</span>
-                          <span className="sm:hidden inline">/{subjectTotalTopics} Mastered</span>
-                        </span>
-                      </span>
-
-                      {weakTopicsInSubject > 0 ? (
-                        <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-1.5 py-0.5 sm:px-2 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[10px] sm:text-[11px] uppercase shrink-0">
-                          <AlertTriangle className="w-3 h-3 stroke-[2.5]" />
-                          <span>{weakTopicsInSubject} WEAK</span>
-                        </span>
-                      ) : (
-                        <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 font-bold transition-colors uppercase shrink-0">
-                          <span className="hidden sm:inline">View Modules</span>
-                          <span className="sm:hidden inline text-violet-600 dark:text-violet-400">Open</span>
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300 text-violet-600 dark:text-violet-400 sm:text-inherit" />
-                        </div>
-                      )}
-                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
+                      {completedChapters}/{totalChapters}
+                    </span>
                   </div>
                 </div>
               );

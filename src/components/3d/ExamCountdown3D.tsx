@@ -73,42 +73,10 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   }, [currentExam?.examDate, currentExam?.targetYear, currentExam?.name]);
 
   const cards = useMemo(() => [
-    {
-      label: 'DAYS',
-      value: timeLeft.days,
-      color: 'text-amber-500 dark:text-amber-400',
-      bg: 'bg-amber-500/[0.04] dark:bg-gradient-to-b dark:from-amber-500/[0.12] dark:to-[#141624]',
-      border: 'border-amber-500/25 dark:border-amber-500/30',
-      topLine: 'bg-amber-400/90',
-      shadow: 'shadow-amber-500/5'
-    },
-    {
-      label: 'HOURS',
-      value: timeLeft.hours,
-      color: 'text-sky-500 dark:text-sky-400',
-      bg: 'bg-sky-500/[0.04] dark:bg-gradient-to-b dark:from-sky-500/[0.12] dark:to-[#141624]',
-      border: 'border-sky-500/25 dark:border-sky-500/30',
-      topLine: 'bg-sky-400/90',
-      shadow: 'shadow-sky-500/5'
-    },
-    {
-      label: 'MINS',
-      value: timeLeft.minutes,
-      color: 'text-emerald-500 dark:text-emerald-400',
-      bg: 'bg-emerald-500/[0.04] dark:bg-gradient-to-b dark:from-emerald-500/[0.12] dark:to-[#141624]',
-      border: 'border-emerald-500/25 dark:border-emerald-500/30',
-      topLine: 'bg-emerald-400/90',
-      shadow: 'shadow-emerald-500/5'
-    },
-    {
-      label: 'SECS',
-      value: timeLeft.seconds,
-      color: 'text-rose-500 dark:text-rose-400',
-      bg: 'bg-rose-500/[0.04] dark:bg-gradient-to-b dark:from-rose-500/[0.12] dark:to-[#141624]',
-      border: 'border-rose-500/25 dark:border-rose-500/30',
-      topLine: 'bg-rose-400/90',
-      shadow: 'shadow-rose-500/5'
-    }
+    { label: 'DAYS', value: timeLeft.days, color: 'text-amber-500 dark:text-amber-400' },
+    { label: 'HOURS', value: timeLeft.hours, color: 'text-sky-500 dark:text-sky-400' },
+    { label: 'MINS', value: timeLeft.minutes, color: 'text-emerald-500 dark:text-emerald-400' },
+    { label: 'SECS', value: timeLeft.seconds, color: 'text-rose-500 dark:text-rose-400' }
   ], [timeLeft]);
 
   const formattedDate = useMemo(() => {
@@ -129,60 +97,41 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
     }
   }, [currentExam?.examDate]);
 
-  const runwayPhase = useMemo(() => {
-    if (timeLeft.days <= 15) return { label: 'Final Sprint', badge: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25' };
-    if (timeLeft.days <= 45) return { label: 'Peak Revision', badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25' };
-    if (timeLeft.days <= 90) return { label: 'Practice & Mocks', badge: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/25' };
-    return { label: 'Coverage & Base', badge: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25' };
-  }, [timeLeft.days]);
-
   return (
     <>
-      <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#111320] border border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-2xl dark:shadow-black/40 p-3.5 sm:p-4.5 overflow-hidden space-y-3 sm:space-y-3.5">
-        {/* Subtle Ambient Radial Backlight */}
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-36 bg-gradient-to-b from-blue-500/15 via-indigo-500/10 to-transparent dark:from-[#7AA2F7]/20 dark:via-indigo-500/10 dark:to-transparent rounded-full blur-3xl pointer-events-none" />
-
-        {/* Ambient Top Subtle Accent Line */}
-        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-amber-500 via-sky-500 to-rose-500 opacity-70 dark:opacity-85" />
-
-        {/* Clean Meta Header with Quick Edit Trigger */}
-        <div className="relative z-10 flex items-center justify-between gap-2.5 sm:gap-3 min-w-0">
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-            {/* Target Icon with Radar Beacon */}
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#2563EB] to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25">
-              <Target className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.4]" />
-              <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border border-white dark:border-[#111320]" />
-              </span>
+      <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121420] border border-slate-200/90 dark:border-white/[0.08] shadow-sm p-3.5 sm:p-5 space-y-3.5 sm:space-y-4">
+        {/* Header: Identity & Target Details */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            {/* Target Icon */}
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+              <Target className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.2]" />
             </div>
 
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                <h2 className="text-[14px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate">
                   {currentExam.name} Countdown
                 </h2>
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Live</span>
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Live
                 </span>
               </div>
 
-              <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5 font-mono flex-wrap">
-                <span className="inline-flex items-center gap-1">
-                  <Calendar className="w-3 h-3 text-blue-600 dark:text-blue-400 shrink-0" />
-                  <span>Exam Date: <strong className="text-slate-700 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
-                </span>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+                <span className="truncate">Exam Date: <strong className="text-slate-700 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
                 {timeLeft.isProjected && (
-                  <span className="text-amber-500 dark:text-amber-400 text-2xs font-bold px-1.5 py-0.2 rounded bg-amber-500/10 border border-amber-500/25">
+                  <span className="text-amber-500 dark:text-amber-400 text-[10px] font-semibold shrink-0">
                     (Next Cycle)
                   </span>
                 )}
-              </p>
+              </div>
             </div>
           </div>
 
-          {/* Quick Edit Target Button (Touch-optimized 32x32px squircle on mobile, pill on desktop) */}
+          {/* Minimal, elegant Edit Target button */}
           <button
             type="button"
             onClick={() => {
@@ -190,68 +139,44 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
               haptics.light();
               setIsEditModalOpen(true);
             }}
-            className="w-8 h-8 sm:w-auto sm:px-3 sm:py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] active:scale-95 transition-all flex items-center justify-center gap-1.5 shrink-0 shadow-xs"
+            className="p-2 sm:px-3 sm:py-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] transition-all flex items-center gap-1.5 shrink-0"
             title="Edit Exam Date & Target"
             aria-label="Edit Exam Date & Target"
           >
-            <Edit2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            <span className="hidden sm:inline text-xs font-semibold">Edit Target</span>
+            <Edit2 className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+            <span className="hidden sm:inline text-xs font-medium">Edit</span>
           </button>
         </div>
 
-        {/* 4-Digit Modern Glass Flip-Clock Cards */}
-        <div className="grid grid-cols-4 gap-1.5 sm:gap-2.5 relative z-10">
+        {/* 4 Clean, Uniform Countdown Cards */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
           {cards.map(c => (
             <div
               key={c.label}
-              className={`relative py-2.5 sm:py-3.5 px-1 sm:px-2 rounded-xl sm:rounded-2xl ${c.bg} border ${c.border} text-center ${c.shadow} shadow-xs flex flex-col items-center justify-center transition-all duration-200 hover:scale-[1.02] group overflow-hidden select-none`}
+              className="py-3 sm:py-4 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181B2B] border border-slate-200/80 dark:border-white/[0.06] text-center flex flex-col items-center justify-center transition-all duration-150 select-none shadow-xs"
             >
-              {/* Top Accent Horizon Line */}
-              <div className={`absolute top-0 inset-x-2 h-[2px] rounded-full ${c.topLine} opacity-80`} />
-
-              {/* Split Horizontal Horizon Line */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-slate-900/[0.06] dark:bg-black/60 shadow-[0_1px_0_rgba(255,255,255,0.06)] pointer-events-none z-10" />
-
-              {/* Physical Cutout Notches */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1.5 rounded-r bg-slate-200/80 dark:bg-[#111320] pointer-events-none z-20" />
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1.5 rounded-l bg-slate-200/80 dark:bg-[#111320] pointer-events-none z-20" />
-
-              {/* Digits with Bold Responsive Impact */}
-              <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none block ${c.color} drop-shadow-xs transition-transform group-hover:scale-105 relative z-0`}>
+              <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none ${c.color}`}>
                 {String(c.value).padStart(2, '0')}
               </span>
-
-              {/* Micro-label */}
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block font-mono mt-1.5">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono mt-1.5">
                 {c.label}
               </span>
-
-              {/* Live Ticking Beacon on SECS */}
-              {c.label === 'SECS' && (
-                <span className="absolute top-1.5 right-1.5 flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500" />
-                </span>
-              )}
             </div>
           ))}
         </div>
 
-        {/* Bottom Study Runway Status Bar */}
-        <div className="pt-2 sm:pt-2.5 flex items-center justify-between gap-2 text-[11px] sm:text-xs font-mono border-t border-slate-100 dark:border-white/[0.06]">
+        {/* Footer: Runway Status & Motivation */}
+        <div className="pt-2.5 sm:pt-3 flex items-center justify-between gap-2 text-xs font-mono border-t border-slate-100 dark:border-white/[0.06]">
           <div className="flex items-center gap-1.5 min-w-0">
-            <Clock className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
+            <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
             <span className="truncate text-slate-600 dark:text-slate-300">
-              Runway: <strong className="text-slate-900 dark:text-white font-black">{timeLeft.days} Days</strong> to exam
-            </span>
-            <span className={`hidden xs:inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold border ${runwayPhase.badge}`}>
-              {runwayPhase.label}
+              Runway: <strong className="text-slate-900 dark:text-white font-bold">{timeLeft.days} Days</strong> to exam
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
             <span>Keep Consistent</span>
-            <span className="inline-block animate-pulse">🔥</span>
+            <span>🔥</span>
           </div>
         </div>
       </div>
