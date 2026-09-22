@@ -31,16 +31,16 @@
   }
 
   .dark {
-    /* 🌑 Deep Midnight Slate & Royal Violet Theme (#0F172A, #7C3AED, #22D3EE, #A78BFA) */
-    --color-background: #0F172A;
+    /* 🌑 Deep Obsidian & Midnight Violet Theme (#090A12, #7C3AED, #22D3EE, #A78BFA) */
+    --color-background: #090A12;
     --color-primary: #FFFFFF;
     --color-primary-accent: #7C3AED;
     --color-accent-light: #A78BFA;
     --color-secondary-accent: #22D3EE;
     --color-tertiary-accent: #A78BFA;
-    --color-surface: #1E293B;
-    --color-surface-soft: #334155;
-    --color-border: #334155;
+    --color-surface: #131522;
+    --color-surface-soft: #191C2C;
+    --color-border: rgba(255, 255, 255, 0.08);
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #E2E8F0;
     --color-text-muted: #94A3B8;
@@ -85,21 +85,21 @@
   }
 
   html:not(.dark) body {
-    background-color: #EDE9FE !important;
+    background-color: #F8FAFC !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.10) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.05) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.04) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #0F172A !important;
   }
 
   .dark body {
-    background-color: #0F172A !important;
+    background-color: #090A12 !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.08) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #F8FAFC !important;
   }
@@ -414,14 +414,14 @@
 
   /* 2. Secondary / Surface Action Button */
   .btn-secondary {
-    @apply btn-base px-3 sm:px-3.5 py-2 bg-white dark:bg-[#1E293B] 
-           hover:bg-[#F5F3FF] dark:hover:bg-[#334155] text-[#0F172A] dark:text-[#F8FAFC] 
-           border border-[#DDD6FE] dark:border-[#334155] shadow-2xs gap-1.5;
+    @apply btn-base px-3 sm:px-3.5 py-2 bg-white dark:bg-[#131522] 
+           hover:bg-slate-100 dark:hover:bg-white/[0.08] text-[#0F172A] dark:text-[#F8FAFC] 
+           border border-slate-200/80 dark:border-white/[0.08] shadow-2xs gap-1.5;
   }
 
   /* 3. Ghost / Low-Emphasis Button */
   .btn-ghost {
-    @apply btn-base px-2.5 py-1.5 bg-transparent hover:bg-[#EDE9FE]/70 dark:hover:bg-white/[0.08] 
+    @apply btn-base px-2.5 py-1.5 bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.08] 
            text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white gap-1;
   }
 
@@ -434,10 +434,44 @@
   /* 5. Standard Square Icon Button (min 36-40px, accessible touch target) */
   .btn-icon {
     @apply inline-flex items-center justify-center w-9 h-9 min-w-[36px] min-h-[36px] 
-           rounded-xl bg-white dark:bg-[#1E293B] text-[#334155] dark:text-slate-300 
-           hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F5F3FF] dark:hover:bg-[#334155] 
-           border border-[#DDD6FE] dark:border-[#334155] transition-all cursor-pointer 
+           rounded-xl bg-white dark:bg-[#131522] text-[#334155] dark:text-slate-300 
+           hover:text-[#0F172A] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.08] 
+           border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer 
            active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50;
+  }
+
+  /* 🪟 World-Class Micro-Border & Translucent Glass Utilities */
+  .micro-border {
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+  .dark .micro-border {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-pill {
+    background: rgba(248, 250, 252, 0.85);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .dark .glass-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .obsidian-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  }
+  .dark .obsidian-card {
+    background: rgba(19, 21, 34, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 }
 

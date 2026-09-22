@@ -721,15 +721,16 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#EDE9FE] dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC]">
-      {/* 🌑 Clean Neutral Ambient Canvas (Dark Mode, GPU-Accelerated) */}
-      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#0F172A]" />
+    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] text-slate-900 dark:text-[#F8FAFC]">
+      {/* 🌑 Clean Obsidian Ambient Canvas (Dark Mode, GPU-Accelerated) */}
+      <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#090A12]">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 -left-48 w-[500px] h-[500px] bg-cyan-500/[0.03] rounded-full blur-[160px]" />
+      </div>
 
       {/* ☀️ Pristine Atmospheric Ambient Mesh (Light Mode Only, GPU-Accelerated) */}
-      <div className="block dark:hidden fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-[#7C3AED]/[0.08] via-[#A78BFA]/[0.05] to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 -left-48 w-[500px] h-[500px] bg-[#22D3EE]/[0.05] rounded-full blur-[160px]" />
-        <div className="absolute top-2/3 -right-48 w-[550px] h-[550px] bg-[#7C3AED]/[0.05] rounded-full blur-[170px]" />
+      <div className="block dark:hidden fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#F8FAFC]">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-indigo-500/[0.04] via-purple-500/[0.02] to-transparent rounded-full blur-[140px]" />
       </div>
 
       {/* ♿ Skip to Main Content Link for Keyboard & Screen Reader Users */}

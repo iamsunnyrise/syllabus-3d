@@ -250,7 +250,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       </div>
 
       {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD (Refined to match Image 2) */}
-      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/95 dark:bg-[#161726]/90 backdrop-blur-2xl border border-purple-200/50 dark:border-white/[0.08] shadow-[0_12px_36px_-12px_rgba(124,58,237,0.14)] dark:shadow-[0_16px_48px_-15px_rgba(0,0,0,0.6)] print:p-0 print:border-none print:shadow-none">
+      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/95 dark:bg-[#131522]/90 backdrop-blur-2xl border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_36px_-12px_rgba(124,58,237,0.08)] dark:shadow-[0_16px_48px_-15px_rgba(0,0,0,0.6)] print:p-0 print:border-none print:shadow-none">
         
         {/* Ambient Glow Orbs */}
         <div className="absolute -top-16 -right-16 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-transparent dark:from-purple-500/20 dark:via-indigo-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
@@ -344,7 +344,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="min-w-0">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center flex-wrap gap-x-1.5">
                   <span>{greeting},&nbsp;</span>
-                  <span className="bg-gradient-to-r from-[#2563EB] via-[#6366F1] to-[#7C3AED] dark:from-indigo-400 dark:via-purple-300 dark:to-violet-200 bg-clip-text text-transparent font-black">
+                  <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-300 dark:via-blue-300 dark:to-indigo-200 bg-clip-text text-transparent font-black drop-shadow-xs">
                     {displayFirstName}
                   </span>
                   <span className="inline-block animate-wave origin-[70%_70%] text-2xl sm:text-3xl ml-1 select-none" role="img" aria-label="Waving hand">

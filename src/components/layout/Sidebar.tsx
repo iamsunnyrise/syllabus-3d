@@ -189,7 +189,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur-2xl border-r border-[#DDD6FE]/80 dark:border-[#334155] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
+      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#0E101B]/90 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/[0.08] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
         isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_20px_rgba(15,23,42,0.04)]'
       }`}
     >
@@ -312,13 +312,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       aria-current={isActive ? 'page' : undefined}
                       className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
                         isActive
-                          ? 'bg-[#7C3AED] text-white font-black shadow-xs shadow-[#7C3AED]/30 dark:bg-[#7C3AED] dark:text-white'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-[#EDE9FE]/70 dark:hover:bg-white/[0.06] hover:text-[#0F172A] dark:hover:text-white'
+                          ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-white dark:bg-white" />
+                        <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-gradient-to-b from-purple-500 to-indigo-600 dark:from-purple-400 dark:to-cyan-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
                       )}
 
                       <div className="flex items-center gap-2.5 min-w-0">
@@ -327,14 +327,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             src="/dashboard_icon_3d.png"
                             alt="Dashboard"
                             className={`w-4 h-4 object-contain shrink-0 transition-transform ${
-                              isActive ? 'scale-110 drop-shadow-sm brightness-0 invert' : 'opacity-80 group-hover:scale-110'
+                              isActive ? 'scale-110 drop-shadow-sm' : 'opacity-80 group-hover:scale-110'
                             }`}
                           />
                         ) : (
                           <Icon
                             className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
                                 isActive
-                                  ? 'text-white'
+                                  ? 'text-purple-600 dark:text-purple-400'
                                   : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
                             }`}
                           />
@@ -347,7 +347,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         <span
                           className={`ml-auto px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
                             isActive
-                              ? 'bg-white/20 text-white'
+                              ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
                               : item.badgeColor
                           }`}
                         >
@@ -364,9 +364,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Cards Area */}
-      <div className="space-y-1.5 pt-1.5 border-t border-[#E2E8F0] dark:border-slate-700/60">
+      <div className="space-y-1.5 pt-1.5 border-t border-slate-200/80 dark:border-white/[0.08]">
         {/* Tradewise-Style Discipline Score Progress Card */}
-        <div className="p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#383838] border border-slate-200/80 dark:border-[#444444] space-y-1 shadow-2xs">
+        <div className="p-2 rounded-xl bg-slate-50/80 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200">
               Discipline Score
@@ -375,7 +375,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {overallStatsSafe.completionPercentage}/100
             </span>
           </div>
-          <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-[#242424] overflow-hidden">
+          <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-white/[0.08] overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-lime-400 rounded-full transition-all duration-500"
               style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
@@ -397,7 +397,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
             activeView === 'mock-tracker'
               ? 'bg-gradient-to-r from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/40 font-bold'
-              : 'bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+              : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
           }`}
         >
           <div className="flex items-center gap-1.5 min-w-0">
@@ -429,7 +429,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
             activeView === 'landing'
               ? 'bg-blue-600 text-white border border-blue-500 font-bold'
-              : 'bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+              : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
           }`}
         >
           <div className="flex items-center gap-1.5 min-w-0">
@@ -447,7 +447,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
 
         {/* User Profile & Level Card */}
-        <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] space-y-1 shadow-2xs">
+        <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 min-w-0">
               <div
@@ -490,7 +490,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     haptics.light();
                     onOpenProfileSwitcher();
                   }}
-                  className="p-1 rounded-md text-slate-400 hover:text-[#2563EB] dark:hover:text-[#7AA2F7] hover:bg-slate-100 dark:hover:bg-[#232430] transition-colors cursor-pointer"
+                  className="p-1 rounded-md text-slate-400 hover:text-[#2563EB] dark:hover:text-[#7AA2F7] hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                   title="Switch Study Profile"
                   aria-label="Switch Study Profile"
                 >
@@ -509,7 +509,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               haptics.selection();
               onOpenShortcuts();
             }}
-            className="w-full flex items-center gap-2 px-2 py-1 rounded-xl bg-white dark:bg-[#383838] border border-[#E2E8F0] dark:border-[#444444] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] text-[#65675F] hover:text-[#0F172A] dark:text-[#CBD5E1] dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-98 tap-bounce shadow-2xs"
+            className="w-full flex items-center gap-2 px-2 py-1 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] text-[#65675F] hover:text-[#0F172A] dark:text-[#CBD5E1] dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-98 tap-bounce shadow-2xs"
             title="Keyboard Shortcuts Cheatsheet"
             aria-label="Keyboard Shortcuts Cheatsheet"
           >

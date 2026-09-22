@@ -98,7 +98,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
 
   return (
     <>
-      <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth p-3 sm:p-4 overflow-hidden space-y-2.5">
+      <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth p-3 sm:p-4 overflow-hidden space-y-2.5">
         {/* Subtle Ambient Radial Backlight */}
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-500/5 dark:bg-[#7AA2F7]/10 rounded-full blur-2xl pointer-events-none" />
 
@@ -149,7 +149,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
           {cards.map(c => (
             <div
               key={c.label}
-              className="relative py-2 sm:py-3 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/80 dark:border-slate-600/60 text-center shadow-xs flex flex-col items-center justify-center transition-all duration-200 hover:border-blue-500/50 dark:hover:border-blue-400/60 group"
+              className="relative py-2 sm:py-3 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#191C2C] border border-slate-200/80 dark:border-white/[0.08] text-center shadow-xs flex flex-col items-center justify-center transition-all duration-200 hover:border-blue-500/50 dark:hover:border-blue-400/50 group"
             >
               {/* Split Horizontal Horizon Line */}
               <div className="absolute inset-x-0 top-1/2 h-[1px] bg-black/[0.04] dark:bg-white/[0.06] pointer-events-none" />
