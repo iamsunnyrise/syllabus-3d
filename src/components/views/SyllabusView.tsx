@@ -1583,11 +1583,11 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/80 dark:hover:bg-[#141727] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
+                  className="group relative p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#131522] sm:bg-gradient-to-r sm:from-white sm:via-white sm:to-violet-50/25 sm:dark:from-[#11131F] sm:dark:via-[#11131F] sm:dark:to-[#171A2E]/40 hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.18)] dark:hover:shadow-[0_16px_36px_-8px_rgba(124,58,237,0.32)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-1 cursor-pointer active:scale-[0.98] flex flex-col justify-between gap-3 sm:gap-4 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-4 tap-bounce"
                 >
-                  {/* Top Glow Accent Bar on Hover */}
+                  {/* Top Glow Accent Bar (Subtle on Mobile, Hover on Desktop) */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="absolute top-0 left-0 right-0 h-[2.5px] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{
                       background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`
                     }}
@@ -1600,25 +1600,25 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   />
 
                   {/* Top Row: Thumbnail Squircle + Title & Chapters + Right Status Pill */}
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-2.5 sm:gap-3">
+                    <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 flex-1">
                       {/* Modern Adaptive Squircle Thumbnail */}
-                      <div className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs ${badgeStyle.containerClass}`}>
-                        <BadgeIcon className="w-5 h-5 stroke-[2.2] mb-0.5" />
-                        <span className="text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+                      <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs ${badgeStyle.containerClass}`}>
+                        <BadgeIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] mb-0.5" />
+                        <span className="text-[9px] sm:text-[9.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                           {badgeStyle.badgeText}
                         </span>
                       </div>
 
                       {/* Subject Name & Chapter Meta */}
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug normal-case break-words">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug normal-case break-words">
                           {subject.name}
                         </h3>
-                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5 uppercase font-mono">
-                          <span>{subject.chapters.length} {subject.chapters.length === 1 ? 'CHAPTER' : 'CHAPTERS'}</span>
+                        <p className="text-[11px] sm:text-xs font-semibold sm:font-bold text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1 flex items-center gap-1.5 font-mono">
+                          <span>{subject.chapters.length} <span className="hidden sm:inline">{subject.chapters.length === 1 ? 'CHAPTER' : 'CHAPTERS'}</span><span className="sm:hidden inline">Ch</span></span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span>{subjectTotalTopics} {subjectTotalTopics === 1 ? 'TOPIC' : 'TOPICS'}</span>
+                          <span>{subjectTotalTopics} <span className="hidden sm:inline">{subjectTotalTopics === 1 ? 'TOPIC' : 'TOPICS'}</span><span className="sm:hidden inline">Topics</span></span>
                         </p>
                       </div>
                     </div>
@@ -1626,17 +1626,17 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     {/* Right: Clean Consolidated Percentage Pill */}
                     <div className="shrink-0 pt-0.5 uppercase">
                       {isMastered ? (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                           <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
                           <span>100%</span>
                         </div>
                       ) : percent > 0 ? (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
                           <Zap className="w-3.5 h-3.5 fill-current" />
                           <span>{percent}%</span>
                         </div>
                       ) : (
-                        <div className="px-2.5 py-1 rounded-xl text-xs font-mono font-semibold flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]">
+                        <div className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-semibold flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]">
                           <span>0%</span>
                         </div>
                       )}
@@ -1644,9 +1644,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   </div>
 
                   {/* Progress Bar & Bottom Meta */}
-                  <div className="space-y-2 pt-1">
+                  <div className="space-y-1.5 sm:space-y-2 pt-0.5 sm:pt-1">
                     {/* Progress Bar with accent gradient */}
-                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                    <div className="w-full h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
@@ -1656,21 +1656,26 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                       />
                     </div>
 
-                    <div className="flex items-center justify-between text-xs font-mono pt-0.5 uppercase">
-                      <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold">
-                        <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
-                        <span><strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong> of {subjectTotalTopics} Topics Mastered</span>
+                    <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono pt-0.5 uppercase gap-2">
+                      <span className="flex items-center gap-1 sm:gap-1.5 text-slate-600 dark:text-slate-300 font-semibold min-w-0 truncate">
+                        <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isMastered ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
+                        <span className="truncate">
+                          <strong className="text-slate-900 dark:text-white font-bold">{subjectCompletedTopics}</strong>
+                          <span className="sm:inline hidden"> of {subjectTotalTopics} Topics Mastered</span>
+                          <span className="sm:hidden inline">/{subjectTotalTopics} Mastered</span>
+                        </span>
                       </span>
 
                       {weakTopicsInSubject > 0 ? (
-                        <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[11px] uppercase">
+                        <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-500/10 px-1.5 py-0.5 sm:px-2 rounded-lg border border-rose-200/60 dark:border-rose-500/20 text-[10px] sm:text-[11px] uppercase shrink-0">
                           <AlertTriangle className="w-3 h-3 stroke-[2.5]" />
                           <span>{weakTopicsInSubject} WEAK</span>
                         </span>
                       ) : (
-                        <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 font-bold transition-colors uppercase">
-                          <span>View Modules</span>
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                        <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 font-bold transition-colors uppercase shrink-0">
+                          <span className="hidden sm:inline">View Modules</span>
+                          <span className="sm:hidden inline text-violet-600 dark:text-violet-400">Open</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300 text-violet-600 dark:text-violet-400 sm:text-inherit" />
                         </div>
                       )}
                     </div>
