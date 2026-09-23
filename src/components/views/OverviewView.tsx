@@ -371,8 +371,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           {/* ── MAIN CONTENT LAYOUT: Left Greeting & Actions + Right Gauge, Quote & 3D Desk ── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
             
-            {/* Left Column: Greeting, Subtitle & Action Buttons */}
-            <div className="lg:col-span-6 xl:col-span-7 space-y-3 sm:space-y-4">
+            {/* Left Column: Greeting & Subtitle */}
+            <div className="lg:col-span-6 xl:col-span-7">
               <div className="min-w-0">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center flex-wrap gap-x-1.5">
                   <span>{greeting},&nbsp;</span>
@@ -390,70 +390,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   </span>{' '}
                   of {examName}. Keep your streak alive!
                 </p>
-              </div>
-
-              {/* Action Buttons: Focus Mode + Today */}
-              <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap pt-1 sm:pt-2 no-print">
-                {onOpenFocus && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playCompleteChime();
-                      onOpenFocus();
-                    }}
-                    className="h-11 sm:h-12 px-5 sm:px-6 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6366F1] to-[#7C3AED] hover:from-[#6D28D9] hover:via-[#4F46E5] hover:to-[#6D28D9] text-white font-black text-sm sm:text-[15px] shadow-[0_8px_25px_-4px_rgba(124,58,237,0.5)] flex items-center gap-2.5 active:scale-95 transition-all cursor-pointer border border-white/20"
-                    title="Launch Focus Chamber"
-                  >
-                    <Sparkles className="w-4 h-4 stroke-[2.5]" />
-                    <span>Focus Mode</span>
-                    <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold shrink-0 ml-0.5">
-                      <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
-                    </span>
-                  </button>
-                )}
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onNavigate('planner');
-                  }}
-                  className="h-11 sm:h-12 px-4 sm:px-5 rounded-2xl bg-white dark:bg-[#1E2033] border-2 border-purple-200/90 dark:border-purple-800/60 hover:border-purple-300 dark:hover:border-purple-700 text-slate-900 dark:text-slate-100 font-black text-sm sm:text-[15px] shadow-2xs flex items-center gap-2.5 active:scale-95 transition-all cursor-pointer"
-                  title="View Today's Daily Planner"
-                >
-                  <CalendarCheck className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
-                  <span>Today ({completedTodayTasks.length}/{totalTasksToday})</span>
-                </button>
-
-                {onOpenWalkAndRevise && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      onOpenWalkAndRevise();
-                    }}
-                    className="h-11 sm:h-12 px-3.5 sm:px-4 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 hover:border-purple-500/50 font-black text-xs sm:text-[13px] shadow-2xs flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
-                    title="Walk & Revise - Hands-Free Audio Revision Mode"
-                  >
-                    <Footprints className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
-                    <span>Walk & Revise</span>
-                  </button>
-                )}
-
-                {onOpenBacklogRescue && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      onOpenBacklogRescue();
-                    }}
-                    className="h-11 sm:h-12 px-3.5 sm:px-4 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 font-black text-xs sm:text-[13px] shadow-2xs flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
-                    title="Smart Backlog Rescue - Adaptive Routine Generator"
-                  >
-                    <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse shrink-0" />
-                    <span>Backlog Rescue</span>
-                  </button>
-                )}
               </div>
             </div>
 
