@@ -87,50 +87,70 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       return {
         icon: Calculator,
         color: fallbackColor || '#EF4444',
-        gradient: 'from-[#3b0b11] to-[#25070b]',
-        border: 'border-red-500/30',
-        text: 'text-red-400',
-        bg: 'bg-red-500/10'
+        border: 'border-red-500/25 dark:border-red-500/30',
+        text: 'text-red-600 dark:text-red-400',
+        bg: 'bg-red-500/10 dark:bg-red-500/15',
+        gradient: 'from-red-500/10 to-red-500/20 dark:from-[#3b0b11] dark:to-[#25070b]'
       };
     }
     if (lower.includes('gk') || lower.includes('general awareness') || lower.includes('knowledge') || lower.includes('gs') || lower.includes('pyq')) {
       return {
         icon: Globe,
         color: fallbackColor || '#0EA5E9',
-        gradient: 'from-[#0c2340] to-[#08172c]',
-        border: 'border-sky-500/30',
-        text: 'text-sky-400',
-        bg: 'bg-sky-500/10'
+        border: 'border-sky-500/25 dark:border-sky-500/30',
+        text: 'text-sky-600 dark:text-sky-400',
+        bg: 'bg-sky-500/10 dark:bg-sky-500/15',
+        gradient: 'from-sky-500/10 to-sky-500/20 dark:from-[#0c2340] dark:to-[#08172c]'
       };
     }
     if (lower.includes('reasoning') || lower.includes('intelligence')) {
       return {
         icon: BrainCircuit,
         color: fallbackColor || '#A855F7',
-        gradient: 'from-[#2a134a] to-[#1a0c2e]',
-        border: 'border-purple-500/30',
-        text: 'text-purple-400',
-        bg: 'bg-purple-500/10'
+        border: 'border-purple-500/25 dark:border-purple-500/30',
+        text: 'text-purple-600 dark:text-purple-400',
+        bg: 'bg-purple-500/10 dark:bg-purple-500/15',
+        gradient: 'from-purple-500/10 to-purple-500/20 dark:from-[#2a134a] dark:to-[#1a0c2e]'
       };
     }
     if (lower.includes('english') || lower.includes('editorial') || lower.includes('comprehension')) {
       return {
         icon: BookOpen,
         color: fallbackColor || '#10B981',
-        gradient: 'from-[#0a3225] to-[#062017]',
-        border: 'border-emerald-500/30',
-        text: 'text-emerald-400',
-        bg: 'bg-emerald-500/10'
+        border: 'border-emerald-500/25 dark:border-emerald-500/30',
+        text: 'text-emerald-600 dark:text-emerald-400',
+        bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
+        gradient: 'from-emerald-500/10 to-emerald-500/20 dark:from-[#0a3225] dark:to-[#062017]'
       };
     }
     return {
       icon: Layers,
-      color: fallbackColor || '#7AA2F7',
-      gradient: 'from-[#181926] to-[#12131d]',
-      border: 'border-[#3b3d56]',
-      text: 'text-indigo-400',
-      bg: 'bg-indigo-500/10'
+      color: fallbackColor || '#6366F1',
+      border: 'border-indigo-500/25 dark:border-indigo-500/30',
+      text: 'text-indigo-600 dark:text-indigo-400',
+      bg: 'bg-indigo-500/10 dark:bg-indigo-500/15',
+      gradient: 'from-indigo-500/10 to-indigo-500/20 dark:from-[#181926] dark:to-[#12131d]'
     };
+  };
+
+  const getDaysDiffFromToday = (dateStr: string, todayStr: string): number => {
+    try {
+      const t = new Date(todayStr).getTime();
+      const d = new Date(dateStr).getTime();
+      return Math.round((d - t) / (1000 * 60 * 60 * 24));
+    } catch {
+      return 0;
+    }
+  };
+
+  const getRelativeScheduleText = (dateStr: string, todayStr: string): string => {
+    const diff = getDaysDiffFromToday(dateStr, todayStr);
+    if (diff === 0) return 'Today';
+    if (diff === 1) return 'Tomorrow';
+    if (diff > 1) return `In ${diff} days`;
+    if (diff === -1) return '1 day overdue';
+    if (diff < -1) return `${Math.abs(diff)} days overdue`;
+    return 'Upcoming';
   };
 
   // Stage Meta & Styling
@@ -199,8 +219,170 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
   const stage3Count = revisions.filter(r => r.stage === 3 && !r.completedDate).length;
   const stage4Count = revisions.filter(r => r.stage >= 4 || r.completedDate).length;
 
+  const renderRevisionCard = (rev: RevisionRecord, type: 'today' | 'upcoming' | 'history') => {
+    const topicObj = allTopics.find(t => t.topic.id === rev.topicId);
+    const meta = getSubjectMeta(rev.subjectName);
+    const SubjIcon = meta.icon;
+    const stageMeta = getStageMeta(rev.stage);
+    const difficulty = topicObj?.topic.difficulty || 'Medium';
+    const isWeak = topicObj?.topic.isWeak || topicObj?.topic.status === 'weak';
+    const accuracy = topicObj?.topic.accuracy;
+    const isOverdue = rev.scheduledDate < today;
+
+    return (
+      <div
+        key={rev.id}
+        className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 shadow-xs hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-between gap-3"
+      >
+        {/* Subtle Left Accent Line showing stage/status */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-1 opacity-80 group-hover:opacity-100 transition-opacity"
+          style={{ backgroundColor: type === 'history' ? '#10B981' : stageMeta.accent }}
+        />
+
+        {/* Top Section: Subject Icon + Topic Details */}
+        <div
+          onClick={() => {
+            if (onOpenTopicDrawer && topicObj) {
+              onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
+            }
+          }}
+          className={`flex items-start gap-3 min-w-0 pl-1 ${onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''}`}
+        >
+          {/* Subject Icon */}
+          <div
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${meta.bg} border ${meta.border} ${meta.text} flex items-center justify-center shrink-0 mt-0.5 shadow-2xs`}
+          >
+            <SubjIcon className="w-5 h-5 stroke-[2.2]" />
+          </div>
+
+          {/* Content Block */}
+          <div className="min-w-0 flex-1 space-y-1">
+            {/* Row 1: Topic Title + Stage/Mastered Badge */}
+            <div className="flex items-start justify-between gap-2">
+              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug line-clamp-2">
+                {toNaturalCase(rev.topicName)}
+              </h2>
+              {type === 'history' ? (
+                <span className="px-2 py-0.5 text-[10px] sm:text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 whitespace-nowrap">
+                  ✓ Mastered
+                </span>
+              ) : (
+                <span className={`px-2 py-0.5 text-[10px] sm:text-[11px] font-sans font-bold rounded-lg border shrink-0 whitespace-nowrap ${stageMeta.badgeClass}`}>
+                  {stageMeta.label}
+                </span>
+              )}
+            </div>
+
+            {/* Row 2: Breadcrumb (Subject › Chapter) */}
+            <div className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 min-w-0">
+              <span className="font-bold text-slate-700 dark:text-slate-200 shrink-0">
+                {toNaturalCase(rev.subjectName)}
+              </span>
+              <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-600 shrink-0" />
+              <span className="truncate font-medium">
+                {toNaturalCase(rev.chapterName)}
+              </span>
+            </div>
+
+            {/* Row 3: Metadata Badges (Weak, Overdue, Difficulty, Accuracy) */}
+            {type !== 'history' && (
+              <div className="flex items-center gap-1.5 flex-wrap pt-0.5 text-[11px]">
+                {isOverdue && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-sans font-bold rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 whitespace-nowrap flex items-center gap-1">
+                    <Clock className="w-2.5 h-2.5" />
+                    <span>Overdue</span>
+                  </span>
+                )}
+
+                {isWeak && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-sans font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
+                    <AlertTriangle className="w-2.5 h-2.5" />
+                    <span>Weak</span>
+                  </span>
+                )}
+
+                <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
+                  difficulty.toLowerCase() === 'hard'
+                    ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                    : difficulty.toLowerCase() === 'easy'
+                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                    : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                }`}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                  <span className="capitalize">{difficulty}</span>
+                </span>
+
+                {accuracy !== undefined && accuracy > 0 && (
+                  <span className="px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-[10px] font-sans font-bold tabular-nums text-slate-600 dark:text-slate-300">
+                    {accuracy}% acc
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Row 4 (Footer): Schedule Info on Left + Action Buttons on Right */}
+        <div className="flex items-center justify-between gap-2 w-full pt-2.5 pl-1 border-t border-slate-100 dark:border-white/10">
+          {/* Left: Schedule Date / Status */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 min-w-0">
+            <Calendar className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 shrink-0" />
+            {type === 'history' ? (
+              <span className="font-semibold text-slate-700 dark:text-slate-300 truncate">
+                {rev.completedDate ? `Mastered ${formatDateReadable(rev.completedDate)}` : 'Retained in Vault'}
+              </span>
+            ) : (
+              <span className="font-semibold text-slate-700 dark:text-slate-300 truncate">
+                {formatDateReadable(rev.scheduledDate)}
+                <span className="ml-1.5 text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                  ({getRelativeScheduleText(rev.scheduledDate, today)})
+                </span>
+              </span>
+            )}
+          </div>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            {onOpenTopicDrawer && topicObj && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundManager.playClick?.();
+                  onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
+                }}
+                className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.08] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
+                title="View Topic Details"
+                aria-label={`Inspect ${rev.topicName}`}
+              >
+                Inspect
+              </button>
+            )}
+
+            {type === 'today' && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundManager.playClick?.();
+                  onOpenRevisionSession();
+                }}
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#4F46E5] hover:bg-[#4338CA] text-white flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 shadow-xs"
+                aria-label={`Review card for ${rev.topicName}`}
+              >
+                <RotateCw className="w-3.5 h-3.5 stroke-[2.4]" />
+                <span>Review</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="space-y-4 sm:space-y-6 pb-36 sm:pb-24 max-w-4xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 max-w-4xl mx-auto font-sans animate-fade-in">
       
       {/* 🖨️ PRINT-ONLY SPACED REPETITION DESK CHEATSHEET */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -539,126 +721,10 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* DUE TODAY LIST */}
         {activeTab === 'today' && (
           displayedDue.length > 0 ? (
-            displayedDue.map(rev => {
-              const topicObj = allTopics.find(t => t.topic.id === rev.topicId);
-              const meta = getSubjectMeta(rev.subjectName);
-              const SubjIcon = meta.icon;
-              const stageMeta = getStageMeta(rev.stage);
-              const difficulty = topicObj?.topic.difficulty || 'Medium';
-              const isWeak = topicObj?.topic.isWeak || topicObj?.topic.status === 'weak';
-              const accuracy = topicObj?.topic.accuracy;
-              const isOverdue = rev.scheduledDate < today;
-
-              return (
-                <div
-                  key={rev.id}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-sm transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden"
-                >
-                  {/* Subtle Left Accent Line */}
-                  <div
-                    className="absolute left-0 top-0 bottom-0 w-1 opacity-80 group-hover:opacity-100"
-                    style={{ backgroundColor: stageMeta.accent }}
-                  />
-
-                  <div
-                    onClick={() => {
-                      if (onOpenTopicDrawer && topicObj) {
-                        onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
-                      }
-                    }}
-                    className={`flex items-start sm:items-center gap-3 min-w-0 flex-1 pl-1 ${onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''}`}
-                  >
-                    {/* Subject Icon */}
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${meta.gradient} border ${meta.border} ${meta.text} flex items-center justify-center shadow-xs shrink-0 mt-0.5 sm:mt-0`}
-                    >
-                      <SubjIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-                    </div>
-
-                    <div className="space-y-1 min-w-0 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap text-xs">
-                        <span className={`px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg border whitespace-nowrap ${stageMeta.badgeClass}`}>
-                          {stageMeta.label}
-                        </span>
-
-                        {isOverdue ? (
-                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 whitespace-nowrap">
-                            Overdue ({formatDateReadable(rev.scheduledDate)})
-                          </span>
-                        ) : isWeak ? (
-                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
-                            <AlertTriangle className="w-3 h-3" />
-                            <span>Weak</span>
-                          </span>
-                        ) : null}
-
-                        {/* Secondary Metadata */}
-                        <div className="flex items-center gap-1.5 flex-wrap text-xs text-slate-500 dark:text-slate-400">
-                          <span className="font-semibold text-slate-700 dark:text-slate-200">
-                            {toNaturalCase(rev.subjectName)}
-                          </span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span>{toNaturalCase(rev.chapterName)}</span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-bold ${
-                            difficulty.toLowerCase() === 'hard'
-                              ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                              : difficulty.toLowerCase() === 'easy'
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                          }`}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                            <span className="capitalize">{difficulty}</span>
-                          </span>
-                          {accuracy !== undefined && accuracy > 0 && (
-                            <>
-                              <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="font-sans text-[11px] font-bold tabular-nums text-slate-600 dark:text-slate-300">
-                                {accuracy}% acc
-                              </span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Heading with Chapter breadcrumb */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate flex items-center gap-1.5">
-                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
-                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
-                        </span>
-                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
-                      </h2>
-                    </div>
-                  </div>
-
-                  {/* Actions (Inspect + Review Card) */}
-                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/10">
-                    {onOpenTopicDrawer && topicObj && (
-                      <button
-                        onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.06] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
-                        title="View Topic Details"
-                        aria-label={`Inspect ${rev.topicName}`}
-                      >
-                        Inspect
-                      </button>
-                    )}
-
-                    <button
-                      onClick={onOpenRevisionSession}
-                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/60 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 shadow-2xs"
-                      aria-label={`Review card for ${rev.topicName}`}
-                    >
-                      <RotateCw className="w-3.5 h-3.5 stroke-[2.2] text-indigo-600 dark:text-indigo-400" />
-                      <span>Review</span>
-                    </button>
-                  </div>
-                </div>
-              );
-            })
+            displayedDue.map(rev => renderRevisionCard(rev, 'today'))
           ) : (
             /* Motivating Empty State */
-            <div className="py-8 sm:py-14 px-4 sm:px-8 text-center rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 sm:space-y-4 max-w-xl mx-auto">
+            <div className="py-8 sm:py-14 px-4 sm:px-8 text-center rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3 sm:space-y-4 max-w-xl mx-auto">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-xs">
                 <Trophy className="w-7 h-7 stroke-[2.2]" />
               </div>
@@ -724,109 +790,10 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* UPCOMING LIST */}
         {activeTab === 'upcoming' && (
           displayedUpcoming.length > 0 ? (
-            displayedUpcoming.map(rev => {
-              const topicObj = allTopics.find(t => t.topic.id === rev.topicId);
-              const meta = getSubjectMeta(rev.subjectName);
-              const SubjIcon = meta.icon;
-              const stageMeta = getStageMeta(rev.stage);
-              const difficulty = topicObj?.topic.difficulty || 'Medium';
-              const isWeak = topicObj?.topic.isWeak || topicObj?.topic.status === 'weak';
-              const accuracy = topicObj?.topic.accuracy;
-
-              return (
-                <div
-                  key={rev.id}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group transition-all"
-                >
-                  <div
-                    onClick={() => {
-                      if (onOpenTopicDrawer && topicObj) {
-                        onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
-                      }
-                    }}
-                    className={`flex items-start sm:items-center gap-3 min-w-0 flex-1 ${onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''}`}
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${meta.gradient} border ${meta.border} ${meta.text} flex items-center justify-center shrink-0 mt-0.5 sm:mt-0`}
-                    >
-                      <SubjIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-                    </div>
-
-                    <div className="space-y-1 min-w-0 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap text-xs">
-                        <span className={`px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg border whitespace-nowrap ${stageMeta.badgeClass}`}>
-                          {stageMeta.label}
-                        </span>
-
-                        {isWeak && (
-                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
-                            <AlertTriangle className="w-3 h-3" />
-                            <span>Weak</span>
-                          </span>
-                        )}
-
-                        {/* Secondary Metadata with clear hierarchy (Issues 3 & 7) */}
-                        <div className="flex items-center gap-1.5 flex-wrap text-xs text-slate-500 dark:text-slate-400">
-                          <span className="font-semibold text-slate-700 dark:text-slate-200">
-                            {toNaturalCase(rev.subjectName)}
-                          </span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span>{toNaturalCase(rev.chapterName)}</span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-bold ${
-                            difficulty.toLowerCase() === 'hard'
-                              ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                              : difficulty.toLowerCase() === 'easy'
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                          }`}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                            <span className="capitalize">{difficulty}</span>
-                          </span>
-                          {accuracy !== undefined && accuracy > 0 && (
-                            <>
-                              <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="font-sans text-[11px] font-bold tabular-nums text-slate-600 dark:text-slate-300">
-                                {accuracy}% acc
-                              </span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Heading with Chapter breadcrumb to eliminate identical title ambiguity (Issue 5) */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate flex items-center gap-1.5">
-                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
-                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
-                        </span>
-                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
-                      </h2>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/10">
-                    {onOpenTopicDrawer && topicObj && (
-                      <button
-                        onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.06] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
-                        title="View Topic Details"
-                        aria-label={`Inspect ${rev.topicName}`}
-                      >
-                        Inspect
-                      </button>
-                    )}
-
-                    <span className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs font-sans font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5 shrink-0">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{formatDateReadable(rev.scheduledDate)}</span>
-                    </span>
-                  </div>
-                </div>
-              );
-            })
+            displayedUpcoming.map(rev => renderRevisionCard(rev, 'upcoming'))
           ) : (
-            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#151622] border border-dashed border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20 flex items-center justify-center mx-auto shadow-xs">
+            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#121424] border border-dashed border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center mx-auto shadow-xs">
                 <Clock className="w-7 h-7 stroke-[1.8]" />
               </div>
               <div className="space-y-1">
@@ -858,59 +825,9 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* MASTERED VAULT LIST */}
         {activeTab === 'history' && (
           displayedHistory.length > 0 ? (
-            displayedHistory.map(rev => {
-              const topicObj = allTopics.find(t => t.topic.id === rev.topicId);
-              const meta = getSubjectMeta(rev.subjectName);
-              const SubjIcon = meta.icon;
-
-              return (
-                <div
-                  key={rev.id}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-emerald-500/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group hover:border-emerald-500/60 transition-all"
-                >
-                  <div
-                    onClick={() => {
-                      if (onOpenTopicDrawer && topicObj) {
-                        onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
-                      }
-                    }}
-                    className={`flex items-start sm:items-center gap-3 min-w-0 flex-1 ${onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''}`}
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${meta.gradient} border ${meta.border} ${meta.text} flex items-center justify-center shrink-0 mt-0.5 sm:mt-0`}
-                    >
-                      <SubjIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-                    </div>
-
-                    <div className="space-y-1 min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
-                          ✓ Mastered
-                        </span>
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
-                          <span className="font-semibold text-slate-700 dark:text-slate-200">{toNaturalCase(rev.subjectName)}</span>
-                          <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
-                          <span>{toNaturalCase(rev.chapterName)}</span>
-                        </span>
-                      </div>
-                      {/* Heading with Chapter breadcrumb */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate flex items-center gap-1.5">
-                        <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
-                          {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
-                        </span>
-                        <span className="truncate">{toNaturalCase(rev.topicName)}</span>
-                      </h2>
-                    </div>
-                  </div>
-
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-sans font-semibold shrink-0 pl-1 sm:pl-0">
-                    {rev.completedDate ? `Mastered on ${rev.completedDate}` : 'Retained'}
-                  </span>
-                </div>
-              );
-            })
+            displayedHistory.map(rev => renderRevisionCard(rev, 'history'))
           ) : (
-            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#151622] border border-dashed border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#121424] border border-dashed border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center mx-auto shadow-xs">
                 <Trophy className="w-7 h-7 stroke-[1.8]" />
               </div>
