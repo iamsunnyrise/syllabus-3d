@@ -294,8 +294,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             title="Go to Dashboard"
           >
-            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-2xl bg-indigo-50 dark:bg-white/10 border border-indigo-100 dark:border-white/15 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm">
-              <span className="text-xl">📊</span>
+            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl overflow-hidden flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm shadow-indigo-500/25 bg-black border border-indigo-500/30">
+              <img src="/logo.png" alt="Study Planner Logo" className="w-full h-full object-cover" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
