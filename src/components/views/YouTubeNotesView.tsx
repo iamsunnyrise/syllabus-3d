@@ -720,26 +720,29 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
   if (viewState === 'input') {
     return (
-      <div className="max-w-4xl mx-auto space-y-5 animate-view-fade">
-        {/* Hero Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2.5 mb-2">
-            <div className={`p-2.5 rounded-2xl ${isDark ? 'bg-red-500/15' : 'bg-red-50'}`}>
-              <Video className="w-7 h-7 text-red-500" />
+      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans">
+        {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                AI YouTube Notes
+              </h1>
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-mono font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse inline-block mr-1.5" />
+                <span>gemini-3.6-flash</span>
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                AI Studio Pro
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-              AI YouTube Notes
-            </h1>
-            <span className="px-2 py-0.5 text-[10px] font-black tracking-wider bg-gradient-to-r from-violet-600 to-cyan-500 text-white rounded-full uppercase">
-              AI
-            </span>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              Turn any educational YouTube video or lecture into structured study notes, formulas, and cheatsheets.
+            </p>
           </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-3">
-            Turn any educational YouTube video into structured study notes with AI
-          </p>
 
-          {/* API Key Status Pill */}
-          <div className="flex items-center justify-center">
+          {/* Quick Header Actions */}
+          <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
             <button
               type="button"
               onClick={() => {
@@ -747,46 +750,28 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 setShowApiKeyModal(true);
                 soundManager.playClick?.();
               }}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-2xs ${
-                apiKey
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/20'
-                  : 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/25 hover:bg-violet-500/20'
-              }`}
+              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs sm:text-[13px] font-bold shadow-xs hover:border-indigo-500 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <KeyRound className="w-3.5 h-3.5" />
-              {apiKey ? (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-                  <span>Gemini 3.6 Connected (Personal Key)</span>
-                </>
-              ) : (
-                <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-                  <span>⚡ 1-Click Direct AI Mode (gemini-3.6-flash)</span>
-                </>
-              )}
+              <KeyRound className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              <span>{apiKey ? 'Gemini Key Configured' : 'Optional: Personal Key'}</span>
             </button>
           </div>
         </div>
 
         {/* 1-Click Direct Generation Banner */}
-        <div className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade ${
-          isDark
-            ? 'bg-gradient-to-r from-violet-950/40 via-purple-950/30 to-indigo-950/40 border-violet-800/40 text-violet-200'
-            : 'bg-gradient-to-r from-violet-50 via-purple-50 to-indigo-50 border-violet-200 text-violet-950 shadow-sm'
-        }`}>
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#7C3AED] text-white shadow-md shadow-indigo-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade">
           <div className="flex items-start sm:items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-violet-500/20 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5 sm:mt-0">
+            <div className="p-2.5 rounded-xl bg-white/20 text-white shrink-0 mt-0.5 sm:mt-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <p className="text-xs sm:text-sm font-black">1-Click Direct Notes Generator</p>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-500/20 text-violet-700 dark:text-violet-300">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white">
                   gemini-3.6-flash
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs opacity-85 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-white/85 mt-0.5">
                 {apiKey
                   ? 'Aapki personal Google Gemini API Key active hai. Deep semantic analysis ke sath notes banenge.'
                   : 'Google के लेटेस्ट gemini-3.6-flash & Smart Engine से सीधे नोट्स जनरेट करें। किसी API Key की आवश्यकता नहीं है!'}
@@ -800,23 +785,109 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               setShowApiKeyModal(true);
               soundManager.playClick?.();
             }}
-            className={`w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5 ${
-              apiKey
-                ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20'
-                : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-md shadow-violet-600/20'
-            }`}
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black bg-white text-indigo-950 hover:bg-white/90 shadow-md transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
           >
             <KeyRound className="w-3.5 h-3.5" />
             <span>{apiKey ? 'Manage Gemini Key' : 'Optional: Add Personal Key'}</span>
           </button>
         </div>
 
-        {/* URL Input Card */}
-        <div className={`rounded-2xl border p-4 sm:p-5 transition-all duration-300 ${
-          isDark
-            ? 'bg-[#1E293B]/90 border-[#334155] shadow-lg'
-            : 'bg-white/95 border-[#DDD6FE] shadow-[0_8px_30px_rgba(124,58,237,0.06)]'
-        }`}>
+        {/* ═══════════════ 2. GOLDEN AMBER AI ENGINE & QUICK STATS BANNER ═══════════════ */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15">
+          <div className="flex items-center gap-3.5 min-w-0">
+            <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">⚡</span>
+            <div className="min-w-0">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
+                Instant Video-to-Notes Engine
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-1 truncate">
+                {savedNotes.length} Lecture Summaries in Library • Multi-lingual (Hindi/English) • Smart LaTeX Formula &amp; Table Extraction
+              </div>
+            </div>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+            <Sparkles className="w-3.5 h-3.5 fill-current" />
+            <span>1-Click Gemini 3.6 Direct Mode Active</span>
+          </div>
+        </div>
+
+        {/* ═══════════════ 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS ═══════════════ */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {/* Card 1: Purple Gradient -> Saved Notes Library */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Saved Notes</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <BookOpen className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {savedNotes.length}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {savedNotes.length === 1 ? '1 Lecture Summary' : `${savedNotes.length} Lecture Summaries`}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Hot Coral Gradient -> AI Engine Mode */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">AI Model</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <Zap className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-xl sm:text-2xl font-black font-mono leading-none truncate">
+                gemini-3.6
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                Direct Semantic Video Parser
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Sky Blue Gradient -> STEM & Formulas */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">STEM Precision</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <FileText className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-xl sm:text-2xl font-black font-mono leading-none">
+                KaTeX / LaTeX
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                Formula &amp; Table Extraction
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Emerald Gradient -> Syllabus Integration */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Syllabus Link</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <BookmarkPlus className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-xl sm:text-2xl font-black font-mono leading-none">
+                1-Click Attach
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                Connect Directly to Exam Topics
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ═══════════════ 4. URL INPUT & GENERATOR CARD ═══════════════ */}
+        <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 transition-all duration-300">
           <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 block">
             YouTube Video URL
           </label>
@@ -833,16 +904,12 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 }
               }}
               placeholder="https://www.youtube.com/watch?v=..."
-              className={`w-full px-4 py-3 pr-12 rounded-xl border text-sm font-medium transition-all duration-200 outline-none ${
-                isDark
-                  ? 'bg-[#0F172A] border-[#334155] text-white placeholder-slate-500 focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30'
-                  : 'bg-slate-50 border-[#DDD6FE] text-slate-900 placeholder-slate-400 focus:border-red-400 focus:ring-1 focus:ring-red-400/30'
-              }`}
+              className="w-full px-4 py-3 pr-12 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-sm font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition-all duration-200"
             />
             {url && (
               <button
                 onClick={() => setUrl('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4 text-slate-400" />
               </button>
@@ -923,13 +990,9 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
         {/* Generation Settings Panel */}
         {isValidUrl && (
-          <div className={`rounded-2xl border p-4 sm:p-5 space-y-4 transition-all duration-300 animate-view-fade ${
-            isDark
-              ? 'bg-[#1E293B]/90 border-[#334155] shadow-lg'
-              : 'bg-white/95 border-[#DDD6FE] shadow-[0_8px_30px_rgba(124,58,237,0.06)]'
-          }`}>
-            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-violet-500" /> Generation Settings
+          <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 space-y-4 sm:space-y-5 transition-all duration-300 animate-view-fade">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-indigo-500" /> Generation Settings
             </h3>
 
             {/* Language Toggle */}
@@ -937,7 +1000,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">
                 Notes Language
               </label>
-              <div className={`inline-flex rounded-xl p-1 ${isDark ? 'bg-[#0F172A]' : 'bg-slate-100'}`}>
+              <div className="inline-flex rounded-xl p-1 bg-slate-100 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/[0.06]">
                 {(['hindi', 'english'] as NoteLanguage[]).map(lang => (
                   <button
                     key={lang}
@@ -946,12 +1009,10 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                       soundManager.playClick?.();
                       haptics.light?.();
                     }}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                       settings.language === lang
-                        ? isDark
-                          ? 'bg-violet-600 text-white shadow-sm'
-                          : 'bg-violet-600 text-white shadow-sm'
-                        : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                        ? 'bg-[#4F46E5] text-white shadow-sm font-black'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {lang === 'hindi' ? 'हिन्दी' : 'English'}
@@ -979,20 +1040,16 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                       soundManager.playClick?.();
                       haptics.light?.();
                     }}
-                    className={`p-3 rounded-xl border text-left transition-all duration-200 ${
+                    className={`p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
                       settings.noteType === item.key
-                        ? isDark
-                          ? 'bg-violet-600/20 border-violet-500/50 ring-1 ring-violet-500/30'
-                          : 'bg-violet-50 border-violet-400 ring-1 ring-violet-400/30'
-                        : isDark
-                          ? 'bg-[#0F172A]/50 border-[#334155] hover:border-[#475569]'
-                          : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+                        ? 'bg-indigo-50 dark:bg-indigo-500/15 border-indigo-400 dark:border-indigo-500/40 ring-1 ring-indigo-500/30'
+                        : 'bg-slate-50/70 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
                     }`}
                   >
                     <div className="text-lg mb-0.5">{item.icon}</div>
                     <div className={`text-xs font-bold ${
                       settings.noteType === item.key
-                        ? 'text-violet-600 dark:text-violet-400'
+                        ? 'text-indigo-700 dark:text-indigo-300'
                         : 'text-slate-700 dark:text-slate-300'
                     }`}>
                       {item.label}
@@ -1022,12 +1079,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                     key={item.key}
                     className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer transition-all duration-200 ${
                       settings[item.key]
-                        ? isDark
-                          ? 'bg-violet-600/10 border-violet-500/30'
-                          : 'bg-violet-50/60 border-violet-300'
-                        : isDark
-                          ? 'bg-[#0F172A]/30 border-[#334155] hover:border-[#475569]'
-                          : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+                        ? 'bg-indigo-50/70 dark:bg-indigo-500/10 border-indigo-300 dark:border-indigo-500/30'
+                        : 'bg-slate-50/50 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300'
                     }`}
                   >
                     <input
@@ -1041,8 +1094,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                     />
                     <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                       settings[item.key]
-                        ? 'bg-violet-600 border-violet-600'
-                        : isDark ? 'border-[#475569]' : 'border-slate-300'
+                        ? 'bg-[#4F46E5] border-[#4F46E5]'
+                        : isDark ? 'border-white/20' : 'border-slate-300'
                     }`}>
                       {settings[item.key] && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                     </div>
@@ -1061,8 +1114,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               disabled={!isValidUrl || isGenerating}
               className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2.5 ${
                 isValidUrl && !isGenerating
-                  ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-violet-700 text-white shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]'
-                  : 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed'
+                  ? 'bg-[#4F46E5] hover:bg-[#4338CA] text-white shadow-md shadow-indigo-500/25 active:scale-[0.99] cursor-pointer'
+                  : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
               }`}
             >
               {isGenerating ? (
@@ -1070,7 +1123,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               ) : (
                 <Sparkles className="w-5 h-5" />
               )}
-              {isGenerating ? 'Generating...' : '✨ Generate Notes'}
+              {isGenerating ? 'Generating Notes with AI...' : '✨ Generate Notes'}
             </button>
           </div>
         )}
@@ -1189,16 +1242,12 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   <div
                     key={note.id}
                     onClick={() => handleOpenNote(note)}
-                    className={`rounded-xl border p-3 cursor-pointer transition-all duration-200 hover:scale-[1.01] group ${
-                      isDark
-                        ? 'bg-[#1E293B]/80 border-[#334155] hover:border-violet-500/40'
-                        : 'bg-white border-[#DDD6FE] hover:border-violet-400 shadow-sm hover:shadow-md'
-                    }`}
+                    className="rounded-2xl border p-3.5 cursor-pointer transition-all duration-200 hover:scale-[1.01] group bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 hover:border-indigo-500/40 shadow-2xs hover:shadow-xs"
                   >
                     <div className="flex gap-3">
                       {/* Thumbnail */}
                       {note.thumbnailUrl && (
-                        <div className="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                        <div className="w-20 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-white/5">
                           <img
                             src={note.thumbnailUrl}
                             alt=""
@@ -1213,7 +1262,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                         </h4>
                         <div className="flex items-center gap-2 text-[10px] text-slate-400">
                           <span className={`px-1.5 py-0.5 rounded-md font-bold ${
-                            isDark ? 'bg-violet-600/20 text-violet-400' : 'bg-violet-100 text-violet-600'
+                            isDark ? 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/20' : 'bg-indigo-50 text-indigo-700 border border-indigo-200/60'
                           }`}>
                             {getNoteTypeLabel(note.noteType)}
                           </span>

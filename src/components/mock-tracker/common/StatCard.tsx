@@ -29,13 +29,13 @@ export const StatCard: React.FC<StatCardProps> = ({
   return (
     <Card3DTilt
       onClick={onClick}
-      className={`group p-5 border rounded-2xl transition-all duration-300 ${
+      className={`group p-4 sm:p-5 border rounded-2xl sm:rounded-3xl transition-all duration-300 ${
         activeTheme === 'dark'
-          ? 'bg-darkSurface border-white/10 hover:border-white/20 text-white'
+          ? 'bg-[#121424] border-white/10 hover:border-indigo-500/40 text-white'
           : activeTheme === 'warm-cream'
             ? 'bg-warmSurface border-warmBorder hover:border-amber-200 text-slate-900'
-            : 'bg-white border-slate-200 hover:border-slate-300 text-slate-900 shadow-sm'
-      } shadow-md dark:shadow-3d-dark cursor-pointer`}
+            : 'bg-white border-slate-200/90 hover:border-indigo-400 text-slate-900 shadow-sm'
+      } shadow-xs hover:shadow-sm cursor-pointer`}
     >
       {/* Top row */}
       <div className="flex items-center justify-between">

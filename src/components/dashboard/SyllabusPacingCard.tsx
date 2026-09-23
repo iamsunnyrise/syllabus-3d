@@ -75,49 +75,49 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
   const bufferOptions = [7, 14, 21, 30];
 
   return (
-    <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151620] border border-slate-200/90 dark:border-[#272738]/80 shadow-subtle-depth p-3.5 sm:p-6 overflow-hidden space-y-3.5 sm:space-y-5 select-none transition-all print:p-4 print:border print:border-black print:shadow-none">
+    <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 overflow-hidden space-y-4 sm:space-y-5 select-none transition-all print:p-4 print:border print:border-black print:shadow-none">
       
       {/* Ambient Decorative Glow */}
-      <div className="absolute -top-14 -right-14 w-60 h-60 rounded-full bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-[#7AA2F7]/15 dark:to-purple-500/10 blur-3xl pointer-events-none print:hidden" />
+      <div className="absolute -top-14 -right-14 w-60 h-60 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/15 dark:to-purple-500/10 blur-3xl pointer-events-none print:hidden" />
       <div className="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-amber-500/5 dark:bg-emerald-500/5 blur-2xl pointer-events-none print:hidden" />
 
       {/* TOP HEADER ROW */}
-      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-3 border-b border-slate-100 dark:border-[#242533]">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
         <div className="flex items-start sm:items-center gap-2.5 sm:gap-3">
-          {/* 3D App Icon */}
-          <div className="w-9 sm:w-12 h-9 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#2563EB] via-indigo-600 to-purple-600 dark:from-[#7AA2F7] dark:via-[#6366F1] dark:to-[#8B5CF6] text-white flex items-center justify-center font-bold shadow-md shadow-[#2563EB]/25 dark:shadow-[#7AA2F7]/30 shrink-0 mt-0.5 sm:mt-0">
-            <Clock className="w-4.5 sm:w-6 h-4.5 sm:h-6 stroke-[2.3]" />
+          {/* App Icon */}
+          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#4F46E5] text-white flex items-center justify-center font-bold shadow-md shadow-indigo-500/25 shrink-0 mt-0.5 sm:mt-0">
+            <Clock className="w-4.5 sm:w-5.5 h-4.5 sm:h-5.5 stroke-[2.3]" />
           </div>
 
           <div className="min-w-0 flex-1 space-y-1">
             <div className="flex items-center justify-between gap-2 flex-wrap">
-              <h3 className="text-sm sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight">
-                Finish-Line Forecast & Pacing
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight">
+                Pacing Timeline &amp; Simulator
               </h3>
 
               {/* Dynamic Status Chip */}
-              <span className={`inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black tracking-wide border shadow-2xs shrink-0 ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeBorder} ${forecast.statusTheme.badgeText}`}>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black tracking-wide border shadow-2xs shrink-0 ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeBorder} ${forecast.statusTheme.badgeText}`}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-current" />
                 <span>{forecast.statusLabel}</span>
               </span>
             </div>
 
-            {/* Clean Meta Pills on Mobile */}
+            {/* Clean Meta Pills */}
             <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap text-[10px] sm:text-[11px] text-slate-500 dark:text-[#A1A1AA] font-mono">
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#1E1F2C] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-slate-800">
+              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">
                 🎯 {examName}
               </span>
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#1E1F2C] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-slate-800">
+              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">
                 📅 {forecast.examDateFormatted}
               </span>
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-blue-500/10 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] font-bold border border-blue-500/20 dark:border-[#7AA2F7]/25">
+              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-indigo-500/10 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-500/20 dark:border-indigo-500/25">
                 ⏳ {forecast.totalDaysLeft}d left
               </span>
             </div>
           </div>
         </div>
 
-        {/* Quick Target Date Editor & What-If Actions (Grid on Mobile) */}
+        {/* Quick Target Date Editor & What-If Actions */}
         <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 sm:gap-2 shrink-0 no-print pt-0.5">
           {onOpenEditExamTarget && (
             <button
@@ -125,10 +125,10 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
                 soundManager.playClick();
                 onOpenEditExamTarget();
               }}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C1D2A] dark:hover:bg-[#252738] border border-slate-200 dark:border-[#2D2E42] text-slate-700 dark:text-[#CBD5E1] hover:text-[#2563EB] dark:hover:text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-[#CBD5E1] hover:text-indigo-600 dark:hover:text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
               title="Change target exam or exam date"
             >
-              <Calendar className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7] shrink-0" />
+              <Calendar className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
               <span className="truncate">Change Target</span>
             </button>
           )}
@@ -140,8 +140,8 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             }}
             className={`px-2.5 sm:px-3 py-1.5 rounded-xl border text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95 ${
               isWhatIfOpen
-                ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-black border-transparent shadow-xs font-black'
-                : 'bg-slate-50 hover:bg-slate-100 dark:bg-[#1C1D2A] dark:hover:bg-[#252738] border-slate-200 dark:border-[#2D2E42] text-slate-700 dark:text-[#CBD5E1]'
+                ? 'bg-[#4F46E5] text-white border-transparent shadow-xs font-black'
+                : 'bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border-slate-200 dark:border-white/10 text-slate-700 dark:text-[#CBD5E1]'
             }`}
             title="Open interactive What-If pace simulator"
           >
@@ -368,14 +368,14 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
                 onClick={() => handleBufferChange(bDays)}
                 className={`py-1.5 sm:py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer active:scale-95 text-center flex items-center justify-center gap-1 ${
                   isSelected
-                    ? 'bg-white dark:bg-[#25273A] text-emerald-600 dark:text-emerald-400 shadow-xs font-black border border-slate-200/80 dark:border-white/10'
+                    ? 'bg-[#4F46E5] text-white shadow-xs font-black'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
                 title={`Reserve ${bDays} days before exam for revision`}
               >
                 <span>{bDays}d</span>
                 {bDays === 14 && (
-                  <span className="text-[9px] text-amber-500 font-sans font-black">★</span>
+                  <span className="text-[9px] text-amber-300 font-sans font-black">★</span>
                 )}
               </button>
             );
@@ -412,7 +412,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
               soundManager.playClick();
               onNavigateToSyllabus();
             }}
-            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0F172A] dark:bg-white text-white dark:text-black hover:bg-[#2563EB] dark:hover:bg-[#CBD5E1] text-xs font-black shadow-xs transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer active:scale-95 tap-bounce"
+            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-black shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer active:scale-95 tap-bounce"
           >
             <span>Study Next Topic</span>
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
