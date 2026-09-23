@@ -29,7 +29,8 @@ import {
   Trophy,
   FolderOpen,
   ArrowRight,
-  TrendingUp
+  TrendingUp,
+  Star
 } from 'lucide-react';
 import { EditSubjectModal } from '../modals/EditSubjectModal';
 import { EditChapterModal } from '../modals/EditChapterModal';
@@ -383,74 +384,94 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     };
   };
 
-  // 3. Topic Card & Badge Styling Helper (Level 3)
+  // 3. Topic Card & Badge Styling Helper (Level 3 - Matching Mockup with Angled Colored Block & Bottom Accent)
+  const TOPIC_PALETTES = [
+    {
+      accentColor: '#1D70B8', // Mockup Card 1 Blue
+      gradient: 'from-[#1D70B8] via-[#1E6BB3] to-[#155E9E]',
+      shadowColor: 'rgba(29, 112, 184, 0.25)',
+    },
+    {
+      accentColor: '#4E3188', // Mockup Card 2 Purple / Violet
+      gradient: 'from-[#5632EA] via-[#4A26DE] to-[#3917C4]',
+      shadowColor: 'rgba(78, 49, 136, 0.25)',
+    },
+    {
+      accentColor: '#EA580C', // Mockup Card 3 Orange
+      gradient: 'from-[#EA580C] via-[#F97316] to-[#C2410C]',
+      shadowColor: 'rgba(234, 88, 12, 0.25)',
+    },
+    {
+      accentColor: '#059669', // Emerald
+      gradient: 'from-[#059669] via-[#10B981] to-[#047857]',
+      shadowColor: 'rgba(5, 150, 105, 0.25)',
+    },
+    {
+      accentColor: '#E11D48', // Hot Rose / Coral
+      gradient: 'from-[#E11D48] via-[#F43F5E] to-[#9F1239]',
+      shadowColor: 'rgba(225, 29, 72, 0.25)',
+    },
+    {
+      accentColor: '#0284C7', // Sky Blue
+      gradient: 'from-[#0284C7] via-[#0EA5E9] to-[#0369A1]',
+      shadowColor: 'rgba(2, 132, 199, 0.25)',
+    }
+  ];
+
   const getTopicCardDesign = (status: TopicStatus, topicIndex: number) => {
     const formattedNum = (topicIndex + 1).toString().padStart(2, '0');
+    const palette = TOPIC_PALETTES[topicIndex % TOPIC_PALETTES.length];
+
     switch (status) {
       case 'completed':
         return {
-          badgeNum: formattedNum,
-          badgeLabel: 'MASTERED',
+          formattedNum,
+          palette,
+          badgeLabel: 'MASTERED ✓',
+          mobileLabel: 'DONE',
           badgeIcon: CheckCircle2,
-          boxClass: 'bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400',
-          cardBorderClass: 'bg-white dark:bg-[#1A1B29] hover:bg-slate-50/70 dark:hover:bg-[#1E2032] border border-slate-200/80 dark:border-white/[0.08] hover:border-emerald-500/60 shadow-2xs hover:shadow-sm',
-          accentColor: '#10B981',
-          titleColor: 'text-slate-900 dark:text-white',
-          statusPillClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold uppercase',
-          btnClasses: 'bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs uppercase',
-          btnLabel: 'MASTERED ✓'
+          iconRingClass: 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-500/10',
+          statusPillClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
         };
       case 'in_progress':
         return {
-          badgeNum: formattedNum,
+          formattedNum,
+          palette,
           badgeLabel: 'IN PROGRESS',
+          mobileLabel: 'ACTIVE',
           badgeIcon: Zap,
-          boxClass: 'bg-amber-50 dark:bg-amber-500/15 border border-amber-200/80 dark:border-amber-500/30 text-amber-600 dark:text-amber-400',
-          cardBorderClass: 'bg-white dark:bg-[#1A1B29] hover:bg-slate-50/70 dark:hover:bg-[#1E2032] border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500/60 shadow-2xs hover:shadow-sm',
-          accentColor: '#F59E0B',
-          titleColor: 'text-slate-900 dark:text-white',
-          statusPillClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold uppercase',
-          btnClasses: 'bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-xs uppercase',
-          btnLabel: 'MARK DONE ✓'
+          iconRingClass: 'border-amber-500/60 text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-500/10',
+          statusPillClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
         };
       case 'weak':
         return {
-          badgeNum: formattedNum,
+          formattedNum,
+          palette,
           badgeLabel: 'WEAK FOCUS',
+          mobileLabel: 'WEAK',
           badgeIcon: AlertTriangle,
-          boxClass: 'bg-rose-50 dark:bg-rose-500/15 border border-rose-200/80 dark:border-rose-500/30 text-rose-600 dark:text-rose-400',
-          cardBorderClass: 'bg-white dark:bg-[#1A1B29] hover:bg-slate-50/70 dark:hover:bg-[#1E2032] border border-slate-200/80 dark:border-white/[0.08] hover:border-rose-500/60 shadow-2xs hover:shadow-sm',
-          accentColor: '#F43F5E',
-          titleColor: 'text-slate-900 dark:text-white',
-          statusPillClass: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold uppercase',
-          btnClasses: 'bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-xs uppercase',
-          btnLabel: 'FIX WEAK'
+          iconRingClass: 'border-rose-500/60 text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-500/10',
+          statusPillClass: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30',
         };
       case 'revision_due':
         return {
-          badgeNum: formattedNum,
+          formattedNum,
+          palette,
           badgeLabel: 'REVISE DUE',
+          mobileLabel: 'REVISE',
           badgeIcon: Clock,
-          boxClass: 'bg-purple-50 dark:bg-purple-500/15 border border-purple-200/80 dark:border-purple-500/30 text-purple-600 dark:text-purple-400',
-          cardBorderClass: 'bg-white dark:bg-[#1A1B29] hover:bg-slate-50/70 dark:hover:bg-[#1E2032] border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/60 shadow-2xs hover:shadow-sm',
-          accentColor: '#A855F7',
-          titleColor: 'text-slate-900 dark:text-white',
-          statusPillClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/30 font-bold uppercase',
-          btnClasses: 'bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-xs uppercase',
-          btnLabel: 'REVISE NOW'
+          iconRingClass: 'border-purple-500/60 text-purple-600 dark:text-purple-400 bg-purple-50/80 dark:bg-purple-500/10',
+          statusPillClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30',
         };
       default: // not_started
         return {
-          badgeNum: formattedNum,
-          badgeLabel: 'NOT STARTED',
-          badgeIcon: BookOpen,
-          boxClass: 'bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-400',
-          cardBorderClass: 'bg-white dark:bg-[#1A1B29] hover:bg-slate-50/70 dark:hover:bg-[#1E2032] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] shadow-2xs hover:shadow-sm',
-          accentColor: '#2563EB',
-          titleColor: 'text-slate-900 dark:text-white',
-          statusPillClass: 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08] font-semibold uppercase',
-          btnClasses: 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-400 font-bold shadow-xs uppercase',
-          btnLabel: 'START TOPIC →'
+          formattedNum,
+          palette,
+          badgeLabel: 'START TOPIC',
+          mobileLabel: 'START',
+          badgeIcon: Star,
+          iconRingClass: 'border-slate-300 dark:border-white/20 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-white/[0.04]',
+          statusPillClass: 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10',
         };
     }
   };
@@ -786,53 +807,125 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 const unresolvedMistakes = topic.mistakes ? topic.mistakes.filter(m => !m.resolved).length : 0;
                 const hasNotes = Boolean(topic.notes && topic.notes.trim()) || Boolean(topic.noteItems && topic.noteItems.length > 0);
                 const hasPdf = Boolean(topic.pdfUrl) || Boolean(topic.pdfAttachments && topic.pdfAttachments.length > 0);
-                const mobileBadgeLabel =
-                  topic.status === 'completed'
-                    ? 'DONE'
-                    : topic.status === 'in_progress'
-                    ? 'ACTIVE'
-                    : topic.status === 'weak'
-                    ? 'WEAK'
-                    : topic.status === 'revision_due'
-                    ? 'DUE'
-                    : 'TODO';
+
+                const subtopicsSummary = topic.subtopics && topic.subtopics.length > 0
+                  ? topic.subtopics.join(' • ')
+                  : 'Comprehensive concept coverage, core principles, and high-frequency exam questions.';
 
                 return (
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-white via-white to-violet-50/25 dark:from-[#11131F] dark:via-[#11131F] dark:to-[#171A2E]/40 hover:bg-slate-50/70 dark:hover:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] hover:border-violet-500/60 dark:hover:border-violet-400/50 shadow-xs hover:shadow-[0_14px_30px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_14px_32px_-6px_rgba(124,58,237,0.28)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.015] hover:-translate-y-0.5 cursor-pointer active:scale-[0.99] space-y-2.5 sm:space-y-3 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg print:p-3 tap-bounce"
+                    className="group relative flex items-stretch rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden cursor-pointer select-none"
                   >
-                    {/* Subtle Top Glow Accent */}
+                    {/* Bottom Accent Bar running full width under card */}
                     <div
-                      className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${design.accentColor}, transparent)`
-                      }}
+                      className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 z-0"
+                      style={{ backgroundColor: design.palette.accentColor }}
                     />
 
-                    {/* Top Row: Squircle Thumbnail + Topic Title + Right Action */}
-                    <div className="flex items-center justify-between gap-2 sm:gap-3">
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                        {/* Squircle Thumbnail Badge */}
-                        <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center p-1 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-2xs relative overflow-hidden print:hidden ${design.boxClass}`}>
-                          <BadgeIcon className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.2] mb-0.5" />
-                          <span className="text-[8px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none">
-                            {design.badgeNum}
-                          </span>
-                        </div>
+                    {/* Left Angled Step / Topic Badge (Slanted Right Edge matching Mockup) */}
+                    <div
+                      className={`relative shrink-0 w-20 sm:w-28 md:w-32 bg-gradient-to-br ${design.palette.gradient} text-white flex flex-col items-center justify-center py-4 px-2 sm:px-3 text-center select-none z-10`}
+                      style={{
+                        clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%)'
+                      }}
+                    >
+                      <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-white/90 uppercase font-mono leading-none">
+                        TOPIC
+                      </span>
+                      <span className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-mono leading-none tracking-tight mt-1 sm:mt-1.5 drop-shadow-xs">
+                        {design.formattedNum}
+                      </span>
+                    </div>
 
-                        {/* Title in Natural Case & Semantic H3 */}
-                        <div className="min-w-0 flex-1">
-                          <h3 className={`text-[13px] sm:text-[15px] font-bold normal-case ${design.titleColor} group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-snug break-words line-clamp-2 tracking-tight`}>
-                            <span className={`hidden print:inline-block desk-checkbox ${topic.status === 'completed' ? 'is-checked' : ''}`} />
+                    {/* Card Body: Icon + Title/Description/Meta + Status/Chevron */}
+                    <div className="flex-1 min-w-0 p-3 sm:p-4 md:p-5 pl-2 sm:pl-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-4.5">
+                      {/* Middle Left: Circular Outline Icon + Title & Description */}
+                      <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                        {/* Circular Outline Icon (Interactive quick status toggle matching mockup circle) */}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
+                            updateTopicStatus(topic.id, nextStatus);
+                            if (nextStatus === 'completed') {
+                              soundManager.playCompleteChime();
+                            } else {
+                              soundManager.playClick();
+                            }
+                          }}
+                          className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full border-2 flex items-center justify-center shrink-0 transition-transform active:scale-90 hover:scale-105 cursor-pointer shadow-xs ${design.iconRingClass}`}
+                          title={topic.status === 'completed' ? 'Mark in progress' : 'Mark completed'}
+                        >
+                          <BadgeIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2]" />
+                        </button>
+
+                        {/* Title & Description Column */}
+                        <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
+                          <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                             {topic.name}
                           </h3>
+
+                          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-2 leading-relaxed">
+                            {subtopicsSummary}
+                          </p>
+
+                          {/* Meta Pills Row */}
+                          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
+                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+                              <Layers className="w-3 h-3 text-indigo-500" />
+                              <span>{topic.subtopics && topic.subtopics.length > 0 ? `${topic.subtopics.length} Subtopics` : 'Core Concept'}</span>
+                            </span>
+
+                            {(topic.studyTimeMinutes || 0) > 0 && (
+                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+                                <Clock className="w-3 h-3 text-amber-500" />
+                                <span>{topic.studyTimeMinutes}m Study</span>
+                              </span>
+                            )}
+
+                            {topic.status !== 'not_started' && topic.accuracy !== undefined && topic.accuracy > 0 && (
+                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+                                <Target className="w-3 h-3 text-rose-500" />
+                                <span>{topic.accuracy}%</span>
+                              </span>
+                            )}
+
+                            {topic.difficulty && (
+                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 shrink-0">
+                                <span className={`w-1.5 h-1.5 rounded-full ${topic.difficulty === 'Hard' ? 'bg-rose-500' : topic.difficulty === 'Medium' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+                                <span>{topic.difficulty}</span>
+                              </span>
+                            )}
+
+                            {unresolvedMistakes > 0 && (
+                              <span className="flex items-center gap-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-500/20 font-bold shrink-0">
+                                <AlertTriangle className="w-3 h-3" />
+                                <span>{unresolvedMistakes} {unresolvedMistakes === 1 ? 'Trap' : 'Traps'}</span>
+                              </span>
+                            )}
+
+                            {hasNotes && (
+                              <span className="flex items-center gap-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-md border border-blue-500/20 font-bold shrink-0">
+                                <FileText className="w-3 h-3" />
+                                <span>Notes</span>
+                              </span>
+                            )}
+
+                            {hasPdf && (
+                              <span className="flex items-center gap-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-md border border-purple-500/20 font-bold shrink-0">
+                                <BookOpen className="w-3 h-3" />
+                                <span>PDF</span>
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
 
-                      {/* Right: Status Pill & Action Chevron (Hidden in print) */}
-                      <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 no-print">
+                      {/* Right: Status Pill & Action Chevron */}
+                      <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
                         <div
                           onClick={(e) => {
                             e.stopPropagation();
@@ -844,69 +937,19 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                               soundManager.playClick();
                             }
                           }}
-                          className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-mono font-bold flex items-center gap-1 sm:gap-1.5 transition-transform active:scale-[0.95] cursor-pointer select-none hover:opacity-90 shrink-0 ${design.statusPillClass}`}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-transform active:scale-95 cursor-pointer shadow-2xs border select-none hover:opacity-90 ${design.statusPillClass}`}
                           title="Click to toggle status"
                         >
-                          <BadgeIcon className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
-                          <span className="sm:hidden">{mobileBadgeLabel}</span>
+                          <BadgeIcon className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span className="sm:hidden">{design.mobileLabel}</span>
                           <span className="hidden sm:inline">{design.badgeLabel}</span>
                         </div>
 
                         {/* Action Chevron */}
-                        <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-[#151622] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-center text-slate-500 dark:text-[#CBD5E1] group-hover:bg-violet-600 group-hover:text-white dark:group-hover:bg-violet-500 dark:group-hover:text-white group-hover:border-violet-600 dark:group-hover:border-violet-500 transition-all duration-300 group-hover:translate-x-1 shadow-2xs shrink-0">
-                          <ChevronRight className="w-3.5 sm:w-4 h-3.5 sm:h-4 stroke-[2.5]" />
+                        <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-1 shadow-2xs shrink-0">
+                          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
                         </div>
                       </div>
-                    </div>
-
-                    {/* Dedicated Meta Chips Row (Horizontal scroll on mobile, zero clumsy wrapping) */}
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-[#CBD5E1] overflow-x-auto no-scrollbar pt-0.5">
-                      <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
-                        <Layers className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
-                        <span>{topic.subtopics && topic.subtopics.length > 0 ? `${topic.subtopics.length} Subtopics` : 'Core Concept'}</span>
-                      </span>
-
-                      {(topic.studyTimeMinutes || 0) > 0 && (
-                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
-                          <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                          <span>{topic.studyTimeMinutes}m Study</span>
-                        </span>
-                      )}
-
-                      {topic.status !== 'not_started' && topic.accuracy !== undefined && topic.accuracy > 0 && (
-                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-800 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
-                          <Target className="w-3 h-3 text-rose-500 dark:text-rose-400" />
-                          <span>{topic.accuracy}% Accuracy</span>
-                        </span>
-                      )}
-
-                      {topic.difficulty && (
-                        <span className="flex items-center gap-1 bg-white dark:bg-[#151622] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-[#CBD5E1] shrink-0 whitespace-nowrap">
-                          <span className={`w-1.5 h-1.5 rounded-full ${topic.difficulty === 'Hard' ? 'bg-rose-500' : topic.difficulty === 'Medium' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
-                          <span>{topic.difficulty}</span>
-                        </span>
-                      )}
-
-                      {unresolvedMistakes > 0 && (
-                        <span className="flex items-center gap-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-rose-500/20 font-bold shrink-0 whitespace-nowrap">
-                          <AlertTriangle className="w-3 h-3" />
-                          <span>{unresolvedMistakes} {unresolvedMistakes === 1 ? 'Mistake' : 'Mistakes'}</span>
-                        </span>
-                      )}
-
-                      {hasNotes && (
-                        <span className="flex items-center gap-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-blue-500/20 font-bold shrink-0 whitespace-nowrap">
-                          <FileText className="w-3 h-3" />
-                          <span>Notes</span>
-                        </span>
-                      )}
-
-                      {hasPdf && (
-                        <span className="flex items-center gap-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-purple-500/20 font-bold shrink-0 whitespace-nowrap">
-                          <BookOpen className="w-3 h-3" />
-                          <span>PDF</span>
-                        </span>
-                      )}
                     </div>
                   </div>
                 );
