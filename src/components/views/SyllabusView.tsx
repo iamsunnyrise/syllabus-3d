@@ -1222,10 +1222,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 const chapterBadge = getChapterBadgeStyle(activeSubject.name, idx);
                 const ChapterIcon = isChapterMastered ? CheckCircle2 : chapterBadge.icon;
 
-                const topicsPreview = chapter.topics.length > 0
-                  ? chapter.topics.slice(0, 4).map(t => t.name).join(' • ')
-                  : 'Curated core principles, high-yield exam patterns, and targeted topic mastery.';
-
                 return (
                   <div
                     key={chapter.id}
@@ -1275,10 +1271,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                             {chapter.name}
                           </h3>
-
-                          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-2 leading-relaxed">
-                            {topicsPreview}
-                          </p>
 
                           {/* Meta Pills Row */}
                           <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
@@ -1662,10 +1654,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               const formattedNum = (sIdx + 1).toString().padStart(2, '0');
               const palette = TOPIC_PALETTES[sIdx % TOPIC_PALETTES.length];
 
-              const chaptersPreview = subject.chapters.length > 0
-                ? subject.chapters.slice(0, 4).map(c => c.name).join(' • ')
-                : 'Full curriculum domain with structured chapters and topic tracking.';
-
               return (
                 <div
                   key={subject.id}
@@ -1715,10 +1703,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                           {subject.name}
                         </h3>
-
-                        <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-2 leading-relaxed">
-                          {chaptersPreview}
-                        </p>
 
                         {/* Meta Pills Row */}
                         <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
