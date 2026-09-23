@@ -200,7 +200,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
   const stage4Count = revisions.filter(r => r.stage >= 4 || r.completedDate).length;
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-8 sm:pb-12 max-w-4xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-36 sm:pb-24 max-w-4xl mx-auto font-sans animate-fade-in">
       
       {/* 🖨️ PRINT-ONLY SPACED REPETITION DESK CHEATSHEET */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -220,43 +220,48 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         </div>
       </div>
 
-      {/* 1. EXECUTIVE HERO BANNER (Issues 1, 2, 3, 4, 5, 10) */}
-      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 sm:space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+      {/* 1. EXECUTIVE HERO BANNER */}
+      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3.5 sm:space-y-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4">
           
           {/* Title and Icon Capsule */}
-          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <SectionBadgeIcon section="revision" size="lg" />
+          <div className="flex items-start sm:items-center gap-3 sm:gap-3.5 min-w-0">
+            <SectionBadgeIcon section="revision" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
 
             <div className="min-w-0 space-y-1">
-              {/* Issue 3: Text size >= 12px */}
               <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-primary-600 dark:text-primary-400">
                 <span className="truncate">Ebbinghaus Spaced Repetition</span>
                 <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
                 <span className="hidden xs:inline truncate text-slate-500 dark:text-slate-400 font-medium">Memory Retention Engine</span>
               </div>
               
-              {/* Issue 4: Removed uppercase */}
-              <h1 className="text-base xs:text-lg sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate">
-                Spaced Repetition & Revision
+              <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                Spaced Repetition &amp; Revision
               </h1>
               
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap pt-0.5">
                 <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-normal hidden sm:block">
-                  Lock concepts into permanent memory with active recall intervals (1d → 3d → 7d → 21d+).
+                  Lock concepts into permanent recall with Ebbinghaus intervals (1d → 3d → 7d → 21d+).
                 </p>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Live Reactive Sync
                 </span>
+                {currentExam && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                    <span>🎯</span>
+                    <span>{currentExam.name}</span>
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Right Action Cluster: Live Sync (Issue 10) + Start Session (Issue 5) */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 pt-0.5 sm:pt-0">
-            {/* Issue 10: Subdued secondary button for Live Resync */}
+          {/* Right Action Cluster: Mobile-Responsive Grid (NO HORIZONTAL OVERFLOW!) */}
+          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-2.5 w-full lg:w-auto shrink-0 pt-1 lg:pt-0">
+            {/* Live Resync */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 resyncAllRevisions();
@@ -264,17 +269,17 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 setTimeout(() => setJustSynced(false), 2200);
               }}
               title="Instantly re-verify and align spaced revision intervals with your syllabus topics"
-              className={`btn-secondary flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold ${
+              className={`h-10 sm:h-11 px-3 sm:px-3.5 rounded-xl border text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95 ${
                 justSynced
-                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-bold'
-                  : ''
+                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                  : 'bg-white dark:bg-[#1A1B28] hover:bg-slate-50 dark:hover:bg-[#202234] border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200'
               }`}
             >
-              <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-400'}`} />
-              <span>{justSynced ? '✓ Synced Topics!' : 'Live Resync'}</span>
+              <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-500 dark:text-slate-400'}`} />
+              <span className="truncate">{justSynced ? '✓ Synced!' : 'Live Resync'}</span>
             </button>
 
-            {/* 🚶 Walk & Revise (Hands-Free Audio Revision Mode) */}
+            {/* 🚶 Walk & Revise */}
             {onOpenWalkAndRevise && (
               <button
                 type="button"
@@ -283,29 +288,30 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   onOpenWalkAndRevise();
                 }}
                 title="Hands-free continuous audio revision with lock screen & earphone support"
-                className="flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 hover:border-purple-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs"
+                className="h-10 sm:h-11 px-3 sm:px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/25 hover:border-purple-500/40 transition-all active:scale-95 cursor-pointer shadow-2xs flex items-center justify-center gap-1.5"
               >
-                <Footprints className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-                <span>Walk & Revise</span>
-                <Headphones className="w-3 h-3 opacity-70 ml-0.5" />
+                <Footprints className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
+                <span className="truncate">Walk &amp; Revise</span>
+                <Headphones className="w-3 h-3 opacity-70 shrink-0" />
               </button>
             )}
 
-            {/* Issue 5: Undisputed primary CTA without uppercase */}
+            {/* Primary Action: Start Due Revision */}
             <button
+              type="button"
               onClick={() => {
                 soundManager.playClick();
                 onOpenRevisionSession();
               }}
               disabled={dueRevisions.length === 0}
-              className={`btn-primary flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-bold transition-all active:scale-95 cursor-pointer shrink-0 shadow-sm ${
+              className={`col-span-2 sm:col-span-1 h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-indigo-500/20 active:scale-95 ${
                 dueRevisions.length > 0
-                  ? ''
-                  : 'opacity-50 cursor-not-allowed pointer-events-none'
+                  ? 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white'
+                  : 'bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 border border-slate-200/50 dark:border-white/5 cursor-not-allowed pointer-events-none'
               }`}
             >
-              <Play className={`w-3.5 h-3.5 ${dueRevisions.length > 0 ? 'fill-current' : ''}`} />
-              <span>
+              <Play className={`w-3.5 h-3.5 shrink-0 ${dueRevisions.length > 0 ? 'fill-current' : ''}`} />
+              <span className="font-black">
                 {dueRevisions.length > 0
                   ? `Start Due Revision (${dueRevisions.length})`
                   : 'All Revisions Cleared ✓'}
@@ -315,96 +321,101 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         </div>
       </div>
 
-      {/* 2. 4-STAGE RETENTION PIPELINE BENTO CARDS (Issues 1, 2) */}
+      {/* 2. 4-STAGE RETENTION PIPELINE BENTO CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
         
         {/* Stage 1 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-60 group-hover:opacity-100" />
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-blue-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-70 group-hover:opacity-100" />
+          <div className="flex items-center justify-between gap-1">
+            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 whitespace-nowrap">
               Stage 1 • 1d
             </span>
-            <span className="text-xs font-mono text-slate-400 hidden xs:inline">Day 1</span>
+            <div className="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+              <Zap className="w-3.5 h-3.5" />
+            </div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-slate-900 dark:text-white">
-              {stage1Count} <span className="text-xs font-sans font-medium text-slate-400">cards</span>
+            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+              {stage1Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
             </div>
-            <p className="text-xs font-bold text-blue-600 dark:text-blue-400 mt-1">Initial Recall</p>
-            <p className="text-xs text-slate-400 truncate font-normal">Fresh concepts</p>
+            <p className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 mt-1 truncate">Initial Recall</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Fresh concepts</p>
           </div>
         </div>
 
         {/* Stage 2 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-60 group-hover:opacity-100" />
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-amber-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70 group-hover:opacity-100" />
+          <div className="flex items-center justify-between gap-1">
+            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 whitespace-nowrap">
               Stage 2 • 3d
             </span>
-            <span className="text-xs font-mono text-slate-400 hidden xs:inline">Day 3</span>
+            <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+              <Flame className="w-3.5 h-3.5" />
+            </div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-slate-900 dark:text-white">
-              {stage2Count} <span className="text-xs font-sans font-medium text-slate-400">cards</span>
+            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+              {stage2Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
             </div>
-            <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-1">Consolidation</p>
-            <p className="text-xs text-slate-400 truncate font-normal">Reinforcing</p>
+            <p className="text-xs sm:text-[13px] font-bold text-amber-600 dark:text-amber-400 mt-1 truncate">Consolidation</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Reinforcing</p>
           </div>
         </div>
 
         {/* Stage 3 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-purple-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-60 group-hover:opacity-100" />
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-purple-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-70 group-hover:opacity-100" />
+          <div className="flex items-center justify-between gap-1">
+            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25 whitespace-nowrap">
               Stage 3 • 7d
             </span>
-            <span className="text-xs font-mono text-slate-400 hidden xs:inline">Day 7</span>
+            <div className="w-6 h-6 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+              <BrainCircuit className="w-3.5 h-3.5" />
+            </div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-slate-900 dark:text-white">
-              {stage3Count} <span className="text-xs font-sans font-medium text-slate-400">cards</span>
+            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+              {stage3Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
             </div>
-            <p className="text-xs font-bold text-purple-600 dark:text-purple-400 mt-1">Long-Term Sync</p>
-            <p className="text-xs text-slate-400 truncate font-normal">Core memory</p>
+            <p className="text-xs sm:text-[13px] font-bold text-purple-600 dark:text-purple-400 mt-1 truncate">Long-Term Sync</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Core memory</p>
           </div>
         </div>
 
         {/* Stage 4 / Mastered */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-60 group-hover:opacity-100" />
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100" />
+          <div className="flex items-center justify-between gap-1">
+            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 whitespace-nowrap">
               Stage 4 • 21d+
             </span>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-0.5">
-              <ShieldCheck className="w-3 h-3" />
-              <span>Mastered</span>
-            </span>
+            <div className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0" title="Mastered Vault">
+              <ShieldCheck className="w-3.5 h-3.5" />
+            </div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
-              {stage4Count} <span className="text-xs font-sans font-medium text-slate-400">cards</span>
+            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+              {stage4Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
             </div>
-            <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-1">Permanently Locked</p>
-            <p className="text-xs text-slate-400 truncate font-normal">Exam-ready</p>
+            <p className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 truncate">Permanently Locked</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Exam-ready</p>
           </div>
         </div>
       </div>
 
-      {/* 3. SEARCH & QUEUE FILTER TOOLBAR (Issues 1, 2, 11) */}
-      <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+      {/* 3. SEARCH & QUEUE FILTER TOOLBAR */}
+      <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
         
-        {/* Search & Tabs Row (Issue 6: Ergonomic bounded search & priority for tabs) */}
-        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+        {/* Tabs & Search Row */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
           
           {/* Queue Tab Switchers (Primary Filter) */}
           <div
             role="tablist"
             aria-label="Revision Queue Tabs"
-            className="flex items-center gap-1 p-1 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 overflow-x-auto no-scrollbar shrink-0"
+            className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-[#1B1C28] border border-slate-200/80 dark:border-white/10 overflow-x-auto no-scrollbar shrink-0"
           >
             {[
               { id: 'today', label: 'Due Today', count: dueList.length, icon: Clock },
@@ -424,16 +435,16 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 active:scale-95 ${
                     isSel
-                      ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-xs'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-700/60'
+                      ? 'bg-[#4F46E5] text-white shadow-xs'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
                   }`}
                 >
                   <TabIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{tab.label}</span>
-                  <span className={`px-1.5 py-0.5 rounded-lg text-[10px] font-mono tabular-nums ${
+                  <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-sans font-black tabular-nums ${
                     isSel
-                      ? 'bg-white/20 text-white font-bold'
-                      : 'bg-slate-200 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-slate-200 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400'
                   }`}>
                     {tab.count}
                   </span>
@@ -442,20 +453,20 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
             })}
           </div>
 
-          {/* Clean Bounded Search Input (Issue 6: ~320px width on desktop) */}
+          {/* Clean Bounded Search Input */}
           <div className="relative w-full sm:w-72 md:w-80 shrink-0">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search queue..."
-              className="w-full pl-10 pr-9 py-2 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 shadow-2xs"
+              placeholder="Search queue topics..."
+              className="w-full pl-10 pr-9 py-2 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-white/10 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 shadow-2xs transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="btn-ghost absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg cursor-pointer"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg cursor-pointer"
                 title="Clear search"
                 aria-label="Clear search"
               >
@@ -465,12 +476,12 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
           </div>
         </div>
 
-        {/* Subject Filter Pills (Issue 4: Differentiated secondary facet styling) */}
+        {/* Subject Filter Pills */}
         {currentExam && currentExam.subjects.length > 0 && (
           <div
             role="group"
             aria-label="Filter queue by subject"
-            className="flex items-center gap-1.5 overflow-x-auto pt-2.5 border-t border-slate-100 dark:border-slate-800 no-scrollbar"
+            className="flex items-center gap-1.5 overflow-x-auto pt-2.5 border-t border-slate-100 dark:border-white/10 no-scrollbar"
           >
             <button
               onClick={() => {
@@ -478,10 +489,10 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 setSelectedSubjectFilter('all');
               }}
               aria-pressed={selectedSubjectFilter === 'all'}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                 selectedSubjectFilter === 'all'
-                  ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-500/50 shadow-2xs font-bold ring-1 ring-primary-500/30'
-                  : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border-indigo-500/50 shadow-2xs font-bold ring-1 ring-indigo-500/30'
+                  : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Layers className="w-3.5 h-3.5 shrink-0" />
@@ -502,16 +513,16 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     setSelectedSubjectFilter(s.name);
                   }}
                   aria-pressed={isSelected}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                     isSelected
-                      ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-500/50 shadow-2xs font-bold ring-1 ring-primary-500/30'
-                      : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border-indigo-500/50 shadow-2xs font-bold ring-1 ring-indigo-500/30'
+                      : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <SubjIcon className="w-3.5 h-3.5 shrink-0" style={{ color: isSelected ? undefined : meta.color }} />
                   <span>{toNaturalCase(s.name)}</span>
-                  <span className={`px-1.5 py-0.5 rounded-lg text-[10px] font-mono tabular-nums ${
-                    isSelected ? 'bg-primary-500/20 text-primary-700 dark:text-primary-300 font-bold' : 'bg-slate-200 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'
+                  <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-sans font-bold tabular-nums ${
+                    isSelected ? 'bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-200 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400'
                   }`}>
                     {count}
                   </span>
@@ -541,7 +552,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               return (
                 <div
                   key={rev.id}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-primary-500/50 shadow-sm transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden"
+                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-sm transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden"
                 >
                   {/* Subtle Left Accent Line */}
                   <div
@@ -565,24 +576,23 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     </div>
 
                     <div className="space-y-1 min-w-0 flex-1">
-                      {/* Issue 8: Reduced badge wall, high-priority status only + clean inline text (Issue 6 font size) */}
                       <div className="flex items-center gap-2 flex-wrap text-xs">
-                        <span className={`px-2 py-0.5 text-xs font-mono font-bold rounded-lg border ${stageMeta.badgeClass}`}>
+                        <span className={`px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg border whitespace-nowrap ${stageMeta.badgeClass}`}>
                           {stageMeta.label}
                         </span>
 
                         {isOverdue ? (
-                          <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 whitespace-nowrap">
                             Overdue ({formatDateReadable(rev.scheduledDate)})
                           </span>
                         ) : isWeak ? (
-                          <span className="px-2 py-0.5 text-xs font-mono font-semibold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
                             <AlertTriangle className="w-3 h-3" />
                             <span>Weak</span>
                           </span>
                         ) : null}
 
-                        {/* Secondary Metadata with clear hierarchy (Issues 3 & 7) */}
+                        {/* Secondary Metadata */}
                         <div className="flex items-center gap-1.5 flex-wrap text-xs text-slate-500 dark:text-slate-400">
                           <span className="font-semibold text-slate-700 dark:text-slate-200">
                             {toNaturalCase(rev.subjectName)}
@@ -590,7 +600,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           <span className="text-slate-300 dark:text-slate-600">•</span>
                           <span>{toNaturalCase(rev.chapterName)}</span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-medium ${
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-bold ${
                             difficulty.toLowerCase() === 'hard'
                               ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
                               : difficulty.toLowerCase() === 'easy'
@@ -603,7 +613,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           {accuracy !== undefined && accuracy > 0 && (
                             <>
                               <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="font-mono text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                              <span className="font-sans text-[11px] font-bold tabular-nums text-slate-600 dark:text-slate-300">
                                 {accuracy}% acc
                               </span>
                             </>
@@ -611,8 +621,8 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                         </div>
                       </div>
 
-                      {/* Heading with Chapter breadcrumb to eliminate identical title ambiguity (Issue 5) */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate flex items-center gap-1.5">
+                      {/* Heading with Chapter breadcrumb */}
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate flex items-center gap-1.5">
                         <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
                           {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
                         </span>
@@ -621,12 +631,12 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     </div>
                   </div>
 
-                  {/* Actions (Inspect + Review Card) (Issues 2 & 8) */}
-                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
+                  {/* Actions (Inspect + Review Card) */}
+                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/10">
                     {onOpenTopicDrawer && topicObj && (
                       <button
                         onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="btn-secondary px-3 py-1.5 text-xs font-semibold shrink-0"
+                        className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.06] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
                         title="View Topic Details"
                         aria-label={`Inspect ${rev.topicName}`}
                       >
@@ -636,10 +646,10 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
 
                     <button
                       onClick={onOpenRevisionSession}
-                      className="btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold text-primary-700 dark:text-primary-300 border-primary-200/70 dark:border-primary-800/60 hover:bg-primary-50 dark:hover:bg-primary-950/30 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/60 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 shadow-2xs"
                       aria-label={`Review card for ${rev.topicName}`}
                     >
-                      <RotateCw className="w-3.5 h-3.5 stroke-[2.2] text-primary-600 dark:text-primary-400" />
+                      <RotateCw className="w-3.5 h-3.5 stroke-[2.2] text-indigo-600 dark:text-indigo-400" />
                       <span>Review</span>
                     </button>
                   </div>
@@ -726,7 +736,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               return (
                 <div
                   key={rev.id}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group hover:border-primary-500/40 transition-all"
+                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group transition-all"
                 >
                   <div
                     onClick={() => {
@@ -744,12 +754,12 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
 
                     <div className="space-y-1 min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap text-xs">
-                        <span className={`px-2 py-0.5 text-xs font-mono font-bold rounded-lg border ${stageMeta.badgeClass}`}>
+                        <span className={`px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg border whitespace-nowrap ${stageMeta.badgeClass}`}>
                           {stageMeta.label}
                         </span>
 
                         {isWeak && (
-                          <span className="px-2 py-0.5 text-xs font-mono font-semibold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                          <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
                             <AlertTriangle className="w-3 h-3" />
                             <span>Weak</span>
                           </span>
@@ -763,7 +773,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           <span className="text-slate-300 dark:text-slate-600">•</span>
                           <span>{toNaturalCase(rev.chapterName)}</span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-medium ${
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[11px] font-bold ${
                             difficulty.toLowerCase() === 'hard'
                               ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
                               : difficulty.toLowerCase() === 'easy'
@@ -776,7 +786,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                           {accuracy !== undefined && accuracy > 0 && (
                             <>
                               <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="font-mono text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                              <span className="font-sans text-[11px] font-bold tabular-nums text-slate-600 dark:text-slate-300">
                                 {accuracy}% acc
                               </span>
                             </>
@@ -785,7 +795,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       </div>
 
                       {/* Heading with Chapter breadcrumb to eliminate identical title ambiguity (Issue 5) */}
-                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate flex items-center gap-1.5">
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate flex items-center gap-1.5">
                         <span className="text-slate-400 dark:text-slate-500 font-normal text-xs sm:text-sm shrink-0">
                           {toNaturalCase(rev.chapterName)} <span className="opacity-60">›</span>
                         </span>
@@ -794,11 +804,11 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/10">
                     {onOpenTopicDrawer && topicObj && (
                       <button
                         onClick={() => onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName)}
-                        className="btn-secondary px-3 py-1.5 text-xs font-semibold shrink-0"
+                        className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.06] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
                         title="View Topic Details"
                         aria-label={`Inspect ${rev.topicName}`}
                       >
@@ -806,7 +816,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       </button>
                     )}
 
-                    <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-mono font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1.5 shrink-0">
+                    <span className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs font-sans font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5 shrink-0">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{formatDateReadable(rev.scheduledDate)}</span>
                     </span>
@@ -874,7 +884,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
 
                     <div className="space-y-1 min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
                           ✓ Mastered
                         </span>
                         <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
@@ -893,7 +903,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     </div>
                   </div>
 
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono shrink-0 pl-1 sm:pl-0">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-sans font-semibold shrink-0 pl-1 sm:pl-0">
                     {rev.completedDate ? `Mastered on ${rev.completedDate}` : 'Retained'}
                   </span>
                 </div>
