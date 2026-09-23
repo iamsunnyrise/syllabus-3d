@@ -357,224 +357,189 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
       </div>
 
-      {/* ═══════════════ 1. EXECUTIVE STUDY PLANNER COMMAND BAR ═══════════════ */}
-      <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/80 dark:bg-[#11131F]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-4 overflow-hidden">
-        {/* Top Subtle Accent Gradient Line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-90" />
-
-        {/* Command Bar Header Row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
-          <div className="space-y-1.5 min-w-0">
-            {/* Meta Tags Pill Row */}
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] font-mono font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span>Daily Study Sprint</span>
-                <span className="text-amber-400 dark:text-amber-500">•</span>
-                <span>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+      {/* ═══════════════ 1. STUDY PLANNER HEADER & COMMAND BAR ═══════════════ */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+        <div>
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Study Planner
+            </h1>
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] font-mono font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse inline-block mr-1.5" />
+              <span>Daily Sprint</span>
+              <span className="text-amber-400 dark:text-amber-500 mx-1.5">•</span>
+              <span>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            </span>
+            {currentExam && (
+              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                {currentExam.name}
               </span>
-
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-slate-300 text-[11px] font-mono font-bold">
-                <Target className="w-3 h-3 text-blue-500" />
-                <span>{plannerTasks.length} {plannerTasks.length === 1 ? 'Target' : 'Targets'}</span>
-              </span>
-
-              {currentExam && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200/60 dark:border-blue-500/20 text-blue-700 dark:text-blue-300 text-[11px] font-mono font-bold">
-                  <span>{currentExam.name}</span>
-                </span>
-              )}
-            </div>
-
-            {/* Title & Subtitle */}
-            <div className="space-y-0.5">
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                Study Planner &amp; Daily Sprints
-              </h1>
-              <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium max-w-xl">
-                Target tracking, daily sprints, time blocking, and queue management.
-              </p>
-            </div>
+            )}
           </div>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Target tracking, daily sprints, time blocking, and queue management.
+          </p>
+        </div>
 
-          {/* Right Action: Add Target Button + Mini Velocity Gauge */}
-          <div className="flex items-center gap-3 shrink-0">
-            {/* Live Circular Progress Miniature */}
-            <div className="hidden lg:flex items-center gap-2.5 px-3 py-2 rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06]">
-              <div className="relative w-10 h-10 flex items-center justify-center shrink-0">
-                <svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
-                  <path
-                    className="text-slate-200 dark:text-slate-700/60"
-                    strokeWidth="3.2"
-                    stroke="currentColor"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className="text-emerald-500 transition-all duration-700 ease-out"
-                    strokeDasharray={`${todayProgressPercent}, 100`}
-                    strokeWidth="3.2"
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                </svg>
-                <span className="absolute text-[11px] font-mono font-black text-slate-900 dark:text-white tabular-nums">
-                  {todayProgressPercent}%
-                </span>
-              </div>
-              <div className="text-left font-mono">
-                <p className="text-[11px] font-bold text-slate-900 dark:text-white leading-tight">
-                  {completedTodayCount} of {totalTodayCount} Done
-                </p>
-                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 tracking-normal">
-                  Today's Velocity
-                </p>
-              </div>
-            </div>
-
-            {/* + Add Target Button */}
+        {/* Primary Action Buttons */}
+        <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
+          {onOpenBacklogRescue && (
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
-                setTargetDate(getTodayDateString());
-                setShowAddModal(true);
+                onOpenBacklogRescue();
               }}
-              className="btn-primary py-2 px-3.5 sm:px-4 text-xs sm:text-[13px] font-bold"
-              title="Add Target"
+              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs flex items-center justify-center gap-1.5"
+              title="Smart Backlog Rescue - Adaptive Routine Generator"
             >
-              <Plus className="w-4 h-4 stroke-[2.5]" />
-              <span>Add Target</span>
+              <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
+              <span>Backlog Rescue</span>
             </button>
+          )}
 
-            {/* ⚡ Smart Backlog Rescue Button */}
-            {onOpenBacklogRescue && (
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setTargetDate(getTodayDateString());
+              setShowAddModal(true);
+            }}
+            className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            title="Add Target"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Add Target</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 2. GOLDEN AMBER STREAK & CONSISTENCY BANNER (Matching Mockup) */}
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15 print:hidden">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🔥</span>
+          <div className="min-w-0">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
+              {profile.currentStreak || 7} Day Streak
+            </div>
+            <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-1 truncate">
+              Maintain daily study momentum! Best consistency record: {profile.longestStreak || 24} days
+            </div>
+          </div>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+          <Zap className="w-3.5 h-3.5 fill-current" />
+          <span>{completedTodayCount} of {totalTodayCount} Targets Conquered Today</span>
+        </div>
+      </div>
+
+      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Matching Mockup) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+        {/* Card 1: Purple Gradient -> Velocity */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Today's Velocity</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <CheckCircle2 className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              {todayProgressPercent}%
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {completedTodayCount} of {totalTodayCount} Completed
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2: Hot Coral / Pink Gradient -> Planned Hours */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Planned Study</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <Clock className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              {(totalPlannedMinutes / 60).toFixed(1)}h
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {(completedMinutes / 60).toFixed(1)}h Finished Today
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3: Cyan / Sky Blue Gradient -> Total Targets */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Total Targets</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <Target className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
+              {plannerTasks.length}
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {plannerTasks.filter(t => t.status === 'in_progress').length} Active • {plannerTasks.filter(t => t.status === 'today').length} Due Today
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4: Emerald / Mint Gradient -> XP & Level */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">XP &amp; Rank</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <Award className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              Lvl {profile.level}
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {profile.xp} XP Earned
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. SMART SUGGESTIONS STRIP (If any) */}
+      {smartSuggestions.length > 0 && (
+        <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center gap-2.5 overflow-x-auto no-scrollbar print:hidden">
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            <span>Suggested:</span>
+          </span>
+          {smartSuggestions.map((sug, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-xs shrink-0 shadow-2xs"
+            >
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[160px] sm:max-w-[200px]">
+                  {sug.topicName}
+                </span>
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
+                  • {sug.subjectName}
+                </span>
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenBacklogRescue();
-                }}
-                className="flex items-center gap-1.5 py-2 px-3 sm:px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs"
-                title="Smart Backlog Rescue - Adaptive Routine Generator"
+                onClick={() => handleAddSuggestion(sug.topicName, sug.subjectName, sug.subjectColor, sug.topicId)}
+                className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1 shadow-xs"
               >
-                <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
-                <span>Backlog Rescue</span>
+                <Plus className="w-3 h-3 stroke-[2.5]" />
+                <span>Add</span>
               </button>
-            )}
-          </div>
+            </div>
+          ))}
         </div>
-
-        {/* 4-KPI Executive Bento Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-1">
-          {/* Velocity */}
-          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/[0.06] flex items-center gap-3">
-            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
-              <CheckCircle2 className="w-4.5 h-4.5 stroke-[2.2]" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Velocity
-              </p>
-              <p className="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white tabular-nums">
-                {todayProgressPercent}%
-              </p>
-              <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold truncate">
-                {completedTodayCount}/{totalTodayCount} Done
-              </p>
-            </div>
-          </div>
-
-          {/* Streak */}
-          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/[0.06] flex items-center gap-3">
-            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
-              <Flame className="w-4.5 h-4.5 stroke-[2.2]" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Consistency
-              </p>
-              <p className="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white tabular-nums">
-                {profile.currentStreak} <span className="text-[11px] font-normal text-slate-500">Days</span>
-              </p>
-              <p className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-semibold truncate">
-                Best: {profile.longestStreak}d
-              </p>
-            </div>
-          </div>
-
-          {/* Planned Hours */}
-          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/[0.06] flex items-center gap-3">
-            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
-              <Clock className="w-4.5 h-4.5 stroke-[2.2]" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Planned
-              </p>
-              <p className="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white tabular-nums">
-                {(totalPlannedMinutes / 60).toFixed(1)} <span className="text-[11px] font-normal text-slate-500">hrs</span>
-              </p>
-              <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-semibold truncate">
-                {(completedMinutes / 60).toFixed(1)}h finished
-              </p>
-            </div>
-          </div>
-
-          {/* XP Level */}
-          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/[0.06] flex items-center gap-3">
-            <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/20">
-              <Award className="w-4.5 h-4.5 stroke-[2.2]" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                XP Level
-              </p>
-              <p className="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white tabular-nums">
-                Lvl {profile.level}
-              </p>
-              <p className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold truncate">
-                {profile.xp} XP Earned
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Smart Suggestions Strip */}
-        {smartSuggestions.length > 0 && (
-          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center gap-2.5 overflow-x-auto no-scrollbar">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-              <span>Suggested:</span>
-            </span>
-            {smartSuggestions.map((sug, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-xs shrink-0 shadow-2xs"
-              >
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[160px] sm:max-w-[200px]">
-                    {sug.topicName}
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
-                    • {sug.subjectName}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleAddSuggestion(sug.topicName, sug.subjectName, sug.subjectColor, sug.topicId)}
-                  className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1"
-                >
-                  <Plus className="w-3 h-3 stroke-[2.5]" />
-                  <span>Add</span>
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      )}
 
 
       {/* ═══════════════ 2. CONSOLIDATED VIEW CONTROLS & SUBJECT FILTER TOOLBAR ═══════════════ */}
@@ -588,13 +553,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 setViewMode('kanban');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'kanban'
-                  ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
+                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-blue-500" />
+              <LayoutGrid className="w-3.5 h-3.5" />
               <span>Target Board</span>
             </button>
 
@@ -604,13 +569,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 setViewMode('calendar');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'calendar'
-                  ? 'bg-white dark:bg-[#1E202E] text-slate-900 dark:text-white shadow-xs font-black'
+                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <CalendarDays className="w-3.5 h-3.5 text-indigo-500" />
+              <CalendarDays className="w-3.5 h-3.5" />
               <span>Calendar</span>
             </button>
 
@@ -620,13 +585,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 setViewMode('routine');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'routine'
-                  ? 'bg-white dark:bg-[#1E202E] text-blue-600 dark:text-blue-400 shadow-xs font-black'
+                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Clock className="w-3.5 h-3.5 text-amber-500" />
+              <Clock className="w-3.5 h-3.5" />
               <span>Routine</span>
             </button>
           </div>
@@ -659,14 +624,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               }}
               className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                 selectedSubjectFilter === 'all'
-                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
-                  : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
+                  ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 border-indigo-200/70 dark:border-indigo-500/30 shadow-xs font-black'
+                  : 'bg-white dark:bg-[#121424] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-400/50 dark:hover:border-indigo-500/30'
               }`}
             >
-              <Layers className="w-3.5 h-3.5 text-blue-500" />
+              <Layers className="w-3.5 h-3.5 text-indigo-500" />
               <span>All</span>
               <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-                selectedSubjectFilter === 'all' ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+                selectedSubjectFilter === 'all' ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
               }`}>
                 {plannerTasks.length}
               </span>
@@ -685,14 +650,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   }}
                   className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                     isSelected
-                      ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border-blue-200/60 dark:border-blue-500/30 shadow-xs font-black'
-                      : 'bg-white dark:bg-[#151622] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-blue-400/50 dark:hover:border-blue-500/30'
+                      ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 border-indigo-200/70 dark:border-indigo-500/30 shadow-xs font-black'
+                      : 'bg-white dark:bg-[#121424] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-400/50 dark:hover:border-indigo-500/30'
                   }`}
                 >
                   <SubjIcon className="w-3.5 h-3.5" style={{ color: isSelected ? undefined : s.color }} />
                   <span>{formatTitleCase(s.name)}</span>
                   <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-                    isSelected ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+                    isSelected ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
                   }`}>
                     {count}
                   </span>
@@ -793,17 +758,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             })}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
             {columns.map(col => {
               const ColIcon = col.icon;
               const isHiddenOnMobile = mobileActiveColumn !== 'all' && mobileActiveColumn !== col.id;
               return (
                 <div
                   key={col.id}
-                  className={`${isHiddenOnMobile ? 'hidden sm:flex' : 'flex'} flex-col rounded-2xl bg-slate-50/60 dark:bg-[#11131F]/90 border border-slate-200/80 dark:border-white/[0.08] shadow-xs p-3 sm:p-3.5 space-y-3 min-h-[160px] sm:min-h-[380px]`}
+                  className={`${isHiddenOnMobile ? 'hidden sm:flex' : 'flex'} flex-col rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-3.5 sm:p-4 space-y-3 min-h-[160px] sm:min-h-[380px]`}
                 >
                   {/* Column Header */}
-                  <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/70 dark:border-white/[0.06]">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 dark:border-white/[0.06]">
                     <div className="flex items-center gap-2">
                       <div className={`p-1.5 rounded-xl ${col.badgeCol}`}>
                         <ColIcon className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
@@ -818,10 +783,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   </div>
 
                   {/* Task Cards */}
-                  <div className="flex-1 space-y-2 overflow-y-auto max-h-[520px] no-scrollbar">
+                  <div className="flex-1 space-y-2.5 overflow-y-auto max-h-[520px] no-scrollbar">
                     {col.tasks.length === 0 ? (
-                      <div className="py-6 px-3 flex flex-col items-center justify-center text-center border border-dashed border-slate-200 dark:border-white/[0.08] rounded-xl bg-white/50 dark:bg-white/[0.02] space-y-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-[#1A1B29] border border-slate-200/60 dark:border-white/[0.06] flex items-center justify-center text-slate-500 dark:text-slate-400">
+                      <div className="py-7 px-3 flex flex-col items-center justify-center text-center border border-dashed border-slate-200/80 dark:border-white/10 rounded-2xl bg-slate-50/50 dark:bg-white/[0.02] space-y-2.5">
+                        <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#1A1B29] border border-slate-200/60 dark:border-white/[0.06] flex items-center justify-center text-slate-500 dark:text-slate-400">
                           {col.id === 'upcoming' && <ListPlus className="w-4 h-4 text-indigo-500" />}
                           {col.id === 'today' && <Target className="w-4 h-4 text-blue-500" />}
                           {col.id === 'in_progress' && <Zap className="w-4 h-4 text-purple-500 fill-current" />}
@@ -850,7 +815,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                               setTargetDate(getTodayDateString());
                               setShowAddModal(true);
                             }}
-                            className="mt-1 px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-500/15 hover:bg-blue-600 dark:hover:bg-blue-600 text-blue-700 dark:text-blue-300 hover:text-white dark:hover:text-white border border-blue-200 dark:border-blue-500/30 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs"
+                            className="mt-1 px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-indigo-700 dark:text-indigo-300 hover:text-white dark:hover:text-white border border-indigo-200/80 dark:border-indigo-500/30 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs"
                           >
                             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                             <span>Add Target</span>
@@ -865,17 +830,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         return (
                           <div
                             key={task.id}
-                            className={`relative p-3 rounded-xl border transition-all space-y-2 group ${
+                            className={`relative p-3.5 rounded-2xl border transition-all space-y-2 group ${
                               isDone
                                 ? 'bg-emerald-500/5 dark:bg-emerald-500/[0.03] border-emerald-500/20 opacity-80'
-                                : 'bg-white dark:bg-[#161826] border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500/40 dark:hover:border-blue-400/30 shadow-2xs hover:shadow-xs'
+                                : 'bg-slate-50/70 dark:bg-[#161828] border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-400/30 shadow-2xs hover:shadow-xs'
                             }`}
                           >
                             {/* Subtle Left Accent Indicator Bar */}
                             {!isDone && (
                               <div
                                 className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full"
-                                style={{ backgroundColor: task.subjectColor || '#3B82F6' }}
+                                style={{ backgroundColor: task.subjectColor || '#4F46E5' }}
                               />
                             )}
 
@@ -935,7 +900,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                     soundManager.playClick();
                                     onOpenFocusChamber(task.topicId);
                                   }}
-                                  className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-[10.5px] sm:text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-2xs tap-bounce"
+                                  className="px-2.5 py-1 rounded-lg bg-[#4F46E5] hover:bg-indigo-600 text-white text-[10.5px] sm:text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-2xs tap-bounce"
                                 >
                                   <Zap className="w-3 h-3 fill-current" />
                                   <span>Focus</span>
@@ -983,28 +948,28 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         /* ═══════════════ 5. WEEKLY CALENDAR VIEW ═══════════════ */
         <div className="space-y-3">
           {/* Week Navigation */}
-          <div className="p-2.5 sm:p-3.5 rounded-2xl bg-white dark:bg-[#11131F]/90 border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+          <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between sm:justify-start gap-1.5">
               <button
                 onClick={() => { soundManager.playClick(); setWeekOffset(w => w - 1); }}
-                className="p-1.5 rounded-xl bg-slate-50 dark:bg-[#1A1B29] border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
                 aria-label="Previous week"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={() => { soundManager.playClick(); setWeekOffset(0); }}
-                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   weekOffset === 0
-                    ? 'bg-blue-600 text-white font-bold shadow-xs'
-                    : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-[#4F46E5] text-white font-black shadow-sm shadow-indigo-500/20'
+                    : 'bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Current Week
               </button>
               <button
                 onClick={() => { soundManager.playClick(); setWeekOffset(w => w + 1); }}
-                className="p-1.5 rounded-xl bg-slate-50 dark:bg-[#1A1B29] border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
                 aria-label="Next week"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -1012,7 +977,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             </div>
 
             <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center justify-center sm:justify-start gap-2">
-              <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <Calendar className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>{weekDays[0]?.monthName} {weekDays[0]?.dayNum} – {weekDays[6]?.monthName} {weekDays[6]?.dayNum}</span>
             </div>
           </div>
@@ -1029,16 +994,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <div
                   key={day.dateStr}
                   data-today={day.isToday}
-                  className={`p-2.5 sm:p-3 rounded-xl border transition-all space-y-2 ${
+                  className={`p-3 rounded-2xl border transition-all space-y-2 ${
                     day.isToday
-                      ? 'bg-blue-50/30 dark:bg-[#1A1B29] border-blue-500/70 dark:border-blue-400 shadow-xs ring-1 ring-blue-500/20'
-                      : 'bg-slate-50/60 dark:bg-[#11131F]/90 border-slate-200/70 dark:border-white/[0.06]'
+                      ? 'bg-indigo-50/40 dark:bg-[#1A1B29] border-indigo-500/70 dark:border-indigo-400 shadow-sm ring-1 ring-indigo-500/20'
+                      : 'bg-white dark:bg-[#121424] border-slate-200/80 dark:border-white/[0.08] shadow-2xs'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
                       <span className={`text-[10px] sm:text-[11px] tabular-nums font-bold uppercase font-mono block ${
-                        day.isToday ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'
+                        day.isToday ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'
                       }`}>
                         {day.dayName}
                       </span>
@@ -1053,7 +1018,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         setTargetDate(day.dateStr);
                         setShowAddModal(true);
                       }}
-                      className="w-6 h-6 rounded-lg bg-white dark:bg-[#1A1B29] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-blue-600 dark:hover:text-white cursor-pointer transition-colors"
+                      className="w-6 h-6 rounded-lg bg-slate-50 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-indigo-600 dark:hover:text-white cursor-pointer transition-colors"
                       title="Add target on this date"
                       aria-label="Add target on this date"
                     >
@@ -1069,10 +1034,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         <div
                           key={t.id}
                           onClick={() => handleToggleWithConfetti(t.id)}
-                          className={`p-1.5 sm:p-2 rounded-lg border text-[10px] sm:text-[11px] tabular-nums font-semibold cursor-pointer transition-all ${
+                          className={`p-2 rounded-xl border text-[10px] sm:text-[11px] tabular-nums font-semibold cursor-pointer transition-all ${
                             t.status === 'completed'
                               ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 line-through'
-                              : 'bg-white dark:bg-[#161826] border-slate-200/70 dark:border-white/[0.06] text-slate-900 dark:text-slate-100 hover:border-blue-500/40'
+                              : 'bg-slate-50/70 dark:bg-[#161826] border-slate-200/70 dark:border-white/[0.06] text-slate-900 dark:text-slate-100 hover:border-indigo-500/40'
                           }`}
                         >
                           <p className="line-clamp-1">{t.topicName}</p>
@@ -1090,11 +1055,11 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       {/* ═══════════════ 6. STREAMLINED ADD TARGET MODAL ═══════════════ */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in font-sans">
-          <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-2xl p-4 sm:p-5 space-y-3.5 sm:space-y-4 animate-scale-in max-h-[92vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-2xl p-5 sm:p-6 space-y-4 animate-scale-in max-h-[92vh] overflow-y-auto">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.06]">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
                   <Plus className="w-4 h-4 stroke-[3]" />
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
@@ -1124,7 +1089,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     placeholder="Search topics or chapters..."
                     value={topicSearchQuery}
                     onChange={e => setTopicSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
+                    className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
                   />
                 </div>
 
@@ -1161,7 +1126,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     setCustomTitle(e.target.value);
                     if (selectedSyllabusTopicId) setSelectedSyllabusTopicId('');
                   }}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
                 />
               </div>
 
@@ -1174,7 +1139,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   <select
                     value={priority}
                     onChange={e => setPriority(e.target.value as TaskPriority)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
                   >
                     <option value="high">High Priority</option>
                     <option value="medium">Medium Priority</option>
@@ -1193,7 +1158,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     step={5}
                     value={estimatedMins}
                     onChange={e => setEstimatedMins(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
@@ -1202,7 +1167,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <button
                 type="submit"
                 disabled={!customTitle.trim() && !selectedSyllabusTopicId}
-                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all active:scale-95 cursor-pointer disabled:opacity-50"
+                className="w-full py-2.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition-all active:scale-95 cursor-pointer disabled:opacity-50"
               >
                 Schedule Target
               </button>
