@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
 import {
   Target,
   CalendarCheck,
@@ -20,8 +19,6 @@ import {
   Play,
   Pause,
   RotateCcw,
-  Sun,
-  Moon,
   Plus,
   Trophy,
   Zap,
@@ -218,8 +215,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
     ? examName.replace(examYearStr, '').trim()
     : examName;
 
-  const { isDark, toggleTheme } = useTheme();
-
   // Pomodoro Focus Timer State
   const [pomodoroSeconds, setPomodoroSeconds] = useState(25 * 60);
   const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
@@ -307,7 +302,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 1. TOP HEADER ROW: Dashboard Title + Theme Toggle + Add Task Button (Matching Mockup) */}
+      {/* 1. TOP HEADER ROW: Dashboard Title + Add Task Button */}
       <div className="flex items-center justify-between gap-3 pt-1">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -315,40 +310,19 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </h1>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          {/* Circular Floating Theme Toggle with Yellow Moon / Sun */}
+        {onOpenAddTopic && (
           <button
             type="button"
             onClick={() => {
               soundManager.playClick();
-              toggleTheme();
+              onOpenAddTopic();
             }}
-            className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D2E] border border-slate-200/90 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-sm hover:shadow active:scale-95 transition-all cursor-pointer"
-            title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-            aria-label="Toggle theme"
+            className="h-10 sm:h-10.5 px-4 sm:px-5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer"
           >
-            {isDark ? (
-              <Sun className="w-5 h-5 text-amber-400 fill-amber-400/20" />
-            ) : (
-              <span className="text-lg leading-none select-none">🌙</span>
-            )}
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Add Task</span>
           </button>
-
-          {/* + Add Task / Topic Button */}
-          {onOpenAddTopic && (
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                onOpenAddTopic();
-              }}
-              className="h-10 sm:h-10.5 px-4 sm:px-5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer"
-            >
-              <Plus className="w-4 h-4 stroke-[3]" />
-              <span>Add Task</span>
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
       {/* 2. MOTIVATIONAL QUOTE BANNER (Matching Mockup) */}
