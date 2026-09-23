@@ -256,23 +256,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  // Current Week Dates
-  const weekDates = useMemo(() => {
-    const curr = new Date();
-    const first = curr.getDate() - curr.getDay(); // Sunday as start
-    const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    return dayLabels.map((dayName, idx) => {
-      const d = new Date(curr);
-      d.setDate(first + idx);
-      const isToday = d.toDateString() === curr.toDateString();
-      return {
-        dayName,
-        dateNum: d.getDate(),
-        isToday,
-        fullDate: d
-      };
-    });
-  }, []);
 
   const totalStudyHours = (overallStats.completedCount * 1.5) || 0.0;
 
@@ -393,42 +376,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 5. WEEKLY CALENDAR STRIP (Matching Mockup) */}
-      <div className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-            Weekly Calendar
-          </h3>
-          <button
-            type="button"
-            onClick={() => onNavigate('planner')}
-            className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
-          >
-            Open Daily Planner →
-          </button>
-        </div>
 
-        <div className="grid grid-cols-7 gap-2 sm:gap-3">
-          {weekDates.map((day, idx) => (
-            <div
-              key={idx}
-              onClick={() => onNavigate('planner')}
-              className={`p-3 sm:p-4 rounded-2xl flex flex-col justify-between transition-all cursor-pointer select-none ${
-                day.isToday
-                  ? 'bg-gradient-to-b from-[#5632EA] to-[#4520D4] text-white shadow-md shadow-indigo-500/25 scale-[1.02]'
-                  : 'bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/5 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
-              }`}
-            >
-              <span className={`text-[11px] sm:text-xs font-bold uppercase ${day.isToday ? 'text-indigo-200' : 'text-slate-500 dark:text-slate-400'}`}>
-                {day.dayName}
-              </span>
-              <span className="text-base sm:text-xl font-black font-mono mt-2">
-                {day.dateNum}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* 6. POMODORO FOCUS TIMER (Matching Mockup) */}
       <div className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
