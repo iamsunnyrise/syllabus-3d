@@ -47,6 +47,7 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { RoutineMakerView } from '../routine/RoutineMakerView';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import confetti from 'canvas-confetti';
 
 interface PlannerViewProps {
@@ -360,7 +361,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       {/* ═══════════════ 1. STUDY PLANNER HEADER & COMMAND BAR ═══════════════ */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
         <div>
-          <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap">
+            <SectionBadgeIcon section="planner" size="md" />
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Study Planner
             </h1>

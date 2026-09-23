@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { Badge3D } from '../3d/Badge3D';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import {
   Trophy,
   Target,
@@ -57,9 +58,7 @@ export const AnalyticsView: React.FC = () => {
       <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-xs sm:shadow-subtle-depth">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
-            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#451a03] via-[#78350f] to-[#1c0b02] border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)] shrink-0">
-              <Trophy className="w-5 h-5 sm:w-7 sm:h-7 stroke-[2.2] animate-pulse" />
-            </div>
+            <SectionBadgeIcon section="analytics" size="lg" />
 
             <div className="min-w-0 space-y-0.5">
               <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#2563EB] dark:text-[#7AA2F7]">

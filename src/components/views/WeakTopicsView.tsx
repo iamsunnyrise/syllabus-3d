@@ -20,6 +20,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import { Topic, MistakeType } from '../../types/syllabus';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 
 interface WeakTopicsViewProps {
@@ -139,9 +140,7 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
         {/* Top Header Row */}
         <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-rose-500/25 to-rose-600/15 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(244,63,94,0.25)]">
-              <ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
-            </div>
+            <SectionBadgeIcon section="weak" size="lg" />
             <div className="min-w-0">
               <h1 className="weak-banner-title text-sm xs:text-base sm:text-xl font-black text-white font-sans uppercase tracking-tight drop-shadow-sm truncate">
                 Weak Areas & Examiner Traps

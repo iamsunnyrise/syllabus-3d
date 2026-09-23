@@ -4,6 +4,7 @@ import { SubjectCard3D } from '../3d/SubjectCard3D';
 import { AppView } from '../layout/Sidebar';
 import { Topic, Subject } from '../../types/syllabus';
 import { EditSubjectModal } from '../modals/EditSubjectModal';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { Plus } from 'lucide-react';
 
 interface SubjectsViewProps {
@@ -22,13 +23,16 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onNavigate, onNaviga
   return (
     <div className="space-y-6 pb-16">
       <div className="flex items-center justify-between gap-3">
-        <div>
-          <h2 className="text-[15px] sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-            Subjects & Domains
-          </h2>
-          <p className="text-[11px] sm:text-[13px] font-medium text-slate-500 dark:text-slate-400">
-            Interactive 3D mastery cards with subject management.
-          </p>
+        <div className="flex items-center gap-3">
+          <SectionBadgeIcon section="subjects" size="md" />
+          <div>
+            <h2 className="text-[15px] sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              Subjects & Domains
+            </h2>
+            <p className="text-[11px] sm:text-[13px] font-medium text-slate-500 dark:text-slate-400">
+              Interactive 3D mastery cards with subject management.
+            </p>
+          </div>
         </div>
 
         <button

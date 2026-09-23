@@ -22,6 +22,7 @@ import {
 import { ExternalPlatform, PlatformCategory } from '../../types/syllabus';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { AddPlatformModal } from '../modals/AddPlatformModal';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 
 export const stripEmojis = (str: string): string => {
@@ -220,9 +221,12 @@ export const PlatformsView: React.FC = () => {
             </div>
 
             {/* Page title aligned with Sidebar navigation (Issue 10) */}
-            <h1 className="study-hub-banner-title text-xl sm:text-2xl md:text-3xl font-black text-white font-sans tracking-tight leading-tight">
-              Study Station &amp; Hub
-            </h1>
+            <div className="flex items-center gap-3">
+              <SectionBadgeIcon section="platforms" size="md" />
+              <h1 className="study-hub-banner-title text-xl sm:text-2xl md:text-3xl font-black text-white font-sans tracking-tight leading-tight">
+                Study Station &amp; Hub
+              </h1>
+            </div>
             <p className="study-hub-banner-subtitle text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed">
               Course batches, mock test portals, and connected study resources.
             </p>

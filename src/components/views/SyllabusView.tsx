@@ -36,6 +36,7 @@ import { EditSubjectModal } from '../modals/EditSubjectModal';
 import { EditChapterModal } from '../modals/EditChapterModal';
 import { soundManager } from '../../utils/soundEffects';
 import { calculatePacingForecast } from '../../utils/pacingCalculator';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 interface SyllabusViewProps {
   onOpenTopicDrawer: (topic: Topic, subName: string, chName: string) => void;
@@ -1381,7 +1382,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       {/* 1. SYLLABUS EXPLORER HEADER & ACTION BAR */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
         <div>
-          <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap">
+            <SectionBadgeIcon section="syllabus" size="md" />
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Syllabus Explorer
             </h1>

@@ -51,6 +51,7 @@ import {
   PanelRightOpen
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { extractYouTubeVideoId, getYouTubeThumbnailUrl } from '../../utils/youtubeUtils';
@@ -724,7 +725,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="flex items-center gap-3 flex-wrap">
+              <SectionBadgeIcon section="youtube-notes" size="md" />
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                 AI YouTube Notes
               </h1>

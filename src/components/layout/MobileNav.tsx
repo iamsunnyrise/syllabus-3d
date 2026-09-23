@@ -10,6 +10,7 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 interface MobileNavProps {
   activeView: AppView;
@@ -37,30 +38,20 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       label: 'Home',
       isActive: activeView === 'overview',
       renderIcon: (active: boolean) => (
-        <img
-          src="/dashboard_icon_3d.png"
-          alt="Home"
-          className={`w-5 h-5 object-contain transition-all duration-200 ${
-            active ? 'scale-110 -translate-y-0.5 drop-shadow-xs' : 'opacity-70 group-hover:opacity-100 group-hover:scale-105'
-          }`}
-        />
+        <SectionBadgeIcon section="overview" size={24} isActive={active} />
       ),
-      activeColor: 'text-blue-600 dark:text-[#7AA2F7]',
-      indicatorColor: 'bg-blue-600 dark:bg-[#7AA2F7] shadow-[0_0_6px_rgba(37,99,235,0.6)] dark:shadow-[0_0_6px_rgba(122,162,247,0.6)]'
+      activeColor: 'text-indigo-600 dark:text-[#7AA2F7]',
+      indicatorColor: 'bg-indigo-600 dark:bg-[#7AA2F7] shadow-[0_0_6px_rgba(79,70,229,0.6)]'
     },
     {
       id: 'syllabus' as AppView,
       label: 'Syllabus',
       isActive: isSyllabusActive,
       renderIcon: (active: boolean) => (
-        <BookOpen
-          className={`w-5 h-5 transition-all duration-200 ${
-            active ? 'scale-110 -translate-y-0.5 stroke-[2.5]' : 'stroke-[2] opacity-70 group-hover:opacity-100 group-hover:scale-105'
-          }`}
-        />
+        <SectionBadgeIcon section="syllabus" size={24} isActive={active} />
       ),
-      activeColor: 'text-blue-600 dark:text-[#7AA2F7]',
-      indicatorColor: 'bg-blue-600 dark:bg-[#7AA2F7] shadow-[0_0_6px_rgba(37,99,235,0.6)] dark:shadow-[0_0_6px_rgba(122,162,247,0.6)]'
+      activeColor: 'text-indigo-600 dark:text-[#7AA2F7]',
+      indicatorColor: 'bg-indigo-600 dark:bg-[#7AA2F7] shadow-[0_0_6px_rgba(79,70,229,0.6)]'
     },
     {
       id: 'mock-tracker' as AppView,
@@ -68,29 +59,21 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       isActive: activeView === 'mock-tracker',
       renderIcon: (active: boolean) => (
         <div className="relative">
-          <Trophy
-            className={`w-5 h-5 transition-all duration-200 ${
-              active ? 'scale-110 -translate-y-0.5 stroke-[2.5] text-amber-500 dark:text-amber-400' : 'stroke-[2] opacity-70 group-hover:opacity-100 group-hover:scale-105'
-            }`}
-          />
+          <SectionBadgeIcon section="mock-tracker" size={24} isActive={active} />
           {active && (
-            <span className="absolute -top-1 -right-1.5 w-2 h-2 rounded-full bg-amber-500 animate-ping opacity-75" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-500 animate-ping opacity-75" />
           )}
         </div>
       ),
-      activeColor: 'text-amber-600 dark:text-amber-400',
-      indicatorColor: 'bg-amber-500 dark:bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.7)]'
+      activeColor: 'text-emerald-600 dark:text-emerald-400',
+      indicatorColor: 'bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.7)]'
     },
     {
       id: 'youtube-notes' as AppView,
       label: 'Notes',
       isActive: activeView === 'youtube-notes',
       renderIcon: (active: boolean) => (
-        <Video
-          className={`w-5 h-5 transition-all duration-200 ${
-            active ? 'scale-110 -translate-y-0.5 stroke-[2.5] text-rose-500 dark:text-rose-400' : 'stroke-[2] opacity-70 group-hover:opacity-100 group-hover:scale-105'
-          }`}
-        />
+        <SectionBadgeIcon section="youtube-notes" size={24} isActive={active} />
       ),
       activeColor: 'text-rose-600 dark:text-rose-400',
       indicatorColor: 'bg-rose-500 dark:bg-rose-400 shadow-[0_0_6px_rgba(244,63,94,0.7)]'
@@ -101,11 +84,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       isActive: activeView === 'planner',
       renderIcon: (active: boolean) => (
         <div className="relative">
-          <CalendarCheck
-            className={`w-5 h-5 transition-all duration-200 ${
-              active ? 'scale-110 -translate-y-0.5 stroke-[2.5]' : 'stroke-[2] opacity-70 group-hover:opacity-100 group-hover:scale-105'
-            }`}
-          />
+          <SectionBadgeIcon section="planner" size={24} isActive={active} />
           {todayTasksCount > 0 && (
             <span className="absolute -top-1.5 -right-2 min-w-[15px] h-3.5 px-1 rounded-full bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-slate-900 text-[8.5px] font-mono font-black flex items-center justify-center shadow-xs">
               {todayTasksCount > 9 ? '9+' : todayTasksCount}
@@ -113,8 +92,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           )}
         </div>
       ),
-      activeColor: 'text-blue-600 dark:text-[#7AA2F7]',
-      indicatorColor: 'bg-blue-600 dark:bg-[#7AA2F7] shadow-[0_0_6px_rgba(37,99,235,0.6)] dark:shadow-[0_0_6px_rgba(122,162,247,0.6)]'
+      activeColor: 'text-amber-600 dark:text-amber-400',
+      indicatorColor: 'bg-amber-500 dark:bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.7)]'
     }
   ];
 

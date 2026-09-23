@@ -16,6 +16,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { MockProvider, useMocks, NavView } from '../../context/MockContext';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { audioFX } from '../../utils/mockAudioFX';
 
 // Sub-views
@@ -91,9 +92,7 @@ const MockTrackerContent: React.FC = () => {
               </button>
             )}
 
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-indigo-600 to-purple-600 p-0.5 shadow-md shadow-indigo-500/20 shrink-0 flex items-center justify-center text-white">
-              <span className="text-xl">🏆</span>
-            </div>
+            <SectionBadgeIcon section="mock-tracker" size="lg" />
 
             <div>
               <div className="flex items-center gap-2">

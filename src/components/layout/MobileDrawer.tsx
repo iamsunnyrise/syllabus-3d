@@ -28,6 +28,7 @@ import { useSyllabus } from '../../context/SyllabusContext';
 import { usePWA } from '../../hooks/usePWA';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -394,20 +395,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-1.5">
-                          {/* Squircle Thumbnail Badge */}
-                          <div
-                            className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-105 shadow-2xs ${item.iconBg}`}
-                          >
-                            {item.is3dIcon ? (
-                              <img
-                                src="/dashboard_icon_3d.png"
-                                alt="Dashboard"
-                                className="w-4 h-4 object-contain"
-                              />
-                            ) : (
-                              <Icon className={`w-4 h-4 ${isActive ? 'stroke-[2.5]' : 'stroke-[2]'}`} />
-                            )}
-                          </div>
+                          {/* 3D Diamond Squircle Section Badge */}
+                          <SectionBadgeIcon
+                            section={item.id}
+                            size="md"
+                            isActive={isActive}
+                          />
 
                           {/* Clean Single-Line Title */}
                           <span className="font-extrabold text-[13px] tracking-tight truncate text-[#11120F] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">

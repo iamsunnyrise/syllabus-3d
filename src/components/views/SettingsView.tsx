@@ -60,6 +60,7 @@ import { usePinLock } from '../../context/PinLockContext';
 import { UserProfileItem } from '../../types/syllabus';
 import { GoogleDriveBackupModal } from '../modals/GoogleDriveBackupModal';
 import { GoogleAuthSettingsCard } from '../settings/GoogleAuthSettingsCard';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { getValidAccessToken } from '../../utils/googleDriveClient';
 import {
   getStoredGeminiApiKey,
@@ -453,6 +454,21 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="space-y-4 sm:space-y-6 pb-8 sm:pb-12 max-w-4xl mx-auto font-sans animate-fade-in">
       
+      {/* ═══════════════════════════════════════════════════
+          0. TOP SECTION HEADER
+          ═══════════════════════════════════════════════════ */}
+      <div className="flex items-center gap-3 pt-1">
+        <SectionBadgeIcon section="settings" size="md" />
+        <div>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+            Settings &amp; Preferences
+          </h1>
+          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400">
+            Profile customization, exam configuration, audio effects, AI keys, and cloud backup.
+          </p>
+        </div>
+      </div>
+
       {/* ═══════════════════════════════════════════════════
           1. EXECUTIVE PROFILE & LEVEL STRIP
           ═══════════════════════════════════════════════════ */}

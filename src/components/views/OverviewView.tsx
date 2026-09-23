@@ -36,6 +36,7 @@ import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { StudyDeskHeroIllustration } from '../dashboard/StudyDeskHeroIllustration';
 import { AppFooter } from '../common/AppFooter';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 import { useRoutine, format12Hour } from '../../context/RoutineContext';
 
@@ -287,7 +288,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 1. TOP HEADER ROW: Dashboard Title + Add Task Button */}
       <div className="flex items-center justify-between gap-3 pt-1">
-        <div>
+        <div className="flex items-center gap-3">
+          <SectionBadgeIcon section="overview" size="md" />
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Dashboard
           </h1>

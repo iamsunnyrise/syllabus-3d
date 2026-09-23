@@ -3,6 +3,7 @@ import { useSyllabus } from '../../context/SyllabusContext';
 import { Flame, Calendar, Clock, CheckCircle, RotateCw } from 'lucide-react';
 import { formatMinutes } from '../../utils/dateUtils';
 import { DailyActivity } from '../../types/syllabus';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 type HeatmapMetric = 'studyTime' | 'topics' | 'revisions';
 
@@ -51,13 +52,16 @@ export const HeatmapView: React.FC = () => {
   return (
     <div className="space-y-4 sm:space-y-8 pb-8 sm:pb-12 animate-fade-in">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            120-Day Study Consistency Heatmap
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">
-            Granular visualization of your daily preparation, revisions, and time invested.
-          </p>
+        <div className="flex items-center gap-3">
+          <SectionBadgeIcon section="heatmap" size="md" />
+          <div>
+            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              120-Day Study Consistency Heatmap
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">
+              Granular visualization of your daily preparation, revisions, and time invested.
+            </p>
+          </div>
         </div>
 
         <div className="w-full sm:w-auto flex items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/50 overflow-x-auto no-scrollbar">

@@ -26,6 +26,7 @@ import {
   FileText
 } from 'lucide-react';
 import { Topic, Subject, Chapter } from '../../types/syllabus';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 
 interface MindMapViewProps {
@@ -195,9 +196,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
           
           {/* Left Title Capsule */}
           <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#0c2340] via-[#113563] to-[#08172c] border border-cyan-500/40 text-cyan-300 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.25)] shrink-0">
-              <Orbit className="w-5 h-5 sm:w-7 sm:h-7 stroke-[2.2] animate-spin-slow" />
-            </div>
+            <SectionBadgeIcon section="mindmap" size="lg" />
 
             <div className="min-w-0 space-y-0.5">
               <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#2563EB] dark:text-[#7AA2F7]">

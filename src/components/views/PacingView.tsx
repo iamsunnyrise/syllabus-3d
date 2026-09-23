@@ -13,6 +13,7 @@ import { useSyllabus } from '../../context/SyllabusContext';
 import { SyllabusPacingCard } from '../dashboard/SyllabusPacingCard';
 import { EditExamTargetModal } from '../modals/EditExamTargetModal';
 import { AppView } from '../layout/Sidebar';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 import {
   calculatePacingForecast,
@@ -84,7 +85,8 @@ export const PacingView: React.FC<PacingViewProps> = ({
       {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
         <div>
-          <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap">
+            <SectionBadgeIcon section="pacing" size="md" />
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Finish-Line Forecast &amp; Pacing
             </h1>

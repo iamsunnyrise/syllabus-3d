@@ -28,6 +28,7 @@ import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 export type AppView =
   | 'overview'
@@ -463,27 +464,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             }`}
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
-                              {item.isDashboard ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📊</span>
-                              ) : item.id === 'syllabus' ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📚</span>
-                              ) : item.id === 'planner' ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📅</span>
-                              ) : item.id === 'revision' ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">🔄</span>
-                              ) : item.id === 'analytics' || item.id === 'mock-tracker' ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📈</span>
-                              ) : item.id === 'youtube-notes' ? (
-                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📝</span>
-                              ) : (
-                                <Icon
-                                  className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
-                                    isActive
-                                      ? 'text-white'
-                                      : 'text-slate-500 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-900 dark:group-hover:text-white'
-                                  }`}
-                                />
-                              )}
+                              <SectionBadgeIcon
+                                section={item.id}
+                                size="sm"
+                                isActive={isActive}
+                              />
                               <span className="truncate text-[13px] font-bold mr-2">{item.label}</span>
                             </div>
 
