@@ -452,7 +452,7 @@ export const SettingsView: React.FC = () => {
   );
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-8 sm:pb-12 max-w-4xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-36 sm:pb-24 max-w-4xl mx-auto font-sans animate-fade-in">
       
       {/* ═══════════════════════════════════════════════════
           0. TOP SECTION HEADER
@@ -463,7 +463,7 @@ export const SettingsView: React.FC = () => {
           <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
             Settings &amp; Preferences
           </h1>
-          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400">
+          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium">
             Profile customization, exam configuration, audio effects, AI keys, and cloud backup.
           </p>
         </div>
@@ -472,9 +472,9 @@ export const SettingsView: React.FC = () => {
       {/* ═══════════════════════════════════════════════════
           1. EXECUTIVE PROFILE & LEVEL STRIP
           ═══════════════════════════════════════════════════ */}
-      <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth flex flex-col sm:flex-row items-center justify-between gap-3.5 sm:gap-4 relative overflow-hidden">
+      <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3.5 sm:gap-4 relative overflow-hidden">
         {/* Top ambient accent glow */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2563EB] dark:via-[#7AA2F7] to-transparent opacity-60" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-600 dark:via-blue-400 to-transparent opacity-60" />
 
         {/* Hidden File Input for Avatar Photo */}
         <input
@@ -492,7 +492,7 @@ export const SettingsView: React.FC = () => {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#3D5BA9] text-white dark:text-[#0B0B0D] flex items-center justify-center text-lg sm:text-2xl font-black shadow-md cursor-pointer overflow-hidden relative border-2 border-white dark:border-[#272730] active:scale-95 transition-transform"
+              className="w-13 h-13 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white flex items-center justify-center text-lg sm:text-2xl font-black shadow-md cursor-pointer overflow-hidden relative border-2 border-white dark:border-[#272730] active:scale-95 transition-transform"
               title="Click to Upload Profile Photo"
             >
               {profile.avatarUrl ? (
@@ -516,7 +516,7 @@ export const SettingsView: React.FC = () => {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black border-2 border-white dark:border-[#18181D] flex items-center justify-center shadow-xs cursor-pointer active:scale-90 hover:scale-110 transition-transform"
+              className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-2 border-white dark:border-[#151622] flex items-center justify-center shadow-xs cursor-pointer active:scale-90 hover:scale-110 transition-transform"
               title="Change Profile Photo"
             >
               <Camera className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
@@ -530,24 +530,24 @@ export const SettingsView: React.FC = () => {
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-bold text-[#11120F] dark:text-white focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                   autoFocus
                 />
                 <button
                   type="submit"
-                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black text-xs font-black shadow-xs cursor-pointer"
+                  className="px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-black shadow-xs cursor-pointer"
                 >
                   Save
                 </button>
               </form>
             ) : (
               <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                <h2 className="text-sm xs:text-base sm:text-lg font-black text-[#11120F] dark:text-[#F5F5F7] tracking-tight uppercase truncate">
+                <h2 className="text-sm xs:text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight truncate">
                   {profile.name || 'Aspirant'}
                 </h2>
                 <button
                   onClick={() => setIsEditingName(true)}
-                  className="p-1 rounded-lg hover:bg-[#F8FAFC] dark:hover:bg-[#242533] text-[#85877E] hover:text-[#11120F] dark:hover:text-white cursor-pointer transition-colors"
+                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors"
                   title="Edit Name"
                 >
                   <Edit2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -555,7 +555,7 @@ export const SettingsView: React.FC = () => {
                 {profile.avatarUrl && (
                   <button
                     onClick={handleRemoveAvatar}
-                    className="px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg text-[9px] sm:text-[10px] font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
+                    className="px-2 py-0.5 rounded-md sm:rounded-lg text-[10px] font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
                     title="Remove Photo and use initial letter"
                   >
                     Remove Photo
@@ -564,26 +564,26 @@ export const SettingsView: React.FC = () => {
               </div>
             )}
 
-            {/* Micro-Badges Strip (No Raw Emojis!) */}
-            <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-[#65675F] dark:text-[#A1A1AA] flex-wrap">
-              <span className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-0.5 rounded-md sm:rounded-lg font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+            {/* Micro-Badges Strip (Modern Sans-Serif Typography!) */}
+            <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-sans text-slate-600 dark:text-slate-300 flex-wrap">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/25">
                 <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
                 <span>Lvl {profile.level} • {profile.levelTitle}</span>
               </span>
-              <span className="hidden xs:inline">•</span>
-              <span className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-0.5 rounded-md sm:rounded-lg font-bold bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/25">
+              <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-orange-500/15 text-orange-700 dark:text-orange-300 border border-orange-500/25 tabular-nums">
                 <Flame className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
                 <span>{profile.currentStreak}d Streak</span>
               </span>
-              <span className="hidden xs:inline">•</span>
-              <span className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-0.5 rounded-md sm:rounded-lg font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+              <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 tabular-nums">
                 <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 <span>{overallStats.completedCount}/{overallStats.totalTopics} ({overallStats.completionPercentage}%)</span>
               </span>
             </div>
 
             {avatarNotice && (
-              <p className="text-[10px] sm:text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in pt-0.5">
+              <p className="text-[11px] sm:text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in pt-0.5">
                 <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
                 <span>Profile picture updated!</span>
               </p>
@@ -597,13 +597,13 @@ export const SettingsView: React.FC = () => {
             <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
               <button
                 onClick={handleLogout}
-                className="flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-[11px] sm:text-xs font-black shadow-xs cursor-pointer"
+                className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-black shadow-xs cursor-pointer"
               >
                 Confirm Logout
               </button>
               <button
                 onClick={() => setShowLogoutConfirm(false)}
-                className="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] text-[11px] sm:text-xs font-bold text-[#65675F] dark:text-[#A1A1AA] cursor-pointer"
+                className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
               >
                 Cancel
               </button>
@@ -611,9 +611,9 @@ export const SettingsView: React.FC = () => {
           ) : (
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] hover:bg-rose-500/15 hover:text-rose-500 dark:hover:bg-rose-500/20 text-[#65675F] dark:text-[#A1A1AA] border border-[#E2E8F0] dark:border-[#272730] text-[11px] sm:text-xs font-bold transition-all cursor-pointer active:scale-95"
+              className="w-full sm:w-auto h-9 sm:h-9.5 flex items-center justify-center gap-1.5 px-4 rounded-xl bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-white/10 dark:hover:bg-rose-500/30 dark:hover:text-rose-400 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95"
             >
-              <LogOut className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <LogOut className="w-3.5 h-3.5" />
               <span>Log Out</span>
             </button>
           )}
@@ -623,7 +623,7 @@ export const SettingsView: React.FC = () => {
       {/* ═══════════════════════════════════════════════════
           2. SEGMENTED CATEGORY NAVIGATION TABS
           ═══════════════════════════════════════════════════ */}
-      <div className="p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center gap-1 overflow-x-auto no-scrollbar">
         {[
           { id: 'profiles' as SettingsTab, label: 'Profiles', icon: Users },
           { id: 'exam' as SettingsTab, label: 'Exam Target', icon: Target },
@@ -643,10 +643,10 @@ export const SettingsView: React.FC = () => {
                 soundManager.playClick();
                 setActiveTab(tab.id);
               }}
-              className={`flex-1 min-w-[95px] sm:min-w-[110px] py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
+              className={`flex-1 min-w-[95px] sm:min-w-[115px] py-2 sm:py-2.5 px-2.5 sm:px-3.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
                 isActive
                   ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-xs font-black'
-                  : 'text-[#65675F] dark:text-[#94A3B8] hover:bg-[#F8FAFC] dark:hover:bg-[#20212E] hover:text-[#11120F] dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -664,17 +664,17 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'profiles' && (
         <div className="space-y-3.5 sm:space-y-4 animate-fade-in">
           {/* Studio Header Card */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3 sm:space-y-4 relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-3 sm:pb-4">
+          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4 relative overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/25 flex items-center justify-center shrink-0">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+                <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 flex items-center justify-center shrink-0">
+                  <Users className="w-5 h-5 stroke-[2.2]" />
                 </div>
                 <div>
-                  <h3 className="text-xs sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight">
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
                     Multi-Profile Management Studio
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
                     Manage isolated study tracks, custom exam targets, and personal syllabus data.
                   </p>
                 </div>
@@ -687,7 +687,7 @@ export const SettingsView: React.FC = () => {
                   setEditingProfileForModal(null);
                   setIsCreateProfileModalOpen(true);
                 }}
-                className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-brand-500/20 transition-all cursor-pointer active:scale-95 shrink-0"
+                className="h-9 sm:h-10 flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 shrink-0"
               >
                 <UserPlus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span><span className="hidden xs:inline">Create </span>New Profile</span>
@@ -739,10 +739,10 @@ export const SettingsView: React.FC = () => {
                 return (
                   <div
                     key={p.id}
-                    className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between gap-3 sm:gap-4 ${
+                    className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between gap-3 sm:gap-4 ${
                       isActive
-                        ? 'bg-brand-500/[0.05] dark:bg-brand-500/[0.12] border-brand-500/50 shadow-md ring-1 ring-brand-500/30'
-                        : 'bg-slate-50/70 dark:bg-[#151624] border-[#E2E8F0] dark:border-[#27293E] hover:border-slate-300 dark:hover:border-[#373A56]'
+                        ? 'bg-blue-50/40 dark:bg-blue-900/15 border-blue-500/50 shadow-xs ring-1 ring-blue-500/30'
+                        : 'bg-white dark:bg-[#151622] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2.5 sm:gap-3">
@@ -750,7 +750,7 @@ export const SettingsView: React.FC = () => {
                         <div
                           className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr ${
                             p.avatarColor || 'from-indigo-500 to-purple-600'
-                          } flex items-center justify-center text-white shadow-md text-xl sm:text-2xl border border-white/20 shrink-0 overflow-hidden`}
+                          } flex items-center justify-center text-white shadow-sm text-xl sm:text-2xl border border-white/20 shrink-0 overflow-hidden`}
                         >
                           {p.avatarUrl ? (
                             <img src={p.avatarUrl} alt={p.name} className="w-full h-full object-cover" />
@@ -761,24 +761,24 @@ export const SettingsView: React.FC = () => {
 
                         <div className="min-w-0">
                           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                            <h4 className="text-xs sm:text-base font-extrabold text-slate-900 dark:text-white truncate">
+                            <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white truncate">
                               {p.name}
                             </h4>
                             {isActive && (
-                              <span className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-black bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-sans font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                 ACTIVE
                               </span>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 flex-wrap">
+                          <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 flex-wrap">
                             <span className="font-semibold text-slate-700 dark:text-slate-300">
-                              Lvl {p.level || 1} · {p.levelTitle || 'Recruit'}
+                              Lvl {p.level || 1} • {p.levelTitle || 'Recruit'}
                             </span>
                             <span>•</span>
-                            <span className="font-mono text-orange-600 dark:text-orange-400 font-bold flex items-center gap-0.5">
-                              <Flame className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
+                            <span className="text-orange-600 dark:text-orange-400 font-bold flex items-center gap-0.5 tabular-nums">
+                              <Flame className="w-3 h-3 fill-current" />
                               <span>{p.currentStreak || 0}d</span>
                             </span>
                           </div>
@@ -792,7 +792,7 @@ export const SettingsView: React.FC = () => {
                             setEditingProfileForModal(p);
                             setIsCreateProfileModalOpen(true);
                           }}
-                          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-[#222436] transition-colors cursor-pointer"
+                          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
                           title="Edit Profile"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -813,9 +813,9 @@ export const SettingsView: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-200/50 dark:border-[#222438]">
-                      <div className="text-[10px] sm:text-[11px] font-mono text-slate-600 dark:text-slate-400 truncate flex items-center gap-1.5">
-                        <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-500 shrink-0" />
+                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/5">
+                      <div className="text-[11px] sm:text-xs font-sans font-medium text-slate-600 dark:text-slate-300 truncate flex items-center gap-1.5">
+                        <Target className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                         <span className="truncate">{examTitle}</span>
                         {p.targetExamDate && (
                           <span className="text-slate-400 hidden xs:inline">({p.targetExamDate})</span>
@@ -823,8 +823,8 @@ export const SettingsView: React.FC = () => {
                       </div>
 
                       {isActive ? (
-                        <div className="flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] sm:text-xs font-bold">
-                          <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                        <div className="flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] sm:text-xs font-bold font-sans">
+                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                           <span>Current</span>
                         </div>
                       ) : (
@@ -834,7 +834,7 @@ export const SettingsView: React.FC = () => {
                             haptics.selection();
                             switchProfile(p.id);
                           }}
-                          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-900 hover:bg-brand-600 dark:bg-[#25283C] dark:hover:bg-brand-500 text-white text-[11px] sm:text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95"
+                          className="h-8 flex items-center gap-1 sm:gap-1.5 px-3 rounded-lg sm:rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-white/10 dark:hover:bg-blue-600 text-white text-[11px] sm:text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
                         >
                           <span>Switch</span>
                           <ArrowRight className="w-3 h-3" />
@@ -854,10 +854,10 @@ export const SettingsView: React.FC = () => {
                 <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div className="space-y-0.5">
-                <h4 className="text-[11px] sm:text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                <h4 className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white tracking-tight">
                   Isolated Study Vaults
                 </h4>
-                <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                   Every profile gets its own isolated topic checklist, flashcard revisions, daily study streak, and planner targets. Switching profiles never loses or mixes your data.
                 </p>
               </div>
@@ -869,7 +869,7 @@ export const SettingsView: React.FC = () => {
                 setEditingProfileForModal(null);
                 setIsCreateProfileModalOpen(true);
               }}
-              className="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#1E2030] text-brand-600 dark:text-brand-400 border border-brand-500/30 text-[11px] sm:text-xs font-bold hover:bg-brand-500/10 transition-colors cursor-pointer shrink-0 self-end sm:self-auto"
+              className="h-8 px-3.5 rounded-lg sm:rounded-xl bg-white dark:bg-white/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-400/30 text-xs font-bold hover:bg-blue-50 dark:hover:bg-white/15 transition-colors cursor-pointer shrink-0 self-end sm:self-auto"
             >
               + Add Profile
             </button>
@@ -879,32 +879,32 @@ export const SettingsView: React.FC = () => {
 
       {/* TAB 1: EXAM TARGET & COUNTDOWN CONFIG */}
       {activeTab === 'exam' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3.5 sm:space-y-4 animate-fade-in relative overflow-hidden">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-3 sm:pb-4">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
             <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
-                <Target className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
+                <Target className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight">
-                  Exam Target & Live Countdown
+                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                  Exam Target &amp; Live Countdown
                 </h3>
-                <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
-                  Configure your target exam name and exam date to sync the live flip clock.
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  Configure your target exam name and exam date to sync the live countdown clock.
                 </p>
               </div>
             </div>
 
-            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-black bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto">
-              <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto tabular-nums">
+              <Clock className="w-3.5 h-3.5" />
               <span>{daysRemaining} Days Left</span>
             </span>
           </div>
 
           {/* Quick Presets */}
           <div className="space-y-1.5 sm:space-y-2">
-            <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block flex items-center gap-1.5">
-              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-500" />
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block flex items-center gap-1.5 font-sans">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               <span>Quick Exam Presets</span>
             </span>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -922,10 +922,10 @@ export const SettingsView: React.FC = () => {
                     type="button"
                     key={p.label}
                     onClick={() => handleApplyPresetExam(p.label, p.year, p.days)}
-                    className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer border active:scale-95 ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border active:scale-95 ${
                       isSelected
-                        ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                        : 'bg-[#F8FAFC] dark:bg-[#14151F] text-[#65675F] dark:text-[#94A3B8] border-[#E2E8F0] dark:border-[#272730] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+                        ? 'bg-slate-900 dark:bg-blue-600 text-white border-transparent shadow-xs font-black'
+                        : 'bg-white dark:bg-[#1A1B28] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
                     }`}
                   >
                     {p.label}
@@ -939,7 +939,7 @@ export const SettingsView: React.FC = () => {
           <form onSubmit={handleSaveExamSettings} className="space-y-3 sm:space-y-4 pt-1">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
               <div className="sm:col-span-2 space-y-1 sm:space-y-1.5">
-                <label className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block">
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
                   Exam Title
                 </label>
                 <input
@@ -947,12 +947,12 @@ export const SettingsView: React.FC = () => {
                   value={examName}
                   onChange={e => setExamName(e.target.value)}
                   placeholder="e.g. SSC CGL 2026"
-                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-bold text-[#11120F] dark:text-white focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                  className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                 />
               </div>
 
               <div className="space-y-1 sm:space-y-1.5">
-                <label className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block">
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
                   Target Year
                 </label>
                 <input
@@ -961,14 +961,14 @@ export const SettingsView: React.FC = () => {
                   onChange={e => setTargetYear(Number(e.target.value))}
                   min={2025}
                   max={2035}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-bold text-[#11120F] dark:text-white focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                  className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Exam Date & Quick Increment Buttons */}
             <div className="space-y-1 sm:space-y-1.5">
-              <label className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block">
+              <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
                 Exam Date
               </label>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5">
@@ -976,15 +976,15 @@ export const SettingsView: React.FC = () => {
                   type="date"
                   value={examDate}
                   onChange={e => setExamDate(e.target.value)}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-bold text-[#11120F] dark:text-white focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] cursor-pointer"
+                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
                 />
-                <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   {[{ label: '+30d', days: 30 }, { label: '+60d', days: 60 }, { label: '+90d', days: 90 }, { label: '+180d', days: 180 }].map(b => (
                     <button
                       type="button"
                       key={b.label}
                       onClick={() => handleAddDays(b.days)}
-                      className="px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[11px] sm:text-xs font-mono font-bold bg-[#F8FAFC] dark:bg-[#14151F] hover:bg-[#11120F] hover:text-white dark:hover:bg-white dark:hover:text-black text-[#65675F] dark:text-[#94A3B8] border border-[#E2E8F0] dark:border-[#272730] transition-colors cursor-pointer active:scale-95"
+                      className="px-2.5 py-1.5 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-slate-900 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer active:scale-95"
                     >
                       {b.label}
                     </button>
@@ -996,14 +996,14 @@ export const SettingsView: React.FC = () => {
             <div className="flex items-center gap-2.5 sm:gap-3 pt-1.5 sm:pt-2">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#11120F] dark:bg-white text-white dark:text-black hover:bg-emerald-600 dark:hover:bg-emerald-400 text-xs font-black uppercase tracking-wider shadow-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto h-10 px-5 rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Save Schedule</span>
               </button>
               {examSaved && (
-                <span className="text-[11px] sm:text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in font-mono">
-                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />
+                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in font-sans">
+                  <Check className="w-4 h-4 stroke-[3]" />
                   <span>Synced across app!</span>
                 </span>
               )}
@@ -1016,20 +1016,20 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'ai' && (
         <div className="space-y-4 animate-fade-in">
           {/* Header Card */}
-          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-4">
+          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight flex items-center gap-2">
-                    <span>AI & Intelligence Engine</span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-violet-600 to-cyan-500 text-white">
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                    <span>AI &amp; Intelligence Engine</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-violet-600 to-cyan-500 text-white">
                       Google Gemini
                     </span>
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
                     Configure your free Google Gemini API key to power AI YouTube Notes, Syllabus Parsing, and Academic Summaries.
                   </p>
                 </div>
@@ -1037,7 +1037,7 @@ export const SettingsView: React.FC = () => {
 
               {/* Status Badge */}
               <div className="flex items-center gap-2 self-start sm:self-auto">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border font-sans ${
                   geminiApiKey
                     ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
                     : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 animate-pulse'
@@ -1051,7 +1051,7 @@ export const SettingsView: React.FC = () => {
             {/* API Key Form */}
             <form onSubmit={handleSaveGeminiKey} className="space-y-3 pt-1">
               <div className="space-y-1.5">
-                <label className="text-[10px] sm:text-[11px] font-mono font-bold text-[#85877E] uppercase tracking-wider block">
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
                   Google Gemini API Key
                 </label>
                 <div className="relative">
@@ -1060,7 +1060,7 @@ export const SettingsView: React.FC = () => {
                     value={tempAiKey}
                     onChange={(e) => setTempAiKey(e.target.value)}
                     placeholder="AIzaSy..."
-                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 pr-12 rounded-xl bg-[#F8FAFC] dark:bg-[#14151F] border border-[#E2E8F0] dark:border-[#272730] text-xs sm:text-sm font-mono font-medium text-[#11120F] dark:text-white placeholder-slate-400 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 pr-12 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-sans font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500"
                   />
                   <button
                     type="button"
@@ -1076,7 +1076,7 @@ export const SettingsView: React.FC = () => {
               <div className="flex flex-wrap items-center gap-2 pt-1">
                 <button
                   type="submit"
-                  className="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-black shadow-md shadow-violet-500/20 transition-all cursor-pointer active:scale-95 flex items-center gap-2"
+                  className="h-10 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 flex items-center gap-2"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Save API Key</span>
@@ -1086,7 +1086,7 @@ export const SettingsView: React.FC = () => {
                   type="button"
                   disabled={isTestingAiKey || (!tempAiKey.trim() && !geminiApiKey)}
                   onClick={handleTestGeminiKey}
-                  className="px-4 py-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] hover:bg-slate-100 dark:hover:bg-[#272838] text-[#11120F] dark:text-white border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold transition-all cursor-pointer active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                  className="h-10 px-4 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95 disabled:opacity-50 flex items-center gap-2"
                 >
                   {isTestingAiKey ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5 text-violet-500" />}
                   <span>{isTestingAiKey ? 'Testing Connection...' : 'Test Connection'}</span>
@@ -1096,16 +1096,16 @@ export const SettingsView: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleRemoveGeminiKey}
-                    className="px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 transition-colors cursor-pointer"
+                    className="h-10 px-3.5 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 transition-colors cursor-pointer"
                   >
                     Remove Key
                   </button>
                 )}
 
                 {aiKeySaveSuccess && (
-                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in">
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in font-sans">
                     <Check className="w-4 h-4 stroke-[3]" />
-                    <span>API Key saved & synchronized across app!</span>
+                    <span>API Key saved &amp; synchronized across app!</span>
                   </span>
                 )}
               </div>
@@ -1131,7 +1131,7 @@ export const SettingsView: React.FC = () => {
           {/* Guide Card: How to get Free Key */}
           <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-violet-500/5 to-cyan-500/5 border border-violet-500/20 space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wide flex items-center gap-2">
+              <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
                 <span>💡 Free Google Gemini API Key Guide</span>
               </h4>
               <a
@@ -1157,22 +1157,22 @@ export const SettingsView: React.FC = () => {
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] space-y-2">
-              <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-black text-xs uppercase tracking-wider">
+            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-bold text-xs uppercase tracking-wider">
                 <Video className="w-4 h-4" />
                 <span>AI YouTube Notes</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 Paste any educational YouTube URL to generate structured notes with headings, KaTeX math equations, timestamps, and exam-focused questions.
               </p>
             </div>
 
-            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] space-y-2">
-              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-black text-xs uppercase tracking-wider">
+            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 space-y-2">
+              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-wider">
                 <BookOpen className="w-4 h-4" />
                 <span>AI Syllabus Architect</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 Convert raw PDF notifications or syllabus text into organized 4-level subject, chapter, topic, and subtopic study tracks.
               </p>
             </div>
@@ -1182,18 +1182,18 @@ export const SettingsView: React.FC = () => {
 
       {/* TAB 2: APPEARANCE & THEME */}
       {activeTab === 'appearance' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3.5 sm:space-y-4 animate-fade-in">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#EEEEE8] dark:border-[#242533] pb-2.5 sm:pb-3">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
             <div>
-              <h3 className="text-xs sm:text-sm font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-wide">
-                Color Theme & Palette
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                Color Theme &amp; Palette
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#94A3B8]">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 Switch between Light Mode and Dark Mode for your study workspace.
               </p>
             </div>
             <div className="flex items-center gap-2 self-start sm:self-auto">
-              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold font-mono bg-white dark:bg-[#20212E] border border-slate-200 dark:border-[#272730] text-slate-900 dark:text-[#F5F5F7] capitalize shrink-0">
+              <span className="px-3 py-1 rounded-xl text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white capitalize shrink-0">
                 {theme === 'dark' ? 'Tokyo Night Dark' : 'Pure Pro Alabaster'}
               </span>
             </div>
@@ -1210,20 +1210,20 @@ export const SettingsView: React.FC = () => {
               className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                 theme === 'dark'
                   ? 'bg-[#1F2335] border-[#7AA2F7] ring-2 ring-[#7AA2F7]/30 shadow-sm'
-                  : 'bg-[#F8FAFC] dark:bg-[#18181D] border-[#E2E8F0] dark:border-[#272730] opacity-70 hover:opacity-100'
+                  : 'bg-slate-50 dark:bg-[#18181D] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#16161E] border border-[#292E42] flex items-center justify-center text-[#7AA2F7] shrink-0">
-                  <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="w-10 h-10 rounded-xl bg-[#16161E] border border-[#292E42] flex items-center justify-center text-[#7AA2F7] shrink-0">
+                  <Moon className="w-5 h-5" />
                 </div>
-                {theme === 'dark' && <Check className="w-4 h-4 text-[#7AA2F7]" />}
+                {theme === 'dark' && <Check className="w-4 h-4 text-[#7AA2F7] stroke-[3]" />}
               </div>
               <div>
-                <span className="text-xs sm:text-[14px] font-extrabold text-[#11120F] dark:text-white block">
+                <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
                   Tokyo Night Dark
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#94A3B8] block mt-0.5">
+                <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
                   Deep dark glassmorphism for focused night study and reduced eye fatigue
                 </span>
               </div>
@@ -1238,22 +1238,22 @@ export const SettingsView: React.FC = () => {
               }}
               className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                 theme === 'light'
-                  ? 'bg-white border-[#2563EB] ring-2 ring-[#2563EB]/30 shadow-md'
-                  : 'bg-white dark:bg-[#18181D] border-slate-200 dark:border-[#272730] opacity-70 hover:opacity-100'
+                  ? 'bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-md'
+                  : 'bg-white dark:bg-[#18181D] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-[#2563EB] shrink-0">
-                  <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+                  <Sun className="w-5 h-5" />
                 </div>
-                {theme === 'light' && <Check className="w-4 h-4 text-[#2563EB]" />}
+                {theme === 'light' && <Check className="w-4 h-4 text-blue-600 stroke-[3]" />}
               </div>
               <div>
                 <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
                   Pure Pro Alabaster (Light Mode)
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-[#94A3B8] block mt-0.5">
-                  Ultra-crisp, high-contrast alabaster workspace with specular elevation &amp; daylight clarity
+                <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
+                  Ultra-crisp, high-contrast alabaster workspace with daylight clarity
                 </span>
               </div>
             </button>
@@ -1263,15 +1263,15 @@ export const SettingsView: React.FC = () => {
 
       {/* TAB: SOUND & MOTIVATION AUDIO */}
       {activeTab === 'sound' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3.5 sm:space-y-5 animate-fade-in">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-5 animate-fade-in">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-2.5 sm:pb-3.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3.5">
             <div>
-              <h3 className="text-xs sm:text-sm font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-wide flex items-center gap-1.5 sm:gap-2">
-                <Volume2 className="w-4 h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
-                <span>Audio & Motivation Effects</span>
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 sm:gap-2">
+                <Volume2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span>Audio &amp; Motivation Effects</span>
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#94A3B8]">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 Configure audio cues, Tibetan focus bell, and library silent mode.
               </p>
             </div>
@@ -1281,9 +1281,9 @@ export const SettingsView: React.FC = () => {
               onClick={() => {
                 handleUpdateAudio({ masterEnabled: !audioConfig.masterEnabled });
               }}
-              className={`w-full sm:w-auto px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer active:scale-95 shadow-xs ${
+              className={`w-full sm:w-auto h-9 sm:h-9.5 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer active:scale-95 shadow-xs ${
                 audioConfig.masterEnabled
-                  ? 'bg-[#11120F] dark:bg-white text-white dark:text-black font-black'
+                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black'
                   : 'bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-black'
               }`}
             >
@@ -1302,13 +1302,13 @@ export const SettingsView: React.FC = () => {
           </div>
 
           {/* Master Volume Slider */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#10111A] border border-[#E2E8F0] dark:border-[#24283B] space-y-2 sm:space-y-2.5">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2 sm:space-y-2.5">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white">
-                <Sliders className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
+                <Sliders className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 <span>Master Volume</span>
               </div>
-              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+              <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
                 {Math.round(audioConfig.masterVolume * 100)}%
               </span>
             </div>
@@ -1320,27 +1320,27 @@ export const SettingsView: React.FC = () => {
               disabled={!audioConfig.masterEnabled}
               value={audioConfig.masterVolume}
               onChange={e => handleUpdateAudio({ masterVolume: parseFloat(e.target.value) })}
-              className="w-full accent-[#2563EB] dark:accent-[#7AA2F7] cursor-pointer disabled:opacity-40"
+              className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer disabled:opacity-40"
             />
           </div>
 
           {/* Individual Audio Channels */}
           <div className="space-y-2 sm:space-y-3 pt-0.5 sm:pt-1">
-            <h4 className="text-[11px] sm:text-[13px] font-bold uppercase tracking-wider text-[#85877E] font-mono">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sans">
               Individual Audio Channels
             </h4>
 
             {/* Channel 1: UI Clicks */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#EFF6FF] dark:bg-[#16161E] border border-[#DBEAFE] dark:border-[#292E42] flex items-center justify-center text-[#2563EB] dark:text-[#7AA2F7] shrink-0">
-                  <Sliders className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-blue-50 dark:bg-[#16161E] border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                  <Sliders className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block truncate">
-                    UI Click & Navigation Taps
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                    UI Click &amp; Navigation Taps
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#A9B1D6] line-clamp-1 sm:line-clamp-none">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
                     Tactile audio feedback when switching tabs and buttons
                   </span>
                 </div>
@@ -1349,7 +1349,7 @@ export const SettingsView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => soundManager.playClick()}
-                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-mono font-bold bg-white dark:bg-[#16161E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-[#0B0B0D] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
                 >
                   ▶ Test
                 </button>
@@ -1361,17 +1361,17 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Channel 2: Pomodoro Bell */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#292E42] flex items-center justify-center text-amber-500 shrink-0">
-                  <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-amber-50 dark:bg-[#16161E] border border-amber-200 dark:border-white/10 flex items-center justify-center text-amber-500 shrink-0">
+                  <Bell className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block truncate">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
                     Pomodoro Session Alert Bell
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#A9B1D6] line-clamp-1 sm:line-clamp-none">
-                    Gentle Tibetan singing bell when focus session starts & completes
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                    Gentle Tibetan singing bell when focus session starts &amp; completes
                   </span>
                 </div>
               </div>
@@ -1379,7 +1379,7 @@ export const SettingsView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => soundManager.playPomodoroBell()}
-                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-mono font-bold bg-white dark:bg-[#16161E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-[#0B0B0D] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
                 >
                   ▶ Test
                 </button>
@@ -1391,17 +1391,17 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Channel 3: Target Completion Chime */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#292E42] flex items-center justify-center text-emerald-500 shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-emerald-50 dark:bg-[#16161E] border border-emerald-200 dark:border-white/10 flex items-center justify-center text-emerald-500 shrink-0">
+                  <Sparkles className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block truncate">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
                     Target Mastery Celebration Chime
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#A9B1D6] line-clamp-1 sm:line-clamp-none">
-                    Euphoric harmonic chime when completing a topic or daily target
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                    Harmonic chime when completing a topic or daily target
                   </span>
                 </div>
               </div>
@@ -1409,7 +1409,7 @@ export const SettingsView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => soundManager.playCompleteChime()}
-                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-mono font-bold bg-white dark:bg-[#16161E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-[#0B0B0D] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
                 >
                   ▶ Test
                 </button>
@@ -1421,16 +1421,16 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Channel 4: Level Up / Streak Milestone */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#292E42] flex items-center justify-center text-purple-500 shrink-0">
-                  <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-purple-50 dark:bg-[#16161E] border border-purple-200 dark:border-white/10 flex items-center justify-center text-purple-500 shrink-0">
+                  <Award className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block truncate">
-                    Level Up & Streak Milestone Fanfare
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                    Level Up &amp; Streak Fanfare
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#A9B1D6] line-clamp-1 sm:line-clamp-none">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
                     Special victory fanfare on leveling up or reaching streak milestones
                   </span>
                 </div>
@@ -1439,7 +1439,7 @@ export const SettingsView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => soundManager.playLevelUp()}
-                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-mono font-bold bg-white dark:bg-[#16161E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-[#0B0B0D] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
                 >
                   ▶ Test
                 </button>
@@ -1451,17 +1451,17 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Channel 5: Mobile Haptic Feedback */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#EFF6FF] dark:bg-[#16161E] border border-[#DBEAFE] dark:border-[#292E42] flex items-center justify-center text-[#2563EB] dark:text-[#7AA2F7] shrink-0">
-                  <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-blue-50 dark:bg-[#16161E] border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                  <Smartphone className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block truncate">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
                     Mobile Tactile Haptics (Vibration)
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#A9B1D6] line-clamp-1 sm:line-clamp-none">
-                    Physical vibration pulses when checking off topics, starting timers & switching tabs
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                    Physical vibration pulses when checking off topics, starting timers &amp; switching tabs
                   </span>
                 </div>
               </div>
@@ -1469,7 +1469,7 @@ export const SettingsView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => haptics.success()}
-                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-mono font-bold bg-white dark:bg-[#16161E] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#7AA2F7] dark:hover:text-[#0B0B0D] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
                 >
                   ▶ Test
                 </button>
@@ -1485,13 +1485,13 @@ export const SettingsView: React.FC = () => {
 
       {/* TAB 3: FOCUS CHAMBER & FLOATING TIMER */}
       {activeTab === 'timer' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B] shadow-subtle-depth space-y-3.5 sm:space-y-4 animate-fade-in">
-          <div className="flex items-center justify-between border-b border-[#EEEEE8] dark:border-[#242533] pb-2.5 sm:pb-3">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
             <div>
-              <h3 className="text-xs sm:text-sm font-black text-[#11120F] dark:text-[#C0CAF5] font-serif uppercase tracking-wide">
-                Floating Timer & Picture-in-Picture
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                Floating Timer &amp; Picture-in-Picture
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#A9B1D6]">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 Control the draggable timer overlay that stays active while studying notes.
               </p>
             </div>
@@ -1502,7 +1502,7 @@ export const SettingsView: React.FC = () => {
                 setTestLaunched(true);
                 setTimeout(() => setTestLaunched(false), 2500);
               }}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg sm:rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-[#0B0B0D] text-xs sm:text-[13px] font-bold transition-all cursor-pointer active:scale-95 shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
             >
               <Play className="w-3 h-3 fill-current" />
               <span>{testLaunched ? 'Visible!' : 'Preview Pill'}</span>
@@ -1516,10 +1516,10 @@ export const SettingsView: React.FC = () => {
               { label: 'Quick Pause / Resume Controls', desc: '1-tap control button directly on the floating pill', checked: settings.showPauseButton, key: 'showPauseButton' as const },
               { label: 'Remember Draggable Position', desc: 'Keep the floating timer at the exact spot you placed it', checked: settings.rememberPosition, key: 'rememberPosition' as const }
             ].map(item => (
-              <div key={item.key} className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42]">
+              <div key={item.key} className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
                 <div className="pr-2 sm:pr-3">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] block">{item.label}</span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99] line-clamp-1 sm:line-clamp-none">{item.desc}</span>
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">{item.label}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">{item.desc}</span>
                 </div>
                 <ToggleSwitch
                   checked={item.checked}
@@ -1529,8 +1529,8 @@ export const SettingsView: React.FC = () => {
             ))}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
-              <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42] space-y-1.5">
-                <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] block">Widget Width</span>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2">
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">Widget Width</span>
                 <div className="flex gap-1.5 sm:gap-2">
                   {(['standard', 'compact'] as const).map(s => (
                     <button
@@ -1542,8 +1542,8 @@ export const SettingsView: React.FC = () => {
                       }}
                       className={`flex-1 py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-[13px] font-bold transition-all cursor-pointer ${
                         settings.size === s
-                          ? 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                          : 'bg-white dark:bg-[#16161E] text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42]'
+                          ? 'bg-blue-600 text-white shadow-xs'
+                          : 'bg-white dark:bg-[#151622] text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-white/10'
                       }`}
                     >
                       {s === 'standard' ? 'Standard (360px)' : 'Compact (320px)'}
@@ -1552,10 +1552,10 @@ export const SettingsView: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42] space-y-1.5">
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5]">Opacity</span>
-                  <span className="text-[11px] sm:text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">Opacity</span>
+                  <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
                     {Math.round((settings.opacity || 0.95) * 100)}%
                   </span>
                 </div>
@@ -1565,7 +1565,7 @@ export const SettingsView: React.FC = () => {
                   max="100"
                   value={Math.round((settings.opacity || 0.95) * 100)}
                   onChange={e => updateSettings({ opacity: Number(e.target.value) / 100 })}
-                  className="w-full accent-[#2563EB] dark:accent-[#7AA2F7] cursor-pointer"
+                  className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer"
                 />
               </div>
             </div>
@@ -1575,13 +1575,13 @@ export const SettingsView: React.FC = () => {
 
       {/* TAB 4: BACKUP, RESTORE & STORAGE SAFETY */}
       {activeTab === 'data' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B] shadow-subtle-depth space-y-3.5 sm:space-y-5 animate-fade-in">
-          <div className="flex items-center justify-between border-b border-[#EEEEE8] dark:border-[#242533] pb-2.5 sm:pb-3">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-5 animate-fade-in">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
             <div>
-              <h3 className="text-xs sm:text-sm font-black text-[#11120F] dark:text-[#C0CAF5] font-serif uppercase tracking-wide">
-                Storage Safety & Dual-Tier Data Engine
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                Storage Safety &amp; Dual-Tier Data Engine
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#A9B1D6]">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 Real-time debounced persistence with dual-tier IndexedDB safety snapshots and quota protection.
               </p>
             </div>
@@ -1604,9 +1604,9 @@ export const SettingsView: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h4 className="text-xs sm:text-[14px] font-black text-slate-900 dark:text-white">
-                      Google Drive Cloud Vault & Media Sync
+                      Google Drive Cloud Vault &amp; Media Sync
                     </h4>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${
                       gdriveConnected
                         ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                         : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
@@ -1614,8 +1614,8 @@ export const SettingsView: React.FC = () => {
                       {gdriveConnected ? 'Connected ✓' : 'Cloud Sync'}
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    1-Click backup & restore for your full Syllabus database, attached PDF notes, and study diagram photos directly into your personal Google Drive.
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-normal">
+                    1-Click backup &amp; restore for your full Syllabus database, attached PDF notes, and study diagram photos directly into your personal Google Drive.
                   </p>
                 </div>
               </div>
@@ -1623,7 +1623,7 @@ export const SettingsView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowGoogleDriveModal(true)}
-                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all cursor-pointer active:scale-95 shrink-0"
+                className="h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 shrink-0 flex items-center justify-center gap-2"
               >
                 <Cloud className="w-4 h-4" />
                 <span>Open Google Drive Hub</span>
@@ -1631,10 +1631,10 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Extra Backup Perks Badges */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-blue-200/50 dark:border-blue-900/40 text-[10px] sm:text-[11px] font-mono">
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-blue-200/50 dark:border-blue-900/40 text-[11px] sm:text-xs font-sans font-semibold">
               <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                <span>Exams & Notes Vault</span>
+                <span>Exams &amp; Notes Vault</span>
               </div>
               <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <CheckCircle2 className="w-3.5 h-3.5 text-red-500 shrink-0" />
@@ -1642,41 +1642,41 @@ export const SettingsView: React.FC = () => {
               </div>
               <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <CheckCircle2 className="w-3.5 h-3.5 text-purple-500 shrink-0" />
-                <span>Photos & Diagrams</span>
+                <span>Photos &amp; Diagrams</span>
               </div>
             </div>
           </div>
 
           {/* Live Auto-Save & Debounce Engine Card */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42] space-y-2.5 sm:space-y-3.5">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2.5 sm:space-y-3.5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                 <div>
-                  <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] block leading-tight">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block leading-tight">
                     Continuous Debounced Auto-Save: Active
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99]">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
                     350ms batched writes prevent keystroke lag • Flushes instantly on tab switch or close
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-mono text-[10px] sm:text-[11px] font-bold shrink-0 self-start sm:self-auto">
+              <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-sans text-xs font-bold shrink-0 self-start sm:self-auto tabular-nums">
                 <Check className="w-3 h-3 stroke-[2.5]" />
                 <span>Last Synced: {lastSavedAt}</span>
               </div>
             </div>
 
             {/* Visual Storage Health & Quota Bar */}
-            <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B] space-y-1.5 sm:space-y-2">
-              <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
-                <span className="font-bold text-[#11120F] dark:text-[#C0CAF5] flex items-center gap-1.5">
-                  <HardDrive className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
+            <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10 space-y-1.5 sm:space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <HardDrive className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                   Browser Local Storage Quota
                 </span>
-                <div className="flex items-center gap-1.5 sm:gap-2 font-mono">
-                  <span className={`px-1.5 sm:px-2 py-0.5 rounded-full font-bold uppercase text-[9px] sm:text-[10px] ${
+                <div className="flex items-center gap-2 font-sans font-bold tabular-nums">
+                  <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${
                     storageMetrics.status === 'critical'
                       ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400'
                       : storageMetrics.status === 'moderate'
@@ -1685,20 +1685,20 @@ export const SettingsView: React.FC = () => {
                   }`}>
                     {storageMetrics.status} ({storageMetrics.percentage}%)
                   </span>
-                  <span className="text-[#85877E] dark:text-[#787C99] text-[10px] sm:text-[11px]">
+                  <span className="text-slate-500 dark:text-slate-400 text-xs">
                     {storageMetrics.usedFormatted} / {storageMetrics.totalFormatted}
                   </span>
                 </div>
               </div>
 
-              <div className="w-full h-2 sm:h-2.5 rounded-full bg-[#EEEEE8] dark:bg-[#24283B] overflow-hidden">
+              <div className="w-full h-2 sm:h-2.5 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     storageMetrics.status === 'critical'
                       ? 'bg-rose-500'
                       : storageMetrics.status === 'moderate'
                       ? 'bg-amber-500'
-                      : 'bg-[#2563EB] dark:bg-[#7AA2F7]'
+                      : 'bg-blue-600'
                   }`}
                   style={{ width: `${Math.max(2, storageMetrics.percentage)}%` }}
                 />
@@ -1706,28 +1706,28 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {/* Storage Entity Breakdown Pills */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 pt-1 border-t border-[#E2E8F0] dark:border-[#292E42]/50 text-center font-mono">
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B]">
-                <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99] block font-sans font-bold">Topics & Exams</span>
-                <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] tabular-nums">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 pt-1 border-t border-slate-200/80 dark:border-white/10 text-center font-sans">
+              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Topics &amp; Exams</span>
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
                   {overallStats.totalTopics} Topics (~{(storageMetrics.breakdown.exams / 1024).toFixed(1)} KB)
                 </span>
               </div>
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B]">
-                <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99] block font-sans font-bold">SRS Flashcards</span>
-                <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] tabular-nums">
+              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">SRS Flashcards</span>
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
                   {revisions.length} Cards (~{(storageMetrics.breakdown.revisions / 1024).toFixed(1)} KB)
                 </span>
               </div>
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B]">
-                <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99] block font-sans font-bold">Planner Tasks</span>
-                <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5] tabular-nums">
+              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Planner Tasks</span>
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
                   {plannerTasks.length} Tasks (~{(storageMetrics.breakdown.planner / 1024).toFixed(1)} KB)
                 </span>
               </div>
-              <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] border border-[#E2E8F0] dark:border-[#24283B]">
-                <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#787C99] block font-sans font-bold">Targets & Habits</span>
-                <span className="text-xs sm:text-[13px] font-bold text-[#2563EB] dark:text-[#7AA2F7] tabular-nums">
+              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Targets &amp; Habits</span>
+                <span className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 tabular-nums">
                   {top3Targets.length + reflectionsHistory.length} Entries (~{((storageMetrics.breakdown.activity + storageMetrics.breakdown.other) / 1024).toFixed(1)} KB)
                 </span>
               </div>
@@ -1738,19 +1738,19 @@ export const SettingsView: React.FC = () => {
           <GoogleAuthSettingsCard />
 
           {/* Dual-Tier IndexedDB Safety Snapshot Card */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#1F2335] border border-[#E2E8F0] dark:border-[#292E42] space-y-2.5 sm:space-y-3">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2.5 sm:space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
               <div className="space-y-0.5 sm:space-y-1">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
-                  <h4 className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-[#C0CAF5]">
+                  <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
                     IndexedDB Automated Safety Net (Quota Overflow Proof)
                   </h4>
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#A9B1D6]">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">
                   Full rolling state snapshots are asynchronously safeguarded in browser IndexedDB (50MB+ capacity).
                 </p>
-                <div className="text-[9px] sm:text-[10px] text-[#85877E] dark:text-[#787C99] font-mono">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
                   Latest Snapshot: {storageMetrics.lastSnapshotAt ? (
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold">{storageMetrics.lastSnapshotAt}</span>
                   ) : (
@@ -1762,30 +1762,30 @@ export const SettingsView: React.FC = () => {
               <button
                 onClick={handleRestoreSnapshot}
                 disabled={isRestoringSnapshot}
-                className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-white dark:bg-[#16161E] hover:bg-[#EEEEE8] dark:hover:bg-[#24283B] text-[#11120F] dark:text-[#C0CAF5] border border-[#E2E8F0] dark:border-[#292E42] text-[11px] sm:text-[12px] font-bold transition-all cursor-pointer disabled:opacity-50 shrink-0"
+                className="w-full sm:w-auto h-9 px-3.5 rounded-xl bg-white dark:bg-[#151622] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer disabled:opacity-50 shrink-0 flex items-center justify-center gap-1.5"
               >
-                <RefreshCw className={`w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7] ${isRestoringSnapshot ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ${isRestoringSnapshot ? 'animate-spin' : ''}`} />
                 <span>{isRestoringSnapshot ? 'Restoring...' : 'Restore Safety Snapshot'}</span>
               </button>
             </div>
 
             {snapshotStatus === 'success' && (
-              <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] sm:text-[12px] font-bold animate-fade-in">
-                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>✓ Verified IndexedDB safety snapshot restored successfully! All data and progress re-synced.</span>
               </div>
             )}
 
             {snapshotStatus === 'empty' && (
-              <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-[11px] sm:text-[12px] font-bold animate-fade-in">
-                <FileCheck2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-bold animate-fade-in">
+                <FileCheck2 className="w-4 h-4 shrink-0" />
                 <span>No automated safety snapshot found in this browser yet. Continue using the app and it will snapshot automatically!</span>
               </div>
             )}
 
             {snapshotStatus === 'error' && (
-              <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-[11px] sm:text-[12px] font-bold animate-fade-in">
-                <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-bold animate-fade-in">
+                <Trash2 className="w-4 h-4 shrink-0" />
                 <span>Failed to restore snapshot. Please try restoring via a manual JSON backup file below.</span>
               </div>
             )}
@@ -1795,31 +1795,31 @@ export const SettingsView: React.FC = () => {
           <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 pt-0.5 sm:pt-1">
             <button
               onClick={() => setShowGoogleDriveModal(true)}
-              className="flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs sm:text-[13px] font-black shadow-xs transition-all cursor-pointer active:scale-95"
+              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
             >
-              <Cloud className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span>Google Drive Backup & Media ☁️</span>
+              <Cloud className="w-4 h-4" />
+              <span>Google Drive Backup &amp; Media ☁️</span>
             </button>
 
             <button
               onClick={handleExport}
-              className="flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#7AA2F7] dark:hover:bg-[#6090F5] text-white dark:text-[#0B0B0D] text-xs sm:text-[13px] font-bold shadow-xs transition-all cursor-pointer active:scale-95"
+              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
             >
-              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Download className="w-4 h-4" />
               <span>Export Full Backup (.json)</span>
             </button>
 
-            <label className="flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white dark:bg-[#1F2335] hover:bg-[#F8FAFC] dark:hover:bg-[#24283B] text-[#11120F] dark:text-[#C0CAF5] text-xs sm:text-[13px] font-bold border border-[#E2E8F0] dark:border-[#292E42] transition-all cursor-pointer active:scale-95">
-              <Upload className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
+            <label className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95">
+              <Upload className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span>Restore Backup File</span>
               <input type="file" accept=".json" onChange={handleImport} className="hidden" />
             </label>
 
             <button
               onClick={() => setShowPwaModal(true)}
-              className="flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white dark:bg-[#1F2335] hover:bg-[#F8FAFC] dark:hover:bg-[#24283B] text-[#11120F] dark:text-[#C0CAF5] text-xs sm:text-[13px] font-bold border border-[#E2E8F0] dark:border-[#292E42] transition-all cursor-pointer active:scale-95"
+              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95"
             >
-              <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
+              <Smartphone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span>{isInstalled ? 'App Installed ✓' : 'Install PWA App 📲'}</span>
             </button>
           </div>
@@ -1828,7 +1828,7 @@ export const SettingsView: React.FC = () => {
             <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 animate-fade-in">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
               <span className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400">
-                ✓ Full backup restored successfully! All topics, notes, PDF highlights, reflections & settings synced.
+                ✓ Full backup restored successfully! All topics, notes, PDF highlights, reflections &amp; settings synced.
               </span>
             </div>
           )}
@@ -1843,8 +1843,8 @@ export const SettingsView: React.FC = () => {
           )}
 
           {/* Danger Zone */}
-          <div className="pt-2.5 sm:pt-3 border-t border-[#EEEEE8] dark:border-[#242533] space-y-1.5 sm:space-y-2">
-            <span className="text-[10px] sm:text-[11px] font-bold text-rose-500 uppercase tracking-wider block font-mono">
+          <div className="pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-white/5 space-y-2">
+            <span className="text-xs font-bold text-rose-500 uppercase tracking-wider block font-sans">
               ⚠ Danger Zone
             </span>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -1855,13 +1855,13 @@ export const SettingsView: React.FC = () => {
                       resetToDemo();
                       setShowResetConfirm(false);
                     }}
-                    className="flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-500 text-white text-xs sm:text-[13px] font-bold cursor-pointer shadow-xs"
+                    className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-500 text-white text-xs font-bold cursor-pointer shadow-xs"
                   >
                     Yes, Reset Demo
                   </button>
                   <button
                     onClick={() => setShowResetConfirm(false)}
-                    className="px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#1F2335] text-xs sm:text-[13px] font-bold text-[#65675F] dark:text-[#A9B1D6] cursor-pointer"
+                    className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -1869,7 +1869,7 @@ export const SettingsView: React.FC = () => {
               ) : (
                 <button
                   onClick={() => setShowResetConfirm(true)}
-                  className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-white dark:bg-[#1F2335] hover:bg-rose-500/15 hover:text-rose-500 text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] text-xs sm:text-[13px] font-bold transition-colors cursor-pointer"
+                  className="h-9 flex items-center gap-1.5 px-3.5 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Reset Demo Data</span>
@@ -1883,13 +1883,13 @@ export const SettingsView: React.FC = () => {
                       clearAllDemoData();
                       setShowClearConfirm(false);
                     }}
-                    className="flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-rose-600 text-white text-xs sm:text-[13px] font-bold cursor-pointer shadow-xs"
+                    className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-600 text-white text-xs font-bold cursor-pointer shadow-xs"
                   >
                     Yes, Delete Everything
                   </button>
                   <button
                     onClick={() => setShowClearConfirm(false)}
-                    className="px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#1F2335] text-xs sm:text-[13px] font-bold text-[#65675F] dark:text-[#A9B1D6] cursor-pointer"
+                    className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -1897,7 +1897,7 @@ export const SettingsView: React.FC = () => {
               ) : (
                 <button
                   onClick={() => setShowClearConfirm(true)}
-                  className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-white dark:bg-[#1F2335] hover:bg-rose-500/15 hover:text-rose-500 text-[#65675F] dark:text-[#A9B1D6] border border-[#E2E8F0] dark:border-[#292E42] text-xs sm:text-[13px] font-bold transition-colors cursor-pointer"
+                  className="h-9 flex items-center gap-1.5 px-3.5 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Start Fresh (Blank Canvas)</span>
@@ -1915,17 +1915,17 @@ export const SettingsView: React.FC = () => {
         <div className="space-y-3.5 sm:space-y-4 animate-fade-in">
           
           {/* Card 1: Master PIN Security Status */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-4 relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-3 sm:pb-4">
+          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 relative overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+                <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
                 </div>
                 <div>
-                  <h3 className="text-xs sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight">
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
                     Safety PIN Protection
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
                     Lock your study syllabus, private notes, and daily schedules with a secure numeric PIN.
                   </p>
                 </div>
@@ -1933,12 +1933,12 @@ export const SettingsView: React.FC = () => {
 
               <div className="flex items-center gap-2">
                 {isPinConfigured ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span>Active ({pinConfig.pinLength}-Digit)</span>
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-slate-500/15 text-slate-600 dark:text-slate-400 border border-slate-500/25">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold font-sans bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-white/10">
                     Disabled
                   </span>
                 )}
@@ -1948,10 +1948,10 @@ export const SettingsView: React.FC = () => {
             {/* Action Bar / Controls */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
               <div>
-                <span className="text-xs sm:text-[13px] font-bold text-[#11120F] dark:text-white block">
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
                   {isPinConfigured ? 'App Lock is Enabled' : 'Protect this Workspace'}
                 </span>
-                <span className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] block">
+                <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 block font-normal">
                   {isPinConfigured
                     ? 'Requires PIN on startup, after inactivity, and via the header lock button.'
                     : 'Set up a 4 or 6 digit PIN with emergency recovery question.'}
@@ -1968,7 +1968,7 @@ export const SettingsView: React.FC = () => {
                         setSetPinModalMode('change');
                         setIsSetPinModalOpen(true);
                       }}
-                      className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] hover:bg-cyan-500/10 hover:text-cyan-500 border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold text-[#11120F] dark:text-white transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
+                      className="flex-1 sm:flex-initial h-9 px-4 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-cyan-500/15 hover:text-cyan-600 border border-slate-200/80 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
                     >
                       <KeyRound className="w-3.5 h-3.5" />
                       <span>Change PIN</span>
@@ -1981,7 +1981,7 @@ export const SettingsView: React.FC = () => {
                         setDisablePinInput('');
                         setShowDisablePinDialog(true);
                       }}
-                      className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-xs font-bold text-rose-600 dark:text-rose-400 transition-all cursor-pointer active:scale-95"
+                      className="flex-1 sm:flex-initial h-9 px-4 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-xs font-bold text-rose-600 dark:text-rose-400 transition-all cursor-pointer active:scale-95"
                     >
                       Turn Off
                     </button>
@@ -1994,7 +1994,7 @@ export const SettingsView: React.FC = () => {
                       setSetPinModalMode('enable');
                       setIsSetPinModalOpen(true);
                     }}
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-xs font-extrabold text-white transition-all shadow-md shadow-cyan-500/25 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
+                    className="w-full sm:w-auto h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-xs font-extrabold text-white transition-all shadow-md shadow-cyan-500/25 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
                   >
                     <ShieldCheck className="w-4 h-4" />
                     <span>Set Up Safety PIN</span>
@@ -2005,16 +2005,16 @@ export const SettingsView: React.FC = () => {
           </div>
 
           {/* Card 2: Auto-Lock & Idle Defense */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-4">
-            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-3 sm:pb-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25 flex items-center justify-center shrink-0">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
+            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
+              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25 flex items-center justify-center shrink-0">
+                <Clock className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight">
-                  Auto-Lock & Idle Defense
+                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                  Auto-Lock &amp; Idle Defense
                 </h3>
-                <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Automatically lock the app when left idle or when switching tabs.
                 </p>
               </div>
@@ -2022,12 +2022,12 @@ export const SettingsView: React.FC = () => {
 
             <div className="space-y-4">
               {/* Timeout Duration Selector */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#20212E] border border-[#E2E8F0] dark:border-[#272730]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
                 <div>
-                  <span className="text-xs font-bold text-[#11120F] dark:text-white block">
+                  <span className="text-xs font-bold text-slate-900 dark:text-white block">
                     Inactivity Auto-Lock
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#94A3B8] block">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-normal">
                     How long before the lock screen appears after no keyboard or mouse activity.
                   </span>
                 </div>
@@ -2039,7 +2039,7 @@ export const SettingsView: React.FC = () => {
                     soundManager.playClick();
                     updatePinConfig({ autoLockTimeout: Number(e.target.value) });
                   }}
-                  className="px-3 py-1.5 rounded-lg sm:rounded-xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] text-xs font-bold text-[#11120F] dark:text-white focus:outline-none focus:border-cyan-400 disabled:opacity-40 cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400 disabled:opacity-40 cursor-pointer"
                 >
                   <option value={0}>Immediately when idle</option>
                   <option value={1}>After 1 Minute</option>
@@ -2051,12 +2051,12 @@ export const SettingsView: React.FC = () => {
               </div>
 
               {/* Tab Switch Lock Toggle */}
-              <div className="flex items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#20212E] border border-[#E2E8F0] dark:border-[#272730]">
+              <div className="flex items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
                 <div>
-                  <span className="text-xs font-bold text-[#11120F] dark:text-white block">
+                  <span className="text-xs font-bold text-slate-900 dark:text-white block">
                     Lock on Tab Switch
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-[#65675F] dark:text-[#94A3B8] block">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-normal">
                     Immediately triggers the lock screen whenever you minimize or switch to another browser tab.
                   </span>
                 </div>
@@ -2073,16 +2073,16 @@ export const SettingsView: React.FC = () => {
           </div>
 
           {/* Card 3: Recovery & Cryptographic Info */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3 sm:space-y-4">
-            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-[#EEEEE8] dark:border-[#242533] pb-3 sm:pb-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
-                <KeyRound className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4">
+            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
+              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
+                <KeyRound className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-base font-black text-[#11120F] dark:text-[#F5F5F7] uppercase tracking-tight">
-                  Recovery & Privacy Architecture
+                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
+                  Recovery &amp; Privacy Architecture
                 </h3>
-                <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#94A3B8] font-medium">
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
                   Client-side salted SHA-256 hash protection.
                 </p>
               </div>
@@ -2090,18 +2090,18 @@ export const SettingsView: React.FC = () => {
 
             <div className="space-y-2.5">
               {isPinConfigured && (
-                <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#20212E] border border-[#E2E8F0] dark:border-[#272730] space-y-1">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-1">
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
                     Active Recovery Question
                   </span>
-                  <p className="text-xs font-semibold text-[#11120F] dark:text-white">
+                  <p className="text-xs font-semibold text-slate-900 dark:text-white">
                     {pinConfig.securityQuestion || 'What is your target exam or dream post?'}
                   </p>
                 </div>
               )}
 
-              <div className="p-3 rounded-xl bg-cyan-500/[0.06] border border-cyan-500/20 space-y-1 text-xs text-[#65675F] dark:text-slate-300">
-                <p className="font-semibold text-[#11120F] dark:text-white">
+              <div className="p-3 rounded-xl bg-cyan-500/[0.06] border border-cyan-500/20 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                <p className="font-semibold text-slate-900 dark:text-white">
                   🛡️ Zero Plaintext Storage Guarantee
                 </p>
                 <p className="text-[11px] leading-relaxed">
