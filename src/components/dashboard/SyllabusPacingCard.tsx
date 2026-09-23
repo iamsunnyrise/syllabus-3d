@@ -92,7 +92,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
           <div className="min-w-0 flex-1 space-y-1">
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight">
-                Pacing Timeline &amp; Simulator
+                Target Pacing &amp; Simulator
               </h3>
 
               {/* Dynamic Status Chip */}
@@ -103,7 +103,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             </div>
 
             {/* Clean Meta Pills */}
-            <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap text-[10px] sm:text-[11px] text-slate-500 dark:text-[#A1A1AA] font-mono">
+            <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap text-[10px] sm:text-[11px] text-slate-500 dark:text-[#A1A1AA] font-sans">
               <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">
                 🎯 {examName}
               </span>
@@ -159,11 +159,11 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         <div className="grid grid-cols-3 gap-1.5 sm:gap-3 text-center">
           {/* Step 1: Today */}
           <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-[#272738] flex flex-col justify-center shadow-2xs">
-            <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-slate-500 dark:text-[#A1A1AA] uppercase flex items-center justify-center gap-1">
+            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold text-slate-500 dark:text-[#A1A1AA] uppercase flex items-center justify-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
               <span>Today</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-mono text-slate-800 dark:text-slate-100 tabular-nums truncate mt-0.5">
+            <span className="text-[11px] sm:text-sm font-black font-sans text-slate-800 dark:text-slate-100 tabular-nums truncate mt-0.5">
               {forecast.todayFormatted}
             </span>
           </div>
@@ -176,21 +176,21 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
               ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400'
               : 'bg-rose-500/10 dark:bg-rose-500/15 border-rose-500/30 text-rose-600 dark:text-rose-400'
           }`}>
-            <span className="text-[9.5px] sm:text-[10px] font-mono font-bold uppercase flex items-center justify-center gap-1">
+            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold uppercase flex items-center justify-center gap-1">
               <Flag className="w-3 h-3" />
               <span>Finish Line</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-mono tabular-nums truncate mt-0.5">
+            <span className="text-[11px] sm:text-sm font-black font-sans tabular-nums truncate mt-0.5">
               {forecast.finishLineForecastDate}
             </span>
           </div>
 
           {/* Step 3: Target Exam Day */}
           <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-[#7AA2F7]/15 border border-indigo-500/20 dark:border-[#7AA2F7]/30 text-[#2563EB] dark:text-[#7AA2F7] flex flex-col justify-center shadow-2xs">
-            <span className="text-[9.5px] sm:text-[10px] font-mono font-bold uppercase flex items-center justify-center gap-1">
+            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold uppercase flex items-center justify-center gap-1">
               <span>🎯 Exam Day</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-mono tabular-nums truncate mt-0.5">
+            <span className="text-[11px] sm:text-sm font-black font-sans tabular-nums truncate mt-0.5">
               {forecast.examDateFormatted}
             </span>
           </div>
@@ -240,7 +240,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         {/* TILE 1: Finish-Line Forecast Date */}
         <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-indigo-400 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[9.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
+            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Finish-Line Date
             </span>
             <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
@@ -248,7 +248,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             </div>
           </div>
           <div className="mt-1 sm:mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums truncate">
+            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums truncate">
               {forecast.finishLineForecastDate}
             </div>
             <div className="text-[10.5px] sm:text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5 truncate">
@@ -260,7 +260,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         {/* TILE 2: Required Daily Pace */}
         <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-amber-400 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[9.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
+            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Required Velocity
             </span>
             <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
@@ -268,7 +268,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             </div>
           </div>
           <div className="mt-1 sm:mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-mono tracking-tight text-amber-600 dark:text-amber-400 tabular-nums truncate">
+            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-amber-600 dark:text-amber-400 tabular-nums truncate">
               {forecast.requiredDailyPace} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
             </div>
             <div className="text-[10.5px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 mt-0.5 truncate">
@@ -281,7 +281,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         {/* TILE 3: Actual Velocity */}
         <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-blue-400 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[9.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
+            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Your Pace (14d)
             </span>
             <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0">
@@ -289,7 +289,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             </div>
           </div>
           <div className="mt-1 sm:mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-mono tracking-tight text-blue-600 dark:text-[#7AA2F7] tabular-nums truncate">
+            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-blue-600 dark:text-[#7AA2F7] tabular-nums truncate">
               {forecast.actualDailyVelocity} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
             </div>
             <div className="text-[10.5px] sm:text-[11px] font-semibold mt-0.5 truncate">
@@ -309,7 +309,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         {/* TILE 4: Revision Margin */}
         <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-emerald-400 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[9.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
+            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Revision Margin
             </span>
             <div className={`w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg flex items-center justify-center shrink-0 ${
@@ -323,7 +323,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
             </div>
           </div>
           <div className="mt-1 sm:mt-1.5">
-            <div className={`text-sm sm:text-xl font-black font-mono tracking-tight tabular-nums truncate ${
+            <div className={`text-sm sm:text-xl font-black font-sans tracking-tight tabular-nums truncate ${
               forecast.bufferMarginDays >= forecast.bufferDays
                 ? 'text-emerald-600 dark:text-emerald-400'
                 : forecast.bufferMarginDays > 0
@@ -483,7 +483,7 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
       {/* 6. CLEAN INK-FRIENDLY DESK CHEATSHEET PRINT SECTION (Ctrl + P) */}
       <div className="hidden print:block pt-3 border-t-2 border-black text-black">
         <h4 className="text-xs font-black uppercase tracking-wider mb-2">
-          📋 SYLLABUS PACING & FINISH-LINE TARGET SPECIFICATION
+          📋 TARGET PACING &amp; FINISH-LINE TARGET SPECIFICATION
         </h4>
         <table className="w-full text-xs font-mono border-collapse border border-black">
           <tbody>
