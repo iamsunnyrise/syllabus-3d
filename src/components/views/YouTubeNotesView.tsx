@@ -598,34 +598,30 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
     if (!showApiKeyModal) return null;
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-view-fade select-none">
-        <div className={`w-full max-w-md rounded-3xl border p-5 sm:p-6 shadow-2xl space-y-4 relative ${
-          isDark ? 'bg-[#1E293B] border-[#334155] text-white' : 'bg-white border-[#DDD6FE] text-slate-900'
-        }`}>
+        <div className="w-full max-w-md rounded-2xl sm:rounded-3xl border p-5 sm:p-6 shadow-2xl space-y-4 relative bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 text-slate-900 dark:text-white">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-violet-600/15 text-violet-500">
+              <div className="p-2 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">
                 <KeyRound className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-black tracking-tight">Google Gemini API Key</h3>
-                <p className="text-[11px] text-slate-400">100% Free · No credit card required</p>
+                <h3 className="text-base font-black tracking-tight text-slate-900 dark:text-white">Google Gemini API Key</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">100% Free · No credit card required</p>
               </div>
             </div>
             <button
               type="button"
               onClick={() => setShowApiKeyModal(false)}
-              className="p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Explanation in Hindi/English */}
-          <div className={`p-3.5 rounded-xl border text-xs leading-relaxed space-y-1.5 ${
-            isDark ? 'bg-[#0F172A] border-[#334155] text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-600'
-          }`}>
-            <p className="font-bold text-violet-600 dark:text-violet-400 flex items-center gap-1.5">
+          <div className="p-3.5 rounded-2xl border text-xs leading-relaxed space-y-1.5 bg-slate-50 dark:bg-white/[0.04] border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300">
+            <p className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Free Gemini API Key kaise banayein?</span>
             </p>
@@ -641,7 +637,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             href="https://aistudio.google.com/app/apikey"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/30 hover:bg-violet-100 dark:hover:bg-violet-500/20 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200/80 dark:border-indigo-500/30 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
             <span>Get Free Key at Google AI Studio</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -658,11 +654,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 value={tempApiKeyInput}
                 onChange={(e) => setTempApiKeyInput(e.target.value)}
                 placeholder="AIzaSy..."
-                className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-xs font-mono transition-all outline-none ${
-                  isDark
-                    ? 'bg-[#0F172A] border-[#334155] text-white placeholder-slate-500 focus:border-violet-500'
-                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-violet-500'
-                }`}
+                className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-mono transition-all outline-none bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white placeholder-slate-400 focus:border-indigo-500"
                 autoFocus
               />
               <button
@@ -688,7 +680,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               <button
                 type="button"
                 onClick={handleRemoveApiKey}
-                className="px-3 py-2 rounded-xl text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border border-red-200 dark:border-red-500/20 transition-colors cursor-pointer"
+                className="px-3 py-2.5 rounded-xl text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border border-red-200 dark:border-red-500/20 transition-colors cursor-pointer"
               >
                 Remove Key
               </button>
@@ -696,7 +688,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             <button
               type="button"
               onClick={() => setShowApiKeyModal(false)}
-              className="flex-1 py-2 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -704,7 +696,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               type="button"
               disabled={!tempApiKeyInput.trim()}
               onClick={() => handleSaveApiKey(tempApiKeyInput)}
-              className="flex-1 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white shadow-md disabled:opacity-50 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-[#4F46E5] hover:bg-[#4338CA] text-white shadow-md shadow-indigo-500/20 disabled:opacity-50 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
             >
               <Save className="w-3.5 h-3.5" />
               <span>Save API Key</span>
@@ -721,7 +713,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
   if (viewState === 'input') {
     return (
-      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans">
+      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans pb-36 sm:pb-24">
         {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
@@ -730,7 +722,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                 AI YouTube Notes
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-mono font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-sans font-bold">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse inline-block mr-1.5" />
                 <span>gemini-3.6-flash</span>
               </span>
@@ -795,21 +787,21 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         </div>
 
         {/* ═══════════════ 2. GOLDEN AMBER AI ENGINE & QUICK STATS BANNER ═══════════════ */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15">
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md shadow-amber-500/15">
           <div className="flex items-center gap-3.5 min-w-0">
             <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">⚡</span>
             <div className="min-w-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight">
                 Instant Video-to-Notes Engine
               </div>
-              <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-1 truncate">
+              <div className="text-xs sm:text-sm font-semibold text-slate-950/85 mt-1 leading-normal">
                 {savedNotes.length} Lecture Summaries in Library • Multi-lingual (Hindi/English) • Smart LaTeX Formula &amp; Table Extraction
               </div>
             </div>
           </div>
-          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto">
             <Sparkles className="w-3.5 h-3.5 fill-current" />
-            <span>1-Click Gemini 3.6 Direct Mode Active</span>
+            <span>1-Click Gemini 3.6 Direct Mode</span>
           </div>
         </div>
 
@@ -824,7 +816,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
             </div>
             <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              <div className="text-2xl sm:text-3xl font-black font-sans leading-none tabular-nums">
                 {savedNotes.length}
               </div>
               <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
@@ -842,7 +834,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
             </div>
             <div className="mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-mono leading-none truncate">
+              <div className="text-xl sm:text-2xl font-black font-sans leading-none truncate">
                 gemini-3.6
               </div>
               <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
@@ -860,7 +852,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
             </div>
             <div className="mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-mono leading-none">
+              <div className="text-xl sm:text-2xl font-black font-sans leading-none">
                 KaTeX / LaTeX
               </div>
               <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
@@ -878,7 +870,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
             </div>
             <div className="mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-mono leading-none">
+              <div className="text-xl sm:text-2xl font-black font-sans leading-none">
                 1-Click Attach
               </div>
               <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
@@ -931,24 +923,20 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
         {/* Video Preview Card */}
         {isValidUrl && (
-          <div className={`rounded-2xl border overflow-hidden transition-all duration-300 animate-view-fade ${
-            isDark
-              ? 'bg-[#1E293B]/90 border-[#334155] shadow-lg'
-              : 'bg-white/95 border-[#DDD6FE] shadow-[0_8px_30px_rgba(124,58,237,0.06)]'
-          }`}>
+          <div className="rounded-2xl sm:rounded-3xl border overflow-hidden transition-all duration-300 animate-view-fade bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-sm">
             <div className="flex flex-col sm:flex-row gap-0">
               {/* Thumbnail */}
-              <div className="relative sm:w-72 flex-shrink-0">
+              <div className="relative sm:w-72 flex-shrink-0 aspect-video sm:aspect-auto">
                 <img
                   src={metadata?.thumbnailUrl || getYouTubeThumbnailUrl(url)}
                   alt="Video thumbnail"
-                  className="w-full h-40 sm:h-full object-cover"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${extractYouTubeVideoId(url)}/hqdefault.jpg`;
                   }}
                 />
                 {metadata?.duration && (
-                  <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-black/80 text-white text-[11px] font-bold rounded-md">
+                  <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-black/80 text-white text-[11px] font-bold font-sans tabular-nums rounded-md">
                     {metadata.duration}
                   </span>
                 )}
@@ -960,26 +948,27 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
 
               {/* Video Info */}
-              <div className="p-4 flex-1 min-w-0">
+              <div className="p-4 sm:p-5 flex-1 min-w-0 flex flex-col justify-center">
                 {isFetchingMeta ? (
                   <div className="flex items-center gap-2 text-sm text-slate-400">
-                    <Loader2 className="w-4 h-4 animate-spin" /> Fetching video info...
+                    <Loader2 className="w-4 h-4 animate-spin text-indigo-500" /> Fetching video info...
                   </div>
                 ) : metadata ? (
                   <>
-                    <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 mb-1.5">
+                    <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 mb-1.5 leading-snug">
                       {metadata.title}
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-2">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-2.5">
                       {metadata.channel}
                     </p>
                     <a
                       href={metadata.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-red-500 hover:text-red-400 font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs text-red-600 dark:text-red-400 hover:underline font-bold transition-colors w-fit"
                     >
-                      Watch on YouTube <ExternalLink className="w-3 h-3" />
+                      <span>Watch on YouTube</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </>
                 ) : (
@@ -993,7 +982,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         {/* Generation Settings Panel */}
         {isValidUrl && (
           <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 space-y-4 sm:space-y-5 transition-all duration-300 animate-view-fade">
-            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <h3 className="text-sm sm:text-[15px] font-black text-slate-900 dark:text-white flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-indigo-500" /> Generation Settings
             </h3>
 
@@ -1028,7 +1017,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">
                 Note Type
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {([
                   { key: 'quick', label: 'Quick Notes', icon: '⚡', desc: 'Fast summary' },
                   { key: 'standard', label: 'Standard', icon: '📝', desc: 'Balanced coverage' },
@@ -1042,21 +1031,21 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                       soundManager.playClick?.();
                       haptics.light?.();
                     }}
-                    className={`p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
+                    className={`p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer select-none active:scale-95 ${
                       settings.noteType === item.key
-                        ? 'bg-indigo-50 dark:bg-indigo-500/15 border-indigo-400 dark:border-indigo-500/40 ring-1 ring-indigo-500/30'
-                        : 'bg-slate-50/70 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
+                        ? 'bg-indigo-50 dark:bg-indigo-500/15 border-indigo-500 dark:border-indigo-400 ring-2 ring-indigo-500/20 shadow-xs'
+                        : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
                     }`}
                   >
-                    <div className="text-lg mb-0.5">{item.icon}</div>
-                    <div className={`text-xs font-bold ${
+                    <div className="text-xl mb-1">{item.icon}</div>
+                    <div className={`text-xs font-extrabold ${
                       settings.noteType === item.key
                         ? 'text-indigo-700 dark:text-indigo-300'
-                        : 'text-slate-700 dark:text-slate-300'
+                        : 'text-slate-800 dark:text-slate-200'
                     }`}>
                       {item.label}
                     </div>
-                    <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{item.desc}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{item.desc}</div>
                   </button>
                 ))}
               </div>
@@ -1079,10 +1068,10 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 ] as { key: keyof NoteGenerationSettings; label: string }[]).map(item => (
                   <label
                     key={item.key}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer transition-all duration-200 ${
+                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer select-none transition-all duration-200 ${
                       settings[item.key]
                         ? 'bg-indigo-50/70 dark:bg-indigo-500/10 border-indigo-300 dark:border-indigo-500/30'
-                        : 'bg-slate-50/50 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300'
+                        : 'bg-slate-50/70 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300'
                     }`}
                   >
                     <input
@@ -1094,14 +1083,14 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                       }}
                       className="sr-only"
                     />
-                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                    <div className={`w-4 h-4 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                       settings[item.key]
                         ? 'bg-[#4F46E5] border-[#4F46E5]'
                         : isDark ? 'border-white/20' : 'border-slate-300'
                     }`}>
                       {settings[item.key] && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                     </div>
-                    <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{item.label}</span>
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{item.label}</span>
                   </label>
                 ))}
               </div>
@@ -1114,9 +1103,9 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 haptics.medium?.();
               }}
               disabled={!isValidUrl || isGenerating}
-              className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2.5 ${
+              className={`w-full py-3.5 px-6 rounded-xl font-black text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2.5 ${
                 isValidUrl && !isGenerating
-                  ? 'bg-[#4F46E5] hover:bg-[#4338CA] text-white shadow-md shadow-indigo-500/25 active:scale-[0.99] cursor-pointer'
+                  ? 'bg-[#4F46E5] hover:bg-[#4338CA] text-white shadow-md shadow-indigo-500/25 active:scale-[0.98] cursor-pointer'
                   : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
               }`}
             >
@@ -1231,11 +1220,14 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 setShowSavedNotes(!showSavedNotes);
                 soundManager.playClick?.();
               }}
-              className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+              className="flex items-center gap-2 text-sm sm:text-base font-black text-slate-800 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer select-none"
             >
               {showSavedNotes ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-              <BookOpen className="w-4 h-4" />
-              Saved Notes ({savedNotes.length})
+              <BookOpen className="w-4 h-4 text-indigo-500" />
+              <span>Saved Notes</span>
+              <span className="px-2 py-0.5 rounded-full text-xs font-bold font-sans tabular-nums bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300">
+                {savedNotes.length}
+              </span>
             </button>
 
             {showSavedNotes && (
@@ -1244,12 +1236,12 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   <div
                     key={note.id}
                     onClick={() => handleOpenNote(note)}
-                    className="rounded-2xl border p-3.5 cursor-pointer transition-all duration-200 hover:scale-[1.01] group bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 hover:border-indigo-500/40 shadow-2xs hover:shadow-xs"
+                    className="rounded-2xl sm:rounded-3xl border p-3.5 sm:p-4 cursor-pointer transition-all duration-200 hover:scale-[1.01] group bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 hover:border-indigo-500/40 shadow-xs hover:shadow-sm"
                   >
                     <div className="flex gap-3">
                       {/* Thumbnail */}
                       {note.thumbnailUrl && (
-                        <div className="w-20 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-white/5">
+                        <div className="w-20 sm:w-24 h-14 sm:h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-white/5">
                           <img
                             src={note.thumbnailUrl}
                             alt=""
@@ -1259,25 +1251,23 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                       )}
                       {/* Info */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 mb-1">
+                        <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 mb-1.5 leading-snug">
                           {note.customTitle || note.videoTitle}
                         </h4>
-                        <div className="flex items-center gap-2 text-[10px] text-slate-400">
-                          <span className={`px-1.5 py-0.5 rounded-md font-bold ${
-                            isDark ? 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/20' : 'bg-indigo-50 text-indigo-700 border border-indigo-200/60'
-                          }`}>
+                        <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 flex-wrap">
+                          <span className="px-1.5 py-0.5 rounded-md font-bold font-sans bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-500/20">
                             {getNoteTypeLabel(note.noteType)}
                           </span>
-                          <span>{getLanguageLabel(note.language)}</span>
-                          <span className="flex items-center gap-0.5">
-                            <Clock className="w-3 h-3" /> {formatNoteDate(note.updatedAt)}
+                          <span className="font-semibold">{getLanguageLabel(note.language)}</span>
+                          <span className="flex items-center gap-1 font-sans tabular-nums">
+                            <Clock className="w-3 h-3 text-slate-400" /> {formatNoteDate(note.updatedAt)}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex items-center justify-end gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {/* Actions - visible on mobile (no hover), hover on desktop */}
+                    <div className="flex items-center justify-end gap-1 mt-2.5 pt-2 border-t border-slate-100 dark:border-white/5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -1285,30 +1275,30 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                           setShowAttachModal(true);
                           soundManager.playClick?.();
                         }}
-                        className="p-1 rounded-lg hover:bg-violet-100 dark:hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors"
                         title="Add to Syllabus Topic"
                       >
-                        <BookmarkPlus className="w-3.5 h-3.5" />
+                        <BookmarkPlus className="w-4 h-4" />
                       </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDuplicateNote(note.id);
                         }}
-                        className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 transition-colors"
                         title="Duplicate"
                       >
-                        <CopyPlus className="w-3.5 h-3.5 text-slate-400" />
+                        <CopyPlus className="w-4 h-4" />
                       </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           if (confirm('Delete this note?')) handleDeleteNote(note.id);
                         }}
-                        className="p-1 rounded-lg hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/20 text-red-500 transition-colors"
                         title="Delete"
                       >
-                        <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -1340,14 +1330,10 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
     ];
 
     return (
-      <div className="max-w-2xl mx-auto space-y-6 animate-view-fade">
+      <div className="max-w-2xl mx-auto space-y-6 animate-view-fade font-sans pb-36 sm:pb-24">
         {/* Video Preview (minimized) */}
         {metadata && (
-          <div className={`rounded-2xl border p-3 flex items-center gap-3 ${
-            isDark
-              ? 'bg-[#1E293B]/90 border-[#334155]'
-              : 'bg-white/95 border-[#DDD6FE]'
-          }`}>
+          <div className="rounded-2xl border p-3 flex items-center gap-3 bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-sm">
             <img
               src={metadata.thumbnailUrl}
               alt=""
@@ -1361,21 +1347,17 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         )}
 
         {/* Progress Card */}
-        <div className={`rounded-2xl border p-5 sm:p-6 ${
-          isDark
-            ? 'bg-[#1E293B]/90 border-[#334155] shadow-xl'
-            : 'bg-white/95 border-[#DDD6FE] shadow-[0_12px_40px_rgba(124,58,237,0.08)]'
-        }`}>
+        <div className="rounded-2xl sm:rounded-3xl border p-5 sm:p-6 bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="relative">
-              <Loader2 className="w-6 h-6 text-violet-500 animate-spin" />
+              <Loader2 className="w-6 h-6 text-indigo-500 animate-spin" />
               <div className="absolute inset-0 animate-ping opacity-20">
-                <Sparkles className="w-6 h-6 text-violet-500" />
+                <Sparkles className="w-6 h-6 text-indigo-500" />
               </div>
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-white">Generating Notes</h2>
-              <p className="text-xs text-slate-400">AI is analyzing your video...</p>
+              <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">Generating Notes</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">AI is analyzing lecture transcript &amp; extracting formulas...</p>
             </div>
           </div>
 
@@ -1394,9 +1376,9 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                     isComplete
                       ? 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
                       : isCurrent
-                        ? 'bg-violet-500 shadow-[0_0_12px_rgba(139,92,246,0.4)]'
+                        ? 'bg-[#4F46E5] shadow-[0_0_12px_rgba(79,70,229,0.4)]'
                         : isDark
-                          ? 'bg-[#0F172A] border border-[#334155]'
+                          ? 'bg-white/5 border border-white/10'
                           : 'bg-slate-100 border border-slate-200'
                   }`}>
                     {isComplete ? (
@@ -1404,16 +1386,16 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                     ) : isCurrent ? (
                       <Loader2 className="w-4 h-4 text-white animate-spin" />
                     ) : (
-                      <span className="text-[10px] font-bold text-slate-400">{i + 1}</span>
+                      <span className="text-[10px] font-bold font-sans text-slate-400">{i + 1}</span>
                     )}
                   </div>
 
                   {/* Label */}
-                  <span className={`text-sm font-medium transition-all duration-300 ${
+                  <span className={`text-sm font-semibold transition-all duration-300 ${
                     isComplete
                       ? 'text-emerald-600 dark:text-emerald-400'
                       : isCurrent
-                        ? 'text-violet-600 dark:text-violet-400 font-bold'
+                        ? 'text-indigo-600 dark:text-indigo-400 font-black'
                         : 'text-slate-400 dark:text-slate-500'
                   }`}>
                     {stage}
@@ -1430,7 +1412,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               setViewState('input');
               setIsGenerating(false);
             }}
-            className="mt-5 w-full py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-red-400 border border-slate-200 dark:border-[#334155] hover:border-red-300 dark:hover:border-red-500/30 transition-all"
+            className="mt-6 w-full py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-red-500 border border-slate-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30 transition-all cursor-pointer active:scale-95"
           >
             Cancel
           </button>
@@ -1446,43 +1428,43 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
   return (
     <div className="animate-view-fade -mx-3 sm:-mx-4 md:-mx-5 -mt-3 sm:-mt-4 md:-mt-5">
       {/* Top Toolbar */}
-      <div className={`sticky top-0 z-20 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 border-b backdrop-blur-2xl ${
+      <div className={`sticky top-0 z-20 px-3 sm:px-4 py-2.5 flex items-center justify-between gap-2 border-b backdrop-blur-2xl ${
         isDark
-          ? 'bg-[#0F172A]/95 border-[#334155]'
-          : 'bg-white/95 border-[#DDD6FE]'
+          ? 'bg-[#121424]/95 border-white/10'
+          : 'bg-white/95 border-slate-200/90 shadow-2xs'
       }`}>
         <div className="flex items-center gap-2 min-w-0">
           <button
             onClick={handleBackToInput}
-            className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-            title="Back"
+            className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
+            title="Back to Notes Dashboard"
           >
-            <ArrowLeft className="w-4 h-4 text-slate-500" />
+            <ArrowLeft className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
           </button>
 
           {/* Toggle Contents Sidebar Button */}
           {tocEntries.length > 0 && (
             <button
               onClick={handleToggleToc}
-              className={`flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
                 showToc
-                  ? 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border border-violet-500/30 shadow-2xs'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700'
+                  ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 shadow-2xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10'
               }`}
               title={showToc ? 'Collapse Contents sidebar' : 'Expand Contents sidebar'}
               aria-label="Toggle Table of Contents"
               aria-expanded={showToc}
             >
               {showToc ? (
-                <PanelLeftClose className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
+                <PanelLeftClose className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               ) : (
                 <PanelLeftOpen className="w-3.5 h-3.5" />
               )}
               <span className="hidden sm:inline">Contents</span>
-              <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full ${
+              <span className={`text-[10px] font-sans font-bold px-1.5 py-0.2 rounded-full tabular-nums ${
                 showToc
-                  ? 'bg-violet-500/25 text-violet-800 dark:text-violet-200'
-                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                  ? 'bg-indigo-500/20 text-indigo-800 dark:text-indigo-200'
+                  : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300'
               }`}>
                 {tocEntries.length}
               </span>
@@ -1490,23 +1472,23 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           )}
 
           <div className="min-w-0">
-            <p className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[140px] sm:max-w-xs md:max-w-md">
+            <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate max-w-[150px] sm:max-w-xs md:max-w-md">
               {metadata?.title || 'YouTube Notes'}
             </p>
-            <p className="text-[10px] text-slate-400 truncate">
+            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate">
               {getNoteTypeLabel(settings.noteType)} · {getLanguageLabel(settings.language)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           {/* Toggle Tools & AI Sidebar */}
           <button
             onClick={handleToggleTools}
-            className={`flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none active:scale-95 shrink-0 ${
               (typeof window !== 'undefined' && window.innerWidth < 1280 ? showAiPanel : showToolsPanel)
-                ? 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border border-violet-500/30 shadow-2xs'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700'
+                ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 shadow-2xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10'
             }`}
             title={showToolsPanel ? 'Collapse Tools & AI sidebar' : 'Expand Tools & AI sidebar'}
             aria-label="Toggle Tools & AI sidebar"
@@ -1514,7 +1496,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           >
             <Sparkles className={`w-3.5 h-3.5 ${
               (typeof window !== 'undefined' && window.innerWidth < 1280 ? showAiPanel : showToolsPanel)
-                ? 'text-violet-600 dark:text-violet-400'
+                ? 'text-indigo-600 dark:text-indigo-400'
                 : 'text-slate-500'
             }`} />
             <span className="hidden md:inline">Tools &amp; AI</span>
@@ -1528,13 +1510,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             <>
               <button
                 onClick={() => { setIsEditing(false); setEditContent(generatedNotes); }}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveEdits}
-                className="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm shadow-emerald-500/20 transition-all cursor-pointer active:scale-95"
               >
                 Save
               </button>
@@ -1548,7 +1530,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   setShowAttachModal(true);
                   soundManager.playClick?.();
                 }}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold text-xs shadow-xs hover:shadow transition-all cursor-pointer active:scale-95 shrink-0"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-extrabold text-xs shadow-sm shadow-indigo-500/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
                 title="Add this note into your syllabus subject, chapter and topic"
               >
                 <BookmarkPlus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -1557,35 +1539,35 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
               <button
                 onClick={() => { setIsEditing(true); setEditContent(generatedNotes); }}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                title="Edit"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
+                title="Edit Notes"
               >
                 <Edit3 className="w-4 h-4 text-slate-500" />
               </button>
               <button
                 onClick={handleCopy}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                title="Copy"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
+                title="Copy All"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-500" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-500 stroke-[3]" /> : <Copy className="w-4 h-4 text-slate-500" />}
               </button>
               <button
                 onClick={handleExportPdf}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
                 title="Export PDF"
               >
                 <Download className="w-4 h-4 text-slate-500" />
               </button>
               <button
                 onClick={handlePrint}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                title="Print"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
+                title="Print Notes"
               >
                 <Printer className="w-4 h-4 text-slate-500" />
               </button>
               <button
                 onClick={handleNewNote}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
                 title="New Note"
               >
                 <FileText className="w-4 h-4 text-slate-500" />
@@ -1596,7 +1578,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   setShowApiKeyModal(true);
                   soundManager.playClick?.();
                 }}
-                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors cursor-pointer active:scale-95"
                 title={apiKey ? "Gemini API Key Connected (Click to manage)" : "Setup Free Gemini API Key"}
               >
                 <KeyRound className={`w-4 h-4 ${apiKey ? 'text-emerald-500' : 'text-amber-500 animate-pulse'}`} />
@@ -1610,13 +1592,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
       <div className="flex relative">
         {/* Left: Table of Contents (Desktop only) */}
         {showToc && tocEntries.length > 0 && (
-          <aside className={`hidden lg:block w-56 xl:w-60 flex-shrink-0 border-r p-3.5 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] transition-all duration-200 animate-view-fade ${
-            isDark ? 'border-[#334155] bg-[#0F172A]/80' : 'border-[#DDD6FE]/60 bg-slate-50/80'
+          <aside className={`hidden lg:block w-56 xl:w-60 flex-shrink-0 border-r p-3.5 overflow-y-auto sticky top-[48px] h-[calc(100vh-48px-80px)] transition-all duration-200 animate-view-fade ${
+            isDark ? 'border-white/10 bg-[#121424]/80' : 'border-slate-200/80 bg-slate-50/80'
           }`}>
-            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/80 dark:border-slate-700/60">
-              <span className="text-[11px] font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-violet-500" />
-                Contents ({tocEntries.length})
+            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/80 dark:border-white/10">
+              <span className="text-[11px] font-sans font-black text-slate-700 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Contents ({tocEntries.length})</span>
               </span>
               <button
                 onClick={() => {
@@ -1624,7 +1606,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   haptics.light?.();
                   setShowToc(false);
                 }}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-all cursor-pointer active:scale-95"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
                 title="Collapse Contents sidebar"
                 aria-label="Collapse Contents"
               >
@@ -1636,13 +1618,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 <button
                   key={i}
                   onClick={() => scrollToHeading(entry.id)}
-                  className={`block w-full text-left text-xs font-medium py-1 px-2 rounded-lg truncate transition-colors hover:text-violet-600 dark:hover:text-violet-400 ${
+                  className={`block w-full text-left text-xs font-medium py-1 px-2 rounded-lg truncate transition-colors hover:text-indigo-600 dark:hover:text-indigo-400 ${
                     entry.level === 1
-                      ? 'text-slate-700 dark:text-slate-200 font-bold'
+                      ? 'text-slate-900 dark:text-white font-bold'
                       : entry.level === 2
                         ? 'pl-4 text-slate-600 dark:text-slate-300'
                         : 'pl-6 text-slate-400 dark:text-slate-500'
-                  } hover:bg-violet-50 dark:hover:bg-violet-500/10`}
+                  } hover:bg-indigo-50 dark:hover:bg-indigo-500/10 cursor-pointer`}
                   title={entry.text}
                 >
                   {entry.text}
@@ -1661,11 +1643,11 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 haptics.light?.();
                 setShowToc(true);
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur border border-slate-200 dark:border-white/10 shadow-sm text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
               title="Expand Table of Contents"
             >
-              <PanelLeftOpen className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
-              <span className="text-2xs font-mono font-bold uppercase tracking-wider">Contents</span>
+              <PanelLeftOpen className="w-3.5 h-3.5 text-indigo-500 group-hover:scale-110 transition-transform" />
+              <span className="text-2xs font-sans font-bold uppercase tracking-wider">Contents</span>
             </button>
           </div>
         )}
@@ -1673,29 +1655,29 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         {/* Center: Notes Content */}
         <main
           ref={notesContainerRef}
-          className={`flex-1 min-w-0 p-4 sm:p-5 md:p-6 lg:p-8 overflow-y-auto transition-all duration-300 ${
+          className={`flex-1 min-w-0 p-4 sm:p-5 md:p-6 lg:p-8 pb-36 sm:pb-24 overflow-y-auto transition-all duration-300 ${
             !showToc && !showToolsPanel ? 'max-w-4xl mx-auto' : ''
           }`}
-          style={{ maxHeight: 'calc(100vh - 42px - 80px)' }}
+          style={{ maxHeight: 'calc(100vh - 48px - 80px)' }}
         >
           {/* Zen / Focus reading banner when both sidebars are collapsed */}
           {!showToc && !showToolsPanel && tocEntries.length > 0 && (
-            <div className="mb-4 flex items-center justify-between px-3.5 py-2 rounded-xl bg-violet-50/80 dark:bg-violet-950/20 border border-violet-200/60 dark:border-violet-800/40 text-violet-700 dark:text-violet-300 text-xs animate-view-fade">
+            <div className="mb-4 flex items-center justify-between px-3.5 py-2 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/20 border border-indigo-200/60 dark:border-indigo-800/40 text-indigo-700 dark:text-indigo-300 text-xs animate-view-fade">
               <span className="flex items-center gap-2 font-medium">
-                <BookOpen className="w-3.5 h-3.5 text-violet-500" />
+                <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                 <span>Distraction-Free Reading Mode (Sidebars Collapsed)</span>
               </span>
               <div className="flex items-center gap-2 font-bold text-2xs">
                 <button
                   onClick={() => setShowToc(true)}
-                  className="hover:underline text-violet-600 dark:text-violet-400 cursor-pointer"
+                  className="hover:underline text-indigo-600 dark:text-indigo-400 cursor-pointer"
                 >
                   Show Contents
                 </button>
                 <span>·</span>
                 <button
                   onClick={() => setShowToolsPanel(true)}
-                  className="hover:underline text-violet-600 dark:text-violet-400 cursor-pointer"
+                  className="hover:underline text-indigo-600 dark:text-indigo-400 cursor-pointer"
                 >
                   Show Tools &amp; AI
                 </button>
@@ -1708,11 +1690,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               ref={textareaRef}
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
-              className={`w-full min-h-[70vh] p-4 rounded-xl border text-sm font-mono leading-relaxed resize-y outline-none transition-all ${
-                isDark
-                  ? 'bg-[#0F172A] border-[#334155] text-slate-200 focus:border-violet-500/50'
-                  : 'bg-white border-slate-200 text-slate-800 focus:border-violet-400'
-              }`}
+              className="w-full min-h-[70vh] p-4 sm:p-5 rounded-2xl border text-sm font-mono leading-relaxed resize-y outline-none transition-all bg-white dark:bg-[#0c1228] border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-100 focus:border-indigo-500"
             />
           ) : (
             <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -1722,11 +1700,9 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
           {/* Error in editor mode */}
           {error && (
-            <div className={`mt-4 rounded-xl border p-3 flex items-center gap-2 ${
-              isDark ? 'bg-red-500/10 border-red-500/30' : 'bg-red-50 border-red-200'
-            }`}>
+            <div className="mt-4 rounded-2xl border p-3 flex items-center gap-2 bg-red-500/10 border-red-500/30">
               <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0" />
-              <p className="text-xs text-red-600 dark:text-red-400">{error}</p>
+              <p className="text-xs text-red-600 dark:text-red-400 font-medium">{error}</p>
             </div>
           )}
         </main>
@@ -1740,24 +1716,24 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 haptics.light?.();
                 setShowToolsPanel(true);
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur border border-slate-200 dark:border-white/10 shadow-sm text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500/30 text-xs font-semibold transition-all group select-none active:scale-95 cursor-pointer"
               title="Expand Tools & AI sidebar"
             >
-              <span className="text-2xs font-mono font-bold uppercase tracking-wider">Tools &amp; AI</span>
-              <Sparkles className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
-              <PanelRightOpen className="w-3.5 h-3.5 text-violet-500 group-hover:scale-110 transition-transform" />
+              <span className="text-2xs font-sans font-bold uppercase tracking-wider">Tools &amp; AI</span>
+              <Sparkles className="w-3.5 h-3.5 text-indigo-500 group-hover:scale-110 transition-transform" />
+              <PanelRightOpen className="w-3.5 h-3.5 text-indigo-500 group-hover:scale-110 transition-transform" />
             </button>
           </div>
         )}
 
         {/* Right: AI Actions & Tools (Desktop only) */}
         {showToolsPanel && (
-          <aside className={`hidden xl:block w-60 xl:w-64 flex-shrink-0 border-l p-3 overflow-y-auto sticky top-[42px] h-[calc(100vh-42px-80px)] transition-all duration-200 animate-view-fade ${
-            isDark ? 'border-[#334155] bg-[#0F172A]/50' : 'border-[#DDD6FE]/60 bg-slate-50/50'
+          <aside className={`hidden xl:block w-60 xl:w-64 flex-shrink-0 border-l p-3 overflow-y-auto sticky top-[48px] h-[calc(100vh-48px-80px)] transition-all duration-200 animate-view-fade ${
+            isDark ? 'border-white/10 bg-[#121424]/50' : 'border-slate-200/80 bg-slate-50/50'
           }`}>
-            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/70 dark:border-slate-800">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-violet-500" />
+            <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/80 dark:border-white/10">
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
                 Tools &amp; AI
               </span>
               <button
@@ -1766,18 +1742,17 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   haptics.light?.();
                   setShowToolsPanel(false);
                 }}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors cursor-pointer active:scale-95"
+                className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
                 title="Collapse Tools & AI sidebar"
                 aria-label="Collapse Tools & AI"
               >
                 <PanelRightClose className="w-3.5 h-3.5" />
               </button>
             </div>
+
           {/* Video Info Mini */}
           {metadata && (
-            <div className={`rounded-xl border p-3 mb-3 ${
-              isDark ? 'bg-[#1E293B]/80 border-[#334155]' : 'bg-white border-slate-200 shadow-xs'
-            }`}>
+            <div className="rounded-xl border p-3 mb-3 bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-xs">
               <img
                 src={metadata.thumbnailUrl}
                 alt=""
@@ -1789,7 +1764,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 href={metadata.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mt-1.5 text-[10px] text-red-500 font-medium hover:underline"
+                className="inline-flex items-center gap-1 mt-1.5 text-[10px] text-red-500 font-semibold hover:underline"
               >
                 <ExternalLink className="w-3 h-3" /> Watch Video
               </a>
@@ -1798,9 +1773,9 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
           {/* AI Actions */}
           <div className="mb-3">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">AI Actions</h4>
+            <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">AI Actions</h4>
             {selectedText && (
-              <p className="text-[10px] text-violet-500 dark:text-violet-400 mb-2 font-medium">
+              <p className="text-[10px] text-indigo-600 dark:text-indigo-400 mb-2 font-semibold">
                 ✨ Selected text ready for AI action
               </p>
             )}
@@ -1808,7 +1783,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               {([
                 { action: 'improve' as AiActionType, icon: <Wand2 className="w-3.5 h-3.5" />, label: 'Improve Clarity' },
                 { action: 'expand' as AiActionType, icon: <Expand className="w-3.5 h-3.5" />, label: 'Expand Section' },
-                { action: 'shorten' as AiActionType, icon: <ListTodo className="w-3.5 h-3.5" />, label: 'Shorten / Revise' },
+                { action: 'shorten' as AiActionType, label: 'Shorten / Revise', icon: <ListTodo className="w-3.5 h-3.5" /> },
                 { action: 'make_important' as AiActionType, icon: <Zap className="w-3.5 h-3.5" />, label: 'Make Important' },
                 { action: 'convert_table' as AiActionType, icon: <TableIcon className="w-3.5 h-3.5" />, label: 'Convert to Table' },
                 { action: 'explain_formula' as AiActionType, icon: <Hash className="w-3.5 h-3.5" />, label: 'Explain Formula' },
@@ -1818,12 +1793,12 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   key={item.action}
                   onClick={() => handleAiAction(item.action)}
                   disabled={isAiActionRunning}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all text-left ${
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all text-left ${
                     isAiActionRunning
                       ? 'opacity-50 cursor-not-allowed'
                       : isDark
-                        ? 'text-slate-300 hover:bg-[#1E293B] hover:text-violet-400'
-                        : 'text-slate-600 hover:bg-violet-50 hover:text-violet-600'
+                        ? 'text-slate-300 hover:bg-white/5 hover:text-indigo-400 active:scale-[0.98]'
+                        : 'text-slate-700 hover:bg-indigo-50/70 hover:text-indigo-600 active:scale-[0.98]'
                   }`}
                 >
                   {isAiActionRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : item.icon}
@@ -1834,17 +1809,15 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </div>
 
           {/* Language Toggle */}
-          <div className={`rounded-xl border p-3 mb-3 ${
-            isDark ? 'bg-[#1E293B]/80 border-[#334155]' : 'bg-white border-slate-200 shadow-xs'
-          }`}>
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Translate</h4>
+          <div className="rounded-xl border p-3 mb-3 bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-xs">
+            <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Translate</h4>
             <button
               onClick={handleTranslateDocument}
               disabled={isAiActionRunning}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
+              className={`w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-black transition-all ${
                 isAiActionRunning
                   ? 'opacity-50 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-violet-600/10 to-cyan-500/10 text-violet-600 dark:text-violet-400 hover:from-violet-600/20 hover:to-cyan-500/20'
+                  : 'bg-gradient-to-r from-indigo-600/10 to-cyan-500/10 text-indigo-600 dark:text-indigo-400 hover:from-indigo-600/20 hover:to-cyan-500/20 active:scale-95'
               }`}
             >
               <Languages className="w-4 h-4" />
@@ -1853,12 +1826,10 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </div>
 
           {/* Syllabus Integration Card */}
-          <div className={`rounded-xl border p-3 mb-3 ${
-            isDark ? 'bg-[#1E293B]/80 border-[#334155]' : 'bg-white border-slate-200 shadow-xs'
-          }`}>
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-between">
+          <div className="rounded-xl border p-3 mb-3 bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 shadow-xs">
+            <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 flex items-center justify-between">
               <span>Syllabus Integration</span>
-              <span className="px-1.5 py-0.5 rounded text-[9px] bg-violet-500/15 text-violet-600 dark:text-violet-400 font-mono font-bold">1-Click</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-sans font-black">1-Click</span>
             </h4>
             <button
               onClick={() => {
@@ -1866,13 +1837,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 setShowAttachModal(true);
                 soundManager.playClick?.();
               }}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-95"
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-black bg-[#4F46E5] hover:bg-[#4338CA] text-white shadow-xs hover:shadow-md transition-all cursor-pointer active:scale-95"
               title="Add this note into your syllabus subject, chapter and topic"
             >
               <FolderPlus className="w-4 h-4" />
               <span>Add to Syllabus Topic</span>
             </button>
-            <p className="text-[10px] text-slate-400 mt-1.5 text-center leading-tight">
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1.5 text-center leading-tight">
               Attach note &amp; video to any Subject &amp; Chapter
             </p>
           </div>
@@ -1885,16 +1856,16 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 setShowAttachModal(true);
                 soundManager.playClick?.();
               }}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold ${
-                isDark ? 'text-violet-400 hover:bg-violet-500/10' : 'text-violet-600 hover:bg-violet-50'
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold active:scale-95 transition-all ${
+                isDark ? 'text-indigo-400 hover:bg-indigo-500/10' : 'text-indigo-600 hover:bg-indigo-50'
               }`}
             >
               <BookmarkPlus className="w-3.5 h-3.5" /> Add to Syllabus Topic
             </button>
             <button
               onClick={handleNewNote}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium ${
-                isDark ? 'text-slate-300 hover:bg-[#1E293B]' : 'text-slate-600 hover:bg-slate-100'
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold active:scale-95 transition-all ${
+                isDark ? 'text-slate-300 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               <FileText className="w-3.5 h-3.5" /> New Note
@@ -1903,8 +1874,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               <>
                 <button
                   onClick={() => currentNoteId && handleDuplicateNote(currentNoteId)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium ${
-                    isDark ? 'text-slate-300 hover:bg-[#1E293B]' : 'text-slate-600 hover:bg-slate-100'
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold active:scale-95 transition-all ${
+                    isDark ? 'text-slate-300 hover:bg-white/5' : 'text-slate-600 hover:bg-slate-100'
                   }`}
                 >
                   <CopyPlus className="w-3.5 h-3.5" /> Duplicate
@@ -1913,7 +1884,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   onClick={() => {
                     if (confirm('Delete this note?') && currentNoteId) handleDeleteNote(currentNoteId);
                   }}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-red-400 ${
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-red-500 active:scale-95 transition-all ${
                     isDark ? 'hover:bg-red-500/10' : 'hover:bg-red-50'
                   }`}
                 >
@@ -1926,24 +1897,24 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
       )}
       </div>
 
-      {/* Mobile Bottom Action Bar */}
-      <div className={`xl:hidden fixed bottom-16 md:bottom-0 left-0 right-0 z-30 px-3 py-2 border-t backdrop-blur-2xl flex items-center justify-around gap-1 ${
-        isDark ? 'bg-[#0F172A]/95 border-[#334155]' : 'bg-white/95 border-[#DDD6FE]'
+      {/* Mobile Bottom Action Bar (elevated above MobileNav) */}
+      <div className={`xl:hidden fixed bottom-[74px] md:bottom-0 left-0 right-0 z-30 px-3 py-2 border-t backdrop-blur-2xl flex items-center justify-around gap-1 ${
+        isDark ? 'bg-[#121424]/95 border-white/10' : 'bg-white/95 border-slate-200/90'
       }`}>
         <button
           onClick={() => { setIsEditing(!isEditing); if (isEditing) { setEditContent(generatedNotes); } }}
-          className="flex flex-col items-center gap-0.5 p-1.5"
+          className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg active:scale-95 transition-transform"
         >
-          <Edit3 className={`w-4 h-4 ${isEditing ? 'text-violet-500' : 'text-slate-400'}`} />
-          <span className="text-[9px] font-medium text-slate-400">{isEditing ? 'Preview' : 'Edit'}</span>
+          <Edit3 className={`w-4 h-4 ${isEditing ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`} />
+          <span className={`text-[10px] font-bold ${isEditing ? 'text-indigo-600 dark:text-indigo-400 font-black' : 'text-slate-500 dark:text-slate-400'}`}>{isEditing ? 'Preview' : 'Edit'}</span>
         </button>
-        <button onClick={handleCopy} className="flex flex-col items-center gap-0.5 p-1.5">
-          <Copy className={`w-4 h-4 ${copied ? 'text-emerald-500' : 'text-slate-400'}`} />
-          <span className="text-[9px] font-medium text-slate-400">{copied ? 'Copied!' : 'Copy'}</span>
+        <button onClick={handleCopy} className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg active:scale-95 transition-transform">
+          <Copy className={`w-4 h-4 ${copied ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`} />
+          <span className={`text-[10px] font-bold ${copied ? 'text-emerald-500 font-black' : 'text-slate-500 dark:text-slate-400'}`}>{copied ? 'Copied!' : 'Copy'}</span>
         </button>
-        <button onClick={handleExportPdf} className="flex flex-col items-center gap-0.5 p-1.5">
-          <Download className="w-4 h-4 text-slate-400" />
-          <span className="text-[9px] font-medium text-slate-400">PDF</span>
+        <button onClick={handleExportPdf} className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg active:scale-95 transition-transform">
+          <Download className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">PDF</span>
         </button>
         <button
           onClick={() => {
@@ -1951,36 +1922,36 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             setShowAttachModal(true);
             soundManager.playClick?.();
           }}
-          className="flex flex-col items-center gap-0.5 p-1.5 text-violet-600 dark:text-violet-400"
+          className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 active:scale-95 transition-transform"
           title="Add to Syllabus Topic"
         >
-          <BookmarkPlus className="w-4 h-4" />
-          <span className="text-[9px] font-bold">To Topic</span>
+          <BookmarkPlus className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400">To Topic</span>
         </button>
-        <button onClick={handleTranslateDocument} disabled={isAiActionRunning} className="flex flex-col items-center gap-0.5 p-1.5">
-          <Languages className={`w-4 h-4 ${isAiActionRunning ? 'text-slate-300 animate-pulse' : 'text-slate-400'}`} />
-          <span className="text-[9px] font-medium text-slate-400">Translate</span>
+        <button onClick={handleTranslateDocument} disabled={isAiActionRunning} className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg active:scale-95 transition-transform">
+          <Languages className={`w-4 h-4 ${isAiActionRunning ? 'text-indigo-500 animate-pulse' : 'text-slate-400 dark:text-slate-500'}`} />
+          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">Translate</span>
         </button>
         <button
           onClick={() => setShowAiPanel(!showAiPanel)}
-          className="flex flex-col items-center gap-0.5 p-1.5"
+          className="flex flex-col items-center gap-0.5 p-1.5 rounded-lg active:scale-95 transition-transform"
         >
-          <Sparkles className={`w-4 h-4 ${showAiPanel ? 'text-violet-500' : 'text-slate-400'}`} />
-          <span className="text-[9px] font-medium text-slate-400">AI</span>
+          <Sparkles className={`w-4 h-4 ${showAiPanel ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`} />
+          <span className={`text-[10px] font-bold ${showAiPanel ? 'text-indigo-600 dark:text-indigo-400 font-black' : 'text-slate-500 dark:text-slate-400'}`}>AI</span>
         </button>
       </div>
 
       {/* Mobile AI Actions Slide-up Panel */}
       {showAiPanel && (
-        <div className={`xl:hidden fixed bottom-28 md:bottom-12 left-3 right-3 z-40 rounded-2xl border p-4 shadow-2xl animate-view-fade ${
-          isDark ? 'bg-[#1E293B] border-[#334155]' : 'bg-white border-[#DDD6FE]'
+        <div className={`xl:hidden fixed bottom-[140px] md:bottom-12 left-3 right-3 max-w-md mx-auto z-40 rounded-2xl border p-4 shadow-2xl backdrop-blur-xl animate-view-fade ${
+          isDark ? 'bg-[#121424] border-white/10' : 'bg-white border-slate-200/90'
         }`}>
           <div className="flex items-center justify-between mb-3">
-            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-violet-500" /> AI Actions
+            <h4 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> AI Actions
             </h4>
-            <button onClick={() => setShowAiPanel(false)} className="p-1">
-              <X className="w-4 h-4 text-slate-400" />
+            <button onClick={() => setShowAiPanel(false)} className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95">
+              <X className="w-4 h-4" />
             </button>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -1997,10 +1968,10 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 key={item.action}
                 onClick={() => { handleAiAction(item.action); setShowAiPanel(false); }}
                 disabled={isAiActionRunning}
-                className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all border active:scale-95 ${
                   isDark
-                    ? 'bg-[#0F172A] text-slate-300 hover:bg-violet-600/20 hover:text-violet-400'
-                    : 'bg-slate-50 text-slate-600 hover:bg-violet-50 hover:text-violet-600'
+                    ? 'bg-white/5 border-white/5 text-slate-200 hover:bg-indigo-500/20 hover:text-indigo-400 hover:border-indigo-500/30'
+                    : 'bg-slate-50 border-slate-200/60 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-500/30'
                 } ${isAiActionRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {item.label}
@@ -2012,16 +1983,16 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
       {/* Mobile Table of Contents Slide-up Panel */}
       {showToc && tocEntries.length > 0 && (
-        <div className={`lg:hidden fixed bottom-28 md:bottom-12 left-3 right-3 max-h-[60vh] z-40 rounded-2xl border p-4 shadow-2xl overflow-y-auto animate-view-fade ${
-          isDark ? 'bg-[#1E293B] border-[#334155]' : 'bg-white border-[#DDD6FE]'
+        <div className={`lg:hidden fixed bottom-[140px] md:bottom-12 left-3 right-3 max-w-md mx-auto max-h-[60vh] z-40 rounded-2xl border p-4 shadow-2xl overflow-y-auto backdrop-blur-xl animate-view-fade ${
+          isDark ? 'bg-[#121424] border-white/10' : 'bg-white border-slate-200/90'
         }`}>
-          <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200/70 dark:border-slate-800">
-            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-              <BookOpen className="w-4 h-4 text-violet-500" /> Contents ({tocEntries.length})
+          <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200/80 dark:border-white/10">
+            <h4 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+              <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Contents (<span className="tabular-nums">{tocEntries.length}</span>)
             </h4>
             <button
               onClick={() => setShowToc(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer active:scale-95"
               title="Close Contents"
             >
               <X className="w-4 h-4" />
@@ -2035,13 +2006,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                   scrollToHeading(entry.id);
                   setShowToc(false);
                 }}
-                className={`block w-full text-left text-xs font-medium py-1.5 px-2.5 rounded-lg truncate transition-colors ${
+                className={`block w-full text-left text-xs font-semibold py-2 px-3 rounded-lg truncate transition-colors active:scale-[0.98] ${
                   entry.level === 1
-                    ? 'text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-800/80'
+                    ? 'text-slate-900 dark:text-white font-black bg-slate-100 dark:bg-white/10'
                     : entry.level === 2
-                      ? 'pl-4 text-slate-700 dark:text-slate-300'
-                      : 'pl-7 text-slate-500 dark:text-slate-400'
-                } hover:bg-violet-50 dark:hover:bg-violet-500/10 active:scale-[0.98]`}
+                      ? 'pl-4 text-slate-700 dark:text-slate-200 font-bold'
+                      : 'pl-7 text-slate-500 dark:text-slate-400 font-medium'
+                } hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400`}
               >
                 {entry.text}
               </button>
@@ -2080,7 +2051,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
       {/* Attach Success Toast Notification */}
       {attachToast && (
-        <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-3 p-3 sm:px-4 sm:py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl border border-white/10 dark:border-slate-200 animate-slide-up">
+        <div className="fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-3 p-3 sm:px-4 sm:py-3 rounded-2xl bg-slate-900 text-white dark:bg-[#121424] dark:text-white shadow-2xl border border-white/10 dark:border-white/10 animate-slide-up">
           <div className="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
             <Check className="w-4 h-4 stroke-[3]" />
           </div>
@@ -2094,14 +2065,14 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 onOpenTopicDrawer(attachToast.topic, attachToast.subjectName, attachToast.chapterName);
                 setAttachToast(null);
               }}
-              className="px-2.5 py-1 rounded-lg bg-violet-600 text-white dark:bg-violet-700 hover:bg-violet-500 text-[11px] font-bold transition-all shrink-0 cursor-pointer active:scale-95"
+              className="px-2.5 py-1 rounded-lg bg-[#4F46E5] hover:bg-[#4338CA] text-white text-[11px] font-bold transition-all shrink-0 cursor-pointer active:scale-95"
             >
               Open Topic
             </button>
           )}
           <button
             onClick={() => setAttachToast(null)}
-            className="p-1 rounded-lg hover:opacity-70 text-slate-400 dark:text-slate-600 shrink-0"
+            className="p-1 rounded-lg hover:opacity-70 text-slate-400 dark:text-slate-500 shrink-0 cursor-pointer active:scale-95"
           >
             <X className="w-3.5 h-3.5" />
           </button>
