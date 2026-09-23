@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import {
   Target,
   CalendarCheck,
@@ -17,6 +18,10 @@ import {
   MoreVertical,
   BookOpen,
   Play,
+  Pause,
+  RotateCcw,
+  Sun,
+  Moon,
   Plus,
   Trophy,
   Zap,
@@ -213,24 +218,71 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
     ? examName.replace(examYearStr, '').trim()
     : examName;
 
-  // Executive Greeting & Time Status
-  const now = new Date();
-  const hour = now.getHours();
-  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
-  const greetingPhase = hour < 12 ? 'Morning Focus' : hour < 17 ? 'Afternoon Momentum' : 'Evening Mastery';
-  const greetingIcon = hour < 12 ? '🌅' : hour < 17 ? '☀️' : '🌙';
-  const formattedDate = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-  const userName = profile.name || user?.name || user?.email?.split('@')[0] || 'Scholar';
-  const displayFirstName = (userName.split(' ')[0] || userName).toUpperCase();
-  const [isHeroMenuOpen, setIsHeroMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
-  // Hero Circular Donut Gauge calculations (matching reference Image 2)
-  const heroDonutRadius = 38;
-  const heroDonutCircumference = 2 * Math.PI * heroDonutRadius;
-  const heroDonutOffset = heroDonutCircumference - (Math.min(100, Math.max(0, overallStats.completionPercentage)) / 100) * heroDonutCircumference;
+  // Pomodoro Focus Timer State
+  const [pomodoroSeconds, setPomodoroSeconds] = useState(25 * 60);
+  const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
+
+  useEffect(() => {
+    let interval: any = null;
+    if (isPomodoroRunning && pomodoroSeconds > 0) {
+      interval = setInterval(() => {
+        setPomodoroSeconds(prev => prev - 1);
+      }, 1000);
+    } else if (pomodoroSeconds === 0 && isPomodoroRunning) {
+      setIsPomodoroRunning(false);
+      soundManager.playCompleteChime();
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isPomodoroRunning, pomodoroSeconds]);
+
+  const handlePomodoroStart = () => {
+    soundManager.playClick();
+    setIsPomodoroRunning(true);
+  };
+
+  const handlePomodoroPause = () => {
+    soundManager.playClick();
+    setIsPomodoroRunning(false);
+  };
+
+  const handlePomodoroReset = () => {
+    soundManager.playClick();
+    setIsPomodoroRunning(false);
+    setPomodoroSeconds(25 * 60);
+  };
+
+  const formatPomodoroTime = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // Current Week Dates
+  const weekDates = useMemo(() => {
+    const curr = new Date();
+    const first = curr.getDate() - curr.getDay(); // Sunday as start
+    const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return dayLabels.map((dayName, idx) => {
+      const d = new Date(curr);
+      d.setDate(first + idx);
+      const isToday = d.toDateString() === curr.toDateString();
+      return {
+        dayName,
+        dateNum: d.getDate(),
+        isToday,
+        fullDate: d
+      };
+    });
+  }, []);
+
+  const totalStudyHours = (overallStats.completedCount * 1.5) || 0.0;
 
   return (
-    <div className="space-y-3 sm:space-y-3.5 pb-24 sm:pb-12">
+    <div className="space-y-4 sm:space-y-5 pb-24 sm:pb-12">
       
       {/* 🖨️ PRINT-ONLY DESK REVISION SUMMARY HEADER */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -243,229 +295,222 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               🎯 {examName.toUpperCase()} • DESK MISSION CONTROL
             </h1>
             <div className="flex items-center gap-3 text-xs font-mono text-gray-700 mt-2">
-              <span>Aspirant: <strong>{userName}</strong></span>
+              <span>Aspirant: <strong>{profile.name || user?.name || 'Scholar'}</strong></span>
               <span>• Overall Progress: <strong>{overallStats.completionPercentage}% Mastered ({overallStats.completedCount}/{overallStats.totalTopics} Topics)</strong></span>
             </div>
           </div>
           <div className="text-right text-xs font-mono">
             <div className="font-bold text-black uppercase">Study Desk Dashboard</div>
-            <div className="text-gray-600 mt-1">Printed: {formattedDate}</div>
+            <div className="text-gray-600 mt-1">Printed: {new Date().toLocaleDateString()}</div>
             <div className="text-[10px] text-gray-500 mt-0.5">Syllabus 3D Precision Study System</div>
           </div>
         </div>
       </div>
 
-      {/* 1. EXECUTIVE VIP GREETING & COMMAND HERO CARD (Refined to match Image 2) */}
-      <div className="relative overflow-hidden rounded-[26px] sm:rounded-[34px] p-4 sm:p-6 md:p-7 bg-white/95 dark:bg-[#131522]/90 backdrop-blur-2xl border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_36px_-12px_rgba(124,58,237,0.08)] dark:shadow-[0_16px_48px_-15px_rgba(0,0,0,0.6)] print:p-0 print:border-none print:shadow-none">
+      {/* 1. TOP HEADER ROW: Dashboard Title + Theme Toggle + Add Task Button (Matching Mockup) */}
+      <div className="flex items-center justify-between gap-3 pt-1">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Dashboard
+          </h1>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          {/* Circular Floating Theme Toggle with Yellow Moon / Sun */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              toggleTheme();
+            }}
+            className="w-10 h-10 rounded-full bg-white dark:bg-[#1A1D2E] border border-slate-200/90 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-sm hover:shadow active:scale-95 transition-all cursor-pointer"
+            title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            aria-label="Toggle theme"
+          >
+            {isDark ? (
+              <Sun className="w-5 h-5 text-amber-400 fill-amber-400/20" />
+            ) : (
+              <span className="text-lg leading-none select-none">🌙</span>
+            )}
+          </button>
+
+          {/* + Add Task / Topic Button */}
+          {onOpenAddTopic && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenAddTopic();
+              }}
+              className="h-10 sm:h-10.5 px-4 sm:px-5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>Add Task</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* 2. MOTIVATIONAL QUOTE BANNER (Matching Mockup) */}
+      <div className="rounded-2xl bg-[#ECEFF8] dark:bg-white/[0.05] border-l-4 border-[#5B42F3] px-4 sm:px-5 py-3.5 text-xs sm:text-sm font-medium italic text-slate-800 dark:text-slate-200 shadow-xs">
+        "Learning never exhausts the mind." — Leonardo da Vinci
+      </div>
+
+      {/* 3. 4 VIBRANT METRIC KPI CARDS (Purple, Hot Pink, Cyan, Mint Green) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
-        {/* Ambient Glow Orbs */}
-        <div className="absolute -top-16 -right-16 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-transparent dark:from-purple-500/20 dark:via-indigo-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
-        <div className="absolute -bottom-16 -left-16 w-56 sm:w-72 h-56 sm:h-72 rounded-full bg-gradient-to-tr from-amber-500/10 to-orange-500/5 dark:from-amber-500/15 dark:to-transparent blur-3xl pointer-events-none print:hidden" />
+        {/* Card 1: Purple Gradient - Total Topics */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#5346E8] to-[#3B2FB3] text-white shadow-md shadow-indigo-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.totalTopics || 0}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Total Topics
+          </div>
+        </div>
 
-        <div className="relative z-10 space-y-4 sm:space-y-5">
-          
-          {/* ── TOP PILLS ROW: Phase Pill + Level Pill + Progress Pill + Kebab Menu ── */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
-              {/* 1. Warm Sun / Phase Pill */}
-              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 rounded-full bg-gradient-to-r from-[#FEF3C7] via-[#FFEDD5] to-[#FEF3C7] dark:from-[#78350F]/40 dark:via-[#7C2D12]/30 dark:to-[#78350F]/25 border border-amber-200/90 dark:border-amber-700/50 text-[#92400E] dark:text-[#FDE68A] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
-                <span className="text-sm sm:text-base leading-none select-none">{greetingIcon}</span>
-                <span>{greetingPhase}</span>
-              </div>
+        {/* Card 2: Hot Pink/Coral Gradient - Completed */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#FF4E8D] to-[#E92A67] text-white shadow-md shadow-pink-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.completedCount || 0}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Completed
+          </div>
+        </div>
 
-              {/* 2. Level Pill */}
-              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 px-3 sm:px-3.5 rounded-full bg-[#EDE9FE] dark:bg-[#3B0764]/40 border border-purple-200/70 dark:border-purple-800/40 text-[#6D28D9] dark:text-[#DDD6FE] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
-                <TrendingUp className="w-3.5 h-3.5 stroke-[2.8]" />
-                <span>Lvl {profile.level}</span>
-              </div>
+        {/* Card 3: Sky Blue/Cyan Gradient - Study Hours */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00D2FF] to-[#0099FF] text-white shadow-md shadow-cyan-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Study Hours
+          </div>
+        </div>
 
-              {/* 3. Progress Pill */}
-              <div className="h-8 sm:h-8.5 inline-flex items-center gap-1.5 px-3 sm:px-3.5 rounded-full bg-[#EDE9FE] dark:bg-[#3B0764]/40 border border-purple-200/70 dark:border-purple-800/40 text-[#6D28D9] dark:text-[#DDD6FE] text-xs sm:text-[13px] font-black tracking-normal shadow-2xs">
-                <span className="w-3.5 h-3.5 rounded-full border-2 border-[#7C3AED] dark:border-[#A78BFA] flex items-center justify-center shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED] dark:bg-[#A78BFA]" />
-                </span>
-                <span>{overallStats.completionPercentage}% Done</span>
-              </div>
+        {/* Card 4: Neon Mint/Emerald Gradient - Completion Rate */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00F2A9] to-[#00BA74] text-white shadow-md shadow-emerald-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.completionPercentage || 0}%
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Completion Rate
+          </div>
+        </div>
+
+      </div>
+
+      {/* 4. GOLDEN AMBER DAY STREAK BANNER (Matching Mockup) */}
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15">
+        <div className="flex items-center gap-3.5">
+          <span className="text-3xl sm:text-4xl select-none leading-none">🔥</span>
+          <div>
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
+              {profile.currentStreak || 7}
             </div>
-
-            {/* 4. Circular 3-Dots Menu Button */}
-            <div className="relative shrink-0">
-              <button
-                type="button"
-                onClick={() => setIsHeroMenuOpen(prev => !prev)}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200/90 dark:hover:bg-white/15 border border-slate-200/60 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-2xs active:scale-95 transition-all cursor-pointer"
-                title="Quick Options"
-              >
-                <MoreVertical className="w-4 h-4 stroke-[2.4]" />
-              </button>
-
-              {/* Quick Options Dropdown */}
-              {isHeroMenuOpen && (
-                <div className="absolute right-0 top-10 w-48 rounded-2xl bg-white dark:bg-[#1E2033] border border-slate-200/90 dark:border-slate-700/80 shadow-xl py-1.5 z-30 animate-scale-in">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsHeroMenuOpen(false);
-                      onNavigate('planner');
-                    }}
-                    className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
-                  >
-                    <CalendarCheck className="w-3.5 h-3.5 text-purple-600" />
-                    <span>Daily Planner</span>
-                  </button>
-                  {onOpenFocus && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsHeroMenuOpen(false);
-                        onOpenFocus();
-                      }}
-                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Focus Mode</span>
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsHeroMenuOpen(false);
-                      onNavigate('syllabus');
-                    }}
-                    className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
-                  >
-                    <Target className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Full Syllabus</span>
-                  </button>
-                  {onOpenWalkAndRevise && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsHeroMenuOpen(false);
-                        onOpenWalkAndRevise();
-                      }}
-                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
-                    >
-                      <Footprints className="w-3.5 h-3.5 text-purple-600" />
-                      <span>Walk & Revise</span>
-                    </button>
-                  )}
-                  {onOpenBacklogRescue && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsHeroMenuOpen(false);
-                        onOpenBacklogRescue();
-                      }}
-                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-white/5 flex items-center gap-2"
-                    >
-                      <Zap className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Backlog Rescue</span>
-                    </button>
-                  )}
-                </div>
-              )}
+            <div className="text-xs sm:text-sm font-bold text-slate-900/80 mt-1">
+              Day Streak
             </div>
           </div>
+        </div>
+        <div className="hidden sm:block text-xs font-bold text-slate-900/80">
+          Keep your momentum going!
+        </div>
+      </div>
 
-          {/* ── MAIN CONTENT LAYOUT: Left Greeting & Actions + Right Gauge, Quote & 3D Desk ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
-            
-            {/* Left Column: Greeting & Subtitle */}
-            <div className="lg:col-span-6 xl:col-span-7">
-              <div className="min-w-0">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center flex-wrap gap-x-1.5">
-                  <span>{greeting},&nbsp;</span>
-                  <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-300 dark:via-blue-300 dark:to-indigo-200 bg-clip-text text-transparent font-black drop-shadow-xs">
-                    {displayFirstName}
-                  </span>
-                  <span className="inline-block animate-wave origin-[70%_70%] text-2xl sm:text-3xl ml-1 select-none" role="img" aria-label="Waving hand">
-                    👋
-                  </span>
-                </h1>
-                <p className="text-sm sm:text-[15px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xl mt-1.5">
-                  You have conquered{' '}
-                  <span className="font-black text-[#6D28D9] dark:text-[#A78BFA]">
-                    {overallStats.completionPercentage}%
-                  </span>{' '}
-                  of {examName}. Keep your streak alive!
-                </p>
-              </div>
+      {/* 5. WEEKLY CALENDAR STRIP (Matching Mockup) */}
+      <div className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            Weekly Calendar
+          </h3>
+          <button
+            type="button"
+            onClick={() => onNavigate('planner')}
+            className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+          >
+            Open Daily Planner →
+          </button>
+        </div>
+
+        <div className="grid grid-cols-7 gap-2 sm:gap-3">
+          {weekDates.map((day, idx) => (
+            <div
+              key={idx}
+              onClick={() => onNavigate('planner')}
+              className={`p-3 sm:p-4 rounded-2xl flex flex-col justify-between transition-all cursor-pointer select-none ${
+                day.isToday
+                  ? 'bg-gradient-to-b from-[#5632EA] to-[#4520D4] text-white shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  : 'bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/5 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
+              }`}
+            >
+              <span className={`text-[11px] sm:text-xs font-bold uppercase ${day.isToday ? 'text-indigo-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                {day.dayName}
+              </span>
+              <span className="text-base sm:text-xl font-black font-mono mt-2">
+                {day.dateNum}
+              </span>
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Right Column: Donut Gauge, Quote & 3D Study Desk Artwork */}
-            <div className="lg:col-span-6 xl:col-span-5 flex items-center justify-between sm:justify-end gap-3 sm:gap-5 pt-2 lg:pt-0">
-              
-              {/* Circular Donut Gauge */}
-              <div className="flex flex-col items-center shrink-0">
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
-                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                    <defs>
-                      <linearGradient id="heroDonutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#A855F7" />
-                        <stop offset="100%" stopColor="#6366F1" />
-                      </linearGradient>
-                      <filter id="heroDonutGlow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#8B5CF6" floodOpacity="0.4" />
-                      </filter>
-                    </defs>
-                    {/* Track */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r={heroDonutRadius}
-                      stroke="currentColor"
-                      strokeWidth="9"
-                      fill="transparent"
-                      className="text-purple-100 dark:text-purple-900/50"
-                    />
-                    {/* Foreground Progress */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r={heroDonutRadius}
-                      stroke="url(#heroDonutGrad)"
-                      strokeWidth="9"
-                      strokeDasharray={heroDonutCircumference}
-                      strokeDashoffset={heroDonutOffset}
-                      strokeLinecap="round"
-                      fill="transparent"
-                      filter="url(#heroDonutGlow)"
-                      className="transition-all duration-1000 ease-out"
-                    />
-                  </svg>
-                  
-                  {/* Gauge Center Text */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tabular-nums tracking-tight leading-none">
-                      {overallStats.completionPercentage}%
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 tracking-tight mt-0.5">
-                      Completed
-                    </span>
-                  </div>
-                </div>
-              </div>
+      {/* 6. POMODORO FOCUS TIMER (Matching Mockup) */}
+      <div className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            Pomodoro Timer
+          </h3>
+          {onOpenFocus && (
+            <button
+              type="button"
+              onClick={onOpenFocus}
+              className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+            >
+              Launch Focus Chamber →
+            </button>
+          )}
+        </div>
 
-              {/* Motivational Handwritten Quote */}
-              <div className="flex flex-col items-start leading-tight select-none shrink-0 font-serif italic text-slate-800 dark:text-slate-100">
-                <span className="text-xs sm:text-sm font-bold tracking-tight">'Discipline</span>
-                <span className="text-xs sm:text-sm font-bold tracking-tight">Today</span>
-                <span className="text-xs sm:text-sm font-bold tracking-tight">A Stronger</span>
-                <span className="text-xs sm:text-sm font-bold tracking-tight">Tomorrow</span>
-                {/* Hand-drawn accent swoop underline */}
-                <svg className="w-14 sm:w-16 h-2 text-purple-500 dark:text-purple-400 mt-1" viewBox="0 0 80 8" fill="none">
-                  <path d="M2 5 Q 40 1, 78 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                </svg>
-              </div>
+        <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-10 bg-gradient-to-r from-[#4E54C8] to-[#8F94FB] text-white text-center shadow-lg shadow-indigo-500/20">
+          <div className="text-xs sm:text-sm font-bold uppercase tracking-widest text-indigo-100">
+            Focus Session
+          </div>
 
-              {/* 3D Study Desk Illustration (Stack of Books PLAN/STUDY/ACHIEVE + Sticky Note + Plant) */}
-              <div className="shrink-0">
-                <StudyDeskHeroIllustration className="w-32 sm:w-40 md:w-44 lg:w-48 h-auto" />
-              </div>
+          <div className="text-5xl sm:text-7xl font-black font-mono tracking-tight my-4 sm:my-6 drop-shadow-md">
+            {formatPomodoroTime(pomodoroSeconds)}
+          </div>
 
-            </div>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            {!isPomodoroRunning ? (
+              <button
+                type="button"
+                onClick={handlePomodoroStart}
+                className="h-10 sm:h-11 px-6 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-xs sm:text-sm shadow-md active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Play className="w-3.5 h-3.5 fill-indigo-700" />
+                <span>Start</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePomodoroPause}
+                className="h-10 sm:h-11 px-6 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-xs sm:text-sm shadow-md active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Pause className="w-3.5 h-3.5 fill-indigo-700" />
+                <span>Pause</span>
+              </button>
+            )}
 
+            <button
+              type="button"
+              onClick={handlePomodoroReset}
+              className="h-10 sm:h-11 px-6 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs sm:text-sm border border-white/30 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
           </div>
         </div>
       </div>

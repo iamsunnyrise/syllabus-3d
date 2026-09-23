@@ -278,39 +278,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white/90 dark:bg-[#0E101B]/90 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/[0.08] p-2.5 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar ${
-        isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[1px_0_20px_rgba(15,23,42,0.04)]'
+      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-gradient-to-b from-[#5632EA] via-[#4A26DE] to-[#3917C4] text-white p-3 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-indigo-400/20 shadow-2xl ${
+        isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 shadow-[2px_0_24px_rgba(86,50,234,0.15)]'
       }`}
     >
 
-      <div className="space-y-1.5">
-        {/* Tradewise-Style Header Branding & Collapse Button */}
-        <div className="flex items-center justify-between gap-1.5 px-0.5 py-0.5">
+      <div className="space-y-2">
+        {/* Study Planner Header Branding */}
+        <div className="flex items-center justify-between gap-1.5 px-1 pt-1 pb-2 border-b border-white/15">
           <div
-            className="flex items-center gap-2 min-w-0 group cursor-pointer"
+            className="flex items-center gap-2.5 min-w-0 group cursor-pointer"
             onClick={() => {
               soundManager.playClick();
               onSelectView('overview');
             }}
             title="Go to Dashboard"
           >
-            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="Syllabus 3D Logo" className="w-full h-full object-contain drop-shadow-sm" />
+            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner">
+              <span className="text-xl">📊</span>
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
                 <span
                   role="presentation"
-                  className="text-[13px] font-black tracking-tight text-[#11120F] dark:text-[#F5F5F7] uppercase group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors leading-none shrink-0"
+                  className="text-[13px] font-black tracking-tight text-white uppercase leading-none truncate"
                 >
-                  SYLLABUS 3D
+                  Study Planner
                 </span>
-                <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/15 dark:bg-emerald-500/25 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black tracking-widest font-mono shrink-0">
+                <span className="px-1.5 py-0.5 rounded-full bg-white/20 border border-white/30 text-white text-[9px] font-black tracking-widest font-mono shrink-0">
                   PRO
                 </span>
               </div>
-              <p className="text-xs font-medium text-slate-500 dark:text-[#94A3B8] mt-0.5 truncate">
-                Discipline & Mastery
+              <p className="text-[11px] font-bold text-white/80 mt-0.5 truncate leading-tight">
+                -- My Study Plan
+              </p>
+              <p className="text-[10px] font-medium text-white/60 tracking-wider mt-0.5">
+                Learn. Note. Review.
               </p>
             </div>
           </div>
@@ -323,7 +326,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 haptics.light();
                 onToggleCollapse();
               }}
-              className="p-1.5 rounded-xl text-[#65675F] dark:text-[#CBD5E1] hover:text-[#11120F] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-transparent hover:border-[#E2E8F0] dark:hover:border-white/[0.08] transition-all cursor-pointer shrink-0 active:scale-95 group"
+              className="p-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer shrink-0 active:scale-95 group"
               title="Close sidebar (Ctrl+B)"
               aria-label="Close sidebar"
             >
@@ -333,12 +336,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Action Buttons: Primary Add Custom Topic + Compact Tools Row */}
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 pt-0.5">
           {onOpenAddTopic && (
             <button
               type="button"
               onClick={onOpenAddTopic}
-              className="btn-primary w-full py-1.5 px-2.5 text-xs justify-center"
+              className="w-full py-2 px-3 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs flex items-center justify-center gap-1.5 border border-white/25 shadow-xs transition-all active:scale-95 cursor-pointer"
               title="Add Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -354,10 +357,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onOpenAiArchitect();
                 }}
-                className="btn-secondary py-1.5 px-2 text-xs justify-center"
+                className="py-1.5 px-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1 border border-white/15 transition-all cursor-pointer truncate"
                 title="AI Syllabus Architect (PDF & Text)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
                 <span className="truncate">AI Studio</span>
               </button>
             )}
@@ -369,10 +372,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onOpenFocus();
                 }}
-                className="btn-secondary py-1.5 px-2 text-xs justify-center"
+                className="py-1.5 px-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1 border border-white/15 transition-all cursor-pointer truncate"
                 title="3D Focus Chamber"
               >
-                <Timer className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
+                <Timer className="w-3.5 h-3.5 text-amber-300 shrink-0" />
                 <span className="truncate">Chamber</span>
               </button>
             )}
@@ -382,19 +385,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Raycast-Style Quick Filter Bar */}
         <div className="relative pt-0.5">
           <div className="relative flex items-center">
-            <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 absolute left-2.5 text-white/50 pointer-events-none" />
             <input
               type="text"
               value={navQuery}
               onChange={e => setNavQuery(e.target.value)}
               placeholder="Filter views... (Alt+1..6)"
-              className="w-full h-7.5 pl-8 pr-7 rounded-lg text-xs bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50 dark:focus:border-purple-400/50 focus:ring-1 focus:ring-purple-500/30 transition-all font-medium"
+              className="w-full h-8 pl-8 pr-7 rounded-xl text-xs bg-white/15 border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:bg-white/20 focus:border-white/40 transition-all font-medium"
             />
             {navQuery && (
               <button
                 type="button"
                 onClick={() => setNavQuery('')}
-                className="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-0.5"
+                className="absolute right-2 text-white/60 hover:text-white p-0.5"
                 title="Clear filter"
               >
                 <X className="w-3 h-3" />
@@ -403,15 +406,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* Categorized Navigation List (Raycast / Linear Pro Aesthetic) */}
-        <div className="space-y-2 pt-1 border-t border-slate-200/80 dark:border-white/[0.08]">
+        {/* Categorized Navigation List */}
+        <div className="space-y-2 pt-1 border-t border-white/15">
           {filteredSections.length === 0 ? (
             <div className="py-4 text-center">
-              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">No matching views</p>
+              <p className="text-xs text-white/60 font-medium">No matching views</p>
               <button
                 type="button"
                 onClick={() => setNavQuery('')}
-                className="text-[11px] text-purple-600 dark:text-purple-400 font-bold mt-1 hover:underline cursor-pointer"
+                className="text-[11px] text-cyan-300 font-bold mt-1 hover:underline cursor-pointer"
               >
                 Clear filter
               </button>
@@ -424,23 +427,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     type="button"
                     onClick={() => toggleSection(section.title)}
-                    className="w-full flex items-center justify-between px-2 pt-1 pb-0.5 text-[10px] font-mono font-extrabold tracking-wider text-slate-400 dark:text-slate-400 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                    className="w-full flex items-center justify-between px-2 pt-1.5 pb-0.5 text-[10px] font-mono font-extrabold tracking-wider text-white/50 uppercase group/sec cursor-pointer select-none hover:text-white/90 transition-colors"
                   >
                     <div className="flex items-center gap-1.5">
                       <span>{section.title}</span>
-                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-200/70 dark:bg-white/[0.08] text-slate-600 dark:text-slate-300">
+                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-white/15 text-white/80">
                         {section.items.length}
                       </span>
                     </div>
                     <ChevronDown
-                      className={`w-3 h-3 text-slate-400 group-hover/sec:text-slate-600 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
+                      className={`w-3 h-3 text-white/50 group-hover/sec:text-white transition-transform duration-200 ${
                         isCollapsedSection ? '-rotate-90' : 'rotate-0'
                       }`}
                     />
                   </button>
 
                   {!isCollapsedSection && (
-                    <nav className="space-y-0.5 animate-fade-in">
+                    <nav className="space-y-1 animate-fade-in pt-0.5">
                       {section.items.map(item => {
                         const Icon = item.icon;
                         const isActive = activeView === item.id;
@@ -453,32 +456,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               onSelectView(item.id);
                             }}
                             aria-current={isActive ? 'page' : undefined}
-                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer select-none ${
+                            className={`group relative w-full flex items-center justify-between px-3 py-2 rounded-2xl text-[13px] font-bold transition-all duration-150 cursor-pointer select-none ${
                               isActive
-                                ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
-                                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
+                                ? 'bg-white/25 backdrop-blur-md text-white font-black border border-white/30 shadow-inner'
+                                : 'text-white/80 hover:bg-white/10 hover:text-white border border-transparent'
                             }`}
                           >
-                            {/* Active Left Indicator Bar */}
-                            {isActive && (
-                              <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-gradient-to-b from-purple-500 to-indigo-600 dark:from-purple-400 dark:to-cyan-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
-                            )}
-
                             <div className="flex items-center gap-2.5 min-w-0">
                               {item.isDashboard ? (
-                                <img
-                                  src="/dashboard_icon_3d.png"
-                                  alt="Dashboard"
-                                  className={`w-4 h-4 object-contain shrink-0 transition-transform ${
-                                    isActive ? 'scale-110 drop-shadow-sm' : 'opacity-80 group-hover:scale-110'
-                                  }`}
-                                />
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📊</span>
+                              ) : item.id === 'syllabus' ? (
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📚</span>
+                              ) : item.id === 'planner' ? (
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📅</span>
+                              ) : item.id === 'revision' ? (
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">🔄</span>
+                              ) : item.id === 'analytics' || item.id === 'mock-tracker' ? (
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📈</span>
+                              ) : item.id === 'youtube-notes' ? (
+                                <span className="text-base leading-none shrink-0 drop-shadow-sm">📝</span>
                               ) : (
                                 <Icon
                                   className={`w-4 h-4 stroke-[2.2] shrink-0 transition-transform ${
-                                      isActive
-                                        ? 'text-purple-600 dark:text-purple-400'
-                                        : 'text-slate-400 dark:text-slate-400 group-hover:scale-110 group-hover:text-slate-700 dark:group-hover:text-white'
+                                    isActive
+                                      ? 'text-white'
+                                      : 'text-white/70 group-hover:scale-110 group-hover:text-white'
                                   }`}
                                 />
                               )}
@@ -491,8 +493,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 <span
                                   className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
                                     isActive
-                                      ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
-                                      : item.badgeColor
+                                      ? 'bg-white/30 text-white border border-white/40'
+                                      : 'bg-white/15 text-white/90 border border-white/20'
                                   }`}
                                 >
                                   {item.badge}
@@ -500,7 +502,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               )}
 
                               {item.shortcut && !item.badge && (
-                                <kbd className="opacity-0 group-hover:opacity-100 text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded bg-slate-200/70 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 transition-opacity border border-slate-300/40 dark:border-white/[0.06] shadow-2xs">
+                                <kbd className="opacity-0 group-hover:opacity-100 text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded bg-white/20 text-white transition-opacity border border-white/20 shadow-2xs">
                                   ⌥{item.shortcut}
                                 </kbd>
                               )}
@@ -518,24 +520,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Cards Area */}
-      <div className="space-y-1.5 pt-1.5 border-t border-slate-200/80 dark:border-white/[0.08]">
-        {/* Tradewise-Style Discipline Score Progress Card */}
-        <div className="p-2 rounded-xl bg-slate-50/80 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
+      <div className="space-y-1.5 pt-2 border-t border-white/15 text-white">
+        {/* Discipline Score Progress Card */}
+        <div className="p-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200">
+            <span className="text-[11px] font-bold text-white/90">
               Discipline Score
             </span>
-            <span className="text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400">
+            <span className="text-xs font-black font-mono text-emerald-300">
               {overallStatsSafe.completionPercentage}/100
             </span>
           </div>
-          <div className="w-full h-1 rounded-full bg-slate-200 dark:bg-white/[0.08] overflow-hidden">
+          <div className="w-full h-1.5 rounded-full bg-white/20 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-lime-400 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-emerald-400 to-teal-300 rounded-full transition-all duration-500"
               style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
             />
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed break-words">
+          <p className="text-[11px] text-white/70 leading-relaxed break-words">
             Keep pushing — consistency beats intensity.
           </p>
         </div>
@@ -548,28 +550,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onSelectView('mock-tracker');
           }}
-          className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
+          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-2xl transition-all shadow-xs active:scale-98 cursor-pointer ${
             activeView === 'mock-tracker'
-              ? 'bg-gradient-to-r from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/40 font-bold'
-              : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+              ? 'bg-white/30 text-white border border-white/40 font-black'
+              : 'bg-white/10 border border-white/15 text-white/90 hover:bg-white/20'
           }`}
         >
-          <div className="flex items-center gap-1.5 min-w-0">
-            <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-[#00D2FF] to-[#7C3AED] flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
-              🏆
-            </div>
-            <div className="min-w-0 text-left">
-              <span className={`text-[12px] font-bold block leading-tight truncate ${
-                activeView === 'mock-tracker' ? 'text-[#7C3AED] dark:text-[#00D2FF]' : 'text-[#191A17] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]'
-              }`}>
-                Mock Tracker
-              </span>
-              <span className="text-[10px] text-[#65675F] dark:text-slate-300 block leading-none truncate">Score & Percentiles</span>
-            </div>
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-sm">🏆</span>
+            <span className="text-xs font-bold truncate">Mock Tracker 3D</span>
           </div>
-          <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-[#00D2FF]/15 text-[#0284c7] dark:text-[#00D2FF] border border-[#00D2FF]/30 shrink-0">
-            3D Pro
-          </span>
+          <span className="text-[10px] font-bold text-white/70 group-hover:text-white">Open →</span>
         </button>
 
         {/* Product Tour & Landing Page */}
@@ -580,34 +571,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onSelectView('landing');
           }}
-          className={`group w-full flex items-center justify-between p-1.5 px-2 rounded-xl transition-all shadow-2xs active:scale-98 cursor-pointer ${
+          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-2xl transition-all shadow-xs active:scale-98 cursor-pointer ${
             activeView === 'landing'
-              ? 'bg-blue-600 text-white border border-blue-500 font-bold'
-              : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+              ? 'bg-white/30 text-white border border-white/40 font-black'
+              : 'bg-white/10 border border-white/15 text-white/90 hover:bg-white/20'
           }`}
         >
-          <div className="flex items-center gap-1.5 min-w-0">
-            <Sparkles className={`w-4 h-4 shrink-0 ${activeView === 'landing' ? 'text-white' : 'text-blue-500'}`} />
-            <div className="min-w-0 text-left">
-              <span className={`text-[12px] font-bold block leading-tight truncate ${activeView === 'landing' ? 'text-white' : 'text-[#191A17] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]'}`}>
-                Product Overview
-              </span>
-              <span className={`text-[10px] block leading-none truncate ${activeView === 'landing' ? 'text-blue-100' : 'text-[#65675F] dark:text-slate-300'}`}>
-                Features & Landing
-              </span>
-            </div>
+          <div className="flex items-center gap-2 min-w-0">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
+            <span className="text-xs font-bold truncate">Features Tour</span>
           </div>
-          <ArrowRight className={`w-3 h-3 shrink-0 ${activeView === 'landing' ? 'text-white' : 'text-slate-400'}`} />
+          <ArrowRight className="w-3 h-3 text-white/70 group-hover:text-white" />
         </button>
 
         {/* User Profile & Level Card */}
-        <div className="p-1.5 px-2 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
+        <div className="p-2 px-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1 shadow-sm text-white">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
               <div
-                className={`w-6 h-6 rounded-lg bg-gradient-to-br ${
+                className={`w-7 h-7 rounded-xl bg-gradient-to-br ${
                   profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
-                } text-white dark:text-black font-black flex items-center justify-center text-[11px] shrink-0 shadow-2xs overflow-hidden`}
+                } text-white font-black flex items-center justify-center text-xs shrink-0 shadow-xs overflow-hidden border border-white/20`}
               >
                 {profileSafe.avatarUrl ? (
                   <img
@@ -616,23 +600,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className="w-full h-full object-cover"
                   />
                 ) : profileSafe.avatarEmoji ? (
-                  <span className="text-[11px] leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
+                  <span className="text-xs leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
                 ) : (
                   (profileSafe.name ? profileSafe.name.charAt(0).toUpperCase() : 'A')
                 )}
               </div>
               <div className="truncate">
-                <p className="text-xs font-bold text-[#191A17] dark:text-white truncate leading-tight">
+                <p className="text-xs font-bold text-white truncate leading-tight">
                   {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
-                <p className="text-[11px] text-[#65675F] dark:text-slate-300 leading-none truncate">
+                <p className="text-[10px] text-white/70 leading-none truncate">
                   {profileSafe.name || 'Active Profile'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1 py-0.5 text-[10px] font-bold rounded-md bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#1D4ED8] dark:text-[#7AA2F7] font-mono border border-[#BFDBFE] dark:border-[#7AA2F7]/30 leading-none">
+              <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-lg bg-white/20 text-white font-mono border border-white/25 leading-none">
                 Lvl {profileSafe.level || 1}
               </span>
 
