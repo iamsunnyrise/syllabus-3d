@@ -36,7 +36,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onNavigate, onNaviga
             setEditingSubject(null);
             setIsAddSubjectOpen(true);
           }}
-          className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold shadow-md transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-semibold shadow-md shadow-indigo-500/20 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add Subject</span>

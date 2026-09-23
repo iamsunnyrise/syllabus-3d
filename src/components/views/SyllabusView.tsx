@@ -28,7 +28,8 @@ import {
   Calendar,
   Trophy,
   FolderOpen,
-  ArrowRight
+  ArrowRight,
+  TrendingUp
 } from 'lucide-react';
 import { EditSubjectModal } from '../modals/EditSubjectModal';
 import { EditChapterModal } from '../modals/EditChapterModal';
@@ -492,167 +493,192 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 1. TOP CHAPTER HERO BANNER */}
-        <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
-          {/* Subtle Top Accent Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-80" />
-
-          <div className="flex items-start sm:items-center justify-between gap-2.5 sm:gap-3 flex-wrap">
-            <div className="flex items-center gap-3 min-w-0">
-              
-              {/* Left Visual Badge Thumbnail */}
-              <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
-                <ChapterBadgeIcon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2] mb-0.5" />
-                <span className="text-[9px] sm:text-[10.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
-                  {chapterBadge.badgeText}
-                </span>
-              </div>
-
-              {/* Banner Meta & Title */}
-              <div className="min-w-0 space-y-0.5">
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                  <span>{formatTitleCase(activeSubject.name)}</span>
-                  <span className="text-slate-300 dark:text-slate-600">•</span>
-                  <span>Chapter {currentChapterIndex + 1} of {activeSubject.chapters.length}</span>
-                </div>
-
-                <h1 className="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight break-words line-clamp-2 leading-snug">
-                  {formatTitleCase(activeChapter.name)}
-                </h1>
-              </div>
+        {/* 1. TOP CHAPTER HERO BANNER & ACTIONS */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+          <div className="flex items-center gap-3 min-w-0">
+            {/* Visual Badge Thumbnail */}
+            <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
+              <ChapterBadgeIcon className="w-6 sm:w-7 h-6 sm:h-7 stroke-[2.2] mb-0.5" />
+              <span className="text-[9px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+                {chapterBadge.badgeText}
+              </span>
             </div>
 
-            {/* Quick Actions (Back, Switcher & Mastery) */}
-            <div className="flex items-center justify-between w-full sm:w-auto sm:justify-end gap-1.5 sm:gap-2 shrink-0 pt-1 sm:pt-0 no-print">
-              <button
-                onClick={handleBackToChapters}
-                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-[#1A1B29] hover:bg-slate-100 dark:hover:bg-[#25283B] text-slate-800 dark:text-[#E2E8F0] border border-slate-200/70 dark:border-white/[0.06] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] group shrink-0 tap-bounce"
-                title="Return to All Chapters"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-                <span>Chapters</span>
-              </button>
-
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                {prevChapter && (
-                  <button
-                    onClick={() => handleSelectChapter(prevChapter.id)}
-                    className="p-1.5 sm:p-2 rounded-xl bg-slate-50 dark:bg-[#1A1B29] text-xs font-bold text-slate-600 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-white border border-slate-200/70 dark:border-white/[0.06] transition-colors cursor-pointer flex items-center gap-1 active:scale-[0.97] tap-bounce"
-                    title={`Previous: ${prevChapter.name}`}
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                )}
-
-                {nextChapter && (
-                  <button
-                    onClick={() => handleSelectChapter(nextChapter.id)}
-                    className="p-1.5 sm:p-2 rounded-xl bg-slate-50 dark:bg-[#1A1B29] text-xs font-bold text-slate-600 dark:text-[#CBD5E1] hover:text-slate-900 dark:hover:text-white border border-slate-200/70 dark:border-white/[0.06] transition-colors cursor-pointer flex items-center gap-1 active:scale-[0.97] tap-bounce"
-                    title={`Next: ${nextChapter.name}`}
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                )}
-
-                <div className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs font-mono tabular-nums font-bold border ${
-                  chapterPercent === 100
-                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-black'
-                    : chapterPercent > 0
-                    ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
-                    : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-600 dark:text-[#CBD5E1] border-slate-200/70 dark:border-white/[0.06]'
-                }`}>
-                  {chapterPercent === 100 ? (
-                    <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                  ) : (
-                    <Zap className="w-3.5 h-3.5 fill-current" />
-                  )}
-                  <span>{chapterPercent}%</span>
-                </div>
-
+            <div className="min-w-0 space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
-                  onClick={() => setEditingChapter({ subjectId: activeSubject.id, chapter: activeChapter })}
-                  className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-[#1A1B29] border border-slate-200/60 dark:border-white/[0.06] transition-colors cursor-pointer active:scale-[0.97] tap-bounce"
-                  title="Edit Chapter"
+                  onClick={handleBackToChapters}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
                 >
-                  <Edit2 className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>{formatTitleCase(activeSubject.name)}</span>
                 </button>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Chapter {currentChapterIndex + 1} of {activeSubject.chapters.length}
+                </span>
               </div>
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                {formatTitleCase(activeChapter.name)}
+              </h1>
             </div>
           </div>
 
-          {/* Quick Metrics KPI Bento Pills */}
-          <div className="flex items-center gap-1.5 sm:gap-2 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-white/[0.06] overflow-x-auto no-scrollbar sm:flex-wrap">
-            <span className="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A1B29] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-slate-200/70 dark:border-white/[0.06] text-[10px] sm:text-[11px] font-mono font-semibold text-slate-900 dark:text-[#E2E8F0] shrink-0 whitespace-nowrap">
-              <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-indigo-400" />
-              <span>{totalInActiveChapter} Topics Total</span>
-            </span>
+          {/* Quick Actions (Previous / Next Chapter & Edit Chapter) */}
+          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+            <button
+              onClick={handleBackToChapters}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Chapters</span>
+            </button>
 
-            <span className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border text-[10px] sm:text-[11px] font-mono font-bold shrink-0 whitespace-nowrap ${
-              completedInActiveChapter > 0
-                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-400 dark:text-[#CBD5E1] border-slate-200/70 dark:border-white/[0.06]'
-            }`}>
-              <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              <span>{completedInActiveChapter} Mastered</span>
-            </span>
-
-            {inProgressInActiveChapter > 0 && (
-              <span className="flex items-center gap-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-amber-500/20 text-[10px] sm:text-[11px] font-mono font-bold shrink-0 whitespace-nowrap">
-                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
-                <span>{inProgressInActiveChapter} In Progress</span>
-              </span>
+            {prevChapter && (
+              <button
+                onClick={() => handleSelectChapter(prevChapter.id)}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white transition-colors cursor-pointer active:scale-95"
+                title={`Previous: ${prevChapter.name}`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
             )}
 
-            {weakInActiveChapter > 0 && (
-              <span className="flex items-center gap-1.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-rose-500/20 text-[10px] sm:text-[11px] font-mono font-bold shrink-0 whitespace-nowrap">
-                <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span>{weakInActiveChapter} Weak</span>
-              </span>
+            {nextChapter && (
+              <button
+                onClick={() => handleSelectChapter(nextChapter.id)}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white transition-colors cursor-pointer active:scale-95"
+                title={`Next: ${nextChapter.name}`}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             )}
+
+            <button
+              onClick={() => setEditingChapter({ subjectId: activeSubject.id, chapter: activeChapter })}
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] transition-colors cursor-pointer active:scale-95"
+              title="Edit Chapter"
+            >
+              <Edit2 className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
-        {/* 2. TOPICS CONTENT CONTAINER */}
-        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+        {/* 2. 4 VIBRANT HIGH-CONTRAST METRIC CARDS FOR CHAPTER */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+          {/* Card 1: Purple Gradient -> Total Topics */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Topics</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <FileText className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {totalInActiveChapter}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                In this Chapter
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <CheckCircle2 className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {completedInActiveChapter}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {totalInActiveChapter - completedInActiveChapter} Remaining
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Cyan / Sky Blue Gradient -> Active Topics */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">In Progress</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <Zap className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
+                {inProgressInActiveChapter}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Study'}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Emerald / Mint Gradient -> Chapter Mastery Rate */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Chapter Mastery</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <TrendingUp className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {chapterPercent}%
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {completedInActiveChapter}/{totalInActiveChapter} Topics Done
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. TOPICS CONTENT CONTAINER */}
+        <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
           
           {/* Header Bar: Tab, Search & Add Topic */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
-            <div className="space-y-1">
-              <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="space-y-0.5">
                 <div className="flex items-center gap-2 min-w-0">
-                  <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
+                  <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
                     Topics Content
                   </h2>
-                  <span className="text-xs font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
-                    ({filteredChapterTopics.length}/{totalInActiveChapter})
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
+                    {filteredChapterTopics.length} of {totalInActiveChapter} Topics
                   </span>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
-                  className="btn-primary py-1.5 px-3 text-xs shrink-0"
-                  title="Add new topic to this chapter"
-                >
-                  <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Add Topic</span>
-                </button>
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium">
+                  Click a topic to launch full study details, notes, revision, and questions
+                </p>
               </div>
 
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium line-clamp-1 sm:line-clamp-none">
-                Click a topic to launch full study details, notes, revision, and questions
-              </p>
+              <button
+                type="button"
+                onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
+                className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                title="Add new topic to this chapter"
+              >
+                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>Add Topic</span>
+              </button>
             </div>
 
-            {/* Clean Bounded Search Input (Optimal ~320px width) */}
-            <div className="relative w-full sm:w-80 shrink-0">
+            {/* Clean Bounded Search Input */}
+            <div className="relative w-full max-w-md sm:max-w-lg">
               <Search className="w-4 h-4 text-slate-400 dark:text-slate-300 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search topics in this chapter..."
-                className="w-full pl-9 pr-8 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+                className="w-full pl-9 pr-8 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#161828] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:ring-2 focus:ring-[#4F46E5]/15 dark:focus:ring-indigo-400/20 shadow-2xs transition-all"
               />
               {searchInput && (
                 <button
@@ -688,8 +714,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   }}
                   className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer border shrink-0 active:scale-[0.97] ${
                     isSelected
-                      ? 'bg-[#0F172A] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                      : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-700 dark:text-[#E2E8F0] border-slate-200/70 dark:border-white/[0.06] hover:border-[#2563EB]/40 dark:hover:border-[#7AA2F7]/40 dark:hover:bg-[#202234]'
+                      ? 'bg-[#4F46E5] text-white border-transparent shadow-sm shadow-indigo-500/20 font-black'
+                      : 'bg-slate-50 dark:bg-[#161828] text-slate-700 dark:text-[#E2E8F0] border-slate-200/70 dark:border-white/[0.06] hover:border-indigo-500/40 dark:hover:border-indigo-400/40 dark:hover:bg-[#1c1f33]'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -938,109 +964,141 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 1. TOP SUBJECT HERO BANNER */}
-        <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden print:p-0 print:border-none print:shadow-none">
-          {/* Subtle Top Accent Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-80" />
-
-          <div className="flex items-start sm:items-center justify-between gap-2.5 sm:gap-3 flex-wrap">
-            <div className="flex items-center gap-3 min-w-0">
-              
-              {/* Left Visual Badge Thumbnail */}
-              <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${subjectBadge.containerClass}`}>
-                <SubjectBadgeIcon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2] mb-0.5" />
-                <span className="text-[9px] sm:text-[10.5px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
-                  {subjectBadge.badgeText}
-                </span>
-              </div>
-
-              {/* Banner Meta & Title */}
-              <div className="min-w-0 space-y-0.5">
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                  <span>{currentExam.name}</span>
-                  <span className="text-slate-300 dark:text-slate-600">•</span>
-                  <span>Subject Content</span>
-                </div>
-
-                <h1 className="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight break-words line-clamp-2 leading-snug">
-                  {formatTitleCase(activeSubject.name)} – Chapters
-                </h1>
-              </div>
+        {/* 1. TOP SUBJECT HERO BANNER & ACTIONS */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+          <div className="flex items-center gap-3 min-w-0">
+            {/* Visual Badge Thumbnail */}
+            <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${subjectBadge.containerClass}`}>
+              <SubjectBadgeIcon className="w-6 sm:w-7 h-6 sm:h-7 stroke-[2.2] mb-0.5" />
+              <span className="text-[9px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+                {subjectBadge.badgeText}
+              </span>
             </div>
 
-            {/* Quick Actions (Back, Mastery Pill & Edit) */}
-            <div className="flex items-center justify-between w-full sm:w-auto sm:justify-end gap-1.5 sm:gap-2 shrink-0 pt-1 sm:pt-0 no-print">
-              <button
-                onClick={handleBackToSubjects}
-                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-[#1A1B29] hover:bg-slate-100 dark:hover:bg-[#25283B] text-slate-800 dark:text-[#E2E8F0] border border-slate-200/70 dark:border-white/[0.06] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] group shrink-0 tap-bounce"
-                title="Return to Batch Subjects Portal"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-                <span>All Subjects</span>
-              </button>
-
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <div className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs font-mono tabular-nums font-bold border ${
-                  subjectPercent === 100
-                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-black'
-                    : subjectPercent > 0
-                    ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
-                    : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-600 dark:text-[#CBD5E1] border-slate-200/70 dark:border-white/[0.06]'
-                }`}>
-                  {subjectPercent === 100 ? (
-                    <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                  ) : (
-                    <Zap className="w-3.5 h-3.5 fill-current" />
-                  )}
-                  <span>{subjectPercent}%</span>
-                </div>
-
+            <div className="min-w-0 space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
-                  onClick={() => setEditingSubject(activeSubject)}
-                  className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-[#1A1B29] border border-slate-200/60 dark:border-white/[0.06] transition-colors cursor-pointer active:scale-[0.97] tap-bounce"
-                  title="Edit Subject"
+                  onClick={handleBackToSubjects}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
                 >
-                  <Edit2 className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>All Subjects</span>
                 </button>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{currentExam.name}</span>
               </div>
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                {formatTitleCase(activeSubject.name)}
+              </h1>
             </div>
           </div>
 
-          {/* Quick Metrics KPI Bento Pills */}
-          <div className="flex items-center gap-1.5 sm:gap-2 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-white/[0.06] flex-wrap">
-            <span className="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A1B29] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-slate-200/70 dark:border-white/[0.06] text-[10px] sm:text-[11px] font-mono font-semibold text-slate-900 dark:text-[#CBD5E1]">
-              <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
-              <span>{activeSubject.chapters.length} {activeSubject.chapters.length === 1 ? 'Chapter' : 'Chapters'}</span>
-            </span>
-
-            <span className="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A1B29] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-slate-200/70 dark:border-white/[0.06] text-[10px] sm:text-[11px] font-mono font-semibold text-slate-900 dark:text-[#CBD5E1]">
-              <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" />
-              <span>{totalSubjectTopics} Total Topics</span>
-            </span>
-
-            <span className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border text-[10px] sm:text-[11px] font-mono font-bold ${
-              completedSubjectTopics > 0
-                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                : 'bg-slate-50 dark:bg-[#1A1B29] text-slate-400 border-slate-200/70 dark:border-white/[0.06]'
-            }`}>
-              <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              <span>{completedSubjectTopics} Mastered</span>
-            </span>
+          {/* Quick Actions (Back Button & Edit Subject) */}
+          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+            <button
+              onClick={handleBackToSubjects}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back</span>
+            </button>
+            <button
+              onClick={() => setEditingSubject(activeSubject)}
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] transition-colors cursor-pointer active:scale-95"
+              title="Edit Subject"
+            >
+              <Edit2 className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
-        {/* 2. CHAPTERS CONTENT CONTAINER */}
-        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#11131F] border border-slate-200/80 dark:border-white/[0.08] shadow-sm space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+        {/* 2. 4 VIBRANT HIGH-CONTRAST METRIC CARDS FOR SUBJECT */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+          {/* Card 1: Purple Gradient -> Total Chapters */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Chapters</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <Layers className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {activeSubject.chapters.length}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                In {activeSubject.name}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <CheckCircle2 className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {completedSubjectTopics}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {totalSubjectTopics - completedSubjectTopics} Remaining
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Cyan / Sky Blue Gradient -> Total Topics */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Total Topics</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <FileText className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
+                {totalSubjectTopics}
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                Subject Syllabus Scope
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Emerald / Mint Gradient -> Subject Mastery Rate */}
+          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-xs sm:text-sm font-bold text-white/90">Subject Mastery</span>
+              <div className="p-2 rounded-xl bg-white/20">
+                <TrendingUp className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+                {subjectPercent}%
+              </div>
+              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+                {completedSubjectTopics}/{totalSubjectTopics} Topics Done
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. CHAPTERS CONTENT CONTAINER */}
+        <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
           
           {/* Executive Header & Search Toolbar */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <div>
                 <div className="flex items-center gap-2.5 flex-wrap">
-                  <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                  <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                     Chapters &amp; Syllabus Modules
                   </h2>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
                     {filteredChapters.length} of {activeSubject.chapters.length} Chapters
                   </span>
                 </div>
@@ -1053,7 +1111,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onOpenAddTopic(activeSubject.id)}
-                  className="btn-primary py-1.5 text-xs shrink-0"
+                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                   title={`Add new topic to ${activeSubject.name}`}
                 >
                   <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -1070,7 +1128,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder={`Search chapters in ${activeSubject.name}...`}
-                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+                className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#161828] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:ring-2 focus:ring-[#4F46E5]/15 dark:focus:ring-indigo-400/20 shadow-2xs transition-all"
               />
               {searchInput && (
                 <button
@@ -1124,28 +1182,33 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter.id)}
-                    className="group p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#121422] hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 shadow-xs transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3 overflow-hidden select-none tap-bounce"
+                    className="group p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151728] hover:bg-slate-50/90 dark:hover:bg-[#1a1d33] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-400/50 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden select-none tap-bounce"
                   >
-                    {/* Row 1: Left (Icon Squircle + Chapter Name) | Right (Percentage %) */}
+                    {/* Row 1: Left (Icon Squircle + Chapter Name + Details) | Right (Percentage %) */}
                     <div className="flex items-center justify-between gap-3 min-w-0">
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                        <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${chapterBadge.containerClass}`}>
-                          <ChapterIcon className="w-5 h-5 stroke-[2]" />
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className={`w-10 sm:w-11 h-10 sm:h-11 rounded-2xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${chapterBadge.containerClass}`}>
+                          <ChapterIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2]" />
                         </div>
 
-                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug">
-                          {chapter.name}
-                        </h3>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            {chapter.name}
+                          </h3>
+                          <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                            {totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'} • {completedInChapter} Mastered
+                          </p>
+                        </div>
                       </div>
 
-                      <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-mono tabular-nums shrink-0">
+                      <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono tabular-nums shrink-0">
                         {chapterPercent}%
                       </span>
                     </div>
 
                     {/* Row 2: Left (Progress Bar) | Right (Fraction e.g. 3/5) */}
                     <div className="flex items-center justify-between gap-3 sm:gap-4">
-                      <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
+                      <div className="flex-1 h-2 sm:h-2.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-500"
                           style={{
@@ -1155,8 +1218,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         />
                       </div>
 
-                      <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
-                        {completedInChapter}/{totalInChapter}
+                      <span className="text-xs sm:text-[13px] font-bold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
+                        {completedInChapter}/{totalInChapter} Done
                       </span>
                     </div>
                   </div>
@@ -1208,192 +1271,164 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 1. EXECUTIVE STUDY COMMAND BAR (Clean & Modern Adaptive Header) */}
-      <div className="relative p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/[0.08] shadow-sm overflow-hidden text-slate-900 dark:text-white print:hidden space-y-4 sm:space-y-5">
-        
-        {/* Subtle Top Gradient Line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-90" />
-
-        {/* Top Row: Exam Context Pill & Title + Progress Ring */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="space-y-1.5 min-w-0">
-            {/* Live Indicator Pill */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200/70 dark:border-blue-500/30 text-[11px] font-semibold text-blue-700 dark:text-blue-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
-                <span>Syllabus Explorer</span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="font-mono">{currentExam.targetYear ? `${currentExam.targetYear}` : '2026'}</span>
-              </span>
-
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] text-[10px] font-mono font-bold text-slate-600 dark:text-slate-300">
-                <span>{currentExam.subjects.length} Subjects</span>
-              </span>
-            </div>
-
-            {/* Exam Name Title (No truncation!) */}
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-              {currentExam.name ? formatTitleCase(currentExam.name) : 'SSC CGL'} Mastery Hub
+      {/* 1. SYLLABUS EXPLORER HEADER & ACTION BAR */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+        <div>
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Syllabus Explorer
             </h1>
+            <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-bold text-indigo-700 dark:text-indigo-300 font-mono">
+              {currentExam.targetYear ? `${currentExam.targetYear}` : '2026'}
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
+              {currentExam.name ? formatTitleCase(currentExam.name) : 'SSC CGL'}
+            </span>
           </div>
-
-          {/* Quick Progress Ring Callout */}
-          <div className="flex items-center gap-3 self-start lg:self-center shrink-0">
-            <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06]">
-              {/* Circular Gauge Miniature */}
-              <div className="relative w-11 h-11 flex items-center justify-center shrink-0">
-                <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
-                  <circle
-                    cx="22"
-                    cy="22"
-                    r="18"
-                    className="stroke-slate-200 dark:stroke-slate-800"
-                    strokeWidth="3.5"
-                    fill="none"
-                  />
-                  <circle
-                    cx="22"
-                    cy="22"
-                    r="18"
-                    stroke="#10B981"
-                    strokeWidth="3.5"
-                    strokeDasharray={113}
-                    strokeDashoffset={113 - (113 * Math.min(overallPercentage, 100)) / 100}
-                    strokeLinecap="round"
-                    fill="none"
-                    className="transition-all duration-700 ease-out"
-                  />
-                </svg>
-                <span className="absolute text-[11px] font-black font-mono tabular-nums text-slate-900 dark:text-white">
-                  {overallPercentage}%
-                </span>
-              </div>
-
-              <div>
-                <div className="text-[12px] font-bold text-slate-900 dark:text-white leading-tight">
-                  {completedTopicsCount} of {totalTopicsCount} Done
-                </div>
-                <div className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-tight mt-0.5">
-                  Overall Curriculum
-                </div>
-              </div>
-            </div>
-          </div>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Master every subject, chapter, and topic with structured multi-tier precision.
+          </p>
         </div>
 
-        {/* Bottom Bento Metric Strip (4 Clean KPI Tiles) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-2 border-t border-slate-100 dark:border-white/[0.06]">
-          {/* Metric 1: Exam Date */}
-          <div className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-              <Calendar className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white truncate">
-                {formattedExamDate}
-              </div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                Target Exam Date
-              </div>
-            </div>
-          </div>
-
-          {/* Metric 2: Days Left */}
-          <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-              <Zap className="w-4 h-4 fill-current" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-xs sm:text-[13px] font-black font-mono tabular-nums text-amber-600 dark:text-amber-400 truncate">
-                {daysRemaining > 0 ? (
-                  <>
-                    <span className="inline min-[380px]:hidden">{daysRemaining}d Left</span>
-                    <span className="hidden min-[380px]:inline">{daysRemaining} Days Left</span>
-                  </>
-                ) : 'Exam Today'}
-              </div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
-                Runway Remaining
-              </div>
-            </div>
-          </div>
-
-          {/* Metric 3: Pacing Forecast */}
-          <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
-            <div className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-              <Target className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-xs sm:text-[13px] font-black font-mono tabular-nums text-slate-900 dark:text-white truncate">
-                {pacingForecast ? `${pacingForecast.requiredDailyPace} / day` : 'On Track'}
-              </div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
-                {pacingForecast ? `Finish: ${pacingForecast.finishLineForecastDate.replace(/,\s*\d{4}/, '')}` : 'Required Pace'}
-              </div>
-            </div>
-          </div>
-
-          {/* Metric 4: Total Chapters */}
-          <div className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <Layers className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-xs sm:text-[13px] font-black font-mono tabular-nums text-slate-900 dark:text-white truncate">
-                {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters
-              </div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                Across {currentExam.subjects.length} Modules
-              </div>
-            </div>
-          </div>
+        {/* Primary Action Buttons */}
+        <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
+          {onOpenAiArchitect && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenAiArchitect();
+              }}
+              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              title="Extract complete syllabus from PDF or text using AI"
+            >
+              <Sparkles className="w-4 h-4 stroke-[2.2]" />
+              <span>AI Architect</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsAddSubjectOpen(true);
+            }}
+            className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Add Subject</span>
+          </button>
         </div>
-
       </div>
 
-      {/* 2. PORTAL CONTENT CONTAINER */}
-      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth ring-1 ring-black/[0.02] dark:ring-white/[0.03] space-y-3.5 sm:space-y-4 print:p-0 print:border-none print:shadow-none">
+      {/* 2. GOLDEN AMBER PACING & TARGET BANNER (Matching Mockup) */}
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15 print:hidden">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🎯</span>
+          <div className="min-w-0">
+            <div className="text-base sm:text-lg font-black leading-tight truncate">
+              {pacingForecast ? `Pacing Target: ${pacingForecast.requiredDailyPace} Topics / Day` : 'Syllabus Preparation Rhythm on Track'}
+            </div>
+            <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-0.5 truncate">
+              {pacingForecast?.finishLineForecastDate ? `Estimated Completion: ${pacingForecast.finishLineForecastDate}` : `Target Exam Date: ${formattedExamDate} (${daysRemaining} Days Runway)`}
+            </div>
+          </div>
+        </div>
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+          <Zap className="w-3.5 h-3.5 fill-current" />
+          <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}</span>
+        </div>
+      </div>
+
+      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Matching Mockup) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+        {/* Card 1: Purple Gradient -> Total Topics */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Total Topics</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <BookOpen className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              {totalTopicsCount}
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              Across {currentExam.subjects.length} Subjects
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <CheckCircle2 className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              {completedTopicsCount}
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {totalTopicsCount - completedTopicsCount} Remaining
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3: Cyan / Sky Blue Gradient -> Exam Runway */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Exam Runway</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <Clock className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
+              {daysRemaining > 0 ? `${daysRemaining} Days` : 'Exam Today'}
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              Target: {formattedExamDate}
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4: Emerald / Mint Gradient -> Completion Rate */}
+        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
+          <div className="flex items-center justify-between">
+            <span className="text-xs sm:text-sm font-bold text-white/90">Completion Rate</span>
+            <div className="p-2 rounded-xl bg-white/20">
+              <TrendingUp className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+              {overallPercentage}%
+            </div>
+            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters Total
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. PORTAL CONTENT CONTAINER */}
+      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
         
         {/* Executive Header & Search Toolbar */}
         <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
-                <h2 className="text-[15px] sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Exam Subjects &amp; Syllabus Modules
                 </h2>
-                <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-[#2563EB] dark:text-[#7AA2F7]">
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
                   {filteredSubjects.length} of {currentExam.subjects.length} Subjects
                 </span>
               </div>
-            </div>
-
-            <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-              {onOpenAiArchitect && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onOpenAiArchitect();
-                  }}
-                  className="btn-secondary py-1.5 text-xs font-bold shrink-0"
-                  title="Extract complete syllabus from PDF or text using AI"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#7AA2F7]" />
-                  <span>AI Architect</span>
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  setIsAddSubjectOpen(true);
-                }}
-                className="btn-primary py-1.5 text-xs font-bold shrink-0"
-              >
-                <Plus className="w-3.5 h-3.5 stroke-[3]" />
-                <span>Add Subject</span>
-              </button>
             </div>
           </div>
 
@@ -1405,7 +1440,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search subjects, chapters, topics..."
-              className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:ring-2 focus:ring-[#2563EB]/15 dark:focus:ring-[#7AA2F7]/20 shadow-2xs transition-all"
+              className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#161828] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:ring-2 focus:ring-[#4F46E5]/15 dark:focus:ring-indigo-400/20 shadow-2xs transition-all"
             />
             {searchInput && (
               <button
@@ -1513,28 +1548,33 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#121422] hover:bg-slate-50/80 dark:hover:bg-[#161828] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 shadow-xs transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3 overflow-hidden select-none tap-bounce"
+                  className="group p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151728] hover:bg-slate-50/90 dark:hover:bg-[#1a1d33] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-400/50 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.99] flex flex-col justify-between gap-3.5 overflow-hidden select-none tap-bounce"
                 >
-                  {/* Row 1: Left (Icon Squircle + Subject Name) | Right (Percentage %) */}
+                  {/* Row 1: Left (Icon Squircle + Subject Name + Details) | Right (Percentage %) */}
                   <div className="flex items-center justify-between gap-3 min-w-0">
-                    <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
-                        <BadgeIcon className="w-5 h-5 stroke-[2]" />
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className={`w-10 sm:w-11 h-10 sm:h-11 rounded-2xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-2xs ${badgeStyle.containerClass}`}>
+                        <BadgeIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2]" />
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug">
-                        {subject.name}
-                      </h3>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                          {subject.name}
+                        </h3>
+                        <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                          {totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'} • {subjectTotalTopics} Topics
+                        </p>
+                      </div>
                     </div>
 
-                    <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-mono tabular-nums shrink-0">
+                    <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono tabular-nums shrink-0">
                       {percent}%
                     </span>
                   </div>
 
                   {/* Row 2: Left (Progress Bar) | Right (Fraction e.g. 6/7) */}
                   <div className="flex items-center justify-between gap-3 sm:gap-4">
-                    <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
+                    <div className="flex-1 h-2 sm:h-2.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
@@ -1544,8 +1584,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                       />
                     </div>
 
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
-                      {completedChapters}/{totalChapters}
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-600 dark:text-slate-400 font-mono tracking-tight shrink-0 tabular-nums">
+                      {completedChapters}/{totalChapters} Done
                     </span>
                   </div>
                 </div>
