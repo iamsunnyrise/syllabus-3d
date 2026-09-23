@@ -133,8 +133,8 @@ export const ScoreVsPercentileScatter: React.FC = () => {
         </ResponsiveContainer>
       </div>
 
-      <div className="p-3.5 rounded-xl bg-darkContainer/40 light:bg-slate-50 border border-white/5 text-xs text-slate-400">
-        <span className="font-bold text-white light:text-slate-900">Key Finding: </span>
+      <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-xs text-slate-600 dark:text-slate-400">
+        <span className="font-bold text-slate-900 dark:text-white">Key Finding: </span>
         Across your tests, scoring in the range of <span className="text-mint-dark dark:text-mint font-bold">160–170 marks</span> consistently delivers an elite <span className="text-lavender font-bold">97.5–99.2 percentile</span>.
       </div>
     </Card3DTilt>

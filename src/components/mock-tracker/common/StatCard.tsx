@@ -54,7 +54,7 @@ export const StatCard: React.FC<StatCardProps> = ({
 
       {/* Metric value */}
       <div className="mt-3 flex items-baseline gap-2">
-        <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+        <span className="text-2xl sm:text-3xl font-black font-sans tabular-nums tracking-tight text-slate-900 dark:text-white">
           {value}
         </span>
         {trend && (

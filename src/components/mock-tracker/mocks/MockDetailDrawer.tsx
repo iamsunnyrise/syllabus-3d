@@ -51,25 +51,25 @@ export const MockDetailDrawer: React.FC = () => {
         {/* Top Header Card */}
         <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-500/10 via-slate-50 to-emerald-500/10 dark:from-electric-blue/10 dark:via-darkContainer dark:to-mint/10 border border-slate-200 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+            <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-sans font-medium">
               <span className="font-bold text-blue-600 dark:text-electric-blue">{mock.testPlatform}</span>
               <span>•</span>
               <span>{mock.exam} ({mock.tier})</span>
               <span>•</span>
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-1 tabular-nums">
+                <Calendar className="w-3.5 h-3.5 text-slate-400" />
                 {mock.date}
               </span>
             </div>
 
             <div className="mt-2 flex items-baseline gap-3">
-              <span className="text-3xl font-black font-mono tabular-nums text-slate-900 dark:text-white">
+              <span className="text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white">
                 {mock.score}
               </span>
-              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400 font-mono">
+              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400 font-sans tabular-nums">
                 / {mock.maxMarks} Marks
               </span>
-              <span className={`text-xs font-bold font-mono px-2 py-0.5 rounded-full ${
+              <span className={`text-xs font-bold font-sans tabular-nums px-2 py-0.5 rounded-full ${
                 mock.isClearedCutoff ? 'bg-emerald-500/15 text-emerald-700 dark:text-mint border border-emerald-500/30' : 'bg-rose-500/15 text-rose-700 dark:text-alert-red border border-rose-500/30'
               }`}>
                 {cutoffDiff >= 0 ? `+${cutoffDiff.toFixed(1)} Buffer` : `${cutoffDiff.toFixed(1)} Below Cutoff`}
@@ -119,42 +119,42 @@ export const MockDetailDrawer: React.FC = () => {
 
         {/* 6 Key Analytics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Percentile</div>
-            <div className="text-lg font-black font-mono tabular-nums text-purple-600 dark:text-lavender mt-0.5">{mock.percentile}%ile</div>
+            <div className="text-lg font-black font-sans tabular-nums text-purple-600 dark:text-lavender mt-0.5">{mock.percentile}%ile</div>
           </div>
 
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Accuracy</div>
-            <div className="text-lg font-black font-mono tabular-nums text-emerald-600 dark:text-mint mt-0.5">{mock.accuracy}%</div>
+            <div className="text-lg font-black font-sans tabular-nums text-emerald-600 dark:text-mint mt-0.5">{mock.accuracy}%</div>
           </div>
 
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Attempt Rate</div>
-            <div className="text-lg font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue mt-0.5">{mock.attemptRate}%</div>
+            <div className="text-lg font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue mt-0.5">{mock.attemptRate}%</div>
           </div>
 
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Time Taken</div>
-            <div className="text-lg font-black font-mono tabular-nums text-slate-900 dark:text-white mt-0.5">{mock.timeTakenMinutes}/{mock.totalTimeMinutes}m</div>
+            <div className="text-lg font-black font-sans tabular-nums text-slate-900 dark:text-white mt-0.5">{mock.timeTakenMinutes}/{mock.totalTimeMinutes}m</div>
           </div>
 
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Negative Drain</div>
-            <div className="text-lg font-black font-mono tabular-nums text-rose-600 dark:text-alert-red mt-0.5">-{mock.negativeMarks} M</div>
+            <div className="text-lg font-black font-sans tabular-nums text-rose-600 dark:text-alert-red mt-0.5">-{mock.negativeMarks} M</div>
           </div>
 
-          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 text-center">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-center">
             <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">AIR Rank</div>
-            <div className="text-lg font-black font-mono tabular-nums text-slate-900 dark:text-white mt-0.5">
+            <div className="text-lg font-black font-sans tabular-nums text-slate-900 dark:text-white mt-0.5">
               {mock.rank ? `#${mock.rank}` : 'N/A'}
             </div>
           </div>
         </div>
 
         {/* Question Breakdown Strip */}
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-darkContainer/30 border border-slate-200 dark:border-white/5 space-y-2">
-          <div className="flex items-center justify-between text-xs font-bold font-mono">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 space-y-2">
+          <div className="flex items-center justify-between text-xs font-bold font-sans">
             <span className="text-slate-500 dark:text-slate-400 uppercase tracking-wider">Question Distribution</span>
             <span className="text-slate-800 dark:text-slate-200 tabular-nums">{mock.totalQuestions} Total Questions</span>
           </div>
@@ -220,19 +220,19 @@ export const MockDetailDrawer: React.FC = () => {
 
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <div className="text-lg font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">
+                      <div className="text-lg font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue">
                         {sec.score} <span className="text-xs text-slate-400 font-normal">/ {sec.maxMarks} M</span>
                       </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-                        <span className="tabular-nums">{sec.correct}</span> correct, <span className="tabular-nums">{sec.wrong}</span> wrong, <span className="tabular-nums">{sec.unattempted}</span> skipped
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                        <span className="tabular-nums font-semibold">{sec.correct}</span> correct, <span className="tabular-nums font-semibold">{sec.wrong}</span> wrong, <span className="tabular-nums font-semibold">{sec.unattempted}</span> skipped
                       </div>
                     </div>
 
                     <div className="text-right">
-                      <div className="text-sm font-extrabold font-mono tabular-nums text-emerald-600 dark:text-mint">
+                      <div className="text-sm font-extrabold font-sans tabular-nums text-emerald-600 dark:text-mint">
                         {sec.accuracy}% Acc
                       </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 justify-end font-mono">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 justify-end font-sans">
                         <Clock className="w-3 h-3" />
                         <span className="tabular-nums">{sec.timeTakenMinutes}m spent</span>
                       </div>

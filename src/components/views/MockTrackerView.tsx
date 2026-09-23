@@ -72,20 +72,20 @@ const MockTrackerContent: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in font-sans pb-16">
+    <div className="space-y-6 animate-fade-in font-sans pb-36 sm:pb-24">
       
       {/* 1. MOCK TRACKER HEADER BAR WITH METRICS & QUICK ACTIONS */}
       <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm transition-colors">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           
           {/* Brand & Target Info */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             {canNavigateBack && (
               <button
                 type="button"
                 onClick={navigateBack}
                 title="Go Back"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer select-none active:scale-95 shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer select-none active:scale-95 shadow-sm shrink-0"
               >
                 <ArrowLeft className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="hidden sm:inline">Back</span>
@@ -94,17 +94,17 @@ const MockTrackerContent: React.FC = () => {
 
             <SectionBadgeIcon section="mock-tracker" size="lg" />
 
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white">
                   Mock Tracker 3D
                 </h1>
-                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 uppercase tracking-wide">
+                <span className="whitespace-nowrap shrink-0 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 uppercase tracking-wide">
                   Percentile Pro
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                {settings.selectedExam || 'SSC CGL'} • Target: <span className="text-indigo-600 dark:text-indigo-400 font-bold">{settings.targetPercentile || 90}%ile</span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
+                {settings.selectedExam || 'SSC CGL'} • Target: <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span>
               </p>
             </div>
           </div>
@@ -115,7 +115,7 @@ const MockTrackerContent: React.FC = () => {
             {/* Streak Badge */}
             <div 
               title={`${gamification.streakDays} Day Active Mock Streak!`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-600 dark:text-amber-400 text-xs font-bold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-600 dark:text-amber-400 text-xs font-bold font-sans tabular-nums"
             >
               <Flame className="w-3.5 h-3.5 fill-amber-500" />
               <span>{gamification.streakDays}d Streak</span>
@@ -124,7 +124,7 @@ const MockTrackerContent: React.FC = () => {
             {/* XP Level Badge */}
             <div 
               title={`Level ${gamification.level} (${gamification.levelTitle})`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-extrabold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-extrabold font-sans tabular-nums"
             >
               <span className="text-xs">⚡</span>
               <span>Lvl {gamification.level} • {gamification.totalXp} XP</span>
@@ -137,7 +137,7 @@ const MockTrackerContent: React.FC = () => {
                 setIsSearchModalOpen(true);
               }}
               title="Search Mocks (Ctrl+K)"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-xs font-semibold cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-xs font-semibold cursor-pointer active:scale-95"
             >
               <Search className="w-3.5 h-3.5 text-slate-400" />
               <span className="hidden sm:inline">Search</span>
@@ -150,7 +150,7 @@ const MockTrackerContent: React.FC = () => {
             <button
               onClick={toggleSound}
               title={isSoundEnabled ? 'Mute Sound Effects' : 'Enable Sound Effects'}
-              className="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
             >
               {isSoundEnabled ? (
                 <Volume2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -162,7 +162,7 @@ const MockTrackerContent: React.FC = () => {
             {/* Add Mock CTA */}
             <button
               onClick={handleOpenAddMock}
-              className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               <span>Log Mock</span>
@@ -201,19 +201,19 @@ const MockTrackerContent: React.FC = () => {
       </div>
 
       {/* 2. GOLDEN AMBER MOCK STREAK & PERCENTILE BANNER */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15">
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md shadow-amber-500/15">
         <div className="flex items-center gap-3.5 min-w-0">
           <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🔥</span>
           <div className="min-w-0">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
+            <div className="text-xl sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight tabular-nums">
               {gamification.streakDays || 1} Day Mock Streak
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-1 truncate">
-              Target: {settings.targetPercentile || 90}%ile • Level {gamification.level} ({gamification.levelTitle}) • {gamification.totalXp} XP Earned
+            <div className="text-xs sm:text-sm font-semibold text-slate-950/85 mt-1 leading-normal">
+              Target: <span className="font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span> • Level <span className="tabular-nums">{gamification.level}</span> ({gamification.levelTitle}) • <span className="tabular-nums font-bold">{gamification.totalXp} XP</span> Earned
             </div>
           </div>
         </div>
-        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto">
           <Target className="w-3.5 h-3.5 fill-current" />
           <span>{settings.selectedExam || 'SSC CGL'} Prep Track</span>
         </div>

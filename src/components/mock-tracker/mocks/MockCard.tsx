@@ -163,16 +163,16 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
           {mock.testName}
         </h3>
 
-        <div className="flex items-center gap-2.5 sm:gap-3 mt-1 text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <div className="flex items-center gap-2.5 sm:gap-3 mt-1 text-xs text-slate-600 dark:text-slate-400 font-sans font-medium">
           <span>{mock.exam} ({mock.tier})</span>
           <span>•</span>
-          <span className="flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
+          <span className="flex items-center gap-1 tabular-nums">
+            <Calendar className="w-3 h-3 text-slate-400 shrink-0" />
             {mock.date}
           </span>
           <span>•</span>
           <span className="flex items-center gap-1 tabular-nums">
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3 text-slate-400 shrink-0" />
             {mock.timeTakenMinutes}m
           </span>
         </div>
@@ -181,11 +181,11 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
       {/* 3-Metric Score Block */}
       <div 
         onClick={() => setViewingMockDetail(mock)}
-        className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/5 grid grid-cols-3 gap-2 text-center cursor-pointer"
+        className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 grid grid-cols-3 gap-2 text-center cursor-pointer"
       >
         <div>
           <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Score</div>
-          <div className={`text-base sm:text-lg font-black font-mono tabular-nums ${
+          <div className={`text-base sm:text-lg font-black font-sans tabular-nums ${
             mock.isClearedCutoff ? 'text-emerald-600 dark:text-mint' : 'text-slate-900 dark:text-slate-100'
           }`}>
             {mock.score}
@@ -195,14 +195,14 @@ export const MockCard: React.FC<MockCardProps> = ({ mock }) => {
 
         <div>
           <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Accuracy</div>
-          <div className="text-base sm:text-lg font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">
+          <div className="text-base sm:text-lg font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue">
             {mock.accuracy}%
           </div>
         </div>
 
         <div>
           <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Percentile</div>
-          <div className="text-base sm:text-lg font-black font-mono tabular-nums text-purple-600 dark:text-lavender">
+          <div className="text-base sm:text-lg font-black font-sans tabular-nums text-purple-600 dark:text-lavender">
             {mock.percentile}%
           </div>
         </div>

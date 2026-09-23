@@ -100,8 +100,8 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="p-3.5 rounded-xl bg-darkSurface/95 light:bg-white/95 border border-white/10 light:border-slate-200 shadow-2xl backdrop-blur-md text-xs space-y-1.5">
-                        <div className="font-bold text-white light:text-slate-900">{data.fullName}</div>
+                      <div className="p-3.5 rounded-xl bg-white/95 dark:bg-darkSurface/95 border border-slate-200/90 dark:border-white/10 shadow-2xl backdrop-blur-md text-xs space-y-1.5">
+                        <div className="font-bold text-slate-900 dark:text-white">{data.fullName}</div>
                         <div className="text-slate-400">Date: {data.date} • {data.subject}</div>
                         <div className="pt-1 flex items-center justify-between gap-4 font-bold text-sm">
                           <span className="text-slate-400">Score:</span>

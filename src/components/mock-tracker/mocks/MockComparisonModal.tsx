@@ -99,7 +99,7 @@ export const MockComparisonModal: React.FC = () => {
                 {selectedMocks.map(m => (
                   <th key={m.id} className="py-3 px-3">
                     <div className="text-slate-900 dark:text-white font-bold line-clamp-1">{m.testName}</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-normal font-mono tabular-nums">{m.date} • {m.testPlatform}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-normal font-sans tabular-nums">{m.date} • {m.testPlatform}</div>
                   </th>
                 ))}
                 {selectedMocks.length === 2 && <th className="py-3 px-3">Net Delta</th>}
@@ -110,7 +110,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Total Score</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-black text-sm text-blue-600 dark:text-electric-blue font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-black text-sm text-blue-600 dark:text-electric-blue font-sans tabular-nums">
                     {m.score} / {m.maxMarks}
                   </td>
                 ))}
@@ -123,7 +123,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Percentile</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-extrabold text-sm text-purple-600 dark:text-lavender font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-extrabold text-sm text-purple-600 dark:text-lavender font-sans tabular-nums">
                     {m.percentile}%ile
                   </td>
                 ))}
@@ -136,7 +136,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Accuracy</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-emerald-600 dark:text-mint font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-bold text-emerald-600 dark:text-mint font-sans tabular-nums">
                     {m.accuracy}%
                   </td>
                 ))}
@@ -149,7 +149,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Attempt Rate</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-bold text-slate-800 dark:text-slate-200 font-sans tabular-nums">
                     {m.attemptRate}% ({m.attempted}/{m.totalQuestions} Qs)
                   </td>
                 ))}
@@ -162,7 +162,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Negative Loss</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-bold text-rose-600 dark:text-alert-red font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-bold text-rose-600 dark:text-alert-red font-sans tabular-nums">
                     -{m.negativeMarks} Marks ({m.wrong} wrong)
                   </td>
                 ))}
@@ -175,7 +175,7 @@ export const MockComparisonModal: React.FC = () => {
               <tr>
                 <td className="py-3 px-3 font-semibold text-slate-600 dark:text-slate-400">Time Taken</td>
                 {selectedMocks.map(m => (
-                  <td key={m.id} className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300 font-mono tabular-nums">
+                  <td key={m.id} className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300 font-sans tabular-nums">
                     {m.timeTakenMinutes} min / {m.totalTimeMinutes}m
                   </td>
                 ))}
@@ -230,14 +230,14 @@ export const MockComparisonModal: React.FC = () => {
                     <div className="grid grid-cols-2 gap-2 text-xs pt-1">
                       <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
                         <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">Mock 1</div>
-                        <div className="font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">{baseSec.score} M</div>
-                        <div className="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-mint">{baseSec.accuracy}% Acc</div>
+                        <div className="font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue">{baseSec.score} M</div>
+                        <div className="text-[10px] font-sans tabular-nums text-emerald-600 dark:text-mint">{baseSec.accuracy}% Acc</div>
                       </div>
 
                       <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
                         <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">Mock 2</div>
-                        <div className="font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue">{targetSec.score} M</div>
-                        <div className="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-mint">{targetSec.accuracy}% Acc</div>
+                        <div className="font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue">{targetSec.score} M</div>
+                        <div className="text-[10px] font-sans tabular-nums text-emerald-600 dark:text-mint">{targetSec.accuracy}% Acc</div>
                       </div>
                     </div>
                   </div>

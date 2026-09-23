@@ -65,32 +65,32 @@ export const FullMockAnalysisView: React.FC<FullMockAnalysisViewProps> = ({ mock
               <span>•</span>
               <span className="text-slate-700 dark:text-slate-300 font-semibold">{mock.exam} ({mock.tier})</span>
               <span>•</span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 font-sans">
                 <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                <span className="font-mono tabular-nums">{mock.date}</span>
+                <span className="tabular-nums">{mock.date}</span>
               </span>
             </div>
 
             <div className="mt-2.5 flex items-baseline gap-3">
-              <span className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono tabular-nums">
+              <span className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-sans tabular-nums">
                 {mock.score}
               </span>
-              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400 font-mono">
+              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400 font-sans">
                 / <span className="tabular-nums">{mock.maxMarks}</span> Marks
               </span>
-              <span className="text-xl font-black text-purple-600 dark:text-lavender ml-2 font-mono tabular-nums">
+              <span className="text-xl font-black text-purple-600 dark:text-lavender ml-2 font-sans tabular-nums">
                 {mock.percentile}%ile
               </span>
             </div>
 
             <div className="mt-2 flex items-center gap-3 text-xs">
-              <span className={`font-bold font-mono ${cutoffBuffer >= 0 ? 'text-emerald-600 dark:text-mint' : 'text-rose-600 dark:text-alert-red'}`}>
+              <span className={`font-bold font-sans ${cutoffBuffer >= 0 ? 'text-emerald-600 dark:text-mint' : 'text-rose-600 dark:text-alert-red'}`}>
                 {cutoffBuffer >= 0 ? `+${cutoffBuffer.toFixed(1)} Marks Above Cutoff` : `${cutoffBuffer.toFixed(1)} Below Cutoff`}
               </span>
               {mock.rank && (
                 <>
                   <span className="text-slate-300 dark:text-slate-600">•</span>
-                  <span className="text-slate-700 dark:text-slate-300 font-semibold font-mono">
+                  <span className="text-slate-700 dark:text-slate-300 font-semibold font-sans">
                     AIR Rank <span className="tabular-nums font-bold text-slate-900 dark:text-white">#{mock.rank}</span> of <span className="tabular-nums">{mock.totalStudents || '15k+'}</span>
                   </span>
                 </>
@@ -180,27 +180,27 @@ export const FullMockAnalysisView: React.FC<FullMockAnalysisViewProps> = ({ mock
                   <div className="grid grid-cols-3 gap-2 text-center text-xs">
                     <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
                       <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Score</div>
-                      <div className="font-black font-mono tabular-nums text-blue-600 dark:text-electric-blue mt-0.5">
+                      <div className="font-black font-sans tabular-nums text-blue-600 dark:text-electric-blue mt-0.5">
                         {sec.score} <span className="text-[9px] text-slate-400 font-normal">/{sec.maxMarks}</span>
                       </div>
                     </div>
 
                     <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
                       <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Accuracy</div>
-                      <div className="font-black font-mono tabular-nums text-emerald-600 dark:text-mint mt-0.5">
+                      <div className="font-black font-sans tabular-nums text-emerald-600 dark:text-mint mt-0.5">
                         {sec.accuracy}%
                       </div>
                     </div>
 
                     <div className="p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
                       <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Time</div>
-                      <div className="font-black font-mono tabular-nums text-slate-900 dark:text-white mt-0.5">
+                      <div className="font-black font-sans tabular-nums text-slate-900 dark:text-white mt-0.5">
                         {sec.timeTakenMinutes}m
                       </div>
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center justify-between pt-1 font-mono">
+                  <div className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center justify-between pt-1 font-sans">
                     <span>
                       <span className="tabular-nums font-semibold text-slate-800 dark:text-slate-200">{sec.correct}</span> correct • <span className="tabular-nums font-semibold text-slate-800 dark:text-slate-200">{sec.wrong}</span> wrong • <span className="tabular-nums font-semibold text-slate-800 dark:text-slate-200">{sec.unattempted}</span> skipped
                     </span>
@@ -224,7 +224,7 @@ export const FullMockAnalysisView: React.FC<FullMockAnalysisViewProps> = ({ mock
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div className="p-3 rounded-xl bg-white dark:bg-darkSurface border border-slate-200/80 dark:border-white/5 shadow-2xs">
               <div className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider">Average Pace</div>
-              <div className="text-base font-black font-mono tabular-nums text-slate-900 dark:text-white mt-1">
+              <div className="text-base font-black font-sans tabular-nums text-slate-900 dark:text-white mt-1">
                 {avgSecondsPerQuestion} seconds
               </div>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">per attempted question</p>
@@ -236,7 +236,7 @@ export const FullMockAnalysisView: React.FC<FullMockAnalysisViewProps> = ({ mock
                 <div className="text-sm font-black text-amber-600 dark:text-amberAccent mt-1 truncate">
                   {slowestSec.sectionName}
                 </div>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-mono">
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">
                   <span className="tabular-nums font-semibold">{slowestSec.timeTakenMinutes}m</span> spent total
                 </p>
               </div>
@@ -248,7 +248,7 @@ export const FullMockAnalysisView: React.FC<FullMockAnalysisViewProps> = ({ mock
                 <div className="text-sm font-black text-emerald-600 dark:text-mint mt-1 truncate">
                   {fastestSec.sectionName}
                 </div>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-mono">
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">
                   <span className="tabular-nums font-semibold">{fastestSec.timeTakenMinutes}m</span> spent total
                 </p>
               </div>

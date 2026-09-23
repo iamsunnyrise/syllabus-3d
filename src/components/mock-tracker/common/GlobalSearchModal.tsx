@@ -51,22 +51,22 @@ export const GlobalSearchModal: React.FC = () => {
         activeTheme === 'dark' ? 'bg-darkSurface border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'
       }`}>
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/10 light:border-slate-200">
-          <Search className="w-5 h-5 text-electric-blue shrink-0 mr-3" />
+        <div className="flex items-center px-4 py-3.5 border-b border-slate-200 dark:border-white/10">
+          <Search className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0 mr-3" />
           <input
             autoFocus
             type="text"
             placeholder="Search mock name, exam (SSC CGL, Banking...), or platform..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-sm sm:text-base outline-none placeholder:text-slate-400"
+            className="w-full bg-transparent text-sm sm:text-base outline-none placeholder:text-slate-400 text-slate-900 dark:text-white"
           />
           {query && (
-            <button onClick={() => setQuery('')} className="p-1 text-slate-400 hover:text-white">
+            <button onClick={() => setQuery('')} className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer">
               <X className="w-4 h-4" />
             </button>
           )}
-          <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-mono bg-white/10 text-slate-400 border border-white/10">
+          <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/10">
             ESC
           </span>
         </div>
@@ -74,12 +74,12 @@ export const GlobalSearchModal: React.FC = () => {
         {/* Results List */}
         <div className="max-h-[60vh] overflow-y-auto p-2">
           {results.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 text-sm">
+            <div className="py-12 text-center text-slate-500 dark:text-slate-400 text-sm">
               No mocks match &quot;{query}&quot;.
             </div>
           ) : (
             <div className="space-y-1">
-              <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <div className="px-3 py-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 {query ? `Matching Mocks (${results.length})` : 'Recent Mocks'}
               </div>
               {results.map((mock) => (
@@ -94,27 +94,27 @@ export const GlobalSearchModal: React.FC = () => {
                       setActiveView('mocks');
                     }
                   }}
-                  className="group flex items-center justify-between p-3 rounded-xl hover:bg-white/5 light:hover:bg-slate-100 cursor-pointer transition-colors"
+                  className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs ${
-                      mock.isClearedCutoff ? 'bg-mint/20 text-mint-dark dark:text-mint' : 'bg-slate-500/20 text-slate-400'
+                      mock.isClearedCutoff ? 'bg-emerald-500/15 text-emerald-700 dark:text-mint' : 'bg-slate-500/20 text-slate-600 dark:text-slate-400'
                     }`}>
                       {mock.score.toFixed(0)}
                     </div>
                     <div>
-                      <div className="text-sm font-semibold group-hover:text-electric-blue transition-colors line-clamp-1">
+                      <div className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                         {mock.testName}
                       </div>
-                      <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-400">
+                      <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                         <span>{mock.exam}</span>
-                        <span>�</span>
-                        <span className="flex items-center gap-1">
+                        <span>•</span>
+                        <span className="flex items-center gap-1 tabular-nums">
                           <Calendar className="w-3 h-3" />
                           {mock.date}
                         </span>
-                        <span>�</span>
-                        <span className="font-semibold text-electric-blue">
+                        <span>•</span>
+                        <span className="font-semibold text-indigo-600 dark:text-indigo-400 tabular-nums">
                           {mock.percentile}%ile
                         </span>
                       </div>

@@ -64,17 +64,17 @@ export const DataManagement: React.FC = () => {
       {/* 0. Custom Platforms Management */}
       <Card3DTilt
         maxTilt={1}
-        className="p-6 rounded-3xl border border-white/5 light:border-slate-200 bg-darkSurface light:bg-white shadow-3d-dark space-y-4"
+        className="p-6 rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#121424] shadow-sm space-y-4"
       >
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-electric-blue">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
             <Layers className="w-4 h-4" />
             <span>Platform Customization</span>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">
             Custom Test Platforms
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Add your own coaching institutes, test series websites, or offline test series to use across mocks and filters.
           </p>
         </div>
@@ -86,12 +86,12 @@ export const DataManagement: React.FC = () => {
             value={newPlatformInput}
             onChange={(e) => setNewPlatformInput(e.target.value)}
             placeholder="Enter platform name (e.g. Paramount, TopRankers, EduRev, Class Mock)..."
-            className="flex-1 px-4 py-2.5 rounded-xl bg-darkContainer light:bg-slate-50 border border-white/10 light:border-slate-300 text-xs sm:text-sm focus:border-electric-blue outline-none"
+            className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none"
           />
           <button
             type="submit"
             disabled={!newPlatformInput.trim()}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-electric-blue disabled:opacity-50 text-darkBg font-bold text-xs shadow-glow-blue hover:opacity-90 transition-all shrink-0"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#4F46E5] disabled:opacity-50 text-white font-bold text-xs shadow-md shadow-indigo-500/20 hover:bg-[#4338CA] transition-all shrink-0 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Add Platform</span>
@@ -100,12 +100,12 @@ export const DataManagement: React.FC = () => {
 
         {/* Custom Platforms Tag List */}
         <div className="pt-2">
-          <div className="text-xs font-semibold text-slate-400 mb-2">
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">
             Your Active Custom Platforms ({customPlatforms.length}):
           </div>
 
           {customPlatforms.length === 0 ? (
-            <div className="p-3.5 rounded-xl bg-darkContainer/30 light:bg-slate-50 border border-white/5 text-xs text-slate-400">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
               No custom platforms added yet. Standard platforms (Testbook, Oliveboard, PracticeMock, etc.) are available by default.
             </div>
           ) : (
@@ -113,13 +113,13 @@ export const DataManagement: React.FC = () => {
               {customPlatforms.map((p) => (
                 <div
                   key={p}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-electric-blue/10 border border-electric-blue/30 text-electric-blue text-xs font-bold animate-fadeIn"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-bold animate-fadeIn"
                 >
                   <span>⭐ {p}</span>
                   <button
                     type="button"
                     onClick={() => deleteCustomPlatform(p)}
-                    className="p-0.5 rounded-md hover:bg-alert-red/20 text-slate-400 hover:text-alert-red transition-colors"
+                    className="p-0.5 rounded-md hover:bg-rose-500/20 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
                     title={`Delete ${p}`}
                   >
                     <X className="w-3 h-3" />
@@ -134,34 +134,34 @@ export const DataManagement: React.FC = () => {
       {/* 1. Export & Backup Section */}
       <Card3DTilt
         maxTilt={1}
-        className="p-6 rounded-3xl border border-white/5 light:border-slate-200 bg-darkSurface light:bg-white shadow-3d-dark space-y-4"
+        className="p-6 rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#121424] shadow-sm space-y-4"
       >
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-mint-dark dark:text-mint">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-mint">
             <Download className="w-4 h-4" />
             <span>Data Portability & Backup</span>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">
             Export Mock Test Data
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Download your entire history, section performances, and percentile trajectories
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           {/* JSON Export */}
-          <div className="p-4 rounded-2xl bg-darkContainer/40 light:bg-slate-50 border border-white/5 space-y-3">
-            <div className="flex items-center gap-2 text-sm font-bold text-white light:text-slate-900">
-              <FileJson className="w-5 h-5 text-electric-blue" />
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 space-y-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
+              <FileJson className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>Full JSON Backup</span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Complete raw dataset including section breakdowns and analysis notes. Ideal for restoring or migrating devices.
             </p>
             <button
               onClick={exportJSON}
-              className="w-full py-2.5 rounded-xl bg-electric-blue/15 hover:bg-electric-blue/25 text-electric-blue border border-electric-blue/30 font-bold text-xs transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export JSON ({mocks.length} Mocks)</span>
@@ -169,17 +169,17 @@ export const DataManagement: React.FC = () => {
           </div>
 
           {/* CSV Export */}
-          <div className="p-4 rounded-2xl bg-darkContainer/40 light:bg-slate-50 border border-white/5 space-y-3">
-            <div className="flex items-center gap-2 text-sm font-bold text-white light:text-slate-900">
-              <FileSpreadsheet className="w-5 h-5 text-mint-dark dark:text-mint" />
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5 space-y-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
+              <FileSpreadsheet className="w-5 h-5 text-emerald-600 dark:text-mint" />
               <span>Excel / CSV Spreadsheet</span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Tabular spreadsheet containing mock dates, scores, percentiles, ranks, and cutoff statuses for custom analysis.
             </p>
             <button
               onClick={exportCSV}
-              className="w-full py-2.5 rounded-xl bg-mint/15 hover:bg-mint/25 text-mint-dark dark:text-mint border border-mint/30 font-bold text-xs transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 text-emerald-700 dark:text-mint border border-emerald-200 dark:border-mint/30 font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV Spreadsheet</span>
@@ -191,17 +191,17 @@ export const DataManagement: React.FC = () => {
       {/* 2. Import & Restore Section */}
       <Card3DTilt
         maxTilt={1}
-        className="p-6 rounded-3xl border border-white/5 light:border-slate-200 bg-darkSurface light:bg-white shadow-3d-dark space-y-4"
+        className="p-6 rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#121424] shadow-sm space-y-4"
       >
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lavender">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-lavender">
             <Upload className="w-4 h-4" />
             <span>Import & Migration</span>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">
             Import Mock Test Records
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Load an existing JSON backup file to merge or restore your mock test history
           </p>
         </div>
@@ -214,21 +214,21 @@ export const DataManagement: React.FC = () => {
           className="hidden"
         />
 
-        <div className="p-6 rounded-2xl border-2 border-dashed border-white/10 hover:border-electric-blue/40 text-center space-y-3 transition-colors">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-electric-blue/15 flex items-center justify-center text-electric-blue">
+        <div className="p-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-white/15 hover:border-indigo-500 dark:hover:border-indigo-400 bg-slate-50/50 dark:bg-white/[0.02] text-center space-y-3 transition-colors">
+          <div className="w-12 h-12 mx-auto rounded-2xl bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
             <Upload className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-sm font-bold text-white light:text-slate-900">
+            <div className="text-sm font-bold text-slate-900 dark:text-white">
               Select JSON Backup File
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Validates schema constraints and prevents duplicate corrupted entries
             </p>
           </div>
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="px-5 py-2 rounded-xl bg-electric-blue text-darkBg font-bold text-xs shadow-glow-blue hover:opacity-90 transition-all"
+            className="px-5 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs shadow-md shadow-indigo-500/20 active:scale-95 transition-all cursor-pointer"
           >
             Browse JSON File
           </button>
@@ -238,10 +238,10 @@ export const DataManagement: React.FC = () => {
       {/* 3. Demo Data & Reset Actions */}
       <Card3DTilt
         maxTilt={1}
-        className="p-6 rounded-3xl border border-alert-red/20 bg-darkSurface light:bg-white shadow-3d-dark space-y-4"
+        className="p-6 rounded-3xl border border-rose-200 dark:border-alert-red/20 bg-white dark:bg-[#121424] shadow-sm space-y-4"
       >
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-alert-red">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-alert-red">
             <AlertTriangle className="w-4 h-4" />
             <span>Danger Zone & Reset</span>
           </div>

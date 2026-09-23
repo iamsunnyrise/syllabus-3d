@@ -28,20 +28,20 @@ export const HeroSection: React.FC = () => {
         <div className="lg:col-span-7 space-y-5">
           
           {/* Top Status Pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Target Exam: {settings.selectedExam} • Target {settings.targetPercentile}%ile</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-bold font-sans">
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Target Exam: <span className="font-extrabold">{settings.selectedExam}</span> • Target <span className="tabular-nums font-extrabold">{settings.targetPercentile}%ile</span></span>
           </div>
 
           <div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
               {getGreeting()} 🎯
             </h1>
             <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
               {kpis.totalMocks > 0 ? (
                 <>
-                  You have logged <span className="text-indigo-600 dark:text-indigo-400 font-bold">{kpis.totalMocks} mock attempts</span>. 
-                  Your current average percentile is <span className="text-emerald-600 dark:text-emerald-400 font-bold">{kpis.averagePercentile}%ile</span> with an average score of <span className="text-slate-900 dark:text-white font-bold">{kpis.averageScore} marks</span>.
+                  You have logged <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{kpis.totalMocks} mock attempts</span>. 
+                  Your current average percentile is <span className="text-emerald-600 dark:text-emerald-400 font-bold tabular-nums">{kpis.averagePercentile}%ile</span> with an average score of <span className="text-slate-900 dark:text-white font-bold tabular-nums">{kpis.averageScore} marks</span>.
                 </>
               ) : (
                 'Start logging your mock tests to unlock 3D trajectory tracking, section diagnostic intelligence, and automated percentile gap analysis.'
@@ -50,13 +50,13 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Quick Metrics Strip */}
-          <div className="grid grid-cols-3 gap-3 pt-2">
-            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
-              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-xs font-semibold">
-                <Target className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                <span>Cutoff Status</span>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-2">
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
+              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold">
+                <Target className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                <span className="truncate">Cutoff Status</span>
               </div>
-              <div className="mt-1 text-base sm:text-lg font-black text-slate-900 dark:text-white">
+              <div className="mt-1 text-sm sm:text-base font-black font-sans text-slate-900 dark:text-white">
                 {kpis.totalFullLengthMocks > 0 ? (
                   <span className={isAheadOfCutoff ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}>
                     {isAheadOfCutoff ? 'Cleared ✓' : 'In Progress'}
@@ -65,22 +65,22 @@ export const HeroSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
-              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-xs font-semibold">
-                <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>Best Score</span>
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
+              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold">
+                <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <span className="truncate">Best Score</span>
               </div>
-              <div className="mt-1 text-base sm:text-lg font-black text-slate-900 dark:text-white">
+              <div className="mt-1 text-sm sm:text-base font-black font-sans tabular-nums text-slate-900 dark:text-white">
                 {kpis.bestScore > 0 ? `${kpis.bestScore} M` : '0'}
               </div>
             </div>
 
-            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
-              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-xs font-semibold">
-                <Award className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-                <span>Peak %ile</span>
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/5">
+              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold">
+                <Award className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
+                <span className="truncate">Peak %ile</span>
               </div>
-              <div className="mt-1 text-base sm:text-lg font-black text-slate-900 dark:text-white">
+              <div className="mt-1 text-sm sm:text-base font-black font-sans tabular-nums text-slate-900 dark:text-white">
                 {kpis.bestPercentile > 0 ? `${kpis.bestPercentile}%` : '0%'}
               </div>
             </div>
