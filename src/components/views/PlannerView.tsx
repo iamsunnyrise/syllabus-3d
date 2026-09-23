@@ -338,7 +338,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-8 sm:pb-12 max-w-6xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-32 sm:pb-20 max-w-6xl mx-auto font-sans animate-fade-in">
       
       {/* 🖨️ PRINT-ONLY DAILY STUDY TARGETS CHECKLIST */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -359,32 +359,32 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
       {/* ═══════════════ 1. STUDY PLANNER HEADER & COMMAND BAR ═══════════════ */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
-        <div>
-          <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 sm:gap-4 print:hidden">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
             <SectionBadgeIcon section="planner" size="md" />
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Study Planner
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] font-mono font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse inline-block mr-1.5" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 text-amber-700 dark:text-amber-300 text-[11px] font-bold">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span>Daily Sprint</span>
-              <span className="text-amber-400 dark:text-amber-500 mx-1.5">•</span>
-              <span>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span className="text-amber-400 dark:text-amber-500">•</span>
+              <span className="font-mono tabular-nums">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             </span>
             {currentExam && (
-              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
+              <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/[0.06]">
                 {currentExam.name}
               </span>
             )}
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
             Target tracking, daily sprints, time blocking, and queue management.
           </p>
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
           {onOpenBacklogRescue && (
             <button
               type="button"
@@ -392,7 +392,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 onOpenBacklogRescue();
               }}
-              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-95 cursor-pointer shrink-0 shadow-2xs flex items-center justify-center gap-1.5"
+              className="flex-1 sm:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-[0.98] cursor-pointer shadow-xs flex items-center justify-center gap-2 shrink-0"
               title="Smart Backlog Rescue - Adaptive Routine Generator"
             >
               <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
@@ -407,7 +407,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               setTargetDate(getTodayDateString());
               setShowAddModal(true);
             }}
-            className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
             title="Add Target"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
@@ -416,95 +416,104 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
       </div>
 
-      {/* 2. GOLDEN AMBER STREAK & CONSISTENCY BANNER (Matching Mockup) */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15 print:hidden">
-        <div className="flex items-center gap-3.5 min-w-0">
-          <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🔥</span>
+      {/* 2. GOLDEN AMBER STREAK & CONSISTENCY BANNER */}
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/20 print:hidden relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 relative z-10">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-2xl sm:text-3xl shrink-0 shadow-inner">
+            🔥
+          </div>
           <div className="min-w-0">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none">
-              {profile.currentStreak || 7} Day Streak
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight leading-none">
+                {profile.currentStreak || 7} Day Streak
+              </span>
+              <span className="px-2 py-0.5 rounded-full bg-black/15 text-[10.5px] sm:text-xs font-bold font-mono text-slate-950 tabular-nums">
+                {completedTodayCount}/{totalTodayCount} Done Today
+              </span>
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-1 truncate">
-              Maintain daily study momentum! Best consistency record: {profile.longestStreak || 24} days
-            </div>
+            <p className="text-xs sm:text-sm font-semibold text-slate-950/85 mt-1 leading-snug">
+              <span className="sm:hidden">Daily momentum active • Best record: {profile.longestStreak || 24}d</span>
+              <span className="hidden sm:inline">Maintain daily study momentum! Best consistency record: {profile.longestStreak || 24} days</span>
+            </p>
           </div>
         </div>
-        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-950 shrink-0 relative z-10 backdrop-blur-xs">
           <Zap className="w-3.5 h-3.5 fill-current" />
-          <span>{completedTodayCount} of {totalTodayCount} Targets Conquered Today</span>
+          <span>{completedTodayCount} of {totalTodayCount} Targets Conquered</span>
         </div>
       </div>
 
-      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Matching Mockup) */}
+      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
         {/* Card 1: Purple Gradient -> Velocity */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
-          <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Today's Velocity</span>
-            <div className="p-2 rounded-xl bg-white/20">
+        <div className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20 border border-white/15 backdrop-blur-xs transition-all hover:scale-[1.01]">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/90 font-mono">Today's Velocity</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
               <CheckCircle2 className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+          <div className="mt-2.5 sm:mt-3">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight leading-none tabular-nums">
               {todayProgressPercent}%
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+            <div className="text-[11px] sm:text-xs text-white/85 font-medium mt-1 truncate">
               {completedTodayCount} of {totalTodayCount} Completed
             </div>
           </div>
         </div>
 
         {/* Card 2: Hot Coral / Pink Gradient -> Planned Hours */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
-          <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Planned Study</span>
-            <div className="p-2 rounded-xl bg-white/20">
+        <div className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20 border border-white/15 backdrop-blur-xs transition-all hover:scale-[1.01]">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/90 font-mono">Planned Study</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
               <Clock className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+          <div className="mt-2.5 sm:mt-3">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight leading-none tabular-nums">
               {(totalPlannedMinutes / 60).toFixed(1)}h
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+            <div className="text-[11px] sm:text-xs text-white/85 font-medium mt-1 truncate">
               {(completedMinutes / 60).toFixed(1)}h Finished Today
             </div>
           </div>
         </div>
 
         {/* Card 3: Cyan / Sky Blue Gradient -> Total Targets */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
-          <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Total Targets</span>
-            <div className="p-2 rounded-xl bg-white/20">
+        <div className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20 border border-white/15 backdrop-blur-xs transition-all hover:scale-[1.01]">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/90 font-mono">Total Targets</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
               <Target className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
+          <div className="mt-2.5 sm:mt-3">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight leading-none tabular-nums truncate">
               {plannerTasks.length}
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              {plannerTasks.filter(t => t.status === 'in_progress').length} Active • {plannerTasks.filter(t => t.status === 'today').length} Due Today
+            <div className="text-[11px] sm:text-xs text-white/85 font-medium mt-1 truncate">
+              {inProgressTasks.length} Active • {todayTasks.length} Due Today
             </div>
           </div>
         </div>
 
         {/* Card 4: Emerald / Mint Gradient -> XP & Level */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
-          <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">XP &amp; Rank</span>
-            <div className="p-2 rounded-xl bg-white/20">
+        <div className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20 border border-white/15 backdrop-blur-xs transition-all hover:scale-[1.01]">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/90 font-mono">XP &amp; Rank</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
               <Award className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
+          <div className="mt-2.5 sm:mt-3">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight leading-none tabular-nums">
               Lvl {profile.level}
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              {profile.xp} XP Earned
+            <div className="text-[11px] sm:text-xs text-white/85 font-medium mt-1 truncate">
+              {profile.xp} XP Earned • {profile.levelTitle || 'Scholar'}
             </div>
           </div>
         </div>
@@ -512,28 +521,32 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
       {/* 4. SMART SUGGESTIONS STRIP (If any) */}
       {smartSuggestions.length > 0 && (
-        <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center gap-2.5 overflow-x-auto no-scrollbar print:hidden">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-            <span>Suggested:</span>
+        <div className="p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-amber-500/[0.08] via-indigo-500/[0.05] to-blue-500/[0.08] border border-amber-500/20 dark:border-amber-500/30 flex items-center gap-2 overflow-x-auto no-scrollbar shadow-2xs print:hidden">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 shrink-0 flex items-center gap-1.5 pl-1">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            <span className="hidden xs:inline">Suggested:</span>
           </span>
           {smartSuggestions.map((sug, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-xs shrink-0 shadow-2xs"
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#161828] border border-slate-200/80 dark:border-white/10 text-xs shrink-0 shadow-2xs"
             >
               <div className="flex items-center gap-1.5 min-w-0">
-                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[160px] sm:max-w-[200px]">
+                <span
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: sug.subjectColor || '#6366F1' }}
+                />
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[150px] sm:max-w-[200px]">
                   {sug.topicName}
                 </span>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
+                <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
                   • {sug.subjectName}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => handleAddSuggestion(sug.topicName, sug.subjectName, sug.subjectColor, sug.topicId)}
-                className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1 shadow-xs"
+                className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-[11px] font-bold cursor-pointer transition-all active:scale-95 shrink-0 flex items-center gap-1 shadow-xs"
               >
                 <Plus className="w-3 h-3 stroke-[2.5]" />
                 <span>Add</span>
@@ -544,24 +557,25 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       )}
 
 
+
       {/* ═══════════════ 2. CONSOLIDATED VIEW CONTROLS & SUBJECT FILTER TOOLBAR ═══════════════ */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 pb-0.5">
-        {/* Left: View Mode Tabs & Clear Conquered Button */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
-          <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200/70 dark:border-white/[0.06] shadow-2xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-1">
+        {/* Left: View Mode Segmented Switch & Clear Conquered Button */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0 justify-between sm:justify-start w-full sm:w-auto">
+          <div className="flex-1 sm:flex-initial flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] shadow-inner">
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
                 setViewMode('kanban');
               }}
-              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'kanban'
-                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-white dark:bg-[#1E2032] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
+              <LayoutGrid className="w-3.5 h-3.5 text-indigo-500" />
               <span>Target Board</span>
             </button>
 
@@ -571,13 +585,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 setViewMode('calendar');
               }}
-              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'calendar'
-                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-white dark:bg-[#1E2032] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
-              <CalendarDays className="w-3.5 h-3.5" />
+              <CalendarDays className="w-3.5 h-3.5 text-blue-500" />
               <span>Calendar</span>
             </button>
 
@@ -587,13 +601,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 setViewMode('routine');
               }}
-              className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 viewMode === 'routine'
-                  ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-white dark:bg-[#1E2032] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-3.5 h-3.5 text-amber-500" />
               <span>Routine</span>
             </button>
           </div>
@@ -606,10 +620,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 clearCompletedPlannerTasks();
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-[11px] sm:text-xs font-bold text-slate-600 hover:text-rose-500 dark:text-slate-400 hover:border-rose-500/30 transition-all cursor-pointer active:scale-95 shadow-2xs shrink-0"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] text-xs font-bold text-slate-600 hover:text-rose-500 dark:text-slate-400 hover:border-rose-500/30 transition-all cursor-pointer active:scale-95 shadow-2xs shrink-0"
               title="Clear completed tasks"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Clear Done (<span className="tabular-nums font-mono">{completedTasks.length}</span>)</span>
             </button>
           )}
@@ -708,7 +722,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             )}
           </div>
           {/* Mobile Column Segmented Filter (Hidden on Desktop) */}
-          <div className="sm:hidden flex items-center gap-1 p-1 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto no-scrollbar shadow-2xs">
+          <div className="sm:hidden flex items-center gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto no-scrollbar shadow-inner">
             <button
               type="button"
               onClick={() => {
@@ -716,15 +730,15 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 haptics.light();
                 setMobileActiveColumn('all');
               }}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all tap-bounce active:scale-[0.97] ${
+              className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-all active:scale-[0.97] ${
                 mobileActiveColumn === 'all'
-                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/60 dark:border-blue-500/30 font-black shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400'
+                  ? 'bg-white dark:bg-[#1E2032] text-slate-900 dark:text-white shadow-xs font-black'
+                  : 'text-slate-500 dark:text-slate-400'
               }`}
             >
-              <span>All Columns</span>
-              <span className={`px-1.5 rounded-md text-[9.5px] font-mono tabular-nums ${
-                mobileActiveColumn === 'all' ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/[0.06]'
+              <span>All</span>
+              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono tabular-nums ${
+                mobileActiveColumn === 'all' ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-200/70 dark:bg-white/10'
               }`}>
                 {filteredTasks.length}
               </span>
@@ -742,16 +756,20 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     haptics.light();
                     setMobileActiveColumn(col.id);
                   }}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap cursor-pointer transition-all tap-bounce active:scale-[0.97] ${
+                  className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-all active:scale-[0.97] ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/60 dark:border-blue-500/30 font-black shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400'
+                      ? 'bg-white dark:bg-[#1E2032] text-slate-900 dark:text-white shadow-xs font-black'
+                      : 'text-slate-500 dark:text-slate-400'
                   }`}
                 >
-                  <ColIcon className="w-3 h-3" />
+                  <ColIcon className={`w-3.5 h-3.5 ${
+                    col.id === 'today' ? 'text-blue-500' :
+                    col.id === 'in_progress' ? 'text-purple-500' :
+                    col.id === 'upcoming' ? 'text-amber-500' : 'text-emerald-500'
+                  }`} />
                   <span>{col.title.replace("'s Targets", '').replace(' Targets', '').replace('This ', '')}</span>
-                  <span className={`px-1.5 rounded-md text-[9.5px] font-mono tabular-nums ${
-                    isActive ? 'bg-blue-600/15 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-white/[0.06]'
+                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono tabular-nums ${
+                    isActive ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-200/70 dark:bg-white/10'
                   }`}>
                     {col.tasks.length}
                   </span>
@@ -832,7 +850,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         return (
                           <div
                             key={task.id}
-                            className={`relative p-3.5 rounded-2xl border transition-all space-y-2 group ${
+                            className={`relative p-3 sm:p-3.5 rounded-2xl border transition-all space-y-2.5 group ${
                               isDone
                                 ? 'bg-emerald-500/5 dark:bg-emerald-500/[0.03] border-emerald-500/20 opacity-80'
                                 : 'bg-slate-50/70 dark:bg-[#161828] border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-400/30 shadow-2xs hover:shadow-xs'
@@ -841,26 +859,26 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             {/* Subtle Left Accent Indicator Bar */}
                             {!isDone && (
                               <div
-                                className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full"
+                                className="absolute left-0 top-3 bottom-3 w-[3.5px] rounded-r-full"
                                 style={{ backgroundColor: task.subjectColor || '#4F46E5' }}
                               />
                             )}
 
                             {/* Title & Checkbox */}
-                            <div className="flex items-start justify-between gap-2 pl-1">
+                            <div className="flex items-start justify-between gap-2.5 pl-1">
                               <div className="flex items-start gap-2.5 min-w-0">
                                 <button
                                   onClick={() => handleToggleWithConfetti(task.id)}
-                                  className={`w-4 sm:w-4.5 h-4 sm:h-4.5 rounded-[5px] border-2 flex items-center justify-center transition-all shrink-0 cursor-pointer mt-0.5 ${
+                                  className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all shrink-0 cursor-pointer mt-0.5 ${
                                     isDone
                                       ? 'bg-emerald-500 border-emerald-500 text-white'
                                       : 'border-slate-300 dark:border-white/20 hover:border-emerald-500 hover:bg-emerald-500/10'
                                   }`}
                                   aria-label={isDone ? 'Mark target as incomplete' : 'Mark target as completed'}
                                 >
-                                  {isDone && <Check className="w-2.5 sm:w-3 h-2.5 sm:h-3 stroke-[3]" />}
+                                  {isDone && <Check className="w-3 h-3 stroke-[3]" />}
                                 </button>
-                                <span className={`text-[12.5px] sm:text-[13px] font-semibold leading-snug line-clamp-2 ${
+                                <span className={`text-[13px] font-semibold leading-snug line-clamp-2 ${
                                   isDone ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-900 dark:text-slate-100'
                                 }`}>
                                   {task.topicName}
@@ -872,7 +890,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                   soundManager.playClick();
                                   deletePlannerTask(task.id);
                                 }}
-                                className="opacity-60 sm:opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-rose-500 transition-all cursor-pointer shrink-0 rounded-md hover:bg-rose-50 dark:hover:bg-rose-500/10"
+                                className="opacity-70 sm:opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-rose-500 transition-all cursor-pointer shrink-0 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10"
                                 title="Delete Target"
                                 aria-label="Delete Target"
                               >
@@ -881,14 +899,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             </div>
 
                             {/* Subject & Priority Chips */}
-                            <div className="flex items-center justify-between gap-1.5 text-[10px] sm:text-[11px] pl-1">
-                              <span className="px-1.5 py-0.5 rounded-md font-bold truncate max-w-[100px] sm:max-w-[110px] bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/[0.06]">
+                            <div className="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-[11px] pl-1">
+                              <span className="px-2 py-0.5 rounded-lg font-bold truncate max-w-[110px] bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/[0.06]">
                                 {formatTitleCase(task.subjectName)}
                               </span>
-                              <span className={`px-1.5 py-0.5 rounded-md font-mono font-bold border ${pBadge.classes}`}>
+                              <span className={`px-2 py-0.5 rounded-lg font-mono font-bold border ${pBadge.classes}`}>
                                 {pBadge.label}
                               </span>
-                              <span className="font-mono text-slate-400 ml-auto flex items-center gap-1 tabular-nums">
+                              <span className="font-mono text-slate-400 dark:text-slate-500 ml-auto flex items-center gap-1 tabular-nums font-semibold">
                                 <span>⏱️</span>
                                 <span>{task.estimatedMinutes}m</span>
                               </span>
@@ -902,18 +920,18 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                     soundManager.playClick();
                                     onOpenFocusChamber(task.topicId);
                                   }}
-                                  className="px-2.5 py-1 rounded-lg bg-[#4F46E5] hover:bg-indigo-600 text-white text-[10.5px] sm:text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-2xs tap-bounce"
+                                  className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-xs"
                                 >
                                   <Zap className="w-3 h-3 fill-current" />
                                   <span>Focus</span>
                                 </button>
                               ) : <div />}
 
-                              <div className="flex items-center gap-1 ml-auto text-[10.5px] sm:text-[11px] font-bold">
+                              <div className="flex items-center gap-1 ml-auto text-[11px] font-bold">
                                 {col.id !== 'today' && (
                                   <button
                                     onClick={() => { soundManager.playClick(); movePlannerTask(task.id, 'today'); }}
-                                    className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/20 dark:hover:text-blue-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold"
+                                    className="px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/20 dark:hover:text-blue-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold active:scale-95"
                                   >
                                     Today
                                   </button>
@@ -921,7 +939,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                 {col.id !== 'in_progress' && (
                                   <button
                                     onClick={() => { soundManager.playClick(); movePlannerTask(task.id, 'in_progress'); }}
-                                    className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-purple-50 hover:text-purple-600 dark:hover:bg-purple-500/20 dark:hover:text-purple-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold"
+                                    className="px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-purple-50 hover:text-purple-600 dark:hover:bg-purple-500/20 dark:hover:text-purple-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold active:scale-95"
                                   >
                                     Focus
                                   </button>
@@ -929,7 +947,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                 {col.id !== 'upcoming' && (
                                   <button
                                     onClick={() => { soundManager.playClick(); movePlannerTask(task.id, 'upcoming'); }}
-                                    className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-500/20 dark:hover:text-amber-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold"
+                                    className="px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-500/20 dark:hover:text-amber-400 text-slate-600 dark:text-slate-400 transition-all cursor-pointer font-semibold active:scale-95"
                                   >
                                     Week
                                   </button>
@@ -984,10 +1002,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             </div>
           </div>
 
-          {/* 7-Day Columns */}
+          {/* 7-Day Columns (Horizontal swipe on mobile, 7-col grid on desktop) */}
           <div
             ref={calendarScrollRef}
-            className="grid grid-cols-1 sm:grid-cols-7 gap-2 sm:gap-2.5 overflow-x-auto pb-1 no-scrollbar"
+            className="flex sm:grid sm:grid-cols-7 gap-2.5 overflow-x-auto pb-2 no-scrollbar snap-x"
           >
             {weekDays.map(day => {
               const dayTasks = filteredTasks.filter(t => t.scheduledDate === day.dateStr);
@@ -996,9 +1014,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <div
                   key={day.dateStr}
                   data-today={day.isToday}
-                  className={`p-3 rounded-2xl border transition-all space-y-2 ${
+                  className={`min-w-[150px] sm:min-w-0 flex-1 p-3.5 rounded-2xl border transition-all space-y-2 snap-start ${
                     day.isToday
-                      ? 'bg-indigo-50/40 dark:bg-[#1A1B29] border-indigo-500/70 dark:border-indigo-400 shadow-sm ring-1 ring-indigo-500/20'
+                      ? 'bg-indigo-50/50 dark:bg-[#1A1B29] border-indigo-500/70 dark:border-indigo-400 shadow-sm ring-1 ring-indigo-500/20'
                       : 'bg-white dark:bg-[#121424] border-slate-200/80 dark:border-white/[0.08] shadow-2xs'
                   }`}
                 >
