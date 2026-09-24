@@ -334,10 +334,10 @@ export const TopicAudioMemosSection: React.FC<TopicAudioMemosSectionProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-sm sm:text-base font-bold text-[#191A17] dark:text-[#F5F5F7]">
-                Voice Notes & Audio Memos
+                Voice Notes
               </h3>
               <span className="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono bg-[#EEEEE8] dark:bg-[#23232A] text-[#65675F] dark:text-[#A1A1AA]">
-                {audioMemos.length} {audioMemos.length === 1 ? 'Memo' : 'Memos'}
+                {audioMemos.length} {audioMemos.length === 1 ? 'Note' : 'Notes'}
               </span>
             </div>
           </div>
