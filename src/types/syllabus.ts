@@ -27,6 +27,9 @@ export interface TopicPdfAttachment {
   type?: 'pdf' | 'telegram' | 'link';
   telegramUrl?: string;
   channelName?: string;
+  lastReadPage?: number;
+  totalPages?: number;
+  lastReadAt?: string;
 }
 
 export interface LectureTimestamp {

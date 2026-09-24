@@ -12,10 +12,12 @@ import {
   AlertCircle,
   Clock,
   HardDrive,
-  Columns
+  Columns,
+  Bookmark
 } from 'lucide-react';
 import { TopicPdfAttachment } from '../../types/syllabus';
 import { savePdfToStorage, getPdfBlobUrl, deletePdfFromStorage } from '../../utils/pdfStorage';
+import { getPdfReadingProgress } from '../../utils/pdfProgressStorage';
 import { TelegramIcon, isTelegramUrl, cleanTelegramUrl, parseTelegramDetails } from '../../utils/telegramUtils';
 import { soundManager } from '../../utils/soundEffects';
 import { InAppPdfReaderModal } from './InAppPdfReaderModal';
@@ -454,6 +456,9 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
           {attachments.map(att => {
             const isTg = att.type === 'telegram' || isTelegramUrl(att.url || att.telegramUrl);
             const tgDetails = isTg ? parseTelegramDetails(att.telegramUrl || att.url) : null;
+            const progress = att.lastReadPage
+              ? { pageNum: att.lastReadPage, totalPages: att.totalPages }
+              : getPdfReadingProgress(att.id);
 
             return (
               <div
@@ -511,6 +516,19 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
                         <span>{new Date(att.uploadedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
                       </span>
                       {att.url && !isTg && <span className="text-blue-400 font-bold">(Web Link)</span>}
+
+                      {progress && progress.pageNum > 1 && (
+                        <>
+                          <span>•</span>
+                          <span className="px-1.5 py-0.5 rounded bg-blue-500/15 text-[10px] sm:text-[11px] font-bold text-blue-600 dark:text-blue-400 font-mono flex items-center gap-1 border border-blue-500/20">
+                            <Bookmark className="w-2.5 h-2.5 fill-current" />
+                            <span>Page {progress.pageNum}{progress.totalPages ? ` / ${progress.totalPages}` : ''}</span>
+                            {progress.totalPages && (
+                              <span className="text-blue-500/80 font-normal">({Math.round((progress.pageNum / progress.totalPages) * 100)}%)</span>
+                            )}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -553,10 +571,10 @@ export const TopicPdfAttachmentsSection: React.FC<TopicPdfAttachmentsSectionProp
                         type="button"
                         onClick={() => handleOpenPdf(att)}
                         className="flex-1 sm:flex-none flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg sm:rounded-xl bg-blue-500/15 hover:bg-blue-500/25 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-[11px] sm:text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm"
-                        title="Read PDF in distraction-free In-App Viewer"
+                        title={progress && progress.pageNum > 1 ? `Resume PDF from Page ${progress.pageNum}` : 'Read PDF in distraction-free In-App Viewer'}
                       >
                         <Eye className="w-3.5 h-3.5" />
-                        <span>View</span>
+                        <span>{progress && progress.pageNum > 1 ? `Resume (p. ${progress.pageNum})` : 'View'}</span>
                       </button>
 
                       {/* Download PDF Button */}

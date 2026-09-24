@@ -42,6 +42,10 @@ import {
   loadPdfColorTheme,
   savePdfColorTheme
 } from '../../utils/pdfThemeStorage';
+import {
+  savePdfReadingProgress,
+  getPdfReadingProgress
+} from '../../utils/pdfProgressStorage';
 
 const PdfCanvasViewer = React.lazy(() => import('./PdfCanvasViewer').then(m => ({ default: m.PdfCanvasViewer })));
 import {
@@ -97,7 +101,11 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    const initId = initialAttachmentId || (attachments.length > 0 ? attachments[0].id : '');
+    const saved = initId ? getPdfReadingProgress(initId) : null;
+    return saved && saved.pageNum >= 1 ? saved.pageNum : 1;
+  });
   const [scale, setScale] = useState<number>(1.0);
   const [fitMode, setFitMode] = useState<PdfFitMode>('fit-width');
   const [rotation, setRotation] = useState<number>(0);
@@ -145,7 +153,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [highlights, setHighlights] = useState<PdfHighlight[]>([]);
   const [showColorPalette, setShowColorPalette] = useState<boolean>(false);
 
-  const { exams, updateTopicNotes } = useSyllabus();
+  const { exams, updateTopicNotes, updateTopicPdfProgress } = useSyllabus();
 
   // Sticky Notes / Comment Annotations State
   const [isCommentMode, setIsCommentMode] = useState<boolean>(false);
@@ -167,15 +175,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const currentAttachmentStorageKey = currentAttachment?.storageKey;
   const currentAttachmentUrl = currentAttachment?.url;
 
-  // Memoized page navigation callbacks to prevent child prop reference changes
-  const handlePageChange = useCallback((page: number, total: number) => {
-    setCurrentPage(page);
-    setTotalPages(total);
-  }, []);
-
-  const handleLoadSuccess = useCallback((total: number) => {
-    setTotalPages(total);
-  }, []);
+  const prevAttachmentIdRef = useRef<string>(selectedAttachmentId);
 
   // Sync selected attachment when initialAttachmentId changes
   useEffect(() => {
@@ -185,6 +185,71 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
       setSelectedAttachmentId(attachments[0].id);
     }
   }, [initialAttachmentId, attachments.length]);
+
+  // Handle switching between attachments (save old, load new)
+  useEffect(() => {
+    if (selectedAttachmentId && selectedAttachmentId !== prevAttachmentIdRef.current) {
+      if (prevAttachmentIdRef.current && currentPage >= 1) {
+        savePdfReadingProgress(prevAttachmentIdRef.current, currentPage, totalPages);
+        if (topicId && updateTopicPdfProgress) {
+          updateTopicPdfProgress(topicId, prevAttachmentIdRef.current, currentPage, totalPages);
+        }
+      }
+      prevAttachmentIdRef.current = selectedAttachmentId;
+
+      const saved = getPdfReadingProgress(selectedAttachmentId);
+      if (saved && saved.pageNum >= 1) {
+        setCurrentPage(saved.pageNum);
+        if (saved.totalPages) setTotalPages(saved.totalPages);
+      } else {
+        setCurrentPage(1);
+      }
+    }
+  }, [selectedAttachmentId, topicId, updateTopicPdfProgress]);
+
+  // Keep latest progress in ref for unmount cleanup
+  const progressRef = useRef({ selectedAttachmentId, currentPage, totalPages, topicId });
+  progressRef.current = { selectedAttachmentId, currentPage, totalPages, topicId };
+
+  // Save progress on unmount
+  useEffect(() => {
+    return () => {
+      const { selectedAttachmentId: id, currentPage: p, totalPages: t, topicId: tid } = progressRef.current;
+      if (id && p >= 1) {
+        savePdfReadingProgress(id, p, t);
+        if (tid && updateTopicPdfProgress) {
+          updateTopicPdfProgress(tid, id, p, t);
+        }
+      }
+    };
+  }, [updateTopicPdfProgress]);
+
+  // Close handler that saves progress before closing
+  const handleCloseReader = useCallback(() => {
+    if (selectedAttachmentId && currentPage >= 1) {
+      savePdfReadingProgress(selectedAttachmentId, currentPage, totalPages);
+      if (topicId && updateTopicPdfProgress) {
+        updateTopicPdfProgress(topicId, selectedAttachmentId, currentPage, totalPages);
+      }
+    }
+    onClose();
+  }, [selectedAttachmentId, currentPage, totalPages, topicId, updateTopicPdfProgress, onClose]);
+
+  // Memoized page navigation callbacks to prevent child prop reference changes
+  const handlePageChange = useCallback((page: number, total: number) => {
+    setCurrentPage(page);
+    setTotalPages(total);
+    if (selectedAttachmentId) {
+      savePdfReadingProgress(selectedAttachmentId, page, total);
+      if (topicId && updateTopicPdfProgress) {
+        updateTopicPdfProgress(topicId, selectedAttachmentId, page, total);
+      }
+    }
+  }, [selectedAttachmentId, topicId, updateTopicPdfProgress]);
+
+  const handleLoadSuccess = useCallback((total: number) => {
+    setTotalPages(total);
+  }, []);
 
   // Load Saved Highlights & Comments when attachment changes
   useEffect(() => {
@@ -305,7 +370,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
           }
           setIsFullscreen(false);
         } else {
-          onClose();
+          handleCloseReader();
         }
       } else if (e.key === 'h' || e.key === 'H') {
         // Toggle highlight mode if not focusing an input
@@ -489,6 +554,12 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setCurrentPage(pageNum);
+      if (selectedAttachmentId) {
+        savePdfReadingProgress(selectedAttachmentId, pageNum, totalPages);
+        if (topicId && updateTopicPdfProgress) {
+          updateTopicPdfProgress(topicId, selectedAttachmentId, pageNum, totalPages);
+        }
+      }
     }
   };
 
@@ -531,7 +602,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               type="button"
               onClick={() => {
                 soundManager.playClick();
-                onClose();
+                handleCloseReader();
               }}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#24283B] hover:bg-[#7AA2F7] hover:text-[#1A1B26] text-white text-xs font-bold transition-all border border-[#292E42] hover:border-[#7AA2F7] cursor-pointer shadow-sm active:scale-95 group shrink-0"
               title="Go back to Topic Notes (Esc)"
@@ -893,7 +964,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
-                  onClose();
+                  handleCloseReader();
                   onOpenSplitStudy(selectedAttachmentId);
                 }}
                 title="Open Split-Screen to read this PDF and take notes side-by-side"
@@ -1307,7 +1378,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 document.exitFullscreen?.().catch(() => {});
               }
               setIsFullscreen(false);
-              onClose();
+              handleCloseReader();
             }}
             className="p-1.5 rounded-full hover:bg-rose-500/20 text-white/70 hover:text-rose-400 transition-all cursor-pointer"
             title="Close PDF View (Esc)"
@@ -1338,7 +1409,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               type="button"
               onClick={() => {
                 soundManager.playClick();
-                onClose();
+                handleCloseReader();
               }}
               className="px-4 py-2 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-white text-xs font-bold border border-[#292E42] transition-all cursor-pointer"
             >
@@ -1360,6 +1431,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             <PdfCanvasViewer
               pdfUrl={pdfBlobUrl}
               docId={selectedAttachmentId}
+              initialPage={currentPage}
               scale={scale}
               onScaleChange={setScale}
               fitMode={fitMode}

@@ -22,9 +22,15 @@ import {
   GripVertical,
   Minus,
   Sparkles,
-  Tag
+  Tag,
+  Bookmark,
+  X as CloseIcon
 } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
+import {
+  savePdfReadingProgress,
+  getPdfReadingProgress
+} from '../../utils/pdfProgressStorage';
 import {
   PdfHighlight,
   HighlightColor,
@@ -58,6 +64,7 @@ export type HighlightToolType = 'area' | 'freehand' | 'eraser';
 interface PdfCanvasViewerProps {
   pdfUrl: string | null;
   docId?: string;
+  initialPage?: number;
   onLoadSuccess?: (totalPages: number) => void;
   className?: string;
   showInlineControls?: boolean;
@@ -94,6 +101,7 @@ interface PdfCanvasViewerProps {
 export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   pdfUrl,
   docId,
+  initialPage: propInitialPage,
   onLoadSuccess,
   className = '',
   showInlineControls = false,
@@ -130,6 +138,17 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [numPages, setNumPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [resumeToast, setResumeToast] = useState<{ pageNum: number; totalPages?: number } | null>(null);
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const targetInitialPageRef = useRef<number>(1);
+  const hasRestoredPageRef = useRef<boolean>(false);
+  const currentPageRef = useRef<number>(1);
+  currentPageRef.current = currentPage;
+  const numPagesRef = useRef<number>(0);
+  numPagesRef.current = numPages;
+  const docIdRef = useRef<string | undefined>(docId);
+  docIdRef.current = docId;
+
   const [internalScale, setInternalScale] = useState<number>(1.0);
   const [internalRotation, setInternalRotation] = useState<number>(0);
   const [internalAutoRotate, setInternalAutoRotate] = useState<boolean>(true);
@@ -394,7 +413,20 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
         setPdfDoc(doc);
         setNumPages(doc.numPages);
-        setCurrentPage(1);
+        numPagesRef.current = doc.numPages;
+
+        // Retrieve saved reading progress for this document
+        const savedProgress = docId ? getPdfReadingProgress(docId) : null;
+        const targetPage = (propInitialPage && propInitialPage >= 1 && propInitialPage <= doc.numPages)
+          ? propInitialPage
+          : (savedProgress && savedProgress.pageNum >= 1 && savedProgress.pageNum <= doc.numPages)
+            ? savedProgress.pageNum
+            : 1;
+
+        setCurrentPage(targetPage);
+        currentPageRef.current = targetPage;
+        targetInitialPageRef.current = targetPage;
+        hasRestoredPageRef.current = false;
         isInitialLoadRef.current = true;
 
         // Instantly get page 1 aspect ratio to set placeholder heights accurately
@@ -408,7 +440,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
         setIsLoading(false);
         onLoadSuccess?.(doc.numPages);
-        onPageChange?.(1, doc.numPages);
+        onPageChange?.(targetPage, doc.numPages);
       } catch (err: any) {
         console.error('Error loading PDF document:', err);
         if (!isCancelled) {
@@ -429,7 +461,55 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         cancelAnimationFrame(scrollRafRef.current);
       }
     };
-  }, [pdfUrl]);
+  }, [pdfUrl, docId, propInitialPage]);
+
+  // Auto-scroll to saved/target page once PDF document and page containers are mounted
+  useEffect(() => {
+    if (isLoading || !pdfDoc || numPages <= 0 || hasRestoredPageRef.current) return;
+    const targetPage = targetInitialPageRef.current;
+    if (targetPage > 1) {
+      let attempts = 0;
+      const maxAttempts = 25;
+
+      const performScroll = () => {
+        if (!containerRef.current) return;
+        const targetEl = containerRef.current.querySelector<HTMLDivElement>(`[data-page-number="${targetPage}"]`);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+          lastScrollTopRef.current = containerRef.current.scrollTop;
+          hasRestoredPageRef.current = true;
+          setCurrentPage(targetPage);
+          currentPageRef.current = targetPage;
+          onPageChange?.(targetPage, numPages);
+          setResumeToast({ pageNum: targetPage, totalPages: numPages });
+          if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+          resumeTimeoutRef.current = setTimeout(() => {
+            setResumeToast(null);
+          }, 4500);
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          requestAnimationFrame(performScroll);
+        }
+      };
+
+      const timer = setTimeout(performScroll, 60);
+      return () => clearTimeout(timer);
+    } else {
+      hasRestoredPageRef.current = true;
+    }
+  }, [isLoading, pdfDoc, numPages, docId]);
+
+  // Save progress on unmount
+  useEffect(() => {
+    return () => {
+      if (docIdRef.current && currentPageRef.current >= 1) {
+        savePdfReadingProgress(docIdRef.current, currentPageRef.current, numPagesRef.current);
+      }
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Restore scroll position across parent re-renders
   useEffect(() => {
@@ -470,12 +550,16 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
           const pNum = Number(el.getAttribute('data-page-number'));
           if (pNum && pNum !== currentPage) {
             setCurrentPage(pNum);
+            currentPageRef.current = pNum;
             // Debounce parent onPageChange so rapid scrolling does not trigger high-frequency parent re-renders
             if (pageChangeTimeoutRef.current) {
               clearTimeout(pageChangeTimeoutRef.current);
             }
             pageChangeTimeoutRef.current = setTimeout(() => {
               onPageChange?.(pNum, numPages);
+              if (docId) {
+                savePdfReadingProgress(docId, pNum, numPages);
+              }
             }, 80);
           }
           break;
@@ -484,12 +568,17 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
     });
   };
 
-  const scrollToPage = (pageNum: number) => {
+  const scrollToPage = (pageNum: number, behavior: ScrollBehavior = 'smooth') => {
     soundManager.playClick();
     if (!containerRef.current) return;
     const el = containerRef.current.querySelector<HTMLDivElement>(`[data-page-number="${pageNum}"]`);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.scrollIntoView({ behavior, block: 'start' });
+      setCurrentPage(pageNum);
+      currentPageRef.current = pageNum;
+      if (docId) {
+        savePdfReadingProgress(docId, pageNum, numPages);
+      }
     }
   };
 
@@ -593,6 +682,35 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
           fitMode === 'fit-page' ? 'py-4 gap-4' : 'gap-0'
         }`}
       >
+        {/* Sleek Floating Resume Notification */}
+        {resumeToast && (
+          <div className="sticky top-3 z-30 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F2335]/95 backdrop-blur-md border border-[#7AA2F7]/50 text-white shadow-xl text-xs animate-fade-in pointer-events-auto shrink-0 mb-2">
+            <Bookmark className="w-3.5 h-3.5 text-[#7AA2F7] fill-[#7AA2F7]" />
+            <span className="font-semibold text-slate-100">
+              Resumed from <strong>Page {resumeToast.pageNum}</strong>
+              {resumeToast.totalPages ? ` of ${resumeToast.totalPages}` : ''}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                scrollToPage(1);
+                setResumeToast(null);
+              }}
+              className="ml-1 text-[11px] font-bold text-[#7AA2F7] hover:text-white underline cursor-pointer"
+            >
+              Start (Page 1)
+            </button>
+            <button
+              type="button"
+              onClick={() => setResumeToast(null)}
+              className="p-0.5 rounded-full text-slate-400 hover:text-white cursor-pointer ml-0.5"
+              title="Dismiss"
+            >
+              <CloseIcon className="w-3 h-3" />
+            </button>
+          </div>
+        )}
+
         {isLoading && (
           <div className="m-auto flex flex-col items-center justify-center gap-3 py-20 text-center">
             <Loader2 className="w-10 h-10 text-[#7AA2F7] animate-spin" />
@@ -617,6 +735,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
               <React.Fragment key={`${pageNum}_${rotation}`}>
                 <PdfPageItem
                   pageNum={pageNum}
+                  targetPage={targetInitialPageRef.current}
                   docId={docId}
                   pdfDoc={pdfDoc}
                   scale={scale}
@@ -655,6 +774,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
 interface PdfPageItemProps {
   pageNum: number;
+  targetPage?: number;
   docId?: string;
   pdfDoc: any;
   scale: number;
@@ -682,6 +802,7 @@ interface PdfPageItemProps {
 
 const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   pageNum,
+  targetPage,
   docId,
   pdfDoc,
   scale,
@@ -710,8 +831,8 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const renderTaskRef = useRef<any>(null);
-  // Page 1 is ALWAYS immediately visible so opening is instant!
-  const [isVisible, setIsVisible] = useState<boolean>(pageNum === 1);
+  // Page 1 or targetPage is ALWAYS immediately visible so opening/resuming is instant!
+  const [isVisible, setIsVisible] = useState<boolean>(pageNum === 1 || pageNum === targetPage);
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [pageAspect, setPageAspect] = useState<number>(defaultAspect);
   const [renderedWidth, setRenderedWidth] = useState<number>(0);
@@ -730,9 +851,9 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   const [currentPoint, setCurrentPoint] = useState<{ x: number; y: number } | null>(null);
   const [freehandPoints, setFreehandPoints] = useState<Array<{ x: number; y: number }>>([]);
 
-  // Lazy load using IntersectionObserver for pages > 1
+  // Lazy load using IntersectionObserver for pages > 1 (excluding target page)
   useEffect(() => {
-    if (pageNum === 1) {
+    if (pageNum === 1 || pageNum === targetPage) {
       setIsVisible(true);
       return;
     }

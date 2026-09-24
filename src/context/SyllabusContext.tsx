@@ -334,6 +334,7 @@ interface SyllabusContextType {
   deleteSubtopic: (topicId: string, subtopicIndex: number) => void;
   addTopicPdfAttachment?: (topicId: string, attachment: TopicPdfAttachment) => void;
   deleteTopicPdfAttachment?: (topicId: string, attachmentId: string) => void;
+  updateTopicPdfProgress?: (topicId: string, attachmentId: string, pageNum: number, totalPages?: number) => void;
   addTopicLecture?: (topicId: string, lecture: {
     title: string;
     youtubeUrl: string;
@@ -2191,6 +2192,34 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     soundManager.playClick();
   };
 
+  const updateTopicPdfProgress = (topicId: string, attachmentId: string, pageNum: number, totalPages?: number) => {
+    setExams(prev => prev.map(exam => ({
+      ...exam,
+      subjects: exam.subjects.map(subj => ({
+        ...subj,
+        chapters: subj.chapters.map(ch => ({
+          ...ch,
+          topics: ch.topics.map(t => {
+            if (t.id !== topicId) return t;
+            const existing = t.pdfAttachments || [];
+            return {
+              ...t,
+              pdfAttachments: existing.map(a => {
+                if (a.id !== attachmentId) return a;
+                return {
+                  ...a,
+                  lastReadPage: pageNum,
+                  totalPages: totalPages || a.totalPages,
+                  lastReadAt: new Date().toISOString()
+                };
+              })
+            };
+          })
+        }))
+      }))
+    })));
+  };
+
   const addTopicLecture = (topicId: string, lecture: {
     title: string;
     youtubeUrl: string;
@@ -3319,6 +3348,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     deleteSubtopic,
     addTopicPdfAttachment,
     deleteTopicPdfAttachment,
+    updateTopicPdfProgress,
     addTopicLecture,
     deleteTopicLecture,
     addLectureTimestamp,
