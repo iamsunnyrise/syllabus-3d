@@ -35,6 +35,7 @@ import { Topic } from '../../types/syllabus';
 import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { StudyDeskHeroIllustration } from '../dashboard/StudyDeskHeroIllustration';
+import { DailyInspirationBanner } from '../dashboard/DailyInspirationBanner';
 import { AppFooter } from '../common/AppFooter';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
@@ -310,10 +311,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         )}
       </div>
 
-      {/* 2. MOTIVATIONAL QUOTE BANNER (Matching Mockup) */}
-      <div className="rounded-2xl bg-[#ECEFF8] dark:bg-white/[0.05] border-l-4 border-[#5B42F3] px-4 sm:px-5 py-3.5 text-xs sm:text-sm font-medium italic text-slate-800 dark:text-slate-200 shadow-xs">
-        "Learning never exhausts the mind." — Leonardo da Vinci
-      </div>
+      {/* 2. MOTIVATIONAL QUOTE BANNER (Interactive Daily Inspiration Hub) */}
+      <DailyInspirationBanner onOpenFocus={onOpenFocus} />
 
       {/* 3. 4 VIBRANT METRIC KPI CARDS (Purple, Hot Pink, Cyan, Mint Green) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
