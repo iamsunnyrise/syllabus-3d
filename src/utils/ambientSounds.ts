@@ -1,27 +1,64 @@
 export type AmbientSoundType = 'none' | 'rain' | 'ocean' | 'binaural' | 'fireplace';
 
+// 1-second silent WAV base64 data URI to keep background media playback active across mobile & desktop browsers
+const SILENT_AUDIO_URI = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+
 class AmbientSoundEngine {
   private ctx: AudioContext | null = null;
   private currentType: AmbientSoundType = 'none';
   private gainNode: GainNode | null = null;
   private activeNodes: (AudioNode | number)[] = [];
   private volume: number = 0.5;
+  private keepAliveAudio: HTMLAudioElement | null = null;
+  private watchdogInterval: number | null = null;
 
   constructor() {
-    // 🔋 Background Audio Suspender: Suspend AudioContext on tab blur/lock to save phone battery
+    // 🎧 Continuous Background Audio Engine:
+    // Ensure ambient sound keeps running uninterrupted when the user switches tabs,
+    // minimizes the browser, locks the device screen, or switches to other apps.
     if (typeof document !== 'undefined') {
       document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          if (this.ctx && this.ctx.state === 'running') {
-            this.ctx.suspend().catch(() => {});
-          }
-        } else {
-          // If ambient sound was active before switching tabs, resume smoothly
-          if (this.currentType !== 'none' && this.ctx && this.ctx.state === 'suspended') {
+        if (this.currentType !== 'none' && this.ctx) {
+          if (this.ctx.state === 'suspended') {
             this.ctx.resume().catch(() => {});
           }
         }
       });
+    }
+  }
+
+  private startKeepAlive() {
+    if (typeof window === 'undefined') return;
+    try {
+      if (!this.keepAliveAudio) {
+        this.keepAliveAudio = new Audio(SILENT_AUDIO_URI);
+        this.keepAliveAudio.loop = true;
+        this.keepAliveAudio.volume = 0.01; // virtually silent keep-alive
+      }
+      this.keepAliveAudio.play().catch(() => {});
+    } catch {
+      // Ignored
+    }
+
+    // Background Watchdog: auto-wake AudioContext if suspended by OS power manager
+    if (!this.watchdogInterval && typeof window !== 'undefined') {
+      this.watchdogInterval = window.setInterval(() => {
+        if (this.currentType !== 'none' && this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => {});
+        }
+      }, 2000);
+    }
+  }
+
+  private stopKeepAlive() {
+    if (this.keepAliveAudio) {
+      try {
+        this.keepAliveAudio.pause();
+      } catch {}
+    }
+    if (this.watchdogInterval && typeof window !== 'undefined') {
+      clearInterval(this.watchdogInterval);
+      this.watchdogInterval = null;
     }
   }
 
@@ -62,9 +99,12 @@ class AmbientSoundEngine {
     } else if (type === 'fireplace') {
       this.startFireplace();
     }
+
+    this.startKeepAlive();
   }
 
   public stop() {
+    this.stopKeepAlive();
     this.activeNodes.forEach(node => {
       if (typeof node === 'number') {
         clearInterval(node);
