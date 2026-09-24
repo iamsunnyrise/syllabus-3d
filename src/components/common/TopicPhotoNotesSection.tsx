@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Image as ImageIcon,
   Camera,
@@ -17,9 +18,10 @@ import {
   ZoomOut,
   RotateCcw,
   FileText,
-  Sparkles,
   AlertCircle,
-  ArrowLeft
+  ArrowLeft,
+  Layers,
+  ChevronUp
 } from 'lucide-react';
 import { TopicImageAttachment } from '../../types/syllabus';
 import { soundManager } from '../../utils/soundEffects';
@@ -139,6 +141,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const [rotation, setRotation] = useState<number>(0);
   const [showControls, setShowControls] = useState<boolean>(true);
   const [isInteracting, setIsInteracting] = useState<boolean>(false);
+  const [showAllPhotosSheet, setShowAllPhotosSheet] = useState<boolean>(false);
 
   // Drag & Swipe gesture tracking refs
   const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -148,6 +151,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const lastTapTimeRef = useRef<number>(0);
   const initialPinchDistRef = useRef<number>(0);
   const initialScaleRef = useRef<number>(1);
+  const hasHistoryPushedRef = useRef<boolean>(false);
 
   // Inline Title Editing State
   const [editingImageId, setEditingImageId] = useState<string | null>(null);
@@ -187,6 +191,39 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       isMounted = false;
     };
   }, [images]);
+
+  // Lock body scroll when Lightbox is open
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [lightboxIndex]);
+
+  // Android & Browser Hardware Back Button Integration
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    // Push state for back navigation
+    window.history.pushState({ pictureLightboxOpen: true }, '');
+    hasHistoryPushedRef.current = true;
+
+    const handlePopState = () => {
+      hasHistoryPushedRef.current = false;
+      closeLightbox(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      if (hasHistoryPushedRef.current) {
+        hasHistoryPushedRef.current = false;
+      }
+    };
+  }, [lightboxIndex !== null]);
 
   const triggerSuccess = (msg: string) => {
     setSuccessNotice(msg);
@@ -331,9 +368,9 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     if (lightboxIndex === null) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowRight') handleNextImage();
-      else if (e.key === 'ArrowLeft') handlePrevImage();
+      if (e.key === 'Escape') closeLightbox(true);
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') handleNextImage();
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') handlePrevImage();
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -347,19 +384,25 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     setTranslate({ x: 0, y: 0 });
     setRotation(0);
     setShowControls(true);
+    setShowAllPhotosSheet(false);
     soundManager.playClick();
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = (popHistory = true) => {
+    if (popHistory && hasHistoryPushedRef.current) {
+      hasHistoryPushedRef.current = false;
+      window.history.back();
+    }
     setLightboxIndex(null);
     setScale(1);
     setTranslate({ x: 0, y: 0 });
     setRotation(0);
+    setShowAllPhotosSheet(false);
   };
 
   const handleNextImage = () => {
     if (lightboxIndex === null || images.length === 0) return;
-    setLightboxIndex((lightboxIndex + 1) % images.length);
+    setLightboxIndex((prev) => ((prev ?? 0) + 1) % images.length);
     setScale(1);
     setTranslate({ x: 0, y: 0 });
     setRotation(0);
@@ -368,7 +411,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
 
   const handlePrevImage = () => {
     if (lightboxIndex === null || images.length === 0) return;
-    setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
+    setLightboxIndex((prev) => ((prev ?? 0) - 1 + images.length) % images.length);
     setScale(1);
     setTranslate({ x: 0, y: 0 });
     setRotation(0);
@@ -407,12 +450,14 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       setScale(1);
       setTranslate({ x: 0, y: 0 });
     } else {
-      // Zoom in towards the tap point
       const rect = imageViewportRef.current?.getBoundingClientRect();
       if (rect) {
         const offsetX = (clientX - (rect.left + rect.width / 2)) * -1;
         const offsetY = (clientY - (rect.top + rect.height / 2)) * -1;
-        setTranslate({ x: Math.max(Math.min(offsetX, 200), -200), y: Math.max(Math.min(offsetY, 200), -200) });
+        setTranslate({
+          x: Math.max(Math.min(offsetX, 200), -200),
+          y: Math.max(Math.min(offsetY, 200), -200)
+        });
       }
       setScale(2.5);
     }
@@ -436,21 +481,18 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     if (e.touches.length === 1) {
       const now = Date.now();
       if (now - lastTapTimeRef.current < 300) {
-        // Double tap detected
         handleDoubleTap(e.touches[0].clientX, e.touches[0].clientY);
         lastTapTimeRef.current = 0;
         return;
       }
       lastTapTimeRef.current = now;
 
-      // Single touch start (pan or swipe)
       dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       translateStartRef.current = { ...translate };
       isDraggingRef.current = true;
       hasMovedRef.current = false;
       setIsInteracting(true);
     } else if (e.touches.length === 2) {
-      // Multi-touch pinch-to-zoom
       const dist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
@@ -467,12 +509,11 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       const dx = e.touches[0].clientX - dragStartRef.current.x;
       const dy = e.touches[0].clientY - dragStartRef.current.y;
 
-      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
         hasMovedRef.current = true;
       }
 
       if (scale > 1.05) {
-        // Pan image when zoomed in
         const maxPanX = (scale - 1) * 220;
         const maxPanY = (scale - 1) * 320;
         setTranslate({
@@ -481,7 +522,6 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         });
       }
     } else if (e.touches.length === 2 && initialPinchDistRef.current > 0) {
-      // Pinch to zoom
       const currentDist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
@@ -501,22 +541,40 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         const dx = (e.changedTouches[0]?.clientX || 0) - dragStartRef.current.x;
         const dy = (e.changedTouches[0]?.clientY || 0) - dragStartRef.current.y;
 
-        // Horizontal swipe to next/prev image
-        if (dx < -60) handleNextImage();
-        else if (dx > 60) handlePrevImage();
-        // Swipe down to dismiss
-        else if (dy > 120 && Math.abs(dx) < 60) closeLightbox();
+        // Check if gesture is primarily vertical or horizontal
+        if (Math.abs(dy) > Math.abs(dx)) {
+          // SWIPE UP -> Next photo in collection!
+          if (dy < -45) {
+            handleNextImage();
+          }
+          // SWIPE DOWN -> Previous photo, or dismiss if on first photo
+          else if (dy > 65) {
+            if ((lightboxIndex ?? 0) > 0) {
+              handlePrevImage();
+            } else {
+              closeLightbox(true);
+            }
+          }
+        } else {
+          // SWIPE LEFT -> Next photo
+          if (dx < -50) {
+            handleNextImage();
+          }
+          // SWIPE RIGHT -> Previous photo
+          else if (dx > 50) {
+            handlePrevImage();
+          }
+        }
       }
 
       // If user tapped without moving, toggle controls visibility
-      if (!hasMovedRef.current && Date.now() - lastTapTimeRef.current >= 280) {
+      if (!hasMovedRef.current && Date.now() - lastTapTimeRef.current >= 260) {
         setShowControls((prev) => !prev);
       }
 
       isDraggingRef.current = false;
       initialPinchDistRef.current = 0;
 
-      // Snap back if scaled down below 1x
       if (scale < 1.05) {
         setScale(1);
         setTranslate({ x: 0, y: 0 });
@@ -553,12 +611,11 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     }
   };
 
-  const handleMouseUp = (e: React.MouseEvent) => {
+  const handleMouseUp = () => {
     setIsInteracting(false);
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
 
-    // Single click toggles controls if not moved
     if (!hasMovedRef.current) {
       setShowControls((prev) => !prev);
     }
@@ -662,7 +719,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         className="hidden"
       />
 
-      {/* SECTION HEADER - Clean & Minimalist */}
+      {/* SECTION HEADER - Clean, Minimalist, No sentence, No extra badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/5">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
@@ -938,245 +995,330 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         </div>
       )}
 
-      {/* FULLSCREEN LIGHTBOX / HIGH-END MOBILE GALLERY VIEWER */}
-      {currentLightboxImage && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[250] bg-black/96 flex items-center justify-center overflow-hidden touch-none select-none animate-fade-in"
-          onWheel={handleWheel}
-        >
-          {/* Top Floating Control Scrim */}
+      {/* TRUE FULLSCREEN ROOT PORTAL: OBSCURES 100% OF APP & WEBSITE (NO ELEMENTS VISIBLE) */}
+      {currentLightboxImage &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className={`absolute top-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-b from-black/85 via-black/45 to-transparent pt-3 pb-8 px-3 sm:px-5 flex items-center justify-between text-white transition-opacity duration-300 ${
-              showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[999999] bg-black w-screen h-screen flex items-center justify-center overflow-hidden touch-none select-none animate-fade-in"
+            onWheel={handleWheel}
           >
-            {/* Back Button & Title */}
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <button
-                type="button"
-                onClick={closeLightbox}
-                className="p-2 -ml-1 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer shrink-0"
-                title="Back / Close"
-              >
-                <ArrowLeft className="w-5 h-5 sm:w-5 sm:h-5" />
-              </button>
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[150px] sm:max-w-md">
-                    {currentLightboxImage.title || `Picture ${(lightboxIndex ?? 0) + 1}`}
-                  </h3>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-white/15 text-indigo-300 border border-white/15 tabular-nums shrink-0">
-                    {(lightboxIndex ?? 0) + 1} / {images.length}
-                  </span>
+            {/* Top Floating Header Scrim Overlay */}
+            <div
+              className={`absolute top-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-b from-black/95 via-black/60 to-transparent pt-3.5 pb-8 px-3 sm:px-6 flex items-center justify-between text-white transition-opacity duration-300 ${
+                showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Back Button & Details (Clicking returns directly to Notes & PDF section) */}
+              <div className="flex items-center gap-2 sm:gap-3.5 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => closeLightbox(true)}
+                  className="flex items-center gap-1.5 p-2 -ml-1 sm:px-3 sm:py-1.5 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-white transition-all cursor-pointer shrink-0 shadow-lg border border-white/10"
+                  title="Back to Notes & PDF section"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="hidden sm:inline text-xs font-bold">Notes & PDF</span>
+                </button>
+
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[140px] sm:max-w-md">
+                      {currentLightboxImage.title || `Picture ${(lightboxIndex ?? 0) + 1}`}
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-white/20 text-indigo-300 border border-white/15 tabular-nums shrink-0">
+                      {(lightboxIndex ?? 0) + 1} / {images.length}
+                    </span>
+                  </div>
+                  <p className="text-[10px] sm:text-xs text-slate-300">
+                    {formatFileSize(currentLightboxImage.fileSize)}
+                  </p>
                 </div>
-                <p className="text-[10px] sm:text-xs text-slate-400">
-                  {formatFileSize(currentLightboxImage.fileSize)}
-                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                {onInsertIntoNotes && (
+                  <button
+                    type="button"
+                    onClick={() => handleInsertIntoNotes(currentLightboxImage)}
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+                    title="Insert this image into Study Notes"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Insert to Notes</span>
+                  </button>
+                )}
+
+                {/* Rotate button */}
+                <button
+                  type="button"
+                  onClick={handleRotate}
+                  className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 text-white transition-all cursor-pointer border border-white/10"
+                  title="Rotate 90° clockwise"
+                >
+                  <RotateCw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </button>
+
+                {/* Reset Zoom button */}
+                {(scale !== 1 || rotation !== 0) && (
+                  <button
+                    type="button"
+                    onClick={handleResetZoom}
+                    className="p-2 sm:p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white transition-all cursor-pointer shadow-md"
+                    title="Reset zoom to 100%"
+                  >
+                    <RotateCcw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                  </button>
+                )}
+
+                {/* Download original */}
+                <button
+                  type="button"
+                  onClick={() => handleDownload(currentLightboxImage)}
+                  className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 text-white transition-all cursor-pointer border border-white/10"
+                  title="Download original image file"
+                >
+                  <Download className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </button>
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => closeLightbox(true)}
+                  className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-rose-600 active:scale-95 text-white transition-all cursor-pointer border border-white/10 ml-0.5"
+                  title="Close (Esc)"
+                >
+                  <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </button>
               </div>
             </div>
 
-            {/* Top Right Action Buttons */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-              {onInsertIntoNotes && (
-                <button
-                  type="button"
-                  onClick={() => handleInsertIntoNotes(currentLightboxImage)}
-                  className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
-                  title="Insert this image into Study Notes"
-                >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>Insert to Notes</span>
-                </button>
-              )}
-
-              {/* Rotate button */}
-              <button
-                type="button"
-                onClick={handleRotate}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
-                title="Rotate 90° clockwise"
-              >
-                <RotateCw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-              </button>
-
-              {/* Reset Zoom button (if zoomed or rotated) */}
-              {(scale !== 1 || rotation !== 0) && (
-                <button
-                  type="button"
-                  onClick={handleResetZoom}
-                  className="p-2 rounded-xl bg-indigo-600/80 hover:bg-indigo-600 active:scale-95 text-white transition-all cursor-pointer"
-                  title="Reset zoom to 100%"
-                >
-                  <RotateCcw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                </button>
-              )}
-
-              {/* Download original */}
-              <button
-                type="button"
-                onClick={() => handleDownload(currentLightboxImage)}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
-                title="Download original image file"
-              >
-                <Download className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-              </button>
-
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={closeLightbox}
-                className="p-2 rounded-xl bg-white/10 hover:bg-rose-600 active:scale-95 text-white transition-all cursor-pointer"
-                title="Close (Esc)"
-              >
-                <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Central Image Viewport (Full Bleed - No Top/Bottom Blank Padding) */}
-          <div
-            ref={imageViewportRef}
-            className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden touch-none"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onDoubleClick={(e) => handleDoubleTap(e.clientX, e.clientY)}
-            style={{
-              cursor: scale > 1.05 ? (isInteracting ? 'grabbing' : 'grab') : 'default'
-            }}
-          >
-            {/* The Image Container with Butter-Smooth Hardware-Accelerated Transforms */}
+            {/* Central Pure Full-Bleed Viewport (Zero Top/Bottom Blank Waste) */}
             <div
-              className="w-full h-full flex items-center justify-center pointer-events-none"
+              ref={imageViewportRef}
+              className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden touch-none"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onDoubleClick={(e) => handleDoubleTap(e.clientX, e.clientY)}
               style={{
-                transform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale(${scale}) rotate(${rotation}deg)`,
-                transition: isInteracting ? 'none' : 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
-                transformOrigin: 'center center',
-                willChange: 'transform'
+                cursor: scale > 1.05 ? (isInteracting ? 'grabbing' : 'grab') : 'default'
               }}
             >
-              <img
-                src={currentLightboxSrc}
-                alt={currentLightboxImage.title || 'Fullscreen picture note'}
-                draggable={false}
-                className="max-h-full max-w-full w-auto h-auto object-contain select-none shadow-2xl pointer-events-auto"
+              {/* Image Container with 60fps Butter-Smooth Hardware Transforms */}
+              <div
+                className="w-full h-full flex items-center justify-center pointer-events-none"
                 style={{
-                  maxHeight: '100vh',
-                  maxWidth: '100vw'
+                  transform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale(${scale}) rotate(${rotation}deg)`,
+                  transition: isInteracting ? 'none' : 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transformOrigin: 'center center',
+                  willChange: 'transform'
                 }}
-              />
+              >
+                <img
+                  src={currentLightboxSrc}
+                  alt={currentLightboxImage.title || 'Fullscreen picture note'}
+                  draggable={false}
+                  className="max-h-full max-w-full w-auto h-auto object-contain select-none shadow-2xl pointer-events-auto"
+                  style={{
+                    maxHeight: '100vh',
+                    maxWidth: '100vw'
+                  }}
+                />
+              </div>
+
+              {/* Desktop Left/Right Navigation Arrows */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePrevImage();
+                    }}
+                    className={`hidden sm:flex absolute left-5 z-20 p-3 rounded-full bg-black/70 hover:bg-black/90 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-2xl ${
+                      showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    }`}
+                    title="Previous (Left Arrow or Swipe Down)"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNextImage();
+                    }}
+                    className={`hidden sm:flex absolute right-5 z-20 p-3 rounded-full bg-black/70 hover:bg-black/90 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-2xl ${
+                      showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    }`}
+                    title="Next (Right Arrow or Swipe Up)"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
+              )}
             </div>
 
-            {/* Desktop Left/Right Arrows */}
-            {images.length > 1 && (
-              <>
+            {/* Bottom Floating Control Scrim Overlay */}
+            <div
+              className={`absolute bottom-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-t from-black/95 via-black/60 to-transparent pt-8 pb-4 px-3 sm:px-6 flex flex-col items-center gap-2.5 transition-opacity duration-300 ${
+                showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Zoom Controls & Gesture Hint */}
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 border border-white/15 backdrop-blur-md text-white text-xs shadow-xl">
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePrevImage();
-                  }}
-                  className={`hidden sm:flex absolute left-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/85 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-xl ${
-                    showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                  }`}
-                  title="Previous (Left Arrow)"
+                  onClick={handleZoomOut}
+                  disabled={scale <= 1}
+                  className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
+                  title="Zoom Out"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ZoomOut className="w-3.5 h-3.5" />
                 </button>
-
+                <span
+                  onClick={handleResetZoom}
+                  className="font-mono text-[11px] font-bold px-2 py-0.5 rounded cursor-pointer hover:bg-white/20 tabular-nums"
+                  title="Click to reset zoom"
+                >
+                  {Math.round(scale * 100)}%
+                </span>
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNextImage();
-                  }}
-                  className={`hidden sm:flex absolute right-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/85 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-xl ${
-                    showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                  }`}
-                  title="Next (Right Arrow)"
+                  onClick={handleZoomIn}
+                  disabled={scale >= 4}
+                  className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
+                  title="Zoom In"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ZoomIn className="w-3.5 h-3.5" />
                 </button>
-              </>
-            )}
-          </div>
 
-          {/* Bottom Floating Control Scrim */}
-          <div
-            className={`absolute bottom-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-8 pb-4 px-3 sm:px-4 flex flex-col items-center gap-2.5 transition-opacity duration-300 ${
-              showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Zoom Control Pill */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-white text-xs shadow-lg">
-              <button
-                type="button"
-                onClick={handleZoomOut}
-                disabled={scale <= 1}
-                className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
-              <span
-                onClick={handleResetZoom}
-                className="font-mono text-[11px] font-bold px-2 py-0.5 rounded cursor-pointer hover:bg-white/15 tabular-nums"
-                title="Click to reset zoom"
-              >
-                {Math.round(scale * 100)}%
-              </span>
-              <button
-                type="button"
-                onClick={handleZoomIn}
-                disabled={scale >= 4}
-                className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
-                title="Zoom In"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
-              </button>
-              <span className="hidden sm:inline-block text-[10px] text-slate-400 pl-1 border-l border-white/15">
-                Double-tap to zoom
-              </span>
+                {/* Swipe Up Navigation Pill for Multiple Pictures */}
+                {images.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllPhotosSheet(true)}
+                    className="flex items-center gap-1 ml-1.5 pl-2 py-0.5 border-l border-white/20 text-indigo-300 hover:text-white font-bold text-[11px] cursor-pointer"
+                    title="Swipe up or tap to see all picture notes"
+                  >
+                    <ChevronUp className="w-3.5 h-3.5 text-indigo-400 animate-bounce" />
+                    <span>Swipe up for all ({images.length})</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Bottom Quick Filmstrip (if > 1 image) */}
+              {images.length > 1 && (
+                <div className="w-full max-w-md overflow-x-auto py-1 flex items-center justify-center gap-2 no-scrollbar">
+                  {images.map((thumb, idx) => {
+                    const thumbSrc = originalBlobUrls[thumb.id] || thumb.dataUrl;
+                    const isSelected = idx === lightboxIndex;
+                    return (
+                      <button
+                        key={thumb.id}
+                        type="button"
+                        onClick={() => openLightbox(idx)}
+                        className={`relative w-11 h-11 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                          isSelected
+                            ? 'border-indigo-500 scale-110 shadow-lg shadow-indigo-500/60 ring-2 ring-indigo-400/50'
+                            : 'border-white/20 opacity-55 hover:opacity-100'
+                        }`}
+                        title={thumb.title || `Picture ${idx + 1}`}
+                      >
+                        <img
+                          src={thumbSrc}
+                          alt={thumb.title || `Thumbnail ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            {/* Bottom Mini Thumbnails Filmstrip (if > 1 image) */}
-            {images.length > 1 && (
-              <div className="w-full max-w-lg overflow-x-auto py-1 flex items-center justify-center gap-2 no-scrollbar">
-                {images.map((thumb, idx) => {
-                  const thumbSrc = originalBlobUrls[thumb.id] || thumb.dataUrl;
-                  const isSelected = idx === lightboxIndex;
-                  return (
+            {/* ALL PICTURES VERTICAL SWIPE-UP SHEET (When user swipes up or clicks "Swipe up for all") */}
+            {showAllPhotosSheet && (
+              <div
+                className="absolute inset-0 z-40 bg-black/85 backdrop-blur-md flex flex-col justify-end animate-fade-in"
+                onClick={() => setShowAllPhotosSheet(false)}
+              >
+                <div
+                  className="w-full max-h-[75vh] bg-[#121424] border-t border-white/15 rounded-t-3xl p-4 sm:p-6 overflow-y-auto flex flex-col shadow-2xl animate-slide-up"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="w-12 h-1.5 rounded-full bg-white/20 mx-auto mb-4" />
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                    <div className="flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-indigo-400" />
+                      <h4 className="text-sm font-bold text-white">
+                        All Picture Notes & Diagrams ({images.length})
+                      </h4>
+                    </div>
                     <button
-                      key={thumb.id}
                       type="button"
-                      onClick={() => openLightbox(idx)}
-                      className={`relative w-11 h-11 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
-                        isSelected
-                          ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/50'
-                          : 'border-white/20 opacity-50 hover:opacity-100'
-                      }`}
-                      title={thumb.title || `Picture ${idx + 1}`}
+                      onClick={() => setShowAllPhotosSheet(false)}
+                      className="p-1 rounded-full text-slate-400 hover:text-white"
                     >
-                      <img
-                        src={thumbSrc}
-                        alt={thumb.title || `Thumbnail ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
+                      <X className="w-4 h-4" />
                     </button>
-                  );
-                })}
+                  </div>
+
+                  {/* Vertical / Responsive Grid of All Pictures */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {images.map((img, idx) => {
+                      const isSelected = idx === lightboxIndex;
+                      const thumbSrc = originalBlobUrls[img.id] || img.dataUrl;
+                      return (
+                        <div
+                          key={img.id}
+                          onClick={() => {
+                            setLightboxIndex(idx);
+                            setScale(1);
+                            setTranslate({ x: 0, y: 0 });
+                            setShowAllPhotosSheet(false);
+                            soundManager.playClick();
+                          }}
+                          className={`rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
+                            isSelected
+                              ? 'border-indigo-500 shadow-md shadow-indigo-500/40 ring-2 ring-indigo-400/40'
+                              : 'border-white/10 hover:border-white/30'
+                          }`}
+                        >
+                          <div className="aspect-[4/3] bg-black/40 relative">
+                            <img
+                              src={thumbSrc}
+                              alt={img.title || `Picture ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <span className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-black/70 text-white">
+                              #{idx + 1}
+                            </span>
+                          </div>
+                          <div className="p-2 bg-slate-900/90 text-[11px] text-white">
+                            <p className="truncate font-semibold">{img.title || `Photo ${idx + 1}`}</p>
+                            <p className="text-[10px] text-slate-400">{formatFileSize(img.fileSize)}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             )}
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
