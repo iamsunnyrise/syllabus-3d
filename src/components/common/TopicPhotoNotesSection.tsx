@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Image as ImageIcon,
   Camera,
@@ -18,7 +18,8 @@ import {
   RotateCcw,
   FileText,
   Sparkles,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 import { TopicImageAttachment } from '../../types/syllabus';
 import { soundManager } from '../../utils/soundEffects';
@@ -64,7 +65,6 @@ function formatFileSize(bytes?: number): string {
  */
 function generateDisplayDataUrl(file: File): Promise<string> {
   return new Promise((resolve) => {
-    // If small enough, keep 100% original binary string
     if (file.size <= 800 * 1024) {
       const reader = new FileReader();
       reader.onload = (e) => resolve((e.target?.result as string) || '');
@@ -73,7 +73,6 @@ function generateDisplayDataUrl(file: File): Promise<string> {
       return;
     }
 
-    // For larger files, create a sharp preview to safeguard localStorage quota
     const reader = new FileReader();
     reader.onerror = () => resolve('');
     reader.onload = (e) => {
@@ -135,8 +134,20 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
 
   // Lightbox / Fullscreen Viewer State
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [scale, setScale] = useState<number>(1);
+  const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [rotation, setRotation] = useState<number>(0);
+  const [showControls, setShowControls] = useState<boolean>(true);
+  const [isInteracting, setIsInteracting] = useState<boolean>(false);
+
+  // Drag & Swipe gesture tracking refs
+  const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const translateStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const isDraggingRef = useRef<boolean>(false);
+  const hasMovedRef = useRef<boolean>(false);
+  const lastTapTimeRef = useRef<number>(0);
+  const initialPinchDistRef = useRef<number>(0);
+  const initialScaleRef = useRef<number>(1);
 
   // Inline Title Editing State
   const [editingImageId, setEditingImageId] = useState<string | null>(null);
@@ -148,6 +159,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const imageViewportRef = useRef<HTMLDivElement>(null);
 
   // Load 100% original full-resolution blobs from IndexedDB
   useEffect(() => {
@@ -175,9 +187,6 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       isMounted = false;
     };
   }, [images]);
-
-  // Calculate total original storage footprint
-  const totalOriginalBytes = images.reduce((acc, img) => acc + (img.fileSize || 0), 0);
 
   const triggerSuccess = (msg: string) => {
     setSuccessNotice(msg);
@@ -211,14 +220,14 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     try {
       for (let i = 0; i < validFiles.length; i++) {
         const file = validFiles[i];
-        setProcessStatus(`Uploading original photo ${i + 1} of ${validFiles.length} (${formatFileSize(file.size)})...`);
+        setProcessStatus(`Uploading photo ${i + 1} of ${validFiles.length} (${formatFileSize(file.size)})...`);
 
         const attachmentId = `img_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
 
         // 1. Save 100% ORIGINAL untouched file to IndexedDB
         await saveImageToStorage(attachmentId, file, file.name);
 
-        // 2. Generate display dataUrl (original if <=800KB, or high-res preview if larger)
+        // 2. Generate display dataUrl (original if <=800KB, or sharp preview if larger)
         const displayDataUrl = await generateDisplayDataUrl(file);
 
         // 3. Clean readable title
@@ -227,12 +236,12 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
           .replace(/[-_]/g, ' ')
           .trim();
 
-        // 4. Save metadata with EXACT original file.size (e.g. 2.1 MB)
+        // 4. Save metadata with EXACT original file.size
         onAddImage({
           id: attachmentId,
           title: cleanName || `Picture Note ${images.length + i + 1}`,
           dataUrl: displayDataUrl,
-          fileSize: file.size, // Exact original bytes
+          fileSize: file.size,
           storageKey: attachmentId,
           originalFileName: file.name
         });
@@ -245,7 +254,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       }
 
       if (successCount > 0) {
-        triggerSuccess(`Added ${successCount} original quality picture${successCount > 1 ? 's' : ''}!`);
+        triggerSuccess(`Added ${successCount} picture${successCount > 1 ? 's' : ''}!`);
       } else {
         triggerError('Failed to process the uploaded images.');
       }
@@ -334,21 +343,25 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   // Lightbox actions
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
-    setZoomLevel(1);
+    setScale(1);
+    setTranslate({ x: 0, y: 0 });
     setRotation(0);
+    setShowControls(true);
     soundManager.playClick();
   };
 
   const closeLightbox = () => {
     setLightboxIndex(null);
-    setZoomLevel(1);
+    setScale(1);
+    setTranslate({ x: 0, y: 0 });
     setRotation(0);
   };
 
   const handleNextImage = () => {
     if (lightboxIndex === null || images.length === 0) return;
     setLightboxIndex((lightboxIndex + 1) % images.length);
-    setZoomLevel(1);
+    setScale(1);
+    setTranslate({ x: 0, y: 0 });
     setRotation(0);
     soundManager.playClick();
   };
@@ -356,7 +369,8 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const handlePrevImage = () => {
     if (lightboxIndex === null || images.length === 0) return;
     setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
-    setZoomLevel(1);
+    setScale(1);
+    setTranslate({ x: 0, y: 0 });
     setRotation(0);
     soundManager.playClick();
   };
@@ -367,19 +381,187 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   };
 
   const handleZoomIn = () => {
-    setZoomLevel((prev) => Math.min(prev + 0.3, 3));
+    setScale((prev) => Math.min(prev + 0.5, 4));
     soundManager.playClick();
   };
 
   const handleZoomOut = () => {
-    setZoomLevel((prev) => Math.max(prev - 0.3, 0.6));
+    setScale((prev) => {
+      const next = Math.max(prev - 0.5, 1);
+      if (next === 1) setTranslate({ x: 0, y: 0 });
+      return next;
+    });
     soundManager.playClick();
   };
 
   const handleResetZoom = () => {
-    setZoomLevel(1);
+    setScale(1);
+    setTranslate({ x: 0, y: 0 });
     setRotation(0);
     soundManager.playClick();
+  };
+
+  // Double tap / double click to toggle zoom (1x -> 2.5x -> 1x)
+  const handleDoubleTap = (clientX: number, clientY: number) => {
+    if (scale > 1.05) {
+      setScale(1);
+      setTranslate({ x: 0, y: 0 });
+    } else {
+      // Zoom in towards the tap point
+      const rect = imageViewportRef.current?.getBoundingClientRect();
+      if (rect) {
+        const offsetX = (clientX - (rect.left + rect.width / 2)) * -1;
+        const offsetY = (clientY - (rect.top + rect.height / 2)) * -1;
+        setTranslate({ x: Math.max(Math.min(offsetX, 200), -200), y: Math.max(Math.min(offsetY, 200), -200) });
+      }
+      setScale(2.5);
+    }
+    soundManager.playClick();
+  };
+
+  // Mouse wheel zoom support
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const delta = e.deltaY > 0 ? -0.25 : 0.25;
+    setScale((prev) => {
+      const next = Math.min(Math.max(prev + delta, 1), 4);
+      if (next === 1) setTranslate({ x: 0, y: 0 });
+      return next;
+    });
+  };
+
+  // Touch gesture handlers for mobile pinch-to-zoom, pan & swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      const now = Date.now();
+      if (now - lastTapTimeRef.current < 300) {
+        // Double tap detected
+        handleDoubleTap(e.touches[0].clientX, e.touches[0].clientY);
+        lastTapTimeRef.current = 0;
+        return;
+      }
+      lastTapTimeRef.current = now;
+
+      // Single touch start (pan or swipe)
+      dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      translateStartRef.current = { ...translate };
+      isDraggingRef.current = true;
+      hasMovedRef.current = false;
+      setIsInteracting(true);
+    } else if (e.touches.length === 2) {
+      // Multi-touch pinch-to-zoom
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      initialPinchDistRef.current = dist;
+      initialScaleRef.current = scale;
+      isDraggingRef.current = false;
+      setIsInteracting(true);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 1 && isDraggingRef.current) {
+      const dx = e.touches[0].clientX - dragStartRef.current.x;
+      const dy = e.touches[0].clientY - dragStartRef.current.y;
+
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        hasMovedRef.current = true;
+      }
+
+      if (scale > 1.05) {
+        // Pan image when zoomed in
+        const maxPanX = (scale - 1) * 220;
+        const maxPanY = (scale - 1) * 320;
+        setTranslate({
+          x: Math.max(Math.min(translateStartRef.current.x + dx, maxPanX), -maxPanX),
+          y: Math.max(Math.min(translateStartRef.current.y + dy, maxPanY), -maxPanY)
+        });
+      }
+    } else if (e.touches.length === 2 && initialPinchDistRef.current > 0) {
+      // Pinch to zoom
+      const currentDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const ratio = currentDist / initialPinchDistRef.current;
+      const nextScale = Math.min(Math.max(initialScaleRef.current * ratio, 1), 4);
+      setScale(nextScale);
+      hasMovedRef.current = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setIsInteracting(false);
+
+    if (e.touches.length === 0) {
+      if (scale <= 1.05 && hasMovedRef.current && isDraggingRef.current) {
+        const dx = (e.changedTouches[0]?.clientX || 0) - dragStartRef.current.x;
+        const dy = (e.changedTouches[0]?.clientY || 0) - dragStartRef.current.y;
+
+        // Horizontal swipe to next/prev image
+        if (dx < -60) handleNextImage();
+        else if (dx > 60) handlePrevImage();
+        // Swipe down to dismiss
+        else if (dy > 120 && Math.abs(dx) < 60) closeLightbox();
+      }
+
+      // If user tapped without moving, toggle controls visibility
+      if (!hasMovedRef.current && Date.now() - lastTapTimeRef.current >= 280) {
+        setShowControls((prev) => !prev);
+      }
+
+      isDraggingRef.current = false;
+      initialPinchDistRef.current = 0;
+
+      // Snap back if scaled down below 1x
+      if (scale < 1.05) {
+        setScale(1);
+        setTranslate({ x: 0, y: 0 });
+      }
+    }
+  };
+
+  // Mouse pan handlers for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    dragStartRef.current = { x: e.clientX, y: e.clientY };
+    translateStartRef.current = { ...translate };
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+    setIsInteracting(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const dx = e.clientX - dragStartRef.current.x;
+    const dy = e.clientY - dragStartRef.current.y;
+
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+      hasMovedRef.current = true;
+    }
+
+    if (scale > 1.05) {
+      const maxPanX = (scale - 1) * 300;
+      const maxPanY = (scale - 1) * 350;
+      setTranslate({
+        x: Math.max(Math.min(translateStartRef.current.x + dx, maxPanX), -maxPanX),
+        y: Math.max(Math.min(translateStartRef.current.y + dy, maxPanY), -maxPanY)
+      });
+    }
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    setIsInteracting(false);
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+
+    // Single click toggles controls if not moved
+    if (!hasMovedRef.current) {
+      setShowControls((prev) => !prev);
+    }
   };
 
   // Download exact original uncompressed file from IndexedDB
@@ -480,29 +662,19 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         className="hidden"
       />
 
-      {/* SECTION HEADER */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
+      {/* SECTION HEADER - Clean & Minimalist */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/5">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
             <ImageIcon className="w-5 h-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-[15px] sm:text-base font-bold text-slate-800 dark:text-white">
-                Picture Notes & Diagrams
-              </h3>
-              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 tabular-nums">
-                {images.length} {images.length === 1 ? 'Picture' : 'Pictures'}
-              </span>
-              {images.length > 0 && totalOriginalBytes > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 tabular-nums">
-                  Original {formatFileSize(totalOriginalBytes)}
-                </span>
-              )}
-            </div>
-            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
-              Photos of textbook pages, handwritten notes, whiteboards & formula diagrams in 100% original quality
-            </p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-[15px] sm:text-base font-bold text-slate-800 dark:text-white">
+              Picture Notes & Diagrams
+            </h3>
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 tabular-nums">
+              {images.length} {images.length === 1 ? 'Picture' : 'Pictures'}
+            </span>
           </div>
         </div>
 
@@ -530,7 +702,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             }}
             disabled={isProcessing}
             className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-sm hover:shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
-            title="Upload pictures in original resolution and file size"
+            title="Upload pictures"
           >
             <Plus className="w-4 h-4" />
             <span>+ Add Pictures</span>
@@ -573,7 +745,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             No picture notes added yet
           </h4>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-4">
-            Upload multiple photos of textbook diagrams, blackboard work, or formula sheets in full original quality.
+            Upload photos of textbook diagrams, blackboard work, or formula sheets.
             <span className="hidden sm:inline"> Drag & drop or paste with Ctrl+V.</span>
           </p>
           <div className="flex items-center gap-2">
@@ -716,7 +888,6 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
 
                     {/* Action Buttons Row */}
                     <div className="pt-1.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-1">
-                      {/* Insert into Study Notes button */}
                       {onInsertIntoNotes && (
                         <button
                           type="button"
@@ -764,59 +935,60 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
               );
             })}
           </div>
-
-          {/* Quick Tip / Hint Bar */}
-          <div className="mt-3.5 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Full resolution preserved in local storage. Click any picture to zoom and rotate.</span>
-            </span>
-            <span className="hidden sm:inline font-mono text-[10px] text-slate-400">
-              Ctrl+V to paste
-            </span>
-          </div>
         </div>
       )}
 
-      {/* FULLSCREEN LIGHTBOX / MODAL VIEWER */}
+      {/* FULLSCREEN LIGHTBOX / HIGH-END MOBILE GALLERY VIEWER */}
       {currentLightboxImage && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[250] bg-black/92 backdrop-blur-md flex flex-col justify-between animate-fade-in select-none"
-          onClick={closeLightbox}
+          className="fixed inset-0 z-[250] bg-black/96 flex items-center justify-center overflow-hidden touch-none select-none animate-fade-in"
+          onWheel={handleWheel}
         >
-          {/* Top Control Bar */}
+          {/* Top Floating Control Scrim */}
           <div
-            className="flex items-center justify-between p-3 sm:p-4 bg-slate-900/80 border-b border-white/10 text-white shrink-0"
+            className={`absolute top-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-b from-black/85 via-black/45 to-transparent pt-3 pb-8 px-3 sm:px-5 flex items-center justify-between text-white transition-opacity duration-300 ${
+              showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Title & Index */}
-            <div className="flex items-center gap-3">
-              <span className="px-2 py-0.5 rounded-md text-xs font-mono font-bold bg-white/10 text-indigo-300 border border-white/10 tabular-nums">
-                {(lightboxIndex ?? 0) + 1} / {images.length}
-              </span>
-              <div>
-                <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[180px] sm:max-w-md">
-                  {currentLightboxImage.title || `Picture ${(lightboxIndex ?? 0) + 1}`}
-                </h3>
+            {/* Back Button & Title */}
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <button
+                type="button"
+                onClick={closeLightbox}
+                className="p-2 -ml-1 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer shrink-0"
+                title="Back / Close"
+              >
+                <ArrowLeft className="w-5 h-5 sm:w-5 sm:h-5" />
+              </button>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[150px] sm:max-w-md">
+                    {currentLightboxImage.title || `Picture ${(lightboxIndex ?? 0) + 1}`}
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-white/15 text-indigo-300 border border-white/15 tabular-nums shrink-0">
+                    {(lightboxIndex ?? 0) + 1} / {images.length}
+                  </span>
+                </div>
                 <p className="text-[10px] sm:text-xs text-slate-400">
-                  Original: {formatFileSize(currentLightboxImage.fileSize)} • Added {currentLightboxImage.addedAt || 'today'}
+                  {formatFileSize(currentLightboxImage.fileSize)}
                 </p>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center gap-1 sm:gap-2">
+            {/* Top Right Action Buttons */}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {onInsertIntoNotes && (
                 <button
                   type="button"
                   onClick={() => handleInsertIntoNotes(currentLightboxImage)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+                  className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
                   title="Insert this image into Study Notes"
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Insert to Notes</span>
+                  <span>Insert to Notes</span>
                 </button>
               )}
 
@@ -824,43 +996,21 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
               <button
                 type="button"
                 onClick={handleRotate}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
                 title="Rotate 90° clockwise"
               >
-                <RotateCw className="w-4 h-4" />
+                <RotateCw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </button>
 
-              {/* Zoom Out */}
-              <button
-                type="button"
-                onClick={handleZoomOut}
-                disabled={zoomLevel <= 0.6}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer disabled:opacity-30"
-                title="Zoom out"
-              >
-                <ZoomOut className="w-4 h-4" />
-              </button>
-
-              {/* Zoom In */}
-              <button
-                type="button"
-                onClick={handleZoomIn}
-                disabled={zoomLevel >= 3}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer disabled:opacity-30"
-                title="Zoom in"
-              >
-                <ZoomIn className="w-4 h-4" />
-              </button>
-
-              {/* Reset Zoom */}
-              {(zoomLevel !== 1 || rotation !== 0) && (
+              {/* Reset Zoom button (if zoomed or rotated) */}
+              {(scale !== 1 || rotation !== 0) && (
                 <button
                   type="button"
                   onClick={handleResetZoom}
-                  className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-300 transition-all cursor-pointer"
-                  title="Reset view"
+                  className="p-2 rounded-xl bg-indigo-600/80 hover:bg-indigo-600 active:scale-95 text-white transition-all cursor-pointer"
+                  title="Reset zoom to 100%"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                 </button>
               )}
 
@@ -868,103 +1018,163 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
               <button
                 type="button"
                 onClick={() => handleDownload(currentLightboxImage)}
-                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
                 title="Download original image file"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </button>
 
-              {/* Close */}
+              {/* Close Button */}
               <button
                 type="button"
                 onClick={closeLightbox}
-                className="p-2 rounded-xl bg-rose-600/80 hover:bg-rose-600 text-white transition-all cursor-pointer ml-1"
-                title="Close lightbox (Esc)"
+                className="p-2 rounded-xl bg-white/10 hover:bg-rose-600 active:scale-95 text-white transition-all cursor-pointer"
+                title="Close (Esc)"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </button>
             </div>
           </div>
 
-          {/* Central Image Viewport */}
+          {/* Central Image Viewport (Full Bleed - No Top/Bottom Blank Padding) */}
           <div
-            className="flex-1 relative flex items-center justify-center overflow-hidden p-4"
-            onClick={(e) => e.stopPropagation()}
+            ref={imageViewportRef}
+            className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden touch-none"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onDoubleClick={(e) => handleDoubleTap(e.clientX, e.clientY)}
+            style={{
+              cursor: scale > 1.05 ? (isInteracting ? 'grabbing' : 'grab') : 'default'
+            }}
           >
-            {/* Previous Image Arrow */}
-            {images.length > 1 && (
-              <button
-                type="button"
-                onClick={handlePrevImage}
-                className="absolute left-3 sm:left-6 z-20 p-2.5 sm:p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer active:scale-95 shadow-lg"
-                title="Previous image (Left Arrow)"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-            )}
-
-            {/* Displayed Image */}
+            {/* The Image Container with Butter-Smooth Hardware-Accelerated Transforms */}
             <div
-              className="max-w-full max-h-full flex items-center justify-center transition-transform duration-200"
+              className="w-full h-full flex items-center justify-center pointer-events-none"
               style={{
-                transform: `scale(${zoomLevel}) rotate(${rotation}deg)`,
-                cursor: zoomLevel > 1 ? 'grab' : 'zoom-in'
-              }}
-              onClick={() => {
-                if (zoomLevel === 1) handleZoomIn();
-                else handleResetZoom();
+                transform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale(${scale}) rotate(${rotation}deg)`,
+                transition: isInteracting ? 'none' : 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                transformOrigin: 'center center',
+                willChange: 'transform'
               }}
             >
               <img
                 src={currentLightboxSrc}
                 alt={currentLightboxImage.title || 'Fullscreen picture note'}
-                className="max-h-[75vh] max-w-[90vw] object-contain rounded-lg shadow-2xl pointer-events-auto"
+                draggable={false}
+                className="max-h-full max-w-full w-auto h-auto object-contain select-none shadow-2xl pointer-events-auto"
+                style={{
+                  maxHeight: '100vh',
+                  maxWidth: '100vw'
+                }}
               />
             </div>
 
-            {/* Next Image Arrow */}
+            {/* Desktop Left/Right Arrows */}
             {images.length > 1 && (
-              <button
-                type="button"
-                onClick={handleNextImage}
-                className="absolute right-3 sm:right-6 z-20 p-2.5 sm:p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer active:scale-95 shadow-lg"
-                title="Next image (Right Arrow)"
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrevImage();
+                  }}
+                  className={`hidden sm:flex absolute left-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/85 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-xl ${
+                    showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                  }`}
+                  title="Previous (Left Arrow)"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextImage();
+                  }}
+                  className={`hidden sm:flex absolute right-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/85 active:scale-95 text-white border border-white/20 transition-all cursor-pointer shadow-xl ${
+                    showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                  }`}
+                  title="Next (Right Arrow)"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
             )}
           </div>
 
-          {/* Bottom Thumbnails Filmstrip */}
-          {images.length > 1 && (
-            <div
-              className="p-3 bg-slate-900/80 border-t border-white/10 overflow-x-auto flex items-center justify-center gap-2 shrink-0 scrollbar-thin"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {images.map((thumb, idx) => {
-                const thumbSrc = originalBlobUrls[thumb.id] || thumb.dataUrl;
-                return (
-                  <button
-                    key={thumb.id}
-                    type="button"
-                    onClick={() => openLightbox(idx)}
-                    className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
-                      idx === lightboxIndex
-                        ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/30'
-                        : 'border-transparent opacity-60 hover:opacity-100'
-                    }`}
-                    title={thumb.title || `Picture ${idx + 1}`}
-                  >
-                    <img
-                      src={thumbSrc}
-                      alt={thumb.title || `Thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                );
-              })}
+          {/* Bottom Floating Control Scrim */}
+          <div
+            className={`absolute bottom-0 inset-x-0 z-30 pointer-events-auto bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-8 pb-4 px-3 sm:px-4 flex flex-col items-center gap-2.5 transition-opacity duration-300 ${
+              showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Zoom Control Pill */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-white text-xs shadow-lg">
+              <button
+                type="button"
+                onClick={handleZoomOut}
+                disabled={scale <= 1}
+                className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
+                title="Zoom Out"
+              >
+                <ZoomOut className="w-3.5 h-3.5" />
+              </button>
+              <span
+                onClick={handleResetZoom}
+                className="font-mono text-[11px] font-bold px-2 py-0.5 rounded cursor-pointer hover:bg-white/15 tabular-nums"
+                title="Click to reset zoom"
+              >
+                {Math.round(scale * 100)}%
+              </span>
+              <button
+                type="button"
+                onClick={handleZoomIn}
+                disabled={scale >= 4}
+                className="p-1 rounded-full hover:bg-white/20 active:scale-90 disabled:opacity-30 transition-all cursor-pointer"
+                title="Zoom In"
+              >
+                <ZoomIn className="w-3.5 h-3.5" />
+              </button>
+              <span className="hidden sm:inline-block text-[10px] text-slate-400 pl-1 border-l border-white/15">
+                Double-tap to zoom
+              </span>
             </div>
-          )}
+
+            {/* Bottom Mini Thumbnails Filmstrip (if > 1 image) */}
+            {images.length > 1 && (
+              <div className="w-full max-w-lg overflow-x-auto py-1 flex items-center justify-center gap-2 no-scrollbar">
+                {images.map((thumb, idx) => {
+                  const thumbSrc = originalBlobUrls[thumb.id] || thumb.dataUrl;
+                  const isSelected = idx === lightboxIndex;
+                  return (
+                    <button
+                      key={thumb.id}
+                      type="button"
+                      onClick={() => openLightbox(idx)}
+                      className={`relative w-11 h-11 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                        isSelected
+                          ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/50'
+                          : 'border-white/20 opacity-50 hover:opacity-100'
+                      }`}
+                      title={thumb.title || `Picture ${idx + 1}`}
+                    >
+                      <img
+                        src={thumbSrc}
+                        alt={thumb.title || `Thumbnail ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
