@@ -85,7 +85,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, overallStats } = useSyllabus();
+  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, overallStats, currentExam } = useSyllabus();
   const { user } = useAuth();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
@@ -177,7 +177,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Study Planner',
           icon: CalendarCheck,
           badge: plannerTasksSafe.filter(t => t.status === 'today').length || null,
-          badgeColor: 'bg-[#2563EB] text-white shadow-[0_0_8px_rgba(37,99,235,0.4)]',
+          badgeColor: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20',
           shortcut: '3'
         },
         {
@@ -185,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Target Pacing',
           icon: Clock,
           badge: 'Live',
-          badgeColor: 'bg-emerald-500/15 dark:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+          badgeColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
           shortcut: '4'
         },
         {
@@ -193,7 +193,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'AI YouTube Notes',
           icon: Video,
           badge: 'AI',
-          badgeColor: 'bg-purple-500/15 dark:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30',
+          badgeColor: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20',
           shortcut: '5'
         },
         {
@@ -201,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Mock Test Tracker',
           icon: Trophy,
           badge: '3D Pro',
-          badgeColor: 'bg-gradient-to-r from-[#00d2ff] to-[#7c3aed] text-white shadow-glow-cyan',
+          badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-cyan-400 border border-indigo-500/20',
           shortcut: '6'
         }
       ]
@@ -214,14 +214,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Spaced Revision',
           icon: RotateCw,
           badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length} due` : null,
-          badgeColor: 'bg-amber-500 text-white shadow-xs'
+          badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
         },
         {
           id: 'weak' as AppView,
           label: 'Weak Topics',
           icon: AlertTriangle,
           badge: weakTopicsSafe.length || null,
-          badgeColor: 'bg-rose-500 text-white shadow-xs'
+          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
         },
         {
           id: 'mindmap' as AppView,
@@ -247,7 +247,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Study Station & Hub',
           icon: Globe,
           badge: platformsSafe.length || null,
-          badgeColor: 'bg-indigo-500 text-white shadow-xs'
+          badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
         },
         {
           id: 'settings' as AppView,
@@ -279,43 +279,43 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[250px] h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 p-3 justify-between transition-colors duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/90 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
+      className={`hidden md:flex flex-col w-[272px] h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 p-3 justify-between transition-colors duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
         isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100'
       }`}
     >
-
       <div className="space-y-2">
         {/* Study Planner Header Branding */}
-        <div className="flex items-center justify-between gap-1.5 px-1 pt-1 pb-2 border-b border-slate-200/80 dark:border-white/10">
+        <div className="flex items-center justify-between gap-1.5 px-1 pt-0.5 pb-2.5 border-b border-slate-200/80 dark:border-white/10">
           <div
-            className="flex items-center gap-2.5 min-w-0 group cursor-pointer"
+            className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
             onClick={() => {
               soundManager.playClick();
               onSelectView('overview');
             }}
             title="Go to Dashboard"
           >
-            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl overflow-hidden flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm shadow-indigo-500/25 bg-black border border-indigo-500/30">
+            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl overflow-hidden flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm shadow-indigo-500/20 bg-black border border-indigo-500/30">
               <img src="/logo.png" alt="Study Planner Logo" className="w-full h-full object-cover" />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
                 <span
                   role="presentation"
-                  className="text-[13px] font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none truncate"
+                  className="text-[13px] font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none shrink-0"
                 >
                   Study Planner
                 </span>
-                <span className="px-1.5 py-0.5 rounded-full bg-[#4F46E5]/10 dark:bg-[#4F46E5]/20 border border-[#4F46E5]/20 dark:border-[#4F46E5]/30 text-[#4F46E5] dark:text-indigo-400 text-[9px] font-black tracking-widest font-mono shrink-0">
+                <span className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[9px] font-black tracking-wider font-mono shrink-0">
                   PRO
                 </span>
               </div>
-              <p className="text-[11px] font-bold text-slate-600 dark:text-white/80 mt-0.5 truncate leading-tight">
-                -- My Study Plan
+              <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
+                {currentExam?.name ? currentExam.name : 'Personal Study Plan'}
               </p>
-              <p className="text-[10px] font-medium text-slate-400 dark:text-white/50 tracking-wider mt-0.5">
-                Learn. Note. Review.
-              </p>
+              <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 dark:text-slate-500 tracking-wider mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                <span>Learn • Note • Revise</span>
+              </div>
             </div>
           </div>
 
@@ -327,7 +327,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 haptics.light();
                 onToggleCollapse();
               }}
-              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:text-white/60 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer shrink-0 active:scale-95 group"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 group"
               title="Close sidebar (Ctrl+B)"
               aria-label="Close sidebar"
             >
@@ -342,7 +342,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               type="button"
               onClick={onOpenAddTopic}
-              className="w-full py-2 px-3 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-500/25 transition-all active:scale-95 cursor-pointer"
+              className="w-full py-2 px-3 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.98] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-500/20 transition-all cursor-pointer"
               title="Add Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -358,10 +358,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onOpenAiArchitect();
                 }}
-                className="py-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer truncate"
+                className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
                 title="AI Syllabus Architect (PDF & Text)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-300 shrink-0" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                 <span className="truncate">AI Studio</span>
               </button>
             )}
@@ -373,10 +373,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onOpenFocus();
                 }}
-                className="py-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer truncate"
+                className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
                 title="3D Focus Chamber"
               >
-                <Timer className="w-3.5 h-3.5 text-amber-500 dark:text-amber-300 shrink-0" />
+                <Timer className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
                 <span className="truncate">Chamber</span>
               </button>
             )}
@@ -386,29 +386,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Raycast-Style Quick Filter Bar */}
         <div className="relative pt-0.5">
           <div className="relative flex items-center">
-            <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 dark:text-white/40 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
             <input
               type="text"
               value={navQuery}
               onChange={e => setNavQuery(e.target.value)}
               placeholder="Filter views... (Alt+1..6)"
-              className="w-full h-8 pl-8 pr-7 rounded-xl text-xs bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/50 focus:outline-none focus:bg-white dark:focus:bg-[#151728] focus:border-indigo-500 transition-all font-medium"
+              className="w-full h-8 pl-8 pr-7 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:bg-white dark:focus:bg-[#121424] focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/20 transition-all font-medium"
             />
-            {navQuery && (
+            {navQuery ? (
               <button
                 type="button"
                 onClick={() => setNavQuery('')}
-                className="absolute right-2 text-slate-400 hover:text-slate-600 dark:text-white/50 dark:hover:text-white p-0.5"
+                className="absolute right-2 text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-white p-0.5 cursor-pointer"
                 title="Clear filter"
               >
                 <X className="w-3 h-3" />
               </button>
+            ) : (
+              <span className="absolute right-2 text-[9px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none select-none">
+                Alt+1
+              </span>
             )}
           </div>
         </div>
 
         {/* Categorized Navigation List */}
-        <div className="space-y-2 pt-1 border-t border-slate-200/80 dark:border-white/10">
+        <div className="space-y-1.5 pt-1 border-t border-slate-200/80 dark:border-white/10">
           {filteredSections.length === 0 ? (
             <div className="py-4 text-center">
               <p className="text-xs text-slate-500 dark:text-white/60 font-medium">No matching views</p>
@@ -428,25 +432,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     type="button"
                     onClick={() => toggleSection(section.title)}
-                    className="w-full flex items-center justify-between px-2 pt-1.5 pb-0.5 text-[10px] font-mono font-extrabold tracking-wider text-slate-400 dark:text-white/50 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-white/90 transition-colors"
+                    className="w-full flex items-center justify-between px-2 pt-2 pb-0.5 text-[10px] font-mono font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                   >
                     <div className="flex items-center gap-1.5">
                       <span>{section.title}</span>
-                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/15 text-slate-600 dark:text-white/80">
+                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
                         {section.items.length}
                       </span>
                     </div>
                     <ChevronDown
-                      className={`w-3 h-3 text-slate-400 dark:text-white/50 group-hover/sec:text-slate-700 dark:group-hover/sec:text-white transition-transform duration-200 ${
+                      className={`w-3 h-3 text-slate-400 dark:text-slate-500 group-hover/sec:text-slate-700 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
                         isCollapsedSection ? '-rotate-90' : 'rotate-0'
                       }`}
                     />
                   </button>
 
                   {!isCollapsedSection && (
-                    <nav className="space-y-1 animate-fade-in pt-0.5">
+                    <nav className="space-y-0.5 animate-fade-in pt-0.5">
                       {section.items.map(item => {
-                        const Icon = item.icon;
                         const isActive = activeView === item.id;
                         return (
                           <button
@@ -457,29 +460,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               onSelectView(item.id);
                             }}
                             aria-current={isActive ? 'page' : undefined}
-                            className={`group relative w-full flex items-center justify-between px-3 py-2 rounded-2xl text-[13px] font-bold transition-all duration-150 cursor-pointer select-none ${
+                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-[13px] transition-all duration-150 cursor-pointer select-none ${
                               isActive
-                                ? 'bg-[#4F46E5] text-white font-black shadow-sm shadow-indigo-500/25'
-                                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                                ? 'bg-[#4F46E5] text-white font-bold shadow-sm shadow-indigo-500/25'
+                                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white font-medium'
                             }`}
                           >
-                            <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
                               <SectionBadgeIcon
                                 section={item.id}
                                 size="sm"
                                 isActive={isActive}
                               />
-                              <span className="truncate text-[13px] font-bold mr-2">{item.label}</span>
+                              <span className="truncate text-[13px] leading-tight">
+                                {item.label}
+                              </span>
                             </div>
 
                             {/* Badge / Pill / Keyboard Hint */}
-                            <div className="flex items-center gap-1.5 ml-auto shrink-0">
+                            <div className="flex items-center gap-1.5 ml-2 shrink-0">
                               {item.badge !== null && (
                                 <span
-                                  className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold shrink-0 ${
+                                  className={`px-1.5 py-0.5 rounded-md text-[9.5px] font-mono font-bold shrink-0 ${
                                     isActive
-                                      ? 'bg-white/25 text-white border border-white/30'
-                                      : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/15'
+                                      ? 'bg-white/20 text-white border border-white/25'
+                                      : item.badgeColor
                                   }`}
                                 >
                                   {item.badge}
@@ -487,7 +492,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               )}
 
                               {item.shortcut && !item.badge && (
-                                <kbd className="opacity-0 group-hover:opacity-100 text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded bg-slate-200 dark:bg-white/20 text-slate-700 dark:text-white transition-opacity border border-slate-300 dark:border-white/20 shadow-2xs">
+                                <kbd className="opacity-0 group-hover:opacity-100 text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 transition-opacity border border-slate-200 dark:border-white/15">
                                   ⌥{item.shortcut}
                                 </kbd>
                               )}
@@ -507,7 +512,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Bottom Cards Area */}
       <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white">
         {/* Discipline Score Progress Card */}
-        <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 space-y-1 shadow-xs">
+        <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-700 dark:text-white/90">
               Discipline Score
@@ -516,13 +521,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {overallStatsSafe.completionPercentage}/100
             </span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-white/20 overflow-hidden">
+          <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-white/15 overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
               style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
             />
           </div>
-          <p className="text-[11px] text-slate-500 dark:text-white/60 leading-relaxed break-words">
+          <p className="text-[10.5px] text-slate-500 dark:text-white/60 leading-relaxed">
             Keep pushing — consistency beats intensity.
           </p>
         </div>
@@ -535,15 +540,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onSelectView('mock-tracker');
           }}
-          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-2xl transition-all shadow-xs active:scale-98 cursor-pointer ${
+          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-xl transition-all shadow-2xs active:scale-[0.98] cursor-pointer ${
             activeView === 'mock-tracker'
-              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-black shadow-sm shadow-indigo-500/20'
-              : 'bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.08]'
+              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-bold shadow-sm shadow-indigo-500/20'
+              : 'bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
           }`}
         >
           <div className="flex items-center gap-2 min-w-0">
             <span className="text-sm">🏆</span>
-            <span className="text-xs font-bold truncate">Mock Tracker 3D</span>
+            <span className="text-xs font-semibold truncate">Mock Tracker 3D</span>
           </div>
           <span className="text-[10px] font-bold text-slate-400 dark:text-white/60 group-hover:text-slate-700 dark:group-hover:text-white">Open →</span>
         </button>
@@ -556,21 +561,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onSelectView('landing');
           }}
-          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-2xl transition-all shadow-xs active:scale-98 cursor-pointer ${
+          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-xl transition-all shadow-2xs active:scale-[0.98] cursor-pointer ${
             activeView === 'landing'
-              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-black shadow-sm shadow-indigo-500/20'
-              : 'bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.08]'
+              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-bold shadow-sm shadow-indigo-500/20'
+              : 'bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
           }`}
         >
           <div className="flex items-center gap-2 min-w-0">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-300 shrink-0" />
-            <span className="text-xs font-bold truncate">Features Tour</span>
+            <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+            <span className="text-xs font-semibold truncate">Features Tour</span>
           </div>
           <ArrowRight className="w-3 h-3 text-slate-400 dark:text-white/60 group-hover:text-slate-700 dark:group-hover:text-white" />
         </button>
 
         {/* User Profile & Level Card */}
-        <div className="p-2 px-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 space-y-1 shadow-xs">
+        <div className="p-2 px-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 min-w-0">
               <div
@@ -594,7 +599,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
                   {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
-                <p className="text-[10px] text-slate-500 dark:text-white/60 leading-none truncate">
+                <p className="text-[10px] text-slate-500 dark:text-white/60 leading-none truncate mt-0.5">
                   {profileSafe.name || 'Active Profile'}
                 </p>
               </div>
@@ -632,7 +637,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               haptics.selection();
               onOpenShortcuts();
             }}
-            className="w-full flex items-center gap-2 px-2 py-1 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500 dark:hover:border-indigo-400 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-98 tap-bounce shadow-2xs"
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500 dark:hover:border-indigo-400 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-[0.98] tap-bounce shadow-2xs"
             title="Keyboard Shortcuts Cheatsheet"
             aria-label="Keyboard Shortcuts Cheatsheet"
           >
