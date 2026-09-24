@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -17,12 +17,9 @@ import {
   Users,
   PanelLeftClose,
   Sparkles,
-  ArrowRight,
   Video,
   Trophy,
-  ChevronDown,
-  Search,
-  X
+  ChevronDown
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -85,7 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, overallStats, currentExam } = useSyllabus();
+  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, currentExam } = useSyllabus();
   const { user } = useAuth();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
@@ -101,10 +98,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
   const platformsSafe = Array.isArray(platforms) ? platforms : [];
-  const overallStatsSafe = overallStats || { completionPercentage: 0 };
 
-  // 🧭 Raycast-style Nav Search & Collapsible Groups State
-  const [navQuery, setNavQuery] = useState('');
+  // Collapsible Groups State
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
 
   const toggleSection = (title: string) => {
@@ -260,23 +255,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
   ];
 
-  // 🔍 Real-Time Raycast Navigation Filter
-  const filteredSections = useMemo(() => {
-    const query = navQuery.trim().toLowerCase();
-    if (!query) return navSections;
-
-    return navSections
-      .map(section => ({
-        ...section,
-        items: section.items.filter(
-          item =>
-            item.label.toLowerCase().includes(query) ||
-            item.id.toLowerCase().includes(query)
-        )
-      }))
-      .filter(section => section.items.length > 0);
-  }, [navSections, navQuery]);
-
   return (
     <aside
       className={`hidden md:flex flex-col w-[272px] h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 p-3 justify-between transition-colors duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
@@ -383,71 +361,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* Raycast-Style Quick Filter Bar */}
-        <div className="relative pt-0.5">
-          <div className="relative flex items-center">
-            <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
-            <input
-              type="text"
-              value={navQuery}
-              onChange={e => setNavQuery(e.target.value)}
-              placeholder="Filter views... (Alt+1..6)"
-              className="w-full h-8 pl-8 pr-7 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:bg-white dark:focus:bg-[#121424] focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/20 transition-all font-medium"
-            />
-            {navQuery ? (
-              <button
-                type="button"
-                onClick={() => setNavQuery('')}
-                className="absolute right-2 text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-white p-0.5 cursor-pointer"
-                title="Clear filter"
-              >
-                <X className="w-3 h-3" />
-              </button>
-            ) : (
-              <span className="absolute right-2 text-[9px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none select-none">
-                Alt+1
-              </span>
-            )}
-          </div>
-        </div>
-
         {/* Categorized Navigation List */}
-        <div className="space-y-1.5 pt-1 border-t border-slate-200/80 dark:border-white/10">
-          {filteredSections.length === 0 ? (
-            <div className="py-4 text-center">
-              <p className="text-xs text-slate-500 dark:text-white/60 font-medium">No matching views</p>
-              <button
-                type="button"
-                onClick={() => setNavQuery('')}
-                className="text-[11px] text-indigo-600 dark:text-cyan-300 font-bold mt-1 hover:underline cursor-pointer"
-              >
-                Clear filter
-              </button>
-            </div>
-          ) : (
-            filteredSections.map(section => {
-              const isCollapsedSection = Boolean(collapsedSections[section.title]);
-              return (
-                <div key={section.title} className="space-y-0.5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection(section.title)}
-                    className="w-full flex items-center justify-between px-2 pt-2 pb-0.5 text-[10px] font-mono font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span>{section.title}</span>
-                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
-                        {section.items.length}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-3 h-3 text-slate-400 dark:text-slate-500 group-hover/sec:text-slate-700 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
-                        isCollapsedSection ? '-rotate-90' : 'rotate-0'
-                      }`}
-                    />
-                  </button>
+        <div className="space-y-1.5 pt-1.5 border-t border-slate-200/80 dark:border-white/10">
+          {navSections.map(section => {
+            const isCollapsedSection = Boolean(collapsedSections[section.title]);
+            return (
+              <div key={section.title} className="space-y-0.5">
+                <button
+                  type="button"
+                  onClick={() => toggleSection(section.title)}
+                  className="w-full flex items-center justify-between px-2 pt-2 pb-0.5 text-[10px] font-mono font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <span>{section.title}</span>
+                    <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
+                      {section.items.length}
+                    </span>
+                  </div>
+                  <ChevronDown
+                    className={`w-3 h-3 text-slate-400 dark:text-slate-500 group-hover/sec:text-slate-700 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
+                      isCollapsedSection ? '-rotate-90' : 'rotate-0'
+                    }`}
+                  />
+                </button>
 
-                  {!isCollapsedSection && (
+                {!isCollapsedSection && (
                     <nav className="space-y-0.5 animate-fade-in pt-0.5">
                       {section.items.map(item => {
                         const isActive = activeView === item.id;
@@ -504,76 +442,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   )}
                 </div>
               );
-            })
-          )}
+            })}
         </div>
       </div>
 
       {/* Bottom Cards Area */}
       <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white">
-        {/* Discipline Score Progress Card */}
-        <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-700 dark:text-white/90">
-              Discipline Score
-            </span>
-            <span className="text-xs font-black font-mono text-emerald-600 dark:text-emerald-400">
-              {overallStatsSafe.completionPercentage}/100
-            </span>
-          </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-white/15 overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
-              style={{ width: `${Math.max(5, overallStatsSafe.completionPercentage || 0)}%` }}
-            />
-          </div>
-          <p className="text-[10.5px] text-slate-500 dark:text-white/60 leading-relaxed">
-            Keep pushing — consistency beats intensity.
-          </p>
-        </div>
-
-        {/* Mock Tracker Direct View Button */}
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            haptics.light();
-            onSelectView('mock-tracker');
-          }}
-          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-xl transition-all shadow-2xs active:scale-[0.98] cursor-pointer ${
-            activeView === 'mock-tracker'
-              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-bold shadow-sm shadow-indigo-500/20'
-              : 'bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
-          }`}
-        >
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="text-sm">🏆</span>
-            <span className="text-xs font-semibold truncate">Mock Tracker 3D</span>
-          </div>
-          <span className="text-[10px] font-bold text-slate-400 dark:text-white/60 group-hover:text-slate-700 dark:group-hover:text-white">Open →</span>
-        </button>
-
-        {/* Product Tour & Landing Page */}
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            haptics.light();
-            onSelectView('landing');
-          }}
-          className={`group w-full flex items-center justify-between p-2 px-2.5 rounded-xl transition-all shadow-2xs active:scale-[0.98] cursor-pointer ${
-            activeView === 'landing'
-              ? 'bg-[#4F46E5] text-white border border-indigo-400/40 font-bold shadow-sm shadow-indigo-500/20'
-              : 'bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
-          }`}
-        >
-          <div className="flex items-center gap-2 min-w-0">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
-            <span className="text-xs font-semibold truncate">Features Tour</span>
-          </div>
-          <ArrowRight className="w-3 h-3 text-slate-400 dark:text-white/60 group-hover:text-slate-700 dark:group-hover:text-white" />
-        </button>
-
         {/* User Profile & Level Card */}
         <div className="p-2 px-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
           <div className="flex items-center justify-between">
