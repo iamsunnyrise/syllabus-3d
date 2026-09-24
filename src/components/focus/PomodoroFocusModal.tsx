@@ -33,13 +33,14 @@ import {
   Search,
   Zap,
   Timer as StopwatchIcon,
-  Hourglass
+  Hourglass,
+  Type
 } from 'lucide-react';
 import { ambientEngine, AmbientSoundType } from '../../utils/ambientSounds';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { mediaSessionManager } from '../../utils/mediaSession';
-import { TimerMode } from '../../types/timer';
+import { TimerMode, TimerFontFamily } from '../../types/timer';
 
 interface PomodoroFocusModalProps {
   isOpen: boolean;
@@ -96,6 +97,34 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   const [activeSound, setActiveSound] = useState<AmbientSoundType>('binaural');
   const [soundVolume, setSoundVolume] = useState<number>(0.5);
+
+  // Timer Typography Font Selection
+  const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
+    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+  });
+
+  const handleSelectTimerFont = useCallback((font: TimerFontFamily) => {
+    setTimerFont(font);
+    try {
+      localStorage.setItem('syllabus3d_timer_font', font);
+      window.dispatchEvent(new Event('syllabus3d_timer_font_change'));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    const handleFontSync = () => {
+      const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
+      if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
+        setTimerFont(saved);
+      }
+    };
+    window.addEventListener('storage', handleFontSync);
+    window.addEventListener('syllabus3d_timer_font_change', handleFontSync);
+    return () => {
+      window.removeEventListener('storage', handleFontSync);
+      window.removeEventListener('syllabus3d_timer_font_change', handleFontSync);
+    };
+  }, []);
 
   // Sync default topic
   useEffect(() => {
@@ -502,6 +531,25 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             <Minimize2 className="w-4 h-4" />
           </button>
 
+          {/* Quick Timer Font Switcher */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              const next: TimerFontFamily = timerFont === 'jetbrains' ? 'roboto-mono' : timerFont === 'roboto-mono' ? 'orbitron' : 'jetbrains';
+              handleSelectTimerFont(next);
+            }}
+            className="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 border bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 text-[11px] font-bold"
+            title={`Timer Font: ${timerFont === 'jetbrains' ? 'JetBrains Mono (Practical)' : timerFont === 'roboto-mono' ? 'Roboto Mono (Clean)' : 'Orbitron (Futuristic)'}. Click to switch.`}
+            aria-label="Switch Timer Font"
+          >
+            <Type className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
+            <span className="hidden sm:inline font-mono text-[10px]">
+              {timerFont === 'jetbrains' ? 'JetBrains' : timerFont === 'roboto-mono' ? 'Roboto' : 'Orbitron'}
+            </span>
+          </button>
+
           {/* Settings */}
           <button
             type="button"
@@ -640,8 +688,14 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   {modeDisplayTitle}
                 </span>
 
-                {/* Giant Bold Digits: "00:" dark, "20:28" electric blue (Exact match of Image 2) */}
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight tabular-nums my-1 sm:my-2 flex items-baseline justify-center">
+                {/* Giant Bold Digits: dynamic typography (JetBrains Mono / Roboto Mono / Orbitron) */}
+                <div className={`text-4xl sm:text-5xl md:text-6xl font-black ${
+                  timerFont === 'orbitron'
+                    ? 'font-orbitron tracking-wider'
+                    : timerFont === 'roboto-mono'
+                    ? 'font-roboto-mono tracking-tight tabular-nums'
+                    : 'font-mono tracking-tight tabular-nums'
+                } my-1 sm:my-2 flex items-baseline justify-center`}>
                   <span className="text-slate-900 dark:text-white drop-shadow-xs font-extrabold">
                     {hStr}:
                   </span>
@@ -1145,6 +1199,37 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   onChange={e => setCustomTimerMinutes(Number(e.target.value))}
                   className="w-full h-1.5 bg-slate-200 dark:bg-white/15 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Timer Digits Typography
+                </label>
+                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10">
+                  {[
+                    { id: 'jetbrains', label: 'JetBrains', sub: 'Practical', fontClass: 'font-mono' },
+                    { id: 'roboto-mono', label: 'Roboto', sub: 'Clean Digital', fontClass: 'font-roboto-mono' },
+                    { id: 'orbitron', label: 'Orbitron', sub: 'Futuristic', fontClass: 'font-orbitron' }
+                  ].map(f => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => {
+                        handleSelectTimerFont(f.id as TimerFontFamily);
+                        soundManager.playClick();
+                        haptics.selection();
+                      }}
+                      className={`px-1.5 py-1.5 rounded-lg text-center transition-all cursor-pointer ${
+                        timerFont === f.id
+                          ? 'bg-white dark:bg-[#1E2235] text-[#0066FF] dark:text-[#38BDF8] shadow-xs font-black border border-blue-500/30'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <span className={`block text-xs ${f.fontClass} font-bold leading-tight`}>{f.label}</span>
+                      <span className="block text-[9px] text-slate-400 dark:text-slate-500 leading-tight mt-0.5">{f.sub}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 

@@ -58,6 +58,7 @@ import { CreateProfileModal } from '../modals/CreateProfileModal';
 import { SetPinModal } from '../security/SetPinModal';
 import { usePinLock } from '../../context/PinLockContext';
 import { UserProfileItem } from '../../types/syllabus';
+import { TimerFontFamily } from '../../types/timer';
 import { GoogleDriveBackupModal } from '../modals/GoogleDriveBackupModal';
 import { GoogleAuthSettingsCard } from '../settings/GoogleAuthSettingsCard';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
@@ -70,7 +71,11 @@ import {
 
 type SettingsTab = 'profiles' | 'exam' | 'ai' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
 
-export const SettingsView: React.FC = () => {
+interface SettingsViewProps {
+  onOpenPricing?: () => void;
+}
+
+export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => {
   const {
     profile,
     updateProfile,
@@ -128,6 +133,34 @@ export const SettingsView: React.FC = () => {
   useEffect(() => {
     setName(profile.name || user?.name || '');
   }, [profile.name, user?.name]);
+
+  // Timer Typography Font Selection
+  const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
+    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+  });
+
+  const handleSelectTimerFont = (font: TimerFontFamily) => {
+    setTimerFont(font);
+    try {
+      localStorage.setItem('syllabus3d_timer_font', font);
+      window.dispatchEvent(new Event('syllabus3d_timer_font_change'));
+    } catch {}
+  };
+
+  useEffect(() => {
+    const handleFontSync = () => {
+      const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
+      if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
+        setTimerFont(saved);
+      }
+    };
+    window.addEventListener('storage', handleFontSync);
+    window.addEventListener('syllabus3d_timer_font_change', handleFontSync);
+    return () => {
+      window.removeEventListener('storage', handleFontSync);
+      window.removeEventListener('syllabus3d_timer_font_change', handleFontSync);
+    };
+  }, []);
 
   // Exam Countdown Settings state
   const [examName, setExamName] = useState(currentExam?.name || 'SSC CGL 2026');
@@ -617,6 +650,47 @@ export const SettingsView: React.FC = () => {
               <span>Log Out</span>
             </button>
           )}
+        </div>
+      </div>
+
+      {/* 🌟 3D Pro Membership & Subscription Card (Sora ExtraBold & Manrope ExtraBold) */}
+      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10 border-2 border-blue-500/30 dark:border-blue-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-sora font-extrabold text-[10px] tracking-wider uppercase shadow-xs">
+              PRO MEMBERSHIP
+            </span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-manrope font-extrabold">
+              Active Tier: Free Aspirant
+            </span>
+          </div>
+          <h3 className="text-base sm:text-lg font-extrabold font-manrope text-slate-900 dark:text-white tracking-tight">
+            Unlock All AI &amp; Cloud Precision Modules
+          </h3>
+          <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-xl">
+            Get AI YouTube Notes generator, multi-device cloud sync, audio memos, and all 3 futuristic timer HUD fonts (JetBrains, Roboto Mono, Orbitron).
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="text-right hidden sm:block">
+            <span className="text-xs text-slate-400 font-medium block">Starting at</span>
+            <span className="text-xl sm:text-2xl font-extrabold font-sora text-blue-600 dark:text-cyan-400">
+              ₹499<span className="text-xs font-semibold text-slate-500">/yr</span>
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              if (onOpenPricing) onOpenPricing();
+            }}
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold font-manrope text-xs tracking-wide shadow-md shadow-blue-500/25 transition-all active:scale-95 cursor-pointer flex items-center gap-1.5"
+          >
+            <span>View Pro Plans</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
@@ -1567,6 +1641,88 @@ export const SettingsView: React.FC = () => {
                   onChange={e => updateSettings({ opacity: Number(e.target.value) / 100 })}
                   className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer"
                 />
+              </div>
+            </div>
+
+            {/* Timer Typography Selection */}
+            <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
+                    Timer Digits Typography
+                  </span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    Choose the display font for Pomodoro, Countdown, Stopwatch, and Floating Pill.
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
+                {[
+                  {
+                    id: 'jetbrains',
+                    name: 'JetBrains Mono',
+                    tag: 'Practical',
+                    desc: 'Developer precision & balanced monospace glyphs',
+                    preview: '25:00',
+                    fontClass: 'font-mono'
+                  },
+                  {
+                    id: 'roboto-mono',
+                    name: 'Roboto Mono',
+                    tag: 'Clean Digital',
+                    desc: 'Minimalist geometric curves & razor-sharp legibility',
+                    preview: '25:00',
+                    fontClass: 'font-roboto-mono'
+                  },
+                  {
+                    id: 'orbitron',
+                    name: 'Orbitron',
+                    tag: 'Futuristic',
+                    desc: 'Sci-Fi HUD aesthetic for intense focus sprints',
+                    preview: '25:00',
+                    fontClass: 'font-orbitron'
+                  }
+                ].map(item => {
+                  const isSelected = timerFont === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        handleSelectTimerFont(item.id as TimerFontFamily);
+                        soundManager.playClick();
+                        haptics.selection();
+                      }}
+                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer relative ${
+                        isSelected
+                          ? 'bg-blue-500/10 border-blue-500 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/20 shadow-xs'
+                          : 'bg-white dark:bg-[#151622] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs font-bold text-slate-900 dark:text-white">
+                          {item.name}
+                        </span>
+                        <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+                          isSelected
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                        }`}>
+                          {item.tag}
+                        </span>
+                      </div>
+                      <div className={`text-xl sm:text-2xl font-black ${item.fontClass} my-1.5 ${
+                        isSelected ? 'text-blue-600 dark:text-cyan-400' : 'text-slate-800 dark:text-white'
+                      }`}>
+                        {item.preview}
+                      </div>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2">
+                        {item.desc}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -67,6 +67,7 @@ interface SidebarProps {
   onOpenFocus?: () => void;
   onOpenShortcuts?: () => void;
   onOpenProfileSwitcher?: () => void;
+  onOpenPricing?: () => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
 }
@@ -79,6 +80,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenFocus,
   onOpenShortcuts,
   onOpenProfileSwitcher,
+  onOpenPricing,
   isCollapsed = false,
   onToggleCollapse
 }) => {
@@ -283,9 +285,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   Study Planner
                 </span>
-                <span className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[9px] font-black tracking-wider font-mono shrink-0">
+                <button
+                  type="button"
+                  onClick={e => {
+                    e.stopPropagation();
+                    soundManager.playClick();
+                    haptics.selection();
+                    if (onOpenPricing) onOpenPricing();
+                  }}
+                  className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[9px] font-extrabold tracking-wider font-sora shrink-0 cursor-pointer transition-colors active:scale-90"
+                  title="View Pro Plans & Pricing"
+                  aria-label="View Pro Plans"
+                >
                   PRO
-                </span>
+                </button>
               </div>
               <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
                 {currentExam?.name ? currentExam.name : 'Personal Study Plan'}

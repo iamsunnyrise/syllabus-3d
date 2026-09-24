@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
+import { TimerFontFamily } from '../../types/timer';
 import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { StudyDeskHeroIllustration } from '../dashboard/StudyDeskHeroIllustration';
@@ -221,6 +222,26 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const [pomodoroSeconds, setPomodoroSeconds] = useState(25 * 60);
   const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
 
+  // Timer Typography Font Selection
+  const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
+    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+  });
+
+  useEffect(() => {
+    const handleFontSync = () => {
+      const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
+      if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
+        setTimerFont(saved);
+      }
+    };
+    window.addEventListener('storage', handleFontSync);
+    window.addEventListener('syllabus3d_timer_font_change', handleFontSync);
+    return () => {
+      window.removeEventListener('storage', handleFontSync);
+      window.removeEventListener('syllabus3d_timer_font_change', handleFontSync);
+    };
+  }, []);
+
   useEffect(() => {
     let interval: any = null;
     if (isPomodoroRunning && pomodoroSeconds > 0) {
@@ -291,7 +312,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       <div className="flex items-center justify-between gap-3 pt-1">
         <div className="flex items-center gap-3">
           <SectionBadgeIcon section="overview" size="md" />
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight">
             Dashboard
           </h1>
         </div>
@@ -382,7 +403,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       {/* 6. POMODORO FOCUS TIMER (Matching Mockup) */}
       <div className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          <h3 className="text-base sm:text-lg font-bold font-grotesk text-slate-900 dark:text-white">
             Pomodoro Timer
           </h3>
           {onOpenFocus && (
@@ -401,7 +422,13 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             Focus Session
           </div>
 
-          <div className="text-5xl sm:text-7xl font-black font-mono tracking-tight my-4 sm:my-6 drop-shadow-md">
+          <div className={`text-5xl sm:text-7xl font-black ${
+            timerFont === 'orbitron'
+              ? 'font-orbitron tracking-wider'
+              : timerFont === 'roboto-mono'
+              ? 'font-roboto-mono tracking-tight tabular-nums'
+              : 'font-mono tracking-tight tabular-nums'
+          } my-4 sm:my-6 drop-shadow-md`}>
             {formatPomodoroTime(pomodoroSeconds)}
           </div>
 
@@ -457,7 +484,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <Target className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
               </div>
               <div>
-                <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                <h3 className="text-[15px] sm:text-base font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Syllabus Mastery
                 </h3>
                 <span className="text-xs text-slate-500 dark:text-slate-300 font-medium font-mono">
@@ -756,7 +783,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <CalendarCheck className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
               </div>
               <div>
-                <h4 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                <h4 className="text-[15px] sm:text-base font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Daily Planner
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-300 font-medium font-mono">
@@ -957,7 +984,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <Globe className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
               </div>
               <div>
-                <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                <h3 className="text-[15px] sm:text-base font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Study Station & Portals
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-300 font-medium">
@@ -1023,7 +1050,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-[15px] sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                <h3 className="text-[15px] sm:text-base font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
                   Subject Mastery Curriculum
                 </h3>
                 <span className="px-2 py-0.5 rounded-lg text-2xs font-mono font-bold bg-[#EFF6FF] dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] border border-[#DBEAFE] dark:border-[#7AA2F7]/25">

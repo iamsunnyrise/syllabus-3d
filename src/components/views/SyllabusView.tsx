@@ -540,7 +540,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   Chapter {currentChapterIndex + 1} of {activeSubject.chapters.length}
                 </span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
                 {formatTitleCase(activeChapter.name)}
               </h1>
             </div>
@@ -1031,7 +1031,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <span className="text-slate-300 dark:text-slate-600">•</span>
                 <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{currentExam.name}</span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
                 {formatTitleCase(activeSubject.name)}
               </h1>
             </div>
@@ -1384,7 +1384,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         <div>
           <div className="flex items-center gap-3 flex-wrap">
             <SectionBadgeIcon section="syllabus" size="md" />
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight">
               Syllabus Explorer
             </h1>
             <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-bold text-indigo-700 dark:text-indigo-300 font-mono">

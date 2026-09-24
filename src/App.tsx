@@ -54,6 +54,7 @@ const ProfileSwitcherModal = lazy(() => import('./components/modals/ProfileSwitc
 const CreateProfileModal = lazy(() => import('./components/modals/CreateProfileModal').then(m => ({ default: m.CreateProfileModal })));
 const WalkAndReviseModal = lazy(() => import('./components/modals/WalkAndReviseModal').then(m => ({ default: m.WalkAndReviseModal })));
 const SmartBacklogRescueModal = lazy(() => import('./components/modals/SmartBacklogRescueModal').then(m => ({ default: m.SmartBacklogRescueModal })));
+const PricingSubscriptionModal = lazy(() => import('./components/modals/PricingSubscriptionModal').then(m => ({ default: m.PricingSubscriptionModal })));
 
 const ViewLoadingFallback: React.FC = () => (
   <div className="w-full space-y-5 animate-view-fade select-none pb-12">
@@ -118,6 +119,7 @@ export const App: React.FC = () => {
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isProfileSwitcherOpen, setIsProfileSwitcherOpen] = useState(false);
   const [isCreateProfileOpen, setIsCreateProfileOpen] = useState(false);
+  const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [editingProfile, setEditingProfile] = useState<UserProfileItem | null>(null);
   const [shortcutToast, setShortcutToast] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -808,6 +810,7 @@ export const App: React.FC = () => {
           onOpenFocus={() => handleLaunchFocus(undefined)}
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
           onOpenProfileSwitcher={() => setIsProfileSwitcherOpen(true)}
+          onOpenPricing={() => setIsPricingOpen(true)}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={toggleDesktopSidebar}
         />
@@ -1003,7 +1006,7 @@ export const App: React.FC = () => {
 
               {currentView === 'settings' && (
                 <ViewErrorBoundary sectionName="App Settings" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <SettingsView />
+                  <SettingsView onOpenPricing={() => setIsPricingOpen(true)} />
                 </ViewErrorBoundary>
               )}
             </Suspense>
@@ -1181,6 +1184,15 @@ export const App: React.FC = () => {
                 setEditingProfile(null);
                 setIsProfileSwitcherOpen(true);
               }}
+            />
+          </ViewErrorBoundary>
+        )}
+
+        {isPricingOpen && (
+          <ViewErrorBoundary sectionName="Pricing Subscription Modal" onReset={() => setIsPricingOpen(false)}>
+            <PricingSubscriptionModal
+              isOpen={isPricingOpen}
+              onClose={() => setIsPricingOpen(false)}
             />
           </ViewErrorBoundary>
         )}

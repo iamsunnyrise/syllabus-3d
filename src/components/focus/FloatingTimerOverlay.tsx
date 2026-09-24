@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTimer } from '../../context/TimerContext';
 import { Play, Pause, X, Maximize2, Zap, Minus } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
+import { TimerFontFamily } from '../../types/timer';
 
 export const FloatingTimerOverlay: React.FC = () => {
   const {
@@ -42,6 +43,25 @@ export const FloatingTimerOverlay: React.FC = () => {
   });
   const hasMovedRef = useRef<boolean>(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+
+  const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
+    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+  });
+
+  useEffect(() => {
+    const handleFontSync = () => {
+      const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
+      if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
+        setTimerFont(saved);
+      }
+    };
+    window.addEventListener('storage', handleFontSync);
+    window.addEventListener('syllabus3d_timer_font_change', handleFontSync);
+    return () => {
+      window.removeEventListener('storage', handleFontSync);
+      window.removeEventListener('syllabus3d_timer_font_change', handleFontSync);
+    };
+  }, []);
 
   useEffect(() => {
     if (settings.rememberPosition && settings.position) {
@@ -240,7 +260,13 @@ export const FloatingTimerOverlay: React.FC = () => {
                 : 'bg-emerald-400 animate-pulse'
             }`}
           />
-          <span className="text-sm sm:text-base font-black font-mono tracking-tight text-white drop-shadow-xs tabular-nums">
+          <span className={`text-sm sm:text-base font-black ${
+            timerFont === 'orbitron'
+              ? 'font-orbitron tracking-wider'
+              : timerFont === 'roboto-mono'
+              ? 'font-roboto-mono tracking-tight tabular-nums'
+              : 'font-mono tracking-tight tabular-nums'
+          } text-white drop-shadow-xs`}>
             {timeStr}
           </span>
         </div>

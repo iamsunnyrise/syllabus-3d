@@ -1,5 +1,6 @@
 export type TimerMode = 'pomodoro' | 'break' | 'timer' | 'stopwatch';
 export type TimerStatus = 'idle' | 'running' | 'paused' | 'completed';
+export type TimerFontFamily = 'jetbrains' | 'roboto-mono' | 'orbitron';
 
 export interface TimerSessionState {
   id: string;

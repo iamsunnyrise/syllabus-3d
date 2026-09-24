@@ -172,11 +172,19 @@ export default {
       },
       fontFamily: {
         sans: ['"Inter"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        heading: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
-        display: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+        inter: ['"Inter"', 'sans-serif'],
+        heading: ['"Space Grotesk"', '"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
+        grotesk: ['"Space Grotesk"', 'sans-serif'],
         serif: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
         lexend: ['"Plus Jakarta Sans"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'Menlo', 'Consolas', 'monospace']
+        mono: ['"JetBrains Mono"', 'Menlo', 'Consolas', 'monospace'],
+        jetbrains: ['"JetBrains Mono"', 'monospace'],
+        'roboto-mono': ['"Roboto Mono"', 'monospace'],
+        orbitron: ['"Orbitron"', 'sans-serif'],
+        sora: ['"Sora"', 'sans-serif'],
+        manrope: ['"Manrope"', 'sans-serif'],
+        pricing: ['"Sora"', '"Manrope"', 'sans-serif']
       },
       boxShadow: {
         'xs': '0 1px 2px 0 rgba(15, 23, 42, 0.04)',

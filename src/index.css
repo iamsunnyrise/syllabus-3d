@@ -1,8 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════
    PREMIUM READABILITY & ADVANCED TECH TYPOGRAPHY SYSTEM
-   Primary Body: Inter (Tall x-height, maximum legibility)
-   Primary Headings & UI: Plus Jakarta Sans (Modern, crisp, geometric)
-   Numbers & Timers: JetBrains Mono (Tabular fixed-width precision)
+   Primary Body & Interface: Inter (Tall x-height, maximum legibility)
+   Study Dashboard & Headings: Space Grotesk Bold (Crisp, modern, geometric)
+   Pricing & Subscriptions: Sora ExtraBold & Manrope ExtraBold
+   Timers & Precision Counters: JetBrains Mono / Roboto Mono / Orbitron
    ═══════════════════════════════════════════════════════════════ */
 
 @tailwind base;
@@ -73,7 +74,7 @@
     touch-action: pan-y;
     background-color: var(--color-background);
     color: var(--color-text-primary);
-    font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     font-weight: 400;
     line-height: 1.55;
@@ -82,6 +83,11 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01', 'liga', 'calt';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.025em;
   }
 
   html:not(.dark) body {
