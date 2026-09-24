@@ -349,6 +349,7 @@ interface SyllabusContextType {
   deleteTopicAudioMemo?: (topicId: string, memoId: string) => void;
   addTopicImageAttachment?: (topicId: string, image: { title?: string; dataUrl: string; fileSize?: number }) => void;
   deleteTopicImageAttachment?: (topicId: string, imageId: string) => void;
+  updateTopicImageTitle?: (topicId: string, imageId: string, newTitle: string) => void;
 
   logStudySession: (minutes: number, topicId?: string) => void;
   updateTopicMetrics?: (topicId: string, updates: { accuracy?: number; studyTimeMinutes?: number; addMinutes?: number }) => void;
@@ -2414,6 +2415,26 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     soundManager.playClick();
   };
 
+  const updateTopicImageTitle = (topicId: string, imageId: string, newTitle: string) => {
+    setExams(prev => prev.map(exam => ({
+      ...exam,
+      subjects: exam.subjects.map(subj => ({
+        ...subj,
+        chapters: subj.chapters.map(ch => ({
+          ...ch,
+          topics: ch.topics.map(t => {
+            if (t.id !== topicId) return t;
+            const existing = t.images || [];
+            return {
+              ...t,
+              images: existing.map(img => img.id === imageId ? { ...img, title: newTitle.trim() } : img)
+            };
+          })
+        }))
+      }))
+    })));
+  };
+
   const logStudySession = (minutes: number, topicId?: string) => {
     const today = getTodayDateString();
     setActivityHistory(prev => {
@@ -3302,6 +3323,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     deleteTopicAudioMemo,
     addTopicImageAttachment,
     deleteTopicImageAttachment,
+    updateTopicImageTitle,
     updateTopicMetrics,
     logStudySession,
     resetToDemo,

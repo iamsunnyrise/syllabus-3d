@@ -59,6 +59,9 @@ const TopicLecturesSection = lazy(() =>
 const TopicAudioMemosSection = lazy(() =>
   import('../common/TopicAudioMemosSection').then(m => ({ default: m.TopicAudioMemosSection }))
 );
+const TopicPhotoNotesSection = lazy(() =>
+  import('../common/TopicPhotoNotesSection').then(m => ({ default: m.TopicPhotoNotesSection }))
+);
 const SplitScreenPdfStudyModal = lazy(() =>
   import('../common/SplitScreenPdfStudyModal').then(m => ({ default: m.SplitScreenPdfStudyModal }))
 );
@@ -119,6 +122,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     deleteTopicAudioMemo,
     addTopicImageAttachment,
     deleteTopicImageAttachment,
+    updateTopicImageTitle,
     currentExam,
     revisions,
     resyncAllRevisions
@@ -1628,24 +1632,30 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   </Suspense>
                 </ViewErrorBoundary>
 
-                <ViewErrorBoundary compact sectionName="Audio Memos">
-                  <Suspense fallback={<DrawerTabSkeleton label="Loading Audio Memos..." />}>
-                    <TopicAudioMemosSection
+                {/* PICTURE NOTES & DIAGRAMS (BELOW NOTES & ABOVE PDF UPLOAD) */}
+                <ViewErrorBoundary compact sectionName="Picture Notes & Diagrams">
+                  <Suspense fallback={<DrawerTabSkeleton label="Loading Picture Notes..." />}>
+                    <TopicPhotoNotesSection
                       topicId={liveTopic.id}
                       topicName={liveTopic.name}
-                      audioMemos={liveTopic.audioMemos || []}
-                      onAddAudioMemo={(memo) => {
-                        if (addTopicAudioMemo) {
-                          addTopicAudioMemo(liveTopic.id, memo);
+                      images={liveTopic.images || []}
+                      onAddImage={(img) => {
+                        if (addTopicImageAttachment) {
+                          addTopicImageAttachment(liveTopic.id, img);
                         }
                       }}
-                      onDeleteAudioMemo={(memoId) => {
-                        if (deleteTopicAudioMemo) {
-                          deleteTopicAudioMemo(liveTopic.id, memoId);
+                      onDeleteImage={(imgId) => {
+                        if (deleteTopicImageAttachment) {
+                          deleteTopicImageAttachment(liveTopic.id, imgId);
                         }
                       }}
-                      onInsertTranscriptToNotes={(text) => {
-                        const updated = notes ? notes + '\n' + text : text;
+                      onUpdateImageTitle={(imgId, title) => {
+                        if (updateTopicImageTitle) {
+                          updateTopicImageTitle(liveTopic.id, imgId, title);
+                        }
+                      }}
+                      onInsertIntoNotes={(markdown) => {
+                        const updated = notes ? notes + markdown : markdown;
                         setNotes(updated);
                         handleSaveNotes(updated);
                       }}
@@ -1653,6 +1663,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   </Suspense>
                 </ViewErrorBoundary>
 
+                {/* PDF ATTACHMENTS & SPLIT STUDY */}
                 <ViewErrorBoundary compact sectionName="PDF Attachments">
                   <Suspense fallback={<DrawerTabSkeleton label="Loading PDF Attachments..." />}>
                     <TopicPdfAttachmentsSection
@@ -1674,6 +1685,32 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       onOpenSplitStudy={(attachmentId) => {
                         setSplitPdfAttachmentId(attachmentId);
                         setIsSplitPdfOpen(true);
+                      }}
+                    />
+                  </Suspense>
+                </ViewErrorBoundary>
+
+                {/* AUDIO VOICE MEMOS */}
+                <ViewErrorBoundary compact sectionName="Audio Memos">
+                  <Suspense fallback={<DrawerTabSkeleton label="Loading Audio Memos..." />}>
+                    <TopicAudioMemosSection
+                      topicId={liveTopic.id}
+                      topicName={liveTopic.name}
+                      audioMemos={liveTopic.audioMemos || []}
+                      onAddAudioMemo={(memo) => {
+                        if (addTopicAudioMemo) {
+                          addTopicAudioMemo(liveTopic.id, memo);
+                        }
+                      }}
+                      onDeleteAudioMemo={(memoId) => {
+                        if (deleteTopicAudioMemo) {
+                          deleteTopicAudioMemo(liveTopic.id, memoId);
+                        }
+                      }}
+                      onInsertTranscriptToNotes={(text) => {
+                        const updated = notes ? notes + '\n' + text : text;
+                        setNotes(updated);
+                        handleSaveNotes(updated);
                       }}
                     />
                   </Suspense>
