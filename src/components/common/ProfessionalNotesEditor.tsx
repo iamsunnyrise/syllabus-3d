@@ -5641,59 +5641,6 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         </div>
       )}
 
-      {/* Attached Screenshots Strip */}
-      {viewMode !== 'study' && images && images.length > 0 && (
-        <div className="p-3 rounded-2xl bg-white/70 dark:bg-[#18181D]/80 border border-[#E2E8F0] dark:border-[#272730] space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#191A17] dark:text-[#F5F5F7] flex items-center gap-1.5 font-serif">
-              <ImageIcon className="w-3.5 h-3.5 text-[#8B5CF6]" />
-              Attached Screenshots & Diagrams ({images.length})
-            </span>
-            <span className="text-[11px] text-[#85877E]">Click to view • Press Ctrl+V to paste more</span>
-          </div>
-          <div className="flex items-center gap-2.5 overflow-x-auto py-1 no-scrollbar">
-            {images.map((img) => (
-              <div
-                key={img.id}
-                className="relative group shrink-0 w-24 h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-[#383842] bg-black/20 shadow-sm"
-              >
-                <img
-                  src={img.dataUrl}
-                  alt={img.title}
-                  onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
-                  className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1 pointer-events-none">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setZoomImage({ src: img.dataUrl, title: img.title });
-                    }}
-                    className="p-1 rounded-md bg-white/20 hover:bg-white/40 text-white pointer-events-auto cursor-pointer"
-                    title="Zoom Image"
-                  >
-                    <Maximize2 className="w-3.5 h-3.5" />
-                  </button>
-                  {onDeleteImage && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onDeleteImage(img.id);
-                      }}
-                      className="p-1 rounded-md bg-rose-500/80 hover:bg-rose-600 text-white pointer-events-auto cursor-pointer"
-                      title="Delete Image"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* 📏 MS WORD HORIZONTAL MARGIN RULER */}
       {showOfficeRuler && (
@@ -5868,68 +5815,6 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 }`}
               />
             </div>
-
-            {/* Attached Screenshots Gallery in Study Mode */}
-            {images && images.length > 0 && (
-              <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-[#18181D]/90 border border-[#E2E8F0] dark:border-[#272730] shadow-sm space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#11120F] dark:text-[#F5F5F7] flex items-center gap-1.5 font-serif">
-                    <ImageIcon className="w-4 h-4 text-[#8B5CF6]" />
-                    Attached Screenshots & Diagrams ({images.length})
-                  </span>
-                  <span className="text-[11px] text-[#85877E]">Click image to view in full resolution</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {images.map((img) => (
-                    <div
-                      key={img.id}
-                      className="relative group rounded-2xl overflow-hidden border border-slate-200 dark:border-[#272730] bg-[#121216] shadow-sm"
-                    >
-                      <div className="relative aspect-video flex items-center justify-center bg-black/40">
-                        <img
-                          src={img.dataUrl}
-                          alt={img.title}
-                          onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
-                          className="w-full h-full object-contain cursor-zoom-in hover:opacity-95 transition-opacity"
-                          loading="lazy"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setZoomImage({ src: img.dataUrl, title: img.title })}
-                          className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                          title="View Fullscreen"
-                        >
-                          <Maximize2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <div className="px-3 py-2 bg-[#18181D]/95 border-t border-[#272730] flex items-center justify-between text-[11px] text-[#A1A1AA]">
-                        <span className="truncate font-medium max-w-[150px]">{img.title}</span>
-                        <div className="flex items-center gap-1.5">
-                          <a
-                            href={img.dataUrl}
-                            download={`${img.title || 'screenshot'}.png`}
-                            className="p-1 rounded hover:text-white cursor-pointer"
-                            title="Download"
-                          >
-                            <Download className="w-3.5 h-3.5" />
-                          </a>
-                          {onDeleteImage && (
-                            <button
-                              type="button"
-                              onClick={() => onDeleteImage(img.id)}
-                              className="p-1 rounded hover:text-rose-400 cursor-pointer"
-                              title="Delete Screenshot"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>

@@ -65,6 +65,8 @@ export interface TopicImageAttachment {
   dataUrl: string;
   addedAt: string;
   fileSize?: number;
+  storageKey?: string;
+  originalFileName?: string;
 }
 
 export interface TopicNoteItem {

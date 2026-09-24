@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Image as ImageIcon,
   Camera,
@@ -6,7 +6,6 @@ import {
   Plus,
   Trash2,
   Maximize2,
-  Eye,
   Download,
   Edit2,
   Check,
@@ -19,47 +18,79 @@ import {
   RotateCcw,
   FileText,
   Sparkles,
-  Copy,
-  Info,
-  Layers,
   AlertCircle
 } from 'lucide-react';
 import { TopicImageAttachment } from '../../types/syllabus';
 import { soundManager } from '../../utils/soundEffects';
+import {
+  saveImageToStorage,
+  getImageBlobUrl,
+  getImageBlob,
+  deleteImageFromStorage
+} from '../../utils/imageStorage';
 
 interface TopicPhotoNotesSectionProps {
   topicId: string;
   topicName: string;
   images?: TopicImageAttachment[];
-  onAddImage: (image: { title?: string; dataUrl: string; fileSize?: number }) => void;
+  onAddImage: (image: {
+    id?: string;
+    title?: string;
+    dataUrl: string;
+    fileSize?: number;
+    storageKey?: string;
+    originalFileName?: string;
+  }) => void;
   onDeleteImage: (imageId: string) => void;
   onUpdateImageTitle?: (imageId: string, newTitle: string) => void;
   onInsertIntoNotes?: (markdown: string) => void;
 }
 
 /**
- * High-performance canvas compressor.
- * Downscales camera/screenshot images to max dimension 1600px with high quality (0.85 JPEG),
- * reducing 5MB-10MB camera shots to ~70KB-140KB while preserving fine text, formulas & diagrams.
+ * Format exact byte size to readable string (e.g. 2.1 MB, 450 KB, 85 B)
  */
-function compressImage(file: File, maxDimension = 1600, quality = 0.85): Promise<{ dataUrl: string; fileSize: number; title: string }> {
-  return new Promise((resolve, reject) => {
+function formatFileSize(bytes?: number): string {
+  if (!bytes || bytes <= 0) return 'Picture Note';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+/**
+ * Creates a high-fidelity display data URL.
+ * If the file is <= 800 KB, reads it directly as full original DataURL.
+ * If larger, creates a sharp preview (up to 1600px, 0.88 quality) for localStorage/offline caching,
+ * while the 100% untouched original file is safely preserved in IndexedDB.
+ */
+function generateDisplayDataUrl(file: File): Promise<string> {
+  return new Promise((resolve) => {
+    // If small enough, keep 100% original binary string
+    if (file.size <= 800 * 1024) {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve((e.target?.result as string) || '');
+      reader.onerror = () => resolve('');
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    // For larger files, create a sharp preview to safeguard localStorage quota
     const reader = new FileReader();
-    reader.onerror = () => reject(new Error('Failed to read image file'));
+    reader.onerror = () => resolve('');
     reader.onload = (e) => {
       const img = new Image();
-      img.onerror = () => reject(new Error('Invalid image format'));
+      img.onerror = () => resolve((e.target?.result as string) || '');
       img.onload = () => {
+        const maxDim = 1600;
         let width = img.naturalWidth || img.width;
         let height = img.naturalHeight || img.height;
 
-        if (width > maxDimension || height > maxDimension) {
+        if (width > maxDim || height > maxDim) {
           if (width > height) {
-            height = Math.round((height * maxDimension) / width);
-            width = maxDimension;
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
           } else {
-            width = Math.round((width * maxDimension) / height);
-            height = maxDimension;
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
           }
         }
 
@@ -69,46 +100,19 @@ function compressImage(file: File, maxDimension = 1600, quality = 0.85): Promise
 
         const ctx = canvas.getContext('2d');
         if (!ctx) {
-          reject(new Error('Canvas 2D context not available'));
+          resolve((e.target?.result as string) || '');
           return;
         }
 
-        // Draw crisp image
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, width, height);
-
-        const dataUrl = canvas.toDataURL('image/jpeg', quality);
-        // Estimate size in bytes
-        const head = 'data:image/jpeg;base64,';
-        const base64Len = dataUrl.length - head.length;
-        const fileSize = Math.round((base64Len * 3) / 4);
-
-        const cleanName = file.name
-          .replace(/\.[^/.]+$/, '')
-          .replace(/[-_]/g, ' ')
-          .trim();
-
-        resolve({
-          dataUrl,
-          fileSize,
-          title: cleanName || 'Photo Note'
-        });
+        resolve(canvas.toDataURL('image/jpeg', 0.88));
       };
-      img.src = e.target?.result as string;
+      img.src = (e.target?.result as string) || '';
     };
     reader.readAsDataURL(file);
   });
-}
-
-/**
- * Format bytes to readable string (KB / MB)
- */
-function formatFileSize(bytes?: number): string {
-  if (!bytes || bytes <= 0) return 'Picture Note';
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
@@ -126,6 +130,9 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
+  // Cached original Blob URLs from IndexedDB for 100% full-resolution display
+  const [originalBlobUrls, setOriginalBlobUrls] = useState<Record<string, string>>({});
+
   // Lightbox / Fullscreen Viewer State
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
@@ -142,10 +149,36 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Calculate total storage footprint
-  const totalBytes = images.reduce((acc, img) => acc + (img.fileSize || 80000), 0);
+  // Load 100% original full-resolution blobs from IndexedDB
+  useEffect(() => {
+    let isMounted = true;
+    const loadOriginals = async () => {
+      const urls: Record<string, string> = {};
+      for (const img of images) {
+        const key = img.storageKey || img.id;
+        try {
+          const blobUrl = await getImageBlobUrl(key);
+          if (blobUrl && isMounted) {
+            urls[img.id] = blobUrl;
+          }
+        } catch {
+          // fallback to dataUrl
+        }
+      }
+      if (isMounted && Object.keys(urls).length > 0) {
+        setOriginalBlobUrls((prev) => ({ ...prev, ...urls }));
+      }
+    };
 
-  // Clear notices after delay
+    loadOriginals();
+    return () => {
+      isMounted = false;
+    };
+  }, [images]);
+
+  // Calculate total original storage footprint
+  const totalOriginalBytes = images.reduce((acc, img) => acc + (img.fileSize || 0), 0);
+
   const triggerSuccess = (msg: string) => {
     setSuccessNotice(msg);
     soundManager.playCompleteChime();
@@ -157,7 +190,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     setTimeout(() => setErrorMessage(null), 4000);
   };
 
-  // Process and upload a list of image files (batch processing)
+  // Process and upload images with 100% original size and quality
   const processImageFiles = async (files: FileList | File[]) => {
     const validFiles: File[] = [];
     for (let i = 0; i < files.length; i++) {
@@ -178,27 +211,46 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     try {
       for (let i = 0; i < validFiles.length; i++) {
         const file = validFiles[i];
-        setProcessStatus(`Optimizing photo ${i + 1} of ${validFiles.length}...`);
-        try {
-          const compressed = await compressImage(file);
-          onAddImage({
-            title: compressed.title || `Picture Note ${images.length + i + 1}`,
-            dataUrl: compressed.dataUrl,
-            fileSize: compressed.fileSize
-          });
-          successCount++;
-        } catch (innerErr) {
-          console.error(`Failed to process image ${file.name}:`, innerErr);
-        }
+        setProcessStatus(`Uploading original photo ${i + 1} of ${validFiles.length} (${formatFileSize(file.size)})...`);
+
+        const attachmentId = `img_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+        // 1. Save 100% ORIGINAL untouched file to IndexedDB
+        await saveImageToStorage(attachmentId, file, file.name);
+
+        // 2. Generate display dataUrl (original if <=800KB, or high-res preview if larger)
+        const displayDataUrl = await generateDisplayDataUrl(file);
+
+        // 3. Clean readable title
+        const cleanName = file.name
+          .replace(/\.[^/.]+$/, '')
+          .replace(/[-_]/g, ' ')
+          .trim();
+
+        // 4. Save metadata with EXACT original file.size (e.g. 2.1 MB)
+        onAddImage({
+          id: attachmentId,
+          title: cleanName || `Picture Note ${images.length + i + 1}`,
+          dataUrl: displayDataUrl,
+          fileSize: file.size, // Exact original bytes
+          storageKey: attachmentId,
+          originalFileName: file.name
+        });
+
+        // 5. Pre-cache direct blob URL for 0ms full-res rendering
+        const directBlobUrl = URL.createObjectURL(file);
+        setOriginalBlobUrls((prev) => ({ ...prev, [attachmentId]: directBlobUrl }));
+
+        successCount++;
       }
 
       if (successCount > 0) {
-        triggerSuccess(`Successfully added ${successCount} picture note${successCount > 1 ? 's' : ''}!`);
+        triggerSuccess(`Added ${successCount} original quality picture${successCount > 1 ? 's' : ''}!`);
       } else {
         triggerError('Failed to process the uploaded images.');
       }
     } catch (err) {
-      console.error('Batch image upload error:', err);
+      console.error('Image upload error:', err);
       triggerError('An error occurred while uploading picture notes.');
     } finally {
       setIsProcessing(false);
@@ -208,14 +260,13 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     }
   };
 
-  // File input change handler
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       processImageFiles(e.target.files);
     }
   };
 
-  // Drag and Drop handlers
+  // Drag and drop handlers
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -243,12 +294,12 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
       const items = e.clipboardData?.items;
       if (!items) return;
 
-      const pastedImageFiles: File[] = [];
+      const pastedFiles: File[] = [];
       for (let i = 0; i < items.length; i++) {
         if (items[i].type.indexOf('image') !== -1) {
           const blob = items[i].getAsFile();
           if (blob) {
-            pastedImageFiles.push(
+            pastedFiles.push(
               new File([blob], `Screenshot_${new Date().toISOString().slice(0, 10)}.png`, {
                 type: blob.type
               })
@@ -257,8 +308,8 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         }
       }
 
-      if (pastedImageFiles.length > 0) {
-        processImageFiles(pastedImageFiles);
+      if (pastedFiles.length > 0) {
+        processImageFiles(pastedFiles);
       }
     };
 
@@ -266,25 +317,21 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     return () => window.removeEventListener('paste', handlePaste);
   }, [images.length]);
 
-  // Keyboard navigation for Lightbox
+  // Lightbox keyboard navigation
   useEffect(() => {
     if (lightboxIndex === null) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      } else if (e.key === 'ArrowRight') {
-        handleNextImage();
-      } else if (e.key === 'ArrowLeft') {
-        handlePrevImage();
-      }
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') handleNextImage();
+      else if (e.key === 'ArrowLeft') handlePrevImage();
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxIndex, images.length]);
 
-  // Lightbox handlers
+  // Lightbox actions
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setZoomLevel(1);
@@ -335,8 +382,28 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     soundManager.playClick();
   };
 
-  // Download image helper
-  const handleDownload = (img: TopicImageAttachment) => {
+  // Download exact original uncompressed file from IndexedDB
+  const handleDownload = async (img: TopicImageAttachment) => {
+    try {
+      const blob = await getImageBlob(img.storageKey || img.id);
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const ext = img.originalFileName ? img.originalFileName.split('.').pop() : 'jpg';
+        a.download = `${img.title || 'picture-note'}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        soundManager.playClick();
+        return;
+      }
+    } catch (err) {
+      console.warn('Could not load blob from IndexedDB for download:', err);
+    }
+
+    // Fallback to dataUrl
     const a = document.createElement('a');
     a.href = img.dataUrl;
     a.download = `${img.title || 'picture-note'}.jpg`;
@@ -346,16 +413,24 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
     soundManager.playClick();
   };
 
+  // Delete image and purge from IndexedDB
+  const handleDeleteImage = async (imageId: string, storageKey?: string) => {
+    onDeleteImage(imageId);
+    await deleteImageFromStorage(storageKey || imageId).catch(() => {});
+    setConfirmDeleteId(null);
+    soundManager.playClick();
+  };
+
   // Insert markdown into notes helper
   const handleInsertIntoNotes = (img: TopicImageAttachment) => {
     if (!onInsertIntoNotes) return;
     const title = img.title || 'Diagram Note';
-    const markdown = `\n\n### 🖼️ ${title}\n![${title}](${img.dataUrl})\n*Captured on ${img.addedAt || 'today'}*\n`;
+    const markdown = `\n\n### 🖼️ ${title}\n![${title}](${img.dataUrl})\n*Captured on ${img.addedAt || 'today'} (${formatFileSize(img.fileSize)})*\n`;
     onInsertIntoNotes(markdown);
     triggerSuccess(`Inserted "${title}" into Study Notes!`);
   };
 
-  // Title edit helper
+  // Inline title editing
   const startEditingTitle = (img: TopicImageAttachment) => {
     setEditingImageId(img.id);
     setEditingTitleText(img.title || '');
@@ -371,6 +446,9 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
   };
 
   const currentLightboxImage = lightboxIndex !== null ? images[lightboxIndex] : null;
+  const currentLightboxSrc = currentLightboxImage
+    ? originalBlobUrls[currentLightboxImage.id] || currentLightboxImage.dataUrl
+    : '';
 
   return (
     <div
@@ -416,21 +494,20 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
               <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 tabular-nums">
                 {images.length} {images.length === 1 ? 'Picture' : 'Pictures'}
               </span>
-              {images.length > 0 && (
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 tabular-nums">
-                  {formatFileSize(totalBytes)}
+              {images.length > 0 && totalOriginalBytes > 0 && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 tabular-nums">
+                  Original {formatFileSize(totalOriginalBytes)}
                 </span>
               )}
             </div>
             <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
-              Photos of textbook pages, handwritten notes, whiteboards & formula diagrams
+              Photos of textbook pages, handwritten notes, whiteboards & formula diagrams in 100% original quality
             </p>
           </div>
         </div>
 
-        {/* Upload Buttons */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-2 self-start sm:self-auto shrink-0 flex-wrap">
-          {/* Quick Mobile Camera Capture Button */}
           <button
             type="button"
             onClick={() => {
@@ -442,10 +519,9 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             title="Take photo directly using camera"
           >
             <Camera className="w-3.5 h-3.5 text-indigo-500" />
-            <span className="sm:inline">Camera</span>
+            <span>Camera</span>
           </button>
 
-          {/* Add Pictures Button (Batch Multi-select) */}
           <button
             type="button"
             onClick={() => {
@@ -454,7 +530,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             }}
             disabled={isProcessing}
             className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-sm hover:shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
-            title="Upload multiple pictures or diagrams from gallery/computer"
+            title="Upload pictures in original resolution and file size"
           >
             <Plus className="w-4 h-4" />
             <span>+ Add Pictures</span>
@@ -462,7 +538,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
         </div>
       </div>
 
-      {/* Notifications / Error / Processing Banners */}
+      {/* Processing & Notification Alerts */}
       {processStatus && (
         <div className="mt-3 p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/50 flex items-center gap-2 text-xs text-indigo-700 dark:text-indigo-300 animate-pulse">
           <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin shrink-0" />
@@ -497,8 +573,8 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             No picture notes added yet
           </h4>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-4">
-            Upload multiple photos of textbook diagrams, blackboard work, or handwritten formulas.
-            <span className="hidden sm:inline"> You can also drag & drop or paste from clipboard (Ctrl+V).</span>
+            Upload multiple photos of textbook diagrams, blackboard work, or formula sheets in full original quality.
+            <span className="hidden sm:inline"> Drag & drop or paste with Ctrl+V.</span>
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -530,6 +606,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             {images.map((img, index) => {
               const isEditing = editingImageId === img.id;
               const isConfirmingDelete = confirmDeleteId === img.id;
+              const imageSrc = originalBlobUrls[img.id] || img.dataUrl;
 
               return (
                 <div
@@ -542,35 +619,31 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                     onClick={() => openLightbox(index)}
                   >
                     <img
-                      src={img.dataUrl}
+                      src={imageSrc}
                       alt={img.title || `Picture note ${index + 1}`}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
 
-                    {/* Gradient Overlay on Hover/Focus */}
+                    {/* Gradient Overlay on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-2">
-                      {/* Top Bar inside overlay */}
                       <div className="flex items-center justify-between">
                         <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-black/60 text-white backdrop-blur-sm">
                           #{index + 1}
                         </span>
-                        <div className="flex items-center gap-1">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDownload(img);
-                            }}
-                            className="p-1 rounded-md bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-all"
-                            title="Download picture"
-                          >
-                            <Download className="w-3 h-3" />
-                          </button>
-                        </div>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDownload(img);
+                          }}
+                          className="p-1 rounded-md bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-all"
+                          title="Download original file"
+                        >
+                          <Download className="w-3 h-3" />
+                        </button>
                       </div>
 
-                      {/* Bottom Quick Action: Click to Zoom */}
                       <div className="flex items-center justify-center">
                         <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[11px] font-bold backdrop-blur-sm shadow-sm">
                           <Maximize2 className="w-3 h-3 text-indigo-400" />
@@ -579,7 +652,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                       </div>
                     </div>
 
-                    {/* Index Badge (always visible on mobile) */}
+                    {/* Index Badge */}
                     <div className="absolute top-1.5 left-1.5 group-hover:opacity-0 transition-opacity">
                       <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-black/60 text-white/90 backdrop-blur-sm">
                         #{index + 1}
@@ -633,10 +706,12 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                       </div>
                     )}
 
-                    {/* Metadata: Date & File Size */}
+                    {/* Metadata: Date & Exact Original File Size */}
                     <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-slate-500">
                       <span>{img.addedAt || 'Added'}</span>
-                      <span className="font-mono tabular-nums">{formatFileSize(img.fileSize)}</span>
+                      <span className="font-mono font-bold text-slate-600 dark:text-slate-300 tabular-nums">
+                        {formatFileSize(img.fileSize)}
+                      </span>
                     </div>
 
                     {/* Action Buttons Row */}
@@ -647,7 +722,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                           type="button"
                           onClick={() => handleInsertIntoNotes(img)}
                           className="flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-[10px] sm:text-[11px] font-bold transition-all cursor-pointer active:scale-95"
-                          title="Insert image markdown into your Study Notes"
+                          title="Insert image into your Study Notes"
                         >
                           <FileText className="w-3 h-3" />
                           <span>Insert</span>
@@ -659,11 +734,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                         <div className="flex items-center gap-1">
                           <button
                             type="button"
-                            onClick={() => {
-                              onDeleteImage(img.id);
-                              setConfirmDeleteId(null);
-                              soundManager.playClick();
-                            }}
+                            onClick={() => handleDeleteImage(img.id, img.storageKey)}
                             className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-600 text-white hover:bg-rose-700"
                             title="Confirm delete"
                           >
@@ -698,7 +769,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
           <div className="mt-3.5 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Click any picture to open full-screen lightbox with zoom & rotation.</span>
+              <span>Full resolution preserved in local storage. Click any picture to zoom and rotate.</span>
             </span>
             <span className="hidden sm:inline font-mono text-[10px] text-slate-400">
               Ctrl+V to paste
@@ -726,18 +797,17 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                 {(lightboxIndex ?? 0) + 1} / {images.length}
               </span>
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[200px] sm:max-w-md">
+                <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-[180px] sm:max-w-md">
                   {currentLightboxImage.title || `Picture ${(lightboxIndex ?? 0) + 1}`}
                 </h3>
                 <p className="text-[10px] sm:text-xs text-slate-400">
-                  {formatFileSize(currentLightboxImage.fileSize)} • Added {currentLightboxImage.addedAt || 'today'}
+                  Original: {formatFileSize(currentLightboxImage.fileSize)} • Added {currentLightboxImage.addedAt || 'today'}
                 </p>
               </div>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-1 sm:gap-2">
-              {/* Insert to notes button */}
               {onInsertIntoNotes && (
                 <button
                   type="button"
@@ -794,17 +864,17 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
                 </button>
               )}
 
-              {/* Download */}
+              {/* Download original */}
               <button
                 type="button"
                 onClick={() => handleDownload(currentLightboxImage)}
                 className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
-                title="Download original image"
+                title="Download original image file"
               >
                 <Download className="w-4 h-4" />
               </button>
 
-              {/* Close (X) */}
+              {/* Close */}
               <button
                 type="button"
                 onClick={closeLightbox}
@@ -846,7 +916,7 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
               }}
             >
               <img
-                src={currentLightboxImage.dataUrl}
+                src={currentLightboxSrc}
                 alt={currentLightboxImage.title || 'Fullscreen picture note'}
                 className="max-h-[75vh] max-w-[90vw] object-contain rounded-lg shadow-2xl pointer-events-auto"
               />
@@ -865,31 +935,34 @@ export const TopicPhotoNotesSection: React.FC<TopicPhotoNotesSectionProps> = ({
             )}
           </div>
 
-          {/* Bottom Thumbnails Filmstrip (if multiple images) */}
+          {/* Bottom Thumbnails Filmstrip */}
           {images.length > 1 && (
             <div
               className="p-3 bg-slate-900/80 border-t border-white/10 overflow-x-auto flex items-center justify-center gap-2 shrink-0 scrollbar-thin"
               onClick={(e) => e.stopPropagation()}
             >
-              {images.map((thumb, idx) => (
-                <button
-                  key={thumb.id}
-                  type="button"
-                  onClick={() => openLightbox(idx)}
-                  className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
-                    idx === lightboxIndex
-                      ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/30'
-                      : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
-                  title={thumb.title || `Picture ${idx + 1}`}
-                >
-                  <img
-                    src={thumb.dataUrl}
-                    alt={thumb.title || `Thumbnail ${idx + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
+              {images.map((thumb, idx) => {
+                const thumbSrc = originalBlobUrls[thumb.id] || thumb.dataUrl;
+                return (
+                  <button
+                    key={thumb.id}
+                    type="button"
+                    onClick={() => openLightbox(idx)}
+                    className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                      idx === lightboxIndex
+                        ? 'border-indigo-500 scale-105 shadow-md shadow-indigo-500/30'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                    title={thumb.title || `Picture ${idx + 1}`}
+                  >
+                    <img
+                      src={thumbSrc}
+                      alt={thumb.title || `Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>

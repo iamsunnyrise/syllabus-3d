@@ -53,6 +53,7 @@ import { haptics } from '../utils/haptics';
 import { useAuth } from './AuthContext';
 import { fireCelebration as confetti } from '../utils/confettiHelper';
 import { storageManager, StorageHealthMetrics, FullAppSnapshot } from '../services/storageManager';
+import { deleteImageFromStorage } from '../utils/imageStorage';
 import {
   fetchUserCloudData,
   saveUserCloudData,
@@ -347,7 +348,7 @@ interface SyllabusContextType {
   deleteLectureTimestamp?: (topicId: string, lectureId: string, timestampId: string) => void;
   addTopicAudioMemo?: (topicId: string, memo: { title: string; durationSeconds: number; storageKey?: string; audioDataUrl?: string; transcript?: string }) => void;
   deleteTopicAudioMemo?: (topicId: string, memoId: string) => void;
-  addTopicImageAttachment?: (topicId: string, image: { title?: string; dataUrl: string; fileSize?: number }) => void;
+  addTopicImageAttachment?: (topicId: string, image: { id?: string; title?: string; dataUrl: string; fileSize?: number; storageKey?: string; originalFileName?: string }) => void;
   deleteTopicImageAttachment?: (topicId: string, imageId: string) => void;
   updateTopicImageTitle?: (topicId: string, imageId: string, newTitle: string) => void;
 
@@ -2365,14 +2366,16 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     soundManager.playClick();
   };
 
-  const addTopicImageAttachment = (topicId: string, image: { title?: string; dataUrl: string; fileSize?: number }) => {
+  const addTopicImageAttachment = (topicId: string, image: { id?: string; title?: string; dataUrl: string; fileSize?: number; storageKey?: string; originalFileName?: string }) => {
     const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
     const newImage: TopicImageAttachment = {
-      id: `img_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      id: image.id || `img_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       title: image.title ? image.title.trim() : `Screenshot ${timeStr}`,
       dataUrl: image.dataUrl,
       addedAt: getTodayDateString(),
-      fileSize: image.fileSize
+      fileSize: image.fileSize,
+      storageKey: image.storageKey,
+      originalFileName: image.originalFileName
     };
     setExams(prev => prev.map(exam => ({
       ...exam,
@@ -2395,6 +2398,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const deleteTopicImageAttachment = (topicId: string, imageId: string) => {
+    deleteImageFromStorage(imageId).catch(() => {});
     setExams(prev => prev.map(exam => ({
       ...exam,
       subjects: exam.subjects.map(subj => ({
