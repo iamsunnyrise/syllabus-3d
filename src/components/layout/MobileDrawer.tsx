@@ -16,7 +16,6 @@ import {
   ChevronRight,
   GraduationCap,
   Clock,
-  Users,
   Sparkles,
   Video,
   Trophy,
@@ -39,7 +38,6 @@ interface MobileDrawerProps {
   onOpenAiArchitect?: () => void;
   onOpenFocus?: () => void;
   onOpenSearch?: () => void;
-  onOpenProfileSwitcher?: () => void;
 }
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({
@@ -50,8 +48,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onOpenAddTopic,
   onOpenAiArchitect,
   onOpenFocus,
-  onOpenSearch,
-  onOpenProfileSwitcher
+  onOpenSearch
 }) => {
   const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile } = useSyllabus();
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
@@ -295,22 +292,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 </p>
               </div>
             </div>
-
-            {onOpenProfileSwitcher && (
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.light();
-                  onClose();
-                  onOpenProfileSwitcher();
-                }}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#191C2C] text-[#7C3AED] dark:text-[#A78BFA] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-bold shadow-2xs hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0 active:scale-95"
-              >
-                <Users className="w-3 h-3" />
-                <span>Switch</span>
-              </button>
-            )}
           </div>
 
           {/* 2. ACTION BUTTONS: AI ARCHITECT, ADD TARGET & FOCUS MODE */}

@@ -7,7 +7,7 @@ import { OverviewView } from './components/views/OverviewView';
 import { FloatingTimerOverlay } from './components/focus/FloatingTimerOverlay';
 import { useTimer } from './context/TimerContext';
 import { AnimatedLogoIntro } from './components/intro/AnimatedLogoIntro';
-import { Topic, UserProfileItem } from './types/syllabus';
+import { Topic } from './types/syllabus';
 import { useAuth } from './context/AuthContext';
 import { AuthLayout } from './components/auth/AuthLayout';
 import { LoginView } from './components/auth/LoginView';
@@ -50,8 +50,6 @@ const AddTopicModal = lazy(() => import('./components/modals/AddTopicModal').the
 const AiSyllabusArchitectModal = lazy(() => import('./components/modals/AiSyllabusArchitectModal').then(m => ({ default: m.AiSyllabusArchitectModal })));
 const FloatingTimerPermissionModal = lazy(() => import('./components/modals/FloatingTimerPermissionModal').then(m => ({ default: m.FloatingTimerPermissionModal })));
 const KeyboardShortcutsModal = lazy(() => import('./components/modals/KeyboardShortcutsModal').then(m => ({ default: m.KeyboardShortcutsModal })));
-const ProfileSwitcherModal = lazy(() => import('./components/modals/ProfileSwitcherModal').then(m => ({ default: m.ProfileSwitcherModal })));
-const CreateProfileModal = lazy(() => import('./components/modals/CreateProfileModal').then(m => ({ default: m.CreateProfileModal })));
 const WalkAndReviseModal = lazy(() => import('./components/modals/WalkAndReviseModal').then(m => ({ default: m.WalkAndReviseModal })));
 const SmartBacklogRescueModal = lazy(() => import('./components/modals/SmartBacklogRescueModal').then(m => ({ default: m.SmartBacklogRescueModal })));
 const PricingSubscriptionModal = lazy(() => import('./components/modals/PricingSubscriptionModal').then(m => ({ default: m.PricingSubscriptionModal })));
@@ -117,10 +115,7 @@ export const App: React.FC = () => {
   const [addTopicTarget, setAddTopicTarget] = useState<{ subjectId?: string; chapterId?: string } | null>(null);
   const [isRevisionSessionOpen, setIsRevisionSessionOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
-  const [isProfileSwitcherOpen, setIsProfileSwitcherOpen] = useState(false);
-  const [isCreateProfileOpen, setIsCreateProfileOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
-  const [editingProfile, setEditingProfile] = useState<UserProfileItem | null>(null);
   const [shortcutToast, setShortcutToast] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [focusTopicId, setFocusTopicId] = useState<string | undefined>(undefined);
@@ -253,15 +248,6 @@ export const App: React.FC = () => {
     }
     if (isBacklogRescueOpen) {
       setIsBacklogRescueOpen(false);
-      return;
-    }
-    if (isProfileSwitcherOpen) {
-      setIsProfileSwitcherOpen(false);
-      return;
-    }
-    if (isCreateProfileOpen) {
-      setIsCreateProfileOpen(false);
-      setEditingProfile(null);
       return;
     }
     if (isFullModalOpen) {
@@ -809,7 +795,6 @@ export const App: React.FC = () => {
           onOpenAiArchitect={handleOpenAiArchitect}
           onOpenFocus={() => handleLaunchFocus(undefined)}
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
-          onOpenProfileSwitcher={() => setIsProfileSwitcherOpen(true)}
           onOpenPricing={() => setIsPricingOpen(true)}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={toggleDesktopSidebar}
@@ -842,10 +827,6 @@ export const App: React.FC = () => {
             setIsMobileDrawerOpen(false);
             setIsSearchOpen(true);
           }}
-          onOpenProfileSwitcher={() => {
-            setIsMobileDrawerOpen(false);
-            setIsProfileSwitcherOpen(true);
-          }}
         />
       </ViewErrorBoundary>
 
@@ -859,7 +840,6 @@ export const App: React.FC = () => {
             window.history.pushState({ modal: 'search' }, '');
           }}
           onOpenSettings={() => handleNavigate('settings')}
-          onOpenProfileSwitcher={() => setIsProfileSwitcherOpen(true)}
           onOpenMobileMenu={() => setIsMobileDrawerOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleDesktopSidebar={toggleDesktopSidebar}
@@ -1146,48 +1126,6 @@ export const App: React.FC = () => {
             />
           </ViewErrorBoundary>
         )}
-
-        {isProfileSwitcherOpen && (
-          <ViewErrorBoundary sectionName="Profile Switcher Modal" onReset={() => setIsProfileSwitcherOpen(false)}>
-            <ProfileSwitcherModal
-              isOpen={isProfileSwitcherOpen}
-              onClose={() => setIsProfileSwitcherOpen(false)}
-              onOpenCreate={() => {
-                setEditingProfile(null);
-                setIsCreateProfileOpen(true);
-              }}
-              onOpenEdit={(prof) => {
-                setEditingProfile(prof);
-                setIsCreateProfileOpen(true);
-              }}
-            />
-          </ViewErrorBoundary>
-        )}
-
-        {isCreateProfileOpen && (
-          <ViewErrorBoundary
-            sectionName="Create Profile Modal"
-            onReset={() => {
-              setIsCreateProfileOpen(false);
-              setEditingProfile(null);
-            }}
-          >
-            <CreateProfileModal
-              isOpen={isCreateProfileOpen}
-              onClose={() => {
-                setIsCreateProfileOpen(false);
-                setEditingProfile(null);
-              }}
-              editingProfile={editingProfile}
-              onSuccess={() => {
-                setIsCreateProfileOpen(false);
-                setEditingProfile(null);
-                setIsProfileSwitcherOpen(true);
-              }}
-            />
-          </ViewErrorBoundary>
-        )}
-
         {isPricingOpen && (
           <ViewErrorBoundary sectionName="Pricing Subscription Modal" onReset={() => setIsPricingOpen(false)}>
             <PricingSubscriptionModal

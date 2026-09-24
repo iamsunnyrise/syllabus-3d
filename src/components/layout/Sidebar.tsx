@@ -14,7 +14,6 @@ import {
   Globe,
   Keyboard,
   Clock,
-  Users,
   PanelLeftClose,
   Sparkles,
   Video,
@@ -66,7 +65,6 @@ interface SidebarProps {
   onOpenAiArchitect?: () => void;
   onOpenFocus?: () => void;
   onOpenShortcuts?: () => void;
-  onOpenProfileSwitcher?: () => void;
   onOpenPricing?: () => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
@@ -79,7 +77,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenAiArchitect,
   onOpenFocus,
   onOpenShortcuts,
-  onOpenProfileSwitcher,
   onOpenPricing,
   isCollapsed = false,
   onToggleCollapse
@@ -496,22 +493,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-lg bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-white font-mono border border-slate-300/80 dark:border-white/20 leading-none">
                 Lvl {profileSafe.level || 1}
               </span>
-
-              {onOpenProfileSwitcher && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    haptics.light();
-                    onOpenProfileSwitcher();
-                  }}
-                  className="p-1 rounded-md text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.08] transition-colors cursor-pointer"
-                  title="Switch Study Profile"
-                  aria-label="Switch Study Profile"
-                >
-                  <Users className="w-3 h-3" />
-                </button>
-              )}
             </div>
           </div>
         </div>

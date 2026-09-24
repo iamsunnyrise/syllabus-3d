@@ -54,10 +54,8 @@ import { soundManager, AudioSettings } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { usePWA } from '../../hooks/usePWA';
 import { PWAInstallModal } from '../modals/PWAInstallModal';
-import { CreateProfileModal } from '../modals/CreateProfileModal';
 import { SetPinModal } from '../security/SetPinModal';
 import { usePinLock } from '../../context/PinLockContext';
-import { UserProfileItem } from '../../types/syllabus';
 import { TimerFontFamily } from '../../types/timer';
 import { GoogleDriveBackupModal } from '../modals/GoogleDriveBackupModal';
 import { GoogleAuthSettingsCard } from '../settings/GoogleAuthSettingsCard';
@@ -69,7 +67,7 @@ import {
   clearStoredGeminiApiKey
 } from '../../utils/youtubeNotesGenerator';
 
-type SettingsTab = 'profiles' | 'exam' | 'ai' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
+type SettingsTab = 'exam' | 'ai' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
 
 interface SettingsViewProps {
   onOpenPricing?: () => void;
@@ -79,12 +77,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const {
     profile,
     updateProfile,
-    profiles,
-    activeProfileId,
-    createProfile,
-    switchProfile,
-    updateProfileById,
-    deleteProfile,
     currentExam,
     updateCurrentExamDetails,
     overallStats,
@@ -109,7 +101,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const { isInstalled,} = usePWA();
   const [showPwaModal, setShowPwaModal] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<SettingsTab>('profiles');
+  const [activeTab, setActiveTab] = useState<SettingsTab>('exam');
 
   // Safety PIN Lock State
   const { config: pinConfig, isConfigured: isPinConfigured, updateConfig: updatePinConfig, disablePin } = usePinLock();
@@ -119,11 +111,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const [disablePinInput, setDisablePinInput] = useState('');
   const [disablePinError, setDisablePinError] = useState<string | null>(null);
   const [isDisablingPin, setIsDisablingPin] = useState(false);
-
-  // Multi-Profile Management State
-  const [isCreateProfileModalOpen, setIsCreateProfileModalOpen] = useState(false);
-  const [editingProfileForModal, setEditingProfileForModal] = useState<UserProfileItem | null>(null);
-  const [profileToDelete, setProfileToDelete] = useState<UserProfileItem | null>(null);
 
   // Profile Edit State
   const [name, setName] = useState(profile.name || user?.name || '');
@@ -699,7 +686,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
           ═══════════════════════════════════════════════════ */}
       <div className="p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center gap-1 overflow-x-auto no-scrollbar">
         {[
-          { id: 'profiles' as SettingsTab, label: 'Profiles', icon: Users },
           { id: 'exam' as SettingsTab, label: 'Exam Target', icon: Target },
           { id: 'ai' as SettingsTab, label: 'AI & Models', icon: Sparkles },
           { id: 'appearance' as SettingsTab, label: 'Appearance', icon: Palette },
@@ -733,223 +719,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
       {/* ═══════════════════════════════════════════════════
           3. TAB CONTENT SECTIONS
           ═══════════════════════════════════════════════════ */}
-
-      {/* TAB 0: MULTI-PROFILE MANAGEMENT STUDIO */}
-      {activeTab === 'profiles' && (
-        <div className="space-y-3.5 sm:space-y-4 animate-fade-in">
-          {/* Studio Header Card */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4 relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5 stroke-[2.2]" />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                    Multi-Profile Management Studio
-                  </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    Manage isolated study tracks, custom exam targets, and personal syllabus data.
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.selection();
-                  setEditingProfileForModal(null);
-                  setIsCreateProfileModalOpen(true);
-                }}
-                className="h-9 sm:h-10 flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 shrink-0"
-              >
-                <UserPlus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span><span className="hidden xs:inline">Create </span>New Profile</span>
-              </button>
-            </div>
-
-            {/* Delete Alert Banner */}
-            {profileToDelete && (
-              <div className="p-3 sm:p-4 bg-rose-500/10 border border-rose-500/25 rounded-xl sm:rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-3 animate-fade-in">
-                <div className="flex items-center gap-2 sm:gap-2.5">
-                  <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 shrink-0" />
-                  <div>
-                    <span className="text-xs font-bold text-rose-700 dark:text-rose-400 block">
-                      Delete profile &quot;{profileToDelete.name}&quot;?
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] text-rose-600/80 dark:text-rose-400/80 block">
-                      This will permanently remove all isolated syllabus data, revisions, and task history for this profile.
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-                  <button
-                    onClick={() => setProfileToDelete(null)}
-                    className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold bg-white dark:bg-[#1A1B28] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      deleteProfile(profileToDelete.id);
-                      haptics.success();
-                      setProfileToDelete(null);
-                    }}
-                    className="px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold bg-rose-600 text-white shadow-sm hover:bg-rose-700 transition-colors cursor-pointer"
-                  >
-                    Confirm Delete
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Profiles Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-3.5 pt-0.5 sm:pt-1">
-              {profiles.map(p => {
-                const isActive = p.id === activeProfileId;
-                const exam = exams.find(e => e.id === p.targetExamId);
-                const examTitle = exam ? exam.name : 'Target Exam';
-
-                return (
-                  <div
-                    key={p.id}
-                    className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between gap-3 sm:gap-4 ${
-                      isActive
-                        ? 'bg-blue-50/40 dark:bg-blue-900/15 border-blue-500/50 shadow-xs ring-1 ring-blue-500/30'
-                        : 'bg-white dark:bg-[#151622] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2.5 sm:gap-3">
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                        <div
-                          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr ${
-                            p.avatarColor || 'from-indigo-500 to-purple-600'
-                          } flex items-center justify-center text-white shadow-sm text-xl sm:text-2xl border border-white/20 shrink-0 overflow-hidden`}
-                        >
-                          {p.avatarUrl ? (
-                            <img src={p.avatarUrl} alt={p.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <span>{p.avatarEmoji || '🦁'}</span>
-                          )}
-                        </div>
-
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                            <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white truncate">
-                              {p.name}
-                            </h4>
-                            {isActive && (
-                              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-sans font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                ACTIVE
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 flex-wrap">
-                            <span className="font-semibold text-slate-700 dark:text-slate-300">
-                              Lvl {p.level || 1} • {p.levelTitle || 'Recruit'}
-                            </span>
-                            <span>•</span>
-                            <span className="text-orange-600 dark:text-orange-400 font-bold flex items-center gap-0.5 tabular-nums">
-                              <Flame className="w-3 h-3 fill-current" />
-                              <span>{p.currentStreak || 0}d</span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-                        <button
-                          onClick={() => {
-                            soundManager.playClick();
-                            setEditingProfileForModal(p);
-                            setIsCreateProfileModalOpen(true);
-                          }}
-                          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
-                          title="Edit Profile"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-
-                        {profiles.length > 1 && (
-                          <button
-                            onClick={() => {
-                              soundManager.playClick();
-                              setProfileToDelete(p);
-                            }}
-                            className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
-                            title="Delete Profile"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/5">
-                      <div className="text-[11px] sm:text-xs font-sans font-medium text-slate-600 dark:text-slate-300 truncate flex items-center gap-1.5">
-                        <Target className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-                        <span className="truncate">{examTitle}</span>
-                        {p.targetExamDate && (
-                          <span className="text-slate-400 hidden xs:inline">({p.targetExamDate})</span>
-                        )}
-                      </div>
-
-                      {isActive ? (
-                        <div className="flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] sm:text-xs font-bold font-sans">
-                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                          <span>Current</span>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => {
-                            soundManager.playClick();
-                            haptics.selection();
-                            switchProfile(p.id);
-                          }}
-                          className="h-8 flex items-center gap-1 sm:gap-1.5 px-3 rounded-lg sm:rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-white/10 dark:hover:bg-blue-600 text-white text-[11px] sm:text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
-                        >
-                          <span>Switch</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Educational Info Box */}
-          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border border-blue-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-            <div className="flex items-start gap-2.5 sm:gap-3">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
-                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-              <div className="space-y-0.5">
-                <h4 className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white tracking-tight">
-                  Isolated Study Vaults
-                </h4>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                  Every profile gets its own isolated topic checklist, flashcard revisions, daily study streak, and planner targets. Switching profiles never loses or mixes your data.
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                setEditingProfileForModal(null);
-                setIsCreateProfileModalOpen(true);
-              }}
-              className="h-8 px-3.5 rounded-lg sm:rounded-xl bg-white dark:bg-white/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-400/30 text-xs font-bold hover:bg-blue-50 dark:hover:bg-white/15 transition-colors cursor-pointer shrink-0 self-end sm:self-auto"
-            >
-              + Add Profile
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* TAB 1: EXAM TARGET & COUNTDOWN CONFIG */}
       {activeTab === 'exam' && (
@@ -2344,15 +2113,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
       {/* PWA Install Modal */}
       <PWAInstallModal isOpen={showPwaModal} onClose={() => setShowPwaModal(false)} />
 
-      {/* Multi-Profile Creator / Editor Modal */}
-      <CreateProfileModal
-        isOpen={isCreateProfileModalOpen}
-        onClose={() => {
-          setIsCreateProfileModalOpen(false);
-          setEditingProfileForModal(null);
-        }}
-        editingProfile={editingProfileForModal}
-      />
 
       {/* Google Drive Cloud Vault & Media Sync Modal */}
       <GoogleDriveBackupModal

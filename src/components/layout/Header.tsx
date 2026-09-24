@@ -31,7 +31,6 @@ import { AddExamTargetModal } from '../modals/AddExamTargetModal';
 interface HeaderProps {
   onOpenSearch: () => void;
   onOpenSettings: () => void;
-  onOpenProfileSwitcher?: () => void;
   onOpenMobileMenu?: () => void;
   isSidebarCollapsed?: boolean;
   onToggleDesktopSidebar?: () => void;
@@ -41,7 +40,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   onOpenSearch,
   onOpenSettings,
-  onOpenProfileSwitcher,
   onOpenMobileMenu,
   isSidebarCollapsed = false,
   onToggleDesktopSidebar,
@@ -409,23 +407,19 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
-          {/* User Profile Avatar / Switcher Trigger */}
+          {/* User Profile Avatar / Settings Trigger */}
           <button
             type="button"
             onClick={() => {
               soundManager.playClick();
               haptics.light();
-              if (onOpenProfileSwitcher) {
-                onOpenProfileSwitcher();
-              } else {
-                onOpenSettings();
-              }
+              onOpenSettings();
             }}
             className={`h-9 w-9 rounded-full bg-gradient-to-tr ${
               profile.avatarColor || 'from-[#2563EB] to-indigo-600'
             } border border-slate-200/80 dark:border-white/[0.08] text-white font-bold flex items-center justify-center text-xs shadow-sm cursor-pointer overflow-hidden active:scale-95 hover:border-[#2563EB] dark:hover:border-[#7AA2F7] transition-all shrink-0`}
-            title={`Active Profile: ${profile.name || 'Aspirant'} (Click to switch)`}
-            aria-label="Switch profile"
+            title={`Profile: ${profile.name || 'Aspirant'}`}
+            aria-label="Open profile settings"
           >
             {profile.avatarUrl ? (
               <img
