@@ -24,8 +24,7 @@ const GDRIVE_KEYS = {
 const OAUTH_SCOPES = [
   'openid',
   'email',
-  'profile',
-  'https://www.googleapis.com/auth/drive.file'
+  'profile'
 ].join(' ');
 
 export interface GoogleUserInfo {
