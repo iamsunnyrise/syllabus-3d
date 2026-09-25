@@ -206,52 +206,122 @@
     color: #8D7A02 !important;
   }
 
-  /* Header & Navigation Bar in Warm Parchment */
+  /* Header in Warm Parchment (Deep Antique Olive matching reference website) */
   html.warm-cream header {
-    background-color: rgba(255, 253, 248, 0.95) !important;
-    border-color: #E2D1B3 !important;
+    background-color: #2E2D0A !important;
+    border-bottom: 1px solid rgba(225, 168, 55, 0.25) !important;
+    box-shadow: 0 4px 20px rgba(46, 45, 10, 0.35) !important;
+    color: #FFFFFF !important;
   }
 
+  html.warm-cream header .text-slate-900,
+  html.warm-cream header .text-slate-800,
+  html.warm-cream header h1,
+  html.warm-cream header h2,
+  html.warm-cream header h3,
+  html.warm-cream header span.font-bold {
+    color: #FFFFFF !important;
+  }
+
+  html.warm-cream header .text-slate-400,
+  html.warm-cream header .text-slate-500 {
+    color: #E1A837 !important;
+  }
+
+  html.warm-cream header button,
+  html.warm-cream header .h-9,
+  html.warm-cream header nav {
+    background-color: rgba(22, 21, 5, 0.65) !important;
+    border-color: rgba(225, 168, 55, 0.3) !important;
+    color: #FAEED9 !important;
+  }
+
+  html.warm-cream header button:hover {
+    background-color: rgba(225, 168, 55, 0.25) !important;
+    border-color: #E1A837 !important;
+    color: #FFFFFF !important;
+  }
+
+  html.warm-cream header button svg {
+    color: #E1A837 !important;
+  }
+
+  /* Sidebar in Warm Parchment (Deep Antique Olive matching header) */
   html.warm-cream aside {
-    background-color: rgba(255, 253, 248, 0.96) !important;
-    border-color: #E2D1B3 !important;
+    background-color: #272608 !important;
+    border-right: 1px solid rgba(225, 168, 55, 0.2) !important;
+    color: #FAEED9 !important;
+  }
+
+  html.warm-cream aside .text-slate-900,
+  html.warm-cream aside .text-slate-800,
+  html.warm-cream aside h1 {
+    color: #FFFFFF !important;
+  }
+
+  html.warm-cream aside .text-slate-500,
+  html.warm-cream aside .text-slate-400 {
+    color: #CDB994 !important;
+  }
+
+  html.warm-cream aside button {
+    color: #EAE3D2 !important;
+  }
+
+  html.warm-cream aside button:hover {
+    background-color: rgba(225, 168, 55, 0.15) !important;
+    color: #FFFFFF !important;
   }
 
   html.warm-cream aside button[aria-current="page"] {
     background: linear-gradient(135deg, #E1A837 0%, #C9962A 100%) !important;
-    color: #38370D !important;
-    box-shadow: 0 2px 10px rgba(225, 168, 55, 0.35) !important;
+    color: #272608 !important;
+    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.35) !important;
     font-weight: 800 !important;
   }
 
   html.warm-cream aside button[aria-current="page"] * {
-    color: #38370D !important;
+    color: #272608 !important;
   }
 
+  /* Mobile Floating Dock in Warm Parchment */
   html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] > div {
-    background-color: rgba(255, 253, 248, 0.96) !important;
-    border-color: #E2D1B3 !important;
+    background-color: rgba(39, 38, 8, 0.96) !important;
+    border-color: rgba(225, 168, 55, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(46, 45, 10, 0.4) !important;
+  }
+
+  html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] button {
+    color: #CDB994 !important;
+  }
+
+  html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] button[aria-current="page"] {
+    color: #E1A837 !important;
   }
 
   /* Buttons & Action Badges in Warm Parchment */
   html.warm-cream button.bg-blue-600,
   html.warm-cream button.bg-\[\#3B82F6\],
-  html.warm-cream button.bg-\[\#4F46E5\] {
+  html.warm-cream button.bg-\[\#4F46E5\],
+  html.warm-cream .btn-primary {
     background-color: #E1A837 !important;
     color: #38370D !important;
     box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
+    font-weight: 800 !important;
   }
 
   html.warm-cream button.bg-blue-600:hover,
   html.warm-cream button.bg-\[\#3B82F6\]:hover,
-  html.warm-cream button.bg-\[\#4F46E5\]:hover {
+  html.warm-cream button.bg-\[\#4F46E5\]:hover,
+  html.warm-cream .btn-primary:hover {
     background-color: #CCA32F !important;
     color: #38370D !important;
   }
 
   html.warm-cream button.bg-blue-600 *,
   html.warm-cream button.bg-\[\#3B82F6\] *,
-  html.warm-cream button.bg-\[\#4F46E5\] * {
+  html.warm-cream button.bg-\[\#4F46E5\] *,
+  html.warm-cream .btn-primary * {
     color: #38370D !important;
   }
 
@@ -260,6 +330,13 @@
     background-color: #F7EAD0 !important;
     color: #8D7A02 !important;
     border-color: #E1A837 !important;
+  }
+
+  /* Progress Bars & Active Accents */
+  html.warm-cream .bg-blue-500,
+  html.warm-cream .bg-\[\#2563EB\],
+  html.warm-cream .bg-\[\#4F46E5\] {
+    background-color: #E1A837 !important;
   }
 
   /* Form Elements in Warm Parchment */
