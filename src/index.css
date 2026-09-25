@@ -184,12 +184,12 @@
   /* Text & Typography Readability (Contrast-Guaranteed System) */
   html.warm-cream .text-slate-900,
   html.warm-cream .text-slate-800,
-  html.warm-cream h1,
-  html.warm-cream h2,
-  html.warm-cream h3,
-  html.warm-cream h4,
-  html.warm-cream h5,
-  html.warm-cream h6 {
+  html.warm-cream h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+  html.warm-cream h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+  html.warm-cream h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+  html.warm-cream h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+  html.warm-cream h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+  html.warm-cream h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]) {
     color: #38370D !important;
   }
 
@@ -770,12 +770,12 @@ html:not(.dark):not(.sepia):not(.luxury) .border-slate-300 {
    ══════════════════════════════════════════════════════════════════ */
 
 /* Primary Headings, Titles & Emphasized Text */
-html:not(.dark):not(.sepia):not(.luxury) h1,
-html:not(.dark):not(.sepia):not(.luxury) h2,
-html:not(.dark):not(.sepia):not(.luxury) h3,
-html:not(.dark):not(.sepia):not(.luxury) h4,
-html:not(.dark):not(.sepia):not(.luxury) h5,
-html:not(.dark):not(.sepia):not(.luxury) h6,
+html:not(.dark):not(.sepia):not(.luxury) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
 html:not(.dark):not(.sepia):not(.luxury) .text-slate-900,
 html:not(.dark):not(.sepia):not(.luxury) [class*="text-slate-900"],
 html:not(.dark):not(.sepia):not(.luxury) .text-black,
@@ -1795,16 +1795,56 @@ html:not(.dark) [class*="border-slate-200"] {
 }
 
 /* 4. Razor-Sharp High-Contrast Slate Typography in Light Mode */
-html:not(.dark) h1,
-html:not(.dark) h2,
-html:not(.dark) h3,
-html:not(.dark) h4,
-html:not(.dark) h5,
-html:not(.dark) h6,
-html:not(.dark) .font-heading,
-html:not(.dark) .app-title {
+html:not(.dark) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) .font-heading:not(.text-white):not([class*="text-white"]),
+html:not(.dark) .app-title:not(.text-white):not([class*="text-white"]) {
   color: #0F172A !important;
   letter-spacing: -0.022em;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   🔥 PLANNER STUDY STREAK BANNER - HIGH-CONTRAST LIGHT & DARK SYSTEM
+   ══════════════════════════════════════════════════════════════════ */
+.planner-streak-banner,
+.planner-streak-banner h1,
+.planner-streak-banner h2,
+.planner-streak-banner h3,
+.planner-streak-banner [class*="text-white"],
+html:not(.dark) .planner-streak-banner h2,
+html.warm-cream .planner-streak-banner h2 {
+  color: #FFFFFF !important;
+}
+
+.planner-streak-banner h2 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.planner-streak-banner .text-amber-400,
+.planner-streak-banner [class*="text-amber-400"] {
+  color: #FBBF24 !important;
+}
+
+.planner-streak-banner .text-amber-300,
+.planner-streak-banner [class*="text-amber-300"] {
+  color: #FCD34D !important;
+}
+
+.planner-streak-banner .text-amber-200 {
+  color: #FDE68A !important;
+}
+
+.planner-streak-banner .text-slate-200 {
+  color: #E2E8F0 !important;
+}
+
+.planner-streak-banner .text-slate-950 {
+  color: #020617 !important;
 }
 
 html:not(.dark) [class*="text-[#11120F]"],

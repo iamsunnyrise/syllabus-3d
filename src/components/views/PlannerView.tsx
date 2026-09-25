@@ -548,41 +548,45 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
       {/* 2. NEXT-GEN LUXURY STREAK & MOMENTUM COMMAND BANNER */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-slate-900 via-[#13162D] to-slate-900 dark:from-[#090B16] dark:via-[#11142B] dark:to-[#090B16] text-white border border-amber-500/25 dark:border-amber-400/20 shadow-xl shadow-amber-500/5 relative overflow-hidden group print:hidden">
+      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#0C0E1C] via-[#141834] to-[#0C0E1C] text-white border-2 border-amber-500/30 shadow-2xl shadow-amber-500/10 relative overflow-hidden group print:hidden">
         {/* Ambient Radiant Glows */}
-        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-all duration-700" />
-        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-700" />
+        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/25 transition-all duration-700" />
+        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-700" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Left: Flame Emblem + Streak Stat */}
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             <div className="relative shrink-0">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500/20 via-orange-500/20 to-amber-400/30 border border-amber-500/30 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shadow-inner shadow-amber-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500/30 via-orange-500/25 to-amber-400/40 border border-amber-400/50 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
                 🔥
               </div>
-              <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-black bg-amber-500 text-slate-950 shadow-xs border border-amber-300">
+              <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-black bg-amber-400 text-slate-950 shadow-xs border border-amber-200">
                 LIVE
               </span>
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-none">
+                <h2
+                  className="text-xl sm:text-2xl font-black !text-white tracking-tight leading-none"
+                  style={{ color: '#FFFFFF' }}
+                >
                   {profile.currentStreak || 7} Day Study Streak
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold font-mono tabular-nums flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-amber-400" />
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-400/25 text-amber-200 border border-amber-400/40 text-[11px] font-bold font-mono tabular-nums flex items-center gap-1 shadow-xs">
+                  <Sparkles className="w-3 h-3 text-amber-300" />
                   <span>{todayProgressPercent}% Conquered Today</span>
                 </span>
               </div>
-              <p className="text-xs sm:text-[13px] text-slate-300/90 font-medium mt-1 leading-snug">
-                Consistency is mastery. Personal best record: <span className="text-amber-400 font-bold tabular-nums">{profile.longestStreak || 24} days</span>
+              <p className="text-xs sm:text-[13px] text-slate-200 font-medium mt-1.5 leading-snug">
+                Consistency is mastery. Personal best record:{' '}
+                <span className="text-amber-300 font-black tabular-nums">{profile.longestStreak || 24} days</span>
               </p>
             </div>
           </div>
 
           {/* Center: Interactive 7-Day Consistency Week Strip */}
-          <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-black/40 border border-white/15 backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar shadow-inner">
             {weekDays.map((wd) => {
               const isCurrentDay = wd.isToday;
               const dayTasksList = filteredTasks.filter(t => t.scheduledDate === wd.dateStr);
@@ -595,12 +599,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   key={wd.dateStr}
                   className={`flex flex-col items-center justify-center w-8 sm:w-9 py-1 rounded-xl transition-all cursor-pointer ${
                     isCurrentDay
-                      ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/30 ring-2 ring-amber-400/50 scale-105'
+                      ? 'bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/50 ring-2 ring-amber-300 scale-105'
                       : allDone
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      ? 'bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 shadow-xs'
                       : dayDone
-                      ? 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
-                      : 'bg-white/[0.03] text-slate-400 border border-white/[0.04]'
+                      ? 'bg-amber-500/30 text-amber-200 border border-amber-400/50 shadow-xs'
+                      : 'bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 shadow-2xs'
                   }`}
                   onClick={() => {
                     soundManager.playClick();
@@ -609,9 +613,25 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   }}
                   title={`${wd.dayName} (${wd.dateStr}): ${dayTotal} targets`}
                 >
-                  <span className="text-[9px] font-mono uppercase font-bold">{wd.dayName.slice(0, 2)}</span>
-                  <span className="text-[11px] font-mono font-black mt-0.5">{wd.dayNum}</span>
-                  <span className="text-[9px] mt-0.5">
+                  <span
+                    className={`text-[9.5px] font-mono uppercase font-black ${
+                      isCurrentDay ? 'text-slate-950' : 'text-amber-300'
+                    }`}
+                  >
+                    {wd.dayName.slice(0, 2)}
+                  </span>
+                  <span
+                    className={`text-[12px] font-mono font-black mt-0.5 tabular-nums ${
+                      isCurrentDay ? 'text-slate-950' : 'text-white'
+                    }`}
+                  >
+                    {wd.dayNum}
+                  </span>
+                  <span
+                    className={`text-[10px] mt-0.5 font-black ${
+                      isCurrentDay ? 'text-slate-950' : 'text-amber-400'
+                    }`}
+                  >
                     {isCurrentDay ? '●' : allDone ? '✓' : dayDone ? '🔥' : '·'}
                   </span>
                 </div>
@@ -622,11 +642,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           {/* Right: Quick Target Status & Multiplier */}
           <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
             <div className="text-right hidden sm:block">
-              <div className="text-xs font-bold text-white flex items-center gap-1.5 justify-end">
+              <div
+                className="text-xs font-black text-white flex items-center gap-1.5 justify-end"
+                style={{ color: '#FFFFFF' }}
+              >
                 <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 <span>{completedTodayCount} of {totalTodayCount} Conquered</span>
               </div>
-              <span className="text-[11px] text-amber-400/90 font-mono">1.25x XP Streak Multiplier Active</span>
+              <span className="text-[11px] text-amber-300 font-bold font-mono">
+                1.25x XP Streak Multiplier Active
+              </span>
             </div>
 
             {onOpenFocusChamber && (
@@ -637,7 +662,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   haptics.medium();
                   onOpenFocusChamber();
                 }}
-                className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
+                className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/25 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
               >
                 <Play className="w-3.5 h-3.5 fill-current" />
                 <span>Quick Sprint</span>
