@@ -583,7 +583,12 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-[#16161E] select-none ${className}`}>
+    <div
+      className={`flex flex-col h-full select-none ${className}`}
+      style={{
+        backgroundColor: activeColorTheme === 'oled' ? '#000000' : '#16161E'
+      }}
+    >
       
       {/* Optional Inline Floating Toolbar */}
       {showInlineControls && (
@@ -678,9 +683,12 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className={`flex-1 overflow-y-auto overflow-x-auto p-0 m-0 w-full flex flex-col items-center bg-[#16161E] relative ${
+        className={`flex-1 overflow-y-auto overflow-x-auto p-0 m-0 w-full flex flex-col items-center relative ${
           fitMode === 'fit-page' ? 'py-4 gap-4' : 'gap-0'
         }`}
+        style={{
+          backgroundColor: activeColorTheme === 'oled' ? '#000000' : '#16161E'
+        }}
       >
         {/* Sleek Floating Resume Notification */}
         {resumeToast && (
@@ -731,40 +739,51 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
           <div className={`w-full mx-auto flex flex-col items-center ${scale > 1.05 ? 'min-w-max' : ''} ${
             fitMode === 'fit-page' ? 'max-w-5xl' : 'max-w-none w-full'
           }`}>
-            {Array.from({ length: numPages }, (_, idx) => idx + 1).map((pageNum, idx) => (
-              <React.Fragment key={`${pageNum}_${rotation}`}>
-                <PdfPageItem
-                  pageNum={pageNum}
-                  targetPage={targetInitialPageRef.current}
-                  docId={docId}
-                  pdfDoc={pdfDoc}
-                  scale={scale}
-                  fitMode={fitMode}
-                  rotation={rotation}
-                  containerWidth={containerWidth}
-                  containerHeight={containerHeight}
-                  defaultAspect={defaultAspect}
-                  isHighlightMode={isHighlightMode}
-                  highlightColor={highlightColor}
-                  highlightTool={highlightTool}
-                  pageHighlights={highlights.filter(h => h.pageNum === pageNum)}
-                  onAddHighlight={onAddHighlight}
-                  onDeleteHighlight={onDeleteHighlight}
-                  isCommentMode={isCommentMode}
-                  pageComments={comments.filter(c => c.pageNum === pageNum)}
-                  onAddComment={onAddComment}
-                  onUpdateComment={onUpdateComment}
-                  onDeleteComment={onDeleteComment}
-                  activeCommentId={activeCommentId}
-                  onSelectComment={onSelectComment}
-                  onPushCommentToNotes={onPushCommentToNotes}
-                  colorTheme={activeColorTheme}
-                />
-                {fitMode === 'fit-width' && idx < numPages - 1 && (
-                  <div className="w-full h-1 bg-[#1A1B26] border-y border-[#292E42]/50 shrink-0" />
-                )}
-              </React.Fragment>
-            ))}
+            {Array.from({ length: numPages }, (_, idx) => idx + 1).map((pageNum, idx) => {
+              const isNearby = Math.abs(pageNum - currentPage) <= 3;
+              return (
+                <React.Fragment key={`${pageNum}_${rotation}`}>
+                  <PdfPageItem
+                    pageNum={pageNum}
+                    targetPage={targetInitialPageRef.current}
+                    isNearby={isNearby}
+                    scrollContainerRef={containerRef}
+                    docId={docId}
+                    pdfDoc={pdfDoc}
+                    scale={scale}
+                    fitMode={fitMode}
+                    rotation={rotation}
+                    containerWidth={containerWidth}
+                    containerHeight={containerHeight}
+                    defaultAspect={defaultAspect}
+                    isHighlightMode={isHighlightMode}
+                    highlightColor={highlightColor}
+                    highlightTool={highlightTool}
+                    pageHighlights={highlights.filter(h => h.pageNum === pageNum)}
+                    onAddHighlight={onAddHighlight}
+                    onDeleteHighlight={onDeleteHighlight}
+                    isCommentMode={isCommentMode}
+                    pageComments={comments.filter(c => c.pageNum === pageNum)}
+                    onAddComment={onAddComment}
+                    onUpdateComment={onUpdateComment}
+                    onDeleteComment={onDeleteComment}
+                    activeCommentId={activeCommentId}
+                    onSelectComment={onSelectComment}
+                    onPushCommentToNotes={onPushCommentToNotes}
+                    colorTheme={activeColorTheme}
+                  />
+                  {fitMode === 'fit-width' && idx < numPages - 1 && (
+                    <div
+                      className="w-full h-1 border-y shrink-0"
+                      style={{
+                        backgroundColor: activeColorTheme === 'oled' ? '#0a0a0a' : '#1A1B26',
+                        borderColor: activeColorTheme === 'oled' ? '#181818' : 'rgba(41, 46, 66, 0.5)'
+                      }}
+                    />
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
         )}
       </div>
@@ -775,6 +794,8 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 interface PdfPageItemProps {
   pageNum: number;
   targetPage?: number;
+  isNearby?: boolean;
+  scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
   docId?: string;
   pdfDoc: any;
   scale: number;
@@ -803,6 +824,8 @@ interface PdfPageItemProps {
 const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   pageNum,
   targetPage,
+  isNearby = false,
+  scrollContainerRef,
   docId,
   pdfDoc,
   scale,
@@ -831,8 +854,10 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const renderTaskRef = useRef<any>(null);
-  // Page 1 or targetPage is ALWAYS immediately visible so opening/resuming is instant!
-  const [isVisible, setIsVisible] = useState<boolean>(pageNum === 1 || pageNum === targetPage);
+  // Page 1, targetPage, or nearby pages are immediately visible
+  const [isVisible, setIsVisible] = useState<boolean>(
+    pageNum === 1 || pageNum === targetPage || isNearby
+  );
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [pageAspect, setPageAspect] = useState<number>(defaultAspect);
   const [renderedWidth, setRenderedWidth] = useState<number>(0);
@@ -851,25 +876,33 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
   const [currentPoint, setCurrentPoint] = useState<{ x: number; y: number } | null>(null);
   const [freehandPoints, setFreehandPoints] = useState<Array<{ x: number; y: number }>>([]);
 
-  // Lazy load using IntersectionObserver for pages > 1 (excluding target page)
+  // 1. Predictive Lookahead: Nearby pages (around active scroll viewport) are pre-rendered immediately
   useEffect(() => {
-    if (pageNum === 1 || pageNum === targetPage) {
+    if (isNearby || pageNum === 1 || (targetPage && Math.abs(pageNum - targetPage) <= 1)) {
       setIsVisible(true);
-      return;
     }
+  }, [isNearby, pageNum, targetPage]);
+
+  // 2. IntersectionObserver lookahead:
+  // Rooted to scrollContainerRef with 2000px lookahead margin to seamlessly render ~3 pages ahead of scroll
+  useEffect(() => {
+    if (isVisible) return;
 
     const el = wrapperRef.current;
     if (!el) return;
+
+    const rootEl = scrollContainerRef?.current || null;
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Once visible, disconnect observer to save memory
+          observer.disconnect();
         }
       },
       {
-        rootMargin: '800px 0px', // Pre-renders smoothly ahead of viewport
+        root: rootEl,
+        rootMargin: '2000px 0px',
         threshold: 0.01
       }
     );
@@ -878,9 +911,9 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
     return () => {
       observer.disconnect();
     };
-  }, [pageNum]);
+  }, [isVisible, scrollContainerRef]);
 
-  // Render Page onto Canvas when visible
+  // Render Page onto Canvas with Offscreen Double-Buffering (Chrome/Adobe Acrobat Grade)
   useEffect(() => {
     if (!isVisible || !pdfDoc) return;
 
@@ -921,29 +954,39 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
 
         const viewport = page.getViewport({ scale: finalScale, rotation });
 
-        const canvas = canvasRef.current;
-        if (!canvas || isCancelled) return;
-
         const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
         const displayW = Math.floor(viewport.width);
         const displayH = Math.floor(viewport.height);
+        const pixelW = Math.floor(viewport.width * dpr);
+        const pixelH = Math.floor(viewport.height * dpr);
 
-        canvas.width = Math.floor(viewport.width * dpr);
-        canvas.height = Math.floor(viewport.height * dpr);
-        canvas.style.width = `${displayW}px`;
-        canvas.style.height = `${displayH}px`;
-        setRenderedWidth(displayW);
-        setRenderedHeight(displayH);
+        if (displayW <= 0 || displayH <= 0 || pixelW <= 0 || pixelH <= 0) {
+          setIsRendering(false);
+          return;
+        }
 
-        const ctx = canvas.getContext('2d', { alpha: false });
-        if (!ctx || isCancelled) return;
+        // 1. Offscreen Double-Buffering:
+        // Render onto an in-memory detached canvas so the visible screen NEVER flashes black or clears!
+        const offscreenCanvas = document.createElement('canvas');
+        offscreenCanvas.width = pixelW;
+        offscreenCanvas.height = pixelH;
 
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const offCtx = offscreenCanvas.getContext('2d');
+        if (!offCtx || isCancelled) return;
+
+        // Guarantee a solid crisp pure white base before PDF drawing.
+        // PDF documents are authored on white paper. By guaranteeing #FFFFFF background on the canvas,
+        // PDF glyphs/vectors have solid contrast, and CSS inversion filters (OLED/Night) work cleanly
+        // without transparent artifacts or dark flashes!
+        offCtx.fillStyle = '#FFFFFF';
+        offCtx.fillRect(0, 0, pixelW, pixelH);
+
+        offCtx.imageSmoothingEnabled = true;
+        offCtx.imageSmoothingQuality = 'high';
+        offCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
         const renderContext = {
-          canvasContext: ctx,
+          canvasContext: offCtx,
           viewport: viewport
         };
 
@@ -951,12 +994,32 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
         renderTaskRef.current = renderTask;
 
         await renderTask.promise;
-        if (!isCancelled) {
-          setIsRendering(false);
+        if (isCancelled) return;
+
+        // 2. Atomic Blit:
+        // Now that offscreen canvas is completely finished, blit onto visible canvas in a single instant tick.
+        const visibleCanvas = canvasRef.current;
+        if (!visibleCanvas) return;
+
+        visibleCanvas.width = pixelW;
+        visibleCanvas.height = pixelH;
+        visibleCanvas.style.width = `${displayW}px`;
+        visibleCanvas.style.height = `${displayH}px`;
+
+        const visibleCtx = visibleCanvas.getContext('2d');
+        if (visibleCtx) {
+          visibleCtx.drawImage(offscreenCanvas, 0, 0);
         }
+
+        setRenderedWidth(displayW);
+        setRenderedHeight(displayH);
+        setIsRendering(false);
       } catch (err: any) {
         if (err?.name !== 'RenderingCancelledException') {
           console.warn(`Error rendering page ${pageNum}:`, err);
+        }
+        if (!isCancelled) {
+          setIsRendering(false);
         }
       }
     };
@@ -1096,10 +1159,16 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
         contain: 'layout'
       }}
     >
-      {isRendering && renderedHeight === 0 && (
-        <div className="absolute inset-0 bg-[#1A1B26]/30 backdrop-blur-xs flex items-center justify-center text-white z-10 pointer-events-none">
-          <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[#1A1B26]/90 border border-[#292E42] text-[#7AA2F7] shadow-xl">
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-[#7AA2F7]" />
+      {/* Sleek Skeleton Placeholder while page renders in background (Zero jarring black flashes) */}
+      {renderedHeight === 0 && (
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center select-none z-10 pointer-events-none"
+          style={{
+            backgroundColor: themeConfig.pageBgColor
+          }}
+        >
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-500/10 dark:bg-white/5 border border-slate-500/20 text-slate-400 text-xs font-mono shadow-xs">
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-[#7AA2F7] opacity-80" />
             <span>Page {pageNum}</span>
           </div>
         </div>
@@ -1116,7 +1185,9 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
       >
         <canvas
           ref={canvasRef}
-          className={`block ${scale > 1.05 ? 'max-w-none' : 'max-w-full'} transition-[filter] duration-200`}
+          className={`block ${scale > 1.05 ? 'max-w-none' : 'max-w-full'} transition-[filter,opacity] duration-200 ${
+            renderedHeight > 0 ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
+          }`}
           style={{
             filter: themeConfig.canvasFilter
           }}
