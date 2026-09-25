@@ -225,178 +225,77 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 1. EXECUTIVE HERO BANNER (Matching reference website media_1790351275475.png) */}
-      <div className="relative overflow-hidden rounded-3xl bg-[#38370D] dark:bg-[#2A290A] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-[#8D7A02]/30">
-        {/* Subtle Warm Ambient Glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#E1A837]/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[#8D7A02]/15 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-          {/* Left Column: Mission Statement & Direct Action CTAs */}
-          <div className="max-w-2xl space-y-4 sm:space-y-5">
-            {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#282709]/80 border border-[#8D7A02]/40 text-[#E1A837] text-xs font-semibold shadow-xs">
-              <span>🎯</span>
-              <span>Built for {baseExamName || 'SSC'} & competitive exams</span>
-            </div>
-
-            {/* Giant Dual-Tone Typography */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black font-grotesk tracking-tight leading-[1.05]">
-              <span className="text-white block">Study Smarter.</span>
-              <span className="text-[#E1A837] block mt-1">Revise Faster.</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base text-[#FAEED9]/90 dark:text-slate-300 leading-relaxed font-normal max-w-xl">
-              Clean, exam-focused General Studies notes and English practice resources — organized topic by topic so you spend less time searching and more time learning.
-            </p>
-
-            {/* Action Buttons Row */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onNavigate('syllabus');
-                }}
-                className="h-11 px-5 sm:px-6 rounded-xl bg-[#E1A837] hover:bg-[#CCA32F] text-[#38370D] font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#E1A837]/25 active:scale-95 transition-all cursor-pointer"
-              >
-                <span>Explore Notes →</span>
-              </button>
-
-              {onOpenFocus && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onOpenFocus();
-                  }}
-                  className="h-11 px-4 sm:px-5 rounded-xl bg-[#282709]/80 hover:bg-[#38370D] text-[#E1A837] border border-[#8D7A02]/40 font-bold text-xs sm:text-sm flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
-                >
-                  <span>🎯 50 MCQs Mock Room</span>
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onNavigate('revision');
-                }}
-                className="h-11 px-4 sm:px-5 rounded-xl bg-[#282709]/80 hover:bg-[#38370D] text-[#E1A837] border border-[#8D7A02]/40 font-bold text-xs sm:text-sm flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
-              >
-                <span>Practice English</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Right Column: Floating Learning Library Card */}
-          <div className="w-full lg:w-[320px] rounded-2xl bg-[#282709]/85 backdrop-blur-md border border-[#8D7A02]/30 p-5 shadow-2xl flex flex-col justify-between shrink-0">
-            <div className="flex items-center justify-between pb-3 border-b border-[#8D7A02]/20">
-              <div className="flex items-center gap-2 font-bold text-sm sm:text-base text-white font-grotesk tracking-wide">
-                <span>📚</span>
-                <span>Learning Library</span>
-              </div>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#E1A837]/20 text-[#E1A837] border border-[#E1A837]/30">
-                {examYear}
-              </span>
-            </div>
-
-            <div className="divide-y divide-[#8D7A02]/20 text-xs sm:text-[13px]">
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-[#FAEED9]/70">General Studies subjects</span>
-                <span className="font-mono font-black text-white text-base">{subjectProgressList.length || 7}+</span>
-              </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-[#FAEED9]/70">Live GS notes</span>
-                <span className="font-mono font-black text-white text-base">{overallStats.totalTopics || 32}+</span>
-              </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-[#FAEED9]/70">English practice sets</span>
-                <span className="font-mono font-black text-white text-base">{overallStats.completedCount || 12}+</span>
-              </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-[#FAEED9]/70">Access</span>
-                <span className="font-mono font-black text-[#E1A837] text-base tracking-wider">FREE</span>
-              </div>
-            </div>
-          </div>
+      {/* 1. TOP HEADER ROW: Dashboard Title + Add Task Button */}
+      <div className="flex items-center justify-between gap-3 pt-1">
+        <div className="flex items-center gap-3">
+          <SectionBadgeIcon section="overview" size="md" />
+          <h1 className="text-2xl sm:text-3xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight">
+            Dashboard
+          </h1>
         </div>
+
+        {onOpenAddTopic && (
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              onOpenAddTopic();
+            }}
+            className="h-10 sm:h-10.5 px-4 sm:px-5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Add Task</span>
+          </button>
+        )}
       </div>
 
-      {/* 2. 4 QUICK-ACTION FEATURE CARDS (Matching media_1790351275475.png) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {/* Card 1: Chapter Mock Tests */}
-        <div
-          onClick={() => {
-            soundManager.playClick();
-            onNavigate('mock-tracker');
-          }}
-          className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1E1D08] border border-[#E5D7B7] dark:border-[#8D7A02]/30 shadow-sm hover:shadow-md hover:border-[#E1A837] hover:-translate-y-0.5 transition-all cursor-pointer group"
-        >
-          <div className="flex items-center gap-2 font-bold text-sm sm:text-[15px] text-[#38370D] dark:text-[#FAEED9] group-hover:text-[#8D7A02] transition-colors">
-            <span>🎯</span>
-            <span>Chapter Mock Tests</span>
-          </div>
-          <p className="text-xs text-[#6E6B35] dark:text-[#CDB994] mt-1.5 leading-relaxed">
-            50 MCQs Chapter-wise tests & review
-          </p>
-        </div>
-
-        {/* Card 2: Find a Topic */}
-        <div
-          onClick={() => {
-            soundManager.playClick();
-            onNavigate('syllabus');
-          }}
-          className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1E1D08] border border-[#E5D7B7] dark:border-[#8D7A02]/30 shadow-sm hover:shadow-md hover:border-[#E1A837] hover:-translate-y-0.5 transition-all cursor-pointer group"
-        >
-          <div className="flex items-center gap-2 font-bold text-sm sm:text-[15px] text-[#38370D] dark:text-[#FAEED9] group-hover:text-[#8D7A02] transition-colors">
-            <span>🔎</span>
-            <span>Find a topic</span>
-          </div>
-          <p className="text-xs text-[#6E6B35] dark:text-[#CDB994] mt-1.5 leading-relaxed">
-            Search across Sunny Rise notes
-          </p>
-        </div>
-
-        {/* Card 3: SSC CGL PYQ */}
-        <div
-          onClick={() => {
-            soundManager.playClick();
-            onNavigate('revision');
-          }}
-          className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1E1D08] border border-[#E5D7B7] dark:border-[#8D7A02]/30 shadow-sm hover:shadow-md hover:border-[#E1A837] hover:-translate-y-0.5 transition-all cursor-pointer group"
-        >
-          <div className="flex items-center gap-2 font-bold text-sm sm:text-[15px] text-[#38370D] dark:text-[#FAEED9] group-hover:text-[#8D7A02] transition-colors">
-            <span>📝</span>
-            <span>{baseExamName} PYQ</span>
-          </div>
-          <p className="text-xs text-[#6E6B35] dark:text-[#CDB994] mt-1.5 leading-relaxed">
-            Practice English {examYear} collections
-          </p>
-        </div>
-
-        {/* Card 4: Build Vocabulary */}
-        <div
-          onClick={() => {
-            soundManager.playClick();
-            onNavigate('youtube-notes');
-          }}
-          className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1E1D08] border border-[#E5D7B7] dark:border-[#8D7A02]/30 shadow-sm hover:shadow-md hover:border-[#E1A837] hover:-translate-y-0.5 transition-all cursor-pointer group"
-        >
-          <div className="flex items-center gap-2 font-bold text-sm sm:text-[15px] text-[#38370D] dark:text-[#FAEED9] group-hover:text-[#8D7A02] transition-colors">
-            <span>🧠</span>
-            <span>Build vocabulary</span>
-          </div>
-          <p className="text-xs text-[#6E6B35] dark:text-[#CDB994] mt-1.5 leading-relaxed">
-            Phrasal verbs, homonyms & more
-          </p>
-        </div>
-      </div>
-
-      {/* 3. DAILY INSPIRATION BANNER */}
+      {/* 2. MOTIVATIONAL QUOTE BANNER (Interactive Daily Inspiration Hub) */}
       <DailyInspirationBanner onOpenFocus={onOpenFocus} />
+
+      {/* 3. 4 VIBRANT METRIC KPI CARDS (Purple, Hot Pink, Cyan, Mint Green) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        
+        {/* Card 1: Purple Gradient - Total Topics */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#5346E8] to-[#3B2FB3] text-white shadow-md shadow-indigo-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.totalTopics || 0}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Total Topics
+          </div>
+        </div>
+
+        {/* Card 2: Hot Pink/Coral Gradient - Completed */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#FF4E8D] to-[#E92A67] text-white shadow-md shadow-pink-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.completedCount || 0}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Completed
+          </div>
+        </div>
+
+        {/* Card 3: Sky Blue/Cyan Gradient - Study Hours */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00D2FF] to-[#0099FF] text-white shadow-md shadow-cyan-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Study Hours
+          </div>
+        </div>
+
+        {/* Card 4: Neon Mint/Emerald Gradient - Completion Rate */}
+        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00F2A9] to-[#00BA74] text-white shadow-md shadow-emerald-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
+          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
+            {overallStats.completionPercentage || 0}%
+          </div>
+          <div className="text-xs sm:text-sm font-bold text-white/90">
+            Completion Rate
+          </div>
+        </div>
+
+      </div>
 
 
 
@@ -416,22 +315,22 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <Target className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-lg">📚</span>
-                <h3 className="text-base sm:text-lg font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                  General Studies
-                </h3>
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                Choose a subject and start revising.
-              </p>
+              <h3 className="text-[15px] sm:text-base font-bold font-grotesk text-slate-900 dark:text-[#F5F5F7] tracking-tight">
+                Syllabus Mastery
+              </h3>
+              <span className="text-xs text-slate-500 dark:text-slate-300 font-medium font-mono">
+                {baseExamName} • {examYear}
+              </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-[11px] font-mono font-black bg-[#E1A837]/20 text-[#8D7A02] dark:text-[#E1A837] border border-[#E1A837]/40 tracking-wider">
-              {overallStats.completedCount > 0 ? `${overallStats.completedCount}+ MASTERED` : '32+ NOTES LIVE'}
-            </span>
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 shadow-2xs shrink-0">
+              <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#7AA2F7] animate-pulse" />
+              <span className="text-xs font-black text-slate-900 dark:text-blue-300 font-mono">
+                {profile.levelTitle || `Level ${profile.level}`}
+              </span>
+            </div>
             <button
               onClick={() => {
                 soundManager.playClick();

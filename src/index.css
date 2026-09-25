@@ -339,6 +339,66 @@
     background-color: #E1A837 !important;
   }
 
+  /* 4 Metric KPI Cards in Warm Parchment Theme (Harmonized Palette) */
+  html.warm-cream [class*="from-[#5346E8]"] {
+    background: linear-gradient(135deg, #38370D 0%, #4D4B14 100%) !important;
+    box-shadow: 0 4px 16px rgba(56, 55, 13, 0.2) !important;
+    color: #FFFFFF !important;
+  }
+
+  html.warm-cream [class*="from-[#FF4E8D]"] {
+    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+    box-shadow: 0 4px 16px rgba(225, 168, 55, 0.25) !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream [class*="from-[#FF4E8D]"] * {
+    color: #38370D !important;
+  }
+
+  html.warm-cream [class*="from-[#00D2FF]"] {
+    background: linear-gradient(135deg, #8D7A02 0%, #6E6622 100%) !important;
+    box-shadow: 0 4px 16px rgba(141, 122, 2, 0.2) !important;
+    color: #FFFFFF !important;
+  }
+
+  html.warm-cream [class*="from-[#00F2A9]"] {
+    background: #FFFFFF !important;
+    border: 1.5px solid #E5D7B7 !important;
+    box-shadow: 0 4px 16px rgba(56, 55, 13, 0.06) !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream [class*="from-[#00F2A9]"] * {
+    color: #38370D !important;
+  }
+
+  /* Daily Inspiration Banner in Warm Parchment */
+  html.warm-cream [class*="from-indigo-50"] {
+    background: #FFFFFF !important;
+    border-color: #E5D7B7 !important;
+  }
+
+  html.warm-cream [class*="from-[#4F46E5]"] {
+    background: linear-gradient(to bottom, #E1A837, #8D7A02) !important;
+  }
+
+  html.warm-cream [class*="text-indigo-700"],
+  html.warm-cream [class*="text-indigo-600"] {
+    color: #8D7A02 !important;
+  }
+
+  html.warm-cream [class*="bg-indigo-500/10"],
+  html.warm-cream [class*="bg-indigo-500/20"] {
+    background-color: rgba(225, 168, 55, 0.15) !important;
+    border-color: rgba(225, 168, 55, 0.3) !important;
+    color: #8D7A02 !important;
+  }
+
+  html.warm-cream [class*="text-indigo-500"] {
+    color: #E1A837 !important;
+  }
+
   /* Form Elements in Warm Parchment */
   html.warm-cream input,
   html.warm-cream textarea,
