@@ -33,6 +33,364 @@ export const stripEmojis = (str: string): string => {
     .trim();
 };
 
+export interface BrandTheme {
+  name: string;
+  brandColor: string;
+  bannerGradient: string;
+  buttonBg?: string;
+  buttonStyle?: React.CSSProperties;
+  buttonTextColor: string;
+  buttonShadow: string;
+  renderIcon: (className?: string) => React.ReactNode;
+}
+
+export function adjustHexColor(hex: string, amount: number): string {
+  try {
+    let cleanHex = hex.replace('#', '');
+    if (cleanHex.length === 3) {
+      cleanHex = cleanHex.split('').map(c => c + c).join('');
+    }
+    const num = parseInt(cleanHex, 16);
+    let r = (num >> 16) + amount;
+    let g = ((num >> 8) & 0x00ff) + amount;
+    let b = (num & 0x0000ff) + amount;
+    r = Math.min(255, Math.max(0, r));
+    g = Math.min(255, Math.max(0, g));
+    b = Math.min(255, Math.max(0, b));
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+  } catch {
+    return hex;
+  }
+}
+
+export const getBrandTheme = (
+  rawUrl: string,
+  rawName: string,
+  fallbackColor?: string,
+  customIcon?: string
+): BrandTheme => {
+  const url = (rawUrl || '').toLowerCase();
+  const name = (rawName || '').toLowerCase();
+
+  // 1. Instagram
+  if (url.includes('instagram.com') || name.includes('instagram') || name.includes('insta')) {
+    return {
+      name: 'Instagram',
+      brandColor: '#E1306C',
+      bannerGradient: 'linear-gradient(135deg, #833AB4 0%, #C13584 35%, #E1306C 65%, #FD1D1D 85%, #F56040 100%)',
+      buttonBg: 'bg-gradient-to-r from-[#833AB4] via-[#E1306C] to-[#FD1D1D] hover:opacity-90',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(225,48,108,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" strokeWidth="2.2" />
+          <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="2.2" />
+          <circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" />
+        </svg>
+      )
+    };
+  }
+
+  // 2. Pinterest
+  if (url.includes('pinterest.com') || url.includes('pin.it') || name.includes('pinterest')) {
+    return {
+      name: 'Pinterest',
+      brandColor: '#E60023',
+      bannerGradient: 'linear-gradient(135deg, #990014 0%, #BD081C 50%, #E60023 100%)',
+      buttonBg: 'bg-[#E60023] hover:bg-[#B80018]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(230,0,35,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+        </svg>
+      )
+    };
+  }
+
+  // 3. LinkedIn
+  if (url.includes('linkedin.com') || name.includes('linkedin')) {
+    return {
+      name: 'LinkedIn',
+      brandColor: '#0A66C2',
+      bannerGradient: 'linear-gradient(135deg, #003668 0%, #004182 45%, #0A66C2 100%)',
+      buttonBg: 'bg-[#0A66C2] hover:bg-[#004182]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(10,102,194,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+      )
+    };
+  }
+
+  // 4. X / Twitter
+  if (url.includes('x.com') || url.includes('twitter.com') || name === 'x' || name.includes('twitter')) {
+    return {
+      name: 'X (Twitter)',
+      brandColor: '#0F1419',
+      bannerGradient: 'linear-gradient(135deg, #000000 0%, #0F1419 55%, #1E293B 100%)',
+      buttonBg: 'bg-[#0F1419] hover:bg-black dark:bg-white dark:hover:bg-slate-200',
+      buttonTextColor: 'text-white dark:text-black',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(0,0,0,0.5)] dark:shadow-[0_4px_16px_rgba(255,255,255,0.25)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      )
+    };
+  }
+
+  // 5. Screener (screener.in)
+  if (url.includes('screener.in') || name.includes('screener')) {
+    return {
+      name: 'Screener',
+      brandColor: '#0284C7',
+      bannerGradient: 'linear-gradient(135deg, #034E7B 0%, #0284C7 60%, #38BDF8 100%)',
+      buttonBg: 'bg-[#0284C7] hover:bg-[#0369A1]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(2,132,199,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+          <path d="M3 13l5-5 4 4 8-8" strokeWidth="2.5" />
+          <polyline points="15 4 20 4 20 9" strokeWidth="2.5" />
+        </svg>
+      )
+    };
+  }
+
+  // 6. Tradewise (Paper Trading / Stock Terminal)
+  if (url.includes('tradewise') || name.includes('tradewise')) {
+    return {
+      name: 'Tradewise',
+      brandColor: '#6366F1',
+      bannerGradient: 'linear-gradient(135deg, #3730A3 0%, #6366F1 50%, #06B6D4 100%)',
+      buttonBg: 'bg-[#6366F1] hover:bg-[#4F46E5]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(99,102,241,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="6" y1="3" x2="6" y2="7" />
+          <rect x="4.5" y="7" width="3" height="7" rx="0.5" fill="currentColor" fillOpacity="0.4" />
+          <line x1="6" y1="14" x2="6" y2="19" />
+          <line x1="12" y1="2" x2="12" y2="5" />
+          <rect x="10.5" y="5" width="3" height="11" rx="0.5" fill="currentColor" />
+          <line x1="12" y1="16" x2="12" y2="21" />
+          <line x1="18" y1="5" x2="18" y2="9" />
+          <rect x="16.5" y="9" width="3" height="6" rx="0.5" fill="currentColor" fillOpacity="0.4" />
+          <line x1="18" y1="15" x2="18" y2="20" />
+        </svg>
+      )
+    };
+  }
+
+  // 7. YouTube
+  if (url.includes('youtube.com') || url.includes('youtu.be') || name.includes('youtube')) {
+    return {
+      name: 'YouTube',
+      brandColor: '#FF0000',
+      bannerGradient: 'linear-gradient(135deg, #8B0000 0%, #CC0000 50%, #FF0000 100%)',
+      buttonBg: 'bg-[#FF0000] hover:bg-[#CC0000]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(255,0,0,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      )
+    };
+  }
+
+  // 8. TradingView
+  if (url.includes('tradingview.com') || name.includes('tradingview')) {
+    return {
+      name: 'TradingView',
+      brandColor: '#2962FF',
+      bannerGradient: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #2962FF 100%)',
+      buttonBg: 'bg-[#2962FF] hover:bg-[#1D4ED8]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(41,98,255,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M3 4h3v16H3zm6 5h3v11H9zm6-3h3v14h-3zm6 6h3v8h-3z" />
+        </svg>
+      )
+    };
+  }
+
+  // 9. Telegram
+  if (url.includes('t.me') || url.includes('telegram.org') || name.includes('telegram')) {
+    return {
+      name: 'Telegram',
+      brandColor: '#229ED9',
+      bannerGradient: 'linear-gradient(135deg, #006699 0%, #229ED9 60%, #5BC0EB 100%)',
+      buttonBg: 'bg-[#229ED9] hover:bg-[#0088CC]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(34,158,217,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+      )
+    };
+  }
+
+  // 10. Physics Wallah
+  if (url.includes('pw.live') || name.includes('physics wallah') || name.includes('physicswallah') || /\bpw\b/i.test(name)) {
+    return {
+      name: 'Physics Wallah',
+      brandColor: '#5A4FCF',
+      bannerGradient: 'linear-gradient(135deg, #312E81 0%, #5A4FCF 60%, #818CF8 100%)',
+      buttonBg: 'bg-[#5A4FCF] hover:bg-[#4338CA]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(90,79,207,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      )
+    };
+  }
+
+  // 11. Careerwill
+  if (url.includes('careerwill.com') || name.includes('careerwill')) {
+    return {
+      name: 'Careerwill',
+      brandColor: '#E11D48',
+      bannerGradient: 'linear-gradient(135deg, #881337 0%, #E11D48 60%, #FB7185 100%)',
+      buttonBg: 'bg-[#E11D48] hover:bg-[#BE123C]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(225,29,72,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+          <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+        </svg>
+      )
+    };
+  }
+
+  // 12. Testbook
+  if (url.includes('testbook.com') || name.includes('testbook')) {
+    return {
+      name: 'Testbook',
+      brandColor: '#0284C7',
+      bannerGradient: 'linear-gradient(135deg, #075985 0%, #0284C7 60%, #38BDF8 100%)',
+      buttonBg: 'bg-[#0284C7] hover:bg-[#0369A1]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(2,132,199,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <path d="M9 15l2 2 4-4" strokeWidth="2.5" />
+        </svg>
+      )
+    };
+  }
+
+  // 13. Oliveboard
+  if (url.includes('oliveboard.in') || name.includes('oliveboard')) {
+    return {
+      name: 'Oliveboard',
+      brandColor: '#16A34A',
+      bannerGradient: 'linear-gradient(135deg, #14532D 0%, #16A34A 60%, #4ADE80 100%)',
+      buttonBg: 'bg-[#16A34A] hover:bg-[#15803D]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(22,163,74,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" />
+        </svg>
+      )
+    };
+  }
+
+  // 14. Unacademy
+  if (url.includes('unacademy.com') || name.includes('unacademy')) {
+    return {
+      name: 'Unacademy',
+      brandColor: '#08BD80',
+      bannerGradient: 'linear-gradient(135deg, #047857 0%, #08BD80 60%, #34D399 100%)',
+      buttonBg: 'bg-[#08BD80] hover:bg-[#059669]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(8,189,128,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 19V9a8 8 0 0 1 16 0v10" />
+          <path d="M8 19v-6a4 4 0 0 1 8 0v6" />
+          <line x1="2" y1="21" x2="22" y2="21" strokeWidth="2.5" />
+        </svg>
+      )
+    };
+  }
+
+  // 15. GitHub
+  if (url.includes('github.com') || name.includes('github')) {
+    return {
+      name: 'GitHub',
+      brandColor: '#24292F',
+      bannerGradient: 'linear-gradient(135deg, #0D1117 0%, #161B22 50%, #24292F 100%)',
+      buttonBg: 'bg-[#24292F] hover:bg-black dark:bg-white dark:hover:bg-slate-200',
+      buttonTextColor: 'text-white dark:text-black',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(36,41,47,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+        </svg>
+      )
+    };
+  }
+
+  // 16. Google / Drive
+  if (url.includes('google.com') || name.includes('google') || name.includes('drive')) {
+    return {
+      name: 'Google',
+      brandColor: '#4285F4',
+      bannerGradient: 'linear-gradient(135deg, #1A73E8 0%, #4285F4 60%, #34A853 100%)',
+      buttonBg: 'bg-[#4285F4] hover:bg-[#1A73E8]',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(66,133,244,0.45)]',
+      renderIcon: (cls) => (
+        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
+          <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.08 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+        </svg>
+      )
+    };
+  }
+
+  // Fallback: Dynamic Brand Palette based on fallbackColor
+  const baseColor = fallbackColor || '#6366F1';
+  const darker = adjustHexColor(baseColor, -45);
+  const brighter = adjustHexColor(baseColor, 35);
+
+  const isCustomEmoji = customIcon && /[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}]/u.test(customIcon);
+
+  return {
+    name: rawName,
+    brandColor: baseColor,
+    bannerGradient: `linear-gradient(135deg, ${darker} 0%, ${baseColor} 55%, ${brighter} 100%)`,
+    buttonStyle: {
+      backgroundColor: baseColor,
+      boxShadow: `0 4px 16px ${baseColor}66`
+    },
+    buttonTextColor: 'text-white',
+    buttonShadow: '',
+    renderIcon: (cls) => {
+      if (isCustomEmoji) {
+        return <span className="text-2xl sm:text-3xl select-none filter drop-shadow-sm">{customIcon}</span>;
+      }
+      return <Globe className={cls || 'w-7 h-7 stroke-[2]'} />;
+    }
+  };
+};
+
 export const PlatformsView: React.FC = () => {
   const { platforms, togglePinPlatform, deletePlatform } = useSyllabus();
 
@@ -480,11 +838,12 @@ export const PlatformsView: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {filteredPlatforms.map((platform) => {
             const hasLoginHint = Boolean(platform.loginHint);
             const isCopied = copiedId === platform.id;
             const cleanDomain = formatCleanDomain(platform.url);
+            const theme = getBrandTheme(platform.url, platform.name, platform.color, platform.icon);
 
             const categoryBadgeLabel = stripEmojis(platform.customCategoryName || '') || (
               platform.category === 'course'
@@ -493,58 +852,46 @@ export const PlatformsView: React.FC = () => {
                 ? 'Mock Series'
                 : platform.category === 'reference'
                 ? 'Reference Tool'
-                : 'Custom Portal'
+                : 'Study Portal'
             );
 
             return (
               <div
                 key={platform.id}
-                className="group relative rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 hover:border-primary-500/50 dark:hover:border-primary-400/50 shadow-sm hover:shadow-md transition-all duration-200 p-4 sm:p-5 flex flex-col justify-between space-y-3.5 overflow-hidden"
+                className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1.5"
+                style={{
+                  boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03)'
+                }}
               >
-                {/* Brand Color Top Accent Bar */}
+                {/* UPPER BANNER (Website Brand Gradient & Upper Infographic Header) */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-1 transition-all group-hover:h-1.5"
-                  style={{ backgroundColor: platform.color || '#6366F1' }}
-                />
+                  className="relative h-28 sm:h-32 w-full p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden select-none"
+                  style={{ background: theme.bannerGradient }}
+                >
+                  {/* Glossy Curved Ambient Highlight (matching 3D infographic sheen) */}
+                  <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/20 blur-2xl pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-black/30 via-black/10 to-transparent pointer-events-none" />
 
-                {/* Top Section: Icon, Header, Action Controls */}
-                <div className="space-y-2.5 pt-0.5">
-                  <div className="flex items-start justify-between gap-2.5">
-                    
-                    {/* Brand Icon & Platform Meta */}
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-lg sm:text-xl shadow-xs border border-white/20 shrink-0 group-hover:scale-105 transition-transform"
-                        style={{
-                          backgroundColor: platform.color || '#6366F1',
-                          boxShadow: `0 4px 12px ${(platform.color || '#6366F1')}30`
-                        }}
-                      >
-                        {platform.icon || '⚡'}
-                      </div>
-
-                      <div className="min-w-0 space-y-0.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-mono font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                          <span className="truncate max-w-[120px] sm:max-w-[160px]">{categoryBadgeLabel}</span>
-                        </span>
-                        
-                        {/* Heading Level 2 (Issue 7 - replaces H3) */}
-                        <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white font-sans tracking-tight truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                          {platform.name}
-                        </h2>
-                      </div>
+                  {/* Top Row: Category Pill & Frosted Quick Action Controls */}
+                  <div className="relative z-10 flex items-center justify-between gap-2">
+                    {/* Category Pill with Frosted Glass Styling */}
+                    <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/25 text-[10px] sm:text-[11px] font-mono font-bold text-white shadow-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                      <span className="truncate max-w-[110px] sm:max-w-[150px] uppercase tracking-wider">
+                        {categoryBadgeLabel}
+                      </span>
                     </div>
 
-                    {/* Quick Card Tool Controls (Issue 3) */}
-                    <div className="flex items-center gap-0.5 shrink-0">
+                    {/* Quick Card Tool Controls: Pin, Edit, Delete */}
+                    <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                       <button
                         type="button"
                         onClick={(e) => handleTogglePin(e, platform.id)}
-                        className={`p-1.5 rounded-lg transition-colors cursor-pointer active:scale-90 ${
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all cursor-pointer backdrop-blur-md active:scale-90 shadow-xs ${
                           platform.pinned
-                            ? 'text-amber-500 bg-amber-500/10'
-                            : 'text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                            ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
+                            : 'bg-black/30 hover:bg-black/50 text-white/90 hover:text-white border border-white/25'
                         }`}
                         title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
                         aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
@@ -555,7 +902,7 @@ export const PlatformsView: React.FC = () => {
                       <button
                         type="button"
                         onClick={(e) => handleEdit(e, platform)}
-                        className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors active:scale-90"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/30 hover:bg-black/50 text-white/90 hover:text-white border border-white/25 flex items-center justify-center transition-all cursor-pointer active:scale-90 backdrop-blur-md shadow-xs"
                         title="Edit portal"
                         aria-label={`Edit ${platform.name}`}
                       >
@@ -565,7 +912,7 @@ export const PlatformsView: React.FC = () => {
                       <button
                         type="button"
                         onClick={(e) => handleDelete(e, platform)}
-                        className="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg hover:bg-rose-500/10 cursor-pointer transition-colors active:scale-90"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/30 hover:bg-rose-600/90 text-white/90 hover:text-white border border-white/25 flex items-center justify-center transition-all cursor-pointer active:scale-90 backdrop-blur-md shadow-xs"
                         title="Delete portal"
                         aria-label={`Delete ${platform.name}`}
                       >
@@ -573,46 +920,103 @@ export const PlatformsView: React.FC = () => {
                       </button>
                     </div>
                   </div>
-
-                  {/* Normalized Description (Issue 6) */}
-                  <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed min-h-[32px]">
-                    {formatReadableText(platform.description) || `Direct access to ${cleanDomain} resources and tests.`}
-                  </p>
                 </div>
 
-                {/* Bottom Row: Accessible URL Link (Issue 12, 5) & Primary Action (Issue 8) */}
-                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-                  
-                  {/* Interactive Hyperlink with proper contrast & size (Issues 5, 12) */}
-                  <a
-                    href={platform.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-xs sm:text-[13px] font-mono text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:underline border border-slate-200 dark:border-slate-700/60 truncate transition-colors max-w-[55%]"
-                    title={`Visit ${cleanDomain}`}
-                  >
-                    <Globe className="w-3 h-3 text-primary-500 shrink-0" />
-                    <span className="truncate">{cleanDomain}</span>
-                  </a>
+                {/* 3D METALLIC MEDALLION (Anchored at seam between banner & card body) */}
+                <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+                  {/* Deep 3D Ambient Drop Shadow */}
+                  <div className="relative w-20 h-20 sm:w-[86px] sm:h-[86px] rounded-full flex items-center justify-center shadow-[0_12px_24px_-4px_rgba(0,0,0,0.45),0_6px_12px_-2px_rgba(0,0,0,0.25)]">
+                    
+                    {/* Outer Specular Chrome Metallic Bezel */}
+                    <div
+                      className="w-full h-full rounded-full p-[3px] sm:p-[3.5px] transition-all"
+                      style={{
+                        background: 'linear-gradient(145deg, #FFFFFF 0%, #E2E8F0 18%, #94A3B8 45%, #F8FAFC 65%, #64748B 85%, #CBD5E1 100%)',
+                        boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.35)'
+                      }}
+                    >
+                      {/* Recessed Dark Metallic Bevel / Groove */}
+                      <div className="w-full h-full rounded-full p-[2.5px] bg-gradient-to-b from-slate-900/60 via-slate-800/40 to-slate-950/70 shadow-inner flex items-center justify-center">
+                        
+                        {/* Inner High-Gloss Ceramic Disc with Lens Glare */}
+                        <div className="relative w-full h-full rounded-full bg-white dark:bg-[#181A28] flex items-center justify-center overflow-hidden shadow-[inset_0_2px_6px_rgba(0,0,0,0.18)]">
+                          
+                          {/* Glass Specular Reflection Across Upper Left */}
+                          <div
+                            className="absolute inset-0 pointer-events-none z-10"
+                            style={{
+                              background: 'linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 45%, transparent 50%)'
+                            }}
+                          />
 
-                  {/* Actions Right Side: Credential Copy Chip + Prominent Open Button (Issue 8) */}
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {hasLoginHint && (
+                          {/* Brand Ambient Color Glow */}
+                          <div
+                            className="absolute inset-0 opacity-15 pointer-events-none"
+                            style={{ backgroundColor: theme.brandColor }}
+                          />
+
+                          {/* Brand Icon Centered with Crisp 3D Shadow */}
+                          <div
+                            className="relative z-20 flex items-center justify-center transition-transform group-hover:scale-110 duration-200"
+                            style={{ color: theme.brandColor }}
+                          >
+                            {theme.renderIcon('w-7 h-7 sm:w-8 sm:h-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]')}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* LOWER CARD BODY (Clean, high-contrast, brand-adaptive typography & action button) */}
+                <div className="pt-12 sm:pt-14 px-4 sm:px-5 pb-4 sm:pb-4.5 flex flex-col justify-between flex-1 space-y-3.5">
+                  {/* Platform Identity & Description */}
+                  <div className="text-center space-y-1.5">
+                    <h2
+                      className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white transition-colors line-clamp-1"
+                      title={platform.name}
+                    >
+                      {platform.name}
+                    </h2>
+                    
+                    <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed min-h-[36px]">
+                      {formatReadableText(platform.description) || `Direct access to ${cleanDomain} resources and tests.`}
+                    </p>
+                  </div>
+
+                  {/* Optional Credential Chip */}
+                  {hasLoginHint && (
+                    <div className="flex items-center justify-center">
                       <button
                         type="button"
                         onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
-                        className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 hover:bg-primary-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-xs font-mono font-medium text-slate-700 dark:text-slate-200 transition-all cursor-pointer active:scale-95"
-                        title={`Copy credentials: ${platform.loginHint}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-white/10 text-[11px] font-mono font-medium text-slate-700 dark:text-slate-200 transition-all cursor-pointer active:scale-95 shadow-2xs"
+                        title={`Click to copy login: ${platform.loginHint}`}
                         aria-label={`Copy credentials: ${platform.loginHint}`}
                       >
                         <KeyRound className="w-3 h-3 text-slate-400" />
-                        <span className="max-w-[70px] truncate">{isCopied ? 'Copied!' : platform.loginHint}</span>
+                        <span className="truncate max-w-[140px]">{isCopied ? 'Copied to Clipboard!' : platform.loginHint}</span>
                         {isCopied ? <Check className="w-3 h-3 text-emerald-500 stroke-[3]" /> : <Copy className="w-3 h-3 text-slate-400" />}
                       </button>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Prominent Primary Launch Button (Issue 8) */}
+                  {/* Bottom Row: Clean Domain Badge & Brand-Specific Launcher Button */}
+                  <div className="pt-3 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto">
+                    {/* Domain Pill */}
+                    <a
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-[11px] sm:text-xs font-mono text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-white/10 truncate transition-colors max-w-[50%] hover:border-slate-300 dark:hover:border-white/20"
+                      title={`Visit ${cleanDomain}`}
+                    >
+                      <Globe className="w-3 h-3 text-slate-400 shrink-0" />
+                      <span className="truncate">{cleanDomain}</span>
+                    </a>
+
+                    {/* Brand-Specific "Open ↗" Launcher Button */}
                     <a
                       href={platform.url}
                       target="_blank"
@@ -621,7 +1025,8 @@ export const PlatformsView: React.FC = () => {
                         e.stopPropagation();
                         soundManager.playClick();
                       }}
-                      className="btn-primary py-1.5 px-3 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer"
+                      className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
+                      style={theme.buttonStyle}
                       aria-label={`Open ${platform.name}`}
                     >
                       <span>Open</span>
