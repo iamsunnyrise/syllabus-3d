@@ -835,6 +835,9 @@ export const App: React.FC = () => {
         isSidebarCollapsed ? 'md:pl-0' : 'md:pl-[272px]'
       }`}>
         <Header
+          currentView={currentView}
+          onNavigate={handleNavigate}
+          onOpenFocusModal={() => handleLaunchFocus(undefined)}
           onOpenSearch={() => {
             setIsSearchOpen(true);
             window.history.pushState({ modal: 'search' }, '');

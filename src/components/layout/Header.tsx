@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -21,20 +21,37 @@ import {
   Plus,
   Trash2,
   Check,
-  Target
+  Target,
+  BookOpen,
+  CalendarDays,
+  Timer,
+  RotateCw,
+  BrainCircuit,
+  AlertTriangle,
+  Clock,
+  BarChart3,
+  Video,
+  Trophy,
+  Compass,
+  ArrowRight,
+  LayoutGrid
 } from 'lucide-react';
 import { usePinLock } from '../../context/PinLockContext';
 import { soundManager } from '../../utils/soundEffects';
 import { EditExamTargetModal } from '../modals/EditExamTargetModal';
 import { AddExamTargetModal } from '../modals/AddExamTargetModal';
+import type { AppView } from './Sidebar';
 
-interface HeaderProps {
+export interface HeaderProps {
   onOpenSearch: () => void;
   onOpenSettings: () => void;
   onOpenMobileMenu?: () => void;
   isSidebarCollapsed?: boolean;
   onToggleDesktopSidebar?: () => void;
   currentViewTitle?: string;
+  currentView?: AppView;
+  onNavigate?: (view: AppView) => void;
+  onOpenFocusModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -43,9 +60,21 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenMobileMenu,
   isSidebarCollapsed = false,
   onToggleDesktopSidebar,
-  currentViewTitle = 'SYLLABUS 3D'
+  currentViewTitle = 'SYLLABUS 3D',
+  currentView,
+  onNavigate,
+  onOpenFocusModal
 }) => {
-  const { currentExam, exams, setSelectedExamId, deleteExam, profile } = useSyllabus();
+  const {
+    currentExam,
+    exams,
+    setSelectedExamId,
+    deleteExam,
+    profile,
+    plannerTasks,
+    dueRevisions,
+    weakTopics
+  } = useSyllabus();
   const { user } = useAuth();
   const { isConfigured, lockApp } = usePinLock();
   const {
@@ -56,7 +85,50 @@ export const Header: React.FC<HeaderProps> = ({
   const [isExamMenuOpen, setIsExamMenuOpen] = useState(false);
   const [isEditExamModalOpen, setIsEditExamModalOpen] = useState(false);
   const [isAddExamModalOpen, setIsAddExamModalOpen] = useState(false);
+  const [isStudyHubOpen, setIsStudyHubOpen] = useState(false);
+  const studyHubRef = useRef<HTMLDivElement>(null);
   const [isOnline, setIsOnline] = useState<boolean>(() => typeof navigator !== 'undefined' ? navigator.onLine : true);
+
+  const plannerTasksSafe = Array.isArray(plannerTasks) ? plannerTasks : [];
+  const todayTasksCount = plannerTasksSafe.filter(t => t.status === 'today').length;
+  const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
+  const dueRevisionCount = dueRevisionsSafe.length;
+  const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
+  const weakTopicsCount = weakTopicsSafe.length;
+
+  const studyHubViews: AppView[] = [
+    'revision',
+    'weak',
+    'mindmap',
+    'pacing',
+    'analytics',
+    'heatmap',
+    'youtube-notes',
+    'mock-tracker',
+    'platforms'
+  ];
+  const isStudyHubActive = currentView ? studyHubViews.includes(currentView) : false;
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (studyHubRef.current && !studyHubRef.current.contains(e.target as Node)) {
+        setIsStudyHubOpen(false);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isStudyHubOpen) {
+        setIsStudyHubOpen(false);
+      }
+    };
+    if (isStudyHubOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [isStudyHubOpen]);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -314,6 +386,367 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
         </div>
+
+        {/* Center: Desktop Quick Navigation Hub (Syllabus, Planner, Study Station Hub) */}
+        <nav
+          aria-label="Quick Navigation"
+          className="hidden lg:flex items-center gap-1 p-1 rounded-2xl bg-slate-100/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-md shadow-2xs shrink-0 select-none"
+        >
+          {/* 1. Syllabus Pill */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              onNavigate?.('syllabus');
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              currentView === 'syllabus'
+                ? 'bg-white dark:bg-[#1E2138] text-blue-600 dark:text-[#7AA2F7] shadow-xs border border-slate-200/60 dark:border-white/10'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
+            }`}
+            title="Open Syllabus Explorer"
+            aria-label="Open Syllabus Explorer"
+            aria-current={currentView === 'syllabus' ? 'page' : undefined}
+          >
+            <BookOpen className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${
+              currentView === 'syllabus' ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
+            }`} />
+            <span>Syllabus</span>
+          </button>
+
+          {/* 2. Planner Pill */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              onNavigate?.('planner');
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              currentView === 'planner'
+                ? 'bg-white dark:bg-[#1E2138] text-blue-600 dark:text-[#7AA2F7] shadow-xs border border-slate-200/60 dark:border-white/10'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
+            }`}
+            title="Open Study Planner"
+            aria-label="Open Study Planner"
+            aria-current={currentView === 'planner' ? 'page' : undefined}
+          >
+            <CalendarDays className={`w-3.5 h-3.5 ${
+              currentView === 'planner' ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
+            }`} />
+            <span>Planner</span>
+            {todayTasksCount > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-blue-500/15 text-blue-600 dark:text-[#93C5FD] border border-blue-500/30 tabular-nums">
+                {todayTasksCount}
+              </span>
+            )}
+          </button>
+
+          <div className="w-[1px] h-4 bg-slate-200 dark:bg-white/10 mx-0.5" />
+
+          {/* 3. Study Station Hub Popover */}
+          <div className="relative" ref={studyHubRef}>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.light();
+                setIsStudyHubOpen(prev => !prev);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                isStudyHubActive || isStudyHubOpen
+                  ? 'bg-white dark:bg-[#1E2138] text-indigo-600 dark:text-[#93C5FD] shadow-xs border border-indigo-200/60 dark:border-[#7AA2F7]/30'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
+              }`}
+              title="Study Station Hub: Focus Timer, Spaced Revision, Mind Map, Weak Topics & More"
+              aria-label="Open Study Station Hub"
+              aria-expanded={isStudyHubOpen}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-indigo-500 dark:text-[#7AA2F7]" />
+              <span>Study Station Hub</span>
+              <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${isStudyHubOpen ? 'rotate-180 text-indigo-600 dark:text-[#7AA2F7]' : ''}`} />
+            </button>
+
+            {/* Dropdown Card */}
+            {isStudyHubOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 sm:w-96 rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.09] shadow-2xl p-2.5 z-50 animate-fade-in divide-y divide-slate-100 dark:divide-white/[0.06]">
+                {/* Header & Luxury Focus Launcher */}
+                <div className="pb-2.5">
+                  <div className="flex items-center justify-between px-1 mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <Compass className="w-3.5 h-3.5 text-indigo-600 dark:text-[#7AA2F7]" />
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        Study Station Hub
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                      Engines & Tools
+                    </span>
+                  </div>
+
+                  {/* Primary Focus Button (Luxury Pomodoro) */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      onOpenFocusModal?.();
+                    }}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white shadow-md hover:shadow-indigo-500/20 transition-all active:scale-[0.98] group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                        <Timer className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold flex items-center gap-1.5">
+                          <span>Focus Timer (Pomodoro)</span>
+                          <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-white/20 uppercase tracking-wider font-extrabold">
+                            3D Dial
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-white/80">Chronometer dial with ambient binaural sounds</p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-white/70 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  </button>
+                </div>
+
+                {/* 2-Column Grid of 8 Study Station Tools */}
+                <div className="py-2 grid grid-cols-2 gap-1.5 max-h-[320px] overflow-y-auto">
+                  {/* Spaced Revision */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('revision');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'revision'
+                        ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                      <RotateCw className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold truncate">Revision</span>
+                        {dueRevisionCount > 0 && (
+                          <span className="px-1 py-0.2 rounded text-[9px] font-mono font-bold bg-amber-500 text-white shrink-0">
+                            {dueRevisionCount}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Spaced Recall</span>
+                    </div>
+                  </button>
+
+                  {/* Weak Topics */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('weak');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'weak'
+                        ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold truncate">Weak Topics</span>
+                        {weakTopicsCount > 0 && (
+                          <span className="px-1 py-0.2 rounded text-[9px] font-mono font-bold bg-rose-500 text-white shrink-0">
+                            {weakTopicsCount}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Diagnostic Matrix</span>
+                    </div>
+                  </button>
+
+                  {/* Concept Mind Map */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('mindmap');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'mindmap'
+                        ? 'bg-indigo-500/10 text-indigo-700 dark:text-[#93C5FD] border border-indigo-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0">
+                      <BrainCircuit className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs font-bold truncate block">Mind Map</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Visual Graph</span>
+                    </div>
+                  </button>
+
+                  {/* Target Pacing */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('pacing');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'pacing'
+                        ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                      <Clock className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs font-bold truncate block">Target Pacing</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Exam Velocity</span>
+                    </div>
+                  </button>
+
+                  {/* AI YouTube Notes */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('youtube-notes');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'youtube-notes'
+                        ? 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                      <Video className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold truncate">YouTube AI</span>
+                        <span className="px-1 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500 text-white shrink-0">
+                          AI
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Lecture Notes</span>
+                    </div>
+                  </button>
+
+                  {/* Mock Test Tracker */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('mock-tracker');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'mock-tracker'
+                        ? 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                      <Trophy className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs font-bold truncate block">Mock Tracker</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Scores & Ranks</span>
+                    </div>
+                  </button>
+
+                  {/* Analytics & Heatmap */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('analytics');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'analytics'
+                        ? 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                      <BarChart3 className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs font-bold truncate block">Analytics</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Heatmap & XP</span>
+                    </div>
+                  </button>
+
+                  {/* Platforms & Resources */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('platforms');
+                    }}
+                    className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                      currentView === 'platforms'
+                        ? 'bg-slate-500/10 text-slate-800 dark:text-white border border-slate-500/25'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center shrink-0">
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs font-bold truncate block">Platforms</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate block">Study Links</span>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Footer: Link to Dashboard Overview */}
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsStudyHubOpen(false);
+                      soundManager.playClick();
+                      haptics.selection();
+                      onNavigate?.('overview');
+                    }}
+                    className="w-full text-center py-1.5 px-2 rounded-xl text-[11px] font-bold text-slate-500 hover:text-blue-600 dark:hover:text-[#7AA2F7] hover:bg-slate-100/60 dark:hover:bg-white/[0.04] transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>Go to Complete Study Dashboard</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </nav>
 
         {/* Right Side Tools */}
         <div className="flex items-center gap-2 shrink-0">
