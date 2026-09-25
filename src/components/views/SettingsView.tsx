@@ -48,7 +48,8 @@ import {
   EyeOff,
   ExternalLink,
   Loader2,
-  Video
+  Video,
+  Search
 } from 'lucide-react';
 import { soundManager, AudioSettings } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
@@ -67,7 +68,17 @@ import {
   clearStoredGeminiApiKey
 } from '../../utils/youtubeNotesGenerator';
 
-type SettingsTab = 'exam' | 'ai' | 'appearance' | 'sound' | 'timer' | 'data' | 'security';
+export type SettingsTab =
+  | 'account'
+  | 'exam'
+  | 'notification'
+  | 'sound'
+  | 'membership'
+  | 'security'
+  | 'ai'
+  | 'appearance'
+  | 'timer'
+  | 'data';
 
 interface SettingsViewProps {
   onOpenPricing?: () => void;
@@ -98,10 +109,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const { user, logout, updateUserSession } = useAuth();
   const { updateSettings, showFloatingOverlay, settings } = useTimer();
   const { theme, setTheme } = useTheme();
-  const { isInstalled,} = usePWA();
+  const { isInstalled } = usePWA();
   const [showPwaModal, setShowPwaModal] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<SettingsTab>('exam');
+  const [activeTab, setActiveTab] = useState<SettingsTab>('account');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [accountSaved, setAccountSaved] = useState(false);
+  const [soundSaved, setSoundSaved] = useState(false);
+  const [timerSaved, setTimerSaved] = useState(false);
 
   // Safety PIN Lock State
   const { config: pinConfig, isConfigured: isPinConfigured, updateConfig: updatePinConfig, disablePin } = usePinLock();
@@ -471,159 +486,171 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
     </label>
   );
 
+  const SETTINGS_TABS = useMemo(() => [
+    {
+      id: 'account' as SettingsTab,
+      title: 'Account Setting',
+      subtitle: 'Details about your Personal information',
+      icon: User,
+      keywords: ['name', 'exam', 'profile', 'photo', 'avatar', 'target', 'date', 'year']
+    },
+    {
+      id: 'notification' as SettingsTab,
+      title: 'Notification',
+      subtitle: 'Details about your Personal information',
+      icon: Bell,
+      keywords: ['sound', 'audio', 'volume', 'chime', 'tick', 'haptics', 'vibration']
+    },
+    {
+      id: 'membership' as SettingsTab,
+      title: 'Membership Plan',
+      subtitle: 'Details about your Personal information',
+      icon: Award,
+      badge: 'PRO',
+      keywords: ['plan', 'pro', 'price', 'pricing', 'subscription', 'upgrade', 'premium']
+    },
+    {
+      id: 'security' as SettingsTab,
+      title: 'Password & Security',
+      subtitle: 'Details about your Personal information',
+      icon: Lock,
+      keywords: ['pin', 'lock', 'password', 'security', 'timeout', 'auto-lock']
+    },
+    {
+      id: 'ai' as SettingsTab,
+      title: 'AI & Intelligence',
+      subtitle: 'Details about your Personal information',
+      icon: Sparkles,
+      keywords: ['ai', 'gemini', 'api', 'key', 'notes', 'youtube', 'model']
+    },
+    {
+      id: 'appearance' as SettingsTab,
+      title: 'Appearance',
+      subtitle: 'Details about your Personal information',
+      icon: Palette,
+      keywords: ['theme', 'dark', 'light', 'oled', 'font', 'jetbrains', 'orbitron', 'pwa']
+    },
+    {
+      id: 'timer' as SettingsTab,
+      title: 'Focus & Timer',
+      subtitle: 'Details about your Personal information',
+      icon: Clock,
+      keywords: ['timer', 'pomodoro', 'break', 'interval', 'focus', 'overlay']
+    },
+    {
+      id: 'data' as SettingsTab,
+      title: 'Data & Backup',
+      subtitle: 'Details about your Personal information',
+      icon: Database,
+      keywords: ['data', 'backup', 'drive', 'google', 'export', 'import', 'restore', 'snapshot']
+    }
+  ], []);
+
+  const filteredTabs = useMemo(() => {
+    if (!searchQuery.trim()) return SETTINGS_TABS;
+    const q = searchQuery.toLowerCase().trim();
+    return SETTINGS_TABS.filter(t =>
+      t.title.toLowerCase().includes(q) ||
+      t.subtitle.toLowerCase().includes(q) ||
+      t.keywords.some(k => k.toLowerCase().includes(q))
+    );
+  }, [SETTINGS_TABS, searchQuery]);
+
+  const handleSaveAccountInfo = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateProfile({ name });
+    updateUserSession({ name });
+    updateCurrentExamDetails({ name: examName, examDate, targetYear: Number(targetYear) });
+    soundManager.playCompleteChime();
+    haptics.success();
+    setAccountSaved(true);
+    setIsEditingName(false);
+    setTimeout(() => setAccountSaved(false), 3500);
+  };
+
   return (
-    <div className="space-y-4 sm:space-y-6 pb-36 sm:pb-24 max-w-4xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-5 sm:space-y-6 pb-36 sm:pb-24 max-w-6xl mx-auto font-sans animate-fade-in">
       
+      {/* Hidden File Input for Avatar Photo */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/jpg"
+        className="hidden"
+        onChange={handleAvatarFileChange}
+      />
+
       {/* ═══════════════════════════════════════════════════
-          0. TOP SECTION HEADER
+          0. TOP EXECUTIVE SEARCH & HEADER BAR (Matching media_1790328428745.png)
           ═══════════════════════════════════════════════════ */}
-      <div className="flex items-center gap-3 pt-1">
-        <SectionBadgeIcon section="settings" size="md" />
-        <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-            Settings &amp; Preferences
-          </h1>
-          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium">
-            Profile customization, exam configuration, audio effects, AI keys, and cloud backup.
-          </p>
+      <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        {/* Search Input Bar (Matching media_1790328428745.png search bar) */}
+        <div className="relative flex-1 max-w-md">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search Anything in Settings..."
+            className="w-full h-11 pl-4 pr-10 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-xs"
+          />
+          <Search className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
-      </div>
 
-      {/* ═══════════════════════════════════════════════════
-          1. EXECUTIVE PROFILE & LEVEL STRIP
-          ═══════════════════════════════════════════════════ */}
-      <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3.5 sm:gap-4 relative overflow-hidden">
-        {/* Top ambient accent glow */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-600 dark:via-blue-400 to-transparent opacity-60" />
+        {/* Right Header Controls: Notification Bell, User Pill, Logout */}
+        <div className="flex items-center justify-end gap-2.5 sm:gap-3">
+          {/* Audio / Notification Bell with Active Indicator */}
+          <button
+            type="button"
+            onClick={() => handleUpdateAudio({ masterEnabled: !audioConfig.masterEnabled })}
+            className={`p-2.5 rounded-2xl border transition-all cursor-pointer active:scale-95 relative ${
+              audioConfig.masterEnabled
+                ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400'
+                : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-400'
+            }`}
+            title={audioConfig.masterEnabled ? 'Audio Chimes Active' : 'Sound Effects Muted'}
+            aria-label="Toggle sound effects"
+          >
+            <Bell className="w-4 h-4" />
+            {audioConfig.masterEnabled && (
+              <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 absolute top-2 right-2 ring-2 ring-white dark:ring-[#121424]" />
+            )}
+          </button>
 
-        {/* Hidden File Input for Avatar Photo */}
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/png,image/jpeg,image/webp,image/jpg"
-          className="hidden"
-          onChange={handleAvatarFileChange}
-        />
-
-        {/* Left: Avatar + Name + Level Badges */}
-        <div className="flex items-center gap-3 sm:gap-4 min-w-0 w-full sm:w-auto">
-          {/* Avatar Squircle with Dual Ring */}
-          <div className="relative group shrink-0">
-            <button
-              type="button"
+          {/* User Profile Pill (Matching media_1790328428745.png user info) */}
+          <div className="flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 shadow-xs">
+            <div
               onClick={() => fileInputRef.current?.click()}
-              className="w-13 h-13 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white flex items-center justify-center text-lg sm:text-2xl font-black shadow-md cursor-pointer overflow-hidden relative border-2 border-white dark:border-[#272730] active:scale-95 transition-transform"
-              title="Click to Upload Profile Photo"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center overflow-hidden shrink-0 cursor-pointer shadow-xs"
+              title="Click to change avatar"
             >
               {profile.avatarUrl ? (
-                <img
-                  src={profile.avatarUrl}
-                  alt={profile.name}
-                  className="w-full h-full object-cover"
-                />
+                <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
               ) : (
                 <span>{(profile.name || 'A').charAt(0).toUpperCase()}</span>
               )}
-
-              {/* Hover Blur Overlay */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[10px] font-bold transition-opacity backdrop-blur-xs">
-                <Camera className="w-4 h-4 mb-0.5" />
-                <span>Upload</span>
-              </div>
-            </button>
-
-            {/* Floating Camera Button */}
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-2 border-white dark:border-[#151622] flex items-center justify-center shadow-xs cursor-pointer active:scale-90 hover:scale-110 transition-transform"
-              title="Change Profile Photo"
-            >
-              <Camera className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-            </button>
-          </div>
-
-          <div className="space-y-1 sm:space-y-1.5 min-w-0 flex-1">
-            {isEditingName ? (
-              <form onSubmit={handleSaveProfile} className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                  autoFocus
-                />
-                <button
-                  type="submit"
-                  className="px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-black shadow-xs cursor-pointer"
-                >
-                  Save
-                </button>
-              </form>
-            ) : (
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                <h2 className="text-sm xs:text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight truncate">
-                  {profile.name || 'Aspirant'}
-                </h2>
-                <button
-                  onClick={() => setIsEditingName(true)}
-                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors"
-                  title="Edit Name"
-                >
-                  <Edit2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                </button>
-                {profile.avatarUrl && (
-                  <button
-                    onClick={handleRemoveAvatar}
-                    className="px-2 py-0.5 rounded-md sm:rounded-lg text-[10px] font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
-                    title="Remove Photo and use initial letter"
-                  >
-                    Remove Photo
-                  </button>
-                )}
-              </div>
-            )}
-
-            {/* Micro-Badges Strip (Modern Sans-Serif Typography!) */}
-            <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-sans text-slate-600 dark:text-slate-300 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/25">
-                <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
-                <span>Lvl {profile.level} • {profile.levelTitle}</span>
+            </div>
+            <div className="text-left">
+              <span className="text-xs font-bold text-slate-900 dark:text-white block leading-tight max-w-[130px] truncate">
+                {profile.name || 'Aspirant'}
               </span>
-              <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-orange-500/15 text-orange-700 dark:text-orange-300 border border-orange-500/25 tabular-nums">
-                <Flame className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
-                <span>{profile.currentStreak}d Streak</span>
-              </span>
-              <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 tabular-nums">
-                <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                <span>{overallStats.completedCount}/{overallStats.totalTopics} ({overallStats.completionPercentage}%)</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block leading-tight">
+                Lvl {profile.level} • {profile.levelTitle}
               </span>
             </div>
-
-            {avatarNotice && (
-              <p className="text-[11px] sm:text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in pt-0.5">
-                <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
-                <span>Profile picture updated!</span>
-              </p>
-            )}
           </div>
-        </div>
 
-        {/* Right: Logout Action */}
-        <div className="shrink-0 w-full sm:w-auto flex justify-end">
+          {/* Logout Action */}
           {showLogoutConfirm ? (
-            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleLogout}
-                className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-black shadow-xs cursor-pointer"
+                className="h-10 px-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-black shadow-xs cursor-pointer"
               >
-                Confirm Logout
+                Confirm
               </button>
               <button
                 onClick={() => setShowLogoutConfirm(false)}
-                className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                className="h-10 px-2.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
               >
                 Cancel
               </button>
@@ -631,271 +658,463 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
           ) : (
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              className="w-full sm:w-auto h-9 sm:h-9.5 flex items-center justify-center gap-1.5 px-4 rounded-xl bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-white/10 dark:hover:bg-rose-500/30 dark:hover:text-rose-400 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95"
+              className="h-10 px-3.5 rounded-2xl bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-white/5 dark:hover:bg-rose-500/20 dark:hover:text-rose-400 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1.5 shadow-xs"
+              title="Log Out"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Log Out</span>
+              <span className="hidden sm:inline">Logout</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* 🌟 3D Pro Membership & Subscription Card (Sora ExtraBold & Manrope ExtraBold) */}
-      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10 border-2 border-blue-500/30 dark:border-blue-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-sora font-extrabold text-[10px] tracking-wider uppercase shadow-xs">
-              PRO MEMBERSHIP
-            </span>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-manrope font-extrabold">
-              Active Tier: Free Aspirant
-            </span>
+      {/* ═══════════════════════════════════════════════════
+          1. MAIN 2-COLUMN DASHBOARD (Matching media_1790328428745.png)
+          ═══════════════════════════════════════════════════ */}
+      <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 items-start">
+        
+        {/* LEFT COLUMN: The Card-Style Navigation Tabs (Matching media_1790328428745.png) */}
+        <div className="w-full lg:w-[310px] shrink-0 space-y-2.5 sm:space-y-3">
+          <div className="flex lg:flex-col gap-2.5 sm:gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 no-scrollbar">
+            {filteredTabs.map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id || (tab.id === 'account' && activeTab === 'exam') || (tab.id === 'notification' && activeTab === 'sound');
+              return (
+                <button
+                  type="button"
+                  key={tab.id}
+                  onClick={() => {
+                    soundManager.playClick();
+                    setActiveTab(tab.id);
+                  }}
+                  className={`w-full text-left p-3.5 sm:p-4 rounded-2xl transition-all cursor-pointer flex items-start gap-3.5 min-w-[240px] lg:min-w-0 ${
+                    isActive
+                      ? 'bg-white dark:bg-[#181B2B] border-2 border-blue-600 dark:border-blue-500 shadow-md shadow-blue-600/10 text-slate-900 dark:text-white'
+                      : 'bg-white/90 dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-[#151728] shadow-xs'
+                  }`}
+                >
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                    isActive
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400'
+                  }`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-1">
+                      <h3 className={`text-sm font-bold truncate ${isActive ? 'text-slate-900 dark:text-white font-black' : 'text-slate-800 dark:text-slate-200'}`}>
+                        {tab.title}
+                      </h3>
+                      {tab.badge && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs">
+                          {tab.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal line-clamp-1 mt-0.5">
+                      {tab.subtitle}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
-          <h3 className="text-base sm:text-lg font-extrabold font-manrope text-slate-900 dark:text-white tracking-tight">
-            Unlock All AI &amp; Cloud Precision Modules
-          </h3>
-          <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-xl">
-            Get AI YouTube Notes generator, multi-device cloud sync, audio memos, and all 3 futuristic timer HUD fonts (JetBrains, Roboto Mono, Orbitron).
-          </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="text-right hidden sm:block">
-            <span className="text-xs text-slate-400 font-medium block">Starting at</span>
-            <span className="text-xl sm:text-2xl font-extrabold font-sora text-blue-600 dark:text-cyan-400">
-              ₹499<span className="text-xs font-semibold text-slate-500">/yr</span>
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              if (onOpenPricing) onOpenPricing();
-            }}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold font-manrope text-xs tracking-wide shadow-md shadow-blue-500/25 transition-all active:scale-95 cursor-pointer flex items-center gap-1.5"
-          >
-            <span>View Pro Plans</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
+        {/* RIGHT COLUMN: Top Summary Card + Main Form Card (Matching media_1790328428745.png) */}
+        <div className="flex-1 min-w-0 w-full space-y-4 sm:space-y-5">
 
-      {/* ═══════════════════════════════════════════════════
-          2. SEGMENTED CATEGORY NAVIGATION TABS
-          ═══════════════════════════════════════════════════ */}
-      <div className="p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center gap-1 overflow-x-auto no-scrollbar">
-        {[
-          { id: 'exam' as SettingsTab, label: 'Exam Target', icon: Target },
-          { id: 'ai' as SettingsTab, label: 'AI & Models', icon: Sparkles },
-          { id: 'appearance' as SettingsTab, label: 'Appearance', icon: Palette },
-          { id: 'sound' as SettingsTab, label: 'Sound & Audio', icon: Volume2 },
-          { id: 'timer' as SettingsTab, label: 'Focus & Timer', icon: Clock },
-          { id: 'data' as SettingsTab, label: 'Backup & App', icon: Database },
-          { id: 'security' as SettingsTab, label: 'Safety Lock', icon: Lock }
-        ].map(tab => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => {
-                soundManager.playClick();
-                setActiveTab(tab.id);
-              }}
-              className={`flex-1 min-w-[95px] sm:min-w-[115px] py-2 sm:py-2.5 px-2.5 sm:px-3.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
-                isActive
-                  ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-xs font-black'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5 shrink-0" />
-              <span>{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ═══════════════════════════════════════════════════
-          3. TAB CONTENT SECTIONS
-          ═══════════════════════════════════════════════════ */}
-
-      {/* TAB 1: EXAM TARGET & COUNTDOWN CONFIG */}
-      {activeTab === 'exam' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in relative overflow-hidden">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
-            <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
-                <Target className="w-5 h-5 stroke-[2.2]" />
-              </div>
-              <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                  Exam Target &amp; Live Countdown
-                </h3>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  Configure your target exam name and exam date to sync the live countdown clock.
-                </p>
-              </div>
-            </div>
-
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto tabular-nums">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{daysRemaining} Days Left</span>
-            </span>
-          </div>
-
-          {/* Quick Presets */}
-          <div className="space-y-1.5 sm:space-y-2">
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block flex items-center gap-1.5 font-sans">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Quick Exam Presets</span>
-            </span>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {[
-                { label: 'SSC CGL 2026', year: 2026, days: 90 },
-                { label: 'SSC CHSL 2026', year: 2026, days: 120 },
-                { label: 'SSC CPO 2026', year: 2026, days: 75 },
-                { label: 'RRB NTPC 2026', year: 2026, days: 100 },
-                { label: 'SBI PO 2026', year: 2026, days: 60 },
-                { label: 'UPSC CSE 2026', year: 2026, days: 180 }
-              ].map(p => {
-                const isSelected = examName.toLowerCase() === p.label.toLowerCase();
-                return (
-                  <button
-                    type="button"
-                    key={p.label}
-                    onClick={() => handleApplyPresetExam(p.label, p.year, p.days)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border active:scale-95 ${
-                      isSelected
-                        ? 'bg-slate-900 dark:bg-blue-600 text-white border-transparent shadow-xs font-black'
-                        : 'bg-white dark:bg-[#1A1B28] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
-                    }`}
+          {/* TAB 1: ACCOUNT SETTING & EXAM CONFIG (Matching media_1790328428745.png) */}
+          {(activeTab === 'account' || activeTab === 'exam') && (
+            <div className="space-y-4 sm:space-y-5 animate-fade-in">
+              {/* Top Card: Upload a New Photo (Matching media_1790328428745.png) */}
+              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="relative w-15 h-15 sm:w-18 sm:h-18 rounded-full overflow-hidden border-2 border-slate-200/90 dark:border-white/15 bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl sm:text-2xl font-bold cursor-pointer group shrink-0 shadow-xs hover:scale-105 transition-transform"
+                    title="Click to Upload Profile Photo"
                   >
-                    {p.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+                    {profile.avatarUrl ? (
+                      <img
+                        src={profile.avatarUrl}
+                        alt={profile.name || 'User'}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span>{(profile.name || 'A').charAt(0).toUpperCase()}</span>
+                    )}
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                      <Camera className="w-5 h-5 text-white" />
+                    </div>
+                  </div>
 
-          {/* Form */}
-          <form onSubmit={handleSaveExamSettings} className="space-y-3 sm:space-y-4 pt-1">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
-              <div className="sm:col-span-2 space-y-1 sm:space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
-                  Exam Title
-                </label>
-                <input
-                  type="text"
-                  value={examName}
-                  onChange={e => setExamName(e.target.value)}
-                  placeholder="e.g. SSC CGL 2026"
-                  className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                />
-              </div>
+                  <div className="min-w-0 space-y-0.5">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                      Upload a New Photo
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      {profile.avatarUrl ? 'Profile-pic.jpg • Custom avatar active' : 'profile-pic.jpg • PNG, JPG or WebP (Max 5MB)'}
+                    </p>
+                    {avatarNotice && (
+                      <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in">
+                        <Check className="w-3 h-3 stroke-[3]" />
+                        <span>Profile picture updated successfully!</span>
+                      </p>
+                    )}
+                  </div>
+                </div>
 
-              <div className="space-y-1 sm:space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
-                  Target Year
-                </label>
-                <input
-                  type="number"
-                  value={targetYear}
-                  onChange={e => setTargetYear(Number(e.target.value))}
-                  min={2025}
-                  max={2035}
-                  className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                />
-              </div>
-            </div>
-
-            {/* Exam Date & Quick Increment Buttons */}
-            <div className="space-y-1 sm:space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
-                Exam Date
-              </label>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5">
-                <input
-                  type="date"
-                  value={examDate}
-                  onChange={e => setExamDate(e.target.value)}
-                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
-                />
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {[{ label: '+30d', days: 30 }, { label: '+60d', days: 60 }, { label: '+90d', days: 90 }, { label: '+180d', days: 180 }].map(b => (
+                <div className="flex items-center gap-2 shrink-0">
+                  {profile.avatarUrl && (
                     <button
                       type="button"
-                      key={b.label}
-                      onClick={() => handleAddDays(b.days)}
-                      className="px-2.5 py-1.5 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-slate-900 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer active:scale-95"
+                      onClick={handleRemoveAvatar}
+                      className="px-3 py-1.5 sm:py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
                     >
-                      {b.label}
+                      Remove
                     </button>
-                  ))}
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-4 sm:px-5 py-2 rounded-xl bg-white dark:bg-[#1C1E2E] border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all"
+                  >
+                    Update
+                  </button>
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-2.5 sm:gap-3 pt-1.5 sm:pt-2">
-              <button
-                type="submit"
-                className="w-full sm:w-auto h-10 px-5 rounded-xl bg-slate-900 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-              >
-                <Save className="w-3.5 h-3.5" />
-                <span>Save Schedule</span>
-              </button>
-              {examSaved && (
-                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in font-sans">
-                  <Check className="w-4 h-4 stroke-[3]" />
-                  <span>Synced across app!</span>
-                </span>
-              )}
-            </div>
-          </form>
-        </div>
-      )}
+              {/* Main Card: Change User Information here (Matching media_1790328428745.png) */}
+              <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+                  <div>
+                    <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                      Change User Information here
+                    </h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                      Personal aspirant profile details and target examination schedule.
+                    </p>
+                  </div>
 
-      {/* TAB: AI & INTELLIGENCE ENGINE */}
-      {activeTab === 'ai' && (
-        <div className="space-y-4 animate-fade-in">
-          {/* Header Card */}
-          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-5 h-5" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto tabular-nums">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{daysRemaining} Days Left</span>
+                  </span>
                 </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                    <span>AI &amp; Intelligence Engine</span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-violet-600 to-cyan-500 text-white">
-                      Google Gemini
+
+                <form onSubmit={handleSaveAccountInfo} className="space-y-4 sm:space-y-5">
+                  {/* Row 1: Full Name & Email Address */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                        Full Name*
+                      </label>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g. Tonmoy Karmoker"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                        Email Address*
+                      </label>
+                      <input
+                        type="email"
+                        value={user?.email || 'aspirant@syllabus3d.app'}
+                        disabled
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-100/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 cursor-not-allowed shadow-2xs"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2: Target Exam Title (Full width address-style field) */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                      Target Examination Title*
+                    </label>
+                    <input
+                      type="text"
+                      value={examName}
+                      onChange={(e) => setExamName(e.target.value)}
+                      placeholder="e.g. SSC CGL 2026 / UPSC CSE 2026"
+                      className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                    />
+                  </div>
+
+                  {/* Row 3: Exam Date & Target Year */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                        Exam Date*
+                      </label>
+                      <input
+                        type="date"
+                        value={examDate}
+                        onChange={(e) => setExamDate(e.target.value)}
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer shadow-2xs"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                        Target Year*
+                      </label>
+                      <input
+                        type="number"
+                        value={targetYear}
+                        onChange={(e) => setTargetYear(Number(e.target.value))}
+                        min={2025}
+                        max={2035}
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Quick Date Shortcuts */}
+                  <div className="space-y-1.5">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                      Date Shortcuts
                     </span>
-                  </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    Configure your free Google Gemini API key to power AI YouTube Notes, Syllabus Parsing, and Academic Summaries.
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {[{ label: '+30 Days', days: 30 }, { label: '+60 Days', days: 60 }, { label: '+90 Days', days: 90 }, { label: '+180 Days', days: 180 }].map(b => (
+                        <button
+                          type="button"
+                          key={b.label}
+                          onClick={() => handleAddDays(b.days)}
+                          className="px-3 py-1.5 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer active:scale-95"
+                        >
+                          {b.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Quick Exam Presets */}
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <span>One-Click Exam Presets</span>
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        { label: 'SSC CGL 2026', year: 2026, days: 90 },
+                        { label: 'SSC CHSL 2026', year: 2026, days: 120 },
+                        { label: 'SSC CPO 2026', year: 2026, days: 75 },
+                        { label: 'RRB NTPC 2026', year: 2026, days: 100 },
+                        { label: 'SBI PO 2026', year: 2026, days: 60 },
+                        { label: 'UPSC CSE 2026', year: 2026, days: 180 }
+                      ].map(p => {
+                        const isSelected = examName.toLowerCase() === p.label.toLowerCase();
+                        return (
+                          <button
+                            type="button"
+                            key={p.label}
+                            onClick={() => handleApplyPresetExam(p.label, p.year, p.days)}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border active:scale-95 ${
+                              isSelected
+                                ? 'bg-blue-600 text-white border-transparent shadow-xs font-black'
+                                : 'bg-slate-50 dark:bg-[#1A1B28] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300'
+                            }`}
+                          >
+                            {p.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Success Notification Banner */}
+                  {accountSaved && (
+                    <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 animate-fade-in">
+                      <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                      <span>User information and exam target successfully updated and synchronized!</span>
+                    </div>
+                  )}
+
+                  {/* Primary CTA Button (Matching "Update Information" in media_1790328428745.png) */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                    >
+                      <Save className="w-4 h-4" />
+                      <span>Update Information</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: MEMBERSHIP PLAN & PRO MODULES */}
+          {activeTab === 'membership' && (
+            <div className="space-y-4 sm:space-y-5 animate-fade-in">
+              {/* Top Card: Membership Status */}
+              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-purple-600/10 border border-blue-500/30 shadow-xs flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <Award className="w-6 h-6" />
+                  </div>
+                  <div className="min-w-0 space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                        Active Tier: Free Aspirant
+                      </h3>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-blue-600 text-white">
+                        Standard
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      Upgrade to PRO Scholar for AI Lecture Notes &amp; Cloud Precision
+                    </p>
+                  </div>
+                </div>
+
+                <div className="shrink-0 text-right">
+                  <span className="text-sm sm:text-base font-extrabold text-blue-600 dark:text-cyan-400 block font-sora">
+                    ₹499<span className="text-xs font-medium text-slate-400">/yr</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Main Card: Feature Comparison & Upgrade */}
+              <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-6">
+                <div>
+                  <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                    Membership Plan &amp; Precision Modules
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                    Full access to elite preparation tools engineered for serious competitive exam candidates.
                   </p>
                 </div>
-              </div>
 
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 self-start sm:self-auto">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border font-sans ${
-                  geminiApiKey
-                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                    : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 animate-pulse'
-                }`}>
-                  <span className={`w-2 h-2 rounded-full ${geminiApiKey ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-                  <span>{geminiApiKey ? 'Connected & Active' : 'API Key Missing'}</span>
-                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Free Tier Card */}
+                  <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-4">
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">Free Aspirant Tier</h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Essential foundation tools</p>
+                    </div>
+                    <div className="text-xl font-bold text-slate-900 dark:text-white">₹0 <span className="text-xs font-normal text-slate-400">/ Lifetime</span></div>
+                    <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Interactive 3D Mind Map &amp; Syllabus</span></li>
+                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Mistake Journal &amp; Revision Pipeline</span></li>
+                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Standard Study Timer &amp; Streak Tracking</span></li>
+                    </ul>
+                  </div>
+
+                  {/* PRO Tier Card */}
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-500/40 shadow-xs space-y-4 relative overflow-hidden">
+                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-wider">
+                      Recommended
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-black text-slate-900 dark:text-white">PRO Scholar Tier</h4>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Unlocks all precision AI engines</p>
+                    </div>
+                    <div className="text-xl font-extrabold text-blue-600 dark:text-cyan-400 font-sora">
+                      ₹499 <span className="text-xs font-normal text-slate-500">/ 1 Year Pass</span>
+                    </div>
+                    <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-200">
+                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>AI YouTube Lecture Notes Instant Generation</span></li>
+                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Multi-Device Google Drive Cloud Sync</span></li>
+                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Voice &amp; Audio Study Memos Studio</span></li>
+                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Futuristic Timer HUD (JetBrains, Orbitron)</span></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    if (onOpenPricing) onOpenPricing();
+                  }}
+                  className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                >
+                  <span>Upgrade to PRO Scholar</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
+      {/* TAB 5: AI & INTELLIGENCE ENGINE (Matching media_1790328428745.png) */}
+      {activeTab === 'ai' && (
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <Sparkles className="w-7 h-7" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                    Google Gemini AI Engine
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-violet-600 to-cyan-500 text-white shrink-0">
+                    Gemini 2.5 / 3.6
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                  {geminiApiKey ? 'API Key Active • AI YouTube Notes & Summaries operational' : 'API Key missing • Add your free Google Gemini key below'}
+                </p>
+                {aiKeySaveSuccess && (
+                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in">
+                    <Check className="w-3 h-3 stroke-[3]" />
+                    <span>API Key saved &amp; synchronized across app!</span>
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* API Key Form */}
-            <form onSubmit={handleSaveGeminiKey} className="space-y-3 pt-1">
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 sm:px-5 py-2 rounded-xl bg-violet-50 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/30 text-violet-600 dark:text-violet-400 hover:bg-violet-100 text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
+              >
+                <span>Free Key</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Main Form Card: Configure Gemini AI */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Configure Google Gemini API Key
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Personal key for AI YouTube Lecture Notes, Smart Syllabus Decomposition, and Formula Tables.
+                </p>
+              </div>
+
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans ${
+                geminiApiKey
+                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
+                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25'
+              }`}>
+                <span className={`w-2 h-2 rounded-full ${geminiApiKey ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+                <span>{geminiApiKey ? 'Connected & Active' : 'API Key Missing'}</span>
+              </span>
+            </div>
+
+            <form onSubmit={handleSaveGeminiKey} className="space-y-4 sm:space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 font-sans block">
-                  Google Gemini API Key
+                <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                  Google Gemini API Key*
                 </label>
                 <div className="relative">
                   <input
@@ -903,7 +1122,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     value={tempAiKey}
                     onChange={(e) => setTempAiKey(e.target.value)}
                     placeholder="AIzaSy..."
-                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 pr-12 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-sans font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500"
+                    className="w-full h-11 sm:h-12 px-4 pr-12 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
                   />
                   <button
                     type="button"
@@ -915,16 +1134,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                <button
-                  type="submit"
-                  className="h-10 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 flex items-center gap-2"
-                >
-                  <Save className="w-3.5 h-3.5" />
-                  <span>Save API Key</span>
-                </button>
-
                 <button
                   type="button"
                   disabled={isTestingAiKey || (!tempAiKey.trim() && !geminiApiKey)}
@@ -944,18 +1154,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     Remove Key
                   </button>
                 )}
-
-                {aiKeySaveSuccess && (
-                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fade-in font-sans">
-                    <Check className="w-4 h-4 stroke-[3]" />
-                    <span>API Key saved &amp; synchronized across app!</span>
-                  </span>
-                )}
               </div>
 
-              {/* Test Result Display */}
               {aiTestResult && (
-                <div className={`p-3 rounded-xl border text-xs font-medium flex items-start gap-2.5 animate-fade-in ${
+                <div className={`p-3.5 rounded-xl border text-xs font-medium flex items-start gap-2.5 animate-fade-in ${
                   aiTestResult.success
                     ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-700 dark:text-emerald-400'
                     : 'bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400'
@@ -968,454 +1170,632 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   <span>{aiTestResult.message}</span>
                 </div>
               )}
+
+              {/* Free Key Guide */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-violet-500/5 to-cyan-500/5 border border-violet-500/20 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                    <span>💡 Free Google Gemini API Key Guide</span>
+                  </h4>
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
+                  >
+                    <span>Google AI Studio</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Google Gemini API is <strong>100% Free</strong>. No credit card is required. Free tier offers 15 requests per minute, which is more than enough for regular study notes generation and syllabus parsing.
+                </p>
+                <ol className="list-decimal pl-4 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                  <li>Open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-violet-600 dark:text-violet-400 underline font-semibold">Google AI Studio (aistudio.google.com)</a>.</li>
+                  <li>Sign in with your Google account.</li>
+                  <li>Click <strong>&quot;Create API Key&quot;</strong> and copy the generated key (starts with <code className="font-mono bg-violet-100 dark:bg-violet-900/30 px-1 py-0.5 rounded">AIzaSy...</code>).</li>
+                  <li>Paste the key in the field above and click <strong>&quot;Save AI Configuration&quot;</strong>.</li>
+                </ol>
+              </div>
+
+              {/* Feature Cards Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-bold text-xs uppercase tracking-wider">
+                    <Video className="w-4 h-4" />
+                    <span>AI YouTube Notes</span>
+                  </div>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Paste any educational YouTube URL to generate structured notes with headings, KaTeX math equations, timestamps, and exam-focused questions.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-wider">
+                    <BookOpen className="w-4 h-4" />
+                    <span>AI Syllabus Architect</span>
+                  </div>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Convert raw PDF notifications or syllabus text into organized 4-level subject, chapter, topic, and subtopic study tracks.
+                  </p>
+                </div>
+              </div>
+
+              {/* Primary CTA Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>Save AI Configuration</span>
+                </button>
+              </div>
             </form>
-          </div>
-
-          {/* Guide Card: How to get Free Key */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-violet-500/5 to-cyan-500/5 border border-violet-500/20 space-y-3">
-            <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                <span>💡 Free Google Gemini API Key Guide</span>
-              </h4>
-              <a
-                href="https://aistudio.google.com/app/apikey"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline flex items-center gap-1"
-              >
-                <span>Google AI Studio</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Google Gemini API is <strong>100% Free</strong>. No credit card is required. Free tier offers 15 requests per minute, which is more than enough for regular study notes generation and syllabus parsing.
-            </p>
-            <ol className="list-decimal pl-4 space-y-1 text-xs text-slate-600 dark:text-slate-400">
-              <li>Open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-violet-600 dark:text-violet-400 underline font-semibold">Google AI Studio (aistudio.google.com)</a>.</li>
-              <li>Sign in with your Google account.</li>
-              <li>Click <strong>&quot;Create API Key&quot;</strong> and copy the generated key (starts with <code className="font-mono bg-violet-100 dark:bg-violet-900/30 px-1 py-0.5 rounded">AIzaSy...</code>).</li>
-              <li>Paste the key in the field above and click <strong>&quot;Save API Key&quot;</strong>.</li>
-            </ol>
-          </div>
-
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 space-y-2">
-              <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-bold text-xs uppercase tracking-wider">
-                <Video className="w-4 h-4" />
-                <span>AI YouTube Notes</span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Paste any educational YouTube URL to generate structured notes with headings, KaTeX math equations, timestamps, and exam-focused questions.
-              </p>
-            </div>
-
-            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 space-y-2">
-              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-wider">
-                <BookOpen className="w-4 h-4" />
-                <span>AI Syllabus Architect</span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Convert raw PDF notifications or syllabus text into organized 4-level subject, chapter, topic, and subtopic study tracks.
-              </p>
-            </div>
           </div>
         </div>
       )}
 
-      {/* TAB 2: APPEARANCE & THEME */}
+      {/* TAB 6: APPEARANCE & THEME (Matching media_1790328428745.png) */}
       {activeTab === 'appearance' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
-            <div>
-              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                Color Theme &amp; Palette
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Switch between Light Mode and Dark Mode for your study workspace.
-              </p>
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-amber-500 to-indigo-600 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <Palette className="w-7 h-7" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                  Workspace Appearance &amp; Theme
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                  {theme === 'dark' ? 'Tokyo Night Dark mode active • High contrast dark glass' : 'Pure Pro Alabaster light mode active • Daytime focus clarity'}
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-2 self-start sm:self-auto">
-              <span className="px-3 py-1 rounded-xl text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white capitalize shrink-0">
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setTheme(theme === 'dark' ? 'light' : 'dark');
+                }}
+                className="px-4 sm:px-5 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-blue-600" />}
+                <span>Switch Mode</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Main Form Card */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Color Theme &amp; Display Settings
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Choose your visual study environment and install the offline desktop/mobile web app.
+                </p>
+              </div>
+
+              <span className="px-3 py-1 rounded-xl text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white capitalize shrink-0 self-start sm:self-auto">
                 {theme === 'dark' ? 'Tokyo Night Dark' : 'Pure Pro Alabaster'}
               </span>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-0.5 sm:pt-1">
-            {/* Tokyo Night Dark */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                setTheme('dark');
-              }}
-              className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
-                theme === 'dark'
-                  ? 'bg-[#1F2335] border-[#7AA2F7] ring-2 ring-[#7AA2F7]/30 shadow-sm'
-                  : 'bg-slate-50 dark:bg-[#18181D] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
-              }`}
-            >
-              <div className="flex items-center justify-between w-full">
-                <div className="w-10 h-10 rounded-xl bg-[#16161E] border border-[#292E42] flex items-center justify-center text-[#7AA2F7] shrink-0">
-                  <Moon className="w-5 h-5" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Tokyo Night Dark */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setTheme('dark');
+                }}
+                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                  theme === 'dark'
+                    ? 'bg-[#181A28] border-blue-500 ring-2 ring-blue-500/20 shadow-md'
+                    : 'bg-slate-50 dark:bg-[#151622] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <div className="w-10 h-10 rounded-xl bg-[#121424] border border-[#292E42] flex items-center justify-center text-[#7AA2F7] shrink-0">
+                    <Moon className="w-5 h-5" />
+                  </div>
+                  {theme === 'dark' && <Check className="w-4 h-4 text-blue-500 stroke-[3]" />}
                 </div>
-                {theme === 'dark' && <Check className="w-4 h-4 text-[#7AA2F7] stroke-[3]" />}
-              </div>
-              <div>
-                <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
-                  Tokyo Night Dark
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
-                  Deep dark glassmorphism for focused night study and reduced eye fatigue
-                </span>
-              </div>
-            </button>
+                <div>
+                  <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
+                    Tokyo Night Dark
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
+                    Deep dark glassmorphism for focused night study and reduced eye fatigue
+                  </span>
+                </div>
+              </button>
 
-            {/* Pure Pro Alabaster (Light) */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                setTheme('light');
-              }}
-              className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
-                theme === 'light'
-                  ? 'bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-md'
-                  : 'bg-white dark:bg-[#18181D] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
-              }`}
-            >
-              <div className="flex items-center justify-between w-full">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
-                  <Sun className="w-5 h-5" />
+              {/* Pure Pro Alabaster (Light) */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setTheme('light');
+                }}
+                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                  theme === 'light'
+                    ? 'bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-md'
+                    : 'bg-white dark:bg-[#151622] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+                    <Sun className="w-5 h-5" />
+                  </div>
+                  {theme === 'light' && <Check className="w-4 h-4 text-blue-600 stroke-[3]" />}
                 </div>
-                {theme === 'light' && <Check className="w-4 h-4 text-blue-600 stroke-[3]" />}
+                <div>
+                  <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
+                    Pure Pro Alabaster (Light Mode)
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
+                    Ultra-crisp, high-contrast alabaster workspace with daylight clarity
+                  </span>
+                </div>
+              </button>
+            </div>
+
+            {/* PWA App Install Banner */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-purple-500/5 border border-blue-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+                  <Smartphone className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                    Syllabus 3D Progressive Web App (PWA)
+                  </h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    {isInstalled ? 'App is installed and running natively with offline storage.' : 'Install on Windows, Android, or iOS for full-screen zero-distraction study.'}
+                  </p>
+                </div>
               </div>
-              <div>
-                <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
-                  Pure Pro Alabaster (Light Mode)
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
-                  Ultra-crisp, high-contrast alabaster workspace with daylight clarity
-                </span>
-              </div>
-            </button>
+
+              {!isInstalled && (
+                <button
+                  type="button"
+                  onClick={() => setShowPwaModal(true)}
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-95 shrink-0"
+                >
+                  Install App
+                </button>
+              )}
+            </div>
+
+            {/* Primary CTA Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playCompleteChime();
+                  haptics.success();
+                }}
+                className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+              >
+                <Save className="w-4 h-4" />
+                <span>Apply Theme Settings</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* TAB: SOUND & MOTIVATION AUDIO */}
-      {activeTab === 'sound' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-5 animate-fade-in">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3.5">
-            <div>
-              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 sm:gap-2">
-                <Volume2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <span>Audio &amp; Motivation Effects</span>
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Configure audio cues, Tibetan focus bell, and library silent mode.
-              </p>
+      {/* TAB 2: NOTIFICATION & AUDIO EFFECTS (Matching media_1790328428745.png) */}
+      {(activeTab === 'notification' || activeTab === 'sound') && (
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <Bell className="w-7 h-7" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                  Audio &amp; Notification Alerts
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                  {audioConfig.masterEnabled
+                    ? 'Sound feedback active • Tibetan focus bell & tactile chimes enabled'
+                    : 'Library Silent Mode active • All audio chimes and cues muted'}
+                </p>
+                {soundSaved && (
+                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in">
+                    <Check className="w-3 h-3 stroke-[3]" />
+                    <span>Notification preferences saved and synced!</span>
+                  </p>
+                )}
+              </div>
             </div>
 
-            {/* Master Mute / Silent Mode Button */}
-            <button
-              onClick={() => {
-                handleUpdateAudio({ masterEnabled: !audioConfig.masterEnabled });
-              }}
-              className={`w-full sm:w-auto h-9 sm:h-9.5 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer active:scale-95 shadow-xs ${
-                audioConfig.masterEnabled
-                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black'
-                  : 'bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-black'
-              }`}
-            >
-              {audioConfig.masterEnabled ? (
-                <>
-                  <Volume2 className="w-3.5 h-3.5" />
-                  <span>Audio Enabled</span>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-3.5 h-3.5" />
-                  <span>Library Silent Mode</span>
-                </>
-              )}
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  handleUpdateAudio({ masterEnabled: !audioConfig.masterEnabled });
+                }}
+                className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5 ${
+                  audioConfig.masterEnabled
+                    ? 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white hover:bg-slate-200'
+                    : 'bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-black'
+                }`}
+              >
+                {audioConfig.masterEnabled ? (
+                  <>
+                    <Volume2 className="w-3.5 h-3.5" />
+                    <span>Library Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <VolumeX className="w-3.5 h-3.5" />
+                    <span>Unmute Audio</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
-          {/* Master Volume Slider */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2 sm:space-y-2.5">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
-                <Sliders className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <span>Master Volume</span>
+          {/* Main Form Card: Notification & Audio Preferences */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Notification &amp; Audio Preferences
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Configure sensory feedback, volume intensity, and test individual study chimes.
+                </p>
               </div>
-              <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
-                {Math.round(audioConfig.masterVolume * 100)}%
+
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0 self-start sm:self-auto tabular-nums">
+                <Volume2 className="w-3.5 h-3.5" />
+                <span>{Math.round(audioConfig.masterVolume * 100)}% Volume</span>
               </span>
             </div>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
-              disabled={!audioConfig.masterEnabled}
-              value={audioConfig.masterVolume}
-              onChange={e => handleUpdateAudio({ masterVolume: parseFloat(e.target.value) })}
-              className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer disabled:opacity-40"
-            />
-          </div>
 
-          {/* Individual Audio Channels */}
-          <div className="space-y-2 sm:space-y-3 pt-0.5 sm:pt-1">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sans">
-              Individual Audio Channels
-            </h4>
-
-            {/* Channel 1: UI Clicks */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-blue-50 dark:bg-[#16161E] border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
-                  <Sliders className="w-4 h-4" />
+            {/* Master Volume Slider */}
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
+                  <Sliders className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <span>Master Sound Output Volume</span>
                 </div>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
-                    UI Click &amp; Navigation Taps
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
-                    Tactile audio feedback when switching tabs and buttons
-                  </span>
+                <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
+                  {Math.round(audioConfig.masterVolume * 100)}%
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                disabled={!audioConfig.masterEnabled}
+                value={audioConfig.masterVolume}
+                onChange={e => handleUpdateAudio({ masterVolume: parseFloat(e.target.value) })}
+                className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer disabled:opacity-40"
+              />
+            </div>
+
+            {/* Individual Audio Channels */}
+            <div className="space-y-3 pt-1">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sans">
+                Tactile Audio &amp; Alert Channels
+              </h4>
+
+              {/* Channel 1: UI Clicks */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-white/5 border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                    <Sliders className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                      UI Click &amp; Navigation Taps
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                      Tactile audio feedback when switching tabs, selecting topics, and clicking buttons
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => soundManager.playClick()}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                  >
+                    ▶ Test
+                  </button>
+                  <ToggleSwitch
+                    checked={audioConfig.clickSound && audioConfig.masterEnabled}
+                    onChange={val => handleUpdateAudio({ clickSound: val })}
+                  />
                 </div>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => soundManager.playClick()}
-                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
-                >
-                  ▶ Test
-                </button>
-                <ToggleSwitch
-                  checked={audioConfig.clickSound && audioConfig.masterEnabled}
-                  onChange={val => handleUpdateAudio({ clickSound: val })}
-                />
+
+              {/* Channel 2: Pomodoro Bell */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-white/5 border border-amber-200 dark:border-white/10 flex items-center justify-center text-amber-500 shrink-0">
+                    <Bell className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                      Pomodoro Session Alert Bell
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                      Gentle Tibetan singing bell when focus session starts, pauses &amp; completes
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => soundManager.playPomodoroBell()}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                  >
+                    ▶ Test
+                  </button>
+                  <ToggleSwitch
+                    checked={audioConfig.pomodoroBell && audioConfig.masterEnabled}
+                    onChange={val => handleUpdateAudio({ pomodoroBell: val })}
+                  />
+                </div>
+              </div>
+
+              {/* Channel 3: Target Completion Chime */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-white/5 border border-emerald-200 dark:border-white/10 flex items-center justify-center text-emerald-500 shrink-0">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                      Target Mastery Celebration Chime
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                      Harmonic celebration chime when checking off a topic or daily study task
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => soundManager.playCompleteChime()}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                  >
+                    ▶ Test
+                  </button>
+                  <ToggleSwitch
+                    checked={audioConfig.chimeSound && audioConfig.masterEnabled}
+                    onChange={val => handleUpdateAudio({ chimeSound: val })}
+                  />
+                </div>
+              </div>
+
+              {/* Channel 4: Level Up Fanfare */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-white/5 border border-purple-200 dark:border-white/10 flex items-center justify-center text-purple-500 shrink-0">
+                    <Award className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                      Level Up &amp; Streak Fanfare
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                      Special victory fanfare on leveling up or reaching streak milestones
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => soundManager.playLevelUp()}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                  >
+                    ▶ Test
+                  </button>
+                  <ToggleSwitch
+                    checked={audioConfig.levelUpSound && audioConfig.masterEnabled}
+                    onChange={val => handleUpdateAudio({ levelUpSound: val })}
+                  />
+                </div>
+              </div>
+
+              {/* Channel 5: Mobile Haptic Feedback */}
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-white/5 border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                    <Smartphone className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
+                      Mobile Tactile Haptics (Vibration)
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
+                      Physical vibration pulses when checking off topics, starting timers &amp; switching tabs
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => haptics.success()}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                  >
+                    ▶ Test
+                  </button>
+                  <ToggleSwitch
+                    checked={hapticsEnabled}
+                    onChange={handleToggleHaptics}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Channel 2: Pomodoro Bell */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-amber-50 dark:bg-[#16161E] border border-amber-200 dark:border-white/10 flex items-center justify-center text-amber-500 shrink-0">
-                  <Bell className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
-                    Pomodoro Session Alert Bell
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
-                    Gentle Tibetan singing bell when focus session starts &amp; completes
-                  </span>
-                </div>
+            {/* Success Banner */}
+            {soundSaved && (
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                <span>Notification and audio preferences successfully saved and synchronized!</span>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => soundManager.playPomodoroBell()}
-                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
-                >
-                  ▶ Test
-                </button>
-                <ToggleSwitch
-                  checked={audioConfig.pomodoroBell && audioConfig.masterEnabled}
-                  onChange={val => handleUpdateAudio({ pomodoroBell: val })}
-                />
-              </div>
-            </div>
+            )}
 
-            {/* Channel 3: Target Completion Chime */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-emerald-50 dark:bg-[#16161E] border border-emerald-200 dark:border-white/10 flex items-center justify-center text-emerald-500 shrink-0">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
-                    Target Mastery Celebration Chime
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
-                    Harmonic chime when completing a topic or daily target
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => soundManager.playCompleteChime()}
-                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
-                >
-                  ▶ Test
-                </button>
-                <ToggleSwitch
-                  checked={audioConfig.chimeSound && audioConfig.masterEnabled}
-                  onChange={val => handleUpdateAudio({ chimeSound: val })}
-                />
-              </div>
-            </div>
-
-            {/* Channel 4: Level Up / Streak Milestone */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-purple-50 dark:bg-[#16161E] border border-purple-200 dark:border-white/10 flex items-center justify-center text-purple-500 shrink-0">
-                  <Award className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
-                    Level Up &amp; Streak Fanfare
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
-                    Special victory fanfare on leveling up or reaching streak milestones
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => soundManager.playLevelUp()}
-                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
-                >
-                  ▶ Test
-                </button>
-                <ToggleSwitch
-                  checked={audioConfig.levelUpSound && audioConfig.masterEnabled}
-                  onChange={val => handleUpdateAudio({ levelUpSound: val })}
-                />
-              </div>
-            </div>
-
-            {/* Channel 5: Mobile Haptic Feedback */}
-            <div className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#1F2335] border border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-blue-50 dark:bg-[#16161E] border border-blue-200 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
-                  <Smartphone className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block truncate">
-                    Mobile Tactile Haptics (Vibration)
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">
-                    Physical vibration pulses when checking off topics, starting timers &amp; switching tabs
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => haptics.success()}
-                  className="px-2.5 py-1 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
-                >
-                  ▶ Test
-                </button>
-                <ToggleSwitch
-                  checked={hapticsEnabled}
-                  onChange={handleToggleHaptics}
-                />
-              </div>
+            {/* Primary CTA Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playCompleteChime();
+                  haptics.success();
+                  setSoundSaved(true);
+                  setTimeout(() => setSoundSaved(false), 3000);
+                }}
+                className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+              >
+                <Save className="w-4 h-4" />
+                <span>Save Notification Preferences</span>
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* TAB 3: FOCUS CHAMBER & FLOATING TIMER */}
+      {/* TAB 7: FOCUS CHAMBER & FLOATING TIMER (Matching media_1790328428745.png) */}
       {activeTab === 'timer' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-4 animate-fade-in">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
-            <div>
-              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                Floating Timer &amp; Picture-in-Picture
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Control the draggable timer overlay that stays active while studying notes.
-              </p>
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <Clock className="w-7 h-7" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                  Focus Chamber &amp; Floating Timer
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                  {settings.enabled ? `Floating timer active • Font: ${timerFont.toUpperCase()}` : 'Floating timer overlay minimized'}
+                </p>
+                {timerSaved && (
+                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 animate-fade-in">
+                    <Check className="w-3 h-3 stroke-[3]" />
+                    <span>Timer preferences saved successfully!</span>
+                  </p>
+                )}
+              </div>
             </div>
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                showFloatingOverlay();
-                setTestLaunched(true);
-                setTimeout(() => setTestLaunched(false), 2500);
-              }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
-            >
-              <Play className="w-3 h-3 fill-current" />
-              <span>{testLaunched ? 'Visible!' : 'Preview Pill'}</span>
-            </button>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  showFloatingOverlay();
+                  setTestLaunched(true);
+                  setTimeout(() => setTestLaunched(false), 2500);
+                }}
+                className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
+              >
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>{testLaunched ? 'Visible!' : 'Preview Pill'}</span>
+              </button>
+            </div>
           </div>
 
-          <div className="space-y-2 sm:space-y-2.5 pt-0.5 sm:pt-1">
-            {[
-              { label: 'Floating Timer Enabled', desc: 'Show compact draggable pill when focus timer is active', checked: settings.enabled, key: 'enabled' as const },
-              { label: 'Auto-launch on Background', desc: 'Minimize to Picture-in-Picture when switching browser tabs', checked: settings.showWhenBackgrounded, key: 'showWhenBackgrounded' as const },
-              { label: 'Quick Pause / Resume Controls', desc: '1-tap control button directly on the floating pill', checked: settings.showPauseButton, key: 'showPauseButton' as const },
-              { label: 'Remember Draggable Position', desc: 'Keep the floating timer at the exact spot you placed it', checked: settings.rememberPosition, key: 'rememberPosition' as const }
-            ].map(item => (
-              <div key={item.key} className="flex items-center justify-between p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
-                <div className="pr-2 sm:pr-3">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">{item.label}</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">{item.desc}</span>
-                </div>
-                <ToggleSwitch
-                  checked={item.checked}
-                  onChange={val => updateSettings({ [item.key]: val })}
-                />
-              </div>
-            ))}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
-              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2">
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">Widget Width</span>
-                <div className="flex gap-1.5 sm:gap-2">
-                  {(['standard', 'compact'] as const).map(s => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        updateSettings({ size: s });
-                      }}
-                      className={`flex-1 py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-[13px] font-bold transition-all cursor-pointer ${
-                        settings.size === s
-                          ? 'bg-blue-600 text-white shadow-xs'
-                          : 'bg-white dark:bg-[#151622] text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-white/10'
-                      }`}
-                    >
-                      {s === 'standard' ? 'Standard (360px)' : 'Compact (320px)'}
-                    </button>
-                  ))}
-                </div>
+          {/* Main Form Card */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Floating Timer &amp; HUD Configuration
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Control the draggable overlay that stays active while studying notes, and customize digit fonts.
+                </p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">Opacity</span>
-                  <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
-                    {Math.round((settings.opacity || 0.95) * 100)}%
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="50"
-                  max="100"
-                  value={Math.round((settings.opacity || 0.95) * 100)}
-                  onChange={e => updateSettings({ opacity: Number(e.target.value) / 100 })}
-                  className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer"
-                />
-              </div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0 self-start sm:self-auto tabular-nums">
+                <Sliders className="w-3.5 h-3.5" />
+                <span>{Math.round((settings.opacity || 0.95) * 100)}% Opacity</span>
+              </span>
             </div>
 
-            {/* Timer Typography Selection */}
-            <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-3">
-              <div className="flex items-center justify-between">
+            <div className="space-y-3">
+              {[
+                { label: 'Floating Timer Enabled', desc: 'Show compact draggable pill when focus timer is active', checked: settings.enabled, key: 'enabled' as const },
+                { label: 'Auto-launch on Background', desc: 'Minimize to Picture-in-Picture when switching browser tabs', checked: settings.showWhenBackgrounded, key: 'showWhenBackgrounded' as const },
+                { label: 'Quick Pause / Resume Controls', desc: '1-tap control button directly on the floating pill', checked: settings.showPauseButton, key: 'showPauseButton' as const },
+                { label: 'Remember Draggable Position', desc: 'Keep the floating timer at the exact spot you placed it', checked: settings.rememberPosition, key: 'rememberPosition' as const }
+              ].map(item => (
+                <div key={item.key} className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                  <div className="pr-3">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">{item.label}</span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-none">{item.desc}</span>
+                  </div>
+                  <ToggleSwitch
+                    checked={item.checked}
+                    onChange={val => updateSettings({ [item.key]: val })}
+                  />
+                </div>
+              ))}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">Widget Width</span>
+                  <div className="flex gap-2">
+                    {(['standard', 'compact'] as const).map(s => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          updateSettings({ size: s });
+                        }}
+                        className={`flex-1 py-2 rounded-xl text-xs sm:text-[13px] font-bold transition-all cursor-pointer ${
+                          settings.size === s
+                            ? 'bg-blue-600 text-white shadow-xs'
+                            : 'bg-white dark:bg-[#151622] text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-white/10'
+                        }`}
+                      >
+                        {s === 'standard' ? 'Standard (360px)' : 'Compact (320px)'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">Overlay Opacity</span>
+                    <span className="text-xs font-bold font-sans tabular-nums text-blue-600 dark:text-blue-400">
+                      {Math.round((settings.opacity || 0.95) * 100)}%
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="50"
+                    max="100"
+                    value={Math.round((settings.opacity || 0.95) * 100)}
+                    onChange={e => updateSettings({ opacity: Number(e.target.value) / 100 })}
+                    className="w-full accent-blue-600 dark:accent-blue-400 cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Timer Typography Selection */}
+              <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-slate-50/70 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-3 pt-2">
                 <div>
                   <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
                     Timer Digits Typography
@@ -1424,181 +1804,229 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     Choose the display font for Pomodoro, Countdown, Stopwatch, and Floating Pill.
                   </span>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
-                {[
-                  {
-                    id: 'jetbrains',
-                    name: 'JetBrains Mono',
-                    tag: 'Practical',
-                    desc: 'Developer precision & balanced monospace glyphs',
-                    preview: '25:00',
-                    fontClass: 'font-mono'
-                  },
-                  {
-                    id: 'roboto-mono',
-                    name: 'Roboto Mono',
-                    tag: 'Clean Digital',
-                    desc: 'Minimalist geometric curves & razor-sharp legibility',
-                    preview: '25:00',
-                    fontClass: 'font-roboto-mono'
-                  },
-                  {
-                    id: 'orbitron',
-                    name: 'Orbitron',
-                    tag: 'Futuristic',
-                    desc: 'Sci-Fi HUD aesthetic for intense focus sprints',
-                    preview: '25:00',
-                    fontClass: 'font-orbitron'
-                  }
-                ].map(item => {
-                  const isSelected = timerFont === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => {
-                        handleSelectTimerFont(item.id as TimerFontFamily);
-                        soundManager.playClick();
-                        haptics.selection();
-                      }}
-                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer relative ${
-                        isSelected
-                          ? 'bg-blue-500/10 border-blue-500 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/20 shadow-xs'
-                          : 'bg-white dark:bg-[#151622] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-xs font-bold text-slate-900 dark:text-white">
-                          {item.name}
-                        </span>
-                        <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {[
+                    {
+                      id: 'jetbrains',
+                      name: 'JetBrains Mono',
+                      tag: 'Practical',
+                      desc: 'Developer precision & balanced monospace glyphs',
+                      preview: '25:00',
+                      fontClass: 'font-mono'
+                    },
+                    {
+                      id: 'roboto-mono',
+                      name: 'Roboto Mono',
+                      tag: 'Clean Digital',
+                      desc: 'Minimalist geometric curves & razor-sharp legibility',
+                      preview: '25:00',
+                      fontClass: 'font-roboto-mono'
+                    },
+                    {
+                      id: 'orbitron',
+                      name: 'Orbitron',
+                      tag: 'Futuristic',
+                      desc: 'Sci-Fi HUD aesthetic for intense focus sprints',
+                      preview: '25:00',
+                      fontClass: 'font-orbitron'
+                    }
+                  ].map(item => {
+                    const isSelected = timerFont === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          handleSelectTimerFont(item.id as TimerFontFamily);
+                          soundManager.playClick();
+                          haptics.selection();
+                        }}
+                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer relative ${
                           isSelected
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                            ? 'bg-blue-500/10 border-blue-500 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/20 shadow-xs'
+                            : 'bg-white dark:bg-[#151622] border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold text-slate-900 dark:text-white">
+                            {item.name}
+                          </span>
+                          <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+                            isSelected
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                          }`}>
+                            {item.tag}
+                          </span>
+                        </div>
+                        <div className={`text-xl sm:text-2xl font-black ${item.fontClass} my-1.5 ${
+                          isSelected ? 'text-blue-600 dark:text-cyan-400' : 'text-slate-800 dark:text-white'
                         }`}>
-                          {item.tag}
-                        </span>
-                      </div>
-                      <div className={`text-xl sm:text-2xl font-black ${item.fontClass} my-1.5 ${
-                        isSelected ? 'text-blue-600 dark:text-cyan-400' : 'text-slate-800 dark:text-white'
-                      }`}>
-                        {item.preview}
-                      </div>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2">
-                        {item.desc}
-                      </p>
-                    </button>
-                  );
-                })}
+                          {item.preview}
+                        </div>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2">
+                          {item.desc}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+            </div>
+
+            {/* Success Banner */}
+            {timerSaved && (
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                <span>Timer settings and typography preferences successfully saved!</span>
+              </div>
+            )}
+
+            {/* Primary CTA Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playCompleteChime();
+                  haptics.success();
+                  setTimerSaved(true);
+                  setTimeout(() => setTimerSaved(false), 3000);
+                }}
+                className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+              >
+                <Save className="w-4 h-4" />
+                <span>Save Timer Preferences</span>
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* TAB 4: BACKUP, RESTORE & STORAGE SAFETY */}
+      {/* TAB 8: BACKUP, RESTORE & STORAGE SAFETY (Matching media_1790328428745.png) */}
       {activeTab === 'data' && (
-        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3.5 sm:space-y-5 animate-fade-in">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-2.5 sm:pb-3">
-            <div>
-              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                Storage Safety &amp; Dual-Tier Data Engine
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Real-time debounced persistence with dual-tier IndexedDB safety snapshots and quota protection.
-              </p>
-            </div>
-          </div>
-
-          {/* ☁️ Google Drive Cloud Vault & Dedicated Media Sync Card */}
-          <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-purple-500/5 dark:from-blue-900/20 dark:via-indigo-900/15 dark:to-purple-900/10 border border-blue-500/25 dark:border-blue-500/35 space-y-3.5 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[#1A1B2E] border border-blue-200 dark:border-blue-800 shadow-xs flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
-                    <path d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44A8.9 8.9 0 0 0 0 53h27.5z" fill="#00ac47"/>
-                    <path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.85 10.15z" fill="#ea4335"/>
-                    <path d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
-                    <path d="M59.8 53H87.3c0-1.55-.4-3.1-1.2-4.5l-25.4-44c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25z" fill="#ffba00"/>
-                    <path d="M27.5 53h46.05l-13.75 23.8c-1.35.8-2.9 1.2-4.5 1.2h-18.5c-1.6 0-3.15-.45-4.5-1.2z" fill="#2684fc"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-xs sm:text-[14px] font-black text-slate-900 dark:text-white">
-                      Google Drive Cloud Vault &amp; Media Sync
-                    </h4>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${
-                      gdriveConnected
-                        ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
-                        : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
-                    }`}>
-                      {gdriveConnected ? 'Connected ✓' : 'Cloud Sync'}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-normal">
-                    1-Click backup &amp; restore for your full Syllabus database, attached PDF notes, and study diagram photos directly into your personal Google Drive.
-                  </p>
-                </div>
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-emerald-600 to-teal-500 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <Database className="w-7 h-7" />
               </div>
+              <div className="min-w-0 space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                    Storage Safety &amp; Dual-Tier Engine
+                  </h3>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${
+                    gdriveConnected
+                      ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                      : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                  }`}>
+                    {gdriveConnected ? 'Cloud Active' : 'Offline Safe'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                  {`Local Storage: ~${storageUsageKb} KB used • Dual-tier IndexedDB active`}
+                </p>
+              </div>
+            </div>
 
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
                 onClick={() => setShowGoogleDriveModal(true)}
-                className="h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 shrink-0 flex items-center justify-center gap-2"
+                className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
               >
-                <Cloud className="w-4 h-4" />
-                <span>Open Google Drive Hub</span>
+                <Cloud className="w-3.5 h-3.5" />
+                <span>Google Drive Hub</span>
               </button>
-            </div>
-
-            {/* Extra Backup Perks Badges */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-blue-200/50 dark:border-blue-900/40 text-[11px] sm:text-xs font-sans font-semibold">
-              <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                <span>Exams &amp; Notes Vault</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                <span>Extra PDF Docs Backup</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-purple-500 shrink-0" />
-                <span>Photos &amp; Diagrams</span>
-              </div>
             </div>
           </div>
 
-          {/* Live Auto-Save & Debounce Engine Card */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2.5 sm:space-y-3.5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                <div>
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block leading-tight">
-                    Continuous Debounced Auto-Save: Active
-                  </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
-                    350ms batched writes prevent keystroke lag • Flushes instantly on tab switch or close
-                  </span>
-                </div>
+          {/* Main Form Card */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Cloud Vault &amp; Local Backup Management
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Real-time debounced persistence with dual-tier IndexedDB safety snapshots and Google Drive sync.
+                </p>
               </div>
 
-              <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-sans text-xs font-bold shrink-0 self-start sm:self-auto tabular-nums">
+              <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-sans text-xs font-bold shrink-0 self-start sm:self-auto tabular-nums">
                 <Check className="w-3 h-3 stroke-[2.5]" />
-                <span>Last Synced: {lastSavedAt}</span>
+                <span>Saved: {lastSavedAt}</span>
+              </div>
+            </div>
+
+            {/* ☁️ Google Drive Cloud Vault & Dedicated Media Sync Card */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-purple-500/5 border border-blue-500/25 space-y-3.5 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[#1A1B2E] border border-blue-200 dark:border-blue-800 shadow-xs flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                      <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+                      <path d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44A8.9 8.9 0 0 0 0 53h27.5z" fill="#00ac47"/>
+                      <path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.85 10.15z" fill="#ea4335"/>
+                      <path d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+                      <path d="M59.8 53H87.3c0-1.55-.4-3.1-1.2-4.5l-25.4-44c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25z" fill="#ffba00"/>
+                      <path d="M27.5 53h46.05l-13.75 23.8c-1.35.8-2.9 1.2-4.5 1.2h-18.5c-1.6 0-3.15-.45-4.5-1.2z" fill="#2684fc"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-xs sm:text-[14px] font-black text-slate-900 dark:text-white">
+                        Google Drive Cloud Vault &amp; Media Sync
+                      </h4>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${
+                        gdriveConnected
+                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                          : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                      }`}>
+                        {gdriveConnected ? 'Connected ✓' : 'Cloud Sync'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-normal">
+                      1-Click backup &amp; restore for your full Syllabus database, attached PDF notes, and study diagram photos directly into your personal Google Drive.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowGoogleDriveModal(true)}
+                  className="h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95 shrink-0 flex items-center justify-center gap-2"
+                >
+                  <Cloud className="w-4 h-4" />
+                  <span>Open Drive Hub</span>
+                </button>
+              </div>
+
+              {/* Extra Backup Perks Badges */}
+              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-blue-200/50 dark:border-blue-900/40 text-[11px] sm:text-xs font-sans font-semibold">
+                <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                  <span>Exams &amp; Notes Vault</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-red-500 shrink-0" />
+                  <span>Extra PDF Docs Backup</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-purple-500 shrink-0" />
+                  <span>Photos &amp; Diagrams</span>
+                </div>
               </div>
             </div>
 
             {/* Visual Storage Health & Quota Bar */}
-            <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10 space-y-1.5 sm:space-y-2">
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                   <HardDrive className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                  Browser Local Storage Quota
+                  <span>Browser Storage Quota</span>
                 </span>
                 <div className="flex items-center gap-2 font-sans font-bold tabular-nums">
                   <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${
@@ -1616,7 +2044,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                 </div>
               </div>
 
-              <div className="w-full h-2 sm:h-2.5 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+              <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     storageMetrics.status === 'critical'
@@ -1628,206 +2056,219 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   style={{ width: `${Math.max(2, storageMetrics.percentage)}%` }}
                 />
               </div>
-            </div>
 
-            {/* Storage Entity Breakdown Pills */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 pt-1 border-t border-slate-200/80 dark:border-white/10 text-center font-sans">
-              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Topics &amp; Exams</span>
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
-                  {overallStats.totalTopics} Topics (~{(storageMetrics.breakdown.exams / 1024).toFixed(1)} KB)
-                </span>
-              </div>
-              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">SRS Flashcards</span>
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
-                  {revisions.length} Cards (~{(storageMetrics.breakdown.revisions / 1024).toFixed(1)} KB)
-                </span>
-              </div>
-              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Planner Tasks</span>
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
-                  {plannerTasks.length} Tasks (~{(storageMetrics.breakdown.planner / 1024).toFixed(1)} KB)
-                </span>
-              </div>
-              <div className="p-2 rounded-xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/10">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Targets &amp; Habits</span>
-                <span className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 tabular-nums">
-                  {top3Targets.length + reflectionsHistory.length} Entries (~{((storageMetrics.breakdown.activity + storageMetrics.breakdown.other) / 1024).toFixed(1)} KB)
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Google 1-Click Identity & Cloud Auth Card */}
-          <GoogleAuthSettingsCard />
-
-          {/* Dual-Tier IndexedDB Safety Snapshot Card */}
-          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-2.5 sm:space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
-              <div className="space-y-0.5 sm:space-y-1">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
-                    IndexedDB Automated Safety Net (Quota Overflow Proof)
-                  </h4>
+              {/* Storage Entity Breakdown */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-200/80 dark:border-white/10 text-center font-sans">
+                <div className="p-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Topics &amp; Exams</span>
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
+                    {overallStats.totalTopics} Topics (~{(storageMetrics.breakdown.exams / 1024).toFixed(1)} KB)
+                  </span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">
-                  Full rolling state snapshots are asynchronously safeguarded in browser IndexedDB (50MB+ capacity).
-                </p>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
-                  Latest Snapshot: {storageMetrics.lastSnapshotAt ? (
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">{storageMetrics.lastSnapshotAt}</span>
-                  ) : (
-                    <span>Auto-saves every few seconds of idle study time</span>
-                  )}
+                <div className="p-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">SRS Flashcards</span>
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
+                    {revisions.length} Cards (~{(storageMetrics.breakdown.revisions / 1024).toFixed(1)} KB)
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Planner Tasks</span>
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white tabular-nums">
+                    {plannerTasks.length} Tasks (~{(storageMetrics.breakdown.planner / 1024).toFixed(1)} KB)
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-bold">Targets &amp; Habits</span>
+                  <span className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+                    {top3Targets.length + reflectionsHistory.length} Entries (~{((storageMetrics.breakdown.activity + storageMetrics.breakdown.other) / 1024).toFixed(1)} KB)
+                  </span>
                 </div>
               </div>
+            </div>
+
+            {/* Google 1-Click Identity & Cloud Auth Card */}
+            <GoogleAuthSettingsCard />
+
+            {/* Dual-Tier IndexedDB Safety Snapshot Card */}
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
+                      IndexedDB Automated Safety Net (Quota Overflow Proof)
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
+                    Full rolling state snapshots are asynchronously safeguarded in browser IndexedDB (50MB+ capacity).
+                  </p>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                    Latest Snapshot: {storageMetrics.lastSnapshotAt ? (
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">{storageMetrics.lastSnapshotAt}</span>
+                    ) : (
+                      <span>Auto-saves continuously during study sessions</span>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleRestoreSnapshot}
+                  disabled={isRestoringSnapshot}
+                  className="h-10 px-4 rounded-xl bg-white dark:bg-[#121424] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer disabled:opacity-50 shrink-0 flex items-center justify-center gap-1.5"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ${isRestoringSnapshot ? 'animate-spin' : ''}`} />
+                  <span>{isRestoringSnapshot ? 'Restoring...' : 'Restore Safety Snapshot'}</span>
+                </button>
+              </div>
+
+              {snapshotStatus === 'success' && (
+                <div className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold animate-fade-in">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>✓ Verified IndexedDB safety snapshot restored successfully! All data and progress re-synced.</span>
+                </div>
+              )}
+
+              {snapshotStatus === 'empty' && (
+                <div className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-bold animate-fade-in">
+                  <FileCheck2 className="w-4 h-4 shrink-0" />
+                  <span>No automated safety snapshot found in this browser yet. Continue using the app and it will snapshot automatically!</span>
+                </div>
+              )}
+
+              {snapshotStatus === 'error' && (
+                <div className="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-bold animate-fade-in">
+                  <Trash2 className="w-4 h-4 shrink-0" />
+                  <span>Failed to restore snapshot. Please try restoring via a manual JSON backup file below.</span>
+                </div>
+              )}
+            </div>
+
+            {/* Backup Action Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+              <button
+                type="button"
+                onClick={handleExport}
+                className="h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export Full Backup (.json)</span>
+              </button>
+
+              <label className="h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#181A28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95">
+                <Upload className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span>Restore Backup File</span>
+                <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+              </label>
 
               <button
-                onClick={handleRestoreSnapshot}
-                disabled={isRestoringSnapshot}
-                className="w-full sm:w-auto h-9 px-3.5 rounded-xl bg-white dark:bg-[#151622] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer disabled:opacity-50 shrink-0 flex items-center justify-center gap-1.5"
+                type="button"
+                onClick={() => setShowPwaModal(true)}
+                className="h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#181A28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95"
               >
-                <RefreshCw className={`w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ${isRestoringSnapshot ? 'animate-spin' : ''}`} />
-                <span>{isRestoringSnapshot ? 'Restoring...' : 'Restore Safety Snapshot'}</span>
+                <Smartphone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span>{isInstalled ? 'App Installed ✓' : 'Install PWA App 📲'}</span>
               </button>
             </div>
 
-            {snapshotStatus === 'success' && (
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold animate-fade-in">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>✓ Verified IndexedDB safety snapshot restored successfully! All data and progress re-synced.</span>
+            {importStatus === 'success' && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                  ✓ Full backup restored successfully! All topics, notes, PDF highlights, reflections &amp; settings synced.
+                </span>
               </div>
             )}
 
-            {snapshotStatus === 'empty' && (
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-bold animate-fade-in">
-                <FileCheck2 className="w-4 h-4 shrink-0" />
-                <span>No automated safety snapshot found in this browser yet. Continue using the app and it will snapshot automatically!</span>
+            {importStatus === 'error' && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 animate-fade-in">
+                <Trash2 className="w-4 h-4 text-rose-500 shrink-0" />
+                <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
+                  Invalid backup format. Please select a valid Syllabus 3D backup JSON file.
+                </span>
               </div>
             )}
 
-            {snapshotStatus === 'error' && (
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-bold animate-fade-in">
-                <Trash2 className="w-4 h-4 shrink-0" />
-                <span>Failed to restore snapshot. Please try restoring via a manual JSON backup file below.</span>
-              </div>
-            )}
-          </div>
-
-          {/* Backup Action Buttons */}
-          <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 pt-0.5 sm:pt-1">
-            <button
-              onClick={() => setShowGoogleDriveModal(true)}
-              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
-            >
-              <Cloud className="w-4 h-4" />
-              <span>Google Drive Backup &amp; Media ☁️</span>
-            </button>
-
-            <button
-              onClick={handleExport}
-              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-95"
-            >
-              <Download className="w-4 h-4" />
-              <span>Export Full Backup (.json)</span>
-            </button>
-
-            <label className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95">
-              <Upload className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Restore Backup File</span>
-              <input type="file" accept=".json" onChange={handleImport} className="hidden" />
-            </label>
-
-            <button
-              onClick={() => setShowPwaModal(true)}
-              className="h-10 flex items-center justify-center gap-2 px-4 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-slate-100 dark:hover:bg-white/10 text-slate-900 dark:text-white text-xs font-bold border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95"
-            >
-              <Smartphone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>{isInstalled ? 'App Installed ✓' : 'Install PWA App 📲'}</span>
-            </button>
-          </div>
-
-          {importStatus === 'success' && (
-            <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400">
-                ✓ Full backup restored successfully! All topics, notes, PDF highlights, reflections &amp; settings synced.
+            {/* Danger Zone */}
+            <div className="pt-3 border-t border-slate-100 dark:border-white/5 space-y-2.5">
+              <span className="text-xs font-bold text-rose-500 uppercase tracking-wider block font-sans">
+                ⚠ Danger Zone
               </span>
+              <div className="flex flex-wrap gap-2">
+                {showResetConfirm ? (
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        resetToDemo();
+                        setShowResetConfirm(false);
+                      }}
+                      className="flex-1 sm:flex-initial h-10 px-4 rounded-xl bg-rose-500 text-white text-xs font-bold cursor-pointer shadow-xs"
+                    >
+                      Yes, Reset Demo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowResetConfirm(false)}
+                      className="h-10 px-4 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowResetConfirm(true)}
+                    className="h-10 flex items-center gap-1.5 px-4 rounded-xl bg-white dark:bg-[#181A28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Reset Demo Data</span>
+                  </button>
+                )}
+
+                {showClearConfirm ? (
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clearAllDemoData();
+                        setShowClearConfirm(false);
+                      }}
+                      className="flex-1 sm:flex-initial h-10 px-4 rounded-xl bg-rose-600 text-white text-xs font-bold cursor-pointer shadow-xs"
+                    >
+                      Yes, Delete Everything
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowClearConfirm(false)}
+                      className="h-10 px-4 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowClearConfirm(true)}
+                    className="h-10 flex items-center gap-1.5 px-4 rounded-xl bg-white dark:bg-[#181A28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Start Fresh (Blank Canvas)</span>
+                  </button>
+                )}
+              </div>
             </div>
-          )}
 
-          {importStatus === 'error' && (
-            <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-rose-500/10 border border-rose-500/20 animate-fade-in">
-              <Trash2 className="w-4 h-4 text-rose-500 shrink-0" />
-              <span className="text-xs sm:text-[13px] font-bold text-rose-600 dark:text-rose-400">
-                Invalid backup format. Please select a valid Syllabus 3D backup JSON file.
-              </span>
-            </div>
-          )}
-
-          {/* Danger Zone */}
-          <div className="pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-white/5 space-y-2">
-            <span className="text-xs font-bold text-rose-500 uppercase tracking-wider block font-sans">
-              ⚠ Danger Zone
-            </span>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {showResetConfirm ? (
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <button
-                    onClick={() => {
-                      resetToDemo();
-                      setShowResetConfirm(false);
-                    }}
-                    className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-500 text-white text-xs font-bold cursor-pointer shadow-xs"
-                  >
-                    Yes, Reset Demo
-                  </button>
-                  <button
-                    onClick={() => setShowResetConfirm(false)}
-                    className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowResetConfirm(true)}
-                  className="h-9 flex items-center gap-1.5 px-3.5 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Reset Demo Data</span>
-                </button>
-              )}
-
-              {showClearConfirm ? (
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <button
-                    onClick={() => {
-                      clearAllDemoData();
-                      setShowClearConfirm(false);
-                    }}
-                    className="flex-1 sm:flex-initial h-9 px-3.5 rounded-xl bg-rose-600 text-white text-xs font-bold cursor-pointer shadow-xs"
-                  >
-                    Yes, Delete Everything
-                  </button>
-                  <button
-                    onClick={() => setShowClearConfirm(false)}
-                    className="h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowClearConfirm(true)}
-                  className="h-9 flex items-center gap-1.5 px-3.5 rounded-xl bg-white dark:bg-[#1A1B28] hover:bg-rose-500/15 hover:text-rose-500 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-colors cursor-pointer"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Start Fresh (Blank Canvas)</span>
-                </button>
-              )}
+            {/* Primary CTA Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={handleExport}
+                className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export &amp; Secure Workspace Data</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1836,121 +2277,109 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
       {/* ═══════════════════════════════════════════════════
           TAB 6: APP SAFETY & PIN SECURITY
           ═══════════════════════════════════════════════════ */}
+      {/* TAB 4: APP SAFETY & PIN SECURITY (Matching media_1790328428745.png) */}
       {activeTab === 'security' && (
-        <div className="space-y-3.5 sm:space-y-4 animate-fade-in">
-          
-          {/* Card 1: Master PIN Security Status */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                    Safety PIN Protection
+        <div className="space-y-4 sm:space-y-5 animate-fade-in">
+          {/* Top Summary Card */}
+          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-cyan-600 to-blue-600 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-xs">
+                <ShieldCheck className="w-7 h-7" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
+                    App Lock &amp; Security PIN
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    Lock your study syllabus, private notes, and daily schedules with a secure numeric PIN.
-                  </p>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${
+                    isPinConfigured
+                      ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                      : 'bg-slate-100 dark:bg-white/10 text-slate-500 border border-slate-200 dark:border-white/10'
+                  }`}>
+                    {isPinConfigured ? `Active (${pinConfig.pinLength}-Digit)` : 'Disabled'}
+                  </span>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {isPinConfigured ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Active ({pinConfig.pinLength}-Digit)</span>
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold font-sans bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-white/10">
-                    Disabled
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Action Bar / Controls */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
-              <div>
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
-                  {isPinConfigured ? 'App Lock is Enabled' : 'Protect this Workspace'}
-                </span>
-                <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 block font-normal">
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
                   {isPinConfigured
-                    ? 'Requires PIN on startup, after inactivity, and via the header lock button.'
-                    : 'Set up a 4 or 6 digit PIN with emergency recovery question.'}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                {isPinConfigured ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setSetPinModalMode('change');
-                        setIsSetPinModalOpen(true);
-                      }}
-                      className="flex-1 sm:flex-initial h-9 px-4 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-cyan-500/15 hover:text-cyan-600 border border-slate-200/80 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
-                    >
-                      <KeyRound className="w-3.5 h-3.5" />
-                      <span>Change PIN</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setDisablePinError(null);
-                        setDisablePinInput('');
-                        setShowDisablePinDialog(true);
-                      }}
-                      className="flex-1 sm:flex-initial h-9 px-4 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-xs font-bold text-rose-600 dark:text-rose-400 transition-all cursor-pointer active:scale-95"
-                    >
-                      Turn Off
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setSetPinModalMode('enable');
-                      setIsSetPinModalOpen(true);
-                    }}
-                    className="w-full sm:w-auto h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-xs font-extrabold text-white transition-all shadow-md shadow-cyan-500/25 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
-                  >
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Set Up Safety PIN</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Auto-Lock & Idle Defense */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
-            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
-              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25 flex items-center justify-center shrink-0">
-                <Clock className="w-5 h-5 stroke-[2.2]" />
-              </div>
-              <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                  Auto-Lock &amp; Idle Defense
-                </h3>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  Automatically lock the app when left idle or when switching tabs.
+                    ? 'Client-side salted SHA-256 hash protection active • Inactivity auto-lock enabled'
+                    : 'Workspace unlocked • Set up a 4 or 6 digit PIN to protect notes & syllabus'}
                 </p>
               </div>
             </div>
 
+            <div className="flex items-center gap-2 shrink-0">
+              {isPinConfigured ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setSetPinModalMode('change');
+                      setIsSetPinModalOpen(true);
+                    }}
+                    className="px-3.5 sm:px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
+                  >
+                    <KeyRound className="w-3.5 h-3.5" />
+                    <span>Change PIN</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setDisablePinError(null);
+                      setDisablePinInput('');
+                      setShowDisablePinDialog(true);
+                    }}
+                    className="px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
+                  >
+                    Turn Off
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setSetPinModalMode('enable');
+                    setIsSetPinModalOpen(true);
+                  }}
+                  className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Set Up PIN</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Main Form Card */}
+          <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Auto-Lock &amp; Inactivity Defense
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                  Automatically lock the workspace when left unattended or when minimizing browser tabs.
+                </p>
+              </div>
+
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans ${
+                isPinConfigured
+                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
+                  : 'bg-slate-100 dark:bg-white/10 text-slate-500 border border-slate-200 dark:border-white/10'
+              }`}>
+                <Lock className="w-3.5 h-3.5" />
+                <span>{isPinConfigured ? 'Workspace Secured' : 'Lock Disabled'}</span>
+              </span>
+            </div>
+
             <div className="space-y-4">
               {/* Timeout Duration Selector */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
                 <div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white block">
-                    Inactivity Auto-Lock
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
+                    Inactivity Auto-Lock Interval
                   </span>
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-normal">
                     How long before the lock screen appears after no keyboard or mouse activity.
@@ -1964,7 +2393,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     soundManager.playClick();
                     updatePinConfig({ autoLockTimeout: Number(e.target.value) });
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400 disabled:opacity-40 cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl bg-white dark:bg-[#121424] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 disabled:opacity-40 cursor-pointer shadow-2xs"
                 >
                   <option value={0}>Immediately when idle</option>
                   <option value={1}>After 1 Minute</option>
@@ -1976,13 +2405,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
               </div>
 
               {/* Tab Switch Lock Toggle */}
-              <div className="flex items-center justify-between gap-2.5 p-3 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10">
-                <div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white block">
-                    Lock on Tab Switch
+              <div className="flex items-center justify-between gap-3 p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10">
+                <div className="pr-3">
+                  <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white block">
+                    Immediate Lock on Tab Switch
                   </span>
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-normal">
-                    Immediately triggers the lock screen whenever you minimize or switch to another browser tab.
+                    Instantly triggers the lock screen whenever you minimize or switch to another browser window or tab.
                   </span>
                 </div>
 
@@ -1994,50 +2423,80 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   }}
                 />
               </div>
-            </div>
-          </div>
 
-          {/* Card 3: Recovery & Cryptographic Info */}
-          <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4">
-            <div className="flex items-center gap-2.5 sm:gap-3 border-b border-slate-100 dark:border-white/5 pb-3 sm:pb-4">
-              <div className="w-10 h-10 rounded-xl sm:rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
-                <KeyRound className="w-5 h-5 stroke-[2.2]" />
-              </div>
-              <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight">
-                  Recovery &amp; Privacy Architecture
-                </h3>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  Client-side salted SHA-256 hash protection.
-                </p>
-              </div>
-            </div>
+              {/* Recovery & Cryptographic Info */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                    <KeyRound className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white">
+                      Zero-Knowledge Recovery Architecture
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Client-side salted SHA-256 hash protection using the native Web Crypto API.
+                    </p>
+                  </div>
+                </div>
 
-            <div className="space-y-2.5">
-              {isPinConfigured && (
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-white/10 space-y-1">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-                    Active Recovery Question
-                  </span>
-                  <p className="text-xs font-semibold text-slate-900 dark:text-white">
-                    {pinConfig.securityQuestion || 'What is your target exam or dream post?'}
+                {isPinConfigured && (
+                  <div className="p-3 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10 space-y-1">
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                      Active Recovery Question
+                    </span>
+                    <p className="text-xs font-semibold text-slate-900 dark:text-white">
+                      {pinConfig.securityQuestion || 'What is your target exam or dream post?'}
+                    </p>
+                  </div>
+                )}
+
+                <div className="p-3 rounded-xl bg-blue-500/[0.06] border border-blue-500/20 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                  <p className="font-semibold text-slate-900 dark:text-white">
+                    🛡️ Zero Plaintext Storage Guarantee
+                  </p>
+                  <p className="text-[11px] leading-relaxed">
+                    Your PIN and emergency security answers are never stored in plaintext and never transmitted to any remote servers. Only one-way cryptographic hashes are verified in browser memory.
                   </p>
                 </div>
-              )}
-
-              <div className="p-3 rounded-xl bg-cyan-500/[0.06] border border-cyan-500/20 space-y-1 text-xs text-slate-600 dark:text-slate-300">
-                <p className="font-semibold text-slate-900 dark:text-white">
-                  🛡️ Zero Plaintext Storage Guarantee
-                </p>
-                <p className="text-[11px] leading-relaxed">
-                  Your PIN and security answer are hashed locally using the browser&apos;s native Web Crypto API. No PIN data or recovery answers are ever transmitted to any remote servers.
-                </p>
               </div>
             </div>
-          </div>
 
+            {/* Primary CTA Button */}
+            <div className="pt-2">
+              {isPinConfigured ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    window.dispatchEvent(new Event('syllabus3d_lock_now'));
+                  }}
+                  className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                >
+                  <Lock className="w-4 h-4" />
+                  <span>Lock Workspace Now</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setSetPinModalMode('enable');
+                    setIsSetPinModalOpen(true);
+                  }}
+                  className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Set Up Safety PIN Protection</span>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       )}
+
+        </div> {/* END RIGHT COLUMN (flex-1 min-w-0 w-full space-y-4 sm:space-y-5) */}
+      </div> {/* END 2-COLUMN LAYOUT (flex flex-col lg:flex-row gap-5 sm:gap-6 items-start) */}
 
       {/* Disable PIN Confirmation Dialog */}
       {showDisablePinDialog && (
