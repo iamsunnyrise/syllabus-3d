@@ -38,8 +38,8 @@ const STORAGE_KEYS = {
   LOCAL_MODE: 'syllabus3d_gdrive_local_mode'
 };
 
-// Default client ID empty by default to prevent Google 401 invalid_client errors
-export const DEFAULT_GOOGLE_CLIENT_ID = '';
+// Production Google OAuth Web Client ID for Syllabus 3D
+export const DEFAULT_GOOGLE_CLIENT_ID = '387868887008-2tt3jmojcgguqrp6mbkkmkn9br7pm68o.apps.googleusercontent.com';
 
 // Known obsolete placeholder IDs that should never be sent to Google
 const OBSOLETE_CLIENT_IDS = [
@@ -50,7 +50,7 @@ const OBSOLETE_CLIENT_IDS = [
  * Gets currently configured Google OAuth Client ID across all storage keys & env
  */
 export function getGoogleClientId(): string {
-  if (typeof window === 'undefined') return '';
+  if (typeof window === 'undefined') return DEFAULT_GOOGLE_CLIENT_ID;
   const gdriveId = localStorage.getItem(STORAGE_KEYS.CLIENT_ID);
   if (gdriveId && gdriveId.trim() && !OBSOLETE_CLIENT_IDS.includes(gdriveId.trim())) {
     return gdriveId.trim();
@@ -63,7 +63,7 @@ export function getGoogleClientId(): string {
   if (envId && envId.trim() && !OBSOLETE_CLIENT_IDS.includes(envId.trim())) {
     return envId.trim();
   }
-  return '';
+  return DEFAULT_GOOGLE_CLIENT_ID;
 }
 
 /**

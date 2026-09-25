@@ -179,7 +179,7 @@ class GoogleDriveService {
    */
   public async requestAuth(clientIdOverride?: string): Promise<{ success: boolean; user?: GoogleDriveUser; error?: string }> {
     const config = this.getConfig();
-    const effectiveClientId = clientIdOverride || config.clientId || (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || '';
+    const effectiveClientId = clientIdOverride || config.clientId || (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || '387868887008-2tt3jmojcgguqrp6mbkkmkn9br7pm68o.apps.googleusercontent.com';
 
     // If no client ID provided, enable interactive Demo / Offline Cloud Simulation
     if (!effectiveClientId.trim()) {

@@ -38,13 +38,15 @@ export interface GoogleUserInfo {
   email_verified: boolean;
 }
 
+export const DEFAULT_GOOGLE_CLIENT_ID = '387868887008-2tt3jmojcgguqrp6mbkkmkn9br7pm68o.apps.googleusercontent.com';
+
 export function getSavedGoogleClientId(): string {
-  if (typeof window === 'undefined') return '';
+  if (typeof window === 'undefined') return DEFAULT_GOOGLE_CLIENT_ID;
   try {
     const saved = localStorage.getItem(GOOGLE_CLIENT_ID_KEY);
     if (saved && saved.trim()) return saved.trim();
   } catch {}
-  return (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || '';
+  return (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
 }
 
 export function saveGoogleClientId(clientId: string): void {
