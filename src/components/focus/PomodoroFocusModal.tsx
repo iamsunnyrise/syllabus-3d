@@ -100,7 +100,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Timer Typography Font Selection
   const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
-    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'roboto-mono';
   });
 
   const handleSelectTimerFont = useCallback((font: TimerFontFamily) => {
@@ -225,6 +225,33 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     resetTimer();
   }, [resetTimer]);
 
+  const handleAddMinutes = useCallback((deltaMins: number) => {
+    soundManager.playClick();
+    haptics.selection();
+    if (session.status === 'idle') {
+      const curMins = Math.max(1, Math.round(session.totalDurationSec / 60));
+      const nextMins = Math.max(1, Math.min(180, curMins + deltaMins));
+      if (session.mode === 'pomodoro') setFocusDurationMinutes(nextMins);
+      else if (session.mode === 'break') setBreakDurationMinutes(nextMins);
+      else if (session.mode === 'timer') setCustomTimerMinutes(nextMins);
+      setSessionMode(session.mode, nextMins);
+    } else {
+      const addSec = deltaMins * 60;
+      const nextRemainingSec = Math.max(1, session.remainingSec + addSec);
+      const top = allTopics.find(t => t.topic.id === selectedTopicId);
+      startTimer({
+        mode: session.mode,
+        durationMinutes: Math.round(nextRemainingSec / 60),
+        topicId: top?.topic.id,
+        topicName: top?.topic.name,
+        subjectName: top?.subjectName,
+        currentLoop: session.currentLoop,
+        targetLoops: session.targetLoops,
+        isLoopActive: session.isLoopActive
+      });
+    }
+  }, [session, allTopics, selectedTopicId, setSessionMode, startTimer]);
+
   // MediaSession API Integration for Lock-Screen and Earbud Controls
   useEffect(() => {
     if (!isOpen && session.status === 'idle') {
@@ -279,6 +306,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         } else {
           onClose();
         }
+      } else if (e.key === 'r' || e.key === 'R') {
+        handleResetOrStop();
       } else if (e.key === 'f' || e.key === 'F') {
         handleToggleFullscreen();
       } else if (e.key === 'd' || e.key === 'D') {
@@ -287,7 +316,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleTogglePlay, handleToggleFullscreen, toggleTheme, isTopicSearchOpen, isSettingsOpen, onClose]);
+  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, toggleTheme, isTopicSearchOpen, isSettingsOpen, onClose]);
 
   // Today's Focus Checklist from Planner or Syllabus
   const todayTasks = useMemo(() => {
@@ -373,53 +402,128 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   const { hStr, mStr, sStr } = formatTimerParts(activeDisplaySeconds);
 
-  // Mode Display Title
-  const modeDisplayTitle = session.mode === 'stopwatch'
-    ? 'Stopwatch'
-    : session.mode === 'break'
-    ? 'Break Timer'
-    : session.mode === 'timer'
-    ? 'Countdown'
-    : 'Timer';
+  // Mode-specific visual identity, ambient aura & palette
+  const modeTheme = useMemo(() => {
+    switch (session.mode) {
+      case 'break':
+        return {
+          name: 'break',
+          label: session.totalDurationSec > 10 * 60 ? 'Long Break' : 'Break Timer',
+          subLabel: 'Recharge & Breathe',
+          icon: Coffee,
+          primary: '#10B981',
+          accent: '#34D399',
+          glow: 'rgba(16, 185, 129, 0.45)',
+          gradient: 'from-emerald-400 via-teal-400 to-cyan-400',
+          badgeBg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25',
+          ringColor: '#10B981',
+          pulseColor: 'bg-emerald-400',
+          tickActiveGrad: 'activeTickGreenGrad',
+          btnGrad: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+          btnGlow: '0 0 35px rgba(16, 185, 129, 0.55), 0 0 60px rgba(5, 150, 105, 0.3)'
+        };
+      case 'timer':
+        return {
+          name: 'timer',
+          label: 'Countdown',
+          subLabel: 'Timed Sprint',
+          icon: Hourglass,
+          primary: '#F59E0B',
+          accent: '#FBBF24',
+          glow: 'rgba(245, 158, 11, 0.45)',
+          gradient: 'from-amber-400 via-orange-400 to-yellow-300',
+          badgeBg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25',
+          ringColor: '#F59E0B',
+          pulseColor: 'bg-amber-400',
+          tickActiveGrad: 'activeTickAmberGrad',
+          btnGrad: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+          btnGlow: '0 0 35px rgba(245, 158, 11, 0.55), 0 0 60px rgba(217, 119, 6, 0.3)'
+        };
+      case 'stopwatch':
+        return {
+          name: 'stopwatch',
+          label: 'Stopwatch',
+          subLabel: 'Open Focus Flow',
+          icon: StopwatchIcon,
+          primary: '#8B5CF6',
+          accent: '#D946EF',
+          glow: 'rgba(139, 92, 246, 0.45)',
+          gradient: 'from-violet-400 via-purple-400 to-fuchsia-400',
+          badgeBg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25',
+          ringColor: '#8B5CF6',
+          pulseColor: 'bg-purple-400',
+          tickActiveGrad: 'activeTickPurpleGrad',
+          btnGrad: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+          btnGlow: '0 0 35px rgba(139, 92, 246, 0.55), 0 0 60px rgba(124, 58, 237, 0.3)'
+        };
+      case 'pomodoro':
+      default:
+        return {
+          name: 'pomodoro',
+          label: 'Deep Focus',
+          subLabel: 'Zero Distraction Flow',
+          icon: GraduationCap,
+          primary: '#0066FF',
+          accent: '#38BDF8',
+          glow: 'rgba(0, 102, 255, 0.45)',
+          gradient: 'from-blue-500 via-indigo-500 to-cyan-400',
+          badgeBg: 'bg-blue-500/10 text-blue-600 dark:text-[#38BDF8] border-blue-500/25',
+          ringColor: '#0066FF',
+          pulseColor: 'bg-[#38BDF8]',
+          tickActiveGrad: 'activeTickBlueGrad',
+          btnGrad: 'linear-gradient(135deg, #0066FF 0%, #2563EB 100%)',
+          btnGlow: '0 0 35px rgba(0, 102, 255, 0.55), 0 0 60px rgba(37, 99, 235, 0.3)'
+        };
+    }
+  }, [session.mode, session.totalDurationSec]);
 
-  // 120 High-Density Precision Radial Ticks (Matching Image 2 media_1790248220249.png)
+  const hasHours = Number(hStr) > 0 || session.mode === 'stopwatch';
+
+  const getTimerFontClass = () => {
+    if (timerFont === 'orbitron') return 'font-orbitron tracking-wider';
+    if (timerFont === 'jetbrains') return 'font-mono [font-feature-settings:"zero"_0] tracking-tight';
+    return 'font-roboto-mono tracking-tight';
+  };
+
+  // 60-Division Watchmaker Precision Chronometer Ticks (ViewBox 360 x 360, cx=180, cy=180)
   const renderDialTicks = () => {
     const ticks = [];
-    const cx = 160;
-    const cy = 160;
-    const totalTicks = 120;
-    const outerR = 140;
-    const innerR = 122;
-
-    // Active ticks count based on progress
+    const cx = 180;
+    const cy = 180;
+    const totalTicks = 60;
     const activeCount = Math.round(progressPercent * totalTicks);
 
     for (let i = 0; i < totalTicks; i++) {
-      // 12 o'clock starts at -90 degrees
       const angleDeg = -90 + i * (360 / totalTicks);
       const angleRad = (angleDeg * Math.PI) / 180;
+
+      const isCardinal = i % 15 === 0;
+      const isFiveMin = i % 5 === 0;
+
+      const outerR = isCardinal ? 164 : isFiveMin ? 162 : 158;
+      const innerR = isCardinal ? 144 : isFiveMin ? 148 : 152;
 
       const x1 = cx + innerR * Math.cos(angleRad);
       const y1 = cy + innerR * Math.sin(angleRad);
       const x2 = cx + outerR * Math.cos(angleRad);
       const y2 = cy + outerR * Math.sin(angleRad);
 
-      const isActive = i < activeCount;
+      const isActive = i <= activeCount && progressPercent > 0;
 
       ticks.push(
         <line
-          key={i}
+          key={`tick_${i}`}
           x1={x1}
           y1={y1}
           x2={x2}
           y2={y2}
-          stroke={isActive ? 'url(#activeTickBlueGrad)' : 'currentColor'}
-          strokeWidth={isActive ? 2.4 : 1.7}
+          stroke={isActive ? `url(#${modeTheme.tickActiveGrad})` : 'currentColor'}
+          strokeWidth={isCardinal ? 2.8 : isFiveMin ? 2.2 : 1.2}
           strokeLinecap="round"
           className={
             isActive
-              ? 'transition-all duration-150'
-              : 'text-slate-200 dark:text-white/[0.12] transition-colors'
+              ? 'transition-all duration-200'
+              : 'text-slate-300 dark:text-white/[0.12] transition-colors'
           }
         />
       );
@@ -537,16 +641,16 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             onClick={() => {
               soundManager.playClick();
               haptics.selection();
-              const next: TimerFontFamily = timerFont === 'jetbrains' ? 'roboto-mono' : timerFont === 'roboto-mono' ? 'orbitron' : 'jetbrains';
+              const next: TimerFontFamily = timerFont === 'roboto-mono' ? 'orbitron' : timerFont === 'orbitron' ? 'jetbrains' : 'roboto-mono';
               handleSelectTimerFont(next);
             }}
             className="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 border bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 text-[11px] font-bold"
-            title={`Timer Font: ${timerFont === 'jetbrains' ? 'JetBrains Mono (Practical)' : timerFont === 'roboto-mono' ? 'Roboto Mono (Clean)' : 'Orbitron (Futuristic)'}. Click to switch.`}
+            title={`Timer Font: ${timerFont === 'roboto-mono' ? 'Roboto Mono (Clean Digital)' : timerFont === 'orbitron' ? 'Orbitron (Futuristic Sci-Fi)' : 'JetBrains Mono (Code Mono)'}. Click to switch.`}
             aria-label="Switch Timer Font"
           >
             <Type className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
             <span className="hidden sm:inline font-mono text-[10px]">
-              {timerFont === 'jetbrains' ? 'JetBrains' : timerFont === 'roboto-mono' ? 'Roboto' : 'Orbitron'}
+              {timerFont === 'roboto-mono' ? 'Roboto Mono' : timerFont === 'orbitron' ? 'Orbitron' : 'JetBrains'}
             </span>
           </button>
 
@@ -590,9 +694,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       {/* 2. MAIN SCROLLABLE CONTENT (Mobile-Friendly, Rock-Solid Stability) */}
       <main className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-3.5 sm:px-6 py-4 sm:py-6 space-y-6 max-w-7xl mx-auto w-full relative z-20 pb-28 sm:pb-24">
         
-        {/* TOP SEGMENTED CAPSULE BAR (Mobile-Friendly, Horizontally Scrollable without Text Wrap) */}
+        {/* TOP SEGMENTED CAPSULE BAR (Aerospace Grade Segmented Control) */}
         <div className="flex items-center justify-center">
-          <div className="inline-flex items-center p-1 rounded-full bg-slate-200/80 dark:bg-[#16192B]/90 border border-slate-300/80 dark:border-white/[0.08] backdrop-blur-2xl shadow-sm max-w-full overflow-x-auto no-scrollbar gap-1">
+          <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-slate-200/80 dark:bg-[#141628]/90 border border-slate-300/80 dark:border-white/[0.08] backdrop-blur-2xl shadow-sm max-w-full overflow-x-auto no-scrollbar gap-1 sm:gap-1.5">
             {[
               { id: 'focus', label: 'Focus', icon: GraduationCap, mins: focusDurationMinutes, mode: 'pomodoro' as TimerMode },
               { id: 'short', label: 'Short Break', icon: Coffee, mins: 5, mode: 'break' as TimerMode },
@@ -618,14 +722,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                       setSessionMode(tab.mode, tab.mins);
                     }
                   }}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
+                  className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#0066FF] to-[#2563EB] text-white font-black shadow-md shadow-blue-500/25'
+                      ? 'text-white font-black shadow-md'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/[0.06]'
                   }`}
+                  style={{
+                    background: isActive ? modeTheme.btnGrad : undefined,
+                    boxShadow: isActive ? `0 4px 15px ${modeTheme.glow}` : undefined
+                  }}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span>{tab.label}</span>
+                  <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    isActive ? 'bg-white/20 text-white' : 'bg-slate-300/60 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                  }`}>
+                    {tab.mins}m
+                  </span>
                 </button>
               );
             })}
@@ -635,81 +748,190 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         {/* 3-COLUMN STUDIO LAYOUT ON DESKTOP / STABLE STACK ON MOBILE */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
           
-          {/* 🎯 CENTER COLUMN: HERO DIAL (Order 1 on mobile, Order 2 on desktop) */}
+          {/* 🎯 CENTER COLUMN: HERO 3D CHRONOMETER DIAL */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2 my-2 sm:my-4">
             
-            {/* Elevated Circular Disc Card (Matching Image 2 media_1790248220249.png) */}
-            <div className="relative w-72 h-72 sm:w-84 sm:h-84 md:w-92 md:h-92 rounded-full bg-white dark:bg-[#121422] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_2px_10px_rgba(0,0,0,0.03)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,255,255,0.08)] flex items-center justify-center p-2.5 sm:p-4 transition-all duration-300">
-              
-              {/* SVG Gauge with 120 Dense Radial Precision Ticks */}
-              <svg className="w-full h-full" viewBox="0 0 320 320">
+            {/* 3D Elevated Chronograph Chassis */}
+            <div
+              className={`relative w-76 h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 ${
+                isRunning ? 'ring-2 sm:ring-4 ring-offset-2 dark:ring-offset-black' : ''
+              }`}
+              style={{
+                borderColor: isRunning ? modeTheme.primary : undefined,
+                boxShadow: isRunning ? `0 0 50px ${modeTheme.glow}` : undefined
+              }}
+            >
+              {/* SVG 360x360 Chronometer Gauge */}
+              <svg className="w-full h-full overflow-visible" viewBox="0 0 360 360">
                 <defs>
-                  {/* Vibrant Royal Blue Gradient Matching Image 2 */}
+                  {/* Mode Gradients */}
                   <linearGradient id="activeTickBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#0066FF" />
+                    <stop offset="0%" stopColor="#00D2FF" />
+                    <stop offset="50%" stopColor="#0066FF" />
                     <stop offset="100%" stopColor="#2563EB" />
                   </linearGradient>
 
-                  <filter id="dialSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <linearGradient id="activeTickGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#34D399" />
+                    <stop offset="50%" stopColor="#10B981" />
+                    <stop offset="100%" stopColor="#059669" />
+                  </linearGradient>
+
+                  <linearGradient id="activeTickAmberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FCD34D" />
+                    <stop offset="50%" stopColor="#F59E0B" />
+                    <stop offset="100%" stopColor="#EA580C" />
+                  </linearGradient>
+
+                  <linearGradient id="activeTickPurpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#F472B6" />
+                    <stop offset="50%" stopColor="#A855F7" />
+                    <stop offset="100%" stopColor="#7C3AED" />
+                  </linearGradient>
+
+                  {/* Glass Specular Reflection Gradient */}
+                  <linearGradient id="sapphireGlassSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.10" />
+                    <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.01" />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+                  </linearGradient>
+
+                  <filter id="dialSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+
+                  <filter id="laserHalo" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
                     <feComposite in="SourceGraphic" in2="blur" operator="over" />
                   </filter>
                 </defs>
 
-                {/* Precision Outer Guide Ring */}
+                {/* Outer Micro-Bezel Circle */}
                 <circle
-                  cx="160"
-                  cy="160"
-                  r="144"
+                  cx="180"
+                  cy="180"
+                  r="170"
                   fill="none"
-                  className="stroke-slate-100 dark:stroke-white/[0.04]"
+                  className="stroke-slate-200/60 dark:stroke-white/[0.05]"
                   strokeWidth="1.2"
                 />
 
-                {/* 120 Precision Radial Ticks */}
+                {/* 60 Precision Radial Watchmaking Ticks */}
                 {renderDialTicks()}
 
-                {/* Precision Inner Guide Ring */}
+                {/* Cardinal Numeral Markers (60, 15, 30, 45) */}
+                <text x="180" y="44" textAnchor="middle" className="text-[10px] font-mono font-bold fill-slate-400 dark:fill-white/30 select-none">60</text>
+                <text x="324" y="184" textAnchor="middle" className="text-[10px] font-mono font-bold fill-slate-400 dark:fill-white/30 select-none">15</text>
+                <text x="180" y="324" textAnchor="middle" className="text-[10px] font-mono font-bold fill-slate-400 dark:fill-white/30 select-none">30</text>
+                <text x="36" y="184" textAnchor="middle" className="text-[10px] font-mono font-bold fill-slate-400 dark:fill-white/30 select-none">45</text>
+
+                {/* Concentric Lathe Sunburst Rings (Swiss Chronometer Texture) */}
+                <circle cx="180" cy="180" r="116" fill="none" className="stroke-slate-200/40 dark:stroke-white/[0.03]" strokeWidth="0.8" />
+                <circle cx="180" cy="180" r="94" fill="none" className="stroke-slate-200/40 dark:stroke-white/[0.03]" strokeWidth="0.8" />
+                <circle cx="180" cy="180" r="72" fill="none" className="stroke-slate-200/40 dark:stroke-white/[0.03]" strokeWidth="0.8" />
+
+                {/* Continuous Liquid-Laser Progress Track (Radius = 134, Circumference = 841.95) */}
                 <circle
-                  cx="160"
-                  cy="160"
-                  r="118"
+                  cx="180"
+                  cy="180"
+                  r="134"
                   fill="none"
-                  className="stroke-slate-100 dark:stroke-white/[0.04]"
-                  strokeWidth="1.2"
+                  className="stroke-slate-100 dark:stroke-white/[0.05]"
+                  strokeWidth="3.5"
+                />
+
+                {/* Active Dynamic Progress Arc */}
+                <circle
+                  cx="180"
+                  cy="180"
+                  r="134"
+                  fill="none"
+                  stroke={`url(#${modeTheme.tickActiveGrad})`}
+                  strokeWidth="4.5"
+                  strokeDasharray={841.95}
+                  strokeDashoffset={841.95 * (1 - progressPercent)}
+                  strokeLinecap="round"
+                  transform="rotate(-90 180 180)"
+                  className="transition-all duration-300"
+                  filter="url(#laserHalo)"
+                />
+
+                {/* Glowing Laser Comet Head */}
+                {progressPercent > 0.003 && (
+                  <g className="transition-all duration-150">
+                    <circle
+                      cx={180 + 134 * Math.cos((-90 + progressPercent * 360) * (Math.PI / 180))}
+                      cy={180 + 134 * Math.sin((-90 + progressPercent * 360) * (Math.PI / 180))}
+                      r="7.5"
+                      fill={modeTheme.primary}
+                      opacity="0.6"
+                      filter="url(#dialSoftGlow)"
+                    />
+                    <circle
+                      cx={180 + 134 * Math.cos((-90 + progressPercent * 360) * (Math.PI / 180))}
+                      cy={180 + 134 * Math.sin((-90 + progressPercent * 360) * (Math.PI / 180))}
+                      r="3.2"
+                      fill="#FFFFFF"
+                    />
+                  </g>
+                )}
+
+                {/* Sapphire Glass Specular Sheen Arc */}
+                <path
+                  d="M 50 160 A 130 130 0 0 1 310 160 Z"
+                  fill="url(#sapphireGlassSheen)"
+                  className="pointer-events-none select-none"
                 />
               </svg>
 
-              {/* Inside Disc Typography & Status Display (Exact match of Image 2) */}
+              {/* Inside Disc Typography & Status Display */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none select-none px-4">
                 
-                {/* Header Label: "Timer" in Image 2 */}
-                <span className="text-sm sm:text-base md:text-lg font-semibold text-slate-400 dark:text-slate-400 tracking-wide mb-1 sm:mb-2">
-                  {modeDisplayTitle}
-                </span>
+                {/* Header Mode Pill */}
+                <div className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider mb-1 sm:mb-2 border shadow-2xs ${modeTheme.badgeBg}`}>
+                  <modeTheme.icon className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>{modeTheme.label}</span>
+                </div>
 
-                {/* Giant Bold Digits: dynamic typography (JetBrains Mono / Roboto Mono / Orbitron) */}
-                <div className={`text-4xl sm:text-5xl md:text-6xl font-black ${
-                  timerFont === 'orbitron'
-                    ? 'font-orbitron tracking-wider'
-                    : timerFont === 'roboto-mono'
-                    ? 'font-roboto-mono tracking-tight tabular-nums'
-                    : 'font-mono tracking-tight tabular-nums'
-                } my-1 sm:my-2 flex items-baseline justify-center`}>
-                  <span className="text-slate-900 dark:text-white drop-shadow-xs font-extrabold">
-                    {hStr}:
-                  </span>
-                  <span className="text-[#0066FF] dark:text-[#38BDF8] drop-shadow-xs font-black">
-                    {mStr}:{sStr}
-                  </span>
+                {/* Giant Bold Digits (Dynamic Typography) */}
+                <div className={`my-1 sm:my-1.5 flex items-baseline justify-center ${getTimerFontClass()} tabular-nums`}>
+                  {hasHours ? (
+                    <div className="flex items-baseline justify-center gap-0.5">
+                      <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold opacity-40 text-slate-700 dark:text-slate-300">
+                        {hStr}:
+                      </span>
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white drop-shadow-xs">
+                        {mStr}
+                      </span>
+                      <span className={`text-3xl sm:text-4xl md:text-5xl font-black px-0.5 ${isRunning ? 'animate-pulse' : ''}`} style={{ color: modeTheme.primary }}>
+                        :
+                      </span>
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black drop-shadow-xs" style={{ color: modeTheme.accent }}>
+                        {sStr}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline justify-center gap-0.5">
+                      <span className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 dark:text-white drop-shadow-xs">
+                        {mStr}
+                      </span>
+                      <span className={`text-4xl sm:text-5xl md:text-6xl font-black px-0.5 ${isRunning ? 'animate-pulse' : ''}`} style={{ color: modeTheme.primary }}>
+                        :
+                      </span>
+                      <span className="text-5xl sm:text-6xl md:text-7xl font-black drop-shadow-xs" style={{ color: modeTheme.accent }}>
+                        {sStr}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Live Status Badge Pill */}
-                <div className="flex items-center gap-1.5 px-3 sm:px-4 py-1 rounded-full bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/90 dark:border-white/10 mt-1.5 sm:mt-2 shadow-xs">
+                <div className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1 rounded-full bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/90 dark:border-white/10 mt-1.5 sm:mt-2 shadow-xs">
                   <span
                     className={`w-2 h-2 rounded-full ${
                       isRunning
-                        ? 'bg-[#0066FF] dark:bg-[#38BDF8] animate-ping'
+                        ? `${modeTheme.pulseColor} animate-ping`
                         : isPaused
                         ? 'bg-amber-400'
                         : 'bg-slate-400'
@@ -717,62 +939,95 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   />
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">
                     {isRunning
-                      ? session.mode === 'stopwatch' ? 'Timing...' : 'Stay Focused'
+                      ? session.mode === 'stopwatch'
+                        ? 'Elapsed Time Running'
+                        : `${Math.round(progressPercent * 100)}% Complete • In Flow`
                       : isPaused
-                      ? 'Paused'
+                      ? 'Paused • Ready to Resume'
                       : 'Ready to Launch'}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* ACTION BUTTONS (Reset, Hero Play/Pause, Stop/Skip) */}
-            <div className="flex items-center justify-center gap-4 sm:gap-6 mt-4 sm:mt-6">
-              
-              {/* Reset Button */}
-              <button
-                type="button"
-                onClick={handleResetOrStop}
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white dark:bg-white/[0.06] hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95 group"
-                title="Reset Timer"
-                aria-label="Reset Timer"
-              >
-                <RotateCcw className="w-5 h-5 group-hover:-rotate-90 transition-transform duration-300" />
-              </button>
+            {/* TACTILE HARDWARE DOCK */}
+            <div className="flex flex-col items-center gap-2.5 mt-5 sm:mt-6">
+              <div className="inline-flex items-center gap-2.5 sm:gap-4 p-2 sm:p-2.5 rounded-full bg-white/90 dark:bg-[#121528]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                
+                {/* Reset / Rewind */}
+                <button
+                  type="button"
+                  onClick={handleResetOrStop}
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 group border border-slate-200/60 dark:border-white/5"
+                  title="Reset Timer (R)"
+                  aria-label="Reset Timer"
+                >
+                  <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-rotate-90 transition-transform duration-300" />
+                </button>
 
-              {/* HERO PLAY/PAUSE BUTTON (Vibrant Electric Blue / Stop Red) */}
-              <button
-                type="button"
-                onClick={handleTogglePlay}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-white transition-all cursor-pointer active:scale-95 shadow-2xl"
-                style={{
-                  background: isRunning
-                    ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)'
-                    : 'linear-gradient(135deg, #0066FF 0%, #2563EB 100%)',
-                  boxShadow: isRunning
-                    ? '0 0 35px rgba(239, 68, 68, 0.55)'
-                    : '0 0 35px rgba(0, 102, 255, 0.55), 0 0 60px rgba(37, 99, 235, 0.3)'
-                }}
-                title={isRunning ? "Pause (Space)" : "Start (Space)"}
-                aria-label={isRunning ? "Pause Timer" : "Start Timer"}
-              >
-                {isRunning ? (
-                  <Pause className="w-7 h-7 sm:w-8 sm:h-8 fill-current" />
-                ) : (
-                  <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+                {/* Quick -1m (when idle) */}
+                {session.status === 'idle' && (
+                  <button
+                    type="button"
+                    onClick={() => handleAddMinutes(-1)}
+                    className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-[11px] font-mono font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                    title="Subtract 1 minute"
+                  >
+                    -1m
+                  </button>
                 )}
-              </button>
 
-              {/* Stop / Cycle Button */}
-              <button
-                type="button"
-                onClick={handleResetOrStop}
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white dark:bg-white/[0.06] hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
-                title="Stop Session"
-                aria-label="Stop Session"
-              >
-                <Square className="w-5 h-5 fill-current" />
-              </button>
+                {/* HERO PLAY/PAUSE TRIGGER BUTTON */}
+                <button
+                  type="button"
+                  onClick={handleTogglePlay}
+                  className="relative group w-16 h-16 sm:w-18 sm:h-18 rounded-full flex items-center justify-center text-white transition-all cursor-pointer active:scale-92 active:translate-y-0.5 shadow-2xl p-1"
+                  style={{
+                    background: isRunning
+                      ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)'
+                      : modeTheme.btnGrad,
+                    boxShadow: isRunning
+                      ? '0 0 30px rgba(239, 68, 68, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35)'
+                      : `${modeTheme.btnGlow}, inset 0 1px 1px rgba(255, 255, 255, 0.35)`
+                  }}
+                  title={isRunning ? "Pause (Space)" : "Start (Space)"}
+                  aria-label={isRunning ? "Pause Timer" : "Start Timer"}
+                >
+                  <span className="absolute inset-1 rounded-full border border-white/25 pointer-events-none" />
+                  
+                  {isRunning ? (
+                    <Pause className="w-7 h-7 sm:w-8 sm:h-8 fill-current drop-shadow-sm" />
+                  ) : (
+                    <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 drop-shadow-sm" />
+                  )}
+                </button>
+
+                {/* Quick +5m Nudge */}
+                <button
+                  type="button"
+                  onClick={() => handleAddMinutes(5)}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-[11px] font-mono font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                  title="Add 5 minutes"
+                >
+                  +5m
+                </button>
+
+                {/* Stop / End Session */}
+                <button
+                  type="button"
+                  onClick={handleResetOrStop}
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-slate-200/60 dark:border-white/5"
+                  title="Stop Session"
+                  aria-label="Stop Session"
+                >
+                  <Square className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                </button>
+              </div>
+
+              {/* Keyboard Shortcut Hint */}
+              <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> to {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> to reset
+              </span>
             </div>
           </div>
 
