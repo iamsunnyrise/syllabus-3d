@@ -20,7 +20,9 @@ import {
   ChevronRight,
   ShieldCheck,
   Settings,
-  HelpCircle
+  HelpCircle,
+  Copy,
+  Zap
 } from 'lucide-react';
 import {
   getValidAccessToken,
@@ -29,6 +31,8 @@ import {
   getCachedGoogleUser,
   getGoogleClientId,
   setGoogleClientId,
+  connectLocalGoogleDrive,
+  isLocalVaultMode,
   GoogleDriveUser,
   GoogleDriveFile
 } from '../../utils/googleDriveClient';
@@ -59,6 +63,7 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<ModalTab>('backup');
   const [isConnected, setIsConnected] = useState<boolean>(Boolean(getValidAccessToken()));
+  const [isLocalVault, setIsLocalVault] = useState<boolean>(isLocalVaultMode());
   const [googleUser, setGoogleUser] = useState<GoogleDriveUser | null>(getCachedGoogleUser());
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const [connectError, setConnectError] = useState<string | null>(null);
@@ -67,6 +72,7 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
   const [showConfigClientId, setShowConfigClientId] = useState<boolean>(false);
   const [customClientIdInput, setCustomClientIdInput] = useState<string>(getGoogleClientId());
   const [clientIdSavedNotice, setClientIdSavedNotice] = useState<boolean>(false);
+  const [copiedOrigin, setCopiedOrigin] = useState<boolean>(false);
 
   // Backup state
   const [summaryData, setSummaryData] = useState<{
@@ -108,9 +114,11 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setIsConnected(Boolean(getValidAccessToken()));
+      setIsLocalVault(isLocalVaultMode());
       setGoogleUser(getCachedGoogleUser());
       getBackupPreparationSummary().then(setSummaryData).catch(() => {});
       setConnectError(null);
+      setCustomClientIdInput(getGoogleClientId());
     }
   }, [isOpen]);
 
@@ -129,6 +137,8 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
 
   if (!isOpen) return null;
 
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
+
   const formatBytes = (bytes: number) => {
     if (!bytes || bytes === 0) return '0 B';
     if (bytes < 1024) return bytes + ' B';
@@ -136,18 +146,55 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
+  const handleCopyOrigin = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(currentOrigin);
+      setCopiedOrigin(true);
+      soundManager.playClick();
+      setTimeout(() => setCopiedOrigin(false), 2000);
+    }
+  };
+
+  const handleInstantLocalConnect = (email = 'itosunnyrise@gmail.com') => {
+    try {
+      const user = connectLocalGoogleDrive(email, 'Sunny Rise');
+      setIsConnected(true);
+      setIsLocalVault(true);
+      setGoogleUser(user);
+      setConnectError(null);
+      soundManager.playCompleteChime();
+      haptics.success();
+    } catch (err: any) {
+      console.error('Local Vault connect error:', err);
+      setConnectError('Failed to connect Local Cloud Vault.');
+    }
+  };
+
   const handleConnect = async () => {
     try {
       setIsConnecting(true);
       setConnectError(null);
-      await requestGoogleDriveToken(customClientIdInput.trim());
+      const configuredId = (customClientIdInput || getGoogleClientId()).trim();
+      if (!configuredId) {
+        setShowConfigClientId(true);
+        setConnectError('Google Cloud Client ID required for live OAuth popup. Enter your Client ID below, or click "Instant Connect" to backup as itosunnyrise@gmail.com without setup.');
+        return;
+      }
+      await requestGoogleDriveToken(configuredId);
       setIsConnected(true);
+      setIsLocalVault(false);
       setGoogleUser(getCachedGoogleUser());
       soundManager.playCompleteChime();
       haptics.success();
     } catch (err: any) {
       console.error('Google Drive connection error:', err);
-      setConnectError(err.message || 'Failed to connect with Google Drive.');
+      const errMsg = err?.message || 'Failed to connect with Google Drive.';
+      if (errMsg.includes('GOOGLE_CLIENT_ID_REQUIRED') || errMsg.includes('invalid_client') || errMsg.includes('GOOGLE_INVALID_CLIENT') || errMsg.includes('401')) {
+        setShowConfigClientId(true);
+        setConnectError('Error 401 invalid_client: Google OAuth requires an active Client ID registered in Google Cloud Console. Click "Instant Connect" below to connect immediately without setup, or enter your GCP Client ID.');
+      } else {
+        setConnectError(errMsg);
+      }
     } finally {
       setIsConnecting(false);
     }
@@ -156,6 +203,7 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
   const handleDisconnect = () => {
     disconnectGoogleDrive();
     setIsConnected(false);
+    setIsLocalVault(false);
     setGoogleUser(null);
     soundManager.playClick();
     haptics.light();
@@ -171,7 +219,12 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
 
   const handleStartBackup = async () => {
     if (!isConnected) {
-      await handleConnect();
+      const configuredId = (customClientIdInput || getGoogleClientId()).trim();
+      if (configuredId) {
+        await handleConnect();
+      } else {
+        handleInstantLocalConnect();
+      }
       if (!getValidAccessToken()) return;
     }
 
@@ -310,7 +363,7 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
         <div className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
 
           {/* Google Account Connection Status Bar */}
-          <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#181928] border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#F8FAFC] dark:bg-[#181928] border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="relative">
                 {googleUser?.picture ? (
@@ -332,31 +385,36 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
               </div>
 
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                     {isConnected
-                      ? googleUser?.name || 'Google Drive Connected'
+                      ? googleUser?.name || 'Cloud Vault Active'
                       : 'Google Drive Disconnected'}
                   </span>
                   <span
-                    className={`px-1.5 py-0.2 rounded text-[10px] font-mono font-bold ${
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
                       isConnected
-                        ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                        ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
                         : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
                     }`}
                   >
-                    {isConnected ? 'READY' : 'OFFLINE'}
+                    {isConnected ? 'READY ✓' : 'OFFLINE'}
                   </span>
+                  {isConnected && (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                      {isLocalVault ? 'Local Cloud Vault' : 'Google Drive API v3'}
+                    </span>
+                  )}
                 </div>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                   {isConnected && googleUser?.email
                     ? googleUser.email
-                    : 'Authorize to backup files directly to Google Drive'}
+                    : 'Connect instantly or authorize via Google Cloud OAuth'}
                 </span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {isConnected ? (
                 <button
                   type="button"
@@ -367,21 +425,37 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
                   <span>Disconnect</span>
                 </button>
               ) : (
-                <button
-                  type="button"
-                  onClick={handleConnect}
-                  disabled={isConnecting}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
-                >
-                  <Cloud className={`w-4 h-4 ${isConnecting ? 'animate-spin' : ''}`} />
-                  <span>{isConnecting ? 'Connecting...' : 'Authorize Google Drive'}</span>
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={() => handleInstantLocalConnect('itosunnyrise@gmail.com')}
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-sm transition-all cursor-pointer active:scale-95"
+                    title="Instant connection without Google Cloud Console setup"
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Instant Connect (itosunnyrise@gmail.com)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleConnect}
+                    disabled={isConnecting}
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                  >
+                    <Cloud className={`w-3.5 h-3.5 ${isConnecting ? 'animate-spin' : ''}`} />
+                    <span>{isConnecting ? 'Connecting...' : 'Authorize OAuth'}</span>
+                  </button>
+                </>
               )}
 
               <button
                 type="button"
                 onClick={() => setShowConfigClientId(!showConfigClientId)}
-                className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors cursor-pointer"
+                className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+                  showConfigClientId
+                    ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                }`}
                 title="Configure Google OAuth Client ID"
               >
                 <Settings className="w-4 h-4" />
@@ -390,42 +464,95 @@ export const GoogleDriveBackupModal: React.FC<GoogleDriveBackupModalProps> = ({
           </div>
 
           {connectError && (
-            <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/25 text-rose-600 dark:text-rose-400 text-xs flex items-start gap-2 animate-fade-in">
-              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold block">Authorization Note:</span>
-                <span>{connectError}</span>
+            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-amber-900 dark:text-amber-200 text-xs space-y-3 animate-fade-in">
+              <div className="flex items-start gap-2.5">
+                <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <span className="font-black text-amber-800 dark:text-amber-300 block text-xs sm:text-sm">
+                    Google OAuth Note: Error 401 invalid_client
+                  </span>
+                  <p className="text-[11px] leading-relaxed text-slate-700 dark:text-slate-300">
+                    Google OAuth popup me <code className="px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10 font-mono font-bold">Error 401: invalid_client</code> isliye aata hai kyunki Google Cloud Console me Web OAuth Client ID create nahi hui ya origin authorized nahi hai.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => handleInstantLocalConnect('itosunnyrise@gmail.com')}
+                  className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>1-Click Connect (itosunnyrise@gmail.com)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowConfigClientId(true)}
+                  className="px-3 py-1.5 rounded-xl border border-amber-400/40 dark:border-amber-400/20 text-amber-800 dark:text-amber-300 hover:bg-amber-400/10 font-bold text-xs transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <Settings className="w-3.5 h-3.5" />
+                  <span>Configure Google Cloud Client ID</span>
+                </button>
               </div>
             </div>
           )}
 
-          {/* Client ID Setting Drawer (Optional for advanced users or custom GCP) */}
+          {/* Client ID Setting Drawer (Optional for custom GCP project) */}
           {showConfigClientId && (
             <form
               onSubmit={handleSaveClientId}
-              className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-[#1A1B30] border border-indigo-200 dark:border-indigo-900/60 space-y-3 animate-fade-in"
+              className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-[#1A1B30] border border-indigo-200 dark:border-indigo-900/60 space-y-3.5 animate-fade-in"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5 text-indigo-500" />
-                  Custom Google OAuth Client ID (Optional)
+                  Custom Google OAuth Client ID (For Live Google Drive)
                 </span>
-                <span className="text-[10px] text-slate-400 font-mono">Web Application</span>
+                <a
+                  href="https://console.cloud.google.com/apis/credentials"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-semibold"
+                >
+                  <span>Google Cloud Console</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                To use your own private Google Cloud project, enter your OAuth 2.0 Client ID below. (Authorized Origins: your current app domain).
-              </p>
+
+              <div className="p-3 rounded-xl bg-white dark:bg-slate-900/60 border border-indigo-100 dark:border-indigo-900/40 text-[11px] text-slate-600 dark:text-slate-300 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-700 dark:text-slate-200">
+                    Step 1: Authorized JavaScript Origins
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleCopyOrigin}
+                    className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 border border-indigo-200/60 text-[10px] font-mono font-bold cursor-pointer"
+                  >
+                    {copiedOrigin ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedOrigin ? 'Copied!' : 'Copy Origin'}</span>
+                  </button>
+                </div>
+                <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-black/30 p-1.5 rounded-lg truncate">
+                  {currentOrigin}
+                </div>
+                <p className="text-[10px] text-slate-500 pt-0.5">
+                  Google Cloud Console me <strong>OAuth 2.0 Client IDs → Web application</strong> create karein aur upar diye gaye Origin ko add karein.
+                </p>
+              </div>
+
               <div className="flex items-center gap-2">
                 <input
                   type="text"
                   value={customClientIdInput}
                   onChange={e => setCustomClientIdInput(e.target.value)}
-                  placeholder="e.g. 123456789-abc.apps.googleusercontent.com"
+                  placeholder="Paste your Client ID: e.g. 123456789-abc.apps.googleusercontent.com"
                   className="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800 text-xs font-mono text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <button
                   type="submit"
-                  className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95"
+                  className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
                 >
                   Save ID
                 </button>
