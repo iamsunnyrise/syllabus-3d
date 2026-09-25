@@ -21,7 +21,17 @@ export default {
         // 2. #7C3AED - Secondary (Vibrant Violet / Royal Purple)
         // 3. #22D3EE - Accent (Electric Cyan)
         // 4. #A78BFA - Tertiary (Soft Lavender / Lilac Violet)
-        // 5. #EDE9FE - Background (Pale Lilac / Lavender Tint)
+        // 4-Color Royal Parchment Gold Theme System:
+        // #FAEED9 (Canvas/Base), #E1A837 (Amber Gold), #8D7A02 (Antique Olive), #38370D (Espresso Ink)
+        parchment: {
+          DEFAULT: '#FAEED9',
+          light: '#FFFDF8',
+          soft: '#F7EBD3',
+          border: '#E2D1B3',
+          amber: '#E1A837',
+          olive: '#8D7A02',
+          espresso: '#38370D',
+        },
         theme: {
           primary: '#0F172A',
           secondary: '#7C3AED',

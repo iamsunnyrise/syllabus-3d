@@ -79,6 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
   const { isConfigured, lockApp } = usePinLock();
   const {
     isDark,
+    theme,
     toggleTheme: handleThemeToggle,
   } = useTheme();
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
@@ -830,11 +831,19 @@ export const Header: React.FC<HeaderProps> = ({
               handleThemeToggle();
             }}
             className="h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-[#64748B] hover:text-[#0F172A] dark:text-[#A1A1AA] dark:hover:text-white transition-all cursor-pointer shadow-subtle-depth active:scale-90 shrink-0 flex items-center justify-center"
-            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            title={
+              theme === 'dark'
+                ? "Switch to Pure Pro Light"
+                : theme === 'light'
+                ? "Switch to Warm Parchment Gold (#FAEED9)"
+                : "Switch to Tokyo Night Dark"
+            }
             aria-label="Toggle theme"
           >
-            {isDark ? (
+            {theme === 'dark' ? (
               <Sun className="w-4 h-4 text-[#F59E0B]" />
+            ) : theme === 'warm-cream' ? (
+              <Sparkles className="w-4 h-4 text-[#E1A837]" />
             ) : (
               <Moon className="w-4 h-4 text-[#2563EB]" />
             )}

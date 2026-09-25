@@ -169,6 +169,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const [examDate, setExamDate] = useState(currentExam?.examDate || '2026-09-15');
   const [targetYear, setTargetYear] = useState<number>(currentExam?.targetYear || 2026);
   const [examSaved, setExamSaved] = useState(false);
+  const [themeSaved, setThemeSaved] = useState(false);
 
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -1250,7 +1251,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   Workspace Appearance &amp; Theme
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                  {theme === 'dark' ? 'Tokyo Night Dark mode active • High contrast dark glass' : 'Pure Pro Alabaster light mode active • Daytime focus clarity'}
+                  {theme === 'dark'
+                    ? 'Tokyo Night Dark mode active • High contrast dark glass'
+                    : theme === 'warm-cream'
+                    ? 'Warm Parchment Gold active • Scholarly ivory, golden amber & antique olive'
+                    : 'Pure Pro Alabaster light mode active • Daytime focus clarity'}
                 </p>
               </div>
             </div>
@@ -1260,11 +1265,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
-                  setTheme(theme === 'dark' ? 'light' : 'dark');
+                  setTheme(theme === 'dark' ? 'light' : theme === 'light' ? 'warm-cream' : 'dark');
                 }}
                 className="px-4 sm:px-5 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all flex items-center gap-1.5"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-blue-600" />}
+                {theme === 'dark' ? (
+                  <Sun className="w-4 h-4 text-amber-500" />
+                ) : theme === 'warm-cream' ? (
+                  <Sparkles className="w-4 h-4 text-[#E1A837]" />
+                ) : (
+                  <Moon className="w-4 h-4 text-blue-600" />
+                )}
                 <span>Switch Mode</span>
               </button>
             </div>
@@ -1283,11 +1294,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
               </div>
 
               <span className="px-3 py-1 rounded-xl text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white capitalize shrink-0 self-start sm:self-auto">
-                {theme === 'dark' ? 'Tokyo Night Dark' : 'Pure Pro Alabaster'}
+                {theme === 'dark' ? 'Tokyo Night Dark' : theme === 'warm-cream' ? 'Warm Parchment Gold' : 'Pure Pro Alabaster'}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Tokyo Night Dark */}
               <button
                 type="button"
@@ -1338,11 +1349,55 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                 </div>
                 <div>
                   <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
-                    Pure Pro Alabaster (Light Mode)
+                    Pure Pro Alabaster (Light)
                   </span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
                     Ultra-crisp, high-contrast alabaster workspace with daylight clarity
                   </span>
+                </div>
+              </button>
+
+              {/* Warm Parchment Gold (Royal Amber) */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setTheme('warm-cream');
+                }}
+                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+                  theme === 'warm-cream'
+                    ? 'bg-[#FFFDF8] border-[#E1A837] ring-2 ring-[#E1A837]/35 shadow-md'
+                    : 'bg-[#FAF4E8] dark:bg-[#1C1812] border-[#E2D1B3] dark:border-[#584820]/40 opacity-70 hover:opacity-100'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <div className="w-10 h-10 rounded-xl bg-[#FAF0DC] border border-[#E1A837]/50 flex items-center justify-center text-[#8D7A02] shrink-0 shadow-2xs">
+                    <Sparkles className="w-5 h-5 text-[#E1A837]" />
+                  </div>
+                  {theme === 'warm-cream' && <Check className="w-4 h-4 text-[#8D7A02] stroke-[3]" />}
+                </div>
+                <div>
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
+                      Warm Parchment Gold
+                    </span>
+                    <span className="px-1.5 py-0.5 rounded text-[9.5px] font-mono font-bold bg-[#E1A837]/15 text-[#8D7A02] border border-[#E1A837]/30">
+                      NEW
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
+                    Ivory cream, golden amber &amp; antique olive for scholarly elegance &amp; zero eye fatigue
+                  </span>
+                  {/* Color Palette Swatch Preview */}
+                  <div className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-white/5">
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#FAEED9' }} title="#FAEED9 - Parchment Cream" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#E1A837' }} title="#E1A837 - Amber Gold" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#8D7A02' }} title="#8D7A02 - Antique Olive" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#38370D' }} title="#38370D - Deep Espresso" />
+                    <span className="text-[10px] font-mono font-bold text-[#8D7A02] dark:text-[#E1A837] ml-auto">
+                      #FAEED9
+                    </span>
+                  </div>
                 </div>
               </button>
             </div>
@@ -1375,18 +1430,26 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
             </div>
 
             {/* Primary CTA Button */}
-            <div className="pt-2">
+            <div className="pt-2 space-y-3">
               <button
                 type="button"
                 onClick={() => {
                   soundManager.playCompleteChime();
                   haptics.success();
+                  setThemeSaved(true);
+                  setTimeout(() => setThemeSaved(false), 2500);
                 }}
                 className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
               >
                 <Save className="w-4 h-4" />
                 <span>Apply Theme Settings</span>
               </button>
+              {themeSaved && (
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-xs font-semibold animate-fade-in">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>Theme preferences successfully applied and saved!</span>
+                </div>
+              )}
             </div>
           </div>
         </div>

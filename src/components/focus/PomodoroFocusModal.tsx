@@ -27,6 +27,7 @@ import {
   PictureInPicture2,
   Sun,
   Moon,
+  Sparkles,
   Plus,
   ExternalLink,
   BarChart3,
@@ -62,7 +63,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   defaultTopicId
 }) => {
   const { allTopics, plannerTasks, togglePlannerTask, activityHistory } = useSyllabus();
-  const { toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark, theme } = useTheme();
   const {
     session,
     startTimer,
@@ -577,10 +578,22 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               toggleTheme();
             }}
             className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border border-slate-200 dark:border-white/10"
-            title={isDark ? "Switch to Light Mode (D)" : "Switch to Dark Mode (D)"}
+            title={
+              theme === 'dark'
+                ? "Switch to Light Mode (D)"
+                : theme === 'light'
+                ? "Switch to Warm Parchment Gold (D)"
+                : "Switch to Dark Mode (D)"
+            }
             aria-label="Toggle Theme"
           >
-            {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : theme === 'warm-cream' ? (
+              <Sparkles className="w-4 h-4 text-[#E1A837]" />
+            ) : (
+              <Moon className="w-4 h-4 text-indigo-600" />
+            )}
           </button>
 
           {/* Fullscreen Toggle (Hidden on small mobile screens to keep header stable) */}

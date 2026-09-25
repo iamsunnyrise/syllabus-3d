@@ -50,6 +50,25 @@
     --color-error: #EF4444;
   }
 
+  .warm-cream {
+    /* 👑 Royal Parchment Gold Theme (#FAEED9, #E1A837, #8D7A02, #38370D) */
+    --color-background: #FAEED9;
+    --color-primary: #38370D;
+    --color-primary-accent: #E1A837;
+    --color-accent-light: #FBF4E6;
+    --color-secondary-accent: #8D7A02;
+    --color-tertiary-accent: #E1A837;
+    --color-surface: #FFFDF8;
+    --color-surface-soft: #F6EBD4;
+    --color-border: #E2D1B3;
+    --color-text-primary: #38370D;
+    --color-text-secondary: #58531A;
+    --color-text-muted: #8D7A02;
+    --color-success: #15803D;
+    --color-warning: #B45309;
+    --color-error: #B91C1C;
+  }
+
   ::selection {
     background-color: rgba(124, 58, 237, 0.25);
     color: #0F172A;
@@ -58,6 +77,12 @@
   .dark ::selection {
     background-color: rgba(34, 211, 238, 0.3);
     color: #FFFFFF;
+  }
+
+  .warm-cream ::selection,
+  html.warm-cream ::selection {
+    background-color: rgba(225, 168, 55, 0.4) !important;
+    color: #38370D !important;
   }
 
   html {
@@ -90,7 +115,7 @@
     letter-spacing: -0.025em;
   }
 
-  html:not(.dark) body {
+  html:not(.dark):not(.warm-cream) body {
     background-color: #F8FAFC !important;
     background-image: 
       radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.05) 0%, transparent 60%),
@@ -108,6 +133,164 @@
       radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #F8FAFC !important;
+  }
+
+  /* 👑 Warm Parchment Gold Theme (#FAEED9, #E1A837, #8D7A02, #38370D) */
+  html.warm-cream body {
+    background-color: #FAEED9 !important;
+    background-image: 
+      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.16) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.12) 0%, transparent 50%) !important;
+    background-attachment: fixed !important;
+    color: #38370D !important;
+  }
+
+  /* Surface Cards in Warm Parchment Theme */
+  html.warm-cream .bg-white {
+    background-color: #FFFDF8 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream .bg-slate-50,
+  html.warm-cream .bg-slate-50\/90,
+  html.warm-cream .bg-slate-50\/80 {
+    background-color: #F7EBD3 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream .bg-slate-100,
+  html.warm-cream .bg-slate-100\/80 {
+    background-color: #EFE0C2 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream .bg-slate-200,
+  html.warm-cream .bg-slate-200\/80,
+  html.warm-cream .bg-slate-200\/70 {
+    background-color: #E5D5BA !important;
+  }
+
+  /* Borders in Warm Parchment Theme */
+  html.warm-cream [class*="border-slate-200"],
+  html.warm-cream [class*="border-slate-100"] {
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream [class*="border-slate-300"] {
+    border-color: #CDB994 !important;
+  }
+
+  /* Text & Typography Readability (Contrast-Guaranteed System) */
+  html.warm-cream .text-slate-900,
+  html.warm-cream .text-slate-800,
+  html.warm-cream h1,
+  html.warm-cream h2,
+  html.warm-cream h3,
+  html.warm-cream h4,
+  html.warm-cream h5,
+  html.warm-cream h6 {
+    color: #38370D !important;
+  }
+
+  html.warm-cream .text-slate-700,
+  html.warm-cream .text-slate-600 {
+    color: #4C4816 !important;
+  }
+
+  html.warm-cream .text-slate-500 {
+    color: #6E6622 !important;
+  }
+
+  html.warm-cream .text-slate-400 {
+    color: #8D7A02 !important;
+  }
+
+  /* Header & Navigation Bar in Warm Parchment */
+  html.warm-cream header {
+    background-color: rgba(255, 253, 248, 0.95) !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream aside {
+    background-color: rgba(255, 253, 248, 0.96) !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream aside button[aria-current="page"] {
+    background: linear-gradient(135deg, #E1A837 0%, #C9962A 100%) !important;
+    color: #38370D !important;
+    box-shadow: 0 2px 10px rgba(225, 168, 55, 0.35) !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream aside button[aria-current="page"] * {
+    color: #38370D !important;
+  }
+
+  html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] > div {
+    background-color: rgba(255, 253, 248, 0.96) !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  /* Buttons & Action Badges in Warm Parchment */
+  html.warm-cream button.bg-blue-600,
+  html.warm-cream button.bg-\[\#3B82F6\],
+  html.warm-cream button.bg-\[\#4F46E5\] {
+    background-color: #E1A837 !important;
+    color: #38370D !important;
+    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
+  }
+
+  html.warm-cream button.bg-blue-600:hover,
+  html.warm-cream button.bg-\[\#3B82F6\]:hover,
+  html.warm-cream button.bg-\[\#4F46E5\]:hover {
+    background-color: #CCA32F !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream button.bg-blue-600 *,
+  html.warm-cream button.bg-\[\#3B82F6\] *,
+  html.warm-cream button.bg-\[\#4F46E5\] * {
+    color: #38370D !important;
+  }
+
+  html.warm-cream .bg-blue-50,
+  html.warm-cream .bg-indigo-50 {
+    background-color: #F7EAD0 !important;
+    color: #8D7A02 !important;
+    border-color: #E1A837 !important;
+  }
+
+  /* Form Elements in Warm Parchment */
+  html.warm-cream input,
+  html.warm-cream textarea,
+  html.warm-cream select {
+    background-color: #FFFDF8 !important;
+    border-color: #D8C6A5 !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream input::placeholder,
+  html.warm-cream textarea::placeholder {
+    color: #8D7A02 !important;
+    opacity: 0.75 !important;
+  }
+
+  html.warm-cream input:focus,
+  html.warm-cream textarea:focus {
+    border-color: #E1A837 !important;
+    box-shadow: 0 0 0 2px rgba(225, 168, 55, 0.25) !important;
+  }
+
+  /* Scrollbars in Warm Parchment */
+  html.warm-cream ::-webkit-scrollbar-thumb {
+    background-color: #CDB994 !important;
+    border-radius: 9999px;
+  }
+
+  html.warm-cream ::-webkit-scrollbar-track {
+    background-color: #FAEED9 !important;
   }
 
   /* App Titles & Headings → Plus Jakarta Sans Bold with editorial tracking */

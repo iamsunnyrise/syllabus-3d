@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark' | 'warm-cream';
 
 interface ThemeContextType {
   theme: Theme;
-  activeTheme: 'light' | 'dark' | 'warm-cream';
+  activeTheme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: any) => void;
   isDark: boolean;
@@ -21,8 +21,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('syllabus3d_theme');
-        if (saved === 'light' || saved === 'dark') {
-          return saved;
+        if (saved === 'light' || saved === 'dark' || saved === 'warm-cream') {
+          return saved as Theme;
         }
         return 'light';
       } catch {
@@ -53,12 +53,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     const root = document.documentElement;
     // Strip all obsolete legacy themes from html element
-    root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'warm-cream');
+    root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'dark', 'light', 'warm-cream');
     if (theme === 'dark') {
       root.classList.add('dark');
-      root.classList.remove('light');
+    } else if (theme === 'warm-cream') {
+      root.classList.add('warm-cream');
+      root.classList.add('light');
     } else {
-      root.classList.remove('dark');
       root.classList.add('light');
     }
     try {
@@ -67,7 +68,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const setTheme = (newTheme: any) => {
-    if (newTheme === 'dark' || newTheme === 'light') {
+    if (newTheme === 'dark' || newTheme === 'light' || newTheme === 'warm-cream') {
       setThemeState(newTheme);
     } else if (newTheme === 'system') {
       const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -76,7 +77,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState(prev => (prev === 'dark' ? 'light' : prev === 'light' ? 'warm-cream' : 'dark'));
   };
 
   const setEnable3D = (enable: boolean) => {
