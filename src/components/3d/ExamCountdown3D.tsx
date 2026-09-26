@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
-import { Calendar, Target, Edit2, Clock } from 'lucide-react';
-import { EditExamTargetModal } from '../modals/EditExamTargetModal';
-import { soundManager } from '../../utils/soundEffects';
-import { haptics } from '../../utils/haptics';
+import { Calendar, Target, Clock } from 'lucide-react';
 
 export const ExamCountdown3D: React.FC = React.memo(() => {
   const { currentExam } = useSyllabus();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Calculate dynamic countdown with automatic smart rollover if date has passed
   const [timeLeft, setTimeLeft] = useState<{
@@ -98,96 +94,71 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   }, [currentExam?.examDate]);
 
   return (
-    <>
-      <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121420] border border-slate-200/90 dark:border-white/[0.08] shadow-sm p-3.5 sm:p-5 space-y-3.5 sm:space-y-4">
-        {/* Header: Identity & Target Details */}
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            {/* Target Icon */}
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-              <Target className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.2]" />
-            </div>
+    <div className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.1)] transition-all duration-300 p-4 sm:p-5 space-y-3.5 sm:space-y-4 overflow-hidden">
+      {/* Top Subtle Gloss Accent Edge */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent pointer-events-none" />
 
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate">
-                  {currentExam.name} Countdown
-                </h2>
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Live
-                </span>
-              </div>
-
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
-                <span className="truncate">Exam Date: <strong className="text-slate-700 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
-                {timeLeft.isProjected && (
-                  <span className="text-amber-500 dark:text-amber-400 text-[10px] font-semibold shrink-0">
-                    (Next Cycle)
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Minimal, elegant Edit Target button */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.light();
-              setIsEditModalOpen(true);
-            }}
-            className="p-2 sm:px-3 sm:py-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] transition-all flex items-center gap-1.5 shrink-0"
-            title="Edit Exam Date & Target"
-            aria-label="Edit Exam Date & Target"
-          >
-            <Edit2 className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-            <span className="hidden sm:inline text-xs font-medium">Edit</span>
-          </button>
+      {/* Header: Identity & Target Details (No Edit Button as requested) */}
+      <div className="flex items-center gap-3">
+        {/* Target Icon */}
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 shadow-xs transition-transform group-hover:scale-105">
+          <Target className="w-5 h-5 stroke-[2.2]" />
         </div>
 
-        {/* 4 Clean, Uniform Countdown Cards */}
-        <div className="grid grid-cols-4 gap-2 sm:gap-3">
-          {cards.map(c => (
-            <div
-              key={c.label}
-              className="py-3 sm:py-4 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181B2B] border border-slate-200/80 dark:border-white/[0.06] text-center flex flex-col items-center justify-center transition-all duration-150 select-none shadow-xs"
-            >
-              <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none ${c.color}`}>
-                {String(c.value).padStart(2, '0')}
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono mt-1.5">
-                {c.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer: Runway Status & Motivation */}
-        <div className="pt-2.5 sm:pt-3 flex items-center justify-between gap-2 text-xs font-mono border-t border-slate-100 dark:border-white/[0.06]">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
-            <span className="truncate text-slate-600 dark:text-slate-300">
-              Runway: <strong className="text-slate-900 dark:text-white font-bold">{timeLeft.days} Days</strong> to exam
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate">
+              {currentExam.name} Countdown
+            </h2>
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Live
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
-            <span>Keep Consistent</span>
-            <span>🔥</span>
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+            <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+            <span className="truncate">Exam Date: <strong className="text-slate-800 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
+            {timeLeft.isProjected && (
+              <span className="text-amber-500 dark:text-amber-400 text-[10px] font-semibold shrink-0">
+                (Next Cycle)
+              </span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Target Exam Date Edit Modal */}
-      {isEditModalOpen && (
-        <EditExamTargetModal
-          isOpen={isEditModalOpen}
-          onClose={() => setIsEditModalOpen(false)}
-        />
-      )}
-    </>
+      {/* 4 Clean, Uniform Countdown Cards (PRESERVED AS REQUESTED) */}
+      <div className="grid grid-cols-4 gap-2 sm:gap-3">
+        {cards.map(c => (
+          <div
+            key={c.label}
+            className="py-3 sm:py-4 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181B2B] border border-slate-200/80 dark:border-white/[0.06] text-center flex flex-col items-center justify-center transition-all duration-150 select-none shadow-xs"
+          >
+            <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none ${c.color}`}>
+              {String(c.value).padStart(2, '0')}
+            </span>
+            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono mt-1.5">
+              {c.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer: Runway Status & Motivation */}
+      <div className="pt-2.5 sm:pt-3 flex items-center justify-between gap-2 text-xs font-mono border-t border-slate-100 dark:border-white/[0.06]">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+          <span className="truncate text-slate-600 dark:text-slate-300">
+            Runway: <strong className="text-slate-900 dark:text-white font-bold">{timeLeft.days} Days</strong> to exam
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+          <span>Keep Consistent</span>
+          <span>🔥</span>
+        </div>
+      </div>
+    </div>
   );
 });
