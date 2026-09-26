@@ -1448,17 +1448,21 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Matching Mockup) */}
+      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Border + Diffused Box Shadow) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
         {/* Card 1: Purple Gradient -> Total Topics */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
-          <div className="flex items-center justify-between">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between overflow-hidden border border-purple-300/40 dark:border-purple-400/25 shadow-[0_12px_32px_-4px_rgba(124,58,237,0.35),0_4px_12px_-2px_rgba(124,58,237,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(124,58,237,0.48),0_6px_16px_-2px_rgba(124,58,237,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between">
             <span className="text-xs sm:text-sm font-bold text-white/90">Total Topics</span>
-            <div className="p-2 rounded-xl bg-white/20">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
               <BookOpen className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
+          <div className="relative z-10 mt-3 sm:mt-4">
             <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
               {totalTopicsCount}
             </div>
@@ -1469,14 +1473,18 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
-          <div className="flex items-center justify-between">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between">
             <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
-            <div className="p-2 rounded-xl bg-white/20">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
               <CheckCircle2 className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
+          <div className="relative z-10 mt-3 sm:mt-4">
             <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
               {completedTopicsCount}
             </div>
@@ -1487,14 +1495,18 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* Card 3: Cyan / Sky Blue Gradient -> Exam Runway */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
-          <div className="flex items-center justify-between">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between">
             <span className="text-xs sm:text-sm font-bold text-white/90">Exam Runway</span>
-            <div className="p-2 rounded-xl bg-white/20">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
               <Clock className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
+          <div className="relative z-10 mt-3 sm:mt-4">
             <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
               {daysRemaining > 0 ? `${daysRemaining} Days` : 'Exam Today'}
             </div>
@@ -1505,14 +1517,18 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* Card 4: Emerald / Mint Gradient -> Completion Rate */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
-          <div className="flex items-center justify-between">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between">
             <span className="text-xs sm:text-sm font-bold text-white/90">Completion Rate</span>
-            <div className="p-2 rounded-xl bg-white/20">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
               <TrendingUp className="w-4 h-4 text-white" />
             </div>
           </div>
-          <div className="mt-3 sm:mt-4">
+          <div className="relative z-10 mt-3 sm:mt-4">
             <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
               {overallPercentage}%
             </div>
