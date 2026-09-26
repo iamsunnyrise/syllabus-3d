@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
 import {
   ZoomIn,
@@ -53,19 +53,65 @@ import {
 } from '../../utils/pdfThemeStorage';
 export type { PdfColorTheme };
 
-// Set up PDF.js worker
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version || '3.11.174'}/pdf.worker.min.js`;
+// Set up PDF.js worker using local bundled worker with fallback to CDN
+if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+  try {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+      'pdfjs-dist/build/pdf.worker.min.js',
+      import.meta.url
+    ).toString();
+  } catch {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version || '3.11.174'}/pdf.worker.min.js`;
+  }
 }
 
 export type PdfFitMode = 'fit-width' | 'fit-page' | 'custom';
 export type HighlightToolType = 'area' | 'freehand' | 'eraser';
+export type PdfViewMode = 'flow' | 'single';
+
+// In-Memory LRU Render Cache for zero-latency page revisiting and pre-rendering
+interface CachedPageRender {
+  canvas: HTMLCanvasElement;
+  width: number;
+  height: number;
+  aspect: number;
+  scale: number;
+  rotation: number;
+  isHighDpi: boolean;
+  timestamp: number;
+}
+
+const pageRenderCache = new Map<string, CachedPageRender>();
+const MAX_CACHE_SIZE = 36; // Holds up to 36 rendered pages in RAM
+
+function getRenderCacheKey(docId: string | undefined, pageNum: number, scale: number, rotation: number, isHighDpi: boolean) {
+  return `${docId || 'pdf'}_p${pageNum}_s${scale.toFixed(2)}_r${rotation}_${isHighDpi ? 'hd' : 'ld'}`;
+}
+
+function saveToRenderCache(key: string, entry: CachedPageRender) {
+  if (pageRenderCache.size >= MAX_CACHE_SIZE) {
+    let oldestKey: string | null = null;
+    let oldestTime = Infinity;
+    for (const [k, v] of pageRenderCache.entries()) {
+      if (v.timestamp < oldestTime) {
+        oldestTime = v.timestamp;
+        oldestKey = k;
+      }
+    }
+    if (oldestKey) pageRenderCache.delete(oldestKey);
+  }
+  pageRenderCache.set(key, entry);
+}
 
 interface PdfCanvasViewerProps {
   pdfUrl: string | null;
   docId?: string;
   initialPage?: number;
-  onLoadSuccess?: (totalPages: number) => void;
+  currentPage?: number;
+  targetPage?: number;
+  viewMode?: PdfViewMode;
+  onViewModeChange?: (mode: PdfViewMode) => void;
+  onLoadSuccess?: (totalPages: number, pdfDoc?: any) => void;
   className?: string;
   showInlineControls?: boolean;
   onPageChange?: (page: number, total: number) => void;
@@ -102,6 +148,10 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   pdfUrl,
   docId,
   initialPage: propInitialPage,
+  currentPage: propCurrentPage,
+  targetPage: propTargetPage,
+  viewMode = 'flow',
+  onViewModeChange,
   onLoadSuccess,
   className = '',
   showInlineControls = false,
@@ -439,7 +489,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         } catch {}
 
         setIsLoading(false);
-        onLoadSuccess?.(doc.numPages);
+        onLoadSuccess?.(doc.numPages, doc);
         onPageChange?.(targetPage, doc.numPages);
       } catch (err: any) {
         console.error('Error loading PDF document:', err);
@@ -461,7 +511,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         cancelAnimationFrame(scrollRafRef.current);
       }
     };
-  }, [pdfUrl, docId, propInitialPage]);
+  }, [pdfUrl, docId, propInitialPage, propTargetPage]);
 
   // Auto-scroll to saved/target page once PDF document and page containers are mounted
   useEffect(() => {
@@ -570,17 +620,144 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
   const scrollToPage = (pageNum: number, behavior: ScrollBehavior = 'smooth') => {
     soundManager.playClick();
+    if (viewMode === 'single') {
+      setCurrentPage(pageNum);
+      currentPageRef.current = pageNum;
+      onPageChange?.(pageNum, numPages);
+      if (docId) {
+        savePdfReadingProgress(docId, pageNum, numPages);
+      }
+      return;
+    }
     if (!containerRef.current) return;
     const el = containerRef.current.querySelector<HTMLDivElement>(`[data-page-number="${pageNum}"]`);
     if (el) {
       el.scrollIntoView({ behavior, block: 'start' });
       setCurrentPage(pageNum);
       currentPageRef.current = pageNum;
+      onPageChange?.(pageNum, numPages);
       if (docId) {
         savePdfReadingProgress(docId, pageNum, numPages);
       }
     }
   };
+
+  // Sync external page change (e.g. from parent header input, thumbnail click, or keyboard shortcut)
+  useEffect(() => {
+    const target = propTargetPage || propCurrentPage;
+    if (target && target >= 1 && target <= numPages && target !== currentPage) {
+      if (viewMode === 'single') {
+        setCurrentPage(target);
+        currentPageRef.current = target;
+        onPageChange?.(target, numPages);
+      } else {
+        const behavior = Math.abs(target - currentPage) > 2 ? 'auto' : 'smooth';
+        scrollToPage(target, behavior);
+      }
+    }
+  }, [propTargetPage, propCurrentPage, numPages, viewMode]);
+
+  // Background Lookahead Pre-rendering: Pre-render adjacent pages (N+1, N-1, N+2) into RAM cache
+  useEffect(() => {
+    if (!pdfDoc || numPages <= 0) return;
+    let isCancelled = false;
+
+    const queue: number[] = [];
+    if (currentPage + 1 <= numPages) queue.push(currentPage + 1);
+    if (currentPage - 1 >= 1) queue.push(currentPage - 1);
+    if (currentPage + 2 <= numPages) queue.push(currentPage + 2);
+
+    const runPreload = () => {
+      if (isCancelled) return;
+      const pNum = queue.shift();
+      if (!pNum) return;
+
+      const cacheKey = getRenderCacheKey(docId, pNum, scale, rotation, true);
+      if (pageRenderCache.has(cacheKey)) {
+        if (queue.length > 0) {
+          (window.requestIdleCallback || ((cb: any) => setTimeout(cb, 60)))(runPreload);
+        }
+        return;
+      }
+
+      pdfDoc.getPage(pNum).then((page: any) => {
+        if (isCancelled) return;
+        const unscaledVp = page.getViewport({ scale: 1, rotation });
+        let finalScale = 1.0;
+        if (fitMode === 'fit-page') {
+          const targetH = Math.max(containerHeight - 32, 300);
+          const targetW = Math.max(containerWidth - 32, 300);
+          finalScale = Math.min(targetW / unscaledVp.width, targetH / unscaledVp.height) * scale;
+        } else {
+          finalScale = (containerWidth / unscaledVp.width) * scale;
+        }
+
+        const vp = page.getViewport({ scale: finalScale, rotation });
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.0);
+        const pixelW = Math.floor(vp.width * dpr);
+        const pixelH = Math.floor(vp.height * dpr);
+
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width = pixelW;
+        offCanvas.height = pixelH;
+        const offCtx = offCanvas.getContext('2d');
+        if (!offCtx) return;
+
+        offCtx.fillStyle = '#FFFFFF';
+        offCtx.fillRect(0, 0, pixelW, pixelH);
+        offCtx.imageSmoothingEnabled = true;
+        offCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        page.render({ canvasContext: offCtx, viewport: vp }).promise.then(() => {
+          if (isCancelled) return;
+          saveToRenderCache(cacheKey, {
+            canvas: offCanvas,
+            width: Math.floor(vp.width),
+            height: Math.floor(vp.height),
+            aspect: vp.height / vp.width,
+            scale: finalScale,
+            rotation,
+            isHighDpi: true,
+            timestamp: Date.now()
+          });
+
+          if (queue.length > 0) {
+            (window.requestIdleCallback || ((cb: any) => setTimeout(cb, 80)))(runPreload);
+          }
+        }).catch(() => {});
+      }).catch(() => {});
+    };
+
+    const idleTimer = (window.requestIdleCallback || ((cb: any) => setTimeout(cb, 100)))(runPreload);
+
+    return () => {
+      isCancelled = true;
+      if (window.cancelIdleCallback && typeof idleTimer === 'number') {
+        window.cancelIdleCallback(idleTimer);
+      }
+    };
+  }, [currentPage, pdfDoc, numPages, scale, rotation, fitMode, containerWidth, containerHeight, docId]);
+
+  // Memoized maps for zero-overhead per-page highlights & comments lookup
+  const highlightsByPage = useMemo(() => {
+    const map = new Map<number, PdfHighlight[]>();
+    for (const h of highlights) {
+      const list = map.get(h.pageNum);
+      if (list) list.push(h);
+      else map.set(h.pageNum, [h]);
+    }
+    return map;
+  }, [highlights]);
+
+  const commentsByPage = useMemo(() => {
+    const map = new Map<number, PdfComment[]>();
+    for (const c of comments) {
+      const list = map.get(c.pageNum);
+      if (list) list.push(c);
+      else map.set(c.pageNum, [c]);
+    }
+    return map;
+  }, [comments]);
 
   return (
     <div
@@ -735,12 +912,49 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
           </div>
         )}
 
-        {!isLoading && !error && numPages > 0 && (
+        {!isLoading && !error && numPages > 0 && viewMode === 'single' && (
+          <div className="w-full flex-1 flex flex-col items-center justify-center p-2 sm:p-4 min-h-0 overflow-auto">
+            <div className="relative flex flex-col items-center max-w-full">
+              <PdfPageItem
+                key={`single_${currentPage}_${rotation}`}
+                pageNum={currentPage}
+                targetPage={currentPage}
+                isNearby={true}
+                scrollContainerRef={containerRef}
+                docId={docId}
+                pdfDoc={pdfDoc}
+                scale={scale}
+                fitMode={fitMode}
+                rotation={rotation}
+                containerWidth={containerWidth}
+                containerHeight={containerHeight}
+                defaultAspect={defaultAspect}
+                isHighlightMode={isHighlightMode}
+                highlightColor={highlightColor}
+                highlightTool={highlightTool}
+                pageHighlights={highlightsByPage.get(currentPage) || []}
+                onAddHighlight={onAddHighlight}
+                onDeleteHighlight={onDeleteHighlight}
+                isCommentMode={isCommentMode}
+                pageComments={commentsByPage.get(currentPage) || []}
+                onAddComment={onAddComment}
+                onUpdateComment={onUpdateComment}
+                onDeleteComment={onDeleteComment}
+                activeCommentId={activeCommentId}
+                onSelectComment={onSelectComment}
+                onPushCommentToNotes={onPushCommentToNotes}
+                colorTheme={activeColorTheme}
+              />
+            </div>
+          </div>
+        )}
+
+        {!isLoading && !error && numPages > 0 && viewMode === 'flow' && (
           <div className={`w-full mx-auto flex flex-col items-center ${scale > 1.05 ? 'min-w-max' : ''} ${
             fitMode === 'fit-page' ? 'max-w-5xl' : 'max-w-none w-full'
           }`}>
             {Array.from({ length: numPages }, (_, idx) => idx + 1).map((pageNum, idx) => {
-              const isNearby = Math.abs(pageNum - currentPage) <= 3;
+              const isNearby = Math.abs(pageNum - currentPage) <= 2;
               return (
                 <React.Fragment key={`${pageNum}_${rotation}`}>
                   <PdfPageItem
@@ -759,11 +973,11 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
                     isHighlightMode={isHighlightMode}
                     highlightColor={highlightColor}
                     highlightTool={highlightTool}
-                    pageHighlights={highlights.filter(h => h.pageNum === pageNum)}
+                    pageHighlights={highlightsByPage.get(pageNum) || []}
                     onAddHighlight={onAddHighlight}
                     onDeleteHighlight={onDeleteHighlight}
                     isCommentMode={isCommentMode}
-                    pageComments={comments.filter(c => c.pageNum === pageNum)}
+                    pageComments={commentsByPage.get(pageNum) || []}
                     onAddComment={onAddComment}
                     onUpdateComment={onUpdateComment}
                     onDeleteComment={onDeleteComment}
@@ -965,8 +1179,59 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
           return;
         }
 
-        // 1. Offscreen Double-Buffering:
-        // Render onto an in-memory detached canvas so the visible screen NEVER flashes black or clears!
+        // 0. Zero-Latency Cache Check:
+        // If this page was already rendered (or pre-rendered in background), blit instantly in 0ms!
+        const cacheKey = getRenderCacheKey(docId, pageNum, finalScale, rotation, true);
+        const cached = pageRenderCache.get(cacheKey);
+        if (cached && canvasRef.current) {
+          const visibleCanvas = canvasRef.current;
+          visibleCanvas.width = cached.canvas.width;
+          visibleCanvas.height = cached.canvas.height;
+          visibleCanvas.style.width = `${cached.width}px`;
+          visibleCanvas.style.height = `${cached.height}px`;
+          const visibleCtx = visibleCanvas.getContext('2d');
+          if (visibleCtx) {
+            visibleCtx.drawImage(cached.canvas, 0, 0);
+          }
+          setRenderedWidth(cached.width);
+          setRenderedHeight(cached.height);
+          setPageAspect(cached.aspect);
+          setIsRendering(false);
+          cached.timestamp = Date.now();
+          return;
+        }
+
+        // 1. Progressive Instant Preview (~15-25ms):
+        // If page hasn't rendered yet, immediately paint a fast low-res snapshot so user sees text/diagrams instantly!
+        if (renderedHeight === 0 && canvasRef.current) {
+          try {
+            const lowScale = finalScale * 0.4;
+            const lowVp = page.getViewport({ scale: lowScale, rotation });
+            const lowCanvas = document.createElement('canvas');
+            lowCanvas.width = Math.floor(lowVp.width);
+            lowCanvas.height = Math.floor(lowVp.height);
+            const lowCtx = lowCanvas.getContext('2d');
+            if (lowCtx && !isCancelled) {
+              lowCtx.fillStyle = '#FFFFFF';
+              lowCtx.fillRect(0, 0, lowCanvas.width, lowCanvas.height);
+              await page.render({ canvasContext: lowCtx, viewport: lowVp }).promise;
+              if (!isCancelled && canvasRef.current) {
+                const vCanvas = canvasRef.current;
+                vCanvas.width = lowCanvas.width;
+                vCanvas.height = lowCanvas.height;
+                vCanvas.style.width = `${displayW}px`;
+                vCanvas.style.height = `${displayH}px`;
+                const vCtx = vCanvas.getContext('2d');
+                if (vCtx) vCtx.drawImage(lowCanvas, 0, 0);
+                setRenderedWidth(displayW);
+                setRenderedHeight(displayH);
+                setIsRendering(false); // First visual paint complete!
+              }
+            }
+          } catch {}
+        }
+
+        // 2. High-DPI Crisp Render with Offscreen Double-Buffering:
         const offscreenCanvas = document.createElement('canvas');
         offscreenCanvas.width = pixelW;
         offscreenCanvas.height = pixelH;
@@ -974,13 +1239,8 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
         const offCtx = offscreenCanvas.getContext('2d');
         if (!offCtx || isCancelled) return;
 
-        // Guarantee a solid crisp pure white base before PDF drawing.
-        // PDF documents are authored on white paper. By guaranteeing #FFFFFF background on the canvas,
-        // PDF glyphs/vectors have solid contrast, and CSS inversion filters (OLED/Night) work cleanly
-        // without transparent artifacts or dark flashes!
         offCtx.fillStyle = '#FFFFFF';
         offCtx.fillRect(0, 0, pixelW, pixelH);
-
         offCtx.imageSmoothingEnabled = true;
         offCtx.imageSmoothingQuality = 'high';
         offCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -996,8 +1256,7 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
         await renderTask.promise;
         if (isCancelled) return;
 
-        // 2. Atomic Blit:
-        // Now that offscreen canvas is completely finished, blit onto visible canvas in a single instant tick.
+        // 3. Atomic Blit onto visible canvas
         const visibleCanvas = canvasRef.current;
         if (!visibleCanvas) return;
 
@@ -1014,6 +1273,18 @@ const PdfPageItem: React.FC<PdfPageItemProps> = React.memo(({
         setRenderedWidth(displayW);
         setRenderedHeight(displayH);
         setIsRendering(false);
+
+        // 4. Save to In-Memory LRU Cache
+        saveToRenderCache(cacheKey, {
+          canvas: offscreenCanvas,
+          width: displayW,
+          height: displayH,
+          aspect,
+          scale: finalScale,
+          rotation,
+          isHighDpi: true,
+          timestamp: Date.now()
+        });
       } catch (err: any) {
         if (err?.name !== 'RenderingCancelledException') {
           console.warn(`Error rendering page ${pageNum}:`, err);

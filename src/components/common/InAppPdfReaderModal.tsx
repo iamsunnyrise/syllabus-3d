@@ -30,12 +30,14 @@ import {
   MessageSquarePlus,
   StickyNote,
   Search,
-  Copy
+  Copy,
+  PanelLeft,
+  Rows
 } from 'lucide-react';
 import { TopicPdfAttachment } from '../../types/syllabus';
 import { getPdfBlobUrl } from '../../utils/pdfStorage';
 import { soundManager } from '../../utils/soundEffects';
-import type { PdfFitMode, HighlightToolType } from './PdfCanvasViewer';
+import type { PdfFitMode, HighlightToolType, PdfViewMode } from './PdfCanvasViewer';
 import {
   PdfColorTheme,
   PDF_THEMES,
@@ -68,6 +70,63 @@ import {
   deletePdfCommentFromList
 } from '../../utils/pdfCommentStorage';
 import { useSyllabus } from '../../context/SyllabusContext';
+
+// Fast, Lightweight Thumbnail Preview for Left Navigation Sidebar
+const ThumbnailPreview: React.FC<{
+  pdfDoc: any;
+  pageNum: number;
+  colorTheme: PdfColorTheme;
+}> = React.memo(({ pdfDoc, pageNum, colorTheme }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [rendered, setRendered] = useState(false);
+
+  useEffect(() => {
+    if (!pdfDoc) return;
+    let isCancelled = false;
+
+    const renderThumb = async () => {
+      try {
+        const page = await pdfDoc.getPage(pageNum);
+        if (isCancelled) return;
+        const unscaledVp = page.getViewport({ scale: 1 });
+        const thumbScale = 140 / unscaledVp.width;
+        const vp = page.getViewport({ scale: thumbScale });
+
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        canvas.width = Math.floor(vp.width);
+        canvas.height = Math.floor(vp.height);
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+        if (!isCancelled) setRendered(true);
+      } catch {}
+    };
+
+    renderThumb();
+    return () => { isCancelled = true; };
+  }, [pdfDoc, pageNum]);
+
+  return (
+    <div className="w-full aspect-[1/1.41] rounded-lg bg-slate-900 border border-slate-700/60 overflow-hidden flex items-center justify-center relative shadow-2xs">
+      <canvas
+        ref={canvasRef}
+        className={`w-full h-full object-contain transition-opacity duration-200 ${rendered ? 'opacity-100' : 'opacity-0'}`}
+        style={{
+          filter: PDF_THEMES[colorTheme]?.canvasFilter || 'none'
+        }}
+      />
+      {!rendered && (
+        <div className="absolute inset-0 flex items-center justify-center text-[10px] text-slate-500 font-mono">
+          ...
+        </div>
+      )}
+    </div>
+  );
+});
 
 interface InAppPdfReaderModalProps {
   isOpen: boolean;
@@ -106,6 +165,20 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     const saved = initId ? getPdfReadingProgress(initId) : null;
     return saved && saved.pageNum >= 1 ? saved.pageNum : 1;
   });
+  const [pdfDoc, setPdfDoc] = useState<any>(null);
+  const [showThumbnailSidebar, setShowThumbnailSidebar] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<PdfViewMode>('flow');
+  const [pageInputValue, setPageInputValue] = useState<string>(() => {
+    const initId = initialAttachmentId || (attachments.length > 0 ? attachments[0].id : '');
+    const saved = initId ? getPdfReadingProgress(initId) : null;
+    return saved && saved.pageNum >= 1 ? String(saved.pageNum) : '1';
+  });
+
+  // Keep page input text synced with live page scroll
+  useEffect(() => {
+    setPageInputValue(String(currentPage));
+  }, [currentPage]);
+
   const [scale, setScale] = useState<number>(1.0);
   const [fitMode, setFitMode] = useState<PdfFitMode>('fit-width');
   const [rotation, setRotation] = useState<number>(0);
@@ -247,9 +320,36 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     }
   }, [selectedAttachmentId, topicId, updateTopicPdfProgress]);
 
-  const handleLoadSuccess = useCallback((total: number) => {
+  const handleLoadSuccess = useCallback((total: number, doc?: any) => {
     setTotalPages(total);
+    if (doc) setPdfDoc(doc);
   }, []);
+
+  // Fast jump or scroll to specific page with performance optimization
+  const scrollToPage = useCallback((pageNum: number) => {
+    if (pageNum < 1 || (totalPages > 0 && pageNum > totalPages)) return;
+    soundManager.playClick();
+    setCurrentPage(pageNum);
+    setPageInputValue(String(pageNum));
+
+    if (selectedAttachmentId) {
+      savePdfReadingProgress(selectedAttachmentId, pageNum, totalPages);
+      if (topicId && updateTopicPdfProgress) {
+        updateTopicPdfProgress(topicId, selectedAttachmentId, pageNum, totalPages);
+      }
+    }
+
+    if (viewMode === 'single') {
+      return;
+    }
+
+    const el = modalRef.current?.querySelector<HTMLDivElement>(`[data-page-number="${pageNum}"]`);
+    if (el) {
+      // For jumps > 2 pages, jump instantly ('auto') to prevent rendering storms across all intermediate pages
+      const behavior = Math.abs(pageNum - currentPage) > 2 ? 'auto' : 'smooth';
+      el.scrollIntoView({ behavior, block: 'start' });
+    }
+  }, [totalPages, viewMode, selectedAttachmentId, topicId, updateTopicPdfProgress, currentPage]);
 
   // Load Saved Highlights & Comments when attachment changes
   useEffect(() => {
@@ -398,6 +498,36 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
           soundManager.playClick();
           setRotation(r => (r + 90) % 360);
         }
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          scrollToPage(currentPage - 1);
+        }
+      } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          scrollToPage(currentPage + 1);
+        }
+      } else if (e.key === 'Home') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          scrollToPage(1);
+        }
+      } else if (e.key === 'End') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          scrollToPage(totalPages);
+        }
+      } else if (e.key === 't' || e.key === 'T') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          soundManager.playClick();
+          setShowThumbnailSidebar(prev => !prev);
+        }
+      } else if (e.key === 'v' || e.key === 'V') {
+        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+          soundManager.playClick();
+          setViewMode(prev => prev === 'flow' ? 'single' : 'flow');
+        }
       } else if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z')) {
         // Undo last highlight
         handleUndoHighlight();
@@ -406,7 +536,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose, isFullscreen, highlights, selectedAttachmentId]);
+  }, [isOpen, onClose, isFullscreen, highlights, selectedAttachmentId, currentPage, totalPages, scrollToPage]);
 
   // Sticky Notes Handlers
   const handleAddComment = (newComment: PdfComment) => {
@@ -546,20 +676,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     }
   };
 
-  // Smooth scroll to specific page
-  const scrollToPage = (pageNum: number) => {
-    if (pageNum < 1 || (totalPages > 0 && pageNum > totalPages)) return;
-    soundManager.playClick();
-    const el = modalRef.current?.querySelector<HTMLDivElement>(`[data-page-number="${pageNum}"]`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setCurrentPage(pageNum);
-      if (selectedAttachmentId) {
-        savePdfReadingProgress(selectedAttachmentId, pageNum, totalPages);
-        if (topicId && updateTopicPdfProgress) {
-          updateTopicPdfProgress(topicId, selectedAttachmentId, pageNum, totalPages);
-        }
+
+  const handlePageInputSubmit = () => {
+    const p = parseInt(pageInputValue, 10);
+    if (!isNaN(p) && p >= 1 && (totalPages === 0 || p <= totalPages)) {
+      if (p !== currentPage) {
+        scrollToPage(p);
       }
+    } else {
+      setPageInputValue(String(currentPage));
     }
   };
 
@@ -596,8 +721,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
       {!isFullscreen && (
         <div className="px-3 sm:px-5 py-2 bg-[#1F2335]/95 backdrop-blur-md border-b border-[#292E42] flex items-center justify-between gap-2 shrink-0 z-30 shadow-md">
           
-          {/* Left: Back Arrow & Document Info */}
-          <div className="flex items-center gap-2.5 min-w-0">
+          {/* Left: Back Arrow, Thumbnails Drawer Toggle & Document Info */}
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
             <button
               type="button"
               onClick={() => {
@@ -611,9 +736,27 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               <span className="hidden sm:inline">Back</span>
             </button>
 
+            {/* THUMBNAILS SIDEBAR TOGGLE */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setShowThumbnailSidebar(prev => !prev);
+              }}
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 shrink-0 ${
+                showThumbnailSidebar
+                  ? 'bg-[#7AA2F7] text-[#1A1B26] border-[#7AA2F7] font-black shadow-[0_0_12px_rgba(122,162,247,0.4)]'
+                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+              }`}
+              title="Toggle Thumbnails Sidebar (Shortcut: T)"
+            >
+              <PanelLeft className="w-4 h-4" />
+              <span className="hidden md:inline">Thumbnails</span>
+            </button>
+
             <div className="min-w-0 flex items-center gap-2">
               {attachments.length > 1 ? (
-                <div className="relative max-w-[180px] sm:max-w-xs">
+                <div className="relative max-w-[150px] sm:max-w-xs">
                   <select
                     value={selectedAttachmentId}
                     onChange={e => {
@@ -633,7 +776,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               ) : (
                 <div className="truncate flex items-center gap-2">
                   <img src="/pdf_icon_3d.png" alt="PDF" className="w-5 h-5 object-contain shrink-0 drop-shadow-sm" />
-                  <span className="text-xs sm:text-sm font-bold text-white truncate max-w-[150px] sm:max-w-sm">
+                  <span className="text-xs sm:text-sm font-bold text-white truncate max-w-[120px] sm:max-w-sm">
                     {currentAttachment?.name || topicName}
                   </span>
                 </div>
@@ -641,31 +784,88 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             </div>
           </div>
 
-          {/* Center: Live Page Tracker & Quick Stepper */}
+          {/* Center: Interactive Page Jumper & View Mode Switcher */}
           {totalPages > 0 && (
-            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#24283B] border border-[#292E42] text-xs font-mono font-bold text-[#A9B1D6]">
-              <button
-                type="button"
-                disabled={currentPage <= 1}
-                onClick={() => scrollToPage(currentPage - 1)}
-                className="p-0.5 hover:text-white disabled:opacity-30 cursor-pointer"
-                title="Previous Page"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <span>Page</span>
-              <span className="text-white">{currentPage}</span>
-              <span>/</span>
-              <span className="text-[#7AA2F7]">{totalPages}</span>
-              <button
-                type="button"
-                disabled={currentPage >= totalPages}
-                onClick={() => scrollToPage(currentPage + 1)}
-                className="p-0.5 hover:text-white disabled:opacity-30 cursor-pointer"
-                title="Next Page"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
+            <div className="flex items-center gap-2">
+              {/* Stepper with Direct Numeric Page Input */}
+              <div className="flex items-center gap-1 sm:gap-1.5 px-2 py-1 rounded-xl bg-[#24283B] border border-[#292E42] text-xs font-mono font-bold text-[#A9B1D6]">
+                <button
+                  type="button"
+                  disabled={currentPage <= 1}
+                  onClick={() => scrollToPage(currentPage - 1)}
+                  className="p-1 hover:text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/5 active:scale-95 transition-all"
+                  title="Previous Page (Left Arrow / Page Up)"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="hidden sm:inline text-slate-400 font-sans text-[11px] font-semibold">Page</span>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handlePageInputSubmit();
+                  }}
+                  className="inline-flex items-center"
+                >
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={pageInputValue}
+                    onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
+                    onFocus={(e) => e.target.select()}
+                    onBlur={handlePageInputSubmit}
+                    className="w-10 sm:w-12 text-center py-0.5 px-1 rounded-lg bg-[#16161E] text-white font-bold font-mono border border-slate-700/60 focus:border-[#7AA2F7] focus:ring-1 focus:ring-[#7AA2F7] outline-none text-xs transition-all"
+                    title="Click to jump to any page number (Press Enter)"
+                  />
+                </form>
+                <span className="text-slate-500">/</span>
+                <span className="text-[#7AA2F7] font-mono">{totalPages}</span>
+                <button
+                  type="button"
+                  disabled={currentPage >= totalPages}
+                  onClick={() => scrollToPage(currentPage + 1)}
+                  className="p-1 hover:text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/5 active:scale-95 transition-all"
+                  title="Next Page (Right Arrow / Page Down / Space)"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* View Mode Switcher: Flow vs Single */}
+              <div className="hidden lg:flex items-center bg-[#24283B] p-0.5 rounded-xl border border-[#292E42]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setViewMode('flow');
+                  }}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === 'flow'
+                      ? 'bg-[#7AA2F7] text-[#1A1B26] font-black shadow-2xs'
+                      : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                  }`}
+                  title="Continuous Scroll Mode: Read entire document vertically"
+                >
+                  <Rows className="w-3.5 h-3.5" />
+                  <span>Scroll</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setViewMode('single');
+                  }}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === 'single'
+                      ? 'bg-[#7AA2F7] text-[#1A1B26] font-black shadow-2xs'
+                      : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                  }`}
+                  title="Single Page Mode: Flip page-by-page like slides/presentation (Instant 0ms flip)"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Single</span>
+                </button>
+              </div>
             </div>
           )}
 
@@ -1388,86 +1588,210 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
         </div>
       )}
 
-      {/* 4. PURE 100% FULLSCREEN PDF CANVAS VIEWER */}
-      <div className="flex-1 relative min-h-0 w-full h-full bg-[#16161E] flex flex-col overflow-hidden" onClick={() => setShowZoomDropdown(false)}>
-        {isLoading ? (
-          <div className="m-auto flex flex-col items-center gap-3.5 text-center p-6">
-            <div className="w-10 h-10 rounded-full border-3 border-[#7AA2F7] border-t-transparent animate-spin" />
-            <div>
-              <h4 className="text-sm font-bold text-white">Opening PDF Viewer...</h4>
-              <p className="text-xs text-[#A9B1D6] mt-1 font-mono">Loading high-resolution pages</p>
-            </div>
-          </div>
-        ) : loadError ? (
-          <div className="m-auto text-center p-8 max-w-md space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center mx-auto">
-              <AlertCircle className="w-6 h-6" />
-            </div>
-            <h4 className="text-sm sm:text-base font-bold text-white">Unable to Display PDF</h4>
-            <p className="text-xs text-[#A9B1D6] leading-relaxed">{loadError}</p>
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                handleCloseReader();
-              }}
-              className="px-4 py-2 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-white text-xs font-bold border border-[#292E42] transition-all cursor-pointer"
-            >
-              ← Return to Notes
-            </button>
-          </div>
-        ) : pdfBlobUrl ? (
-          <React.Suspense
-            fallback={
-              <div className="m-auto flex flex-col items-center gap-3.5 text-center p-6">
-                <div className="w-10 h-10 rounded-full border-3 border-[#7AA2F7] border-t-transparent animate-spin" />
-                <div>
-                  <h4 className="text-sm font-bold text-white">Opening PDF Viewer...</h4>
-                  <p className="text-xs text-[#A9B1D6] mt-1 font-mono">Initializing viewer engine</p>
-                </div>
+      {/* 4. MAIN WORKSPACE WITH OPTIONAL THUMBNAIL SIDEBAR */}
+      <div className="flex-1 relative min-h-0 w-full h-full bg-[#16161E] flex flex-row overflow-hidden" onClick={() => setShowZoomDropdown(false)}>
+        {/* Left Thumbnails Sidebar Drawer */}
+        {showThumbnailSidebar && !isFullscreen && totalPages > 0 && (
+          <div className="w-48 sm:w-56 md:w-60 bg-[#141624] border-r border-[#292E42] flex flex-col shrink-0 z-20 shadow-2xl animate-fade-in select-none">
+            {/* Sidebar Header */}
+            <div className="px-3.5 py-3 bg-[#1A1D2D] border-b border-[#292E42] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <PanelLeft className="w-4 h-4 text-[#7AA2F7]" />
+                <span className="text-xs font-bold text-white uppercase tracking-wider font-mono">Pages</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#24283B] text-[#7AA2F7] font-bold">
+                  {totalPages}
+                </span>
               </div>
-            }
-          >
-            <PdfCanvasViewer
-              pdfUrl={pdfBlobUrl}
-              docId={selectedAttachmentId}
-              initialPage={currentPage}
-              scale={scale}
-              onScaleChange={setScale}
-              fitMode={fitMode}
-              onFitModeChange={setFitMode}
-              rotation={rotation}
-              onRotationChange={setRotation}
-              isAutoRotate={isAutoRotate}
-              onAutoRotateChange={setIsAutoRotate}
-              onLoadSuccess={handleLoadSuccess}
-              onPageChange={handlePageChange}
-              colorTheme={pdfColorTheme}
-              onColorThemeChange={setPdfColorTheme}
-              isHighlightMode={isHighlightMode}
-              highlightColor={highlightColor}
-              highlightTool={highlightTool}
-              highlights={highlights}
-              onAddHighlight={handleAddHighlight}
-              onDeleteHighlight={handleDeleteHighlight}
-              isCommentMode={isCommentMode}
-              comments={comments}
-              onAddComment={handleAddComment}
-              onUpdateComment={handleUpdateComment}
-              onDeleteComment={handleDeleteComment}
-              activeCommentId={activeCommentId}
-              onSelectComment={setActiveCommentId}
-              onPushCommentToNotes={handlePushCommentToNotes}
-              showInlineControls={false}
-              className="flex-1 min-h-0 w-full h-full"
-            />
-          </React.Suspense>
-        ) : (
-          <div className="m-auto text-center p-6 space-y-2">
-            <FileText className="w-10 h-10 text-[#383842] mx-auto" />
-            <p className="text-xs text-[#A9B1D6]">No PDF document is available to view.</p>
+              <button
+                type="button"
+                onClick={() => setShowThumbnailSidebar(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                title="Close thumbnails (T)"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Thumbnails Scrollable List */}
+            <div className="flex-1 overflow-y-auto p-2.5 space-y-2.5 custom-scrollbar">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pNum) => {
+                const isActive = pNum === currentPage;
+                const hCount = highlights.filter(h => h.pageNum === pNum).length;
+                const cCount = comments.filter(c => c.pageNum === pNum).length;
+
+                return (
+                  <button
+                    key={pNum}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      scrollToPage(pNum);
+                    }}
+                    className={`w-full text-left rounded-xl p-2 transition-all cursor-pointer flex flex-col items-center gap-1.5 group ${
+                      isActive
+                        ? 'bg-blue-600/25 border-2 border-[#7AA2F7] shadow-[0_0_15px_rgba(122,162,247,0.3)] ring-1 ring-[#7AA2F7]'
+                        : 'bg-[#1F2335]/70 hover:bg-[#24283B] border border-[#292E42] hover:border-slate-600'
+                    }`}
+                  >
+                    {/* Thumbnail Header Row */}
+                    <div className="w-full flex items-center justify-between px-1 text-[11px] font-mono">
+                      <span className={`font-bold ${isActive ? 'text-[#7AA2F7]' : 'text-slate-400 group-hover:text-white'}`}>
+                        Page {pNum}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        {hCount > 0 && (
+                          <span className="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">
+                            {hCount}
+                          </span>
+                        )}
+                        {cCount > 0 && (
+                          <span className="px-1.5 py-0.2 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-bold">
+                            {cCount}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Miniature Page Snapshot */}
+                    <ThumbnailPreview
+                      pdfDoc={pdfDoc}
+                      pageNum={pNum}
+                      colorTheme={pdfColorTheme}
+                    />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
+
+        {/* Right Canvas Workspace Container */}
+        <div className="flex-1 relative min-h-0 w-full h-full flex flex-col overflow-hidden">
+          {isLoading ? (
+            <div className="m-auto flex flex-col items-center gap-3.5 text-center p-6">
+              <div className="w-10 h-10 rounded-full border-3 border-[#7AA2F7] border-t-transparent animate-spin" />
+              <div>
+                <h4 className="text-sm font-bold text-white">Opening PDF Viewer...</h4>
+                <p className="text-xs text-[#A9B1D6] mt-1 font-mono">Loading high-resolution pages</p>
+              </div>
+            </div>
+          ) : loadError ? (
+            <div className="m-auto text-center p-8 max-w-md space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center mx-auto">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <h4 className="text-sm sm:text-base font-bold text-white">Unable to Display PDF</h4>
+              <p className="text-xs text-[#A9B1D6] leading-relaxed">{loadError}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  handleCloseReader();
+                }}
+                className="px-4 py-2 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-white text-xs font-bold border border-[#292E42] transition-all cursor-pointer"
+              >
+                ← Return to Notes
+              </button>
+            </div>
+          ) : pdfBlobUrl ? (
+            <React.Suspense
+              fallback={
+                <div className="m-auto flex flex-col items-center gap-3.5 text-center p-6">
+                  <div className="w-10 h-10 rounded-full border-3 border-[#7AA2F7] border-t-transparent animate-spin" />
+                  <div>
+                    <h4 className="text-sm font-bold text-white">Opening PDF Viewer...</h4>
+                    <p className="text-xs text-[#A9B1D6] mt-1 font-mono">Initializing viewer engine</p>
+                  </div>
+                </div>
+              }
+            >
+              <PdfCanvasViewer
+                pdfUrl={pdfBlobUrl}
+                docId={selectedAttachmentId}
+                initialPage={currentPage}
+                currentPage={currentPage}
+                targetPage={currentPage}
+                viewMode={viewMode}
+                onViewModeChange={setViewMode}
+                scale={scale}
+                onScaleChange={setScale}
+                fitMode={fitMode}
+                onFitModeChange={setFitMode}
+                rotation={rotation}
+                onRotationChange={setRotation}
+                isAutoRotate={isAutoRotate}
+                onAutoRotateChange={setIsAutoRotate}
+                onLoadSuccess={handleLoadSuccess}
+                onPageChange={handlePageChange}
+                colorTheme={pdfColorTheme}
+                onColorThemeChange={setPdfColorTheme}
+                isHighlightMode={isHighlightMode}
+                highlightColor={highlightColor}
+                highlightTool={highlightTool}
+                highlights={highlights}
+                onAddHighlight={handleAddHighlight}
+                onDeleteHighlight={handleDeleteHighlight}
+                isCommentMode={isCommentMode}
+                comments={comments}
+                onAddComment={handleAddComment}
+                onUpdateComment={handleUpdateComment}
+                onDeleteComment={handleDeleteComment}
+                activeCommentId={activeCommentId}
+                onSelectComment={setActiveCommentId}
+                onPushCommentToNotes={handlePushCommentToNotes}
+                showInlineControls={false}
+                className="flex-1 min-h-0 w-full h-full"
+              />
+            </React.Suspense>
+          ) : (
+            <div className="m-auto text-center p-6 space-y-2">
+              <FileText className="w-10 h-10 text-[#383842] mx-auto" />
+              <p className="text-xs text-[#A9B1D6]">No PDF document is available to view.</p>
+            </div>
+          )}
+
+          {/* Bottom Quick-Scrub Page Bar */}
+          {!isFullscreen && totalPages > 1 && (
+            <div className="px-4 py-2 bg-[#1A1D2E]/95 backdrop-blur-md border-t border-[#292E42] flex items-center justify-between gap-3 text-xs z-20 shrink-0 select-none">
+              <button
+                type="button"
+                disabled={currentPage <= 1}
+                onClick={() => scrollToPage(currentPage - 1)}
+                className="p-1 rounded-lg bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white disabled:opacity-30 cursor-pointer transition-all active:scale-95"
+                title="Previous Page (Left Arrow / Page Up)"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+
+              <div className="flex-1 max-w-xl mx-auto flex items-center gap-3">
+                <span className="font-mono text-[11px] text-slate-400 font-bold shrink-0">1</span>
+                <input
+                  type="range"
+                  min={1}
+                  max={totalPages}
+                  value={currentPage}
+                  onChange={(e) => {
+                    const val = Number(e.target.value);
+                    scrollToPage(val);
+                  }}
+                  className="w-full h-1.5 bg-[#292E42] rounded-lg appearance-none cursor-pointer accent-[#7AA2F7]"
+                  title={`Scrub through pages (Current: ${currentPage}/${totalPages})`}
+                />
+                <span className="font-mono text-[11px] text-[#7AA2F7] font-bold shrink-0">{totalPages}</span>
+              </div>
+
+              <button
+                type="button"
+                disabled={currentPage >= totalPages}
+                onClick={() => scrollToPage(currentPage + 1)}
+                className="p-1 rounded-lg bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white disabled:opacity-30 cursor-pointer transition-all active:scale-95"
+                title="Next Page (Right Arrow / Page Down / Space)"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 5. SLIDE-OVER ALL NOTES SIDEBAR DRAWER */}
