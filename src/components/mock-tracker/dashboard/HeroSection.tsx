@@ -7,13 +7,6 @@ import { audioFX } from '../../../utils/mockAudioFX';
 export const HeroSection: React.FC = () => {
   const { kpis, settings, setIsAddModalOpen, setEditingMock, setActiveView } = useMocks();
 
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning, Aspirant';
-    if (hour < 18) return 'Good Afternoon, Aspirant';
-    return 'Good Evening, Aspirant';
-  };
-
   const isAheadOfCutoff = kpis.averageScore >= 135;
 
   return (
@@ -34,10 +27,7 @@ export const HeroSection: React.FC = () => {
           </div>
 
           <div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
-              {getGreeting()} 🎯
-            </h1>
-            <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
               {kpis.totalMocks > 0 ? (
                 <>
                   You have logged <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{kpis.totalMocks} mock attempts</span>. 
