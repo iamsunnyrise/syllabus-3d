@@ -63,6 +63,40 @@ export function adjustHexColor(hex: string, amount: number): string {
   }
 }
 
+export interface InfographicTheme {
+  gradient: string;
+  color: string;
+  lightBg: string;
+}
+
+export const INFOGRAPHIC_STEP_THEMES: InfographicTheme[] = [
+  {
+    gradient: 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 55%, #D97706 100%)',
+    color: '#D97706',
+    lightBg: '#FEF3C7'
+  },
+  {
+    gradient: 'linear-gradient(135deg, #FB923C 0%, #F97316 55%, #EA580C 100%)',
+    color: '#EA580C',
+    lightBg: '#FFEDD5'
+  },
+  {
+    gradient: 'linear-gradient(135deg, #F472B6 0%, #EC4899 55%, #DB2777 100%)',
+    color: '#DB2777',
+    lightBg: '#FCE7F3'
+  },
+  {
+    gradient: 'linear-gradient(135deg, #A3E635 0%, #84CC16 55%, #65A30D 100%)',
+    color: '#65A30D',
+    lightBg: '#ECFCCB'
+  },
+  {
+    gradient: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 55%, #0D9488 100%)',
+    color: '#0D9488',
+    lightBg: '#CCFBF1'
+  }
+];
+
 export const getBrandTheme = (
   rawUrl: string,
   rawName: string,
@@ -838,8 +872,8 @@ export const PlatformsView: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {filteredPlatforms.map((platform) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {filteredPlatforms.map((platform, index) => {
             const hasLoginHint = Boolean(platform.loginHint);
             const isCopied = copiedId === platform.id;
             const cleanDomain = formatCleanDomain(platform.url);
@@ -855,183 +889,172 @@ export const PlatformsView: React.FC = () => {
                 : 'Study Portal'
             );
 
+            // 5-Step Infographic styling matching the reference UI
+            const stepNumber = String(index + 1).padStart(2, '0');
+            const stepPalette = INFOGRAPHIC_STEP_THEMES[index % INFOGRAPHIC_STEP_THEMES.length];
+            const isKnownBrand = Boolean(theme.brandColor && theme.brandColor !== '#2563EB');
+            const accentColor = isKnownBrand ? theme.brandColor : stepPalette.color;
+            const stepGradient = isKnownBrand ? theme.bannerGradient : stepPalette.gradient;
+
             return (
               <div
                 key={platform.id}
-                className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1.5"
-                style={{
-                  boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03)'
-                }}
+                className="group relative rounded-2xl sm:rounded-3xl bg-slate-100/90 dark:bg-[#121422] p-1.5 sm:p-2 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 select-none flex flex-col"
               >
-                {/* UPPER BANNER (Website Brand Gradient & Upper Infographic Header) */}
-                <div
-                  className="relative h-28 sm:h-32 w-full p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden select-none"
-                  style={{ background: theme.bannerGradient }}
-                >
-                  {/* Glossy Curved Ambient Highlight (matching 3D infographic sheen) */}
-                  <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/20 blur-2xl pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-black/30 via-black/10 to-transparent pointer-events-none" />
-
-                  {/* Top Row: Category Pill & Frosted Quick Action Controls */}
-                  <div className="relative z-10 flex items-center justify-between gap-2">
-                    {/* Category Pill with Frosted Glass Styling */}
-                    <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/25 text-[10px] sm:text-[11px] font-mono font-bold text-white shadow-xs">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                      <span className="truncate max-w-[110px] sm:max-w-[150px] uppercase tracking-wider">
-                        {categoryBadgeLabel}
+                {/* Inner Elevated Card Plate */}
+                <div className="relative w-full rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A2A] border border-slate-200/70 dark:border-white/[0.07] shadow-xs flex flex-col sm:flex-row items-stretch overflow-hidden flex-1">
+                  
+                  {/* LEFT STEP INFOGRAPHIC BLOCK */}
+                  <div
+                    className="relative w-full sm:w-28 md:w-32 shrink-0 py-3.5 sm:py-5 px-3 flex flex-row sm:flex-col items-center justify-between sm:justify-center text-center overflow-hidden"
+                    style={{ background: stepGradient }}
+                  >
+                    {/* Top Gloss Highlight Edge (Signature Infographic Detail from Reference) */}
+                    <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
+                    <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
+                    
+                    {/* Step Title & Number */}
+                    <div className="flex flex-col items-start sm:items-center">
+                      <span className="text-[10px] sm:text-[11px] font-mono font-black tracking-widest text-white/90 uppercase drop-shadow-xs">
+                        STEP
+                      </span>
+                      <span className="text-2xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none mt-0.5 sm:mt-1 drop-shadow-sm">
+                        {stepNumber}
                       </span>
                     </div>
 
-                    {/* Quick Card Tool Controls: Pin, Edit, Delete */}
-                    <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                      <button
-                        type="button"
-                        onClick={(e) => handleTogglePin(e, platform.id)}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all cursor-pointer backdrop-blur-md active:scale-90 shadow-xs ${
-                          platform.pinned
-                            ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
-                            : 'bg-black/30 hover:bg-black/50 text-white/90 hover:text-white border border-white/25'
-                        }`}
-                        title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
-                        aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
-                      >
-                        <Bookmark className={`w-3.5 h-3.5 ${platform.pinned ? 'fill-current' : ''}`} />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={(e) => handleEdit(e, platform)}
-                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/30 hover:bg-black/50 text-white/90 hover:text-white border border-white/25 flex items-center justify-center transition-all cursor-pointer active:scale-90 backdrop-blur-md shadow-xs"
-                        title="Edit portal"
-                        aria-label={`Edit ${platform.name}`}
-                      >
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={(e) => handleDelete(e, platform)}
-                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/30 hover:bg-rose-600/90 text-white/90 hover:text-white border border-white/25 flex items-center justify-center transition-all cursor-pointer active:scale-90 backdrop-blur-md shadow-xs"
-                        title="Delete portal"
-                        aria-label={`Delete ${platform.name}`}
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                    {/* Category Label Chip on Left Block */}
+                    <div className="sm:mt-2.5 text-right sm:text-center">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-black/25 text-white/95 border border-white/20 backdrop-blur-xs max-w-[95px] truncate">
+                        {categoryBadgeLabel}
+                      </span>
                     </div>
                   </div>
-                </div>
 
-                {/* 3D METALLIC MEDALLION (Anchored at seam between banner & card body) */}
-                <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group-hover:scale-105 transition-transform duration-300 pointer-events-none">
-                  {/* Deep 3D Ambient Drop Shadow */}
-                  <div className="relative w-20 h-20 sm:w-[86px] sm:h-[86px] rounded-full flex items-center justify-center shadow-[0_12px_24px_-4px_rgba(0,0,0,0.45),0_6px_12px_-2px_rgba(0,0,0,0.25)]">
+                  {/* RIGHT MAIN CONTENT AREA */}
+                  <div className="flex-1 p-3.5 sm:p-4 md:p-5 flex flex-col justify-between min-w-0 space-y-2.5">
                     
-                    {/* Outer Specular Chrome Metallic Bezel */}
-                    <div
-                      className="w-full h-full rounded-full p-[3px] sm:p-[3.5px] transition-all"
-                      style={{
-                        background: 'linear-gradient(145deg, #FFFFFF 0%, #E2E8F0 18%, #94A3B8 45%, #F8FAFC 65%, #64748B 85%, #CBD5E1 100%)',
-                        boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.35)'
-                      }}
-                    >
-                      {/* Recessed Dark Metallic Bevel / Groove */}
-                      <div className="w-full h-full rounded-full p-[2.5px] bg-gradient-to-b from-slate-900/60 via-slate-800/40 to-slate-950/70 shadow-inner flex items-center justify-center">
-                        
-                        {/* Inner High-Gloss Ceramic Disc with Lens Glare */}
-                        <div className="relative w-full h-full rounded-full bg-white dark:bg-[#181A28] flex items-center justify-center overflow-hidden shadow-[inset_0_2px_6px_rgba(0,0,0,0.18)]">
-                          
-                          {/* Glass Specular Reflection Across Upper Left */}
-                          <div
-                            className="absolute inset-0 pointer-events-none z-10"
-                            style={{
-                              background: 'linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 45%, transparent 50%)'
-                            }}
-                          />
+                    {/* Header Row: Title | Icon + Controls */}
+                    <div className="flex items-center justify-between gap-2 min-w-0">
+                      <div className="flex items-center gap-2 min-w-0 flex-1">
+                        <h2
+                          className="text-base sm:text-lg font-black uppercase tracking-tight truncate font-sans"
+                          style={{ color: accentColor }}
+                          title={platform.name}
+                        >
+                          {platform.name}
+                        </h2>
 
-                          {/* Brand Ambient Color Glow */}
-                          <div
-                            className="absolute inset-0 opacity-15 pointer-events-none"
-                            style={{ backgroundColor: theme.brandColor }}
-                          />
+                        <span className="text-slate-300 dark:text-slate-600 font-light select-none text-base sm:text-lg shrink-0">
+                          |
+                        </span>
 
-                          {/* Brand Icon Centered with Crisp 3D Shadow */}
-                          <div
-                            className="relative z-20 flex items-center justify-center transition-transform group-hover:scale-110 duration-200"
-                            style={{ color: theme.brandColor }}
-                          >
-                            {theme.renderIcon('w-7 h-7 sm:w-8 sm:h-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]')}
-                          </div>
+                        <div
+                          className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                          style={{ color: accentColor }}
+                          title={platform.name}
+                        >
+                          {theme.renderIcon('w-4 h-4 sm:w-5 sm:h-5 drop-shadow-xs')}
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
 
-                {/* LOWER CARD BODY (Clean, high-contrast, brand-adaptive typography & action button) */}
-                <div className="pt-12 sm:pt-14 px-4 sm:px-5 pb-4 sm:pb-4.5 flex flex-col justify-between flex-1 space-y-3.5">
-                  {/* Platform Identity & Description */}
-                  <div className="text-center space-y-1.5">
-                    <h2
-                      className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white transition-colors line-clamp-1"
-                      title={platform.name}
-                    >
-                      {platform.name}
-                    </h2>
-                    
+                      {/* Quick Card Tool Controls: Pin, Edit, Delete */}
+                      <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          type="button"
+                          onClick={(e) => handleTogglePin(e, platform.id)}
+                          className={`w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg flex items-center justify-center transition-all cursor-pointer active:scale-90 ${
+                            platform.pinned
+                              ? 'bg-amber-400 text-slate-950 font-bold shadow-xs'
+                              : 'text-slate-400 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                          }`}
+                          title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
+                          aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
+                        >
+                          <Bookmark className={`w-3.5 h-3.5 ${platform.pinned ? 'fill-current' : ''}`} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => handleEdit(e, platform)}
+                          className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                          title="Edit portal"
+                          aria-label={`Edit ${platform.name}`}
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => handleDelete(e, platform)}
+                          className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                          title="Delete portal"
+                          aria-label={`Delete ${platform.name}`}
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Middle Row: Signature 4-Dot Infographic Track from Reference UI */}
+                    <div className="flex items-center gap-1.5 select-none py-0.5">
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                      <span className="w-2.5 h-2.5 rounded-full opacity-35" style={{ backgroundColor: accentColor }} />
+                    </div>
+
+                    {/* Description Text */}
                     <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed min-h-[36px]">
                       {formatReadableText(platform.description) || `Direct access to ${cleanDomain} resources and tests.`}
                     </p>
-                  </div>
 
-                  {/* Optional Credential Chip */}
-                  {hasLoginHint && (
-                    <div className="flex items-center justify-center">
-                      <button
-                        type="button"
-                        onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-white/10 text-[11px] font-mono font-medium text-slate-700 dark:text-slate-200 transition-all cursor-pointer active:scale-95 shadow-2xs"
-                        title={`Click to copy login: ${platform.loginHint}`}
-                        aria-label={`Copy credentials: ${platform.loginHint}`}
+                    {/* Bottom Row: Domain Badge, Login Hint & Open Button */}
+                    <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-2 mt-auto">
+                      <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                        <a
+                          href={platform.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-[11px] font-mono text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-white/10 truncate transition-colors max-w-[140px] sm:max-w-[200px]"
+                          title={`Visit ${cleanDomain}`}
+                        >
+                          <Globe className="w-3 h-3 text-slate-400 shrink-0" />
+                          <span className="truncate">{cleanDomain}</span>
+                        </a>
+
+                        {hasLoginHint && (
+                          <button
+                            type="button"
+                            onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
+                            className="hidden min-[480px]:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 transition-all cursor-pointer"
+                            title={`Click to copy login: ${platform.loginHint}`}
+                            aria-label={`Copy credentials: ${platform.loginHint}`}
+                          >
+                            <KeyRound className="w-2.5 h-2.5 text-amber-500" />
+                            <span className="truncate max-w-[85px]">{isCopied ? 'Copied!' : platform.loginHint}</span>
+                          </button>
+                        )}
+                      </div>
+
+                      <a
+                        href={platform.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          soundManager.playClick();
+                        }}
+                        className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shrink-0 ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
+                        style={theme.buttonStyle || { backgroundColor: accentColor, color: '#FFFFFF' }}
+                        aria-label={`Open ${platform.name}`}
                       >
-                        <KeyRound className="w-3 h-3 text-slate-400" />
-                        <span className="truncate max-w-[140px]">{isCopied ? 'Copied to Clipboard!' : platform.loginHint}</span>
-                        {isCopied ? <Check className="w-3 h-3 text-emerald-500 stroke-[3]" /> : <Copy className="w-3 h-3 text-slate-400" />}
-                      </button>
+                        <span>Open</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </a>
                     </div>
-                  )}
 
-                  {/* Bottom Row: Clean Domain Badge & Brand-Specific Launcher Button */}
-                  <div className="pt-3 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto">
-                    {/* Domain Pill */}
-                    <a
-                      href={platform.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-[11px] sm:text-xs font-mono text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-white/10 truncate transition-colors max-w-[50%] hover:border-slate-300 dark:hover:border-white/20"
-                      title={`Visit ${cleanDomain}`}
-                    >
-                      <Globe className="w-3 h-3 text-slate-400 shrink-0" />
-                      <span className="truncate">{cleanDomain}</span>
-                    </a>
-
-                    {/* Brand-Specific "Open ↗" Launcher Button */}
-                    <a
-                      href={platform.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        soundManager.playClick();
-                      }}
-                      className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
-                      style={theme.buttonStyle}
-                      aria-label={`Open ${platform.name}`}
-                    >
-                      <span>Open</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </a>
                   </div>
                 </div>
               </div>
