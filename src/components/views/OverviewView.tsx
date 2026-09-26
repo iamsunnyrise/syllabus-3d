@@ -256,7 +256,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5">
         {[
           {
-            stepNumber: '01',
+            id: 'topics',
             title: 'TOTAL TOPICS',
             value: overallStats.totalTopics || 0,
             icon: BookOpen,
@@ -268,7 +268,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             footerRight: `${overallStats.totalTopics || 0} Total`
           },
           {
-            stepNumber: '02',
+            id: 'completed',
             title: 'COMPLETED',
             value: overallStats.completedCount || 0,
             icon: CheckCircle2,
@@ -280,7 +280,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             footerRight: `${overallStats.completedCount || 0} Done`
           },
           {
-            stepNumber: '03',
+            id: 'hours',
             title: 'STUDY HOURS',
             value: totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0',
             icon: Clock,
@@ -292,7 +292,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`
           },
           {
-            stepNumber: '04',
+            id: 'rate',
             title: 'COMPLETION RATE',
             value: `${overallStats.completionPercentage || 0}%`,
             icon: Target,
@@ -307,52 +307,39 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           const Icon = card.icon;
           return (
             <div
-              key={card.stepNumber}
+              key={card.id}
               className="group relative rounded-2xl sm:rounded-3xl bg-slate-100/90 dark:bg-[#121422] p-1.5 sm:p-2 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 select-none flex flex-col"
             >
               {/* Inner Elevated Card Plate */}
               <div className="relative w-full rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A2A] border border-slate-200/70 dark:border-white/[0.07] shadow-xs flex flex-col overflow-hidden flex-1">
                 
-                {/* TOP STEP INFOGRAPHIC BLOCK */}
+                {/* TOP HERO BANNER (NO SEQUENCE NUMBERS) */}
                 <div
-                  className="relative w-full py-3 sm:py-4 px-3 flex items-center justify-center text-center overflow-hidden select-none"
+                  className="relative w-full py-3.5 sm:py-4.5 px-3 flex items-center justify-center text-center overflow-hidden select-none"
                   style={{ background: card.gradient }}
                 >
-                  {/* Top Gloss Highlight Edge (Signature Infographic Detail from Reference) */}
+                  {/* Top Gloss Highlight Edge */}
                   <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
                   <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
                   
-                  {/* Pure Centered Number (Without 'STEP') */}
-                  <span className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-md">
-                    {card.stepNumber}
-                  </span>
+                  {/* Elegant Centered Hero Icon */}
+                  <div className="relative z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
+                    <Icon className="w-6 h-6 sm:w-6.5 sm:h-6.5 text-white drop-shadow-md stroke-[2.3]" />
+                  </div>
                 </div>
 
                 {/* MAIN CONTENT AREA */}
                 <div className="p-3 sm:p-4 flex flex-col justify-between flex-1 space-y-2.5">
                   
-                  {/* Header Row: Title | Icon */}
+                  {/* Header Row: Title & Badge */}
                   <div className="flex items-center justify-between gap-1.5 min-w-0">
-                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                      <h2
-                        className="text-[11px] sm:text-xs font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
-                        style={{ color: card.accentColor }}
-                        title={card.title}
-                      >
-                        {card.title}
-                      </h2>
-
-                      <span className="text-slate-300 dark:text-slate-600 font-light select-none text-xs shrink-0">
-                        |
-                      </span>
-
-                      <div
-                        className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
-                        style={{ color: card.accentColor }}
-                      >
-                        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 drop-shadow-xs" />
-                      </div>
-                    </div>
+                    <h2
+                      className="text-[11px] sm:text-xs font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
+                      style={{ color: card.accentColor }}
+                      title={card.title}
+                    >
+                      {card.title}
+                    </h2>
 
                     {/* Category / Scope Pill Badge */}
                     <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0">
