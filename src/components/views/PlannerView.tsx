@@ -675,36 +675,40 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       {/* 3. FOUR NEXT-GEN LUXURY METRIC GLASS CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
         {/* Card 1: Today's Velocity & Flow */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/90 dark:bg-[#121424]/90 border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-xl shadow-xs hover:shadow-md hover:border-indigo-500/30 transition-all flex flex-col justify-between group relative overflow-hidden">
-          <div className="flex items-center justify-between gap-1.5">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#4F46E5] via-[#4338CA] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/40 dark:border-indigo-400/25 shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between gap-1.5">
+            <span className="text-xs sm:text-sm font-bold text-white/90">
               Today's Velocity
             </span>
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
               <TrendingUp className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
           
-          <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl sm:text-4xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+          <div className="relative z-10 my-3 flex items-baseline justify-between gap-2">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
               {todayProgressPercent}%
             </div>
             {/* Micro SVG Circular Gauge */}
-            <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-200 dark:text-white/10" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="text-indigo-600 dark:text-[#7AA2F7] transition-all duration-700" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-white/20" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="white" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="transition-all duration-700" />
               </svg>
-              <span className="absolute text-[9px] font-mono font-black text-slate-700 dark:text-slate-300">
+              <span className="absolute text-[9px] font-mono font-black text-white">
                 {completedTodayCount}
               </span>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold">
-            <span className="text-slate-500 dark:text-slate-400">{completedTodayCount} of {totalTodayCount} Done</span>
-            <span className={`px-1.5 py-0.2 rounded-md font-mono text-[10px] font-bold ${
-              todayProgressPercent === 100 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
+          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+            <span className="truncate">{completedTodayCount} of {totalTodayCount} Done</span>
+            <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border border-white/20 ${
+              todayProgressPercent === 100 ? 'bg-emerald-400/30 text-white' : 'bg-white/20 text-white'
             }`}>
               {todayProgressPercent === 100 ? '✓ Complete' : 'In Sprint'}
             </span>
@@ -712,89 +716,101 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Card 2: Planned Runway & Focus Time */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/90 dark:bg-[#121424]/90 border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-xl shadow-xs hover:shadow-md hover:border-rose-500/30 transition-all flex flex-col justify-between group relative overflow-hidden">
-          <div className="flex items-center justify-between gap-1.5">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between gap-1.5">
+            <span className="text-xs sm:text-sm font-bold text-white/90">
               Planned Study
             </span>
-            <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
               <Clock className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
-          <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl sm:text-4xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
-              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-xl sm:text-2xl font-bold text-slate-400 ml-0.5">h</span>
+          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 flex-wrap">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
+              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-white/80 ml-0.5">h</span>
             </div>
-            <span className="text-xs font-mono font-bold text-rose-500 dark:text-rose-400">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/20 border border-white/20 text-white shrink-0">
               {(completedMinutes / 60).toFixed(1)}h finished
             </span>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold">
-            <span className="text-slate-500 dark:text-slate-400">Runway Remaining</span>
-            <span className="font-mono text-slate-700 dark:text-slate-300 font-bold">
+          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+            <span className="truncate">Runway Remaining</span>
+            <span className="font-mono text-white font-bold shrink-0">
               {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
             </span>
           </div>
         </div>
 
         {/* Card 3: Target Queue & Yield */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/90 dark:bg-[#121424]/90 border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-xl shadow-xs hover:shadow-md hover:border-sky-500/30 transition-all flex flex-col justify-between group relative overflow-hidden">
-          <div className="flex items-center justify-between gap-1.5">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between gap-1.5">
+            <span className="text-xs sm:text-sm font-bold text-white/90">
               Target Queue
             </span>
-            <div className="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
               <Target className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
-          <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl sm:text-4xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
               {plannerTasks.length}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <div className="flex items-center gap-1 shrink-0">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/20 border border-white/20 text-white">
                 {todayTasks.length} Today
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/20 border border-white/20 text-white">
                 {inProgressTasks.length} Focus
               </span>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold">
-            <span className="text-slate-500 dark:text-slate-400">Active Queue</span>
-            <span className="font-mono text-slate-700 dark:text-slate-300 font-bold">
+          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+            <span className="truncate">Active Queue</span>
+            <span className="font-mono text-white font-bold shrink-0">
               {upcomingTasks.length} Upcoming
             </span>
           </div>
         </div>
 
         {/* Card 4: Academic Level & XP Prestige */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/90 dark:bg-[#121424]/90 border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-xl shadow-xs hover:shadow-md hover:border-emerald-500/30 transition-all flex flex-col justify-between group relative overflow-hidden">
-          <div className="flex items-center justify-between gap-1.5">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
-              XP & Rank
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center justify-between gap-1.5">
+            <span className="text-xs sm:text-sm font-bold text-white/90">
+              XP &amp; Rank
             </span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
               <Award className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
-          <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl sm:text-4xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 min-w-0">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none whitespace-nowrap shrink-0">
               Lvl {profile.level}
             </div>
-            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono truncate max-w-[120px]">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-white/20 border border-white/20 text-white truncate max-w-[110px]">
               {profile.levelTitle || 'Scholar'}
             </span>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold">
-            <span className="text-slate-500 dark:text-slate-400">{profile.xp} Total XP</span>
-            <span className="font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+            <span className="truncate">{profile.xp} Total XP</span>
+            <span className="font-mono text-white font-bold shrink-0">
               +25 XP / target
             </span>
           </div>
