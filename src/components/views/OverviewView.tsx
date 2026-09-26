@@ -241,10 +241,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               soundManager.playClick();
               onOpenAddTopic();
             }}
-            className="h-10 sm:h-10.5 px-4 sm:px-5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-indigo-500/25 active:scale-95 transition-all cursor-pointer"
+            className="dashboard-add-task-btn group relative inline-flex items-center gap-2 h-10 sm:h-11 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-95 text-white font-extrabold text-xs sm:text-[13px] tracking-tight shadow-[0_4px_16px_rgba(79,70,229,0.35)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.45)] border border-indigo-400/30 transition-all duration-200 cursor-pointer overflow-hidden"
           >
-            <Plus className="w-4 h-4 stroke-[3]" />
-            <span>Add Task</span>
+            <div className="task-btn-icon-chip w-5 h-5 rounded-lg bg-white/20 dark:bg-black/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-90">
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+            </div>
+            <span className="font-grotesk">Add Task</span>
           </button>
         )}
       </div>

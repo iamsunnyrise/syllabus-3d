@@ -488,6 +488,27 @@
     color: #1C1B05 !important;
   }
 
+  /* Elevated Add Task Button in Warm Parchment */
+  html.warm-cream .dashboard-add-task-btn {
+    background: linear-gradient(135deg, #E8B342 0%, #D49D26 100%) !important;
+    color: #1A1604 !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 4px 16px rgba(225, 168, 55, 0.35), 0 1px 3px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  }
+
+  html.warm-cream .dashboard-add-task-btn:hover {
+    background: linear-gradient(135deg, #F0BF4E 0%, #DC9F22 100%) !important;
+    box-shadow: 0 6px 20px rgba(225, 168, 55, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  }
+
+  html.warm-cream .dashboard-add-task-btn * {
+    color: #1A1604 !important;
+  }
+
+  html.warm-cream .dashboard-add-task-btn .task-btn-icon-chip {
+    background-color: rgba(26, 22, 4, 0.12) !important;
+  }
+
   html.warm-cream .bg-blue-50,
   html.warm-cream .bg-indigo-50 {
     background-color: #F7EAD0 !important;

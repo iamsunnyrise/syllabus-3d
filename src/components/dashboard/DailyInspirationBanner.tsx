@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Quote, RefreshCw, Copy, Check, Sparkles, Timer } from 'lucide-react';
+import { Quote, RefreshCw, Sparkles, Timer } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 
@@ -106,7 +106,6 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isRotating, setIsRotating] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const currentQuote = INSPIRATIONAL_QUOTES[currentIndex] || INSPIRATIONAL_QUOTES[0];
 
@@ -116,20 +115,6 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
     setIsRotating(true);
     setCurrentIndex(prev => (prev + 1) % INSPIRATIONAL_QUOTES.length);
     setTimeout(() => setIsRotating(false), 400);
-  };
-
-  const handleCopyQuote = async () => {
-    try {
-      const fullText = `"${currentQuote.text}" — ${currentQuote.author}`;
-      await navigator.clipboard.writeText(fullText);
-      soundManager.playCompleteChime();
-      haptics.success();
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
-      setCopied(false);
-    }
   };
 
   return (
@@ -158,7 +143,7 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
             </span>
           </div>
 
-          {/* Quick Actions (Shuffle, Copy, Focus) */}
+          {/* Quick Actions (Shuffle, Focus) */}
           <div className="flex items-center gap-1.5">
             <button
               type="button"
@@ -172,20 +157,6 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
                   isRotating ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'group-hover:rotate-45'
                 }`}
               />
-            </button>
-
-            <button
-              type="button"
-              onClick={handleCopyQuote}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95"
-              title={copied ? "Copied to clipboard!" : "Copy quote"}
-              aria-label="Copy quote to clipboard"
-            >
-              {copied ? (
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 animate-bounce" />
-              ) : (
-                <Copy className="w-3.5 h-3.5" />
-              )}
             </button>
 
             {onOpenFocus && (
