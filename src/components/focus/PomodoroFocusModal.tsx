@@ -99,6 +99,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   const [activeSound, setActiveSound] = useState<AmbientSoundType>('binaural');
   const [soundVolume, setSoundVolume] = useState<number>(0.5);
 
+  // Mobile lower section active tab ('tasks' | 'music' | 'stats')
+  const [mobileTab, setMobileTab] = useState<'tasks' | 'music' | 'stats'>('tasks');
+
   // Timer Typography Font Selection
   const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
     return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'roboto-mono';
@@ -532,6 +535,283 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     return ticks;
   };
 
+  // Sub-timer Card 1: Today's Focus Checklist
+  const renderTodayFocusCard = () => (
+    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
+            <Target className="w-4 h-4" />
+          </div>
+          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Today's Focus</span>
+        </div>
+        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
+          {completedCount}/{totalTasksCount}
+        </span>
+      </div>
+
+      {/* Gradient Progress Bar */}
+      <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-[#0066FF] to-[#2563EB] transition-all duration-500"
+          style={{ width: `${taskProgressPercent}%` }}
+        />
+      </div>
+
+      {/* Task Checklist Items */}
+      <div className="space-y-2 pt-1 max-h-48 overflow-y-auto no-scrollbar">
+        {todayTasks.map((t, idx) => {
+          const isDone = t.status === 'completed';
+          return (
+            <div
+              key={t.id || idx}
+              className="flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors cursor-pointer group"
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  togglePlannerTask(t.id);
+                }}
+                className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-transform active:scale-90 ${
+                  isDone
+                    ? 'bg-gradient-to-br from-[#0066FF] to-[#2563EB] text-white shadow-xs'
+                    : 'border-2 border-slate-300 dark:border-white/30 group-hover:border-[#0066FF]'
+                }`}
+                title={isDone ? "Mark as in-progress" : "Mark as completed"}
+              >
+                {isDone && <Check className="w-3 h-3 stroke-[3]" />}
+              </button>
+
+              <span
+                onClick={() => {
+                  setSelectedTopicId(t.topicId || t.id);
+                  setSessionTopic(t.topicId || t.id, t.title, t.subjectName);
+                  soundManager.playClick();
+                }}
+                className={`text-xs font-semibold truncate select-none ${
+                  isDone
+                    ? 'line-through text-slate-400 dark:text-slate-500'
+                    : selectedTopicId === (t.topicId || t.id)
+                    ? 'text-[#0066FF] dark:text-[#38BDF8] font-bold'
+                    : 'text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                {t.title}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  // Sub-timer Card 2: Current Focus Target Topic
+  const renderCurrentTaskCard = () => (
+    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <Target className="w-4 h-4" />
+          </div>
+          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Current Target</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIsTopicSearchOpen(true)}
+          className="w-7 h-7 rounded-full bg-[#0066FF] text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+          title="Change Study Task"
+          aria-label="Change Topic"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Active Task Banner */}
+      <div
+        onClick={() => setIsTopicSearchOpen(true)}
+        className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/80 dark:border-white/10 hover:border-[#0066FF]/40 transition-all cursor-pointer group"
+      >
+        <div className="flex items-center gap-2.5 truncate min-w-0">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#0066FF] shrink-0" />
+          <span className="text-xs font-bold text-slate-900 dark:text-white truncate">
+            {selectedTopic ? selectedTopic.topic.name : 'Choose Topic to Focus'}
+          </span>
+        </div>
+
+        <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 transition-colors shrink-0 ml-2" />
+      </div>
+    </div>
+  );
+
+  // Sub-timer Card 3: Focus Music & Waveform Ambience
+  const renderFocusMusicCard = () => (
+    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] dark:text-[#A78BFA] flex items-center justify-center">
+            <Music className="w-4 h-4" />
+          </div>
+          <div>
+            <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Focus Ambience</h3>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{currentSoundTrack.label}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={handlePrevSound}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer active:scale-95"
+            title="Previous Track"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={handleNextSound}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer active:scale-95"
+            title="Next Track"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Sound Pills */}
+      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+        {SOUND_TRACKS.map(t => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveSound(t.id);
+            }}
+            className={`px-2.5 py-1 rounded-xl text-[11px] font-bold shrink-0 transition-all cursor-pointer ${
+              activeSound === t.id
+                ? 'bg-[#8B5CF6] text-white shadow-xs'
+                : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* 16-Bar Animated Live Equalizer Waveform */}
+      <div className="h-9 flex items-center justify-center gap-1 px-3 py-1 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5">
+        {[40, 75, 50, 90, 100, 45, 65, 85, 95, 55, 70, 80, 60, 90, 50, 75].map((h, idx) => (
+          <span
+            key={idx}
+            className={`w-1 rounded-full bg-gradient-to-t from-[#8B5CF6] to-[#38BDF8] transition-all duration-300 ${
+              isRunning && activeSound !== 'none' ? 'animate-bounce' : 'h-2 opacity-30'
+            }`}
+            style={{
+              height: isRunning && activeSound !== 'none' ? `${h}%` : '5px',
+              animationDelay: `${(idx % 5) * 0.12}s`,
+              animationDuration: '0.9s'
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Volume Slider */}
+      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-0.5">
+        <div className="flex items-center gap-1.5 w-full">
+          <Volume2 className="w-3.5 h-3.5 shrink-0" />
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={soundVolume}
+            onChange={e => setSoundVolume(Number(e.target.value))}
+            className="w-full h-1.5 bg-slate-200 dark:bg-white/15 rounded-lg appearance-none cursor-pointer accent-[#8B5CF6]"
+            title={`Volume: ${Math.round(soundVolume * 100)}%`}
+          />
+          <span className="text-[10px] font-mono shrink-0 w-7 text-right">
+            {Math.round(soundVolume * 100)}%
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Sub-timer Card 4: Session Stats 2x2 Bento Grid
+  const renderSessionStatsCard = () => (
+    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
+            <BarChart3 className="w-4 h-4" />
+          </div>
+          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Session Stats</span>
+        </div>
+        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-white/5">
+          Today ⌵
+        </span>
+      </div>
+
+      {/* 2x2 Bento Metrics */}
+      <div className="grid grid-cols-2 gap-2.5">
+        {/* Metric 1: Focus Time */}
+        <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <Clock className="w-3.5 h-3.5 text-[#0066FF]" />
+          </div>
+          <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
+            {statsMetrics.focusTime}
+          </div>
+          <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+            Focus Time
+          </div>
+        </div>
+
+        {/* Metric 2: Sessions */}
+        <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <Target className="w-3.5 h-3.5 text-[#8B5CF6]" />
+          </div>
+          <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
+            {statsMetrics.sessionsCount}
+          </div>
+          <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+            Sessions
+          </div>
+        </div>
+
+        {/* Metric 3: Focus Rate */}
+        <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <Flame className="w-3.5 h-3.5 text-amber-500" />
+          </div>
+          <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
+            {statsMetrics.focusRate}
+          </div>
+          <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+            Focus Rate
+          </div>
+        </div>
+
+        {/* Metric 4: Daily Goal */}
+        <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <BarChart3 className="w-3.5 h-3.5 text-emerald-500" />
+          </div>
+          <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
+            {statsMetrics.dailyGoal}
+          </div>
+          <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+            Daily Goal
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return createPortal(
     <div
       className="fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] bg-[#F8FAFC] dark:bg-[#090A12] text-slate-900 dark:text-white flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-300"
@@ -594,6 +874,25 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             ) : (
               <Moon className="w-4 h-4 text-indigo-600" />
             )}
+          </button>
+
+          {/* Quick Ambient Audio Toggle / Indicator */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              handleNextSound();
+            }}
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
+              activeSound !== 'none'
+                ? 'bg-[#0066FF]/15 text-[#0066FF] dark:text-[#38BDF8] border-[#0066FF]/30 shadow-xs'
+                : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+            }`}
+            title={`Ambient Audio: ${currentSoundTrack.label}. Click to switch tracks.`}
+            aria-label="Cycle Ambient Audio"
+          >
+            <Music className={`w-4 h-4 ${activeSound !== 'none' && isRunning ? 'animate-pulse text-[#0066FF] dark:text-[#38BDF8]' : ''}`} />
           </button>
 
           {/* Fullscreen Toggle (Hidden on small mobile screens to keep header stable) */}
@@ -705,10 +1004,10 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       </header>
 
       {/* 2. MAIN SCROLLABLE CONTENT (Mobile-Friendly, Rock-Solid Stability) */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-3.5 sm:px-6 py-4 sm:py-6 space-y-6 max-w-7xl mx-auto w-full relative z-20 pb-28 sm:pb-24">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full relative z-20 pb-36 sm:pb-28">
         
         {/* TOP SEGMENTED CAPSULE BAR (Aerospace Grade Segmented Control) */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center px-1">
           <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-slate-200/80 dark:bg-[#141628]/90 border border-slate-300/80 dark:border-white/[0.08] backdrop-blur-2xl shadow-sm max-w-full overflow-x-auto no-scrollbar gap-1 sm:gap-1.5">
             {[
               { id: 'focus', label: 'Focus', icon: GraduationCap, mins: focusDurationMinutes, mode: 'pomodoro' as TimerMode },
@@ -735,7 +1034,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                       setSessionMode(tab.mode, tab.mins);
                     }
                   }}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
+                  className={`flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
                     isActive
                       ? 'text-white font-black shadow-md'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/[0.06]'
@@ -746,7 +1045,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   }}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span>{tab.label}</span>
+                  <span className="hidden xs:inline">{tab.label}</span>
+                  <span className="xs:hidden">{tab.id === 'short' ? 'Short' : tab.id === 'long' ? 'Long' : tab.label}</span>
                   <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                     isActive ? 'bg-white/20 text-white' : 'bg-slate-300/60 dark:bg-white/10 text-slate-500 dark:text-slate-400'
                   }`}>
@@ -762,11 +1062,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
           
           {/* 🎯 CENTER COLUMN: HERO 3D CHRONOMETER DIAL */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2 my-2 sm:my-4">
+          <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2 my-1 sm:my-4">
             
             {/* 3D Elevated Chronograph Chassis */}
             <div
-              className={`relative w-76 h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 ${
+              className={`relative w-[275px] h-[275px] xs:w-76 xs:h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 ${
                 isRunning ? 'ring-2 sm:ring-4 ring-offset-2 dark:ring-offset-black' : ''
               }`}
               style={{
@@ -1037,284 +1337,145 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 </button>
               </div>
 
-              {/* Keyboard Shortcut Hint */}
-              <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+              {/* Keyboard Shortcut Hint (Desktop only) */}
+              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 dark:text-slate-500">
                 Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> to {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> to reset
               </span>
-            </div>
-          </div>
 
-          {/* ◀️ LEFT COLUMN: Today's Focus Checklist & Focus Music (Order 2 on mobile, Order 1 on desktop) */}
-          <div className="lg:col-span-3 space-y-4 order-2 lg:order-1">
-            
-            {/* CARD 1: "Today's Focus" */}
-            <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
-                    <Target className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Today's Focus</span>
-                </div>
-                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
-                  {completedCount}/{totalTasksCount}
+              {/* Mobile Live Flow Indicator Pill (Mobile only) */}
+              <div className="sm:hidden flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/10 text-[11px] font-bold text-slate-700 dark:text-slate-200 shadow-2xs">
+                <span className="w-2 h-2 rounded-full animate-ping" style={{ backgroundColor: modeTheme.primary }} />
+                <span>
+                  {isRunning
+                    ? session.mode === 'stopwatch'
+                      ? '⏱ Stopwatch Running'
+                      : '⚡ Focus Session in Flow'
+                    : isPaused
+                    ? '⏸ Paused'
+                    : '🎯 Ready to Launch'}
+                </span>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="text-slate-500 dark:text-slate-400 font-mono">
+                  {completedCount}/{totalTasksCount} Tasks
                 </span>
               </div>
-
-              {/* Gradient Progress Bar */}
-              <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#0066FF] to-[#2563EB] transition-all duration-500"
-                  style={{ width: `${taskProgressPercent}%` }}
-                />
-              </div>
-
-              {/* Task Checklist Items */}
-              <div className="space-y-2 pt-1 max-h-48 overflow-y-auto no-scrollbar">
-                {todayTasks.map((t, idx) => {
-                  const isDone = t.status === 'completed';
-                  return (
-                    <div
-                      key={t.id || idx}
-                      className="flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors cursor-pointer group"
-                    >
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          togglePlannerTask(t.id);
-                        }}
-                        className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-transform active:scale-90 ${
-                          isDone
-                            ? 'bg-gradient-to-br from-[#0066FF] to-[#2563EB] text-white shadow-xs'
-                            : 'border-2 border-slate-300 dark:border-white/30 group-hover:border-[#0066FF]'
-                        }`}
-                        title={isDone ? "Mark as in-progress" : "Mark as completed"}
-                      >
-                        {isDone && <Check className="w-3 h-3 stroke-[3]" />}
-                      </button>
-
-                      <span
-                        onClick={() => {
-                          setSelectedTopicId(t.topicId || t.id);
-                          setSessionTopic(t.topicId || t.id, t.title, t.subjectName);
-                          soundManager.playClick();
-                        }}
-                        className={`text-xs font-semibold truncate select-none ${
-                          isDone
-                            ? 'line-through text-slate-400 dark:text-slate-500'
-                            : selectedTopicId === (t.topicId || t.id)
-                            ? 'text-[#0066FF] dark:text-[#38BDF8] font-bold'
-                            : 'text-slate-800 dark:text-slate-200'
-                        }`}
-                      >
-                        {t.title}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
             </div>
 
-            {/* CARD 2: "Focus Music" with Lo-Fi & Live Equalizer */}
-            <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
-                    <Music className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Focus Music</h3>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{currentSoundTrack.label}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-1">
+            {/* MOBILE SUB-TIMER DECK (Sleek Segmented Tabs for Tasks, Ambience, and Stats) */}
+            <div className="lg:hidden w-full max-w-md mx-auto space-y-3 pt-3">
+              {/* Mobile Segmented Switcher */}
+              <div className="flex items-center justify-center">
+                <div className="flex items-center p-1 rounded-2xl bg-white/80 dark:bg-[#121424]/90 border border-slate-200/90 dark:border-white/10 shadow-sm backdrop-blur-xl w-full gap-1">
                   <button
                     type="button"
-                    onClick={handlePrevSound}
-                    className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer active:scale-95"
-                    title="Previous Track"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNextSound}
-                    className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer active:scale-95"
-                    title="Next Track"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* 16-Bar Animated Live Equalizer Waveform */}
-              <div className="h-9 flex items-center justify-center gap-1 px-3 py-1 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5">
-                {[40, 75, 50, 90, 100, 45, 65, 85, 95, 55, 70, 80, 60, 90, 50, 75].map((h, idx) => (
-                  <span
-                    key={idx}
-                    className={`w-1 rounded-full bg-gradient-to-t from-[#0066FF] to-[#38BDF8] transition-all duration-300 ${
-                      isRunning && activeSound !== 'none' ? 'animate-bounce' : 'h-2 opacity-30'
-                    }`}
-                    style={{
-                      height: isRunning && activeSound !== 'none' ? `${h}%` : '5px',
-                      animationDelay: `${(idx % 5) * 0.12}s`,
-                      animationDuration: '0.9s'
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setMobileTab('tasks');
                     }}
-                  />
-                ))}
-              </div>
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      mobileTab === 'tasks'
+                        ? 'bg-[#0066FF] text-white font-black shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Target className="w-3.5 h-3.5" />
+                    <span>Tasks ({completedCount}/{totalTasksCount})</span>
+                  </button>
 
-              {/* Volume Slider */}
-              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-0.5">
-                <div className="flex items-center gap-1.5 w-full">
-                  <Volume2 className="w-3.5 h-3.5 shrink-0" />
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value={soundVolume}
-                    onChange={e => setSoundVolume(Number(e.target.value))}
-                    className="w-full h-1.5 bg-slate-200 dark:bg-white/15 rounded-lg appearance-none cursor-pointer accent-[#0066FF]"
-                    title={`Volume: ${Math.round(soundVolume * 100)}%`}
-                  />
-                  <span className="text-[10px] font-mono shrink-0 w-7 text-right">
-                    {Math.round(soundVolume * 100)}%
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setMobileTab('music');
+                    }}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      mobileTab === 'music'
+                        ? 'bg-[#8B5CF6] text-white font-black shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Music className="w-3.5 h-3.5" />
+                    <span>Ambience</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setMobileTab('stats');
+                    }}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      mobileTab === 'stats'
+                        ? 'bg-emerald-600 text-white font-black shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <BarChart3 className="w-3.5 h-3.5" />
+                    <span>Stats</span>
+                  </button>
                 </div>
               </div>
+
+              {/* Mobile Tab 1: Tasks */}
+              {mobileTab === 'tasks' && (
+                <div className="space-y-3 animate-fade-in">
+                  {renderCurrentTaskCard()}
+                  {renderTodayFocusCard()}
+                </div>
+              )}
+
+              {/* Mobile Tab 2: Ambience */}
+              {mobileTab === 'music' && (
+                <div className="animate-fade-in">
+                  {renderFocusMusicCard()}
+                </div>
+              )}
+
+              {/* Mobile Tab 3: Stats */}
+              {mobileTab === 'stats' && (
+                <div className="animate-fade-in">
+                  {renderSessionStatsCard()}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* ▶️ RIGHT COLUMN: Session Stats & Current Task (Order 3) */}
-          <div className="lg:col-span-3 space-y-4 order-3">
-            
-            {/* CARD 1: "Session Stats" (2x2 Bento Metric Grid) */}
-            <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
-                    <BarChart3 className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Session Stats</span>
-                </div>
-                <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-white/5">
-                  Today ⌵
-                </span>
-              </div>
+          {/* ◀️ LEFT COLUMN (Desktop Studio Layout): Today's Focus & Ambience */}
+          <div className="hidden lg:block lg:col-span-3 space-y-4 order-2 lg:order-1">
+            {renderTodayFocusCard()}
+            {renderFocusMusicCard()}
+          </div>
 
-              {/* 2x2 Bento Metrics */}
-              <div className="grid grid-cols-2 gap-2.5">
-                {/* Metric 1: Focus Time */}
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <Clock className="w-3.5 h-3.5 text-[#0066FF]" />
-                  </div>
-                  <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
-                    {statsMetrics.focusTime}
-                  </div>
-                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                    Focus Time
-                  </div>
-                </div>
-
-                {/* Metric 2: Sessions */}
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <Target className="w-3.5 h-3.5 text-[#8B5CF6]" />
-                  </div>
-                  <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
-                    {statsMetrics.sessionsCount}
-                  </div>
-                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                    Sessions
-                  </div>
-                </div>
-
-                {/* Metric 3: Focus Rate */}
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <Flame className="w-3.5 h-3.5 text-amber-500" />
-                  </div>
-                  <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
-                    {statsMetrics.focusRate}
-                  </div>
-                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                    Focus Rate
-                  </div>
-                </div>
-
-                {/* Metric 4: Daily Goal */}
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <BarChart3 className="w-3.5 h-3.5 text-emerald-500" />
-                  </div>
-                  <div className="text-sm sm:text-base font-black font-mono text-slate-900 dark:text-white">
-                    {statsMetrics.dailyGoal}
-                  </div>
-                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                    Daily Goal
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* CARD 2: "Current Task" */}
-            <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-                    <Target className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Current Task</span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setIsTopicSearchOpen(true)}
-                  className="w-7 h-7 rounded-full bg-[#0066FF] text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer"
-                  title="Change Study Task"
-                  aria-label="Change Topic"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Active Task Banner */}
-              <div
-                onClick={() => setIsTopicSearchOpen(true)}
-                className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/80 dark:border-white/10 hover:border-[#0066FF]/40 transition-all cursor-pointer group"
-              >
-                <div className="flex items-center gap-2.5 truncate min-w-0">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#0066FF] shrink-0" />
-                  <span className="text-xs font-bold text-slate-900 dark:text-white truncate">
-                    {selectedTopic ? selectedTopic.topic.name : 'Choose Topic to Focus'}
-                  </span>
-                </div>
-
-                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 transition-colors shrink-0 ml-2" />
-              </div>
-            </div>
+          {/* ▶️ RIGHT COLUMN (Desktop Studio Layout): Session Stats & Current Task */}
+          <div className="hidden lg:block lg:col-span-3 space-y-4 order-3">
+            {renderSessionStatsCard()}
+            {renderCurrentTaskCard()}
           </div>
         </div>
       </main>
 
-      {/* 3. FLOATING BOTTOM SEGMENTED TIMER SELECTOR CAPSULE (Always Accessible On Mobile & Desktop) */}
-      <div className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] pointer-events-auto">
-        <div className="inline-flex items-center p-1 rounded-full bg-white/95 dark:bg-[#131522]/95 border border-slate-300/80 dark:border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.8)] backdrop-blur-2xl overflow-x-auto no-scrollbar gap-1">
+      {/* 3. FLOATING BOTTOM SEGMENTED TIMER SELECTOR CAPSULE */}
+      <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xs sm:max-w-sm pointer-events-auto">
+        <div className="flex items-center p-1 sm:p-1.5 rounded-full bg-slate-900/90 dark:bg-[#0E101D]/95 border border-slate-700/60 dark:border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl">
           {[
-            { id: 'pomodoro', label: 'Pomodoro', icon: Zap, mode: 'pomodoro' as TimerMode },
-            { id: 'countdown', label: 'Countdown', icon: Hourglass, mode: 'timer' as TimerMode },
-            { id: 'stopwatch', label: 'Stopwatch', icon: StopwatchIcon, mode: 'stopwatch' as TimerMode },
-            { id: 'whitenoise', label: 'White Noise', icon: Waves, mode: 'pomodoro' as TimerMode }
+            { id: 'pomodoro', label: 'Pomodoro', icon: Zap, mode: 'pomodoro' },
+            { id: 'countdown', label: 'Countdown', icon: Hourglass, mode: 'timer' },
+            { id: 'stopwatch', label: 'Stopwatch', icon: StopwatchIcon, mode: 'stopwatch' },
           ].map(tool => {
             const Icon = tool.icon;
             const isActive = (tool.id === 'pomodoro' && session.mode === 'pomodoro') ||
               (tool.id === 'countdown' && session.mode === 'timer') ||
-              (tool.id === 'stopwatch' && session.mode === 'stopwatch') ||
-              (tool.id === 'whitenoise' && activeSound !== 'none');
+              (tool.id === 'stopwatch' && session.mode === 'stopwatch');
+
+            // Dynamic color matching the timer's current active visual theme
+            const activeColorClass = tool.id === 'pomodoro'
+              ? 'bg-gradient-to-r from-[#0066FF] to-[#2563EB] text-white shadow-md shadow-blue-500/35 ring-1 ring-white/20'
+              : tool.id === 'countdown'
+              ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/35 ring-1 ring-white/20'
+              : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/35 ring-1 ring-white/20';
 
             return (
               <button
@@ -1323,9 +1484,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 onClick={() => {
                   soundManager.playClick();
                   haptics.selection();
-                  if (tool.id === 'whitenoise') {
-                    handleNextSound();
-                  } else if (tool.id === 'countdown') {
+                  if (tool.id === 'countdown') {
                     setSessionMode('timer', customTimerMinutes);
                   } else if (tool.id === 'stopwatch') {
                     setSessionMode('stopwatch', 0);
@@ -1333,10 +1492,10 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     setSessionMode('pomodoro', focusDurationMinutes);
                   }
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
+                className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#0066FF] to-[#2563EB] text-white font-black shadow-md shadow-blue-500/30'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]'
+                    ? `${activeColorClass} font-black`
+                    : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -1346,6 +1505,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           })}
         </div>
       </div>
+
+      {/* Smooth Bottom Ambient Scrim to prevent content clashes when scrolling behind bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-30 sm:hidden" />
 
       {/* TOPIC SEARCH MODAL OVERLAY */}
       {isTopicSearchOpen && (
