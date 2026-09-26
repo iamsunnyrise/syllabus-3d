@@ -809,18 +809,18 @@ export const PlatformsView: React.FC = () => {
                     setSelectedCategory(tab.id);
                     soundManager.playClick();
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 flex items-center gap-1.5 shrink-0 ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 flex items-center gap-1.5 shrink-0 ${
                     isSelected
-                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm font-bold'
-                      : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm'
+                      : 'bg-slate-100 dark:bg-[#1B1C28] text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
                   }`}
                 >
                   <span>{tab.label}</span>
                   {tab.count > 0 && (
-                    <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-mono tabular-nums ${
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-black ${
                       isSelected
-                        ? 'bg-white/20 dark:bg-slate-900/15 text-white dark:text-slate-900 font-bold'
-                        : 'bg-slate-200 dark:bg-slate-700/60 text-slate-500 dark:text-slate-400'
+                        ? 'bg-white/30 text-white dark:bg-slate-900/30 dark:text-slate-900'
+                        : 'bg-slate-200 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200'
                     }`}>
                       {tab.count}
                     </span>
@@ -906,29 +906,17 @@ export const PlatformsView: React.FC = () => {
                   
                   {/* LEFT STEP INFOGRAPHIC BLOCK */}
                   <div
-                    className="relative w-full sm:w-28 md:w-32 shrink-0 py-3.5 sm:py-5 px-3 flex flex-row sm:flex-col items-center justify-between sm:justify-center text-center overflow-hidden"
+                    className="relative w-full sm:w-28 md:w-32 shrink-0 py-4 sm:py-6 px-3 flex items-center justify-center text-center overflow-hidden select-none"
                     style={{ background: stepGradient }}
                   >
                     {/* Top Gloss Highlight Edge (Signature Infographic Detail from Reference) */}
                     <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
                     <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
                     
-                    {/* Step Title & Number */}
-                    <div className="flex flex-col items-start sm:items-center">
-                      <span className="text-[10px] sm:text-[11px] font-mono font-black tracking-widest text-white/90 uppercase drop-shadow-xs">
-                        STEP
-                      </span>
-                      <span className="text-2xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none mt-0.5 sm:mt-1 drop-shadow-sm">
-                        {stepNumber}
-                      </span>
-                    </div>
-
-                    {/* Category Label Chip on Left Block */}
-                    <div className="sm:mt-2.5 text-right sm:text-center">
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-black/25 text-white/95 border border-white/20 backdrop-blur-xs max-w-[95px] truncate">
-                        {categoryBadgeLabel}
-                      </span>
-                    </div>
+                    {/* Pure Centered Number (Without 'STEP') */}
+                    <span className="text-3xl sm:text-5xl md:text-6xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-md">
+                      {stepNumber}
+                    </span>
                   </div>
 
                   {/* RIGHT MAIN CONTENT AREA */}
@@ -938,8 +926,8 @@ export const PlatformsView: React.FC = () => {
                     <div className="flex items-center justify-between gap-2 min-w-0">
                       <div className="flex items-center gap-2 min-w-0 flex-1">
                         <h2
-                          className="text-base sm:text-lg font-black uppercase tracking-tight truncate font-sans"
-                          style={{ color: accentColor }}
+                          className="text-base sm:text-lg font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
+                          style={{ color: isKnownBrand && theme.name !== 'X (Twitter)' ? accentColor : undefined }}
                           title={platform.name}
                         >
                           {platform.name}
@@ -959,14 +947,14 @@ export const PlatformsView: React.FC = () => {
                       </div>
 
                       {/* Quick Card Tool Controls: Pin, Edit, Delete */}
-                      <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
                         <button
                           type="button"
                           onClick={(e) => handleTogglePin(e, platform.id)}
-                          className={`w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg flex items-center justify-center transition-all cursor-pointer active:scale-90 ${
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer active:scale-90 border shadow-2xs ${
                             platform.pinned
-                              ? 'bg-amber-400 text-slate-950 font-bold shadow-xs'
-                              : 'text-slate-400 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                              ? 'bg-amber-400 text-slate-950 font-bold border-amber-500 shadow-xs'
+                              : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700'
                           }`}
                           title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
                           aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
@@ -977,7 +965,7 @@ export const PlatformsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={(e) => handleEdit(e, platform)}
-                          className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-blue-950/40 text-slate-700 hover:text-blue-600 dark:text-slate-200 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-2xs"
                           title="Edit portal"
                           aria-label={`Edit ${platform.name}`}
                         >
@@ -987,7 +975,7 @@ export const PlatformsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={(e) => handleDelete(e, platform)}
-                          className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-rose-950/40 text-slate-700 hover:text-rose-600 dark:text-slate-200 dark:hover:text-rose-400 border border-slate-200 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-600 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-2xs"
                           title="Delete portal"
                           aria-label={`Delete ${platform.name}`}
                         >
@@ -996,31 +984,36 @@ export const PlatformsView: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Middle Row: Signature 4-Dot Infographic Track from Reference UI */}
-                    <div className="flex items-center gap-1.5 select-none py-0.5">
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                      <span className="w-2.5 h-2.5 rounded-full opacity-35" style={{ backgroundColor: accentColor }} />
+                    {/* Middle Row: Signature 4-Dot Infographic Track + Full Category Badge */}
+                    <div className="flex items-center gap-2 select-none py-0.5 flex-wrap">
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                        <span className="w-2.5 h-2.5 rounded-full opacity-35" style={{ backgroundColor: accentColor }} />
+                      </div>
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">
+                        {categoryBadgeLabel}
+                      </span>
                     </div>
 
-                    {/* Description Text */}
-                    <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed min-h-[36px]">
+                    {/* Description Text (Crisp, High Contrast) */}
+                    <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium line-clamp-2 leading-relaxed min-h-[36px]">
                       {formatReadableText(platform.description) || `Direct access to ${cleanDomain} resources and tests.`}
                     </p>
 
                     {/* Bottom Row: Domain Badge, Login Hint & Open Button */}
-                    <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-2 mt-auto">
+                    <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto">
                       <div className="flex items-center gap-1.5 min-w-0 flex-1">
                         <a
                           href={platform.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-[11px] font-mono text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-white/10 truncate transition-colors max-w-[140px] sm:max-w-[200px]"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[11px] font-mono font-bold text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 truncate transition-colors max-w-[140px] sm:max-w-[200px] shadow-2xs"
                           title={`Visit ${cleanDomain}`}
                         >
-                          <Globe className="w-3 h-3 text-slate-400 shrink-0" />
+                          <Globe className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
                           <span className="truncate">{cleanDomain}</span>
                         </a>
 
@@ -1028,12 +1021,12 @@ export const PlatformsView: React.FC = () => {
                           <button
                             type="button"
                             onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
-                            className="hidden min-[480px]:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 transition-all cursor-pointer"
+                            className="hidden min-[480px]:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-[10px] font-mono font-bold text-amber-800 dark:text-amber-200 transition-all cursor-pointer shadow-2xs"
                             title={`Click to copy login: ${platform.loginHint}`}
                             aria-label={`Copy credentials: ${platform.loginHint}`}
                           >
-                            <KeyRound className="w-2.5 h-2.5 text-amber-500" />
-                            <span className="truncate max-w-[85px]">{isCopied ? 'Copied!' : platform.loginHint}</span>
+                            <KeyRound className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                            <span className="truncate max-w-[90px]">{isCopied ? 'Copied!' : platform.loginHint}</span>
                           </button>
                         )}
                       </div>
@@ -1046,7 +1039,7 @@ export const PlatformsView: React.FC = () => {
                           e.stopPropagation();
                           soundManager.playClick();
                         }}
-                        className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shrink-0 ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
+                        className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shrink-0 shadow-sm ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
                         style={theme.buttonStyle || { backgroundColor: accentColor, color: '#FFFFFF' }}
                         aria-label={`Open ${platform.name}`}
                       >
