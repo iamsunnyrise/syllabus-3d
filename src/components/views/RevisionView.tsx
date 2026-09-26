@@ -482,22 +482,33 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
             <button
               type="button"
               onClick={() => {
-                soundManager.playClick();
-                onOpenRevisionSession();
+                if (dueRevisions.length > 0) {
+                  soundManager.playClick();
+                  onOpenRevisionSession();
+                }
               }}
               disabled={dueRevisions.length === 0}
-              className={`col-span-2 sm:col-span-1 h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-indigo-500/20 active:scale-95 ${
+              className={`col-span-2 sm:col-span-1 h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 ${
                 dueRevisions.length > 0
-                  ? 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white'
-                  : 'bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 border border-slate-200/50 dark:border-white/5 cursor-not-allowed pointer-events-none'
+                  ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/25 cursor-pointer active:scale-95'
+                  : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-2xs cursor-default'
               }`}
             >
-              <Play className={`w-3.5 h-3.5 shrink-0 ${dueRevisions.length > 0 ? 'fill-current' : ''}`} />
-              <span className="font-black">
-                {dueRevisions.length > 0
-                  ? `Start Due Revision (${dueRevisions.length})`
-                  : 'All Revisions Cleared ✓'}
-              </span>
+              {dueRevisions.length > 0 ? (
+                <>
+                  <Play className="w-3.5 h-3.5 fill-current shrink-0 text-white" />
+                  <span className="font-bold text-white">
+                    Start Due Revision ({dueRevisions.length})
+                  </span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span className="font-bold text-emerald-700 dark:text-emerald-300">
+                    All Revisions Cleared ✓
+                  </span>
+                </>
+              )}
             </button>
           </div>
         </div>

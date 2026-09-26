@@ -57,7 +57,7 @@ export const PacingView: React.FC<PacingViewProps> = ({
   }, [examDate, overallStats, activityHistory]);
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-36 sm:pb-24 font-sans max-w-5xl mx-auto px-1 sm:px-0 animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-24 font-sans max-w-5xl mx-auto px-1 sm:px-0 animate-fade-in">
       
       {/* 🖨️ PRINT-ONLY DESK REVISION SUMMARY HEADER */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -127,11 +127,11 @@ export const PacingView: React.FC<PacingViewProps> = ({
               soundManager.playClick();
               setIsEditExamModalOpen(true);
             }}
-            className="flex-1 sm:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             title="Change target exam date"
           >
-            <Calendar className="w-4 h-4 shrink-0" />
-            <span>Change Target Date</span>
+            <Calendar className="w-4 h-4 shrink-0 text-white" />
+            <span className="text-white font-bold">Change Target Date</span>
           </button>
         </div>
       </div>
