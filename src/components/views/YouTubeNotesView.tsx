@@ -753,15 +753,19 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         </div>
 
         {/* 1-Click Direct Generation Banner */}
-        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#7C3AED] text-white shadow-md shadow-indigo-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade">
-          <div className="flex items-start sm:items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-white/20 text-white shrink-0 mt-0.5 sm:mt-0">
+        <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#7C3AED] text-white overflow-hidden border border-indigo-300/40 dark:border-indigo-400/25 shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-start sm:items-center gap-3">
+            <div className="p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 text-white shrink-0 mt-0.5 sm:mt-0 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <p className="text-xs sm:text-sm font-black">1-Click Direct Notes Generator</p>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-xs border border-white/25 text-white shadow-xs">
                   gemini-3.6-flash
                 </span>
               </div>
@@ -779,7 +783,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               setShowApiKeyModal(true);
               soundManager.playClick?.();
             }}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black bg-white text-indigo-950 hover:bg-white/90 shadow-md transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
+            className="relative z-10 w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black bg-white text-indigo-950 hover:bg-white/90 shadow-md transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
           >
             <KeyRound className="w-3.5 h-3.5" />
             <span>{apiKey ? 'Manage Gemini Key' : 'Optional: Add Personal Key'}</span>
@@ -787,9 +791,13 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         </div>
 
         {/* ═══════════════ 2. GOLDEN AMBER AI ENGINE & QUICK STATS BANNER ═══════════════ */}
-        <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md shadow-amber-500/15">
-          <div className="flex items-center gap-3.5 min-w-0">
-            <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">⚡</span>
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 overflow-hidden border border-amber-300/60 dark:border-amber-400/30 shadow-[0_12px_32px_-4px_rgba(251,133,0,0.32),0_4px_12px_-2px_rgba(251,133,0,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(251,133,0,0.45),0_6px_16px_-2px_rgba(251,133,0,0.25)] hover:-translate-y-0.5 transition-all duration-300">
+          {/* Top Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/25 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center gap-3.5 min-w-0">
+            <span className="text-3xl sm:text-4xl select-none leading-none shrink-0 drop-shadow-xs">⚡</span>
             <div className="min-w-0">
               <div className="text-xl sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight">
                 Instant Video-to-Notes Engine
@@ -799,7 +807,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </div>
             </div>
           </div>
-          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto">
+          <div className="relative z-10 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 backdrop-blur-xs border border-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto shadow-xs">
             <Sparkles className="w-3.5 h-3.5 fill-current" />
             <span>1-Click Gemini 3.6 Direct Mode</span>
           </div>
@@ -808,14 +816,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
         {/* ═══════════════ 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS ═══════════════ */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Card 1: Purple Gradient -> Saved Notes Library */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
-            <div className="flex items-center justify-between">
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between overflow-hidden border border-purple-300/40 dark:border-purple-400/25 shadow-[0_12px_32px_-4px_rgba(124,58,237,0.35),0_4px_12px_-2px_rgba(124,58,237,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(124,58,237,0.48),0_6px_16px_-2px_rgba(124,58,237,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-white/90">Saved Notes</span>
-              <div className="p-2 rounded-xl bg-white/20">
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
+            <div className="relative z-10 mt-3 sm:mt-4">
               <div className="text-2xl sm:text-3xl font-black font-sans leading-none tabular-nums">
                 {savedNotes.length}
               </div>
@@ -826,14 +838,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </div>
 
           {/* Card 2: Hot Coral Gradient -> AI Engine Mode */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
-            <div className="flex items-center justify-between">
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-white/90">AI Model</span>
-              <div className="p-2 rounded-xl bg-white/20">
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
                 <Zap className="w-4 h-4 text-white" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
+            <div className="relative z-10 mt-3 sm:mt-4">
               <div className="text-xl sm:text-2xl font-black font-sans leading-none truncate">
                 gemini-3.6
               </div>
@@ -844,14 +860,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </div>
 
           {/* Card 3: Sky Blue Gradient -> STEM & Formulas */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
-            <div className="flex items-center justify-between">
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-white/90">STEM Precision</span>
-              <div className="p-2 rounded-xl bg-white/20">
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
                 <FileText className="w-4 h-4 text-white" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
+            <div className="relative z-10 mt-3 sm:mt-4">
               <div className="text-xl sm:text-2xl font-black font-sans leading-none">
                 KaTeX / LaTeX
               </div>
@@ -862,14 +882,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
           </div>
 
           {/* Card 4: Emerald Gradient -> Syllabus Integration */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
-            <div className="flex items-center justify-between">
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-white/90">Syllabus Link</span>
-              <div className="p-2 rounded-xl bg-white/20">
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
                 <BookmarkPlus className="w-4 h-4 text-white" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
+            <div className="relative z-10 mt-3 sm:mt-4">
               <div className="text-xl sm:text-2xl font-black font-sans leading-none">
                 1-Click Attach
               </div>
