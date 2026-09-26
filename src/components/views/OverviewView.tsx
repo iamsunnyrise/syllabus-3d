@@ -252,49 +252,144 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       {/* 2. MOTIVATIONAL QUOTE BANNER (Interactive Daily Inspiration Hub) */}
       <DailyInspirationBanner onOpenFocus={onOpenFocus} />
 
-      {/* 3. 4 VIBRANT METRIC KPI CARDS (Purple, Hot Pink, Cyan, Mint Green) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        
-        {/* Card 1: Purple Gradient - Total Topics */}
-        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#5346E8] to-[#3B2FB3] text-white shadow-md shadow-indigo-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
-          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
-            {overallStats.totalTopics || 0}
-          </div>
-          <div className="text-xs sm:text-sm font-bold text-white/90">
-            Total Topics
-          </div>
-        </div>
+      {/* 3. 4 INFOGRAPHIC METRIC KPI CARDS (Matching Website Portal Card UI) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5">
+        {[
+          {
+            stepNumber: '01',
+            title: 'TOTAL TOPICS',
+            value: overallStats.totalTopics || 0,
+            icon: BookOpen,
+            badge: 'SYLLABUS',
+            description: 'All curriculum topics tracked across subjects.',
+            gradient: 'linear-gradient(135deg, #10B981 0%, #059669 55%, #047857 100%)',
+            accentColor: '#10B981',
+            footerLeft: 'Active Topics',
+            footerRight: `${overallStats.totalTopics || 0} Total`
+          },
+          {
+            stepNumber: '02',
+            title: 'COMPLETED',
+            value: overallStats.completedCount || 0,
+            icon: CheckCircle2,
+            badge: 'MASTERED',
+            description: 'Topics mastered with complete revisions.',
+            gradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 55%, #075985 100%)',
+            accentColor: '#0284C7',
+            footerLeft: 'Completed',
+            footerRight: `${overallStats.completedCount || 0} Done`
+          },
+          {
+            stepNumber: '03',
+            title: 'STUDY HOURS',
+            value: totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0',
+            icon: Clock,
+            badge: 'LOGGED TIME',
+            description: 'Total focus hours dedicated to study sanctum.',
+            gradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 55%, #B45309 100%)',
+            accentColor: '#F59E0B',
+            footerLeft: 'Focus Hours',
+            footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`
+          },
+          {
+            stepNumber: '04',
+            title: 'COMPLETION RATE',
+            value: `${overallStats.completionPercentage || 0}%`,
+            icon: Target,
+            badge: 'MASTERY',
+            description: 'Cumulative progress across current syllabus.',
+            gradient: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 55%, #6D28D9 100%)',
+            accentColor: '#8B5CF6',
+            footerLeft: 'Overall Rate',
+            footerRight: `${overallStats.completionPercentage || 0}%`
+          }
+        ].map((card) => {
+          const Icon = card.icon;
+          return (
+            <div
+              key={card.stepNumber}
+              className="group relative rounded-2xl sm:rounded-3xl bg-slate-100/90 dark:bg-[#121422] p-1.5 sm:p-2 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 select-none flex flex-col"
+            >
+              {/* Inner Elevated Card Plate */}
+              <div className="relative w-full rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A2A] border border-slate-200/70 dark:border-white/[0.07] shadow-xs flex flex-col overflow-hidden flex-1">
+                
+                {/* TOP STEP INFOGRAPHIC BLOCK */}
+                <div
+                  className="relative w-full py-3 sm:py-4 px-3 flex items-center justify-center text-center overflow-hidden select-none"
+                  style={{ background: card.gradient }}
+                >
+                  {/* Top Gloss Highlight Edge (Signature Infographic Detail from Reference) */}
+                  <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
+                  <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
+                  
+                  {/* Pure Centered Number (Without 'STEP') */}
+                  <span className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-md">
+                    {card.stepNumber}
+                  </span>
+                </div>
 
-        {/* Card 2: Hot Pink/Coral Gradient - Completed */}
-        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#FF4E8D] to-[#E92A67] text-white shadow-md shadow-pink-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
-          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
-            {overallStats.completedCount || 0}
-          </div>
-          <div className="text-xs sm:text-sm font-bold text-white/90">
-            Completed
-          </div>
-        </div>
+                {/* MAIN CONTENT AREA */}
+                <div className="p-3 sm:p-4 flex flex-col justify-between flex-1 space-y-2.5">
+                  
+                  {/* Header Row: Title | Icon */}
+                  <div className="flex items-center justify-between gap-1.5 min-w-0">
+                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                      <h2
+                        className="text-[11px] sm:text-xs font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
+                        style={{ color: card.accentColor }}
+                        title={card.title}
+                      >
+                        {card.title}
+                      </h2>
 
-        {/* Card 3: Sky Blue/Cyan Gradient - Study Hours */}
-        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00D2FF] to-[#0099FF] text-white shadow-md shadow-cyan-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
-          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
-            {totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}
-          </div>
-          <div className="text-xs sm:text-sm font-bold text-white/90">
-            Study Hours
-          </div>
-        </div>
+                      <span className="text-slate-300 dark:text-slate-600 font-light select-none text-xs shrink-0">
+                        |
+                      </span>
 
-        {/* Card 4: Neon Mint/Emerald Gradient - Completion Rate */}
-        <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#00F2A9] to-[#00BA74] text-white shadow-md shadow-emerald-500/15 flex flex-col justify-between min-h-[120px] transition-transform hover:scale-[1.01]">
-          <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
-            {overallStats.completionPercentage || 0}%
-          </div>
-          <div className="text-xs sm:text-sm font-bold text-white/90">
-            Completion Rate
-          </div>
-        </div>
+                      <div
+                        className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                        style={{ color: card.accentColor }}
+                      >
+                        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 drop-shadow-xs" />
+                      </div>
+                    </div>
 
+                    {/* Category / Scope Pill Badge */}
+                    <span className="px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0">
+                      {card.badge}
+                    </span>
+                  </div>
+
+                  {/* Middle Row: Signature 4-Dot Infographic Track + Metric Value */}
+                  <div className="flex items-baseline justify-between gap-1 select-none py-0.5">
+                    <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
+                      {card.value}
+                    </div>
+
+                    {/* Signature 4-Dot Track */}
+                    <div className="flex items-center gap-1 shrink-0">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
+                      <span className="w-2 h-2 rounded-full opacity-35" style={{ backgroundColor: card.accentColor }} />
+                    </div>
+                  </div>
+
+                  {/* Description Text (Crisp, High Contrast) */}
+                  <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium line-clamp-1 leading-relaxed">
+                    {card.description}
+                  </p>
+
+                  {/* Bottom Row: Metric Scope Info Line */}
+                  <div className="pt-2 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto text-[10px] sm:text-[11px] font-mono">
+                    <span className="text-slate-500 dark:text-slate-400 font-semibold truncate">{card.footerLeft}</span>
+                    <span className="font-bold shrink-0" style={{ color: card.accentColor }}>{card.footerRight}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
 
