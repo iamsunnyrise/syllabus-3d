@@ -181,7 +181,7 @@
     border-color: #CDB994 !important;
   }
 
-  /* Text & Typography Readability (Contrast-Guaranteed System) */
+  /* Text & Typography Readability (High-Contrast WCAG AAA System) */
   html.warm-cream .text-slate-900,
   html.warm-cream .text-slate-800,
   html.warm-cream h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
@@ -190,28 +190,37 @@
   html.warm-cream h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
   html.warm-cream h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
   html.warm-cream h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]) {
-    color: #38370D !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream .text-slate-700,
   html.warm-cream .text-slate-600 {
-    color: #4C4816 !important;
+    color: #38370D !important;
   }
 
   html.warm-cream .text-slate-500 {
-    color: #6E6622 !important;
+    color: #524E12 !important;
   }
 
   html.warm-cream .text-slate-400 {
-    color: #8D7A02 !important;
+    color: #5C5716 !important;
   }
 
-  /* Header in Warm Parchment (Deep Antique Olive matching reference website) */
+  /* Countdown & Stat Labels Contrast Guarantee */
+  html.warm-cream [class*="tracking-widest"] {
+    color: #38370D !important;
+    font-weight: 800 !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     HEADER & NAVIGATION IN WARM PARCHMENT THEME
+     Clean ivory header bar, sharp buttons, high-contrast quick nav
+     ═══════════════════════════════════════════════════════════════ */
   html.warm-cream header {
-    background-color: #2E2D0A !important;
-    border-bottom: 1px solid rgba(225, 168, 55, 0.25) !important;
-    box-shadow: 0 4px 20px rgba(46, 45, 10, 0.35) !important;
-    color: #FFFFFF !important;
+    background-color: rgba(255, 253, 248, 0.96) !important;
+    border-bottom: 1px solid #E2D1B3 !important;
+    box-shadow: 0 1px 4px rgba(56, 55, 13, 0.05) !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream header .text-slate-900,
@@ -220,83 +229,237 @@
   html.warm-cream header h2,
   html.warm-cream header h3,
   html.warm-cream header span.font-bold {
-    color: #FFFFFF !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream header .text-slate-400,
   html.warm-cream header .text-slate-500 {
-    color: #E1A837 !important;
+    color: #524E12 !important;
   }
 
-  html.warm-cream header button,
-  html.warm-cream header .h-9,
-  html.warm-cream header nav {
-    background-color: rgba(22, 21, 5, 0.65) !important;
-    border-color: rgba(225, 168, 55, 0.3) !important;
-    color: #FAEED9 !important;
+  /* Header icon & utility buttons (menu, exam selector, search, streak, shortcuts) */
+  html.warm-cream header button.bg-white,
+  html.warm-cream header .h-9 {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2D1B3 !important;
+    color: #1C1B05 !important;
   }
 
-  html.warm-cream header button:hover {
-    background-color: rgba(225, 168, 55, 0.25) !important;
+  html.warm-cream header button.bg-white:hover,
+  html.warm-cream header .h-9:hover {
+    background-color: #FAF4E6 !important;
     border-color: #E1A837 !important;
-    color: #FFFFFF !important;
+    color: #1C1B05 !important;
   }
 
-  html.warm-cream header button svg {
+  /* Install App trigger button in header */
+  html.warm-cream header button:has(svg.lucide-download) {
+    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+    border: 1px solid #C9962A !important;
+    color: #1C1B05 !important;
+    box-shadow: 0 2px 8px rgba(225, 168, 55, 0.25) !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream header button:has(svg.lucide-download) * {
+    color: #1C1B05 !important;
+  }
+
+  /* Quick Navigation strip (Syllabus, Planner, Study Station Hub) */
+  html.warm-cream header nav[aria-label="Quick Navigation"] {
+    background-color: #FAF4E6 !important;
+    border: 1px solid #E2D1B3 !important;
+  }
+
+  html.warm-cream header nav[aria-label="Quick Navigation"] button {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #38370D !important;
+    font-weight: 700 !important;
+  }
+
+  html.warm-cream header nav[aria-label="Quick Navigation"] button:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream header nav[aria-label="Quick Navigation"] button[aria-current="page"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2D1B3 !important;
+    box-shadow: 0 1px 3px rgba(56, 55, 13, 0.08) !important;
+    color: #7D6C02 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream header nav[aria-label="Quick Navigation"] button[aria-current="page"] svg {
     color: #E1A837 !important;
   }
 
-  /* Sidebar in Warm Parchment (Deep Antique Olive matching header) */
+  /* Study Station Hub pill when active or popover open */
+  html.warm-cream header nav[aria-label="Quick Navigation"] button[aria-expanded="true"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E1A837 !important;
+    box-shadow: 0 1px 4px rgba(225, 168, 55, 0.25) !important;
+    color: #7D6C02 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream header nav[aria-label="Quick Navigation"] button[aria-expanded="true"] svg {
+    color: #E1A837 !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     STUDY STATION HUB & HEADER DROPDOWNS IN WARM PARCHMENT THEME
+     Pure white surface, warm ivory tool cards, razor-sharp typography
+     ═══════════════════════════════════════════════════════════════ */
+  html.warm-cream header div.absolute.top-full {
+    background-color: #FFFFFF !important;
+    border: 1.5px solid #E2D1B3 !important;
+    box-shadow: 0 16px 40px rgba(56, 55, 13, 0.16) !important;
+  }
+
+  html.warm-cream header div.absolute.top-full .divide-y > * {
+    border-color: #F0E5D0 !important;
+  }
+
+  /* Focus Timer (Pomodoro) Primary Hero Button in Study Hub Dropdown */
+  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r,
+  html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) {
+    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.35) !important;
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r *,
+  html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) * {
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r p,
+  html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) p {
+    color: #38370D !important;
+    font-weight: 600 !important;
+  }
+
+  /* The 8 Study Station Tool Buttons inside Dropdown Grid */
+  html.warm-cream header div.absolute.top-full .grid button {
+    background-color: #FAF4E6 !important;
+    border: 1px solid #E8DCC4 !important;
+    border-radius: 12px !important;
+    color: #1C1B05 !important;
+    transition: all 0.15s ease !important;
+  }
+
+  html.warm-cream header div.absolute.top-full .grid button:hover {
+    background-color: #F3E5C8 !important;
+    border-color: #E1A837 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 10px rgba(225, 168, 55, 0.2) !important;
+  }
+
+  /* Tool Title inside button (Revision, Weak Topics, Mind Map, etc.) */
+  html.warm-cream header div.absolute.top-full .grid button span.font-bold {
+    color: #1C1B05 !important;
+    font-weight: 800 !important;
+  }
+
+  /* Tool Subtitle inside button (Spaced Recall, Diagnostic Matrix, Visual Graph, etc.) */
+  html.warm-cream header div.absolute.top-full .grid button span.text-\[10px\],
+  html.warm-cream header div.absolute.top-full .grid button .text-slate-400,
+  html.warm-cream header div.absolute.top-full .grid button .text-slate-500 {
+    color: #5C5716 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+  }
+
+  /* Badges on tool buttons (e.g. revision count "2", AI badge) */
+  html.warm-cream header div.absolute.top-full .grid button span.font-mono {
+    background-color: #E1A837 !important;
+    color: #1C1B05 !important;
+    font-weight: 800 !important;
+  }
+
+  /* Dropdown Footer Button / Link ("Go to Complete Study Dashboard") */
+  html.warm-cream header div.absolute.top-full .pt-2 button,
+  html.warm-cream header div.absolute.top-full div.p-1\.5 button {
+    background-color: #FAF4E6 !important;
+    border: 1px solid #E8DCC4 !important;
+    color: #7D6C02 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream header div.absolute.top-full .pt-2 button:hover,
+  html.warm-cream header div.absolute.top-full div.p-1\.5 button:hover {
+    background-color: #E1A837 !important;
+    border-color: #CCA32F !important;
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream header div.absolute.top-full .pt-2 button *,
+  html.warm-cream header div.absolute.top-full div.p-1\.5 button * {
+    color: inherit !important;
+  }
+
+  /* Exam selector dropdown items */
+  html.warm-cream header div.absolute.top-full .divide-y button {
+    color: #1C1B05 !important;
+  }
+
+  /* Sidebar in Warm Parchment (Clean Luxury Ivory matching theme) */
   html.warm-cream aside {
-    background-color: #272608 !important;
-    border-right: 1px solid rgba(225, 168, 55, 0.2) !important;
-    color: #FAEED9 !important;
+    background-color: #FFFDF8 !important;
+    border-right: 1px solid #E2D1B3 !important;
+    color: #38370D !important;
   }
 
   html.warm-cream aside .text-slate-900,
   html.warm-cream aside .text-slate-800,
   html.warm-cream aside h1 {
-    color: #FFFFFF !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream aside .text-slate-500,
   html.warm-cream aside .text-slate-400 {
-    color: #CDB994 !important;
+    color: #524E12 !important;
   }
 
   html.warm-cream aside button {
-    color: #EAE3D2 !important;
+    color: #38370D !important;
+    font-weight: 600 !important;
   }
 
   html.warm-cream aside button:hover {
-    background-color: rgba(225, 168, 55, 0.15) !important;
-    color: #FFFFFF !important;
+    background-color: #FAF4E6 !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream aside button[aria-current="page"] {
-    background: linear-gradient(135deg, #E1A837 0%, #C9962A 100%) !important;
-    color: #272608 !important;
-    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.35) !important;
+    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+    color: #1C1B05 !important;
+    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
     font-weight: 800 !important;
   }
 
   html.warm-cream aside button[aria-current="page"] * {
-    color: #272608 !important;
+    color: #1C1B05 !important;
   }
 
   /* Mobile Floating Dock in Warm Parchment */
   html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] > div {
-    background-color: rgba(39, 38, 8, 0.96) !important;
-    border-color: rgba(225, 168, 55, 0.3) !important;
-    box-shadow: 0 8px 32px rgba(46, 45, 10, 0.4) !important;
+    background-color: rgba(255, 253, 248, 0.96) !important;
+    border-color: #E2D1B3 !important;
+    box-shadow: 0 8px 32px rgba(56, 55, 13, 0.12) !important;
   }
 
   html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] button {
-    color: #CDB994 !important;
+    color: #5C5716 !important;
+    font-weight: 700 !important;
   }
 
   html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] button[aria-current="page"] {
-    color: #E1A837 !important;
+    color: #8D7A02 !important;
+    font-weight: 800 !important;
   }
 
   /* Buttons & Action Badges in Warm Parchment */
@@ -305,7 +468,7 @@
   html.warm-cream button.bg-\[\#4F46E5\],
   html.warm-cream .btn-primary {
     background-color: #E1A837 !important;
-    color: #38370D !important;
+    color: #1C1B05 !important;
     box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
     font-weight: 800 !important;
   }
@@ -315,14 +478,14 @@
   html.warm-cream button.bg-\[\#4F46E5\]:hover,
   html.warm-cream .btn-primary:hover {
     background-color: #CCA32F !important;
-    color: #38370D !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream button.bg-blue-600 *,
   html.warm-cream button.bg-\[\#3B82F6\] *,
   html.warm-cream button.bg-\[\#4F46E5\] *,
   html.warm-cream .btn-primary * {
-    color: #38370D !important;
+    color: #1C1B05 !important;
   }
 
   html.warm-cream .bg-blue-50,
