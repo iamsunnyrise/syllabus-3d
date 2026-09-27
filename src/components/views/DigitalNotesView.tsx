@@ -28,7 +28,13 @@ import {
   ArrowUpDown,
   Maximize2,
   Minimize2,
-  Type
+  Type,
+  Scale,
+  Zap,
+  Globe,
+  Landmark,
+  Activity,
+  TrendingUp
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -623,6 +629,108 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     }
   };
 
+  // 🏷️ Infographic Ribbon Themes (matching user's reference design)
+  interface RibbonTheme {
+    gradient: string;
+    foldColor: string;
+    accentText: string;
+    borderHover: string;
+    iconBg: string;
+    Icon: React.ComponentType<{ className?: string }>;
+    defaultLabel: string;
+  }
+
+  const RIBBON_PALETTES: RibbonTheme[] = [
+    // 01: Red / Crimson (Polity, Constitution, Governance, Analysis)
+    {
+      gradient: 'from-rose-500 via-rose-600 to-red-600',
+      foldColor: '#7f1d1d',
+      accentText: 'text-rose-600 dark:text-rose-400',
+      borderHover: 'hover:border-rose-500/40 dark:hover:border-rose-500/40',
+      iconBg: 'bg-rose-500/10 dark:bg-rose-500/15',
+      Icon: Scale,
+      defaultLabel: 'POLITY'
+    },
+    // 02: Wine / Plum / Magenta (Aptitude, Formulas, Math, Investment)
+    {
+      gradient: 'from-fuchsia-600 via-pink-700 to-purple-800',
+      foldColor: '#4a044e',
+      accentText: 'text-pink-600 dark:text-pink-400',
+      borderHover: 'hover:border-pink-500/40 dark:hover:border-pink-500/40',
+      iconBg: 'bg-pink-500/10 dark:bg-pink-500/15',
+      Icon: Zap,
+      defaultLabel: 'QUANT'
+    },
+    // 03: Deep Navy Blue (Ecology, Environment, Geography, Business)
+    {
+      gradient: 'from-blue-600 via-blue-700 to-indigo-800',
+      foldColor: '#0f172a',
+      accentText: 'text-blue-600 dark:text-blue-400',
+      borderHover: 'hover:border-blue-500/40 dark:hover:border-blue-500/40',
+      iconBg: 'bg-blue-500/10 dark:bg-blue-500/15',
+      Icon: Globe,
+      defaultLabel: 'ECOLOGY'
+    },
+    // 04: Teal / Emerald (History, Modern India, Culture, Heritage)
+    {
+      gradient: 'from-teal-500 via-teal-600 to-emerald-700',
+      foldColor: '#134e4a',
+      accentText: 'text-teal-600 dark:text-teal-400',
+      borderHover: 'hover:border-teal-500/40 dark:hover:border-teal-500/40',
+      iconBg: 'bg-teal-500/10 dark:bg-teal-500/15',
+      Icon: Landmark,
+      defaultLabel: 'HISTORY'
+    },
+    // 05: Amber / Coral / Gold (Science, Biology, Anatomy, Health)
+    {
+      gradient: 'from-amber-500 via-orange-500 to-amber-700',
+      foldColor: '#78350f',
+      accentText: 'text-amber-600 dark:text-amber-400',
+      borderHover: 'hover:border-amber-500/40 dark:hover:border-amber-500/40',
+      iconBg: 'bg-amber-500/10 dark:bg-amber-500/15',
+      Icon: Activity,
+      defaultLabel: 'SCIENCE'
+    },
+    // 06: Electric Violet / Indigo (Economics, Banking, Finance, Market)
+    {
+      gradient: 'from-violet-600 via-indigo-600 to-purple-700',
+      foldColor: '#312e81',
+      accentText: 'text-violet-600 dark:text-violet-400',
+      borderHover: 'hover:border-violet-500/40 dark:hover:border-violet-500/40',
+      iconBg: 'bg-violet-500/10 dark:bg-violet-500/15',
+      Icon: TrendingUp,
+      defaultLabel: 'ECONOMICS'
+    }
+  ];
+
+  const getRibbonTheme = (note: DigitalNote, index: number) => {
+    const s = `${note.subject} ${note.category} ${note.title}`.toLowerCase();
+    let baseTheme = RIBBON_PALETTES[index % RIBBON_PALETTES.length];
+
+    if (s.includes('polity') || s.includes('संविधान') || s.includes('राजव्यवस्था') || s.includes('right')) {
+      baseTheme = RIBBON_PALETTES[0];
+    } else if (s.includes('aptitude') || s.includes('math') || s.includes('formula') || s.includes('speed') || s.includes('distance')) {
+      baseTheme = RIBBON_PALETTES[1];
+    } else if (s.includes('ecology') || s.includes('environment') || s.includes('पर्यावरण') || s.includes('पारिस्थितिकी')) {
+      baseTheme = RIBBON_PALETTES[2];
+    } else if (s.includes('history') || s.includes('इतिहास') || s.includes('1857') || s.includes('क्रांति')) {
+      baseTheme = RIBBON_PALETTES[3];
+    } else if (s.includes('biology') || s.includes('जीव विज्ञान') || s.includes('circulatory') || s.includes('heart') || s.includes('science')) {
+      baseTheme = RIBBON_PALETTES[4];
+    } else if (s.includes('economy') || s.includes('economics') || s.includes('अर्थव्यवस्था') || s.includes('monetary') || s.includes('rbi')) {
+      baseTheme = RIBBON_PALETTES[5];
+    }
+
+    // Extract uppercase subject keyword for clean infographic badge
+    const parenMatch = note.subject.match(/\((.*?)\)/);
+    const label = parenMatch && parenMatch[1] ? parenMatch[1].trim().toUpperCase() : (note.subject.trim().toUpperCase() || baseTheme.defaultLabel);
+
+    return {
+      ...baseTheme,
+      label
+    };
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-6 pb-28 sm:pb-24 animate-fade-in font-sans">
       {/* 🌟 1. HERO HEADER WITH STATS & ACTION BUTTONS */}
@@ -920,10 +1028,12 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           </div>
         </div>
       ) : viewMode === 'grid' ? (
-        /* GRID VIEW */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredNotes.map(note => {
+        /* GRID VIEW: 3D Infographic Ribbon Cards */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pb-2">
+          {filteredNotes.map((note, index) => {
             const langBadge = getLanguageBadge(note.language);
+            const theme = getRibbonTheme(note, index);
+
             return (
               <div
                 key={note.id}
@@ -931,53 +1041,66 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   soundManager.playClick();
                   setActiveReadingNote(note);
                 }}
-                className="group relative bg-white dark:bg-[#121526] hover:bg-slate-50/50 dark:hover:bg-[#161A2E] rounded-2xl p-5 border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-500/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                className={`group relative bg-white dark:bg-[#121526] hover:bg-slate-50/60 dark:hover:bg-[#15192c] rounded-2xl pt-4 pb-4 pr-12 pl-18 sm:pl-22 border border-slate-200/90 dark:border-white/[0.08] ${theme.borderHover} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1`}
               >
-                <div className="space-y-3">
-                  {/* Top Bar: Language & Star */}
-                  <div className="flex items-center justify-between gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${langBadge.className}`}>
+                {/* 3D Hanging Ribbon (Left-Inset with Under-folding 3D Flap) */}
+                <div
+                  className={`absolute top-0 left-3.5 sm:left-4 bottom-[-8px] w-10 sm:w-11 rounded-t-xl rounded-bl-xl bg-gradient-to-b ${theme.gradient} shadow-md z-10 flex flex-col items-center pt-2 sm:pt-2.5 transition-transform duration-300 group-hover:translate-y-0.5`}
+                >
+                  {/* Circular Step Badge */}
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.22)] flex items-center justify-center font-black text-xs sm:text-sm text-slate-800 select-none ring-2 ring-white/60">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+
+                  {/* 3D Fold Triangle Wrapping Under Bottom of Card */}
+                  <div
+                    className="absolute right-[-8px] bottom-0 w-[8px] h-[8px] pointer-events-none"
+                    style={{
+                      backgroundColor: theme.foldColor,
+                      clipPath: 'polygon(0 0, 100% 0, 0 100%)'
+                    }}
+                  />
+                </div>
+
+                {/* Right-Side Thematic Outline Icon & Stacked Chevrons (Reference Design) */}
+                <div className="absolute right-3.5 top-3.5 flex flex-col items-center pointer-events-none select-none">
+                  <div className={`p-1.5 rounded-xl ${theme.iconBg} ${theme.accentText} transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    <theme.Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.75]" />
+                  </div>
+                  <div className="flex flex-col items-center -space-y-1.5 mt-0.5 opacity-35 group-hover:opacity-75 transition-opacity">
+                    <span className={`text-[9px] font-black leading-none ${theme.accentText}`}>∨</span>
+                    <span className={`text-[9px] font-black leading-none ${theme.accentText}`}>∨</span>
+                  </div>
+                </div>
+
+                {/* Card Main Body */}
+                <div className="space-y-2">
+                  {/* Top Meta: Accent Category + Language Badge */}
+                  <div className="flex flex-wrap items-center gap-1.5 pr-2">
+                    <span className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}>
+                      {theme.label}
+                    </span>
+                    <span className="text-slate-300 dark:text-slate-600 font-bold">•</span>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${langBadge.className}`}>
                       <span>{langBadge.flag}</span>
                       <span>{langBadge.label}</span>
                     </span>
-
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={e => handleToggleStar(note.id, e)}
-                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                          note.isStarred
-                            ? 'text-amber-500 hover:text-amber-600'
-                            : 'text-slate-300 dark:text-slate-600 hover:text-amber-400'
-                        }`}
-                        title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
-                      >
-                        <Star className={`w-4 h-4 ${note.isStarred ? 'fill-amber-500' : ''}`} />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Subject & Category */}
-                  <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 font-semibold">
-                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">{note.subject}</span>
-                    <span>•</span>
-                    <span className="capitalize">{note.category}</span>
                   </div>
 
                   {/* Note Title */}
-                  <h3 className="text-[15px] sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug">
+                  <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug">
                     {note.title}
                   </h3>
 
                   {/* Note Summary / Snippet */}
-                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
-                    {note.summary || note.content.slice(0, 160).replace(/[#*`$]/g, '') + '...'}
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+                    {note.summary || note.content.slice(0, 150).replace(/[#*`$]/g, '') + '...'}
                   </p>
 
                   {/* Tags */}
                   {note.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {note.tags.slice(0, 3).map(tag => (
+                    <div className="flex flex-wrap gap-1 pt-0.5">
+                      {note.tags.slice(0, 2).map(tag => (
                         <span
                           key={tag}
                           className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-medium text-slate-600 dark:text-slate-400"
@@ -985,21 +1108,34 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                           #{tag}
                         </span>
                       ))}
-                      {note.tags.length > 3 && (
-                        <span className="text-[10px] text-slate-400 self-center">+{note.tags.length - 3}</span>
+                      {note.tags.length > 2 && (
+                        <span className="text-[10px] text-slate-400 self-center">+{note.tags.length - 2}</span>
                       )}
                     </div>
                   )}
                 </div>
 
-                {/* Bottom Card Footer */}
-                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-400">
+                {/* Bottom Card Footer: Reading Time & Action Buttons */}
+                <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-400">
                   <div className="flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     <span>{note.readingTimeMinutes || 3} min read</span>
                   </div>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+                    <button
+                      type="button"
+                      onClick={e => handleToggleStar(note.id, e)}
+                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                        note.isStarred
+                          ? 'text-amber-500 hover:text-amber-600 bg-amber-50 dark:bg-amber-950/30'
+                          : 'text-slate-300 dark:text-slate-600 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      }`}
+                      title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                      <Star className={`w-3.5 h-3.5 ${note.isStarred ? 'fill-amber-500' : ''}`} />
+                    </button>
+
                     <button
                       type="button"
                       onClick={e => handleCopyNote(note, e)}
@@ -1012,6 +1148,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                         <Copy className="w-3.5 h-3.5" />
                       )}
                     </button>
+
                     <button
                       type="button"
                       onClick={e => handleOpenEditModal(note, e)}
@@ -1020,6 +1157,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     >
                       <Edit3 className="w-3.5 h-3.5" />
                     </button>
+
                     <button
                       type="button"
                       onClick={e => handleDeleteNote(note.id, e)}
@@ -1035,10 +1173,12 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           })}
         </div>
       ) : (
-        /* LIST VIEW */
-        <div className="space-y-3">
-          {filteredNotes.map(note => {
+        /* LIST VIEW: Infographic Ribbon Rows */
+        <div className="space-y-4 pb-2">
+          {filteredNotes.map((note, index) => {
             const langBadge = getLanguageBadge(note.language);
+            const theme = getRibbonTheme(note, index);
+
             return (
               <div
                 key={note.id}
@@ -1046,18 +1186,36 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   soundManager.playClick();
                   setActiveReadingNote(note);
                 }}
-                className="group bg-white dark:bg-[#121526] hover:bg-slate-50/50 dark:hover:bg-[#161A2E] rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-500/40 shadow-xs hover:shadow-lg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer"
+                className={`group relative bg-white dark:bg-[#121526] hover:bg-slate-50/60 dark:hover:bg-[#15192c] rounded-2xl p-4 sm:p-5 pl-18 sm:pl-22 border border-slate-200/90 dark:border-white/[0.08] ${theme.borderHover} shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:-translate-y-0.5`}
               >
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  <div className="flex items-center gap-2.5">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold ${langBadge.className}`}>
+                {/* 3D Ribbon Tab on Left */}
+                <div
+                  className={`absolute top-0 left-3 sm:left-4 bottom-[-6px] w-9 sm:w-10 rounded-t-xl rounded-bl-xl bg-gradient-to-b ${theme.gradient} shadow-md z-10 flex flex-col items-center pt-2 transition-transform duration-300 group-hover:translate-y-0.5`}
+                >
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-[11px] sm:text-xs text-slate-800 select-none">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  <div
+                    className="absolute right-[-6px] bottom-0 w-[6px] h-[6px] pointer-events-none"
+                    style={{
+                      backgroundColor: theme.foldColor,
+                      clipPath: 'polygon(0 0, 100% 0, 0 100%)'
+                    }}
+                  />
+                </div>
+
+                {/* Note Content */}
+                <div className="space-y-1.5 flex-1 min-w-0 pr-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}>
+                      {theme.label}
+                    </span>
+                    <span className="text-slate-300 dark:text-slate-600 font-bold">•</span>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-bold ${langBadge.className}`}>
                       <span>{langBadge.flag}</span>
                       <span>{langBadge.label}</span>
                     </span>
-                    <span className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">
-                      {note.subject}
-                    </span>
-                    <span className="text-[10px] text-slate-400 capitalize">• {note.category}</span>
+                    <span className="text-[10px] text-slate-400 capitalize hidden sm:inline">• {note.category}</span>
                   </div>
 
                   <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
@@ -1069,7 +1227,8 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/5">
+                {/* Right Info & Actions */}
+                <div className="flex items-center gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/5" onClick={e => e.stopPropagation()}>
                   <span className="text-xs text-slate-400 flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
                     <span>{note.readingTimeMinutes || 3}m</span>
@@ -1081,8 +1240,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     className={`p-2 rounded-xl transition-colors cursor-pointer ${
                       note.isStarred
                         ? 'text-amber-500 bg-amber-50 dark:bg-amber-950/30'
-                        : 'text-slate-300 dark:text-slate-600 hover:text-amber-500'
+                        : 'text-slate-300 dark:text-slate-600 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
+                    title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
                   >
                     <Star className={`w-4 h-4 ${note.isStarred ? 'fill-amber-500' : ''}`} />
                   </button>
