@@ -29,6 +29,7 @@ import {
   Maximize2,
   Minimize2,
   Type,
+  Navigation,
   Scale,
   Zap,
   Globe,
@@ -629,105 +630,100 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     }
   };
 
-  // 🏷️ Infographic Ribbon Themes (matching user's reference design)
-  interface RibbonTheme {
-    gradient: string;
-    foldColor: string;
-    accentText: string;
-    borderHover: string;
-    iconBg: string;
-    Icon: React.ComponentType<{ className?: string }>;
-    defaultLabel: string;
+  // 🏔️ Soft UI Neumorphic Card Configuration (matching user's reference travel/exploration card design)
+  interface NoteCardVisual {
+    coverImage: string;
+    gradientFallback: string;
+    accentColor: string;
+    accentBg: string;
+    shortSubject: string;
+    subtitle: string;
   }
 
-  const RIBBON_PALETTES: RibbonTheme[] = [
-    // 01: Red / Crimson (Polity, Constitution, Governance, Analysis)
-    {
-      gradient: 'from-rose-500 via-rose-600 to-red-600',
-      foldColor: '#7f1d1d',
-      accentText: 'text-rose-600 dark:text-rose-400',
-      borderHover: 'hover:border-rose-500/40 dark:hover:border-rose-500/40',
-      iconBg: 'bg-rose-500/10 dark:bg-rose-500/15',
-      Icon: Scale,
-      defaultLabel: 'POLITY'
+  const CURATED_NOTE_VISUALS: Record<string, NoteCardVisual> = {
+    // Ecology & Environment (Mountains, forests, lush landscape — just like Mount Rainier in user's image!)
+    ecology: {
+      coverImage: 'https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-emerald-900 via-teal-950 to-slate-950',
+      accentColor: 'text-emerald-500 dark:text-emerald-400',
+      accentBg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+      shortSubject: 'Ecology & Environment',
+      subtitle: 'Trophic Cascades & Pyramids'
     },
-    // 02: Wine / Plum / Magenta (Aptitude, Formulas, Math, Investment)
-    {
-      gradient: 'from-fuchsia-600 via-pink-700 to-purple-800',
-      foldColor: '#4a044e',
-      accentText: 'text-pink-600 dark:text-pink-400',
-      borderHover: 'hover:border-pink-500/40 dark:hover:border-pink-500/40',
-      iconBg: 'bg-pink-500/10 dark:bg-pink-500/15',
-      Icon: Zap,
-      defaultLabel: 'QUANT'
+    // Polity & Constitution (Supreme court, majestic pillars, law & justice)
+    polity: {
+      coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-rose-950 via-slate-900 to-slate-950',
+      accentColor: 'text-rose-500 dark:text-rose-400',
+      accentBg: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+      shortSubject: 'भारतीय राजव्यवस्था (Polity)',
+      subtitle: 'Part III • अनुच्छेद 12 से 35 (Fundamental Rights)'
     },
-    // 03: Deep Navy Blue (Ecology, Environment, Geography, Business)
-    {
-      gradient: 'from-blue-600 via-blue-700 to-indigo-800',
-      foldColor: '#0f172a',
-      accentText: 'text-blue-600 dark:text-blue-400',
-      borderHover: 'hover:border-blue-500/40 dark:hover:border-blue-500/40',
-      iconBg: 'bg-blue-500/10 dark:bg-blue-500/15',
-      Icon: Globe,
-      defaultLabel: 'ECOLOGY'
+    // Quantitative Aptitude (Abstract math, formulas, chalk, geometry)
+    aptitude: {
+      coverImage: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-indigo-950 via-purple-950 to-slate-950',
+      accentColor: 'text-indigo-500 dark:text-indigo-400',
+      accentBg: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400',
+      shortSubject: 'Quantitative Aptitude',
+      subtitle: 'Speed, Relative Velocity & Train Crossings'
     },
-    // 04: Teal / Emerald (History, Modern India, Culture, Heritage)
-    {
-      gradient: 'from-teal-500 via-teal-600 to-emerald-700',
-      foldColor: '#134e4a',
-      accentText: 'text-teal-600 dark:text-teal-400',
-      borderHover: 'hover:border-teal-500/40 dark:hover:border-teal-500/40',
-      iconBg: 'bg-teal-500/10 dark:bg-teal-500/15',
-      Icon: Landmark,
-      defaultLabel: 'HISTORY'
+    // History & Heritage (Indian fortress, ancient architecture, 1857 Revolt)
+    history: {
+      coverImage: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-amber-950 via-stone-900 to-slate-950',
+      accentColor: 'text-amber-500 dark:text-amber-400',
+      accentBg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+      shortSubject: 'आधुनिक भारत का इतिहास',
+      subtitle: '1857 का प्रथम स्वतंत्रता संग्राम (Major Centers)'
     },
-    // 05: Amber / Coral / Gold (Science, Biology, Anatomy, Health)
-    {
-      gradient: 'from-amber-500 via-orange-500 to-amber-700',
-      foldColor: '#78350f',
-      accentText: 'text-amber-600 dark:text-amber-400',
-      borderHover: 'hover:border-amber-500/40 dark:hover:border-amber-500/40',
-      iconBg: 'bg-amber-500/10 dark:bg-amber-500/15',
-      Icon: Activity,
-      defaultLabel: 'SCIENCE'
+    // Biology & Science (Cardiology, anatomy, glowing medical science)
+    biology: {
+      coverImage: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-red-950 via-rose-900 to-slate-950',
+      accentColor: 'text-rose-500 dark:text-rose-400',
+      accentBg: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+      shortSubject: 'General Science (Biology)',
+      subtitle: 'Heart Anatomy & Double Circulatory System'
     },
-    // 06: Electric Violet / Indigo (Economics, Banking, Finance, Market)
-    {
-      gradient: 'from-violet-600 via-indigo-600 to-purple-700',
-      foldColor: '#312e81',
-      accentText: 'text-violet-600 dark:text-violet-400',
-      borderHover: 'hover:border-violet-500/40 dark:hover:border-violet-500/40',
-      iconBg: 'bg-violet-500/10 dark:bg-violet-500/15',
-      Icon: TrendingUp,
-      defaultLabel: 'ECONOMICS'
+    // Economics & Monetary Policy (Financial markets, RBI, banking)
+    economy: {
+      coverImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
+      gradientFallback: 'from-blue-950 via-slate-900 to-slate-950',
+      accentColor: 'text-blue-500 dark:text-blue-400',
+      accentBg: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+      shortSubject: 'भारतीय अर्थव्यवस्था (Economy)',
+      subtitle: 'RBI मौद्रिक नीति (Repo, CRR, SLR Tools)'
     }
-  ];
+  };
 
-  const getRibbonTheme = (note: DigitalNote, index: number) => {
+  const getNoteCardVisual = (note: DigitalNote, index: number): NoteCardVisual => {
     const s = `${note.subject} ${note.category} ${note.title}`.toLowerCase();
-    let baseTheme = RIBBON_PALETTES[index % RIBBON_PALETTES.length];
-
     if (s.includes('polity') || s.includes('संविधान') || s.includes('राजव्यवस्था') || s.includes('right')) {
-      baseTheme = RIBBON_PALETTES[0];
-    } else if (s.includes('aptitude') || s.includes('math') || s.includes('formula') || s.includes('speed') || s.includes('distance')) {
-      baseTheme = RIBBON_PALETTES[1];
-    } else if (s.includes('ecology') || s.includes('environment') || s.includes('पर्यावरण') || s.includes('पारिस्थितिकी')) {
-      baseTheme = RIBBON_PALETTES[2];
-    } else if (s.includes('history') || s.includes('इतिहास') || s.includes('1857') || s.includes('क्रांति')) {
-      baseTheme = RIBBON_PALETTES[3];
-    } else if (s.includes('biology') || s.includes('जीव विज्ञान') || s.includes('circulatory') || s.includes('heart') || s.includes('science')) {
-      baseTheme = RIBBON_PALETTES[4];
-    } else if (s.includes('economy') || s.includes('economics') || s.includes('अर्थव्यवस्था') || s.includes('monetary') || s.includes('rbi')) {
-      baseTheme = RIBBON_PALETTES[5];
+      return CURATED_NOTE_VISUALS.polity;
+    }
+    if (s.includes('aptitude') || s.includes('math') || s.includes('formula') || s.includes('speed') || s.includes('distance')) {
+      return CURATED_NOTE_VISUALS.aptitude;
+    }
+    if (s.includes('ecology') || s.includes('environment') || s.includes('पर्यावरण') || s.includes('पारिस्थितिकी')) {
+      return CURATED_NOTE_VISUALS.ecology;
+    }
+    if (s.includes('history') || s.includes('इतिहास') || s.includes('1857') || s.includes('क्रांति')) {
+      return CURATED_NOTE_VISUALS.history;
+    }
+    if (s.includes('biology') || s.includes('जीव विज्ञान') || s.includes('circulatory') || s.includes('heart') || s.includes('science')) {
+      return CURATED_NOTE_VISUALS.biology;
+    }
+    if (s.includes('economy') || s.includes('economics') || s.includes('अर्थव्यवस्था') || s.includes('monetary') || s.includes('rbi')) {
+      return CURATED_NOTE_VISUALS.economy;
     }
 
-    // Extract uppercase subject keyword for clean infographic badge
-    const parenMatch = note.subject.match(/\((.*?)\)/);
-    const label = parenMatch && parenMatch[1] ? parenMatch[1].trim().toUpperCase() : (note.subject.trim().toUpperCase() || baseTheme.defaultLabel);
-
+    const keys = Object.keys(CURATED_NOTE_VISUALS);
+    const fallback = CURATED_NOTE_VISUALS[keys[index % keys.length]];
     return {
-      ...baseTheme,
-      label
+      ...fallback,
+      shortSubject: note.subject,
+      subtitle: note.summary || note.title
     };
   };
 
@@ -1028,11 +1024,11 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           </div>
         </div>
       ) : viewMode === 'grid' ? (
-        /* GRID VIEW: 3D Infographic Ribbon Cards */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pb-2">
+        /* GRID VIEW: Soft UI Neumorphic Travel/Exploration Cards (Image 1 Style) */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {filteredNotes.map((note, index) => {
             const langBadge = getLanguageBadge(note.language);
-            const theme = getRibbonTheme(note, index);
+            const visual = getNoteCardVisual(note, index);
 
             return (
               <div
@@ -1041,143 +1037,150 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   soundManager.playClick();
                   setActiveReadingNote(note);
                 }}
-                className={`group relative bg-white dark:bg-[#121526] hover:bg-slate-50/60 dark:hover:bg-[#15192c] rounded-2xl pt-4 pb-4 pr-12 pl-18 sm:pl-22 border border-slate-200/90 dark:border-white/[0.08] ${theme.borderHover} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1`}
+                className="group relative bg-[#EEF1F6] dark:bg-[#121626] rounded-[32px] p-3.5 sm:p-4 border border-white/80 dark:border-white/[0.08] shadow-[14px_14px_28px_#c8ced8,-14px_-14px_28px_#ffffff] dark:shadow-[12px_12px_32px_rgba(0,0,0,0.65),-6px_-6px_22px_rgba(255,255,255,0.03)] hover:shadow-[18px_18px_36px_#bec5d0,-18px_-18px_36px_#ffffff] dark:hover:shadow-[16px_16px_40px_rgba(0,0,0,0.8),-8px_-8px_26px_rgba(255,255,255,0.04)] transition-all duration-300 hover:-translate-y-1.5 flex flex-col gap-3.5 sm:gap-4 cursor-pointer"
               >
-                {/* 3D Hanging Ribbon (Left-Inset with Under-folding 3D Flap) */}
-                <div
-                  className={`absolute top-0 left-3.5 sm:left-4 bottom-[-8px] w-10 sm:w-11 rounded-t-xl rounded-bl-xl bg-gradient-to-b ${theme.gradient} shadow-md z-10 flex flex-col items-center pt-2 sm:pt-2.5 transition-transform duration-300 group-hover:translate-y-0.5`}
-                >
-                  {/* Circular Step Badge */}
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.22)] flex items-center justify-center font-black text-xs sm:text-sm text-slate-800 select-none ring-2 ring-white/60">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-
-                  {/* 3D Fold Triangle Wrapping Under Bottom of Card */}
-                  <div
-                    className="absolute right-[-8px] bottom-0 w-[8px] h-[8px] pointer-events-none"
-                    style={{
-                      backgroundColor: theme.foldColor,
-                      clipPath: 'polygon(0 0, 100% 0, 0 100%)'
-                    }}
+                {/* 1. Upper Photographic/Artistic Banner */}
+                <div className="h-48 sm:h-52 relative rounded-[22px] overflow-hidden select-none shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15)] bg-slate-900 flex flex-col justify-between p-3.5">
+                  {/* Photo Cover Image with Smooth Scale */}
+                  <img
+                    src={visual.coverImage}
+                    alt={note.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
                   />
-                </div>
+                  {/* Atmospheric Vignette & Contrast Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/25 pointer-events-none" />
 
-                {/* Right-Side Thematic Outline Icon & Stacked Chevrons (Reference Design) */}
-                <div className="absolute right-3.5 top-3.5 flex flex-col items-center pointer-events-none select-none">
-                  <div className={`p-1.5 rounded-xl ${theme.iconBg} ${theme.accentText} transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                    <theme.Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.75]" />
-                  </div>
-                  <div className="flex flex-col items-center -space-y-1.5 mt-0.5 opacity-35 group-hover:opacity-75 transition-opacity">
-                    <span className={`text-[9px] font-black leading-none ${theme.accentText}`}>∨</span>
-                    <span className={`text-[9px] font-black leading-none ${theme.accentText}`}>∨</span>
-                  </div>
-                </div>
-
-                {/* Card Main Body */}
-                <div className="space-y-2">
-                  {/* Top Meta: Accent Category + Language Badge */}
-                  <div className="flex flex-wrap items-center gap-1.5 pr-2">
-                    <span className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}>
-                      {theme.label}
-                    </span>
-                    <span className="text-slate-300 dark:text-slate-600 font-bold">•</span>
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${langBadge.className}`}>
+                  {/* Banner Top Row: Language Badge & Action Controls */}
+                  <div className="relative z-10 flex items-center justify-between gap-2">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-black/40 backdrop-blur-md border border-white/20 text-white shadow-xs flex items-center gap-1.5 select-none">
                       <span>{langBadge.flag}</span>
                       <span>{langBadge.label}</span>
                     </span>
+
+                    <div className="flex items-center gap-1.5" onClick={e => e.stopPropagation()}>
+                      <button
+                        type="button"
+                        onClick={e => handleToggleStar(note.id, e)}
+                        className={`w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-md border transition-all cursor-pointer ${
+                          note.isStarred
+                            ? 'bg-amber-500 text-white border-amber-400 shadow-sm'
+                            : 'bg-black/35 text-white/80 hover:text-white border-white/20 hover:bg-black/60'
+                        }`}
+                        title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${note.isStarred ? 'fill-white' : ''}`} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={e => handleCopyNote(note, e)}
+                        className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-black/60 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
+                        title="Copy note text"
+                      >
+                        {copyFeedbackId === note.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={e => handleOpenEditModal(note, e)}
+                        className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-black/60 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
+                        title="Edit note"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={e => handleDeleteNote(note.id, e)}
+                        className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-rose-600/80 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
+                        title="Delete note"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Note Title */}
-                  <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug">
-                    {note.title}
-                  </h3>
-
-                  {/* Note Summary / Snippet */}
-                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 sm:line-clamp-3 leading-relaxed">
-                    {note.summary || note.content.slice(0, 150).replace(/[#*`$]/g, '') + '...'}
-                  </p>
-
-                  {/* Tags */}
-                  {note.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 pt-0.5">
-                      {note.tags.slice(0, 2).map(tag => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-medium text-slate-600 dark:text-slate-400"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                      {note.tags.length > 2 && (
-                        <span className="text-[10px] text-slate-400 self-center">+{note.tags.length - 2}</span>
-                      )}
+                  {/* Banner Bottom Row: Title, Subtitle & Frosted Reading Time Pill */}
+                  <div className="relative z-10 flex items-end justify-between gap-3">
+                    <div className="min-w-0 pr-1">
+                      <h3 className="text-white font-extrabold text-sm sm:text-base line-clamp-1 drop-shadow-sm leading-snug">
+                        {note.title}
+                      </h3>
+                      <p className="text-white/85 text-[11px] sm:text-xs font-medium truncate drop-shadow-xs mt-0.5">
+                        {visual.subtitle || note.subject}
+                      </p>
                     </div>
-                  )}
+
+                    {/* Frosted Glass Pill (like $720 in reference photo) */}
+                    <span className="px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide bg-white/25 dark:bg-black/40 backdrop-blur-md border border-white/40 text-white shadow-sm shrink-0 whitespace-nowrap">
+                      {note.readingTimeMinutes || 3} min
+                    </span>
+                  </div>
                 </div>
 
-                {/* Bottom Card Footer: Reading Time & Action Buttons */}
-                <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-400">
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>{note.readingTimeMinutes || 3} min read</span>
+                {/* 2. Lower Inset Beveled Tray with Floating Neumorphic Button */}
+                <div className="bg-[#E5E9F1] dark:bg-[#0C0F1D] shadow-[inset_3px_3px_6px_#c2c8d4,inset_-3px_-3px_6px_#ffffff] dark:shadow-[inset_3px_3px_7px_rgba(0,0,0,0.65),inset_-1.5px_-1.5px_5px_rgba(255,255,255,0.03)] dark:border dark:border-white/[0.04] rounded-[22px] p-3.5 sm:p-4 flex items-center justify-between gap-3">
+                  {/* Left Column: Metadata & 3-Column Stats */}
+                  <div className="flex flex-col gap-2 flex-1 min-w-0">
+                    <div className="flex flex-col">
+                      <div className="text-xs sm:text-[13px] font-extrabold text-slate-800 dark:text-slate-100 truncate">
+                        {note.subject}
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                        {note.summary || note.content.slice(0, 90).replace(/[#*`$]/g, '')}
+                      </div>
+                    </div>
+
+                    {/* 3-Column Stats Row (Distance, Elevation, Duration style) */}
+                    <div className="flex items-center gap-4 sm:gap-6 pt-1">
+                      <div className="flex flex-col">
+                        <span className="text-xs font-black text-slate-800 dark:text-white tabular-nums">
+                          {note.readingTimeMinutes || 3}m
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                          Duration
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs font-black text-slate-800 dark:text-white capitalize truncate max-w-[85px]">
+                          {langBadge.label}
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                          Language
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs font-black text-indigo-600 dark:text-indigo-400 capitalize">
+                          {note.category}
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                          Type
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
-                    <button
-                      type="button"
-                      onClick={e => handleToggleStar(note.id, e)}
-                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                        note.isStarred
-                          ? 'text-amber-500 hover:text-amber-600 bg-amber-50 dark:bg-amber-950/30'
-                          : 'text-slate-300 dark:text-slate-600 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
-                      }`}
-                      title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                      <Star className={`w-3.5 h-3.5 ${note.isStarred ? 'fill-amber-500' : ''}`} />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={e => handleCopyNote(note, e)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                      title="Copy note text"
-                    >
-                      {copyFeedbackId === note.id ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-500" />
-                      ) : (
-                        <Copy className="w-3.5 h-3.5" />
-                      )}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={e => handleOpenEditModal(note, e)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                      title="Edit note"
-                    >
-                      <Edit3 className="w-3.5 h-3.5" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={e => handleDeleteNote(note.id, e)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
-                      title="Delete note"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  {/* Right Column: Floating Embossed Circular Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setActiveReadingNote(note);
+                    }}
+                    className="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#EEF1F6] dark:bg-[#181C2E] border border-white/80 dark:border-white/10 shadow-[4px_4px_10px_#c2c8d4,-4px_-4px_10px_#ffffff] dark:shadow-[4px_4px_12px_rgba(0,0,0,0.6),-3px_-3px_8px_rgba(255,255,255,0.05)] hover:scale-106 active:scale-95 transition-all duration-200 flex items-center justify-center shrink-0 cursor-pointer group-hover:border-indigo-400/40"
+                    title="Open Digital Note"
+                  >
+                    <Navigation className="w-5 h-5 fill-slate-700 dark:fill-indigo-300 stroke-none transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </button>
                 </div>
               </div>
             );
           })}
         </div>
       ) : (
-        /* LIST VIEW: Infographic Ribbon Rows */
+        /* LIST VIEW: Soft UI Neumorphic Rows */
         <div className="space-y-4 pb-2">
           {filteredNotes.map((note, index) => {
             const langBadge = getLanguageBadge(note.language);
-            const theme = getRibbonTheme(note, index);
+            const visual = getNoteCardVisual(note, index);
 
             return (
               <div
@@ -1186,36 +1189,35 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   soundManager.playClick();
                   setActiveReadingNote(note);
                 }}
-                className={`group relative bg-white dark:bg-[#121526] hover:bg-slate-50/60 dark:hover:bg-[#15192c] rounded-2xl p-4 sm:p-5 pl-18 sm:pl-22 border border-slate-200/90 dark:border-white/[0.08] ${theme.borderHover} shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:-translate-y-0.5`}
+                className="group relative bg-[#EEF1F6] dark:bg-[#121626] rounded-2xl p-3 sm:p-4 border border-white/80 dark:border-white/[0.08] shadow-[8px_8px_20px_#cad0db,-8px_-8px_20px_#ffffff] dark:shadow-[8px_8px_24px_rgba(0,0,0,0.6),-4px_-4px_16px_rgba(255,255,255,0.03)] hover:shadow-[12px_12px_28px_#bec5d0,-12px_-12px_28px_#ffffff] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:-translate-y-0.5"
               >
-                {/* 3D Ribbon Tab on Left */}
-                <div
-                  className={`absolute top-0 left-3 sm:left-4 bottom-[-6px] w-9 sm:w-10 rounded-t-xl rounded-bl-xl bg-gradient-to-b ${theme.gradient} shadow-md z-10 flex flex-col items-center pt-2 transition-transform duration-300 group-hover:translate-y-0.5`}
-                >
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-[11px] sm:text-xs text-slate-800 select-none">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                  <div
-                    className="absolute right-[-6px] bottom-0 w-[6px] h-[6px] pointer-events-none"
-                    style={{
-                      backgroundColor: theme.foldColor,
-                      clipPath: 'polygon(0 0, 100% 0, 0 100%)'
-                    }}
+                {/* Left Thumbnail Banner */}
+                <div className="w-full sm:w-36 h-28 sm:h-24 rounded-xl overflow-hidden relative shrink-0 shadow-sm bg-slate-900">
+                  <img
+                    src={visual.coverImage}
+                    alt={note.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute bottom-1.5 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/40 backdrop-blur-md text-white border border-white/20">
+                    {langBadge.flag} {langBadge.label}
+                  </span>
+                  <span className="absolute top-1.5 right-2 px-2 py-0.5 rounded-full text-[10px] font-black bg-white/30 backdrop-blur-md text-white border border-white/30">
+                    {note.readingTimeMinutes || 3}m
+                  </span>
                 </div>
 
-                {/* Note Content */}
+                {/* Content Info */}
                 <div className="space-y-1.5 flex-1 min-w-0 pr-2">
                   <div className="flex items-center gap-2">
-                    <span className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}>
-                      {theme.label}
+                    <span className="text-[11px] font-extrabold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                      {note.subject}
                     </span>
-                    <span className="text-slate-300 dark:text-slate-600 font-bold">•</span>
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-bold ${langBadge.className}`}>
-                      <span>{langBadge.flag}</span>
-                      <span>{langBadge.label}</span>
+                    <span className="text-slate-400">•</span>
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 capitalize">
+                      {note.category}
                     </span>
-                    <span className="text-[10px] text-slate-400 capitalize hidden sm:inline">• {note.category}</span>
                   </div>
 
                   <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
@@ -1225,22 +1227,23 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
                     {note.summary || note.content.slice(0, 140).replace(/[#*`$]/g, '')}
                   </p>
+
+                  <div className="flex items-center gap-4 pt-1 text-[11px] text-slate-500 dark:text-slate-400 font-semibold">
+                    <span>⏱️ {note.readingTimeMinutes || 3} min duration</span>
+                    <span>•</span>
+                    <span>🏷️ {note.tags.length} tags</span>
+                  </div>
                 </div>
 
-                {/* Right Info & Actions */}
-                <div className="flex items-center gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/5" onClick={e => e.stopPropagation()}>
-                  <span className="text-xs text-slate-400 flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>{note.readingTimeMinutes || 3}m</span>
-                  </span>
-
+                {/* Right Action Controls & Embossed Circular Button */}
+                <div className="flex items-center gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/60 dark:border-white/5" onClick={e => e.stopPropagation()}>
                   <button
                     type="button"
                     onClick={e => handleToggleStar(note.id, e)}
-                    className={`p-2 rounded-xl transition-colors cursor-pointer ${
+                    className={`p-2 rounded-xl transition-all cursor-pointer ${
                       note.isStarred
                         ? 'text-amber-500 bg-amber-50 dark:bg-amber-950/30'
-                        : 'text-slate-300 dark:text-slate-600 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                        : 'text-slate-400 hover:text-amber-500 hover:bg-slate-200/60 dark:hover:bg-slate-800'
                     }`}
                     title={note.isStarred ? 'Remove from favorites' : 'Add to favorites'}
                   >
@@ -1250,20 +1253,16 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   <button
                     type="button"
                     onClick={e => handleCopyNote(note, e)}
-                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                     title="Copy note text"
                   >
-                    {copyFeedbackId === note.id ? (
-                      <Check className="w-4 h-4 text-emerald-500" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
+                    {copyFeedbackId === note.id ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                   </button>
 
                   <button
                     type="button"
                     onClick={e => handleOpenEditModal(note, e)}
-                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                     title="Edit note"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -1276,6 +1275,19 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     title="Delete note"
                   >
                     <Trash2 className="w-4 h-4" />
+                  </button>
+
+                  {/* Floating Circle Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setActiveReadingNote(note);
+                    }}
+                    className="w-10 h-10 rounded-full bg-[#EEF1F6] dark:bg-[#181C2E] border border-white/80 dark:border-white/10 shadow-[3px_3px_8px_#c2c8d4,-3px_-3px_8px_#ffffff] dark:shadow-[3px_3px_10px_rgba(0,0,0,0.6),-2px_-2px_6px_rgba(255,255,255,0.05)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
+                    title="Open Note"
+                  >
+                    <Navigation className="w-4 h-4 fill-slate-700 dark:fill-indigo-300 stroke-none" />
                   </button>
                 </div>
               </div>
