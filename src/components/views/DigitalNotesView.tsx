@@ -45,7 +45,8 @@ import {
   Image as ImageIcon,
   Upload,
   Wand2,
-  RefreshCw
+  RefreshCw,
+  Info
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -86,7 +87,7 @@ const INITIAL_DIGITAL_NOTES: DigitalNote[] = [
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-27T18:00:00Z',
-    updatedAt: '2026-09-27T18:00:00Z',
+    updatedAt: '2026-09-27T20:15:00Z',
     content: `# Making of the Indian Constitution: Comprehensive Exam Notes
 
 The Constitution lays down the fundamental political principles, establishes the structure, procedures, powers, and duties of government institutions, and sets out fundamental rights, directive principles, and the duties of citizens.
@@ -100,6 +101,7 @@ The Constitution lays down the fundamental political principles, establishes the
 - **Core Concept Alert:** While all democratic countries are likely to have a Constitution, it is not mandatory that every country having a Constitution is democratic.
 
 ### Comparison: Forms of Government
+
 | Form of Government | Meaning / Definition | Examples |
 | :--- | :--- | :--- |
 | **Democracy** | Government of the people, by the people, for the people | India, USA, UK |
@@ -234,6 +236,7 @@ The Constitution lays down the fundamental political principles, establishes the
 The Assembly appointed **8 Major Committees** and **13 Minor Committees**:
 
 ### The 8 Major Committees:
+
 | Committee Name | Chairman |
 | :--- | :--- |
 | **Union Powers Committee** | Jawaharlal Nehru |
@@ -551,6 +554,485 @@ The **Monetary Policy Committee (MPC)** of RBI consists of 6 members and meets b
   }
 ];
 
+// Helper functions for responsive markdown tables
+const extractCells = (row: string): string[] => {
+  let trimmed = row.trim();
+  if (trimmed.startsWith('|')) trimmed = trimmed.substring(1);
+  if (trimmed.endsWith('|')) trimmed = trimmed.substring(0, trimmed.length - 1);
+  return trimmed.split('|').map(c => c.trim());
+};
+
+const isSeparatorRow = (row: string): boolean => {
+  const clean = row.replace(/[|\s]/g, '');
+  return clean.length > 0 && /^[:-]+$/.test(clean);
+};
+
+const getAlignments = (sepRow: string): ('left' | 'center' | 'right')[] => {
+  const cells = extractCells(sepRow);
+  return cells.map(col => {
+    if (col.startsWith(':') && col.endsWith(':')) return 'center';
+    if (col.endsWith(':')) return 'right';
+    return 'left';
+  });
+};
+
+// Rich Inline Markdown Parser for bold, italic, code badge, highlights, and links
+export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
+  if (!text) return [];
+
+  // Match bold (**text**), italic (*text*), code (`text`), highlight (==text==), and link ([text](url))
+  const tokenRegex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|==[^=]+==|\[[^\]]+\]\([^)]+\))/g;
+  const parts = text.split(tokenRegex);
+
+  return parts.map((part, index) => {
+    const k = `${keyPrefix}-${index}`;
+    if (!part) return null;
+
+    // Bold (**text**)
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      return (
+        <strong key={k} className="font-extrabold text-slate-900 dark:text-white">
+          {parseInlineMarkdown(part.slice(2, -2), `${k}-b`)}
+        </strong>
+      );
+    }
+
+    // Italic (*text*)
+    if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
+      return (
+        <em key={k} className="italic text-slate-700 dark:text-slate-300">
+          {parseInlineMarkdown(part.slice(1, -1), `${k}-i`)}
+        </em>
+      );
+    }
+
+    // Inline Code / Badge (`code`)
+    if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+      return (
+        <code
+          key={k}
+          className="px-1.5 py-0.5 mx-0.5 rounded-md bg-indigo-500/10 dark:bg-indigo-400/15 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold border border-indigo-500/20"
+        >
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+
+    // Highlight (==text==)
+    if (part.startsWith('==') && part.endsWith('==') && part.length >= 4) {
+      return (
+        <mark
+          key={k}
+          className="px-1.5 py-0.5 mx-0.5 rounded bg-amber-300/80 dark:bg-amber-400/30 text-slate-950 dark:text-amber-100 font-bold"
+        >
+          {parseInlineMarkdown(part.slice(2, -2), `${k}-hl`)}
+        </mark>
+      );
+    }
+
+    // Markdown link ([text](url))
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a
+          key={k}
+          href={linkMatch[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium inline-flex items-center gap-0.5"
+        >
+          {linkMatch[1]}
+        </a>
+      );
+    }
+
+    return <React.Fragment key={k}>{part}</React.Fragment>;
+  });
+};
+
+// Executive Publication-Grade Markdown Content Renderer for Study Notes
+export const renderProfessionalNotesContent = (
+  content: string,
+  fontSize: 'base' | 'lg' | 'xl' = 'base'
+): React.ReactNode => {
+  if (!content) return null;
+
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let i = 0;
+
+  const textSizeClass =
+    fontSize === 'xl'
+      ? 'text-base sm:text-lg leading-relaxed'
+      : fontSize === 'lg'
+      ? 'text-sm sm:text-base leading-relaxed'
+      : 'text-xs sm:text-sm leading-relaxed';
+
+  while (i < lines.length) {
+    const rawLine = lines[i];
+    const trimmed = rawLine.trim();
+
+    // 1. Skip completely empty lines
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    // 2. Skip top-level Title (# Title) since modal displays title prominently
+    if (trimmed.startsWith('# ')) {
+      i++;
+      continue;
+    }
+
+    // 3. Heading 2 (## Major Section)
+    if (trimmed.startsWith('## ')) {
+      const headingText = trimmed.replace(/^##\s+/, '').trim();
+      elements.push(
+        <div
+          key={`h2-${i}`}
+          className="flex items-center gap-3 mt-8 mb-4 pb-2 border-b border-slate-200/80 dark:border-white/10"
+        >
+          <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
+          <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+            {parseInlineMarkdown(headingText, `h2-${i}`)}
+          </h3>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 4. Heading 3 (### Sub-section)
+    if (trimmed.startsWith('### ')) {
+      const headingText = trimmed.replace(/^###\s+/, '').trim();
+      elements.push(
+        <h4
+          key={`h3-${i}`}
+          className="text-base sm:text-lg font-extrabold text-indigo-700 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+          <span>{parseInlineMarkdown(headingText, `h3-${i}`)}</span>
+        </h4>
+      );
+      i++;
+      continue;
+    }
+
+    // 5. Divider (--- or ***)
+    if (trimmed === '---' || trimmed === '***') {
+      elements.push(
+        <div key={`hr-${i}`} className="flex items-center justify-center gap-3 my-8 select-none" aria-hidden="true">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent" />
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50" />
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent" />
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 6. Code Block (``` ... ```)
+    if (trimmed.startsWith('```')) {
+      const lang = trimmed.replace(/^```/, '').trim();
+      const codeLines: string[] = [];
+      i++;
+      while (i < lines.length && !lines[i].trim().startsWith('```')) {
+        codeLines.push(lines[i]);
+        i++;
+      }
+      if (i < lines.length && lines[i].trim().startsWith('```')) {
+        i++;
+      }
+      elements.push(
+        <div
+          key={`code-${i}`}
+          className="my-5 rounded-2xl overflow-hidden border border-slate-800 bg-[#0D1117] text-[#E6EDF3] text-xs font-mono shadow-sm"
+        >
+          {lang && (
+            <div className="px-4 py-1.5 bg-[#161B22] text-[11px] text-slate-400 font-bold border-b border-slate-800 uppercase tracking-wider">
+              {lang}
+            </div>
+          )}
+          <pre className="p-4 overflow-x-auto leading-relaxed custom-scrollbar font-mono">
+            <code>{codeLines.join('\n')}</code>
+          </pre>
+        </div>
+      );
+      continue;
+    }
+
+    // 7. Math / Formula ($$ ... $$)
+    if (trimmed.startsWith('$$') && trimmed.endsWith('$$') && trimmed.length > 4) {
+      const formula = trimmed.slice(2, -2).trim();
+      elements.push(
+        <div
+          key={`math-${i}`}
+          className="my-5 p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200/60 dark:border-indigo-800/40 text-indigo-900 dark:text-indigo-200 font-mono text-xs sm:text-sm text-center shadow-2xs overflow-x-auto custom-scrollbar"
+        >
+          {formula}
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 8. Markdown Table (| Col 1 | Col 2 |)
+    if (trimmed.startsWith('|')) {
+      const tableLines: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) {
+        tableLines.push(lines[i].trim());
+        i++;
+      }
+
+      if (tableLines.length >= 2) {
+        const headerLine = tableLines[0];
+        let sepLine = '';
+        const bodyLines: string[] = [];
+
+        for (let t = 1; t < tableLines.length; t++) {
+          if (!sepLine && isSeparatorRow(tableLines[t])) {
+            sepLine = tableLines[t];
+          } else {
+            bodyLines.push(tableLines[t]);
+          }
+        }
+
+        const alignments = sepLine ? getAlignments(sepLine) : [];
+        const headerCells = extractCells(headerLine);
+
+        elements.push(
+          <div
+            key={`table-${i}`}
+            className="my-6 overflow-hidden rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-sm bg-white dark:bg-[#121526]"
+          >
+            <div className="overflow-x-auto custom-scrollbar">
+              <table className="w-full text-left border-collapse min-w-[500px]">
+                <thead>
+                  <tr className="bg-gradient-to-r from-slate-100 to-slate-50 dark:from-[#181B2E] dark:to-[#161829] border-b border-slate-200/80 dark:border-white/10">
+                    {headerCells.map((h, hIdx) => {
+                      const align = alignments[hIdx] || 'left';
+                      return (
+                        <th
+                          key={hIdx}
+                          className={`py-3.5 px-4 text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 border-r border-slate-200/60 dark:border-white/5 last:border-r-0 ${
+                            align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
+                          }`}
+                        >
+                          {parseInlineMarkdown(h, `th-${i}-${hIdx}`)}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
+                  {bodyLines.map((rowStr, rIdx) => {
+                    const cells = extractCells(rowStr);
+                    return (
+                      <tr
+                        key={rIdx}
+                        className={`transition-colors hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 ${
+                          rIdx % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/60 dark:bg-white/[0.02]'
+                        }`}
+                      >
+                        {cells.map((cell, cIdx) => {
+                          const align = alignments[cIdx] || 'left';
+                          return (
+                            <td
+                              key={cIdx}
+                              className={`py-3 px-4 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 border-r border-slate-100 dark:border-white/5 last:border-r-0 leading-relaxed font-normal ${
+                                align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
+                              }`}
+                            >
+                              {parseInlineMarkdown(cell, `td-${i}-${rIdx}-${cIdx}`)}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+        continue;
+      } else {
+        elements.push(
+          <p key={`p-${i}`} className={`my-3 text-slate-800 dark:text-slate-200 ${textSizeClass} font-normal`}>
+            {parseInlineMarkdown(tableLines[0], `p-${i}`)}
+          </p>
+        );
+        continue;
+      }
+    }
+
+    // 9. Callout / Exam Trap / Note Block (> ...)
+    if (trimmed.startsWith('>')) {
+      const quoteLines: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith('>')) {
+        quoteLines.push(lines[i].trim().replace(/^>\s*/, ''));
+        i++;
+      }
+      const quoteText = quoteLines.join('\n');
+      const isTrap = /⚠️|trap|warning|alert|danger|caution/i.test(quoteText);
+      const isTip = /💡|tip|trick|shortcut|remember/i.test(quoteText);
+      const isKey = /🔑|key|crucial|concept|highlight/i.test(quoteText);
+
+      let cardBorder = 'border-indigo-500/40 border-l-4';
+      let cardBg = 'bg-indigo-50/70 dark:bg-indigo-950/25';
+      let titleColor = 'text-indigo-700 dark:text-indigo-300';
+      let textColor = 'text-slate-800 dark:text-slate-200';
+      let iconColor = 'text-indigo-600 dark:text-indigo-400';
+      let calloutTitle = 'Important Note';
+      let IconComponent = BookOpen;
+
+      if (isTrap) {
+        cardBorder = 'border-amber-500/60 border-l-4';
+        cardBg = 'bg-amber-50/80 dark:bg-amber-950/25';
+        titleColor = 'text-amber-800 dark:text-amber-300';
+        textColor = 'text-amber-950 dark:text-amber-100';
+        iconColor = 'text-amber-600 dark:text-amber-400';
+        calloutTitle = 'Exam Trap & High-Yield Alert';
+        IconComponent = AlertCircle;
+      } else if (isTip) {
+        cardBorder = 'border-emerald-500/60 border-l-4';
+        cardBg = 'bg-emerald-50/80 dark:bg-emerald-950/25';
+        titleColor = 'text-emerald-800 dark:text-emerald-300';
+        textColor = 'text-emerald-950 dark:text-emerald-100';
+        iconColor = 'text-emerald-600 dark:text-emerald-400';
+        calloutTitle = 'Exam Shortcut & Pro Tip';
+        IconComponent = Lightbulb;
+      } else if (isKey) {
+        cardBorder = 'border-purple-500/60 border-l-4';
+        cardBg = 'bg-purple-50/80 dark:bg-purple-950/25';
+        titleColor = 'text-purple-800 dark:text-purple-300';
+        textColor = 'text-purple-950 dark:text-purple-100';
+        iconColor = 'text-purple-600 dark:text-purple-400';
+        calloutTitle = 'Core Concept';
+        IconComponent = Zap;
+      }
+
+      elements.push(
+        <div
+          key={`callout-${i}`}
+          className={`my-5 p-4 sm:p-5 rounded-r-2xl rounded-l-md border ${cardBorder} ${cardBg} shadow-2xs transition-all`}
+        >
+          <div className="flex items-center gap-2 mb-2 font-black text-xs uppercase tracking-wider">
+            <IconComponent className={`w-4 h-4 shrink-0 ${iconColor}`} />
+            <span className={titleColor}>{calloutTitle}</span>
+          </div>
+          <div className={`text-xs sm:text-sm leading-relaxed ${textColor} font-medium`}>
+            {parseInlineMarkdown(quoteText, `callout-${i}`)}
+          </div>
+        </div>
+      );
+      continue;
+    }
+
+    // 10. Checkbox item (- [ ] or - [x])
+    const checkMatch = rawLine.match(/^(\s*)([-*])\s+\[([ xX])\]\s+(.*)/);
+    if (checkMatch) {
+      const indent = checkMatch[1].length;
+      const isChecked = checkMatch[3].toLowerCase() === 'x';
+      const text = checkMatch[4];
+      const isNested = indent >= 2;
+      elements.push(
+        <div
+          key={`check-${i}`}
+          className={`flex items-start gap-2.5 my-2 ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
+        >
+          <span
+            className={`w-4 h-4 rounded mt-0.5 flex items-center justify-center shrink-0 border ${
+              isChecked
+                ? 'bg-indigo-600 border-indigo-600 text-white'
+                : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
+            }`}
+          >
+            {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+          </span>
+          <div
+            className={`flex-1 ${textSizeClass} ${
+              isChecked ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-800 dark:text-slate-200'
+            }`}
+          >
+            {parseInlineMarkdown(text, `check-${i}`)}
+          </div>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 11. Unordered List Item (- or *)
+    const ulMatch = rawLine.match(/^(\s*)([-*])\s+(.*)/);
+    if (ulMatch) {
+      const indent = ulMatch[1].length;
+      const itemText = ulMatch[3];
+      const isDeepNested = indent >= 4;
+      const isNested = indent >= 2;
+
+      elements.push(
+        <div
+          key={`ul-${i}`}
+          className={`flex items-start gap-3 my-2 ${
+            isDeepNested ? 'ml-10 sm:ml-12 my-1' : isNested ? 'ml-5 sm:ml-7 my-1.5' : 'my-2'
+          }`}
+        >
+          {isNested ? (
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500 mt-2 shrink-0" />
+          ) : (
+            <span className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400 mt-2 shrink-0 ring-4 ring-indigo-500/15" />
+          )}
+          <div
+            className={`flex-1 ${
+              isNested ? 'text-xs sm:text-[13px] text-slate-600 dark:text-slate-300' : textSizeClass
+            } text-slate-800 dark:text-slate-200`}
+          >
+            {parseInlineMarkdown(itemText, `ul-${i}`)}
+          </div>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 12. Ordered List Item (1. , 2. )
+    const olMatch = rawLine.match(/^(\s*)(\d+)\.\s+(.*)/);
+    if (olMatch) {
+      const indent = olMatch[1].length;
+      const num = olMatch[2];
+      const itemText = olMatch[3];
+      const isNested = indent >= 2;
+
+      elements.push(
+        <div
+          key={`ol-${i}`}
+          className={`flex items-start gap-3 my-2.5 ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
+        >
+          <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-800/60 text-xs font-mono font-black flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+            {num}
+          </span>
+          <div className={`flex-1 ${textSizeClass} text-slate-800 dark:text-slate-200`}>
+            {parseInlineMarkdown(itemText, `ol-${i}`)}
+          </div>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 13. Regular Paragraph
+    elements.push(
+      <p key={`p-${i}`} className={`my-3 text-slate-800 dark:text-slate-200 ${textSizeClass} font-normal`}>
+        {parseInlineMarkdown(trimmed, `p-${i}`)}
+      </p>
+    );
+    i++;
+  }
+
+  return <div className="space-y-1">{elements}</div>;
+};
+
 interface DigitalNotesViewProps {
   onNavigateToSubject?: (subjectId: string) => void;
   onOpenTopicDrawer?: (topic: Topic, subjectName: string, chapterName: string) => void;
@@ -567,9 +1049,17 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const existingIds = new Set(parsed.map((n: DigitalNote) => n.id));
+          const seedMap = new Map(INITIAL_DIGITAL_NOTES.map(s => [s.id, s]));
+          const updatedNotes = parsed.map((n: DigitalNote) => {
+            const seed = seedMap.get(n.id);
+            if (seed && seed.updatedAt > n.updatedAt) {
+              return { ...seed, isStarred: n.isStarred ?? seed.isStarred };
+            }
+            return n;
+          });
+          const existingIds = new Set(updatedNotes.map((n: DigitalNote) => n.id));
           const missingSeeds = INITIAL_DIGITAL_NOTES.filter(seed => !existingIds.has(seed.id));
-          return [...missingSeeds, ...parsed];
+          return [...missingSeeds, ...updatedNotes];
         }
       }
     } catch (e) {
@@ -1900,6 +2390,27 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
 
             {/* Modal Body / Markdown Content View */}
             <div className="flex-1 overflow-y-auto p-6 sm:p-10 custom-scrollbar space-y-6">
+              {/* Optional Cover Banner */}
+              {activeReadingNote.coverImage && (
+                <div className="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-white/10 shrink-0">
+                  <img
+                    src={activeReadingNote.coverImage}
+                    alt={activeReadingNote.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-bold">
+                    <span className="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/20">
+                      {activeReadingNote.subject}
+                    </span>
+                    <span className="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/20 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <h2 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
                 {activeReadingNote.title}
               </h2>
@@ -1911,7 +2422,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
                 </span>
                 <span>•</span>
-                <span className="capitalize">{activeReadingNote.category}</span>
+                <span className="capitalize font-semibold text-indigo-600 dark:text-indigo-400">
+                  {activeReadingNote.category}
+                </span>
                 {activeReadingNote.tags.map(tag => (
                   <span key={tag} className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-medium">
                     #{tag}
@@ -1920,73 +2433,8 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               </div>
 
               {/* Formatted Markdown Reader Area */}
-              <div
-                className={`prose dark:prose-invert max-w-none leading-relaxed text-slate-800 dark:text-slate-200 font-sans ${
-                  readerFontSize === 'xl' ? 'text-lg' : readerFontSize === 'lg' ? 'text-base' : 'text-sm'
-                }`}
-              >
-                {activeReadingNote.content.split('\n\n').map((block, idx) => {
-                  if (block.startsWith('# ')) {
-                    return null; // Title already displayed prominently above
-                  }
-                  if (block.startsWith('## ')) {
-                    return (
-                      <h3 key={idx} className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-6 mb-3 pb-1 border-b border-slate-200 dark:border-slate-800">
-                        {block.replace('## ', '')}
-                      </h3>
-                    );
-                  }
-                  if (block.startsWith('### ')) {
-                    return (
-                      <h4 key={idx} className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-400 mt-4 mb-2">
-                        {block.replace('### ', '')}
-                      </h4>
-                    );
-                  }
-                  if (block.startsWith('---')) {
-                    return <hr key={idx} className="my-6 border-slate-200 dark:border-slate-800" />;
-                  }
-                  if (block.includes('|') && block.includes('---')) {
-                    // Render simple markdown table
-                    const rows = block.trim().split('\n').filter(r => !r.includes('---'));
-                    if (rows.length > 0) {
-                      const headerCells = rows[0].split('|').map(c => c.trim()).filter(Boolean);
-                      const bodyRows = rows.slice(1);
-                      return (
-                        <div key={idx} className="overflow-x-auto my-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                          <table className="w-full text-left text-xs border-collapse">
-                            <thead>
-                              <tr className="bg-slate-100 dark:bg-[#181B2E] text-slate-700 dark:text-slate-300 font-bold">
-                                {headerCells.map((h, i) => (
-                                  <th key={i} className="p-3 border-b border-slate-200 dark:border-slate-800">{h}</th>
-                                ))}
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {bodyRows.map((r, ri) => {
-                                const cells = r.split('|').map(c => c.trim()).filter(Boolean);
-                                return (
-                                  <tr key={ri} className="border-b border-slate-100 dark:border-slate-800/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                    {cells.map((cell, ci) => (
-                                      <td key={ci} className="p-3 text-slate-700 dark:text-slate-300">{cell}</td>
-                                    ))}
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      );
-                    }
-                  }
-
-                  // Standard paragraphs or lists
-                  return (
-                    <p key={idx} className="whitespace-pre-line text-slate-700 dark:text-slate-300 my-2.5">
-                      {block}
-                    </p>
-                  );
-                })}
+              <div className="text-slate-800 dark:text-slate-200 font-sans pb-8">
+                {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize)}
               </div>
             </div>
 
