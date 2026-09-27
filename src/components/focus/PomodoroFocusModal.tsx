@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useTimer } from '../../context/TimerContext';
-import { useTheme } from '../../context/ThemeContext';
 import {
   X,
   Play,
@@ -25,17 +24,13 @@ import {
   Maximize2,
   Minimize2,
   PictureInPicture2,
-  Sun,
-  Moon,
-  Sparkles,
   Plus,
   ExternalLink,
   BarChart3,
   Search,
   Zap,
   Timer as StopwatchIcon,
-  Hourglass,
-  Type
+  Hourglass
 } from 'lucide-react';
 import { ambientEngine, AmbientSoundType } from '../../utils/ambientSounds';
 import { soundManager } from '../../utils/soundEffects';
@@ -63,7 +58,6 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   defaultTopicId
 }) => {
   const { allTopics, plannerTasks, togglePlannerTask, activityHistory } = useSyllabus();
-  const { toggleTheme, isDark, theme } = useTheme();
   const {
     session,
     startTimer,
@@ -314,13 +308,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         handleResetOrStop();
       } else if (e.key === 'f' || e.key === 'F') {
         handleToggleFullscreen();
-      } else if (e.key === 'd' || e.key === 'D') {
-        toggleTheme();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, toggleTheme, isTopicSearchOpen, isSettingsOpen, onClose]);
+  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, isTopicSearchOpen, isSettingsOpen, onClose]);
 
   // Today's Focus Checklist from Planner or Syllabus
   const todayTasks = useMemo(() => {
@@ -830,178 +822,128 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       {/* Subtle Tech Grid Texture */}
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:28px_28px] opacity-70" />
 
-      {/* 1. TOP UTILITY HEADER (Clean, Responsive, Mobile-Stable) */}
-      <header className="relative z-30 shrink-0 h-14 sm:h-16 px-3.5 sm:px-8 border-b border-slate-200/80 dark:border-white/[0.06] bg-white/80 dark:bg-black/40 backdrop-blur-xl flex items-center justify-between gap-2 sm:gap-4">
-        {/* Left Branding */}
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-white shadow-md bg-gradient-to-br from-[#7C3AED] to-[#0066FF] shrink-0">
-            <GraduationCap className="w-4 h-4 text-white" />
+      {/* 1. TOP UTILITY HEADER (Clean, Responsive, Mobile-Stable - Hidden in Fullscreen) */}
+      {!isBrowserFullscreen && (
+        <header className="relative z-30 shrink-0 h-14 sm:h-16 px-3.5 sm:px-8 border-b border-slate-200/80 dark:border-white/[0.06] bg-white/80 dark:bg-black/40 backdrop-blur-xl flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300">
+          {/* Left Branding */}
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-white shadow-md bg-gradient-to-br from-[#7C3AED] to-[#0066FF] shrink-0">
+              <GraduationCap className="w-4 h-4 text-white" />
+            </div>
+            <div className="truncate">
+              <h1 className="text-xs sm:text-sm font-black tracking-wider text-slate-900 dark:text-white uppercase truncate">
+                Chamber
+              </h1>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block truncate">
+                Distraction-Free Study Sanctum
+              </p>
+            </div>
           </div>
-          <div className="truncate">
-            <h1 className="text-xs sm:text-sm font-black tracking-wider text-slate-900 dark:text-white uppercase truncate">
-              Chamber
-            </h1>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block truncate">
-              Distraction-Free Study Sanctum
-            </p>
-          </div>
-        </div>
 
-        {/* Right Tools & Navigation */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-          {/* Theme Toggle */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.light();
-              toggleTheme();
-            }}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border border-slate-200 dark:border-white/10"
-            title={
-              theme === 'dark'
-                ? "Switch to Light Mode (D)"
-                : theme === 'light'
-                ? "Switch to Warm Parchment Gold (D)"
-                : "Switch to Dark Mode (D)"
-            }
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400" />
-            ) : theme === 'warm-cream' ? (
-              <Sparkles className="w-4 h-4 text-[#E1A837]" />
-            ) : (
-              <Moon className="w-4 h-4 text-indigo-600" />
-            )}
-          </button>
+          {/* Right Tools & Navigation */}
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            {/* Fullscreen Toggle (Hidden on small mobile screens to keep header stable) */}
+            <button
+              type="button"
+              onClick={handleToggleFullscreen}
+              className={`hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
+                isBrowserFullscreen
+                  ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+              }`}
+              title={isBrowserFullscreen ? 'Exit Fullscreen (F)' : 'Enter Fullscreen (F)'}
+              aria-label="Toggle Fullscreen"
+            >
+              {isBrowserFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
 
-          {/* Quick Ambient Audio Toggle / Indicator */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              handleNextSound();
-            }}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
-              activeSound !== 'none'
-                ? 'bg-[#0066FF]/15 text-[#0066FF] dark:text-[#38BDF8] border-[#0066FF]/30 shadow-xs'
-                : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
-            }`}
-            title={`Ambient Audio: ${currentSoundTrack.label}. Click to switch tracks.`}
-            aria-label="Cycle Ambient Audio"
-          >
-            <Music className={`w-4 h-4 ${activeSound !== 'none' && isRunning ? 'animate-pulse text-[#0066FF] dark:text-[#38BDF8]' : ''}`} />
-          </button>
+            {/* Picture-in-Picture (Hidden on small mobile screens) */}
+            <button
+              type="button"
+              onClick={async () => {
+                soundManager.playClick();
+                if (isPiPActive) {
+                  await exitPictureInPicture();
+                } else {
+                  await requestPictureInPicture();
+                }
+              }}
+              className={`hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
+                isPiPActive
+                  ? 'bg-[#0066FF] text-white'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+              }`}
+              title="Popout Floating Window"
+              aria-label="Picture-in-Picture"
+            >
+              <PictureInPicture2 className="w-4 h-4" />
+            </button>
 
-          {/* Fullscreen Toggle (Hidden on small mobile screens to keep header stable) */}
-          <button
-            type="button"
-            onClick={handleToggleFullscreen}
-            className={`hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
-              isBrowserFullscreen
-                ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
-            }`}
-            title={isBrowserFullscreen ? 'Exit Fullscreen (F)' : 'Enter Fullscreen (F)'}
-            aria-label="Toggle Fullscreen"
-          >
-            {isBrowserFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-          </button>
-
-          {/* Picture-in-Picture (Hidden on small mobile screens) */}
-          <button
-            type="button"
-            onClick={async () => {
-              soundManager.playClick();
-              if (isPiPActive) {
-                await exitPictureInPicture();
-              } else {
-                await requestPictureInPicture();
-              }
-            }}
-            className={`hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
-              isPiPActive
-                ? 'bg-[#0066FF] text-white'
-                : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
-            }`}
-            title="Popout Floating Window"
-            aria-label="Picture-in-Picture"
-          >
-            <PictureInPicture2 className="w-4 h-4" />
-          </button>
-
-          {/* Minimize to In-App Capsule */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              showFloatingOverlay();
-              onClose();
-            }}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
-            title="Minimize to In-App Capsule"
-            aria-label="Minimize"
-          >
-            <Minimize2 className="w-4 h-4" />
-          </button>
-
-          {/* Quick Timer Font Switcher */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              const next: TimerFontFamily = timerFont === 'roboto-mono' ? 'orbitron' : timerFont === 'orbitron' ? 'jetbrains' : 'roboto-mono';
-              handleSelectTimerFont(next);
-            }}
-            className="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 border bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 text-[11px] font-bold"
-            title={`Timer Font: ${timerFont === 'roboto-mono' ? 'Roboto Mono (Clean Digital)' : timerFont === 'orbitron' ? 'Orbitron (Futuristic Sci-Fi)' : 'JetBrains Mono (Code Mono)'}. Click to switch.`}
-            aria-label="Switch Timer Font"
-          >
-            <Type className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
-            <span className="hidden sm:inline font-mono text-[10px]">
-              {timerFont === 'roboto-mono' ? 'Roboto Mono' : timerFont === 'orbitron' ? 'Orbitron' : 'JetBrains'}
-            </span>
-          </button>
-
-          {/* Settings */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              setIsSettingsOpen(prev => !prev);
-            }}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer active:scale-95 border ${
-              isSettingsOpen
-                ? 'bg-[#0066FF] text-white shadow-md'
-                : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
-            }`}
-            title="Timer Settings"
-            aria-label="Settings"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-
-          {/* Close / Exit */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              if (isRunning || isPaused) {
+            {/* Minimize to In-App Capsule */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
                 showFloatingOverlay();
-              }
-              onClose();
-            }}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 flex items-center justify-center cursor-pointer transition-all active:scale-95 shadow-xs"
-            title="Exit Focus Chamber (Esc)"
-            aria-label="Close"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      </header>
+                onClose();
+              }}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+              title="Minimize to In-App Capsule"
+              aria-label="Minimize"
+            >
+              <Minimize2 className="w-4 h-4" />
+            </button>
+
+            {/* Settings */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setIsSettingsOpen(prev => !prev);
+              }}
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer active:scale-95 border ${
+                isSettingsOpen
+                  ? 'bg-[#0066FF] text-white shadow-md'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+              }`}
+              title="Timer Settings"
+              aria-label="Settings"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+
+            {/* Close / Exit */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                if (isRunning || isPaused) {
+                  showFloatingOverlay();
+                }
+                onClose();
+              }}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 flex items-center justify-center cursor-pointer transition-all active:scale-95 shadow-xs"
+              title="Exit Focus Chamber (Esc)"
+              aria-label="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </header>
+      )}
+
+      {/* Floating Exit Fullscreen Button (Only appears in fullscreen mode for quick exit) */}
+      {isBrowserFullscreen && (
+        <button
+          type="button"
+          onClick={handleToggleFullscreen}
+          className="fixed top-4 right-4 z-50 p-2.5 rounded-2xl bg-black/60 hover:bg-black/85 text-white backdrop-blur-md border border-white/15 opacity-40 hover:opacity-100 transition-all cursor-pointer shadow-xl active:scale-95 group"
+          title="Exit Fullscreen (F / Esc)"
+          aria-label="Exit Fullscreen"
+        >
+          <Minimize2 className="w-4 h-4 transition-transform group-hover:scale-110" />
+        </button>
+      )}
 
       {/* 2. MAIN SCROLLABLE CONTENT (Mobile-Friendly, Rock-Solid Stability) */}
       <main className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full relative z-20 pb-36 sm:pb-28">
