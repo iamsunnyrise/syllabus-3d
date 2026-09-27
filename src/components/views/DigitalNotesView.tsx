@@ -1256,7 +1256,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     loading="lazy"
                   />
                   {/* Atmospheric Vignette & Contrast Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/25 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none" />
 
                   {/* Banner Top Row: Language Badge & Action Controls */}
                   <div className="relative z-10 flex items-center justify-between gap-2">
@@ -1309,33 +1309,29 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     </div>
                   </div>
 
-                  {/* Banner Bottom Row: Title, Subtitle & Frosted Reading Time Pill */}
-                  <div className="relative z-10 flex items-end justify-between gap-3">
-                    <div className="min-w-0 pr-1">
-                      <h3 className="text-white font-extrabold text-sm sm:text-base line-clamp-1 drop-shadow-sm leading-snug">
-                        {note.title}
-                      </h3>
-                      <p className="text-white/85 text-[11px] sm:text-xs font-medium truncate drop-shadow-xs mt-0.5">
-                        {visual.subtitle || note.subject}
-                      </p>
-                    </div>
-
-                    {/* Frosted Glass Pill (like $720 in reference photo) */}
-                    <span className="px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide bg-white/25 dark:bg-black/40 backdrop-blur-md border border-white/40 text-white shadow-sm shrink-0 whitespace-nowrap">
-                      {note.readingTimeMinutes || 3} min
+                  {/* Banner Bottom Row: Clean Frosted Reading Time Pill only (No topic title on photo) */}
+                  <div className="relative z-10 flex items-center justify-end">
+                    <span className="px-3 py-1 rounded-full text-xs font-black tracking-wide bg-black/40 dark:bg-black/60 backdrop-blur-md border border-white/30 text-white shadow-sm shrink-0 whitespace-nowrap flex items-center gap-1.5 select-none">
+                      <Clock className="w-3.5 h-3.5 text-amber-300" />
+                      <span>{note.readingTimeMinutes || 3} min</span>
                     </span>
                   </div>
                 </div>
 
                 {/* 2. Lower Inset Beveled Tray with Floating Neumorphic Button */}
                 <div className="bg-[#E5E9F1] dark:bg-[#0C0F1D] shadow-[inset_3px_3px_6px_#c2c8d4,inset_-3px_-3px_6px_#ffffff] dark:shadow-[inset_3px_3px_7px_rgba(0,0,0,0.65),inset_-1.5px_-1.5px_5px_rgba(255,255,255,0.03)] dark:border dark:border-white/[0.04] rounded-[22px] p-3.5 sm:p-4 flex items-center justify-between gap-3">
-                  {/* Left Column: Metadata & 3-Column Stats */}
+                  {/* Left Column: Metadata, Note Title & 3-Column Stats */}
                   <div className="flex flex-col gap-2 flex-1 min-w-0">
                     <div className="flex flex-col">
-                      <div className="text-xs sm:text-[13px] font-extrabold text-slate-800 dark:text-slate-100 truncate">
-                        {note.subject}
+                      <div className="flex items-center gap-1.5 text-[11px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                        <span>{note.subject}</span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span className="text-slate-500 dark:text-slate-400 capitalize font-medium">{note.category}</span>
                       </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                      <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white line-clamp-1 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                        {note.title}
+                      </h3>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                         {note.summary || note.content.slice(0, 90).replace(/[#*`$]/g, '')}
                       </div>
                     </div>
