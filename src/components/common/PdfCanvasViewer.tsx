@@ -191,6 +191,14 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
   const [resumeToast, setResumeToast] = useState<{ pageNum: number; totalPages?: number } | null>(null);
   const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const targetInitialPageRef = useRef<number>(1);
+  const initialPageRef = useRef<number | undefined>(propInitialPage);
+  useEffect(() => {
+    if (propInitialPage && !hasRestoredPageRef.current) {
+      initialPageRef.current = propInitialPage;
+    }
+  }, [propInitialPage]);
+  const isUserScrollingRef = useRef<boolean>(false);
+  const userScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasRestoredPageRef = useRef<boolean>(false);
   const currentPageRef = useRef<number>(1);
   currentPageRef.current = currentPage;
@@ -467,8 +475,9 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
         // Retrieve saved reading progress for this document
         const savedProgress = docId ? getPdfReadingProgress(docId) : null;
-        const targetPage = (propInitialPage && propInitialPage >= 1 && propInitialPage <= doc.numPages)
-          ? propInitialPage
+        const initP = initialPageRef.current || propInitialPage;
+        const targetPage = (initP && initP >= 1 && initP <= doc.numPages)
+          ? initP
           : (savedProgress && savedProgress.pageNum >= 1 && savedProgress.pageNum <= doc.numPages)
             ? savedProgress.pageNum
             : 1;
@@ -511,7 +520,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         cancelAnimationFrame(scrollRafRef.current);
       }
     };
-  }, [pdfUrl, docId, propInitialPage, propTargetPage]);
+  }, [pdfUrl, docId]);
 
   // Auto-scroll to saved/target page once PDF document and page containers are mounted
   useEffect(() => {
@@ -581,6 +590,14 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
     const container = containerRef.current;
     lastScrollTopRef.current = container.scrollTop;
 
+    isUserScrollingRef.current = true;
+    if (userScrollTimeoutRef.current) {
+      clearTimeout(userScrollTimeoutRef.current);
+    }
+    userScrollTimeoutRef.current = setTimeout(() => {
+      isUserScrollingRef.current = false;
+    }, 400);
+
     if (scrollRafRef.current !== null) return;
 
     scrollRafRef.current = requestAnimationFrame(() => {
@@ -644,6 +661,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
   // Sync external page change (e.g. from parent header input, thumbnail click, or keyboard shortcut)
   useEffect(() => {
+    if (isUserScrollingRef.current) return;
     const target = propTargetPage || propCurrentPage;
     if (target && target >= 1 && target <= numPages && target !== currentPage) {
       if (viewMode === 'single') {
@@ -655,7 +673,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
         scrollToPage(target, behavior);
       }
     }
-  }, [propTargetPage, propCurrentPage, numPages, viewMode]);
+  }, [propTargetPage, propCurrentPage, numPages, viewMode, currentPage]);
 
   // Background Lookahead Pre-rendering: Pre-render adjacent pages (N+1, N-1, N+2) into RAM cache
   useEffect(() => {

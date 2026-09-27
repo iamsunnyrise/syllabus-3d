@@ -1708,9 +1708,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               <PdfCanvasViewer
                 pdfUrl={pdfBlobUrl}
                 docId={selectedAttachmentId}
-                initialPage={currentPage}
                 currentPage={currentPage}
-                targetPage={currentPage}
                 viewMode={viewMode}
                 onViewModeChange={setViewMode}
                 scale={scale}
