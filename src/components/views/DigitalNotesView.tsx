@@ -35,7 +35,13 @@ import {
   Globe,
   Landmark,
   Activity,
-  TrendingUp
+  TrendingUp,
+  Lock,
+  Unlock,
+  ShieldCheck,
+  Key,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -380,6 +386,125 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   const [readerFontSize, setReaderFontSize] = useState<'base' | 'lg' | 'xl'>('base');
   const [copyFeedbackId, setCopyFeedbackId] = useState<string | null>(null);
 
+  // 🛡️ Admin & Creator Mode States (Restricts Create, Edit, Delete to Admin only)
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('syllabus3d_notes_admin_auth') === 'true';
+    } catch {
+      return false;
+    }
+  });
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  const [adminPasscodeInput, setAdminPasscodeInput] = useState('');
+  const [adminPasscodeError, setAdminPasscodeError] = useState('');
+  const [showAdminPasscode, setShowAdminPasscode] = useState(false);
+  const [isChangingPasscode, setIsChangingPasscode] = useState(false);
+  const [newPasscodeInput, setNewPasscodeInput] = useState('');
+  const [passcodeSuccessMessage, setPasscodeSuccessMessage] = useState('');
+
+  // Unlock Admin Mode
+  const handleVerifyAdminPasscode = useCallback(() => {
+    const currentSecret = localStorage.getItem('syllabus3d_notes_admin_passcode') || 'admin123';
+    if (adminPasscodeInput.trim() === currentSecret) {
+      soundManager.playCompleteChime();
+      haptics.success();
+      setIsAdmin(true);
+      try {
+        localStorage.setItem('syllabus3d_notes_admin_auth', 'true');
+      } catch {}
+      setIsAdminModalOpen(false);
+      setAdminPasscodeInput('');
+      setAdminPasscodeError('');
+    } else {
+      soundManager.playWarning();
+      haptics.error();
+      setAdminPasscodeError('Incorrect passcode. Default is "admin123" unless modified.');
+    }
+  }, [adminPasscodeInput]);
+
+  // Lock / Exit Admin Mode (View as Student)
+  const handleExitAdminMode = useCallback(() => {
+    soundManager.playClick();
+    haptics.light();
+    setIsAdmin(false);
+    try {
+      localStorage.removeItem('syllabus3d_notes_admin_auth');
+    } catch {}
+  }, []);
+
+  // Update Admin Passcode
+  const handleUpdatePasscode = useCallback(() => {
+    const currentSecret = localStorage.getItem('syllabus3d_notes_admin_passcode') || 'admin123';
+    if (adminPasscodeInput.trim() !== currentSecret) {
+      soundManager.playWarning();
+      setAdminPasscodeError('Current passcode is incorrect.');
+      return;
+    }
+    if (newPasscodeInput.trim().length < 4) {
+      soundManager.playWarning();
+      setAdminPasscodeError('New passcode must be at least 4 characters.');
+      return;
+    }
+
+    try {
+      localStorage.setItem('syllabus3d_notes_admin_passcode', newPasscodeInput.trim());
+      soundManager.playCompleteChime();
+      haptics.success();
+      setPasscodeSuccessMessage('Admin passcode updated successfully!');
+      setTimeout(() => {
+        setPasscodeSuccessMessage('');
+        setIsChangingPasscode(false);
+        setAdminPasscodeInput('');
+        setNewPasscodeInput('');
+        setAdminPasscodeError('');
+      }, 1500);
+    } catch {
+      setAdminPasscodeError('Could not save passcode to local storage.');
+    }
+  }, [adminPasscodeInput, newPasscodeInput]);
+
+  // Optional Cloud sync to Firestore public collection if Firebase is configured
+  const syncNotesToCloudIfConfigured = async (updatedNotes: DigitalNote[]) => {
+    try {
+      const { initFirebase } = await import('../../services/firebase');
+      const { db, isConfigured } = initFirebase();
+      if (isConfigured && db) {
+        const { doc, setDoc } = await import('firebase/firestore');
+        const docRef = doc(db, 'public_notes', 'digital_notes_library');
+        await setDoc(docRef, {
+          notes: updatedNotes,
+          updatedAt: new Date().toISOString(),
+          version: '1.0'
+        }, { merge: true });
+      }
+    } catch (err) {
+      console.warn('Optional Firestore notes sync skipped:', err);
+    }
+  };
+
+  // Sync official notes from Firestore public collection on mount if available
+  useEffect(() => {
+    let isMounted = true;
+    import('../../services/firebase').then(({ initFirebase }) => {
+      const { db, isConfigured } = initFirebase();
+      if (isConfigured && db) {
+        import('firebase/firestore').then(({ doc, getDoc }) => {
+          const docRef = doc(db, 'public_notes', 'digital_notes_library');
+          getDoc(docRef).then(snap => {
+            if (!isMounted) return;
+            if (snap.exists()) {
+              const data = snap.data();
+              if (Array.isArray(data?.notes) && data.notes.length > 0) {
+                setNotes(data.notes);
+              }
+            }
+          }).catch(() => {});
+        });
+      }
+    }).catch(() => {});
+    return () => { isMounted = false; };
+  }, []);
+
   // New/Edit Note Form States
   const [formTitle, setFormTitle] = useState('');
   const [formLanguage, setFormLanguage] = useState<NoteLanguage>('en');
@@ -469,21 +594,37 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     setTimeout(() => setCopyFeedbackId(null), 2000);
   }, []);
 
-  // Delete Note Handler
+  // Delete Note Handler (Restricted to Admin)
   const handleDeleteNote = useCallback((noteId: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!isAdmin) {
+      soundManager.playWarning();
+      setAdminPasscodeError('Only Admin can delete digital notes.');
+      setIsAdminModalOpen(true);
+      return;
+    }
     if (window.confirm('Are you sure you want to delete this digital note?')) {
       soundManager.playClick();
       haptics.warning();
-      setNotes(prev => prev.filter(n => n.id !== noteId));
+      setNotes(prev => {
+        const next = prev.filter(n => n.id !== noteId);
+        syncNotesToCloudIfConfigured(next);
+        return next;
+      });
       if (activeReadingNote?.id === noteId) {
         setActiveReadingNote(null);
       }
     }
-  }, [activeReadingNote]);
+  }, [activeReadingNote, isAdmin]);
 
-  // Open Create Modal
+  // Open Create Modal (Restricted to Admin)
   const handleOpenCreateModal = useCallback(() => {
+    if (!isAdmin) {
+      soundManager.playWarning();
+      setAdminPasscodeError('Only Admin can create new digital notes.');
+      setIsAdminModalOpen(true);
+      return;
+    }
     soundManager.playClick();
     haptics.light();
     setEditingNote(null);
@@ -496,11 +637,17 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     setFormSummary('');
     setIsPreviewMode(false);
     setIsCreateModalOpen(true);
-  }, [availableSubjects]);
+  }, [availableSubjects, isAdmin]);
 
-  // Open Edit Modal
+  // Open Edit Modal (Restricted to Admin)
   const handleOpenEditModal = useCallback((note: DigitalNote, e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!isAdmin) {
+      soundManager.playWarning();
+      setAdminPasscodeError('Only Admin can edit digital notes.');
+      setIsAdminModalOpen(true);
+      return;
+    }
     soundManager.playClick();
     haptics.light();
     setEditingNote(note);
@@ -513,10 +660,14 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     setFormSummary(note.summary || '');
     setIsPreviewMode(false);
     setIsCreateModalOpen(true);
-  }, []);
+  }, [isAdmin]);
 
-  // Save Note (Create or Update)
+  // Save Note (Create or Update, Restricted to Admin)
   const handleSaveNote = useCallback(() => {
+    if (!isAdmin) {
+      alert('Security violation: Only Admin is permitted to save digital notes.');
+      return;
+    }
     if (!formTitle.trim()) {
       alert('Please enter a note title.');
       return;
@@ -535,8 +686,8 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
 
     if (editingNote) {
       // Update existing
-      setNotes(prev =>
-        prev.map(n =>
+      setNotes(prev => {
+        const next = prev.map(n =>
           n.id === editingNote.id
             ? {
                 ...n,
@@ -551,8 +702,10 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 updatedAt: new Date().toISOString()
               }
             : n
-        )
-      );
+        );
+        syncNotesToCloudIfConfigured(next);
+        return next;
+      });
       if (activeReadingNote?.id === editingNote.id) {
         setActiveReadingNote({
           ...editingNote,
@@ -583,12 +736,16 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
-      setNotes(prev => [newNote, ...prev]);
+      setNotes(prev => {
+        const next = [newNote, ...prev];
+        syncNotesToCloudIfConfigured(next);
+        return next;
+      });
     }
 
     setIsCreateModalOpen(false);
     setEditingNote(null);
-  }, [formTitle, formLanguage, formSubject, formCategory, formTags, formContent, formSummary, editingNote, activeReadingNote]);
+  }, [formTitle, formLanguage, formSubject, formCategory, formTags, formContent, formSummary, editingNote, activeReadingNote, isAdmin]);
 
   // Insert Template Helpers for Editor
   const handleInsertTemplate = (type: 'hindi' | 'formula' | 'table') => {
@@ -754,16 +911,62 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
             </p>
           </div>
 
-          {/* Quick Create Action Button */}
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={handleOpenCreateModal}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer border border-white/20"
-            >
-              <Plus className="w-4 h-4 stroke-[3]" />
-              <span>Create New Note</span>
-            </button>
+          {/* Role-Based Controls: Admin vs Student View */}
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
+            {isAdmin ? (
+              <>
+                {/* Admin Mode Status Badge */}
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold text-xs shadow-xs select-none">
+                  <ShieldCheck className="w-4 h-4 text-amber-400" />
+                  <span>Admin / Creator Mode</span>
+                </div>
+
+                {/* Create New Note Button (Admin Only) */}
+                <button
+                  type="button"
+                  onClick={handleOpenCreateModal}
+                  className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer border border-white/20"
+                >
+                  <Plus className="w-4 h-4 stroke-[3]" />
+                  <span>Create New Note</span>
+                </button>
+
+                {/* Exit Admin Mode / Lock Button */}
+                <button
+                  type="button"
+                  onClick={handleExitAdminMode}
+                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-slate-200 text-xs font-semibold transition-all cursor-pointer"
+                  title="Lock Admin Mode & View as Student"
+                >
+                  <Lock className="w-3.5 h-3.5 text-slate-300" />
+                  <span className="hidden sm:inline">Student View</span>
+                </button>
+              </>
+            ) : (
+              <>
+                {/* Student Read-Only Mode Badge */}
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-200 font-semibold text-xs select-none">
+                  <Lock className="w-3.5 h-3.5 text-indigo-300" />
+                  <span>Student Mode (Read-Only)</span>
+                </div>
+
+                {/* Discreet Admin Login Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setAdminPasscodeError('');
+                    setAdminPasscodeInput('');
+                    setIsAdminModalOpen(true);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 hover:text-white font-bold text-xs transition-all cursor-pointer shadow-xs"
+                  title="Login as Admin to create or edit notes"
+                >
+                  <Key className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Admin Login</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -996,7 +1199,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
             {searchQuery
               ? `No notes matched your search query "${searchQuery}". Try clearing filters or searching for different keywords.`
-              : 'You have not added any notes under this category yet. Click "Create New Note" to start your bilingual collection!'}
+              : isAdmin
+              ? 'You have not added any notes under this category yet. Click "Create New Note" to start your bilingual collection!'
+              : 'No digital notes have been published in this section yet. When admin publishes notes, they will appear here.'}
           </p>
           <div className="pt-2 flex items-center justify-center gap-3">
             {searchQuery || selectedLanguage !== 'all' || selectedCategory !== 'all' || selectedSubject !== 'all' || filterStarredOnly ? (
@@ -1014,13 +1219,15 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 Reset All Filters
               </button>
             ) : null}
-            <button
-              type="button"
-              onClick={handleOpenCreateModal}
-              className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
-            >
-              + Create Note Now
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={handleOpenCreateModal}
+                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
+              >
+                + Create Note Now
+              </button>
+            )}
           </div>
         </div>
       ) : viewMode === 'grid' ? (
@@ -1079,22 +1286,26 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                       >
                         {copyFeedbackId === note.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       </button>
-                      <button
-                        type="button"
-                        onClick={e => handleOpenEditModal(note, e)}
-                        className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-black/60 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
-                        title="Edit note"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={e => handleDeleteNote(note.id, e)}
-                        className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-rose-600/80 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
-                        title="Delete note"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      {isAdmin && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={e => handleOpenEditModal(note, e)}
+                            className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-black/60 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
+                            title="Edit note"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={e => handleDeleteNote(note.id, e)}
+                            className="w-7 h-7 rounded-full flex items-center justify-center bg-black/35 hover:bg-rose-600/80 backdrop-blur-md border border-white/20 text-white/80 hover:text-white transition-all cursor-pointer"
+                            title="Delete note"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -1259,23 +1470,27 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                     {copyFeedbackId === note.id ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={e => handleOpenEditModal(note, e)}
-                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                    title="Edit note"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
+                  {isAdmin && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={e => handleOpenEditModal(note, e)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                        title="Edit note"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
 
-                  <button
-                    type="button"
-                    onClick={e => handleDeleteNote(note.id, e)}
-                    className="p-2 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
-                    title="Delete note"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                      <button
+                        type="button"
+                        onClick={e => handleDeleteNote(note.id, e)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                        title="Delete note"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </>
+                  )}
 
                   {/* Floating Circle Button */}
                   <button
@@ -1499,16 +1714,18 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               </span>
 
               <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={e => {
-                    handleOpenEditModal(activeReadingNote, e);
-                  }}
-                  className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold transition-all cursor-pointer flex items-center gap-1.5"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span>Edit Note</span>
-                </button>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    onClick={e => {
+                      handleOpenEditModal(activeReadingNote, e);
+                    }}
+                    className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    <span>Edit Note</span>
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => setActiveReadingNote(null)}
@@ -1717,6 +1934,230 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               >
                 {editingNote ? 'Save Changes' : 'Create Note'}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* 🔐 7. ADMIN PASSCODE VERIFICATION & SECURITY MODAL */}
+      {isAdminModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-md bg-white dark:bg-[#0E101B] rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden animate-scale-up">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-[#141728]/80 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center font-bold">
+                  {isAdmin ? <ShieldCheck className="w-5 h-5 text-amber-500" /> : <Lock className="w-5 h-5 text-amber-500" />}
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>{isChangingPasscode ? 'Change Admin Passcode' : isAdmin ? 'Admin Security Hub' : 'Admin Passcode Verification'}</span>
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {isChangingPasscode
+                      ? 'Update the secret creator passcode'
+                      : isAdmin
+                      ? 'Admin / Creator privileges active'
+                      : 'Restricted area for content creator & admin'}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAdminModalOpen(false);
+                  setIsChangingPasscode(false);
+                  setAdminPasscodeInput('');
+                  setNewPasscodeInput('');
+                  setAdminPasscodeError('');
+                  setPasscodeSuccessMessage('');
+                }}
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                title="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-4">
+              {/* Alert message if student tried to edit */}
+              {adminPasscodeError && (
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{adminPasscodeError}</span>
+                </div>
+              )}
+
+              {/* Success message */}
+              {passcodeSuccessMessage && (
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
+                  <Check className="w-4 h-4 shrink-0" />
+                  <span>{passcodeSuccessMessage}</span>
+                </div>
+              )}
+
+              {!isChangingPasscode ? (
+                <>
+                  {!isAdmin ? (
+                    <div className="space-y-3">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        To protect your digital notes from unauthorized edits by other users, enter your admin passcode. Non-admin students will have <strong>read-only access</strong>.
+                      </p>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                          Admin Passcode
+                        </label>
+                        <div className="relative">
+                          <input
+                            type={showAdminPasscode ? 'text' : 'password'}
+                            value={adminPasscodeInput}
+                            onChange={e => {
+                              setAdminPasscodeInput(e.target.value);
+                              if (adminPasscodeError) setAdminPasscodeError('');
+                            }}
+                            onKeyDown={e => {
+                              if (e.key === 'Enter') handleVerifyAdminPasscode();
+                            }}
+                            placeholder="Enter admin passcode (default: admin123)"
+                            className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-[#181B2E] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            autoFocus
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowAdminPasscode(prev => !prev)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                            tabIndex={-1}
+                          >
+                            {showAdminPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                        <p className="text-[11px] text-slate-400">
+                          Default secret passcode is <code className="text-amber-500 font-mono font-bold">admin123</code>
+                        </p>
+                      </div>
+
+                      <div className="pt-2 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleVerifyAdminPasscode}
+                          className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          <Key className="w-4 h-4" />
+                          <span>Unlock Admin Mode</span>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 space-y-1">
+                        <div className="font-bold flex items-center gap-1.5">
+                          <ShieldCheck className="w-4 h-4 text-amber-500" />
+                          <span>Admin Access Active</span>
+                        </div>
+                        <p className="text-[11px] opacity-90">
+                          You have full control to create, edit, and delete digital notes. Other users will only see the read-only version.
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsChangingPasscode(true);
+                            setAdminPasscodeInput('');
+                            setNewPasscodeInput('');
+                            setAdminPasscodeError('');
+                          }}
+                          className="w-full py-2.5 px-4 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          <Key className="w-4 h-4 text-indigo-500" />
+                          <span>Change Admin Passcode</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleExitAdminMode();
+                            setIsAdminModalOpen(false);
+                          }}
+                          className="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          <Lock className="w-4 h-4 text-slate-400" />
+                          <span>Lock & Switch to Student View</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      Current Passcode
+                    </label>
+                    <input
+                      type="password"
+                      value={adminPasscodeInput}
+                      onChange={e => {
+                        setAdminPasscodeInput(e.target.value);
+                        if (adminPasscodeError) setAdminPasscodeError('');
+                      }}
+                      placeholder="Enter current passcode"
+                      className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-[#181B2E] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      New Passcode (Min 4 chars)
+                    </label>
+                    <input
+                      type="password"
+                      value={newPasscodeInput}
+                      onChange={e => {
+                        setNewPasscodeInput(e.target.value);
+                        if (adminPasscodeError) setAdminPasscodeError('');
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') handleUpdatePasscode();
+                      }}
+                      placeholder="Enter new secret passcode"
+                      className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-[#181B2E] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <div className="pt-2 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsChangingPasscode(false);
+                        setAdminPasscodeInput('');
+                        setNewPasscodeInput('');
+                        setAdminPasscodeError('');
+                      }}
+                      className="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold transition-all cursor-pointer"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleUpdatePasscode}
+                      className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-600/30 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Check className="w-4 h-4" />
+                      <span>Save New Passcode</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer Note */}
+            <div className="px-6 py-3 border-t border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-[#141728] text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2">
+              <Lock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span>Only Admin can create, edit, or delete notes. All other users have read-only access.</span>
             </div>
           </div>
         </div>

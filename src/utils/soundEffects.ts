@@ -204,6 +204,10 @@ class SoundEffectManager {
       // Ignored
     }
   }
+
+  public playWarning() {
+    this.playError();
+  }
 }
 
 export const soundManager = new SoundEffectManager();
