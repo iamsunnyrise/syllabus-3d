@@ -41,7 +41,11 @@ import {
   ShieldCheck,
   Key,
   Eye,
-  EyeOff
+  EyeOff,
+  Image as ImageIcon,
+  Upload,
+  Wand2,
+  RefreshCw
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -63,6 +67,7 @@ export interface DigitalNote {
   summary?: string;
   readingTimeMinutes?: number;
   isStarred?: boolean;
+  coverImage?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -513,7 +518,60 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   const [formTags, setFormTags] = useState('');
   const [formContent, setFormContent] = useState('');
   const [formSummary, setFormSummary] = useState('');
+  const [formCoverImage, setFormCoverImage] = useState('');
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [promptStyle, setPromptStyle] = useState<'cinematic' | 'heritage' | 'nature' | 'science' | 'abstract'>('cinematic');
+  const [promptCopied, setPromptCopied] = useState(false);
+
+  // Curated Preset Card Visuals for Instant Selection
+  const PRESET_CARD_COVERS = [
+    { label: '🏰 Ancient Fort & History', url: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80' },
+    { label: '🌲 Mountains & Nature', url: 'https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=800&q=80' },
+    { label: '🏛️ Law & Constitution', url: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80' },
+    { label: '📐 Math & Equations', url: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80' },
+    { label: '🔬 Biology & Anatomy', url: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80' },
+    { label: '📈 Economy & RBI', url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80' },
+    { label: '🌌 Space & Cosmos', url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80' },
+    { label: '📖 Library & Books', url: 'https://images.unsplash.com/photo-1507842229451-7f01beff9c0d?auto=format&fit=crop&w=800&q=80' }
+  ];
+
+  // Upload custom photo from device/mobile gallery
+  const handleImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 3 * 1024 * 1024) {
+      alert('Please select an image smaller than 3MB for smooth mobile loading.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      if (result) {
+        setFormCoverImage(result);
+        soundManager.playClick();
+        haptics.success();
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Generate mobile-optimized 16:9 AI Image Prompt tailored to Topic Name
+  const generateAiImagePrompt = useCallback((topicTitle: string, subjectName: string, style: 'cinematic' | 'heritage' | 'nature' | 'science' | 'abstract') => {
+    const topic = topicTitle.trim() || subjectName.trim() || 'Education and Knowledge';
+    switch (style) {
+      case 'heritage':
+        return `${topic}, majestic historical architecture, cinematic wide shot, golden hour sunlight, intricate stone craftsmanship, authentic ancient palace aesthetic, shot on 35mm lens, photorealistic 8k, National Geographic photography --ar 16:9 --no text, typography, watermark, logo, blurry, people faces`;
+      case 'nature':
+        return `${topic}, breathtaking atmospheric mountain valley, lush pristine wilderness, morning golden rays, volumetric lighting, photorealistic landscape, 8k resolution, award-winning travel photograph --ar 16:9 --no text, letters, watermark, distortion`;
+      case 'science':
+        return `${topic}, ultra-detailed 3D scientific visualization, elegant dark studio background, glowing cinematic accent lights, medical and technological render, octane render, 8k UHD, crisp macro details --ar 16:9 --no text, labels, numbers, watermark`;
+      case 'abstract':
+        return `${topic}, vintage scholarly still life, premium leather journal, antique brass compass and magnifying glass on aged rustic dark wooden table, warm candle illumination, cinematic depth of field, 8k --ar 16:9 --no text, writing, watermark`;
+      case 'cinematic':
+      default:
+        return `${topic}, cinematic photography, majestic wide angle composition, warm dramatic lighting, clean background, award-winning photograph, 8k resolution, ultra-detailed --ar 16:9 --no text, typography, watermark, logo, blur`;
+    }
+  }, []);
 
   // Collect unique subjects from existing notes
   const availableSubjects = useMemo(() => {
@@ -635,6 +693,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     setFormTags('');
     setFormContent('');
     setFormSummary('');
+    setFormCoverImage('');
     setIsPreviewMode(false);
     setIsCreateModalOpen(true);
   }, [availableSubjects, isAdmin]);
@@ -658,6 +717,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
     setFormTags(note.tags.join(', '));
     setFormContent(note.content);
     setFormSummary(note.summary || '');
+    setFormCoverImage(note.coverImage || '');
     setIsPreviewMode(false);
     setIsCreateModalOpen(true);
   }, [isAdmin]);
@@ -698,6 +758,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 tags: tagsArray,
                 content: formContent,
                 summary: formSummary.trim(),
+                coverImage: formCoverImage.trim() || undefined,
                 readingTimeMinutes: estReadingTime,
                 updatedAt: new Date().toISOString()
               }
@@ -716,6 +777,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           tags: tagsArray,
           content: formContent,
           summary: formSummary.trim(),
+          coverImage: formCoverImage.trim() || undefined,
           readingTimeMinutes: estReadingTime,
           updatedAt: new Date().toISOString()
         });
@@ -731,6 +793,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
         tags: tagsArray,
         content: formContent || '# ' + formTitle + '\n\nAdd your content here...',
         summary: formSummary.trim(),
+        coverImage: formCoverImage.trim() || undefined,
         readingTimeMinutes: estReadingTime,
         isStarred: false,
         createdAt: new Date().toISOString(),
@@ -745,7 +808,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
 
     setIsCreateModalOpen(false);
     setEditingNote(null);
-  }, [formTitle, formLanguage, formSubject, formCategory, formTags, formContent, formSummary, editingNote, activeReadingNote, isAdmin]);
+  }, [formTitle, formLanguage, formSubject, formCategory, formTags, formContent, formSummary, formCoverImage, editingNote, activeReadingNote, isAdmin]);
 
   // Insert Template Helpers for Editor
   const handleInsertTemplate = (type: 'hindi' | 'formula' | 'table') => {
@@ -855,6 +918,18 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   };
 
   const getNoteCardVisual = (note: DigitalNote, index: number): NoteCardVisual => {
+    // If the note has a custom image added by the user
+    if (note.coverImage && note.coverImage.trim()) {
+      return {
+        coverImage: note.coverImage.trim(),
+        gradientFallback: 'from-slate-900 via-indigo-950 to-slate-950',
+        accentColor: 'text-indigo-400',
+        accentBg: 'bg-indigo-500/10 text-indigo-400',
+        shortSubject: note.subject,
+        subtitle: note.summary || note.title
+      };
+    }
+
     const s = `${note.subject} ${note.category} ${note.title}`.toLowerCase();
     if (s.includes('polity') || s.includes('संविधान') || s.includes('राजव्यवस्था') || s.includes('right')) {
       return CURATED_NOTE_VISUALS.polity;
@@ -1852,6 +1927,171 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                   placeholder="e.g. संविधान, अनुच्छेद 14, UPSC, Shortcuts"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#181B2E] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
+              </div>
+
+              {/* 🖼️ Card Cover Picture & AI Prompt Generator Section */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#131628] border border-slate-200 dark:border-white/10 space-y-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-indigo-500/15 text-indigo-500 flex items-center justify-center font-bold">
+                      <ImageIcon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Card Cover Picture (कवर फोटो)</span>
+                        <span className="text-[10px] text-slate-400 font-normal">• Optional</span>
+                      </h4>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                        Upload custom picture, paste image URL, or choose from HD presets
+                      </p>
+                    </div>
+                  </div>
+
+                  {formCoverImage && (
+                    <button
+                      type="button"
+                      onClick={() => setFormCoverImage('')}
+                      className="text-[11px] font-bold text-rose-500 hover:text-rose-600 transition-colors cursor-pointer"
+                    >
+                      Remove Picture
+                    </button>
+                  )}
+                </div>
+
+                {/* Input Method: URL & Device Upload */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {/* Option 1: Direct Image URL */}
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                      Paste Image URL (Direct Link)
+                    </label>
+                    <input
+                      type="url"
+                      value={formCoverImage.startsWith('data:') ? '' : formCoverImage}
+                      onChange={e => setFormCoverImage(e.target.value)}
+                      placeholder="https://images.unsplash.com/photo-..."
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#181B2E] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  {/* Option 2: Upload from Device */}
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                      Upload from Device / Gallery
+                    </label>
+                    <label className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-xl bg-white dark:bg-[#181B2E] border border-dashed border-slate-300 dark:border-white/20 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-all">
+                      <Upload className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>{formCoverImage.startsWith('data:') ? 'Change Selected Photo' : 'Select Photo from Device'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                {/* Live Card Header Preview if Picture Selected */}
+                {formCoverImage && (
+                  <div className="relative h-28 sm:h-32 rounded-xl overflow-hidden border border-white/20 shadow-inner bg-slate-900 flex items-center justify-center">
+                    <img
+                      src={formCoverImage}
+                      alt="Cover preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-black/60 backdrop-blur-md text-white border border-white/20">
+                      ✓ Card Cover Preview (16:9 Aspect)
+                    </span>
+                  </div>
+                )}
+
+                {/* Quick 1-Click HD Presets */}
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                    Or Pick from Curated HD Presets (1-Click)
+                  </label>
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scrollbar">
+                    {PRESET_CARD_COVERS.map(preset => (
+                      <button
+                        key={preset.label}
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setFormCoverImage(preset.url);
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 border ${
+                          formCoverImage === preset.url
+                            ? 'bg-indigo-600 text-white border-indigo-700 shadow-xs'
+                            : 'bg-white dark:bg-[#181B2E] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#20243C]'
+                        }`}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ✨ AI Image Prompt Generator Tool */}
+                <div className="pt-2.5 border-t border-slate-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400">
+                      <Wand2 className="w-3.5 h-3.5" />
+                      <span>AI Image Prompt Generator (Midjourney / DALL-E / ChatGPT)</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const prompt = generateAiImagePrompt(formTitle, formSubject, promptStyle);
+                        navigator.clipboard.writeText(prompt);
+                        soundManager.playClick();
+                        haptics.light();
+                        setPromptCopied(true);
+                        setTimeout(() => setPromptCopied(false), 2000);
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer shadow-xs"
+                      title="Copy prompt to clipboard"
+                    >
+                      {promptCopied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      <span>{promptCopied ? 'Copied!' : 'Copy Prompt'}</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[10.5px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Neeche diye gaye prompt ko ChatGPT (DALL-E 3), Midjourney ya Leonardo.ai me paste karein. Yeh prompt mobile card ke liye bina text wali 16:9 cinematic photo generate karega:
+                  </p>
+
+                  {/* Style Pills for Prompt */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+                    {[
+                      { id: 'cinematic', label: '📸 Cinematic Real' },
+                      { id: 'heritage', label: '🏛️ Architecture/History' },
+                      { id: 'nature', label: '🌿 Nature/Landscape' },
+                      { id: 'science', label: '🔬 3D Science Render' },
+                      { id: 'abstract', label: '📖 Classic Study' }
+                    ].map(st => (
+                      <button
+                        key={st.id}
+                        type="button"
+                        onClick={() => setPromptStyle(st.id as any)}
+                        className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold cursor-pointer transition-all shrink-0 ${
+                          promptStyle === st.id
+                            ? 'bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40'
+                            : 'bg-white/60 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-800'
+                        }`}
+                      >
+                        {st.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Generated Prompt Box */}
+                  <div className="p-2.5 rounded-xl bg-slate-900 text-amber-200/90 font-mono text-[10.5px] leading-relaxed select-all break-words border border-amber-500/20">
+                    {generateAiImagePrompt(formTitle, formSubject, promptStyle)}
+                  </div>
+                </div>
               </div>
 
               {/* Note Content Editor */}
