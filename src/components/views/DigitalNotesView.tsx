@@ -46,7 +46,9 @@ import {
   Upload,
   Wand2,
   RefreshCw,
-  Info
+  Info,
+  ArrowLeft,
+  CheckCircle2
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -689,11 +691,12 @@ export const renderProfessionalNotesContent = (
       const headingText = trimmed.replace(/^##\s+/, '').trim();
       elements.push(
         <div
+          id={`sec-${i}`}
           key={`h2-${i}`}
-          className="flex items-center gap-3 mt-8 mb-4 pb-2 border-b border-slate-200/80 dark:border-white/10"
+          className="flex items-center gap-3 mt-10 mb-4 pb-2.5 border-b border-slate-200/80 dark:border-white/10 scroll-mt-24"
         >
           <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
-          <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
             {parseInlineMarkdown(headingText, `h2-${i}`)}
           </h3>
         </div>
@@ -707,8 +710,9 @@ export const renderProfessionalNotesContent = (
       const headingText = trimmed.replace(/^###\s+/, '').trim();
       elements.push(
         <h4
+          id={`sec-${i}`}
           key={`h3-${i}`}
-          className="text-base sm:text-lg font-extrabold text-indigo-700 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"
+          className="text-base sm:text-lg font-extrabold text-indigo-700 dark:text-indigo-300 mt-7 mb-3 flex items-center gap-2 scroll-mt-24"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h3-${i}`)}</span>
@@ -1091,7 +1095,57 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState<DigitalNote | null>(null);
   const [readerFontSize, setReaderFontSize] = useState<'base' | 'lg' | 'xl'>('base');
+  const [readerTheme, setReaderTheme] = useState<'default' | 'sepia' | 'oled'>('default');
+  const [readerWidth, setReaderWidth] = useState<'standard' | 'wide' | 'full'>('standard');
+  const [showOutline, setShowOutline] = useState<boolean>(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [copyFeedbackId, setCopyFeedbackId] = useState<string | null>(null);
+
+  // Keyboard shortcut: Escape key closes the full page reader
+  useEffect(() => {
+    if (!activeReadingNote) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveReadingNote(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeReadingNote]);
+
+  // Extract headings from active note for the Interactive Outline / Table of Contents
+  const outlineHeadings = useMemo(() => {
+    if (!activeReadingNote?.content) return [];
+    const lines = activeReadingNote.content.split('\n');
+    const list: { id: string; text: string; level: number }[] = [];
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('## ')) {
+        list.push({
+          id: `sec-${idx}`,
+          text: trimmed.replace(/^##\s+/, '').replace(/\*\*/g, '').trim(),
+          level: 2
+        });
+      } else if (trimmed.startsWith('### ')) {
+        list.push({
+          id: `sec-${idx}`,
+          text: trimmed.replace(/^###\s+/, '').replace(/\*\*/g, '').trim(),
+          level: 3
+        });
+      }
+    });
+    return list;
+  }, [activeReadingNote]);
+
+  // Scroll Progress handler for sticky progress bar
+  const handleReaderScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const total = el.scrollHeight - el.clientHeight;
+    if (total > 0) {
+      const progress = Math.min(100, Math.max(0, (el.scrollTop / total) * 100));
+      setScrollProgress(progress);
+    }
+  };
 
   // 🛡️ Admin & Creator Mode States (Restricts Create, Edit, Delete to Admin only)
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
@@ -1335,13 +1389,14 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   }, [notes, searchQuery, selectedLanguage, selectedCategory, selectedSubject, filterStarredOnly, sortBy]);
 
   // Star Toggle Handler
-  const handleToggleStar = useCallback((noteId: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleToggleStar = useCallback((noteId: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
     soundManager.playClick();
     haptics.light();
     setNotes(prev =>
       prev.map(n => (n.id === noteId ? { ...n, isStarred: !n.isStarred } : n))
     );
+    setActiveReadingNote(prev => (prev && prev.id === noteId ? { ...prev, isStarred: !prev.isStarred } : prev));
   }, []);
 
   // Copy Note Handler
@@ -2303,167 +2358,409 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
         </div>
       </div>
 
-      {/* 📖 5. MODAL NOTE READER (Full Distraction-Free Study View) */}
+      {/* 📖 5. EXECUTIVE FULL-PAGE IMMERSIVE NOTE READER */}
       {activeReadingNote && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-white dark:bg-[#0E101B] rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden animate-scale-up">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-[#141728]/80 backdrop-blur-md">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold ${getLanguageBadge(activeReadingNote.language).className}`}>
-                  <span>{getLanguageBadge(activeReadingNote.language).flag}</span>
-                  <span>{getLanguageBadge(activeReadingNote.language).label}</span>
-                </span>
-                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 truncate">
+        <div
+          className={`fixed inset-0 z-50 flex flex-col ${
+            readerTheme === 'sepia'
+              ? 'bg-[#F9F4EB] text-[#3D2F1D]'
+              : readerTheme === 'oled'
+              ? 'bg-[#000000] text-[#E6EDF3]'
+              : 'bg-[#FDFCFB] dark:bg-[#0A0D18] text-slate-900 dark:text-slate-100'
+          } animate-fade-in select-text`}
+        >
+          {/* Top Sticky Executive Header */}
+          <header
+            className={`sticky top-0 z-30 h-16 px-4 sm:px-8 border-b flex items-center justify-between transition-colors ${
+              readerTheme === 'sepia'
+                ? 'bg-[#F9F4EB]/95 border-[#E6DCBF] backdrop-blur-md'
+                : readerTheme === 'oled'
+                ? 'bg-black/95 border-white/10 backdrop-blur-md'
+                : 'bg-white/95 dark:bg-[#0E111F]/95 border-slate-200/80 dark:border-white/10 backdrop-blur-md'
+            }`}
+          >
+            {/* Left: Back to Notes & Breadcrumb */}
+            <div className="flex items-center gap-3 min-w-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setActiveReadingNote(null);
+                }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/60 dark:border-white/5"
+                title="Back to all digital notes (Esc)"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Back to Notes</span>
+              </button>
+
+              <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 font-medium pl-3 border-l border-slate-200 dark:border-white/10 truncate">
+                <span>Digital Notes</span>
+                <span>/</span>
+                <span className="text-indigo-600 dark:text-indigo-400 font-bold truncate">
                   {activeReadingNote.subject}
                 </span>
               </div>
-
-              {/* Reader Controls */}
-              <div className="flex items-center gap-1.5">
-                {/* Font Size Adjuster */}
-                <div className="flex items-center p-1 rounded-xl bg-slate-200/60 dark:bg-slate-800 text-xs font-bold">
-                  <button
-                    type="button"
-                    onClick={() => setReaderFontSize('base')}
-                    className={`px-2 py-1 rounded-lg ${readerFontSize === 'base' ? 'bg-white dark:bg-slate-700 shadow-xs' : 'text-slate-500'}`}
-                    title="Normal Font"
-                  >
-                    A
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setReaderFontSize('lg')}
-                    className={`px-2 py-1 rounded-lg text-sm ${readerFontSize === 'lg' ? 'bg-white dark:bg-slate-700 shadow-xs' : 'text-slate-500'}`}
-                    title="Medium Font"
-                  >
-                    A+
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setReaderFontSize('xl')}
-                    className={`px-2 py-1 rounded-lg text-base ${readerFontSize === 'xl' ? 'bg-white dark:bg-slate-700 shadow-xs' : 'text-slate-500'}`}
-                    title="Large Font"
-                  >
-                    A++
-                  </button>
-                </div>
-
-                {/* Copy Button */}
-                <button
-                  type="button"
-                  onClick={() => handleCopyNote(activeReadingNote)}
-                  className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors cursor-pointer"
-                  title="Copy full note"
-                >
-                  {copyFeedbackId === activeReadingNote.id ? (
-                    <Check className="w-4 h-4 text-emerald-500" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-
-                {/* Print Button */}
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors cursor-pointer"
-                  title="Print note"
-                >
-                  <Printer className="w-4 h-4" />
-                </button>
-
-                {/* Close Button */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    setActiveReadingNote(null);
-                  }}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors cursor-pointer ml-1"
-                  title="Close reader"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
             </div>
 
-            {/* Modal Body / Markdown Content View */}
-            <div className="flex-1 overflow-y-auto p-6 sm:p-10 custom-scrollbar space-y-6">
-              {/* Optional Cover Banner */}
-              {activeReadingNote.coverImage && (
-                <div className="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-white/10 shrink-0">
-                  <img
-                    src={activeReadingNote.coverImage}
-                    alt={activeReadingNote.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-bold">
-                    <span className="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/20">
-                      {activeReadingNote.subject}
-                    </span>
-                    <span className="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/20 flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
-                    </span>
-                  </div>
-                </div>
+            {/* Center: Language & Reading Time Badges */}
+            <div className="hidden sm:flex items-center gap-2">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold shadow-2xs ${getLanguageBadge(activeReadingNote.language).className}`}>
+                <span>{getLanguageBadge(activeReadingNote.language).flag}</span>
+                <span>{getLanguageBadge(activeReadingNote.language).label}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                <Clock className="w-3.5 h-3.5 text-indigo-500" />
+                <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
+              </span>
+            </div>
+
+            {/* Right: Reader Controls & Actions */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {/* Outline / TOC Toggle */}
+              {outlineHeadings.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowOutline(!showOutline)}
+                  className={`p-2 rounded-xl transition-all cursor-pointer ${
+                    showOutline
+                      ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/40 shadow-xs'
+                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5'
+                  }`}
+                  title={showOutline ? 'Hide Table of Contents' : 'Show Table of Contents'}
+                >
+                  <List className="w-4 h-4" />
+                </button>
               )}
 
-              <h2 className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
-                {activeReadingNote.title}
-              </h2>
-
-              {/* Tags & Meta */}
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400 pb-4 border-b border-slate-200 dark:border-white/10">
-                <span className="flex items-center gap-1 font-medium">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
-                </span>
-                <span>•</span>
-                <span className="capitalize font-semibold text-indigo-600 dark:text-indigo-400">
-                  {activeReadingNote.category}
-                </span>
-                {activeReadingNote.tags.map(tag => (
-                  <span key={tag} className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-medium">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Formatted Markdown Reader Area */}
-              <div className="text-slate-800 dark:text-slate-200 font-sans pb-8">
-                {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize)}
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-[#141728] text-xs">
-              <span className="text-slate-400">
-                Created: {new Date(activeReadingNote.createdAt).toLocaleDateString()}
-              </span>
-
-              <div className="flex items-center gap-2">
-                {isAdmin && (
-                  <button
-                    type="button"
-                    onClick={e => {
-                      handleOpenEditModal(activeReadingNote, e);
-                    }}
-                    className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold transition-all cursor-pointer flex items-center gap-1.5"
-                  >
-                    <Edit3 className="w-3.5 h-3.5" />
-                    <span>Edit Note</span>
-                  </button>
-                )}
+              {/* Font Size Selector */}
+              <div className="flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-xs font-bold">
                 <button
                   type="button"
-                  onClick={() => setActiveReadingNote(null)}
-                  className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all cursor-pointer shadow-xs"
+                  onClick={() => setReaderFontSize('base')}
+                  className={`px-2 py-1 rounded-lg transition-all ${
+                    readerFontSize === 'base'
+                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                  title="Default Font"
                 >
-                  Done Reading
+                  A
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderFontSize('lg')}
+                  className={`px-2 py-1 rounded-lg text-sm transition-all ${
+                    readerFontSize === 'lg'
+                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                  title="Medium Font"
+                >
+                  A+
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderFontSize('xl')}
+                  className={`px-2 py-1 rounded-lg text-base transition-all ${
+                    readerFontSize === 'xl'
+                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                  title="Large Font"
+                >
+                  A++
+                </button>
+              </div>
+
+              {/* Theme Selector (Default / Sepia / OLED) */}
+              <div className="hidden xl:flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-[11px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => setReaderTheme('default')}
+                  className={`px-2 py-1 rounded-lg transition-all ${
+                    readerTheme === 'default'
+                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                >
+                  Paper
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderTheme('sepia')}
+                  className={`px-2 py-1 rounded-lg transition-all ${
+                    readerTheme === 'sepia'
+                      ? 'bg-[#EADDC2] text-[#433422] shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                  title="Eye-care Warm Sepia"
+                >
+                  Sepia
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderTheme('oled')}
+                  className={`px-2 py-1 rounded-lg transition-all ${
+                    readerTheme === 'oled'
+                      ? 'bg-black text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                  }`}
+                  title="OLED Pure Dark"
+                >
+                  OLED
+                </button>
+              </div>
+
+              {/* Width Selector */}
+              <button
+                type="button"
+                onClick={() => setReaderWidth(w => (w === 'standard' ? 'wide' : w === 'wide' ? 'full' : 'standard'))}
+                className="hidden lg:flex p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                title={`Reading Width: ${readerWidth.toUpperCase()} (Click to toggle)`}
+              >
+                <Maximize2 className="w-4 h-4" />
+              </button>
+
+              {/* Star Button */}
+              <button
+                type="button"
+                onClick={() => handleToggleStar(activeReadingNote.id)}
+                className="p-2 rounded-xl text-slate-500 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                title={activeReadingNote.isStarred ? 'Remove from favorites' : 'Star this note'}
+              >
+                <Star className={`w-4 h-4 ${activeReadingNote.isStarred ? 'fill-amber-400 text-amber-500' : ''}`} />
+              </button>
+
+              {/* Copy Button */}
+              <button
+                type="button"
+                onClick={() => handleCopyNote(activeReadingNote)}
+                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                title="Copy full note"
+              >
+                {copyFeedbackId === activeReadingNote.id ? (
+                  <Check className="w-4 h-4 text-emerald-500" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+
+              {/* Print Button */}
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                title="Print revision note"
+              >
+                <Printer className="w-4 h-4" />
+              </button>
+
+              {/* Admin Edit Button */}
+              {isAdmin && (
+                <button
+                  type="button"
+                  onClick={e => {
+                    handleOpenEditModal(activeReadingNote, e);
+                  }}
+                  className="hidden sm:flex px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold text-xs transition-all cursor-pointer items-center gap-1.5 border border-slate-200 dark:border-white/10"
+                >
+                  <Edit3 className="w-3.5 h-3.5" />
+                  <span>Edit Note</span>
+                </button>
+              )}
+
+              {/* Done Reading / Close Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setActiveReadingNote(null);
+                }}
+                className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs transition-all cursor-pointer shadow-xs flex items-center gap-1.5 ml-1"
+                title="Exit reader"
+              >
+                <X className="w-4 h-4" />
+                <span className="hidden sm:inline">Close</span>
+              </button>
+            </div>
+
+            {/* Glowing Scroll Progress Bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 sm:h-1 bg-slate-200/50 dark:bg-white/5 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-100"
+                style={{ width: `${scrollProgress}%` }}
+              />
+            </div>
+          </header>
+
+          {/* Main Body: Sidebar + Centered Document Canvas */}
+          <div className="flex-1 flex overflow-hidden">
+            {/* Left Table of Contents Sidebar (Collapsible) */}
+            {showOutline && outlineHeadings.length > 0 && (
+              <aside
+                className={`w-72 hidden xl:flex flex-col border-r p-6 overflow-y-auto custom-scrollbar shrink-0 select-none ${
+                  readerTheme === 'sepia'
+                    ? 'border-[#E6DCBF] bg-[#F5EEDF]/70'
+                    : readerTheme === 'oled'
+                    ? 'border-white/10 bg-[#080808]'
+                    : 'border-slate-200/80 dark:border-white/10 bg-slate-50/70 dark:bg-[#0E101D]/70'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200/60 dark:border-white/10">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                    <List className="w-3.5 h-3.5 text-indigo-500" />
+                    <span>Table of Contents</span>
+                  </h4>
+                  <span className="text-[10px] font-mono font-bold text-slate-400 px-1.5 py-0.5 rounded bg-slate-200/50 dark:bg-white/10">
+                    {outlineHeadings.length}
+                  </span>
+                </div>
+
+                <nav className="space-y-1 text-xs">
+                  {outlineHeadings.map(heading => (
+                    <button
+                      key={heading.id}
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById(heading.id);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className={`w-full text-left py-1.5 px-2.5 rounded-lg transition-colors cursor-pointer truncate ${
+                        heading.level === 3
+                          ? 'pl-6 text-[11px] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20'
+                          : 'font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30'
+                      }`}
+                      title={heading.text}
+                    >
+                      {heading.text}
+                    </button>
+                  ))}
+                </nav>
+              </aside>
+            )}
+
+            {/* Main Reading Scroll Area */}
+            <div
+              onScroll={handleReaderScroll}
+              className="flex-1 overflow-y-auto custom-scrollbar px-4 sm:px-10 lg:px-16 py-8 sm:py-12"
+            >
+              <div
+                className={`mx-auto w-full transition-all duration-300 ${
+                  readerWidth === 'wide'
+                    ? 'max-w-6xl'
+                    : readerWidth === 'full'
+                    ? 'max-w-full px-2 sm:px-6'
+                    : 'max-w-4xl'
+                }`}
+              >
+                {/* Cover Image Banner */}
+                {activeReadingNote.coverImage && (
+                  <div className="relative w-full h-56 sm:h-80 md:h-[420px] rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 dark:border-white/10 mb-8 shrink-0 group">
+                    <img
+                      src={activeReadingNote.coverImage}
+                      alt={activeReadingNote.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                    <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center justify-between gap-3 text-white">
+                      <span className="px-4 py-1.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-bold">
+                        {activeReadingNote.subject}
+                      </span>
+                      <span className="px-4 py-1.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-xs font-semibold flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" />
+                        <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Major Title */}
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-5">
+                  {activeReadingNote.title}
+                </h1>
+
+                {/* Metadata Row */}
+                <div className="flex flex-wrap items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400 pb-6 border-b border-slate-200/80 dark:border-white/10 mb-8">
+                  <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold ${getLanguageBadge(activeReadingNote.language).className}`}>
+                    <span>{getLanguageBadge(activeReadingNote.language).flag}</span>
+                    <span>{getLanguageBadge(activeReadingNote.language).label}</span>
+                  </span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1 font-medium">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{activeReadingNote.readingTimeMinutes || 3} min read</span>
+                  </span>
+                  <span>•</span>
+                  <span className="capitalize font-semibold text-indigo-600 dark:text-indigo-400">
+                    {activeReadingNote.category}
+                  </span>
+                  <span>•</span>
+                  <span>
+                    Updated: {new Date(activeReadingNote.updatedAt || activeReadingNote.createdAt).toLocaleDateString()}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-1.5 sm:ml-auto mt-2 sm:mt-0">
+                    {activeReadingNote.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-medium text-xs"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Formatted Markdown Content */}
+                <div className="font-sans pb-16">
+                  {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize)}
+                </div>
+
+                {/* End of Note Milestone Card */}
+                <div className="my-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-200 dark:border-indigo-900/50 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+                  <div>
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mb-2 font-black text-indigo-700 dark:text-indigo-300">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                      <span className="text-base sm:text-lg">You have completed this revision sheet!</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                      Review your key takeaways, revise frequently, or copy notes for your personal study binder.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleCopyNote(activeReadingNote)}
+                      className="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-xs shadow-xs hover:bg-slate-100 dark:hover:bg-slate-700 transition-all flex items-center gap-2 cursor-pointer border border-slate-200 dark:border-white/10"
+                    >
+                      {copyFeedbackId === activeReadingNote.id ? (
+                        <>
+                          <Check className="w-4 h-4 text-emerald-500" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          <span>Copy Note</span>
+                        </>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playLevelUp();
+                        setActiveReadingNote(null);
+                      }}
+                      className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-md transition-all cursor-pointer flex items-center gap-2"
+                    >
+                      <Check className="w-4 h-4" />
+                      <span>Finish Reading</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
