@@ -239,8 +239,10 @@ export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({
                 type="number"
                 min={2025}
                 max={2035}
-                value={targetYear}
-                onChange={e => setTargetYear(Number(e.target.value))}
+                value={targetYear || ''}
+                onChange={e => setTargetYear(e.target.value === '' ? '' as any : Number(e.target.value))}
+                onFocus={e => e.target.select()}
+                placeholder={String(new Date().getFullYear())}
                 required
                 className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />

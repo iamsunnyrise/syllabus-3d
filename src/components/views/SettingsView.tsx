@@ -404,7 +404,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
 
   const handleSaveExamSettings = (e: React.FormEvent) => {
     e.preventDefault();
-    updateCurrentExamDetails({ name: examName, examDate: examDate, targetYear: Number(targetYear) });
+    updateCurrentExamDetails({ name: examName, examDate: examDate, targetYear: Number(targetYear) || 2026 });
     soundManager.playCompleteChime();
     setExamSaved(true);
     setTimeout(() => setExamSaved(false), 3000);
@@ -561,7 +561,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
     e.preventDefault();
     updateProfile({ name });
     updateUserSession({ name });
-    updateCurrentExamDetails({ name: examName, examDate, targetYear: Number(targetYear) });
+    updateCurrentExamDetails({ name: examName, examDate, targetYear: Number(targetYear) || 2026 });
     soundManager.playCompleteChime();
     haptics.success();
     setAccountSaved(true);
@@ -868,8 +868,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                       </label>
                       <input
                         type="number"
-                        value={targetYear}
-                        onChange={(e) => setTargetYear(Number(e.target.value))}
+                        value={targetYear || ''}
+                        onChange={(e) => setTargetYear(e.target.value === '' ? '' as any : Number(e.target.value))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder={String(new Date().getFullYear())}
                         min={2025}
                         max={2035}
                         className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"

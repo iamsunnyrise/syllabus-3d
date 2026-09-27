@@ -290,8 +290,10 @@ export const AiSyllabusArchitectModal: React.FC<AiSyllabusArchitectModalProps> =
                   <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Target Year</label>
                   <input
                     type="number"
-                    value={targetYear}
-                    onChange={e => setTargetYear(parseInt(e.target.value) || new Date().getFullYear())}
+                    value={targetYear || ''}
+                    onChange={e => setTargetYear(e.target.value === '' ? '' as any : Number(e.target.value))}
+                    onFocus={e => e.target.select()}
+                    placeholder={String(new Date().getFullYear())}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#121422] border border-slate-300 dark:border-white/15 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:bg-white dark:focus:bg-[#0F111D] focus:ring-2 focus:ring-cyan-500/15 font-mono"
                   />
                 </div>

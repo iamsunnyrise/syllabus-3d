@@ -822,8 +822,13 @@ export const AddEditMockModal: React.FC = () => {
                     type="number"
                     min="0"
                     max={totalQuestions}
-                    value={attempted}
-                    onChange={(e) => setAttempted(Number(e.target.value))}
+                    value={attempted === 0 ? '' : attempted}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setAttempted(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    placeholder="0"
                     className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-900 dark:text-white tabular-nums focus:border-indigo-500 outline-none"
                   />
                 </div>
@@ -834,8 +839,13 @@ export const AddEditMockModal: React.FC = () => {
                     type="number"
                     min="0"
                     max={attempted}
-                    value={correct}
-                    onChange={(e) => setCorrect(Number(e.target.value))}
+                    value={correct === 0 ? '' : correct}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setCorrect(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    placeholder="0"
                     className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-emerald-300 dark:border-mint/30 text-sm font-bold text-emerald-600 dark:text-mint tabular-nums focus:border-emerald-500 outline-none"
                   />
                 </div>
@@ -845,9 +855,14 @@ export const AddEditMockModal: React.FC = () => {
                   <input
                     type="number"
                     min="0"
-                    max={attempted - correct}
-                    value={wrong}
-                    onChange={(e) => setWrong(Number(e.target.value))}
+                    max={Math.max(0, attempted - correct)}
+                    value={wrong === 0 ? '' : wrong}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setWrong(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    placeholder="0"
                     className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-rose-300 dark:border-alert-red/30 text-sm font-bold text-rose-600 dark:text-alert-red tabular-nums focus:border-rose-500 outline-none"
                   />
                 </div>
@@ -858,8 +873,13 @@ export const AddEditMockModal: React.FC = () => {
                     type="number"
                     min="1"
                     max={120}
-                    value={timeTakenMinutes}
-                    onChange={(e) => setTimeTakenMinutes(Number(e.target.value))}
+                    value={timeTakenMinutes === 0 ? '' : timeTakenMinutes}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setTimeTakenMinutes(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    placeholder="0"
                     className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-900 dark:text-white tabular-nums focus:border-indigo-500 outline-none"
                   />
                 </div>
@@ -903,8 +923,13 @@ export const AddEditMockModal: React.FC = () => {
                   step="0.1"
                   min="0"
                   max="100"
-                  value={percentile}
-                  onChange={(e) => setPercentile(Number(e.target.value))}
+                  value={percentile === 0 ? '' : percentile}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPercentile(v === '' ? 0 : parseFloat(v) || 0);
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0.0"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-bold text-purple-600 dark:text-lavender tabular-nums focus:border-purple-500 outline-none"
                 />
               </div>
@@ -916,8 +941,13 @@ export const AddEditMockModal: React.FC = () => {
                 <input
                   type="number"
                   step="0.5"
-                  value={cutoffMarks}
-                  onChange={(e) => setCutoffMarks(Number(e.target.value))}
+                  value={cutoffMarks === 0 ? '' : cutoffMarks}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setCutoffMarks(v === '' ? 0 : parseFloat(v) || 0);
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-900 dark:text-white tabular-nums focus:border-indigo-500 outline-none"
                 />
               </div>
@@ -1093,8 +1123,13 @@ export const AddEditMockModal: React.FC = () => {
                 <label className="block text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Attempted Qs</label>
                 <input
                   type="number"
-                  value={attempted}
-                  onChange={(e) => setAttempted(Number(e.target.value))}
+                  value={attempted === 0 ? '' : attempted}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setAttempted(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-sm font-bold"
                 />
               </div>
@@ -1103,8 +1138,13 @@ export const AddEditMockModal: React.FC = () => {
                 <label className="block text-xs text-mint-dark dark:text-mint font-semibold mb-1">Correct Qs</label>
                 <input
                   type="number"
-                  value={correct}
-                  onChange={(e) => setCorrect(Number(e.target.value))}
+                  value={correct === 0 ? '' : correct}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setCorrect(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-mint/30 text-sm font-bold text-mint-dark dark:text-mint"
                 />
               </div>
@@ -1113,8 +1153,13 @@ export const AddEditMockModal: React.FC = () => {
                 <label className="block text-xs text-alert-red font-semibold mb-1">Wrong Qs</label>
                 <input
                   type="number"
-                  value={wrong}
-                  onChange={(e) => setWrong(Number(e.target.value))}
+                  value={wrong === 0 ? '' : wrong}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setWrong(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-alert-red/30 text-sm font-bold text-alert-red"
                 />
               </div>
@@ -1123,8 +1168,13 @@ export const AddEditMockModal: React.FC = () => {
                 <label className="block text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Time Taken (min)</label>
                 <input
                   type="number"
-                  value={timeTakenMinutes}
-                  onChange={(e) => setTimeTakenMinutes(Number(e.target.value))}
+                  value={timeTakenMinutes === 0 ? '' : timeTakenMinutes}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setTimeTakenMinutes(v === '' ? 0 : Math.max(0, parseInt(v, 10) || 0));
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-sm font-bold"
                 />
               </div>
@@ -1138,8 +1188,13 @@ export const AddEditMockModal: React.FC = () => {
                 <input
                   type="number"
                   step="0.1"
-                  value={percentile}
-                  onChange={(e) => setPercentile(Number(e.target.value))}
+                  value={percentile === 0 ? '' : percentile}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPercentile(v === '' ? 0 : parseFloat(v) || 0);
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0.0"
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-bold text-indigo-600 dark:text-lavender"
                 />
               </div>
@@ -1151,8 +1206,13 @@ export const AddEditMockModal: React.FC = () => {
                 <input
                   type="number"
                   step="0.5"
-                  value={cutoffMarks}
-                  onChange={(e) => setCutoffMarks(Number(e.target.value))}
+                  value={cutoffMarks === 0 ? '' : cutoffMarks}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setCutoffMarks(v === '' ? 0 : parseFloat(v) || 0);
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="0"
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-sm font-bold"
                 />
               </div>
@@ -1165,6 +1225,7 @@ export const AddEditMockModal: React.FC = () => {
                   type="number"
                   value={rank || ''}
                   onChange={(e) => setRank(e.target.value ? Number(e.target.value) : undefined)}
+                  onFocus={(e) => e.target.select()}
                   placeholder="e.g. 1450"
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-sm font-bold"
                 />
@@ -1230,8 +1291,10 @@ export const AddEditMockModal: React.FC = () => {
                       <span className="text-[10px] text-slate-400 block mb-1">Total Qs</span>
                       <input
                         type="number"
-                        value={sec.totalQuestions}
-                        onChange={(e) => handleSectionChange(idx, 'totalQuestions', Number(e.target.value))}
+                        value={sec.totalQuestions === 0 ? '' : sec.totalQuestions}
+                        onChange={(e) => handleSectionChange(idx, 'totalQuestions', e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="0"
                         className="w-full p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-bold"
                       />
                     </div>
@@ -1239,8 +1302,10 @@ export const AddEditMockModal: React.FC = () => {
                       <span className="text-[10px] text-slate-400 block mb-1">Attempted</span>
                       <input
                         type="number"
-                        value={sec.attempted}
-                        onChange={(e) => handleSectionChange(idx, 'attempted', Number(e.target.value))}
+                        value={sec.attempted === 0 ? '' : sec.attempted}
+                        onChange={(e) => handleSectionChange(idx, 'attempted', e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="0"
                         className="w-full p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-bold"
                       />
                     </div>
@@ -1248,8 +1313,10 @@ export const AddEditMockModal: React.FC = () => {
                       <span className="text-[10px] text-mint-dark font-semibold block mb-1">Correct</span>
                       <input
                         type="number"
-                        value={sec.correct}
-                        onChange={(e) => handleSectionChange(idx, 'correct', Number(e.target.value))}
+                        value={sec.correct === 0 ? '' : sec.correct}
+                        onChange={(e) => handleSectionChange(idx, 'correct', e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="0"
                         className="w-full p-2 rounded-lg bg-white dark:bg-darkSurface border border-mint/30 font-bold text-mint-dark"
                       />
                     </div>
@@ -1257,8 +1324,10 @@ export const AddEditMockModal: React.FC = () => {
                       <span className="text-[10px] text-alert-red font-semibold block mb-1">Wrong</span>
                       <input
                         type="number"
-                        value={sec.wrong}
-                        onChange={(e) => handleSectionChange(idx, 'wrong', Number(e.target.value))}
+                        value={sec.wrong === 0 ? '' : sec.wrong}
+                        onChange={(e) => handleSectionChange(idx, 'wrong', e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="0"
                         className="w-full p-2 rounded-lg bg-white dark:bg-darkSurface border border-alert-red/30 font-bold text-alert-red"
                       />
                     </div>
@@ -1266,8 +1335,10 @@ export const AddEditMockModal: React.FC = () => {
                       <span className="text-[10px] text-slate-400 block mb-1">Time (min)</span>
                       <input
                         type="number"
-                        value={sec.timeTakenMinutes}
-                        onChange={(e) => handleSectionChange(idx, 'timeTakenMinutes', Number(e.target.value))}
+                        value={sec.timeTakenMinutes === 0 ? '' : sec.timeTakenMinutes}
+                        onChange={(e) => handleSectionChange(idx, 'timeTakenMinutes', e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="0"
                         className="w-full p-2 rounded-lg bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-bold"
                       />
                     </div>

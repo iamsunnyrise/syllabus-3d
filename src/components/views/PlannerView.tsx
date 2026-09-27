@@ -393,7 +393,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           subjectColor: topicObj.subjectColor,
           status: targetColumn,
           scheduledDate: targetDate || getTodayDateString(),
-          estimatedMinutes: estimatedMins,
+          estimatedMinutes: Number(estimatedMins) || 30,
           isCustom: false,
           priority,
           category
@@ -406,7 +406,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         subjectColor: '#2563EB',
         status: targetColumn,
         scheduledDate: targetDate || getTodayDateString(),
-        estimatedMinutes: estimatedMins,
+        estimatedMinutes: Number(estimatedMins) || 30,
         isCustom: true,
         priority,
         category
@@ -2223,8 +2223,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     min={10}
                     max={240}
                     step={5}
-                    value={estimatedMins}
-                    onChange={e => setEstimatedMins(Number(e.target.value))}
+                    value={estimatedMins === 0 ? '' : estimatedMins}
+                    onChange={e => setEstimatedMins(e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                    onFocus={e => e.target.select()}
+                    placeholder="30"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#12131D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
                   />
                 </div>

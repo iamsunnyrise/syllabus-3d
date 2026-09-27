@@ -724,6 +724,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       max={100}
                       value={editWeightage !== undefined ? editWeightage : ''}
                       onChange={e => setEditWeightage(e.target.value === '' ? undefined : Number(e.target.value))}
+                      onFocus={e => e.target.select()}
                       placeholder="e.g. 4 (optional)"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-darkContainer/50 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                     />

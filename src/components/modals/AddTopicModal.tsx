@@ -635,6 +635,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                     max="100"
                     value={singleWeightage}
                     onChange={(e) => setSingleWeightage(e.target.value)}
+                    onFocus={(e) => e.target.select()}
                     placeholder="e.g. 4"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
                   />

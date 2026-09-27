@@ -82,8 +82,10 @@ export const PreferencesForm: React.FC = () => {
               step="0.5"
               min="50"
               max="100"
-              value={targetPercentile}
-              onChange={(e) => setTargetPercentile(Number(e.target.value))}
+              value={targetPercentile === 0 ? '' : targetPercentile}
+              onChange={(e) => setTargetPercentile(e.target.value === '' ? 0 : parseFloat(e.target.value) || 0)}
+              onFocus={(e) => e.target.select()}
+              placeholder="90"
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400 tabular-nums outline-none focus:border-indigo-500"
             />
           </div>
@@ -97,8 +99,10 @@ export const PreferencesForm: React.FC = () => {
               step="1"
               min="50"
               max="300"
-              value={targetScore}
-              onChange={(e) => setTargetScore(Number(e.target.value))}
+              value={targetScore === 0 ? '' : targetScore}
+              onChange={(e) => setTargetScore(e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+              onFocus={(e) => e.target.select()}
+              placeholder="150"
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 tabular-nums outline-none focus:border-indigo-500"
             />
           </div>

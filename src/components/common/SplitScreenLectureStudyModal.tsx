@@ -804,11 +804,17 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
                     <div className="flex flex-col items-center">
                       <span className="text-[11px] font-mono font-bold text-[#787C99] uppercase">HH</span>
                       <input
-                        type="number"
-                        min="0"
-                        max="99"
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={2}
                         value={inputHours}
-                        onChange={e => setInputHours(e.target.value.padStart(2, '0').slice(-2))}
+                        onChange={e => {
+                          const clean = e.target.value.replace(/\D/g, '').slice(0, 2);
+                          setInputHours(clean);
+                        }}
+                        onBlur={() => setInputHours(prev => (prev === '' ? '00' : prev.padStart(2, '0')))}
+                        onFocus={e => e.target.select()}
+                        placeholder="00"
                         className="w-10 text-center py-1 bg-transparent text-sm font-mono font-bold text-white focus:outline-none focus:text-red-400"
                         title="Hours"
                       />
@@ -817,11 +823,17 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
                     <div className="flex flex-col items-center">
                       <span className="text-[11px] font-mono font-bold text-[#787C99] uppercase">MM</span>
                       <input
-                        type="number"
-                        min="0"
-                        max="59"
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={2}
                         value={inputMinutes}
-                        onChange={e => setInputMinutes(e.target.value.padStart(2, '0').slice(-2))}
+                        onChange={e => {
+                          const clean = e.target.value.replace(/\D/g, '').slice(0, 2);
+                          setInputMinutes(clean);
+                        }}
+                        onBlur={() => setInputMinutes(prev => (prev === '' ? '00' : prev.padStart(2, '0')))}
+                        onFocus={e => e.target.select()}
+                        placeholder="00"
                         className="w-10 text-center py-1 bg-transparent text-sm font-mono font-bold text-white focus:outline-none focus:text-red-400"
                         title="Minutes"
                         required
@@ -831,11 +843,17 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
                     <div className="flex flex-col items-center">
                       <span className="text-[11px] font-mono font-bold text-[#787C99] uppercase">SS</span>
                       <input
-                        type="number"
-                        min="0"
-                        max="59"
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={2}
                         value={inputSeconds}
-                        onChange={e => setInputSeconds(e.target.value.padStart(2, '0').slice(-2))}
+                        onChange={e => {
+                          const clean = e.target.value.replace(/\D/g, '').slice(0, 2);
+                          setInputSeconds(clean);
+                        }}
+                        onBlur={() => setInputSeconds(prev => (prev === '' ? '00' : prev.padStart(2, '0')))}
+                        onFocus={e => e.target.select()}
+                        placeholder="00"
                         className="w-10 text-center py-1 bg-transparent text-sm font-mono font-bold text-white focus:outline-none focus:text-red-400"
                         title="Seconds"
                       />
