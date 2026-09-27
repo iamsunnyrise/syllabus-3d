@@ -3,6 +3,7 @@ import { TimerSessionState, FloatingTimerSettings, TimerMode } from '../types/ti
 import { useSyllabus } from './SyllabusContext';
 import { soundManager } from '../utils/soundEffects';
 import { fireCelebration } from '../utils/confettiHelper';
+import { saveFocusSessionLog, getLocalDateString, formatTimeOfDay } from '../utils/focusSessionStorage';
 
 interface StartTimerOptions {
   mode?: TimerMode;
@@ -10,6 +11,8 @@ interface StartTimerOptions {
   topicId?: string;
   topicName?: string;
   subjectName?: string;
+  chapterName?: string;
+  subjectColor?: string;
   targetLoops?: number;
   currentLoop?: number;
   isLoopActive?: boolean;
@@ -28,7 +31,7 @@ interface TimerContextType {
   resetTimer: () => void;
   stopTimer: () => void;
   setSessionMode: (mode: TimerMode, durationMinutes: number) => void;
-  setSessionTopic: (topicId?: string, topicName?: string, subjectName?: string) => void;
+  setSessionTopic: (topicId?: string, topicName?: string, subjectName?: string, chapterName?: string, subjectColor?: string) => void;
   updateSettings: (partial: Partial<FloatingTimerSettings>) => void;
   openFullModal: () => void;
   closeFullModal: () => void;
@@ -207,6 +210,37 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       logStudySession(Math.round(session.totalDurationSec / 60), session.topicId);
     }
 
+    // Save detailed Focus Session Log for date-wise timeline and analytics
+    try {
+      const now = Date.now();
+      const start = session.startTimestamp || (now - session.totalDurationSec * 1000);
+      const durationSec = session.mode === 'stopwatch'
+        ? session.stopwatchElapsedSec
+        : session.totalDurationSec;
+
+      if (durationSec >= 30) {
+        saveFocusSessionLog({
+          date: getLocalDateString(new Date(start)),
+          startTime: start,
+          endTime: now,
+          formattedStartTime: formatTimeOfDay(start),
+          formattedEndTime: formatTimeOfDay(now),
+          durationMinutes: Math.max(1, Math.round(durationSec / 60)),
+          durationSeconds: durationSec,
+          mode: session.mode,
+          topicId: session.topicId,
+          topicName: session.topicName || 'Deep Focus Session',
+          subjectName: session.subjectName,
+          subjectColor: session.subjectColor,
+          chapterName: session.chapterName,
+          status: 'completed',
+          loopsCompleted: session.currentLoop || 1
+        });
+      }
+    } catch (e) {
+      console.warn('Error saving completed session log:', e);
+    }
+
     setIsFloatingOverlayVisible(false);
 
     if (pipWindowRef.current) {
@@ -216,7 +250,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       pipWindowRef.current = null;
       setIsPiPActive(false);
     }
-  }, [session.totalDurationSec, session.topicId, session.topicName, logStudySession, persistSession, notifyAndroidTimerChange, releaseWakeLock]);
+  }, [session, logStudySession, persistSession, notifyAndroidTimerChange, releaseWakeLock]);
 
   const startTimer = useCallback((options?: StartTimerOptions) => {
     const now = Date.now();
@@ -227,11 +261,15 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     let topicId = options?.topicId || session.topicId;
     let topicName = options?.topicName || session.topicName;
     let subjectName = options?.subjectName || session.subjectName;
+    let chapterName = options?.chapterName || session.chapterName;
+    let subjectColor = options?.subjectColor || session.subjectColor;
 
     if (!topicId && allTopics.length > 0) {
       topicId = allTopics[0].topic.id;
       topicName = allTopics[0].topic.name;
       subjectName = allTopics[0].subjectName;
+      chapterName = allTopics[0].chapterName;
+      subjectColor = allTopics[0].subjectColor;
     }
 
     const newSession: TimerSessionState = {
@@ -240,6 +278,8 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       topicId,
       topicName,
       subjectName,
+      chapterName,
+      subjectColor,
       totalDurationSec: durSec,
       remainingSec: durSec,
       status: 'running',
@@ -300,6 +340,39 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [session, persistSession, notifyAndroidTimerChange]);
 
   const resetTimer = useCallback(() => {
+    // If resetting while active, log session if user studied for at least 60 seconds
+    try {
+      if (session.status === 'running' || session.status === 'paused') {
+        const studiedSec = session.mode === 'stopwatch'
+          ? session.stopwatchElapsedSec
+          : Math.max(0, session.totalDurationSec - session.remainingSec);
+
+        if (studiedSec >= 60) {
+          const now = Date.now();
+          const start = session.startTimestamp || (now - studiedSec * 1000);
+          saveFocusSessionLog({
+            date: getLocalDateString(new Date(start)),
+            startTime: start,
+            endTime: now,
+            formattedStartTime: formatTimeOfDay(start),
+            formattedEndTime: formatTimeOfDay(now),
+            durationMinutes: Math.max(1, Math.round(studiedSec / 60)),
+            durationSeconds: studiedSec,
+            mode: session.mode,
+            topicId: session.topicId,
+            topicName: session.topicName || 'Deep Focus Session',
+            subjectName: session.subjectName,
+            subjectColor: session.subjectColor,
+            chapterName: session.chapterName,
+            status: 'stopped',
+            loopsCompleted: session.currentLoop || 1
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Error recording stopped session:', e);
+    }
+
     const durSec = session.totalDurationSec;
     setSession(prev => {
       const resetState: TimerSessionState = {
@@ -317,9 +390,40 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return resetState;
     });
     setIsFloatingOverlayVisible(false);
-  }, [session.totalDurationSec, persistSession, notifyAndroidTimerChange]);
+  }, [session, persistSession, notifyAndroidTimerChange]);
 
   const stopTimer = useCallback(() => {
+    // Also record if stopping while active
+    try {
+      if (session.status === 'running' || session.status === 'paused') {
+        const studiedSec = session.mode === 'stopwatch'
+          ? session.stopwatchElapsedSec
+          : Math.max(0, session.totalDurationSec - session.remainingSec);
+
+        if (studiedSec >= 60) {
+          const now = Date.now();
+          const start = session.startTimestamp || (now - studiedSec * 1000);
+          saveFocusSessionLog({
+            date: getLocalDateString(new Date(start)),
+            startTime: start,
+            endTime: now,
+            formattedStartTime: formatTimeOfDay(start),
+            formattedEndTime: formatTimeOfDay(now),
+            durationMinutes: Math.max(1, Math.round(studiedSec / 60)),
+            durationSeconds: studiedSec,
+            mode: session.mode,
+            topicId: session.topicId,
+            topicName: session.topicName || 'Deep Focus Session',
+            subjectName: session.subjectName,
+            subjectColor: session.subjectColor,
+            chapterName: session.chapterName,
+            status: 'stopped',
+            loopsCompleted: session.currentLoop || 1
+          });
+        }
+      }
+    } catch (e) {}
+
     setSession(prev => {
       const stoppedState: TimerSessionState = {
         ...prev,
@@ -333,7 +437,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return stoppedState;
     });
     setIsFloatingOverlayVisible(false);
-  }, [persistSession, notifyAndroidTimerChange]);
+  }, [session, persistSession, notifyAndroidTimerChange]);
 
   const setSessionMode = useCallback((mode: TimerMode, durationMinutes: number) => {
     const durSec = durationMinutes * 60;
@@ -355,9 +459,9 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   }, [persistSession]);
 
-  const setSessionTopic = useCallback((topicId?: string, topicName?: string, subjectName?: string) => {
+  const setSessionTopic = useCallback((topicId?: string, topicName?: string, subjectName?: string, chapterName?: string, subjectColor?: string) => {
     setSession(prev => {
-      const updated = { ...prev, topicId, topicName, subjectName };
+      const updated = { ...prev, topicId, topicName, subjectName, chapterName, subjectColor };
       persistSession(updated);
       return updated;
     });

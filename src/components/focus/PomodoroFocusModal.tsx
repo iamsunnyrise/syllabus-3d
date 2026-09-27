@@ -30,13 +30,27 @@ import {
   Search,
   Zap,
   Timer as StopwatchIcon,
-  Hourglass
+  Hourglass,
+  Calendar,
+  ChevronDown,
+  Folder,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 import { ambientEngine, AmbientSoundType } from '../../utils/ambientSounds';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { mediaSessionManager } from '../../utils/mediaSession';
 import { TimerMode, TimerFontFamily } from '../../types/timer';
+import { SessionHistoryModal } from './SessionHistoryModal';
+import {
+  FocusSessionLog,
+  getFocusSessionLogs,
+  filterFocusSessions,
+  calculateSessionStats,
+  formatDateLabel,
+  getLocalDateString
+} from '../../utils/focusSessionStorage';
 
 interface PomodoroFocusModalProps {
   isOpen: boolean;
@@ -124,15 +138,31 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     };
   }, []);
 
+  // Session History & Stats state
+  const [isSessionHistoryModalOpen, setIsSessionHistoryModalOpen] = useState(false);
+  const [statsDateFilter, setStatsDateFilter] = useState<'today' | 'yesterday' | 'week' | 'month' | 'all'>('today');
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+  const [focusLogs, setFocusLogs] = useState<FocusSessionLog[]>([]);
+
+  // Load and refresh session logs
+  useEffect(() => {
+    const refreshLogs = () => {
+      setFocusLogs(getFocusSessionLogs());
+    };
+    refreshLogs();
+    window.addEventListener('syllabus3d_focus_session_logged', refreshLogs);
+    return () => window.removeEventListener('syllabus3d_focus_session_logged', refreshLogs);
+  }, []);
+
   // Sync default topic
   useEffect(() => {
     if (defaultTopicId) {
       setSelectedTopicId(defaultTopicId);
       const top = allTopics.find(t => t.topic.id === defaultTopicId);
-      if (top) setSessionTopic(top.topic.id, top.topic.name, top.subjectName);
+      if (top) setSessionTopic(top.topic.id, top.topic.name, top.subjectName, top.chapterName, top.subjectColor);
     } else if (allTopics.length > 0 && !selectedTopicId) {
       setSelectedTopicId(allTopics[0].topic.id);
-      setSessionTopic(allTopics[0].topic.id, allTopics[0].topic.name, allTopics[0].subjectName);
+      setSessionTopic(allTopics[0].topic.id, allTopics[0].topic.name, allTopics[0].subjectName, allTopics[0].chapterName, allTopics[0].subjectColor);
     }
   }, [defaultTopicId, allTopics]);
 
@@ -210,6 +240,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         topicId: top?.topic.id,
         topicName: top?.topic.name,
         subjectName: top?.subjectName,
+        chapterName: top?.chapterName,
+        subjectColor: top?.subjectColor,
         currentLoop: session.currentLoop || 1,
         targetLoops: session.targetLoops || 4,
         isLoopActive: session.isLoopActive
@@ -243,6 +275,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         topicId: top?.topic.id,
         topicName: top?.topic.name,
         subjectName: top?.subjectName,
+        chapterName: top?.chapterName,
+        subjectColor: top?.subjectColor,
         currentLoop: session.currentLoop,
         targetLoops: session.targetLoops,
         isLoopActive: session.isLoopActive
@@ -331,23 +365,47 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   const totalTasksCount = Math.max(1, todayTasks.length);
   const taskProgressPercent = Math.round((completedCount / totalTasksCount) * 100);
 
-  // Session Statistics Calculation
+  // Filtered session logs for selected date filter
+  const filteredLogsForStats = useMemo(() => {
+    return filterFocusSessions(focusLogs, { dateFilter: statsDateFilter });
+  }, [focusLogs, statsDateFilter]);
+
+  const statsDateFilterLabel = useMemo(() => {
+    switch (statsDateFilter) {
+      case 'today': return 'Today';
+      case 'yesterday': return 'Yesterday';
+      case 'week': return 'Last 7 Days';
+      case 'month': return 'This Month';
+      case 'all': return 'All Time';
+      default: return 'Today';
+    }
+  }, [statsDateFilter]);
+
+  // Session Statistics Calculation (Dynamic & Date-Wise)
   const statsMetrics = useMemo(() => {
-    const todayStr = new Date().toISOString().split('T')[0];
-    const todayAct = activityHistory?.find(a => a.date === todayStr);
-    const studiedMinutes = (todayAct?.studyMinutes || 0) + Math.floor((session.totalDurationSec - session.remainingSec) / 60);
-    const h = Math.floor(studiedMinutes / 60);
-    const m = studiedMinutes % 60;
-    const goalHours = 3;
-    const goalMins = 0;
+    const computed = calculateSessionStats(filteredLogsForStats);
+
+    // If today is selected and session is currently running, add current session elapsed minutes
+    let additionalMins = 0;
+    if (statsDateFilter === 'today' && (session.status === 'running' || session.status === 'paused')) {
+      const activeSec = session.mode === 'stopwatch'
+        ? session.stopwatchElapsedSec
+        : Math.max(0, session.totalDurationSec - session.remainingSec);
+      additionalMins = Math.floor(activeSec / 60);
+    }
+
+    const totalMins = computed.totalMinutes + additionalMins;
+    const h = Math.floor(totalMins / 60);
+    const m = totalMins % 60;
 
     return {
       focusTime: `${h}h ${m < 10 ? '0' : ''}${m}m`,
-      sessionsCount: session.currentLoop || 4,
-      focusRate: `${todayTasks.length > 0 ? Math.max(60, taskProgressPercent) : 75}%`,
-      dailyGoal: `${goalHours}h ${goalMins < 10 ? '0' : ''}${goalMins}m`
+      sessionsCount: computed.sessionsCount || (statsDateFilter === 'today' ? 1 : 0),
+      focusRate: computed.sessionsCount > 0 ? computed.focusRate : (todayTasks.length > 0 ? `${taskProgressPercent}%` : '100%'),
+      dailyGoal: computed.dailyGoal,
+      uniqueTopics: computed.uniqueTopicsCount
     };
-  }, [activityHistory, session.totalDurationSec, session.remainingSec, session.currentLoop, todayTasks, taskProgressPercent]);
+  }, [filteredLogsForStats, statsDateFilter, session.status, session.mode, session.stopwatchElapsedSec, session.totalDurationSec, session.remainingSec, todayTasks, taskProgressPercent]);
 
   // Music Selector Handlers
   const currentSoundTrack = SOUND_TRACKS.find(s => s.id === activeSound) || SOUND_TRACKS[0];
@@ -577,8 +635,14 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
               <span
                 onClick={() => {
-                  setSelectedTopicId(t.topicId || t.id);
-                  setSessionTopic(t.topicId || t.id, t.title, t.subjectName);
+                  const targetId = t.topicId || t.id;
+                  setSelectedTopicId(targetId);
+                  const matching = allTopics.find(at => at.topic.id === targetId);
+                  if (matching) {
+                    setSessionTopic(matching.topic.id, matching.topic.name, matching.subjectName, matching.chapterName, matching.subjectColor);
+                  } else {
+                    setSessionTopic(targetId, t.title, t.subjectName);
+                  }
                   soundManager.playClick();
                 }}
                 className={`text-xs font-semibold truncate select-none ${
@@ -732,19 +796,81 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     </div>
   );
 
-  // Sub-timer Card 4: Session Stats 2x2 Bento Grid
+  // Sub-timer Card 4: Advanced Session Stats 2x2 Bento Grid + Date-Wise Timeline
   const renderSessionStatsCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-4 relative">
+      {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
             <BarChart3 className="w-4 h-4" />
           </div>
           <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Session Stats</span>
+          <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8]">
+            {filteredLogsForStats.length} done
+          </span>
         </div>
-        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-white/5">
-          Today ⌵
-        </span>
+
+        {/* Right: Date selector dropdown trigger + Detailed modal open button */}
+        <div className="flex items-center gap-1.5 relative">
+          <button
+            type="button"
+            onClick={() => setIsDateDropdownOpen(prev => !prev)}
+            className="text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-white/10 flex items-center gap-1 transition-all cursor-pointer active:scale-95 shadow-2xs"
+            title="Switch date filter"
+          >
+            <span>{statsDateFilterLabel}</span>
+            <ChevronDown className={`w-3 h-3 transition-transform ${isDateDropdownOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {/* Detailed Audit Modal Expand Button */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsSessionHistoryModalOpen(true);
+            }}
+            className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 transition-all cursor-pointer active:scale-95"
+            title="Open Detailed Session Analytics & Timeline"
+            aria-label="Expand Session Stats"
+          >
+            <Maximize2 className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Date Dropdown Popover */}
+          {isDateDropdownOpen && (
+            <div
+              className="absolute right-0 top-full mt-1.5 z-40 w-36 rounded-2xl bg-white dark:bg-[#1A1D2E] border border-slate-200 dark:border-white/15 shadow-xl p-1.5 space-y-1 animate-scale-up"
+              onClick={e => e.stopPropagation()}
+            >
+              {[
+                { id: 'today', label: 'Today' },
+                { id: 'yesterday', label: 'Yesterday' },
+                { id: 'week', label: 'Last 7 Days' },
+                { id: 'month', label: 'This Month' },
+                { id: 'all', label: 'All Time' }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setStatsDateFilter(opt.id as any);
+                    setIsDateDropdownOpen(false);
+                  }}
+                  className={`w-full px-2.5 py-1.5 rounded-xl text-left text-xs font-bold transition-colors cursor-pointer flex items-center justify-between ${
+                    statsDateFilter === opt.id
+                      ? 'bg-[#0066FF] text-white shadow-xs'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10'
+                  }`}
+                >
+                  <span>{opt.label}</span>
+                  {statsDateFilter === opt.id && <Check className="w-3 h-3 stroke-[3]" />}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 2x2 Bento Metrics */}
@@ -800,6 +926,111 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             Daily Goal
           </div>
         </div>
+      </div>
+
+      {/* Date-wise Session Logs Timeline Preview (Kis date ko, kis time se kis time tak, kis subject ke kis chapter ke topic par focus kiya) */}
+      <div className="pt-2 border-t border-slate-200/70 dark:border-white/[0.08] space-y-2.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+            <Calendar className="w-3 h-3 text-[#0066FF] dark:text-[#38BDF8]" />
+            <span>Session Logs ({statsDateFilterLabel})</span>
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsSessionHistoryModalOpen(true);
+            }}
+            className="text-[11px] font-bold text-[#0066FF] dark:text-[#38BDF8] hover:underline flex items-center gap-1 cursor-pointer"
+          >
+            <span>Full Audit</span>
+            <ExternalLink className="w-2.5 h-2.5" />
+          </button>
+        </div>
+
+        {/* Session List Preview */}
+        <div className="space-y-2 max-h-56 overflow-y-auto pr-0.5 no-scrollbar">
+          {filteredLogsForStats.length === 0 ? (
+            <div className="py-4 px-3 rounded-2xl bg-slate-50/80 dark:bg-white/[0.02] border border-dashed border-slate-200 dark:border-white/10 text-center space-y-1">
+              <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                No sessions logged for {statsDateFilterLabel}
+              </p>
+              <p className="text-[10px] text-slate-400">
+                Run the Pomodoro or Stopwatch timer above to record deep study!
+              </p>
+            </div>
+          ) : (
+            filteredLogsForStats.slice(0, 3).map(log => {
+              return (
+                <div
+                  key={log.id}
+                  className="p-2.5 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/60 dark:border-white/5 space-y-1.5 hover:border-slate-300 dark:hover:border-white/15 transition-all text-left"
+                >
+                  {/* Top Bar: Time Interval & Duration */}
+                  <div className="flex items-center justify-between gap-1 text-[11px]">
+                    <div className="flex items-center gap-1.5 font-mono font-bold text-slate-800 dark:text-slate-200">
+                      <Clock className="w-3 h-3 text-[#0066FF] dark:text-[#38BDF8]" />
+                      <span>{log.formattedStartTime} → {log.formattedEndTime}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <span className="font-mono text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8]">
+                        {log.durationMinutes}m
+                      </span>
+                      {log.status === 'completed' ? (
+                        <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                      ) : (
+                        <AlertCircle className="w-3 h-3 text-amber-500" />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Topic Hierarchy Breakdown */}
+                  <div className="space-y-0.5">
+                    <div className="text-xs font-bold text-slate-900 dark:text-white truncate flex items-center gap-1.5">
+                      <Target className="w-3 h-3 text-[#0066FF] dark:text-[#38BDF8] shrink-0" />
+                      <span className="truncate">{log.topicName || 'General Deep Study'}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                      {log.subjectName && (
+                        <span
+                          className="px-1.5 py-0.2 rounded font-semibold text-[9px] border shrink-0"
+                          style={{
+                            backgroundColor: `${log.subjectColor || '#3B82F6'}15`,
+                            color: log.subjectColor || '#3B82F6',
+                            borderColor: `${log.subjectColor || '#3B82F6'}35`
+                          }}
+                        >
+                          {log.subjectName}
+                        </span>
+                      )}
+                      {log.chapterName && (
+                        <span className="truncate flex items-center gap-1">
+                          <Folder className="w-2.5 h-2.5 text-slate-400 shrink-0" />
+                          <span className="truncate">{log.chapterName}</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* View Calendar Details Button */}
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setIsSessionHistoryModalOpen(true);
+          }}
+          className="w-full py-2 px-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 border border-slate-200/80 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
+        >
+          <Calendar className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
+          <span>View Date-wise Calendar & Full History</span>
+        </button>
       </div>
     </div>
   );
@@ -1488,7 +1719,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     type="button"
                     onClick={() => {
                       setSelectedTopicId(t.topic.id);
-                      setSessionTopic(t.topic.id, t.topic.name, t.subjectName);
+                      setSessionTopic(t.topic.id, t.topic.name, t.subjectName, t.chapterName, t.subjectColor);
                       setIsTopicSearchOpen(false);
                       soundManager.playClick();
                     }}
@@ -1625,6 +1856,13 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           </div>
         </div>
       )}
+
+      {/* FULL SESSION HISTORY AUDIT MODAL */}
+      <SessionHistoryModal
+        isOpen={isSessionHistoryModalOpen}
+        onClose={() => setIsSessionHistoryModalOpen(false)}
+        availableSubjects={allTopics.map(t => t.subjectName)}
+      />
     </div>,
     document.body
   );
