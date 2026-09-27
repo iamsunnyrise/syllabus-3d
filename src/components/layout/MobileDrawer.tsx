@@ -19,6 +19,7 @@ import {
   Sparkles,
   Video,
   Trophy,
+  NotebookPen,
   Smartphone,
   Download
 } from 'lucide-react';
@@ -141,6 +142,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           badge: 'AI',
           badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
           iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
+        },
+        {
+          id: 'digital-notes' as AppView,
+          label: 'Digital Notes',
+          icon: NotebookPen,
+          badge: 'Hindi / Eng',
+          badgeStyle: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-bold',
+          iconBg: 'bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
         },
         {
           id: 'mock-tracker' as AppView,

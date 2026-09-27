@@ -18,6 +18,7 @@ import {
   Sparkles,
   Video,
   Trophy,
+  NotebookPen,
   ChevronDown
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -40,6 +41,7 @@ export type AppView =
   | 'pacing'
   | 'settings'
   | 'youtube-notes'
+  | 'digital-notes'
   | 'mock-tracker'
   | 'landing';
 
@@ -189,6 +191,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           badge: 'AI',
           badgeColor: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20',
           shortcut: '5'
+        },
+        {
+          id: 'digital-notes' as AppView,
+          label: 'Digital Notes',
+          icon: NotebookPen,
+          badge: 'Hindi / Eng',
+          badgeColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
         },
         {
           id: 'mock-tracker' as AppView,
