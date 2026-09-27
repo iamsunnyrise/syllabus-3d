@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   NotebookPen,
   Search,
@@ -1101,16 +1102,21 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copyFeedbackId, setCopyFeedbackId] = useState<string | null>(null);
 
-  // Keyboard shortcut: Escape key closes the full page reader
+  // Keyboard shortcut & Body scroll lock: Escape key closes the full page reader
   useEffect(() => {
     if (!activeReadingNote) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setActiveReadingNote(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [activeReadingNote]);
 
   // Extract headings from active note for the Interactive Outline / Table of Contents
@@ -2359,9 +2365,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
       </div>
 
       {/* 📖 5. EXECUTIVE FULL-PAGE IMMERSIVE NOTE READER */}
-      {activeReadingNote && (
+      {activeReadingNote && typeof document !== 'undefined' && createPortal(
         <div
-          className={`fixed inset-0 z-50 flex flex-col ${
+          className={`fixed inset-0 z-[100] flex flex-col ${
             readerTheme === 'sepia'
               ? 'bg-[#F9F4EB] text-[#3D2F1D]'
               : readerTheme === 'oled'
@@ -2371,7 +2377,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
         >
           {/* Top Sticky Executive Header */}
           <header
-            className={`sticky top-0 z-30 h-16 px-4 sm:px-6 border-b flex items-center justify-between transition-colors shadow-xs ${
+            className={`sticky top-0 z-40 h-16 px-4 sm:px-6 border-b flex items-center justify-between transition-colors shadow-xs ${
               readerTheme === 'sepia'
                 ? 'bg-[#F4ECE1] border-[#DFD3BE] text-[#3D2F1D]'
                 : readerTheme === 'oled'
@@ -2769,12 +2775,13 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* ✏️ 6. CREATE & EDIT NOTE MODAL */}
-      {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
+      {isCreateModalOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
           <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-[#0E101B] rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden animate-scale-up">
             {/* Modal Top Bar */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-[#141728]">
@@ -3134,11 +3141,12 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       {/* 🔐 7. ADMIN PASSCODE VERIFICATION & SECURITY MODAL */}
-      {isAdminModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+      {isAdminModalOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
           <div className="relative w-full max-w-md bg-white dark:bg-[#0E101B] rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden animate-scale-up">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-[#141728]/80 backdrop-blur-md">
@@ -3358,7 +3366,8 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
               <span>Only Admin can create, edit, or delete notes. All other users have read-only access.</span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
