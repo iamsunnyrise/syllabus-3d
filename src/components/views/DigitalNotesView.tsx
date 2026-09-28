@@ -2099,7 +2099,7 @@ export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'):
     // Bold (**text**)
     if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
       return (
-        <strong key={k} className="font-extrabold text-slate-900 dark:text-white">
+        <strong key={k} className="font-black text-current">
           {parseInlineMarkdown(part.slice(2, -2), `${k}-b`)}
         </strong>
       );
@@ -2108,7 +2108,7 @@ export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'):
     // Italic (*text*)
     if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
       return (
-        <em key={k} className="italic text-slate-700 dark:text-slate-300">
+        <em key={k} className="italic text-current opacity-95">
           {parseInlineMarkdown(part.slice(1, -1), `${k}-i`)}
         </em>
       );
@@ -2161,9 +2161,13 @@ export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'):
 // Executive Publication-Grade Markdown Content Renderer for Study Notes
 export const renderProfessionalNotesContent = (
   content: string,
-  fontSize: 'base' | 'lg' | 'xl' = 'base'
+  fontSize: 'base' | 'lg' | 'xl' = 'base',
+  theme: 'default' | 'sepia' | 'oled' = 'default'
 ): React.ReactNode => {
   if (!content) return null;
+
+  const isSepia = theme === 'sepia';
+  const isOled = theme === 'oled';
 
   const lines = content.split('\n');
   const elements: React.ReactNode[] = [];
@@ -2175,6 +2179,12 @@ export const renderProfessionalNotesContent = (
       : fontSize === 'lg'
       ? 'text-sm sm:text-base leading-relaxed'
       : 'text-xs sm:text-sm leading-relaxed';
+
+  const bodyTextColor = isSepia
+    ? 'text-[#2D1F13]'
+    : isOled
+    ? 'text-slate-200'
+    : 'text-slate-800 dark:text-slate-200';
 
   while (i < lines.length) {
     const rawLine = lines[i];
@@ -2199,10 +2209,22 @@ export const renderProfessionalNotesContent = (
         <div
           id={`sec-${i}`}
           key={`h2-${i}`}
-          className="flex items-center gap-3 mt-10 mb-4 pb-2.5 border-b border-slate-200/80 dark:border-white/10 scroll-mt-24"
+          className={`flex items-center gap-3 mt-10 mb-4 pb-2.5 border-b scroll-mt-24 ${
+            isSepia
+              ? 'border-[#DECDB5]'
+              : isOled
+              ? 'border-white/15'
+              : 'border-slate-200/80 dark:border-white/10'
+          }`}
         >
           <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h3 className={`text-xl sm:text-2xl font-black tracking-tight ${
+            isSepia
+              ? 'text-[#180E05]'
+              : isOled
+              ? 'text-white'
+              : 'text-slate-900 dark:text-white'
+          }`}>
             {parseInlineMarkdown(headingText, `h2-${i}`)}
           </h3>
         </div>
@@ -2218,7 +2240,13 @@ export const renderProfessionalNotesContent = (
         <h4
           id={`sec-${i}`}
           key={`h3-${i}`}
-          className="text-base sm:text-lg font-extrabold text-indigo-700 dark:text-indigo-300 mt-7 mb-3 flex items-center gap-2 scroll-mt-24"
+          className={`text-base sm:text-lg font-extrabold mt-7 mb-3 flex items-center gap-2 scroll-mt-24 ${
+            isSepia
+              ? 'text-[#824408]'
+              : isOled
+              ? 'text-sky-300'
+              : 'text-indigo-700 dark:text-indigo-300'
+          }`}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h3-${i}`)}</span>
@@ -2235,7 +2263,13 @@ export const renderProfessionalNotesContent = (
         <h5
           id={`sec-${i}`}
           key={`h4-${i}`}
-          className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200 mt-5 mb-2 flex items-center gap-1.5 scroll-mt-24"
+          className={`text-sm sm:text-base font-bold mt-5 mb-2 flex items-center gap-1.5 scroll-mt-24 ${
+            isSepia
+              ? 'text-[#180E05]'
+              : isOled
+              ? 'text-slate-100'
+              : 'text-slate-800 dark:text-slate-200'
+          }`}
         >
           <span className="w-1 h-1 rounded-full bg-indigo-400 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h4-${i}`)}</span>
@@ -2249,9 +2283,15 @@ export const renderProfessionalNotesContent = (
     if (trimmed === '---' || trimmed === '***') {
       elements.push(
         <div key={`hr-${i}`} className="flex items-center justify-center gap-3 my-8 select-none" aria-hidden="true">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent" />
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50" />
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent" />
+          <div className={`h-px w-24 bg-gradient-to-r from-transparent ${
+            isSepia ? 'via-[#DECDB5]' : isOled ? 'via-white/20' : 'via-slate-300 dark:via-slate-700'
+          } to-transparent`} />
+          <span className={`w-1.5 h-1.5 rounded-full ${
+            isSepia ? 'bg-[#824408]/60' : 'bg-indigo-500/50'
+          }`} />
+          <div className={`h-px w-24 bg-gradient-to-r from-transparent ${
+            isSepia ? 'via-[#DECDB5]' : isOled ? 'via-white/20' : 'via-slate-300 dark:via-slate-700'
+          } to-transparent`} />
         </div>
       );
       i++;
@@ -2294,7 +2334,13 @@ export const renderProfessionalNotesContent = (
       elements.push(
         <div
           key={`math-${i}`}
-          className="my-5 p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200/60 dark:border-indigo-800/40 text-indigo-900 dark:text-indigo-200 font-mono text-xs sm:text-sm text-center shadow-2xs overflow-x-auto custom-scrollbar"
+          className={`my-5 p-4 rounded-2xl border font-mono text-xs sm:text-sm text-center shadow-2xs overflow-x-auto custom-scrollbar ${
+            isSepia
+              ? 'bg-[#FAF2E4] border-[#DECDB5] text-[#180E05]'
+              : isOled
+              ? 'bg-[#090C16] border-indigo-900/50 text-indigo-200'
+              : 'bg-indigo-50/70 dark:bg-indigo-950/20 border-indigo-200/60 dark:border-indigo-800/40 text-indigo-900 dark:text-indigo-200'
+          }`}
         >
           {formula}
         </div>
@@ -2330,20 +2376,32 @@ export const renderProfessionalNotesContent = (
         elements.push(
           <div
             key={`table-${i}`}
-            className="my-6 overflow-hidden rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-sm bg-white dark:bg-[#121526]"
+            className={`my-6 overflow-hidden rounded-2xl border shadow-sm ${
+              isSepia
+                ? 'bg-[#FFFDF9] border-[#DECDB5]'
+                : isOled
+                ? 'bg-[#080A10] border-white/15'
+                : 'bg-white dark:bg-[#121526] border-slate-200/90 dark:border-white/10'
+            }`}
           >
             <div className="overflow-x-auto custom-scrollbar">
               <table className="w-full text-left border-collapse min-w-[500px]">
                 <thead>
-                  <tr className="bg-gradient-to-r from-slate-100 to-slate-50 dark:from-[#181B2E] dark:to-[#161829] border-b border-slate-200/80 dark:border-white/10">
+                  <tr className={`border-b ${
+                    isSepia
+                      ? 'bg-[#EFE2CC] border-[#DECDB5] text-[#180E05]'
+                      : isOled
+                      ? 'bg-[#121522] border-white/15 text-white'
+                      : 'bg-gradient-to-r from-slate-100 to-slate-50 dark:from-[#181B2E] dark:to-[#161829] border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200'
+                  }`}>
                     {headerCells.map((h, hIdx) => {
                       const align = alignments[hIdx] || 'left';
                       return (
                         <th
                           key={hIdx}
-                          className={`py-3.5 px-4 text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 border-r border-slate-200/60 dark:border-white/5 last:border-r-0 ${
-                            align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
-                          }`}
+                          className={`py-3.5 px-4 text-xs font-black uppercase tracking-wider border-r last:border-r-0 ${
+                            isSepia ? 'border-[#DECDB5]' : isOled ? 'border-white/10' : 'border-slate-200/60 dark:border-white/5'
+                          } ${align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'}`}
                         >
                           {parseInlineMarkdown(h, `th-${i}-${hIdx}`)}
                         </th>
@@ -2351,14 +2409,20 @@ export const renderProfessionalNotesContent = (
                     })}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
+                <tbody className={`divide-y ${
+                  isSepia ? 'divide-[#EFE2CC]' : isOled ? 'divide-white/10' : 'divide-slate-100 dark:divide-white/[0.04]'
+                }`}>
                   {bodyLines.map((rowStr, rIdx) => {
                     const cells = extractCells(rowStr);
                     return (
                       <tr
                         key={rIdx}
-                        className={`transition-colors hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 ${
-                          rIdx % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/60 dark:bg-white/[0.02]'
+                        className={`transition-colors ${
+                          isSepia
+                            ? rIdx % 2 === 0 ? 'bg-transparent' : 'bg-[#FAF3E6]'
+                            : isOled
+                            ? rIdx % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.03]'
+                            : rIdx % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/60 dark:bg-white/[0.02]'
                         }`}
                       >
                         {cells.map((cell, cIdx) => {
@@ -2366,9 +2430,13 @@ export const renderProfessionalNotesContent = (
                           return (
                             <td
                               key={cIdx}
-                              className={`py-3 px-4 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 border-r border-slate-100 dark:border-white/5 last:border-r-0 leading-relaxed font-normal ${
-                                align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
-                              }`}
+                              className={`py-3 px-4 text-xs sm:text-[13px] border-r last:border-r-0 leading-relaxed font-normal ${
+                                isSepia
+                                  ? 'text-[#2D1F13] border-[#EFE2CC]'
+                                  : isOled
+                                  ? 'text-slate-200 border-white/10'
+                                  : 'text-slate-700 dark:text-slate-300 border-slate-100 dark:border-white/5'
+                              } ${align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'}`}
                             >
                               {parseInlineMarkdown(cell, `td-${i}-${rIdx}-${cIdx}`)}
                             </td>
@@ -2385,7 +2453,7 @@ export const renderProfessionalNotesContent = (
         continue;
       } else {
         elements.push(
-          <p key={`p-${i}`} className={`my-3 text-slate-800 dark:text-slate-200 ${textSizeClass} font-normal`}>
+          <p key={`p-${i}`} className={`my-3 font-normal leading-relaxed ${textSizeClass} ${bodyTextColor}`}>
             {parseInlineMarkdown(tableLines[0], `p-${i}`)}
           </p>
         );
@@ -2406,44 +2474,144 @@ export const renderProfessionalNotesContent = (
       const isKey = /🔑|key|crucial|concept|highlight/i.test(quoteText);
       const isMnemonic = /🧠|mnemonic|yad|yaad|trick|स्मरण/i.test(quoteText);
 
-      let cardBorder = 'border-indigo-500/40 border-l-4';
-      let cardBg = 'bg-indigo-50/70 dark:bg-indigo-950/25';
-      let titleColor = 'text-indigo-700 dark:text-indigo-300';
-      let textColor = 'text-slate-800 dark:text-slate-200';
-      let iconColor = 'text-indigo-600 dark:text-indigo-400';
+      let cardBorder = isSepia
+        ? 'border-indigo-600/50 border-l-4'
+        : isOled
+        ? 'border-indigo-500/50 border-l-4'
+        : 'border-indigo-500/40 border-l-4';
+      let cardBg = isSepia
+        ? 'bg-[#EEF3FB] border-[#D4E0F0]'
+        : isOled
+        ? 'bg-[#0B1220] border-indigo-900/40'
+        : 'bg-indigo-50/70 dark:bg-indigo-950/25';
+      let titleColor = isSepia
+        ? 'text-indigo-950 font-black'
+        : isOled
+        ? 'text-indigo-300 font-black'
+        : 'text-indigo-700 dark:text-indigo-300';
+      let textColor = isSepia
+        ? 'text-[#1D2939]'
+        : isOled
+        ? 'text-slate-100'
+        : 'text-slate-800 dark:text-slate-200';
+      let iconColor = isSepia
+        ? 'text-indigo-700'
+        : isOled
+        ? 'text-indigo-400'
+        : 'text-indigo-600 dark:text-indigo-400';
       let calloutTitle = 'Important Note';
       let IconComponent: React.ComponentType<{ className?: string }> = BookOpen;
 
       if (isTrap) {
-        cardBorder = 'border-amber-500/60 border-l-4';
-        cardBg = 'bg-amber-50/80 dark:bg-amber-950/25';
-        titleColor = 'text-amber-800 dark:text-amber-300';
-        textColor = 'text-amber-950 dark:text-amber-100';
-        iconColor = 'text-amber-600 dark:text-amber-400';
+        cardBorder = isSepia
+          ? 'border-amber-700/70 border-l-4'
+          : isOled
+          ? 'border-amber-500/70 border-l-4'
+          : 'border-amber-500/60 border-l-4';
+        cardBg = isSepia
+          ? 'bg-[#FAF0E1] border-[#E8D4BE]'
+          : isOled
+          ? 'bg-[#181106] border-amber-900/40'
+          : 'bg-amber-50/80 dark:bg-amber-950/25';
+        titleColor = isSepia
+          ? 'text-amber-950 font-black'
+          : isOled
+          ? 'text-amber-300 font-black'
+          : 'text-amber-800 dark:text-amber-300';
+        textColor = isSepia
+          ? 'text-[#2D1904]'
+          : isOled
+          ? 'text-amber-100'
+          : 'text-amber-950 dark:text-amber-100';
+        iconColor = isSepia
+          ? 'text-amber-700'
+          : isOled
+          ? 'text-amber-400'
+          : 'text-amber-600 dark:text-amber-400';
         calloutTitle = 'Exam Trap & High-Yield Alert';
         IconComponent = AlertCircle;
       } else if (isTip) {
-        cardBorder = 'border-emerald-500/60 border-l-4';
-        cardBg = 'bg-emerald-50/80 dark:bg-emerald-950/25';
-        titleColor = 'text-emerald-800 dark:text-emerald-300';
-        textColor = 'text-emerald-950 dark:text-emerald-100';
-        iconColor = 'text-emerald-600 dark:text-emerald-400';
+        cardBorder = isSepia
+          ? 'border-emerald-700/70 border-l-4'
+          : isOled
+          ? 'border-emerald-500/70 border-l-4'
+          : 'border-emerald-500/60 border-l-4';
+        cardBg = isSepia
+          ? 'bg-[#ECF5E8] border-[#CEE4C7]'
+          : isOled
+          ? 'bg-[#06180E] border-emerald-900/40'
+          : 'bg-emerald-50/80 dark:bg-emerald-950/25';
+        titleColor = isSepia
+          ? 'text-emerald-950 font-black'
+          : isOled
+          ? 'text-emerald-300 font-black'
+          : 'text-emerald-800 dark:text-emerald-300';
+        textColor = isSepia
+          ? 'text-[#0E2812]'
+          : isOled
+          ? 'text-emerald-100'
+          : 'text-emerald-950 dark:text-emerald-100';
+        iconColor = isSepia
+          ? 'text-emerald-700'
+          : isOled
+          ? 'text-emerald-400'
+          : 'text-emerald-600 dark:text-emerald-400';
         calloutTitle = 'Exam Shortcut & Pro Tip';
         IconComponent = Lightbulb;
       } else if (isMnemonic) {
-        cardBorder = 'border-purple-500/60 border-l-4';
-        cardBg = 'bg-gradient-to-br from-purple-50/90 via-indigo-50/50 to-pink-50/30 dark:from-purple-950/30 dark:via-indigo-950/20 dark:to-pink-950/15';
-        titleColor = 'text-purple-800 dark:text-purple-300';
-        textColor = 'text-purple-950 dark:text-purple-100';
-        iconColor = 'text-purple-600 dark:text-purple-400';
+        cardBorder = isSepia
+          ? 'border-purple-700/70 border-l-4'
+          : isOled
+          ? 'border-purple-400/70 border-l-4'
+          : 'border-purple-500/60 border-l-4';
+        cardBg = isSepia
+          ? 'bg-[#F4EBF7] border-[#DFCCEB]'
+          : isOled
+          ? 'bg-[#150B22] border-purple-900/40'
+          : 'bg-gradient-to-br from-purple-50/90 via-indigo-50/50 to-pink-50/30 dark:from-purple-950/30 dark:via-indigo-950/20 dark:to-pink-950/15';
+        titleColor = isSepia
+          ? 'text-purple-950 font-black'
+          : isOled
+          ? 'text-purple-300 font-black'
+          : 'text-purple-800 dark:text-purple-300';
+        textColor = isSepia
+          ? 'text-[#210B2B]'
+          : isOled
+          ? 'text-purple-100'
+          : 'text-purple-950 dark:text-purple-100';
+        iconColor = isSepia
+          ? 'text-purple-700'
+          : isOled
+          ? 'text-purple-400'
+          : 'text-purple-600 dark:text-purple-400';
         calloutTitle = 'Master Mnemonic & Memory Anchor';
         IconComponent = Brain;
       } else if (isKey) {
-        cardBorder = 'border-purple-500/60 border-l-4';
-        cardBg = 'bg-purple-50/80 dark:bg-purple-950/25';
-        titleColor = 'text-purple-800 dark:text-purple-300';
-        textColor = 'text-purple-950 dark:text-purple-100';
-        iconColor = 'text-purple-600 dark:text-purple-400';
+        cardBorder = isSepia
+          ? 'border-purple-700/70 border-l-4'
+          : isOled
+          ? 'border-purple-400/70 border-l-4'
+          : 'border-purple-500/60 border-l-4';
+        cardBg = isSepia
+          ? 'bg-[#F4EBF7] border-[#DFCCEB]'
+          : isOled
+          ? 'bg-[#150B22] border-purple-900/40'
+          : 'bg-purple-50/80 dark:bg-purple-950/25';
+        titleColor = isSepia
+          ? 'text-purple-950 font-black'
+          : isOled
+          ? 'text-purple-300 font-black'
+          : 'text-purple-800 dark:text-purple-300';
+        textColor = isSepia
+          ? 'text-[#210B2B]'
+          : isOled
+          ? 'text-purple-100'
+          : 'text-purple-950 dark:text-purple-100';
+        iconColor = isSepia
+          ? 'text-purple-700'
+          : isOled
+          ? 'text-purple-400'
+          : 'text-purple-600 dark:text-purple-400';
         calloutTitle = 'Core Concept';
         IconComponent = Zap;
       }
@@ -2474,13 +2642,23 @@ export const renderProfessionalNotesContent = (
                   return (
                     <div
                       key={qIdx}
-                      className="flex items-center gap-2.5 py-1.5 px-3 rounded-xl bg-white/80 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.07] shadow-2xs hover:border-purple-300 dark:hover:border-purple-700/50 transition-all"
+                      className={`flex items-center gap-2.5 py-1.5 px-3 rounded-xl border shadow-2xs transition-all ${
+                        isSepia
+                          ? 'bg-[#FFFDF9] border-[#DECDB5] text-[#180E05]'
+                          : isOled
+                          ? 'bg-white/[0.06] border-white/10 text-white'
+                          : 'bg-white/80 dark:bg-white/[0.04] border-slate-200/70 dark:border-white/[0.07] text-slate-800 dark:text-slate-200'
+                      }`}
                     >
                       <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
                         {letter}
                       </span>
-                      <span className="text-indigo-500 dark:text-indigo-400 font-black select-none text-xs">→</span>
-                      <span className="flex-1 font-semibold text-slate-800 dark:text-slate-200 text-xs sm:text-[13px]">
+                      <span className={`font-black select-none text-xs ${
+                        isSepia ? 'text-[#824408]' : isOled ? 'text-indigo-400' : 'text-indigo-500 dark:text-indigo-400'
+                      }`}>→</span>
+                      <span className={`flex-1 font-semibold text-xs sm:text-[13px] ${
+                        isSepia ? 'text-[#180E05]' : isOled ? 'text-white' : 'text-slate-800 dark:text-slate-200'
+                      }`}>
                         {parseInlineMarkdown(rest, `callout-${i}-${qIdx}`)}
                       </span>
                     </div>
@@ -2492,7 +2670,13 @@ export const renderProfessionalNotesContent = (
                   return (
                     <div
                       key={qIdx}
-                      className="flex items-center gap-2 py-1 px-2.5 rounded-lg bg-white/50 dark:bg-white/[0.02] border border-slate-200/40 dark:border-white/[0.04]"
+                      className={`flex items-center gap-2 py-1 px-2.5 rounded-lg border ${
+                        isSepia
+                          ? 'bg-[#FFFDF9] border-[#DECDB5] text-[#180E05]'
+                          : isOled
+                          ? 'bg-white/[0.04] border-white/10 text-slate-200'
+                          : 'bg-white/50 dark:bg-white/[0.02] border-slate-200/40 dark:border-white/[0.04]'
+                      }`}
                     >
                       <span className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shrink-0" />
                       <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
@@ -2505,7 +2689,9 @@ export const renderProfessionalNotesContent = (
                 // Standard bullet list item
                 return (
                   <div key={qIdx} className="flex items-start gap-2.5 py-0.5 pl-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/70 dark:bg-indigo-400/70 mt-2 shrink-0" />
+                    <span className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${
+                      isSepia ? 'bg-[#824408]' : isOled ? 'bg-indigo-400' : 'bg-indigo-500/70 dark:bg-indigo-400/70'
+                    }`} />
                     <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
                       {parseInlineMarkdown(itemContent, `callout-${i}-${qIdx}`)}
                     </div>
@@ -2516,7 +2702,9 @@ export const renderProfessionalNotesContent = (
               // Sub-heading inside callout (### or ##)
               if (trimmedQ.startsWith('### ') || trimmedQ.startsWith('## ')) {
                 return (
-                  <div key={qIdx} className="font-black text-xs sm:text-sm text-slate-900 dark:text-white pt-1">
+                  <div key={qIdx} className={`font-black text-xs sm:text-sm pt-1 ${
+                    isSepia ? 'text-[#180E05]' : isOled ? 'text-white' : 'text-slate-900 dark:text-white'
+                  }`}>
                     {parseInlineMarkdown(trimmedQ.replace(/^#+\s*/, ''), `callout-${i}-${qIdx}`)}
                   </div>
                 );
@@ -2551,6 +2739,10 @@ export const renderProfessionalNotesContent = (
             className={`w-4 h-4 rounded mt-0.5 flex items-center justify-center shrink-0 border ${
               isChecked
                 ? 'bg-indigo-600 border-indigo-600 text-white'
+                : isSepia
+                ? 'border-[#DECDB5] bg-[#FAF3E6]'
+                : isOled
+                ? 'border-white/20 bg-white/5'
                 : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
             }`}
           >
@@ -2558,7 +2750,9 @@ export const renderProfessionalNotesContent = (
           </span>
           <div
             className={`flex-1 ${textSizeClass} ${
-              isChecked ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-800 dark:text-slate-200'
+              isChecked
+                ? isSepia ? 'line-through text-[#8C7A68]' : 'line-through text-slate-400 dark:text-slate-500'
+                : bodyTextColor
             }`}
           >
             {parseInlineMarkdown(text, `check-${i}`)}
@@ -2585,14 +2779,22 @@ export const renderProfessionalNotesContent = (
           }`}
         >
           {isNested ? (
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500 mt-2 shrink-0" />
+            <span className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${
+              isSepia ? 'bg-[#824408]' : isOled ? 'bg-indigo-400' : 'bg-slate-400 dark:bg-slate-500'
+            }`} />
           ) : (
-            <span className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400 mt-2 shrink-0 ring-4 ring-indigo-500/15" />
+            <span className={`w-2 h-2 rounded-full mt-2 shrink-0 ring-4 ${
+              isSepia
+                ? 'bg-[#824408] ring-[#824408]/15'
+                : isOled
+                ? 'bg-indigo-400 ring-indigo-400/20'
+                : 'bg-indigo-500 dark:bg-indigo-400 ring-indigo-500/15'
+            }`} />
           )}
           <div
             className={`flex-1 ${
-              isNested ? 'text-xs sm:text-[13px] text-slate-600 dark:text-slate-300' : textSizeClass
-            } text-slate-800 dark:text-slate-200`}
+              isNested ? 'text-xs sm:text-[13px]' : textSizeClass
+            } ${bodyTextColor}`}
           >
             {parseInlineMarkdown(itemText, `ul-${i}`)}
           </div>
@@ -2615,10 +2817,16 @@ export const renderProfessionalNotesContent = (
           key={`ol-${i}`}
           className={`flex items-start gap-3 my-2.5 ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
         >
-          <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-800/60 text-xs font-mono font-black flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+          <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg text-xs font-mono font-black flex items-center justify-center shrink-0 mt-0.5 shadow-2xs ${
+            isSepia
+              ? 'bg-[#EFE2CC] text-[#180E05] border border-[#DECDB5]'
+              : isOled
+              ? 'bg-white/10 text-white border border-white/20'
+              : 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-800/60'
+          }`}>
             {num}
           </span>
-          <div className={`flex-1 ${textSizeClass} text-slate-800 dark:text-slate-200`}>
+          <div className={`flex-1 ${textSizeClass} ${bodyTextColor}`}>
             {parseInlineMarkdown(itemText, `ol-${i}`)}
           </div>
         </div>
@@ -2629,7 +2837,7 @@ export const renderProfessionalNotesContent = (
 
     // 13. Regular Paragraph
     elements.push(
-      <p key={`p-${i}`} className={`my-3 text-slate-800 dark:text-slate-200 ${textSizeClass} font-normal`}>
+      <p key={`p-${i}`} className={`my-3.5 font-normal leading-relaxed ${textSizeClass} ${bodyTextColor}`}>
         {parseInlineMarkdown(trimmed, `p-${i}`)}
       </p>
     );
@@ -3970,9 +4178,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
         <div
           className={`fixed inset-0 z-[100] flex flex-col ${
             readerTheme === 'sepia'
-              ? 'bg-[#F9F4EB] text-[#3D2F1D]'
+              ? 'reader-canvas-sepia bg-[#FAF4E6] text-[#2D1F13]'
               : readerTheme === 'oled'
-              ? 'bg-[#000000] text-[#E6EDF3]'
+              ? 'reader-canvas-oled bg-[#000000] text-slate-100'
               : 'bg-[#FDFCFB] dark:bg-[#0A0D18] text-slate-900 dark:text-slate-100'
           } animate-fade-in select-text`}
         >
@@ -3980,9 +4188,9 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
           <header
             className={`sticky top-0 z-40 h-16 px-4 sm:px-6 border-b flex items-center justify-between transition-colors shadow-xs ${
               readerTheme === 'sepia'
-                ? 'bg-[#F4ECE1] border-[#DFD3BE] text-[#3D2F1D]'
+                ? 'bg-[#F2E7D5] border-[#DECDB5] text-[#180E05]'
                 : readerTheme === 'oled'
-                ? 'bg-[#0B0B0B] border-white/20 text-[#E6EDF3]'
+                ? 'bg-[#0B0B0B] border-white/20 text-white'
                 : 'bg-white dark:bg-[#121626] border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white'
             }`}
           >
@@ -4290,12 +4498,24 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 )}
 
                 {/* Major Title */}
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-5">
+                <h1 className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-5 ${
+                  readerTheme === 'sepia'
+                    ? 'text-[#180E05]'
+                    : readerTheme === 'oled'
+                    ? 'text-white'
+                    : 'text-slate-900 dark:text-white'
+                }`}>
                   {activeReadingNote.title}
                 </h1>
 
                 {/* Metadata Row */}
-                <div className="flex flex-wrap items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400 pb-6 border-b border-slate-200/80 dark:border-white/10 mb-8">
+                <div className={`flex flex-wrap items-center gap-2.5 text-xs pb-6 border-b mb-8 ${
+                  readerTheme === 'sepia'
+                    ? 'text-[#5C452D] border-[#DECDB5]'
+                    : readerTheme === 'oled'
+                    ? 'text-slate-400 border-white/15'
+                    : 'text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
+                }`}>
                   <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold ${getLanguageBadge(activeReadingNote.language).className}`}>
                     <span>{getLanguageBadge(activeReadingNote.language).flag}</span>
                     <span>{getLanguageBadge(activeReadingNote.language).label}</span>
@@ -4327,7 +4547,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
 
                 {/* Formatted Markdown Content */}
                 <div className="font-sans pb-16">
-                  {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize)}
+                  {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize, readerTheme)}
                 </div>
 
                 {/* End of Note Milestone Card */}

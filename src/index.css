@@ -2664,3 +2664,66 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree
   box-shadow: -1.5px -8px 0 0 var(--nav-page-bg, #090a12);
   pointer-events: none;
 }
+/* ═══════════════════════════════════════════════════════════════
+   FULL-PAGE DIGITAL NOTES READER THEMES (100% Guaranteed Contrast)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Sepia Mode: Force Warm Parchment Paper & Deep Espresso Ink */
+.reader-canvas-sepia {
+  background-color: #FAF4E6 !important;
+  color: #2D1F13 !important;
+}
+.reader-canvas-sepia h1,
+.reader-canvas-sepia h2,
+.reader-canvas-sepia h3,
+.reader-canvas-sepia h4,
+.reader-canvas-sepia h5 {
+  color: #180E05 !important;
+}
+.reader-canvas-sepia strong,
+.reader-canvas-sepia b {
+  color: #180E05 !important;
+}
+.reader-canvas-sepia table {
+  background-color: #FFFDF9 !important;
+  border-color: #DECDB5 !important;
+}
+.reader-canvas-sepia th {
+  background-color: #EFE2CC !important;
+  color: #180E05 !important;
+  border-color: #DECDB5 !important;
+}
+.reader-canvas-sepia td {
+  color: #2D1F13 !important;
+  border-color: #EFE2CC !important;
+}
+
+/* OLED Mode: Force Pitch Black & Crisp White/Silver Typography */
+.reader-canvas-oled {
+  background-color: #000000 !important;
+  color: #E2E8F0 !important;
+}
+.reader-canvas-oled h1,
+.reader-canvas-oled h2,
+.reader-canvas-oled h3,
+.reader-canvas-oled h4,
+.reader-canvas-oled h5 {
+  color: #FFFFFF !important;
+}
+.reader-canvas-oled strong,
+.reader-canvas-oled b {
+  color: #FFFFFF !important;
+}
+.reader-canvas-oled table {
+  background-color: #07090E !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.reader-canvas-oled th {
+  background-color: #121522 !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.reader-canvas-oled td {
+  color: #E2E8F0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
