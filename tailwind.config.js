@@ -192,9 +192,10 @@ export default {
         jetbrains: ['"JetBrains Mono"', 'monospace'],
         'roboto-mono': ['"Roboto Mono"', 'monospace'],
         orbitron: ['"Orbitron"', 'sans-serif'],
-        sora: ['"Sora"', 'sans-serif'],
-        manrope: ['"Manrope"', 'sans-serif'],
-        pricing: ['"Sora"', '"Manrope"', 'sans-serif']
+        pricing: ['"Sora"', '"Manrope"', 'sans-serif'],
+        handwritten: ['"Kalam"', '"Caveat"', '"Patrick Hand"', 'cursive', 'sans-serif'],
+        editorial: ['"Merriweather"', 'Georgia', 'serif'],
+        notes: ['"Kalam"', '"Caveat"', 'cursive', 'sans-serif']
       },
       boxShadow: {
         'xs': '0 1px 2px 0 rgba(15, 23, 42, 0.04)',

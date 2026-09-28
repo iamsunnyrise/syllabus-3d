@@ -2727,3 +2727,48 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree
   color: #E2E8F0 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   AUTHENTIC HANDWRITTEN TOPPER NOTES & EDITORIAL TYPOGRAPHY
+   Kalam: Google Fonts Devanagari & Latin Handwritten Font
+   Caveat / Patrick Hand: Casual Cursive & Study Binder Notes
+   Merriweather: Formal Book & High-Yield Legal Case Typography
+   ═══════════════════════════════════════════════════════════════ */
+.font-handwritten {
+  font-family: 'Kalam', 'Caveat', 'Patrick Hand', cursive, sans-serif !important;
+}
+
+.font-editorial {
+  font-family: 'Merriweather', Georgia, serif !important;
+}
+
+/* Handwritten Note Line Headroom & Matra Protection */
+.font-handwritten h1,
+.font-handwritten h2,
+.font-handwritten h3,
+.font-handwritten h4,
+.font-handwritten h5,
+.font-handwritten p,
+.font-handwritten li,
+.font-handwritten td,
+.font-handwritten th {
+  letter-spacing: 0.015em;
+}
+
+/* Authentic Student Notebook Margin Line */
+.notebook-margin-accent {
+  position: relative;
+}
+
+.notebook-margin-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: rgba(244, 63, 94, 0.28);
+  pointer-events: none;
+  border-radius: 1px;
+}
+

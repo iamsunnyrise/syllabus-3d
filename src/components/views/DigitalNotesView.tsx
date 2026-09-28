@@ -2162,12 +2162,14 @@ export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'):
 export const renderProfessionalNotesContent = (
   content: string,
   fontSize: 'base' | 'lg' | 'xl' = 'base',
-  theme: 'default' | 'sepia' | 'oled' = 'default'
+  theme: 'default' | 'sepia' | 'oled' = 'default',
+  fontFamily: 'handwritten' | 'sans' | 'editorial' = 'handwritten'
 ): React.ReactNode => {
   if (!content) return null;
 
   const isSepia = theme === 'sepia';
   const isOled = theme === 'oled';
+  const isHandwritten = fontFamily === 'handwritten';
 
   const lines = content.split('\n');
   const elements: React.ReactNode[] = [];
@@ -2175,9 +2177,15 @@ export const renderProfessionalNotesContent = (
 
   const textSizeClass =
     fontSize === 'xl'
-      ? 'text-base sm:text-lg leading-relaxed'
+      ? isHandwritten
+        ? 'text-base sm:text-lg leading-[2] sm:leading-[2.1]'
+        : 'text-base sm:text-lg leading-relaxed'
       : fontSize === 'lg'
-      ? 'text-sm sm:text-base leading-relaxed'
+      ? isHandwritten
+        ? 'text-sm sm:text-base leading-[1.95] sm:leading-[2]'
+        : 'text-sm sm:text-base leading-relaxed'
+      : isHandwritten
+      ? 'text-xs sm:text-sm leading-[1.9] sm:leading-[1.95]'
       : 'text-xs sm:text-sm leading-relaxed';
 
   const bodyTextColor = isSepia
@@ -2209,7 +2217,7 @@ export const renderProfessionalNotesContent = (
         <div
           id={`sec-${i}`}
           key={`h2-${i}`}
-          className={`flex items-center gap-3 mt-10 mb-4 pb-2.5 border-b scroll-mt-24 ${
+          className={`flex items-center gap-3 mt-12 sm:mt-14 mb-5 pb-3 border-b scroll-mt-24 ${
             isSepia
               ? 'border-[#DECDB5]'
               : isOled
@@ -2218,7 +2226,9 @@ export const renderProfessionalNotesContent = (
           }`}
         >
           <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
-          <h3 className={`text-xl sm:text-2xl font-black tracking-tight ${
+          <h3 className={`text-xl sm:text-2xl font-black ${
+            isHandwritten ? 'tracking-normal leading-[1.35] sm:leading-[1.4]' : 'tracking-tight leading-snug'
+          } ${
             isSepia
               ? 'text-[#180E05]'
               : isOled
@@ -2240,7 +2250,9 @@ export const renderProfessionalNotesContent = (
         <h4
           id={`sec-${i}`}
           key={`h3-${i}`}
-          className={`text-base sm:text-lg font-extrabold mt-7 mb-3 flex items-center gap-2 scroll-mt-24 ${
+          className={`text-base sm:text-lg font-extrabold mt-8 sm:mt-9 mb-3.5 flex items-center gap-2 scroll-mt-24 ${
+            isHandwritten ? 'leading-[1.4]' : 'leading-snug'
+          } ${
             isSepia
               ? 'text-[#824408]'
               : isOled
@@ -2263,7 +2275,9 @@ export const renderProfessionalNotesContent = (
         <h5
           id={`sec-${i}`}
           key={`h4-${i}`}
-          className={`text-sm sm:text-base font-bold mt-5 mb-2 flex items-center gap-1.5 scroll-mt-24 ${
+          className={`text-sm sm:text-base font-bold mt-6 mb-2.5 flex items-center gap-1.5 scroll-mt-24 ${
+            isHandwritten ? 'leading-[1.4]' : 'leading-snug'
+          } ${
             isSepia
               ? 'text-[#180E05]'
               : isOled
@@ -2774,16 +2788,18 @@ export const renderProfessionalNotesContent = (
       elements.push(
         <div
           key={`ul-${i}`}
-          className={`flex items-start gap-3 my-2 ${
-            isDeepNested ? 'ml-10 sm:ml-12 my-1' : isNested ? 'ml-5 sm:ml-7 my-1.5' : 'my-2'
+          className={`flex items-start gap-3 ${
+            isHandwritten ? 'my-2.5 sm:my-3' : 'my-2'
+          } ${
+            isDeepNested ? 'ml-10 sm:ml-12 my-1' : isNested ? 'ml-5 sm:ml-7 my-1.5' : ''
           }`}
         >
           {isNested ? (
-            <span className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${
+            <span className={`w-1.5 h-1.5 rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ${
               isSepia ? 'bg-[#824408]' : isOled ? 'bg-indigo-400' : 'bg-slate-400 dark:bg-slate-500'
             }`} />
           ) : (
-            <span className={`w-2 h-2 rounded-full mt-2 shrink-0 ring-4 ${
+            <span className={`w-2 h-2 rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ring-4 ${
               isSepia
                 ? 'bg-[#824408] ring-[#824408]/15'
                 : isOled
@@ -2815,9 +2831,9 @@ export const renderProfessionalNotesContent = (
       elements.push(
         <div
           key={`ol-${i}`}
-          className={`flex items-start gap-3 my-2.5 ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
+          className={`flex items-start gap-3 ${isHandwritten ? 'my-3 sm:my-3.5' : 'my-2.5'} ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
         >
-          <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg text-xs font-mono font-black flex items-center justify-center shrink-0 mt-0.5 shadow-2xs ${
+          <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg text-xs font-mono font-black flex items-center justify-center shrink-0 ${isHandwritten ? 'mt-1' : 'mt-0.5'} shadow-2xs ${
             isSepia
               ? 'bg-[#EFE2CC] text-[#180E05] border border-[#DECDB5]'
               : isOled
@@ -2837,7 +2853,7 @@ export const renderProfessionalNotesContent = (
 
     // 13. Regular Paragraph
     elements.push(
-      <p key={`p-${i}`} className={`my-3.5 font-normal leading-relaxed ${textSizeClass} ${bodyTextColor}`}>
+      <p key={`p-${i}`} className={`${isHandwritten ? 'my-4 sm:my-5' : 'my-3.5'} font-normal ${textSizeClass} ${bodyTextColor}`}>
         {parseInlineMarkdown(trimmed, `p-${i}`)}
       </p>
     );
@@ -2906,6 +2922,7 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
   const [editingNote, setEditingNote] = useState<DigitalNote | null>(null);
   const [readerFontSize, setReaderFontSize] = useState<'base' | 'lg' | 'xl'>('base');
   const [readerTheme, setReaderTheme] = useState<'default' | 'sepia' | 'oled'>('default');
+  const [readerFontFamily, setReaderFontFamily] = useState<'handwritten' | 'sans' | 'editorial'>('handwritten');
   const [readerWidth, setReaderWidth] = useState<'standard' | 'wide' | 'full'>('standard');
   const [showOutline, setShowOutline] = useState<boolean>(true);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -4289,6 +4306,47 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 </button>
               </div>
 
+              {/* Font Family Selector (Handwritten / Clean Sans / Book Serif) */}
+              <div className="flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300/80 dark:border-slate-700 shadow-2xs text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => setReaderFontFamily('handwritten')}
+                  className={`px-2 sm:px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 ${
+                    readerFontFamily === 'handwritten'
+                      ? 'bg-indigo-600 text-white font-black shadow-xs'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold'
+                  }`}
+                  title="Handwritten Notes Font (Kalam / Caveat)"
+                >
+                  <span className="font-handwritten text-xs">✍️</span>
+                  <span className="hidden sm:inline font-handwritten text-[13px]">Notes</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderFontFamily('sans')}
+                  className={`px-2 sm:px-2.5 py-1 rounded-lg transition-all ${
+                    readerFontFamily === 'sans'
+                      ? 'bg-indigo-600 text-white font-black shadow-xs'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold'
+                  }`}
+                  title="Clean Modern Sans Font"
+                >
+                  Sans
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReaderFontFamily('editorial')}
+                  className={`px-2 sm:px-2.5 py-1 rounded-lg transition-all ${
+                    readerFontFamily === 'editorial'
+                      ? 'bg-indigo-600 text-white font-black shadow-xs'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold'
+                  }`}
+                  title="Classic Book Serif Font (Merriweather)"
+                >
+                  Serif
+                </button>
+              </div>
+
               {/* Theme Selector (Paper / Sepia / OLED) */}
               <div className="hidden xl:flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300/80 dark:border-slate-700 shadow-2xs text-xs font-bold">
                 <button
@@ -4498,7 +4556,13 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 )}
 
                 {/* Major Title */}
-                <h1 className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-5 ${
+                <h1 className={`text-2xl sm:text-4xl lg:text-5xl font-black mb-5 py-1 ${
+                  readerFontFamily === 'handwritten'
+                    ? 'font-handwritten leading-[1.35] sm:leading-[1.4] tracking-normal'
+                    : readerFontFamily === 'editorial'
+                    ? 'font-editorial leading-[1.25] sm:leading-[1.3] tracking-tight'
+                    : 'font-sans leading-[1.2] sm:leading-[1.25] tracking-tight'
+                } ${
                   readerTheme === 'sepia'
                     ? 'text-[#180E05]'
                     : readerTheme === 'oled'
@@ -4546,8 +4610,14 @@ export const DigitalNotesView: React.FC<DigitalNotesViewProps> = () => {
                 </div>
 
                 {/* Formatted Markdown Content */}
-                <div className="font-sans pb-16">
-                  {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize, readerTheme)}
+                <div className={`pb-16 transition-all ${
+                  readerFontFamily === 'handwritten'
+                    ? 'font-handwritten notebook-margin-accent pl-3 sm:pl-5'
+                    : readerFontFamily === 'editorial'
+                    ? 'font-editorial'
+                    : 'font-sans'
+                }`}>
+                  {renderProfessionalNotesContent(activeReadingNote.content, readerFontSize, readerTheme, readerFontFamily)}
                 </div>
 
                 {/* End of Note Milestone Card */}
