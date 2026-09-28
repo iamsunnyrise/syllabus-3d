@@ -80,94 +80,132 @@ export interface DigitalNote {
 const INITIAL_DIGITAL_NOTES: DigitalNote[] = [
   {
     id: 'note-polity-making-constitution-en',
-    title: 'Indian Polity: Making of the Constitution (Complete Exam Notes)',
+    title: 'Indian Polity: Making of the Constitution (Comprehensive Exam Notes)',
     language: 'en',
     subject: 'Indian Polity (राजव्यवस्था)',
     category: 'concept',
-    tags: ['Polity', 'Making of Constitution', 'Constituent Assembly', 'Drafting Committee', 'SSC CGL', 'UPSC'],
-    summary: 'Comprehensive notes covering historical timeline, Cabinet Mission Plan, committees, Drafting Committee, readings, and key facts.',
-    readingTimeMinutes: 5,
+    tags: ['Polity', 'Making of Constitution', 'Constituent Assembly', 'Drafting Committee', 'UPSC', 'SSC CGL'],
+    summary: 'Master reference notes covering historical timeline, Cabinet Mission Plan, Drafting Committee, Assembly committees, landmark dates, and high-yield facts.',
+    readingTimeMinutes: 6,
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-27T18:00:00Z',
-    updatedAt: '2026-09-27T20:15:00Z',
+    updatedAt: '2026-09-28T08:00:00Z',
     content: `# Making of the Indian Constitution: Comprehensive Exam Notes
 
-The Constitution lays down the fundamental political principles, establishes the structure, procedures, powers, and duties of government institutions, and sets out fundamental rights, directive principles, and the duties of citizens.
+> 🎯 **Exam-Ready Master Note:** A structured, high-yield guide to the constitutional background, Constituent Assembly, Drafting Committee, major committees, landmark dates, and crucial facts for UPSC CSE, State PCS, SSC CGL & Judiciary.
+
+The Constitution lays down the fundamental political principles of the state; establishes the structure, procedures, powers, and duties of government institutions; and defines citizens' Fundamental Rights, Directive Principles, and Fundamental Duties.
 
 ---
 
-## 🏛️ 1. Conceptual Foundation & Forms of Government
+## 🏛️ 1. Constitutional Foundation & Forms of Government
 
-- **Historical Origin:** The modern tradition of a written Constitution began in the **USA (1787)** following the American Declaration of Independence on **4th July 1776**.
-- **Nature of Indian Constitution:** A harmonious blend of **Rigidity** (special amendment procedures for federal provisions under Art. 368) and **Flexibility** (simple majority amendments for ordinary provisions).
-- **Core Concept Alert:** While all democratic countries are likely to have a Constitution, it is not mandatory that every country having a Constitution is democratic.
+- **Beginning of the modern written-Constitution tradition:** The United States Constitution of **1787**, following the American Declaration of Independence on **4 July 1776**.
+- **Nature of the Indian Constitution:** A harmonious blend of **rigidity** and **flexibility**.
+  - Federal provisions require a special amendment procedure under **Article 368** (two-thirds majority of Parliament plus ratification by half of state legislatures).
+  - Certain ordinary provisions can be amended by a simple parliamentary majority (e.g., creation of new states under Article 3).
+- **Core Concept Alert:** Democratic countries generally have constitutions, but every country with a constitution is not necessarily democratic.
 
-### Comparison: Forms of Government
+### Forms of Government Comparison
 
-| Form of Government | Meaning / Definition | Examples |
+| Form of Government | Meaning / Mechanism | Examples |
 | :--- | :--- | :--- |
-| **Democracy** | Government of the people, by the people, for the people | India, USA, UK |
-| **Communist** | Means and sources of production controlled by the state | China, North Korea, Cuba, Vietnam, Laos |
-| **Monarchic** | Absolute rule concentrated in a single monarch/king | Saudi Arabia, Brunei |
-| **Totalitarian** | Total autocratic control over all public and private aspects of citizens' lives | North Korea |
+| **Democratic** | Government of the people, by the people, and for the people | India, USA, UK |
+| **Communist** | The state controls the principal means and sources of production | China, North Korea, Cuba, Vietnam, Laos |
+| **Monarchic** | Sovereign power is concentrated in a hereditary monarch or king | Saudi Arabia, Brunei |
+| **Totalitarian** | Autocratic control extends over all public and private aspects of life | North Korea |
 | **Oligarchic** | Power rests with a small, elite, privileged ruling segment | Iran, Russia |
 
 ---
 
 ## ⏳ 2. Historical Evolution & Timeline of Demands
 
-- **1928 (Nehru Report):** The earliest draft of an indigenous Indian Constitution was submitted at the All-Parties Conference in Lucknow, chaired by **Motilal Nehru**.
-- **1934 (First Proposal):** **M. N. Roy** (pioneer of the communist movement in India) officially put forward the idea of an independent Constituent Assembly for the first time.
-- **1935 (Official Demand):** The **Indian National Congress (INC)** formally demanded a Constituent Assembly to frame the Constitution of India.
+### Indian Initiatives
+
+| Year | Milestone / Development | Constitutional Significance |
+| :---: | :--- | :--- |
+| **1928** | **Nehru Report**, chaired by Motilal Nehru | Earliest indigenous draft of a constitutional framework (All-Parties Conference) |
+| **1934** | **M. N. Roy** proposed an independent Constituent Assembly | First formal, explicit proposal for an Indian constituent body |
+| **1935** | The **Indian National Congress (INC)** officially demanded a Constituent Assembly | Demand became an official part of the national political agenda |
+| **1938** | **Jawaharlal Nehru** declared Constitution must be framed on basis of Adult Franchise | Rebuffed external interference; demanded election by universal adult suffrage |
 
 ### British Offers & Indian Responses
-1. **August Offer (1940):** 
-   - Proposed by Viceroy **Lord Linlithgow** on August 8, 1940, to secure Indian cooperation in World War II.
-   - Promised post-war **Dominion Status**. (*Rejected by INC: demanded Purna Swaraj*).
+
+1. **August Offer (1940):**
+   - Announced by Viceroy **Lord Linlithgow** on **8 August 1940** to gain Indian cooperation during World War II.
+   - Promised post-war **Dominion Status** and expansion of Governor-General's Council.
+   - *Rejected by INC*, which stood firm on **Purna Swaraj** (Complete Independence).
 2. **Cripps Mission (1942):**
-   - Headed by **Sir Stafford Cripps**.
-   - Proposed a Constituent Assembly and Dominion Status after WWII.
-   - *Rejected:* J.L. Nehru remarked: *"Dominion status is dead as a door nail."* Mahatma Gandhi called it a *"Post-dated cheque on a crashing bank."*
+   - Headed by **Sir Stafford Cripps** (Member of British War Cabinet).
+   - Proposed post-WWII Dominion Status and a constitution-making body.
+   - *Rejected by all major parties:*
+     - Jawaharlal Nehru: *"Dominion status is dead as a door nail."*
+     - Mahatma Gandhi: *"A post-dated cheque on a crashing bank."*
 3. **Wavell Plan & Shimla Conference (1945):**
-   - Proposed by Viceroy **Lord Wavell** to resolve the constitutional deadlock by restructuring the Governor-General's Executive Council with equal Hindu-Muslim representation. (*Failed due to Muslim League's insistence on being the sole representative of Muslims*).
+   - Proposed by Viceroy **Lord Wavell** to break constitutional deadlock.
+   - Restructure Governor-General's Executive Council with parity between caste Hindus and Muslims.
+   - Failed because the Muslim League insisted that it alone had the right to nominate Indian Muslims.
 4. **Cabinet Mission Plan (1946) — The Master Blueprint:**
-   - Sent by British PM Clement Attlee with 3 Cabinet Ministers:
-     1. **Lord Pethick-Lawrence** (Secretary of State for India & Chairman)
-     2. **Sir Stafford Cripps** (President of the Board of Trade)
-     3. **A. V. Alexander** (First Lord of the Admiralty)
-   - **Outcome:** Accepted by both INC and Muslim League; the Constituent Assembly was officially constituted under this plan.
+
+> 🔑 **Master Blueprint:** The Constituent Assembly of India was officially constituted under the provisions of the **Cabinet Mission Plan of 1946**.
+
+- Dispatched by British Prime Minister **Clement Attlee** with three Cabinet Ministers:
+  1. **Lord Pethick-Lawrence** — Secretary of State for India *(Chairman)*
+  2. **Sir Stafford Cripps** — President of the Board of Trade
+  3. **A. V. Alexander** — First Lord of the Admiralty
+- **Outcome:** Accepted by both INC and Muslim League; rejected the two-nation theory and separate Constituent Assemblies at the time.
 
 ---
 
-## 📊 3. Composition & Seat Allocation (Cabinet Mission)
+## 📊 3. Composition of the Constituent Assembly
 
-- **Total Strength:** **389 Members**
-  - **British India (296 Seats - Elected):**
-    - 292 from 11 Governor's Provinces.
-    - 4 from Chief Commissioner's Provinces: **Delhi, Ajmer-Merwara, Coorg, and British Baluchistan** (*Memory Tip: ABCD*).
-  - **Princely States (93 Seats - Nominated):** Nominated by rulers of princely states.
-- **Ratio:** 1 seat per **1 Million (10 Lakh)** population.
-- **Nature of Assembly:** Partly elected and partly nominated.
-- **Election Method:** Indirect election by members of Provincial Legislative Assemblies via **Proportional Representation by means of Single Transferable Vote (STV)**.
-- **Communities:** Divided into 3 categories: **Muslim, Sikh, and General** (all except Muslims & Sikhs).
+### Seat Allocation under Cabinet Mission Plan
 
-### July–August 1946 Election Results:
-- **INC (Congress):** 208 seats
-- **Muslim League:** 73 seats
-- **Others / Independents:** 15 seats
-- **Post-Partition Strength (After Boycott):** Total seats reduced to **299** (229 British India + 70 Princely States).
+| Category | Seats | Selection Method |
+| :--- | :---: | :--- |
+| Governor's Provinces (11 provinces) | 292 | Indirectly elected by Provincial Legislative Assemblies |
+| Chief Commissioners' Provinces (4 provinces) | 4 | Indirectly elected (one from each province) |
+| Princely States (Indian States) | 93 | Nominated by the respective rulers / princes |
+| **Total Assembly Strength** | **389** | **Partly elected and partly nominated** |
+
+- **British India Total:** 296 seats (292 + 4).
+- **Representation Ratio:** Roughly **1 seat per 1 million people** (10 Lakh population).
+- **Electoral System:** Indirect election via **Proportional Representation by means of the Single Transferable Vote (STV)**.
+- **Three Recognized Communities:** **Muslim, Sikh, and General** (all others).
+
+> 🧠 **Mnemonic — ABCD:** The 4 Chief Commissioners' Provinces were:
+> - **A** $\rightarrow$ **Ajmer-Merwara**
+> - **B** $\rightarrow$ **British Baluchistan**
+> - **C** $\rightarrow$ **Coorg**
+> - **D** $\rightarrow$ **Delhi**
+
+### July–August 1946 Election Results (296 Seats)
+
+| Political Group | Seats Won |
+| :--- | :---: |
+| **Indian National Congress (INC)** | **208** |
+| **Muslim League** | **73** |
+| **Others & Independents** | **15** |
+| **Total British Indian Seats** | **296** |
+
+### Post-Partition Strength (3 June 1947 Mountbatten Plan)
+Following the creation of Pakistan, the Assembly's strength was reduced from **389 to 299**:
+- **229** members from British Indian Provinces (down from 296)
+- **70** members from Princely States (down from 93)
 
 ---
 
-## ⚖️ 4. Interim Government of India (Formed 2nd Sept 1946)
+## ⚖️ 4. Interim Government of India (Formed 2 September 1946)
 
-- Headed by Viceroy / Governor-General (**Lord Wavell** until Feb 1947; **Lord Mountbatten** from Feb 1947).
+- Formed under the Cabinet Mission provisions.
+- Headed by the Governor-General (**Lord Wavell** until Feb 1947; **Lord Mountbatten** thereafter).
+- **Historic Nuance:** The Muslim League initially boycotted the Interim Government on 2 September 1946, but later joined on **26 October 1946** (5 League members joined after 3 INC members stepped down).
 
-| Portfolio / Ministry | Member Assigned | Party |
-| :--- | :--- | :--- |
-| **Vice President, External Affairs & Commonwealth** | Jawaharlal Nehru | INC |
-| **Home Affairs, Information & Broadcasting** | Sardar Vallabhbhai Patel | INC |
+| Portfolio / Department | Member Assigned | Party Affiliation |
+| :--- | :--- | :---: |
+| **Vice-President; External Affairs & Commonwealth Relations** | Jawaharlal Nehru | INC |
+| **Home Affairs; Information & Broadcasting** | Sardar Vallabhbhai Patel | INC |
 | **Food & Agriculture** | Dr. Rajendra Prasad | INC |
 | **Defence** | Sardar Baldev Singh | INC |
 | **Finance** | Liaquat Ali Khan | Muslim League |
@@ -182,111 +220,720 @@ The Constitution lays down the fundamental political principles, establishes the
 
 ---
 
-## 🎯 5. Crucial Assembly Dates & Milestones
+## 🎯 5. Crucial Dates & Milestones (1946–1950)
 
-- **9th December 1946 (First Meeting):** 
-  - Attended by 211 members; Muslim League boycotted.
-  - **Dr. Sachchidananda Sinha** was elected as Temporary / Interim President (following the French convention of electing the oldest member).
-- **11th December 1946:**
-  - **Dr. Rajendra Prasad** elected as Permanent President.
-  - **H. C. Mukherjee** & **V. T. Krishnamachari** elected as two Vice Presidents.
-  - **Sir B. N. Rau** appointed as Constitutional Advisor.
-- **13th December 1946 (Objective Resolution):**
-  - Moved by **Jawaharlal Nehru**. Defined the guiding philosophy and constitutional structure.
-  - Unanimously adopted on **22nd January 1947** (later modified to form the **Preamble**).
-- **22nd July 1947:** National Flag of India adopted (Length to breadth ratio: 3:2; designed by Pingali Venkayya).
-- **14th–15th August 1947:** Independence of India; Nehru delivered the iconic *"Tryst with Destiny"* speech before the Constituent Assembly.
-- **May 1949:** India ratified its membership in the Commonwealth.
-- **26th November 1949 (Constitution Day):** 
-  - Constitution was formally **adopted and enacted**; signed by 284 members.
-  - Articles enforced immediately: **Citizenship (Arts. 5–9)**, **Elections (Art. 324)**, and Provisional Parliament.
-- **24th January 1950 (Last Official Session):**
-  - National Anthem (*"Jana Gana Mana"* by Rabindranath Tagore) adopted.
-  - National Song (*"Vande Mataram"* by Bankim Chandra Chatterjee) adopted.
-  - Dr. Rajendra Prasad elected as the first President of India.
-- **26th January 1950 (Republic Day):**
-  - The Constitution officially came into full force / commencement.
-  - *Why this date?* To commemorate **26th January 1930**, when *Purna Swaraj Day* was celebrated following the 1929 Lahore INC Session.
+- **9 December 1946 (First Historic Meeting):**
+  - Attended by **211 members** in the Constitution Hall (now Central Hall of Parliament).
+  - Boycotted by the Muslim League.
+  - **Dr. Sachchidananda Sinha** was elected as Temporary President, following the **French convention** of honoring the oldest member.
+- **11 December 1946 (Permanent Leadership Elected):**
+  - **Dr. Rajendra Prasad** elected as Permanent President of the Assembly.
+  - **H. C. Mukherjee** and **V. T. Krishnamachari** elected as two Vice-Presidents.
+  - **Sir B. N. Rau** appointed as Constitutional Adviser.
+- **13 December 1946 (Objectives Resolution Moved):**
+  - Moved by **Jawaharlal Nehru**.
+  - Laid down the philosophical foundations and guiding values of the Constitution.
+  - Unanimously adopted on **22 January 1947**; later served as the foundation of the **Preamble**.
+- **22 July 1947 (National Flag Adopted):**
+  - Flag ratio: **3:2** (length to breadth).
+  - Designed by **Pingali Venkayya**.
+- **14–15 August 1947 (Independence):**
+  - India achieved freedom; Jawaharlal Nehru delivered his iconic *"Tryst with Destiny"* speech before the Constituent Assembly.
+- **May 1949 (Commonwealth Membership):**
+  - India ratified its declaration of continued membership in the Commonwealth of Nations.
+- **26 November 1949 (Constitution Adopted & Enacted):**
+  - The Constitution was formally adopted, enacted, and given to ourselves.
+  - Signed by **284 members** present on that day.
+  - Provisions enforced immediately: **Citizenship (Articles 5–9)**, **Elections (Article 324)**, Provisional Parliament, and transitional arrangements.
+  - Celebrated annually as **Constitution Day (Samvidhan Diwas)**.
+- **24 January 1950 (Final Sitting of the Assembly):**
+  - *"Jana Gana Mana"* (Rabindranath Tagore) adopted as the **National Anthem**.
+  - *"Vande Mataram"* (Bankim Chandra Chatterjee) adopted as the **National Song**.
+  - **Dr. Rajendra Prasad** elected as the first President of the Republic of India.
+  - Members formally signed three copies of the Constitution (two English, one Hindi).
+- **26 January 1950 (Commencement of the Constitution):**
+  - The Constitution came into full force and India was proclaimed a sovereign Republic.
+
+> 📌 **Why 26 January?** 26 January was chosen to commemorate **26 January 1930**, celebrated as **Purna Swaraj Day** following the historic 1929 Lahore Session of the INC under Jawaharlal Nehru.
 
 ---
 
-## ✒️ 6. The Drafting Committee (Set Up: 29 August 1947)
+## ✒️ 6. The Drafting Committee
 
-- **Chairman:** **Dr. B. R. Ambedkar** (*"Father of the Indian Constitution"*, *"Modern Manu"*).
+- **Constituted:** **29 August 1947**
+- **Chairman:** **Dr. B. R. Ambedkar** (*"Chief Architect of the Constitution"*, *"Modern Manu"*)
 - **Total Members:** 7 Members
 
 ### The 7 Illustrious Members:
-1. **Dr. B. R. Ambedkar** (Chairman)
+1. **Dr. B. R. Ambedkar** *(Chairman)*
 2. **Alladi Krishnaswamy Ayyar**
 3. **N. Gopalaswami Ayyangar**
-4. **Dr. K. M. Munshi**
-5. **Syed Muhammad Saadullah**
-6. **N. Madhava Rau** (*Replaced B. L. Mitter who resigned due to ill health*)
-7. **T. T. Krishnamachari** (*Replaced D. P. Khaitan who passed away in 1948*)
+4. **Dr. K. M. Munshi** *(Only original Congress member)*
+5. **Syed Muhammad Saadullah** *(Only Muslim League member on the Committee)*
+6. **N. Madhava Rau** *(Replaced B. L. Mitter, who resigned due to ill health)*
+7. **T. T. Krishnamachari** *(Replaced D. P. Khaitan, who died in 1948)*
 
-> ⚠️ **Exam Trap:** Dr. B.R. Ambedkar was initially elected to the Constituent Assembly in July 1946 from **Bengal (East Bengal)**. After the partition of Bengal, that territory became East Pakistan. Hence, he was re-elected from **Bombay Presidency (Pune seat)** after M.R. Jayakar resigned.
+> ⚠️ **Exam Trap:** Dr. B. R. Ambedkar was initially elected in 1946 from **Bengal (Jessore & Khulna)**. After Partition, this territory became part of East Pakistan. He was then re-elected from the **Bombay Presidency (Pune seat)** after senior Congress leader M. R. Jayakar resigned his seat.
 
-### Readings of the Draft:
-- **1st Draft Published:** 21st February 1948 (public was given 8 months to review).
-- **1st Reading:** 4th Nov 1948 – 9th Nov 1948 (5 days).
-- **2nd Reading (Clause-by-Clause):** 15th Nov 1948 – 17th Oct 1949 (10 months, 3 days).
-- **3rd Reading:** Completed on 26th November 1949.
+### Readings of the Draft Constitution
+
+| Stage | Period / Dates | Core Focus |
+| :--- | :--- | :--- |
+| **First Draft Published** | 21 February 1948 | Public scrutiny, press feedback, and amendments (8 months given) |
+| **First Reading** | 4–9 November 1948 | General introduction and clause overview by Dr. Ambedkar |
+| **Second Reading** | 15 Nov 1948 – 17 Oct 1949 | Clause-by-clause scrutiny (7,653 amendments proposed, 2,473 discussed) |
+| **Third Reading** | 14–26 November 1949 | Final debate on motion *"The Constitution as settled by the Assembly be passed"* |
 
 ---
 
-## 📂 7. Major & Minor Committees
+## 📂 7. Major & Minor Committees of the Assembly
 
-The Assembly appointed **8 Major Committees** and **13 Minor Committees**:
+The Assembly set up **8 Major Committees** and **13 Minor Committees** to draft different provisions:
 
-### The 8 Major Committees:
+### Eight Major Committees
 
-| Committee Name | Chairman |
+| Major Committee | Chairperson |
 | :--- | :--- |
 | **Union Powers Committee** | Jawaharlal Nehru |
 | **Union Constitution Committee** | Jawaharlal Nehru |
 | **States Committee (Negotiating with States)** | Jawaharlal Nehru |
 | **Provincial Constitution Committee** | Sardar Vallabhbhai Patel |
-| **Advisory Committee on FRs, Minorities & Tribal Areas** | Sardar Vallabhbhai Patel |
+| **Advisory Committee on Fundamental Rights, Minorities & Tribal Areas** | Sardar Vallabhbhai Patel |
 | **Rules of Procedure Committee** | Dr. Rajendra Prasad |
 | **Steering Committee** | Dr. Rajendra Prasad |
 | **Drafting Committee** | Dr. B. R. Ambedkar |
 
-### Key Minor Committees:
-- **Ad-hoc Committee on the National Flag:** Dr. Rajendra Prasad
-- **Committee on Functions of Constituent Assembly:** G. V. Mavalankar
-- **Order of Business Committee:** Dr. K. M. Munshi
-- **House Committee:** B. Pattabhi Sitaramayya
-- **Committee on Chief Commissioners' Provinces:** B. Pattabhi Sitaramayya
-- **Ad-hoc Committee on Supreme Court:** S. Varadachariar
-- **Linguistic Provinces Commission:** S. K. Dhar
+### 4 Key Sub-Committees under Patel's Advisory Committee
+
+| Sub-Committee | Chairperson |
+| :--- | :--- |
+| **Fundamental Rights Sub-Committee** | **J. B. Kripalani** |
+| **Minorities Sub-Committee** | **H. C. Mukherjee** |
+| **North-East Frontier Tribal Areas & Assam Sub-Committee** | **Gopinath Bardoloi** |
+| **Excluded & Partially Excluded Areas Sub-Committee** | **A. V. Thakkar** |
+
+### Key Minor Committees & Commissions
+
+| Minor Committee / Body | Chairperson |
+| :--- | :--- |
+| **Ad-hoc Committee on the National Flag** | Dr. Rajendra Prasad |
+| **Committee on Functions of Constituent Assembly** | G. V. Mavalankar |
+| **Order of Business Committee** | Dr. K. M. Munshi |
+| **House Committee** | B. Pattabhi Sitaramayya |
+| **Committee on Chief Commissioners' Provinces** | B. Pattabhi Sitaramayya |
+| **Ad-hoc Committee on the Supreme Court** | S. Varadachariar |
+| **Linguistic Provinces Commission** | Justice S. K. Dhar |
+
+> 🧠 **Chairperson Pattern:**
+> - **Jawaharlal Nehru:** Union and States (Union Powers, Union Constitution, States)
+> - **Sardar Patel:** Provinces, Fundamental Rights, Minorities, and Tribal Areas
+> - **Dr. Rajendra Prasad:** Procedure, Steering, Finance, and National Flag
+> - **Dr. Ambedkar:** Drafting the Constitutional text
 
 ---
 
 ## ⚡ 8. Dual Role of the Constituent Assembly
 
-The Constituent Assembly had two distinct roles and met on separate days:
-1. **As a Constitution-Making Body:** Chaired by **Dr. Rajendra Prasad**.
-2. **As a Legislative Body (First Dominion Parliament):** Chaired by **G. V. Mavalankar** (who later became the first Speaker of the Lok Sabha).
+From 15 August 1947 until 1952, the Constituent Assembly operated with a dual mandate, meeting separately for each:
+
+| Dual Function | Role / Character | Presiding Officer |
+| :--- | :--- | :--- |
+| **Constitution-Making Body** | Framing the fundamental law of the land | **Dr. Rajendra Prasad** |
+| **Legislative Body (Dominion Parliament)** | Enacting ordinary laws as India's first Parliament | **G. V. Mavalankar** |
+
+*Note:* G. V. Mavalankar later served as the **first Speaker of the Lok Sabha** (1952–1956).
 
 ---
 
-## 💎 9. Significant One-Liner Facts & Trivia
+## 💎 9. High-Yield Facts, Figures & Historical Trivia
 
-- **Total Sessions:** 11 sessions spanning **165 days**.
-- **Total Duration:** **2 Years, 11 Months, 18 Days**.
-- **Total Expenditure:** Approximately **₹64 Lakhs**.
-- **Original Document:** Consisted of **395 Articles**, **22 Parts**, and **8 Schedules** (plus Preamble).
-- **Seal / Emblem of the Assembly:** **Elephant** (symbolizing colossal strength and vastness).
-- **Constitutional Advisor:** **Sir B. N. Rau** (who prepared the initial raw draft).
-- **Chief Draftsman:** **S. N. Mukherjee**.
-- **Secretary to Assembly:** **H. V. R. Iengar**.
-- **English Calligrapher:** **Prem Behari Narain Raizada** (wrote the original manuscript by hand in flowing italic calligraphy with a No. 303 nib).
-- **Hindi Calligrapher:** **Vasant Krishan Vaidya**.
-- **Artistic Illumination:** Hand-decorated by artists of Kala Bhavan, Shantiniketan, led by **Nandalal Bose** and **Beohar Rammanohar Sinha** (who designed the Preamble page).
-- **Women Members (Total 15):** Key prominent figures included:
-  - **Rajkumari Amrit Kaur:** India's first Health Minister.
-  - **Sucheta Kripalani:** India's first woman Chief Minister (Uttar Pradesh).
-  - **Sarojini Naidu:** India's first woman Governor (Uttar Pradesh).`
+| Constitutional Metric | Authentic Fact / Figure |
+| :--- | :--- |
+| **Total Sessions Held** | **11 Sessions** |
+| **Total Sitting Days** | **165 Days** |
+| **Total Time Taken** | **2 Years, 11 Months, 18 Days** |
+| **Approximate Total Expenditure** | **₹64 Lakh** |
+| **Original Constitutional Structure** | **395 Articles, 22 Parts, 8 Schedules** (plus Preamble) |
+| **Emblem / Seal of the Assembly** | **Elephant** (symbolizing vastness and strength) |
+| **Constitutional Adviser** | **Sir B. N. Rau** |
+| **Chief Draftsman of the Constitution** | **S. N. Mukherjee** |
+| **Secretary to the Assembly** | **H. V. R. Iengar** |
+| **Calligrapher (English Manuscript)** | **Prem Behari Narain Raizada** (wrote in flowing italic script with No. 303 pen) |
+| **Calligrapher (Hindi Manuscript)** | **Vasant Krishan Vaidya** |
+| **Artistic Illumination & Borders** | Shantiniketan artists led by **Nandalal Bose** |
+| **Preamble Page Designer** | **Beohar Rammanohar Sinha** |
+| **Total Women Members** | **15 Women** |
+
+### Prominent Women Members of the Constituent Assembly
+- **Rajkumari Amrit Kaur:** Independent India's first Health Minister.
+- **Sucheta Kripalani:** First woman Chief Minister of an Indian state (Uttar Pradesh).
+- **Sarojini Naidu:** First woman Governor in independent India (United Provinces / UP).
+- **Dakshayani Velayudhan:** The **only Dalit (Scheduled Caste) woman** member of the Assembly.
+- **Begum Aizaz Rasul:** The **only Muslim woman** member of the Assembly.
+- **Hansa Jivraj Mehta:** Presented the national flag to the Assembly on behalf of the women of India.
+
+### Signature & Manuscript Facts
+- **First Signatory:** **Jawaharlal Nehru** signed the Constitution first.
+- **Last Signatory:** **Dr. Rajendra Prasad** signed last (placed his signature above Nehru's).
+- **Preservation:** The original handwritten and calligraphed copies of the Constitution are preserved in special **helium-filled glass cases** in the Library of the Parliament of India.
+
+---
+
+## 🧾 10. Last-Minute Revision Sheet & Quick Recall
+
+> 🚀 **Sequence to Remember:**
+> 1928 Nehru Report $\rightarrow$ 1934 M. N. Roy $\rightarrow$ 1935 INC Demand $\rightarrow$ 1940 August Offer $\rightarrow$ 1942 Cripps Mission $\rightarrow$ 1945 Wavell Plan $\rightarrow$ 1946 Cabinet Mission & 1st Assembly Meeting $\rightarrow$ 1947 Drafting Committee & Independence $\rightarrow$ 1949 Adoption (26 Nov) $\rightarrow$ 1950 Commencement (26 Jan).
+
+### High-Frequency Exam Numbers
+
+- **389:** Original strength of Constituent Assembly (Cabinet Mission)
+- **299:** Strength after Partition (Mountbatten Plan)
+- **296 + 93:** British India (elected) and Princely States (nominated)
+- **292 + 4:** Governor's Provinces and Chief Commissioners' Provinces
+- **7:** Members of the Drafting Committee
+- **8 + 13:** Major and Minor Committees
+- **11 sessions, 165 days:** Time devoted to framing
+- **284:** Signatures on 26 November 1949
+- **395, 22, 8:** Original Articles, Parts, and Schedules
+
+### Essential Personalities & Associations
+
+| Personality | Primary Association / Contribution |
+| :--- | :--- |
+| **M. N. Roy** | First proposed the idea of a Constituent Assembly (1934) |
+| **Jawaharlal Nehru** | Objectives Resolution; Union Committees; First signatory |
+| **Dr. Rajendra Prasad** | Permanent President of Assembly; First President of India |
+| **Dr. B. R. Ambedkar** | Chairman of Drafting Committee; Architect of the Constitution |
+| **Sir B. N. Rau** | Constitutional Adviser; Prepared initial raw draft |
+| **S. N. Mukherjee** | Chief Draftsman; Put complex legal concepts into clear text |
+| **G. V. Mavalankar** | Speaker of Legislative Wing / First Lok Sabha Speaker |
+| **Prem Behari Raizada** | Handwrote the original English calligraphy without charging fees |
+| **Nandalal Bose** | Led the decorative artistic illumination at Shantiniketan |
+
+> ✅ **Three Dates to Never Confuse:**
+> 1. **26 November 1949:** Constitution **Adopted & Enacted** (*Constitution Day / Samvidhan Diwas*).
+> 2. **24 January 1950:** Final sitting; National Anthem & Song recognized; Dr. Rajendra Prasad elected President.
+> 3. **26 January 1950:** Constitution **Commenced & Came into Full Force** (*Republic Day*).`
+  },
+  {
+    id: 'note-polity-making-constitution-hi',
+    title: 'भारतीय राजव्यवस्था: संविधान का निर्माण (संपूर्ण परीक्षा नोट्स)',
+    language: 'hi',
+    subject: 'भारतीय राजव्यवस्था (Polity)',
+    category: 'concept',
+    tags: ['संविधान सभा', 'संविधान निर्माण', 'प्रारूप समिति', 'कैबिनेट मिशन', 'UPSC', 'State PCS'],
+    summary: 'संविधान सभा, कैबिनेट मिशन योजना, प्रमुख समितियां, प्रारूप समिति, ऐतिहासिक तिथियां एवं परीक्षा उपयोगी महत्वपूर्ण तथ्यों का संपूर्ण संकलन।',
+    readingTimeMinutes: 6,
+    isStarred: true,
+    coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T08:00:00Z',
+    updatedAt: '2026-09-28T08:00:00Z',
+    content: `# भारतीय संविधान का निर्माण: संपूर्ण परीक्षा नोट्स
+
+> 🎯 **परीक्षा उपयोगी मास्टर नोट:** संविधान की पृष्ठभूमि, संविधान सभा, प्रारूप समिति, प्रमुख समितियां, ऐतिहासिक तिथियां और परीक्षा में बार-बार पूछे जाने वाले उच्च-उपज तथ्यों का एक संरचित गाइड।
+
+संविधान राज्य के मौलिक राजनीतिक सिद्धांतों को निर्धारित करता है; सरकारी संस्थाओं की संरचना, प्रक्रियाओं, शक्तियों और कर्तव्यों को स्थापित करता है; और नागरिकों के मौलिक अधिकारों, नीति निदेशक तत्वों और मौलिक कर्तव्यों को परिभाषित करता है।
+
+---
+
+## 🏛️ 1. संवैधानिक आधार एवं शासन के रूप
+
+- **आधुनिक लिखित संविधान की शुरुआत:** **4 जुलाई 1776** को अमेरिकी स्वतंत्रता की घोषणा के बाद **1787** का संयुक्त राज्य अमेरिका का संविधान।
+- **भारतीय संविधान की प्रकृति:** **नम्यता (Flexibility)** और **अनम्यता (Rigidity)** का अनूठा सम्मिश्रण।
+  - संघीय प्रावधानों में संशोधन के लिए **अनुच्छेद 368** के तहत संसद का विशेष बहुमत और आधे राज्यों के विधानमंडलों का अनुमोदन आवश्यक है।
+  - कुछ साधारण प्रावधान साधारण बहुमत से भी संशोधित किए जा सकते हैं (जैसे अनुच्छेद 3 के तहत नए राज्यों का निर्माण)।
+- **अवधारणात्मक बिंदु:** लोकतांत्रिक देशों में सामान्यतः संविधान होता है, किंतु यह आवश्यक नहीं कि प्रत्येक संविधान वाला देश लोकतांत्रिक ही हो।
+
+### शासन प्रणालियों की तुलना
+
+| शासन प्रणाली | अर्थ / कार्यप्रणाली | उदाहरण |
+| :--- | :--- | :--- |
+| **लोकतांत्रिक (Democratic)** | जनता का, जनता के द्वारा और जनता के लिए शासन | भारत, अमेरिका, ब्रिटेन |
+| **साम्यवादी (Communist)** | उत्पादन के मुख्य साधनों और स्रोतों पर राज्य का नियंत्रण | चीन, उत्तर कोरिया, क्यूबा, वियतनाम |
+| **राजतंत्रीय (Monarchic)** | संप्रभु शासन सत्ता एक वंशानुगत राजा या सम्राट में केंद्रित | सऊदी अरब, ब्रुनेई |
+| **अधिनायकवादी (Totalitarian)** | नागरिकों के सार्वजनिक और व्यक्तिगत जीवन पर निरंकुश नियंत्रण | उत्तर कोरिया |
+| **अल्पतंत्रीय (Oligarchic)** | एक छोटे, विशेषाधिकार प्राप्त विशिष्ट वर्ग के हाथों में सत्ता | ईरान, रूस |
+
+---
+
+## ⏳ 2. संविधान की मांग का ऐतिहासिक विकास
+
+### भारतीय पहल
+
+| वर्ष | विकास / मील का पत्थर | संवैधानिक महत्व |
+| :---: | :--- | :--- |
+| **1928** | मोतीलाल नेहरू की अध्यक्षता में **नेहरू रिपोर्ट** | भारतीय संविधान का प्रथम स्वदेशी खाका (सर्वदलीय सम्मेलन, लखनऊ) |
+| **1934** | **एम. एन. रॉय** द्वारा संविधान सभा का विचार | भारत में एक स्वतंत्र संविधान सभा के गठन का पहला औपचारिक प्रस्ताव |
+| **1935** | **भारतीय राष्ट्रीय कांग्रेस (INC)** द्वारा आधिकारिक मांग | संविधान सभा की मांग राष्ट्रीय राजनीतिक आंदोलन का आधिकारिक हिस्सा बनी |
+| **1938** | **जवाहरलाल नेहरू** की वयस्क मताधिकार की घोषणा | स्वतंत्र भारत का संविधान बिना किसी बाहरी हस्तक्षेप के वयस्क मताधिकार द्वारा चुनी गई सभा द्वारा बने |
+
+### ब्रिटिश प्रस्ताव एवं भारतीय प्रतिक्रिया
+
+1. **अगस्त प्रस्ताव (August Offer — 1940):**
+   - वायसराय **लॉर्ड लिनलिथगो** द्वारा 8 अगस्त 1940 को द्वितीय विश्व युद्ध में भारतीयों का सहयोग पाने हेतु प्रस्तुत।
+   - युद्ध के बाद **डोमिनियन स्टेटस (अधिराज्य दर्जा)** देने की बात कही।
+   - *कांग्रेस ने अस्वीकार किया:* कांग्रेस **पूर्ण स्वराज** पर अडिग रही।
+2. **क्रिप्स मिशन (Cripps Mission — 1942):**
+   - ब्रिटिश कैबिनेट मंत्री **सर स्टैफोर्ड क्रिप्स** के नेतृत्व में आया।
+   - युद्धोपरांत डोमिनियन स्टेटस और संविधान निर्मात्री सभा का प्रस्ताव रखा।
+   - *अस्वीकृत हुआ:*
+     - जवाहरलाल नेहरू ने कहा: *"डोमिनियन स्टेटस की अवधारणा अब मृतप्राय हो चुकी है।"*
+     - महात्मा गांधी ने कहा: *"यह एक डूबते हुए बैंक के नाम बाद की तारीख का चेक (Post-dated cheque on a crashing bank) है।"*
+3. **वेवेल योजना एवं शिमला सम्मेलन (1945):**
+   - वायसराय **लॉर्ड वेवेल** द्वारा संवैधानिक गतिरोध दूर करने हेतु प्रस्तुत।
+   - गवर्नर-जनरल की कार्यकारिणी परिषद में सवर्ण हिंदुओं और मुस्लिमों को बराबर प्रतिनिधित्व देने का प्रस्ताव।
+   - *विफल रहा:* मुस्लिम लीग ने जिद की कि वह ही सभी भारतीय मुसलमानों की एकमात्र प्रतिनिधि है।
+4. **कैबिनेट मिशन योजना (Cabinet Mission Plan — 1946) — मुख्य आधार:**
+
+> 🔑 **मुख्य आधार:** भारतीय संविधान सभा का गठन **कैबिनेट मिशन योजना, 1946** के प्रावधानों के अंतर्गत ही हुआ था।
+
+- ब्रिटिश प्रधानमंत्री **क्लीमेंट एटली** द्वारा भेजे गए इस 3 सदस्यीय उच्चस्तरीय मिशन में शामिल थे:
+  1. **लॉर्ड पेथिक-लॉरेंस** — भारत सचिव *(अध्यक्ष)*
+  2. **सर स्टैफोर्ड क्रिप्स** — बोर्ड ऑफ ट्रेड के अध्यक्ष
+  3. **ए. वी. अलेक्जेंडर** — फर्स्ट लॉर्ड ऑफ एडमिरल्टी
+- **परिणाम:** कांग्रेस और मुस्लिम लीग दोनों ने प्रारंभ में इसे स्वीकार किया।
+
+---
+
+## 📊 3. संविधान सभा की संरचना एवं सीटों का आवंटन
+
+### कैबिनेट मिशन योजना के तहत सीटों का बंटवारा
+
+| वर्ग | सीटें | चयन की पद्धति |
+| :--- | :---: | :--- |
+| ब्रिटिश भारत के 11 गवर्नर प्रांत | 292 | प्रांतीय विधानसभाओं द्वारा अप्रत्यक्ष रूप से निर्वाचित |
+| मुख्य आयुक्तों के 4 प्रांत (Chief Commissioners) | 4 | प्रत्येक आयुक्त प्रांत से 1 प्रतिनिधि निर्वाचित |
+| देशी रियासतें (Princely States) | 93 | संबंधित रियासतों के शासकों द्वारा मनोनीत |
+| **संविधान सभा की कुल संख्या** | **389** | **आंशिक रूप से निर्वाचित और आंशिक रूप से मनोनीत** |
+
+- **ब्रिटिश भारत की कुल सीटें:** 296 (292 प्रांत + 4 मुख्य आयुक्त)।
+- **प्रतिनिधित्व का अनुपात:** लगभग **10 लाख की जनसंख्या पर 1 सीट**।
+- **चुनाव पद्धति:** **एकल संक्रमणीय मत द्वारा आनुपातिक प्रतिनिधित्व प्रणाली (STV)**।
+- **तीन मुख्य समुदाय:** **मुस्लिम, सिख, एवं सामान्य** (मुस्लिम व सिख को छोड़कर शेष सभी)।
+
+> 🧠 **स्मरण सूत्र (Mnemonic) — ABCD:** मुख्य आयुक्तों के 4 प्रांत:
+> - **A** $\rightarrow$ **अजमेर-मेरवाड़ा (Ajmer-Merwara)**
+> - **B** $\rightarrow$ **ब्रिटिश बलूचिस्तान (British Baluchistan)**
+> - **C** $\rightarrow$ **कुर्ग (Coorg)**
+> - **D** $\rightarrow$ **दिल्ली (Delhi)**
+
+### जुलाई-अगस्त 1946 चुनाव परिणाम (296 सीटें)
+
+| राजनीतिक दल / समूह | जीती गई सीटें |
+| :--- | :---: |
+| **भारतीय राष्ट्रीय कांग्रेस (INC)** | **208** |
+| **मुस्लिम लीग (Muslim League)** | **73** |
+| **अन्य एवं निर्दलीय** | **15** |
+| **कुल ब्रिटिश भारत सीटें** | **296** |
+
+### विभाजन के बाद स्थिति (3 जून 1947 माउंटबेटन योजना)
+पाकिस्तान के अलग होने के बाद संविधान सभा की कुल सदस्य संख्या **389 से घटकर 299** रह गई:
+- **229** सदस्य ब्रिटिश भारतीय प्रांतों से (पहले 296 थे)
+- **70** सदस्य देशी रियासतों से (पहले 93 थे)
+
+---
+
+## ⚖️ 4. भारत की अंतरिम सरकार (गठन: 2 सितंबर 1946)
+
+- कैबिनेट मिशन के तहत गठित हुई।
+- अध्यक्ष: गवर्नर-जनरल (**लॉर्ड वेवेल** फरवरी 1947 तक; इसके बाद **लॉर्ड माउंटबेटन**)।
+- **ऐतिहासिक तथ्य:** मुस्लिम लीग प्रारंभ में (2 सितंबर) शामिल नहीं हुई, किंतु **26 अक्टूबर 1946** को शामिल हो गई (लीग के 5 सदस्य शामिल हुए और कांग्रेस के 3 सदस्यों ने इस्तीफा दिया)।
+
+| विभाग / मंत्रालय | नियुक्त सदस्य | दल |
+| :--- | :--- | :---: |
+| **उपाध्यक्ष; विदेश मामले एवं राष्ट्रमंडल संबंध** | जवाहरलाल नेहरू | कांग्रेस |
+| **गृह, सूचना एवं प्रसारण** | सरदार वल्लभभाई पटेल | कांग्रेस |
+| **खाद्य एवं कृषि** | डॉ. राजेन्द्र प्रसाद | कांग्रेस |
+| **रक्षा** | सरदार बलदेव सिंह | कांग्रेस |
+| **वित्त** | लियाकत अली खान | मुस्लिम लीग |
+| **स्वास्थ्य** | गजनफर अली खान | मुस्लिम लीग |
+| **श्रम** | बाबू जगजीवन राम | कांग्रेस |
+| **विधि (कानून)** | जोगेंद्र नाथ मंडल | मुस्लिम लीग |
+| **शिक्षा एवं कला** | सी. राजगोपालाचारी | कांग्रेस |
+| **रेलवे, डाक एवं वायु** | अब्दुर रब नश्तर | मुस्लिम लीग |
+| **उद्योग एवं आपूर्ति** | डॉ. जॉन मथाई | कांग्रेस |
+| **वाणिज्य** | इब्राहिम इस्माइल चुंदरीगर | मुस्लिम लीग |
+| **कमांडर-इन-चीफ** | सर क्लाउड ऑचिनलेक | ब्रिटिश |
+
+---
+
+## 🎯 5. महत्वपूर्ण तिथियां एवं ऐतिहासिक मील के पत्थर
+
+- **9 दिसंबर 1946 (प्रथम ऐतिहासिक बैठक):**
+  - कुल **211 सदस्यों** ने भाग लिया (मुस्लिम लीग ने बहिष्कार किया)।
+  - वरिष्ठतम सदस्य होने के नाते **डॉ. सच्चिदानंद सिन्हा** को अस्थायी अध्यक्ष चुना गया (**फ्रांसीसी परंपरा** के अनुसार)।
+- **11 दिसंबर 1946 (स्थायी नेतृत्व का चुनाव):**
+  - **डॉ. राजेन्द्र प्रसाद** को संविधान सभा का स्थायी अध्यक्ष चुना गया।
+  - **एच. सी. मुखर्जी** एवं **वी. टी. कृष्णामाचारी** दो उपाध्यक्ष चुने गए।
+  - **सर बी. एन. राव** को संवैधानिक सलाहकार नियुक्त किया गया।
+- **13 दिसंबर 1946 (उद्देश्य प्रस्ताव पेश):**
+  - **पंडित जवाहरलाल नेहरू** द्वारा ऐतिहासिक उद्देश्य प्रस्ताव (Objectives Resolution) पेश किया गया।
+  - **22 जनवरी 1947** को इसे सर्वसम्मति से स्वीकार किया गया, जो आगे चलकर **संविधान की प्रस्तावना (Preamble)** बना।
+- **22 जुलाई 1947:** राष्ट्रीय ध्वज (तिरंगा) को अपनाया गया (लंबाई-चौड़ाई का अनुपात **3:2**; अभिकल्पना **पिंगली वेंकैया**)।
+- **14-15 अगस्त 1947:** भारत स्वतंत्र हुआ; नेहरू जी का प्रसिद्ध भाषण *"Tryst with Destiny"* (भाग्य-वधू से भेंट)।
+- **मई 1949:** भारत ने राष्ट्रमंडल (Commonwealth) की सदस्यता का सत्यापन किया।
+- **26 नवंबर 1949 (संविधान अंगीकृत):**
+  - संविधान सभा द्वारा संविधान को औपचारिक रूप से **अंगीकृत, अधिनियमित और आत्मार्पित** किया गया।
+  - उपस्थित **284 सदस्यों** ने इस पर हस्ताक्षर किए।
+  - नागरिकता (अनुच्छेद 5-9), निर्वाचन (अनुच्छेद 324) और अंतरिम संसद संबंधी प्रावधान तुरंत प्रभावी हुए।
+  - प्रतिवर्ष **26 नवंबर को संविधान दिवस (National Law Day)** के रूप में मनाया जाता है।
+- **24 जनवरी 1950 (संविधान सभा की अंतिम बैठक):**
+  - *"जन गण मन"* को राष्ट्रगान और *"वन्दे मातरम्"* को राष्ट्रगीत का दर्जा मिला।
+  - **डॉ. राजेन्द्र प्रसाद** भारत के प्रथम राष्ट्रपति चुने गए।
+  - सदस्यों ने संविधान की तीन मूल प्रतियों पर हस्ताक्षर किए।
+- **26 जनवरी 1950 (संविधान लागू):**
+  - संविधान पूर्ण रूप से लागू हुआ और भारत एक संप्रभु लोकतांत्रिक गणराज्य बना।
+
+> 📌 **26 जनवरी ही क्यों चुना गया?** **26 जनवरी 1930** को 1929 के लाहौर कांग्रेस अधिवेशन में लिए गए संकल्प के आधार पर भारत का प्रथम **पूर्ण स्वराज दिवस** मनाया गया था, उसी पावन तिथि की स्मृति में 26 जनवरी चुना गया।
+
+---
+
+## ✒️ 6. प्रारूप समिति (Drafting Committee)
+
+- **गठन की तिथि:** **29 अगस्त 1947**
+- **अध्यक्ष:** **डॉ. भीमराव आंबेडकर** (*"संविधान के जनक"*, *"आधुनिक मनु"*)
+- **कुल सदस्य संख्या:** 7 सदस्य
+
+### 7 महान सदस्य:
+1. **डॉ. बी. आर. आंबेडकर** *(अध्यक्ष)*
+2. **अल्लादि कृष्णास्वामी अय्यर**
+3. **एन. गोपालस्वामी अय्यंगार**
+4. **डॉ. के. एम. मुंशी** *(समिति में एकमात्र मूल कांग्रेसी सदस्य)*
+5. **सैयद मोहम्मद सादुल्लाह** *(एकमात्र मुस्लिम लीग सदस्य)*
+6. **एन. माधव राव** *(बी. एल. मित्तर के स्वास्थ्य कारणों से त्यागपत्र के बाद नियुक्त)*
+7. **टी. टी. कृष्णामाचारी** *(1948 में डी. पी. खेतान की मृत्यु के पश्चात नियुक्त)*
+
+> ⚠️ **परीक्षा में आने वाला जाल (Exam Trap):** डॉ. बी.आर. आंबेडकर प्रारंभ में जुलाई 1946 में **अविभाजित बंगाल (जैसोर-खुलना सीट)** से चुने गए थे। विभाजन के बाद यह क्षेत्र पूर्वी पाकिस्तान में चला गया। तत्पश्चात कांग्रेस नेता एम.आर. जयकर के त्यागपत्र देने पर आंबेडकर जी **बॉम्बे प्रेसीडेंसी (पुणे सीट)** से पुनः निर्वाचित हुए।
+
+### प्रारूप के तीन वाचन (Readings of the Draft)
+
+| वाचन (Reading) | अवधि / तिथियां | मुख्य विषय |
+| :--- | :--- | :--- |
+| **प्रारूप का प्रकाशन** | 21 फरवरी 1948 | जनता और प्रेस की समीक्षा हेतु (8 माह का समय दिया गया) |
+| **प्रथम वाचन** | 4 नवंबर – 9 नवंबर 1948 | डॉ. आंबेडकर द्वारा सामान्य परिचय और चर्चा |
+| **द्वितीय वाचन** | 15 नवं 1948 – 17 अक्टू 1949 | खंड-वार (Clause-by-Clause) विस्तृत विचार-विमर्श (7,653 संशोधन पेश, 2,473 स्वीकृत) |
+| **तृतीय वाचन** | 14 नवंबर – 26 नवंबर 1949 | अंतिम रूप से पारित करने का प्रस्ताव और स्वीकृति |
+
+---
+
+## 📂 7. संविधान सभा की प्रमुख एवं उप-समितियां
+
+संविधान सभा ने संविधान निर्माण हेतु **8 बड़ी समितियां** और **13 छोटी समितियां** गठित की थीं:
+
+### आठ प्रमुख समितियां
+
+| समिति का नाम | अध्यक्ष |
+| :--- | :--- |
+| **संघ शक्ति समिति (Union Powers Committee)** | जवाहरलाल नेहरू |
+| **संघीय संविधान समिति (Union Constitution Committee)** | जवाहरलाल नेहरू |
+| **राज्यों के लिए समिति (राज्यों से समझौता करने वाली)** | जवाहरलाल नेहरू |
+| **प्रांतीय संविधान समिति (Provincial Constitution)** | सरदार वल्लभभाई पटेल |
+| **मौलिक अधिकारों, अल्पसंख्यकों एवं जनजातीय क्षेत्रों संबंधी सलाहकार समिति** | सरदार वल्लभभाई पटेल |
+| **प्रक्रिया नियम समिति (Rules of Procedure)** | डॉ. राजेन्द्र प्रसाद |
+| **संचालन समिति (Steering Committee)** | डॉ. राजेन्द्र प्रसाद |
+| **प्रारूप समिति (Drafting Committee)** | डॉ. बी. आर. आंबेडकर |
+
+### पटेल की सलाहकार समिति के अंतर्गत 4 महत्वपूर्ण उप-समितियां
+
+| उप-समिति (Sub-Committee) | अध्यक्ष |
+| :--- | :--- |
+| **मौलिक अधिकार उप-समिति (Fundamental Rights Sub-Committee)** | **जे. बी. कृपलानी** |
+| **अल्पसंख्यक उप-समिति (Minorities Sub-Committee)** | **एच. सी. मुखर्जी** |
+| **पूर्वोत्तर सीमांत जनजातीय क्षेत्र एवं असम उप-समिति** | **गोपीनाथ बारदोलोई** |
+| **अपवर्जित एवं आंशिक रूप से अपवर्जित क्षेत्र उप-समिति** | **ए. वी. ठक्कर** |
+
+### अन्य महत्वपूर्ण छोटी समितियां
+
+| समिति | अध्यक्ष |
+| :--- | :--- |
+| **राष्ट्रीय ध्वज तदर्थ समिति (Ad-hoc Flag Committee)** | डॉ. राजेन्द्र प्रसाद |
+| **संविधान सभा के कार्यकरण संबंधी समिति** | जी. वी. मावलंकर |
+| **कार्य संचालन समिति (Order of Business)** | डॉ. के. एम. मुंशी |
+| **सदन समिति (House Committee)** | बी. पट्टाभि सीतारमैया |
+| **सर्वोच्च न्यायालय तदर्थ समिति** | एस. वरदाचारी |
+| **भाषाई प्रांत आयोग (1948)** | एस. के. धर |
+
+> 🧠 **अध्यक्ष याद रखने की ट्रिक (Chairperson Pattern):**
+> - **नेहरू जी:** केंद्र और राज्य (संघ शक्ति, संघ संविधान, राज्य समिति)
+> - **पटेल जी:** प्रांत, मौलिक अधिकार, अल्पसंख्यक एवं जनजातीय मामले
+> - **डॉ. राजेन्द्र प्रसाद:** नियम, संचालन, वित्त और राष्ट्रध्वज
+> - **डॉ. आंबेडकर:** प्रारूप समिति
+
+---
+
+## ⚡ 8. संविधान सभा की दोहरी भूमिका (Dual Role)
+
+15 अगस्त 1947 से 1952 के आम चुनावों तक संविधान सभा ने दो अलग-अलग भूमिकाएं निभाईं और दोनों के लिए अलग-अलग दिन बैठक होती थी:
+
+| दोहरी भूमिका | कार्य एवं स्वरूप | पीठासीन अधिकारी (अध्यक्ष) |
+| :--- | :--- | :--- |
+| **संविधान निर्मात्री संस्था के रूप में** | देश के सर्वोच्च कानून का निर्माण | **डॉ. राजेन्द्र प्रसाद** |
+| **विधायिका / संसद के रूप में** | स्वतंत्र भारत की पहली अंतरिम संसद (साधारण कानून बनाना) | **जी. वी. मावलंकर** |
+
+*नोट:* जी. वी. मावलंकर बाद में **लोकसभा के प्रथम अध्यक्ष (First Speaker)** बने।
+
+---
+
+## 💎 9. महत्वपूर्ण स्मरणीय तथ्य एवं ऐतिहासिक आंकड़े
+
+| मानक | प्रमाणिक तथ्य / आंकड़ा |
+| :--- | :--- |
+| **कुल सत्र (Total Sessions)** | **11 सत्र** |
+| **बैठकों के कुल दिन** | **165 दिन** |
+| **संविधान निर्माण में लगा कुल समय** | **2 वर्ष, 11 माह, 18 दिन** |
+| **अनुमानित कुल व्यय** | लगभग **₹64 लाख** |
+| **मूल संविधान की संरचना** | **395 अनुच्छेद, 22 भाग, 8 अनुसूचियां** (तथा प्रस्तावना) |
+| **संविधान सभा की मुहर (प्रतीक)** | **हाथी (Elephant)** |
+| **संवैधानिक सलाहकार** | **सर बी. एन. राव (Sir B.N. Rau)** |
+| **मुख्य प्रारूपकार (Chief Draftsman)** | **एस. एन. मुखर्जी** |
+| **संविधान सभा के सचिव** | **एच. वी. आर. अय्यंगार** |
+| **अंग्रेजी हस्तलेखक (Calligrapher)** | **प्रेम बिहारी नारायण रायजादा** (इटैलिक शैली में हस्तलिखित किया) |
+| **हिंदी हस्तलेखक** | **वसंत कृष्ण वैद्य** |
+| **कलात्मक साज-सज्जा** | शांतिनिकेतन के कलाकारों द्वारा, नेतृत्व **नंदलाल बोस** |
+| **प्रस्तावना पृष्ठ के सज्जाकार** | **ब्योहर राममनोहर सिन्हा** |
+| **महिला सदस्यों की संख्या** | **15 महिलाएं** |
+
+### संविधान सभा की प्रमुख महिला सदस्य
+- **राजकुमारी अमृत कौर:** स्वतंत्र भारत की प्रथम स्वास्थ्य मंत्री।
+- **सुचेता कृपलानी:** भारत की प्रथम महिला मुख्यमंत्री (उत्तर प्रदेश)।
+- **सरोजिनी नायडू:** भारत की प्रथम महिला राज्यपाल (संयुक्त प्रांत/UP)।
+- **दाक्षायणी वेलायुधन:** संविधान सभा की **एकमात्र दलित (अनुसूचित जाति) महिला सदस्य**।
+- **बेगम ऐजाज रसूल:** संविधान सभा की **एकमात्र मुस्लिम महिला सदस्य**।
+- **हंसा जीवराज मेहता:** जिन्होंने भारतीय महिलाओं की ओर से संविधान सभा को राष्ट्रीय ध्वज भेंट किया।
+
+### हस्ताक्षर एवं पांडुलिपि संबंधी तथ्य
+- **प्रथम हस्ताक्षरकर्ता:** पंडित **जवाहरलाल नेहरू** ने सबसे पहले हस्ताक्षर किए।
+- **अंतिम हस्ताक्षरकर्ता:** **डॉ. राजेन्द्र प्रसाद** ने सबसे अंत में (नेहरू जी के हस्ताक्षर के ठीक ऊपर) हस्ताक्षर किए।
+- **संरक्षण:** मूल हस्तलिखित प्रतियों को संसद भवन के पुस्तकालय में **हीलियम गैस से भरे विशेष बॉक्स** में सुरक्षित रखा गया है।
+
+---
+
+## 🧾 10. त्वरित पुनरीक्षण शीट (Last-Minute Revision)
+
+> 🚀 **घटनाक्रम का सही क्रम:**
+> 1928 नेहरू रिपोर्ट $\rightarrow$ 1934 एम. एन. रॉय $\rightarrow$ 1935 कांग्रेस की मांग $\rightarrow$ 1940 अगस्त प्रस्ताव $\rightarrow$ 1942 क्रिप्स मिशन $\rightarrow$ 1945 वेवेल योजना $\rightarrow$ 1946 कैबिनेट मिशन एवं प्रथम बैठक $\rightarrow$ 1947 प्रारूप समिति एवं स्वतंत्रता $\rightarrow$ 1949 अंगीकरण (26 Nov) $\rightarrow$ 1950 संविधान लागू (26 Jan)।
+
+### परीक्षा में सर्वाधिक पूछे जाने वाले महत्वपूर्ण अंक
+
+- **389:** संविधान सभा की मूल कुल सदस्य संख्या (कैबिनेट मिशन)
+- **299:** विभाजन के बाद शेष सदस्य संख्या
+- **296 + 93:** ब्रिटिश भारत (निर्वाचित) एवं देशी रियासतें (मनोनीत)
+- **292 + 4:** 11 गवर्नर प्रांत एवं 4 मुख्य आयुक्त प्रांत (ABCD)
+- **7:** प्रारूप समिति के सदस्य
+- **8 + 13:** बड़ी एवं छोटी समितियां
+- **11 सत्र, 165 दिन:** संविधान निर्माण कार्य
+- **284:** 26 नवंबर 1949 को हस्ताक्षर करने वाले सदस्य
+- **395, 22, 8:** मूल संविधान में अनुच्छेद, भाग एवं अनुसूचियां
+
+> ✅ **कभी भ्रमित न होने वाली 3 प्रमुख तिथियां:**
+> 1. **26 नवंबर 1949:** संविधान **अंगीकृत, अधिनियमित और आत्मार्पित** हुआ (*संविधान दिवस*)।
+> 2. **24 जनवरी 1950:** अंतिम बैठक; राष्ट्रगान और राष्ट्रगीत स्वीकृत; डॉ. राजेन्द्र प्रसाद राष्ट्रपति चुने गए।
+> 3. **26 जनवरी 1950:** संविधान **पूर्ण रूप से प्रभावी/लागू** हुआ (*गणतंत्र दिवस*)।`
+  },
+  {
+    id: 'note-polity-making-constitution-bi',
+    title: 'Making of the Indian Constitution (भारतीय संविधान का निर्माण - Bilingual Dual-Coding Notes)',
+    language: 'bilingual',
+    subject: 'Indian Polity (राजव्यवस्था)',
+    category: 'concept',
+    tags: ['Polity', 'Making of Constitution', 'Constituent Assembly', 'संविधान निर्माण', 'UPSC', 'State PCS'],
+    summary: 'द्वि-कोडिंग शिक्षण पद्धति (Dual-Coding) पर आधारित संपूर्ण परीक्षा नोट्स — English terms और Hindi व्याख्या के साथ 40% तीव्र स्मरण शक्ति।',
+    readingTimeMinutes: 7,
+    isStarred: true,
+    coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T08:00:00Z',
+    updatedAt: '2026-09-28T08:00:00Z',
+    content: `# Making of the Indian Constitution (भारतीय संविधान का निर्माण - Bilingual Exam Notes)
+
+> 🎯 **Bilingual Master Study Note:** Designed with the **Dual-Coding Learning Method** (द्वि-कोडिंग शिक्षण पद्धति) — linking English terms and Hindi explanations side-by-side to boost conceptual retention by 40% for UPSC CSE, State PCS, and SSC CGL.
+
+The Constitution of India is the supreme law of the land (देश का सर्वोच्च विधान). It defines fundamental political principles, structures of government institutions, and outlines Fundamental Rights (मूल अधिकार), Directive Principles (नीति निदेशक तत्व), and Fundamental Duties (मूल कर्तव्य).
+
+---
+
+## 🏛️ 1. Constitutional Foundation & Forms of Government (संवैधानिक आधार)
+
+- **First Written Constitution:** USA in **1787** following the Declaration of Independence on **4th July 1776** (4 जुलाई 1776 अमेरिकी स्वतंत्रता की घोषणा के बाद 1787 का अमेरिकी संविधान विश्व का पहला लिखित संविधान था)।
+- **Nature of Indian Constitution (संविधान की प्रकृति):**
+  - **Rigidity (अनम्यता):** Federal provisions require special amendment under **Article 368** (2/3rd majority in Parliament + 50% state ratifications).
+  - **Flexibility (नम्यता):** Ordinary provisions can be amended by simple parliamentary majority (संसद के साधारण बहुमत से).
+- **Core Principle:** Democratic nations generally possess written constitutions, but having a constitution does not inherently guarantee democracy (संविधान होने का अर्थ यह नहीं कि देश अनिवार्य रूप से लोकतांत्रिक ही हो)।
+
+### Comparative Forms of Government (शासन प्रणालियां)
+
+| Form of Government | Hindi Terminology | Core Concept / Mechanism | Examples |
+| :--- | :--- | :--- | :--- |
+| **Democracy** | लोकतंत्र / प्रजातंत्र | Government of the people, by the people, for the people | India, USA, UK |
+| **Communist State** | साम्यवादी राज्य | State controls all principal means of production | China, North Korea, Cuba, Vietnam |
+| **Monarchy** | राजतंत्र | Hereditary sovereign ruler / monarch | Saudi Arabia, Brunei |
+| **Totalitarianism** | सर्वाधिकारवाद | Total autocratic state control over public and private life | North Korea |
+| **Oligarchy** | कुलीनतंत्र / अल्पतंत्र | Power monopolized by a small elite ruling segment | Iran, Russia |
+
+---
+
+## ⏳ 2. Evolution of Demand & British Offers (मांग का ऐतिहासिक विकास)
+
+### Indian Initiatives (भारतीयों के प्रयास)
+
+| Year | Milestone | Constitutional Significance (महत्व) |
+| :---: | :--- | :--- |
+| **1928** | **Nehru Report (नेहरू रिपोर्ट)** | Earliest indigenous draft constitution under Motilal Nehru |
+| **1934** | **M. N. Roy's Proposal** | First formal idea for an independent Constituent Assembly (संविधान सभा) |
+| **1935** | **INC Official Demand** | Congress officially adopted the demand in its national platform |
+| **1938** | **Adult Franchise (वयस्क मताधिकार)** | J.L. Nehru declared Constitution must be framed without external interference |
+
+### British Offers & Indian Responses (ब्रिटिश प्रस्ताव एवं प्रतिक्रिया)
+
+1. **August Offer (अगस्त प्रस्ताव — 1940):** Viceroy Lord Linlithgow offered post-war Dominion Status. *Rejected by INC (demanded Purna Swaraj).*
+2. **Cripps Mission (क्रिप्स मिशन — 1942):** Sir Stafford Cripps offered post-WWII Dominion status and constitution-making body.
+   - Nehru: *"Dominion status is dead as a door nail."*
+   - Gandhi: *"Post-dated cheque on a crashing bank." (डूबते हुए बैंक का चेक)*
+3. **Wavell Plan & Shimla Conference (वेवेल योजना — 1945):** Viceroy Lord Wavell proposed equal Hindu-Muslim executive council. *Failed due to Muslim League veto.*
+4. **Cabinet Mission Plan (कैबिनेट मिशन योजना — 1946):**
+
+> 🔑 **Master Blueprint:** Constituent Assembly of India was formed under **Cabinet Mission Plan 1946** (कैबिनेट मिशन योजना).
+
+- 3 British Cabinet Ministers:
+  1. **Lord Pethick-Lawrence** (Secretary of State & Chairman / भारत सचिव)
+  2. **Sir Stafford Cripps** (President of Board of Trade)
+  3. **A. V. Alexander** (First Lord of Admiralty)
+
+---
+
+## 📊 3. Composition & Seat Allocation (सीटों का आवंटन)
+
+| Category (श्रेणी) | Seats (सीटें) | Method of Selection (चयन विधि) |
+| :--- | :---: | :--- |
+| Governor's Provinces (11 गवर्नर प्रांत) | 292 | Indirectly elected by Provincial MLAs (अप्रत्यक्ष निर्वाचन) |
+| Chief Commissioners' Provinces (4 आयुक्त प्रांत) | 4 | 1 from each Chief Commissioner province |
+| Princely States (देशी रियासतें) | 93 | Nominated by rulers (शासकों द्वारा मनोनीत) |
+| **Total Assembly Strength (कुल संख्या)** | **389** | **Partly elected & partly nominated (आंशिक निर्वाचित, आंशिक मनोनीत)** |
+
+- **Ratio:** 1 Seat per **10 Lakh (1 Million)** population.
+- **Electoral System:** Proportional representation by single transferable vote (एकल संक्रमणीय मत द्वारा आनुपातिक प्रतिनिधित्व).
+- **3 Communities:** Muslim, Sikh, General.
+
+> 🧠 **Mnemonic — ABCD:** 4 Chief Commissioners' Provinces:
+> - **A:** Ajmer-Merwara (अजमेर-मेरवाड़ा)
+> - **B:** British Baluchistan (ब्रिटिश बलूचिस्तान)
+> - **C:** Coorg (कुर्ग)
+> - **D:** Delhi (दिल्ली)
+
+### Election Results (July–Aug 1946):
+- **Congress (INC):** 208 Seats
+- **Muslim League:** 73 Seats
+- **Others / Independents:** 15 Seats
+- **Post-Partition (विभाजनोपरांत):** Strength reduced from **389 to 299** (229 Provinces + 70 Princely States).
+
+---
+
+## ⚖️ 4. Interim Government of India (अंतरिम सरकार — 2 Sept 1946)
+
+- Headed by Viceroy / Governor-General (Lord Wavell, later Lord Mountbatten).
+- **Key Nuance:** Muslim League joined on **26 October 1946** (5 League members joined, 3 Congress members resigned).
+
+| Portfolio (विभाग) | Member Assigned (नियुक्त सदस्य) | Party (दल) |
+| :--- | :--- | :---: |
+| **Vice President; External Affairs** | Jawaharlal Nehru (जवाहरलाल नेहरू) | INC |
+| **Home, Information & Broadcasting** | Sardar Vallabhbhai Patel (सरदार पटेल) | INC |
+| **Food & Agriculture** | Dr. Rajendra Prasad (डॉ. राजेन्द्र प्रसाद) | INC |
+| **Defence (रक्षा)** | Sardar Baldev Singh (बलदेव सिंह) | INC |
+| **Finance (वित्त)** | Liaquat Ali Khan (लियाकत अली खान) | Muslim League |
+| **Health (स्वास्थ्य)** | Ghazanfar Ali Khan (गजनफर अली खान) | Muslim League |
+| **Labour (श्रम)** | Babu Jagjivan Ram (बाबू जगजीवन राम) | INC |
+| **Law (विधि)** | Jogendra Nath Mandal (जोगेंद्र नाथ मंडल) | Muslim League |
+| **Education & Arts** | C. Rajagopalachari (सी. राजगोपालाचारी) | INC |
+| **Railways, Post & Air** | Abdur Rab Nishtar (अब्दुर रब नश्तर) | Muslim League |
+| **Industries & Supplies** | Dr. John Mathai (डॉ. जॉन मथाई) | INC |
+| **Commerce (वाणिज्य)** | I. I. Chundrigar (आई. आई. चुंदरीगर) | Muslim League |
+| **Commander-in-Chief** | Sir Claude Auchinleck | British |
+
+---
+
+## 🎯 5. Crucial Dates & Milestones (महत्वपूर्ण तिथियां)
+
+- **9 Dec 1946:** First meeting (211 attended). **Dr. Sachchidananda Sinha** elected Temporary President (अस्थायी अध्यक्ष) via French convention.
+- **11 Dec 1946:** **Dr. Rajendra Prasad** elected Permanent President (स्थायी अध्यक्ष); **H.C. Mukherjee** & **V.T. Krishnamachari** as 2 Vice-Presidents; **Sir B.N. Rau** as Constitutional Adviser (संवैधानिक सलाहकार).
+- **13 Dec 1946:** **Objectives Resolution (उद्देश्य प्रस्ताव)** moved by Nehru; unanimously adopted on **22 Jan 1947** (later became the Preamble / प्रस्तावना).
+- **22 July 1947:** National Flag (राष्ट्रीय ध्वज) adopted; 3:2 ratio; designed by **Pingali Venkayya**.
+- **14–15 Aug 1947:** Indian Independence; Nehru's historic *"Tryst with Destiny"* speech.
+- **26 Nov 1949:** Constitution **Adopted & Enacted (अंगीकृत एवं अधिनियमित)**; signed by **284 members** present; Citizenship & Elections enforced immediately. Celebrated as **Constitution Day (संविधान दिवस)**.
+- **24 Jan 1950:** Final sitting; National Anthem (*Jana Gana Mana*) & Song (*Vande Mataram*) adopted; Dr. Rajendra Prasad elected first President of India.
+- **26 Jan 1950:** Constitution **Commenced (पूर्ण रूप से लागू)**; Republic Day of India.
+
+> 📌 **Why 26 January?** To honor **26 January 1930**, celebrated as **Purna Swaraj Day** following the 1929 Lahore Congress session.
+
+---
+
+## ✒️ 6. The Drafting Committee (प्रारूप समिति)
+
+- **Setup Date:** **29 August 1947**
+- **Chairman (अध्यक्ष):** **Dr. B. R. Ambedkar** (*Father of Indian Constitution / Modern Manu*)
+- **Total Members:** 7 Members
+
+### 7 Members of Drafting Committee:
+1. **Dr. B. R. Ambedkar** *(Chairman)*
+2. **Alladi Krishnaswamy Ayyar**
+3. **N. Gopalaswami Ayyangar**
+4. **Dr. K. M. Munshi** *(Only original Congress member)*
+5. **Syed Muhammad Saadullah** *(Only Muslim League member)*
+6. **N. Madhava Rau** *(Replaced B. L. Mitter due to ill health)*
+7. **T. T. Krishnamachari** *(Replaced D. P. Khaitan after his death in 1948)*
+
+> ⚠️ **Exam Trap (परीक्षा जाल):** Dr. Ambedkar was first elected in 1946 from **East Bengal (Jessore-Khulna)**. After partition, that territory went to Pakistan. He was then re-elected from **Bombay Presidency (Pune seat)** after M.R. Jayakar resigned.
+
+---
+
+## 📂 7. Major Committees & Sub-Committees (प्रमुख समितियां)
+
+### 8 Major Committees (8 बड़ी समितियां):
+- **Union Powers & Union Constitution & States Committees:** Jawaharlal Nehru
+- **Provincial Constitution & Advisory Committee on FRs/Minorities:** Sardar Vallabhbhai Patel
+- **Rules of Procedure & Steering Committees:** Dr. Rajendra Prasad
+- **Drafting Committee:** Dr. B. R. Ambedkar
+
+### 4 Key Sub-Committees under Patel:
+- **Fundamental Rights Sub-Committee (मूल अधिकार उप-समिति):** **J. B. Kripalani**
+- **Minorities Sub-Committee (अल्पसंख्यक उप-समिति):** **H. C. Mukherjee**
+- **North-East Tribal Areas (पूर्वोत्तर जनजातीय क्षेत्र):** **Gopinath Bardoloi**
+- **Excluded & Partially Excluded Areas:** **A. V. Thakkar**
+
+---
+
+## ⚡ 8. Dual Role of Constituent Assembly (दोहरी भूमिका)
+
+1. **Constitution-Making Body (संविधान निर्माण):** Chaired by **Dr. Rajendra Prasad**.
+2. **Legislative / Provisional Parliament (संसद / कानून निर्माण):** Chaired by **G. V. Mavalankar** (who later became first Speaker of Lok Sabha).
+
+---
+
+## 💎 9. High-Yield Facts & Historical Trivia (महत्वपूर्ण तथ्य)
+
+- **Total Sessions (सत्र):** 11 Sessions (**165 days**).
+- **Time Taken (समय):** **2 Years, 11 Months, 18 Days**.
+- **Total Expense (व्यय):** Approx. **₹64 Lakh**.
+- **Original Structure (मूल संरचना):** **395 Articles, 22 Parts, 8 Schedules**.
+- **Assembly Emblem (मुहर):** **Elephant (हाथी)**.
+- **Constitutional Adviser (सलाहकार):** **Sir B. N. Rau**.
+- **Chief Draftsman (प्रारूपकार):** **S. N. Mukherjee**.
+- **Secretary (सचिव):** **H. V. R. Iengar**.
+- **Calligrapher (English):** **Prem Behari Narain Raizada** (wrote with No. 303 nib in italic style).
+- **Calligrapher (Hindi):** **Vasant Krishan Vaidya**.
+- **Art Illumination (कलात्मक सज्जा):** Shantiniketan team under **Nandalal Bose** & **Beohar Rammanohar Sinha** (Preamble page).
+- **Women Members (महिला सदस्य):** 15 total (including **Rajkumari Amrit Kaur**, **Sucheta Kripalani**, **Sarojini Naidu**, **Dakshayani Velayudhan** - only Dalit woman member, and **Begum Aizaz Rasul** - only Muslim woman member).
+- **Signatures (हस्ताक्षर):** First signatory: **Jawaharlal Nehru**; Last signatory: **Dr. Rajendra Prasad**. Original copies preserved in helium-filled cases in Parliament Library.
+
+---
+
+## 🧾 10. Last-Minute Revision Sheet (त्वरित पुनरीक्षण)
+
+> 🚀 **Timeline Sequence:**
+> 1928 Nehru Report $\rightarrow$ 1934 M. N. Roy $\rightarrow$ 1935 INC Demand $\rightarrow$ 1940 August Offer $\rightarrow$ 1942 Cripps Mission $\rightarrow$ 1945 Wavell Plan $\rightarrow$ 1946 Cabinet Mission $\rightarrow$ 1947 Drafting Committee $\rightarrow$ 1949 Adoption (26 Nov) $\rightarrow$ 1950 Commencement (26 Jan).
+
+> ✅ **Three Dates to Never Confuse (3 प्रमुख तिथियां):**
+> 1. **26 November 1949:** Constitution **Adopted** (संविधान दिवस).
+> 2. **24 January 1950:** Final sitting; Anthem, Song & President elected; Signatures affixed.
+> 3. **26 January 1950:** Constitution **Commenced** into full force (गणतंत्र दिवस).`
   },
   {
     id: 'note-polity-fr-hi',
@@ -718,6 +1365,23 @@ export const renderProfessionalNotesContent = (
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h3-${i}`)}</span>
         </h4>
+      );
+      i++;
+      continue;
+    }
+
+    // 4b. Heading 4 (#### Sub-sub-section)
+    if (trimmed.startsWith('#### ')) {
+      const headingText = trimmed.replace(/^####\s+/, '').trim();
+      elements.push(
+        <h5
+          id={`sec-${i}`}
+          key={`h4-${i}`}
+          className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200 mt-5 mb-2 flex items-center gap-1.5 scroll-mt-24"
+        >
+          <span className="w-1 h-1 rounded-full bg-indigo-400 shrink-0" />
+          <span>{parseInlineMarkdown(headingText, `h4-${i}`)}</span>
+        </h5>
       );
       i++;
       continue;
