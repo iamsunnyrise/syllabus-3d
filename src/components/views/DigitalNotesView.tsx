@@ -79,6 +79,811 @@ export interface DigitalNote {
 // 📚 Pre-seeded High-Yield Bilingual & Monolingual Sample Notes
 const INITIAL_DIGITAL_NOTES: DigitalNote[] = [
   {
+    id: 'note-polity-salient-features-en',
+    title: 'Salient Features of Indian Constitution & The 12 Schedules (Comprehensive Exam Notes)',
+    language: 'en',
+    subject: 'Indian Polity (राजव्यवस्था)',
+    category: 'concept',
+    tags: ['Polity', 'Salient Features', '12 Schedules', 'Federalism', 'TEARS OF OLD PM', 'SSC CGL', 'UPSC'],
+    summary: 'Master notes covering the lengthiest written constitution, federal vs unitary features, jurists opinions, separation of powers, and deep-dive into all 12 Schedules with mnemonics and 2024 classical languages.',
+    readingTimeMinutes: 6,
+    isStarred: true,
+    coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:15:00Z',
+    content: `# Salient Features of Indian Constitution & The 12 Schedules
+
+> 🎯 **Exam-Ready Master Note:** A structured, high-yield guide to the salient features of the Indian Constitution, federal vs unitary dynamics, jurist perspectives, separation of powers, and an in-depth breakdown of all 12 Schedules with mnemonics (TEARS OF OLD PM) and 2024 Classical Language additions for UPSC CSE, State PCS, and SSC CGL.
+
+The Constitution of India is unique in its contents and spirit. Though borrowed from almost every constitution in the world, it possesses several salient features that distinguish it from the constitutions of other nations.
+
+---
+
+## 📜 1. Lengthiest Written Constitution & Structural Growth
+
+The Indian Constitution is the **lengthiest of all written constitutions in the world**. It is a comprehensive, elaborate, and detailed document.
+
+### Structural Evolution (Original vs Present)
+
+| Feature | Original (1949 Adoption) | Present Day (Post-Amendments) |
+| :--- | :---: | :---: |
+| **Preamble** | 1 | 1 |
+| **Articles** | **395 Articles** | **448+ Articles** (grouped into 395) |
+| **Parts** | **22 Parts** | **25 Parts** |
+| **Schedules** | **8 Schedules** | **12 Schedules** |
+
+- **Parts Added through Amendments:**
+  - **Part IV-A:** Fundamental Duties (42nd CAA, 1976)
+  - **Part IX-A:** The Municipalities (74th CAA, 1992)
+  - **Part IX-B:** The Co-operative Societies (97th CAA, 2011)
+  - **Part XIV-A:** Tribunals (42nd CAA, 1976)
+- **Part Deleted:** **Part VII** (dealing with Part B States) was repealed by the **7th Constitutional Amendment Act, 1956**.
+
+### Written vs Unwritten Constitution
+
+| Dimension | Written Constitution | Unwritten Constitution |
+| :--- | :--- | :--- |
+| **Codification** | Formally compiled and structured in a single legal code | Not compiled in a single book; derived from customs, conventions, statutes |
+| **Enactment** | Formally constituted by a dedicated Constituent Assembly | Grows organically over time (evolutionary) |
+| **Constitutional Supremacy** | Constitution is Supreme (Judicial Review applies) | Parliament is Supreme (*Parliamentary Sovereignty*) |
+| **Rigidity** | Generally rigid or blend of rigid and flexible | Highly flexible; easy to amend like ordinary laws |
+| **Global Examples** | **India, USA, Australia, Germany** | **United Kingdom (UK), New Zealand, Israel** |
+
+> 💡 **Amendment Definition:** A formal, legal alteration, addition, or deletion made to a law, statute, contract, or the constitutional document under the framework of **Article 368**.
+
+---
+
+## 🏛️ 2. Parliamentary Form of Government
+
+The Constitution establishes the **Westminster Model** of Parliamentary Government both at the Centre and in the States, borrowed primarily from the **United Kingdom**.
+
+### Core Pillars of the Parliamentary System:
+- **Presence of Nominal and Real Executives:** The President is the *De jure* (titular) head of state, while the Prime Minister is the *De facto* (real) head of government.
+- **Majority Party Rule:** The political party securing the majority of seats in the Lok Sabha forms the government.
+- **Collective Responsibility (Article 75(3)):** The Council of Ministers is collectively responsible to the Lok Sabha (Lower House).
+- **Leadership of Prime Minister / Chief Minister:** Plays a pivotal steering role in executive policymaking.
+- **Bicameral Legislature:** Lok Sabha (House of the People) and Rajya Sabha (Council of States).
+
+---
+
+## 🤝 3. Federation with a Strong Centre (Quasi-Federal System)
+
+The Indian Constitution establishes a federal system of government containing all usual characteristics of a federation, but with a significant tilt toward a strong central authority.
+
+- **Article 1 of the Constitution:** Describes India as a **"Union of States"** rather than a "Federation of States". This signifies:
+  1. Indian federation is NOT the result of an agreement among states (unlike the USA).
+  2. No state has the right to secede from the Union.
+- **Three-Tier Governance Structure:**
+  1. **Union / Centre** (Central Government)
+  2. **States** (State Governments)
+  3. **Local Self-Government** (Panchayats & Municipalities — 73rd & 74th Amendments, 1992)
+
+### Federal vs Unitary Characteristics
+
+| Federal Features (संघीय लक्षण) | Unitary / Non-Federal Features (एकात्मक लक्षण) |
+| :--- | :--- |
+| **Dual Polity / Two Levels of Govt** | **Single Constitution** (one constitution for Union & States) |
+| **Written Constitution** | **Single Citizenship** (Indian citizenship only; no state citizenship) |
+| **Supremacy of the Constitution** | **Integrated & Unified Judiciary** (SC at apex, HCs below) |
+| **Rigidity of the Constitution** | **All India Services (AIS - Art. 312)** (IAS, IPS, IFoS serve states but appointed by Centre) |
+| **Independent Judiciary** | **Emergency Provisions (Arts. 352, 356, 360)** (Convert federal to unitary without formal amendment) |
+| **Bicameralism** (Rajya Sabha & Lok Sabha) | **Appointment of Governor by Centre (Art. 155)** |
+| **Division of Powers (Schedule 7 Lists)** | **Parliament's Power to Alter State Boundaries (Article 3)** |
+
+### Famous Jurist Opinions on Indian Federalism
+
+| Constitutional Scholar / Jurist | Famous Description / Comment | Significance for Exams |
+| :--- | :--- | :--- |
+| **Prof. K. C. Wheare** | *"Quasi-Federal"* (अर्ध-संघीय) | Emphasized that India is a unitary state with subsidiary federal features. |
+| **Granville Seward Austin** | *"Cooperative Federalism"* (सहकारी संघवाद) | Highlighted mutual cooperation between Centre and States. |
+| **Sir Ivor Jennings** | *"Federation with a centralising tendency"* | Pointed out strong central legislative and financial gravity. |
+| **Morris Jones** | *"Bargaining Federalism"* (सौदाकारी संघवाद) | Reflected political negotiations between Centre and States. |
+
+---
+
+## ⚖️ 4. Separation of Powers & Constitutional Organs
+
+The Constitution maintains a functional distribution of powers among the three organs of government, fortified by a system of **Checks and Balances**:
+
+- **Legislature (Parliament & State Assemblies):** Function: **Makes Laws** (Enacts statutes, budgets, and policies).
+- **Executive (President, PM, Chief Ministers & Bureaucracy):** Function: **Enforces & Carries out Laws**.
+- **Judiciary (Supreme Court & High Courts):** Function: **Evaluates & Interprets Laws** (Exercises power of Judicial Review).
+
+---
+
+## 📋 5. The 12 Schedules & The "TEARS OF OLD PM" Master Mnemonic
+
+The original Constitution of 1949 contained **8 Schedules**. Through constitutional amendments, **4 new Schedules (9, 10, 11, and 12)** were added, bringing the total to **12 Schedules**.
+
+> 🧠 **Master Mnemonic — "TEARS OF OLD PM":**
+> - **T** $\rightarrow$ **T**erritories (Schedule 1)
+> - **E** $\rightarrow$ **E**moluments & Salaries (Schedule 2)
+> - **A** $\rightarrow$ **A**ffirmations & Oaths (Schedule 3)
+> - **R** $\rightarrow$ **R**ajya Sabha Seat Allocation (Schedule 4)
+> - **S** $\rightarrow$ **S**cheduled Areas Administration (Schedule 5)
+> - **O** $\rightarrow$ **O**ther Tribal Areas: Assam, Meghalaya, Tripura, Mizoram (Schedule 6)
+> - **F** $\rightarrow$ **F**ederal Lists — Union, State, Concurrent (Schedule 7)
+> - **O** $\rightarrow$ **O**fficial Languages (Schedule 8)
+> - **L** $\rightarrow$ **L**and Reforms & Zamindari Abolition (Schedule 9)
+> - **D** $\rightarrow$ **D**efection / Anti-Defection Law (Schedule 10)
+> - **P** $\rightarrow$ **P**anchayat Raj (Schedule 11)
+> - **M** $\rightarrow$ **M**unicipalities (Schedule 12)
+
+### Complete Master Table of All 12 Schedules
+
+| Schedule | Subject Matter | Key Provisions & Beneficiaries | Constitutional Source |
+| :---: | :--- | :--- | :---: |
+| **1st** | **Territories & States** | Names of States (28) and Union Territories (8) with their territorial extents | Articles 1 & 4 |
+| **2nd** | **Emoluments & Allowances** | Salaries, allowances, and perks of: President, Governors, Speaker/Deputy Speaker of LS & SLAS, Chairman/Deputy Chairman of RS & SLCs, SC & HC Judges, CAG | Articles 59, 65, 75, 97, 125, 148, 158, 164, 186, 221 |
+| **3rd** | **Oaths & Affirmations** | Forms of oath for: Union/State Ministers, MP/MLA Candidates, MPs & MLAs, Supreme Court & High Court Judges, CAG | Articles 75, 84, 99, 124, 146, 173, 188, 219 |
+| **4th** | **Rajya Sabha Seats** | Allocation of seats in the Council of States (Rajya Sabha) to States and UTs | Articles 4(1) & 80(2) |
+| **5th** | **Scheduled Areas & STs** | Administration and control of Scheduled Areas and Scheduled Tribes in 10 States | Article 244(1) |
+| **6th** | **Tribal Areas in 4 States** | Administration of Tribal Areas in **Assam, Meghalaya, Tripura, Mizoram (AMTM)** | Articles 244(2) & 275(1) |
+| **7th** | **Division of Powers (3 Lists)** | **Union List** (100), **State List** (61), **Concurrent List** (52) | Article 246 |
+| **8th** | **Official Languages** | **22 Recognized Languages** (Originally 14) | Articles 344(1) & 351 |
+| **9th** | **Land Reforms & Acts** | Validation of land reform acts and regulations (Originally immune to judicial review) | Added by **1st CAA, 1951** (Article 31-B) |
+| **10th** | **Anti-Defection Law** | Disqualification of MPs and MLAs on grounds of defection | Added by **52nd CAA, 1985** (Articles 102 & 191) |
+| **11th** | **Panchayati Raj** | Powers, authority, and responsibilities of Panchayats (**29 Functional Items**) | Added by **73rd CAA, 1992** (Article 243-G) |
+| **12th** | **Municipalities** | Powers, authority, and responsibilities of Urban Local Bodies (**18 Functional Items**) | Added by **74th CAA, 1992** (Article 243-W) |
+
+> ⚠️ **Exam Trap on Schedule 3 (Oaths):** The oaths of three supreme constitutional dignitaries are **NOT included in the 3rd Schedule**:
+> 1. **President's Oath:** **Article 60**
+> 2. **Vice-President's Oath:** **Article 69**
+> 3. **Governor's Oath:** **Article 159**
+> *(Examiners frequently ask this trick question in Prelims!)*
+
+---
+
+## 🏔️ 6. Schedule 5 vs Schedule 6 & The Ladakh Autonomy Issue
+
+| Dimension | Schedule 5 (Scheduled Areas) | Schedule 6 (Tribal Areas) |
+| :--- | :--- | :--- |
+| **Geographic Coverage** | 10 States: Andhra Pradesh, Telangana, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan | **4 North-Eastern States:** **Assam, Meghalaya, Tripura, Mizoram** (*Mnemonic: AMTM*) |
+| **Administrative Body** | **Tribes Advisory Council (TAC)** (consisting of up to 20 members, 3/4th ST MLAs) | **Autonomous District Councils (ADCs)** & Regional Councils (up to 30 members) |
+| **Legislative Autonomy** | Governor can direct an act of Parliament/State Assembly not to apply | ADCs have direct law-making powers on land, forests, village councils, inheritance |
+| **Judicial Powers** | Standard state judiciary operates | ADCs can constitute village courts to try customary disputes |
+
+> 📌 **Why Schedule 6 was in News? (Current Affairs Linkage):**
+> - **Ladakh Protests:** Demands for extension of the **Sixth Schedule** to the Union Territory of Ladakh to preserve its fragile Himalayan ecology, tribal identity (over 97% indigenous tribal population), and grant legislative autonomy through Autonomous District Councils (ADCs).
+
+---
+
+## 📑 7. Schedule 7: Division of Powers (The Three Lists)
+
+Article 246 provides a three-fold distribution of legislative subjects between the Union and the States:
+
+| List | Original Subjects | Current Subjects | Key Examples of Subjects |
+| :--- | :---: | :---: | :--- |
+| **Union List (List I)** | 97 | **100** | Defence, Atomic Energy, Arms & Ammunition, Foreign Affairs, Citizenship, Airways, Railways, Inter-State Trade, Banking, Insurance, Census. |
+| **State List (List II)** | 66 | **61** | Public Order, Police, Prisons, Local Government, Public Health & Sanitation, Agriculture, Fisheries, Liquor, Betting & Gambling. |
+| **Concurrent List (List III)** | 47 | **52** | Criminal Law, Marriage & Divorce, Civil Procedure, Education, Forests, Electricity, Trade Unions, Economic & Social Planning, Price Control. |
+
+### The 42nd Constitutional Amendment Act, 1976 (High-Yield):
+Transferred **5 subjects from State List to Concurrent List**:
+1. **Education**
+2. **Forests**
+3. **Weights and Measures**
+4. **Protection of Wild Animals and Birds**
+5. **Administration of Justice** (constitution and organization of all courts except the Supreme Court and High Courts)
+
+### Residuary Powers (Article 248):
+- Any subject matter not enumerated in the Union, State, or Concurrent lists vests **exclusively in the Parliament**.
+- **Origin:** Borrowed from the **Canadian Constitution** (In USA and Australia, residuary powers belong to the states).
+
+### 5 Exceptional Scenarios where Parliament Legislate on State List:
+1. **National Emergency (Article 250):** While a proclamation of national emergency is in operation.
+2. **President's Rule (Article 356):** When state assembly is suspended or dissolved.
+3. **Resolution by Rajya Sabha (Article 249):** If Rajya Sabha passes a resolution supported by not less than **two-thirds of members present and voting** declaring a state subject of national interest.
+4. **Agreement between Two or More States (Article 252):** When legislatures of two or more states pass resolutions requesting Parliament to enact laws.
+5. **Enforcement of International Treaties (Article 253):** To implement any international treaty, agreement, or convention.
+
+---
+
+## 🗣️ 8. Schedule 8: Official Languages & Classical Languages (2024 Update)
+
+- **Original Number of Languages:** **14 Languages** in 1950.
+- **Current Number of Languages:** **22 Languages**.
+
+### Timeline of Constitutional Amendments adding Languages:
+- **21st CAA 1967:** **Sindhi** was added as the 15th language.
+- **71st CAA 1992:** **Konkani, Manipuri, Nepali (KMN)** added (16th, 17th, 18th).
+- **92nd CAA 2003:** **Bodo, Dogri, Maithili, Santhali (BDMS)** added (19th, 20th, 21st, 22nd).
+- **96th CAA 2011:** Substituted the word *"Oriya"* with **"Odia"**.
+
+---
+
+### Classical Languages of India (शास्त्रीय भाषाएं)
+
+To be declared a Classical Language, a language must possess high antiquity of early texts/recorded history (1500–2000 years), valuable ancient heritage, and original literary tradition.
+
+| Phase | Classical Languages | Year Recognized |
+| :--- | :--- | :---: |
+| **Initial 6 Classical Languages** | **Tamil** | 2004 |
+| | **Sanskrit** | 2005 |
+| | **Telugu** | 2008 |
+| | **Kannada** | 2008 |
+| | **Malayalam** | 2013 |
+| | **Odia** | 2014 |
+| **Newly Approved in October 2024 (Latest!)** | **Marathi** | 2024 |
+| | **Pali** | 2024 |
+| | **Prakrit** | 2024 |
+| | **Assamese** | 2024 |
+| | **Bengali** | 2024 |
+
+> 🧠 **Mnemonic for the Initial 6:** *"Tu Shuru To Kar Mai Aariya"* $\rightarrow$ **T**amil, **S**anskrit, **T**elugu, **K**annada, **M**alayalam, **O**dia.  
+> 🚨 **Current Affairs Flash:** India now has a total of **11 Classical Languages** after the Union Cabinet added 5 new languages in October 2024.
+
+---
+
+## 🛡️ 9. Schedules 9, 10, 11 & 12: Detailed Constitutional Landmark Analysis
+
+### Schedule 9: Land Reforms & Zamindari Abolition
+- **Added by:** **1st Constitutional Amendment Act, 1951** by the Provisional Parliament.
+- **Original Purpose:** Protect land reform laws from being challenged in courts on the ground of violating Fundamental Rights (Article 31-B).
+- **Landmark Case (I. R. Coelho v. State of Tamil Nadu, 2007):** The Supreme Court held that laws placed in the 9th Schedule after **24 April 1973** (date of *Kesavananda Bharati* judgment) are **open to judicial review** if they violate the Basic Structure of the Constitution.
+
+### Schedule 10: Anti-Defection Law
+- **Added by:** **52nd Constitutional Amendment Act, 1985** under Rajiv Gandhi's tenure.
+- **Grounds of Disqualification:** Voluntarily giving up party membership, voting or abstaining contrary to party whip, independent member joining a party, nominated member joining after 6 months.
+- **91st CAA, 2003 Amendment:** Omitted the exception regarding split by 1/3rd members; now requires **merger by at least 2/3rd members**.
+- **Deciding Authority:** Speaker / Chairman of the House (*Kihoto Hollohan case, 1992: Speaker's decision is subject to judicial review*).
+
+### Schedule 11: Panchayati Raj (Rural Local Government)
+- **Added by:** **73rd Constitutional Amendment Act, 1992** (Came into effect on 24 April 1993 - *National Panchayati Raj Day*).
+- **Article:** **Article 243-G**
+- **Functional Items:** **29 Subjects** (Agriculture, Minor Irrigation, Rural Housing, Drinking Water, Roads, Poverty Alleviation, etc.).
+
+### Schedule 12: Municipalities (Urban Local Government)
+- **Added by:** **74th Constitutional Amendment Act, 1992** (Came into effect on 1 June 1993).
+- **Article:** **Article 243-W**
+- **Functional Items:** **18 Subjects** (Urban Planning, Regulation of Land Use, Water Supply, Public Health, Solid Waste Management, Slum Improvement, etc.).
+
+---
+
+## 🧾 10. Last-Minute Rapid Revision Sheet
+
+> 🚀 **Sequence of Added Schedules:**
+> 1951 (1st CAA) $\rightarrow$ **9th Schedule** (Land Reforms)  
+> 1985 (52nd CAA) $\rightarrow$ **10th Schedule** (Anti-Defection)  
+> 1992 (73rd CAA) $\rightarrow$ **11th Schedule** (Panchayats - 29 Matters)  
+> 1992 (74th CAA) $\rightarrow$ **12th Schedule** (Municipalities - 18 Matters)
+
+### High-Frequency Exam Numbers
+
+- **395 $\rightarrow$ 448+:** Articles
+- **22 $\rightarrow$ 25:** Parts
+- **8 $\rightarrow$ 12:** Schedules
+- **100, 61, 52:** Current Subjects in Union, State, and Concurrent Lists
+- **5 Subjects:** Transferred from State to Concurrent List by 42nd CAA 1976
+- **22 Languages:** Recognized in Schedule 8 (14 original + 1 Sindhi + 3 KMN + 4 BDMS)
+- **11 Classical Languages:** Total in India (6 old + 5 added in Oct 2024)
+- **29 vs 18:** Functional items in Schedule 11 (Panchayats) vs Schedule 12 (Municipalities)
+
+> ✅ **Key Distinctions to Never Confuse:**
+> 1. **Schedule 2 vs Schedule 3:** Schedule 2 deals with *Salaries & Allowances (E)*; Schedule 3 deals with *Oaths & Affirmations (A)*. (Remember: Salary first, then work/oath!).
+> 2. **Schedule 5 vs Schedule 6:** Schedule 5 applies to 10 States; Schedule 6 applies ONLY to **Assam, Meghalaya, Tripura, Mizoram (AMTM)**.
+> 3. **Panchayat Items vs Municipality Items:** Schedule 11 has **29 items** $(2 + 9 = 11)$; Schedule 12 has **18 items**.`
+  },
+  {
+    id: 'note-polity-salient-features-hi',
+    title: 'भारतीय राजव्यवस्था: संविधान की प्रमुख विशेषताएं एवं 12 अनुसूचियां (संपूर्ण परीक्षा नोट्स)',
+    language: 'hi',
+    subject: 'भारतीय राजव्यवस्था (Polity)',
+    category: 'concept',
+    tags: ['संविधान की विशेषताएं', '12 अनुसूचियां', 'संघवाद', 'TEARS OF OLD PM', 'UPSC', 'State PCS'],
+    summary: 'विश्व का सबसे लंबा लिखित संविधान, एकात्मक व संघीय लक्षण, विचारकों के कथन, शक्ति पृथक्करण, एवं 12 अनुसूचियों का संपूर्ण विश्लेषण (2024 की 11 शास्त्रीय भाषाओं सहित)।',
+    readingTimeMinutes: 6,
+    isStarred: true,
+    coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:15:00Z',
+    content: `# भारतीय संविधान की प्रमुख विशेषताएं एवं 12 अनुसूचियां: संपूर्ण परीक्षा नोट्स
+
+> 🎯 **परीक्षा उपयोगी मास्टर नोट:** भारतीय संविधान की प्रमुख विशेषताएं, एकात्मक बनाम संघीय लक्षण, न्यायविदों के प्रसिद्ध कथन, शक्ति पृथक्करण, 12 अनुसूचियों का विस्तृत विश्लेषण (TEARS OF OLD PM ट्रिक के साथ) एवं अक्टूबर 2024 में जुड़ी नई 5 शास्त्रीय भाषाओं का संपूर्ण कवरेज।
+
+भारतीय संविधान अपने रूप, विस्तार और अंतर्वस्तु में विश्व का सबसे अनूठा संविधान है। यद्यपि इसके अधिकांश उपबंध विश्व के कई देशों के संविधानों से ग्रहण किए गए हैं, फिर भी इसमें कई ऐसी मौलिक विशेषताएं हैं जो इसे अन्य देशों के संविधानों से अलग पहचान दिलाती हैं।
+
+---
+
+## 📜 1. विश्व का सबसे लंबा लिखित संविधान एवं संरचनात्मक विकास
+
+भारतीय संविधान **विश्व का सबसे विस्तृत और लंबा लिखित संविधान** है।
+
+### मूल एवं वर्तमान संरचना की तुलना
+
+| घटक | मूल संविधान (1949) | वर्तमान स्थिति (संशोधनों के बाद) |
+| :--- | :---: | :---: |
+| **प्रस्तावना (Preamble)** | 1 | 1 |
+| **अनुच्छेद (Articles)** | **395 अनुच्छेद** | **448+ अनुच्छेद** (गणना की दृष्टि से 470+) |
+| **भाग (Parts)** | **22 भाग** | **25 भाग** |
+| **अनुसूचियां (Schedules)** | **8 अनुसूचियां** | **12 अनुसूचियां** |
+
+- **संशोधनों द्वारा जोड़े गए नए भाग:**
+  - **भाग IV-A:** मूल कर्तव्य (42वां संविधान संशोधन, 1976)
+  - **भाग IX-A:** नगरपालिकाएं (74वां संविधान संशोधन, 1992)
+  - **भाग IX-B:** सहकारी समितियां (97वां संविधान संशोधन, 2011)
+  - **भाग XIV-A:** अधिकरण / ट्रिब्यूनल (42वां संविधान संशोधन, 1976)
+- **हटाया गया भाग:** **भाग VII** (पहली अनुसूची के भाग ख के राज्य) को **7वें संविधान संशोधन अधिनियम, 1956** द्वारा समाप्त कर दिया गया।
+
+### लिखित बनाम अलिखित संविधान की तुलना
+
+| आधार | लिखित संविधान (Written) | अलिखित संविधान (Unwritten) |
+| :--- | :--- | :--- |
+| **संकलन** | एक सुव्यवस्थित एकल दस्तावेज में संहिताबद्ध | किसी एकल पुस्तक में संकलित नहीं; परंपराओं और कानूनों पर आधारित |
+| **निर्माण** | विशेष संविधान सभा द्वारा विधिवत निर्मित | समय के साथ क्रमिक रूप से विकसित |
+| **सर्वोच्चता** | **संविधान की सर्वोच्चता** (न्यायिक समीक्षा लागू) | **संसद की सर्वोच्चता** (Parliamentary Sovereignty) |
+| **नम्यता** | सामान्यतः कठोर या कठोर व लचीले का मिश्रण | अत्यधिक लचीला; साधारण कानून की भांति संशोधनीय |
+| **प्रमुख उदाहरण** | **भारत, अमेरिका, ऑस्ट्रेलिया** | **ब्रिटेन (UK), न्यूजीलैंड, इज़राइल** |
+
+> 💡 **संविधान संशोधन की परिभाषा:** **अनुच्छेद 368** के अंतर्गत संविधान के किसी उपबंध में परिवर्तन, परिवर्धन या निरसन करने की औपचारिक संवैधानिक प्रक्रिया।
+
+---
+
+## 🏛️ 2. सरकार का संसदीय रूप (Parliamentary Form)
+
+भारत ने अमेरिकी अध्यक्षीय प्रणाली के स्थान पर **ब्रिटिश संसदीय प्रणाली (वेस्टमिंस्टर मॉडल)** को अपनाया है, जो केंद्र और राज्य दोनों स्तरों पर लागू है।
+
+### संसदीय प्रणाली के मुख्य स्तंभ:
+- **नाममात्र एवं वास्तविक कार्यपालिका:** राष्ट्रपति नाममात्र के प्रमुख (*De jure*) होते हैं, जबकि प्रधानमंत्री वास्तविक प्रमुख (*De facto*) होते हैं।
+- **बहुमत प्राप्त दल का शासन:** लोकसभा में जिस दल का बहुमत होता है, वही सरकार बनाता है।
+- **सामूहिक उत्तरदायित्व (अनुच्छेद 75(3)):** मंत्रिपरिषद सामूहिक रूप से लोकसभा के प्रति उत्तरदायी होती है।
+- **प्रधानमंत्री / मुख्यमंत्री का नेतृत्व:** कार्यपालिका का मार्गदर्शन करते हैं।
+- **द्विसदनीय विधायिका:** लोकसभा (निम्न सदन) एवं राज्यसभा (उच्च सदन)।
+
+---
+
+## 🤝 3. मजबूत केंद्र के साथ एकात्मक झुकाव वाला संघ (संघीय ढांचा)
+
+भारतीय संविधान में सामान्य संघीय लक्षण विद्यमान हैं, किंतु इसमें एकात्मकता का प्रबल झुकाव है।
+- **अनुच्छेद 1:** भारत को "राज्यों का संघ" (**Union of States**) घोषित करता है, न कि राज्यों का फेडरेशन। इसके दो अर्थ हैं:
+  1. भारतीय संघ राज्यों के बीच किसी समझौते का परिणाम नहीं है।
+  2. किसी भी राज्य को संघ से अलग होने (विभक्त होने) का अधिकार नहीं है।
+- **त्रि-स्तरीय शासन व्यवस्था (Three-tier Government):**
+  1. **केंद्र सरकार (Union)**
+  2. **राज्य सरकारें (States)**
+  3. **स्थानीय स्वशासन (Local Bodies — 73वां एवं 74वां संशोधन, 1992)**
+
+### संघीय बनाम एकात्मक लक्षण
+
+| संघीय लक्षण (Federal Features) | एकात्मक लक्षण (Unitary Features) |
+| :--- | :--- |
+| **दोहरा शासन (केंद्र एवं राज्य सरकारें)** | **एकल संविधान (Single Constitution)** |
+| **लिखित एवं सर्वोच्च संविधान** | **एकल नागरिकता (Single Citizenship)** |
+| **संविधान की कठोरता (Rigidity)** | **एकीकृत न्यायपालिका (Integrated Judiciary)** |
+| **स्वतंत्र न्यायपालिका (Independent Judiciary)** | **अखिल भारतीय सेवाएं (All India Services — Art. 312)** |
+| **द्विसदनीय विधायिका (Bicameralism)** | **आपातकालीन उपबंध (Emergency Provisions — Arts. 352, 356, 360)** |
+| **शक्तियों का विभाजन (7वीं अनुसूची की सूचियां)** | **राज्यपाल की केंद्र द्वारा नियुक्ति (अनुच्छेद 155)** |
+
+### भारतीय संघवाद पर प्रमुख विचारकों/न्यायविदों के कथन
+
+| विद्वान / न्यायविद | प्रसिद्ध कथन / उपाधि | परीक्षा में महत्व |
+| :--- | :--- | :--- |
+| **के. सी. व्हेयर (K.C. Wheare)** | **"अर्ध-संघीय" (Quasi-Federal)** | भारत को एकात्मक राज्य माना जिसमें गौण संघीय लक्षण हैं। |
+| **ग्रैनविल ऑस्टिन (Granville Austin)** | **"सहकारी संघवाद" (Cooperative Federalism)** | केंद्र और राज्यों के बीच सक्रिय सहयोग पर बल दिया। |
+| **आइवर जेनिंग्स (Ivor Jennings)** | **"केंद्रीयकरण की प्रवृत्ति वाला संघ"** | केंद्र के मजबूत वित्तीय व विधायी प्रभुत्व को रेखांकित किया। |
+| **मॉरिस जोन्स (Morris Jones)** | **"सौदाकारी संघवाद" (Bargaining Federalism)** | केंद्र और राज्यों के बीच राजनीतिक सौदेबाजी को दर्शाया। |
+
+---
+
+## ⚖️ 4. शक्तियों का पृथक्करण (Separation of Powers)
+
+सरकार के तीनों अंगों के बीच कार्यों और शक्तियों का स्पष्ट विभाजन है, साथ ही नियंत्रण और संतुलन (**Checks and Balances**) की व्यवस्था है:
+
+- **विधायिका (Legislature / संसद):** कानून का निर्माण करती है।
+- **कार्यपालिका (Executive / राष्ट्रपति, PM एवं मंत्रिपरिषद):** कानूनों को लागू एवं प्रशासित करती है।
+- **न्यायपालिका (Judiciary / सुप्रीम कोर्ट एवं हाई कोर्ट):** कानूनों की व्याख्या एवं संवैधानिकता का मूल्यांकन (न्यायिक समीक्षा) करती है।
+
+---
+
+## 📋 5. 12 अनुसूचियां एवं "TEARS OF OLD PM" ट्रिक
+
+मूल संविधान (1949) में **8 अनुसूचियां** थीं। संशोधनों के माध्यम से 4 नई अनुसूचियां जोड़कर अब कुल **12 अनुसूचियां** हैं।
+
+> 🧠 **याद रखने की अचूक ट्रिक — "TEARS OF OLD PM":**
+> - **T** $\rightarrow$ **T**erritories (1. राज्य एवं संघ राज्य क्षेत्र)
+> - **E** $\rightarrow$ **E**moluments (2. वेतन एवं भत्ते)
+> - **A** $\rightarrow$ **A**ffirmations & Oaths (3. शपथ एवं प्रतिज्ञान)
+> - **R** $\rightarrow$ **R**ajya Sabha (4. राज्यसभा में सीटों का आवंटन)
+> - **S** $\rightarrow$ **S**cheduled Areas (5. अनुसूचित क्षेत्रों का प्रशासन)
+> - **O** $\rightarrow$ **O**ther Tribal Areas (6. पूर्वोत्तर के 4 जनजातीय राज्य — AMTM)
+> - **F** $\rightarrow$ **F**ederal Lists (7. केंद्र-राज्य शक्तियों का विभाजन — 3 सूचियां)
+> - **O** $\rightarrow$ **O**fficial Languages (8. 22 मान्यता प्राप्त भाषाएं)
+> - **L** $\rightarrow$ **L**and Reforms (9. भूमि सुधार एवं जमींदारी प्रथा उन्मूलन)
+> - **D** $\rightarrow$ **D**efection (10. दलबदल विरोधी कानून)
+> - **P** $\rightarrow$ **P**anchayats (11. पंचायती राज — 29 विषय)
+> - **M** $\rightarrow$ **M**unicipalities (12. नगर पालिकाएं — 18 विषय)
+
+### 12 अनुसूचियों का संपूर्ण विवरण तालिका
+
+| अनुसूची | विषय-वस्तु | मुख्य प्रावधान एवं संबंधित पदाधिकारी | संबंधित अनुच्छेद |
+| :---: | :--- | :--- | :---: |
+| **पहली (1st)** | **राज्य एवं संघ राज्य क्षेत्र** | 28 राज्यों और 8 केंद्र शासित प्रदेशों के नाम एवं सीमाएं | अनुच्छेद 1 एवं 4 |
+| **दूसरी (2nd)** | **वेतन, भत्ते एवं विशेषाधिकार** | राष्ट्रपति, राज्यपाल, लोकसभा/विधानसभा अध्यक्ष, कैग (CAG), न्यायाधीशों के वेतन | अनुच्छेद 59, 65, 75, 97, 125, 148 |
+| **तीसरी (3rd)** | **शपथ एवं प्रतिज्ञान के प्रारूप** | केंद्रीय/राज्य मंत्री, सांसद, विधायक, सुप्रीम कोर्ट/हाई कोर्ट न्यायाधीश, कैग | अनुच्छेद 75, 84, 99, 124, 173, 188 |
+| **चौथी (4th)** | **राज्यसभा में सीटों का आवंटन** | राज्यों एवं केंद्र शासित प्रदेशों के लिए राज्यसभा सीटों का विवरण | अनुच्छेद 4(1) एवं 80(2) |
+| **पांचवीं (5th)** | **अनुसूचित क्षेत्रों का प्रशासन** | 10 राज्यों में अनुसूचित क्षेत्रों और अनुसूचित जनजातियों का नियंत्रण | अनुच्छेद 244(1) |
+| **छठी (6th)** | **4 पूर्वोत्तर राज्यों के जनजातीय क्षेत्र** | **असम, मेघालय, त्रिपुरा, मिजोरम (AMTM)** के जनजातीय प्रशासन | अनुच्छेद 244(2) एवं 275(1) |
+| **सातवीं (7th)** | **शक्तियों का विभाजन (3 सूचियां)** | **संघ सूची** (100), **राज्य सूची** (61), **समवर्ती सूची** (52) | अनुच्छेद 246 |
+| **आठवीं (8th)** | **मान्यता प्राप्त भाषाएं** | **22 आधिकारिक भाषाएं** (मूलतः 14 भाषाएं थीं) | अनुच्छेद 344(1) एवं 351 |
+| **नौवीं (9th)** | **भूमि सुधार एवं जमींदारी उन्मूलन** | न्यायिक समीक्षा से संरक्षण (प्रथम संशोधन 1951 द्वारा जोड़ी गई) | **1st CAA, 1951** (अनुच्छेद 31-B) |
+| **दसवीं (10th)** | **दलबदल विरोधी कानून** | संसद व विधानसभा सदस्यों की दलबदल आधार पर अयोग्यता | **52nd CAA, 1985** (अनुच्छेद 102, 191) |
+| **ग्यारहवीं (11th)**| **पंचायती राज व्यवस्था** | पंचायतों की शक्तियां, प्राधिकार एवं जिम्मेदारियां (**29 कार्यात्मक विषय**) | **73rd CAA, 1992** (अनुच्छेद 243-G) |
+| **बारहवीं (12th)**| **नगर पालिकाएं (शहरी स्थानीय निकाय)** | नगर पालिकाओं की शक्तियां एवं जिम्मेदारियां (**18 कार्यात्मक विषय**) | **74th CAA, 1992** (अनुच्छेद 243-W) |
+
+> ⚠️ **तीसरी अनुसूची पर परीक्षा का जाल (Exam Trap):** तीन सर्वोच्च संवैधानिक पदों की शपथ **तीसरी अनुसूची में शामिल नहीं है**:
+> 1. **राष्ट्रपति की शपथ:** **अनुच्छेद 60**
+> 2. **उपराष्ट्रपति की शपथ:** **अनुच्छेद 69**
+> 3. **राज्यपाल की शपथ:** **अनुच्छेद 159**
+> *(प्रतियोगी परीक्षाओं में यह प्रश्न बार-बार अभ्यर्थियों को भ्रमित करने के लिए पूछा जाता है!)*
+
+---
+
+## 🏔️ 6. पांचवीं अनुसूची बनाम छठी अनुसूची एवं लद्दाख मुद्दा
+
+| आयाम | पांचवीं अनुसूची (5th Schedule) | छठी अनुसूची (6th Schedule) |
+| :--- | :--- | :--- |
+| **भौगोलिक क्षेत्र** | 10 राज्य: आंध्र प्रदेश, तेलंगाना, छत्तीसगढ़, गुजरात, हिमाचल प्रदेश, झारखंड, मध्य प्रदेश, महाराष्ट्र, ओडिशा, राजस्थान | **पूर्वोत्तर के केवल 4 राज्य:** **असम, मेघालय, त्रिपुरा, मिजोरम (AMTM)** |
+| **प्रशासनिक निकाय** | **जनजाति सलाहकार परिषद (TAC)** (अधिकतम 20 सदस्य) | **स्वायत्त जिला परिषदें (ADCs)** (अधिकतम 30 सदस्य) |
+| **विधायी शक्तियां** | राज्यपाल संसद/विधानसभा के कानूनों को लागू न करने का निर्देश दे सकते हैं | ADCs को भूमि, वन, ग्राम प्रशासन और उत्तराधिकार पर प्रत्यक्ष कानून बनाने की शक्ति है |
+| **न्यायिक शक्तियां** | सामान्य राज्य न्यायपालिका लागू होती है | ADCs को पारंपरिक विवादों के निपटारे हेतु ग्राम अदालतें गठित करने का अधिकार है |
+
+> 📌 **छठी अनुसूची चर्चा में क्यों थी? (Current Affairs Linkage):**
+> - **लद्दाख में विरोध प्रदर्शन:** केंद्र शासित प्रदेश लद्दाख (जिसमें 97% से अधिक जनजातीय आबादी है) की नाजुक हिमालयी पारिस्थितिकी और सांस्कृतिक पहचान की रक्षा हेतु वहां छठी अनुसूची के विस्तार और स्वायत्त जिला परिषदों (ADCs) के गठन की मांग की जा रही है।
+
+---
+
+## 📑 7. सातवीं अनुसूची: शक्तियों का त्रि-स्तरीय विभाजन
+
+अनुच्छेद 246 के तहत केंद्र और राज्यों के मध्य विधायी विषयों का तीन सूचियों में स्पष्ट विभाजन किया गया है:
+
+| सूची | मूल विषय | वर्तमान विषय | प्रमुख उदाहरण |
+| :--- | :---: | :---: | :--- |
+| **संघ सूची (Union List)** | 97 | **100** | रक्षा, परमाणु ऊर्जा, युद्ध एवं शांति, विदेश मामले, नागरिकता, रेलवे, वायुमार्ग, बैंकिंग, बीमा, जनगणना। |
+| **राज्य सूची (State List)** | 66 | **61** | लोक व्यवस्था, पुलिस, जेल, स्थानीय स्वशासन, लोक स्वास्थ्य एवं स्वच्छता, कृषि, मत्स्य पालन, शराब, जुआ। |
+| **समवर्ती सूची (Concurrent List)**| 47 | **52** | दंड विधि, विवाह एवं तलाक, सिविल प्रक्रिया, शिक्षा, वन, विद्युत, मजदूर संघ, आर्थिक एवं सामाजिक योजना। |
+
+### 42वां संविधान संशोधन अधिनियम, 1976 (अति-महत्वपूर्ण):
+इसके द्वारा **5 विषयों को राज्य सूची से समवर्ती सूची में स्थानांतरित** किया गया:
+1. **शिक्षा (Education)**
+2. **वन (Forests)**
+3. **नाप-तौल (Weights and Measures)**
+4. **वन्य जीवों एवं पक्षियों का संरक्षण (Protection of Wild Animals and Birds)**
+5. **न्याय प्रशासन (Administration of Justice)** — सुप्रीम कोर्ट और हाई कोर्ट को छोड़कर अन्य सभी अधीनस्थ न्यायालयों का गठन।
+
+### अवशिष्ट शक्तियां (Residuary Powers — अनुच्छेद 248):
+- जो विषय तीनों सूचियों में वर्णित नहीं हैं, उन पर कानून बनाने का अनन्य अधिकार **संसद को प्राप्त है**।
+- **स्रोत:** **कनाडा के संविधान** से प्रेरित (अमेरिका और ऑस्ट्रेलिया में अवशिष्ट शक्तियां राज्यों के पास हैं)।
+
+### 5 विशेष परिस्थितियां जब संसद राज्य सूची पर कानून बना सकती है:
+1. **राष्ट्रीय आपातकाल के समय (अनुच्छेद 250)**
+2. **राष्ट्रपति शासन लागू होने पर (अनुच्छेद 356)**
+3. **राज्यसभा द्वारा विशेष बहुमत (2/3) से प्रस्ताव पारित करने पर (अनुच्छेद 249)**
+4. **दो या अधिक राज्यों की सहमति/प्रस्ताव पर (अनुच्छेद 252)**
+5. **अंतरराष्ट्रीय संधियों एवं समझौतों को लागू करने हेतु (अनुच्छेद 253)**
+
+---
+
+## 🗣️ 8. आठवीं अनुसूची: 22 आधिकारिक भाषाएं एवं 11 शास्त्रीय भाषाएं (2024 अपडेट)
+
+- **मूल संविधान में भाषाएं:** **14 भाषाएं** (1950 में)।
+- **वर्तमान में कुल भाषाएं:** **22 भाषाएं**।
+
+### भाषाएं जोड़ने वाले संविधान संशोधन:
+- **21वां संशोधन, 1967:** **सिंधी (Sindhi)** को 15वीं भाषा के रूप में जोड़ा गया।
+- **71वां संशोधन, 1992:** **कोंकणी, मणिपुरी, नेपाली (KMN)** को जोड़ा गया।
+- **92वां संशोधन, 2003:** **बोडो, डोगरी, मैथिली, संथाली (BDMS)** को जोड़ा गया (कुल 22 हुईं)।
+- **96वां संशोधन, 2011:** 'उड़िया' (Oriya) का नाम बदलकर **'ओडिया' (Odia)** किया गया।
+
+---
+
+### भारत की शास्त्रीय भाषाएं (Classical Languages of India)
+
+शास्त्रीय भाषा का दर्जा पाने हेतु भाषा का प्रारंभिक ग्रंथों/इतिहास की उच्च प्राचीनता (1500–2000 वर्ष), मूल्यवान प्राचीन साहित्य और मौलिक साहित्यिक परंपरा आवश्यक है।
+
+| चरण | शास्त्रीय भाषा | मान्यता वर्ष |
+| :--- | :--- | :---: |
+| **प्रारंभिक 6 शास्त्रीय भाषाएं** | **तमिल (Tamil)** | 2004 |
+| | **संस्कृत (Sanskrit)** | 2005 |
+| | **तेलुगु (Telugu)** | 2008 |
+| | **कन्नड़ (Kannada)** | 2008 |
+| | **मलयालम (Malayalam)** | 2013 |
+| | **ओडिया (Odia)** | 2014 |
+| **अक्टूबर 2024 में जुड़ीं 5 नई भाषाएं (ताजा अपडेट!)** | **मराठी (Marathi)** | 2024 |
+| | **पाली (Pali)** | 2024 |
+| | **प्राकृत (Prakrit)** | 2024 |
+| | **असमिया (Assamese)** | 2024 |
+| | **बांग्ला (Bengali)** | 2024 |
+
+> 🧠 **प्रारंभिक 6 भाषाओं को याद रखने की ट्रिक:** *"तू शुरू तो कर मैं आरिया (ओडिया)"* $\rightarrow$ **तमिल, संस्कृत, तेलुगु, कन्नड़, मलयालम, ओडिया**।  
+> 🚨 **करंट अफेयर्स अलर्ट:** अक्टूबर 2024 में केंद्रीय मंत्रिमंडल द्वारा 5 नई भाषाओं को मंजूरी मिलने के बाद अब भारत में कुल **11 शास्त्रीय भाषाएं** हो गई हैं।
+
+---
+
+## 🛡️ 9. नौवीं, दसवीं, ग्यारहवीं एवं बारहवीं अनुसूची का विश्लेषण
+
+### नौवीं अनुसूची: भूमि सुधार एवं जमींदारी प्रथा उन्मूलन
+- **जोड़ी गई:** **प्रथम संविधान संशोधन अधिनियम, 1951** द्वारा।
+- **उद्देश्य:** भूमि सुधार कानूनों को मूल अधिकारों के उल्लंघन के आधार पर न्यायालय में चुनौती दिए जाने से सुरक्षा प्रदान करना (अनुच्छेद 31-B)।
+- **ऐतिहासिक निर्णय (आई. आर. कोएल्हो बनाम तमिलनाडु राज्य, 2007):** सुप्रीम कोर्ट की 9 जजों की संविधान पीठ ने फैसला दिया कि **24 अप्रैल 1973** (केशवानंद भारती निर्णय की तिथि) के बाद नौवीं अनुसूची में शामिल किए गए कानूनों की **न्यायिक समीक्षा की जा सकती है**, यदि वे संविधान के बुनियादी ढांचे का उल्लंघन करते हों।
+
+### दसवीं अनुसूची: दलबदल विरोधी कानून (Anti-Defection Law)
+- **जोड़ी गई:** **52वें संविधान संशोधन अधिनियम, 1985** द्वारा (राजीव गांधी सरकार के समय)।
+- **अयोग्यता के आधार:** स्वेच्छा से दल की सदस्यता छोड़ना, पार्टी व्हिप के विरुद्ध मतदान करना या अनुपस्थित रहना, निर्दलीय सदस्य का किसी दल में शामिल होना।
+- **91वां संशोधन 2003:** पहले 1/3 सदस्यों के टूटने (split) को छूट थी, जिसे समाप्त कर दिया गया; अब कम से कम **2/3 सदस्यों का विलय (merger)** अनिवार्य है।
+- **निर्णयकर्ता:** सदन का अध्यक्ष / सभापति (*किहोतो होलोहन केस 1992: अध्यक्ष का निर्णय न्यायिक समीक्षा के अधीन है*)।
+
+### ग्यारहवीं अनुसूची: पंचायती राज
+- **जोड़ी गई:** **73वें संविधान संशोधन अधिनियम, 1992** द्वारा (24 अप्रैल 1993 से प्रभावी — *राष्ट्रीय पंचायती राज दिवस*)।
+- **अनुच्छेद:** **अनुच्छेद 243-G**
+- **कार्यात्मक विषय:** **29 विषय** (कृषि, लघु सिंचाई, ग्रामीण आवास, पेयजल, सड़कें, गरीबी उन्मूलन आदि)।
+
+### बारहवीं अनुसूची: नगर पालिकाएं
+- **जोड़ी गई:** **74वें संविधान संशोधन अधिनियम, 1992** द्वारा (1 जून 1993 से प्रभावी)।
+- **अनुच्छेद:** **अनुच्छेद 243-W**
+- **कार्यात्मक विषय:** **18 विषय** (नगर नियोजन, भूमि उपयोग का नियमन, जलापूर्ति, ठोस अपशिष्ट प्रबंधन, मलिन बस्ती सुधार आदि)।
+
+---
+
+## 🧾 10. त्वरित पुनरीक्षण शीट (Last-Minute Rapid Revision)
+
+> 🚀 **संशोधनों द्वारा जोड़ी गई 4 अनुसूचियों का कालक्रम:**
+> 1951 (1st CAA) $\rightarrow$ **9वीं अनुसूची** (भूमि सुधार)  
+> 1985 (52nd CAA) $\rightarrow$ **10वीं अनुसूची** (दलबदल विरोधी कानून)  
+> 1992 (73rd CAA) $\rightarrow$ **11वीं अनुसूची** (पंचायती राज — 29 विषय)  
+> 1992 (74th CAA) $\rightarrow$ **12वीं अनुसूची** (नगर पालिकाएं — 18 विषय)
+
+### परीक्षा में बार-बार पूछे जाने वाले प्रमुख आंकड़े
+
+- **395 $\rightarrow$ 448+:** अनुच्छेद (Articles)
+- **22 $\rightarrow$ 25:** भाग (Parts)
+- **8 $\rightarrow$ 12:** अनुसूचियां (Schedules)
+- **100, 61, 52:** संघ, राज्य और समवर्ती सूची के वर्तमान विषय
+- **5 विषय:** 42वें संशोधन 1976 द्वारा राज्य से समवर्ती सूची में भेजे गए
+- **22 भाषाएं:** 8वीं अनुसूची में आधिकारिक भाषाएं (14 मूल + 8 जोड़ी गईं)
+- **11 शास्त्रीय भाषाएं:** भारत में कुल शास्त्रीय भाषाएं (6 पुरानी + 5 नई 2024 में)
+- **29 बनाम 18:** 11वीं अनुसूची (पंचायतों के 29 विषय: $2 + 9 = 11$) बनाम 12वीं अनुसूची (नगर पालिकाओं के 18 विषय)
+
+> ✅ **कभी भ्रमित न होने वाले 3 मुख्य अंतर:**
+> 1. **दूसरी बनाम तीसरी अनुसूची:** दूसरी में *वेतन एवं भत्ते (E)* हैं; तीसरी में *शपथ (A)* है (पहले वेतन तय होता है, फिर शपथ ली जाती है)।
+> 2. **पांचवीं बनाम छठी अनुसूची:** पांचवीं 10 राज्यों में लागू है; छठी केवल पूर्वोत्तर के 4 राज्यों **(असम, मेघालय, त्रिपुरा, मिजोरम — AMTM)** में लागू है।
+> 3. **अवशिष्ट शक्तियां:** भारत में संसद के पास हैं (कनाडा से ली गईं), जबकि अमेरिका और ऑस्ट्रेलिया में राज्यों के पास हैं।`
+  },
+  {
+    id: 'note-polity-salient-features-bi',
+    title: 'Salient Features of Indian Constitution & The 12 Schedules (संविधान की विशेषताएं एवं 12 अनुसूचियां - Dual-Coding Notes)',
+    language: 'bilingual',
+    subject: 'Indian Polity (राजव्यवस्था)',
+    category: 'concept',
+    tags: ['Polity', 'Salient Features', '12 Schedules', 'संविधान की विशेषताएं', 'UPSC', 'State PCS'],
+    summary: 'द्वि-कोडिंग शिक्षण पद्धति (Dual-Coding) पर आधारित संपूर्ण परीक्षा नोट्स — English terms और Hindi व्याख्या के साथ 40% तीव्र स्मरण शक्ति।',
+    readingTimeMinutes: 7,
+    isStarred: true,
+    coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:15:00Z',
+    content: `# Salient Features of Indian Constitution & The 12 Schedules (संविधान की विशेषताएं एवं 12 अनुसूचियां)
+
+> 🎯 **Bilingual Master Study Note:** Engineered with the **Dual-Coding Learning Method** (द्वि-कोडिंग पद्धति) — linking English constitutional terminology with in-depth Hindi conceptual clarity for 40% faster retention across UPSC CSE, State PCS, and SSC CGL.
+
+The Constitution of India is the supreme law of the land (देश का सर्वोच्च विधान). It represents an extraordinary synthesis of world constitutions, custom-tailored to suit India's historical, cultural, and geographic diversity.
+
+---
+
+## 📜 1. Lengthiest Written Constitution (विश्व का सबसे लंबा लिखित संविधान)
+
+India's Constitution is the most detailed and comprehensive written constitution in human history.
+
+### Structural Evolution (संरचनात्मक विकास)
+
+| Structural Dimension | Original Constitution (1949) | Present Status (संशोधनों के बाद) |
+| :--- | :---: | :---: |
+| **Preamble (प्रस्तावना)** | 1 | 1 |
+| **Articles (अनुच्छेद)** | **395 Articles** | **448+ Articles** (470+ by sub-clauses) |
+| **Parts (भाग)** | **22 Parts** | **25 Parts** |
+| **Schedules (अनुसूचियां)** | **8 Schedules** | **12 Schedules** |
+
+- **4 New Parts Added (जोड़े गए 4 नए भाग):**
+  - **Part IV-A:** Fundamental Duties (मूल कर्तव्य — 42nd CAA, 1976)
+  - **Part IX-A:** Municipalities (नगर पालिकाएं — 74th CAA, 1992)
+  - **Part IX-B:** Co-operative Societies (सहकारी समितियां — 97th CAA, 2011)
+  - **Part XIV-A:** Tribunals (अधिकरण — 42nd CAA, 1976)
+- **Part Repealed (हटाया गया भाग):** **Part VII** was removed by the **7th Constitutional Amendment Act, 1956**.
+
+### Written vs Unwritten Constitution (लिखित बनाम अलिखित)
+
+| Parameter | Written Constitution (लिखित संविधान) | Unwritten Constitution (अलिखित संविधान) |
+| :--- | :--- | :--- |
+| **Codification (संहिताबद्धता)** | Formally written in a single unified text (एकल पुस्तक में संकलित) | Enacted over centuries through conventions, precedents, statutes |
+| **Supremacy (सर्वोच्चता)** | **Constitution is Supreme** (संविधान सर्वोच्च है) | **Parliament is Supreme** (संसदीय संप्रभुता) |
+| **Judicial Review (न्यायिक समीक्षा)** | Judiciary can strike down unconstitutional laws | Courts cannot invalidate acts of Parliament |
+| **Examples (उदाहरण)** | **India, USA, Australia** | **United Kingdom (UK), New Zealand, Israel** |
+
+---
+
+## 🏛️ 2. Parliamentary Form of Government (सरकार का संसदीय रूप)
+
+Borrowed from the **United Kingdom (UK)**, establishing the Westminster Model of democracy:
+
+- **Executive & Legislature Interdependence:** The Executive (Council of Ministers) is drawn from and directly accountable to the Legislature.
+- **Collective Responsibility (Article 75(3)):** Council of Ministers is collectively responsible to the **Lok Sabha** (सामूहिक उत्तरदायित्व).
+- **Nominal vs Real Head:** President is the titular/nominal executive (*De jure*), while the Prime Minister is the real working executive (*De facto*).
+
+---
+
+## 🤝 3. Federation with Strong Centre (केंद्राभिमुख संघवाद)
+
+Article 1 describes India as a **"Union of States"** (राज्यों का संघ). The Indian federal structure is unique because it blends federal autonomy with unitary emergency powers:
+
+- **3-Tier Government:** Union $\rightarrow$ States $\rightarrow$ Local Bodies (Panchayats & Municipalities).
+
+### Federal vs Unitary Features (संघीय बनाम एकात्मक लक्षण)
+
+| Federal Features (संघीय लक्षण) | Unitary Features (एकात्मक लक्षण) |
+| :--- | :--- |
+| **Dual Government (दोहरी सरकार - केंद्र व राज्य)** | **Single Constitution (एकल संविधान)** |
+| **Written & Supreme Constitution** | **Single Citizenship (एकल नागरिकता)** |
+| **Rigidity for Federal Provisions (Art. 368)** | **Integrated Judiciary (एकीकृत न्यायपालिका)** |
+| **Independent Judiciary (स्वतंत्र न्यायपालिका)** | **All India Services (अखिल भारतीय सेवाएं — Art. 312)** |
+| **Bicameralism (द्विसदनीय व्यवस्था - LS & RS)** | **Emergency Powers (आपातकालीन उपबंध — Arts. 352, 356, 360)** |
+| **Division of Powers (7th Schedule Lists)** | **Governor Appointed by Centre (राज्यपाल की नियुक्ति — Art. 155)** |
+
+### Famous Jurist Opinions on Indian Federalism (विचारकों के कथन)
+
+| Jurist / Scholar | Description / Quotation | Core Exam Takeaway |
+| :--- | :--- | :--- |
+| **K. C. Wheare** | *"Quasi-Federal"* (अर्ध-संघीय) | Unitary state with subsidiary federal features |
+| **Granville Austin** | *"Cooperative Federalism"* (सहकारी संघवाद) | Focus on active inter-governmental coordination |
+| **Sir Ivor Jennings** | *"Federation with centralising tendency"* | Strong gravitational pull toward New Delhi |
+| **Morris Jones** | *"Bargaining Federalism"* (सौदाकारी संघवाद) | Political interplay and bargaining between Centre & States |
+
+---
+
+## ⚖️ 4. Separation of Powers (शक्तियों का पृथक्करण)
+
+- **Legislature (विधायिका):** **Makes Laws** (संसद एवं राज्य विधानमंडल).
+- **Executive (कार्यपालिका):** **Carries out / Implements Laws** (राष्ट्रपति, प्रधानमंत्री, मंत्रिपरिषद एवं नौकरशाही).
+- **Judiciary (न्यायपालिका):** **Interprets Laws & Evaluates Constitutionality** (सर्वोच्च न्यायालय एवं उच्च न्यायालय).
+
+---
+
+## 📋 5. The 12 Schedules (12 अनुसूचियां & "TEARS OF OLD PM" Trick)
+
+> 🧠 **Master Mnemonic — "TEARS OF OLD PM":**
+> - **T:** **T**erritories & States (1st Schedule / राज्य व संघ राज्य क्षेत्र)
+> - **E:** **E**moluments & Salaries (2nd Schedule / वेतन व भत्ते)
+> - **A:** **A**ffirmations & Oaths (3rd Schedule / शपथ के प्रारूप)
+> - **R:** **R**ajya Sabha Seat Allocation (4th Schedule / राज्यसभा में सीटें)
+> - **S:** **S**cheduled Areas (5th Schedule / 10 राज्यों में अनुसूचित क्षेत्र)
+> - **O:** **O**ther Tribal Areas — AMTM (6th Schedule / असम, मेघालय, त्रिपुरा, मिजोरम)
+> - **F:** **F**ederal Lists (7th Schedule / संघ, राज्य, समवर्ती सूचियां)
+> - **O:** **O**fficial Languages (8th Schedule / 22 आधिकारिक भाषाएं)
+> - **L:** **L**and Reforms (9th Schedule / भूमि सुधार — 1st CAA 1951)
+> - **D:** **D**efection (10th Schedule / दलबदल कानून — 52nd CAA 1985)
+> - **P:** **P**anchayats (11th Schedule / पंचायती राज — 73rd CAA 1992, 29 विषय)
+> - **M:** **M**unicipalities (12th Schedule / नगर पालिकाएं — 74th CAA 1992, 18 विषय)
+
+### Complete 12 Schedules Matrix (संपूर्ण तालिका)
+
+| Schedule | Subject Matter | Key Details | Constitutional Source |
+| :---: | :--- | :--- | :---: |
+| **1st** | **Territory of India** | Names & extent of 28 States & 8 Union Territories | Articles 1 & 4 |
+| **2nd** | **Emoluments (वेतन)** | Salary & allowances of President, Governors, Speakers, Judges, CAG | Articles 59, 65, 75, 125, 148 |
+| **3rd** | **Oaths (शपथ)** | Forms of oath for Ministers, MPs, MLAs, Judges, CAG | Articles 75, 84, 99, 124, 173 |
+| **4th** | **Rajya Sabha Seats** | Allocation of seats in Rajya Sabha based on population | Articles 4(1) & 80(2) |
+| **5th** | **Scheduled Areas** | Administration of Scheduled Areas in 10 States | Article 244(1) |
+| **6th** | **Tribal Areas (AMTM)** | Administration of Tribal Areas in **Assam, Meghalaya, Tripura, Mizoram** | Articles 244(2) & 275(1) |
+| **7th** | **Three Lists (3 सूचियां)** | **Union** (100), **State** (61), **Concurrent** (52) | Article 246 |
+| **8th** | **Official Languages** | **22 Languages** (Originally 14) | Articles 344(1) & 351 |
+| **9th** | **Land Reforms** | Acts protected from judicial review (Immunity diluted post-1973) | **1st CAA 1951** (Art. 31-B) |
+| **10th** | **Anti-Defection** | Disqualification on grounds of defection | **52nd CAA 1985** (Arts. 102 & 191) |
+| **11th** | **Panchayati Raj** | Panchayats' authority & powers (**29 Functional Matters**) | **73rd CAA 1992** (Art. 243-G) |
+| **12th** | **Municipalities** | Urban local bodies' powers (**18 Functional Matters**) | **74th CAA 1992** (Art. 243-W) |
+
+> ⚠️ **Exam Trap Alert (Schedule 3):** Oaths of **President (Art. 60)**, **Vice-President (Art. 69)**, and **Governor (Art. 159)** are specified in their respective articles, **NOT in the 3rd Schedule**!
+
+---
+
+## 🏔️ 6. Schedule 5 vs Schedule 6 & The Ladakh Issue
+
+| Feature | 5th Schedule (5वीं अनुसूची) | 6th Schedule (6वीं अनुसूची) |
+| :--- | :--- | :--- |
+| **Coverage** | 10 States (AP, Telangana, CG, Gujarat, HP, Jharkhand, MP, MH, Odisha, Rajasthan) | **Only 4 North-East States:** **Assam, Meghalaya, Tripura, Mizoram (AMTM)** |
+| **Administrative Body** | **Tribes Advisory Council (TAC)** | **Autonomous District Councils (ADCs)** |
+| **Autonomy Level** | Advisory role to the Governor | Substantial legislative, judicial & financial autonomy |
+| **Current Context** | Standard tribal belt protection | **Ladakh Protests:** Demanding 6th Schedule inclusion to safeguard fragile ecosystem & tribal culture |
+
+---
+
+## 📑 7. Schedule 7: Division of Powers (शक्तियों का विभाजन)
+
+| List | Original Count | Current Count | Key Subjects Included |
+| :--- | :---: | :---: | :--- |
+| **Union List (संघ सूची)** | 97 | **100** | Defence, Atomic Energy, Foreign Affairs, Railways, Banking, Census, Airways |
+| **State List (राज्य सूची)** | 66 | **61** | Police, Public Order, Public Health, Agriculture, Prisons, Local Government, Liquor |
+| **Concurrent List (समवर्ती सूची)** | 47 | **52** | Criminal Law, Marriage & Divorce, Electricity, Education, Forests, Trade Unions |
+
+### 42nd Amendment Act 1976 (5 Subjects Transferred to Concurrent List):
+1. **Education (शिक्षा)**
+2. **Forests (वन)**
+3. **Weights & Measures (नाप-तौल)**
+4. **Protection of Wild Animals & Birds (वन्यजीव संरक्षण)**
+5. **Administration of Justice (न्याय प्रशासन)**
+
+### Residuary Powers (अवशिष्ट शक्तियां — Article 248):
+- Any matter not listed in the 3 lists belongs to **Parliament** (Canadian model).
+
+### 5 Exceptional Cases: Parliament Legislating on State List:
+1. **National Emergency (Article 250)**
+2. **President's Rule (Article 356)**
+3. **Rajya Sabha 2/3rd Resolution (Article 249)**
+4. **Consent of 2 or More States (Article 252)**
+5. **International Treaties & Agreements (Article 253)**
+
+---
+
+## 🗣️ 8. Schedule 8: 22 Official Languages & 11 Classical Languages
+
+### Addition of 8 Languages:
+- **21st CAA 1967:** **Sindhi** (15th language)
+- **71st CAA 1992:** **Konkani, Manipuri, Nepali (KMN)** (16th, 17th, 18th)
+- **92nd CAA 2003:** **Bodo, Dogri, Maithili, Santhali (BDMS)** (19th, 20th, 21st, 22nd)
+- **96th CAA 2011:** Name changed from *"Oriya"* to *"Odia"*.
+
+---
+
+### Classical Languages of India (शास्त्रीय भाषाएं)
+
+| Batch | Language | Recognition Year |
+| :--- | :--- | :---: |
+| **Initial 6 Classical Languages** | **Tamil** | 2004 |
+| | **Sanskrit** | 2005 |
+| | **Telugu** | 2008 |
+| | **Kannada** | 2008 |
+| | **Malayalam** | 2013 |
+| | **Odia** | 2014 |
+| **Newly Added in October 2024 (Latest!)** | **Marathi** | 2024 |
+| | **Pali** | 2024 |
+| | **Prakrit** | 2024 |
+| | **Assamese** | 2024 |
+| | **Bengali** | 2024 |
+
+> 🧠 **Trick for Old 6:** *"Tu Shuru To Kar Mai Aariya"* (Tamil, Sanskrit, Telugu, Kannada, Malayalam, Odia).  
+> 🚨 **2024 Current Affairs Fact:** Total Classical Languages in India is now **11**!
+
+---
+
+## 🛡️ 9. Schedules 9, 10, 11 & 12: Landmark Constitutional Evolution
+
+- **9th Schedule (Land Reforms):** Added by **1st CAA 1951**. In *I.R. Coelho Case (2007)*, SC held laws added after **24 April 1973** are subject to judicial review if violating Basic Structure.
+- **10th Schedule (Anti-Defection Law):** Added by **52nd CAA 1985**. Amended by **91st CAA 2003** (split exception removed; 2/3rd merger required).
+- **11th Schedule (Panchayati Raj):** Added by **73rd CAA 1992** (**29 Functional Matters**; Art. 243-G). Effective 24 April 1993 (*Panchayati Raj Day*).
+- **12th Schedule (Municipalities):** Added by **74th CAA 1992** (**18 Functional Matters**; Art. 243-W). Effective 1 June 1993.
+
+---
+
+## 🧾 10. Last-Minute Rapid Revision Sheet (त्वरित पुनरीक्षण)
+
+> 🚀 **Added Schedules Chronology:**
+> 1951 (1st CAA) $\rightarrow$ **9th Schedule**  
+> 1985 (52nd CAA) $\rightarrow$ **10th Schedule**  
+> 1992 (73rd CAA) $\rightarrow$ **11th Schedule** (29 Items)  
+> 1992 (74th CAA) $\rightarrow$ **12th Schedule** (18 Items)
+
+### Key Numbers to Remember:
+- **395 $\rightarrow$ 448+:** Articles
+- **22 $\rightarrow$ 25:** Parts
+- **8 $\rightarrow$ 12:** Schedules
+- **100, 61, 52:** Union, State, Concurrent items
+- **22:** Official Languages
+- **11:** Classical Languages (5 added in 2024)
+- **29 vs 18:** Panchayat vs Municipality subjects ($2 + 9 = 11$)
+
+> ✅ **Key Distinctions to Never Confuse:**
+> 1. **Schedule 2 (Salaries) vs Schedule 3 (Oaths):** First Salary/Emoluments (2), then Work/Oath (3).
+> 2. **Schedule 5 (10 States) vs Schedule 6 (Only AMTM):** Assam, Meghalaya, Tripura, Mizoram.
+> 3. **Residuary Powers:** With Union/Parliament in India (Canada model); with States in US & Australia.`
+  },
+  {
     id: 'note-polity-making-constitution-en',
     title: 'Indian Polity: Making of the Constitution (Comprehensive Exam Notes)',
     language: 'en',
