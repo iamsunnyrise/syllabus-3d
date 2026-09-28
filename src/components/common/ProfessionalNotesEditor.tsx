@@ -2307,8 +2307,21 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
     if (!text) return [];
 
+    // Pre-repair malformed arrows and LaTeX artifacts (e.g. $ ightarrow$, $\rightarrow$, etc.)
+    const cleanArrowText = text
+      .replace(/\$\s*(?:\\)?r?ightarrow\s*\$/gi, ' → ')
+      .replace(/\\rightarrow/g, ' → ')
+      .replace(/\$\s*\\?leftarrow\s*\$/gi, ' ← ')
+      .replace(/\\leftarrow/g, ' ← ')
+      .replace(/\$\s*\\?Longleftrightarrow\s*\$/gi, ' ⟺ ')
+      .replace(/\\Longleftrightarrow/g, ' ⟺ ')
+      .replace(/(\s*)\$\s*ightarrow\s*\$(\s*)/gi, ' → ')
+      .replace(/\$\s*ightarrow\s*/gi, ' → ')
+      .replace(/\s*ightarrow\s*\$/gi, ' → ')
+      .replace(/\s*→\s*/g, ' → ');
+
     // Pre-repair malformed highlight tags (e.g. ==b:==Text==== -> ==b:Text==)
-    const sanitizedText = repairMalformedHighlights(text);
+    const sanitizedText = repairMalformedHighlights(cleanArrowText);
 
     // HIGHLIGHT MUST COME FIRST so bold/code inside highlights don't break the == tags!
     const tokenRegex = /(==+[\s\S]+?==+|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/g;
@@ -3069,11 +3082,43 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               style={{ lineHeight: spacing.lineHeight }}
               className={`${fontSize} ${fontFam} font-medium space-y-2 pl-6 ${spacing.lineHeightClass}`}
             >
-              {calloutLines.map((cl, cIdx) => (
-                <p key={cIdx}>
-                  {parseInlineMarkdown(cl, `callout-${i}-${cIdx}`)}
-                </p>
-              ))}
+              {calloutLines.map((cl, cIdx) => {
+                const trimmedCl = cl.trim();
+                if (!trimmedCl) return null;
+                if (trimmedCl.startsWith('- ') || trimmedCl.startsWith('* ')) {
+                  const itemContent = trimmedCl.slice(2).trim();
+                  const mnemonicMatch = itemContent.match(/^\*\*([A-Za-z0-9])\*\*\s*(?:→|:|-)\s*(.*)/);
+                  if (mnemonicMatch) {
+                    return (
+                      <div
+                        key={cIdx}
+                        className="flex items-center gap-2.5 py-1 px-2.5 rounded-xl bg-white/70 dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] shadow-2xs"
+                      >
+                        <span className="w-5 h-5 rounded-md bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-mono font-black text-[11px] flex items-center justify-center shrink-0">
+                          {mnemonicMatch[1]}
+                        </span>
+                        <span className="text-indigo-500 dark:text-indigo-400 font-black text-xs select-none">→</span>
+                        <span className="flex-1 font-semibold text-slate-800 dark:text-slate-200">
+                          {parseInlineMarkdown(mnemonicMatch[2], `callout-${i}-${cIdx}`)}
+                        </span>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={cIdx} className="flex items-start gap-2.5 py-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70 mt-2 shrink-0" />
+                      <div className="flex-1 leading-relaxed">
+                        {parseInlineMarkdown(itemContent, `callout-${i}-${cIdx}`)}
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <p key={cIdx}>
+                    {parseInlineMarkdown(cl, `callout-${i}-${cIdx}`)}
+                  </p>
+                );
+              })}
             </div>
           </div>
         );

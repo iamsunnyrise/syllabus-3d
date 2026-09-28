@@ -23,6 +23,7 @@ import {
   Share2,
   FileText,
   AlertCircle,
+  Brain,
   Lightbulb,
   ExternalLink,
   BookMarked,
@@ -90,7 +91,7 @@ const INITIAL_DIGITAL_NOTES: DigitalNote[] = [
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-28T08:15:00Z',
-    updatedAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# Salient Features of Indian Constitution & The 12 Schedules
 
 > 🎯 **Exam-Ready Master Note:** A structured, high-yield guide to the salient features of the Indian Constitution, federal vs unitary dynamics, jurist perspectives, separation of powers, and an in-depth breakdown of all 12 Schedules with mnemonics (TEARS OF OLD PM) and 2024 Classical Language additions for UPSC CSE, State PCS, and SSC CGL.
@@ -196,18 +197,18 @@ The Constitution maintains a functional distribution of powers among the three o
 The original Constitution of 1949 contained **8 Schedules**. Through constitutional amendments, **4 new Schedules (9, 10, 11, and 12)** were added, bringing the total to **12 Schedules**.
 
 > 🧠 **Master Mnemonic — "TEARS OF OLD PM":**
-> - **T** $\rightarrow$ **T**erritories (Schedule 1)
-> - **E** $\rightarrow$ **E**moluments & Salaries (Schedule 2)
-> - **A** $\rightarrow$ **A**ffirmations & Oaths (Schedule 3)
-> - **R** $\rightarrow$ **R**ajya Sabha Seat Allocation (Schedule 4)
-> - **S** $\rightarrow$ **S**cheduled Areas Administration (Schedule 5)
-> - **O** $\rightarrow$ **O**ther Tribal Areas: Assam, Meghalaya, Tripura, Mizoram (Schedule 6)
-> - **F** $\rightarrow$ **F**ederal Lists — Union, State, Concurrent (Schedule 7)
-> - **O** $\rightarrow$ **O**fficial Languages (Schedule 8)
-> - **L** $\rightarrow$ **L**and Reforms & Zamindari Abolition (Schedule 9)
-> - **D** $\rightarrow$ **D**efection / Anti-Defection Law (Schedule 10)
-> - **P** $\rightarrow$ **P**anchayat Raj (Schedule 11)
-> - **M** $\rightarrow$ **M**unicipalities (Schedule 12)
+> - **T** → **T**erritories (Schedule 1)
+> - **E** → **E**moluments & Salaries (Schedule 2)
+> - **A** → **A**ffirmations & Oaths (Schedule 3)
+> - **R** → **R**ajya Sabha Seat Allocation (Schedule 4)
+> - **S** → **S**cheduled Areas Administration (Schedule 5)
+> - **O** → **O**ther Tribal Areas: Assam, Meghalaya, Tripura, Mizoram (Schedule 6)
+> - **F** → **F**ederal Lists — Union, State, Concurrent (Schedule 7)
+> - **O** → **O**fficial Languages (Schedule 8)
+> - **L** → **L**and Reforms & Zamindari Abolition (Schedule 9)
+> - **D** → **D**efection / Anti-Defection Law (Schedule 10)
+> - **P** → **P**anchayat Raj (Schedule 11)
+> - **M** → **M**unicipalities (Schedule 12)
 
 ### Complete Master Table of All 12 Schedules
 
@@ -310,7 +311,7 @@ To be declared a Classical Language, a language must possess high antiquity of e
 | | **Assamese** | 2024 |
 | | **Bengali** | 2024 |
 
-> 🧠 **Mnemonic for the Initial 6:** *"Tu Shuru To Kar Mai Aariya"* $\rightarrow$ **T**amil, **S**anskrit, **T**elugu, **K**annada, **M**alayalam, **O**dia.  
+> 🧠 **Mnemonic for the Initial 6:** *"Tu Shuru To Kar Mai Aariya"* → **T**amil, **S**anskrit, **T**elugu, **K**annada, **M**alayalam, **O**dia.  
 > 🚨 **Current Affairs Flash:** India now has a total of **11 Classical Languages** after the Union Cabinet added 5 new languages in October 2024.
 
 ---
@@ -343,16 +344,16 @@ To be declared a Classical Language, a language must possess high antiquity of e
 ## 🧾 10. Last-Minute Rapid Revision Sheet
 
 > 🚀 **Sequence of Added Schedules:**
-> 1951 (1st CAA) $\rightarrow$ **9th Schedule** (Land Reforms)  
-> 1985 (52nd CAA) $\rightarrow$ **10th Schedule** (Anti-Defection)  
-> 1992 (73rd CAA) $\rightarrow$ **11th Schedule** (Panchayats - 29 Matters)  
-> 1992 (74th CAA) $\rightarrow$ **12th Schedule** (Municipalities - 18 Matters)
+> - **1951 (1st CAA)** → **9th Schedule** (Land Reforms)  
+> - **1985 (52nd CAA)** → **10th Schedule** (Anti-Defection)  
+> - **1992 (73rd CAA)** → **11th Schedule** (Panchayats - 29 Matters)  
+> - **1992 (74th CAA)** → **12th Schedule** (Municipalities - 18 Matters)
 
 ### High-Frequency Exam Numbers
 
-- **395 $\rightarrow$ 448+:** Articles
-- **22 $\rightarrow$ 25:** Parts
-- **8 $\rightarrow$ 12:** Schedules
+- **395 → 448+:** Articles
+- **22 → 25:** Parts
+- **8 → 12:** Schedules
 - **100, 61, 52:** Current Subjects in Union, State, and Concurrent Lists
 - **5 Subjects:** Transferred from State to Concurrent List by 42nd CAA 1976
 - **22 Languages:** Recognized in Schedule 8 (14 original + 1 Sindhi + 3 KMN + 4 BDMS)
@@ -376,7 +377,7 @@ To be declared a Classical Language, a language must possess high antiquity of e
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-28T08:15:00Z',
-    updatedAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# भारतीय संविधान की प्रमुख विशेषताएं एवं 12 अनुसूचियां: संपूर्ण परीक्षा नोट्स
 
 > 🎯 **परीक्षा उपयोगी मास्टर नोट:** भारतीय संविधान की प्रमुख विशेषताएं, एकात्मक बनाम संघीय लक्षण, न्यायविदों के प्रसिद्ध कथन, शक्ति पृथक्करण, 12 अनुसूचियों का विस्तृत विश्लेषण (TEARS OF OLD PM ट्रिक के साथ) एवं अक्टूबर 2024 में जुड़ी नई 5 शास्त्रीय भाषाओं का संपूर्ण कवरेज।
@@ -480,18 +481,18 @@ To be declared a Classical Language, a language must possess high antiquity of e
 मूल संविधान (1949) में **8 अनुसूचियां** थीं। संशोधनों के माध्यम से 4 नई अनुसूचियां जोड़कर अब कुल **12 अनुसूचियां** हैं।
 
 > 🧠 **याद रखने की अचूक ट्रिक — "TEARS OF OLD PM":**
-> - **T** $\rightarrow$ **T**erritories (1. राज्य एवं संघ राज्य क्षेत्र)
-> - **E** $\rightarrow$ **E**moluments (2. वेतन एवं भत्ते)
-> - **A** $\rightarrow$ **A**ffirmations & Oaths (3. शपथ एवं प्रतिज्ञान)
-> - **R** $\rightarrow$ **R**ajya Sabha (4. राज्यसभा में सीटों का आवंटन)
-> - **S** $\rightarrow$ **S**cheduled Areas (5. अनुसूचित क्षेत्रों का प्रशासन)
-> - **O** $\rightarrow$ **O**ther Tribal Areas (6. पूर्वोत्तर के 4 जनजातीय राज्य — AMTM)
-> - **F** $\rightarrow$ **F**ederal Lists (7. केंद्र-राज्य शक्तियों का विभाजन — 3 सूचियां)
-> - **O** $\rightarrow$ **O**fficial Languages (8. 22 मान्यता प्राप्त भाषाएं)
-> - **L** $\rightarrow$ **L**and Reforms (9. भूमि सुधार एवं जमींदारी प्रथा उन्मूलन)
-> - **D** $\rightarrow$ **D**efection (10. दलबदल विरोधी कानून)
-> - **P** $\rightarrow$ **P**anchayats (11. पंचायती राज — 29 विषय)
-> - **M** $\rightarrow$ **M**unicipalities (12. नगर पालिकाएं — 18 विषय)
+> - **T** → **T**erritories (1. राज्य एवं संघ राज्य क्षेत्र)
+> - **E** → **E**moluments (2. वेतन एवं भत्ते)
+> - **A** → **A**ffirmations & Oaths (3. शपथ एवं प्रतिज्ञान)
+> - **R** → **R**ajya Sabha (4. राज्यसभा में सीटों का आवंटन)
+> - **S** → **S**cheduled Areas (5. अनुसूचित क्षेत्रों का प्रशासन)
+> - **O** → **O**ther Tribal Areas (6. पूर्वोत्तर के 4 जनजातीय राज्य — AMTM)
+> - **F** → **F**ederal Lists (7. केंद्र-राज्य शक्तियों का विभाजन — 3 सूचियां)
+> - **O** → **O**fficial Languages (8. 22 मान्यता प्राप्त भाषाएं)
+> - **L** → **L**and Reforms (9. भूमि सुधार एवं जमींदारी प्रथा उन्मूलन)
+> - **D** → **D**efection (10. दलबदल विरोधी कानून)
+> - **P** → **P**anchayats (11. पंचायती राज — 29 विषय)
+> - **M** → **M**unicipalities (12. नगर पालिकाएं — 18 विषय)
 
 ### 12 अनुसूचियों का संपूर्ण विवरण तालिका
 
@@ -594,7 +595,7 @@ To be declared a Classical Language, a language must possess high antiquity of e
 | | **असमिया (Assamese)** | 2024 |
 | | **बांग्ला (Bengali)** | 2024 |
 
-> 🧠 **प्रारंभिक 6 भाषाओं को याद रखने की ट्रिक:** *"तू शुरू तो कर मैं आरिया (ओडिया)"* $\rightarrow$ **तमिल, संस्कृत, तेलुगु, कन्नड़, मलयालम, ओडिया**।  
+> 🧠 **प्रारंभिक 6 भाषाओं को याद रखने की ट्रिक:** *"तू शुरू तो कर मैं आरिया (ओडिया)"* → **तमिल, संस्कृत, तेलुगु, कन्नड़, मलयालम, ओडिया**।  
 > 🚨 **करंट अफेयर्स अलर्ट:** अक्टूबर 2024 में केंद्रीय मंत्रिमंडल द्वारा 5 नई भाषाओं को मंजूरी मिलने के बाद अब भारत में कुल **11 शास्त्रीय भाषाएं** हो गई हैं।
 
 ---
@@ -627,16 +628,16 @@ To be declared a Classical Language, a language must possess high antiquity of e
 ## 🧾 10. त्वरित पुनरीक्षण शीट (Last-Minute Rapid Revision)
 
 > 🚀 **संशोधनों द्वारा जोड़ी गई 4 अनुसूचियों का कालक्रम:**
-> 1951 (1st CAA) $\rightarrow$ **9वीं अनुसूची** (भूमि सुधार)  
-> 1985 (52nd CAA) $\rightarrow$ **10वीं अनुसूची** (दलबदल विरोधी कानून)  
-> 1992 (73rd CAA) $\rightarrow$ **11वीं अनुसूची** (पंचायती राज — 29 विषय)  
-> 1992 (74th CAA) $\rightarrow$ **12वीं अनुसूची** (नगर पालिकाएं — 18 विषय)
+> - **1951 (1st CAA)** → **9वीं अनुसूची** (भूमि सुधार)  
+> - **1985 (52nd CAA)** → **10वीं अनुसूची** (दलबदल विरोधी कानून)  
+> - **1992 (73rd CAA)** → **11वीं अनुसूची** (पंचायती राज — 29 विषय)  
+> - **1992 (74th CAA)** → **12वीं अनुसूची** (नगर पालिकाएं — 18 विषय)
 
 ### परीक्षा में बार-बार पूछे जाने वाले प्रमुख आंकड़े
 
-- **395 $\rightarrow$ 448+:** अनुच्छेद (Articles)
-- **22 $\rightarrow$ 25:** भाग (Parts)
-- **8 $\rightarrow$ 12:** अनुसूचियां (Schedules)
+- **395 → 448+:** अनुच्छेद (Articles)
+- **22 → 25:** भाग (Parts)
+- **8 → 12:** अनुसूचियां (Schedules)
 - **100, 61, 52:** संघ, राज्य और समवर्ती सूची के वर्तमान विषय
 - **5 विषय:** 42वें संशोधन 1976 द्वारा राज्य से समवर्ती सूची में भेजे गए
 - **22 भाषाएं:** 8वीं अनुसूची में आधिकारिक भाषाएं (14 मूल + 8 जोड़ी गईं)
@@ -660,7 +661,7 @@ To be declared a Classical Language, a language must possess high antiquity of e
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-28T08:15:00Z',
-    updatedAt: '2026-09-28T08:15:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# Salient Features of Indian Constitution & The 12 Schedules (संविधान की विशेषताएं एवं 12 अनुसूचियां)
 
 > 🎯 **Bilingual Master Study Note:** Engineered with the **Dual-Coding Learning Method** (द्वि-कोडिंग पद्धति) — linking English constitutional terminology with in-depth Hindi conceptual clarity for 40% faster retention across UPSC CSE, State PCS, and SSC CGL.
@@ -714,7 +715,7 @@ Borrowed from the **United Kingdom (UK)**, establishing the Westminster Model of
 
 Article 1 describes India as a **"Union of States"** (राज्यों का संघ). The Indian federal structure is unique because it blends federal autonomy with unitary emergency powers:
 
-- **3-Tier Government:** Union $\rightarrow$ States $\rightarrow$ Local Bodies (Panchayats & Municipalities).
+- **3-Tier Government:** Union → States → Local Bodies (Panchayats & Municipalities).
 
 ### Federal vs Unitary Features (संघीय बनाम एकात्मक लक्षण)
 
@@ -864,15 +865,15 @@ Article 1 describes India as a **"Union of States"** (राज्यों क�
 ## 🧾 10. Last-Minute Rapid Revision Sheet (त्वरित पुनरीक्षण)
 
 > 🚀 **Added Schedules Chronology:**
-> 1951 (1st CAA) $\rightarrow$ **9th Schedule**  
-> 1985 (52nd CAA) $\rightarrow$ **10th Schedule**  
-> 1992 (73rd CAA) $\rightarrow$ **11th Schedule** (29 Items)  
-> 1992 (74th CAA) $\rightarrow$ **12th Schedule** (18 Items)
+> - **1951 (1st CAA)** → **9th Schedule**  
+> - **1985 (52nd CAA)** → **10th Schedule**  
+> - **1992 (73rd CAA)** → **11th Schedule** (29 Items)  
+> - **1992 (74th CAA)** → **12th Schedule** (18 Items)
 
 ### Key Numbers to Remember:
-- **395 $\rightarrow$ 448+:** Articles
-- **22 $\rightarrow$ 25:** Parts
-- **8 $\rightarrow$ 12:** Schedules
+- **395 → 448+:** Articles
+- **22 → 25:** Parts
+- **8 → 12:** Schedules
 - **100, 61, 52:** Union, State, Concurrent items
 - **22:** Official Languages
 - **11:** Classical Languages (5 added in 2024)
@@ -895,7 +896,7 @@ Article 1 describes India as a **"Union of States"** (राज्यों क�
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-27T18:00:00Z',
-    updatedAt: '2026-09-28T08:00:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# Making of the Indian Constitution: Comprehensive Exam Notes
 
 > 🎯 **Exam-Ready Master Note:** A structured, high-yield guide to the constitutional background, Constituent Assembly, Drafting Committee, major committees, landmark dates, and crucial facts for UPSC CSE, State PCS, SSC CGL & Judiciary.
@@ -980,10 +981,10 @@ The Constitution lays down the fundamental political principles of the state; es
 - **Three Recognized Communities:** **Muslim, Sikh, and General** (all others).
 
 > 🧠 **Mnemonic — ABCD:** The 4 Chief Commissioners' Provinces were:
-> - **A** $\rightarrow$ **Ajmer-Merwara**
-> - **B** $\rightarrow$ **British Baluchistan**
-> - **C** $\rightarrow$ **Coorg**
-> - **D** $\rightarrow$ **Delhi**
+> - **A** → **Ajmer-Merwara**
+> - **B** → **British Baluchistan**
+> - **C** → **Coorg**
+> - **D** → **Delhi**
 
 ### July–August 1946 Election Results (296 Seats)
 
@@ -1187,7 +1188,7 @@ From 15 August 1947 until 1952, the Constituent Assembly operated with a dual ma
 ## 🧾 10. Last-Minute Revision Sheet & Quick Recall
 
 > 🚀 **Sequence to Remember:**
-> 1928 Nehru Report $\rightarrow$ 1934 M. N. Roy $\rightarrow$ 1935 INC Demand $\rightarrow$ 1940 August Offer $\rightarrow$ 1942 Cripps Mission $\rightarrow$ 1945 Wavell Plan $\rightarrow$ 1946 Cabinet Mission & 1st Assembly Meeting $\rightarrow$ 1947 Drafting Committee & Independence $\rightarrow$ 1949 Adoption (26 Nov) $\rightarrow$ 1950 Commencement (26 Jan).
+> 1928 Nehru Report → 1934 M. N. Roy → 1935 INC Demand → 1940 August Offer → 1942 Cripps Mission → 1945 Wavell Plan → 1946 Cabinet Mission & 1st Assembly Meeting → 1947 Drafting Committee & Independence → 1949 Adoption (26 Nov) → 1950 Commencement (26 Jan).
 
 ### High-Frequency Exam Numbers
 
@@ -1232,7 +1233,7 @@ From 15 August 1947 until 1952, the Constituent Assembly operated with a dual ma
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-28T08:00:00Z',
-    updatedAt: '2026-09-28T08:00:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# भारतीय संविधान का निर्माण: संपूर्ण परीक्षा नोट्स
 
 > 🎯 **परीक्षा उपयोगी मास्टर नोट:** संविधान की पृष्ठभूमि, संविधान सभा, प्रारूप समिति, प्रमुख समितियां, ऐतिहासिक तिथियां और परीक्षा में बार-बार पूछे जाने वाले उच्च-उपज तथ्यों का एक संरचित गाइड।
@@ -1317,10 +1318,10 @@ From 15 August 1947 until 1952, the Constituent Assembly operated with a dual ma
 - **तीन मुख्य समुदाय:** **मुस्लिम, सिख, एवं सामान्य** (मुस्लिम व सिख को छोड़कर शेष सभी)।
 
 > 🧠 **स्मरण सूत्र (Mnemonic) — ABCD:** मुख्य आयुक्तों के 4 प्रांत:
-> - **A** $\rightarrow$ **अजमेर-मेरवाड़ा (Ajmer-Merwara)**
-> - **B** $\rightarrow$ **ब्रिटिश बलूचिस्तान (British Baluchistan)**
-> - **C** $\rightarrow$ **कुर्ग (Coorg)**
-> - **D** $\rightarrow$ **दिल्ली (Delhi)**
+> - **A** → **अजमेर-मेरवाड़ा (Ajmer-Merwara)**
+> - **B** → **ब्रिटिश बलूचिस्तान (British Baluchistan)**
+> - **C** → **कुर्ग (Coorg)**
+> - **D** → **दिल्ली (Delhi)**
 
 ### जुलाई-अगस्त 1946 चुनाव परिणाम (296 सीटें)
 
@@ -1516,7 +1517,7 @@ From 15 August 1947 until 1952, the Constituent Assembly operated with a dual ma
 ## 🧾 10. त्वरित पुनरीक्षण शीट (Last-Minute Revision)
 
 > 🚀 **घटनाक्रम का सही क्रम:**
-> 1928 नेहरू रिपोर्ट $\rightarrow$ 1934 एम. एन. रॉय $\rightarrow$ 1935 कांग्रेस की मांग $\rightarrow$ 1940 अगस्त प्रस्ताव $\rightarrow$ 1942 क्रिप्स मिशन $\rightarrow$ 1945 वेवेल योजना $\rightarrow$ 1946 कैबिनेट मिशन एवं प्रथम बैठक $\rightarrow$ 1947 प्रारूप समिति एवं स्वतंत्रता $\rightarrow$ 1949 अंगीकरण (26 Nov) $\rightarrow$ 1950 संविधान लागू (26 Jan)।
+> 1928 नेहरू रिपोर्ट → 1934 एम. एन. रॉय → 1935 कांग्रेस की मांग → 1940 अगस्त प्रस्ताव → 1942 क्रिप्स मिशन → 1945 वेवेल योजना → 1946 कैबिनेट मिशन एवं प्रथम बैठक → 1947 प्रारूप समिति एवं स्वतंत्रता → 1949 अंगीकरण (26 Nov) → 1950 संविधान लागू (26 Jan)।
 
 ### परीक्षा में सर्वाधिक पूछे जाने वाले महत्वपूर्ण अंक
 
@@ -1547,7 +1548,7 @@ From 15 August 1947 until 1952, the Constituent Assembly operated with a dual ma
     isStarred: true,
     coverImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     createdAt: '2026-09-28T08:00:00Z',
-    updatedAt: '2026-09-28T08:00:00Z',
+    updatedAt: '2026-09-28T08:45:00Z',
     content: `# Making of the Indian Constitution (भारतीय संविधान का निर्माण - Bilingual Exam Notes)
 
 > 🎯 **Bilingual Master Study Note:** Designed with the **Dual-Coding Learning Method** (द्वि-कोडिंग शिक्षण पद्धति) — linking English terms and Hindi explanations side-by-side to boost conceptual retention by 40% for UPSC CSE, State PCS, and SSC CGL.
@@ -1733,7 +1734,7 @@ The Constitution of India is the supreme law of the land (देश का स�
 ## 🧾 10. Last-Minute Revision Sheet (त्वरित पुनरीक्षण)
 
 > 🚀 **Timeline Sequence:**
-> 1928 Nehru Report $\rightarrow$ 1934 M. N. Roy $\rightarrow$ 1935 INC Demand $\rightarrow$ 1940 August Offer $\rightarrow$ 1942 Cripps Mission $\rightarrow$ 1945 Wavell Plan $\rightarrow$ 1946 Cabinet Mission $\rightarrow$ 1947 Drafting Committee $\rightarrow$ 1949 Adoption (26 Nov) $\rightarrow$ 1950 Commencement (26 Jan).
+> 1928 Nehru Report → 1934 M. N. Roy → 1935 INC Demand → 1940 August Offer → 1942 Cripps Mission → 1945 Wavell Plan → 1946 Cabinet Mission → 1947 Drafting Committee → 1949 Adoption (26 Nov) → 1950 Commencement (26 Jan).
 
 > ✅ **Three Dates to Never Confuse (3 प्रमुख तिथियां):**
 > 1. **26 November 1949:** Constitution **Adopted** (संविधान दिवस).
@@ -2031,17 +2032,69 @@ const getAlignments = (sepRow: string): ('left' | 'center' | 'right')[] => {
   });
 };
 
-// Rich Inline Markdown Parser for bold, italic, code badge, highlights, and links
+// Rich Inline Markdown Parser for bold, italic, code badge, highlights, links, and clean arrows
 export const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
   if (!text) return [];
 
-  // Match bold (**text**), italic (*text*), code (`text`), highlight (==text==), and link ([text](url))
-  const tokenRegex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|==[^=]+==|\[[^\]]+\]\([^)]+\))/g;
-  const parts = text.split(tokenRegex);
+  // 1. Normalize all variations of LaTeX arrow artifacts, escaped carriage returns, and raw LaTeX
+  const normalizedText = text
+    .replace(/\$\s*(?:\\)?r?ightarrow\s*\$/gi, ' → ')
+    .replace(/\\rightarrow/g, ' → ')
+    .replace(/\$\s*\\?leftarrow\s*\$/gi, ' ← ')
+    .replace(/\\leftarrow/g, ' ← ')
+    .replace(/\$\s*\\?Longleftrightarrow\s*\$/gi, ' ⟺ ')
+    .replace(/\\Longleftrightarrow/g, ' ⟺ ')
+    .replace(/(\s*)\$\s*ightarrow\s*\$(\s*)/gi, ' → ')
+    .replace(/\$\s*ightarrow\s*/gi, ' → ')
+    .replace(/\s*ightarrow\s*\$/gi, ' → ')
+    .replace(/\s*→\s*/g, ' → ');
+
+  // Match bold (**text**), italic (*text*), code (`text`), highlight (==text==), link ([text](url)), and arrows (→, ←, ⟺)
+  const tokenRegex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|==[^=]+==|\[[^\]]+\]\([^)]+\)|→|←|⟺)/g;
+  const parts = normalizedText.split(tokenRegex);
 
   return parts.map((part, index) => {
     const k = `${keyPrefix}-${index}`;
     if (!part) return null;
+
+    // Arrow (→)
+    if (part === '→') {
+      return (
+        <span
+          key={k}
+          className="inline-flex items-center justify-center mx-1.5 text-indigo-600 dark:text-indigo-400 font-black text-sm select-none align-middle"
+          aria-hidden="true"
+        >
+          →
+        </span>
+      );
+    }
+
+    // Arrow (←)
+    if (part === '←') {
+      return (
+        <span
+          key={k}
+          className="inline-flex items-center justify-center mx-1.5 text-indigo-600 dark:text-indigo-400 font-black text-sm select-none align-middle"
+          aria-hidden="true"
+        >
+          ←
+        </span>
+      );
+    }
+
+    // Arrow (⟺)
+    if (part === '⟺') {
+      return (
+        <span
+          key={k}
+          className="inline-flex items-center justify-center mx-1.5 text-indigo-600 dark:text-indigo-400 font-black text-sm select-none align-middle"
+          aria-hidden="true"
+        >
+          ⟺
+        </span>
+      );
+    }
 
     // Bold (**text**)
     if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
@@ -2340,7 +2393,7 @@ export const renderProfessionalNotesContent = (
       }
     }
 
-    // 9. Callout / Exam Trap / Note Block (> ...)
+    // 9. Callout / Exam Trap / Mnemonic / Note Block (> ...)
     if (trimmed.startsWith('>')) {
       const quoteLines: string[] = [];
       while (i < lines.length && lines[i].trim().startsWith('>')) {
@@ -2351,6 +2404,7 @@ export const renderProfessionalNotesContent = (
       const isTrap = /⚠️|trap|warning|alert|danger|caution/i.test(quoteText);
       const isTip = /💡|tip|trick|shortcut|remember/i.test(quoteText);
       const isKey = /🔑|key|crucial|concept|highlight/i.test(quoteText);
+      const isMnemonic = /🧠|mnemonic|yad|yaad|trick|स्मरण/i.test(quoteText);
 
       let cardBorder = 'border-indigo-500/40 border-l-4';
       let cardBg = 'bg-indigo-50/70 dark:bg-indigo-950/25';
@@ -2358,7 +2412,7 @@ export const renderProfessionalNotesContent = (
       let textColor = 'text-slate-800 dark:text-slate-200';
       let iconColor = 'text-indigo-600 dark:text-indigo-400';
       let calloutTitle = 'Important Note';
-      let IconComponent = BookOpen;
+      let IconComponent: React.ComponentType<{ className?: string }> = BookOpen;
 
       if (isTrap) {
         cardBorder = 'border-amber-500/60 border-l-4';
@@ -2376,6 +2430,14 @@ export const renderProfessionalNotesContent = (
         iconColor = 'text-emerald-600 dark:text-emerald-400';
         calloutTitle = 'Exam Shortcut & Pro Tip';
         IconComponent = Lightbulb;
+      } else if (isMnemonic) {
+        cardBorder = 'border-purple-500/60 border-l-4';
+        cardBg = 'bg-gradient-to-br from-purple-50/90 via-indigo-50/50 to-pink-50/30 dark:from-purple-950/30 dark:via-indigo-950/20 dark:to-pink-950/15';
+        titleColor = 'text-purple-800 dark:text-purple-300';
+        textColor = 'text-purple-950 dark:text-purple-100';
+        iconColor = 'text-purple-600 dark:text-purple-400';
+        calloutTitle = 'Master Mnemonic & Memory Anchor';
+        IconComponent = Brain;
       } else if (isKey) {
         cardBorder = 'border-purple-500/60 border-l-4';
         cardBg = 'bg-purple-50/80 dark:bg-purple-950/25';
@@ -2391,12 +2453,82 @@ export const renderProfessionalNotesContent = (
           key={`callout-${i}`}
           className={`my-5 p-4 sm:p-5 rounded-r-2xl rounded-l-md border ${cardBorder} ${cardBg} shadow-2xs transition-all`}
         >
-          <div className="flex items-center gap-2 mb-2 font-black text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 mb-3 font-black text-xs uppercase tracking-wider">
             <IconComponent className={`w-4 h-4 shrink-0 ${iconColor}`} />
             <span className={titleColor}>{calloutTitle}</span>
           </div>
-          <div className={`text-xs sm:text-sm leading-relaxed ${textColor} font-medium`}>
-            {parseInlineMarkdown(quoteText, `callout-${i}`)}
+          <div className={`text-xs sm:text-sm leading-relaxed ${textColor} font-medium space-y-2`}>
+            {quoteLines.map((qLine, qIdx) => {
+              const trimmedQ = qLine.trim();
+              if (!trimmedQ) return null;
+
+              // Bullet item inside callout (- or *)
+              if (trimmedQ.startsWith('- ') || trimmedQ.startsWith('* ')) {
+                const itemContent = trimmedQ.slice(2).trim();
+
+                // Check for single-letter or short token mnemonic item, e.g. "**T** → Territories" or "**T:** Territories"
+                const mnemonicMatch = itemContent.match(/^\*\*([A-Za-z0-9])\*\*\s*(?:→|:|-)\s*(.*)/);
+                if (mnemonicMatch) {
+                  const letter = mnemonicMatch[1];
+                  const rest = mnemonicMatch[2];
+                  return (
+                    <div
+                      key={qIdx}
+                      className="flex items-center gap-2.5 py-1.5 px-3 rounded-xl bg-white/80 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.07] shadow-2xs hover:border-purple-300 dark:hover:border-purple-700/50 transition-all"
+                    >
+                      <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                        {letter}
+                      </span>
+                      <span className="text-indigo-500 dark:text-indigo-400 font-black select-none text-xs">→</span>
+                      <span className="flex-1 font-semibold text-slate-800 dark:text-slate-200 text-xs sm:text-[13px]">
+                        {parseInlineMarkdown(rest, `callout-${i}-${qIdx}`)}
+                      </span>
+                    </div>
+                  );
+                }
+
+                // Check if it's a timeline sequence step with an arrow, e.g. "**1951 (1st CAA)** → **9th Schedule**"
+                if (itemContent.includes('→')) {
+                  return (
+                    <div
+                      key={qIdx}
+                      className="flex items-center gap-2 py-1 px-2.5 rounded-lg bg-white/50 dark:bg-white/[0.02] border border-slate-200/40 dark:border-white/[0.04]"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shrink-0" />
+                      <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
+                        {parseInlineMarkdown(itemContent, `callout-${i}-${qIdx}`)}
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Standard bullet list item
+                return (
+                  <div key={qIdx} className="flex items-start gap-2.5 py-0.5 pl-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/70 dark:bg-indigo-400/70 mt-2 shrink-0" />
+                    <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
+                      {parseInlineMarkdown(itemContent, `callout-${i}-${qIdx}`)}
+                    </div>
+                  </div>
+                );
+              }
+
+              // Sub-heading inside callout (### or ##)
+              if (trimmedQ.startsWith('### ') || trimmedQ.startsWith('## ')) {
+                return (
+                  <div key={qIdx} className="font-black text-xs sm:text-sm text-slate-900 dark:text-white pt-1">
+                    {parseInlineMarkdown(trimmedQ.replace(/^#+\s*/, ''), `callout-${i}-${qIdx}`)}
+                  </div>
+                );
+              }
+
+              // Standard paragraph inside callout
+              return (
+                <p key={qIdx} className="leading-relaxed">
+                  {parseInlineMarkdown(trimmedQ, `callout-${i}-${qIdx}`)}
+                </p>
+              );
+            })}
           </div>
         </div>
       );

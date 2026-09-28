@@ -17,17 +17,17 @@ Whenever the user provides a PDF, topic name, or asks to create/generate notes:
 ### Adapting Sections by Subject / Domain:
 
 - **Polity & Governance**:
-  - Background & Philosophy $\rightarrow$ Constitutional Evolution $\rightarrow$ Composition & Allocations $\rightarrow$ Institutions & Powers $\rightarrow$ Landmark Articles & Amendments $\rightarrow$ Working Committees $\rightarrow$ Landmark Supreme Court Judgments $\rightarrow$ Exam Traps $\rightarrow$ Rapid Revision Sheet.
+  - Background & Philosophy → Constitutional Evolution → Composition & Allocations → Institutions & Powers → Landmark Articles & Amendments → Working Committees → Landmark Supreme Court Judgments → Exam Traps → Rapid Revision Sheet.
 - **History (Ancient / Medieval / Modern / World)**:
-  - Historical Context $\rightarrow$ Primary Causes & Grievances $\rightarrow$ Major Leaders & Personalities $\rightarrow$ Chronological Outbreak & Geographic Spread $\rightarrow$ Treaties, Acts & British Response $\rightarrow$ Causes of Outcome / Legacy $\rightarrow$ Quotes & Contemporary Literature $\rightarrow$ High-Yield One-Liners $\rightarrow$ Chronology Sequence & Revision Sheet.
+  - Historical Context → Primary Causes & Grievances → Major Leaders & Personalities → Chronological Outbreak & Geographic Spread → Treaties, Acts & British Response → Causes of Outcome / Legacy → Quotes & Contemporary Literature → High-Yield One-Liners → Chronology Sequence & Revision Sheet.
 - **Science (Biology, Physics, Chemistry)**:
-  - Anatomy / Core Structure $\rightarrow$ Physiological Mechanism / Working Process $\rightarrow$ Key Equations / Chemical Reactions / Enzymes $\rightarrow$ Regulation & Factors Affecting $\rightarrow$ Clinical Disorders / Pathology / Applications $\rightarrow$ Comparison Tables $\rightarrow$ Diagnostic Values / Constants $\rightarrow$ Rapid Recall Formula & Fact Sheet.
+  - Anatomy / Core Structure → Physiological Mechanism / Working Process → Key Equations / Chemical Reactions / Enzymes → Regulation & Factors Affecting → Clinical Disorders / Pathology / Applications → Comparison Tables → Diagnostic Values / Constants → Rapid Recall Formula & Fact Sheet.
 - **Economy & Banking**:
-  - Conceptual Framework $\rightarrow$ Monetary / Fiscal Policy Tools $\rightarrow$ Quantitative vs Qualitative Measures $\rightarrow$ Impact on Inflation, Growth & Exchange Rates $\rightarrow$ Transmission Mechanisms & Flowcharts $\rightarrow$ Comparison Matrices $\rightarrow$ Key Indices, Formulas & Ratios $\rightarrow$ High-Yield Facts & Quick Revision Sheet.
+  - Conceptual Framework → Monetary / Fiscal Policy Tools → Quantitative vs Qualitative Measures → Impact on Inflation, Growth & Exchange Rates → Transmission Mechanisms & Flowcharts → Comparison Matrices → Key Indices, Formulas & Ratios → High-Yield Facts & Quick Revision Sheet.
 - **Geography & Environment**:
-  - Origin & Geological Formation $\rightarrow$ Physical Features & Relief $\rightarrow$ Drainage Systems / River Basins $\rightarrow$ Climate, Monsoon & Soil Types $\rightarrow$ Biomes, Biodiversity & Protected Areas (National Parks) $\rightarrow$ Resource Distribution & Agriculture $\rightarrow$ Spatial Mnemonics $\rightarrow$ Quick Recall Map/Table Revision.
+  - Origin & Geological Formation → Physical Features & Relief → Drainage Systems / River Basins → Climate, Monsoon & Soil Types → Biomes, Biodiversity & Protected Areas (National Parks) → Resource Distribution & Agriculture → Spatial Mnemonics → Quick Recall Map/Table Revision.
 - **Quantitative Aptitude & Reasoning**:
-  - Underlying Theorems $\rightarrow$ Master Formula Cheatsheet $\rightarrow$ Shortcut Derivations $\rightarrow$ Core Problem Archetypes (Case 1, 2, 3) $\rightarrow$ High-Risk Calculation Traps $\rightarrow$ Solved Model Benchmarks $\rightarrow$ Rapid Revision Formula Matrix.
+  - Underlying Theorems → Master Formula Cheatsheet → Shortcut Derivations → Core Problem Archetypes (Case 1, 2, 3) → High-Risk Calculation Traps → Solved Model Benchmarks → Rapid Revision Formula Matrix.
 
 ---
 
@@ -40,7 +40,7 @@ Regardless of the topic or subject, every professional note MUST include these p
 2. **📊 Rich Markdown Comparison Tables**:
    - Every note must have at least 2–4 structured comparison or classification tables with clean alignments (`:---`, `:---:`, `---:`).
 3. **🧠 Smart Mnemonics**:
-   - `> 🧠 **Mnemonic — [Code]:**` to help aspirants memorize complex lists, sequences, or categories effortlessly.
+   - `> 🧠 **Mnemonic — [Code]:**` to help aspirants memorize complex lists, sequences, or categories effortlessly. Always format mnemonic items with clean badge-ready lines (e.g. `- **T** → Territories (Schedule 1)`).
 4. **⚠️ High-Yield Exam Traps**:
    - `> ⚠️ **Exam Trap:** [Specific nuance where examiners create confusing multiple-choice options or trick questions]`.
 5. **💡 Core Concepts & Insights**:
@@ -48,7 +48,7 @@ Regardless of the topic or subject, every professional note MUST include these p
 6. **💎 High-Yield Fact Sheet / One-Liners**:
    - Dedicated table or list of unique records, constants, firsts, historical trivia, or high-probability exam facts.
 7. **🧾 Last-Minute Rapid Revision Section (Final Section)**:
-   - `> 🚀 **Sequence to Remember:** [Chain timeline or process flow with arrows $\rightarrow$]`.
+   - `> 🚀 **Sequence to Remember:** [Chain timeline or process flow with clean Unicode arrows →]`.
    - High-Frequency Exam Numbers / Key Values.
    - `> ✅ **Key Distinctions to Never Confuse:** [Side-by-side disambiguation of confusing terms/dates]`.
 
@@ -56,13 +56,24 @@ Regardless of the topic or subject, every professional note MUST include these p
 
 ## 🎨 Visual Callout Standards (Markdown Syntax)
 
-- `> 🎯 **Exam-Ready Master Note:**` $\rightarrow$ Hero intro badge
-- `> 🔑 **Master Blueprint:**` $\rightarrow$ Core structural foundation
-- `> 🧠 **Mnemonic — [Code]:**` $\rightarrow$ Memory retention hooks
-- `> ⚠️ **Exam Trap:**` $\rightarrow$ Negative marking warning & common confusion alerts
-- `> 📌 **Why [X]?**` $\rightarrow$ Deep conceptual reasoning
-- `> 🚀 **Sequence to Remember:**` $\rightarrow$ Chronological or procedural ordering
-- `> ✅ **Key Distinctions to Never Confuse:**` $\rightarrow$ Disambiguation box
+- `> 🎯 **Exam-Ready Master Note:**` → Hero intro badge
+- `> 🔑 **Master Blueprint:**` → Core structural foundation
+- `> 🧠 **Mnemonic — [Code]:**` → Memory retention hooks
+- `> ⚠️ **Exam Trap:**` → Negative marking warning & common confusion alerts
+- `> 📌 **Why [X]?**` → Deep conceptual reasoning
+- `> 🚀 **Sequence to Remember:**` → Chronological or procedural ordering
+- `> ✅ **Key Distinctions to Never Confuse:**` → Disambiguation box
+
+---
+
+## ⚡ Arrow Syntax & Escape Protection (Mandatory)
+- **NEVER use LaTeX syntax like `$\rightarrow$` or `\rightarrow` in markdown notes or strings.**
+- In JavaScript / TypeScript string literals, `\r` evaluates to carriage return (`\r`), converting `$\rightarrow$` into corrupted `$ ightarrow$`.
+- **ALWAYS use clean Unicode arrows**:
+  - Right arrow: `→` (`\u2192`)
+  - Left arrow: `←` (`\u2190`)
+  - Both directions / Equivalence: `⟺` (`\u27FA`)
+- The parser automatically styles `→` with executive Indigo / Purple badges.
 
 ---
 
