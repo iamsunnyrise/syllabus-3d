@@ -136,73 +136,153 @@
   }
 
   /* 👑 Warm Parchment Gold Theme (#FAEED9, #E1A837, #8D7A02, #38370D) */
-  html.warm-cream body {
+  html.warm-cream {
+    color-scheme: light;
+    background-color: #FAEED9 !important;
+  }
+
+  html.warm-cream body,
+  html.warm-cream #root,
+  html.warm-cream .min-h-screen,
+  html.warm-cream main {
     background-color: #FAEED9 !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.16) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.09) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.12) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.14) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #38370D !important;
   }
 
-  /* Surface Cards in Warm Parchment Theme */
-  html.warm-cream .bg-white {
+  /* Canvas Layer Overrides (Handling hardcoded light & dark slate container classes) */
+  html.warm-cream .bg-\[\#F8FAFC\],
+  html.warm-cream [class*="bg-[#F8FAFC]"],
+  html.warm-cream .bg-\[\#090A12\],
+  html.warm-cream [class*="bg-[#090A12]"] {
+    background-color: #FAEED9 !important;
+  }
+
+  html.warm-cream .bg-\[\#0F172A\]:not(header):not(aside),
+  html.warm-cream .bg-\[\#0A0D14\],
+  html.warm-cream .bg-\[\#0A0B12\] {
+    background-color: #FAF0DC !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SURFACE CARDS IN WARM PARCHMENT THEME (4-Tier Luxury Depth)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Tier 1: Pure Ivory Parchment Card Surfaces (Cards, Panels, Modals, Topic Rows) */
+  html.warm-cream .bg-white,
+  html.warm-cream [class*="bg-white/"]:not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
+  html.warm-cream .bg-\[\#121424\],
+  html.warm-cream .bg-\[\#151622\],
+  html.warm-cream .bg-\[\#181A2A\],
+  html.warm-cream .bg-\[\#131522\],
+  html.warm-cream .bg-\[\#0E101B\]:not(aside),
+  html.warm-cream .bg-\[\#11131F\] {
     background-color: #FFFDF8 !important;
     border-color: #E2D1B3 !important;
+    color: #38370D !important;
   }
 
+  /* Tier 2: Sand-Parchment Elevated Plates, Secondary Sections & Metric Pills */
   html.warm-cream .bg-slate-50,
-  html.warm-cream .bg-slate-50\/90,
-  html.warm-cream .bg-slate-50\/80 {
+  html.warm-cream [class*="bg-slate-50"],
+  html.warm-cream .bg-\[\#1B243B\],
+  html.warm-cream .bg-\[\#181B2B\],
+  html.warm-cream .bg-\[\#161828\],
+  html.warm-cream .bg-\[\#191C2C\],
+  html.warm-cream .bg-\[\#1A1C2C\] {
     background-color: #F7EBD3 !important;
     border-color: #E2D1B3 !important;
+    color: #38370D !important;
   }
 
+  /* Tier 3: Soft Muted Parchment Wells, Unselected Items & Table Headers */
   html.warm-cream .bg-slate-100,
-  html.warm-cream .bg-slate-100\/80 {
+  html.warm-cream [class*="bg-slate-100"],
+  html.warm-cream .bg-\[\#1A1B29\],
+  html.warm-cream .bg-\[\#202234\],
+  html.warm-cream .bg-\[\#25283D\] {
     background-color: #EFE0C2 !important;
     border-color: #E2D1B3 !important;
+    color: #38370D !important;
   }
 
+  /* Tier 4: Inset Tracks, Deep Wells, Progress Meters & Segment Controls */
   html.warm-cream .bg-slate-200,
-  html.warm-cream .bg-slate-200\/80,
-  html.warm-cream .bg-slate-200\/70 {
+  html.warm-cream [class*="bg-slate-200"],
+  html.warm-cream .bg-\[\#0D1424\] {
     background-color: #E5D5BA !important;
+    border-color: #D8C6A5 !important;
   }
 
-  /* Borders in Warm Parchment Theme */
-  html.warm-cream [class*="border-slate-200"],
-  html.warm-cream [class*="border-slate-100"] {
+  /* ═══════════════════════════════════════════════════════════════
+     BORDERS & AMBIENT SHADOWS IN WARM PARCHMENT THEME
+     ═══════════════════════════════════════════════════════════════ */
+  html.warm-cream [class*="border-slate-"],
+  html.warm-cream [class*="border-gray-"],
+  html.warm-cream [class*="border-white/"],
+  html.warm-cream [class*="border-indigo-100"],
+  html.warm-cream [class*="border-blue-100"] {
     border-color: #E2D1B3 !important;
   }
 
-  html.warm-cream [class*="border-slate-300"] {
-    border-color: #CDB994 !important;
+  html.warm-cream [class*="border-slate-300"],
+  html.warm-cream [class*="border-slate-400"],
+  html.warm-cream [class*="border-blue-200"] {
+    border-color: #D4BE98 !important;
   }
 
-  /* Text & Typography Readability (High-Contrast WCAG AAA System) */
+  /* Subtle Warm Golden Ambient Shadows */
+  html.warm-cream [class*="shadow-subtle-depth"],
+  html.warm-cream [class*="shadow-xs"],
+  html.warm-cream [class*="shadow-2xs"],
+  html.warm-cream [class*="shadow-sm"] {
+    box-shadow: 0 1px 4px rgba(56, 55, 13, 0.05), 0 1px 2px rgba(56, 55, 13, 0.04) !important;
+  }
+
+  html.warm-cream [class*="shadow-md"],
+  html.warm-cream [class*="shadow-lg"] {
+    box-shadow: 0 4px 18px -2px rgba(56, 55, 13, 0.07), 0 2px 6px -1px rgba(56, 55, 13, 0.04) !important;
+  }
+
+  html.warm-cream [class*="shadow-xl"],
+  html.warm-cream [class*="shadow-2xl"] {
+    box-shadow: 0 12px 36px -4px rgba(56, 55, 13, 0.12), 0 4px 12px -2px rgba(56, 55, 13, 0.06) !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TEXT & TYPOGRAPHY READABILITY (WCAG AAA Contrast System)
+     ═══════════════════════════════════════════════════════════════ */
   html.warm-cream .text-slate-900,
   html.warm-cream .text-slate-800,
-  html.warm-cream h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-  html.warm-cream h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-  html.warm-cream h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-  html.warm-cream h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-  html.warm-cream h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-  html.warm-cream h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]) {
+  html.warm-cream .dark\:text-white,
+  html.warm-cream .dark\:text-\[\#F5F5F7\],
+  html.warm-cream .dark\:text-\[\#F8FAFC\],
+  html.warm-cream h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
     color: #1C1B05 !important;
   }
 
   html.warm-cream .text-slate-700,
-  html.warm-cream .text-slate-600 {
+  html.warm-cream .text-slate-600,
+  html.warm-cream .dark\:text-slate-200,
+  html.warm-cream .dark\:text-slate-300 {
     color: #38370D !important;
   }
 
-  html.warm-cream .text-slate-500 {
-    color: #524E12 !important;
-  }
-
-  html.warm-cream .text-slate-400 {
+  html.warm-cream .text-slate-500,
+  html.warm-cream .text-slate-400,
+  html.warm-cream .dark\:text-slate-400,
+  html.warm-cream .dark\:text-slate-500,
+  html.warm-cream .dark\:text-\[\#94A3B8\],
+  html.warm-cream .dark\:text-\[\#CBD5E1\] {
     color: #5C5716 !important;
   }
 
@@ -523,50 +603,62 @@
     background-color: #E1A837 !important;
   }
 
-  /* 4 Metric KPI Cards in Warm Parchment Theme (Harmonized Palette) */
-  html.warm-cream [class*="from-[#5346E8]"] {
-    background: linear-gradient(135deg, #38370D 0%, #4D4B14 100%) !important;
-    box-shadow: 0 4px 16px rgba(56, 55, 13, 0.2) !important;
-    color: #FFFFFF !important;
-  }
+  /* ═══════════════════════════════════════════════════════════════
+     DASHBOARD WIDGETS & HERO BANNERS IN WARM PARCHMENT THEME
+     ═══════════════════════════════════════════════════════════════ */
 
-  html.warm-cream [class*="from-[#FF4E8D]"] {
-    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
-    box-shadow: 0 4px 16px rgba(225, 168, 55, 0.25) !important;
+  /* 1. Planner Streak & Momentum Banner */
+  html.warm-cream .planner-streak-banner {
+    background: linear-gradient(135deg, #FFFDF8 0%, #FAF0DE 50%, #F5E5C9 100%) !important;
+    border-color: #E1A837 !important;
+    box-shadow: 0 8px 30px rgba(225, 168, 55, 0.22), 0 1px 3px rgba(56, 55, 13, 0.06) !important;
     color: #38370D !important;
   }
 
-  html.warm-cream [class*="from-[#FF4E8D]"] * {
-    color: #38370D !important;
+  html.warm-cream .planner-streak-banner h2,
+  html.warm-cream .planner-streak-banner [style*="color: #FFFFFF"],
+  html.warm-cream .planner-streak-banner [style*="color:#FFFFFF"],
+  html.warm-cream .planner-streak-banner .text-white {
+    color: #1C1B05 !important;
   }
 
-  html.warm-cream [class*="from-[#00D2FF]"] {
-    background: linear-gradient(135deg, #8D7A02 0%, #6E6622 100%) !important;
-    box-shadow: 0 4px 16px rgba(141, 122, 2, 0.2) !important;
-    color: #FFFFFF !important;
+  html.warm-cream .planner-streak-banner p,
+  html.warm-cream .planner-streak-banner .text-slate-200 {
+    color: #58531A !important;
   }
 
-  html.warm-cream [class*="from-[#00F2A9]"] {
-    background: #FFFFFF !important;
-    border: 1.5px solid #E5D7B7 !important;
-    box-shadow: 0 4px 16px rgba(56, 55, 13, 0.06) !important;
-    color: #38370D !important;
+  /* 7-day strip inside streak banner */
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) {
+    background-color: rgba(247, 235, 211, 0.85) !important;
+    border-color: #E2D1B3 !important;
   }
 
-  html.warm-cream [class*="from-[#00F2A9]"] * {
-    color: #38370D !important;
-  }
-
-  /* Daily Inspiration Banner in Warm Parchment */
+  /* 2. Daily Inspiration Banner */
+  html.warm-cream [class*="from-indigo-50/90"],
   html.warm-cream [class*="from-indigo-50"] {
-    background: #FFFFFF !important;
-    border-color: #E5D7B7 !important;
+    background: linear-gradient(135deg, #FFFDF8 0%, #FAF2E3 100%) !important;
+    border-color: #E2D1B3 !important;
   }
 
-  html.warm-cream [class*="from-[#4F46E5]"] {
+  html.warm-cream [class*="from-indigo-50/90"] [class*="from-[#4F46E5]"],
+  html.warm-cream [class*="from-indigo-50"] [class*="from-[#4F46E5]"] {
     background: linear-gradient(to bottom, #E1A837, #8D7A02) !important;
   }
 
+  /* 3. Top 3 Non-Negotiable Targets */
+  html.warm-cream .top3-target-slot {
+    background-color: #F7EBD3 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  /* 4. Exam Countdown 3D Cards */
+  html.warm-cream .countdown-card,
+  html.warm-cream div:has(> div > h2:has-text("Countdown")) {
+    background-color: #FFFDF8 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  /* 5. Chips, Scope Pills & Segment Switchers */
   html.warm-cream [class*="text-indigo-700"],
   html.warm-cream [class*="text-indigo-600"] {
     color: #8D7A02 !important;
@@ -583,13 +675,33 @@
     color: #E1A837 !important;
   }
 
-  /* Form Elements in Warm Parchment */
+  /* Segmented Controls (Target Board / Calendar / Routine) */
+  html.warm-cream .p-1:has(> button) {
+    background-color: #EFE0C2 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream .p-1:has(> button) button {
+    color: #5C5716 !important;
+  }
+
+  html.warm-cream .p-1:has(> button) button.bg-white,
+  html.warm-cream .p-1:has(> button) button.shadow-xs,
+  html.warm-cream .p-1:has(> button) button.font-black {
+    background-color: #FFFDF8 !important;
+    color: #1C1B05 !important;
+    box-shadow: 0 1px 4px rgba(56, 55, 13, 0.1) !important;
+    font-weight: 800 !important;
+  }
+
+  /* 6. Form Elements & Search Inputs in Warm Parchment */
   html.warm-cream input,
   html.warm-cream textarea,
   html.warm-cream select {
     background-color: #FFFDF8 !important;
     border-color: #D8C6A5 !important;
-    color: #38370D !important;
+    color: #1C1B05 !important;
+    box-shadow: 0 1px 3px rgba(56, 55, 13, 0.04) !important;
   }
 
   html.warm-cream input::placeholder,
@@ -599,12 +711,48 @@
   }
 
   html.warm-cream input:focus,
-  html.warm-cream textarea:focus {
+  html.warm-cream textarea:focus,
+  html.warm-cream select:focus {
     border-color: #E1A837 !important;
-    box-shadow: 0 0 0 2px rgba(225, 168, 55, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(225, 168, 55, 0.25) !important;
+    outline: none !important;
   }
 
-  /* Scrollbars in Warm Parchment */
+  /* 7. Modals & Drawers in Warm Parchment */
+  html.warm-cream [role="dialog"],
+  html.warm-cream .modal-container,
+  html.warm-cream div.fixed:has(> div.rounded-3xl) > div.rounded-3xl {
+    background-color: #FFFDF8 !important;
+    border-color: #E2D1B3 !important;
+    color: #38370D !important;
+    box-shadow: 0 20px 60px rgba(56, 55, 13, 0.22) !important;
+  }
+
+  /* 8. Tables in Warm Parchment */
+  html.warm-cream table {
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream th {
+    background-color: #EFE0C2 !important;
+    color: #1C1B05 !important;
+    border-color: #E2D1B3 !important;
+  }
+
+  html.warm-cream td {
+    border-color: #EFE0C2 !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream tr:nth-child(even) {
+    background-color: #FAF3E3 !important;
+  }
+
+  html.warm-cream tr:hover {
+    background-color: #F7EBD3 !important;
+  }
+
+  /* 9. Scrollbars in Warm Parchment */
   html.warm-cream ::-webkit-scrollbar-thumb {
     background-color: #CDB994 !important;
     border-radius: 9999px;
