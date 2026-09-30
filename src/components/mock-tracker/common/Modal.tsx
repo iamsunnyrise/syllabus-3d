@@ -45,12 +45,14 @@ export const Modal: React.FC<ModalProps> = ({
 
       {/* Modal Card / Mobile Bottom Sheet */}
       <div
-        className={`relative w-full ${maxWidth} max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-t-3xl sm:rounded-2xl border-t sm:border shadow-2xl z-10 overflow-hidden transform transition-all duration-300 animate-slideUp sm:animate-scaleIn ${
+        role="dialog"
+        aria-modal="true"
+        className={`modal-container relative w-full ${maxWidth} max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-t-3xl sm:rounded-2xl border-t sm:border z-10 overflow-hidden transform transition-all duration-300 animate-slideUp sm:animate-scaleIn ${
           activeTheme === 'dark'
-            ? 'bg-darkSurface border-white/10 text-white'
+            ? 'bg-[#0C1228] border-white/10 text-white shadow-2xl'
             : activeTheme === 'warm-cream'
-              ? 'bg-warmSurface border-warmBorder text-slate-800'
-              : 'bg-white border-slate-200 text-slate-900'
+              ? 'bg-[#FFFDF8] border-[#E2D1B3] text-[#1C1B05] shadow-[0_24px_70px_rgba(56,55,13,0.25)]'
+              : 'bg-white border-slate-200 text-slate-900 shadow-2xl'
         }`}
       >
         {/* Mobile Drag Indicator */}
@@ -65,7 +67,7 @@ export const Modal: React.FC<ModalProps> = ({
             <button
               onClick={onClose}
               aria-label="Close Modal"
-              className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

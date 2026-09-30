@@ -635,13 +635,17 @@
 
   /* 2. Daily Inspiration Banner */
   html.warm-cream [class*="from-indigo-50/90"],
-  html.warm-cream [class*="from-indigo-50"] {
+  html.warm-cream [class*="from-indigo-50/80"],
+  html.warm-cream [class*="from-indigo-50/70"],
+  html.warm-cream [class*="from-indigo-50 "] {
     background: linear-gradient(135deg, #FFFDF8 0%, #FAF2E3 100%) !important;
     border-color: #E2D1B3 !important;
   }
 
   html.warm-cream [class*="from-indigo-50/90"] [class*="from-[#4F46E5]"],
-  html.warm-cream [class*="from-indigo-50"] [class*="from-[#4F46E5]"] {
+  html.warm-cream [class*="from-indigo-50/80"] [class*="from-[#4F46E5]"],
+  html.warm-cream [class*="from-indigo-50/70"] [class*="from-[#4F46E5]"],
+  html.warm-cream [class*="from-indigo-50 "] [class*="from-[#4F46E5]"] {
     background: linear-gradient(to bottom, #E1A837, #8D7A02) !important;
   }
 
