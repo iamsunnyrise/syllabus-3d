@@ -138,7 +138,7 @@ interface ProfessionalNotesEditorProps {
 
 type ReaderFontSize = 'sm' | 'base' | 'lg' | 'xl';
 type ReaderWidth = 'normal' | 'wide' | 'full';
-type ReaderFontFamily = 'serif' | 'sans' | 'lexend' | 'mono';
+type ReaderFontFamily = 'serif' | 'sans' | 'handwritten' | 'lexend' | 'mono';
 type ReaderTheme = 'default' | 'sepia' | 'paper' | 'sage' | 'candle' | 'midnight' | 'oled';
 type ReaderLayout = 'single' | 'spread';
 type ReaderLineHeight = 'compact' | 'relaxed' | 'spacious';
@@ -2147,6 +2147,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     switch (readerFontFamily) {
       case 'serif':
         return 'font-serif tracking-normal';
+      case 'handwritten':
+        return 'font-handwritten tracking-wide';
       case 'lexend':
         return 'font-lexend tracking-normal';
       case 'mono':
@@ -3389,7 +3391,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
     return (
       <div
-        className="book-reader-view w-full"
+        className={`book-reader-view w-full ${fontFam}`}
         style={{
           lineHeight: spacing.lineHeight,
           ['--reader-line-height' as any]: String(spacing.lineHeight)
@@ -4015,6 +4017,18 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     </button>
                     <button
                       type="button"
+                      onClick={() => handleSelectFont('handwritten')}
+                      className={`px-2.5 py-1 rounded-lg transition-all font-handwritten text-[13px] ${
+                        readerFontFamily === 'handwritten'
+                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-bold'
+                          : 'text-[#65675F] dark:text-[#85877E] hover:text-[#11120F]'
+                      }`}
+                      title="Authentic Handwritten Student Notes (Kalam / Caveat)"
+                    >
+                      ✍️ Handwritten
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => handleSelectFont('lexend')}
                       className={`hidden sm:inline-block px-2.5 py-1 rounded-lg transition-all font-lexend ${
                         readerFontFamily === 'lexend'
@@ -4384,6 +4398,18 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   </button>
                   <button
                     type="button"
+                    onClick={() => handleSelectFont('handwritten')}
+                    className={`px-2 py-1 rounded-md transition-all font-handwritten text-[11.5px] cursor-pointer ${
+                      readerFontFamily === 'handwritten'
+                        ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-bold'
+                        : 'text-[#65675F] dark:text-[#85877E]'
+                    }`}
+                    title="Authentic Handwritten Notes (Kalam / Caveat)"
+                  >
+                    ✍️ Hand
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => handleSelectFont('lexend')}
                     className={`px-2 py-1 rounded-md transition-all font-lexend text-[11px] cursor-pointer ${
                       readerFontFamily === 'lexend'
@@ -4547,7 +4573,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
                   style={{ minHeight: '200px', height: 'auto' }}
                   rows={8}
-                  className="w-full p-6 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] font-sans tracking-tight text-sm text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none"
+                  className={`w-full p-6 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] ${
+                    readerFontFamily === 'handwritten' ? 'font-handwritten text-base' : 'font-sans tracking-tight text-sm'
+                  } text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none`}
                 />
               </div>
             )}
@@ -4562,7 +4590,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
                   style={{ minHeight: '200px', height: 'auto' }}
                   rows={8}
-                  className="w-full p-5 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] font-sans tracking-tight text-xs text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none"
+                  className={`w-full p-5 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] ${
+                    readerFontFamily === 'handwritten' ? 'font-handwritten text-sm' : 'font-sans tracking-tight text-xs'
+                  } text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none`}
                 />
                 <div className={`p-6 rounded-3xl ${getThemeContainerClass()} overflow-y-auto max-h-[80vh] custom-scrollbar select-text`} style={getThemeInlineStyle()}>
                   {renderFormattedNotes(getFontSizeClass())}
@@ -5259,6 +5289,16 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     >
                       Sans
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectFont('handwritten')}
+                      className={`px-2 py-0.5 rounded text-[11.5px] font-handwritten cursor-pointer ${
+                        readerFontFamily === 'handwritten' ? 'bg-blue-600 text-white shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                      title="Authentic Handwritten Notes"
+                    >
+                      ✍️ Hand
+                    </button>
                   </div>
 
                   {/* Font Size */}
@@ -5755,7 +5795,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 style={{ minHeight: '420px', height: 'auto' }}
                 placeholder={`Paste your notes from Gemini, ChatGPT, or Claude here, or write your own!\n\n✨ Notion AI Studio: After pasting, click "✨ Notion AI" in the ribbon above or press Ctrl+J to choose from 6 formats (Notion Master, Cornell, Active Recall Q&A, Speed Cheat Sheet, Deep Outline, Zero-Loss Normalizer) with 100% data preservation!\n\n> [!FORMULA]\n> Your formulas here\n\n> [!TIP]\n> Your shortcuts here\n\n> [!WARNING]\n> Exam traps here\n\n- [ ] Checklist items`}
                 rows={12}
-                className="w-full px-3.5 sm:px-10 py-3.5 sm:py-6 font-sans text-xs sm:text-[14px] text-[#11120F] dark:text-[#E2E8F0] leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
+                className={`w-full px-3.5 sm:px-10 py-3.5 sm:py-6 ${
+                  readerFontFamily === 'handwritten' ? 'font-handwritten text-sm sm:text-[16px]' : 'font-sans text-xs sm:text-[14px]'
+                } text-[#11120F] dark:text-[#E2E8F0] leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text`}
               />
 
               {/* Document Running Footer Watermark */}
@@ -5786,7 +5828,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 style={{ minHeight: '500px', height: 'auto' }}
                 placeholder="Type or paste markdown..."
                 rows={10}
-                className="w-full flex-1 p-5 font-sans text-xs text-[#11120F] dark:text-white leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text"
+                className={`w-full flex-1 p-5 ${
+                  readerFontFamily === 'handwritten' ? 'font-handwritten text-sm' : 'font-sans text-xs'
+                } text-[#11120F] dark:text-white leading-relaxed bg-transparent border-none focus:outline-none resize-none select-text`}
               />
             </div>
 

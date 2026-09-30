@@ -2948,7 +2948,24 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree
    Caveat / Patrick Hand: Casual Cursive & Study Binder Notes
    Merriweather: Formal Book & High-Yield Legal Case Typography
    ═══════════════════════════════════════════════════════════════ */
-.font-handwritten {
+.font-handwritten,
+.font-handwritten p,
+.font-handwritten li,
+.font-handwritten h1,
+.font-handwritten h2,
+.font-handwritten h3,
+.font-handwritten h4,
+.font-handwritten h5,
+.font-handwritten td,
+.font-handwritten th,
+.book-reader-view.font-handwritten p,
+.book-reader-view.font-handwritten li,
+.book-reader-view.font-handwritten h1,
+.book-reader-view.font-handwritten h2,
+.book-reader-view.font-handwritten h3,
+.book-reader-view.font-handwritten h4,
+.book-reader-view.font-handwritten td,
+.book-reader-view.font-handwritten th {
   font-family: 'Kalam', 'Caveat', 'Patrick Hand', cursive, sans-serif !important;
 }
 
@@ -2967,6 +2984,28 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree
 .font-handwritten td,
 .font-handwritten th {
   letter-spacing: 0.015em;
+}
+
+.book-reader-view.font-handwritten p,
+.book-reader-view.font-handwritten li,
+.book-reader-view.font-handwritten td {
+  font-size: 1.06em;
+  line-height: 1.82;
+}
+
+.book-reader-view.font-handwritten h1 {
+  font-size: 1.6em;
+  line-height: 1.35;
+}
+
+.book-reader-view.font-handwritten h2 {
+  font-size: 1.28em;
+  line-height: 1.4;
+}
+
+.book-reader-view.font-handwritten h3 {
+  font-size: 1.12em;
+  line-height: 1.45;
 }
 
 /* Authentic Student Notebook Margin Line */
