@@ -607,30 +607,123 @@
      DASHBOARD WIDGETS & HERO BANNERS IN WARM PARCHMENT THEME
      ═══════════════════════════════════════════════════════════════ */
 
-  /* 1. Planner Streak & Momentum Banner */
+  /* 1. Planner Streak & Momentum Banner in Warm Parchment */
   html.warm-cream .planner-streak-banner {
     background: linear-gradient(135deg, #FFFDF8 0%, #FAF0DE 50%, #F5E5C9 100%) !important;
-    border-color: #E1A837 !important;
+    border: 2px solid #E1A837 !important;
     box-shadow: 0 8px 30px rgba(225, 168, 55, 0.22), 0 1px 3px rgba(56, 55, 13, 0.06) !important;
-    color: #38370D !important;
+    color: #1C1B05 !important;
   }
 
-  html.warm-cream .planner-streak-banner h2,
-  html.warm-cream .planner-streak-banner [style*="color: #FFFFFF"],
-  html.warm-cream .planner-streak-banner [style*="color:#FFFFFF"],
-  html.warm-cream .planner-streak-banner .text-white {
+  html.warm-cream .planner-streak-banner h2 {
     color: #1C1B05 !important;
+    text-shadow: none !important;
   }
 
   html.warm-cream .planner-streak-banner p,
   html.warm-cream .planner-streak-banner .text-slate-200 {
-    color: #58531A !important;
+    color: #38370D !important;
   }
 
-  /* 7-day strip inside streak banner */
+  /* Conquered Today Badge */
+  html.warm-cream .planner-streak-banner span:has(> svg.lucide-sparkles),
+  html.warm-cream .planner-streak-banner .streak-conquered-badge,
+  html.warm-cream .planner-streak-banner [class*="bg-amber-400/25"],
+  html.warm-cream .planner-streak-banner [class*="bg-amber-500/20"],
+  html.warm-cream .planner-streak-banner [class*="bg-amber-500/15"] {
+    background-color: #F5E5C9 !important;
+    border-color: #C9962A !important;
+    color: #5C4102 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream .planner-streak-banner span:has(> svg.lucide-sparkles) *,
+  html.warm-cream .planner-streak-banner .streak-conquered-badge *,
+  html.warm-cream .planner-streak-banner [class*="bg-amber-400/25"] *,
+  html.warm-cream .planner-streak-banner [class*="bg-amber-500/15"] * {
+    color: #5C4102 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream .planner-streak-banner span:has(> svg.lucide-sparkles) svg,
+  html.warm-cream .planner-streak-banner .streak-conquered-badge svg,
+  html.warm-cream .planner-streak-banner [class*="bg-amber-400/25"] svg,
+  html.warm-cream .planner-streak-banner [class*="bg-amber-500/15"] svg {
+    color: #92400E !important;
+  }
+
+  /* Record streak & Multiplier text */
+  html.warm-cream .planner-streak-banner .streak-record-val,
+  html.warm-cream .planner-streak-banner .streak-multiplier-text,
+  html.warm-cream .planner-streak-banner .text-amber-300,
+  html.warm-cream .planner-streak-banner [class*="text-amber-300"],
+  html.warm-cream .planner-streak-banner .text-amber-200,
+  html.warm-cream .planner-streak-banner [class*="text-amber-200"],
+  html.warm-cream .planner-streak-banner .text-amber-700,
+  html.warm-cream .planner-streak-banner .text-amber-800 {
+    color: #6E4602 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream .planner-streak-banner .text-amber-400,
+  html.warm-cream .planner-streak-banner [class*="text-amber-400"] {
+    color: #92400E !important;
+  }
+
+  /* Right-side status: X of Y Conquered */
+  html.warm-cream .planner-streak-banner .streak-target-status,
+  html.warm-cream .planner-streak-banner .streak-target-status span,
+  html.warm-cream .planner-streak-banner .text-right .text-white,
+  html.warm-cream .planner-streak-banner .text-right [style*="color: #FFFFFF"] {
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream .planner-streak-banner .streak-target-status svg {
+    color: #D97706 !important;
+    fill: #D97706 !important;
+  }
+
+  /* 7-day strip container inside streak banner */
   html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) {
-    background-color: rgba(247, 235, 211, 0.85) !important;
-    border-color: #E2D1B3 !important;
+    background-color: #EFE0C2 !important;
+    border-color: #D4C3A3 !important;
+    box-shadow: inset 0 1px 3px rgba(56, 55, 13, 0.1) !important;
+  }
+
+  /* 7-day strip inactive day cards */
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) {
+    background-color: #FFFDF8 !important;
+    border-color: #D8C7A8 !important;
+    box-shadow: 0 1px 3px rgba(56, 55, 13, 0.08) !important;
+  }
+
+  html.warm-cream .planner-streak-banner .streak-day-name,
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:first-child {
+    color: #6E4602 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream .planner-streak-banner .streak-day-num,
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:nth-child(2) {
+    color: #1C1B05 !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream .planner-streak-banner .streak-day-dot,
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:last-child {
+    color: #92400E !important;
+    font-weight: 800 !important;
+  }
+
+  /* 7-day strip active today card */
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div.scale-105 {
+    background: linear-gradient(135deg, #E1A837 0%, #D49D26 100%) !important;
+    border-color: #C9962A !important;
+  }
+
+  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div.scale-105 * {
+    color: #1C1B05 !important;
+    font-weight: 900 !important;
   }
 
   /* 2. Daily Inspiration Banner */
@@ -2281,42 +2374,34 @@ html:not(.dark) .app-title:not(.text-white):not([class*="text-white"]) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   🔥 PLANNER STUDY STREAK BANNER - HIGH-CONTRAST LIGHT & DARK SYSTEM
+   🔥 PLANNER STUDY STREAK BANNER - DARK & DEFAULT THEME ACCENTS
+   (Strictly scoped so Warm Parchment Gold overrides are not affected)
    ══════════════════════════════════════════════════════════════════ */
-.planner-streak-banner,
-.planner-streak-banner h1,
-.planner-streak-banner h2,
-.planner-streak-banner h3,
-.planner-streak-banner [class*="text-white"],
-html:not(.dark) .planner-streak-banner h2,
-html.warm-cream .planner-streak-banner h2 {
-  color: #FFFFFF !important;
-}
-
-.planner-streak-banner h2 {
+html:not(.warm-cream) .planner-streak-banner h2 {
   color: #FFFFFF !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
-.planner-streak-banner .text-amber-400,
-.planner-streak-banner [class*="text-amber-400"] {
+html:not(.warm-cream) .planner-streak-banner .text-amber-400,
+html:not(.warm-cream) .planner-streak-banner [class*="text-amber-400"] {
   color: #FBBF24 !important;
 }
 
-.planner-streak-banner .text-amber-300,
-.planner-streak-banner [class*="text-amber-300"] {
+html:not(.warm-cream) .planner-streak-banner .text-amber-300,
+html:not(.warm-cream) .planner-streak-banner [class*="text-amber-300"] {
   color: #FCD34D !important;
 }
 
-.planner-streak-banner .text-amber-200 {
+html:not(.warm-cream) .planner-streak-banner .text-amber-200,
+html:not(.warm-cream) .planner-streak-banner [class*="text-amber-200"] {
   color: #FDE68A !important;
 }
 
-.planner-streak-banner .text-slate-200 {
+html:not(.warm-cream) .planner-streak-banner .text-slate-200 {
   color: #E2E8F0 !important;
 }
 
-.planner-streak-banner .text-slate-950 {
+html:not(.warm-cream) .planner-streak-banner .text-slate-950 {
   color: #020617 !important;
 }
 
