@@ -190,14 +190,14 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 
                     {/* AI Badge for Notes */}
                     {item.badgeText && (
-                      <span className="absolute -top-1.5 -right-2 px-1 py-0.2 rounded-full bg-rose-500 text-white text-[8px] font-mono font-black shadow-xs">
+                      <span className="absolute -top-1.5 -right-2 px-1 py-0.2 rounded-full bg-rose-500 text-white text-xs font-mono font-black shadow-xs">
                         {item.badgeText}
                       </span>
                     )}
 
                     {/* Tasks Count Badge for Planner */}
                     {item.count !== undefined && item.count > 0 && (
-                      <span className="absolute -top-1.5 -right-2.5 min-w-[15px] h-3.5 px-1 rounded-full bg-amber-500 text-white text-[8.5px] font-mono font-black flex items-center justify-center shadow-xs">
+                      <span className="absolute -top-1.5 -right-2.5 min-w-[15px] h-3.5 px-1 rounded-full bg-amber-500 text-white text-xs font-mono font-black flex items-center justify-center shadow-xs">
                         {item.count > 9 ? '9+' : item.count}
                       </span>
                     )}
@@ -205,7 +205,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 
                   {/* Animated Text Label below the Scoop */}
                   <span
-                    className={`absolute bottom-2 text-[10.5px] font-bold tracking-tight transition-all duration-[380ms] ease-[cubic-bezier(0.34,1.4,0.64,1)] select-none pointer-events-none ${
+                    className={`absolute bottom-2 text-xs font-bold tracking-tight transition-all duration-[380ms] ease-[cubic-bezier(0.34,1.4,0.64,1)] select-none pointer-events-none ${
                       item.isActive
                         ? 'opacity-100 translate-y-0 font-black'
                         : 'opacity-0 translate-y-2 pointer-events-none'

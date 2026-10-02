@@ -119,10 +119,10 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/50 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-indigo-100/90 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5 ${className}`}
+      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-50/90 via-purple-50/50 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-indigo-100/90 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5 ${className}`}
     >
       {/* Signature Vertical Accent Bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#4F46E5] via-[#818CF8] to-[#C084FC] rounded-l-2xl sm:rounded-l-3xl" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#4F46E5] via-[#818CF8] to-[#C084FC] rounded-l-2xl" />
 
       {/* Decorative Background Large Quote Watermark */}
       <Quote
@@ -133,12 +133,12 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
         {/* Top Meta Bar */}
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[10px] font-mono font-bold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-mono font-bold tracking-wider uppercase">
               <Sparkles className="w-3 h-3 text-indigo-500 animate-pulse" />
               <span>Daily Inspiration</span>
             </span>
 
-            <span className="hidden xs:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-slate-200/60 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+            <span className="hidden xs:inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-mono font-semibold bg-slate-200/60 dark:bg-white/10 text-slate-600 dark:text-slate-300">
               #{currentQuote.category}
             </span>
           </div>
@@ -148,7 +148,7 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
             <button
               type="button"
               onClick={handleNextQuote}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95 group"
+              className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95 group"
               title="Shuffle new inspiration (New Quote)"
               aria-label="Shuffle new quote"
             >
@@ -167,7 +167,7 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
                   haptics.medium();
                   onOpenFocus();
                 }}
-                className="hidden sm:inline-flex items-center gap-1.5 ml-1 px-3 py-1 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.98] text-white text-[11px] font-bold shadow-xs transition-all cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 ml-1 px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
                 title="Launch 3D Focus Chamber"
               >
                 <Timer className="w-3.5 h-3.5 text-amber-300" />
@@ -179,16 +179,16 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
         {/* Quote Content */}
         <div className="pl-1 pr-4 sm:pr-8">
-          <blockquote className="text-[13.5px] sm:text-[15px] font-semibold italic text-slate-800 dark:text-slate-100 leading-relaxed tracking-tight transition-opacity duration-300">
+          <blockquote className="text-sm sm:text-base font-semibold italic text-slate-800 dark:text-slate-100 leading-relaxed tracking-tight transition-opacity duration-300">
             "{currentQuote.text}"
           </blockquote>
 
           <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 mt-1.5 text-xs">
-            <cite className="not-italic font-bold font-mono tracking-wide text-[#4F46E5] dark:text-indigo-400">
+            <cite className="not-italic font-bold font-mono tracking-wide text-blue-600 dark:text-blue-400">
               — {currentQuote.author}
             </cite>
             {currentQuote.role && (
-              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 not-italic">
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 not-italic">
                 • {currentQuote.role}
               </span>
             )}

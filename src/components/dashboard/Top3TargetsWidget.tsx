@@ -123,15 +123,15 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white tracking-tight">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
                   Top 3 Non-Negotiable Targets
                 </h3>
                 {completedTargets.length === 3 ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 animate-pulse">
+                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 animate-pulse">
                     🏆 3/3 Crushed!
                   </span>
                 ) : completedTargets.length > 0 ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
                     ⚡ {completedTargets.length}/3 Done
                   </span>
                 ) : null}
@@ -146,13 +146,13 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
                 soundManager.playClick();
                 setIsHistoryModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#191C2C] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-[#CBD5E1] border border-slate-200/80 dark:border-white/[0.08] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97]"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#191C2C] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97]"
               title="View past reflection journal"
             >
               <History className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
               <span>History</span>
               {reflectionsHistory.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-500/30">
+                <span className="px-1.5 py-0.2 rounded-full text-xs font-mono font-bold bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-500/30">
                   {reflectionsHistory.length}
                 </span>
               )}
@@ -199,10 +199,10 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
                 {/* Slot Header */}
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className={`px-2 py-0.5 rounded-lg text-[11px] font-mono font-black border ${meta.badgeClass}`}>
+                    <span className={`px-2 py-0.5 rounded-lg text-xs font-mono font-black border ${meta.badgeClass}`}>
                       #{meta.num}
                     </span>
-                    <span className="text-xs font-bold text-slate-900 dark:text-[#E2E4F0] truncate">
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">
                       {meta.title}
                     </span>
                   </div>
@@ -277,16 +277,16 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
 
                       <div className="min-w-0 flex-1">
                         <p
-                          className={`text-[13px] sm:text-sm font-bold leading-snug transition-colors ${
+                          className={`text-sm font-bold leading-snug transition-colors ${
                             target.completed
                               ? 'line-through text-slate-400 dark:text-slate-500'
-                              : 'text-slate-900 dark:text-[#F5F5F7] group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                              : 'text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400'
                           }`}
                         >
                           {target.text}
                         </p>
                         {target.subjectName && (
-                          <div className="inline-flex items-center gap-1.5 mt-1.5 px-2 py-0.5 rounded-lg bg-white dark:bg-[#202234] border border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono font-bold text-slate-800 dark:text-[#CBD5E1]">
+                          <div className="inline-flex items-center gap-1.5 mt-1.5 px-2 py-0.5 rounded-lg bg-white dark:bg-[#202234] border border-slate-200/80 dark:border-white/[0.08] text-xs font-mono font-bold text-slate-800 dark:text-slate-200">
                             <span
                               className="w-2 h-2 rounded-full shrink-0"
                               style={{ backgroundColor: target.subjectColor || '#2563EB' }}

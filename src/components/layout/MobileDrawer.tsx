@@ -59,7 +59,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     name: 'Aspirant',
     level: 1,
     levelTitle: 'Novice Scholar',
-    avatarColor: 'from-[#2563EB] to-indigo-600',
+    avatarColor: 'from-blue-600 to-indigo-600',
     avatarUrl: '',
     avatarEmoji: '🦁'
   };
@@ -251,15 +251,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-sm font-black text-[#11120F] dark:text-white uppercase tracking-wider font-serif leading-none">
+                  <h2 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider font-serif leading-none">
                     SYLLABUS 3D
                   </h2>
-                  <span className="text-[9px] font-mono font-black uppercase px-1.5 py-0.2 rounded-md bg-[#EFF6FF] dark:bg-[#7AA2F7]/20 text-[#2563EB] dark:text-[#7AA2F7] border border-[#BFDBFE] dark:border-[#7AA2F7]/30">
+                  <span className="text-xs font-mono font-black uppercase px-1.5 py-0.2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50">
                     PRO
                   </span>
                 </div>
-                <div className="flex items-center gap-1 mt-0.5 text-[10px] font-mono text-[#85877E] dark:text-[#A1A1B2] truncate">
-                  <GraduationCap className="w-3 h-3 text-[#2563EB] dark:text-[#7AA2F7] shrink-0" />
+                <div className="flex items-center gap-1 mt-0.5 text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
+                  <GraduationCap className="w-3 h-3 text-blue-600 dark:text-blue-400 shrink-0" />
                   <span className="truncate">{currentExam?.name || 'SSC CGL 2026'}</span>
                 </div>
               </div>
@@ -271,7 +271,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 haptics.light();
                 onClose();
               }}
-              className="w-8 h-8 rounded-xl text-[#85877E] hover:text-[#11120F] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200/80 dark:hover:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
+              className="w-8 h-8 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200/80 dark:hover:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
               title="Close Navigation Drawer"
             >
               <X className="w-4 h-4" />
@@ -296,7 +296,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 <h4 className="text-xs font-black text-slate-900 dark:text-white truncate leading-tight">
                   {profileSafe.name || 'Aspirant'}
                 </h4>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5 truncate">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-none mt-0.5 truncate">
                   Lvl {profileSafe.level || 1} · {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
               </div>
@@ -393,7 +393,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                           />
 
                           {/* Clean Single-Line Title */}
-                          <span className="font-extrabold text-[13px] tracking-tight truncate text-[#11120F] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-[#7AA2F7] transition-colors">
+                          <span className="font-extrabold text-sm tracking-tight truncate text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {item.label}
                           </span>
                         </div>
@@ -402,14 +402,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                         <div className="flex items-center gap-1.5 shrink-0">
                           {Boolean(item.badge) ? (
                             <span
-                              className={`px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold border shadow-2xs ${item.badgeStyle}`}
+                              className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold border shadow-2xs ${item.badgeStyle}`}
                             >
                               {item.badge}
                             </span>
                           ) : (
                             <ChevronRight
                               className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                                isActive ? 'text-[#2563EB] dark:text-[#7AA2F7]' : 'text-[#A1A1AA] dark:text-[#5A5C75]'
+                                isActive ? 'text-blue-600 dark:text-blue-400' : 'text-[#A1A1AA] dark:text-[#5A5C75]'
                               }`}
                             />
                           )}
@@ -448,11 +448,11 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   <Smartphone className="w-4 h-4 text-white" />
                 </div>
                 <div className="text-left min-w-0">
-                  <div className="text-[12px] font-black tracking-tight flex items-center gap-1.5 leading-tight">
+                  <div className="text-xs font-black tracking-tight flex items-center gap-1.5 leading-tight">
                     <span>Install App on Phone</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[8.5px] font-mono leading-none">PWA</span>
+                    <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-xs font-mono leading-none">PWA</span>
                   </div>
-                  <div className="text-[10px] text-blue-100/90 font-medium truncate">Offline ready & instant 1-tap open</div>
+                  <div className="text-xs text-blue-100/90 font-medium truncate">Offline ready & instant 1-tap open</div>
                 </div>
               </div>
               <Download className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform shrink-0 ml-1.5" />
@@ -461,16 +461,16 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         )}
 
         {/* 6. EXECUTIVE FOOTER WITH LIVE CLOUD RADAR */}
-        <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-slate-200/80 dark:border-white/[0.08] bg-white/50 dark:bg-[#0E101B]/90 flex items-center justify-between text-[10px] font-mono text-[#85877E] dark:text-[#7A7C93] select-none">
+        <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-slate-200/80 dark:border-white/[0.08] bg-white/50 dark:bg-[#0E101B]/90 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 select-none">
           <span className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="font-bold text-[#11120F] dark:text-[#CBD5E1]">Cloud Synced</span>
+            <span className="font-bold text-slate-900 dark:text-slate-200">Cloud Synced</span>
           </span>
 
-          <span className="flex items-center gap-1 text-[#85877E] dark:text-[#7A7C93]">
+          <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
             <ShieldCheck className="w-3 h-3 text-emerald-500" />
             <span>v2.4.0 PRO</span>
           </span>

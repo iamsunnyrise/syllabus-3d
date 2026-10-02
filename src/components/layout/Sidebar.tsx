@@ -287,7 +287,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div className="flex items-center gap-1.5">
                 <span
                   role="presentation"
-                  className="text-[13px] font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none shrink-0"
+                  className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none shrink-0"
                 >
                   Study Planner
                 </span>
@@ -299,14 +299,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     haptics.selection();
                     if (onOpenPricing) onOpenPricing();
                   }}
-                  className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[9px] font-extrabold tracking-wider font-sora shrink-0 cursor-pointer transition-colors active:scale-90"
+                  className="px-1.5 py-0.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-xs font-extrabold tracking-wider font-sora shrink-0 cursor-pointer transition-colors active:scale-90"
                   title="View Pro Plans & Pricing"
                   aria-label="View Pro Plans"
                 >
                   PRO
                 </button>
               </div>
-              <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
                 {currentExam?.name ? currentExam.name : 'Personal Study Plan'}
               </p>
               <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
@@ -324,7 +324,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 haptics.light();
                 onToggleCollapse();
               }}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 group"
+              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 group"
               title="Close sidebar (Ctrl+B)"
               aria-label="Close sidebar"
             >
@@ -339,7 +339,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               type="button"
               onClick={onOpenAddTopic}
-              className="w-full py-2 px-3 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] active:scale-[0.98] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-500/20 transition-all cursor-pointer"
+              className="btn-primary w-full h-9 py-0 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer"
               title="Add Topic"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -393,7 +393,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <div className="flex items-center gap-1.5">
                     <span>{section.title}</span>
-                    <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
+                    <span className="text-xs font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
                       {section.items.length}
                     </span>
                   </div>
@@ -417,9 +417,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               onSelectView(item.id);
                             }}
                             aria-current={isActive ? 'page' : undefined}
-                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-[13px] transition-all duration-150 cursor-pointer select-none ${
+                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-sm transition-all duration-150 cursor-pointer select-none ${
                               isActive
-                                ? 'bg-[#4F46E5] text-white font-bold shadow-sm shadow-indigo-500/25'
+                                ? 'bg-blue-600 text-white font-bold shadow-sm'
                                 : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white font-medium'
                             }`}
                           >
@@ -429,7 +429,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 size="sm"
                                 isActive={isActive}
                               />
-                              <span className="truncate text-[13px] leading-tight">
+                              <span className="truncate text-sm leading-tight">
                                 {item.label}
                               </span>
                             </div>
@@ -438,7 +438,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             <div className="flex items-center gap-1.5 ml-2 shrink-0">
                               {item.badge !== null && (
                                 <span
-                                  className={`px-1.5 py-0.5 rounded-md text-[9.5px] font-mono font-bold shrink-0 ${
+                                  className={`px-1.5 py-0.5 rounded-lg text-xs font-mono font-bold shrink-0 ${
                                     isActive
                                       ? 'bg-white/20 text-white border border-white/25'
                                       : item.badgeColor
@@ -449,7 +449,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               )}
 
                               {item.shortcut && !item.badge && (
-                                <kbd className="opacity-0 group-hover:opacity-100 text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 transition-opacity border border-slate-200 dark:border-white/15">
+                                <kbd className="opacity-0 group-hover:opacity-100 text-xs font-mono font-medium px-1.5 py-0.2 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 transition-opacity border border-slate-200 dark:border-white/15">
                                   ⌥{item.shortcut}
                                 </kbd>
                               )}
@@ -492,14 +492,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
                   {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
-                <p className="text-[10px] text-slate-500 dark:text-white/60 leading-none truncate mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-white/60 leading-none truncate mt-0.5">
                   {profileSafe.name || 'Active Profile'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-lg bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-white font-mono border border-slate-300/80 dark:border-white/20 leading-none">
+              <span className="px-1.5 py-0.5 text-xs font-bold rounded-lg bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-white font-mono border border-slate-300/80 dark:border-white/20 leading-none">
                 Lvl {profileSafe.level || 1}
               </span>
             </div>
@@ -514,12 +514,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               haptics.selection();
               onOpenShortcuts();
             }}
-            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500 dark:hover:border-indigo-400 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-[0.98] tap-bounce shadow-2xs"
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500 dark:hover:border-blue-400 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-[0.98] tap-bounce shadow-2xs"
             title="Keyboard Shortcuts Cheatsheet"
             aria-label="Keyboard Shortcuts Cheatsheet"
           >
-            <Keyboard className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-[11.5px] font-semibold">Keyboard Shortcuts</span>
+            <Keyboard className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span className="text-xs font-semibold">Keyboard Shortcuts</span>
           </button>
         )}
       </div>

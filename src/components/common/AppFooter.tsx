@@ -106,7 +106,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
               <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain" />
             </div>
             <span className="font-black text-slate-900 dark:text-white tracking-tight">SYLLABUS 3D</span>
-            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2563EB]/10 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#93C5FD] border border-[#2563EB]/20 dark:border-[#7AA2F7]/30">
+            <span className="px-1.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-blue-500/10 dark:bg-blue-400/15 text-blue-600 dark:text-blue-300 border border-blue-500/20 dark:border-blue-400/30">
               v2.4 PRO
             </span>
             <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400">
@@ -126,7 +126,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100/80 dark:bg-[#1A1C2C] hover:bg-slate-200 dark:hover:bg-[#25283C] text-slate-700 dark:text-[#CBD5E1] border border-slate-200/70 dark:border-white/[0.06] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
               title="Share Syllabus 3D"
             >
-              <Share2 className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
+              <Share2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>Share</span>
             </button>
 
@@ -173,7 +173,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
       {/* 1. SHARE APP MODAL */}
       {isShareModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="share-modal-title">
-          <div className="relative w-full max-w-md p-6 rounded-3xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5">
+          <div className="relative w-full max-w-md p-6 rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5">
             {/* Modal Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
@@ -182,7 +182,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
                 </div>
                 <div>
                   <h3 id="share-modal-title" className="text-base font-black text-[#11120F] dark:text-[#F5F5F7]">Share Syllabus 3D</h3>
-                  <p className="text-xs text-[#85877E]">Help fellow study partners stay disciplined</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Help fellow study partners stay disciplined</p>
                 </div>
               </div>
               <button
@@ -235,7 +235,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
 
             {/* Copy Link Input Bar */}
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-[#65675F] dark:text-[#A1A1AA] uppercase tracking-wider block">
+              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                 Copy App Link
               </label>
               <div className="flex items-center gap-2 p-1.5 pl-3 rounded-2xl bg-[#F8FAFC] dark:bg-[#1B1C28] border border-[#E2E8F0] dark:border-[#2A2C3E]">
@@ -271,7 +271,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
       {/* 2. PRIVACY POLICY MODAL */}
       {isPrivacyModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
-          <div className="relative w-full max-w-lg p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <div className="relative w-full max-w-lg p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#EEEEE8] dark:border-[#242533]">
               <div className="flex items-center gap-2.5">
@@ -296,11 +296,11 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
             {/* Privacy Commitments */}
             <div className="space-y-4 text-xs leading-relaxed text-[#353733] dark:text-[#CBD5E1]">
               <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#1B1C28] border border-[#E2E8F0] dark:border-[#2A2C3E] space-y-1.5">
-                <div className="flex items-center gap-2 font-bold text-[#11120F] dark:text-white">
+                <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                   <Database className="w-4 h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
                   <span>1. Local-First Client Storage</span>
                 </div>
-                <p className="text-[#65675F] dark:text-[#94A3B8]">
+                <p className="text-slate-500 dark:text-[#94A3B8]">
                   All your study plans, marks, notes, flashcards, and timer records are stored directly inside your browser's local sandbox and IndexedDB. We do not sell or monetize your study behavior.
                 </p>
               </div>
@@ -341,7 +341,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
       {/* 3. CONTACT US / FEEDBACK MODAL */}
       {isContactModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-          <div className="relative w-full max-w-lg p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <div className="relative w-full max-w-lg p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#EEEEE8] dark:border-[#242533]">
               <div className="flex items-center gap-2.5">
@@ -375,7 +375,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
               <form onSubmit={handleSubmitFeedback} className="space-y-4">
                 {/* Category Pills */}
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold text-[#65675F] dark:text-[#A1A1AA] uppercase tracking-wider block">
+                  <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Message Type
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -403,7 +403,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
 
                 {/* Message Input */}
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold text-[#65675F] dark:text-[#A1A1AA] uppercase tracking-wider block">
+                  <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Your Message / Request
                   </label>
                   <textarea

@@ -94,7 +94,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   }, [currentExam?.examDate]);
 
   return (
-    <div className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.1)] transition-all duration-300 p-4 sm:p-5 space-y-3.5 sm:space-y-4 overflow-hidden">
+    <div className="group relative rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.1)] transition-all duration-300 p-4 sm:p-5 space-y-3.5 sm:space-y-4 overflow-hidden">
       {/* Top Subtle Gloss Accent Edge */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent pointer-events-none" />
 
@@ -110,7 +110,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
             <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate">
               {currentExam.name} Countdown
             </h2>
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Live
             </span>
@@ -120,7 +120,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
             <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
             <span className="truncate">Exam Date: <strong className="text-slate-800 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
             {timeLeft.isProjected && (
-              <span className="text-amber-500 dark:text-amber-400 text-[10px] font-semibold shrink-0">
+              <span className="text-amber-500 dark:text-amber-400 text-xs font-semibold shrink-0">
                 (Next Cycle)
               </span>
             )}
@@ -138,7 +138,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
             <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none ${c.color}`}>
               {String(c.value).padStart(2, '0')}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono mt-1.5">
+            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono mt-1.5">
               {c.label}
             </span>
           </div>
