@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useTimer } from '../../context/TimerContext';
+import { useTheme } from '../../context/ThemeContext';
 import {
   X,
   Play,
@@ -86,6 +87,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     showFloatingOverlay,
     openPermissionModal
   } = useTimer();
+  const { theme, isDark } = useTheme();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBrowserFullscreen, setIsBrowserFullscreen] = useState(false);
@@ -530,6 +532,41 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         };
     }
   }, [session.mode, session.totalDurationSec]);
+
+  // Adaptive background palette perfectly tailored to the active theme & timer mode
+  const bgThemeStyles = useMemo(() => {
+    if (theme === 'warm-cream') {
+      return {
+        containerClass: 'bg-[#FAEED9] text-[#38370D]',
+        centerAura: 'radial-gradient(ellipse at 50% 45%, rgba(225, 168, 55, 0.16) 0%, rgba(246, 235, 212, 0.45) 38%, transparent 72%)',
+        cornerAura1: 'radial-gradient(circle at 8% 8%, rgba(225, 168, 55, 0.12) 0%, transparent 55%)',
+        cornerAura2: 'radial-gradient(circle at 92% 92%, rgba(141, 122, 2, 0.09) 0%, transparent 55%)',
+        dotPattern: 'rgba(56, 55, 13, 0.045)',
+        runningAura: 'rgba(225, 168, 55, 0.28)'
+      };
+    }
+
+    if (isDark) {
+      return {
+        containerClass: 'bg-[#090A12] text-white',
+        centerAura: `radial-gradient(ellipse at 50% 45%, ${modeTheme.glow.replace('0.45', '0.20').replace('0.55', '0.22')} 0%, rgba(15, 23, 42, 0.45) 42%, transparent 72%)`,
+        cornerAura1: 'radial-gradient(circle at 8% 8%, rgba(30, 58, 138, 0.22) 0%, transparent 55%)',
+        cornerAura2: 'radial-gradient(circle at 92% 92%, rgba(99, 102, 241, 0.18) 0%, transparent 55%)',
+        dotPattern: 'rgba(255, 255, 255, 0.035)',
+        runningAura: modeTheme.glow
+      };
+    }
+
+    // Default Light (Studio Alabaster)
+    return {
+      containerClass: 'bg-[#F8FAFC] text-slate-900',
+      centerAura: `radial-gradient(ellipse at 50% 45%, ${modeTheme.glow.replace('0.45', '0.08').replace('0.55', '0.10')} 0%, rgba(241, 245, 249, 0.55) 42%, transparent 72%)`,
+      cornerAura1: 'radial-gradient(circle at 8% 8%, rgba(37, 99, 235, 0.06) 0%, transparent 55%)',
+      cornerAura2: 'radial-gradient(circle at 92% 92%, rgba(14, 165, 233, 0.05) 0%, transparent 55%)',
+      dotPattern: 'rgba(15, 23, 42, 0.03)',
+      runningAura: modeTheme.glow.replace('0.45', '0.16')
+    };
+  }, [theme, isDark, modeTheme]);
 
   const hasHours = Number(hStr) > 0 || session.mode === 'stopwatch';
 
@@ -1037,21 +1074,49 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] bg-[#F8FAFC] dark:bg-[#090A12] text-slate-900 dark:text-white flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-300"
+      className={`fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] ${bgThemeStyles.containerClass} flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-500 pomodoro-focus-chamber`}
       onClick={e => e.stopPropagation()}
     >
-      {/* 🌌 Luminous Cosmic Background Auras Matching Website Palette */}
-      <div
-        className="fixed inset-0 pointer-events-none transition-all duration-1000 opacity-30 dark:opacity-75"
-        style={{
-          background: 'radial-gradient(circle at 50% 45%, rgba(124, 58, 237, 0.18) 0%, rgba(34, 211, 238, 0.06) 35%, transparent 70%)'
-        }}
-      />
-      <div className="fixed -bottom-40 -right-40 w-96 h-96 rounded-full blur-3xl opacity-20 dark:opacity-30 pointer-events-none bg-gradient-to-br from-[#7C3AED] to-[#22D3EE]" />
-      <div className="fixed -top-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-20 dark:opacity-30 pointer-events-none bg-gradient-to-br from-[#4F46E5] to-[#7C3AED]" />
+      {/* 🌌 Contained Atmospheric Background System (Zero Bleed, Theme-Cohesive) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+        {/* 1. Primary Center Atmosphere Vignette */}
+        <div
+          className="absolute inset-0 transition-all duration-1000"
+          style={{ background: bgThemeStyles.centerAura }}
+        />
 
-      {/* Subtle Tech Grid Texture */}
-      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:28px_28px] opacity-70" />
+        {/* 2. Top-Left Ambient Radiance (Zero Viewport Bleed) */}
+        <div
+          className="absolute inset-0 transition-all duration-1000"
+          style={{ background: bgThemeStyles.cornerAura1 }}
+        />
+
+        {/* 3. Bottom-Right Ambient Radiance (Zero Viewport Bleed) */}
+        <div
+          className="absolute inset-0 transition-all duration-1000"
+          style={{ background: bgThemeStyles.cornerAura2 }}
+        />
+
+        {/* 4. Active Chrono Dial Aura (Soft breathing glow centered on chronometer when running) */}
+        {isRunning && (
+          <div
+            className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[380px] sm:w-[480px] md:w-[540px] h-[340px] xs:h-[380px] sm:h-[480px] md:h-[540px] rounded-full blur-3xl pointer-events-none transition-all duration-1000 animate-pulse"
+            style={{
+              background: `radial-gradient(circle, ${bgThemeStyles.runningAura} 0%, transparent 70%)`,
+              opacity: isDark ? 0.35 : 0.22
+            }}
+          />
+        )}
+
+        {/* 5. Minimalist Precision Dot Grid Texture */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+          style={{
+            backgroundImage: `radial-gradient(${bgThemeStyles.dotPattern} 1px, transparent 1px)`,
+            backgroundSize: '24px 24px'
+          }}
+        />
+      </div>
 
       {/* 1. TOP UTILITY HEADER (Clean, Responsive, Mobile-Stable - Hidden in Fullscreen) */}
       {!isBrowserFullscreen && (
