@@ -548,16 +548,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
       {/* 2. NEXT-GEN LUXURY STREAK & MOMENTUM COMMAND BANNER */}
-      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#0C0E1C] via-[#141834] to-[#0C0E1C] text-white border-2 border-amber-500/30 shadow-2xl shadow-amber-500/10 relative overflow-hidden group print:hidden">
+      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.04] to-amber-500/[0.08] dark:from-[#0C0E1C] dark:via-[#141834] dark:to-[#0C0E1C] text-slate-900 dark:text-white border-2 border-amber-500/30 dark:border-amber-500/30 shadow-xl shadow-amber-500/5 dark:shadow-2xl dark:shadow-amber-500/10 relative overflow-hidden group print:hidden">
         {/* Ambient Radiant Glows */}
-        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/25 transition-all duration-700" />
-        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-700" />
+        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/15 dark:bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 dark:group-hover:bg-amber-500/25 transition-all duration-700" />
+        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/15 dark:group-hover:bg-indigo-500/25 transition-all duration-700" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Left: Flame Emblem + Streak Stat */}
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             <div className="relative shrink-0">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500/30 via-orange-500/25 to-amber-400/40 border border-amber-400/50 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500/25 via-orange-500/20 to-amber-400/35 dark:from-amber-500/30 dark:via-orange-500/25 dark:to-amber-400/40 border border-amber-400/50 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shadow-lg shadow-amber-500/15 dark:shadow-amber-500/20 group-hover:scale-105 transition-transform">
                 🔥
               </div>
               <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-black bg-amber-400 text-slate-950 shadow-xs border border-amber-200">
@@ -567,23 +567,23 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-none drop-shadow-sm">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none drop-shadow-xs">
                   {profile.currentStreak || 7} Day Study Streak
                 </h2>
-                <span className="streak-conquered-badge px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] font-bold font-mono tabular-nums flex items-center gap-1 shadow-xs">
-                  <Sparkles className="w-3 h-3 text-amber-300" />
+                <span className="streak-conquered-badge px-2.5 py-0.5 rounded-full bg-amber-500/15 dark:bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40 text-[11px] font-bold font-mono tabular-nums flex items-center gap-1 shadow-2xs">
+                  <Sparkles className="w-3 h-3 text-amber-600 dark:text-amber-300" />
                   <span>{todayProgressPercent}% Conquered Today</span>
                 </span>
               </div>
-              <p className="text-xs sm:text-[13px] text-slate-200 font-medium mt-1.5 leading-snug">
+              <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-200 font-medium mt-1.5 leading-snug">
                 Consistency is mastery. Personal best record:{' '}
-                <span className="streak-record-val text-amber-300 font-black tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
+                <span className="streak-record-val text-amber-700 dark:text-amber-300 font-black tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
               </p>
             </div>
           </div>
 
           {/* Center: Interactive 7-Day Consistency Week Strip */}
-          <div className="streak-week-strip flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-black/40 border border-white/15 backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar shadow-inner">
+          <div className="streak-week-strip flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-white/70 dark:bg-black/40 border border-amber-200/70 dark:border-white/15 backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar shadow-inner">
             {weekDays.map((wd) => {
               const isCurrentDay = wd.isToday;
               const dayTasksList = filteredTasks.filter(t => t.scheduledDate === wd.dateStr);
@@ -596,12 +596,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   key={wd.dateStr}
                   className={`streak-day-card flex flex-col items-center justify-center w-8 sm:w-9 py-1 rounded-xl transition-all cursor-pointer ${
                     isCurrentDay
-                      ? 'bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/50 ring-2 ring-amber-300 scale-105'
+                      ? 'bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/40 ring-2 ring-amber-300 scale-105'
                       : allDone
-                      ? 'bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 shadow-xs'
+                      ? 'bg-emerald-500/20 text-emerald-800 dark:bg-emerald-500/30 dark:text-emerald-200 border border-emerald-400/40 shadow-2xs'
                       : dayDone
-                      ? 'bg-amber-500/30 text-amber-200 border border-amber-400/50 shadow-xs'
-                      : 'bg-white/10 hover:bg-white/20 text-white border border-white/15 shadow-2xs'
+                      ? 'bg-amber-500/20 text-amber-800 dark:bg-amber-500/30 dark:text-amber-200 border border-amber-400/40 shadow-2xs'
+                      : 'bg-slate-100/80 hover:bg-slate-200/80 text-slate-700 border border-slate-200/70 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/15 shadow-2xs'
                   }`}
                   onClick={() => {
                     soundManager.playClick();
@@ -612,21 +612,21 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 >
                   <span
                     className={`streak-day-name text-[9.5px] font-mono uppercase font-black ${
-                      isCurrentDay ? 'text-slate-950' : 'text-amber-300'
+                      isCurrentDay ? 'text-slate-950' : 'text-amber-700 dark:text-amber-300'
                     }`}
                   >
                     {wd.dayName.slice(0, 2)}
                   </span>
                   <span
                     className={`streak-day-num text-[12px] font-mono font-black mt-0.5 tabular-nums ${
-                      isCurrentDay ? 'text-slate-950' : 'text-white'
+                      isCurrentDay ? 'text-slate-950' : 'text-slate-800 dark:text-white'
                     }`}
                   >
                     {wd.dayNum}
                   </span>
                   <span
                     className={`streak-day-dot text-[10px] mt-0.5 font-black ${
-                      isCurrentDay ? 'text-slate-950' : 'text-amber-400'
+                      isCurrentDay ? 'text-slate-950' : 'text-amber-600 dark:text-amber-400'
                     }`}
                   >
                     {isCurrentDay ? '●' : allDone ? '✓' : dayDone ? '🔥' : '·'}
@@ -640,12 +640,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
             <div className="text-right hidden sm:block">
               <div
-                className="streak-target-status text-xs font-black text-white flex items-center gap-1.5 justify-end"
+                className="streak-target-status text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 justify-end"
               >
-                <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                 <span>{completedTodayCount} of {totalTodayCount} Conquered</span>
               </div>
-              <span className="streak-multiplier-text text-[11px] text-amber-300 font-bold font-mono">
+              <span className="streak-multiplier-text text-[11px] text-amber-700 dark:text-amber-300 font-bold font-mono">
                 1.25x XP Streak Multiplier Active
               </span>
             </div>
@@ -671,40 +671,42 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       {/* 3. FOUR NEXT-GEN LUXURY METRIC GLASS CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
         {/* Card 1: Today's Velocity & Flow */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#4F46E5] via-[#4338CA] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/40 dark:border-indigo-400/25 shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-indigo-50/90 via-white to-indigo-50/40 dark:from-[#4F46E5] dark:via-[#4338CA] dark:to-[#3730A3] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-indigo-200/80 dark:border-indigo-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-200/50 dark:via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-indigo-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
               Today's Velocity
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-100 dark:bg-white/20 backdrop-blur-md border border-indigo-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-indigo-200/60 dark:group-hover:bg-white/25 text-indigo-600 dark:text-white">
               <TrendingUp className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
           
           <div className="relative z-10 my-3 flex items-baseline justify-between gap-2">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
               {todayProgressPercent}%
             </div>
             {/* Micro SVG Circular Gauge */}
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-white/20" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="white" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="transition-all duration-700" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-200 dark:text-white/20" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="text-indigo-600 dark:text-white transition-all duration-700" />
               </svg>
-              <span className="absolute text-[9px] font-mono font-black text-white">
+              <span className="absolute text-[9px] font-mono font-black text-slate-800 dark:text-white">
                 {completedTodayCount}
               </span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
             <span className="truncate">{completedTodayCount} of {totalTodayCount} Done</span>
-            <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border border-white/20 ${
-              todayProgressPercent === 100 ? 'bg-emerald-400/30 text-white' : 'bg-white/20 text-white'
+            <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border ${
+              todayProgressPercent === 100
+                ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:bg-emerald-400/30 dark:border-white/20 dark:text-white'
+                : 'bg-indigo-50 border-indigo-200 text-indigo-700 dark:bg-white/20 dark:border-white/20 dark:text-white'
             }`}>
               {todayProgressPercent === 100 ? '✓ Complete' : 'In Sprint'}
             </span>
@@ -712,101 +714,104 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Card 2: Planned Runway & Focus Time */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-rose-50/90 via-white to-rose-50/40 dark:from-[#F43F5E] dark:via-[#E11D48] dark:to-[#BE123C] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-rose-200/80 dark:border-rose-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-rose-200/50 dark:via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-rose-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
               Planned Study
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-rose-100 dark:bg-white/20 backdrop-blur-md border border-rose-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-rose-200/60 dark:group-hover:bg-white/25 text-rose-600 dark:text-white">
               <Clock className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
           <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 flex-wrap">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
-              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-white/80 ml-0.5">h</span>
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-500 dark:text-white/80 ml-0.5">h</span>
             </div>
-            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/20 border border-white/20 text-white shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-100/80 border border-rose-200 text-rose-700 dark:bg-white/20 dark:border-white/20 dark:text-white shrink-0">
               {(completedMinutes / 60).toFixed(1)}h finished
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
             <span className="truncate">Runway Remaining</span>
-            <span className="font-mono text-white font-bold shrink-0">
+            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
               {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
             </span>
           </div>
         </div>
 
         {/* Card 3: Target Queue & Yield */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-sky-50/90 via-white to-sky-50/40 dark:from-[#0284C7] dark:via-[#0369A1] dark:to-[#075985] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-sky-200/80 dark:border-sky-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sky-200/50 dark:via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-sky-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
               Target Queue
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-100 dark:bg-white/20 backdrop-blur-md border border-sky-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-sky-200/60 dark:group-hover:bg-white/25 text-sky-600 dark:text-white">
               <Target className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
           <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
               {plannerTasks.length}
             </div>
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/20 border border-white/20 text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100/80 border border-sky-200 text-sky-700 dark:bg-white/20 dark:border-white/20 dark:text-white">
                 {todayTasks.length} Today
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/20 border border-white/20 text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100/80 border border-sky-200 text-sky-700 dark:bg-white/20 dark:border-white/20 dark:text-white">
                 {inProgressTasks.length} Focus
               </span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
             <span className="truncate">Active Queue</span>
-            <span className="font-mono text-white font-bold shrink-0">
+            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
               {upcomingTasks.length} Upcoming
             </span>
           </div>
         </div>
 
         {/* Card 4: Academic Level & XP Prestige */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-emerald-50/90 via-white to-emerald-50/40 dark:from-[#10B981] dark:via-[#059669] dark:to-[#047857] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-emerald-200/80 dark:border-emerald-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-200/50 dark:via-white/40 to-transparent pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-28 h-28 bg-emerald-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
               XP &amp; Rank
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25 text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-100 dark:bg-white/20 backdrop-blur-md border border-emerald-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-emerald-200/60 dark:group-hover:bg-white/25 text-emerald-600 dark:text-white">
               <Award className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
           <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 min-w-0">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white tabular-nums leading-none whitespace-nowrap shrink-0">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none whitespace-nowrap shrink-0">
               Lvl {profile.level}
             </div>
-            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-white/20 border border-white/20 text-white truncate max-w-[110px]">
+            <span
+              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-100/80 dark:bg-white/20 border border-emerald-200 dark:border-white/20 text-emerald-800 dark:text-white truncate max-w-[130px] sm:max-w-none shrink min-w-0"
+              title={profile.levelTitle || 'Scholar'}
+            >
               {profile.levelTitle || 'Scholar'}
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-medium text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
             <span className="truncate">{profile.xp} Total XP</span>
-            <span className="font-mono text-white font-bold shrink-0">
+            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
               +25 XP / target
             </span>
           </div>
@@ -1416,7 +1421,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
                   // Workload intensity
                   const intensityBadge = dayMinutes === 0
-                    ? { label: 'Rest Day', col: 'text-slate-400 bg-slate-100 dark:bg-white/[0.04]' }
+                    ? { label: 'Open', col: 'text-slate-400 bg-slate-100/70 dark:bg-white/[0.04] border-transparent' }
                     : dayMinutes <= 60
                     ? { label: `${dayMinutes}m Light`, col: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20' }
                     : dayMinutes <= 120
@@ -1511,20 +1516,19 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       {/* Day Tasks List */}
                       <div className="space-y-1.5 max-h-[220px] overflow-y-auto no-scrollbar flex-1">
                         {dayTasks.length === 0 ? (
-                          <div className="py-5 px-2 flex flex-col items-center justify-center text-center rounded-xl border border-dashed border-slate-200/80 dark:border-white/[0.06] bg-slate-50/40 dark:bg-white/[0.01]">
-                            <span className="text-[10px] text-slate-400 font-medium">Runway clear</span>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                soundManager.playClick();
-                                setTargetDate(day.dateStr);
-                                setShowAddModal(true);
-                              }}
-                              className="mt-1 text-[10.5px] font-bold text-indigo-600 dark:text-[#7AA2F7] hover:underline"
-                            >
-                              + Plan Sprint
-                            </button>
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              soundManager.playClick();
+                              setTargetDate(day.dateStr);
+                              setShowAddModal(true);
+                            }}
+                            className="py-5 px-2 flex flex-col items-center justify-center text-center rounded-xl border border-dashed border-slate-200 dark:border-white/10 hover:border-indigo-400/80 dark:hover:border-indigo-500/50 bg-slate-50/40 hover:bg-indigo-50/20 dark:bg-white/[0.01] dark:hover:bg-indigo-950/20 transition-all cursor-pointer group/empty"
+                          >
+                            <span className="text-[10.5px] font-bold text-slate-400 group-hover/empty:text-indigo-600 dark:group-hover/empty:text-indigo-400 transition-colors flex items-center gap-1">
+                              <Plus className="w-3 h-3 stroke-[2.5]" />
+                              <span>Plan Target</span>
+                            </span>
                           </div>
                         ) : (
                           dayTasks.map(t => {
