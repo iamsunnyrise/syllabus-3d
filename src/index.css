@@ -13,16 +13,16 @@
 @layer base {
   :root {
     /* 🎨 Professional 5-Color Theme System (High-Contrast & Refined Aesthetic) */
-    /* 1. Primary: #0F172A | 2. Secondary: #7C3AED | 3. Accent: #22D3EE | 4. Tertiary: #A78BFA | 5. Background: #EDE9FE */
-    --color-background: #EDE9FE;
+    /* 1. Primary: #0F172A | 2. Secondary: #2563EB | 3. Accent: #0284C7 | 4. Tertiary: #6366F1 | 5. Background: #F8FAFC */
+    --color-background: #F8FAFC;
     --color-primary: #0F172A;
-    --color-primary-accent: #7C3AED;
-    --color-accent-light: #EDE9FE;
-    --color-secondary-accent: #22D3EE;
-    --color-tertiary-accent: #A78BFA;
+    --color-primary-accent: #2563EB;
+    --color-accent-light: #F1F5F9;
+    --color-secondary-accent: #0284C7;
+    --color-tertiary-accent: #6366F1;
     --color-surface: #FFFFFF;
-    --color-surface-soft: #F5F3FF;
-    --color-border: #DDD6FE;
+    --color-surface-soft: #F1F5F9;
+    --color-border: #E2E8F0;
     --color-text-primary: #0F172A;
     --color-text-secondary: #334155;
     --color-text-muted: #475569;
@@ -1271,127 +1271,128 @@
 /* ================================================================= */
 
 /* ================================================================= */
-/*  PROFESSIONAL 5-COLOR THEME NORMALIZERS                           */
-/*  Palette: #EDE9FE (Background Canvas), #FFFFFF (Surface Cards),   */
+/*  PROFESSIONAL MODERN TECH THEME NORMALIZERS                       */
+/*  Palette: #F8FAFC (Studio Alabaster Canvas), #FFFFFF (Surface Cards), */
 /*           #0F172A (Primary High-Contrast Text - WCAG AAA 14.8:1),  */
-/*           #7C3AED (Secondary CTA), #22D3EE (Accent Glow),         */
-/*           #A78BFA (Tertiary Soft Badges)                          */
+/*           #2563EB (Primary Action), #0284C7 (Focus Accent),       */
+/*           #E2E8F0 (Crisp Slate Definition Borders)                */
 /* ================================================================= */
 
-html:not(.dark):not(.sepia):not(.luxury) body {
-  background-color: #EDE9FE !important;
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) body {
+  background-color: #F8FAFC !important;
   color: #0F172A !important;
 }
 
 /* Canvas & App Background Normalizers */
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F7F6F0\],
-html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F7F6F0]"],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F8FAFC\],
-html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#F8FAFC]"],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAEED9\],
-html:not(.dark):not(.sepia):not(.luxury) [class*="bg-[#FAEED9]"] {
-  background-color: #EDE9FE !important;
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F7F6F0\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="bg-[#F7F6F0]"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F8FAFC\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="bg-[#F8FAFC]"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#EDE9FE\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="bg-[#EDE9FE]"] {
+  background-color: #F8FAFC !important;
 }
 
-/* Clean Pristine Card Surfaces on Lavender Canvas */
-html:not(.dark):not(.sepia):not(.luxury) .bg-white,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAF9F5\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FAF8F5\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#FFFDF8\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F4F6EE\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F4F6EC\] {
+/* Clean Pristine Card Surfaces on Alabaster Canvas */
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-white,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#FAF9F5\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#FAF8F5\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#FFFDF8\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F4F6EE\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F4F6EC\] {
   background-color: #FFFFFF !important;
 }
 
 /* Wells, Elevated Containers & Soft Surfaces */
-html:not(.dark):not(.sepia):not(.luxury) .bg-slate-50,
-html:not(.dark):not(.sepia):not(.luxury) .bg-slate-100,
-html:not(.dark):not(.sepia):not(.luxury) .bg-gray-50,
-html:not(.dark):not(.sepia):not(.luxury) .bg-gray-100,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#EEEEE8\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F5E8CF\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#F1F5F9\] {
-  background-color: #F5F3FF !important;
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-slate-50,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-slate-100,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-gray-50,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-gray-100,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#EEEEE8\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F5E8CF\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F5F3FF\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#F1F5F9\] {
+  background-color: #F1F5F9 !important;
 }
 
-/* Soft Lilac Borders for Crisp Definition */
-html:not(.dark):not(.sepia):not(.luxury) .border-slate-200,
-html:not(.dark):not(.sepia):not(.luxury) [class*="border-slate-200"],
-html:not(.dark):not(.sepia):not(.luxury) .border-slate-100,
-html:not(.dark):not(.sepia):not(.luxury) [class*="border-slate-100"],
-html:not(.dark):not(.sepia):not(.luxury) .border-gray-200,
-html:not(.dark):not(.sepia):not(.luxury) [class*="border-gray-200"],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D8D8CF\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D0D0C5\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E6D3B1\],
-html:not(.dark):not(.sepia):not(.luxury) [class*="border-[#D8D8CF]"],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E2E8F0\] {
-  border-color: #DDD6FE !important;
+/* Crisp Slate Borders for Modern Definition */
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-slate-200,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="border-slate-200"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-slate-100,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="border-slate-100"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-gray-200,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="border-gray-200"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#D8D8CF\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#D0D0C5\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#DDD6FE\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="border-[#D8D8CF]"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#E2E8F0\] {
+  border-color: #E2E8F0 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#EEEEE8\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#D8C29A\],
-html:not(.dark):not(.sepia):not(.luxury) .border-slate-300 {
-  border-color: #C4B5FD !important;
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#EEEEE8\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#C4B5FD\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-slate-300 {
+  border-color: #CBD5E1 !important;
 }
 
 /* ══════════════════════════════════════════════════════════════════
    HIGH-CONTRAST TEXT VISIBILITY (WCAG AAA Compliance - "TEXT VISIBLE")
-   Primary: #0F172A (14.8:1 contrast ratio against #EDE9FE, 18.2:1 on #FFFFFF)
+   Primary: #0F172A (14.8:1 contrast ratio against #F8FAFC, 18.2:1 on #FFFFFF)
    Secondary: #334155 (9.8:1 contrast ratio)
    Muted: #475569 (7.0:1 contrast ratio, zero washed-out light gray)
    ══════════════════════════════════════════════════════════════════ */
 
 /* Primary Headings, Titles & Emphasized Text */
-html:not(.dark):not(.sepia):not(.luxury) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-900,
-html:not(.dark):not(.sepia):not(.luxury) [class*="text-slate-900"],
-html:not(.dark):not(.sepia):not(.luxury) .text-black,
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-800,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-900,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-800,
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#11120F\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#191A17\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#38370D\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#0F172A\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-900,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="text-slate-900"],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-black,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-800,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-900,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-800,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#11120F\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#191A17\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#38370D\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#0F172A\] {
   color: #0F172A !important;
 }
 
 /* Secondary Body, Descriptions & Labels */
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-700,
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-600,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-700,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-600,
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#65675F\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#3D4039\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#3F423B\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#4E4B11\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#475569\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-700,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-600,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-700,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-600,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#65675F\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#3D4039\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#3F423B\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#4E4B11\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#475569\] {
   color: #334155 !important;
   font-weight: 600;
 }
 
 /* Tertiary, Subtext, Timestamps & Counter Badges (High Contrast) */
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-500,
-html:not(.dark):not(.sepia):not(.luxury) .text-slate-400,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-500,
-html:not(.dark):not(.sepia):not(.luxury) .text-gray-400,
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#85877E\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#55594E\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#6B6615\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#64748B\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-500,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-400,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-500,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-400,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#85877E\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#55594E\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#6B6615\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#64748B\] {
   color: #475569 !important;
   font-weight: 600;
 }
 
 /* Placeholders with high legibility */
-html:not(.dark):not(.sepia):not(.luxury) input::placeholder,
-html:not(.dark):not(.sepia):not(.luxury) textarea::placeholder {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) input::placeholder,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) textarea::placeholder {
   color: #64748B !important;
   opacity: 0.9;
 }
@@ -1401,10 +1402,10 @@ html:not(.dark):not(.sepia):not(.luxury) textarea::placeholder {
    ══════════════════════════════════════════════════════════════════ */
 
 /* Vibrant Violet Buttons & Badges */
-html:not(.dark):not(.sepia):not(.luxury) .bg-blue-600,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#2563EB\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#1D4ED8\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-brand-500 {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-blue-600,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#2563EB\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#1D4ED8\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-brand-500 {
   background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
@@ -1412,61 +1413,61 @@ html:not(.dark):not(.sepia):not(.luxury) .bg-brand-500 {
   box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.3) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-blue-700:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-blue-600:hover {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-blue-700:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-blue-600:hover {
   background: linear-gradient(135deg, #6D28D9 0%, #5B21B6 100%) !important;
   color: #FFFFFF !important;
 }
 
 /* Accent Text */
-html:not(.dark):not(.sepia):not(.luxury) .text-blue-600,
-html:not(.dark):not(.sepia):not(.luxury) .text-blue-700,
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#2563EB\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#1D4ED8\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#596B35\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#354126\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#8D7A02\],
-html:not(.dark):not(.sepia):not(.luxury) .text-\[\#4A5A2B\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-blue-600,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-blue-700,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#2563EB\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#1D4ED8\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#596B35\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#354126\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#8D7A02\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#4A5A2B\] {
   color: #7C3AED !important;
   font-weight: 700;
 }
 
 /* Soft Lavender Accent Backgrounds / Pills / Badges */
-html:not(.dark):not(.sepia):not(.luxury) .bg-blue-50,
-html:not(.dark):not(.sepia):not(.luxury) .bg-blue-100,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#EFF6FF\],
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#2563EB\]\/10,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#2563EB\]\/15,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/10,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/15,
-html:not(.dark):not(.sepia):not(.luxury) .bg-\[\#596B35\]\/20 {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-blue-50,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-blue-100,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#EFF6FF\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#2563EB\]\/10,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#2563EB\]\/15,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#596B35\]\/10,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#596B35\]\/15,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .bg-\[\#596B35\]\/20 {
   background-color: rgba(124, 58, 237, 0.12) !important;
   color: #6D28D9 !important;
   border-color: rgba(167, 139, 250, 0.4) !important;
 }
 
 /* Accent Borders */
-html:not(.dark):not(.sepia):not(.luxury) .border-blue-200,
-html:not(.dark):not(.sepia):not(.luxury) .border-blue-300,
-html:not(.dark):not(.sepia):not(.luxury) .border-blue-500,
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#2563EB\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#596B35\],
-html:not(.dark):not(.sepia):not(.luxury) .border-\[\#E1A837\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-blue-200,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-blue-300,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-blue-500,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#2563EB\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#596B35\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-\[\#E1A837\] {
   border-color: #A78BFA !important;
 }
 
 /* Interactive Hover States */
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-slate-100:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-slate-50:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-\[\#EEEEE8\]:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:bg-\[\#FAF9F5\]:hover {
-  background-color: #F5F3FF !important;
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-slate-100:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-slate-50:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-\[\#EEEEE8\]:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:bg-\[\#FAF9F5\]:hover {
+  background-color: #F1F5F9 !important;
   color: #0F172A !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .hover\:text-blue-600:hover,
-html:not(.dark):not(.sepia):not(.luxury) .hover\:text-\[\#596B35\],
-html:not(.dark):not(.sepia):not(.luxury) .hover\:text-\[\#8D7A02\]:hover {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:text-blue-600:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:text-\[\#596B35\],
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .hover\:text-\[\#8D7A02\]:hover {
   color: #7C3AED !important;
 }
 
@@ -1479,62 +1480,62 @@ html:not(.dark) :focus-visible {
 /* ══════════════════════════════════════════════════════════════════
    SYLLABUS EXPLORER HERO DASHBOARD BANNER (High Legibility & Modern Style)
    ══════════════════════════════════════════════════════════════════ */
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner,
 .syllabus-hero-banner {
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner h1,
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-banner-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner h1,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-banner-title,
 .syllabus-hero-banner h1,
 .syllabus-hero-banner .syllabus-banner-title {
   color: #FFFFFF !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner p,
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-banner-subtitle,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner p,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-banner-subtitle,
 .syllabus-hero-banner p,
 .syllabus-hero-banner .syllabus-banner-subtitle {
   color: #CBD5E1 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-meta-text,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-meta-text,
 .syllabus-hero-banner .syllabus-meta-text {
   color: #CBD5E1 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-bento-tile,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-bento-tile,
 .syllabus-hero-banner .syllabus-bento-tile {
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-date,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-tile-date,
 .syllabus-hero-banner .syllabus-tile-date {
   background-color: rgba(19, 26, 43, 0.85) !important;
   border: 1px solid rgba(71, 85, 105, 0.5) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-remaining,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-tile-remaining,
 .syllabus-hero-banner .syllabus-tile-remaining {
   background-color: rgba(25, 24, 17, 0.85) !important;
   border: 1px solid rgba(245, 158, 11, 0.25) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-progress,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-tile-progress,
 .syllabus-hero-banner .syllabus-tile-progress {
   background-color: rgba(7, 36, 34, 0.85) !important;
   border: 1px solid rgba(20, 184, 166, 0.25) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-target,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-tile-target,
 .syllabus-hero-banner .syllabus-tile-target {
   background-color: rgba(40, 16, 25, 0.85) !important;
   border: 1px solid rgba(244, 63, 94, 0.25) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-sub,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .syllabus-hero-banner .syllabus-tile-sub,
 .syllabus-hero-banner .syllabus-tile-sub {
   color: #94A3B8 !important;
 }
@@ -1542,53 +1543,53 @@ html:not(.dark):not(.sepia):not(.luxury) .syllabus-hero-banner .syllabus-tile-su
 /* ══════════════════════════════════════════════════════════════════
    WEAK AREAS & EXAMINER TRAPS HERO DASHBOARD BANNER
    ══════════════════════════════════════════════════════════════════ */
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner,
 .weak-traps-hero-banner {
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner h1,
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-banner-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner h1,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-banner-title,
 .weak-traps-hero-banner h1,
 .weak-traps-hero-banner .weak-banner-title {
   color: #FFFFFF !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner p,
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-banner-subtitle,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner p,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-banner-subtitle,
 .weak-traps-hero-banner p,
 .weak-traps-hero-banner .weak-banner-subtitle {
   color: #CBD5E1 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-section-label,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-section-label,
 .weak-traps-hero-banner .weak-section-label {
   color: #94A3B8 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner h4,
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-tile-count,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner h4,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-tile-count,
 .weak-traps-hero-banner h4,
 .weak-traps-hero-banner .weak-tile-count {
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-pill-rose,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-pill-rose,
 .weak-traps-hero-banner .weak-pill-rose {
   background-color: rgba(244, 63, 94, 0.15) !important;
   border: 1px solid rgba(244, 63, 94, 0.35) !important;
   color: #FDA4AF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-pill-amber,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-pill-amber,
 .weak-traps-hero-banner .weak-pill-amber {
   background-color: rgba(245, 158, 11, 0.15) !important;
   border: 1px solid rgba(245, 158, 11, 0.35) !important;
   color: #FCD34D !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-tile-btn,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .weak-traps-hero-banner .weak-tile-btn,
 .weak-traps-hero-banner .weak-tile-btn {
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -1597,40 +1598,40 @@ html:not(.dark):not(.sepia):not(.luxury) .weak-traps-hero-banner .weak-tile-btn,
 /* ══════════════════════════════════════════════════════════════════
    HOME STUDY HERO BANNER SPECIFICITY OVERRIDES (LIGHT + DARK MODE)
    ══════════════════════════════════════════════════════════════════ */
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner,
 .home-hero-banner {
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner h1,
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-banner-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner h1,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-banner-title,
 .home-hero-banner h1,
 .home-hero-banner .home-banner-title {
   color: #FFFFFF !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-banner-eyebrow,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-banner-eyebrow,
 .home-hero-banner .home-banner-eyebrow {
   color: #7ED4B2 !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner p,
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-banner-subtitle,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner p,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-banner-subtitle,
 .home-hero-banner p,
 .home-hero-banner .home-banner-subtitle {
   color: #D1FAE5 !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-banner-year,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-banner-year,
 .home-hero-banner .home-banner-year {
   color: #F5BE38 !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-module-btn,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-module-btn,
 .home-hero-banner .home-module-btn {
   background-color: rgba(6, 30, 24, 0.65) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
@@ -1639,14 +1640,14 @@ html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-module-btn,
   -webkit-backdrop-filter: blur(12px) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-module-btn:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-module-btn:hover,
 .home-hero-banner .home-module-btn:hover {
   background-color: rgba(14, 52, 42, 0.85) !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-pill-badge,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-pill-badge,
 .home-hero-banner .home-pill-badge {
   background-color: rgba(4, 18, 14, 0.75) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
@@ -1655,7 +1656,7 @@ html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-pill-badge,
   -webkit-backdrop-filter: blur(12px) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-pill-mastery,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .home-pill-mastery,
 .home-hero-banner .home-pill-mastery {
   background-color: rgba(30, 22, 8, 0.8) !important;
   border: 1px solid rgba(245, 158, 11, 0.4) !important;
@@ -1667,67 +1668,67 @@ html:not(.dark):not(.sepia):not(.luxury) .home-hero-banner .home-pill-mastery,
 /* ══════════════════════════════════════════════════════════════════
    STUDY HUB & PLATFORMS HERO BANNER (High Legibility & Modern Bento)
    ══════════════════════════════════════════════════════════════════ */
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner,
 .study-hub-hero-banner {
   color: #FFFFFF !important;
   background-color: #080911 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner h1,
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-banner-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner h1,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-banner-title,
 .study-hub-hero-banner h1,
 .study-hub-hero-banner .study-hub-banner-title {
   color: #FFFFFF !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner p,
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-banner-subtitle,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner p,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-banner-subtitle,
 .study-hub-hero-banner p,
 .study-hub-hero-banner .study-hub-banner-subtitle {
   color: #CBD5E1 !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-tile-count,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-tile-count,
 .study-hub-hero-banner .study-hub-tile-count {
   color: #FFFFFF !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-label-purple,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-purple,
 .study-hub-hero-banner .study-hub-label-purple {
   color: #D8B4FE !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-label-sky,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-sky,
 .study-hub-hero-banner .study-hub-label-sky {
   color: #BAE6FD !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-label-amber,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-amber,
 .study-hub-hero-banner .study-hub-label-amber {
   color: #FDE68A !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-label-emerald,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-emerald,
 .study-hub-hero-banner .study-hub-label-emerald {
   color: #A7F3D0 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-bento-tile,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-bento-tile,
 .study-hub-hero-banner .study-hub-bento-tile {
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-add-btn,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-add-btn,
 .study-hub-hero-banner .study-hub-add-btn {
   color: #FFFFFF !important;
   background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%) !important;
   border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .study-hub-hero-banner .study-hub-add-btn *,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-add-btn *,
 .study-hub-hero-banner .study-hub-add-btn * {
   color: #FFFFFF !important;
 }
@@ -2569,14 +2570,14 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover {
    ══════════════════════════════════════════════════════════════════ */
 
 /* Headings: Subject Names, Exam Names, HUD Titles - Pure White & Crisp */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h1,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h2,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h3,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h4,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h5,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container h6,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-subj-title,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-core-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h1,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h2,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h3,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h4,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h5,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container h6,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-subj-title,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-core-title,
 .mindmap-canvas-container h1,
 .mindmap-canvas-container h2,
 .mindmap-canvas-container h3,
@@ -2588,8 +2589,8 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-core
 }
 
 /* Meta info: Chapter count, Concept count */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-meta-text,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-subj-meta,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-meta-text,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-subj-meta,
 .mindmap-canvas-container .mindmap-meta-text,
 .mindmap-canvas-container .mindmap-subj-meta {
   color: #CBD5E1 !important;
@@ -2597,22 +2598,22 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-subj
 }
 
 /* Chapter Headers & Branch Tags */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-chap-header,
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-chap-name,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-chap-header,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-chap-name,
 .mindmap-canvas-container .mindmap-chap-header,
 .mindmap-canvas-container .mindmap-chap-name {
   color: #E2E8F0 !important;
   font-weight: 700 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-chap-count,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-chap-count,
 .mindmap-canvas-container .mindmap-chap-count {
   color: #94A3B8 !important;
   font-weight: 600 !important;
 }
 
 /* Topic Node Chips in Constellation Web Mode */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .group\/chip,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .group\/chip,
 .mindmap-canvas-container .group\/chip {
   background-color: rgba(15, 23, 42, 0.92) !important;
   border-width: 1px !important;
@@ -2620,19 +2621,19 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .group\/chip,
   backdrop-filter: blur(8px);
 }
 
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .group\/chip span,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .group\/chip span,
 .mindmap-canvas-container .group\/chip span {
   font-weight: 600 !important;
 }
 
 /* Default / Not Started Chips */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-not_started,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-not_started,
 .mindmap-canvas-container .chip-not_started {
   background-color: rgba(30, 41, 59, 0.95) !important;
   border-color: rgba(100, 116, 139, 0.6) !important;
   color: #F1F5F9 !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-not_started:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-not_started:hover,
 .mindmap-canvas-container .chip-not_started:hover {
   background-color: rgba(51, 65, 85, 1) !important;
   border-color: rgba(56, 189, 248, 0.8) !important;
@@ -2640,13 +2641,13 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-not_sta
 }
 
 /* Mastered Chips */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-completed,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-completed,
 .mindmap-canvas-container .chip-completed {
   background-color: rgba(6, 78, 59, 0.65) !important;
   border-color: rgba(16, 185, 129, 0.6) !important;
   color: #A7F3D0 !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-completed:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-completed:hover,
 .mindmap-canvas-container .chip-completed:hover {
   background-color: rgba(6, 95, 70, 0.9) !important;
   border-color: #34D399 !important;
@@ -2654,13 +2655,13 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-complet
 }
 
 /* In Progress Chips */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-in_progress,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-in_progress,
 .mindmap-canvas-container .chip-in_progress {
   background-color: rgba(120, 53, 15, 0.65) !important;
   border-color: rgba(245, 158, 11, 0.6) !important;
   color: #FDE68A !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-in_progress:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-in_progress:hover,
 .mindmap-canvas-container .chip-in_progress:hover {
   background-color: rgba(146, 64, 14, 0.9) !important;
   border-color: #FBBF24 !important;
@@ -2668,13 +2669,13 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-in_prog
 }
 
 /* Revision Due Chips */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-revision_due,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-revision_due,
 .mindmap-canvas-container .chip-revision_due {
   background-color: rgba(88, 28, 135, 0.65) !important;
   border-color: rgba(168, 85, 247, 0.6) !important;
   color: #E9D5FF !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-revision_due:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-revision_due:hover,
 .mindmap-canvas-container .chip-revision_due:hover {
   background-color: rgba(107, 33, 168, 0.9) !important;
   border-color: #C084FC !important;
@@ -2682,13 +2683,13 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-revisio
 }
 
 /* Weak Focus Chips */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-weak,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-weak,
 .mindmap-canvas-container .chip-weak {
   background-color: rgba(136, 19, 55, 0.65) !important;
   border-color: rgba(244, 63, 94, 0.6) !important;
   color: #FECDD3 !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-weak:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .chip-weak:hover,
 .mindmap-canvas-container .chip-weak:hover {
   background-color: rgba(159, 18, 57, 0.9) !important;
   border-color: #FB7185 !important;
@@ -2696,7 +2697,7 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .chip-weak:ho
 }
 
 /* Search Query Matches */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .group\/chip.is-query-match,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .group\/chip.is-query-match,
 .mindmap-canvas-container .group\/chip.is-query-match {
   background-color: rgba(8, 145, 178, 0.85) !important;
   border-color: #22D3EE !important;
@@ -2705,13 +2706,13 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .group\/chip.
 }
 
 /* Hierarchy Tree View Topic Items */
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree-item,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-tree-item,
 .mindmap-canvas-container .mindmap-tree-item {
   background-color: rgba(15, 23, 42, 0.75) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #F1F5F9 !important;
 }
-html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree-item:hover,
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .mindmap-canvas-container .mindmap-tree-item:hover,
 .mindmap-canvas-container .mindmap-tree-item:hover {
   background-color: rgba(30, 41, 59, 0.9) !important;
   border-color: rgba(56, 189, 248, 0.4) !important;
@@ -3080,5 +3081,49 @@ html:not(.dark):not(.sepia):not(.luxury) .mindmap-canvas-container .mindmap-tree
   background-color: rgba(244, 63, 94, 0.28);
   pointer-events: none;
   border-radius: 1px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME COHESION: COMPONENT INTEGRATION FOR WARM CREAM
+   ═══════════════════════════════════════════════════════════════ */
+html.warm-cream .daily-inspiration-banner {
+  background: linear-gradient(to right, #FFFDF8, #FAF0DC, #FFFDF8) !important;
+  border-color: #E2D1B3 !important;
+}
+
+html.warm-cream .daily-inspiration-banner .quote-accent-bar {
+  background: linear-gradient(to bottom, #E1A837, #C69226) !important;
+}
+
+html.warm-cream .jump-back-in-hub {
+  background: linear-gradient(to right, rgba(225, 168, 55, 0.12), rgba(246, 235, 212, 0.6), rgba(255, 253, 248, 0.95)) !important;
+  border-color: #E2D1B3 !important;
+}
+
+html.warm-cream .jump-back-in-hub .bg-blue-600 {
+  background: linear-gradient(135deg, #E1A837 0%, #C69226 100%) !important;
+  border-color: #C69226 !important;
+  box-shadow: 0 4px 12px rgba(225, 168, 55, 0.25) !important;
+}
+
+html.warm-cream .jump-back-in-hub .text-blue-700,
+html.warm-cream .jump-back-in-hub .text-blue-600 {
+  color: #8D7A02 !important;
+}
+
+html.warm-cream .jump-back-in-hub .bg-blue-600\/15 {
+  background-color: rgba(225, 168, 55, 0.15) !important;
+  border-color: rgba(225, 168, 55, 0.3) !important;
+}
+
+html.warm-cream .jump-back-in-hub .bg-blue-600.animate-pulse {
+  background-color: #E1A837 !important;
+}
+
+html.warm-cream .exam-countdown-card {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  box-shadow: 0 1px 3px rgba(56, 55, 13, 0.06) !important;
 }
 

@@ -145,7 +145,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   const examName = currentExam?.name || 'Target Exam';
 
   return (
-    <div className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden">
+    <div className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden exam-countdown-card">
       {/* Subtle Top Accent Glow */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${phaseConfig.barGradient} opacity-75 pointer-events-none`} />
       <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-all ${phaseConfig.glowColor}`} />

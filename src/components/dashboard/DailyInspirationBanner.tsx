@@ -162,12 +162,12 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-50/90 via-purple-50/40 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-indigo-100/90 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 ${
+      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-slate-50/60 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-slate-200/80 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 daily-inspiration-banner ${
         isCollapsed ? 'p-2.5 sm:p-3' : 'p-3.5 sm:p-4.5'
       } ${className}`}
     >
       {/* Signature Vertical Accent Bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-indigo-600 via-indigo-400 to-violet-500 rounded-l-2xl" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-indigo-600 via-indigo-400 to-violet-500 rounded-l-2xl quote-accent-bar" />
 
       {/* Decorative Large Quote Watermark (hidden when collapsed) */}
       {!isCollapsed && (

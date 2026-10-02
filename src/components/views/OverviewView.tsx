@@ -256,7 +256,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
       {nextRecommendedTopic ? (
-        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-violet-950/40 border border-blue-500/25 dark:border-blue-400/25 p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden group">
+        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-violet-950/40 border border-blue-500/25 dark:border-blue-400/25 p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden group jump-back-in-hub">
           {/* Subtle Ambient Radial Highlight */}
           <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/15 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/25 transition-all" />
 
