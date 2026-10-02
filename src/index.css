@@ -3131,8 +3131,15 @@ html.warm-cream .exam-countdown-card {
    MODAL BOTTOM ACTIONS & AUTO-HIDE MOBILE NAVIGATION DOCK
    ═══════════════════════════════════════════════════════════════ */
 html.warm-cream .modal-bottom-actions {
-  background-color: rgba(255, 253, 248, 0.96) !important;
+  background-color: rgba(255, 253, 248, 0.98) !important;
   border-color: #E2D1B3 !important;
+  box-shadow: 0 -8px 24px rgba(74, 53, 30, 0.08) !important;
+}
+
+html.warm-cream .modal-bottom-actions button[type="submit"] {
+  background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+  color: #1C1B05 !important;
+  box-shadow: 0 4px 14px rgba(225, 168, 55, 0.28) !important;
 }
 
 /* Auto-hide mobile navigation dock when modal dialogs are open */

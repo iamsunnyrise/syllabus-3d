@@ -9,6 +9,7 @@ interface ModalProps {
   title?: React.ReactNode;
   children: React.ReactNode;
   maxWidth?: string;
+  fullScreenMobile?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -16,7 +17,8 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   children,
-  maxWidth = 'max-w-2xl'
+  maxWidth = 'max-w-2xl',
+  fullScreenMobile = true
 }) => {
   const { activeTheme } = useTheme();
 
@@ -37,18 +39,26 @@ export const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto animate-fadeIn">
+    <div className={`fixed inset-0 z-[100] flex ${
+      fullScreenMobile ? 'items-stretch sm:items-center' : 'items-end sm:items-center'
+    } justify-center p-0 sm:p-4 overflow-hidden sm:overflow-y-auto animate-fadeIn`}>
       {/* Backdrop */}
       <div
         onClick={onClose}
         className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300"
       />
 
-      {/* Modal Card / Mobile Bottom Sheet */}
+      {/* Modal Card / Mobile Full Screen */}
       <div
         role="dialog"
         aria-modal="true"
-        className={`modal-container relative w-full ${maxWidth} max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-t-3xl sm:rounded-2xl border-t sm:border z-10 overflow-hidden transform transition-all duration-300 animate-slideUp sm:animate-scaleIn ${
+        className={`modal-container relative w-full ${maxWidth} ${
+          fullScreenMobile
+            ? 'h-[100dvh] max-h-[100dvh] sm:h-auto sm:max-h-[90vh] rounded-none sm:rounded-2xl border-0 sm:border'
+            : 'max-h-[92vh] sm:max-h-[90vh] rounded-t-3xl sm:rounded-2xl border-t sm:border'
+        } flex flex-col z-10 overflow-hidden transform transition-all duration-300 ${
+          fullScreenMobile ? 'animate-fadeIn sm:animate-scaleIn' : 'animate-slideUp sm:animate-scaleIn'
+        } ${
           activeTheme === 'dark'
             ? 'bg-[#0C1228] border-white/10 text-white shadow-2xl'
             : activeTheme === 'warm-cream'
@@ -56,27 +66,31 @@ export const Modal: React.FC<ModalProps> = ({
               : 'bg-white border-slate-200 text-slate-900 shadow-2xl'
         }`}
       >
-        {/* Mobile Drag Indicator */}
-        <div className="sm:hidden w-10 h-1.5 rounded-full bg-slate-300 dark:bg-white/20 mx-auto mt-3 mb-1 shrink-0" />
+        {/* Mobile Drag Indicator (only when not fullScreenMobile) */}
+        {!fullScreenMobile && (
+          <div className="sm:hidden w-10 h-1.5 rounded-full bg-slate-300 dark:bg-white/20 mx-auto mt-3 mb-1 shrink-0" />
+        )}
 
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200 dark:border-white/10 shrink-0">
-            <div className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white">
+          <div className={`flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200 dark:border-white/10 shrink-0 ${
+            fullScreenMobile ? 'pt-[max(0.75rem,env(safe-area-inset-top,0px))] sm:pt-4' : ''
+          } bg-white/95 dark:bg-[#0C1228]/95 backdrop-blur-md z-20`}>
+            <div className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white min-w-0 pr-2">
               {title}
             </div>
             <button
               onClick={onClose}
               aria-label="Close Modal"
-              className="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 touch-target-min flex items-center justify-center"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 stroke-[2.5]" />
             </button>
           </div>
         )}
 
         {/* Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain custom-scrollbar flex-1 pb-16 sm:pb-6">
+        <div className="p-4 sm:p-6 overflow-y-auto overscroll-contain custom-scrollbar flex-1 pb-24 sm:pb-6">
           {children}
         </div>
       </div>

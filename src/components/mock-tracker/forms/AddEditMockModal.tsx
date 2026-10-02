@@ -398,40 +398,43 @@ export const AddEditMockModal: React.FC = () => {
           <button
             type="button"
             onClick={() => handleMockTypeSwitch('FULL_LENGTH')}
-            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+            className={`py-2 px-1.5 sm:py-2.5 sm:px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1 sm:gap-1.5 transition-all cursor-pointer ${
               !isSingleMode
                 ? 'bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-md shadow-blue-500/20'
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white/70 dark:hover:bg-white/5'
             }`}
           >
-            <Target className="w-4 h-4 shrink-0" />
-            <span className="truncate">Full Length</span>
+            <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate sm:hidden">Full Mock</span>
+            <span className="truncate hidden sm:inline">Full Length</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleMockTypeSwitch('SECTIONAL')}
-            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+            className={`py-2 px-1.5 sm:py-2.5 sm:px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1 sm:gap-1.5 transition-all cursor-pointer ${
               isSectional
                 ? 'bg-emerald-600 dark:bg-emerald-400 text-white dark:text-slate-950 shadow-md shadow-emerald-500/20'
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white/70 dark:hover:bg-white/5'
             }`}
           >
-            <Zap className="w-4 h-4 shrink-0" />
-            <span className="truncate">Sectional Drill</span>
+            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate sm:hidden">Sectional</span>
+            <span className="truncate hidden sm:inline">Sectional Drill</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleMockTypeSwitch('CHAPTER_WISE')}
-            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+            className={`py-2 px-1.5 sm:py-2.5 sm:px-3 rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1 sm:gap-1.5 transition-all cursor-pointer ${
               isChapterWise
                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white/70 dark:hover:bg-white/5'
             }`}
           >
-            <FileText className="w-4 h-4 shrink-0" />
-            <span className="truncate">Chapter Test</span>
+            <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate sm:hidden">Chapter</span>
+            <span className="truncate hidden sm:inline">Chapter Test</span>
           </button>
         </div>
 
@@ -441,35 +444,38 @@ export const AddEditMockModal: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('basics')}
-              className={`flex-1 py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer ${
+              className={`flex-1 py-2.5 sm:py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer text-center ${
                 activeTab === 'basics'
                   ? 'border-blue-600 dark:border-cyan-400 text-blue-700 dark:text-cyan-400 bg-blue-50/70 dark:bg-cyan-500/10'
                   : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
               }`}
             >
-              1. Basic Information
+              <span className="sm:hidden">1. Basics</span>
+              <span className="hidden sm:inline">1. Basic Information</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('sections')}
-              className={`flex-1 py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer ${
+              className={`flex-1 py-2.5 sm:py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer text-center ${
                 activeTab === 'sections'
                   ? 'border-blue-600 dark:border-cyan-400 text-blue-700 dark:text-cyan-400 bg-blue-50/70 dark:bg-cyan-500/10'
                   : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
               }`}
             >
-              2. Section Breakdown ({sections.length} Sections)
+              <span className="sm:hidden">2. Sections ({sections.length})</span>
+              <span className="hidden sm:inline">2. Section Breakdown ({sections.length} Sections)</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('notes')}
-              className={`flex-1 py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer ${
+              className={`flex-1 py-2.5 sm:py-3 text-xs sm:text-sm font-black border-b-2 transition-all cursor-pointer text-center ${
                 activeTab === 'notes'
                   ? 'border-blue-600 dark:border-cyan-400 text-blue-700 dark:text-cyan-400 bg-blue-50/70 dark:bg-cyan-500/10'
                   : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
               }`}
             >
-              3. Self Notes & Analysis
+              <span className="sm:hidden">3. Notes</span>
+              <span className="hidden sm:inline">3. Self Notes & Analysis</span>
             </button>
           </div>
         )}
@@ -1373,21 +1379,21 @@ export const AddEditMockModal: React.FC = () => {
         )}
 
         {/* Modal Bottom Actions */}
-        <div className="sticky bottom-0 z-30 flex items-center justify-between pt-3.5 pb-2 sm:pb-1 bg-white/95 dark:bg-[#0C1228]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 mt-6 -mx-5 sm:-mx-6 px-5 sm:px-6 modal-bottom-actions">
+        <div className="sticky bottom-0 z-30 flex items-center justify-between pt-3 pb-[max(0.85rem,env(safe-area-inset-bottom,0px))] bg-white/98 dark:bg-[#0C1228]/98 backdrop-blur-md border-t border-slate-200/90 dark:border-white/10 mt-6 -mx-4 sm:-mx-6 px-4 sm:px-6 shadow-[0_-8px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_-8px_24px_rgba(0,0,0,0.4)] modal-bottom-actions">
           <button
             type="button"
             onClick={() => {
               setIsAddModalOpen(false);
               setEditingMock(null);
             }}
-            className="px-5 py-2.5 rounded-xl text-xs font-black text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            className="px-4 py-2.5 sm:px-5 rounded-xl text-xs sm:text-sm font-black text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-slate-950 font-black text-xs shadow-lg shadow-blue-500/25 dark:shadow-cyan-500/20 transition-all active:scale-[0.98] cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 px-5 py-2.5 sm:px-6 rounded-xl bg-blue-600 hover:bg-blue-700 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-blue-500/25 dark:shadow-cyan-500/20 transition-all active:scale-[0.98] cursor-pointer"
           >
             <Save className="w-4 h-4 stroke-[2.5]" />
             <span>{editingMock ? 'Update Mock Test' : isSectional ? 'Save Sectional Drill' : 'Save Full Mock'}</span>
