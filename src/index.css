@@ -684,46 +684,53 @@
   }
 
   /* 7-day strip container inside streak banner */
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) {
+  html.warm-cream .planner-streak-banner .streak-week-strip {
     background-color: #EFE0C2 !important;
     border-color: #D4C3A3 !important;
     box-shadow: inset 0 1px 3px rgba(56, 55, 13, 0.1) !important;
   }
 
   /* 7-day strip inactive day cards */
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) {
+  html.warm-cream .planner-streak-banner .streak-week-strip .streak-day-card:not(.scale-105) {
     background-color: #FFFDF8 !important;
     border-color: #D8C7A8 !important;
     box-shadow: 0 1px 3px rgba(56, 55, 13, 0.08) !important;
   }
 
-  html.warm-cream .planner-streak-banner .streak-day-name,
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:first-child {
+  html.warm-cream .planner-streak-banner .streak-day-name {
     color: #6E4602 !important;
     font-weight: 800 !important;
   }
 
-  html.warm-cream .planner-streak-banner .streak-day-num,
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:nth-child(2) {
+  html.warm-cream .planner-streak-banner .streak-day-num {
     color: #1C1B05 !important;
     font-weight: 800 !important;
   }
 
-  html.warm-cream .planner-streak-banner .streak-day-dot,
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div:not(.scale-105) span:last-child {
+  html.warm-cream .planner-streak-banner .streak-day-dot {
     color: #92400E !important;
     font-weight: 800 !important;
   }
 
   /* 7-day strip active today card */
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div.scale-105 {
+  html.warm-cream .planner-streak-banner .streak-week-strip .streak-day-card.scale-105 {
     background: linear-gradient(135deg, #E1A837 0%, #D49D26 100%) !important;
     border-color: #C9962A !important;
   }
 
-  html.warm-cream .planner-streak-banner div:has(> div > span.font-mono) > div.scale-105 * {
+  html.warm-cream .planner-streak-banner .streak-week-strip .streak-day-card.scale-105 * {
     color: #1C1B05 !important;
     font-weight: 900 !important;
+  }
+
+  /* Ensure no background contamination on text containers */
+  html.warm-cream .planner-streak-banner .min-w-0,
+  html.warm-cream .planner-streak-banner .text-right,
+  html.warm-cream .planner-streak-banner .text-right > div {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 
   /* 2. Daily Inspiration Banner */
@@ -2377,9 +2384,49 @@ html:not(.dark) .app-title:not(.text-white):not([class*="text-white"]) {
    🔥 PLANNER STUDY STREAK BANNER - DARK & DEFAULT THEME ACCENTS
    (Strictly scoped so Warm Parchment Gold overrides are not affected)
    ══════════════════════════════════════════════════════════════════ */
+html:not(.warm-cream) .planner-streak-banner {
+  color: #FFFFFF !important;
+}
+
 html:not(.warm-cream) .planner-streak-banner h2 {
   color: #FFFFFF !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+html:not(.warm-cream) .planner-streak-banner p {
+  color: #E2E8F0 !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-conquered-badge {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #FCD34D !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-conquered-badge * {
+  color: #FCD34D !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-record-val,
+html:not(.warm-cream) .planner-streak-banner .streak-multiplier-text {
+  color: #FCD34D !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-target-status,
+html:not(.warm-cream) .planner-streak-banner .streak-target-status span {
+  color: #FFFFFF !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-day-num {
+  color: #FFFFFF !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-day-name {
+  color: #FCD34D !important;
+}
+
+html:not(.warm-cream) .planner-streak-banner .streak-day-dot {
+  color: #FBBF24 !important;
 }
 
 html:not(.warm-cream) .planner-streak-banner .text-amber-400,
@@ -2403,6 +2450,16 @@ html:not(.warm-cream) .planner-streak-banner .text-slate-200 {
 
 html:not(.warm-cream) .planner-streak-banner .text-slate-950 {
   color: #020617 !important;
+}
+
+/* Zero background bleeding on streak banner text in all modes */
+.planner-streak-banner .min-w-0,
+.planner-streak-banner .text-right,
+.planner-streak-banner .text-right > div {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 html:not(.dark) [class*="text-[#11120F]"],
