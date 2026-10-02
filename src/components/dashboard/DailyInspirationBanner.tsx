@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Quote, RefreshCw, Sparkles, Timer } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Quote, RefreshCw, Sparkles, Timer, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 
@@ -106,10 +106,32 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isRotating, setIsRotating] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Compact / Collapsible preference stored in localStorage
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('syllabus_inspiration_collapsed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleCollapsed = () => {
+    soundManager.playClick();
+    setIsCollapsed(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem('syllabus_inspiration_collapsed', String(next));
+      } catch {}
+      return next;
+    });
+  };
 
   const currentQuote = INSPIRATIONAL_QUOTES[currentIndex] || INSPIRATIONAL_QUOTES[0];
 
-  const handleNextQuote = () => {
+  const handleNextQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
     soundManager.playClick();
     haptics.selection();
     setIsRotating(true);
@@ -117,46 +139,67 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
     setTimeout(() => setIsRotating(false), 400);
   };
 
+  const handleCopyQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    soundManager.playClick();
+    haptics.success();
+    const textToCopy = `"${currentQuote.text}" — ${currentQuote.author}`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  // Time-of-day greeting
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    if (hour < 5) return 'Night Sanctum';
+    if (hour < 12) return 'Morning Focus';
+    if (hour < 17) return 'Afternoon Momentum';
+    if (hour < 21) return 'Evening Revision';
+    return 'Night Grind';
+  }, []);
+
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-50/90 via-purple-50/50 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-indigo-100/90 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5 ${className}`}
+      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-50/90 via-purple-50/40 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-indigo-100/90 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 ${
+        isCollapsed ? 'p-2.5 sm:p-3' : 'p-3.5 sm:p-4.5'
+      } ${className}`}
     >
       {/* Signature Vertical Accent Bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#4F46E5] via-[#818CF8] to-[#C084FC] rounded-l-2xl" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-indigo-600 via-indigo-400 to-violet-500 rounded-l-2xl" />
 
-      {/* Decorative Background Large Quote Watermark */}
-      <Quote
-        className="w-20 h-20 text-indigo-500/10 dark:text-indigo-400/10 absolute right-3 -bottom-2 pointer-events-none select-none rotate-12 transition-transform duration-500"
-      />
+      {/* Decorative Large Quote Watermark (hidden when collapsed) */}
+      {!isCollapsed && (
+        <Quote
+          className="w-20 h-20 text-indigo-500/10 dark:text-indigo-400/10 absolute right-3 -bottom-2 pointer-events-none select-none rotate-12 transition-transform duration-500"
+        />
+      )}
 
-      <div className="relative z-10 flex flex-col gap-2.5">
-        {/* Top Meta Bar */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-mono font-bold tracking-wider uppercase">
-              <Sparkles className="w-3 h-3 text-indigo-500 animate-pulse" />
-              <span>Daily Inspiration</span>
+      {/* COMPACT VIEW (Single-Line Smart Ribbon) */}
+      {isCollapsed ? (
+        <div className="relative z-10 flex items-center justify-between gap-3 pl-1.5 select-none">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-500/15 dark:bg-indigo-500/25 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-mono font-bold tracking-wider shrink-0">
+              <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400 animate-pulse" />
+              <span className="hidden sm:inline">{greeting} •</span>
+              <span>#{currentQuote.category}</span>
             </span>
 
-            <span className="hidden xs:inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-mono font-semibold bg-slate-200/60 dark:bg-white/10 text-slate-600 dark:text-slate-300">
-              #{currentQuote.category}
-            </span>
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate italic">
+              "{currentQuote.text}" <span className="not-italic text-slate-500 dark:text-slate-400 font-normal font-mono">— {currentQuote.author}</span>
+            </p>
           </div>
 
-          {/* Quick Actions (Shuffle, Focus) */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               type="button"
               onClick={handleNextQuote}
-              className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95 group"
-              title="Shuffle new inspiration (New Quote)"
-              aria-label="Shuffle new quote"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
+              title="Next quote"
+              aria-label="Next quote"
             >
-              <RefreshCw
-                className={`w-3.5 h-3.5 transition-transform duration-500 ${
-                  isRotating ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'group-hover:rotate-45'
-                }`}
-              />
+              <RefreshCw className={`w-3.5 h-3.5 ${isRotating ? 'rotate-180 text-indigo-600' : ''}`} />
             </button>
 
             {onOpenFocus && (
@@ -164,37 +207,116 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
-                  haptics.medium();
                   onOpenFocus();
                 }}
-                className="hidden sm:inline-flex items-center gap-1.5 ml-1 px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
-                title="Launch 3D Focus Chamber"
+                className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95"
+                title="Launch Focus Chamber"
               >
-                <Timer className="w-3.5 h-3.5 text-amber-300" />
-                <span>Focus (25m)</span>
+                <Timer className="w-3 h-3 text-amber-300" />
+                <span>Focus</span>
               </button>
             )}
+
+            <button
+              type="button"
+              onClick={toggleCollapsed}
+              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
+              title="Expand quote"
+              aria-label="Expand inspiration banner"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </div>
         </div>
-
-        {/* Quote Content */}
-        <div className="pl-1 pr-4 sm:pr-8">
-          <blockquote className="text-sm sm:text-base font-semibold italic text-slate-800 dark:text-slate-100 leading-relaxed tracking-tight transition-opacity duration-300">
-            "{currentQuote.text}"
-          </blockquote>
-
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 mt-1.5 text-xs">
-            <cite className="not-italic font-bold font-mono tracking-wide text-blue-600 dark:text-blue-400">
-              — {currentQuote.author}
-            </cite>
-            {currentQuote.role && (
-              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 not-italic">
-                • {currentQuote.role}
+      ) : (
+        /* EXPANDED VIEW (Rich Header + Quote + Actions) */
+        <div className="relative z-10 flex flex-col gap-2.5 pl-1.5">
+          {/* Top Meta Bar */}
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-mono font-bold tracking-wider uppercase">
+                <Sparkles className="w-3 h-3 text-indigo-500 animate-pulse" />
+                <span>{greeting}</span>
               </span>
-            )}
+
+              <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-mono font-semibold bg-slate-200/60 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+                #{currentQuote.category}
+              </span>
+            </div>
+
+            {/* Quick Actions (Shuffle, Copy, Focus, Collapse) */}
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              <button
+                type="button"
+                onClick={handleCopyQuote}
+                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95"
+                title={copied ? "Copied!" : "Copy quote"}
+                aria-label="Copy quote to clipboard"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleNextQuote}
+                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95 group"
+                title="Shuffle new inspiration"
+                aria-label="Shuffle new quote"
+              >
+                <RefreshCw
+                  className={`w-3.5 h-3.5 transition-transform duration-500 ${
+                    isRotating ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'group-hover:rotate-45'
+                  }`}
+                />
+              </button>
+
+              {onOpenFocus && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.medium();
+                    onOpenFocus();
+                  }}
+                  className="hidden sm:inline-flex items-center gap-1.5 ml-1 px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                  title="Launch 3D Focus Chamber"
+                >
+                  <Timer className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Focus (25m)</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={toggleCollapsed}
+                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95"
+                title="Minimize banner"
+                aria-label="Collapse inspiration banner"
+              >
+                <ChevronUp className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Quote Content */}
+          <div className="pr-4 sm:pr-8">
+            <blockquote className="text-sm sm:text-base font-semibold italic text-slate-800 dark:text-slate-100 leading-snug tracking-tight transition-opacity duration-300">
+              "{currentQuote.text}"
+            </blockquote>
+
+            <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 mt-1 text-xs">
+              <cite className="not-italic font-bold font-mono tracking-wide text-blue-600 dark:text-blue-400">
+                — {currentQuote.author}
+              </cite>
+              {currentQuote.role && (
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 not-italic">
+                  • {currentQuote.role}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
