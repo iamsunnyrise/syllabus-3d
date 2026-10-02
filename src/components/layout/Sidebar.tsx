@@ -149,7 +149,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navSections: NavSection[] = [
     {
-      title: 'CORE MODULES',
+      title: 'Core Modules',
       items: [
         {
           id: 'overview' as AppView,
@@ -210,7 +210,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ]
     },
     {
-      title: 'MASTERY & REVISION',
+      title: 'Mastery & Revision',
       items: [
         {
           id: 'revision' as AppView,
@@ -243,7 +243,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ]
     },
     {
-      title: 'SYSTEM',
+      title: 'System',
       items: [
         {
           id: 'platforms' as AppView,
@@ -309,8 +309,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
                 {currentExam?.name ? currentExam.name : 'Personal Study Plan'}
               </p>
-              <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 dark:text-slate-500 tracking-wider mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
                 <span>Learn • Note • Revise</span>
               </div>
             </div>
@@ -389,11 +389,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleSection(section.title)}
-                  className="w-full flex items-center justify-between px-2 pt-2 pb-0.5 text-[10px] font-mono font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase group/sec cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                  className="w-full flex items-center justify-between px-2 pt-2.5 pb-1 text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400 group/sec cursor-pointer select-none hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
                 >
                   <div className="flex items-center gap-1.5">
                     <span>{section.title}</span>
-                    <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
+                    <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
                       {section.items.length}
                     </span>
                   </div>

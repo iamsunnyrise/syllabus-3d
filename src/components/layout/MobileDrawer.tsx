@@ -100,7 +100,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
   const sections = [
     {
-      title: 'LEARNING & MASTERY',
+      title: 'Learning & Mastery',
       items: [
         {
           id: 'overview' as AppView,
@@ -162,7 +162,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       ]
     },
     {
-      title: 'PRODUCTIVITY & GOALS',
+      title: 'Productivity & Goals',
       items: [
         {
           id: 'planner' as AppView,
@@ -199,7 +199,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       ]
     },
     {
-      title: 'PERFORMANCE & SYSTEM',
+      title: 'Performance & System',
       items: [
         {
           id: 'analytics' as AppView,
@@ -358,7 +358,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             {sections.map(sec => (
               <div key={sec.title} className="space-y-1.5">
                 <div className="flex items-center gap-2 px-2">
-                  <h5 className="text-[10px] font-mono font-extrabold tracking-widest text-[#85877E] dark:text-[#787A91] uppercase">
+                  <h5 className="text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400">
                     {sec.title}
                   </h5>
                   <div className="flex-1 h-[1px] bg-slate-200/80 dark:bg-white/[0.08]" />
