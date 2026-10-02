@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MistakeRecord, MistakeType, Topic } from '../../types/syllabus';
 import { useSyllabus } from '../../context/SyllabusContext';
 import {
@@ -21,7 +22,9 @@ import {
   Check,
   Flame,
   Layers,
-  AlertCircle
+  AlertCircle,
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import confetti from 'canvas-confetti';
@@ -69,6 +72,59 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [isRevealed, setIsRevealed] = useState(false);
 
+  // Close modals on Escape key & Lock background scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (isFormOpen) {
+          resetForm();
+        } else if (isFlashcardOpen) {
+          setIsFlashcardOpen(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFormOpen, isFlashcardOpen]);
+
+  useEffect(() => {
+    if (isFormOpen || isFlashcardOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isFormOpen, isFlashcardOpen]);
+
+  // Flashcard keyboard navigation
+  useEffect(() => {
+    if (!isFlashcardOpen || mistakes.length === 0) return;
+    const handleFlashcardKeys = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        soundManager.playClick();
+        if (currentFlashcardIndex < mistakes.length - 1) {
+          setCurrentFlashcardIndex(prev => prev + 1);
+          setIsRevealed(false);
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        soundManager.playClick();
+        if (currentFlashcardIndex > 0) {
+          setCurrentFlashcardIndex(prev => prev - 1);
+          setIsRevealed(false);
+        }
+      } else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        soundManager.playClick();
+        setIsRevealed(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleFlashcardKeys);
+    return () => window.removeEventListener('keydown', handleFlashcardKeys);
+  }, [isFlashcardOpen, currentFlashcardIndex, mistakes.length]);
+
   const resetForm = () => {
     setQuestionDesc('');
     setMistakeType('conceptual');
@@ -104,7 +160,6 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
 
   const handleApplyTemplate = (type: 'unit' | 'percent_base' | 'negative_wording' | 'formula_sign') => {
     soundManager.playClick();
-    resetForm();
     if (type === 'unit') {
       setQuestionDesc('Unit Mismatch Trap: Speed in km/h vs time in seconds, or interest time given in months instead of years.');
       setMistakeType('calculation');
@@ -207,7 +262,8 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
         m.questionDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (m.examinerTrap && m.examinerTrap.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (m.goldenRule && m.goldenRule.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        m.correctApproach.toLowerCase().includes(searchTerm.toLowerCase());
+        m.correctApproach.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (m.mockSource && m.mockSource.toLowerCase().includes(searchTerm.toLowerCase()));
 
       if (!matchesSearch) return false;
 
@@ -275,36 +331,36 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
   ];
 
   return (
-    <div className="space-y-4 font-sans select-none">
+    <div className="space-y-4 sm:space-y-5 font-sans">
       
       {/* 1. Header & KPI Metrics Container */}
-      <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#2F3146] shadow-subtle-depth space-y-3.5 sm:space-y-4 relative overflow-hidden">
+      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181A28] border border-slate-200 dark:border-white/10 shadow-sm space-y-4 relative overflow-hidden">
         {/* Glowing Top Ambient Accent */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500/60 to-transparent" />
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0">
             {/* 3D Radiant Squircle Emblem */}
-            <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-rose-500/25 via-red-500/15 to-amber-500/10 border border-rose-500/35 text-rose-500 dark:text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.2)] flex items-center justify-center shrink-0">
-              <ShieldAlert className="w-5 sm:w-6 h-5 sm:h-6 stroke-[2.2]" />
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-rose-500/20 via-red-500/15 to-amber-500/10 border border-rose-500/30 text-rose-500 dark:text-rose-400 shadow-sm flex items-center justify-center shrink-0">
+              <ShieldAlert className="w-6 h-6 stroke-[2.2]" />
             </div>
 
             <div className="min-w-0 space-y-0.5">
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                <h3 className="text-sm sm:text-lg font-black text-[#11120F] dark:text-white tracking-tight uppercase">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight uppercase">
                   Mistake & Examiner Trap Journal
                 </h3>
-                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
                   <Flame className="w-3 h-3" /> Reflex Vault
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#65675F] dark:text-[#CBD5E1] font-medium leading-tight">
-                Turn recurring test traps and conceptual fallacies into permanent reflexes.
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                Turn recurring test traps and conceptual fallacies into permanent memory reflexes.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
+          <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0">
             {mistakes.length > 0 && (
               <button
                 type="button"
@@ -314,7 +370,7 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                   setIsRevealed(false);
                   setIsFlashcardOpen(true);
                 }}
-                className="flex-1 sm:flex-none px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#F8FAFC] dark:bg-[#1E2032] hover:bg-[#11120F] hover:text-white dark:hover:bg-white dark:hover:text-black text-[#191A17] dark:text-[#E2E8F0] border border-[#E2E8F0] dark:border-[#33364D] text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs active:scale-95"
+                className="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shadow-xs"
               >
                 <RotateCw className="w-3.5 h-3.5" />
                 <span>Flashcard Review</span>
@@ -324,61 +380,61 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
             <button
               type="button"
               onClick={handleOpenAdd}
-              className="flex-1 sm:flex-none px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#11120F] dark:bg-white hover:bg-rose-600 dark:hover:bg-rose-400 text-white dark:text-black text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-xs active:scale-95 shrink-0"
+              className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-slate-900 hover:bg-rose-600 dark:bg-white dark:hover:bg-rose-500 text-white dark:text-slate-950 dark:hover:text-white text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 shrink-0"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
-              <span>Log Trap</span>
+              <span>Log New Trap</span>
             </button>
           </div>
         </div>
 
         {/* 3 Executive Bento Stat Cards */}
-        <div className="grid grid-cols-3 gap-1.5 sm:gap-3.5">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3.5">
           {/* Total Logged */}
-          <div className="p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] shadow-2xs space-y-0.5 sm:space-y-1 transition-all hover:border-[#2563EB] dark:hover:border-[#7AA2F7]">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-1 transition-all">
             <div className="flex items-center justify-between">
-              <span className="text-[8.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-[#65675F] dark:text-[#CBD5E1]">
+              <span className="text-[9.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
                 Total Logged
               </span>
-              <Layers className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#85877E] dark:text-[#94A3B8]" />
+              <Layers className="w-3.5 h-3.5 text-slate-400" />
             </div>
-            <div className="text-lg sm:text-2xl font-black font-mono tabular-nums text-[#11120F] dark:text-white tracking-tight">
+            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-slate-900 dark:text-white tracking-tight">
               {mistakes.length}
             </div>
-            <div className="text-[8.5px] sm:text-[10px] font-mono text-[#85877E] dark:text-[#94A3B8] truncate">
-              {mistakes.length === 1 ? '1 trap' : `${mistakes.length} traps`}
+            <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">
+              {mistakes.length === 1 ? '1 trap logged' : `${mistakes.length} traps logged`}
             </div>
           </div>
 
           {/* Active Traps */}
-          <div className="p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-rose-500/5 dark:bg-rose-950/25 border border-rose-500/20 dark:border-rose-500/35 shadow-2xs space-y-0.5 sm:space-y-1 transition-all hover:border-rose-500/40">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-rose-500/5 dark:bg-rose-950/25 border border-rose-500/20 dark:border-rose-500/35 shadow-xs space-y-1 transition-all">
             <div className="flex items-center justify-between">
-              <span className="text-[8.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1 sm:gap-1.5 truncate">
+              <span className="text-[9.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5 truncate">
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${activeCount > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-400'}`} />
                 Active Traps
               </span>
-              <AlertTriangle className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-rose-500 dark:text-rose-400 shrink-0" />
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400 shrink-0" />
             </div>
-            <div className="text-lg sm:text-2xl font-black font-mono tabular-nums text-rose-600 dark:text-rose-400 tracking-tight">
+            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-rose-600 dark:text-rose-400 tracking-tight">
               {activeCount}
             </div>
-            <div className="text-[8.5px] sm:text-[10px] font-mono text-rose-600/80 dark:text-rose-400/80 truncate">
-              {activeCount === 0 ? 'All mastered ✓' : 'Reinforce'}
+            <div className="text-[10px] font-mono text-rose-600/80 dark:text-rose-400/80 truncate">
+              {activeCount === 0 ? 'All traps mastered ✓' : 'Needs reinforcement'}
             </div>
           </div>
 
           {/* Resolution Rate */}
-          <div className="p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/5 dark:bg-emerald-950/25 border border-emerald-500/20 dark:border-emerald-500/35 shadow-2xs space-y-0.5 sm:space-y-1 transition-all hover:border-emerald-500/40">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/5 dark:bg-emerald-950/25 border border-emerald-500/20 dark:border-emerald-500/35 shadow-xs space-y-1 transition-all">
             <div className="flex items-center justify-between">
-              <span className="text-[8.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-emerald-600 dark:text-emerald-400 truncate">
-                Resolved
+              <span className="text-[9.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold text-emerald-600 dark:text-emerald-400 truncate">
+                Mastery Rate
               </span>
-              <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
             </div>
-            <div className="text-lg sm:text-2xl font-black font-mono tabular-nums text-emerald-600 dark:text-emerald-400 tracking-tight">
+            <div className="text-xl sm:text-2xl font-black font-mono tabular-nums text-emerald-600 dark:text-emerald-400 tracking-tight">
               {resolutionRate}%
             </div>
-            <div className="text-[8.5px] sm:text-[10px] font-mono text-emerald-600/80 dark:text-emerald-400/80 truncate">
+            <div className="text-[10px] font-mono text-emerald-600/80 dark:text-emerald-400/80 truncate">
               {resolvedCount}/{mistakes.length} mastered
             </div>
           </div>
@@ -388,18 +444,18 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
       {/* 2. Search & Filter Bar */}
       <div className="space-y-2.5 no-print">
         <div className="relative w-full">
-          <Search className="w-4 h-4 text-[#85877E] dark:text-slate-300 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             placeholder="Search traps, golden rules, examiner tricks, mock source..."
-            className="w-full pl-10 pr-9 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#2F3146] text-xs font-medium text-[#11120F] dark:text-white placeholder-[#85877E] dark:placeholder-[#94A3B8] focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 focus:ring-2 focus:ring-rose-500/15 shadow-2xs transition-all"
+            className="w-full pl-10 pr-9 py-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 focus:ring-2 focus:ring-rose-500/15 shadow-xs transition-all"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#85877E] dark:text-slate-300 hover:text-[#11120F] dark:hover:text-white p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer transition-colors"
               title="Clear search"
             >
               <X className="w-3.5 h-3.5" />
@@ -407,7 +463,7 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
           )}
         </div>
 
-        {/* Filter Chips (Zero Raw Emojis, Pure Lucide Icons) */}
+        {/* Filter Chips */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1">
           {filterChips.map(chip => {
             const ChipIcon = chip.icon;
@@ -419,18 +475,18 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                   soundManager.playClick();
                   setFilterType(chip.id as any);
                 }}
-                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer border shrink-0 active:scale-95 ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border shrink-0 active:scale-95 ${
                   isSelected
-                    ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                    : 'bg-white dark:bg-[#181A28] text-[#45474E] dark:text-[#E2E8F0] border-[#E2E8F0] dark:border-[#2F3146] hover:border-rose-400 dark:hover:border-rose-400'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-xs font-black'
+                    : 'bg-white dark:bg-[#181A28] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-rose-400 dark:hover:border-rose-400'
                 }`}
               >
-                <ChipIcon className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                <ChipIcon className="w-3.5 h-3.5" />
                 <span>{chip.label}</span>
-                <span className={`px-1 sm:px-1.5 py-0.2 rounded-md text-[9.5px] sm:text-[10px] font-mono tabular-nums ${
+                <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
                   isSelected
-                    ? 'bg-white/20 dark:bg-black/20 text-white dark:text-black'
-                    : 'bg-[#EEEEE8] dark:bg-[#202234] text-[#85877E] dark:text-slate-200 border border-transparent dark:border-[#383A52]'
+                    ? 'bg-white/20 dark:bg-black/20 text-white dark:text-slate-900'
+                    : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
                 }`}>
                   {chip.count}
                 </span>
@@ -441,24 +497,24 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
       </div>
 
       {/* 3. Mistakes List / Empty State */}
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {filteredMistakes.length === 0 ? (
-          <div className="py-10 px-4 sm:px-6 rounded-3xl bg-white dark:bg-[#181A28] border border-dashed border-[#E2E8F0] dark:border-[#2F3146] text-center space-y-4 flex flex-col items-center justify-center">
+          <div className="py-12 px-4 sm:px-6 rounded-3xl bg-white dark:bg-[#181A28] border border-dashed border-slate-300 dark:border-white/10 text-center space-y-4 flex flex-col items-center justify-center">
             {/* 3D Radiant Emblem */}
             <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500/20 via-amber-500/10 to-indigo-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 dark:text-rose-400 shadow-[0_0_25px_rgba(244,63,94,0.15)]">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500/20 via-amber-500/10 to-indigo-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 dark:text-rose-400 shadow-lg">
                 <ShieldAlert className="w-8 h-8 stroke-[1.8]" />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-lg bg-[#11120F] dark:bg-white text-white dark:text-black flex items-center justify-center shadow-xs">
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center shadow-xs">
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
             </div>
 
             <div className="space-y-1.5 max-w-md">
-              <h4 className="text-sm sm:text-base font-black text-[#11120F] dark:text-white tracking-tight">
+              <h4 className="text-base font-black text-slate-900 dark:text-white tracking-tight">
                 {searchTerm || filterType !== 'all' ? 'No traps match your filter' : 'No Examiner Traps Logged Yet'}
               </h4>
-              <p className="text-xs text-[#65675F] dark:text-[#CBD5E1] leading-relaxed">
+              <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">
                 {searchTerm || filterType !== 'all'
                   ? 'Try searching with a different keyword or reset the filter to view all logged traps.'
                   : 'Turn negative marks into guaranteed points. When practicing mocks, log question traps, wrong logic, and golden rules here.'}
@@ -472,52 +528,52 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                   setSearchTerm('');
                   setFilterType('all');
                 }}
-                className="px-4 py-2 rounded-xl bg-white dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-xs font-bold text-[#11120F] dark:text-white hover:border-rose-400 cursor-pointer transition-all shadow-2xs"
+                className="px-4 py-2 rounded-xl bg-white dark:bg-[#1E2032] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-white hover:border-rose-400 cursor-pointer transition-all shadow-xs"
               >
                 Clear Search & Filters
               </button>
             ) : (
-              <div className="w-full max-w-md space-y-3.5 pt-1">
+              <div className="w-full max-w-md space-y-4 pt-1">
                 <button
                   type="button"
                   onClick={handleOpenAdd}
-                  className="px-5 py-2.5 rounded-xl bg-[#11120F] dark:bg-white hover:bg-rose-600 dark:hover:bg-rose-400 text-white dark:text-black font-black text-xs transition-all shadow-xs cursor-pointer active:scale-95 inline-flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-rose-600 dark:bg-white dark:hover:bg-rose-500 text-white dark:text-slate-950 dark:hover:text-white font-black text-xs transition-all shadow-sm cursor-pointer active:scale-95 inline-flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Log Your First Exam Trap</span>
                 </button>
 
                 {/* 1-Click Trap Templates */}
-                <div className="pt-3 border-t border-[#EEEEE8] dark:border-[#27293D] space-y-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-[#85877E] dark:text-[#94A3B8] block text-center">
+                <div className="pt-3.5 border-t border-slate-100 dark:border-white/10 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 block text-center">
                     ⚡ Quick 1-Click Starter Inspirations:
                   </span>
-                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
                     <button
                       type="button"
                       onClick={() => handleApplyTemplate('unit')}
-                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-[11px] font-bold text-[#11120F] dark:text-[#E2E8F0] hover:border-rose-400 hover:text-rose-500 transition-all cursor-pointer shadow-2xs"
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-rose-400 hover:text-rose-600 transition-all cursor-pointer shadow-xs active:scale-95"
                     >
                       📐 Unit Mismatch
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyTemplate('percent_base')}
-                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-[11px] font-bold text-[#11120F] dark:text-[#E2E8F0] hover:border-amber-400 hover:text-amber-500 transition-all cursor-pointer shadow-2xs"
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:text-amber-600 transition-all cursor-pointer shadow-xs active:scale-95"
                     >
                       📊 Base Shift Trap
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyTemplate('negative_wording')}
-                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-[11px] font-bold text-[#11120F] dark:text-[#E2E8F0] hover:border-purple-400 hover:text-purple-500 transition-all cursor-pointer shadow-2xs"
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-purple-400 hover:text-purple-600 transition-all cursor-pointer shadow-xs active:scale-95"
                     >
                       🔍 "NOT Correct" Stem
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyTemplate('formula_sign')}
-                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-[11px] font-bold text-[#11120F] dark:text-[#E2E8F0] hover:border-sky-400 hover:text-sky-500 transition-all cursor-pointer shadow-2xs"
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-sky-400 hover:text-sky-600 transition-all cursor-pointer shadow-xs active:scale-95"
                     >
                       ➕ Sign Inversion
                     </button>
@@ -535,10 +591,10 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
             return (
               <div
                 key={m.id}
-                className={`group relative p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-200 shadow-subtle-depth space-y-3 sm:space-y-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg ${
+                className={`group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-200 shadow-sm space-y-3.5 overflow-hidden print-avoid-break print:border print:border-black print:rounded-lg ${
                   m.resolved
-                    ? 'bg-[#F8FAFC] dark:bg-[#181A28]/80 border-emerald-500/40 opacity-90'
-                    : 'bg-white dark:bg-[#181A28] border-[#E2E8F0] dark:border-[#2F3146] hover:border-rose-500/50 shadow-xs hover:shadow-lg'
+                    ? 'bg-slate-50/70 dark:bg-[#181A28]/80 border-emerald-500/40 opacity-90'
+                    : 'bg-white dark:bg-[#181A28] border-slate-200 dark:border-white/10 hover:border-rose-500/50 hover:shadow-md'
                 }`}
               >
                 {/* Subtle Top Glow Accent */}
@@ -550,15 +606,15 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                 />
 
                 {/* Top Badge Row */}
-                <div className="flex items-center justify-between gap-1.5 sm:gap-2 flex-wrap pb-2 sm:pb-2.5 border-b border-[#EEEEE8] dark:border-[#26283D]">
-                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                    <span className={`px-2 sm:px-2.5 py-0.5 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-bold border flex items-center gap-1 sm:gap-1.5 font-mono ${typeMeta.color}`}>
-                      <Icon className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                <div className="flex items-center justify-between gap-2 flex-wrap pb-2.5 border-b border-slate-100 dark:border-white/10">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border flex items-center gap-1.5 font-mono ${typeMeta.color}`}>
+                      <Icon className="w-3.5 h-3.5" />
                       <span>{typeMeta.label}</span>
                     </span>
 
                     {m.severity && (
-                      <span className={`px-1.5 sm:px-2 py-0.5 rounded-md text-[9.5px] sm:text-[10px] font-bold font-mono uppercase tracking-wider border ${
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold font-mono uppercase tracking-wider border ${
                         m.severity === 'high'
                           ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
                           : m.severity === 'medium'
@@ -570,49 +626,49 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                     )}
 
                     {m.mockSource && (
-                      <span className="text-[9.5px] sm:text-[10px] font-bold text-[#65675F] dark:text-[#CBD5E1] bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] px-1.5 sm:px-2 py-0.5 rounded-md font-mono">
+                      <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 px-2 py-0.5 rounded-md font-mono">
                         {m.mockSource}
                       </span>
                     )}
                   </div>
 
-                  <span className="text-[10px] sm:text-[11px] text-[#85877E] dark:text-[#94A3B8] font-mono tabular-nums">
+                  <span className="text-[11px] text-slate-400 font-mono tabular-nums">
                     {m.dateLogged}
                   </span>
                 </div>
 
                 {/* Problem Statement */}
                 <div className="space-y-1">
-                  <span className="text-[9.5px] sm:text-[10px] font-bold text-[#85877E] dark:text-[#94A3B8] uppercase tracking-wider font-mono flex items-center gap-1">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono flex items-center gap-1">
                     <span>Question / Problem Statement</span>
                   </span>
-                  <p className="text-xs sm:text-sm font-black text-[#11120F] dark:text-white leading-relaxed max-w-[68ch]">
+                  <p className="text-sm font-black text-slate-900 dark:text-white leading-relaxed select-text">
                     {m.questionDescription}
                   </p>
                 </div>
 
                 {/* Wrong Logic & Examiner Trap Layer */}
                 {(m.wrongLogic || m.examinerTrap) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {m.wrongLogic && (
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-rose-500/5 dark:bg-rose-950/20 border border-rose-500/20 dark:border-rose-500/30 space-y-1">
-                        <span className="text-[9.5px] sm:text-[10px] font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1 sm:gap-1.5 font-mono uppercase tracking-wider">
-                          <XCircle className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                      <div className="p-3 rounded-xl bg-rose-500/5 dark:bg-rose-950/20 border border-rose-500/20 dark:border-rose-500/30 space-y-1">
+                        <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5 font-mono uppercase tracking-wider">
+                          <XCircle className="w-3.5 h-3.5" />
                           <span>My Wrong Logic (Fallacy)</span>
                         </span>
-                        <p className="text-xs font-medium text-[#334155] dark:text-[#CBD5E1] leading-relaxed max-w-[68ch]">
+                        <p className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-relaxed select-text">
                           {m.wrongLogic}
                         </p>
                       </div>
                     )}
 
                     {m.examinerTrap && (
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/20 dark:border-amber-500/30 space-y-1">
-                        <span className="text-[9.5px] sm:text-[10px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1 sm:gap-1.5 font-mono uppercase tracking-wider">
-                          <AlertTriangle className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                      <div className="p-3 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/20 dark:border-amber-500/30 space-y-1">
+                        <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 font-mono uppercase tracking-wider">
+                          <AlertTriangle className="w-3.5 h-3.5" />
                           <span>Examiner's Trap Mechanism</span>
                         </span>
-                        <p className="text-xs font-medium text-[#334155] dark:text-[#CBD5E1] leading-relaxed max-w-[68ch]">
+                        <p className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-relaxed select-text">
                           {m.examinerTrap}
                         </p>
                       </div>
@@ -621,25 +677,25 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                 )}
 
                 {/* Correct Approach & Golden Rule */}
-                <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/35 space-y-2 sm:space-y-2.5">
+                <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/35 space-y-2.5">
                   <div className="space-y-1">
-                    <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 sm:gap-1.5 font-mono uppercase tracking-wider">
-                      <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 stroke-[2.5]" />
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-mono uppercase tracking-wider">
+                      <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
                       <span>Correct Approach & Solution</span>
                     </span>
-                    <p className="text-xs sm:text-[13px] font-semibold text-[#191A17] dark:text-[#F5F5F7] whitespace-pre-line leading-relaxed max-w-[68ch]">
+                    <p className="text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-slate-100 whitespace-pre-line leading-relaxed select-text">
                       {m.correctApproach}
                     </p>
                   </div>
 
                   {m.goldenRule && (
-                    <div className="pt-2 sm:pt-2.5 border-t border-emerald-500/20 dark:border-emerald-500/30 flex items-start gap-1.5 sm:gap-2 text-xs">
-                      <Sparkles className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div className="pt-2.5 border-t border-emerald-500/20 dark:border-emerald-500/30 flex items-start gap-2 text-xs">
+                      <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
                       <div className="min-w-0">
-                        <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider">
+                        <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[11px] uppercase tracking-wider">
                           Golden Rule:
                         </span>{' '}
-                        <span className="font-black text-[#11120F] dark:text-white leading-relaxed max-w-[68ch]">
+                        <span className="font-black text-slate-900 dark:text-white leading-relaxed select-text">
                           {m.goldenRule}
                         </span>
                       </div>
@@ -652,10 +708,10 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleToggleResolve(m)}
-                    className={`px-3 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-2xs ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-xs ${
                       m.resolved
                         ? 'bg-emerald-600 text-white shadow-sm font-black'
-                        : 'bg-[#F8FAFC] dark:bg-[#1E2032] text-[#191A17] dark:text-[#E2E8F0] border border-[#E2E8F0] dark:border-[#33364D] hover:border-emerald-500 dark:hover:border-emerald-500'
+                        : 'bg-slate-100 dark:bg-[#1E2032] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:border-emerald-500'
                     }`}
                   >
                     {m.resolved ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
@@ -666,19 +722,19 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleOpenEdit(m)}
-                      className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-[#85877E] dark:text-[#CBD5E1] hover:text-[#11120F] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
+                      className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer transition-colors"
                       title="Edit Trap"
                     >
-                      <Edit3 className="w-3.5 h-3.5" />
+                      <Edit3 className="w-4 h-4" />
                     </button>
 
                     <button
                       type="button"
                       onClick={() => handleDeleteMistake(m.id)}
-                      className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-[#85877E] dark:text-[#CBD5E1] hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 cursor-pointer transition-colors"
+                      className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 cursor-pointer transition-colors"
                       title="Delete Trap"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -689,23 +745,32 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
       </div>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 4. ADD / EDIT MISTAKE MODAL */}
+      {/* 4. ADD / EDIT MISTAKE MODAL (Rendered via React Portal)           */}
       {/* ---------------------------------------------------------------- */}
-      {isFormOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-lg max-h-[90vh] rounded-3xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#2F3146] shadow-2xl p-5 sm:p-6 flex flex-col justify-between overflow-y-auto space-y-4 animate-scale-up">
-            
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEE8] dark:border-[#26283D]">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500/25 to-amber-500/15 border border-rose-500/30 text-rose-500 dark:text-rose-400 flex items-center justify-center font-bold">
-                  <ShieldAlert className="w-4 h-4" />
+      {isFormOpen && typeof document !== 'undefined' && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-5 bg-black/80 backdrop-blur-md animate-fade-in"
+          onClick={resetForm}
+        >
+          <div 
+            onClick={e => e.stopPropagation()}
+            className="w-full max-w-xl max-h-[92vh] sm:max-h-[88vh] rounded-2xl sm:rounded-3xl bg-white dark:bg-[#161824] border border-slate-200 dark:border-white/10 shadow-2xl flex flex-col overflow-hidden animate-scale-up"
+          >
+            {/* Top Glowing Ambient Accent Rim */}
+            <div className="h-[3px] bg-gradient-to-r from-rose-500 via-amber-500 to-indigo-500 shrink-0" />
+
+            {/* Fixed Modal Header */}
+            <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-slate-100 dark:border-white/10 flex items-center justify-between gap-3 shrink-0 bg-white dark:bg-[#161824]">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500/20 to-amber-500/10 border border-rose-500/30 text-rose-500 dark:text-rose-400 flex items-center justify-center font-bold shrink-0 shadow-xs">
+                  <ShieldAlert className="w-5 h-5 stroke-[2.2]" />
                 </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-[#11120F] dark:text-white uppercase tracking-tight">
-                    {editingMistakeId ? 'Edit Examiner Trap' : 'Log New Exam Trap & Fallacy'}
+                <div className="min-w-0">
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight truncate">
+                    {editingMistakeId ? 'Edit Exam Trap & Reflex' : 'Log New Exam Trap & Fallacy'}
                   </h3>
-                  <p className="text-[11px] text-[#65675F] dark:text-[#CBD5E1] font-medium">
-                    {topic.name}
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate">
+                    {subjectName ? `${subjectName} › ` : ''}{chapterName ? `${chapterName} › ` : ''}{topic.name}
                   </p>
                 </div>
               </div>
@@ -713,247 +778,311 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
               <button
                 type="button"
                 onClick={resetForm}
-                className="p-1.5 rounded-lg text-[#85877E] dark:text-slate-300 hover:text-[#11120F] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                title="Close (Esc)"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveMistake} className="space-y-4">
-              
-              {/* Type Selection */}
-              <div className="space-y-1.5">
-                <label className="block text-[11px] font-bold text-[#85877E] dark:text-[#CBD5E1] uppercase font-mono tracking-wider">
-                  Trap Category
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {[
-                    { id: 'conceptual', label: 'Conceptual', icon: Brain },
-                    { id: 'calculation', label: 'Calculation', icon: Calculator },
-                    { id: 'formula', label: 'Formula Error', icon: Compass },
-                    { id: 'silly', label: 'Silly Trap', icon: Eye },
-                    { id: 'time_pressure', label: 'Time Crunch', icon: Clock }
-                  ].map(t => {
-                    const TIcon = t.icon;
-                    return (
-                      <button
-                        key={t.id}
-                        type="button"
-                        onClick={() => setMistakeType(t.id as MistakeType)}
-                        className={`p-2.5 rounded-xl text-xs font-bold text-center border cursor-pointer transition-all flex items-center justify-center gap-1.5 ${
-                          mistakeType === t.id
-                            ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                            : 'bg-[#F8FAFC] dark:bg-[#1E2032] text-[#65675F] dark:text-[#CBD5E1] border-[#E2E8F0] dark:border-[#33364D] hover:border-rose-400'
-                        }`}
-                      >
-                        <TIcon className="w-3.5 h-3.5" />
-                        <span>{t.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+            {/* Quick 1-Click Starter Inspirations (Inside Modal) */}
+            <div className="px-5 py-2 sm:px-6 bg-slate-50 dark:bg-[#1A1C2C] border-b border-slate-100 dark:border-white/5 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+              <span className="text-[10px] font-mono uppercase font-bold text-slate-400 shrink-0">
+                ⚡ Quick Fill:
+              </span>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('unit')}
+                className="px-2 py-1 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10.5px] font-bold text-slate-600 dark:text-slate-300 hover:border-rose-400 hover:text-rose-600 shrink-0 cursor-pointer shadow-2xs transition-colors"
+              >
+                📐 Unit Mismatch
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('percent_base')}
+                className="px-2 py-1 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10.5px] font-bold text-slate-600 dark:text-slate-300 hover:border-amber-400 hover:text-amber-600 shrink-0 cursor-pointer shadow-2xs transition-colors"
+              >
+                📊 Base Shift
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('negative_wording')}
+                className="px-2 py-1 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10.5px] font-bold text-slate-600 dark:text-slate-300 hover:border-purple-400 hover:text-purple-600 shrink-0 cursor-pointer shadow-2xs transition-colors"
+              >
+                🔍 "NOT Correct"
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('formula_sign')}
+                className="px-2 py-1 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10.5px] font-bold text-slate-600 dark:text-slate-300 hover:border-sky-400 hover:text-sky-600 shrink-0 cursor-pointer shadow-2xs transition-colors"
+              >
+                ➕ Sign Inversion
+              </button>
+            </div>
 
-              {/* Severity & Mock Source Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold text-[#85877E] dark:text-[#CBD5E1] uppercase font-mono tracking-wider">
-                    Trap Severity
+            {/* Scrollable Form Content */}
+            <form onSubmit={handleSaveMistake} className="flex-1 flex flex-col min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 sm:space-y-4.5 overscroll-contain">
+                
+                {/* 1. Category Selection */}
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase font-mono tracking-wider">
+                    Trap Category
                   </label>
-                  <div className="flex gap-2">
-                    {(['high', 'medium', 'low'] as const).map(sev => (
-                      <button
-                        key={sev}
-                        type="button"
-                        onClick={() => setSeverity(sev)}
-                        className={`flex-1 py-2 text-xs font-bold rounded-xl capitalize border cursor-pointer transition-all ${
-                          severity === sev
-                            ? sev === 'high'
-                              ? 'bg-rose-600 text-white border-transparent font-black shadow-xs'
-                              : sev === 'medium'
-                              ? 'bg-amber-600 text-white border-transparent font-black shadow-xs'
-                              : 'bg-emerald-600 text-white border-transparent font-black shadow-xs'
-                            : 'bg-[#F8FAFC] dark:bg-[#1E2032] border-[#E2E8F0] dark:border-[#33364D] text-[#65675F] dark:text-[#CBD5E1]'
-                        }`}
-                      >
-                        {sev} Risk
-                      </button>
-                    ))}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {[
+                      { id: 'conceptual', label: 'Conceptual', icon: Brain },
+                      { id: 'calculation', label: 'Calculation', icon: Calculator },
+                      { id: 'formula', label: 'Formula Error', icon: Compass },
+                      { id: 'silly', label: 'Silly Trap', icon: Eye },
+                      { id: 'time_pressure', label: 'Time Crunch', icon: Clock }
+                    ].map(t => {
+                      const TIcon = t.icon;
+                      const isActive = mistakeType === t.id;
+                      return (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => setMistakeType(t.id as MistakeType)}
+                          className={`p-2.5 rounded-xl text-xs font-bold text-center border cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-95 ${
+                            isActive
+                              ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-xs font-black'
+                              : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-rose-400'
+                          }`}
+                        >
+                          <TIcon className="w-3.5 h-3.5" />
+                          <span>{t.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold text-[#85877E] dark:text-[#CBD5E1] uppercase font-mono tracking-wider">
-                    Mock / Exam Source
+                {/* 2. Severity & Mock Source Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase font-mono tracking-wider">
+                      Trap Severity
+                    </label>
+                    <div className="flex gap-2">
+                      {(['high', 'medium', 'low'] as const).map(sev => (
+                        <button
+                          key={sev}
+                          type="button"
+                          onClick={() => setSeverity(sev)}
+                          className={`flex-1 py-2 text-xs font-bold rounded-xl capitalize border cursor-pointer transition-all active:scale-95 ${
+                            severity === sev
+                              ? sev === 'high'
+                                ? 'bg-rose-600 text-white border-transparent font-black shadow-xs'
+                                : sev === 'medium'
+                                ? 'bg-amber-600 text-white border-transparent font-black shadow-xs'
+                                : 'bg-emerald-600 text-white border-transparent font-black shadow-xs'
+                              : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300'
+                          }`}
+                        >
+                          {sev} Risk
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase font-mono tracking-wider">
+                      Mock / Exam Source
+                    </label>
+                    <input
+                      type="text"
+                      value={mockSource}
+                      onChange={e => setMockSource(e.target.value)}
+                      placeholder="e.g. Testbook Mock #05 Q.24"
+                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500/20"
+                    />
+                  </div>
+                </div>
+
+                {/* 3. Question Statement (Required) */}
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold text-slate-800 dark:text-slate-200 uppercase font-mono tracking-wider flex items-center justify-between">
+                    <span>Question / Problem Statement *</span>
+                    <span className="text-[10px] text-rose-500 font-normal lowercase">required</span>
+                  </label>
+                  <textarea
+                    value={questionDesc}
+                    onChange={e => setQuestionDesc(e.target.value)}
+                    placeholder="Describe the exact question, equation, or wording where the mistake occurred..."
+                    rows={2}
+                    required
+                    className="w-full p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500/20"
+                  />
+                </div>
+
+                {/* 4. Wrong Logic & Examiner Trap */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold text-rose-600 dark:text-rose-400 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                      <XCircle className="w-3.5 h-3.5" />
+                      <span>My Wrong Logic (Fallacy)</span>
+                    </label>
+                    <textarea
+                      value={wrongLogic}
+                      onChange={e => setWrongLogic(e.target.value)}
+                      placeholder="What false assumption or shortcut tripped you up?"
+                      rows={2}
+                      className="w-full p-3 rounded-xl bg-rose-500/5 dark:bg-rose-950/20 border border-rose-500/25 dark:border-rose-500/35 text-xs font-medium text-slate-900 dark:text-white placeholder-rose-400/60 focus:outline-none focus:border-rose-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                      <span>Examiner's Trap Mechanism</span>
+                    </label>
+                    <textarea
+                      value={examinerTrap}
+                      onChange={e => setExaminerTrap(e.target.value)}
+                      placeholder="How was the question engineered to trick students?"
+                      rows={2}
+                      className="w-full p-3 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/25 dark:border-amber-500/35 text-xs font-medium text-slate-900 dark:text-white placeholder-amber-400/60 focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                {/* 5. Correct Approach (Required) */}
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase font-mono tracking-wider flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Correct Approach & Method *</span>
+                    </span>
+                    <span className="text-[10px] text-rose-500 font-normal lowercase">required</span>
+                  </label>
+                  <textarea
+                    value={correctApproach}
+                    onChange={e => setCorrectApproach(e.target.value)}
+                    placeholder="Step-by-step correct derivation or conceptual key..."
+                    rows={3}
+                    required
+                    className="w-full p-3 rounded-xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/35 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-emerald-400/60 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                {/* 6. Golden Rule / Flashcard Reflex */}
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-mono uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                    <span>Golden Rule Takeaway (1-liner memory reflex)</span>
                   </label>
                   <input
                     type="text"
-                    value={mockSource}
-                    onChange={e => setMockSource(e.target.value)}
-                    placeholder="e.g. Testbook Mock #05 Q.24"
-                    className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-xs font-medium text-[#11120F] dark:text-white placeholder-[#85877E] dark:placeholder-[#94A3B8] focus:outline-none focus:border-rose-500"
-                  />
-                </div>
-              </div>
-
-              {/* Question Statement */}
-              <div className="space-y-1">
-                <label className="block text-[11px] font-bold text-[#11120F] dark:text-white uppercase font-mono tracking-wider">
-                  Question / Problem Statement *
-                </label>
-                <textarea
-                  value={questionDesc}
-                  onChange={e => setQuestionDesc(e.target.value)}
-                  placeholder="Describe the exact question, equation, or wording where the mistake occurred..."
-                  rows={2}
-                  required
-                  className="w-full p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-xs font-medium text-[#11120F] dark:text-white placeholder-[#85877E] dark:placeholder-[#94A3B8] focus:outline-none focus:border-rose-500"
-                />
-              </div>
-
-              {/* Wrong Logic & Examiner Trap */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold text-rose-600 dark:text-rose-400 uppercase font-mono tracking-wider flex items-center gap-1">
-                    <XCircle className="w-3.5 h-3.5" />
-                    <span>My Wrong Logic (Fallacy)</span>
-                  </label>
-                  <textarea
-                    value={wrongLogic}
-                    onChange={e => setWrongLogic(e.target.value)}
-                    placeholder="What false assumption or shortcut tripped you up?"
-                    rows={2}
-                    className="w-full p-2.5 rounded-xl bg-rose-500/5 dark:bg-rose-950/20 border border-rose-500/25 dark:border-rose-500/35 text-xs font-medium text-[#11120F] dark:text-white placeholder-rose-400/60 focus:outline-none focus:border-rose-500"
+                    value={goldenRule}
+                    onChange={e => setGoldenRule(e.target.value)}
+                    placeholder="e.g. Always convert km/hr to m/s by 5/18 before applying distance formulas!"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/30 text-xs sm:text-[13px] font-black text-slate-900 dark:text-amber-300 placeholder-amber-400/60 focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase font-mono tracking-wider flex items-center gap-1">
-                    <AlertTriangle className="w-3.5 h-3.5" />
-                    <span>Examiner's Trap Mechanism</span>
-                  </label>
-                  <textarea
-                    value={examinerTrap}
-                    onChange={e => setExaminerTrap(e.target.value)}
-                    placeholder="How was the question engineered to trick students?"
-                    rows={2}
-                    className="w-full p-2.5 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/25 dark:border-amber-500/35 text-xs font-medium text-[#11120F] dark:text-white placeholder-amber-400/60 focus:outline-none focus:border-amber-500"
-                  />
+              </div>
+
+              {/* Fixed Sticky Modal Footer (Never Hidden or Cut Off) */}
+              <div className="px-5 py-3.5 sm:px-6 sm:py-4 bg-slate-50/95 dark:bg-[#131520]/95 backdrop-blur-md border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3 shrink-0">
+                <span className="text-[11px] text-slate-400 hidden sm:inline">
+                  * Problem & Correct Approach required
+                </span>
+
+                <div className="flex items-center gap-2.5 ml-auto">
+                  <button
+                    type="button"
+                    onClick={resetForm}
+                    className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/10 cursor-pointer transition-colors"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-rose-600 dark:bg-white dark:hover:bg-rose-500 text-white dark:text-slate-950 dark:hover:text-white text-xs font-black shadow-sm transition-all cursor-pointer active:scale-95 flex items-center gap-2"
+                  >
+                    <Check className="w-4 h-4 stroke-[2.5]" />
+                    <span>{editingMistakeId ? 'Update Trap' : 'Save Trap into Journal'}</span>
+                  </button>
                 </div>
-              </div>
-
-              {/* Correct Approach & Solution */}
-              <div className="space-y-1">
-                <label className="block text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase font-mono tracking-wider flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Correct Approach & Method *</span>
-                </label>
-                <textarea
-                  value={correctApproach}
-                  onChange={e => setCorrectApproach(e.target.value)}
-                  placeholder="Step-by-step correct derivation or conceptual key..."
-                  rows={3}
-                  required
-                  className="w-full p-2.5 rounded-xl bg-emerald-500/5 dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/35 text-xs font-medium text-[#11120F] dark:text-white placeholder-emerald-400/60 focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
-              {/* Golden Rule / Flashcard Key */}
-              <div className="space-y-1">
-                <label className="block text-[11px] font-bold text-[#11120F] dark:text-white flex items-center gap-1 font-mono uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-                  <span>Golden Rule Takeaway (1-liner memory reflex)</span>
-                </label>
-                <input
-                  type="text"
-                  value={goldenRule}
-                  onChange={e => setGoldenRule(e.target.value)}
-                  placeholder="e.g. Always convert km/hr to m/s by 5/18 before applying distance formulas!"
-                  className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] text-xs font-black text-[#11120F] dark:text-amber-300 placeholder-[#85877E] dark:placeholder-[#94A3B8] focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-[#EEEEE8] dark:border-[#26283D]">
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#65675F] dark:text-[#CBD5E1] hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#11120F] dark:bg-white hover:bg-rose-600 dark:hover:bg-rose-400 text-white dark:text-black text-xs font-black shadow-xs transition-all cursor-pointer active:scale-95"
-                >
-                  {editingMistakeId ? 'Update Trap' : 'Save Trap into Journal'}
-                </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* ---------------------------------------------------------------- */}
-      {/* 5. FLASHCARD REVIEW MODAL */}
+      {/* 5. FLASHCARD REVIEW MODAL (Rendered via React Portal)            */}
       {/* ---------------------------------------------------------------- */}
-      {isFlashcardOpen && mistakes.length > 0 && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-md rounded-3xl bg-white dark:bg-[#181A28] border border-[#E2E8F0] dark:border-[#2F3146] shadow-2xl p-5 sm:p-6 space-y-4 animate-scale-up">
-            
-            <div className="flex items-center justify-between pb-2.5 border-b border-[#EEEEE8] dark:border-[#26283D]">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-rose-500/15 text-rose-500 flex items-center justify-center">
-                  <RotateCw className="w-3.5 h-3.5" />
+      {isFlashcardOpen && mistakes.length > 0 && typeof document !== 'undefined' && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+          onClick={() => setIsFlashcardOpen(false)}
+        >
+          <div 
+            onClick={e => e.stopPropagation()}
+            className="w-full max-w-lg rounded-3xl bg-white dark:bg-[#181A28] border border-slate-200 dark:border-white/10 shadow-2xl p-5 sm:p-6 space-y-4 animate-scale-up"
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center">
+                  <RotateCw className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-black text-[#11120F] dark:text-white font-mono uppercase">
-                  Trap Flashcard {currentFlashcardIndex + 1} of {mistakes.length}
-                </span>
+                <div>
+                  <span className="text-xs font-black text-slate-900 dark:text-white font-mono uppercase block">
+                    Trap Flashcard {currentFlashcardIndex + 1} of {mistakes.length}
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">
+                    Use ← / → keys or Space to reveal
+                  </span>
+                </div>
               </div>
               <button
                 onClick={() => setIsFlashcardOpen(false)}
-                className="p-1 rounded-lg text-[#85877E] dark:text-slate-300 hover:text-[#11120F] dark:hover:text-white cursor-pointer"
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer"
+                title="Close (Esc)"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Flashcard Content */}
-            <div className="min-h-[240px] p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#1E2032] border border-[#E2E8F0] dark:border-[#33364D] flex flex-col justify-between space-y-3.5 shadow-2xs">
-              <div className="space-y-2.5">
+            <div className="min-h-[260px] p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#1E2032] border border-slate-200/80 dark:border-white/10 flex flex-col justify-between space-y-4 shadow-xs">
+              <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 text-[10px] font-bold rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-400 font-mono uppercase tracking-wider">
                     {mistakes[currentFlashcardIndex].mistakeType} Trap
                   </span>
                   {mistakes[currentFlashcardIndex].mockSource && (
-                    <span className="text-[10px] font-mono text-[#85877E] dark:text-[#94A3B8]">
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       {mistakes[currentFlashcardIndex].mockSource}
                     </span>
                   )}
                 </div>
 
-                <p className="text-sm font-black text-[#11120F] dark:text-white leading-relaxed">
+                <p className="text-sm sm:text-base font-black text-slate-900 dark:text-white leading-relaxed select-text">
                   {mistakes[currentFlashcardIndex].questionDescription}
                 </p>
 
                 {mistakes[currentFlashcardIndex].examinerTrap && (
-                  <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 font-medium">
+                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 font-medium select-text">
                     ⚠️ <span className="font-bold">Trap Mechanism:</span> {mistakes[currentFlashcardIndex].examinerTrap}
                   </div>
                 )}
               </div>
 
               {isRevealed ? (
-                <div className="p-3.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/30 border border-emerald-500/30 space-y-2 animate-fade-in">
+                <div className="p-4 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/30 border border-emerald-500/30 space-y-2.5 animate-fade-in">
                   <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 font-mono uppercase tracking-wider block">
                     ✓ Golden Solution & Reflex:
                   </span>
-                  <p className="text-xs font-semibold text-[#11120F] dark:text-[#E2E8F0] whitespace-pre-line leading-relaxed">
+                  <p className="text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-slate-100 whitespace-pre-line leading-relaxed select-text">
                     {mistakes[currentFlashcardIndex].correctApproach}
                   </p>
                   {mistakes[currentFlashcardIndex].goldenRule && (
-                    <p className="text-xs font-black text-amber-600 dark:text-amber-300 pt-2 border-t border-emerald-500/20">
+                    <p className="text-xs font-black text-amber-600 dark:text-amber-300 pt-2 border-t border-emerald-500/20 select-text">
                       ★ Golden Rule: {mistakes[currentFlashcardIndex].goldenRule}
                     </p>
                   )}
@@ -962,7 +1091,7 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsRevealed(true)}
-                  className="w-full py-3.5 rounded-xl bg-white dark:bg-[#181A28] hover:bg-rose-500/10 text-xs font-black text-rose-600 dark:text-rose-400 border border-dashed border-rose-500/40 transition-all cursor-pointer text-center shadow-2xs active:scale-95"
+                  className="w-full py-4 rounded-xl bg-white dark:bg-[#181A28] hover:bg-rose-500/10 text-xs font-black text-rose-600 dark:text-rose-400 border border-dashed border-rose-500/40 transition-all cursor-pointer text-center shadow-xs active:scale-95"
                 >
                   🔍 Click to Reveal Golden Solution & Reflex
                 </button>
@@ -979,9 +1108,10 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                   setCurrentFlashcardIndex(prev => Math.max(0, prev - 1));
                   setIsRevealed(false);
                 }}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-[#65675F] dark:text-[#CBD5E1] hover:text-[#11120F] dark:hover:text-white disabled:opacity-30 cursor-pointer"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-30 cursor-pointer flex items-center gap-1.5"
               >
-                Previous
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
               </button>
 
               <button
@@ -995,16 +1125,17 @@ export const AdvancedMistakeJournal: React.FC<AdvancedMistakeJournalProps> = ({
                     setIsFlashcardOpen(false);
                   }
                 }}
-                className="px-5 py-2.5 rounded-xl bg-[#11120F] dark:bg-white hover:bg-rose-600 dark:hover:bg-rose-400 text-white dark:text-black text-xs font-black shadow-xs transition-all cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white hover:bg-rose-600 dark:hover:bg-rose-500 text-white dark:text-slate-950 dark:hover:text-white text-xs font-black shadow-xs transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
               >
-                {currentFlashcardIndex < mistakes.length - 1 ? 'Next Trap ➔' : 'Finish Review ✓'}
+                <span>{currentFlashcardIndex < mistakes.length - 1 ? 'Next Trap' : 'Finish Review ✓'}</span>
+                {currentFlashcardIndex < mistakes.length - 1 && <ArrowRight className="w-3.5 h-3.5" />}
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>
   );
 };
-
