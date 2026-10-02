@@ -3127,3 +3127,21 @@ html.warm-cream .exam-countdown-card {
   box-shadow: 0 1px 3px rgba(56, 55, 13, 0.06) !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   MODAL BOTTOM ACTIONS & AUTO-HIDE MOBILE NAVIGATION DOCK
+   ═══════════════════════════════════════════════════════════════ */
+html.warm-cream .modal-bottom-actions {
+  background-color: rgba(255, 253, 248, 0.96) !important;
+  border-color: #E2D1B3 !important;
+}
+
+/* Auto-hide mobile navigation dock when modal dialogs are open */
+body:has([role="dialog"]) nav[aria-label="Mobile Magic Navigation Dock"],
+body:has(.modal-container) nav[aria-label="Mobile Magic Navigation Dock"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(140%) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+
+

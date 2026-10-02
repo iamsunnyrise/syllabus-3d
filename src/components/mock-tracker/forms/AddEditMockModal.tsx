@@ -1373,7 +1373,7 @@ export const AddEditMockModal: React.FC = () => {
         )}
 
         {/* Modal Bottom Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-white/10">
+        <div className="sticky bottom-0 z-30 flex items-center justify-between pt-3.5 pb-2 sm:pb-1 bg-white/95 dark:bg-[#0C1228]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 mt-6 -mx-5 sm:-mx-6 px-5 sm:px-6 modal-bottom-actions">
           <button
             type="button"
             onClick={() => {
