@@ -2223,15 +2223,15 @@ export const renderProfessionalNotesContent = (
   const textSizeClass =
     fontSize === 'xl'
       ? isHandwritten
-        ? 'text-base sm:text-lg leading-[2] sm:leading-[2.1]'
-        : 'text-base sm:text-lg leading-relaxed'
+        ? 'text-xl sm:text-2xl lg:text-[25px] leading-[2.1] sm:leading-[2.3] tracking-wide'
+        : 'text-lg sm:text-xl lg:text-[22px] leading-[1.85] sm:leading-[1.95]'
       : fontSize === 'lg'
       ? isHandwritten
-        ? 'text-sm sm:text-base leading-[1.95] sm:leading-[2]'
-        : 'text-sm sm:text-base leading-relaxed'
+        ? 'text-lg sm:text-xl lg:text-2xl leading-[2.0] sm:leading-[2.15] tracking-wide'
+        : 'text-base sm:text-lg lg:text-xl leading-relaxed sm:leading-[1.85]'
       : isHandwritten
-      ? 'text-xs sm:text-sm leading-[1.9] sm:leading-[1.95]'
-      : 'text-xs sm:text-sm leading-relaxed';
+      ? 'text-base sm:text-lg lg:text-xl leading-[1.95] sm:leading-[2.05] tracking-wide'
+      : 'text-sm sm:text-base lg:text-lg leading-relaxed';
 
   const bodyTextColor = isSepia
     ? 'text-[#2D1F13]'
@@ -2270,8 +2270,14 @@ export const renderProfessionalNotesContent = (
               : 'border-slate-200/80 dark:border-white/10'
           }`}
         >
-          <span className="w-1.5 h-6 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
-          <h3 className={`text-xl sm:text-2xl font-black ${
+          <span className="w-1.5 h-7 rounded-full bg-gradient-to-b from-indigo-500 via-indigo-600 to-purple-600 shrink-0 shadow-2xs" />
+          <h3 className={`${
+            fontSize === 'xl'
+              ? 'text-2xl sm:text-3xl lg:text-4xl'
+              : fontSize === 'lg'
+              ? 'text-xl sm:text-2xl lg:text-3xl'
+              : 'text-xl sm:text-2xl'
+          } font-black ${
             isHandwritten ? 'tracking-normal leading-[1.35] sm:leading-[1.4]' : 'tracking-tight leading-snug'
           } ${
             isSepia
@@ -2295,7 +2301,13 @@ export const renderProfessionalNotesContent = (
         <h4
           id={`sec-${i}`}
           key={`h3-${i}`}
-          className={`text-base sm:text-lg font-extrabold mt-8 sm:mt-9 mb-3.5 flex items-center gap-2 scroll-mt-24 ${
+          className={`${
+            fontSize === 'xl'
+              ? 'text-xl sm:text-2xl lg:text-3xl'
+              : fontSize === 'lg'
+              ? 'text-lg sm:text-xl lg:text-2xl'
+              : 'text-base sm:text-lg'
+          } font-extrabold mt-8 sm:mt-9 mb-3.5 flex items-center gap-2.5 scroll-mt-24 ${
             isHandwritten ? 'leading-[1.4]' : 'leading-snug'
           } ${
             isSepia
@@ -2305,7 +2317,7 @@ export const renderProfessionalNotesContent = (
               : 'text-indigo-700 dark:text-indigo-300'
           }`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+          <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h3-${i}`)}</span>
         </h4>
       );
@@ -2320,7 +2332,13 @@ export const renderProfessionalNotesContent = (
         <h5
           id={`sec-${i}`}
           key={`h4-${i}`}
-          className={`text-sm sm:text-base font-bold mt-6 mb-2.5 flex items-center gap-1.5 scroll-mt-24 ${
+          className={`${
+            fontSize === 'xl'
+              ? 'text-lg sm:text-xl lg:text-2xl'
+              : fontSize === 'lg'
+              ? 'text-base sm:text-lg lg:text-xl'
+              : 'text-sm sm:text-base'
+          } font-bold mt-6 mb-2.5 flex items-center gap-2 scroll-mt-24 ${
             isHandwritten ? 'leading-[1.4]' : 'leading-snug'
           } ${
             isSepia
@@ -2330,7 +2348,7 @@ export const renderProfessionalNotesContent = (
               : 'text-slate-800 dark:text-slate-200'
           }`}
         >
-          <span className="w-1 h-1 rounded-full bg-indigo-400 shrink-0" />
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
           <span>{parseInlineMarkdown(headingText, `h4-${i}`)}</span>
         </h5>
       );
@@ -2458,7 +2476,13 @@ export const renderProfessionalNotesContent = (
                       return (
                         <th
                           key={hIdx}
-                          className={`py-3.5 px-4 text-xs font-black uppercase tracking-wider border-r last:border-r-0 ${
+                          className={`py-3.5 px-4 ${
+                            fontSize === 'xl'
+                              ? 'text-sm sm:text-base'
+                              : fontSize === 'lg'
+                              ? 'text-xs sm:text-sm'
+                              : 'text-xs sm:text-sm'
+                          } font-black uppercase tracking-wider border-r last:border-r-0 ${
                             isSepia ? 'border-[#DECDB5]' : isOled ? 'border-white/10' : 'border-slate-200/60 dark:border-white/5'
                           } ${align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'}`}
                         >
@@ -2489,7 +2513,13 @@ export const renderProfessionalNotesContent = (
                           return (
                             <td
                               key={cIdx}
-                              className={`py-3 px-4 text-xs sm:text-[13px] border-r last:border-r-0 leading-relaxed font-normal ${
+                              className={`py-3 px-4 ${
+                                fontSize === 'xl'
+                                  ? 'text-base sm:text-lg'
+                                  : fontSize === 'lg'
+                                  ? 'text-sm sm:text-base'
+                                  : 'text-sm sm:text-base'
+                              } border-r last:border-r-0 leading-relaxed font-normal ${
                                 isSepia
                                   ? 'text-[#2D1F13] border-[#EFE2CC]'
                                   : isOled
@@ -2680,11 +2710,19 @@ export const renderProfessionalNotesContent = (
           key={`callout-${i}`}
           className={`my-5 p-4 sm:p-5 rounded-r-2xl rounded-l-md border ${cardBorder} ${cardBg} shadow-2xs transition-all`}
         >
-          <div className="flex items-center gap-2 mb-3 font-black text-xs uppercase tracking-wider">
-            <IconComponent className={`w-4 h-4 shrink-0 ${iconColor}`} />
+          <div className={`flex items-center gap-2 mb-3 font-black ${
+            fontSize === 'xl' ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'
+          } uppercase tracking-wider`}>
+            <IconComponent className={`${fontSize === 'xl' ? 'w-5 h-5' : 'w-4 h-4'} shrink-0 ${iconColor}`} />
             <span className={titleColor}>{calloutTitle}</span>
           </div>
-          <div className={`text-xs sm:text-sm leading-relaxed ${textColor} font-medium space-y-2`}>
+          <div className={`${
+            fontSize === 'xl'
+              ? 'text-base sm:text-lg lg:text-xl leading-[1.85]'
+              : fontSize === 'lg'
+              ? 'text-sm sm:text-base lg:text-lg leading-relaxed'
+              : 'text-sm sm:text-base leading-relaxed'
+          } ${textColor} font-medium space-y-2.5`}>
             {quoteLines.map((qLine, qIdx) => {
               const trimmedQ = qLine.trim();
               if (!trimmedQ) return null;
@@ -2709,13 +2747,19 @@ export const renderProfessionalNotesContent = (
                           : 'bg-white/80 dark:bg-white/[0.04] border-slate-200/70 dark:border-white/[0.07] text-slate-800 dark:text-slate-200'
                       }`}
                     >
-                      <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      <span className={`${
+                        fontSize === 'xl' ? 'w-8 h-8 text-sm sm:text-base' : 'w-6 h-6 text-xs'
+                      } rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-mono font-black flex items-center justify-center shrink-0 shadow-xs`}>
                         {letter}
                       </span>
-                      <span className={`font-black select-none text-xs ${
+                      <span className={`font-black select-none ${
+                        fontSize === 'xl' ? 'text-sm sm:text-base' : 'text-xs'
+                      } ${
                         isSepia ? 'text-[#824408]' : isOled ? 'text-indigo-400' : 'text-indigo-500 dark:text-indigo-400'
                       }`}>→</span>
-                      <span className={`flex-1 font-semibold text-xs sm:text-[13px] ${
+                      <span className={`flex-1 font-semibold ${
+                        fontSize === 'xl' ? 'text-base sm:text-lg' : 'text-xs sm:text-[13px]'
+                      } ${
                         isSepia ? 'text-[#180E05]' : isOled ? 'text-white' : 'text-slate-800 dark:text-slate-200'
                       }`}>
                         {parseInlineMarkdown(rest, `callout-${i}-${qIdx}`)}
@@ -2729,7 +2773,7 @@ export const renderProfessionalNotesContent = (
                   return (
                     <div
                       key={qIdx}
-                      className={`flex items-center gap-2 py-1 px-2.5 rounded-lg border ${
+                      className={`flex items-center gap-2 py-1.5 px-3 rounded-lg border ${
                         isSepia
                           ? 'bg-[#FFFDF9] border-[#DECDB5] text-[#180E05]'
                           : isOled
@@ -2737,8 +2781,8 @@ export const renderProfessionalNotesContent = (
                           : 'bg-white/50 dark:bg-white/[0.02] border-slate-200/40 dark:border-white/[0.04]'
                       }`}
                     >
-                      <span className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shrink-0" />
-                      <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
+                      <span className={`${fontSize === 'xl' ? 'w-3 h-3' : 'w-2 h-2'} rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shrink-0`} />
+                      <div className={`flex-1 leading-relaxed ${fontSize === 'xl' ? 'text-base sm:text-lg' : 'text-xs sm:text-[13px]'}`}>
                         {parseInlineMarkdown(itemContent, `callout-${i}-${qIdx}`)}
                       </div>
                     </div>
@@ -2748,10 +2792,10 @@ export const renderProfessionalNotesContent = (
                 // Standard bullet list item
                 return (
                   <div key={qIdx} className="flex items-start gap-2.5 py-0.5 pl-1">
-                    <span className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${
+                    <span className={`${fontSize === 'xl' ? 'w-2.5 h-2.5 mt-2.5' : 'w-1.5 h-1.5 mt-2'} rounded-full shrink-0 ${
                       isSepia ? 'bg-[#824408]' : isOled ? 'bg-indigo-400' : 'bg-indigo-500/70 dark:bg-indigo-400/70'
                     }`} />
-                    <div className="flex-1 leading-relaxed text-xs sm:text-[13px]">
+                    <div className={`flex-1 leading-relaxed ${fontSize === 'xl' ? 'text-base sm:text-lg' : 'text-xs sm:text-[13px]'}`}>
                       {parseInlineMarkdown(itemContent, `callout-${i}-${qIdx}`)}
                     </div>
                   </div>
@@ -2761,7 +2805,7 @@ export const renderProfessionalNotesContent = (
               // Sub-heading inside callout (### or ##)
               if (trimmedQ.startsWith('### ') || trimmedQ.startsWith('## ')) {
                 return (
-                  <div key={qIdx} className={`font-black text-xs sm:text-sm pt-1 ${
+                  <div key={qIdx} className={`font-black ${fontSize === 'xl' ? 'text-lg sm:text-xl' : 'text-xs sm:text-sm'} pt-1 ${
                     isSepia ? 'text-[#180E05]' : isOled ? 'text-white' : 'text-slate-900 dark:text-white'
                   }`}>
                     {parseInlineMarkdown(trimmedQ.replace(/^#+\s*/, ''), `callout-${i}-${qIdx}`)}
@@ -2795,7 +2839,7 @@ export const renderProfessionalNotesContent = (
           className={`flex items-start gap-2.5 my-2 ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
         >
           <span
-            className={`w-4 h-4 rounded mt-0.5 flex items-center justify-center shrink-0 border ${
+            className={`${fontSize === 'xl' ? 'w-5 h-5' : 'w-4 h-4'} rounded mt-0.5 flex items-center justify-center shrink-0 border ${
               isChecked
                 ? 'bg-indigo-600 border-indigo-600 text-white'
                 : isSepia
@@ -2805,7 +2849,7 @@ export const renderProfessionalNotesContent = (
                 : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
             }`}
           >
-            {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+            {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
           </span>
           <div
             className={`flex-1 ${textSizeClass} ${
@@ -2840,11 +2884,11 @@ export const renderProfessionalNotesContent = (
           }`}
         >
           {isNested ? (
-            <span className={`w-1.5 h-1.5 rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ${
+            <span className={`${fontSize === 'xl' ? 'w-2 h-2' : 'w-1.5 h-1.5'} rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ${
               isSepia ? 'bg-[#824408]' : isOled ? 'bg-indigo-400' : 'bg-slate-400 dark:bg-slate-500'
             }`} />
           ) : (
-            <span className={`w-2 h-2 rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ring-4 ${
+            <span className={`${fontSize === 'xl' ? 'w-2.5 h-2.5' : 'w-2 h-2'} rounded-full ${isHandwritten ? 'mt-2.5' : 'mt-2'} shrink-0 ring-4 ${
               isSepia
                 ? 'bg-[#824408] ring-[#824408]/15'
                 : isOled
@@ -2854,7 +2898,7 @@ export const renderProfessionalNotesContent = (
           )}
           <div
             className={`flex-1 ${
-              isNested ? 'text-xs sm:text-[13px]' : textSizeClass
+              isNested ? (fontSize === 'xl' ? 'text-base sm:text-lg' : 'text-sm sm:text-base') : textSizeClass
             } ${bodyTextColor}`}
           >
             {parseInlineMarkdown(itemText, `ul-${i}`)}
@@ -2878,7 +2922,13 @@ export const renderProfessionalNotesContent = (
           key={`ol-${i}`}
           className={`flex items-start gap-3 ${isHandwritten ? 'my-3 sm:my-3.5' : 'my-2.5'} ${isNested ? 'ml-6 sm:ml-8 my-1.5' : ''}`}
         >
-          <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg text-xs font-mono font-black flex items-center justify-center shrink-0 ${isHandwritten ? 'mt-1' : 'mt-0.5'} shadow-2xs ${
+          <span className={`${
+            fontSize === 'xl'
+              ? 'w-7 h-7 sm:w-8 sm:h-8 text-sm sm:text-base'
+              : fontSize === 'lg'
+              ? 'w-6 h-6 sm:w-7 sm:h-7 text-xs sm:text-sm'
+              : 'w-5 h-5 sm:w-6 sm:h-6 text-xs'
+          } rounded-lg font-mono font-black flex items-center justify-center shrink-0 ${isHandwritten ? 'mt-1' : 'mt-0.5'} shadow-2xs ${
             isSepia
               ? 'bg-[#EFE2CC] text-[#180E05] border border-[#DECDB5]'
               : isOled

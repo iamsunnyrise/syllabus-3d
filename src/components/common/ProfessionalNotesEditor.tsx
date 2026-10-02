@@ -2277,15 +2277,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     const spacing = getSpacingConfig();
     switch (readerFontSize) {
       case 'sm':
-        return `text-xs sm:text-[13px] ${spacing.lineHeightClass}`;
+        return `text-sm sm:text-[15px] ${spacing.lineHeightClass}`;
       case 'base':
-        return `text-xs sm:text-[14.5px] ${spacing.lineHeightClass}`;
+        return `text-base sm:text-[17px] ${spacing.lineHeightClass}`;
       case 'lg':
-        return `text-sm sm:text-[16px] ${spacing.lineHeightClass}`;
+        return `text-lg sm:text-[19.5px] ${spacing.lineHeightClass}`;
       case 'xl':
-        return `text-base sm:text-[18px] ${spacing.lineHeightClass}`;
+        return `text-xl sm:text-[22px] lg:text-[24px] ${spacing.lineHeightClass}`;
       default:
-        return `text-xs sm:text-[14.5px] ${spacing.lineHeightClass}`;
+        return `text-base sm:text-[17px] ${spacing.lineHeightClass}`;
     }
   };
 
