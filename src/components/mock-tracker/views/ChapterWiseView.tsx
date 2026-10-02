@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Plus, 
   Search, 
@@ -32,6 +32,13 @@ export const ChapterWiseView: React.FC = () => {
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'Mastered' | 'Strong' | 'Needs Practice' | 'Not Started'>('ALL');
+
+  // Sync selected subject if active syllabus subjects change
+  useEffect(() => {
+    if (subjectsWithChapters.length > 0 && !subjectsWithChapters.some(s => s.name.toLowerCase() === selectedSubject.toLowerCase())) {
+      setSelectedSubject(subjectsWithChapters[0].name);
+    }
+  }, [subjectsWithChapters, selectedSubject]);
 
   // Modals
   const [isAddChapterModalOpen, setIsAddChapterModalOpen] = useState(false);

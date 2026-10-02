@@ -86,7 +86,9 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({
             <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
               {summary.totalTests > 0 
                 ? `${summary.totalTests} tests logged • ${summary.attempted} Qs attempted`
-                : 'Target: 85%+ Accuracy mastery'}
+                : summary.avgAccuracy > 0
+                  ? 'Calibrated from Syllabus Explorer'
+                  : 'Target: 85%+ Accuracy mastery'}
             </p>
           </div>
 
@@ -144,7 +146,11 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({
                   ? 'text-alert-red'
                   : 'text-slate-400'
           }`}>
-            {summary.totalTests > 0 ? `${summary.avgAccuracy}%` : 'No Attempts'}
+            {summary.totalTests > 0 
+              ? `${summary.avgAccuracy}%` 
+              : summary.avgAccuracy > 0 
+                ? `${summary.avgAccuracy}% (Syllabus)` 
+                : 'No Attempts'}
           </span>
         </div>
 

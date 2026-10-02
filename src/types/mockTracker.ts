@@ -10,7 +10,8 @@ export type SectionName =
   | 'English Comprehension'
   | 'General Awareness'
   | 'Computer Knowledge'
-  | 'Custom';
+  | 'Custom'
+  | (string & {});
 
 export interface ChapterDefinition {
   id: string;
@@ -19,6 +20,8 @@ export interface ChapterDefinition {
   targetAccuracy: number; // e.g. 85
   subtopics?: string[];
   isCustom?: boolean;
+  topicIds?: string[];
+  syllabusChapterId?: string;
 }
 
 export interface SubjectDefinition {

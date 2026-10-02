@@ -15,6 +15,7 @@ import { calculateOverallKPIs, calculateSubjectStats } from '../utils/mockAnalyt
 import { diagnoseWeakSections, generatePerformanceInsights } from '../utils/mockFeedbackEngine';
 import { audioFX } from '../utils/mockAudioFX';
 import { triggerCelebrationConfetti } from '../utils/mockConfettiFX';
+import { useSyllabus } from '../context/SyllabusContext';
 
 export type NavView = 'home' | 'mocks' | 'full-length' | 'sectional' | 'chapter-wise' | 'analytics' | 'percentile' | 'settings';
 
@@ -126,10 +127,40 @@ const repository = new MockRepository();
 const MockContext = createContext<MockContextType | undefined>(undefined);
 
 export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { 
+    currentExam, 
+    updateTopicMetrics, 
+    addSubject: addSyllabusSubject, 
+    addChapter: addSyllabusChapter 
+  } = useSyllabus();
+
   const [mocks, setMocks] = useState<MockTest[]>(() => repository.getAll());
   const [settings, setSettings] = useState<UserSettings>(() => StorageService.loadSettings());
   const [customPlatforms, setCustomPlatforms] = useState<string[]>(() => StorageService.loadCustomPlatforms());
-  const [subjectsWithChapters, setSubjectsWithChapters] = useState<SubjectDefinition[]>(() => StorageService.loadSubjectsWithChapters());
+  const [customSubjectsWithChapters, setCustomSubjectsWithChapters] = useState<SubjectDefinition[]>(() => StorageService.loadSubjectsWithChapters());
+
+  // Dynamically sync subjects, chapters, and topics with active Syllabus Explorer
+  const subjectsWithChapters = useMemo<SubjectDefinition[]>(() => {
+    if (currentExam?.subjects && currentExam.subjects.length > 0) {
+      return currentExam.subjects.map(sub => ({
+        id: sub.id,
+        name: sub.name,
+        icon: sub.icon || '📚',
+        color: sub.color || '#10B981',
+        chapters: sub.chapters.map(ch => ({
+          id: ch.id,
+          subject: sub.name,
+          chapterName: ch.name,
+          subtopics: ch.topics.map(t => t.name),
+          targetAccuracy: 85,
+          topicIds: ch.topics.map(t => t.id),
+          syllabusChapterId: ch.id
+        }))
+      }));
+    }
+    return customSubjectsWithChapters;
+  }, [currentExam, customSubjectsWithChapters]);
+
   const [activeView, setActiveViewRaw] = useState<NavView>('home');
   const [navHistory, setNavHistory] = useState<NavView[]>(['home']);
 
@@ -209,6 +240,20 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const trimmedChapter = chapterName.trim();
     if (!trimmedChapter) throw new Error('Chapter name is required');
 
+    // Sync to active SyllabusContext if matching subject exists
+    if (addSyllabusChapter && currentExam?.subjects) {
+      const matchedSub = currentExam.subjects.find(
+        s => s.name.toLowerCase() === subjectName.toLowerCase()
+      );
+      if (matchedSub) {
+        try {
+          addSyllabusChapter(matchedSub.id, { name: trimmedChapter });
+        } catch (e) {
+          console.warn('Could not sync chapter to SyllabusContext:', e);
+        }
+      }
+    }
+
     const newChapter: ChapterDefinition = {
       id: `ch-custom-${Date.now()}`,
       subject: subjectName,
@@ -218,7 +263,7 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isCustom: true
     };
 
-    setSubjectsWithChapters(prev => {
+    setCustomSubjectsWithChapters(prev => {
       const exists = prev.find(s => s.name.toLowerCase() === subjectName.toLowerCase());
       let updated: SubjectDefinition[];
       if (exists) {
@@ -246,12 +291,12 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return updated;
     });
 
-    showToast(`Chapter "${trimmedChapter}" added to ${subjectName}!`);
+    showToast(`Chapter "${trimmedChapter}" added to ${subjectName} & linked to Syllabus!`);
     return newChapter;
-  }, [showToast]);
+  }, [addSyllabusChapter, currentExam, showToast]);
 
   const deleteCustomChapter = useCallback((subjectName: string, chapterId: string) => {
-    setSubjectsWithChapters(prev => {
+    setCustomSubjectsWithChapters(prev => {
       const updated = prev.map(s => {
         if (s.name.toLowerCase() === subjectName.toLowerCase()) {
           return {
@@ -271,6 +316,20 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const trimmed = name.trim();
     if (!trimmed) throw new Error('Subject name is required');
 
+    // Sync to active SyllabusContext
+    if (addSyllabusSubject) {
+      try {
+        addSyllabusSubject({
+          name: trimmed,
+          icon,
+          color,
+          initialChapterName: 'General Fundamentals'
+        });
+      } catch (e) {
+        console.warn('Could not sync subject to SyllabusContext:', e);
+      }
+    }
+
     const newSub: SubjectDefinition = {
       id: `sub-custom-${Date.now()}`,
       name: trimmed,
@@ -280,7 +339,7 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isCustom: true
     };
 
-    setSubjectsWithChapters(prev => {
+    setCustomSubjectsWithChapters(prev => {
       if (prev.some(s => s.name.toLowerCase() === trimmed.toLowerCase())) {
         return prev;
       }
@@ -289,12 +348,12 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return updated;
     });
 
-    showToast(`Subject "${trimmed}" created!`);
+    showToast(`Subject "${trimmed}" created & linked to Syllabus!`);
     return newSub;
-  }, [showToast]);
+  }, [addSyllabusSubject, showToast]);
 
   const deleteCustomSubject = useCallback((subjectId: string) => {
-    setSubjectsWithChapters(prev => {
+    setCustomSubjectsWithChapters(prev => {
       const updated = prev.filter(s => s.id !== subjectId);
       StorageService.saveSubjectsWithChapters(updated);
       return updated;
@@ -317,7 +376,7 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return mocks.filter(m => m.mockType === 'CHAPTER_WISE');
   }, [mocks]);
 
-  // Computed Chapter Mastery Summary for any chapter
+  // Computed Chapter Mastery Summary for any chapter (with Syllabus Explorer baseline awareness)
   const getChapterMasterySummary = useCallback((subjectName: string, chapterName: string): ChapterMasterySummary => {
     const tests = chapterMocks.filter(m => 
       (m.chapterName && m.chapterName.toLowerCase() === chapterName.toLowerCase()) ||
@@ -326,6 +385,36 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     if (tests.length === 0) {
+      // Check if syllabus topics in this chapter have calibrated baseline accuracy in Syllabus Explorer
+      const sub = currentExam?.subjects?.find(s => s.name.toLowerCase() === subjectName.toLowerCase());
+      const ch = sub?.chapters?.find(c => c.name.toLowerCase() === chapterName.toLowerCase());
+      const topicsWithAcc = ch?.topics?.filter(t => t.accuracy && t.accuracy > 0) || [];
+
+      if (topicsWithAcc.length > 0) {
+        const sumAcc = topicsWithAcc.reduce((acc, t) => acc + (t.accuracy || 0), 0);
+        const baselineAcc = Math.round(sumAcc / topicsWithAcc.length);
+        let status: 'Mastered' | 'Strong' | 'Needs Practice' | 'Not Started' = 'Needs Practice';
+        if (baselineAcc >= 85) status = 'Mastered';
+        else if (baselineAcc >= 70) status = 'Strong';
+
+        return {
+          subject: subjectName,
+          chapterName,
+          totalTests: 0,
+          totalQuestions: 0,
+          attempted: 0,
+          correct: 0,
+          wrong: 0,
+          avgAccuracy: baselineAcc,
+          avgScore: 0,
+          avgPaceSeconds: 0,
+          bestScore: 0,
+          maxMarks: 50,
+          masteryStatus: status,
+          recentTests: []
+        };
+      }
+
       return {
         subject: subjectName,
         chapterName,
@@ -376,7 +465,7 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       masteryStatus,
       recentTests: tests.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     };
-  }, [chapterMocks]);
+  }, [chapterMocks, currentExam]);
 
   // Overall Chapter Progress across all subjects
   const overallChapterMastery = useMemo<OverallChapterProgress>(() => {
@@ -493,28 +582,69 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, [mocks, overallChapterMastery]);
 
+  // Auto-calibrate Topic Mock Test Accuracy in Syllabus Explorer
+  const syncAccuracyToSyllabus = useCallback((mock: MockTest) => {
+    if (!updateTopicMetrics || !currentExam?.subjects) return;
+
+    if (mock.mockType === 'CHAPTER_WISE' && mock.subjectName && mock.chapterName) {
+      const targetAcc = Math.max(0, Math.min(100, Math.round(mock.accuracy)));
+
+      const matchedSubject = currentExam.subjects.find(
+        s => s.name.toLowerCase() === mock.subjectName?.toLowerCase()
+      );
+      const matchedChapter = matchedSubject?.chapters?.find(
+        ch => ch.name.toLowerCase() === mock.chapterName?.toLowerCase()
+      );
+
+      if (matchedChapter) {
+        let syncedTopic = false;
+        if (mock.topicFocus) {
+          const cleanFocus = mock.topicFocus.trim().toLowerCase();
+          const matchedTopic = matchedChapter.topics.find(
+            t => t.name.toLowerCase() === cleanFocus ||
+                 cleanFocus.includes(t.name.toLowerCase()) ||
+                 t.name.toLowerCase().includes(cleanFocus)
+          );
+          if (matchedTopic) {
+            updateTopicMetrics(matchedTopic.id, { accuracy: targetAcc });
+            syncedTopic = true;
+          }
+        }
+
+        // If no specific single topic matched or entire chapter drill was logged, calibrate all topics in chapter
+        if (!syncedTopic && matchedChapter.topics.length > 0) {
+          matchedChapter.topics.forEach(t => {
+            updateTopicMetrics(t.id, { accuracy: targetAcc });
+          });
+        }
+      }
+    }
+  }, [updateTopicMetrics, currentExam]);
+
   // CRUD
   const addMock = useCallback((mockData: Omit<MockTest, 'id' | 'createdAt'>) => {
     const created = repository.create(mockData);
     setMocks(repository.getAll());
+    syncAccuracyToSyllabus(created);
     if (created.isClearedCutoff || created.accuracy >= 90) {
       audioFX.playAchievementSound();
       triggerCelebrationConfetti();
     } else {
       audioFX.playSuccessChime();
     }
-    showToast(`Mock "${created.testName}" logged! +100 XP ⚡`);
+    showToast(`Mock "${created.testName}" logged! Accuracy synced to Syllabus 🎯`);
     return created;
-  }, [showToast]);
+  }, [showToast, syncAccuracyToSyllabus]);
 
   const editMock = useCallback((id: string, updates: Partial<MockTest>) => {
     const updated = repository.update(id, updates);
     if (updated) {
       setMocks(repository.getAll());
+      syncAccuracyToSyllabus(updated);
       audioFX.playSuccessChime();
-      showToast(`Mock "${updated.testName}" updated.`);
+      showToast(`Mock "${updated.testName}" updated & synced to Syllabus.`);
     }
-  }, [showToast]);
+  }, [showToast, syncAccuracyToSyllabus]);
 
   const deleteMock = useCallback((id: string) => {
     const mock = repository.getById(id);
@@ -559,7 +689,7 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const reset = repository.resetDemoData();
     setMocks(reset);
     setSelectedMockIds([]);
-    setSubjectsWithChapters(DEFAULT_SUBJECTS_AND_CHAPTERS);
+    setCustomSubjectsWithChapters(DEFAULT_SUBJECTS_AND_CHAPTERS);
     StorageService.saveSubjectsWithChapters(DEFAULT_SUBJECTS_AND_CHAPTERS);
     audioFX.playSuccessChime();
     showToast('Reset to default sample mocks & syllabus.', 'info');

@@ -1011,8 +1011,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                         <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight block">
                           Update Mock Test Accuracy
                         </span>
-                        <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-normal block mt-0.5">
-                          Calibrate question accuracy from latest PYQ mock test
+                        <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-normal flex items-center gap-1.5 flex-wrap mt-0.5">
+                          <span>Calibrate question accuracy from latest PYQ mock test</span>
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[9.5px] font-mono font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                            ⚡ Linked with Mock Tracker
+                          </span>
                         </span>
                       </div>
                     </div>

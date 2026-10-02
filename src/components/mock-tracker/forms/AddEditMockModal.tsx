@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, Save, AlertCircle, HelpCircle, Plus, X, Check, Target, Zap, Clock, ShieldCheck, FileText } from 'lucide-react';
+import { Calculator, Save, AlertCircle, HelpCircle, Plus, X, Check, Target, Zap, Clock, ShieldCheck, FileText, Sparkles } from 'lucide-react';
 import { Modal } from '../common/Modal';
 import { useMocks } from '../../../context/MockContext';
 import { MockTest, ExamType, ExamTier, MockTestType, SectionPerformance, SectionName } from '../../../types/mockTracker';
@@ -80,6 +80,12 @@ export const AddEditMockModal: React.FC = () => {
   const currentSubjectChapters = subjectsWithChapters.find(
     s => s.name.toLowerCase() === subjectName.toLowerCase()
   )?.chapters || [];
+
+  const selectedChapterObj = currentSubjectChapters.find(
+    ch => ch.chapterName.toLowerCase() === chapterName.toLowerCase()
+  );
+  const availableTopics = selectedChapterObj?.subtopics || [];
+  const [isCustomTopicInput, setIsCustomTopicInput] = useState(false);
 
   const handleMockTypeSwitch = (type: MockTestType) => {
     setMockType(type);
@@ -654,16 +660,62 @@ export const AddEditMockModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Subtopic / Concept Focus
-                  </label>
-                  <input
-                    type="text"
-                    value={topicFocus}
-                    onChange={(e) => setTopicFocus(e.target.value)}
-                    placeholder="e.g. Circle Tangents, Inversion Rules..."
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-darkContainer border border-slate-300 dark:border-white/10 text-sm text-slate-900 dark:text-white focus:border-emerald-500 outline-none"
-                  />
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      Topic / Concept Focus
+                    </label>
+                    <span className="text-[10px] font-mono text-emerald-600 dark:text-mint flex items-center gap-1 font-bold">
+                      <Sparkles className="w-3 h-3" /> Auto-syncs to Syllabus
+                    </span>
+                  </div>
+
+                  {availableTopics.length > 0 && !isCustomTopicInput ? (
+                    <div className="flex gap-1.5">
+                      <select
+                        value={topicFocus}
+                        onChange={(e) => {
+                          if (e.target.value === '__CUSTOM_TOPIC__') {
+                            setIsCustomTopicInput(true);
+                            setTopicFocus('');
+                          } else {
+                            setTopicFocus(e.target.value);
+                          }
+                        }}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-darkContainer border border-slate-300 dark:border-white/10 text-sm font-medium text-slate-900 dark:text-white focus:border-emerald-500 outline-none"
+                      >
+                        <option value="">🎯 Entire Chapter Drill (All Topics)</option>
+                        {availableTopics.map((top, idx) => (
+                          <option key={idx} value={top}>📌 {top}</option>
+                        ))}
+                        <option value="__CUSTOM_TOPIC__" className="font-bold text-emerald-600 dark:text-mint">
+                          ✏️ + Custom Specific Topic...
+                        </option>
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="flex gap-1.5">
+                      <input
+                        type="text"
+                        value={topicFocus}
+                        onChange={(e) => setTopicFocus(e.target.value)}
+                        placeholder="e.g. Circle Tangents, Inversion Rules..."
+                        className="flex-1 px-3.5 py-2.5 rounded-xl bg-white dark:bg-darkContainer border border-slate-300 dark:border-white/10 text-sm text-slate-900 dark:text-white focus:border-emerald-500 outline-none"
+                      />
+                      {availableTopics.length > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsCustomTopicInput(false);
+                            setTopicFocus('');
+                          }}
+                          className="px-3 py-2 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-slate-200 transition-colors"
+                          title="Back to topics list"
+                        >
+                          List
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
