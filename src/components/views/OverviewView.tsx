@@ -254,20 +254,109 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       {/* 2. MOTIVATIONAL QUOTE BANNER (Interactive Daily Inspiration Hub) */}
       <DailyInspirationBanner onOpenFocus={onOpenFocus} />
 
-      {/* 3. 4 INFOGRAPHIC METRIC KPI CARDS (Matching Website Portal Card UI) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5">
+      {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
+      {nextRecommendedTopic ? (
+        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-violet-950/40 border border-blue-500/25 dark:border-blue-400/25 p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden group">
+          {/* Subtle Ambient Radial Highlight */}
+          <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/15 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/25 transition-all" />
+
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Left: Icon & Topic Meta */}
+            <div className="flex items-start sm:items-center gap-3.5 min-w-0">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform duration-200">
+                <Play className="w-5 h-5 fill-current ml-0.5" />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-blue-600/15 text-blue-700 dark:text-blue-300 border border-blue-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+                    Jump Back In
+                  </span>
+                  <span className={`px-2 py-0.5 rounded-md text-[11px] font-bold border ${nextRecommendedTopic.badgeColor}`}>
+                    {nextRecommendedTopic.badge}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    {toNaturalCase(nextRecommendedTopic.subjectName)} • {toNaturalCase(nextRecommendedTopic.chapterName)}
+                  </span>
+                </div>
+
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight mt-1 truncate">
+                  {nextRecommendedTopic.topic.name}
+                </h3>
+
+                {/* Subtopics / Readiness Status Summary */}
+                <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-medium mt-1">
+                  {nextRecommendedTopic.topic.subtopics && nextRecommendedTopic.topic.subtopics.length > 0 ? (
+                    <span className="flex items-center gap-1 font-mono">
+                      <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
+                      <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
+                      <span>{nextRecommendedTopic.topic.completionPercentage || 0}% Mastered</span>
+                    </span>
+                  ) : (
+                    <span>Ready for active revision & study notes</span>
+                  )}
+                  {nextRecommendedTopic.topic.studyTimeMinutes ? (
+                    <span className="hidden sm:inline-flex items-center gap-1 text-slate-400 dark:text-slate-500">
+                      • {nextRecommendedTopic.topic.studyTimeMinutes} mins logged
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Action Buttons */}
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 self-stretch sm:self-auto justify-end">
+              {onOpenFocus && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    onOpenFocus();
+                  }}
+                  className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/70 dark:border-white/10"
+                  title="Quick 25m Focus Sprint"
+                >
+                  <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>25m Focus</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  if (onOpenTopicDrawer) {
+                    onOpenTopicDrawer(nextRecommendedTopic.topic, nextRecommendedTopic.subjectName, nextRecommendedTopic.chapterName);
+                  } else {
+                    onNavigate('syllabus');
+                  }
+                }}
+                className="btn-primary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/25 flex items-center gap-2 cursor-pointer active:scale-95"
+              >
+                <span>Resume Study</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* 💎 OPTION 2: 4 MODERN ELEVATED METRIC KPI CARDS (Linear / Apple Health Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           {
             id: 'topics',
             title: 'TOTAL TOPICS',
             value: overallStats.totalTopics || 0,
             icon: BookOpen,
-            badge: 'SYLLABUS',
-            description: 'All curriculum topics tracked across subjects.',
-            gradient: 'linear-gradient(135deg, #10B981 0%, #059669 55%, #047857 100%)',
+            badge: 'CURRICULUM',
             accentColor: '#10B981',
-            footerLeft: 'Active Topics',
-            footerRight: `${overallStats.totalTopics || 0} Total`
+            iconBg: 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+            glowColor: 'bg-emerald-500',
+            footerLeft: 'Active Subjects',
+            footerRight: `${currentExam?.subjects?.length || 0} In Track`,
+            progressPercent: 100
           },
           {
             id: 'completed',
@@ -275,23 +364,25 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: overallStats.completedCount || 0,
             icon: CheckCircle2,
             badge: 'MASTERED',
-            description: 'Topics mastered with complete revisions.',
-            gradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 55%, #075985 100%)',
             accentColor: '#0284C7',
-            footerLeft: 'Completed',
-            footerRight: `${overallStats.completedCount || 0} Done`
+            iconBg: 'bg-sky-500/10 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/20',
+            glowColor: 'bg-sky-500',
+            footerLeft: 'Coverage',
+            footerRight: `${overallStats.completedCount || 0} of ${overallStats.totalTopics || 0} Done`,
+            progressPercent: overallStats.totalTopics > 0 ? Math.round((overallStats.completedCount / overallStats.totalTopics) * 100) : 0
           },
           {
             id: 'hours',
             title: 'STUDY HOURS',
             value: totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0',
             icon: Clock,
-            badge: 'LOGGED TIME',
-            description: 'Total focus hours dedicated to study sanctum.',
-            gradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 55%, #B45309 100%)',
+            badge: 'FOCUS TIME',
             accentColor: '#F59E0B',
-            footerLeft: 'Focus Hours',
-            footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`
+            iconBg: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20',
+            glowColor: 'bg-amber-500',
+            footerLeft: 'Sanctum Log',
+            footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`,
+            progressPercent: Math.min(100, Math.round((totalStudyHours / 20) * 100))
           },
           {
             id: 'rate',
@@ -299,82 +390,64 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: `${overallStats.completionPercentage || 0}%`,
             icon: Target,
             badge: 'MASTERY',
-            description: 'Cumulative progress across current syllabus.',
-            gradient: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 55%, #6D28D9 100%)',
             accentColor: '#8B5CF6',
-            footerLeft: 'Overall Rate',
-            footerRight: `${overallStats.completionPercentage || 0}%`
+            iconBg: 'bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/20',
+            glowColor: 'bg-violet-500',
+            footerLeft: 'Syllabus Pace',
+            footerRight: `${overallStats.completionPercentage || 0}% Score`,
+            progressPercent: overallStats.completionPercentage || 0
           }
         ].map((card) => {
           const Icon = card.icon;
           return (
             <div
               key={card.id}
-              className="group relative rounded-2xl bg-slate-100/90 dark:bg-[#121422] p-1.5 sm:p-2 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 select-none flex flex-col"
+              className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden"
             >
-              {/* Inner Elevated Card Plate */}
-              <div className="relative w-full rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A2A] border border-slate-200/70 dark:border-white/[0.07] shadow-xs flex flex-col overflow-hidden flex-1">
-                
-                {/* TOP HERO BANNER (NO SEQUENCE NUMBERS) */}
-                <div
-                  className="relative w-full py-3.5 sm:py-4.5 px-3 flex items-center justify-center text-center overflow-hidden select-none"
-                  style={{ background: card.gradient }}
-                >
-                  {/* Top Gloss Highlight Edge */}
-                  <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
-                  <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
-                  
-                  {/* Elegant Centered Hero Icon */}
-                  <div className="relative z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
-                    <Icon className="w-6 h-6 sm:w-6.5 sm:h-6.5 text-white drop-shadow-md stroke-[2.3]" />
+              {/* Subtle Ambient Radial Highlight */}
+              <div
+                className={`absolute -top-8 -right-8 w-24 h-24 rounded-full blur-2xl opacity-15 dark:opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity ${card.glowColor}`}
+              />
+
+              {/* Top Row: Category Title + Translucent Glowing Icon */}
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 truncate">
+                  {card.title}
+                </span>
+                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 ${card.iconBg}`}>
+                  <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.3]" />
+                </div>
+              </div>
+
+              {/* Metric Value & Badge */}
+              <div className="my-2 sm:my-3">
+                <div className="flex items-baseline justify-between gap-1">
+                  <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
+                    {card.value}
                   </div>
+                  <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10 shrink-0">
+                    {card.badge}
+                  </span>
                 </div>
 
-                {/* MAIN CONTENT AREA */}
-                <div className="p-3 sm:p-4 flex flex-col justify-between flex-1 space-y-2.5">
-                  
-                  {/* Header Row: Title & Badge */}
-                  <div className="flex items-center justify-between gap-1.5 min-w-0">
-                    <h2
-                      className="text-xs font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
-                      style={{ color: card.accentColor }}
-                      title={card.title}
-                    >
-                      {card.title}
-                    </h2>
-
-                    {/* Category / Scope Pill Badge */}
-                    <span className="px-1.5 sm:px-2 py-0.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0">
-                      {card.badge}
-                    </span>
-                  </div>
-
-                  {/* Middle Row: Signature 4-Dot Infographic Track + Metric Value */}
-                  <div className="flex items-baseline justify-between gap-1 select-none py-0.5">
-                    <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
-                      {card.value}
-                    </div>
-
-                    {/* Signature 4-Dot Track */}
-                    <div className="flex items-center gap-1 shrink-0">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.accentColor }} />
-                      <span className="w-2 h-2 rounded-full opacity-35" style={{ backgroundColor: card.accentColor }} />
-                    </div>
-                  </div>
-
-                  {/* Description Text (Crisp, High Contrast) */}
-                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium line-clamp-1 leading-relaxed">
-                    {card.description}
-                  </p>
-
-                  {/* Bottom Row: Metric Scope Info Line */}
-                  <div className="pt-2 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto text-xs font-mono">
-                    <span className="text-slate-500 dark:text-slate-400 font-semibold truncate">{card.footerLeft}</span>
-                    <span className="font-bold shrink-0" style={{ color: card.accentColor }}>{card.footerRight}</span>
+                {/* Sleek Visual Progress Track */}
+                <div className="mt-2.5">
+                  <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${Math.max(4, card.progressPercent)}%`,
+                        backgroundColor: card.accentColor
+                      }}
+                    />
                   </div>
                 </div>
+              </div>
+
+              {/* Footer Row */}
+              <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-2 mt-auto text-xs font-mono">
+                <span className="text-slate-500 dark:text-slate-400 font-medium truncate">{card.footerLeft}</span>
+                <span className="font-bold shrink-0 tabular-nums" style={{ color: card.accentColor }}>{card.footerRight}</span>
               </div>
             </div>
           );
