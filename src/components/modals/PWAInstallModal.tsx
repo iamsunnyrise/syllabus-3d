@@ -9,15 +9,17 @@ interface PWAInstallModalProps {
 }
 
 export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({ isOpen, onClose }) => {
-  const { isInstallable, isInstalled, triggerInstall } = usePWA();
+  const { isInstallable, triggerInstall, markAsInstalled } = usePWA();
 
   if (!isOpen) return null;
 
   const handleInstallClick = async () => {
     if (isInstallable) {
       haptics.medium();
-      await triggerInstall();
-      onClose();
+      const success = await triggerInstall();
+      if (success) {
+        onClose();
+      }
     }
   };
 
@@ -105,6 +107,18 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({ isOpen, onClos
               <li>Scroll down and select <span className="font-bold text-slate-800 dark:text-slate-200">"Add to Home Screen" ( <PlusSquare className="inline w-3 h-3" /> )</span>.</li>
               <li>Tap <span className="font-bold text-slate-800 dark:text-slate-200">Add</span>. SYLLABUS 3D will appear on your phone screen!</li>
             </ol>
+            <button
+              type="button"
+              onClick={() => {
+                haptics.success();
+                markAsInstalled();
+                onClose();
+              }}
+              className="w-full mt-2.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              <span>I've Added / Installed the App</span>
+            </button>
           </div>
         )}
 

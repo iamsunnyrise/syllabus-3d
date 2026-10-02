@@ -40,6 +40,7 @@ import { usePinLock } from '../../context/PinLockContext';
 import { soundManager } from '../../utils/soundEffects';
 import { EditExamTargetModal } from '../modals/EditExamTargetModal';
 import { AddExamTargetModal } from '../modals/AddExamTargetModal';
+import { PWAInstallModal } from '../modals/PWAInstallModal';
 import type { AppView } from './Sidebar';
 
 export interface HeaderProps {
@@ -86,6 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [isExamMenuOpen, setIsExamMenuOpen] = useState(false);
   const [isEditExamModalOpen, setIsEditExamModalOpen] = useState(false);
   const [isAddExamModalOpen, setIsAddExamModalOpen] = useState(false);
+  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
   const [isStudyHubOpen, setIsStudyHubOpen] = useState(false);
   const studyHubRef = useRef<HTMLDivElement>(null);
   const [isOnline, setIsOnline] = useState<boolean>(() => typeof navigator !== 'undefined' ? navigator.onLine : true);
@@ -807,9 +809,12 @@ export const Header: React.FC<HeaderProps> = ({
                 soundManager.playClick();
                 haptics.medium();
                 if (isInstallable) {
-                  await triggerInstall();
+                  const success = await triggerInstall();
+                  if (!success) {
+                    setIsPwaModalOpen(true);
+                  }
                 } else {
-                  onOpenSettings();
+                  setIsPwaModalOpen(true);
                 }
               }}
               className="h-9 px-2 sm:px-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 hover:bg-blue-100/80 dark:hover:bg-blue-900/40 border border-blue-500/25 dark:border-blue-400/20 text-blue-600 dark:text-blue-400 transition-all cursor-pointer shadow-subtle-depth active:scale-95 shrink-0 flex items-center gap-1.5 text-xs font-bold"
@@ -888,6 +893,12 @@ export const Header: React.FC<HeaderProps> = ({
       <AddExamTargetModal
         isOpen={isAddExamModalOpen}
         onClose={() => setIsAddExamModalOpen(false)}
+      />
+
+      {/* PWA Install Modal */}
+      <PWAInstallModal
+        isOpen={isPwaModalOpen}
+        onClose={() => setIsPwaModalOpen(false)}
       />
     </header>
   );
