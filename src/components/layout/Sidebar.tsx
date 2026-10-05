@@ -219,7 +219,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         },
         {
           id: 'mindmap' as AppView,
-          label: 'Concept Mind Map',
+          label: 'Syllabus Mindmap',
           icon: BrainCircuit,
           badge: null,
           badgeColor: ''

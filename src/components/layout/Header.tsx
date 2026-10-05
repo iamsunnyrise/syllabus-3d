@@ -580,7 +580,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </div>
                   </button>
 
-                  {/* Concept Mind Map */}
+                  {/* Syllabus Mindmap */}
                   <button
                     type="button"
                     onClick={() => {
@@ -599,7 +599,7 @@ export const Header: React.FC<HeaderProps> = ({
                       <BrainCircuit className="w-3.5 h-3.5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <span className="text-xs font-bold truncate block">Mind Map</span>
+                      <span className="text-xs font-bold truncate block">Syllabus Mindmap</span>
                       <span className="text-xs text-slate-400 dark:text-slate-500 truncate block">Visual Graph</span>
                     </div>
                   </button>

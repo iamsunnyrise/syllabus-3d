@@ -205,7 +205,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                 <span>Neural Concept Graph</span>
               </div>
               <h1 className="text-sm xs:text-base sm:text-xl font-black text-[#11120F] dark:text-[#F5F5F7] tracking-tight uppercase truncate">
-                Interactive Concept Mind Map
+                Interactive Syllabus Mindmap
               </h1>
               <p className="text-xs text-[#65675F] dark:text-[#94A3B8] font-medium hidden sm:block">
                 Visual constellation displaying subject hierarchies, topic connections & live mastery status

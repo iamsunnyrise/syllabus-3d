@@ -162,7 +162,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
     },
     {
       key: '6',
-      label: 'Concept Mind Map',
+      label: 'Syllabus Mindmap',
       description: 'Interactive visual knowledge graph and node links',
       icon: BrainCircuit,
       category: 'navigation',

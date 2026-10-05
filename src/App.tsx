@@ -505,7 +505,7 @@ export const App: React.FC = () => {
       if (e.key === '6') {
         e.preventDefault();
         handleNavigate('mindmap');
-        showShortcutToast('Jumped to Concept Mind Map [6]');
+        showShortcutToast('Jumped to Syllabus Mindmap [6]');
         return;
       }
       if (e.key === '7') {
@@ -896,7 +896,7 @@ export const App: React.FC = () => {
               )}
 
               {currentView === 'mindmap' && (
-                <ViewErrorBoundary sectionName="Interactive Mind Map" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                <ViewErrorBoundary sectionName="Syllabus Mindmap" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <MindMapView onOpenTopicDrawer={handleOpenTopicDrawer} />
                 </ViewErrorBoundary>
               )}

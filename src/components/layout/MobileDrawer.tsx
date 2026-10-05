@@ -120,7 +120,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         },
         {
           id: 'mindmap' as AppView,
-          label: 'Concept Mind Map',
+          label: 'Syllabus Mindmap',
           icon: BrainCircuit,
           badge: null,
           badgeStyle: '',

@@ -130,7 +130,7 @@ export const SectionBadgeIcon: React.FC<SectionBadgeIconProps> = ({
             <stop offset="100%" stopColor="#881337" />
           </linearGradient>
 
-          {/* 10. Concept Mind Map: Cosmic Violet & Magenta */}
+          {/* 10. Syllabus Mindmap: Cosmic Violet & Magenta */}
           <linearGradient id={`bg-mindmap-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#C084FC" />
             <stop offset="55%" stopColor="#9333EA" />
