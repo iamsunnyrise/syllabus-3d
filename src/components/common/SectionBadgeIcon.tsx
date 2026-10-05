@@ -109,13 +109,6 @@ export const SectionBadgeIcon: React.FC<SectionBadgeIconProps> = ({
             <stop offset="100%" stopColor="#9F1239" />
           </linearGradient>
 
-          {/* 6. Digital Notes: Teal & Jade Forest */}
-          <linearGradient id={`bg-digital-notes-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#14B8A6" />
-            <stop offset="55%" stopColor="#0D9488" />
-            <stop offset="100%" stopColor="#115E59" />
-          </linearGradient>
-
           {/* 7. Mock Test Tracker: Radiant Amber Gold */}
           <linearGradient id={`bg-mock-tracker-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#F59E0B" />
@@ -222,8 +215,6 @@ function getSectionTheme(section: string, uid: string): { gradientId: string; gl
       return { gradientId: `bg-pacing-${uid}`, glowColor: '#10B981' };
     case 'youtube-notes':
       return { gradientId: `bg-youtube-${uid}`, glowColor: '#F43F5E' };
-    case 'digital-notes':
-      return { gradientId: `bg-digital-notes-${uid}`, glowColor: '#14B8A6' };
     case 'mock-tracker':
       return { gradientId: `bg-mock-tracker-${uid}`, glowColor: '#F59E0B' };
     case 'revision':
@@ -406,40 +397,6 @@ function renderSectionGlyph(section: string): React.ReactNode {
             fill="#FBBF24"
           />
           <circle cx="80" cy="33" r="2" fill="#FDE047" />
-        </g>
-      );
-
-    // ═════════════════════════════════════════════════════════════════════════
-    // 6. DIGITAL NOTES: Spiral Study Notebook + Golden Writing Pen
-    // ═════════════════════════════════════════════════════════════════════════
-    case 'digital-notes':
-      return (
-        <g>
-          {/* Notebook Base Card */}
-          <rect x="26" y="20" width="48" height="60" rx="8" fill="#FFFFFF" />
-
-          {/* Spiral Binder Rings */}
-          <line x1="22" y1="28" x2="28" y2="28" stroke="#0F766E" strokeWidth="3" strokeLinecap="round" />
-          <line x1="22" y1="38" x2="28" y2="38" stroke="#0F766E" strokeWidth="3" strokeLinecap="round" />
-          <line x1="22" y1="48" x2="28" y2="48" stroke="#0F766E" strokeWidth="3" strokeLinecap="round" />
-          <line x1="22" y1="58" x2="28" y2="58" stroke="#0F766E" strokeWidth="3" strokeLinecap="round" />
-          <line x1="22" y1="68" x2="28" y2="68" stroke="#0F766E" strokeWidth="3" strokeLinecap="round" />
-
-          {/* Notebook Red Margin Line */}
-          <line x1="34" y1="24" x2="34" y2="76" stroke="#FB7185" strokeWidth="1.2" opacity="0.75" />
-
-          {/* Study Note Lines */}
-          <line x1="38" y1="32" x2="66" y2="32" stroke="#CCFBF1" strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="38" y1="41" x2="64" y2="41" stroke="#CCFBF1" strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="38" y1="50" x2="66" y2="50" stroke="#CCFBF1" strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="38" y1="59" x2="58" y2="59" stroke="#CCFBF1" strokeWidth="2.5" strokeLinecap="round" />
-
-          {/* Golden Writing Pen at Bottom Right */}
-          <g transform="rotate(-35 66 64)">
-            <rect x="64" y="44" width="4.5" height="22" rx="2" fill="#F59E0B" />
-            <polygon points="64,66 68.5,66 66.25,72" fill="#1E293B" />
-            <rect x="64" y="44" width="4.5" height="5" rx="1" fill="#D97706" />
-          </g>
         </g>
       );
 

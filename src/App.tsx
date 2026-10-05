@@ -39,7 +39,6 @@ const PlatformsView = lazy(() => import('./components/views/PlatformsView').then
 const PacingView = lazy(() => import('./components/views/PacingView').then(m => ({ default: m.PacingView })));
 const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
 const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
-const DigitalNotesView = lazy(() => import('./components/views/DigitalNotesView').then(m => ({ default: m.DigitalNotesView })));
 const MockTrackerView = lazy(() => import('./components/views/MockTrackerView').then(m => ({ default: m.MockTrackerView })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
@@ -983,15 +982,6 @@ export const App: React.FC = () => {
               {currentView === 'youtube-notes' && (
                 <ViewErrorBoundary sectionName="AI YouTube Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <YouTubeNotesView
-                    onNavigateToSubject={handleNavigateToSubject}
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                  />
-                </ViewErrorBoundary>
-              )}
-
-              {currentView === 'digital-notes' && (
-                <ViewErrorBoundary sectionName="Digital Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <DigitalNotesView
                     onNavigateToSubject={handleNavigateToSubject}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
                   />
