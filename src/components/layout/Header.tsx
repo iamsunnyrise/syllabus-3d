@@ -805,17 +805,10 @@ export const Header: React.FC<HeaderProps> = ({
           {!isInstalled && (
             <button
               type="button"
-              onClick={async () => {
+              onClick={() => {
                 soundManager.playClick();
                 haptics.medium();
-                if (isInstallable) {
-                  const success = await triggerInstall();
-                  if (!success) {
-                    setIsPwaModalOpen(true);
-                  }
-                } else {
-                  setIsPwaModalOpen(true);
-                }
+                setIsPwaModalOpen(true);
               }}
               className="h-9 px-2 sm:px-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 hover:bg-blue-100/80 dark:hover:bg-blue-900/40 border border-blue-500/25 dark:border-blue-400/20 text-blue-600 dark:text-blue-400 transition-all cursor-pointer shadow-subtle-depth active:scale-95 shrink-0 flex items-center gap-1.5 text-xs font-bold"
               title="Install Syllabus 3D App on Device"
