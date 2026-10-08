@@ -75,9 +75,10 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
   const bufferOptions = [7, 14, 21, 30];
 
   return (
-    <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 overflow-hidden space-y-4 sm:space-y-5 select-none transition-all print:p-4 print:border print:border-black print:shadow-none">
+    <div className="relative rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-4 sm:p-6 overflow-hidden space-y-4 sm:space-y-5 select-none transition-all print:p-4 print:border print:border-black print:shadow-none">
       
-      {/* Ambient Decorative Glow */}
+      {/* Top Specular Line & Ambient Decorative Glow */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/40 dark:via-indigo-400/50 to-transparent pointer-events-none" />
       <div className="absolute -top-14 -right-14 w-60 h-60 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/15 dark:to-purple-500/10 blur-3xl pointer-events-none print:hidden" />
       <div className="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-amber-500/5 dark:bg-emerald-500/5 blur-2xl pointer-events-none print:hidden" />
 
@@ -235,19 +236,19 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
       </div>
 
       {/* 2. 4-COLUMN CORE DIAGNOSTIC KPI BENTO TILES */}
-      <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+      <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
         
         {/* TILE 1: Finish-Line Forecast Date */}
-        <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-indigo-400 transition-colors">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-indigo-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
             <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Finish-Line Date
             </span>
-            <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-              <Flag className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+            <div className="w-6 h-6 rounded-lg bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+              <Flag className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1 sm:mt-1.5">
+          <div className="mt-1.5">
             <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums truncate">
               {forecast.finishLineForecastDate}
             </div>
@@ -258,16 +259,16 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         </div>
 
         {/* TILE 2: Required Daily Pace */}
-        <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-amber-400 transition-colors">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-amber-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
             <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Required Velocity
             </span>
-            <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-              <Zap className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+            <div className="w-6 h-6 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+              <Zap className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1 sm:mt-1.5">
+          <div className="mt-1.5">
             <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-amber-600 dark:text-amber-400 tabular-nums truncate">
               {forecast.requiredDailyPace} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
             </div>
@@ -279,16 +280,16 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         </div>
 
         {/* TILE 3: Actual Velocity */}
-        <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-blue-400 transition-colors">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-blue-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
             <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Your Pace (14d)
             </span>
-            <div className="w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0">
-              <TrendingUp className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+            <div className="w-6 h-6 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0">
+              <TrendingUp className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1 sm:mt-1.5">
+          <div className="mt-1.5">
             <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-blue-600 dark:text-[#7AA2F7] tabular-nums truncate">
               {forecast.actualDailyVelocity} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
             </div>
@@ -307,22 +308,22 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         </div>
 
         {/* TILE 4: Revision Margin */}
-        <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#191A28] border border-slate-200/90 dark:border-[#272738] shadow-2xs flex flex-col justify-between hover:border-emerald-400 transition-colors">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-emerald-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
             <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
               Revision Margin
             </span>
-            <div className={`w-5.5 sm:w-6 h-5.5 sm:h-6 rounded-md sm:rounded-lg flex items-center justify-center shrink-0 ${
+            <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${
               forecast.bufferMarginDays >= forecast.bufferDays
                 ? 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
                 : forecast.bufferMarginDays > 0
                 ? 'bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400'
                 : 'bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400'
             }`}>
-              <ShieldCheck className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+              <ShieldCheck className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1 sm:mt-1.5">
+          <div className="mt-1.5">
             <div className={`text-sm sm:text-xl font-black font-sans tracking-tight tabular-nums truncate ${
               forecast.bufferMarginDays >= forecast.bufferDays
                 ? 'text-emerald-600 dark:text-emerald-400'

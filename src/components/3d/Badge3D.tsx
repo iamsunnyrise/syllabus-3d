@@ -71,10 +71,10 @@ export const Badge3D: React.FC<Badge3DProps> = ({ badge }) => {
 
   return (
     <div
-      className={`group relative p-3 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 flex flex-col justify-between h-full overflow-hidden select-none ${
+      className={`group relative p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 flex flex-col justify-between h-full overflow-hidden select-none ${
         badge.unlocked
-          ? `bg-white dark:bg-[#18181D] border-[#E2E8F0] dark:border-[#272730] shadow-xs sm:shadow-subtle-depth ${tierMeta.glow} hover:-translate-y-1`
-          : 'bg-[#F8FAFC]/60 dark:bg-[#13141C] border-[#E2E8F0]/60 dark:border-[#20212C] opacity-65 hover:opacity-85'
+          ? `bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm ${tierMeta.glow} hover:-translate-y-1`
+          : 'bg-slate-50/60 dark:bg-[#121424]/60 border-slate-200/60 dark:border-white/[0.06] opacity-65 hover:opacity-85'
       }`}
     >
       {/* Top Ambient Glow Line */}

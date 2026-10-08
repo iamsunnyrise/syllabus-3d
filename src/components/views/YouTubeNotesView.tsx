@@ -713,200 +713,198 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
   if (viewState === 'input') {
     return (
-      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans pb-36 sm:pb-24">
+      <div className="w-full max-w-7xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans pb-36 sm:pb-24 px-1 sm:px-2">
         {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 flex-wrap">
-              <SectionBadgeIcon section="youtube-notes" size="md" />
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                AI YouTube Notes
-              </h1>
-              <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-sans font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse inline-block mr-1.5" />
-                <span>gemini-3.6-flash</span>
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                AI Studio Pro
-              </span>
+        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 overflow-hidden">
+          {/* Specular top highlight and ambient gradient */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500/50 dark:via-rose-400/50 to-transparent pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-rose-500/[0.04] dark:bg-rose-500/[0.08] blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+            <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+              <SectionBadgeIcon section="youtube-notes" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
+              <div className="min-w-0 space-y-1">
+                <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-rose-600 dark:text-rose-400 flex-wrap">
+                  <span className="truncate">AI YouTube Notes Studio</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 text-rose-700 dark:text-rose-300 text-[11px] font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                    <span>gemini-3.6-flash</span>
+                  </span>
+                  <span className="hidden xs:inline-flex px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                    AI Studio Pro
+                  </span>
+                </div>
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                  AI YouTube Notes &amp; Lecture Studio
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Turn educational YouTube lectures into structured study notes, formulas, cheat sheets &amp; active recall cards.
+                </p>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Turn any educational YouTube video or lecture into structured study notes, formulas, and cheatsheets.
-            </p>
+
+            {/* Quick Header Actions */}
+            <div className="flex items-center gap-2 sm:gap-2.5 w-full lg:w-auto self-stretch lg:self-auto justify-stretch sm:justify-end shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowManualPaste(!showManualPaste);
+                  soundManager.playClick?.();
+                }}
+                className={`flex-1 lg:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl border text-xs sm:text-[13px] font-bold shadow-xs active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  showManualPaste
+                    ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                    : 'bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200'
+                }`}
+                title="Paste custom transcript text manually"
+              >
+                <ClipboardPaste className="w-4 h-4 text-amber-500 shrink-0" />
+                <span>Custom Transcript</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setTempApiKeyInput(apiKey);
+                  setShowApiKeyModal(true);
+                  soundManager.playClick?.();
+                }}
+                className="flex-1 lg:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              >
+                <KeyRound className="w-4 h-4 shrink-0 text-white" />
+                <span>{apiKey ? 'Gemini Key Configured' : 'Optional: Personal Key'}</span>
+              </button>
+            </div>
           </div>
 
-          {/* Quick Header Actions */}
-          <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
-            <button
-              type="button"
-              onClick={() => {
-                setTempApiKeyInput(apiKey);
-                setShowApiKeyModal(true);
-                soundManager.playClick?.();
-              }}
-              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs sm:text-[13px] font-bold shadow-xs hover:border-indigo-500 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <KeyRound className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span>{apiKey ? 'Gemini Key Configured' : 'Optional: Personal Key'}</span>
-            </button>
+          {/* Integrated AI Telemetry Strip */}
+          <div className="relative z-10 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 text-xs">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 font-bold">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>1-Click Direct Engine: <strong className="font-mono">gemini-3.6-flash</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-medium">
+                <span>Library:</span>
+                <strong className="text-slate-900 dark:text-white tabular-nums">{savedNotes.length} Lecture Summaries</strong>
+              </div>
+              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-medium">
+                <span>Multi-lingual:</span>
+                <strong className="text-slate-900 dark:text-white">Hindi &amp; English</strong>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 font-bold text-xs">
+                <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>LaTeX &amp; Table Ready</span>
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* 1-Click Direct Generation Banner */}
-        <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#7C3AED] text-white overflow-hidden border border-indigo-300/40 dark:border-indigo-400/25 shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-view-fade">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
-          <div className="relative z-10 flex items-start sm:items-center gap-3">
-            <div className="p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 text-white shrink-0 mt-0.5 sm:mt-0 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-              <Sparkles className="w-5 h-5" />
+        {/* ═══════════════ 2. 4 EXECUTIVE TELEMETRY BENTO CARDS ═══════════════ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {/* Card 1: Purple Specular -> Saved Notes Library */}
+          <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-purple-500/50 shadow-xs sm:shadow-sm space-y-3 transition-all duration-200 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-70 group-hover:opacity-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                <div className="w-8 h-8 rounded-xl bg-purple-500/15 flex items-center justify-center border border-purple-500/25">
+                  <BookOpen className="w-4 h-4 stroke-[2.4]" />
+                </div>
+                <span className="text-[11px] font-black uppercase tracking-wider font-mono">Saved Notes</span>
+              </div>
+              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                Library
+              </span>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <p className="text-xs sm:text-sm font-black">1-Click Direct Notes Generator</p>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-xs border border-white/25 text-white shadow-xs">
-                  gemini-3.6-flash
-                </span>
+              <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono tabular-nums leading-none">
+                {savedNotes.length}
               </div>
-              <p className="text-[11px] sm:text-xs text-white/85 mt-0.5">
-                {apiKey
-                  ? 'Aapki personal Google Gemini API Key active hai. Deep semantic analysis ke sath notes banenge.'
-                  : 'Google के लेटेस्ट gemini-3.6-flash & Smart Engine से सीधे नोट्स जनरेट करें। किसी API Key की आवश्यकता नहीं है!'}
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
+                {savedNotes.length === 1 ? '1 Lecture Summary' : `${savedNotes.length} Lecture Summaries`}
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setTempApiKeyInput(apiKey);
-              setShowApiKeyModal(true);
-              soundManager.playClick?.();
-            }}
-            className="relative z-10 w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-black bg-white text-indigo-950 hover:bg-white/90 shadow-md transition-all shrink-0 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
-          >
-            <KeyRound className="w-3.5 h-3.5" />
-            <span>{apiKey ? 'Manage Gemini Key' : 'Optional: Add Personal Key'}</span>
-          </button>
-        </div>
 
-        {/* ═══════════════ 2. GOLDEN AMBER AI ENGINE & QUICK STATS BANNER ═══════════════ */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 overflow-hidden border border-amber-300/60 dark:border-amber-400/30 shadow-[0_12px_32px_-4px_rgba(251,133,0,0.32),0_4px_12px_-2px_rgba(251,133,0,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(251,133,0,0.45),0_6px_16px_-2px_rgba(251,133,0,0.25)] hover:-translate-y-0.5 transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
-          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/25 rounded-full blur-2xl pointer-events-none" />
-
-          <div className="relative z-10 flex items-center gap-3.5 min-w-0">
-            <span className="text-3xl sm:text-4xl select-none leading-none shrink-0 drop-shadow-xs">⚡</span>
-            <div className="min-w-0">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight">
-                Instant Video-to-Notes Engine
+          {/* Card 2: Rose Specular -> AI Model */}
+          <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/50 shadow-xs sm:shadow-sm space-y-3 transition-all duration-200 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70 group-hover:opacity-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400">
+                <div className="w-8 h-8 rounded-xl bg-rose-500/15 flex items-center justify-center border border-rose-500/25">
+                  <Zap className="w-4 h-4 stroke-[2.4]" />
+                </div>
+                <span className="text-[11px] font-black uppercase tracking-wider font-mono">AI Model</span>
               </div>
-              <div className="text-xs sm:text-sm font-semibold text-slate-950/85 mt-1 leading-normal">
-                {savedNotes.length} Lecture Summaries in Library • Multi-lingual (Hindi/English) • Smart LaTeX Formula &amp; Table Extraction
-              </div>
+              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25">
+                Engine
+              </span>
             </div>
-          </div>
-          <div className="relative z-10 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 backdrop-blur-xs border border-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 fill-current" />
-            <span>1-Click Gemini 3.6 Direct Mode</span>
-          </div>
-        </div>
-
-        {/* ═══════════════ 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS ═══════════════ */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {/* Card 1: Purple Gradient -> Saved Notes Library */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between overflow-hidden border border-purple-300/40 dark:border-purple-400/25 shadow-[0_12px_32px_-4px_rgba(124,58,237,0.35),0_4px_12px_-2px_rgba(124,58,237,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(124,58,237,0.48),0_6px_16px_-2px_rgba(124,58,237,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Saved Notes</span>
-              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-                <BookOpen className="w-4 h-4 text-white" />
-              </div>
-            </div>
-            <div className="relative z-10 mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-sans leading-none tabular-nums">
-                {savedNotes.length}
-              </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {savedNotes.length === 1 ? '1 Lecture Summary' : `${savedNotes.length} Lecture Summaries`}
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Hot Coral Gradient -> AI Engine Mode */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">AI Model</span>
-              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-            </div>
-            <div className="relative z-10 mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-sans leading-none truncate">
+            <div>
+              <div className="text-xl sm:text-2xl font-black text-rose-600 dark:text-rose-400 font-mono leading-none truncate">
                 gemini-3.6
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
                 Direct Semantic Video Parser
-              </div>
+              </p>
             </div>
           </div>
 
-          {/* Card 3: Sky Blue Gradient -> STEM & Formulas */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">STEM Precision</span>
-              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-                <FileText className="w-4 h-4 text-white" />
+          {/* Card 3: Sky Specular -> STEM Precision */}
+          <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-sky-500/50 shadow-xs sm:shadow-sm space-y-3 transition-all duration-200 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-70 group-hover:opacity-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
+                <div className="w-8 h-8 rounded-xl bg-sky-500/15 flex items-center justify-center border border-sky-500/25">
+                  <FileText className="w-4 h-4 stroke-[2.4]" />
+                </div>
+                <span className="text-[11px] font-black uppercase tracking-wider font-mono">STEM Precision</span>
               </div>
+              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">
+                KaTeX
+              </span>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-sans leading-none">
-                KaTeX / LaTeX
+            <div>
+              <div className="text-xl sm:text-2xl font-black text-sky-600 dark:text-sky-400 font-mono leading-none">
+                LaTeX &amp; Tables
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
                 Formula &amp; Table Extraction
-              </div>
+              </p>
             </div>
           </div>
 
-          {/* Card 4: Emerald Gradient -> Syllabus Integration */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Syllabus Link</span>
-              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-                <BookmarkPlus className="w-4 h-4 text-white" />
+          {/* Card 4: Emerald Specular -> Syllabus Link */}
+          <div className="group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/50 shadow-xs sm:shadow-sm space-y-3 transition-all duration-200 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/15 flex items-center justify-center border border-emerald-500/25">
+                  <BookmarkPlus className="w-4 h-4 stroke-[2.4]" />
+                </div>
+                <span className="text-[11px] font-black uppercase tracking-wider font-mono">Syllabus Link</span>
               </div>
+              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                Integrated
+              </span>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4">
-              <div className="text-xl sm:text-2xl font-black font-sans leading-none">
+            <div>
+              <div className="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono leading-none">
                 1-Click Attach
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
                 Connect Directly to Exam Topics
-              </div>
+              </p>
             </div>
           </div>
         </div>
 
         {/* ═══════════════ 4. URL INPUT & GENERATOR CARD ═══════════════ */}
-        <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-4 sm:p-6 transition-all duration-300">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 block">
+        <div className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-4 sm:p-6 transition-all duration-300 space-y-3">
+          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             YouTube Video URL
           </label>
           <div className="relative">
@@ -1255,12 +1253,12 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             </button>
 
             {showSavedNotes && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
                 {savedNotes.map(note => (
                   <div
                     key={note.id}
                     onClick={() => handleOpenNote(note)}
-                    className="rounded-2xl sm:rounded-3xl border p-3.5 sm:p-4 cursor-pointer transition-all duration-200 hover:scale-[1.01] group bg-white dark:bg-[#121424] border-slate-200/90 dark:border-white/10 hover:border-indigo-500/40 shadow-xs hover:shadow-sm"
+                    className="rounded-2xl sm:rounded-3xl border p-3.5 sm:p-4 cursor-pointer transition-all duration-200 hover:scale-[1.01] group bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-xs hover:shadow-md"
                   >
                     <div className="flex gap-3">
                       {/* Thumbnail */}

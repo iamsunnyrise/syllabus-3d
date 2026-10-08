@@ -17,7 +17,8 @@ import {
   Zap,
   Sparkles,
   RotateCcw,
-  BookOpen
+  BookOpen,
+  X
 } from 'lucide-react';
 import { Topic, MistakeType } from '../../types/syllabus';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
@@ -110,17 +111,19 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-6 pb-44 sm:pb-28 max-w-5xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 w-full max-w-7xl mx-auto font-sans animate-fade-in px-1 sm:px-2">
       
       {/* 1. TOP HEADER DIAGNOSTICS BANNER WITH 3D CYBER CHESS TRAP MAZE BACKGROUND */}
-      <div className="weak-traps-hero-banner p-3.5 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0B0F19] via-[#0F1424] to-[#0A0C16] border border-white/[0.12] ring-1 ring-white/[0.06] shadow-2xl relative overflow-hidden text-white space-y-3 sm:space-y-4">
-        
+      <div className="weak-traps-hero-banner p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0B0F19] via-[#0F1424] to-[#0A0C16] border border-white/[0.12] ring-1 ring-white/[0.06] shadow-2xl relative overflow-hidden text-white space-y-4">
+        {/* Specular top highlight line */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500/50 to-transparent pointer-events-none z-10" />
+
         {/* Full Uncropped High-Fidelity 3D Strategy & Diagnostics Artwork */}
         <div className="absolute right-0 top-0 bottom-0 w-full sm:w-3/4 md:w-3/5 lg:w-1/2 pointer-events-none overflow-hidden flex items-center justify-end z-0">
           <img
             src="/weak_traps_banner.png"
             alt="Weak Areas & Examiner Traps Diagnostics 3D"
-            className="h-full w-auto max-w-none object-contain object-right opacity-35 sm:opacity-80 select-none"
+            className="h-full w-auto max-w-none object-contain object-right opacity-35 sm:opacity-85 select-none"
             loading="eager"
             decoding="async"
             width={600}
@@ -139,11 +142,11 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
 
         {/* Top Header Row */}
         <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <SectionBadgeIcon section="weak" size="lg" />
             <div className="min-w-0">
-              <h1 className="weak-banner-title text-base sm:text-xl font-black text-white font-sans tracking-tight drop-shadow-xs">
-                Weak Areas & Examiner Traps
+              <h1 className="weak-banner-title text-lg sm:text-2xl font-black text-white font-sans tracking-tight drop-shadow-xs">
+                Weak Areas &amp; Examiner Traps
               </h1>
               <p className="weak-banner-subtitle text-xs sm:text-[13px] text-slate-300 font-medium leading-relaxed mt-0.5">
                 Targeted mistake analytics to eliminate blindspots and convert errors into marks.
@@ -151,12 +154,12 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pt-0.5 sm:pt-0 font-sans font-bold text-[11px] sm:text-xs">
-            <div className="weak-pill-rose px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl backdrop-blur-md shadow-xs flex items-center gap-1.5">
+          <div className="flex items-center gap-2 shrink-0 pt-0.5 sm:pt-0 font-sans font-bold text-[11px] sm:text-xs">
+            <div className="weak-pill-rose px-3 sm:px-4 py-1.5 rounded-xl backdrop-blur-md shadow-xs flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
               <span>{weakTopics.length} Weak Topics</span>
             </div>
-            <div className="weak-pill-amber px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl backdrop-blur-md shadow-xs flex items-center gap-1.5">
+            <div className="weak-pill-amber px-3 sm:px-4 py-1.5 rounded-xl backdrop-blur-md shadow-xs flex items-center gap-1.5">
               <span>⚠️</span>
               <span>{fallacyStats.totalTraps} Logged Traps</span>
             </div>
@@ -164,9 +167,9 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
         </div>
 
         {/* 2. ROOT-CAUSE FALLACY INTERACTIVE TILES */}
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-            <span className="weak-section-label text-[11px] sm:text-xs font-bold uppercase tracking-wider font-sans">
+        <div className="relative z-10 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="weak-section-label text-[11px] sm:text-xs font-bold uppercase tracking-wider font-sans text-slate-300">
               Root-Cause Fallacy Breakdown
             </span>
             {selectedFallacy !== 'all' && (
@@ -177,21 +180,22 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                 }}
                 className="text-[11px] sm:text-xs font-bold text-sky-400 hover:text-sky-300 hover:underline cursor-pointer font-sans"
               >
-                Clear Filter
+                Clear Filter (Show All)
               </button>
             )}
           </div>
 
-          <div className="flex sm:grid sm:grid-cols-5 gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar pb-1 -mx-0.5 px-0.5">
+          <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-5 gap-2.5 sm:gap-3.5">
             {[
-              { id: 'conceptual' as MistakeType, label: 'Conceptual', count: fallacyStats.conceptual, color: 'text-rose-300 bg-rose-500/15 border-rose-500/30 hover:bg-rose-500/25', icon: Brain },
-              { id: 'calculation' as MistakeType, label: 'Calculation', count: fallacyStats.calculation, color: 'text-amber-300 bg-amber-500/15 border-amber-500/30 hover:bg-amber-500/25', icon: Calculator },
-              { id: 'formula' as MistakeType, label: 'Formula', count: fallacyStats.formula, color: 'text-purple-300 bg-purple-500/15 border-purple-500/30 hover:bg-purple-500/25', icon: Compass },
-              { id: 'silly' as MistakeType, label: 'Silly Traps', count: fallacyStats.silly, color: 'text-sky-300 bg-sky-500/15 border-sky-500/30 hover:bg-sky-500/25', icon: Eye },
-              { id: 'time_pressure' as MistakeType, label: 'Time Crunch', count: fallacyStats.timePressure, color: 'text-emerald-300 bg-emerald-500/15 border-emerald-500/30 hover:bg-emerald-500/25', icon: Clock }
+              { id: 'conceptual' as MistakeType, label: 'Conceptual', count: fallacyStats.conceptual, color: 'text-rose-300 bg-rose-500/15 border-rose-500/30 hover:bg-rose-500/25', progressColor: 'bg-rose-400', icon: Brain },
+              { id: 'calculation' as MistakeType, label: 'Calculation', count: fallacyStats.calculation, color: 'text-amber-300 bg-amber-500/15 border-amber-500/30 hover:bg-amber-500/25', progressColor: 'bg-amber-400', icon: Calculator },
+              { id: 'formula' as MistakeType, label: 'Formula', count: fallacyStats.formula, color: 'text-purple-300 bg-purple-500/15 border-purple-500/30 hover:bg-purple-500/25', progressColor: 'bg-purple-400', icon: Compass },
+              { id: 'silly' as MistakeType, label: 'Silly Traps', count: fallacyStats.silly, color: 'text-sky-300 bg-sky-500/15 border-sky-500/30 hover:bg-sky-500/25', progressColor: 'bg-sky-400', icon: Eye },
+              { id: 'time_pressure' as MistakeType, label: 'Time Crunch', count: fallacyStats.timePressure, color: 'text-emerald-300 bg-emerald-500/15 border-emerald-500/30 hover:bg-emerald-500/25', progressColor: 'bg-emerald-400', icon: Clock }
             ].map(tile => {
               const Icon = tile.icon;
               const isSelected = selectedFallacy === tile.id;
+              const trapPct = fallacyStats.totalTraps > 0 ? Math.round((tile.count / fallacyStats.totalTraps) * 100) : 0;
               return (
                 <button
                   type="button"
@@ -201,19 +205,31 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                     setSelectedFallacy(prev => (prev === tile.id ? 'all' : tile.id));
                   }}
                   aria-pressed={isSelected}
-                  className={`weak-tile-btn min-w-[108px] sm:min-w-0 flex-1 shrink-0 px-2.5 py-2.5 sm:p-3 rounded-xl sm:rounded-2xl border backdrop-blur-xl transition-all cursor-pointer text-center relative active:scale-95 ${tile.color} ${
+                  className={`weak-tile-btn flex-1 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border backdrop-blur-xl transition-all cursor-pointer text-center relative active:scale-95 flex flex-col justify-between ${tile.color} ${
                     isSelected ? 'ring-2 ring-white/80 shadow-lg scale-[1.02] bg-white/20' : 'shadow-xs'
                   }`}
                 >
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Icon className="w-3.5 h-3.5 shrink-0" />
-                    <span className="text-[11px] sm:text-xs font-bold font-sans tracking-tight whitespace-nowrap">
-                      {tile.label}
-                    </span>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <Icon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="text-[11px] sm:text-xs font-bold font-sans tracking-tight whitespace-nowrap">
+                        {tile.label}
+                      </span>
+                    </div>
+                    <h4 className="weak-tile-count text-2xl sm:text-3xl font-black font-sans tracking-tight text-white tabular-nums">
+                      {tile.count}
+                    </h4>
                   </div>
-                  <h4 className="weak-tile-count text-xl sm:text-2xl font-black font-sans tracking-tight text-white tabular-nums">
-                    {tile.count}
-                  </h4>
+
+                  {/* Micro Progress Bar */}
+                  <div className="w-full pt-2 mt-1 border-t border-white/10">
+                    <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${tile.progressColor}`}
+                        style={{ width: `${Math.max(tile.count > 0 ? 8 : 0, trapPct)}%` }}
+                      />
+                    </div>
+                  </div>
                 </button>
               );
             })}
@@ -221,25 +237,35 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
         </div>
       </div>
 
-      {/* 3. SEARCH & SMART FILTERS */}
-      <div className="space-y-2 sm:space-y-2.5">
+      {/* 3. SEARCH & SMART FILTERS TOOLBAR */}
+      <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3">
         
         {/* Search Bar + Severity Filter */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
           
           <div className="relative flex-1">
-            <Search className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" />
             <input
               type="text"
               placeholder="Search weak topics, chapters, or trap keywords..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-9 sm:pl-10 pr-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 shadow-xs transition-all"
+              className="w-full pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-white/10 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 shadow-2xs transition-all"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 rounded-lg cursor-pointer"
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
 
           {/* Severity Pills */}
-          <div className="flex items-center gap-1 p-1 rounded-xl sm:rounded-2xl bg-slate-100/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 shadow-xs shrink-0 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100/90 dark:bg-[#1B1C28] border border-slate-200/80 dark:border-white/10 shadow-xs shrink-0 overflow-x-auto no-scrollbar">
             {[
               { id: 'all' as SeverityFilter, label: 'All Weak' },
               { id: 'critical' as SeverityFilter, label: '🔴 Critical (<50%)' },
@@ -252,10 +278,10 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                   soundManager.playClick();
                   setSeverityFilter(sev.id);
                 }}
-                className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all cursor-pointer active:scale-95 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer active:scale-95 ${
                   severityFilter === sev.id
-                    ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/10'
+                    ? 'bg-rose-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
                 }`}
               >
                 {sev.label}
@@ -265,19 +291,19 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
         </div>
 
         {/* Subject Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2.5 border-t border-slate-100 dark:border-white/10">
           <button
             onClick={() => {
               soundManager.playClick();
               setSelectedSubject('all');
             }}
-            className={`px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
               selectedSubject === 'all'
-                ? 'bg-blue-600 dark:bg-blue-600 text-white border-transparent shadow-xs'
-                : 'bg-white dark:bg-[#151622] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
+                ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-500/50 shadow-2xs font-bold ring-1 ring-rose-500/30'
+                : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            All Subjects ({weakTopics.length})
+            <span>All Subjects ({weakTopics.length})</span>
           </button>
 
           {currentExam?.subjects.map(s => {
@@ -290,13 +316,18 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                   soundManager.playClick();
                   setSelectedSubject(s.name);
                 }}
-                className={`px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border cursor-pointer active:scale-95 ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer shrink-0 active:scale-95 ${
                   isSelected
-                    ? 'bg-blue-600 dark:bg-blue-600 text-white border-transparent shadow-xs'
-                    : 'bg-white dark:bg-[#151622] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
+                    ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-500/50 shadow-2xs font-bold ring-1 ring-rose-500/30'
+                    : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                {s.name} ({count})
+                <span>{s.name}</span>
+                <span className={`px-1.5 py-0.5 rounded-md text-[10px] font-sans font-bold tabular-nums ${
+                  isSelected ? 'bg-rose-500/20 text-rose-700 dark:text-rose-300 font-bold' : 'bg-slate-200 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400'
+                }`}>
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -304,23 +335,24 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
       </div>
 
       {/* 4. WEAK TOPICS & TRAPS CARDS LIST */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         {filteredWeakTopics.length === 0 ? (
-          <div className="p-6 sm:p-12 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-dashed border-slate-200 dark:border-white/10 text-center space-y-3 sm:space-y-4 shadow-xs">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-emerald-500/20 to-teal-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-sm">
+          <div className="relative py-12 sm:py-20 px-6 sm:px-12 text-center rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 w-full overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent pointer-events-none" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-emerald-500/20 to-teal-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-sm">
               {searchQuery.trim() || severityFilter !== 'all' || selectedSubject !== 'all' ? (
-                <Filter className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.8]" />
+                <Filter className="w-8 h-8 sm:w-10 sm:h-10 stroke-[1.8]" />
               ) : (
-                <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.2]" />
+                <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2.2]" />
               )}
             </div>
-            <div className="space-y-1">
-              <h4 className="text-sm xs:text-base sm:text-lg font-black text-slate-900 dark:text-white">
+            <div className="space-y-1.5 max-w-xl mx-auto">
+              <h4 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                 {searchQuery.trim() || severityFilter !== 'all' || selectedSubject !== 'all'
                   ? 'No Matching Vulnerabilities Found'
                   : 'Zero Weak Vulnerabilities Detected! 🎉'}
               </h4>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                 {searchQuery.trim() || severityFilter !== 'all' || selectedSubject !== 'all'
                   ? 'No weak topics match your active search or severity filters. Try resetting to view all detected traps.'
                   : 'All topics in your syllabus maintain high accuracy scores and zero unresolved examiner trap notes.'}
@@ -328,7 +360,7 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
             </div>
 
             {(searchQuery.trim() || severityFilter !== 'all' || selectedSubject !== 'all') ? (
-              <div className="pt-1">
+              <div className="pt-2">
                 <button
                   onClick={() => {
                     soundManager.playClick();
@@ -337,15 +369,15 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                     setSelectedSubject('all');
                     setSelectedFallacy('all');
                   }}
-                  className="w-full xs:w-auto px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-400/30 text-[11px] sm:text-xs font-bold transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-xs tap-bounce"
+                  className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 text-xs sm:text-[13px] font-bold transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-xs"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Reset All Filters & Search</span>
                 </button>
               </div>
             ) : (
-              <div className="pt-2 flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[11px] sm:text-xs font-sans font-bold border border-emerald-500/25">
+              <div className="pt-3 flex items-center justify-center gap-2.5 flex-wrap">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-500/25">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>100% Trap Free • High Retention Strength</span>
                 </span>
@@ -355,7 +387,7 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                       soundManager.playClick();
                       onNavigate('syllabus');
                     }}
-                    className="w-full xs:w-auto px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white text-[11px] sm:text-xs font-black transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-xs tap-bounce"
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white text-xs sm:text-[13px] font-black transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-xs"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
                     <span>Explore Full Syllabus</span>
@@ -376,8 +408,10 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
               <div
                 key={topic.id}
                 onClick={() => onOpenTopicDrawer(topic, subjectName, chapterName)}
-                className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 hover:border-blue-500/70 dark:hover:border-blue-400/60 transition-all duration-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_-6px_rgba(0,0,0,0.09)] space-y-3.5 cursor-pointer group active:scale-[0.99] overflow-hidden"
+                className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/70 dark:hover:border-rose-400/60 transition-all duration-200 shadow-xs hover:shadow-md space-y-3.5 cursor-pointer group active:scale-[0.99] relative overflow-hidden"
               >
+                {/* Left Severity Accent Stripe */}
+                <div className={`absolute left-0 top-0 bottom-0 w-1 ${isCritical ? 'bg-rose-500' : 'bg-amber-500'} opacity-80 group-hover:opacity-100 transition-opacity`} />
                 {/* Top Row: Subject & Chapter Hierarchy (Left) + Accuracy & Mastered (Right) */}
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/5 pb-2.5">
                   {/* Left: Subject Badge & Chapter Breadcrumb */}
