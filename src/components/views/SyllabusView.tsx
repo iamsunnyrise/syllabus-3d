@@ -516,70 +516,95 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 1. TOP CHAPTER HERO BANNER & ACTIONS */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#121424]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+          <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             {/* Visual Badge Thumbnail */}
-            <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${chapterBadge.containerClass}`}>
+            <div className={`w-13 sm:w-15 h-13 sm:h-15 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0 shadow-xs sm:shadow-sm relative overflow-hidden border ${chapterBadge.containerClass}`}>
               <ChapterBadgeIcon className="w-6 sm:w-7 h-6 sm:h-7 stroke-[2.2] mb-0.5" />
-              <span className="text-[9px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+              <span className="text-[10px] sm:text-[11px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                 {chapterBadge.badgeText}
               </span>
             </div>
 
-            <div className="min-w-0 space-y-1">
+            <div className="min-w-0 space-y-1 sm:space-y-1.5">
+              {/* Breadcrumb Navigation Bar */}
               <div className="flex items-center gap-2 flex-wrap">
                 <button
+                  type="button"
                   onClick={handleBackToChapters}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/15 dark:hover:bg-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-bold transition-all cursor-pointer shadow-2xs group"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
                   <span>{formatTitleCase(activeSubject.name)}</span>
                 </button>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                  Chapter {currentChapterIndex + 1} of {activeSubject.chapters.length}
+                <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/10 text-slate-600 dark:text-slate-300 text-xs font-mono font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span>Chapter {currentChapterIndex + 1} of {activeSubject.chapters.length}</span>
                 </span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
-                {formatTitleCase(activeChapter.name)}
-              </h1>
+
+              {/* Title & Micro Summary */}
+              <div>
+                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                  {formatTitleCase(activeChapter.name)}
+                </h1>
+                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                  <span>{totalInActiveChapter} Topics Total</span>
+                  <span>•</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{completedInActiveChapter} Mastered ({chapterPercent}%)</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Quick Actions (Previous / Next Chapter & Edit Chapter) */}
-          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+          {/* Quick Actions Control Bar */}
+          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end flex-wrap shrink-0">
+            {/* Segmented Chapter Switcher: [ <  1/2  > ] */}
+            <div className="flex items-center rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 p-0.5 shadow-2xs">
+              <button
+                type="button"
+                onClick={() => prevChapter && handleSelectChapter(prevChapter.id)}
+                disabled={!prevChapter}
+                className="p-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+                title={prevChapter ? `Previous Chapter: ${prevChapter.name}` : 'First Chapter'}
+                aria-label="Previous Chapter"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="px-2.5 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 select-none">
+                {currentChapterIndex + 1} / {activeSubject.chapters.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => nextChapter && handleSelectChapter(nextChapter.id)}
+                disabled={!nextChapter}
+                className="p-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+                title={nextChapter ? `Next Chapter: ${nextChapter.name}` : 'Last Chapter'}
+                aria-label="Next Chapter"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Back to All Chapters Button */}
             <button
+              type="button"
               onClick={handleBackToChapters}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 border border-slate-200/60 dark:border-white/10"
+              title="Return to chapters list"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Chapters</span>
             </button>
 
-            {prevChapter && (
-              <button
-                onClick={() => handleSelectChapter(prevChapter.id)}
-                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white transition-colors cursor-pointer active:scale-95"
-                title={`Previous: ${prevChapter.name}`}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-            )}
-
-            {nextChapter && (
-              <button
-                onClick={() => handleSelectChapter(nextChapter.id)}
-                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white transition-colors cursor-pointer active:scale-95"
-                title={`Next: ${nextChapter.name}`}
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            )}
-
+            {/* Edit Chapter Button */}
             <button
+              type="button"
               onClick={() => setEditingChapter({ subjectId: activeSubject.id, chapter: activeChapter })}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] transition-colors cursor-pointer active:scale-95"
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
               title="Edit Chapter"
+              aria-label="Edit Chapter"
             >
               <Edit2 className="w-4 h-4" />
             </button>
@@ -1083,47 +1108,64 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* 1. TOP SUBJECT HERO BANNER & ACTIONS */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#121424]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+          <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             {/* Visual Badge Thumbnail */}
-            <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-2xl flex flex-col items-center justify-center text-center p-1.5 shrink-0 shadow-2xs relative overflow-hidden ${subjectBadge.containerClass}`}>
+            <div className={`w-13 sm:w-15 h-13 sm:h-15 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0 shadow-xs sm:shadow-sm relative overflow-hidden border ${subjectBadge.containerClass}`}>
               <SubjectBadgeIcon className="w-6 sm:w-7 h-6 sm:h-7 stroke-[2.2] mb-0.5" />
-              <span className="text-[9px] sm:text-[10px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
+              <span className="text-[10px] sm:text-[11px] font-black tracking-wider uppercase font-mono leading-none truncate max-w-full">
                 {subjectBadge.badgeText}
               </span>
             </div>
 
-            <div className="min-w-0 space-y-1">
+            <div className="min-w-0 space-y-1 sm:space-y-1.5">
+              {/* Breadcrumb Navigation Bar */}
               <div className="flex items-center gap-2 flex-wrap">
                 <button
+                  type="button"
                   onClick={handleBackToSubjects}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/15 dark:hover:bg-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-bold transition-all cursor-pointer shadow-2xs group"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
                   <span>All Subjects</span>
                 </button>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{currentExam.name}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/10 text-slate-600 dark:text-slate-300 text-xs font-mono font-bold">
+                  {currentExam.name}
+                </span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
-                {formatTitleCase(activeSubject.name)}
-              </h1>
+
+              {/* Title & Micro Summary */}
+              <div>
+                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                  {formatTitleCase(activeSubject.name)}
+                </h1>
+                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                  <span>{activeSubject.chapters.length} Chapters</span>
+                  <span>•</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{completedSubjectTopics}/{totalSubjectTopics} Topics Mastered ({subjectPercent}%)</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Quick Actions (Back Button & Edit Subject) */}
-          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end shrink-0">
             <button
+              type="button"
               onClick={handleBackToSubjects}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 border border-slate-200/60 dark:border-white/10"
+              title="Return to subjects list"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back</span>
+              <span>All Subjects</span>
             </button>
             <button
+              type="button"
               onClick={() => setEditingSubject(activeSubject)}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] transition-colors cursor-pointer active:scale-95"
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
               title="Edit Subject"
+              aria-label="Edit Subject"
             >
               <Edit2 className="w-4 h-4" />
             </button>
