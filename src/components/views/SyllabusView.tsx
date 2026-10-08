@@ -586,76 +586,163 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. 4 VIBRANT HIGH-CONTRAST METRIC CARDS FOR CHAPTER */}
+        {/* 2. 4 LUXURY HIGH-CONTRAST METRIC CARDS FOR CHAPTER (Glass Ring + Specular Shine + Mini Progress) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-          {/* Card 1: Purple Gradient -> Total Topics */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Topics</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <FileText className="w-4 h-4 text-white" />
+          {/* Card 1: Royal Indigo / Violet Gradient -> Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Topics</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <FileText className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {totalInActiveChapter}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {totalInActiveChapter}
+                </span>
+                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                  Topics
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                In this Chapter
+              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                  <Layers className="w-3 h-3" />
+                  <span>Chapter Scope</span>
+                </span>
+                <span className="truncate text-white/75">
+                  • {activeSubject.name}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <CheckCircle2 className="w-4 h-4 text-white" />
+          {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {completedInActiveChapter}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                    {completedInActiveChapter}
+                  </span>
+                  <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                    / {totalInActiveChapter}
+                  </span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                  {totalInActiveChapter > 0 ? Math.round((completedInActiveChapter / totalInActiveChapter) * 100) : 0}%
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {totalInActiveChapter - completedInActiveChapter} Remaining
+
+              {/* Sleek Mini Progress Track */}
+              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  style={{ width: `${totalInActiveChapter > 0 ? (completedInActiveChapter / totalInActiveChapter) * 100 : 0}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+                <span className="truncate">
+                  {totalInActiveChapter - completedInActiveChapter === 0 ? 'All Completed! 🎉' : `${totalInActiveChapter - completedInActiveChapter} Remaining`}
+                </span>
+                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                  Mastery
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 3: Cyan / Sky Blue Gradient -> Active Topics */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">In Progress</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <Zap className="w-4 h-4 text-white" />
+          {/* Card 3: Sapphire Ocean / Sky Gradient -> In Progress */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">In Progress</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <Zap className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
-                {inProgressInActiveChapter}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {inProgressInActiveChapter}
+                </span>
+                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                  Active
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Study'}
+
+              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
+                  <span>{weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Study'}</span>
+                </span>
+                <span className="truncate text-white/75">
+                  • In Rotation
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 4: Emerald / Mint Gradient -> Chapter Mastery Rate */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Chapter Mastery</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <TrendingUp className="w-4 h-4 text-white" />
+          {/* Card 4: Emerald Jade / Mint Gradient -> Chapter Mastery Rate */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Chapter Mastery</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {chapterPercent}%
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                    {chapterPercent}%
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                    Done
+                  </span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                  {completedInActiveChapter}/{totalInActiveChapter}
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {completedInActiveChapter}/{totalInActiveChapter} Topics Done
+
+              {/* Sleek Mini Progress Track */}
+              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  style={{ width: `${chapterPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+                <span className="truncate">
+                  {completedInActiveChapter}/{totalInActiveChapter} Topics Done
+                </span>
+                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                  Mastery
+                </span>
               </div>
             </div>
           </div>
@@ -1043,76 +1130,163 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. 4 VIBRANT HIGH-CONTRAST METRIC CARDS FOR SUBJECT */}
+        {/* 2. 4 LUXURY HIGH-CONTRAST METRIC CARDS FOR SUBJECT (Glass Ring + Specular Shine + Mini Progress) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-          {/* Card 1: Purple Gradient -> Total Chapters */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between shadow-md shadow-purple-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Chapters</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <Layers className="w-4 h-4 text-white" />
+          {/* Card 1: Royal Indigo / Violet Gradient -> Total Chapters */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Chapters</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <Layers className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {activeSubject.chapters.length}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {activeSubject.chapters.length}
+                </span>
+                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                  {activeSubject.chapters.length === 1 ? 'Chapter' : 'Chapters'}
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                In {activeSubject.name}
+              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                  <BookOpen className="w-3 h-3" />
+                  <span>Subject Modules</span>
+                </span>
+                <span className="truncate text-white/75">
+                  • {totalSubjectTopics} Topics
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between shadow-md shadow-rose-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <CheckCircle2 className="w-4 h-4 text-white" />
+          {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {completedSubjectTopics}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                    {completedSubjectTopics}
+                  </span>
+                  <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                    / {totalSubjectTopics}
+                  </span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                  {totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0}%
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {totalSubjectTopics - completedSubjectTopics} Remaining
+
+              {/* Sleek Mini Progress Track */}
+              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  style={{ width: `${totalSubjectTopics > 0 ? (completedSubjectTopics / totalSubjectTopics) * 100 : 0}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+                <span className="truncate">
+                  {totalSubjectTopics - completedSubjectTopics === 0 ? 'All Completed! 🎉' : `${totalSubjectTopics - completedSubjectTopics} Remaining`}
+                </span>
+                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                  Mastery
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 3: Cyan / Sky Blue Gradient -> Total Topics */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between shadow-md shadow-sky-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Total Topics</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <FileText className="w-4 h-4 text-white" />
+          {/* Card 3: Sapphire Ocean / Sky Gradient -> Total Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Total Topics</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <FileText className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
-                {totalSubjectTopics}
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {totalSubjectTopics}
+                </span>
+                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                  Topics
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                Subject Syllabus Scope
+
+              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-300" />
+                  <span>Subject Scope</span>
+                </span>
+                <span className="truncate text-white/80">
+                  • Across {activeSubject.chapters.length} Chapters
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 4: Emerald / Mint Gradient -> Subject Mastery Rate */}
-          <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between shadow-md shadow-emerald-500/20">
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-bold text-white/90">Subject Mastery</span>
-              <div className="p-2 rounded-xl bg-white/20">
-                <TrendingUp className="w-4 h-4 text-white" />
+          {/* Card 4: Emerald Jade / Mint Gradient -> Subject Mastery Rate */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+            {/* Top Specular Gloss Edge & Ambient Glow */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Subject Mastery</span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+                <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
               </div>
             </div>
-            <div className="mt-3 sm:mt-4">
-              <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-                {subjectPercent}%
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+              <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                    {subjectPercent}%
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                    Done
+                  </span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                  {completedSubjectTopics}/{totalSubjectTopics}
+                </span>
               </div>
-              <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-                {completedSubjectTopics}/{totalSubjectTopics} Topics Done
+
+              {/* Sleek Mini Progress Track */}
+              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  style={{ width: `${subjectPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+                <span className="truncate">
+                  {completedSubjectTopics}/{totalSubjectTopics} Topics Done
+                </span>
+                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                  Mastery
+                </span>
               </div>
             </div>
           </div>
