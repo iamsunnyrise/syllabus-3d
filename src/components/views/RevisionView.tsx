@@ -218,6 +218,11 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
   const stage2Count = revisions.filter(r => r.stage === 2 && !r.completedDate).length;
   const stage3Count = revisions.filter(r => r.stage === 3 && !r.completedDate).length;
   const stage4Count = revisions.filter(r => r.stage >= 4 || r.completedDate).length;
+  const totalPipelineCount = (stage1Count + stage2Count + stage3Count + stage4Count) || 1;
+  const stage1Pct = Math.round((stage1Count / totalPipelineCount) * 100);
+  const stage2Pct = Math.round((stage2Count / totalPipelineCount) * 100);
+  const stage3Pct = Math.round((stage3Count / totalPipelineCount) * 100);
+  const stage4Pct = Math.round((stage4Count / totalPipelineCount) * 100);
 
   const renderRevisionCard = (rev: RevisionRecord, type: 'today' | 'upcoming' | 'history') => {
     const topicObj = allTopics.find(t => t.topic.id === rev.topicId);
@@ -232,7 +237,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
     return (
       <div
         key={rev.id}
-        className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 shadow-xs hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-between gap-3"
+        className="p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 shadow-xs hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-between gap-3"
       >
         {/* Subtle Left Accent Line showing stage/status */}
         <div
@@ -382,7 +387,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 max-w-4xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 w-full max-w-7xl mx-auto font-sans animate-fade-in px-1 sm:px-2">
       
       {/* 🖨️ PRINT-ONLY SPACED REPETITION DESK CHEATSHEET */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -403,11 +408,15 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       </div>
 
       {/* 1. EXECUTIVE HERO BANNER */}
-      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3.5 sm:space-y-4">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4">
+      <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden">
+        {/* Specular top highlight and ambient gradient */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/40 dark:via-indigo-400/50 to-transparent pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-indigo-500/[0.04] dark:bg-indigo-500/[0.08] blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 relative z-10">
           
           {/* Title and Icon Capsule */}
-          <div className="flex items-start sm:items-center gap-3 sm:gap-3.5 min-w-0">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
             <SectionBadgeIcon section="revision" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
 
             <div className="min-w-0 space-y-1">
@@ -417,7 +426,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 <span className="hidden xs:inline truncate text-slate-500 dark:text-slate-400 font-medium">Memory Retention Engine</span>
               </div>
               
-              <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                 Spaced Repetition &amp; Revision
               </h1>
               
@@ -430,11 +439,15 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   Live Reactive Sync
                 </span>
                 {currentExam && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-white/10">
                     <span>🎯</span>
                     <span>{currentExam.name}</span>
                   </span>
                 )}
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20">
+                  <span>⚡</span>
+                  <span className="tabular-nums">{revisions.length} Total in Pipeline</span>
+                </span>
               </div>
             </div>
           </div>
@@ -451,7 +464,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                 setTimeout(() => setJustSynced(false), 2200);
               }}
               title="Instantly re-verify and align spaced revision intervals with your syllabus topics"
-              className={`h-10 sm:h-11 px-3 sm:px-3.5 rounded-xl border text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95 ${
+              className={`h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl border text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
                 justSynced
                   ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                   : 'bg-white dark:bg-[#1A1B28] hover:bg-slate-50 dark:hover:bg-[#202234] border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200'
@@ -470,7 +483,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   onOpenWalkAndRevise();
                 }}
                 title="Hands-free continuous audio revision with lock screen & earphone support"
-                className="h-10 sm:h-11 px-3 sm:px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/25 hover:border-purple-500/40 transition-all active:scale-95 cursor-pointer shadow-2xs flex items-center justify-center gap-1.5"
+                className="h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/25 hover:border-purple-500/40 transition-all active:scale-95 cursor-pointer shadow-xs flex items-center justify-center gap-1.5"
               >
                 <Footprints className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
                 <span className="truncate">Walk &amp; Revise</span>
@@ -490,8 +503,8 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               disabled={dueRevisions.length === 0}
               className={`col-span-2 sm:col-span-1 h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 ${
                 dueRevisions.length > 0
-                  ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/25 cursor-pointer active:scale-95'
-                  : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-2xs cursor-default'
+                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white shadow-md shadow-indigo-500/25 cursor-pointer active:scale-95'
+                  : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-xs cursor-default'
               }`}
             >
               {dueRevisions.length > 0 ? (
@@ -515,91 +528,155 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       </div>
 
       {/* 2. 4-STAGE RETENTION PIPELINE BENTO CARDS */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
         {/* Stage 1 */}
-        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-blue-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="flex items-center justify-between gap-1">
-            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 whitespace-nowrap">
-              Stage 1 • 1d
-            </span>
-            <div className="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-              <Zap className="w-3.5 h-3.5" />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-1">
+              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 whitespace-nowrap">
+                Stage 1 • 1d
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                <Zap className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+                {stage1Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              </div>
+              <p className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 mt-1 truncate">Initial Recall</p>
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Fresh concepts learned</p>
             </div>
           </div>
-          <div>
-            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-              {stage1Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+
+          {/* Micro Telemetry Track */}
+          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
+              <span>Pipeline share</span>
+              <span className="font-bold text-slate-600 dark:text-slate-300">{stage1Pct}%</span>
             </div>
-            <p className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 mt-1 truncate">Initial Recall</p>
-            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Fresh concepts</p>
+            <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500 bg-blue-500"
+                style={{ width: `${Math.max(stage1Count > 0 ? 5 : 0, stage1Pct)}%` }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Stage 2 */}
-        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-amber-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-amber-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="flex items-center justify-between gap-1">
-            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 whitespace-nowrap">
-              Stage 2 • 3d
-            </span>
-            <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-              <Flame className="w-3.5 h-3.5" />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-1">
+              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 whitespace-nowrap">
+                Stage 2 • 3d
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                <Flame className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+                {stage2Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              </div>
+              <p className="text-xs sm:text-[13px] font-bold text-amber-600 dark:text-amber-400 mt-1 truncate">Consolidation</p>
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Reinforcing neural paths</p>
             </div>
           </div>
-          <div>
-            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-              {stage2Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+
+          {/* Micro Telemetry Track */}
+          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
+              <span>Pipeline share</span>
+              <span className="font-bold text-slate-600 dark:text-slate-300">{stage2Pct}%</span>
             </div>
-            <p className="text-xs sm:text-[13px] font-bold text-amber-600 dark:text-amber-400 mt-1 truncate">Consolidation</p>
-            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Reinforcing</p>
+            <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500 bg-amber-500"
+                style={{ width: `${Math.max(stage2Count > 0 ? 5 : 0, stage2Pct)}%` }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Stage 3 */}
-        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-purple-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-purple-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="flex items-center justify-between gap-1">
-            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25 whitespace-nowrap">
-              Stage 3 • 7d
-            </span>
-            <div className="w-6 h-6 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-              <BrainCircuit className="w-3.5 h-3.5" />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-1">
+              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25 whitespace-nowrap">
+                Stage 3 • 7d
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                <BrainCircuit className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+                {stage3Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              </div>
+              <p className="text-xs sm:text-[13px] font-bold text-purple-600 dark:text-purple-400 mt-1 truncate">Long-Term Sync</p>
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Deep memory retention</p>
             </div>
           </div>
-          <div>
-            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-              {stage3Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+
+          {/* Micro Telemetry Track */}
+          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
+              <span>Pipeline share</span>
+              <span className="font-bold text-slate-600 dark:text-slate-300">{stage3Pct}%</span>
             </div>
-            <p className="text-xs sm:text-[13px] font-bold text-purple-600 dark:text-purple-400 mt-1 truncate">Long-Term Sync</p>
-            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Core memory</p>
+            <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500 bg-purple-500"
+                style={{ width: `${Math.max(stage3Count > 0 ? 5 : 0, stage3Pct)}%` }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Stage 4 / Mastered */}
-        <div className="group relative p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/40 shadow-xs space-y-2 transition-all duration-200 overflow-hidden">
+        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="flex items-center justify-between gap-1">
-            <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 whitespace-nowrap">
-              Stage 4 • 21d+
-            </span>
-            <div className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0" title="Mastered Vault">
-              <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-1">
+              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 whitespace-nowrap">
+                Stage 4 • 21d+
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0" title="Mastered Vault">
+                <ShieldCheck className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
+                {stage4Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              </div>
+              <p className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 truncate">Permanently Locked</p>
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Exam-ready permanent recall</p>
             </div>
           </div>
-          <div>
-            <div className="text-xl sm:text-2xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-              {stage4Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+
+          {/* Micro Telemetry Track */}
+          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
+              <span>Pipeline share</span>
+              <span className="font-bold text-slate-600 dark:text-slate-300">{stage4Pct}%</span>
             </div>
-            <p className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 truncate">Permanently Locked</p>
-            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Exam-ready</p>
+            <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500 bg-emerald-500"
+                style={{ width: `${Math.max(stage4Count > 0 ? 5 : 0, stage4Pct)}%` }}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* 3. SEARCH & QUEUE FILTER TOOLBAR */}
-      <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151622] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
+      <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3">
         
         {/* Tabs & Search Row */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
@@ -608,7 +685,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
           <div
             role="tablist"
             aria-label="Revision Queue Tabs"
-            className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-[#1B1C28] border border-slate-200/80 dark:border-white/10 overflow-x-auto no-scrollbar shrink-0"
+            className="flex items-center gap-1 p-1 rounded-xl bg-slate-100/90 dark:bg-[#1B1C28] border border-slate-200/80 dark:border-white/10 overflow-x-auto no-scrollbar shrink-0"
           >
             {[
               { id: 'today', label: 'Due Today', count: dueList.length, icon: Clock },
@@ -628,7 +705,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 active:scale-95 ${
                     isSel
-                      ? 'bg-[#4F46E5] text-white shadow-xs'
+                      ? 'bg-indigo-600 text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
                   }`}
                 >
@@ -647,7 +724,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
           </div>
 
           {/* Clean Bounded Search Input */}
-          <div className="relative w-full sm:w-72 md:w-80 shrink-0">
+          <div className="relative w-full sm:w-80 md:w-96 shrink-0">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <input
               type="text"
@@ -726,41 +803,44 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         )}
       </div>
 
-      {/* 4. REVISION CARDS QUEUE (Issues 1, 2, 6, 7, 8, 9) */}
-      <div className="space-y-3">
+      {/* 4. REVISION CARDS QUEUE */}
+      <div className="space-y-4">
         
         {/* DUE TODAY LIST */}
         {activeTab === 'today' && (
           displayedDue.length > 0 ? (
-            displayedDue.map(rev => renderRevisionCard(rev, 'today'))
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+              {displayedDue.map(rev => renderRevisionCard(rev, 'today'))}
+            </div>
           ) : (
             /* Motivating Empty State */
-            <div className="py-8 sm:py-14 px-4 sm:px-8 text-center rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3 sm:space-y-4 max-w-xl mx-auto">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-xs">
-                <Trophy className="w-7 h-7 stroke-[2.2]" />
+            <div className="py-10 sm:py-16 px-6 sm:px-12 text-center rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 w-full max-w-2xl mx-auto relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent pointer-events-none" />
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-xs">
+                <Trophy className="w-8 h-8 stroke-[2.2]" />
               </div>
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold border border-emerald-500/20">
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-500/20">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>100% Retained Today</span>
                 </div>
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                   All Due Revisions Cleared Today! 🎉
                 </h2>
-                <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto leading-relaxed">
                   Your spaced repetition queue is fully up to date. You can review upcoming cards early or inspect your mastered memory vault.
                 </p>
               </div>
 
               {/* Quick Action Buttons */}
-              <div className="flex items-center justify-center gap-2 flex-wrap pt-1">
+              <div className="flex items-center justify-center gap-2.5 flex-wrap pt-2">
                 {upcomingList.length > 0 && (
                   <button
                     onClick={() => {
                       soundManager.playClick();
                       setActiveTab('upcoming');
                     }}
-                    className="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+                    className="btn-primary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-xs"
                   >
                     <Clock className="w-3.5 h-3.5 text-amber-300" />
                     <span>Review Upcoming Early ({upcomingList.length})</span>
@@ -774,7 +854,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       soundManager.playClick();
                       setActiveTab('history');
                     }}
-                    className="btn-secondary px-4 py-2 text-xs font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+                    className="btn-secondary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-2xs"
                   >
                     <Trophy className="w-3.5 h-3.5 text-emerald-500" />
                     <span>View Mastered Vault ({historyList.length})</span>
@@ -787,7 +867,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       soundManager.playClick();
                       onNavigate('syllabus');
                     }}
-                    className="btn-secondary px-4 py-2 text-xs font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+                    className="btn-secondary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-2xs"
                   >
                     <BookOpen className="w-3.5 h-3.5 text-sky-500" />
                     <span>Explore Full Syllabus</span>
@@ -801,17 +881,19 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* UPCOMING LIST */}
         {activeTab === 'upcoming' && (
           displayedUpcoming.length > 0 ? (
-            displayedUpcoming.map(rev => renderRevisionCard(rev, 'upcoming'))
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+              {displayedUpcoming.map(rev => renderRevisionCard(rev, 'upcoming'))}
+            </div>
           ) : (
-            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#121424] border border-dashed border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center mx-auto shadow-xs">
-                <Clock className="w-7 h-7 stroke-[1.8]" />
+            <div className="py-10 sm:py-16 px-6 text-center rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 border border-dashed border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 w-full max-w-2xl mx-auto relative overflow-hidden">
+              <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center mx-auto shadow-xs">
+                <Clock className="w-8 h-8 stroke-[1.8]" />
               </div>
-              <div className="space-y-1">
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+              <div className="space-y-1.5">
+                <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
                   No Upcoming Revisions Queued
                 </h2>
-                <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 max-w-md mx-auto font-normal">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto font-normal leading-relaxed">
                   You're all caught up on scheduled reviews! New spaced repetition intervals will automatically appear here as you study topics.
                 </p>
               </div>
@@ -822,7 +904,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                       soundManager.playClick();
                       setActiveTab('today');
                     }}
-                    className="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+                    className="btn-primary px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold inline-flex items-center gap-2 cursor-pointer active:scale-95 shadow-xs"
                   >
                     <span>View Due Today ({dueRevisions.length})</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -836,17 +918,19 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* MASTERED VAULT LIST */}
         {activeTab === 'history' && (
           displayedHistory.length > 0 ? (
-            displayedHistory.map(rev => renderRevisionCard(rev, 'history'))
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+              {displayedHistory.map(rev => renderRevisionCard(rev, 'history'))}
+            </div>
           ) : (
-            <div className="py-8 sm:py-14 px-4 text-center rounded-2xl bg-white dark:bg-[#121424] border border-dashed border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center mx-auto shadow-xs">
-                <Trophy className="w-7 h-7 stroke-[1.8]" />
+            <div className="py-10 sm:py-16 px-6 text-center rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 border border-dashed border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 w-full max-w-2xl mx-auto relative overflow-hidden">
+              <div className="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center mx-auto shadow-xs">
+                <Trophy className="w-8 h-8 stroke-[1.8]" />
               </div>
-              <div className="space-y-1">
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+              <div className="space-y-1.5">
+                <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
                   Mastered Vault is Empty
                 </h2>
-                <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 max-w-md mx-auto font-normal">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto font-normal leading-relaxed">
                   Topics reach the Mastered Vault once you complete Stage 4 (30 days retention cycle). Keep revising your active topics!
                 </p>
               </div>
@@ -856,7 +940,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                     soundManager.playClick();
                     setActiveTab('today');
                   }}
-                  className="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+                  className="btn-primary px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold inline-flex items-center gap-2 cursor-pointer active:scale-95 shadow-xs"
                 >
                   <span>Go to Active Queue</span>
                   <ArrowRight className="w-3.5 h-3.5" />
