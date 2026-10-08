@@ -2382,74 +2382,131 @@ html:not(.dark) .app-title:not(.text-white):not([class*="text-white"]) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   🔥 PLANNER STUDY STREAK BANNER - DARK & DEFAULT THEME ACCENTS
-   (Strictly scoped so Warm Parchment Gold overrides are not affected)
+   🔥 PLANNER STUDY STREAK BANNER - LIGHT MODE HIGH VISIBILITY
    ══════════════════════════════════════════════════════════════════ */
-html:not(.warm-cream) .planner-streak-banner {
+html:not(.dark):not(.warm-cream) .planner-streak-banner {
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner h2 {
+  color: #0F172A !important;
+  text-shadow: none !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner p {
+  color: #334155 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-conquered-badge {
+  background-color: #FEF3C7 !important;
+  border-color: #FCD34D !important;
+  color: #92400E !important;
+  font-weight: 800 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-conquered-badge * {
+  color: #92400E !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-record-val {
+  color: #92400E !important;
+  font-weight: 900 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-multiplier-text {
+  color: #B45309 !important;
+  font-weight: 800 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-target-status,
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-target-status span {
+  color: #0F172A !important;
+  font-weight: 900 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-day-name {
+  color: #78350F !important;
+  font-weight: 900 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-day-num {
+  color: #0F172A !important;
+  font-weight: 900 !important;
+}
+
+html:not(.dark):not(.warm-cream) .planner-streak-banner .streak-day-dot {
+  color: #D97706 !important;
+  font-weight: 900 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   🔥 PLANNER STUDY STREAK BANNER - DARK MODE
+   ══════════════════════════════════════════════════════════════════ */
+html.dark .planner-streak-banner {
   color: #FFFFFF !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner h2 {
+html.dark .planner-streak-banner h2 {
   color: #FFFFFF !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
-html:not(.warm-cream) .planner-streak-banner p {
+html.dark .planner-streak-banner p {
   color: #E2E8F0 !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-conquered-badge {
+html.dark .planner-streak-banner .streak-conquered-badge {
   background-color: rgba(245, 158, 11, 0.2) !important;
   border-color: rgba(245, 158, 11, 0.4) !important;
   color: #FCD34D !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-conquered-badge * {
+html.dark .planner-streak-banner .streak-conquered-badge * {
   color: #FCD34D !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-record-val,
-html:not(.warm-cream) .planner-streak-banner .streak-multiplier-text {
+html.dark .planner-streak-banner .streak-record-val,
+html.dark .planner-streak-banner .streak-multiplier-text {
   color: #FCD34D !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-target-status,
-html:not(.warm-cream) .planner-streak-banner .streak-target-status span {
+html.dark .planner-streak-banner .streak-target-status,
+html.dark .planner-streak-banner .streak-target-status span {
   color: #FFFFFF !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-day-num {
+html.dark .planner-streak-banner .streak-day-num {
   color: #FFFFFF !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-day-name {
+html.dark .planner-streak-banner .streak-day-name {
   color: #FCD34D !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .streak-day-dot {
+html.dark .planner-streak-banner .streak-day-dot {
   color: #FBBF24 !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .text-amber-400,
-html:not(.warm-cream) .planner-streak-banner [class*="text-amber-400"] {
+html.dark .planner-streak-banner .text-amber-400,
+html.dark .planner-streak-banner [class*="text-amber-400"] {
   color: #FBBF24 !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .text-amber-300,
-html:not(.warm-cream) .planner-streak-banner [class*="text-amber-300"] {
+html.dark .planner-streak-banner .text-amber-300,
+html.dark .planner-streak-banner [class*="text-amber-300"] {
   color: #FCD34D !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .text-amber-200,
-html:not(.warm-cream) .planner-streak-banner [class*="text-amber-200"] {
+html.dark .planner-streak-banner .text-amber-200,
+html.dark .planner-streak-banner [class*="text-amber-200"] {
   color: #FDE68A !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .text-slate-200 {
+html.dark .planner-streak-banner .text-slate-200 {
   color: #E2E8F0 !important;
 }
 
-html:not(.warm-cream) .planner-streak-banner .text-slate-950 {
+html.dark .planner-streak-banner .text-slate-950 {
   color: #020617 !important;
 }
 

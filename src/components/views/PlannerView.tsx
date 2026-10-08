@@ -453,10 +453,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     id: PlannerColumnStatus; title: string; icon: React.ElementType;
     badgeCol: string; tasks: PlannerTask[];
   }> = [
-    { id: 'today', title: "Today's Targets", icon: Target, badgeCol: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20', tasks: todayTasks },
-    { id: 'in_progress', title: 'Deep Focus', icon: Zap, badgeCol: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20', tasks: inProgressTasks },
-    { id: 'upcoming', title: 'This Week', icon: Layers, badgeCol: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20', tasks: upcomingTasks },
-    { id: 'completed', title: 'Conquered', icon: CheckCircle2, badgeCol: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20', tasks: completedTasks }
+    { id: 'today', title: "Today's Targets", icon: Target, badgeCol: 'bg-blue-100/90 text-blue-800 border border-blue-300 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30', tasks: todayTasks },
+    { id: 'in_progress', title: 'Deep Focus', icon: Zap, badgeCol: 'bg-purple-100/90 text-purple-800 border border-purple-300 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30', tasks: inProgressTasks },
+    { id: 'upcoming', title: 'This Week', icon: Layers, badgeCol: 'bg-amber-100/90 text-amber-900 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30', tasks: upcomingTasks },
+    { id: 'completed', title: 'Conquered', icon: CheckCircle2, badgeCol: 'bg-emerald-100/90 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30', tasks: completedTasks }
   ];
 
   const getSubjectIcon = (name: string) => {
@@ -497,10 +497,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               Study Planner
             </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 text-amber-700 dark:text-amber-300 text-[11px] font-bold">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100/90 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/25 text-amber-900 dark:text-amber-300 text-[11px] font-black">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span>Daily Sprint</span>
-              <span className="text-amber-400 dark:text-amber-500">•</span>
+              <span className="text-amber-500 dark:text-amber-400">•</span>
               <span className="font-mono tabular-nums">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             </span>
             {currentExam && (
@@ -509,7 +509,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               </span>
             )}
           </div>
-          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+          <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
             Target tracking, daily sprints, time blocking, and queue management.
           </p>
         </div>
@@ -523,10 +523,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 soundManager.playClick();
                 onOpenBacklogRescue();
               }}
-              className="flex-1 sm:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:border-amber-500/50 transition-all active:scale-[0.98] cursor-pointer shadow-xs flex items-center justify-center gap-2 shrink-0"
+              className="flex-1 sm:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-black bg-amber-100 hover:bg-amber-200 text-amber-900 dark:bg-amber-500/15 dark:hover:bg-amber-500/25 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30 hover:border-amber-400 dark:hover:border-amber-500/50 transition-all active:scale-[0.98] cursor-pointer shadow-xs flex items-center justify-center gap-2 shrink-0"
               title="Smart Backlog Rescue - Adaptive Routine Generator"
             >
-              <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
+              <Zap className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-amber-500 animate-pulse" />
               <span>Backlog Rescue</span>
             </button>
           )}
@@ -548,7 +548,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
       {/* 2. NEXT-GEN LUXURY STREAK & MOMENTUM COMMAND BANNER */}
-      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.04] to-amber-500/[0.08] dark:from-[#0C0E1C] dark:via-[#141834] dark:to-[#0C0E1C] text-slate-900 dark:text-white border-2 border-amber-500/30 dark:border-amber-500/30 shadow-xl shadow-amber-500/5 dark:shadow-2xl dark:shadow-amber-500/10 relative overflow-hidden group print:hidden">
+      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.04] to-amber-500/[0.08] dark:from-[#0C0E1C] dark:via-[#141834] dark:to-[#0C0E1C] text-slate-900 dark:text-white border-2 border-amber-400/50 dark:border-amber-500/30 shadow-xl shadow-amber-500/5 dark:shadow-2xl dark:shadow-amber-500/10 relative overflow-hidden group print:hidden">
         {/* Ambient Radiant Glows */}
         <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/15 dark:bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 dark:group-hover:bg-amber-500/25 transition-all duration-700" />
         <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/15 dark:group-hover:bg-indigo-500/25 transition-all duration-700" />
@@ -570,20 +570,20 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none drop-shadow-xs">
                   {profile.currentStreak || 7} Day Study Streak
                 </h2>
-                <span className="streak-conquered-badge px-2.5 py-0.5 rounded-full bg-amber-500/15 dark:bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40 text-[11px] font-bold font-mono tabular-nums flex items-center gap-1 shadow-2xs">
-                  <Sparkles className="w-3 h-3 text-amber-600 dark:text-amber-300" />
+                <span className="streak-conquered-badge px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-400/20 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-400/40 text-[11px] font-black font-mono tabular-nums flex items-center gap-1 shadow-2xs">
+                  <Sparkles className="w-3 h-3 text-amber-700 dark:text-amber-300" />
                   <span>{todayProgressPercent}% Conquered Today</span>
                 </span>
               </div>
-              <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-200 font-medium mt-1.5 leading-snug">
+              <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-semibold mt-1.5 leading-snug">
                 Consistency is mastery. Personal best record:{' '}
-                <span className="streak-record-val text-amber-700 dark:text-amber-300 font-black tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
+                <span className="streak-record-val text-amber-900 dark:text-amber-300 font-black tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
               </p>
             </div>
           </div>
 
           {/* Center: Interactive 7-Day Consistency Week Strip */}
-          <div className="streak-week-strip flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-white/70 dark:bg-black/40 border border-amber-200/70 dark:border-white/15 backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar shadow-inner">
+          <div className="streak-week-strip flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-2xl bg-white/90 dark:bg-black/40 border border-amber-300/80 dark:border-white/15 backdrop-blur-md self-center lg:self-auto overflow-x-auto no-scrollbar shadow-inner">
             {weekDays.map((wd) => {
               const isCurrentDay = wd.isToday;
               const dayTasksList = filteredTasks.filter(t => t.scheduledDate === wd.dateStr);
@@ -596,12 +596,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   key={wd.dateStr}
                   className={`streak-day-card flex flex-col items-center justify-center w-8 sm:w-9 py-1 rounded-xl transition-all cursor-pointer ${
                     isCurrentDay
-                      ? 'bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/40 ring-2 ring-amber-300 scale-105'
+                      ? 'bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/40 ring-2 ring-amber-400 scale-105'
                       : allDone
-                      ? 'bg-emerald-500/20 text-emerald-800 dark:bg-emerald-500/30 dark:text-emerald-200 border border-emerald-400/40 shadow-2xs'
+                      ? 'bg-emerald-100 text-emerald-900 border border-emerald-300 dark:bg-emerald-500/30 dark:text-emerald-200 dark:border-emerald-400/40 shadow-2xs'
                       : dayDone
-                      ? 'bg-amber-500/20 text-amber-800 dark:bg-amber-500/30 dark:text-amber-200 border border-amber-400/40 shadow-2xs'
-                      : 'bg-slate-100/80 hover:bg-slate-200/80 text-slate-700 border border-slate-200/70 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/15 shadow-2xs'
+                      ? 'bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/30 dark:text-amber-200 dark:border-amber-400/40 shadow-2xs'
+                      : 'bg-slate-100/90 hover:bg-slate-200 text-slate-800 border border-slate-200/90 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/15 shadow-2xs'
                   }`}
                   onClick={() => {
                     soundManager.playClick();
@@ -612,21 +612,21 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 >
                   <span
                     className={`streak-day-name text-[9.5px] font-mono uppercase font-black ${
-                      isCurrentDay ? 'text-slate-950' : 'text-amber-700 dark:text-amber-300'
+                      isCurrentDay ? 'text-slate-950' : 'text-slate-600 dark:text-amber-300'
                     }`}
                   >
                     {wd.dayName.slice(0, 2)}
                   </span>
                   <span
                     className={`streak-day-num text-[12px] font-mono font-black mt-0.5 tabular-nums ${
-                      isCurrentDay ? 'text-slate-950' : 'text-slate-800 dark:text-white'
+                      isCurrentDay ? 'text-slate-950' : 'text-slate-900 dark:text-white'
                     }`}
                   >
                     {wd.dayNum}
                   </span>
                   <span
                     className={`streak-day-dot text-[10px] mt-0.5 font-black ${
-                      isCurrentDay ? 'text-slate-950' : 'text-amber-600 dark:text-amber-400'
+                      isCurrentDay ? 'text-slate-950' : 'text-amber-700 dark:text-amber-400'
                     }`}
                   >
                     {isCurrentDay ? '●' : allDone ? '✓' : dayDone ? '🔥' : '·'}
@@ -642,10 +642,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <div
                 className="streak-target-status text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 justify-end"
               >
-                <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
                 <span>{completedTodayCount} of {totalTodayCount} Conquered</span>
               </div>
-              <span className="streak-multiplier-text text-[11px] text-amber-700 dark:text-amber-300 font-bold font-mono">
+              <span className="streak-multiplier-text text-[11px] text-amber-800 dark:text-amber-300 font-black font-mono">
                 1.25x XP Streak Multiplier Active
               </span>
             </div>
@@ -701,12 +701,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
             <span className="truncate">{completedTodayCount} of {totalTodayCount} Done</span>
             <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border ${
               todayProgressPercent === 100
-                ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:bg-emerald-400/30 dark:border-white/20 dark:text-white'
-                : 'bg-indigo-50 border-indigo-200 text-indigo-700 dark:bg-white/20 dark:border-white/20 dark:text-white'
+                ? 'bg-emerald-100 border-emerald-300 text-emerald-800 dark:bg-emerald-400/30 dark:border-white/20 dark:text-white'
+                : 'bg-indigo-100/90 border-indigo-300 text-indigo-800 dark:bg-white/20 dark:border-white/20 dark:text-white'
             }`}>
               {todayProgressPercent === 100 ? '✓ Complete' : 'In Sprint'}
             </span>
@@ -720,7 +720,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-rose-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
               Planned Study
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-rose-100 dark:bg-white/20 backdrop-blur-md border border-rose-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-rose-200/60 dark:group-hover:bg-white/25 text-rose-600 dark:text-white">
@@ -732,14 +732,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
               {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-500 dark:text-white/80 ml-0.5">h</span>
             </div>
-            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-100/80 border border-rose-200 text-rose-700 dark:bg-white/20 dark:border-white/20 dark:text-white shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-100 border border-rose-300 text-rose-800 dark:bg-white/20 dark:border-white/20 dark:text-white shrink-0">
               {(completedMinutes / 60).toFixed(1)}h finished
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
             <span className="truncate">Runway Remaining</span>
-            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
+            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
             </span>
           </div>
@@ -752,7 +752,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-sky-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
               Target Queue
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-100 dark:bg-white/20 backdrop-blur-md border border-sky-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-sky-200/60 dark:group-hover:bg-white/25 text-sky-600 dark:text-white">
@@ -765,18 +765,18 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               {plannerTasks.length}
             </div>
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100/80 border border-sky-200 text-sky-700 dark:bg-white/20 dark:border-white/20 dark:text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100 border border-sky-300 text-sky-800 dark:bg-white/20 dark:border-white/20 dark:text-white">
                 {todayTasks.length} Today
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100/80 border border-sky-200 text-sky-700 dark:bg-white/20 dark:border-white/20 dark:text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100 border border-sky-300 text-sky-800 dark:bg-white/20 dark:border-white/20 dark:text-white">
                 {inProgressTasks.length} Focus
               </span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
             <span className="truncate">Active Queue</span>
-            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
+            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               {upcomingTasks.length} Upcoming
             </span>
           </div>
@@ -789,7 +789,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-emerald-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
               XP &amp; Rank
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-100 dark:bg-white/20 backdrop-blur-md border border-emerald-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-emerald-200/60 dark:group-hover:bg-white/25 text-emerald-600 dark:text-white">
@@ -802,16 +802,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               Lvl {profile.level}
             </div>
             <span
-              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-100/80 dark:bg-white/20 border border-emerald-200 dark:border-white/20 text-emerald-800 dark:text-white truncate max-w-[130px] sm:max-w-none shrink min-w-0"
+              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-100 border border-emerald-300 text-emerald-900 dark:bg-white/20 dark:border-white/20 dark:text-white truncate max-w-[130px] sm:max-w-none shrink min-w-0"
               title={profile.levelTitle || 'Scholar'}
             >
               {profile.levelTitle || 'Scholar'}
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-medium text-slate-600 dark:text-white/80">
+          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
             <span className="truncate">{profile.xp} Total XP</span>
-            <span className="font-mono text-slate-900 dark:text-white font-bold shrink-0">
+            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               +25 XP / target
             </span>
           </div>
@@ -945,8 +945,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             >
               <Layers className="w-3.5 h-3.5 text-indigo-500" />
               <span>All</span>
-              <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-                selectedSubjectFilter === 'all' ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+              <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums font-bold ${
+                selectedSubjectFilter === 'all' ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300' : 'bg-slate-200/80 dark:bg-white/10 text-slate-800 dark:text-slate-200'
               }`}>
                 {plannerTasks.length}
               </span>
@@ -971,8 +971,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 >
                   <SubjIcon className="w-3.5 h-3.5" style={{ color: isSelected ? undefined : s.color }} />
                   <span>{formatTitleCase(s.name)}</span>
-                  <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums ${
-                    isSelected ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+                  <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums font-bold ${
+                    isSelected ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300' : 'bg-slate-200/80 dark:bg-white/10 text-slate-800 dark:text-slate-200'
                   }`}>
                     {count}
                   </span>
@@ -1002,14 +1002,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold shrink-0">
                   <Target className="w-3.5 h-3.5 stroke-[2.4]" />
                 </div>
-                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white truncate">
+                <span className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white truncate">
                   Today's 3 Non-Negotiable Core Targets
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/20 shrink-0">
+                <span className="px-2 py-0.5 rounded-full text-[10.5px] font-mono font-black bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/20 shrink-0">
                   {top3CompletedCount}/3 Done
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold shrink-0">
+              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 text-xs font-bold shrink-0">
                 <span className="hidden sm:inline">{showTop3Section ? 'Hide' : 'Show'}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showTop3Section ? 'rotate-180' : ''}`} />
               </div>
@@ -1112,13 +1112,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           {col.id === 'completed' && <Trophy className="w-4 h-4 text-emerald-500" />}
                         </div>
                         <div className="space-y-0.5">
-                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                          <p className="text-xs font-black text-slate-900 dark:text-slate-100">
                             {col.id === 'upcoming' && 'Queue Clear'}
                             {col.id === 'today' && 'Runway Open'}
                             {col.id === 'in_progress' && 'Ready For Sprint'}
                             {col.id === 'completed' && 'Awaiting Conquests'}
                           </p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-[180px] leading-snug mx-auto">
+                          <p className="text-xs font-medium text-slate-600 dark:text-slate-300 max-w-[180px] leading-snug mx-auto">
                             {col.id === 'upcoming' && 'Schedule targets for upcoming days.'}
                             {col.id === 'today' && "Ready for today's high-yield targets."}
                             {col.id === 'in_progress' && 'Start a focus sprint on any target.'}
