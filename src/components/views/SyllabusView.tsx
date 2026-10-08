@@ -1583,27 +1583,40 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       </div>
 
       {/* 1. SYLLABUS EXPLORER HEADER & ACTION BAR */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
-        <div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <SectionBadgeIcon section="syllabus" size="md" />
-            <h1 className="text-2xl sm:text-3xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight">
-              Syllabus Explorer
-            </h1>
-            <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-bold text-indigo-700 dark:text-indigo-300 font-mono">
-              {currentExam.targetYear ? `${currentExam.targetYear}` : '2026'}
-            </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300">
-              {currentExam.name ? formatTitleCase(currentExam.name) : 'SSC CGL'}
-            </span>
+      <div className="relative overflow-hidden p-4 sm:p-5 sm:py-6 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#121424]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
+        {/* Specular Edge Highlight */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/40 dark:via-white/15 to-transparent pointer-events-none" />
+
+        <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0">
+          <SectionBadgeIcon section="syllabus" size="md" />
+          <div className="min-w-0 space-y-1 sm:space-y-1.5">
+            <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight leading-tight">
+                Syllabus Explorer
+              </h1>
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-bold text-indigo-700 dark:text-indigo-300 font-mono">
+                {currentExam.targetYear ? `${currentExam.targetYear}` : '2026'}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] border border-slate-200/60 dark:border-white/10 text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                {currentExam.name ? formatTitleCase(currentExam.name) : 'SSC CGL'}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/70 dark:border-emerald-500/30 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{overallPercentage}% Mastered</span>
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2 flex-wrap">
+              <span>Master every subject, chapter, and topic with structured multi-tier precision.</span>
+              <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
+              <span className="text-slate-600 dark:text-slate-300 font-mono text-xs font-semibold">
+                {currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'} · {totalTopicsCount} Topics
+              </span>
+            </p>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Master every subject, chapter, and topic with structured multi-tier precision.
-          </p>
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="flex items-center gap-2.5 self-stretch sm:self-auto justify-end flex-wrap">
+        <div className="flex items-center gap-2.5 self-stretch md:self-auto justify-end flex-wrap shrink-0">
           {onOpenAiArchitect && (
             <button
               type="button"
@@ -1611,7 +1624,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 soundManager.playClick();
                 onOpenAiArchitect();
               }}
-              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
               title="Extract complete syllabus from PDF or text using AI"
             >
               <Sparkles className="w-4 h-4 stroke-[2.2]" />
@@ -1624,7 +1637,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               soundManager.playClick();
               setIsAddSubjectOpen(true);
             }}
-            className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Add Subject</span>
@@ -1632,22 +1645,57 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 2. GOLDEN AMBER PACING & TARGET BANNER (Matching Mockup) */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex items-center justify-between shadow-md shadow-amber-500/15 print:hidden">
-        <div className="flex items-center gap-3.5 min-w-0">
-          <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🎯</span>
+      {/* 2. REFINED EXECUTIVE PACING & TARGET BANNER */}
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.06] to-amber-500/[0.03] dark:from-amber-950/40 dark:via-orange-950/25 dark:to-[#121424]/80 backdrop-blur-xl border border-amber-300/80 dark:border-amber-500/30 shadow-xs sm:shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
+        {/* Specular Top Line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 dark:via-amber-400/30 to-transparent pointer-events-none" />
+        {/* Ambient Warm Glow */}
+        <div className="absolute -top-12 -right-12 w-40 h-40 bg-amber-400/15 dark:bg-amber-400/15 rounded-full blur-2xl pointer-events-none" />
+
+        <div className="relative z-10 flex items-center gap-3.5 min-w-0">
+          {/* Executive Target Squircle */}
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 dark:from-amber-500/30 dark:to-orange-500/25 border border-amber-400/50 dark:border-amber-400/35 flex items-center justify-center text-amber-700 dark:text-amber-300 shadow-xs shrink-0">
+            <Target className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.3]" />
+          </div>
+
           <div className="min-w-0">
-            <div className="text-base sm:text-lg font-black leading-tight truncate">
-              {pacingForecast ? `Pacing Target: ${pacingForecast.requiredDailyPace} Topics / Day` : 'Syllabus Preparation Rhythm on Track'}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Daily Pacing Velocity:
+              </span>
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-amber-500/15 dark:bg-amber-400/20 border border-amber-400/40 text-xs sm:text-sm font-black text-amber-800 dark:text-amber-200 font-mono tabular-nums">
+                {pacingForecast ? `${pacingForecast.requiredDailyPace} Topics / Day` : 'On Track'}
+              </span>
+              {pacingForecast?.statusLabel && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] border border-slate-200/60 dark:border-white/10 text-[10px] sm:text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                  {pacingForecast.statusLabel}
+                </span>
+              )}
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-slate-900/85 mt-0.5 truncate">
-              {pacingForecast?.finishLineForecastDate ? `Estimated Completion: ${pacingForecast.finishLineForecastDate}` : `Target Exam Date: ${formattedExamDate} (${daysRemaining} Days Runway)`}
+
+            <div className="text-xs sm:text-[13px] font-medium text-slate-600 dark:text-slate-300 mt-1 flex items-center gap-2 flex-wrap">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span>
+                  {pacingForecast?.finishLineForecastDate
+                    ? `Estimated Completion: ${pacingForecast.finishLineForecastDate}`
+                    : `Target Exam Date: ${formattedExamDate}`}
+                </span>
+              </span>
+              <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
+              <span className="text-slate-500 dark:text-slate-400 font-mono text-xs">
+                {daysRemaining > 0 ? `${daysRemaining} Days Runway` : 'Target Exam Day'}
+              </span>
             </div>
           </div>
         </div>
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0">
-          <Zap className="w-3.5 h-3.5 fill-current" />
-          <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}</span>
+
+        {/* Right Side Status Badge */}
+        <div className="relative z-10 flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <div className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-400/40 dark:border-amber-400/30 text-amber-900 dark:text-amber-200 text-xs sm:text-[13px] font-bold font-mono shadow-2xs">
+            <Zap className="w-4 h-4 fill-amber-500 text-amber-500" />
+            <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}</span>
+          </div>
         </div>
       </div>
 
