@@ -515,7 +515,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
       />
 
       <div className={`relative z-10 w-full h-full flex pointer-events-auto transition-all duration-300 ${
-        isFullScreen ? 'max-w-full p-0' : 'max-w-2xl sm:pl-10 justify-end'
+        isFullScreen ? 'max-w-full p-0' : activeTab === 'notes' ? 'max-w-5xl sm:pl-4 justify-end' : 'max-w-2xl sm:pl-10 justify-end'
       }`}>
         <div
           onClick={e => e.stopPropagation()}

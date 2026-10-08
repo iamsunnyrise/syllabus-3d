@@ -815,7 +815,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     }
     return 'base';
   });
-  const [readerWidth, setReaderWidth] = useState<ReaderWidth>('normal');
+  const [readerWidth, setReaderWidth] = useState<ReaderWidth>(() => {
+    const saved = localStorage.getItem('syllabus3d_notes_reader_width') as ReaderWidth;
+    if (saved && (['normal', 'wide', 'full'] as ReaderWidth[]).includes(saved)) {
+      return saved;
+    }
+    return 'wide';
+  });
 
   const handleSelectFontSize = (size: ReaderFontSize) => {
     setReaderFontSize(size);
@@ -825,7 +831,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
   // Reader Typography & Color Theme Customization (Persisted)
   const [readerFontFamily, setReaderFontFamily] = useState<ReaderFontFamily>(() => {
-    return (localStorage.getItem('syllabus3d_notes_font') as ReaderFontFamily) || 'serif';
+    return (localStorage.getItem('syllabus3d_notes_font') as ReaderFontFamily) || 'sans';
   });
   const [readerTheme, setReaderTheme] = useState<ReaderTheme>(() => {
     const saved = localStorage.getItem('syllabus3d_notes_theme') as ReaderTheme;
@@ -2295,13 +2301,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     }
     switch (readerWidth) {
       case 'normal':
-        return 'max-w-3xl';
+        return 'max-w-4xl w-full';
       case 'wide':
-        return 'max-w-5xl';
+        return 'max-w-6xl w-full';
       case 'full':
-        return 'max-w-7xl';
+        return 'w-full max-w-7xl';
       default:
-        return 'max-w-3xl';
+        return 'max-w-5xl w-full';
     }
   };
 
@@ -3377,7 +3383,9 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           <p
             key={i}
             style={{ lineHeight: spacing.lineHeight, ...spacing.paragraphStyle }}
-            className={`${fontSize} ${fontFam} ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column max-w-[68ch] ${
+            className={`${fontSize} ${fontFam} ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column ${
+              readerWidth === 'normal' ? 'max-w-[72ch]' : 'max-w-none'
+            } ${
               isFirstParagraph && readerFontFamily === 'serif' ? 'book-drop-cap' : ''
             }`}
           >
@@ -4779,12 +4787,12 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         </div>
 
         {/* Tier 1 (Desktop): Office Quick Access Bar & Multi-Note Tabs Track */}
-        <div className="hidden sm:flex p-2 px-3 bg-[#F8FAFC] dark:bg-[#11121A] items-center justify-between gap-3">
+        <div className="hidden sm:flex p-2 px-3 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border-b border-slate-200/90 dark:border-white/10 items-center justify-between gap-3 shadow-xs">
           {/* Quick Access Toolbar */}
           <div className="flex items-center gap-2 shrink-0">
             {/* Office Word App Badge */}
             <div className="flex items-center gap-2 pr-2.5 border-r border-slate-200 dark:border-slate-800">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-black shadow-xs text-xs select-none">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-700 text-white flex items-center justify-center font-black shadow-xs text-xs select-none">
                 W
               </div>
               <div className="hidden lg:block select-none">
@@ -4844,8 +4852,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {/* Desktop Ribbon Studio (Tier 2 Tabs + Tier 3 Shelves) */}
         <div className="hidden sm:block">
           {/* Tier 2: Office Ribbon Tabs Bar */}
-        <div className="px-3 pt-1 bg-white dark:bg-[#151620] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-1">
+        <div className="px-3 py-1 bg-slate-50/90 dark:bg-[#0E101A]/95 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1 p-0.5 rounded-xl bg-slate-200/50 dark:bg-white/[0.05]">
             {[
               { id: 'home', label: 'Home' },
               { id: 'insert', label: 'Insert' },
@@ -4860,10 +4868,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   soundManager.playClick();
                   setActiveRibbonTab(tab.id as any);
                 }}
-                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer rounded-t-lg border-b-2 ${
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer rounded-lg ${
                   activeRibbonTab === tab.id
-                    ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-[#1E1F2B]'
+                    ? 'bg-white dark:bg-[#1E2032] text-blue-600 dark:text-blue-400 shadow-xs font-black'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -4873,6 +4881,30 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
           {/* Right Action: Notion AI Studio & View Switcher */}
           <div className="flex items-center gap-2 shrink-0 py-1">
+            {/* Page Width Quick Switcher (Standard / Wide / Full) */}
+            <div className="hidden xl:flex items-center gap-0.5 bg-slate-100 dark:bg-[#0D0E15] p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs select-none" title="Choose Document Paper Width">
+              <span className="text-[10px] font-mono text-slate-400 px-1.5 font-bold uppercase">Width:</span>
+              {(['normal', 'wide', 'full'] as ReaderWidth[]).map((w) => (
+                <button
+                  key={w}
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setReaderWidth(w);
+                    localStorage.setItem('syllabus3d_notes_reader_width', w);
+                  }}
+                  className={`px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                    readerWidth === w
+                      ? 'bg-blue-600 text-white shadow-xs font-black'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                  title={`Page Width: ${w === 'normal' ? 'Standard A4 (880px)' : w === 'wide' ? 'Executive Wide (1120px)' : 'Full Desk Canvas (1280px)'}`}
+                >
+                  {w === 'normal' ? 'Standard' : w === 'wide' ? 'Wide' : 'Full'}
+                </button>
+              ))}
+            </div>
+
             {/* Notion AI Featured Button */}
             <button
               type="button"
@@ -4896,7 +4928,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('study'); }}
-                className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'study'
                     ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -4909,7 +4941,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
-                className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'edit'
                     ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -4922,7 +4954,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('split'); }}
-                className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`hidden md:flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'split'
                     ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -5063,35 +5095,109 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Styles</span>
               </div>
 
-              {/* Group: Highlighters */}
+              {/* Group: Highlighters (Streamlined Executive Suite) */}
               <div className="flex flex-col items-center justify-between px-2.5 gap-1">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
+                  {/* Highlighter Master Toggle */}
                   <button
                     type="button"
-                    onClick={() => insertText('==', '==', 'Yellow highlight')}
-                    className="px-2 py-1 rounded-lg text-xs font-bold bg-yellow-400/25 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-400/40 border border-yellow-400/40 flex items-center gap-1 cursor-pointer"
-                    title="Yellow Highlight (==text==)"
+                    onMouseDown={e => e.preventDefault()}
+                    onClick={() => {
+                      setIsHighlighterActive(prev => !prev);
+                      soundManager.playClick();
+                    }}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      isHighlighterActive
+                        ? 'bg-amber-500 text-slate-950 font-black shadow-xs ring-2 ring-amber-400/50'
+                        : 'bg-white dark:bg-[#181822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-amber-50 dark:hover:bg-amber-950/20'
+                    }`}
+                    title={isHighlighterActive ? 'Highlighter Active - Click to turn off' : 'Turn on Highlighter for Study Reading'}
                   >
-                    <Highlighter className="w-3 h-3 text-yellow-500" />
-                    <span>Yellow</span>
+                    <Highlighter className={`w-3.5 h-3.5 ${isHighlighterActive ? 'text-slate-950 stroke-[2.5]' : 'text-amber-500'}`} />
+                    <span>{isHighlighterActive ? 'Highlight: ON' : 'Highlight'}</span>
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => insertText('==g:', '==', 'Green highlight')}
-                    className="px-2 py-1 rounded-lg text-xs font-bold bg-emerald-400/25 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-400/40 border border-emerald-400/40 cursor-pointer"
-                    title="Green Highlight (==g:text==)"
-                  >
-                    🟢 Green
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertText('==p:', '==', 'Purple highlight')}
-                    className="px-2 py-1 rounded-lg text-xs font-bold bg-purple-400/25 text-purple-800 dark:text-purple-300 hover:bg-purple-400/40 border border-purple-400/40 cursor-pointer"
-                    title="Purple Highlight (==p:text==)"
-                  >
-                    🟣 Purple
-                  </button>
-                  {renderHighlighterControlsWidget(false)}
+
+                  {/* Quick Color Swatches */}
+                  <div className="flex items-center gap-1 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        insertText('==', '==', 'Yellow highlight');
+                        setSelectedHighlightColor('');
+                        setFreefallColor('rgba(250, 204, 21, 0.42)');
+                        soundManager.playClick();
+                      }}
+                      className="w-5 h-5 rounded-md bg-yellow-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-yellow-950 shadow-2xs cursor-pointer"
+                      title="Yellow Highlight (==text==)"
+                    >
+                      Y
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        insertText('==g:', '==', 'Green highlight');
+                        setSelectedHighlightColor('g:');
+                        setFreefallColor('rgba(52, 211, 153, 0.42)');
+                        soundManager.playClick();
+                      }}
+                      className="w-5 h-5 rounded-md bg-emerald-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-emerald-950 shadow-2xs cursor-pointer"
+                      title="Green Highlight (==g:text==)"
+                    >
+                      G
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        insertText('==p:', '==', 'Purple highlight');
+                        setSelectedHighlightColor('p:');
+                        setFreefallColor('rgba(192, 132, 252, 0.42)');
+                        soundManager.playClick();
+                      }}
+                      className="w-5 h-5 rounded-md bg-purple-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-purple-950 shadow-2xs cursor-pointer"
+                      title="Purple Highlight (==p:text==)"
+                    >
+                      P
+                    </button>
+                  </div>
+
+                  {/* Mode & Pen controls if active */}
+                  {isHighlighterActive && (
+                    <div className="flex items-center gap-1 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-amber-300 dark:border-amber-500/30 animate-scale-in">
+                      <button
+                        type="button"
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => {
+                          setHighlighterMode('box');
+                          setIsFreefallEraser(false);
+                          soundManager.playClick();
+                        }}
+                        className={`px-2 py-0.5 rounded text-[11px] font-bold cursor-pointer transition-all ${
+                          highlighterMode === 'box'
+                            ? 'bg-amber-500 text-slate-950 shadow-xs'
+                            : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                        title="Box text selection highlight"
+                      >
+                        Box
+                      </button>
+                      <button
+                        type="button"
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => {
+                          setHighlighterMode('freefall');
+                          soundManager.playClick();
+                        }}
+                        className={`px-2 py-0.5 rounded text-[11px] font-bold cursor-pointer transition-all ${
+                          highlighterMode === 'freefall'
+                            ? 'bg-amber-500 text-slate-950 shadow-xs'
+                            : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                        title="Freehand pen drawing"
+                      >
+                        Pen
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Highlights</span>
               </div>
@@ -5338,6 +5444,32 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   </div>
                 </div>
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Typography</span>
+              </div>
+
+              {/* Group: Document Canvas Width */}
+              <div className="flex flex-col items-center justify-between px-2.5 gap-1">
+                <div className="flex items-center gap-0.5 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                  {(['normal', 'wide', 'full'] as ReaderWidth[]).map((w) => (
+                    <button
+                      key={w}
+                      type="button"
+                      onClick={() => {
+                        setReaderWidth(w);
+                        localStorage.setItem('syllabus3d_notes_reader_width', w);
+                        soundManager.playClick();
+                      }}
+                      className={`px-2 py-0.5 rounded text-[11px] transition-all cursor-pointer ${
+                        readerWidth === w
+                          ? 'bg-blue-600 text-white shadow-xs font-black'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                      title={w === 'normal' ? 'Standard A4 (880px)' : w === 'wide' ? 'Executive Wide (1120px)' : 'Full Desk Canvas (1280px)'}
+                    >
+                      {w === 'normal' ? '📄 Standard' : w === 'wide' ? '📐 Wide' : '🖥️ Full'}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Page Width</span>
               </div>
 
               {/* Group: Page Setup & Ruler */}
@@ -5729,7 +5861,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
       {/* 📏 MS WORD HORIZONTAL MARGIN RULER */}
       {showOfficeRuler && (
-        <div className="hidden sm:flex w-full bg-[#E2E8F0] dark:bg-[#1A1C26] border border-[#CBD5E1] dark:border-[#272738] h-6 items-center px-4 relative select-none overflow-hidden rounded-t-xl text-[9px] font-mono text-slate-500 dark:text-slate-400 no-print">
+        <div className="hidden sm:flex w-full bg-slate-200/80 dark:bg-[#181B26] border border-slate-300 dark:border-[#272738] h-6 items-center px-4 relative select-none overflow-hidden rounded-t-xl text-[9px] font-mono text-slate-500 dark:text-slate-400 no-print">
           <div className="flex items-center gap-1 text-slate-500 shrink-0 mr-2">
             <Ruler className="w-3 h-3 text-blue-500" />
             <span className="font-bold text-[8px] uppercase tracking-wider">Margin</span>
@@ -5752,7 +5884,20 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <span className="text-blue-600 dark:text-blue-400 text-[10px] leading-none">▲</span>
             </div>
           </div>
-          <div className="text-[8px] text-slate-400 font-mono shrink-0 ml-2">A4 · 210mm</div>
+          <button
+            type="button"
+            onClick={() => {
+              const nextWidth: 'normal' | 'wide' | 'full' = readerWidth === 'normal' ? 'wide' : readerWidth === 'wide' ? 'full' : 'normal';
+              setReaderWidth(nextWidth);
+              try { localStorage.setItem('syllabus3d_notes_reader_width', nextWidth); } catch {}
+            }}
+            title="Toggle Document Width (Normal / Wide / Full)"
+            className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-300/70 hover:bg-blue-600 dark:bg-white/10 dark:hover:bg-blue-600 text-slate-700 dark:text-slate-200 hover:text-white transition-all text-[8px] font-bold font-mono shrink-0 ml-2 shadow-xs cursor-pointer"
+          >
+            <Maximize2 className="w-2.5 h-2.5" />
+            <span className="uppercase">{readerWidth}</span>
+          </button>
+          <div className="text-[8px] text-slate-400 dark:text-slate-500 font-mono shrink-0 ml-2">A4 · 210mm</div>
         </div>
       )}
 
@@ -5760,15 +5905,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       <div className={`w-full ${
         isDarkTheme && (viewMode === 'study' || viewMode === 'split')
           ? 'bg-[#06070B] border-[#1C1E2A]'
-          : 'bg-[#EAEFF5] dark:bg-[#0A0B10] border-[#CBD5E1] dark:border-[#272738]'
-      } p-1 sm:p-6 ${showOfficeRuler ? 'sm:rounded-b-2xl sm:border-t-0 rounded-2xl' : 'rounded-2xl'} border flex flex-col items-center min-h-[420px] sm:min-h-[550px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
+          : 'bg-slate-100/90 dark:bg-[#0A0D16] border-slate-200/90 dark:border-white/10'
+      } p-1 sm:p-7 md:p-8 ${showOfficeRuler ? 'sm:rounded-b-2xl sm:border-t-0 rounded-2xl' : 'rounded-2xl'} border flex flex-col items-center min-h-[420px] sm:min-h-[580px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
         
         {/* 1. EDIT MODE: Elevated A4 Document Page */}
         {viewMode === 'edit' && (
           <div className="w-full flex justify-center print:hidden" onPaste={handlePaste}>
             <div
-              className="w-full max-w-[860px] bg-white dark:bg-[#14151E] rounded-xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-transform origin-top my-1 sm:my-2 select-text"
-              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '520px' }}
+              className={`w-full ${getReaderWidthClass()} bg-white dark:bg-[#14151E] rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-all origin-top my-1 sm:my-2 select-text`}
+              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '540px' }}
             >
               {/* Document Running Header Watermark */}
               <div className="px-3.5 sm:px-10 pt-3.5 sm:pt-5 pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
@@ -5862,13 +6007,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* 3. STUDY MODE: Magazine-Quality Elevated A4 Reading Paper */}
         {viewMode === 'study' && (
-          <div className="w-full max-w-[860px] my-2 select-text" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
-            <div className={`relative rounded-2xl shadow-xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
+          <div className={`w-full ${getReaderWidthClass()} my-2 select-text`} style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
+            <div className={`relative rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-all ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
               {/* Study Sheet Header */}
-              <div className={`px-3.5 sm:px-10 pt-3.5 sm:pt-5 pb-2.5 sm:pb-3 border-b ${
+              <div className={`px-4 sm:px-12 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b ${
                 isDarkTheme
                   ? 'border-slate-800 text-slate-400'
-                  : 'border-slate-200/40 dark:border-slate-700/40 text-slate-400'
+                  : 'border-slate-200/50 dark:border-slate-700/50 text-slate-400'
               } flex items-center justify-between text-[11px] font-mono select-none`}>
                 <div className="flex items-center gap-1.5 min-w-0">
                   <span className="font-bold uppercase tracking-wider shrink-0">{subjectName || 'Syllabus 3D'}</span>
@@ -5883,7 +6028,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               </div>
 
               {/* Formatted Notes Content */}
-              <div className="p-3.5 sm:p-10 min-h-[260px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
+              <div className="p-4 sm:p-12 md:p-14 min-h-[380px] sm:min-h-[580px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
                 {renderFormattedNotes()}
               </div>
 
