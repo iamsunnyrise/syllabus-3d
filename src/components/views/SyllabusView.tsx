@@ -1435,92 +1435,163 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 3. 4 VIBRANT HIGH-CONTRAST METRIC CARDS (Border + Diffused Box Shadow) */}
+      {/* 3. 4 LUXURY HIGH-CONTRAST METRIC CARDS (Glass Ring + Specular Shine + Mini Progress) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-        {/* Card 1: Purple Gradient -> Total Topics */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] text-white flex flex-col justify-between overflow-hidden border border-purple-300/40 dark:border-purple-400/25 shadow-[0_12px_32px_-4px_rgba(124,58,237,0.35),0_4px_12px_-2px_rgba(124,58,237,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(124,58,237,0.48),0_6px_16px_-2px_rgba(124,58,237,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+        {/* Card 1: Royal Indigo / Violet Gradient -> Total Topics */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Specular Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Total Topics</span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-              <BookOpen className="w-4 h-4 text-white" />
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Total Topics</span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+              <BookOpen className="w-4 h-4 text-white drop-shadow-xs" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-              {totalTopicsCount}
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                {totalTopicsCount}
+              </span>
+              <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                Topics
+              </span>
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              Across {currentExam.subjects.length} Subjects
+            <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                <Layers className="w-3 h-3" />
+                <span>{currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'}</span>
+              </span>
+              <span className="truncate text-white/75">
+                • {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Card 2: Hot Coral / Pink Gradient -> Mastered Topics */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#BE123C] text-white flex flex-col justify-between overflow-hidden border border-rose-300/40 dark:border-rose-400/25 shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+        {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Specular Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Mastered Topics</span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-              <CheckCircle2 className="w-4 h-4 text-white" />
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+              <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-              {completedTopicsCount}
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+            <div className="flex items-baseline justify-between">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {completedTopicsCount}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                  / {totalTopicsCount}
+                </span>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                {totalTopicsCount > 0 ? Math.round((completedTopicsCount / totalTopicsCount) * 100) : 0}%
+              </span>
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              {totalTopicsCount - completedTopicsCount} Remaining
+
+            {/* Sleek Mini Progress Track */}
+            <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              <div
+                className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                style={{ width: `${totalTopicsCount > 0 ? (completedTopicsCount / totalTopicsCount) * 100 : 0}%` }}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <span className="truncate">
+                {totalTopicsCount - completedTopicsCount === 0 ? 'All Completed! 🎉' : `${totalTopicsCount - completedTopicsCount} Remaining`}
+              </span>
+              <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                Mastery
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Card 3: Cyan / Sky Blue Gradient -> Exam Runway */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/40 dark:border-sky-400/25 shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+        {/* Card 3: Sapphire Ocean / Sky Gradient -> Exam Runway */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Specular Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Exam Runway</span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-              <Clock className="w-4 h-4 text-white" />
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Exam Runway</span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+              <Clock className="w-4 h-4 text-white drop-shadow-xs" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums truncate">
-              {daysRemaining > 0 ? `${daysRemaining} Days` : 'Exam Today'}
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                {daysRemaining > 0 ? daysRemaining : 0}
+              </span>
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide text-white/80">
+                {daysRemaining === 1 ? 'Day Left' : 'Days Runway'}
+              </span>
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              Target: {formattedExamDate}
+
+            <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
+                <Calendar className="w-3 h-3" />
+                <span>{daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left` : 'Today'}</span>
+              </span>
+              <span className="truncate text-white/80">
+                Target: {formattedExamDate}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Card 4: Emerald / Mint Gradient -> Completion Rate */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/40 dark:border-emerald-400/25 shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+        {/* Card 4: Emerald Jade / Mint Gradient -> Completion Rate */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
+          {/* Top Specular Gloss Edge & Ambient Glow */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
           <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-white/90">Completion Rate</span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-white/25">
-              <TrendingUp className="w-4 h-4 text-white" />
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Completion Rate</span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
+              <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4">
-            <div className="text-2xl sm:text-3xl font-black font-mono leading-none tabular-nums">
-              {overallPercentage}%
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+            <div className="flex items-baseline justify-between">
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  {overallPercentage}%
+                </span>
+                <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                  Done
+                </span>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                {completedTopicsCount}/{totalTopicsCount}
+              </span>
             </div>
-            <div className="text-[11px] sm:text-xs text-white/80 font-medium mt-1 truncate">
-              {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters Total
+
+            {/* Sleek Mini Progress Track */}
+            <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              <div
+                className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                style={{ width: `${overallPercentage}%` }}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <span className="truncate">
+                {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters Total
+              </span>
+              <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                Curriculum
+              </span>
             </div>
           </div>
         </div>
