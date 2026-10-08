@@ -809,10 +809,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 const hasNotes = Boolean(topic.notes && topic.notes.trim()) || Boolean(topic.noteItems && topic.noteItems.length > 0);
                 const hasPdf = Boolean(topic.pdfUrl) || Boolean(topic.pdfAttachments && topic.pdfAttachments.length > 0);
 
-                const subtopicsSummary = topic.subtopics && topic.subtopics.length > 0
-                  ? topic.subtopics.join(' • ')
-                  : 'Comprehensive concept coverage, core principles, and high-frequency exam questions.';
-
                 return (
                   <div
                     key={topic.id}
@@ -869,17 +865,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                             {topic.name}
                           </h3>
 
-                          <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 line-clamp-1 sm:line-clamp-2 leading-relaxed">
-                            {subtopicsSummary}
-                          </p>
-
                           {/* Meta Pills Row */}
                           <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
-                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                              <Layers className="w-3 h-3 text-indigo-500" />
-                              <span>{topic.subtopics && topic.subtopics.length > 0 ? `${topic.subtopics.length} Subtopics` : 'Core Concept'}</span>
-                            </span>
-
                             {(topic.studyTimeMinutes || 0) > 0 && (
                               <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
                                 <Clock className="w-3 h-3 text-amber-500" />
