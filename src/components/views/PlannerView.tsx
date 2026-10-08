@@ -469,7 +469,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 pb-32 sm:pb-20 max-w-6xl mx-auto font-sans animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 w-full max-w-7xl mx-auto font-sans animate-fade-in px-1 sm:px-2">
       
       {/* 🖨️ PRINT-ONLY DAILY STUDY TARGETS CHECKLIST */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -489,69 +489,80 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
       </div>
 
-      {/* ═══════════════ 1. STUDY PLANNER HEADER & COMMAND BAR ═══════════════ */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 sm:gap-4 print:hidden">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
-            <SectionBadgeIcon section="planner" size="md" />
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              Study Planner
-            </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100/90 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/25 text-amber-900 dark:text-amber-300 text-[11px] font-black">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-              <span>Daily Sprint</span>
-              <span className="text-amber-500 dark:text-amber-400">•</span>
-              <span className="font-mono tabular-nums">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-            </span>
-            {currentExam && (
-              <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/[0.06]">
-                {currentExam.name}
-              </span>
-            )}
-          </div>
-          <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-            Target tracking, daily sprints, time blocking, and queue management.
-          </p>
-        </div>
+      {/* ═══════════════ 1. STUDY PLANNER EXECUTIVE HERO HEADER ═══════════════ */}
+      <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 overflow-hidden print:hidden">
+        {/* Specular top highlight and ambient gradient */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-500/50 dark:via-amber-400/50 to-transparent pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-amber-500/[0.04] dark:bg-amber-500/[0.08] blur-3xl pointer-events-none" />
 
-        {/* Primary Action Buttons */}
-        <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-          {onOpenBacklogRescue && (
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+            <SectionBadgeIcon section="planner" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
+            <div className="min-w-0 space-y-1">
+              <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-amber-600 dark:text-amber-400 flex-wrap">
+                <span className="truncate">Study Planner &amp; Sprint Chamber</span>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-black">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <span>Daily Sprint</span>
+                  <span className="text-amber-400">•</span>
+                  <span className="font-mono tabular-nums">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                </span>
+                {currentExam && (
+                  <span className="hidden xs:inline-flex px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                    🎯 {currentExam.name}
+                  </span>
+                )}
+              </div>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                Study Planner &amp; Daily Sprint
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Target tracking, daily sprints, time blocking, and adaptive study queue management.
+              </p>
+            </div>
+          </div>
+
+          {/* Primary Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-2.5 w-full lg:w-auto self-stretch lg:self-auto justify-stretch sm:justify-end shrink-0">
+            {onOpenBacklogRescue && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onOpenBacklogRescue();
+                }}
+                className="flex-1 lg:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl text-xs sm:text-[13px] font-black bg-amber-100/80 hover:bg-amber-200/80 text-amber-900 dark:bg-amber-500/15 dark:hover:bg-amber-500/25 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30 transition-all active:scale-[0.98] cursor-pointer shadow-xs flex items-center justify-center gap-2 shrink-0"
+                title="Smart Backlog Rescue - Adaptive Routine Generator"
+              >
+                <Zap className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-amber-500 animate-pulse" />
+                <span>Backlog Rescue</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
-                onOpenBacklogRescue();
+                setTargetDate(getTodayDateString());
+                setShowAddModal(true);
               }}
-              className="flex-1 sm:flex-initial h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-black bg-amber-100 hover:bg-amber-200 text-amber-900 dark:bg-amber-500/15 dark:hover:bg-amber-500/25 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30 hover:border-amber-400 dark:hover:border-amber-500/50 transition-all active:scale-[0.98] cursor-pointer shadow-xs flex items-center justify-center gap-2 shrink-0"
-              title="Smart Backlog Rescue - Adaptive Routine Generator"
+              className="flex-1 lg:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
+              title="Add Target"
             >
-              <Zap className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-amber-500 animate-pulse" />
-              <span>Backlog Rescue</span>
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>Add Target</span>
             </button>
-          )}
-
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              setTargetDate(getTodayDateString());
-              setShowAddModal(true);
-            }}
-            className="flex-1 sm:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-            title="Add Target"
-          >
-            <Plus className="w-4 h-4 stroke-[3]" />
-            <span>Add Target</span>
-          </button>
+          </div>
         </div>
       </div>
 
       {/* 2. NEXT-GEN LUXURY STREAK & MOMENTUM COMMAND BANNER */}
-      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.04] to-amber-500/[0.08] dark:from-[#0C0E1C] dark:via-[#141834] dark:to-[#0C0E1C] text-slate-900 dark:text-white border-2 border-amber-400/50 dark:border-amber-500/30 shadow-xl shadow-amber-500/5 dark:shadow-2xl dark:shadow-amber-500/10 relative overflow-hidden group print:hidden">
-        {/* Ambient Radiant Glows */}
-        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/15 dark:bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 dark:group-hover:bg-amber-500/25 transition-all duration-700" />
-        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/15 dark:group-hover:bg-indigo-500/25 transition-all duration-700" />
+      <div className="planner-streak-banner rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl text-slate-900 dark:text-white border border-amber-300/80 dark:border-amber-500/30 shadow-xs sm:shadow-sm relative overflow-hidden group print:hidden">
+        {/* Specular top highlight and ambient radiant glow */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80 pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/10 dark:bg-amber-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/15 dark:group-hover:bg-amber-500/25 transition-all duration-700" />
+        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/15 dark:group-hover:bg-indigo-500/20 transition-all duration-700" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Left: Flame Emblem + Streak Stat */}
@@ -671,16 +682,15 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       {/* 3. FOUR NEXT-GEN LUXURY METRIC GLASS CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
         {/* Card 1: Today's Velocity & Flow */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-indigo-50/90 via-white to-indigo-50/40 dark:from-[#4F46E5] dark:via-[#4338CA] dark:to-[#3730A3] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-indigo-200/80 dark:border-indigo-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(79,70,229,0.35),0_4px_12px_-2px_rgba(79,70,229,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(79,70,229,0.48),0_6px_16px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-200/50 dark:via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-indigo-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+          {/* Top Specular Line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
               Today's Velocity
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-100 dark:bg-white/20 backdrop-blur-md border border-indigo-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-indigo-200/60 dark:group-hover:bg-white/25 text-indigo-600 dark:text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-xs transition-transform group-hover:scale-110">
               <TrendingUp className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
@@ -692,8 +702,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             {/* Micro SVG Circular Gauge */}
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-200 dark:text-white/20" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="text-indigo-600 dark:text-white transition-all duration-700" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-200 dark:text-white/10" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="text-indigo-600 dark:text-indigo-400 transition-all duration-700" />
               </svg>
               <span className="absolute text-[9px] font-mono font-black text-slate-800 dark:text-white">
                 {completedTodayCount}
@@ -701,12 +711,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
+          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
             <span className="truncate">{completedTodayCount} of {totalTodayCount} Done</span>
             <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border ${
               todayProgressPercent === 100
-                ? 'bg-emerald-100 border-emerald-300 text-emerald-800 dark:bg-emerald-400/30 dark:border-white/20 dark:text-white'
-                : 'bg-indigo-100/90 border-indigo-300 text-indigo-800 dark:bg-white/20 dark:border-white/20 dark:text-white'
+                ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-700 dark:text-emerald-300'
+                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-700 dark:text-indigo-300'
             }`}>
               {todayProgressPercent === 100 ? '✓ Complete' : 'In Sprint'}
             </span>
@@ -714,30 +724,29 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Card 2: Planned Runway & Focus Time */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-rose-50/90 via-white to-rose-50/40 dark:from-[#F43F5E] dark:via-[#E11D48] dark:to-[#BE123C] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-rose-200/80 dark:border-rose-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(225,29,72,0.35),0_4px_12px_-2px_rgba(225,29,72,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(225,29,72,0.48),0_6px_16px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-rose-200/50 dark:via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-rose-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+          {/* Top Specular Line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
               Planned Study
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-rose-100 dark:bg-white/20 backdrop-blur-md border border-rose-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-rose-200/60 dark:group-hover:bg-white/25 text-rose-600 dark:text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/20 text-rose-600 dark:text-rose-400 shadow-xs transition-transform group-hover:scale-110">
               <Clock className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
 
           <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 flex-wrap">
             <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
-              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-500 dark:text-white/80 ml-0.5">h</span>
+              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-400 dark:text-slate-500 ml-0.5">h</span>
             </div>
-            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-100 border border-rose-300 text-rose-800 dark:bg-white/20 dark:border-white/20 dark:text-white shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 shrink-0">
               {(completedMinutes / 60).toFixed(1)}h finished
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
+          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
             <span className="truncate">Runway Remaining</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
@@ -746,16 +755,15 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Card 3: Target Queue & Yield */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-sky-50/90 via-white to-sky-50/40 dark:from-[#0284C7] dark:via-[#0369A1] dark:to-[#075985] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-sky-200/80 dark:border-sky-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(2,132,199,0.35),0_4px_12px_-2px_rgba(2,132,199,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(2,132,199,0.48),0_6px_16px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sky-200/50 dark:via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-sky-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-sky-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+          {/* Top Specular Line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
               Target Queue
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-100 dark:bg-white/20 backdrop-blur-md border border-sky-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-sky-200/60 dark:group-hover:bg-white/25 text-sky-600 dark:text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 border border-sky-500/20 text-sky-600 dark:text-sky-400 shadow-xs transition-transform group-hover:scale-110">
               <Target className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
@@ -765,16 +773,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               {plannerTasks.length}
             </div>
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100 border border-sky-300 text-sky-800 dark:bg-white/20 dark:border-white/20 dark:text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/10 border border-sky-500/20 text-sky-700 dark:text-sky-300">
                 {todayTasks.length} Today
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-100 border border-sky-300 text-sky-800 dark:bg-white/20 dark:border-white/20 dark:text-white">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/10 border border-sky-500/20 text-sky-700 dark:text-sky-300">
                 {inProgressTasks.length} Focus
               </span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
+          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
             <span className="truncate">Active Queue</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               {upcomingTasks.length} Upcoming
@@ -783,16 +791,15 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Card 4: Academic Level & XP Prestige */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-emerald-50/90 via-white to-emerald-50/40 dark:from-[#10B981] dark:via-[#059669] dark:to-[#047857] text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden border border-emerald-200/80 dark:border-emerald-400/25 shadow-sm hover:shadow-md dark:shadow-[0_12px_32px_-4px_rgba(16,185,129,0.35),0_4px_12px_-2px_rgba(16,185,129,0.2)] dark:hover:shadow-[0_20px_40px_-4px_rgba(16,185,129,0.48),0_6px_16px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-200/50 dark:via-white/40 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-emerald-500/10 dark:bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+          {/* Top Specular Line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white/90">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
               XP &amp; Rank
             </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-100 dark:bg-white/20 backdrop-blur-md border border-emerald-200/60 dark:border-white/25 shadow-xs transition-transform group-hover:scale-110 group-hover:bg-emerald-200/60 dark:group-hover:bg-white/25 text-emerald-600 dark:text-white">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs transition-transform group-hover:scale-110">
               <Award className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
@@ -802,14 +809,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               Lvl {profile.level}
             </div>
             <span
-              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-100 border border-emerald-300 text-emerald-900 dark:bg-white/20 dark:border-white/20 dark:text-white truncate max-w-[130px] sm:max-w-none shrink min-w-0"
+              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 truncate max-w-[130px] sm:max-w-none shrink min-w-0"
               title={profile.levelTitle || 'Scholar'}
             >
               {profile.levelTitle || 'Scholar'}
             </span>
           </div>
 
-          <div className="relative z-10 pt-2 border-t border-slate-200/70 dark:border-white/15 flex items-center justify-between text-[11px] font-semibold text-slate-700 dark:text-white/90">
+          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
             <span className="truncate">{profile.xp} Total XP</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               +25 XP / target
@@ -989,7 +996,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       ) : viewMode === 'kanban' ? (
         <div className="space-y-3.5">
           {/* Collapsible Top 3 Non-Negotiables Core Strip */}
-          <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#11131F]/90 shadow-xs overflow-hidden transition-all">
+          <div className="rounded-2xl sm:rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl shadow-xs overflow-hidden transition-all">
             <button
               type="button"
               onClick={() => {
@@ -1084,7 +1091,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               return (
                 <div
                   key={col.id}
-                  className={`${isHiddenOnMobile ? 'hidden sm:flex' : 'flex'} flex-col rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm p-3.5 sm:p-4 space-y-3 min-h-[160px] sm:min-h-[380px]`}
+                  className={`${isHiddenOnMobile ? 'hidden sm:flex' : 'flex'} flex-col rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-3.5 sm:p-4 space-y-3 min-h-[160px] sm:min-h-[420px]`}
                 >
                   {/* Column Header */}
                   <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 dark:border-white/[0.06]">
@@ -1267,7 +1274,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         /* ═══════════════ 5. ADVANCED STUDENT CALENDAR HUB ═══════════════ */
         <div className="space-y-4 animate-fade-in">
           {/* Calendar Master Command Toolbar */}
-          <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+          <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
             {/* Left: Navigation Controls & Current Date Range Display */}
             <div className="flex items-center justify-between md:justify-start gap-2 min-w-0">
               <div className="flex items-center gap-1 shrink-0">
