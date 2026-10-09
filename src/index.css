@@ -1023,33 +1023,43 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.95) !important;
   }
   .reader-theme-oled h1,
-  .reader-theme-oled h1 * {
+  .reader-theme-oled h1 *,
+  .reader-theme-oled [data-heading-id] h1 {
     color: #FFFFFF !important;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.4);
   }
   .reader-theme-oled h2,
-  .reader-theme-oled h2 * {
-    color: #F1F5F9 !important;
+  .reader-theme-oled h2 *,
+  .reader-theme-oled [data-heading-id] h2 {
+    color: #FFFFFF !important;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.4);
   }
   .reader-theme-oled h3,
-  .reader-theme-oled h3 * {
+  .reader-theme-oled h3 *,
+  .reader-theme-oled [data-heading-id] h3 {
     color: #93C5FD !important;
+    text-shadow: 0 0 1px rgba(147, 197, 253, 0.3);
   }
   .reader-theme-oled h4,
-  .reader-theme-oled h4 * {
-    color: #FCD34D !important;
+  .reader-theme-oled h4 *,
+  .reader-theme-oled [data-heading-id] h4 {
+    color: #FDE047 !important;
   }
   .reader-theme-oled h5,
-  .reader-theme-oled h5 * {
-    color: #6EE7B7 !important;
+  .reader-theme-oled h5 *,
+  .reader-theme-oled [data-heading-id] h5 {
+    color: #86EFAC !important;
   }
   .reader-theme-oled h6,
-  .reader-theme-oled h6 * {
-    color: #CBD5E1 !important;
+  .reader-theme-oled h6 *,
+  .reader-theme-oled [data-heading-id] h6 {
+    color: #E2E8F0 !important;
   }
   .reader-theme-oled p,
   .reader-theme-oled li,
-  .reader-theme-oled .reading-column {
-    color: #E2E8F0 !important;
+  .reader-theme-oled .reading-column,
+  .reader-theme-oled span:not([class*="bg-"]):not([class*="badge"]) {
+    color: #F8FAFC !important;
   }
   .reader-theme-oled strong,
   .reader-theme-oled strong *,
@@ -1060,12 +1070,12 @@
   }
   .reader-theme-oled em,
   .reader-theme-oled i {
-    color: #CBD5E1 !important;
+    color: #E2E8F0 !important;
   }
   .reader-theme-oled code {
-    background-color: rgba(245, 158, 11, 0.22) !important;
-    color: #FDE68A !important;
-    border-color: rgba(245, 158, 11, 0.45) !important;
+    background-color: rgba(245, 158, 11, 0.25) !important;
+    color: #FEF08A !important;
+    border-color: rgba(245, 158, 11, 0.5) !important;
   }
   /* High-visibility glowing highlights on pure black OLED */
   .reader-theme-oled mark {
@@ -1108,11 +1118,17 @@
     color: #FFE4E6 !important;
     border-bottom: 2px solid #FB7185 !important;
   }
-  /* H2 Callout card inside OLED */
+  /* H2 Callout card inside OLED - Ultra Clear Visibility */
   .reader-theme-oled div[class*="border-l-4"] {
-    background: linear-gradient(to right, rgba(30, 27, 75, 0.85), rgba(15, 23, 42, 0.7)) !important;
-    border-color: rgba(99, 102, 241, 0.4) !important;
+    background: linear-gradient(to right, rgba(30, 27, 75, 0.95), rgba(15, 23, 42, 0.9)) !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
     border-left-color: #818CF8 !important;
+  }
+  .reader-theme-oled div[class*="border-l-4"] h2,
+  .reader-theme-oled div[class*="border-l-4"] h2 * {
+    color: #FFFFFF !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
   }
 
   h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
@@ -1344,12 +1360,12 @@ html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .border-slate-300 {
    ══════════════════════════════════════════════════════════════════ */
 
 /* Primary Headings, Titles & Emphasized Text */
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-900,
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="text-slate-900"],
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-black,
@@ -2369,12 +2385,12 @@ html:not(.dark) [class*="border-slate-200"] {
 }
 
 /* 4. Razor-Sharp High-Contrast Slate Typography in Light Mode */
-html:not(.dark) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
-html:not(.dark) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
-html:not(.dark) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
-html:not(.dark) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
-html:not(.dark) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
-html:not(.dark) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color),
+html:not(.dark) h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark) h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark) h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
+html:not(.dark) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not(.preserve-color):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
 html:not(.dark) .font-heading:not(.text-white):not([class*="text-white"]),
 html:not(.dark) .app-title:not(.text-white):not([class*="text-white"]) {
   color: #0F172A !important;

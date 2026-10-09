@@ -2400,7 +2400,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       // Bold
       if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
         return (
-          <strong key={k} className={`font-extrabold ${isDarkTheme ? 'text-white' : 'text-[#11120F]'}`}>
+          <strong
+            key={k}
+            className={`font-extrabold preserve-color ${isDarkTheme ? 'text-white' : 'text-[#11120F]'}`}
+            style={{ color: isDarkTheme ? '#FFFFFF' : '#0F172A' }}
+          >
             {parseInlineMarkdown(part.slice(2, -2), `${k}-b`)}
           </strong>
         );
@@ -2408,7 +2412,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       // Italic
       if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
         return (
-          <em key={k} className={`italic ${isDarkTheme ? 'text-[#CBD5E1]' : 'text-[#4A4B45]'}`}>
+          <em
+            key={k}
+            className={`italic preserve-color ${isDarkTheme ? 'text-[#CBD5E1]' : 'text-[#4A4B45]'}`}
+            style={{ color: isDarkTheme ? '#E2E8F0' : '#334155' }}
+          >
             {parseInlineMarkdown(part.slice(1, -1), `${k}-i`)}
           </em>
         );
@@ -3149,9 +3157,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 ${
+              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 preserve-color ${
                 isDarkTheme ? 'border-[#7AA2F7]/50 text-white' : 'border-[#2563EB]/30 text-slate-900'
               } flex items-center gap-2.5 tracking-tight scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: isDarkTheme ? '#FFFFFF' : '#0F172A' }}
             >
               <span className={`w-1.5 h-6 rounded-full inline-block shrink-0 ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'}`} />
               <span>{parseInlineMarkdown(rawHeading, `h1-${i}`)}</span>
@@ -3173,7 +3182,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             >
               <div className="flex items-center gap-3">
                 <span className={`w-2 h-5 sm:h-6 rounded-full shrink-0 ${isDarkTheme ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
-                <h2 className={`${fontFam} text-base sm:text-lg font-black ${isDarkTheme ? 'text-indigo-100' : 'text-indigo-950'} flex-1 leading-snug tracking-tight m-0`}>
+                <h2
+                  className={`${fontFam} text-base sm:text-lg font-black preserve-color ${isDarkTheme ? 'text-white' : 'text-indigo-950'} flex-1 leading-snug tracking-tight m-0`}
+                  style={{ color: isDarkTheme ? '#FFFFFF' : '#1E1B4B' }}
+                >
                   {parseInlineMarkdown(rawHeading, `h2-${i}`)}
                 </h2>
               </div>
@@ -3186,7 +3198,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs sm:text-sm font-black ${isDarkTheme ? 'text-[#93C5FD]' : 'text-[#2563EB]'} ${spacing.h3Margin} uppercase tracking-wide flex items-center gap-1.5 font-mono scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs sm:text-sm font-black preserve-color ${isDarkTheme ? 'text-[#93C5FD]' : 'text-[#2563EB]'} ${spacing.h3Margin} uppercase tracking-wide flex items-center gap-1.5 font-mono scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: isDarkTheme ? '#93C5FD' : '#2563EB' }}
             >
               <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>{parseInlineMarkdown(rawHeading, `h3-${i}`)}</span>
@@ -3200,7 +3213,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-sm sm:text-base font-bold ${isDarkTheme ? 'text-amber-300' : 'text-amber-700'} ${spacing.h4Margin} flex items-center gap-2 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-sm sm:text-base font-bold preserve-color ${isDarkTheme ? 'text-amber-300' : 'text-amber-700'} ${spacing.h4Margin} flex items-center gap-2 scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: isDarkTheme ? '#FDE047' : '#B45309' }}
             >
               <span className="w-1.5 h-3.5 rounded-full bg-amber-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h4-${i}`)}</span>
@@ -3214,7 +3228,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs sm:text-sm font-bold ${isDarkTheme ? 'text-emerald-300' : 'text-emerald-700'} ${spacing.h4Margin} flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs sm:text-sm font-bold preserve-color ${isDarkTheme ? 'text-emerald-300' : 'text-emerald-700'} ${spacing.h4Margin} flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: isDarkTheme ? '#86EFAC' : '#047857' }}
             >
               <span className="w-1.5 h-3 rounded-full bg-emerald-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h5-${i}`)}</span>
@@ -3228,7 +3243,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xs font-semibold ${isDarkTheme ? 'text-slate-300' : 'text-slate-600'} ${spacing.h4Margin} uppercase tracking-wider flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              className={`${fontFam} text-xs font-semibold preserve-color ${isDarkTheme ? 'text-slate-300' : 'text-slate-600'} ${spacing.h4Margin} uppercase tracking-wider flex items-center gap-1.5 scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: isDarkTheme ? '#E2E8F0' : '#475569' }}
             >
               <span className="w-1 h-2.5 rounded-full bg-slate-400 dark:bg-slate-500 shrink-0" />
               <span>{parseInlineMarkdown(rawHeading, `h6-${i}`)}</span>
@@ -3286,8 +3302,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           >
             <span className={`w-[5px] h-[5px] rounded-full ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'} ${spacing.bulletDotMt} shrink-0`} />
             <div
-              style={{ lineHeight: spacing.lineHeight }}
-              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
+              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : '#1E293B' }}
+              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#F8FAFC]' : 'text-[#1E293B]'} reading-column ${
+                readerWidth !== 'normal' ? 'max-w-none' : 'max-w-[72ch]'
+              } ${spacing.lineHeightClass}`}
             >
               {parseInlineMarkdown(rawBullet, `bullet-${i}`)}
             </div>
@@ -3310,8 +3328,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               {num}.
             </span>
             <div
-              style={{ lineHeight: spacing.lineHeight }}
-              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} reading-column max-w-[68ch] ${spacing.lineHeightClass}`}
+              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : '#1E293B' }}
+              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#F8FAFC]' : 'text-[#1E293B]'} reading-column ${
+                readerWidth !== 'normal' ? 'max-w-none' : 'max-w-[72ch]'
+              } ${spacing.lineHeightClass}`}
             >
               {parseInlineMarkdown(numText, `num-${i}`)}
             </div>
@@ -3382,8 +3402,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         elements.push(
           <p
             key={i}
-            style={{ lineHeight: spacing.lineHeight, ...spacing.paragraphStyle }}
-            className={`${fontSize} ${fontFam} ${isDarkTheme ? 'text-[#E2E8F0]' : 'text-[#334155]'} ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column ${
+            style={{ lineHeight: spacing.lineHeight, ...spacing.paragraphStyle, color: isDarkTheme ? '#F8FAFC' : '#1E293B' }}
+            className={`${fontSize} ${fontFam} ${isDarkTheme ? 'text-[#F8FAFC]' : 'text-[#1E293B]'} ${spacing.paragraphMargin} ${spacing.lineHeightClass} reading-column ${
               readerWidth === 'normal' ? 'max-w-[72ch]' : 'max-w-none'
             } ${
               isFirstParagraph && readerFontFamily === 'serif' ? 'book-drop-cap' : ''
@@ -3970,13 +3990,13 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <BookOpen className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 text-[11px] font-bold text-[#2563EB] dark:text-[#7AA2F7] truncate font-mono">
+                    <div className={`flex items-center gap-2 text-[11px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono`}>
                       <span>{subjectName || 'Subject'}</span>
                       <span>•</span>
                       <span className="truncate">{chapterName || 'Chapter'}</span>
                     </div>
                     <h2 className={`text-sm sm:text-base font-black truncate ${getFontFamilyClass()}`}>
-                      {topicName} • <span className="text-[#2563EB] dark:text-[#7AA2F7]">{activeNote.title}</span>
+                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
                     </h2>
                   </div>
                 </div>
@@ -4210,15 +4230,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   </button>
 
                   {/* Font Size Adjuster (Visible on Mobile & Desktop) */}
-                  <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#1C1D26] px-2 py-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-mono font-bold">
-                    <span className="text-[11px] text-[#85877E]">Size:</span>
+                  <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10 text-white' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} px-2 py-1 rounded-xl border text-xs font-mono font-bold`}>
+                    <span className={`text-[11px] ${isDarkTheme ? 'text-slate-400' : 'text-[#85877E]'}`}>Size:</span>
                     {(['sm', 'base', 'lg', 'xl'] as ReaderFontSize[]).map(size => (
                       <button
                         key={size}
                         type="button"
                         onClick={() => handleSelectFontSize(size)}
                         className={`px-1.5 py-0.5 rounded uppercase cursor-pointer transition-all active:scale-95 ${
-                          readerFontSize === size ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black font-black shadow-xs' : 'text-[#85877E] hover:text-[#11120F] dark:hover:text-white'
+                          readerFontSize === size ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black font-black shadow-xs' : isDarkTheme ? 'text-slate-400 hover:text-white' : 'text-[#85877E] hover:text-[#11120F] dark:hover:text-white'
                         }`}
                       >
                         {size}
@@ -4227,15 +4247,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   </div>
 
                   {/* Container Width Adjuster */}
-                  <div className="hidden md:flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#1C1D26] px-2 py-1 rounded-xl border border-[#E2E8F0] dark:border-[#272730] text-xs font-mono font-bold">
-                    <span className="text-[11px] text-[#85877E]">Width:</span>
+                  <div className={`hidden md:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10 text-white' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} px-2 py-1 rounded-xl border text-xs font-mono font-bold`}>
+                    <span className={`text-[11px] ${isDarkTheme ? 'text-slate-400' : 'text-[#85877E]'}`}>Width:</span>
                     {(['normal', 'wide', 'full'] as ReaderWidth[]).map(w => (
                       <button
                         key={w}
                         type="button"
                         onClick={() => setReaderWidth(w)}
                         className={`px-1.5 py-0.5 rounded capitalize ${
-                          readerWidth === w ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black' : 'text-[#85877E] hover:text-[#11120F]'
+                          readerWidth === w ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black font-black shadow-xs' : isDarkTheme ? 'text-slate-400 hover:text-white' : 'text-[#85877E] hover:text-[#11120F]'
                         }`}
                       >
                         {w}
@@ -4293,11 +4313,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <ArrowLeft className="w-4 h-4" />
                   </button>
                   <div className="min-w-0">
-                    <div className="text-[10px] font-bold text-[#2563EB] dark:text-[#7AA2F7] truncate font-mono leading-none">
+                    <div className={`text-[10px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono leading-none`}>
                       {subjectName || 'Subject'} • {chapterName || 'Chapter'}
                     </div>
                     <h2 className={`text-xs font-black truncate leading-tight mt-0.5 ${getFontFamilyClass()}`}>
-                      {topicName} • <span className="text-[#2563EB] dark:text-[#7AA2F7]">{activeNote.title}</span>
+                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
                     </h2>
                   </div>
                 </div>
