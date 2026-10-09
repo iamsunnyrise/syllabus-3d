@@ -23,6 +23,11 @@ import {
   ArrowLeft,
   Sparkles,
   RotateCcw,
+  RotateCw,
+  Pause,
+  Repeat,
+  Volume2,
+  VolumeX,
   Video,
   FileText
 } from 'lucide-react';
@@ -102,6 +107,26 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
   const currentVideoTimeRef = useRef<number>(initialSeekSeconds || 0);
   const [currentVideoTime, setCurrentVideoTime] = useState<number>(initialSeekSeconds || 0);
 
+  // Playback & Video HUD State
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [videoDuration, setVideoDuration] = useState<number>(0);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+  const [loopPointA, setLoopPointA] = useState<number | null>(null);
+  const [loopPointB, setLoopPointB] = useState<number | null>(null);
+  const [isLooping, setIsLooping] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  // Refs to prevent stale closures in intervals & listeners
+  const isLoopingRef = useRef<boolean>(false);
+  const loopPointARef = useRef<number | null>(null);
+  const loopPointBRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    isLoopingRef.current = isLooping;
+    loopPointARef.current = loopPointA;
+    loopPointBRef.current = loopPointB;
+  }, [isLooping, loopPointA, loopPointB]);
+
   const notesTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Load YouTube IFrame API script once
@@ -128,6 +153,15 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
             currentVideoTimeRef.current = t;
             setCurrentVideoTime(t);
           }
+          if (typeof data.info.duration === 'number' && data.info.duration > 0) {
+            setVideoDuration(Math.floor(data.info.duration));
+          }
+          if (typeof data.info.playerState === 'number') {
+            setIsPlaying(data.info.playerState === 1);
+          }
+          if (typeof data.info.playbackRate === 'number' && data.info.playbackRate > 0) {
+            setPlaybackSpeed(data.info.playbackRate);
+          }
         }
       } catch {}
     };
@@ -136,7 +170,7 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
     return () => window.removeEventListener('message', handleWindowMessage);
   }, []);
 
-  // Poll current time when modal is open and video is active
+  // Poll current time & duration when modal is open and video is active
   useEffect(() => {
     if (!isOpen) return;
     const interval = setInterval(() => {
@@ -148,11 +182,33 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
             currentVideoTimeRef.current = floored;
             setCurrentVideoTime(floored);
           }
+          if (typeof playerRef.current.getDuration === 'function') {
+            const d = playerRef.current.getDuration();
+            if (typeof d === 'number' && d > 0) {
+              setVideoDuration(Math.floor(d));
+            }
+          }
+          if (typeof playerRef.current.getPlayerState === 'function') {
+            const state = playerRef.current.getPlayerState();
+            setIsPlaying(state === 1);
+          }
         } catch {}
       } else if (iframeRef.current && iframeRef.current.contentWindow) {
         try {
           iframeRef.current.contentWindow.postMessage(JSON.stringify({ event: 'listening' }), '*');
         } catch {}
+      }
+
+      // Check A-B Loop repetition trigger
+      if (
+        isLoopingRef.current &&
+        loopPointARef.current !== null &&
+        loopPointBRef.current !== null &&
+        loopPointBRef.current > loopPointARef.current
+      ) {
+        if (currentVideoTimeRef.current >= loopPointBRef.current || currentVideoTimeRef.current < loopPointARef.current) {
+          handleSeekTo(loopPointARef.current);
+        }
       }
     }, 400);
 
@@ -172,6 +228,15 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
           events: {
             onReady: (e: any) => {
               playerRef.current = e.target;
+              try {
+                const dur = e.target.getDuration();
+                if (typeof dur === 'number' && dur > 0) setVideoDuration(Math.floor(dur));
+                const rate = e.target.getPlaybackRate();
+                if (typeof rate === 'number' && rate > 0) setPlaybackSpeed(rate);
+              } catch {}
+            },
+            onStateChange: (e: any) => {
+              setIsPlaying(e.data === 1);
             }
           }
         });
@@ -222,7 +287,7 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
     setNotesContent(initialNotes || '');
   }, [initialNotes]);
 
-  // Keyboard shortcut listener (ESC to go back)
+  // Keyboard shortcut listener (ESC to go back, Space/K for Play/Pause, J/L for -10/+10s, [/] for speed, T for Quick Tag)
   useEffect(() => {
     if (!isOpen) return;
 
@@ -230,12 +295,47 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
       if (e.key === 'Escape') {
         soundManager.playClick();
         onClose();
+        return;
+      }
+
+      // Do not trigger hotkeys if user is actively writing in textarea or input
+      const activeEl = document.activeElement;
+      const tag = activeEl?.tagName?.toLowerCase();
+      const isInput = tag === 'input' || tag === 'textarea' || (activeEl as HTMLElement)?.isContentEditable;
+      if (isInput) return;
+
+      if (e.code === 'Space' || e.key === 'k') {
+        e.preventDefault();
+        togglePlayPause();
+      } else if (e.key === 'j' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handleSkipSeconds(-10);
+      } else if (e.key === 'l' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleSkipSeconds(10);
+      } else if (e.key === '[') {
+        e.preventDefault();
+        const speeds = [0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
+        const idx = speeds.indexOf(playbackSpeed);
+        if (idx > 0) handleSetPlaybackRate(speeds[idx - 1]);
+      } else if (e.key === ']') {
+        e.preventDefault();
+        const speeds = [0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
+        const idx = speeds.indexOf(playbackSpeed);
+        if (idx < speeds.length - 1 && idx !== -1) handleSetPlaybackRate(speeds[idx + 1]);
+        else if (idx === -1) handleSetPlaybackRate(1.25);
+      } else if (e.key === 't' || e.key === 'b') {
+        e.preventDefault();
+        handleQuickTagCurrentTime();
+      } else if (e.key === 'm') {
+        e.preventDefault();
+        handleToggleMute();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, isPlaying, playbackSpeed, videoDuration]);
 
   // Draggable splitter listeners
   useEffect(() => {
@@ -326,6 +426,106 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
 
     const formatted = formatSecondsToTimestamp(seconds);
     showToast(`Jumped to lecture timestamp ⏱️ [${formatted}]`);
+  };
+
+  const sendPlayerCommand = (func: string, args: any[] = []) => {
+    if (playerRef.current && typeof playerRef.current[func] === 'function') {
+      try {
+        playerRef.current[func](...args);
+        return;
+      } catch {}
+    }
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func, args }),
+          '*'
+        );
+      } catch {}
+    }
+  };
+
+  const togglePlayPause = () => {
+    soundManager.playClick();
+    if (isPlaying) {
+      sendPlayerCommand('pauseVideo');
+      setIsPlaying(false);
+      showToast('Video Paused ⏸️ (Press Space to resume)');
+    } else {
+      sendPlayerCommand('playVideo');
+      setIsPlaying(true);
+      showToast('Video Playing ▶️');
+    }
+  };
+
+  const handleSkipSeconds = (deltaSeconds: number) => {
+    soundManager.playClick();
+    const cur = getCurrentTimeSeconds();
+    const target = Math.max(0, cur + deltaSeconds);
+    handleSeekTo(target);
+    showToast(deltaSeconds > 0 ? `+${deltaSeconds}s Skip ⏩` : `${deltaSeconds}s Rewind ⏪`);
+  };
+
+  const handleSetPlaybackRate = (rate: number) => {
+    soundManager.playClick();
+    sendPlayerCommand('setPlaybackRate', [rate]);
+    setPlaybackSpeed(rate);
+    showToast(`Playback speed set to ${rate}x ⚡`);
+  };
+
+  const handleToggleMute = () => {
+    soundManager.playClick();
+    if (isMuted) {
+      sendPlayerCommand('unMute');
+      setIsMuted(false);
+      showToast('Audio Unmuted 🔊');
+    } else {
+      sendPlayerCommand('mute');
+      setIsMuted(true);
+      showToast('Audio Muted 🔇');
+    }
+  };
+
+  const handleToggleLoop = () => {
+    soundManager.playClick();
+    const cur = getCurrentTimeSeconds();
+    if (!isLooping) {
+      if (loopPointA === null) {
+        setLoopPointA(cur);
+        showToast(`Point A set at [${formatSecondsToTimestamp(cur)}] ⏱️ Play ahead & click again to set Point B`);
+      } else if (loopPointB === null) {
+        if (cur <= loopPointA) {
+          showToast(`Point B must be ahead of Point A! ⚠️`);
+          return;
+        }
+        setLoopPointB(cur);
+        setIsLooping(true);
+        handleSeekTo(loopPointA);
+        showToast(`A-B Loop Active! [${formatSecondsToTimestamp(loopPointA)} ➔ ${formatSecondsToTimestamp(cur)}] 🔁`);
+      }
+    } else {
+      setIsLooping(false);
+      setLoopPointA(null);
+      setLoopPointB(null);
+      showToast(`A-B Loop Cleared ✓`);
+    }
+  };
+
+  const handleClearLoop = () => {
+    soundManager.playClick();
+    setIsLooping(false);
+    setLoopPointA(null);
+    setLoopPointB(null);
+    showToast(`A-B Loop Cleared ✓`);
+  };
+
+  const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!videoDuration || videoDuration <= 0) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+    const targetSeconds = Math.floor(percentage * videoDuration);
+    handleSeekTo(targetSeconds);
   };
 
   const handleInsertTimestampToNotes = (timeLabel: string, title?: string) => {
@@ -624,6 +824,20 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
               </button>
             )
           )}
+          {/* Keyboard Shortcuts Quick Helper Pill */}
+          <div
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#24283B] border border-[#292E42] text-[10px] font-mono text-[#787C99]"
+            title="Keyboard Shortcuts: Space=Play/Pause, J/L=-10/+10s, [/]=Speed, T=Tag Bookmark"
+          >
+            <span className="font-bold text-red-400">⌨️ Shortcuts:</span>
+            <span>Space</span>
+            <span>•</span>
+            <span>J / L (±10s)</span>
+            <span>•</span>
+            <span>[ / ] (Speed)</span>
+            <span>•</span>
+            <span>T (Tag)</span>
+          </div>
 
           <button
             onClick={handleManualSave}
@@ -726,6 +940,200 @@ export const SplitScreenLectureStudyModal: React.FC<SplitScreenLectureStudyModal
                   <p className="text-sm font-bold">No Lecture Video Selected</p>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* 🎬 EXTERNAL VIDEO HUD & PLAYBACK CONTROL BAR */}
+          {!isCurrentTelegram && currentLecture && (
+            <div className="bg-[#1A1D2B] border-b border-[#292E42] px-3.5 py-2.5 flex flex-col gap-2 shrink-0 select-none shadow-md">
+              {/* 1. Timeline Scrubber & Elapsed/Total Duration */}
+              <div className="flex items-center gap-2.5">
+                <span className="text-[11px] font-mono font-bold text-red-400 tabular-nums shrink-0 min-w-[50px]">
+                  {formatSecondsToTimestamp(currentVideoTime || seekSeconds || 0)}
+                </span>
+
+                {/* Scrubber Progress Bar */}
+                <div
+                  onClick={handleScrubberClick}
+                  className="flex-1 h-2 rounded-full bg-[#10121A] hover:h-3 transition-all relative cursor-pointer overflow-visible border border-[#292E42] group"
+                  title={videoDuration > 0 ? "Click to seek anywhere in lecture timeline" : "Playback timeline"}
+                >
+                  {/* Filled Progress */}
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 transition-all relative"
+                    style={{
+                      width: videoDuration > 0
+                        ? `${Math.min(100, Math.max(0, ((currentVideoTime || seekSeconds || 0) / videoDuration) * 100))}%`
+                        : '0%'
+                    }}
+                  >
+                    {/* Glowing Scrubber Thumb */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow-[0_0_10px_rgba(239,68,68,0.9)] border border-red-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+
+                  {/* A-B Loop Range Highlight if active */}
+                  {loopPointA !== null && videoDuration > 0 && (
+                    <div
+                      className="absolute top-0 bottom-0 bg-amber-400/35 border-x border-amber-400 pointer-events-none rounded-sm"
+                      style={{
+                        left: `${(loopPointA / videoDuration) * 100}%`,
+                        width: `${Math.max(
+                          2,
+                          (((loopPointB !== null ? loopPointB : (currentVideoTime || 0)) - loopPointA) / videoDuration) * 100
+                        )}%`
+                      }}
+                    />
+                  )}
+
+                  {/* Timestamp Bookmark Pins along timeline */}
+                  {videoDuration > 0 && combinedTimestamps.map((ts, idx) => {
+                    const pct = Math.min(100, Math.max(0, (ts.timeSeconds / videoDuration) * 100));
+                    return (
+                      <div
+                        key={idx}
+                        style={{ left: `${pct}%` }}
+                        className="absolute top-0 bottom-0 w-1 bg-yellow-400/80 rounded-full hover:w-1.5 hover:bg-yellow-300 transition-all pointer-events-none"
+                        title={`${ts.timeLabel} • ${ts.title}`}
+                      />
+                    );
+                  })}
+                </div>
+
+                <span className="text-[11px] font-mono text-[#858B9E] tabular-nums shrink-0 min-w-[50px] text-right">
+                  {videoDuration > 0 ? formatSecondsToTimestamp(videoDuration) : '--:--'}
+                </span>
+              </div>
+
+              {/* 2. Controls Row: Play/Pause, -10s, +10s, Speed Pills, A-B Loop, Mute */}
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                {/* Left Cluster: Play/Pause, Rewind, Fast Forward, Mute */}
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {/* Rewind 10s */}
+                  <button
+                    type="button"
+                    onClick={() => handleSkipSeconds(-10)}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#24283B] hover:bg-red-500/20 text-[#C0CAF5] hover:text-white border border-[#292E42] hover:border-red-500/40 text-xs font-mono font-bold transition-all active:scale-95 cursor-pointer shadow-xs"
+                    title="Rewind 10 seconds (J or ←)"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-red-400" />
+                    <span>-10s</span>
+                  </button>
+
+                  {/* Play / Pause Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={togglePlayPause}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer ${
+                      isPlaying
+                        ? 'bg-red-600 hover:bg-red-500 text-white'
+                        : 'bg-emerald-600 hover:bg-emerald-500 text-white animate-pulse'
+                    }`}
+                    title={isPlaying ? "Pause Video (Space or K)" : "Play Video (Space or K)"}
+                  >
+                    {isPlaying ? (
+                      <>
+                        <Pause className="w-3.5 h-3.5 fill-current" />
+                        <span>Pause</span>
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span>Play</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Forward 10s */}
+                  <button
+                    type="button"
+                    onClick={() => handleSkipSeconds(10)}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#24283B] hover:bg-red-500/20 text-[#C0CAF5] hover:text-white border border-[#292E42] hover:border-red-500/40 text-xs font-mono font-bold transition-all active:scale-95 cursor-pointer shadow-xs"
+                    title="Forward 10 seconds (L or →)"
+                  >
+                    <span>+10s</span>
+                    <RotateCw className="w-3.5 h-3.5 text-red-400" />
+                  </button>
+
+                  {/* Audio Mute / Unmute */}
+                  <button
+                    type="button"
+                    onClick={handleToggleMute}
+                    className={`p-1.5 rounded-xl border transition-all cursor-pointer ${
+                      isMuted
+                        ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                        : 'bg-[#24283B] hover:bg-[#292E42] border-[#292E42] text-[#A9B1D6] hover:text-white'
+                    }`}
+                    title={isMuted ? "Unmute Audio (M)" : "Mute Audio (M)"}
+                  >
+                    {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+
+                {/* Center Cluster: Playback Speed Pills */}
+                <div className="flex items-center gap-1 p-0.5 rounded-xl bg-[#12141F] border border-[#292E42]">
+                  <span className="hidden sm:inline text-[9px] font-mono font-bold text-[#787C99] px-1.5 uppercase">Speed</span>
+                  {[0.75, 1.0, 1.25, 1.5, 1.75, 2.0].map((rate) => {
+                    const isActive = Math.abs(playbackSpeed - rate) < 0.05;
+                    return (
+                      <button
+                        key={rate}
+                        type="button"
+                        onClick={() => handleSetPlaybackRate(rate)}
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-red-600 text-white shadow-xs'
+                            : 'text-[#858B9E] hover:text-white hover:bg-[#24283B]'
+                        }`}
+                        title={`Set playback speed to ${rate}x ([ or ])`}
+                      >
+                        {rate}x
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Right Cluster: A-B Concept Loop Mode */}
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={handleToggleLoop}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer active:scale-95 shadow-xs ${
+                      isLooping
+                        ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.3)] animate-pulse'
+                        : loopPointA !== null
+                        ? 'bg-blue-500/20 border-blue-500/50 text-blue-300'
+                        : 'bg-[#24283B] hover:bg-[#292E42] border-[#292E42] text-[#A9B1D6] hover:text-white'
+                    }`}
+                    title={
+                      isLooping
+                        ? `Looping [${formatSecondsToTimestamp(loopPointA!)} - ${formatSecondsToTimestamp(loopPointB!)}] • Click to stop`
+                        : loopPointA !== null
+                        ? `Point A set at [${formatSecondsToTimestamp(loopPointA)}] • Click to set Point B`
+                        : 'Repeat Concept: Loop video between two points (A-B)'
+                    }
+                  >
+                    <Repeat className="w-3.5 h-3.5" />
+                    <span>
+                      {isLooping
+                        ? `Loop: [${formatSecondsToTimestamp(loopPointA!)} - ${formatSecondsToTimestamp(loopPointB!)}]`
+                        : loopPointA !== null
+                        ? `Set Point B (A: ${formatSecondsToTimestamp(loopPointA)})`
+                        : 'A-B Loop'}
+                    </span>
+                  </button>
+
+                  {isLooping && (
+                    <button
+                      type="button"
+                      onClick={handleClearLoop}
+                      className="p-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs cursor-pointer transition-colors"
+                      title="Clear A-B Loop"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
