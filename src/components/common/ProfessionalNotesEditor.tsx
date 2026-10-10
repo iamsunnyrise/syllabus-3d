@@ -854,6 +854,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const [isFocusRulerActive, setIsFocusRulerActive] = useState<boolean>(false);
   const [focusRulerY, setFocusRulerY] = useState<number>(250);
   const [isTocOpen, setIsTocOpen] = useState<boolean>(false);
+  const [showAppearanceMenu, setShowAppearanceMenu] = useState<boolean>(false);
   const [readingProgress, setReadingProgress] = useState<number>(0);
 
   // ----------------------------------------------------------------------------------
@@ -1027,7 +1028,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         setTimeout(() => setSaveSuccess(false), 2000);
       }
       if (e.key === 'Escape') {
-        if (showQuizImportModal) {
+        if (showAppearanceMenu) {
+          setShowAppearanceMenu(false);
+          soundManager.playClick();
+        } else if (showQuizImportModal) {
           setShowQuizImportModal(false);
           soundManager.playClick();
         } else if (isTocOpen) {
@@ -1042,6 +1046,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         }
       }
       const isTyping = document.activeElement?.tagName === 'TEXTAREA' || document.activeElement?.tagName === 'INPUT';
+      if ((e.key === 'a' || e.key === 'A') && isFullscreen && !isTyping) {
+        e.preventDefault();
+        setShowAppearanceMenu(prev => !prev);
+        soundManager.playClick();
+      }
       if ((e.key === 'z' || e.key === 'Z') && isFullscreen && !isTyping) {
         e.preventDefault();
         setIsZenMode(prev => !prev);
@@ -2209,6 +2218,25 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     }
   };
 
+  const getFullscreenOuterThemeStyle = (): React.CSSProperties => {
+    switch (readerTheme) {
+      case 'sepia':
+        return { backgroundColor: '#EDE0C8', color: '#3C2E1E' };
+      case 'sage':
+        return { backgroundColor: '#DFECE0', color: '#1F3824' };
+      case 'candle':
+        return { backgroundColor: '#281B10', color: '#F9E2CA' };
+      case 'oled':
+      case 'midnight':
+        return { backgroundColor: '#000000', color: '#FFFFFF' };
+      case 'paper':
+      default:
+        return isDarkTheme
+          ? { backgroundColor: '#090A10', color: '#FFFFFF' }
+          : { backgroundColor: '#F1F5F9', color: '#0F172A' };
+    }
+  };
+
   const getSpacingConfig = () => {
     switch (readerLineHeight) {
       case 'compact':
@@ -3151,40 +3179,66 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         const currentIndex = renderedHeadingIndex++;
 
         if (hashCount === 1) {
+          const isWarm = readerTheme === 'sepia' || readerTheme === 'candle';
+          const isSage = readerTheme === 'sage';
+          const h1Bar = isDarkTheme ? 'bg-[#7AA2F7]' : isWarm ? 'bg-amber-600' : isSage ? 'bg-emerald-600' : 'bg-[#2563EB]';
+          const h1Border = isDarkTheme ? 'border-[#7AA2F7]/50' : isWarm ? 'border-amber-700/25' : isSage ? 'border-emerald-700/25' : 'border-[#2563EB]/30';
+          const h1Color = isDarkTheme ? '#FFFFFF' : isWarm ? '#26170A' : isSage ? '#14331B' : '#0F172A';
+
           elements.push(
             <h1
               key={i}
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 preserve-color ${
-                isDarkTheme ? 'border-[#7AA2F7]/50 text-white' : 'border-[#2563EB]/30 text-slate-900'
-              } flex items-center gap-2.5 tracking-tight scroll-mt-28 [break-inside:avoid]`}
-              style={{ color: isDarkTheme ? '#FFFFFF' : '#0F172A' }}
+              className={`${fontFam} text-xl sm:text-2xl font-black ${spacing.h1Margin} border-b-2 ${h1Border} preserve-color flex items-center gap-2.5 tracking-tight scroll-mt-28 [break-inside:avoid]`}
+              style={{ color: h1Color }}
             >
-              <span className={`w-1.5 h-6 rounded-full inline-block shrink-0 ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'}`} />
+              <span className={`w-1.5 h-6 rounded-full inline-block shrink-0 ${h1Bar}`} />
               <span>{parseInlineMarkdown(rawHeading, `h1-${i}`)}</span>
             </h1>
           );
         } else if (hashCount === 2) {
           // 🌟 2nd Headings in Callout Card Style (User request: "2nd Headings callout me ho")
+          const isWarm = readerTheme === 'sepia' || readerTheme === 'candle';
+          const isSage = readerTheme === 'sage';
+          const cardStyleClass = isDarkTheme
+            ? 'border-indigo-500/40 border-l-4 border-l-indigo-400 bg-gradient-to-r from-indigo-950/80 via-[#161726]/80 to-[#11121A]/80 shadow-md'
+            : isWarm
+            ? 'border-amber-700/25 border-l-4 border-l-amber-600 bg-amber-500/10 shadow-xs'
+            : isSage
+            ? 'border-emerald-700/25 border-l-4 border-l-emerald-600 bg-emerald-500/10 shadow-xs'
+            : 'border-indigo-200/90 border-l-4 border-l-indigo-600 bg-gradient-to-r from-indigo-50/90 via-blue-50/40 to-white/30 shadow-xs';
+
+          const accentPillClass = isDarkTheme
+            ? 'bg-indigo-400'
+            : isWarm
+            ? 'bg-amber-600'
+            : isSage
+            ? 'bg-emerald-600'
+            : 'bg-indigo-600';
+
+          const headingColor = isDarkTheme
+            ? '#FFFFFF'
+            : isWarm
+            ? '#3A200A'
+            : isSage
+            ? '#14331B'
+            : '#1E1B4B';
+
           elements.push(
             <div
               key={i}
               id={headingId}
               data-heading-id={headingId}
               data-heading-index={currentIndex}
-              className={`${spacing.h2Margin} rounded-2xl border ${
-                isDarkTheme
-                  ? 'border-indigo-500/40 border-l-4 border-l-indigo-400 bg-gradient-to-r from-indigo-950/80 via-[#161726]/80 to-[#11121A]/80 shadow-md'
-                  : 'border-indigo-200/90 border-l-4 border-l-indigo-600 bg-gradient-to-r from-indigo-50/90 via-blue-50/40 to-white/30 shadow-xs'
-              } p-3.5 sm:p-4 scroll-mt-28 [break-inside:avoid]`}
+              className={`${spacing.h2Margin} rounded-2xl border ${cardStyleClass} py-2.5 px-3.5 sm:px-4 scroll-mt-28 [break-inside:avoid]`}
             >
-              <div className="flex items-center gap-3">
-                <span className={`w-2 h-5 sm:h-6 rounded-full shrink-0 ${isDarkTheme ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <span className={`w-1.5 sm:w-2 h-5 rounded-full shrink-0 ${accentPillClass}`} />
                 <h2
-                  className={`${fontFam} text-base sm:text-lg font-black preserve-color ${isDarkTheme ? 'text-white' : 'text-indigo-950'} flex-1 leading-snug tracking-tight m-0`}
-                  style={{ color: isDarkTheme ? '#FFFFFF' : '#1E1B4B' }}
+                  className={`${fontFam} text-base sm:text-lg font-black preserve-color flex-1 leading-snug tracking-tight m-0`}
+                  style={{ color: headingColor }}
                 >
                   {parseInlineMarkdown(rawHeading, `h2-${i}`)}
                 </h2>
@@ -3294,16 +3348,20 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       // 6. Bullet lists
       else if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
         const rawBullet = line.trim().substring(2);
+        const isWarm = readerTheme === 'sepia' || readerTheme === 'candle';
+        const isSage = readerTheme === 'sage';
+        const bulletDotBg = isDarkTheme ? 'bg-[#7AA2F7]' : isWarm ? 'bg-amber-600' : isSage ? 'bg-emerald-600' : 'bg-[#2563EB]';
+
         elements.push(
           <div
             key={i}
             style={spacing.listItemStyle}
             className={`flex items-start ${spacing.listItemGap} ${spacing.listItemMargin} pl-1`}
           >
-            <span className={`w-[5px] h-[5px] rounded-full ${isDarkTheme ? 'bg-[#7AA2F7]' : 'bg-[#2563EB]'} ${spacing.bulletDotMt} shrink-0`} />
+            <span className={`w-[5px] h-[5px] rounded-full ${bulletDotBg} ${spacing.bulletDotMt} shrink-0`} />
             <div
-              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : '#1E293B' }}
-              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#F8FAFC]' : 'text-[#1E293B]'} reading-column ${
+              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : isWarm ? '#3E2B1A' : isSage ? '#1F3824' : '#1E293B' }}
+              className={`${fontSize} ${fontFam} font-medium reading-column ${
                 readerWidth !== 'normal' ? 'max-w-none' : 'max-w-[72ch]'
               } ${spacing.lineHeightClass}`}
             >
@@ -3317,6 +3375,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         const numMatch = line.trim().match(/^\s*(\d+)\.\s+(.*)$/);
         const num = numMatch ? numMatch[1] : '1';
         const numText = numMatch ? numMatch[2] : line.trim();
+        const isWarm = readerTheme === 'sepia' || readerTheme === 'candle';
+        const isSage = readerTheme === 'sage';
+        const numBadgeStyle = isDarkTheme
+          ? 'bg-slate-800 text-slate-300'
+          : isWarm
+          ? 'bg-amber-100/80 text-amber-900 border border-amber-300/60'
+          : isSage
+          ? 'bg-emerald-100/80 text-emerald-900 border border-emerald-300/60'
+          : 'bg-slate-100 text-slate-600';
 
         elements.push(
           <div
@@ -3324,12 +3391,12 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             style={spacing.listItemStyle}
             className={`flex items-start ${spacing.listItemGap} ${spacing.listItemMargin} pl-1`}
           >
-            <span className={`w-5 h-5 rounded-full ${isDarkTheme ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'} text-[11px] font-mono font-bold flex items-center justify-center shrink-0 mt-0.5`}>
+            <span className={`w-5 h-5 rounded-full ${numBadgeStyle} text-[11px] font-mono font-bold flex items-center justify-center shrink-0 mt-0.5`}>
               {num}.
             </span>
             <div
-              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : '#1E293B' }}
-              className={`${fontSize} ${fontFam} font-medium ${isDarkTheme ? 'text-[#F8FAFC]' : 'text-[#1E293B]'} reading-column ${
+              style={{ lineHeight: spacing.lineHeight, color: isDarkTheme ? '#F8FAFC' : isWarm ? '#3E2B1A' : isSage ? '#1F3824' : '#1E293B' }}
+              className={`${fontSize} ${fontFam} font-medium reading-column ${
                 readerWidth !== 'normal' ? 'max-w-none' : 'max-w-[72ch]'
               } ${spacing.lineHeightClass}`}
             >
@@ -3426,15 +3493,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         }}
       >
         {/* Book Editorial Running Header */}
-        <div className={`flex items-center justify-between pb-3.5 mb-6 border-b ${
-          isDarkTheme ? 'border-slate-800 text-[#94A3B8]' : 'border-slate-200/60 text-[#65675F]'
-        } text-[11px] sm:text-xs font-serif uppercase tracking-widest select-none [break-inside:avoid] print:hidden`}>
+        <div className={`flex items-center justify-between pb-3 mb-6 border-b ${
+          isDarkTheme ? 'border-slate-800 text-[#94A3B8]' : 'border-black/10 dark:border-white/10 text-slate-500'
+        } text-[11px] sm:text-xs select-none [break-inside:avoid] print:hidden`}>
           <div className="flex items-center gap-2 truncate">
-            <span className="font-bold text-amber-600 dark:text-amber-400">§ CHAPTER STUDY</span>
-            <span>•</span>
-            <span className="truncate">{subjectName || 'General'} / {chapterName || topicName}</span>
+            <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold tracking-wider text-[10px] uppercase font-mono">
+              § CHAPTER STUDY
+            </span>
+            <span className="text-slate-400">•</span>
+            <span className="truncate font-semibold tracking-wide text-slate-700 dark:text-slate-300">
+              {subjectName || 'General'} / {chapterName || topicName}
+            </span>
           </div>
-          <div className="flex items-center gap-3 shrink-0 tabular-nums font-mono text-[10px]">
+          <div className="flex items-center gap-2 shrink-0 tabular-nums font-mono text-[10px] text-slate-500 dark:text-slate-400">
             <span>⏱️ {estimatedReadTime} min read</span>
             <span>•</span>
             <span>{totalWordCount} words</span>
@@ -3859,14 +3930,21 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
     return createPortal(
       <div
-        className={`fixed inset-0 z-[150] ${
-          isDarkTheme ? 'bg-[#000000] text-[#FFFFFF]' : 'bg-[#F8FAFC] dark:bg-[#0B0B0E] text-[#11120F] dark:text-[#F5F5F7]'
-        } flex flex-col animate-fade-in`}
+        className="fixed inset-0 z-[150] flex flex-col animate-fade-in transition-colors duration-300"
+        style={getFullscreenOuterThemeStyle()}
         onMouseUp={handleMouseUpSelection}
         onTouchEnd={handleMouseUpSelection}
       >
+        {/* Click outside to dismiss Appearance Popover */}
+        {showAppearanceMenu && (
+          <div
+            className="fixed inset-0 z-[185]"
+            onClick={() => setShowAppearanceMenu(false)}
+          />
+        )}
+
         {/* Top Reading Progress Bar (Smooth Gradient across page) */}
-        <div className="w-full h-[3px] bg-slate-200 dark:bg-slate-800 shrink-0 relative overflow-hidden z-[160]">
+        <div className="w-full h-[3px] bg-slate-200/50 dark:bg-slate-800 shrink-0 relative overflow-hidden z-[160]">
           <div
             className="h-full bg-gradient-to-r from-amber-500 via-[#2563EB] to-emerald-500 transition-all duration-150 ease-out"
             style={{ width: `${readingProgress}%` }}
@@ -3976,323 +4054,355 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {/* Fullscreen Zen Header Bar (Hides smoothly when isZenMode is true) */}
         {!isZenMode && (
           <div className={`border-b ${
-            isDarkTheme
+            readerTheme === 'sepia' || readerTheme === 'candle'
+              ? 'border-[#DEC4A5]/70 bg-[#F4E6C8]/90 text-[#3E2B1A]'
+              : readerTheme === 'sage'
+              ? 'border-[#BED9BC]/70 bg-[#DCEDDC]/90 text-[#1A3820]'
+              : readerTheme === 'oled'
+              ? 'border-white/10 bg-[#000000]/95 text-white'
+              : isDarkTheme
               ? 'border-white/10 bg-[#0C0D14]/95 text-white'
-              : 'border-[#E2E8F0] dark:border-[#272730] bg-white/85 dark:bg-[#12131C]/90 text-[#11120F] dark:text-white'
+              : 'border-[#E2E8F0] bg-white/90 text-[#11120F]'
           } backdrop-blur-md shrink-0 shadow-xs animate-fade-in`}>
 
             {/* --- DESKTOP / TABLET HEADER (Hidden on mobile) --- */}
-            <div className="hidden sm:flex flex-col gap-2 px-4 sm:px-6 py-2.5">
-              <div className="flex items-center justify-between gap-3">
-                {/* Breadcrumb & Title */}
+            <div className="hidden sm:flex flex-col gap-2 px-4 sm:px-6 py-2">
+              {/* Row 1: Back + Breadcrumb/Title + Action Cluster (Single Sleek Row) */}
+              <div className="flex items-center justify-between gap-3 min-w-0">
+                {/* Left: Back & Title */}
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] dark:from-[#7AA2F7] dark:to-[#415C9E] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
-                    <BookOpen className="w-4 h-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className={`flex items-center gap-2 text-[11px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono`}>
-                      <span>{subjectName || 'Subject'}</span>
-                      <span>•</span>
-                      <span className="truncate">{chapterName || 'Chapter'}</span>
-                    </div>
-                    <h2 className={`text-sm sm:text-base font-black truncate ${getFontFamilyClass()}`}>
-                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
-                    </h2>
-                  </div>
-                </div>
-
-                {/* Reader View & Customization Controls */}
-                <div className="flex items-center gap-2 flex-wrap">
-                  {/* 👁️ PURE NOTES ONLY / ZEN BUTTON */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playCompleteChime();
-                      setIsZenMode(true);
-                    }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black transition-all active:scale-95 cursor-pointer shadow-sm"
-                    title="Hide All Header Buttons & Top Bars (Pure Notes Only - Press Z)"
-                  >
-                    <EyeOff className="w-3.5 h-3.5" />
-                    <span>Pure Notes Only</span>
-                  </button>
-
-                  {/* 🔤 Font Family Selector */}
-                  <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectFont('serif')}
-                      className={`px-2.5 py-1 rounded-lg transition-all font-serif ${
-                        readerFontFamily === 'serif'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                          : 'text-[#65675F] dark:text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Book Serif Typography (Lora)"
-                    >
-                      📖 Book Serif
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectFont('sans')}
-                      className={`px-2.5 py-1 rounded-lg transition-all font-sans ${
-                        readerFontFamily === 'sans'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                          : 'text-[#65675F] dark:text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Modern Sans Typography (Plus Jakarta / Inter)"
-                    >
-                      🏛️ Sans
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectFont('handwritten')}
-                      className={`px-2.5 py-1 rounded-lg transition-all font-handwritten text-[13px] ${
-                        readerFontFamily === 'handwritten'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-bold'
-                          : 'text-[#65675F] dark:text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Authentic Handwritten Student Notes (Kalam / Caveat)"
-                    >
-                      ✍️ Handwritten
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectFont('lexend')}
-                      className={`hidden sm:inline-block px-2.5 py-1 rounded-lg transition-all font-lexend ${
-                        readerFontFamily === 'lexend'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                          : 'text-[#65675F] dark:text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Fast Reading Geometric Typography (Lexend)"
-                    >
-                      ⚡ Fast Read
-                    </button>
-                  </div>
-
-                  {/* 🎨 Eye-Care Theme Switcher (Paper, Sepia, Sage, Candle, OLED) */}
-                  <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F1F5F9] dark:bg-[#151620] border-[#CBD5E1] dark:border-[#272738]'} p-1 rounded-xl border text-xs font-bold shadow-xs`}>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectTheme('paper')}
-                      className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                        readerTheme === 'paper' || readerTheme === 'default'
-                          ? 'bg-white dark:bg-[#252838] text-slate-900 dark:text-white shadow-sm border border-slate-300 dark:border-white/20 font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
-                      }`}
-                      title="Paper White (Day Study)"
-                    >
-                      📄 Paper
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectTheme('sepia')}
-                      className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                        readerTheme === 'sepia'
-                          ? 'bg-[#F4E6C8] dark:bg-[#3D2C1C] text-[#3E2B1A] dark:text-[#F3E3CE] shadow-sm border border-[#DEC4A5] dark:border-[#6B4B2E] font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-[#3E2B1A] dark:hover:text-[#F3E3CE] hover:bg-[#F4E6C8]/40 dark:hover:bg-[#3D2C1C]/40'
-                      }`}
-                      title="Warm Kindle Sepia (Eye Comfort)"
-                    >
-                      📜 Sepia
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectTheme('sage')}
-                      className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                        readerTheme === 'sage'
-                          ? 'bg-[#DCEDDC] dark:bg-[#1A3320] text-[#1A3820] dark:text-[#E0F2E2] shadow-sm border border-[#BED9BC] dark:border-[#35613B] font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-[#1A3820] dark:hover:text-[#E0F2E2] hover:bg-[#DCEDDC]/40 dark:hover:bg-[#1A3320]/40'
-                      }`}
-                      title="Sage Mint (Eye Fatigue Relief)"
-                    >
-                      🌿 Sage
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectTheme('candle')}
-                      className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                        readerTheme === 'candle'
-                          ? 'bg-[#F7E6D0] dark:bg-[#3D2614] text-[#3F2510] dark:text-[#F9E2CA] shadow-sm border border-[#E0C5A3] dark:border-[#6C4221] font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-[#3F2510] dark:hover:text-[#F9E2CA] hover:bg-[#F7E6D0]/40 dark:hover:bg-[#3D2614]/40'
-                      }`}
-                      title="Candlelight Amber (Night Study)"
-                    >
-                      🕯️ Candle
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectTheme('oled')}
-                      className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 ${
-                        readerTheme === 'oled' || readerTheme === 'midnight'
-                          ? 'bg-black text-white shadow-sm border border-black dark:border-white/30 font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10'
-                      }`}
-                      title="Pitch Dark OLED (AMOLED)"
-                    >
-                      🖤 OLED
-                    </button>
-                  </div>
-
-                  {/* 📖 Book Spread Layout Selector */}
-                  <div className={`hidden md:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setReaderLayout('single');
-                        localStorage.setItem('syllabus3d_reader_layout', 'single');
-                        soundManager.playClick();
-                      }}
-                      className={`px-2 py-1 rounded-lg transition-all cursor-pointer ${
-                        readerLayout === 'single'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                          : 'text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Single Continuous Page"
-                    >
-                      📄 1-Page
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setReaderLayout('spread');
-                        localStorage.setItem('syllabus3d_reader_layout', 'spread');
-                        soundManager.playClick();
-                      }}
-                      className={`px-2 py-1 rounded-lg transition-all cursor-pointer ${
-                        readerLayout === 'spread'
-                          ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs'
-                          : 'text-[#85877E] hover:text-[#11120F]'
-                      }`}
-                      title="Kindle / Book Dual-Column Spread"
-                    >
-                      📖 Spread
-                    </button>
-                  </div>
-
-                  {/* Line Spacing / Leading Selector */}
-                  <div className={`hidden xl:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} p-1 rounded-xl border text-xs font-bold`}>
-                    <span className="text-[10px] text-[#85877E] px-1 font-mono">Spacing:</span>
-                    {(['compact', 'relaxed', 'spacious'] as ReaderLineHeight[]).map(lh => (
-                      <button
-                        key={lh}
-                        type="button"
-                        onClick={() => {
-                          setReaderLineHeight(lh);
-                          localStorage.setItem('syllabus3d_reader_line_height', lh);
-                          soundManager.playClick();
-                        }}
-                        className={`px-2 py-0.5 rounded capitalize text-[11px] cursor-pointer transition-all active:scale-95 ${
-                          readerLineHeight === lh
-                            ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black shadow-xs font-black'
-                            : 'text-[#85877E] hover:text-[#11120F] dark:hover:text-white'
-                        }`}
-                        title={`Set line spacing to ${lh}`}
-                      >
-                        {lh}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Focus Reading Ruler Button */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setIsFocusRulerActive(prev => !prev);
-                    }}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                      isFocusRulerActive
-                        ? 'bg-amber-500 text-white border-amber-600 shadow-xs ring-2 ring-amber-400/40'
-                        : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730] text-slate-600 dark:text-slate-300 hover:text-amber-600'
-                    }`}
-                    title="Toggle Focus Reading Ruler (Press R)"
-                  >
-                    <Ruler className="w-3.5 h-3.5" />
-                    <span className="hidden xl:inline">Focus Ruler</span>
-                  </button>
-
-                  {/* Table of Contents Button */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setIsTocOpen(prev => !prev);
-                    }}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                      isTocOpen
-                        ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black border-transparent shadow-xs ring-2 ring-[#2563EB]/40'
-                        : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730] text-slate-600 dark:text-slate-300 hover:text-[#2563EB]'
-                    }`}
-                    title="Table of Contents (Jump to Headings - Press T)"
-                  >
-                    <List className="w-3.5 h-3.5" />
-                    <span>TOC</span>
-                  </button>
-
-                  {/* Font Size Adjuster (Visible on Mobile & Desktop) */}
-                  <div className={`flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10 text-white' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} px-2 py-1 rounded-xl border text-xs font-mono font-bold`}>
-                    <span className={`text-[11px] ${isDarkTheme ? 'text-slate-400' : 'text-[#85877E]'}`}>Size:</span>
-                    {(['sm', 'base', 'lg', 'xl'] as ReaderFontSize[]).map(size => (
-                      <button
-                        key={size}
-                        type="button"
-                        onClick={() => handleSelectFontSize(size)}
-                        className={`px-1.5 py-0.5 rounded uppercase cursor-pointer transition-all active:scale-95 ${
-                          readerFontSize === size ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black font-black shadow-xs' : isDarkTheme ? 'text-slate-400 hover:text-white' : 'text-[#85877E] hover:text-[#11120F] dark:hover:text-white'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Container Width Adjuster */}
-                  <div className={`hidden md:flex items-center gap-1 ${isDarkTheme ? 'bg-[#151622] border-white/10 text-white' : 'bg-[#F8FAFC] dark:bg-[#1C1D26] border-[#E2E8F0] dark:border-[#272730]'} px-2 py-1 rounded-xl border text-xs font-mono font-bold`}>
-                    <span className={`text-[11px] ${isDarkTheme ? 'text-slate-400' : 'text-[#85877E]'}`}>Width:</span>
-                    {(['normal', 'wide', 'full'] as ReaderWidth[]).map(w => (
-                      <button
-                        key={w}
-                        type="button"
-                        onClick={() => setReaderWidth(w)}
-                        className={`px-1.5 py-0.5 rounded capitalize ${
-                          readerWidth === w ? 'bg-[#2563EB] text-white dark:bg-[#7AA2F7] dark:text-black font-black shadow-xs' : isDarkTheme ? 'text-slate-400 hover:text-white' : 'text-[#85877E] hover:text-[#11120F]'
-                        }`}
-                      >
-                        {w}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* PDF Export */}
-                  <button
-                    type="button"
-                    onClick={handleExportPdf}
-                    className="p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#1C1D26] border border-[#E2E8F0] dark:border-[#272730] text-[#2563EB] dark:text-[#7AA2F7] hover:bg-[#2563EB]/15 cursor-pointer"
-                    title="Download / Print PDF"
-                  >
-                    <FileDown className="w-4 h-4" />
-                  </button>
-
-                  {/* Close / Exit Fullscreen */}
                   <button
                     type="button"
                     onClick={() => {
                       soundManager.playClick();
                       setIsFullscreen(false);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-600 hover:text-white border border-rose-500/20 text-xs font-black transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all active:scale-95 cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10"
                     title="Exit Fullscreen (ESC)"
                   >
-                    <Minimize2 className="w-3.5 h-3.5" />
-                    <span>Exit Fullscreen</span>
+                    <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <span>Back</span>
+                  </button>
+
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] dark:from-[#7AA2F7] dark:to-[#415C9E] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                    <BookOpen className="w-4 h-4" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <div className={`flex items-center gap-2 text-[10px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono`}>
+                      <span>{subjectName || 'Subject'}</span>
+                      <span>•</span>
+                      <span className="truncate">{chapterName || 'Chapter'}</span>
+                    </div>
+                    <h2 className={`text-xs sm:text-sm font-black truncate ${getFontFamilyClass()}`}>
+                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
+                    </h2>
+                  </div>
+                </div>
+
+                {/* Right: Consolidated Controls (Single, Non-wrapping Line!) */}
+                <div className="flex items-center gap-1.5 shrink-0 relative">
+                  {/* Quick Theme 5-Dots Switcher */}
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10" title="Quick Theme Switch">
+                    {[
+                      { id: 'paper', label: 'Paper', bg: 'bg-[#FAF9F6] border-slate-300' },
+                      { id: 'sepia', label: 'Sepia', bg: 'bg-[#F4E6C8] border-[#DEC4A5]' },
+                      { id: 'sage', label: 'Sage', bg: 'bg-[#DCEDDC] border-[#BED9BC]' },
+                      { id: 'candle', label: 'Candle', bg: 'bg-[#F7E6D0] border-[#E0C5A3]' },
+                      { id: 'oled', label: 'OLED', bg: 'bg-[#000000] border-white/40' }
+                    ].map(t => (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => handleSelectTheme(t.id as ReaderTheme)}
+                        className={`w-5 h-5 rounded-full border transition-all cursor-pointer ${t.bg} ${
+                          readerTheme === t.id ? 'ring-2 ring-blue-500 scale-110 shadow-sm' : 'opacity-70 hover:opacity-100 hover:scale-105'
+                        }`}
+                        title={`${t.label} Theme`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* 🔤 Aa Appearance Menu Toggle Button & Popover */}
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setShowAppearanceMenu(prev => !prev);
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                        showAppearanceMenu
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                          : 'bg-white dark:bg-[#1E1F2B] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:border-slate-300'
+                      }`}
+                      title="Typography & Appearance (Font, Size, Width, Layout)"
+                    >
+                      <Type className="w-3.5 h-3.5" />
+                      <span>Aa</span>
+                      <ChevronDown className={`w-3 h-3 transition-transform ${showAppearanceMenu ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {/* Floating Appearance Popover */}
+                    {showAppearanceMenu && (
+                      <div
+                        className="absolute top-full mt-2 right-0 z-[200] w-80 max-w-[calc(100vw-2rem)] p-4 rounded-3xl bg-white/95 dark:bg-[#151622]/95 backdrop-blur-xl border border-slate-200 dark:border-white/15 shadow-2xl flex flex-col gap-3.5 animate-scale-in text-slate-800 dark:text-slate-100"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-white/10">
+                          <span className="text-xs font-black uppercase tracking-wider font-mono text-slate-500 dark:text-slate-400">
+                            Reader Appearance
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setShowAppearanceMenu(false)}
+                            className="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        {/* Theme Selection */}
+                        <div className="space-y-1.5">
+                          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Theme</span>
+                          <div className="grid grid-cols-5 gap-1.5">
+                            {[
+                              { id: 'paper', name: 'Paper', bg: 'bg-[#FAF9F6]', text: 'text-slate-800', border: 'border-slate-300' },
+                              { id: 'sepia', name: 'Sepia', bg: 'bg-[#F4E6C8]', text: 'text-[#3E2B1A]', border: 'border-[#DEC4A5]' },
+                              { id: 'sage', name: 'Sage', bg: 'bg-[#DCEDDC]', text: 'text-[#1A3820]', border: 'border-[#BED9BC]' },
+                              { id: 'candle', name: 'Candle', bg: 'bg-[#F7E6D0]', text: 'text-[#3F2510]', border: 'border-[#E0C5A3]' },
+                              { id: 'oled', name: 'OLED', bg: 'bg-black', text: 'text-white', border: 'border-white/30' }
+                            ].map(t => (
+                              <button
+                                key={t.id}
+                                type="button"
+                                onClick={() => handleSelectTheme(t.id as ReaderTheme)}
+                                className={`flex flex-col items-center gap-1 p-1.5 rounded-xl border transition-all cursor-pointer ${t.bg} ${
+                                  readerTheme === t.id ? 'ring-2 ring-blue-500 font-black shadow-sm' : 'opacity-80 hover:opacity-100'
+                                }`}
+                              >
+                                <span className={`text-[10px] font-bold ${t.text}`}>{t.name}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Typography */}
+                        <div className="space-y-1.5">
+                          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Typography</span>
+                          <div className="grid grid-cols-2 gap-1.5">
+                            {[
+                              { id: 'serif', label: '📖 Book Serif', font: 'font-serif' },
+                              { id: 'sans', label: '🏛️ Modern Sans', font: 'font-sans' },
+                              { id: 'handwritten', label: '✍️ Handwritten', font: 'font-handwritten' },
+                              { id: 'lexend', label: '⚡ Fast Read', font: 'font-lexend' }
+                            ].map(f => (
+                              <button
+                                key={f.id}
+                                type="button"
+                                onClick={() => handleSelectFont(f.id as ReaderFontFamily)}
+                                className={`px-2.5 py-1.5 rounded-xl border text-xs font-bold text-left transition-all cursor-pointer ${f.font} ${
+                                  readerFontFamily === f.id
+                                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                                    : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                                }`}
+                              >
+                                {f.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Size & Width */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-1.5">
+                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Font Size</span>
+                            <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-xl border border-slate-200 dark:border-white/10">
+                              {(['sm', 'base', 'lg', 'xl'] as ReaderFontSize[]).map(size => (
+                                <button
+                                  key={size}
+                                  type="button"
+                                  onClick={() => handleSelectFontSize(size)}
+                                  className={`flex-1 py-1 rounded-lg uppercase text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                                    readerFontSize === size
+                                      ? 'bg-blue-600 text-white shadow-xs font-black'
+                                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                                  }`}
+                                >
+                                  {size}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Page Width</span>
+                            <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-xl border border-slate-200 dark:border-white/10">
+                              {(['normal', 'wide', 'full'] as ReaderWidth[]).map(w => (
+                                <button
+                                  key={w}
+                                  type="button"
+                                  onClick={() => setReaderWidth(w)}
+                                  className={`flex-1 py-1 rounded-lg capitalize text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                                    readerWidth === w
+                                      ? 'bg-blue-600 text-white shadow-xs font-black'
+                                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                                  }`}
+                                >
+                                  {w}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Layout & Spacing */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-1.5">
+                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Layout</span>
+                            <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-xl border border-slate-200 dark:border-white/10">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setReaderLayout('single');
+                                  localStorage.setItem('syllabus3d_reader_layout', 'single');
+                                  soundManager.playClick();
+                                }}
+                                className={`flex-1 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+                                  readerLayout === 'single' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                              >
+                                📄 1-Page
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setReaderLayout('spread');
+                                  localStorage.setItem('syllabus3d_reader_layout', 'spread');
+                                  soundManager.playClick();
+                                }}
+                                className={`flex-1 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+                                  readerLayout === 'spread' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                              >
+                                📖 Spread
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Line Spacing</span>
+                            <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-xl border border-slate-200 dark:border-white/10">
+                              {(['compact', 'relaxed', 'spacious'] as ReaderLineHeight[]).map(lh => (
+                                <button
+                                  key={lh}
+                                  type="button"
+                                  onClick={() => {
+                                    setReaderLineHeight(lh);
+                                    localStorage.setItem('syllabus3d_reader_line_height', lh);
+                                    soundManager.playClick();
+                                  }}
+                                  className={`flex-1 py-1 rounded-lg capitalize text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                                    readerLineHeight === lh
+                                      ? 'bg-blue-600 text-white shadow-xs font-black'
+                                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                                  }`}
+                                >
+                                  {lh[0].toUpperCase() + lh.slice(1, 4)}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 👁️ Zen / Pure Notes Only Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playCompleteChime();
+                      setIsZenMode(true);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-xs font-black transition-all active:scale-95 cursor-pointer shadow-xs"
+                    title="Pure Notes Only (Press Z)"
+                  >
+                    <EyeOff className="w-3.5 h-3.5" />
+                    <span>Pure Notes</span>
+                  </button>
+
+                  {/* 🖍️ Highlighter Tool Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIsHighlighterActive(prev => !prev);
+                    }}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      isHighlighterActive
+                        ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs'
+                        : 'bg-white dark:bg-[#1E1F2B] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'
+                    }`}
+                    title="Toggle Highlighter"
+                  >
+                    <Highlighter className="w-3.5 h-3.5" />
+                    <span className="hidden lg:inline">{isHighlighterActive ? 'Highlight' : 'Highlight'}</span>
+                  </button>
+
+                  {/* 📏 Focus Ruler Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIsFocusRulerActive(prev => !prev);
+                    }}
+                    className={`p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      isFocusRulerActive
+                        ? 'bg-amber-500 text-white border-amber-600 shadow-xs ring-2 ring-amber-400/40'
+                        : 'bg-white dark:bg-[#1E1F2B] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300'
+                    }`}
+                    title="Toggle Focus Reading Ruler (Press R)"
+                  >
+                    <Ruler className="w-3.5 h-3.5" />
+                  </button>
+
+                  {/* 📑 TOC Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIsTocOpen(prev => !prev);
+                    }}
+                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      isTocOpen
+                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs ring-2 ring-blue-400/40'
+                        : 'bg-white dark:bg-[#1E1F2B] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'
+                    }`}
+                    title="Table of Contents (Press T)"
+                  >
+                    <List className="w-3.5 h-3.5" />
+                    <span>TOC</span>
+                  </button>
+
+                  {/* 📥 PDF Download */}
+                  <button
+                    type="button"
+                    onClick={handleExportPdf}
+                    className="p-1.5 rounded-xl bg-white dark:bg-[#1E1F2B] border border-slate-200 dark:border-white/10 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 cursor-pointer"
+                    title="Download PDF"
+                  >
+                    <FileDown className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
 
-              {/* Note Pages Tab Strip in Fullscreen Mode */}
-              <div className="pt-1 flex items-center justify-between gap-3 flex-wrap">
-                <div className="flex-1">{renderNoteTabs(true)}</div>
-                <div>{renderHighlighterControlsWidget(false)}</div>
+              {/* Row 2: Note Tabs Track (Left) & Docked Highlighter Palette (Right, when active) */}
+              <div className="flex items-center justify-between gap-3 min-w-0">
+                <div className="flex-1 min-w-0">{renderNoteTabs(true)}</div>
+                {isHighlighterActive && (
+                  <div className="shrink-0 animate-fade-in">{renderHighlighterControlsWidget(false)}</div>
+                )}
               </div>
             </div>
 
