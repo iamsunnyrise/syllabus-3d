@@ -19,6 +19,8 @@ const PRESET_EXAMS = [
   { name: 'SSC MTS 2026', code: 'SSC_MTS', date: '2026-12-10', year: 2026 },
   { name: 'UPSC CSE 2027', code: 'UPSC_CSE', date: '2027-05-23', year: 2027 },
   { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-20', year: 2026 },
+  { name: 'IBPS Clerk 2026', code: 'IBPS_CLERK', date: '2026-12-14', year: 2026 },
+  { name: 'SBI PO 2026', code: 'SBI_PO', date: '2026-11-30', year: 2026 },
   { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-12-18', year: 2026 },
   { name: 'Railway Group D 2026', code: 'RRB_GROUP_D', date: '2026-11-15', year: 2026 },
   { name: 'Railway ALP 2026', code: 'RRB_ALP', date: '2026-12-28', year: 2026 },
@@ -53,7 +55,17 @@ const getPresetLogo = (codeOrName: string) => {
   ) {
     return '/exam-logos/railways.png';
   }
-  if (s.includes('bank') || s.includes('ibps') || s.includes('po')) return '/exam-logos/ibps.png';
+  if (
+    s.includes('bank') ||
+    s.includes('ibps') ||
+    s.includes('po') ||
+    s.includes('clerk') ||
+    s.includes('sbi') ||
+    s.includes('rbi') ||
+    s.includes('nabard')
+  ) {
+    return '/exam-logos/ibps.png';
+  }
   if (s.includes('nda') || s.includes('defence') || s.includes('cds')) return '/exam-logos/defence.webp';
   if (
     s.includes('upsc') ||

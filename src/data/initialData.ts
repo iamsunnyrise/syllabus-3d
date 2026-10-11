@@ -1425,6 +1425,28 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     subjects: INITIAL_BANKING_SUBJECTS
   },
   {
+    id: 'exam_ibps_clerk_2026',
+    name: 'IBPS Clerk 2026',
+    code: 'IBPS_CLERK',
+    targetYear: 2026,
+    examDate: '2026-12-14',
+    badge: 'Bank Clerical Cadre',
+    category: 'banking',
+    description: 'Numerical Ability, Reasoning Ability, English & Financial Awareness',
+    subjects: INITIAL_BANKING_SUBJECTS
+  },
+  {
+    id: 'exam_sbi_po_2026',
+    name: 'SBI PO 2026',
+    code: 'SBI_PO',
+    targetYear: 2026,
+    examDate: '2026-11-30',
+    badge: 'State Bank PO',
+    category: 'banking',
+    description: 'Data Analysis, Reasoning Puzzles, English, Banking & Current Affairs',
+    subjects: INITIAL_BANKING_SUBJECTS
+  },
+  {
     id: 'exam_rrb_ntpc_2026',
     name: 'Railway RRB NTPC 2026',
     code: 'RRB_NTPC',

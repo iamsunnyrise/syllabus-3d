@@ -115,18 +115,28 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
       };
     }
 
-    // 3) Banking & Financial Institutions (IBPS PO, Clerk, SBI, RBI, NABARD)
-    if (raw.includes('ibps') || raw.includes('bank') || raw.includes('sbi') || raw.includes('rbi') || raw.includes('po') || raw.includes('clerk') || raw.includes('nabard')) {
+    // 3) Banking & Financial Institutions (IBPS PO, IBPS Clerk, IBPS SO, IBPS RRB, SBI PO/Clerk, RBI Grade B/Assistant, NABARD)
+    if (
+      raw.includes('ibps') ||
+      raw.includes('bank') ||
+      raw.includes('sbi') ||
+      raw.includes('rbi') ||
+      raw.includes('po') ||
+      raw.includes('clerk') ||
+      raw.includes('nabard') ||
+      raw.includes('specialist officer') ||
+      raw.includes('office assistant')
+    ) {
       return {
         key: 'banking',
-        authorityName: 'Institute of Banking Personnel Selection',
+        authorityName: 'Institute of Banking Personnel Selection (IBPS)',
         hindiAuthority: 'बैंकिंग कार्मिक चयन संस्थान • IBPS',
         motto: 'प्रज्ञाविभावनम् • Speed, Accuracy & Financial Leadership',
         logoSrc: '/exam-logos/ibps.png',
-        badgeLabel: 'Banking & Financial Cadre Mission',
-        gradientBadge: 'from-sky-600 to-blue-600 text-white',
+        badgeLabel: 'Institute of Banking Personnel Selection (IBPS)',
+        gradientBadge: 'from-sky-600 via-blue-600 to-indigo-600 text-white',
         ambientGlow: 'bg-sky-500/10 dark:bg-sky-500/15',
-        borderColor: 'border-sky-200/80 dark:border-sky-500/20',
+        borderColor: 'border-sky-200/80 dark:border-sky-500/25',
         accentColor: '#0284C7'
       };
     }

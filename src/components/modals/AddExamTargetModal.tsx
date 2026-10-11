@@ -42,7 +42,17 @@ const getCatalogPresetLogo = (category: string, code: string) => {
   ) {
     return '/exam-logos/railways.png';
   }
-  if (category === 'banking' || c.includes('ibps')) return '/exam-logos/ibps.png';
+  if (
+    category === 'banking' ||
+    c.includes('ibps') ||
+    c.includes('bank') ||
+    c.includes('sbi') ||
+    c.includes('rbi') ||
+    c.includes('po') ||
+    c.includes('clerk')
+  ) {
+    return '/exam-logos/ibps.png';
+  }
   if (category === 'defence' || c.includes('nda')) return '/exam-logos/defence.webp';
   if (
     category === 'upsc' ||
