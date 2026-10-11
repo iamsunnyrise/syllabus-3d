@@ -113,7 +113,7 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
 
   return (
     <>
-      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3.5 relative overflow-hidden">
+      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3.5 relative overflow-hidden">
         
         {/* Top Header & Quick Actions */}
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06]">
@@ -146,7 +146,7 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
                 soundManager.playClick();
                 setIsHistoryModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#191C2C] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97]"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.06] hover:bg-slate-100 dark:hover:bg-white/[0.10] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/[0.08] text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97]"
               title="View past reflection journal"
             >
               <History className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
@@ -192,8 +192,8 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
                   target.completed
                     ? 'bg-emerald-500/[0.04] dark:bg-emerald-500/[0.06] border-emerald-500/35 shadow-xs'
                     : hasText
-                    ? `bg-slate-50/80 dark:bg-[#191C2C] border-slate-200/80 dark:border-white/[0.08] shadow-2xs ${meta.accentGlow}`
-                    : 'bg-slate-50/50 dark:bg-[#191C2C]/50 border border-dashed border-slate-200 dark:border-white/[0.08] hover:border-amber-500/40'
+                    ? `bg-slate-50/80 dark:bg-white/[0.04] border-slate-200/80 dark:border-white/[0.08] shadow-2xs ${meta.accentGlow}`
+                    : 'bg-slate-50/50 dark:bg-white/[0.02] border border-dashed border-slate-200 dark:border-white/[0.08] hover:border-amber-500/40'
                 }`}
               >
                 {/* Slot Header */}

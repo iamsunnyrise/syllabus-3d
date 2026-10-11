@@ -255,20 +255,22 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
   return (
     <>
       <div
-        className={`group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border ${examMeta.borderColor} p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden select-none ${className}`}
+        className={`group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E111C]/90 dark:backdrop-blur-2xl border ${examMeta.borderColor} p-4 sm:p-6 shadow-sm hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-300 overflow-hidden select-none ${className}`}
       >
-        {/* Top 2.5px Colored Accent Strip */}
+        {/* Top 2px Colored Ambient Accent Strip */}
         <div
-          className="absolute top-0 left-0 right-0 h-[2.5px] opacity-85 group-hover:opacity-100 transition-opacity"
-          style={{ backgroundColor: examMeta.accentColor }}
+          className="absolute top-0 left-0 right-0 h-[2px] opacity-80 group-hover:opacity-100 transition-opacity"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${examMeta.accentColor}, transparent)`
+          }}
         />
 
-        {/* Ambient Radial Colored Glow (Top Left & Top Right) */}
+        {/* Ambient Radial Colored Glow (Top Left & Bottom Right) */}
         <div
-          className={`absolute -top-12 -left-12 w-48 sm:w-64 h-48 sm:h-64 rounded-full ${examMeta.ambientGlow} blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500`}
+          className={`absolute -top-12 -left-12 w-52 sm:w-72 h-52 sm:h-72 rounded-full ${examMeta.ambientGlow} blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500`}
         />
         <div
-          className="absolute -bottom-12 -right-12 w-44 sm:w-56 h-44 sm:h-56 rounded-full bg-slate-500/5 dark:bg-white/[0.03] blur-3xl pointer-events-none"
+          className="absolute -bottom-12 -right-12 w-48 sm:w-60 h-48 sm:h-60 rounded-full bg-slate-500/5 dark:bg-white/[0.02] blur-3xl pointer-events-none"
         />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
@@ -278,7 +280,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
             
             {/* 🏅 Luxury Emblem / Logo Container */}
             <div className="relative shrink-0">
-              <div className="w-18 h-18 sm:w-22 sm:h-22 md:w-26 md:h-26 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-50 to-white dark:from-[#1A1D30] dark:to-[#121424] border border-slate-200/90 dark:border-white/15 p-2.5 sm:p-3 shadow-md shadow-black/5 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-white/[0.04] dark:backdrop-blur-xl border border-slate-200/90 dark:border-white/[0.10] p-2.5 sm:p-3 shadow-md shadow-black/5 dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)] flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 duration-300">
                 {examMeta.logoSrc && !imgError ? (
                   <img
                     src={examMeta.logoSrc}
@@ -298,7 +300,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
               {/* Insignia Verified Target Dot */}
               <span className="absolute -bottom-1 -right-1 flex h-4 w-4 sm:h-4.5 sm:w-4.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex items-center justify-center rounded-full h-full w-full bg-amber-500 text-white text-[9px] font-black shadow-xs border-2 border-white dark:border-[#121424]">
+                <span className="relative inline-flex items-center justify-center rounded-full h-full w-full bg-amber-500 text-white text-[9px] font-black shadow-xs border-2 border-white dark:border-[#0E111C]">
                   ✓
                 </span>
               </span>
@@ -324,7 +326,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
               <div className="space-y-0.5">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black font-grotesk tracking-tight text-slate-900 dark:text-white uppercase leading-none drop-shadow-2xs">
                   <span>{baseExamName}</span>
-                  <span className="ml-2 sm:ml-3 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 font-mono tracking-normal">
+                  <span className="ml-2 sm:ml-3 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 font-mono tracking-normal">
                     {examYear}
                   </span>
                 </h1>
@@ -346,21 +348,21 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
                 
                 {/* ⏳ Days Runway */}
                 {daysDiff !== null && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 font-bold shadow-2xs">
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.10] text-slate-800 dark:text-slate-100 font-bold shadow-2xs backdrop-blur-sm">
+                    <Clock className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                     <span>{daysDiff > 0 ? `${daysDiff} Days Runway` : daysDiff === 0 ? 'Exam Today' : `${Math.abs(daysDiff)}d Since Exam`}</span>
                   </span>
                 )}
 
                 {/* 🗓️ Target Date */}
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium shadow-2xs">
-                  <Calendar className="w-3.5 h-3.5 text-sky-500" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/[0.10] text-slate-700 dark:text-slate-200 font-medium shadow-2xs backdrop-blur-sm">
+                  <Calendar className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
                   <span>{formattedDate}</span>
                 </span>
 
                 {/* 🏆 Syllabus Completion */}
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 dark:text-emerald-300 font-bold shadow-2xs">
-                  <Target className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold shadow-2xs backdrop-blur-sm">
+                  <Target className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                   <span>{overallStats.completionPercentage}% Mastered ({overallStats.completedCount}/{overallStats.totalTopics} Topics)</span>
                 </span>
               </div>
@@ -377,7 +379,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
                 soundManager.playClick();
                 setIsEditModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs sm:text-[13px] font-bold transition-all duration-200 cursor-pointer shadow-2xs active:scale-95 border border-slate-200/80 dark:border-white/10"
+              className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.07] dark:hover:bg-white/[0.12] text-slate-800 dark:text-slate-100 text-xs sm:text-[13px] font-bold transition-all duration-200 cursor-pointer shadow-2xs active:scale-95 border border-slate-200/80 dark:border-white/[0.10] backdrop-blur-sm"
               title="Change or customize your target exam"
             >
               <ArrowRightLeft className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
@@ -392,10 +394,10 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
                   soundManager.playClick();
                   onOpenFocus();
                 }}
-                className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs sm:text-[13px] font-bold transition-all duration-200 cursor-pointer shadow-2xs active:scale-95"
+                className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 dark:bg-amber-500/20 dark:hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-500/40 text-xs sm:text-[13px] font-bold transition-all duration-200 cursor-pointer shadow-2xs active:scale-95 backdrop-blur-sm"
                 title="Start a 25-minute Pomodoro focus study block"
               >
-                <Timer className="w-3.5 h-3.5 text-amber-500" />
+                <Timer className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                 <span>Focus (25m)</span>
               </button>
             )}
@@ -408,7 +410,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
                   soundManager.playClick();
                   onNavigate('syllabus');
                 }}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-extrabold transition-all duration-200 cursor-pointer shadow-md shadow-indigo-500/25 active:scale-95"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs sm:text-[13px] font-extrabold transition-all duration-200 cursor-pointer shadow-md shadow-indigo-500/25 dark:shadow-indigo-500/40 border border-indigo-400/25 active:scale-95"
                 title="Open Syllabus Explorer"
               >
                 <span>Curriculum</span>

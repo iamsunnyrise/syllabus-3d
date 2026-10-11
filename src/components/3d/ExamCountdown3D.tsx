@@ -145,7 +145,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   const examName = currentExam?.name || 'Target Exam';
 
   return (
-    <div className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden exam-countdown-card">
+    <div className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden exam-countdown-card">
       {/* Subtle Top Accent Glow */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${phaseConfig.barGradient} opacity-75 pointer-events-none`} />
       <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-all ${phaseConfig.glowColor}`} />
@@ -199,8 +199,8 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
             key={c.label}
             className={`relative py-3.5 sm:py-5 px-1.5 sm:px-3 rounded-2xl border text-center flex flex-col items-center justify-center transition-all duration-300 select-none shadow-xs hover:shadow-md hover:-translate-y-0.5 group/card overflow-hidden ${
               c.isPrimary
-                ? 'bg-gradient-to-b from-amber-50/90 via-amber-100/40 to-amber-50/60 dark:from-amber-950/30 dark:via-[#1E1B15] dark:to-transparent border-amber-400/60 dark:border-amber-500/40 shadow-amber-500/5'
-                : 'bg-gradient-to-b from-slate-50/90 via-white to-slate-50/50 dark:from-[#181A2A] dark:via-[#141624] dark:to-[#10121E] border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
+                ? 'bg-gradient-to-b from-amber-50/90 via-amber-100/40 to-amber-50/60 dark:from-amber-950/40 dark:via-amber-900/10 dark:to-transparent border-amber-400/60 dark:border-amber-500/40 shadow-amber-500/5'
+                : 'bg-gradient-to-b from-slate-50/90 via-white to-slate-50/50 dark:from-white/[0.06] dark:via-white/[0.03] dark:to-transparent border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
             }`}
           >
             {/* Split-Flap Center Crease Line */}

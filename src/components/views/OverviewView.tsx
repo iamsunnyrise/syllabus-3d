@@ -256,7 +256,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
       {nextRecommendedTopic ? (
-        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-violet-950/40 border border-blue-500/25 dark:border-blue-400/25 p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden group jump-back-in-hub">
+        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-blue-500/25 dark:border-blue-400/30 p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-200 overflow-hidden group jump-back-in-hub">
           {/* Subtle Ambient Radial Highlight */}
           <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/15 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/25 transition-all" />
 
@@ -270,7 +270,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 {/* Live pulsing ring indicator */}
                 <span className="absolute -top-1 -right-1 flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white dark:border-[#141624]" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white dark:border-[#0E111D]" />
                 </span>
               </div>
 
@@ -321,7 +321,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="px-3.5 py-2.5 rounded-xl bg-white/80 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-sm"
+                  className="px-3.5 py-2.5 rounded-xl bg-white/80 hover:bg-white dark:bg-white/[0.06] dark:hover:bg-white/[0.10] text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-sm backdrop-blur-sm"
                   title="Quick 25m Focus Sprint"
                 >
                   <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -409,12 +409,15 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           return (
             <div
               key={card.id}
-              className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden"
+              className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:dark:border-white/[0.16] p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:dark:shadow-[0_8px_28px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden"
             >
-              {/* Top Accent Strip */}
+              {/* Top Accent Strip with Ambient Glow */}
               <div
                 className="absolute top-0 left-0 right-0 h-[2.5px] opacity-80 group-hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: card.accentColor }}
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${card.accentColor}, transparent)`,
+                  boxShadow: `0 0 10px ${card.accentColor}`
+                }}
               />
 
               {/* Subtle Ambient Radial Highlight */}
@@ -438,19 +441,20 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
                     {card.value}
                   </div>
-                  <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10 shrink-0">
+                  <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10 shrink-0">
                     {card.badge}
                   </span>
                 </div>
 
                 {/* Sleek Visual Progress Track */}
                 <div className="mt-2.5">
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500 shadow-xs"
                       style={{
                         width: `${Math.max(4, card.progressPercent)}%`,
-                        backgroundColor: card.accentColor
+                        backgroundColor: card.accentColor,
+                        boxShadow: `0 0 8px ${card.accentColor}80`
                       }}
                     />
                   </div>
@@ -476,10 +480,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       <Top3TargetsWidget />
 
       {/* 5. SYLLABUS MASTERY ENGINE */}
-      <div className="w-full p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth flex flex-col justify-between relative overflow-hidden space-y-5">
+      <div className="w-full p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] flex flex-col justify-between relative overflow-hidden space-y-5">
         
         {/* Header Row */}
-        <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-700/60">
+        <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.08]">
           <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#2563EB] to-indigo-600 dark:from-[#7AA2F7] dark:to-[#4D76D6] text-white flex items-center justify-center font-bold shadow-md shadow-[#2563EB]/20 dark:shadow-[#7AA2F7]/25 shrink-0">
               <Target className="w-4 sm:w-5 h-4 sm:h-5 stroke-[2.4]" />
@@ -495,7 +499,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 shadow-2xs shrink-0">
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/[0.10] shadow-2xs shrink-0">
               <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
               <span className="text-xs font-black text-slate-900 dark:text-blue-300 font-mono">
                 {profile.levelTitle || `Level ${profile.level}`}
@@ -506,7 +510,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 soundManager.playClick();
                 onNavigate('syllabus');
               }}
-              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/70 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/40 dark:hover:border-blue-400/40 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] tap-bounce"
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/[0.10] text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/40 dark:hover:border-blue-400/40 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.97] tap-bounce"
               title="Explore Full Syllabus"
             >
               <span>Syllabus</span>
@@ -542,7 +546,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <circle
                 cx="70" cy="70" r={radius}
                 stroke="currentColor" strokeWidth="11"
-                className="text-slate-200/90 dark:text-[#222A40]"
+                className="text-slate-200/90 dark:text-white/[0.08]"
                 fill="transparent"
               />
 
@@ -583,7 +587,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="w-full space-y-2 flex-1">
             <div className="grid grid-cols-2 gap-2">
               {/* Completed Topics */}
-              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 shadow-2xs space-y-1">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.08] shadow-2xs space-y-1">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 uppercase tracking-wider text-xs">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
@@ -601,7 +605,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               </div>
 
               {/* Study Time */}
-              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 shadow-2xs space-y-1">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.08] shadow-2xs space-y-1">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 uppercase tracking-wider text-xs">
                     <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
@@ -620,7 +624,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
 
             {/* Status Segment Meter */}
-            <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 space-y-1.5">
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.08] space-y-1.5">
               <div className="flex justify-between items-center text-xs font-bold font-mono">
                 <span className="text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
@@ -632,7 +636,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 </span>
               </div>
 
-              <div className="w-full h-2.5 rounded-full bg-slate-200/80 dark:bg-[#0D1424] overflow-hidden flex p-0.5 shadow-inner border border-slate-200/50 dark:border-slate-700/50">
+              <div className="w-full h-2.5 rounded-full bg-slate-200/80 dark:bg-black/30 overflow-hidden flex p-0.5 shadow-inner border border-slate-200/50 dark:border-white/[0.08]">
                 <div
                   className="h-full bg-emerald-500 rounded-l-full transition-all duration-500"
                   style={{ width: `${(overallStats.completedCount / (overallStats.totalTopics || 1)) * 100}%` }}
@@ -688,11 +692,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                       onNavigate('syllabus');
                     }
                   }}
-                  className="p-2.5 rounded-xl bg-slate-50/90 dark:bg-[#1B243B] border border-slate-200/70 dark:border-slate-700/60 hover:border-violet-500/50 dark:hover:border-violet-400/50 hover:bg-violet-50/20 dark:hover:bg-violet-500/10 hover:shadow-[0_10px_24px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_10px_26px_-6px_rgba(124,58,237,0.26)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-0.5 cursor-pointer group shadow-2xs flex flex-col justify-between gap-1.5 active:scale-[0.98] tap-bounce"
+                  className="p-2.5 rounded-xl bg-slate-50/90 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.08] hover:border-violet-500/50 dark:hover:border-violet-400/50 hover:bg-violet-50/20 dark:hover:bg-violet-500/10 hover:shadow-[0_10px_24px_-6px_rgba(124,58,237,0.16)] dark:hover:shadow-[0_10px_26px_-6px_rgba(124,58,237,0.26)] transition-all duration-300 ease-out transform-gpu hover:scale-[1.018] hover:-translate-y-0.5 cursor-pointer group shadow-2xs flex flex-col justify-between gap-1.5 active:scale-[0.98] tap-bounce"
                 >
                   <div className="flex items-center justify-between gap-1.5">
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="w-6 h-6 rounded-lg bg-white dark:bg-[#151622] flex items-center justify-center border border-slate-200/50 dark:border-slate-700/50 shadow-2xs shrink-0 overflow-hidden">
+                      <span className="w-6 h-6 rounded-lg bg-white dark:bg-white/[0.08] flex items-center justify-center border border-slate-200/50 dark:border-white/[0.10] shadow-2xs shrink-0 overflow-hidden">
                         {renderSubjectIcon(sub.icon, sub.color)}
                       </span>
                       <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
@@ -705,7 +709,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-slate-200/80 dark:bg-[#0D1424] overflow-hidden">
+                    <div className="flex-1 h-1.5 rounded-full bg-slate-200/80 dark:bg-black/30 overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
@@ -722,7 +726,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               ))}
             </div>
           ) : (
-            <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-[#1B243B] border border-slate-200/60 dark:border-slate-700/60 text-center">
+            <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/[0.08] text-center">
               <p className="text-xs text-slate-500 dark:text-slate-400">No subjects configured yet.</p>
             </div>
           )}
@@ -730,7 +734,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
         {/* Smart Next Recommended Target HUD */}
         {nextRecommendedTopic ? (
-          <div className="relative z-10 p-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-purple-950/30 border border-blue-200/80 dark:border-blue-800/50 flex items-center justify-between gap-3 shadow-2xs">
+          <div className="relative z-10 p-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-blue-200/80 dark:border-blue-500/30 flex items-center justify-between gap-3 shadow-2xs">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="w-8 h-8 rounded-xl bg-blue-600 dark:bg-blue-400 text-white dark:text-black flex items-center justify-center shrink-0 shadow-xs">
                 <Zap className="w-4 h-4 fill-current" />
