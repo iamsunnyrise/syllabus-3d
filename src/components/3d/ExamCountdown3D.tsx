@@ -153,17 +153,21 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
       {/* Header: Identity, Exam Date, & Dynamic Phase Urgency */}
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          {/* Target Icon with Dynamic Glow */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/70 dark:border-white/10 text-slate-800 dark:text-slate-100 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-            <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400 stroke-[2.2]" />
+          {/* Target Icon with Dynamic Urgency Theme */}
+          <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl border flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-all duration-200 ${
+            timeLeft.days <= 30
+              ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400'
+              : 'bg-blue-500/10 dark:bg-blue-500/15 border-blue-500/30 text-blue-600 dark:text-blue-400'
+          }`}>
+            <Target className="w-5 h-5 stroke-[2.3]" />
           </div>
 
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate">
+              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate font-grotesk">
                 {examName} Countdown
               </h2>
-              <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider border ${phaseConfig.badgeClass} shrink-0`}>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider border ${phaseConfig.badgeClass} shrink-0`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${phaseConfig.dotColor} animate-pulse`} />
                 {phaseConfig.label}
               </span>
@@ -182,40 +186,52 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
         </div>
 
         {/* Pace Requirement HUD */}
-        <div className="flex items-center gap-1.5 text-xs font-mono self-start sm:self-auto px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-white/[0.06] text-slate-700 dark:text-slate-300">
-          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" />
-          <span className="truncate font-semibold">{paceTarget.text}</span>
+        <div className="flex items-center gap-1.5 text-xs font-mono self-start sm:self-auto px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-500/25 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 shadow-2xs">
+          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0 animate-pulse" />
+          <span className="truncate font-bold">{paceTarget.text}</span>
         </div>
       </div>
 
-      {/* 4 Unified, Mission-Clock Digit Cards */}
+      {/* 4 Unified, Mission-Clock Split-Flap Digit Cards */}
       <div className="relative z-10 grid grid-cols-4 gap-2 sm:gap-3.5">
         {cards.map(c => (
           <div
             key={c.label}
-            className={`py-3 sm:py-4 px-1 sm:px-2 rounded-xl sm:rounded-2xl border text-center flex flex-col items-center justify-center transition-all duration-200 select-none shadow-2xs group/card ${
+            className={`relative py-3.5 sm:py-5 px-1.5 sm:px-3 rounded-2xl border text-center flex flex-col items-center justify-center transition-all duration-300 select-none shadow-xs hover:shadow-md hover:-translate-y-0.5 group/card overflow-hidden ${
               c.isPrimary
-                ? 'bg-gradient-to-b from-amber-50/70 to-amber-100/30 dark:from-amber-950/20 dark:to-transparent border-amber-300/80 dark:border-amber-500/30'
-                : 'bg-slate-50/80 dark:bg-[#161828] border-slate-200/80 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/15'
+                ? 'bg-gradient-to-b from-amber-50/90 via-amber-100/40 to-amber-50/60 dark:from-amber-950/30 dark:via-[#1E1B15] dark:to-transparent border-amber-400/60 dark:border-amber-500/40 shadow-amber-500/5'
+                : 'bg-gradient-to-b from-slate-50/90 via-white to-slate-50/50 dark:from-[#181A2A] dark:via-[#141624] dark:to-[#10121E] border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
             }`}
           >
-            <div className="flex items-baseline justify-center gap-0.5">
-              <span className={`text-2xl sm:text-3xl md:text-4xl font-black font-mono tabular-nums tracking-tight leading-none ${
+            {/* Split-Flap Center Crease Line */}
+            <div className="absolute inset-x-0 top-1/2 -translate-y-px h-px bg-slate-300/50 dark:bg-black/40 pointer-events-none" />
+
+            {/* Precision Notch Side Cutouts */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-2 rounded-r-full bg-slate-300/60 dark:bg-slate-700/70 pointer-events-none" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-2 rounded-l-full bg-slate-300/60 dark:bg-slate-700/70 pointer-events-none" />
+
+            {/* Digits Display */}
+            <div className="relative z-10 flex items-baseline justify-center">
+              <span className={`text-3xl sm:text-4xl md:text-5xl font-black font-mono tabular-nums tracking-tight leading-none drop-shadow-xs ${
                 c.isPrimary
                   ? 'text-amber-600 dark:text-amber-400'
                   : 'text-slate-900 dark:text-white'
               }`}>
                 {String(c.value).padStart(2, '0')}
               </span>
+            </div>
+
+            {/* Unit Label with Precision Dot for SECS */}
+            <div className="relative z-10 flex items-center gap-1.5 mt-2">
+              <span className={`text-[10px] sm:text-xs font-black uppercase tracking-widest font-mono ${
+                c.isPrimary ? 'text-amber-700 dark:text-amber-400/90' : 'text-slate-400 dark:text-slate-500'
+              }`}>
+                {c.label}
+              </span>
               {c.label === 'SECS' && (
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse ml-0.5 self-center hidden sm:inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping inline-block" />
               )}
             </div>
-            <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest font-mono mt-1.5 ${
-              c.isPrimary ? 'text-amber-700 dark:text-amber-400/90' : 'text-slate-400 dark:text-slate-500'
-            }`}>
-              {c.label}
-            </span>
           </div>
         ))}
       </div>
@@ -232,7 +248,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
         </div>
 
         <div className="flex items-center gap-1.5 font-bold text-amber-600 dark:text-amber-400 self-end sm:self-auto shrink-0">
-          <Flame className="w-3.5 h-3.5 fill-current" />
+          <Flame className="w-3.5 h-3.5 fill-current animate-bounce" />
           <span>Keep Consistent & Focused</span>
         </div>
       </div>

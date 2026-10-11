@@ -3166,18 +3166,24 @@ html.warm-cream .daily-inspiration-banner {
 }
 
 html.warm-cream .daily-inspiration-banner .quote-accent-bar {
-  background: linear-gradient(to bottom, #E1A837, #C69226) !important;
+  background: linear-gradient(to bottom, #E8A838, #CA8A04) !important;
+}
+
+html.warm-cream .daily-inspiration-banner svg.lucide-quote {
+  opacity: 0.05 !important;
+  color: #78350F !important;
 }
 
 html.warm-cream .jump-back-in-hub {
-  background: linear-gradient(to right, rgba(225, 168, 55, 0.12), rgba(246, 235, 212, 0.6), rgba(255, 253, 248, 0.95)) !important;
+  background: linear-gradient(to right, rgba(232, 168, 56, 0.12), rgba(246, 235, 212, 0.65), rgba(255, 253, 248, 0.98)) !important;
   border-color: #E2D1B3 !important;
 }
 
-html.warm-cream .jump-back-in-hub .bg-blue-600 {
-  background: linear-gradient(135deg, #E1A837 0%, #C69226 100%) !important;
-  border-color: #C69226 !important;
-  box-shadow: 0 4px 12px rgba(225, 168, 55, 0.25) !important;
+html.warm-cream .jump-back-in-hub .bg-blue-600,
+html.warm-cream .jump-back-in-hub .from-blue-600 {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28) !important;
 }
 
 html.warm-cream .jump-back-in-hub .text-blue-700,
@@ -3191,13 +3197,23 @@ html.warm-cream .jump-back-in-hub .bg-blue-600\/15 {
 }
 
 html.warm-cream .jump-back-in-hub .bg-blue-600.animate-pulse {
-  background-color: #E1A837 !important;
+  background-color: #E8A838 !important;
 }
 
 html.warm-cream .exam-countdown-card {
   background-color: #FFFDF8 !important;
   border-color: #E2D1B3 !important;
-  box-shadow: 0 1px 3px rgba(56, 55, 13, 0.06) !important;
+  box-shadow: 0 2px 8px rgba(56, 55, 13, 0.06) !important;
+}
+
+html.warm-cream .exam-countdown-card [class*="from-amber-50"] {
+  background: linear-gradient(to bottom, #FAF0DC, #F5E5C4) !important;
+  border-color: #D4BE98 !important;
+}
+
+html.warm-cream .exam-countdown-card [class*="from-slate-50"] {
+  background: linear-gradient(to bottom, #FFFDF8, #F9F1E2) !important;
+  border-color: #E2D1B3 !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════

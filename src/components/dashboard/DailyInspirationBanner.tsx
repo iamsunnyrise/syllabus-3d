@@ -162,17 +162,18 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-slate-50/60 to-white dark:from-[#13162b] dark:via-[#111322] dark:to-[#0f111e] border border-slate-200/80 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 daily-inspiration-banner ${
+      className={`relative overflow-hidden rounded-2xl bg-white/90 dark:bg-[#13162b]/90 backdrop-blur-md border border-slate-200/80 dark:border-indigo-500/20 shadow-xs hover:shadow-md transition-all duration-300 daily-inspiration-banner ${
         isCollapsed ? 'p-2.5 sm:p-3' : 'p-3.5 sm:p-4.5'
       } ${className}`}
     >
       {/* Signature Vertical Accent Bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-indigo-600 via-indigo-400 to-violet-500 rounded-l-2xl quote-accent-bar" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-amber-500 via-indigo-500 to-violet-600 rounded-l-2xl quote-accent-bar" />
 
-      {/* Decorative Large Quote Watermark (hidden when collapsed) */}
+      {/* Decorative Large Quote Watermark (subtle ghost with inline opacity guard) */}
       {!isCollapsed && (
         <Quote
-          className="w-20 h-20 text-indigo-500/10 dark:text-indigo-400/10 absolute right-3 -bottom-2 pointer-events-none select-none rotate-12 transition-transform duration-500"
+          style={{ opacity: 0.05, strokeWidth: 1.5 }}
+          className="w-20 h-20 text-slate-400 dark:text-slate-500 absolute -right-2 -bottom-2 pointer-events-none select-none rotate-12 transition-transform duration-500"
         />
       )}
 
@@ -180,14 +181,14 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
       {isCollapsed ? (
         <div className="relative z-10 flex items-center justify-between gap-3 pl-1.5 select-none">
           <div className="flex items-center gap-2 min-w-0 flex-1">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-500/15 dark:bg-indigo-500/25 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-mono font-bold tracking-wider shrink-0">
-              <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-semibold tracking-wide shrink-0">
+              <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
               <span className="hidden sm:inline">{greeting} •</span>
               <span>#{currentQuote.category}</span>
             </span>
 
             <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate italic">
-              "{currentQuote.text}" <span className="not-italic text-slate-500 dark:text-slate-400 font-normal font-mono">— {currentQuote.author}</span>
+              “{currentQuote.text}” <span className="not-italic text-slate-500 dark:text-slate-400 font-normal font-mono">— {currentQuote.author}</span>
             </p>
           </div>
 
@@ -195,11 +196,11 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
             <button
               type="button"
               onClick={handleNextQuote}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
               title="Next quote"
               aria-label="Next quote"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${isRotating ? 'rotate-180 text-indigo-600' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${isRotating ? 'rotate-180 text-amber-600' : ''}`} />
             </button>
 
             {onOpenFocus && (
@@ -209,10 +210,10 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
                   soundManager.playClick();
                   onOpenFocus();
                 }}
-                className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95"
+                className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-bold transition-all cursor-pointer active:scale-95"
                 title="Launch Focus Chamber"
               >
-                <Timer className="w-3 h-3 text-amber-300" />
+                <Timer className="w-3 h-3 text-amber-100" />
                 <span>Focus</span>
               </button>
             )}
@@ -220,7 +221,7 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
             <button
               type="button"
               onClick={toggleCollapsed}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
               title="Expand quote"
               aria-label="Expand inspiration banner"
             >
@@ -234,22 +235,22 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
           {/* Top Meta Bar */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-mono font-bold tracking-wider uppercase">
-                <Sparkles className="w-3 h-3 text-indigo-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-semibold tracking-wide">
+                <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
                 <span>{greeting}</span>
               </span>
 
-              <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-mono font-semibold bg-slate-200/60 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10 font-mono">
                 #{currentQuote.category}
               </span>
             </div>
 
-            {/* Quick Actions (Shuffle, Copy, Focus, Collapse) */}
-            <div className="flex items-center gap-1 sm:gap-1.5">
+            {/* Quick Actions Micro-Dock */}
+            <div className="flex items-center gap-1 p-0.5 rounded-xl bg-slate-100/70 dark:bg-white/5 border border-slate-200/60 dark:border-white/10">
               <button
                 type="button"
                 onClick={handleCopyQuote}
-                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95"
+                className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
                 title={copied ? "Copied!" : "Copy quote"}
                 aria-label="Copy quote to clipboard"
               >
@@ -259,13 +260,13 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
               <button
                 type="button"
                 onClick={handleNextQuote}
-                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95 group"
+                className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95 group"
                 title="Shuffle new inspiration"
                 aria-label="Shuffle new quote"
               >
                 <RefreshCw
                   className={`w-3.5 h-3.5 transition-transform duration-500 ${
-                    isRotating ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'group-hover:rotate-45'
+                    isRotating ? 'rotate-180 text-amber-600 dark:text-amber-400' : 'group-hover:rotate-45'
                   }`}
                 />
               </button>
@@ -278,10 +279,10 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
                     haptics.medium();
                     onOpenFocus();
                   }}
-                  className="hidden sm:inline-flex items-center gap-1.5 ml-1 px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                  className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-[0.98] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
                   title="Launch 3D Focus Chamber"
                 >
-                  <Timer className="w-3.5 h-3.5 text-amber-300" />
+                  <Timer className="w-3.5 h-3.5 text-amber-100" />
                   <span>Focus (25m)</span>
                 </button>
               )}
@@ -289,7 +290,7 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
               <button
                 type="button"
                 onClick={toggleCollapsed}
-                className="p-1.5 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 hover:bg-white/80 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all cursor-pointer active:scale-95"
+                className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer active:scale-95"
                 title="Minimize banner"
                 aria-label="Collapse inspiration banner"
               >
@@ -300,12 +301,12 @@ export const DailyInspirationBanner: React.FC<DailyInspirationBannerProps> = ({
 
           {/* Quote Content */}
           <div className="pr-4 sm:pr-8">
-            <blockquote className="text-sm sm:text-base font-semibold italic text-slate-800 dark:text-slate-100 leading-snug tracking-tight transition-opacity duration-300">
-              "{currentQuote.text}"
+            <blockquote className="text-sm sm:text-base font-medium italic text-slate-800 dark:text-slate-100 leading-snug tracking-tight transition-opacity duration-300">
+              “{currentQuote.text}”
             </blockquote>
 
             <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 mt-1 text-xs">
-              <cite className="not-italic font-bold font-mono tracking-wide text-blue-600 dark:text-blue-400">
+              <cite className="not-italic font-bold font-mono tracking-wide text-amber-700 dark:text-amber-400">
                 — {currentQuote.author}
               </cite>
               {currentQuote.role && (

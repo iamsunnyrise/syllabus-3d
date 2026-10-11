@@ -263,17 +263,24 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             {/* Left: Icon & Topic Meta */}
             <div className="flex items-start sm:items-center gap-3.5 min-w-0">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform duration-200">
-                <Play className="w-5 h-5 fill-current ml-0.5" />
+              <div className="relative shrink-0">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-blue-500/50 transition-all duration-200">
+                  <Play className="w-5 h-5 fill-current ml-0.5" />
+                </div>
+                {/* Live pulsing ring indicator */}
+                <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white dark:border-[#141624]" />
+                </span>
               </div>
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-blue-600/15 text-blue-700 dark:text-blue-300 border border-blue-500/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Jump Back In
                   </span>
-                  <span className={`px-2 py-0.5 rounded-md text-[11px] font-bold border ${nextRecommendedTopic.badgeColor}`}>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${nextRecommendedTopic.badgeColor}`}>
                     {nextRecommendedTopic.badge}
                   </span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -281,23 +288,23 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   </span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight mt-1 truncate">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight mt-1 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {nextRecommendedTopic.topic.name}
                 </h3>
 
                 {/* Subtopics / Readiness Status Summary */}
                 <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-medium mt-1">
                   {nextRecommendedTopic.topic.subtopics && nextRecommendedTopic.topic.subtopics.length > 0 ? (
-                    <span className="flex items-center gap-1 font-mono">
+                    <span className="flex items-center gap-1.5 font-mono">
                       <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
-                      <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
-                      <span>{nextRecommendedTopic.topic.completionPercentage || 0}% Mastered</span>
+                      <span className="text-slate-300 dark:text-slate-600">•</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">{nextRecommendedTopic.topic.completionPercentage || 0}% Mastered</span>
                     </span>
                   ) : (
-                    <span>Ready for active revision & study notes</span>
+                    <span className="text-slate-500 dark:text-slate-400">Ready for active revision & study notes</span>
                   )}
                   {nextRecommendedTopic.topic.studyTimeMinutes ? (
-                    <span className="hidden sm:inline-flex items-center gap-1 text-slate-400 dark:text-slate-500">
+                    <span className="hidden sm:inline-flex items-center gap-1 text-slate-400 dark:text-slate-500 font-mono">
                       • {nextRecommendedTopic.topic.studyTimeMinutes} mins logged
                     </span>
                   ) : null}
@@ -314,7 +321,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/70 dark:border-white/10"
+                  className="px-3.5 py-2.5 rounded-xl bg-white/80 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-sm"
                   title="Quick 25m Focus Sprint"
                 >
                   <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -332,10 +339,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     onNavigate('syllabus');
                   }
                 }}
-                className="btn-primary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/25 flex items-center gap-2 cursor-pointer active:scale-95"
+                className="btn-primary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/30 flex items-center gap-2 cursor-pointer active:scale-95 hover:shadow-lg transition-all"
               >
                 <span>Resume Study</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>
           </div>
@@ -356,7 +363,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             glowColor: 'bg-emerald-500',
             footerLeft: 'Active Subjects',
             footerRight: `${currentExam?.subjects?.length || 0} In Track`,
-            progressPercent: 100
+            progressPercent: overallStats.completionPercentage || 0
           },
           {
             id: 'completed',
@@ -380,9 +387,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             accentColor: '#F59E0B',
             iconBg: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20',
             glowColor: 'bg-amber-500',
-            footerLeft: 'Sanctum Log',
+            footerLeft: 'Target: 15h Pace',
             footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`,
-            progressPercent: Math.min(100, Math.round((totalStudyHours / 20) * 100))
+            progressPercent: Math.min(100, Math.round((totalStudyHours / 15) * 100))
           },
           {
             id: 'rate',
@@ -404,6 +411,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               key={card.id}
               className="group relative rounded-2xl bg-white dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.08] p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden"
             >
+              {/* Top Accent Strip */}
+              <div
+                className="absolute top-0 left-0 right-0 h-[2.5px] opacity-80 group-hover:opacity-100 transition-opacity"
+                style={{ backgroundColor: card.accentColor }}
+              />
+
               {/* Subtle Ambient Radial Highlight */}
               <div
                 className={`absolute -top-8 -right-8 w-24 h-24 rounded-full blur-2xl opacity-15 dark:opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity ${card.glowColor}`}
@@ -414,7 +427,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 truncate">
                   {card.title}
                 </span>
-                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 ${card.iconBg}`}>
+                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 shadow-2xs ${card.iconBg}`}>
                   <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.3]" />
                 </div>
               </div>
@@ -434,7 +447,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <div className="mt-2.5">
                   <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     <div
-                      className="h-full rounded-full transition-all duration-500"
+                      className="h-full rounded-full transition-all duration-500 shadow-xs"
                       style={{
                         width: `${Math.max(4, card.progressPercent)}%`,
                         backgroundColor: card.accentColor
