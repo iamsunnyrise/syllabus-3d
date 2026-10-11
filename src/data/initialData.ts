@@ -5,7 +5,7 @@ export const INITIAL_PROFILE: UserProgressProfile = {
   name: 'Sunny Rise',
   avatarEmoji: '🦁',
   avatarColor: 'from-amber-500 to-orange-600',
-  targetExamDate: '2026-10-15',
+  targetExamDate: '2026-10-25',
   currentStreak: 18,
   longestStreak: 24,
   level: 4,
@@ -1333,15 +1333,15 @@ export const INITIAL_EXAMS: Exam[] = [
     name: 'SSC CGL 2026',
     code: 'SSC_CGL',
     targetYear: 2026,
-    examDate: '2026-10-15',
+    examDate: '2026-10-25',
     subjects: INITIAL_SSC_SUBJECTS
   },
   {
-    id: 'exam_upsc_cse_2026',
-    name: 'UPSC CSE 2026',
+    id: 'exam_upsc_cse_2027',
+    name: 'UPSC CSE 2027',
     code: 'UPSC_CSE',
-    targetYear: 2026,
-    examDate: '2026-05-24',
+    targetYear: 2027,
+    examDate: '2027-05-23',
     subjects: INITIAL_UPSC_SUBJECTS
   },
   {
@@ -1349,7 +1349,7 @@ export const INITIAL_EXAMS: Exam[] = [
     name: 'IBPS PO 2026',
     code: 'IBPS_PO',
     targetYear: 2026,
-    examDate: '2026-11-10',
+    examDate: '2026-11-20',
     subjects: INITIAL_BANKING_SUBJECTS
   },
   {
@@ -1357,7 +1357,7 @@ export const INITIAL_EXAMS: Exam[] = [
     name: 'Railway RRB NTPC 2026',
     code: 'RRB_NTPC',
     targetYear: 2026,
-    examDate: '2026-09-18',
+    examDate: '2026-12-18',
     subjects: INITIAL_RAILWAY_SUBJECTS
   },
   {
@@ -1369,11 +1369,11 @@ export const INITIAL_EXAMS: Exam[] = [
     subjects: INITIAL_STATE_PCS_SUBJECTS
   },
   {
-    id: 'exam_ssc_cgl_2025',
-    name: 'SSC CGL 2025',
-    code: 'SSC_CGL',
-    targetYear: 2025,
-    examDate: '2025-09-15',
+    id: 'exam_nda_defence_2027',
+    name: 'NDA Defence 2027',
+    code: 'NDA_DEFENCE',
+    targetYear: 2027,
+    examDate: '2027-04-18',
     subjects: JSON.parse(JSON.stringify(INITIAL_SSC_SUBJECTS))
   }
 ];
@@ -1396,18 +1396,18 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     name: 'SSC CGL 2026',
     code: 'SSC_CGL',
     targetYear: 2026,
-    examDate: '2026-10-15',
+    examDate: '2026-10-25',
     badge: 'SSC Staff Selection',
     category: 'ssc',
     description: 'Tier 1 & Tier 2: Quant, Reasoning, English, General Awareness',
     subjects: INITIAL_SSC_SUBJECTS
   },
   {
-    id: 'exam_upsc_cse_2026',
-    name: 'UPSC CSE 2026',
+    id: 'exam_upsc_cse_2027',
+    name: 'UPSC CSE 2027',
     code: 'UPSC_CSE',
-    targetYear: 2026,
-    examDate: '2026-05-24',
+    targetYear: 2027,
+    examDate: '2027-05-23',
     badge: 'Civil Services Prelims',
     category: 'upsc',
     description: 'GS I (History/Geo), GS II (Polity), GS III (Economy/Env), CSAT',
@@ -1418,7 +1418,7 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     name: 'IBPS PO 2026',
     code: 'IBPS_PO',
     targetYear: 2026,
-    examDate: '2026-11-10',
+    examDate: '2026-11-20',
     badge: 'Bank PO / Officer',
     category: 'banking',
     description: 'Data Interpretation, Reasoning Puzzles, English, Banking Awareness',
@@ -1429,11 +1429,22 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     name: 'Railway RRB NTPC 2026',
     code: 'RRB_NTPC',
     targetYear: 2026,
-    examDate: '2026-09-18',
+    examDate: '2026-12-18',
     badge: 'Railway Recruitment',
     category: 'railway',
     description: 'Mathematics, General Intelligence, Core Science & Railway GK',
     subjects: INITIAL_RAILWAY_SUBJECTS
+  },
+  {
+    id: 'exam_nda_defence_2027',
+    name: 'NDA Defence 2027',
+    code: 'NDA_DEFENCE',
+    targetYear: 2027,
+    examDate: '2027-04-18',
+    badge: 'Armed Forces Cadet',
+    category: 'defence',
+    description: 'Mathematics, General Ability Test (English & General Knowledge)',
+    subjects: JSON.parse(JSON.stringify(INITIAL_SSC_SUBJECTS))
   },
   {
     id: 'exam_state_pcs_2026',
@@ -1447,11 +1458,11 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     subjects: INITIAL_STATE_PCS_SUBJECTS
   },
   {
-    id: 'exam_ssc_chsl_2026',
-    name: 'SSC CHSL 2026',
+    id: 'exam_ssc_chsl_2027',
+    name: 'SSC CHSL 2027',
     code: 'SSC_CHSL',
-    targetYear: 2026,
-    examDate: '2026-07-20',
+    targetYear: 2027,
+    examDate: '2027-03-15',
     badge: 'Higher Secondary',
     category: 'ssc',
     description: 'Quant, Reasoning, English, General Awareness (10+2 Level)',

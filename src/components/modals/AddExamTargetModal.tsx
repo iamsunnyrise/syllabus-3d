@@ -26,7 +26,8 @@ const getCatalogPresetLogo = (category: string, code: string) => {
   if (category === 'railway' || code.includes('RRB')) return '/exam-logos/railways.png';
   if (category === 'banking' || code.includes('IBPS')) return '/exam-logos/ibps.png';
   if (category === 'defence' || code.includes('NDA')) return '/exam-logos/defence.webp';
-  return null;
+  if (category === 'upsc' || category === 'state_pcs' || code.includes('UPSC') || code.includes('PCS')) return '/exam-logos/upsc.svg';
+  return '/exam-logos/custom-target.png';
 };
 
 export const AddExamTargetModal: React.FC<AddExamTargetModalProps> = ({
@@ -197,23 +198,50 @@ export const AddExamTargetModal: React.FC<AddExamTargetModalProps> = ({
                 onClick={handleSelectCustom}
                 className={`relative text-left p-2.5 sm:p-3 rounded-2xl border transition-all text-xs cursor-pointer flex flex-col justify-between min-h-[74px] ${
                   isCustom
-                    ? 'bg-purple-50/90 dark:bg-purple-500/15 border-purple-500 dark:border-purple-400 shadow-sm'
+                    ? 'bg-rose-50/90 dark:bg-rose-500/15 border-rose-500 dark:border-rose-400 shadow-sm ring-1 ring-rose-500'
                     : 'bg-slate-50/60 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 <div className="flex items-start justify-between gap-1 w-full">
-                  <span className="font-extrabold text-slate-900 dark:text-white leading-tight flex items-center gap-1">
-                    <span>+ Custom Exam</span>
-                  </span>
-                  {isCustom && <CheckCircle2 className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />}
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <img
+                      src="/exam-logos/custom-target.png"
+                      alt=""
+                      className="w-5 h-5 object-contain shrink-0 rounded-sm"
+                    />
+                    <span className="font-extrabold text-slate-900 dark:text-white leading-tight truncate">
+                      Custom Exam
+                    </span>
+                  </div>
+                  {isCustom && <CheckCircle2 className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />}
                 </div>
 
                 <div className="mt-2 text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                  Blank Curriculum
+                  Target Bullseye Mission
                 </div>
               </button>
             </div>
           </div>
+
+          {/* Custom Exam Preview Info */}
+          {isCustom && (
+            <div className="p-3 rounded-2xl bg-gradient-to-r from-rose-500/10 to-amber-500/10 border border-rose-500/25 flex items-start gap-3">
+              <img
+                src="/exam-logos/custom-target.png"
+                alt="Custom Target"
+                className="w-9 h-9 object-contain shrink-0 filter drop-shadow-sm"
+              />
+              <div className="min-w-0 text-xs">
+                <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <span>Aspirant Target Mission</span>
+                  <span className="px-1.5 py-0.2 rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-400 font-mono text-[10px] font-bold">100% Bullseye</span>
+                </div>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
+                  Your personalized target mission with official bullseye emblem, dedicated countdown runway, and custom curriculum.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Preset Syllabus Preview Info */}
           {!isCustom && selectedPreset && (

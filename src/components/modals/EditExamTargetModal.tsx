@@ -13,21 +13,22 @@ interface EditExamTargetModalProps {
 }
 
 const PRESET_EXAMS = [
-  { name: 'SSC CGL 2026', code: 'SSC_CGL', date: '2026-10-15', year: 2026 },
-  { name: 'UPSC CSE 2026', code: 'UPSC_CSE', date: '2026-05-24', year: 2026 },
-  { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-10', year: 2026 },
-  { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-09-18', year: 2026 },
-  { name: 'NDA 2026', code: 'NDA_DEFENCE', date: '2026-09-06', year: 2026 },
+  { name: 'SSC CGL 2026', code: 'SSC_CGL', date: '2026-10-25', year: 2026 },
+  { name: 'UPSC CSE 2027', code: 'UPSC_CSE', date: '2027-05-23', year: 2027 },
+  { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-20', year: 2026 },
+  { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-12-18', year: 2026 },
+  { name: 'NDA Defence 2027', code: 'NDA_DEFENCE', date: '2027-04-18', year: 2027 },
   { name: 'State PCS 2026', code: 'STATE_PCS', date: '2026-12-05', year: 2026 },
-  { name: 'SSC CHSL 2026', code: 'SSC_CHSL', date: '2026-07-20', year: 2026 }
+  { name: 'SSC CHSL 2027', code: 'SSC_CHSL', date: '2027-03-15', year: 2027 }
 ];
 
-const getPresetLogo = (code: string) => {
-  if (code.includes('SSC')) return '/exam-logos/ssc.png';
-  if (code.includes('RRB')) return '/exam-logos/railways.png';
-  if (code.includes('IBPS')) return '/exam-logos/ibps.png';
-  if (code.includes('NDA')) return '/exam-logos/defence.webp';
-  return null;
+const getPresetLogo = (codeOrName: string) => {
+  const s = (codeOrName || '').toLowerCase();
+  if (s.includes('ssc') || s.includes('cgl') || s.includes('chsl')) return '/exam-logos/ssc.png';
+  if (s.includes('railway') || s.includes('rrb') || s.includes('ntpc')) return '/exam-logos/railways.png';
+  if (s.includes('bank') || s.includes('ibps') || s.includes('po')) return '/exam-logos/ibps.png';
+  if (s.includes('nda') || s.includes('defence') || s.includes('cds')) return '/exam-logos/defence.webp';
+  return '/exam-logos/upsc.svg';
 };
 
 export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({
@@ -150,6 +151,39 @@ export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({
         </div>
 
         <form onSubmit={handleSave} className="p-4 sm:p-6 space-y-4 overflow-y-auto">
+          {/* Enrolled Exams Switcher (if multiple exist) */}
+          {exams.length > 1 && (
+            <div>
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                Your Enrolled Targets ({exams.length}):
+              </label>
+              <div className="flex flex-wrap gap-1.5">
+                {exams.map(e => {
+                  const isCurrent = e.id === currentExam.id;
+                  const logo = getPresetLogo(e.code || e.name);
+                  return (
+                    <button
+                      key={e.id}
+                      type="button"
+                      onClick={() => handleSwitchToEnrolled(e.id)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                        isCurrent
+                          ? 'bg-blue-600 text-white border-blue-600 font-bold shadow-xs'
+                          : 'bg-slate-100 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 hover:border-slate-400'
+                      }`}
+                    >
+                      {logo && (
+                        <img src={logo} alt="" className="w-3.5 h-3.5 object-contain shrink-0" />
+                      )}
+                      <span>{e.name}</span>
+                      {isCurrent && <span className="text-[10px] bg-white/20 px-1 rounded-sm">Active</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Quick Presets */}
           <div>
             <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">

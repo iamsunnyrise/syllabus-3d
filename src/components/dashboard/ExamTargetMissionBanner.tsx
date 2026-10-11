@@ -25,7 +25,7 @@ interface ExamTargetMissionBannerProps {
 }
 
 interface ExamVisualMeta {
-  key: 'ssc' | 'railway' | 'banking' | 'defence' | 'upsc' | 'generic';
+  key: 'ssc' | 'railway' | 'banking' | 'defence' | 'upsc' | 'state_pcs' | 'custom' | 'generic';
   authorityName: string;
   hindiAuthority: string;
   motto: string;
@@ -46,6 +46,11 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
+  // Reset img error on exam change
+  React.useEffect(() => {
+    setImgError(false);
+  }, [currentExam?.id, currentExam?.name]);
+
   // 1. Resolve Exam Name & Year
   const examName = currentExam?.name || 'SSC CGL 2026';
   const examYear = currentExam?.targetYear || (examName.match(/\b(20\d{2})\b/)?.[1] ? Number(examName.match(/\b(20\d{2})\b/)?.[1]) : 2026);
@@ -57,14 +62,14 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
     const raw = `${examName} ${currentExam?.code || ''}`.toLowerCase();
 
     // 1) SSC Exams (SSC CGL, CHSL, CPO, MTS, GD, Steno)
-    if (raw.includes('ssc') || raw.includes('cgl') || raw.includes('chsl') || raw.includes('staff selection')) {
+    if (raw.includes('ssc') || raw.includes('cgl') || raw.includes('chsl') || raw.includes('cpo') || raw.includes('mts') || raw.includes('staff selection')) {
       return {
         key: 'ssc',
         authorityName: 'Staff Selection Commission',
         hindiAuthority: 'कर्मचारी चयन आयोग • भारत सरकार',
         motto: 'सत्यमेव जयते • निष्पक्ष एवं पारदर्शी चयन',
         logoSrc: '/exam-logos/ssc.png',
-        badgeLabel: 'SSC Official Cadre Mission',
+        badgeLabel: 'Staff Selection Commission',
         gradientBadge: 'from-rose-500 to-amber-500 text-white',
         ambientGlow: 'bg-rose-500/10 dark:bg-rose-500/15',
         borderColor: 'border-rose-200/80 dark:border-rose-500/20',
@@ -73,7 +78,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
     }
 
     // 2) Indian Railways (RRB NTPC, Group D, ALP, RPF, JE)
-    if (raw.includes('railway') || raw.includes('rrb') || raw.includes('ntpc') || raw.includes('loco') || raw.includes('group d') || raw.includes('alp')) {
+    if (raw.includes('railway') || raw.includes('rrb') || raw.includes('ntpc') || raw.includes('loco') || raw.includes('group d') || raw.includes('alp') || raw.includes('rpf')) {
       return {
         key: 'railway',
         authorityName: 'Ministry of Railways • Indian Railways',
@@ -89,7 +94,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
     }
 
     // 3) Banking & Financial Institutions (IBPS PO, Clerk, SBI, RBI, NABARD)
-    if (raw.includes('ibps') || raw.includes('bank') || raw.includes('sbi') || raw.includes('rbi') || raw.includes('po') || raw.includes('clerk')) {
+    if (raw.includes('ibps') || raw.includes('bank') || raw.includes('sbi') || raw.includes('rbi') || raw.includes('po') || raw.includes('clerk') || raw.includes('nabard')) {
       return {
         key: 'banking',
         authorityName: 'Institute of Banking Personnel Selection',
@@ -127,35 +132,55 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
         authorityName: 'Union Public Service Commission',
         hindiAuthority: 'संघ लोक सेवा आयोग • भारत सरकार',
         motto: 'सत्यमेव जयते • राष्ट्र निर्माण का संकल्प',
-        badgeLabel: 'All India Civil Services Mission',
-        gradientBadge: 'from-indigo-600 to-purple-600 text-white',
-        ambientGlow: 'bg-indigo-500/10 dark:bg-indigo-500/15',
-        borderColor: 'border-indigo-200/80 dark:border-indigo-500/20',
-        accentColor: '#4F46E5'
+        logoSrc: '/exam-logos/upsc.svg',
+        badgeLabel: 'Union Public Service Commission',
+        gradientBadge: 'from-amber-600 via-amber-500 to-yellow-500 text-white',
+        ambientGlow: 'bg-amber-500/10 dark:bg-amber-500/15',
+        borderColor: 'border-amber-300/80 dark:border-amber-500/25',
+        accentColor: '#D97706'
       };
     }
 
-    // Default / State PCS / Generic Target
+    // 6) State PCS (UPPSC, BPSC, MPPSC, RPSC, etc.)
+    if (raw.includes('pcs') || raw.includes('psc') || raw.includes('state') || raw.includes('uppsc') || raw.includes('bpsc') || raw.includes('mppsc')) {
+      return {
+        key: 'state_pcs',
+        authorityName: 'State Public Service Commission',
+        hindiAuthority: 'राज्य लोक सेवा आयोग • State Civil Services',
+        motto: 'सत्यमेव जयते • लोक सेवा एवं समर्पण',
+        logoSrc: '/exam-logos/upsc.svg',
+        badgeLabel: 'State Civil Services Target',
+        gradientBadge: 'from-amber-600 to-orange-500 text-white',
+        ambientGlow: 'bg-amber-500/10 dark:bg-amber-500/15',
+        borderColor: 'border-amber-200/80 dark:border-amber-500/20',
+        accentColor: '#D97706'
+      };
+    }
+
+    // 7) Custom / User-Defined / Other Target Exam (Bullseye Mission)
     return {
-      key: 'generic',
-      authorityName: 'Public Service & Competitive Examinations',
-      hindiAuthority: 'लक्ष्य निर्धारण • मिशन सफलता',
-      motto: 'Discipline, Mastery & Relentless Execution',
-      badgeLabel: 'Official Examination Target Mission',
-      gradientBadge: 'from-indigo-600 to-blue-600 text-white',
-      ambientGlow: 'bg-blue-500/10 dark:bg-blue-500/15',
-      borderColor: 'border-blue-200/80 dark:border-blue-500/20',
-      accentColor: '#2563EB'
+      key: 'custom',
+      authorityName: 'Aspirant Target Mission • Personal Goal',
+      hindiAuthority: 'लक्ष्य निर्धारण • मिशन शत-प्रतिशत सफलता',
+      motto: 'Focus, Precision & Relentless Execution • 100% Bullseye',
+      logoSrc: '/exam-logos/custom-target.png',
+      badgeLabel: 'Aspirant Target Mission',
+      gradientBadge: 'from-rose-600 via-red-500 to-amber-500 text-white',
+      ambientGlow: 'bg-rose-500/10 dark:bg-rose-500/15',
+      borderColor: 'border-rose-200/80 dark:border-rose-500/20',
+      accentColor: '#E11D48'
     };
   }, [examName, currentExam?.code]);
 
   // 3. Days Remaining Runway Calculation
-  const daysRemaining = React.useMemo(() => {
+  const daysDiff = React.useMemo(() => {
     if (!currentExam?.examDate) return null;
-    const now = new Date().getTime();
+    const now = new Date();
+    const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
     let y = examYear || 2026;
-    let m = 9;
-    let d = 15;
+    let m = now.getMonth();
+    let d = now.getDate();
     if (currentExam.examDate.includes('-')) {
       const parts = currentExam.examDate.split('-').map(Number);
       if (parts.length >= 3 && !isNaN(parts[0])) {
@@ -164,10 +189,8 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
         d = parts[2];
       }
     }
-    const targetTime = new Date(y, m, d, 9, 0, 0).getTime();
-    const diff = targetTime - now;
-    if (diff <= 0) return 0;
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const targetMid = new Date(y, m, d).getTime();
+    return Math.round((targetMid - todayMid) / (1000 * 60 * 60 * 24));
   }, [currentExam?.examDate, examYear]);
 
   // 4. Formatted Exam Date String
@@ -279,10 +302,10 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
               <div className="flex items-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs font-mono flex-wrap pt-1">
                 
                 {/* ⏳ Days Runway */}
-                {daysRemaining !== null && (
+                {daysDiff !== null && (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 font-bold shadow-2xs">
                     <Clock className="w-3.5 h-3.5 text-amber-500" />
-                    <span>{daysRemaining > 0 ? `${daysRemaining} Days Runway` : 'Exam Today'}</span>
+                    <span>{daysDiff > 0 ? `${daysDiff} Days Runway` : daysDiff === 0 ? 'Exam Today' : `${Math.abs(daysDiff)}d Since Exam`}</span>
                   </span>
                 )}
 
@@ -342,7 +365,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
                   soundManager.playClick();
                   onNavigate('syllabus');
                 }}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 dark:bg-white dark:hover:bg-indigo-50 dark:text-slate-900 text-white text-xs sm:text-[13px] font-extrabold transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md active:scale-95"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-extrabold transition-all duration-200 cursor-pointer shadow-md shadow-indigo-500/25 active:scale-95"
                 title="Open Syllabus Explorer"
               >
                 <span>Curriculum</span>
