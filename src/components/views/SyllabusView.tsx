@@ -611,161 +611,192 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. 4 LUXURY HIGH-CONTRAST METRIC CARDS FOR CHAPTER (Glass Ring + Specular Shine + Mini Progress) */}
+        {/* 2. 4 LUXURY ELEVATED METRIC CARDS FOR CHAPTER (Glass Ring + Top Accent Strip + Mini Progress) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-          {/* Card 1: Royal Indigo / Violet Gradient -> Topics */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 1: Total Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#6366F1] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none group-hover:bg-indigo-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Topics</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <FileText className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Topics
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-200/80 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <FileText className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {totalInActiveChapter}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
                   Topics
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                  <Layers className="w-3 h-3" />
-                  <span>Chapter Scope</span>
+
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-[#6366F1] rounded-full h-full transition-all duration-500 shadow-xs"
+                  style={{ width: `${chapterPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+                <span className="truncate">
+                  {activeSubject.name}
                 </span>
-                <span className="truncate text-white/75">
-                  • {activeSubject.name}
+                <span className="text-slate-400 dark:text-slate-500 shrink-0">
+                  • Chapter Scope
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 2: Mastered Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#F43F5E] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-rose-500/10 blur-2xl pointer-events-none group-hover:bg-rose-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Mastered Topics
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <CheckCircle2 className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
               <div className="flex items-baseline justify-between">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                     {completedInActiveChapter}
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                  <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
                     / {totalInActiveChapter}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
                   {totalInActiveChapter > 0 ? Math.round((completedInActiveChapter / totalInActiveChapter) * 100) : 0}%
                 </span>
               </div>
 
-              {/* Sleek Mini Progress Track */}
-              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
                 <div
-                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  className="bg-[#F43F5E] rounded-full h-full transition-all duration-500 shadow-xs"
                   style={{ width: `${totalInActiveChapter > 0 ? (completedInActiveChapter / totalInActiveChapter) * 100 : 0}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {totalInActiveChapter - completedInActiveChapter === 0 ? 'All Completed! 🎉' : `${totalInActiveChapter - completedInActiveChapter} Remaining`}
                 </span>
-                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
                   Mastery
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 3: Sapphire Ocean / Sky Gradient -> In Progress */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 3: In Progress / Active */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#0284C7] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-sky-500/10 blur-2xl pointer-events-none group-hover:bg-sky-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">In Progress</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <Zap className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                In Progress
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <Zap className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {inProgressInActiveChapter}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                <span className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
                   Active
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
-                  <span>{weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Study'}</span>
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-[#0284C7] rounded-full h-full transition-all duration-500 shadow-xs"
+                  style={{ width: `${totalInActiveChapter > 0 ? (inProgressInActiveChapter / totalInActiveChapter) * 100 : 0}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+                <span className="truncate">
+                  {weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Rotation'}
                 </span>
-                <span className="truncate text-white/75">
-                  • In Rotation
+                <span className="text-sky-600 dark:text-sky-400 font-bold shrink-0">
+                  Study Active
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 4: Emerald Jade / Mint Gradient -> Chapter Mastery Rate */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 4: Chapter Mastery */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#10B981] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none group-hover:bg-emerald-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Chapter Mastery</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Chapter Mastery
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <TrendingUp className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
               <div className="flex items-baseline justify-between">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                     {chapterPercent}%
                   </span>
-                  <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
                     Done
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
                   {completedInActiveChapter}/{totalInActiveChapter}
                 </span>
               </div>
 
-              {/* Sleek Mini Progress Track */}
-              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
                 <div
-                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  className="bg-[#10B981] rounded-full h-full transition-all duration-500 shadow-xs"
                   style={{ width: `${chapterPercent}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {completedInActiveChapter}/{totalInActiveChapter} Topics Done
                 </span>
-                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
                   Mastery
                 </span>
               </div>
@@ -925,64 +956,70 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative flex items-stretch rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden cursor-pointer select-none"
+                    className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
                   >
-                    {/* Bottom Accent Bar running full width under card */}
+                    {/* Left Accent Indicator Strip */}
                     <div
-                      className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 z-0"
+                      className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
                       style={{ backgroundColor: design.palette.accentColor }}
                     />
 
-                    {/* Left Angled Step / Topic Badge (Slanted Right Edge matching Mockup) */}
-                    <div
-                      className={`relative shrink-0 w-20 sm:w-28 md:w-32 bg-gradient-to-br ${design.palette.gradient} text-white flex flex-col items-center justify-center py-4 px-2 sm:px-3 text-center select-none z-10`}
-                      style={{
-                        clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%)'
-                      }}
-                    >
-                      <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-white/90 uppercase font-mono leading-none">
-                        TOPIC
-                      </span>
-                      <span className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-mono leading-none tracking-tight mt-1 sm:mt-1.5 drop-shadow-xs">
-                        {design.formattedNum}
-                      </span>
-                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
+                      {/* Left & Middle: Emblem + Title & Meta */}
+                      <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
+                        {/* Integrated Luxury Topic Emblem with Quick Status Toggle */}
+                        <div className="relative shrink-0">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
+                              updateTopicStatus(topic.id, nextStatus);
+                              if (nextStatus === 'completed') {
+                                soundManager.playCompleteChime();
+                              } else {
+                                soundManager.playClick();
+                              }
+                            }}
+                            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${design.palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200 cursor-pointer active:scale-95`}
+                            title={topic.status === 'completed' ? 'Mark in progress' : 'Mark completed'}
+                          >
+                            <BadgeIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
+                          </button>
+                          {/* Index Badge Tag */}
+                          <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
+                            {design.formattedNum}
+                          </span>
+                        </div>
 
-                    {/* Card Body: Icon + Title/Description/Meta + Status/Chevron */}
-                    <div className="flex-1 min-w-0 p-3 sm:p-4 md:p-5 pl-2 sm:pl-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-4.5">
-                      {/* Middle Left: Circular Outline Icon + Title & Description */}
-                      <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
-                        {/* Circular Outline Icon (Interactive quick status toggle matching mockup circle) */}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
-                            updateTopicStatus(topic.id, nextStatus);
-                            if (nextStatus === 'completed') {
-                              soundManager.playCompleteChime();
-                            } else {
-                              soundManager.playClick();
-                            }
-                          }}
-                          className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full border-2 flex items-center justify-center shrink-0 transition-transform active:scale-90 hover:scale-105 cursor-pointer shadow-xs ${design.iconRingClass}`}
-                          title={topic.status === 'completed' ? 'Mark in progress' : 'Mark completed'}
-                        >
-                          <BadgeIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2]" />
-                        </button>
+                        {/* Title & Stats */}
+                        <div className="min-w-0 flex-1 space-y-2">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
+                              {topic.name}
+                            </h3>
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${design.statusPillClass}`}>
+                              {design.badgeLabel}
+                            </span>
+                          </div>
 
-                        {/* Title & Description Column */}
-                        <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
-                          <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                            {topic.name}
-                          </h3>
+                          {/* In-Card Topic Mastery Track */}
+                          <div className="w-full max-w-md h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
+                            <div
+                              className="h-full rounded-full transition-all duration-500 shadow-xs"
+                              style={{
+                                width: topic.status === 'completed' ? '100%' : topic.status === 'in_progress' ? '50%' : topic.status === 'weak' ? '25%' : '0%',
+                                backgroundColor: design.palette.accentColor
+                              }}
+                            />
+                          </div>
 
                           {/* Meta Pills Row */}
-                          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
+                          <div className="flex items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
                             {(topic.studyTimeMinutes || 0) > 0 && (
                               <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
                                 <Clock className="w-3 h-3 text-amber-500" />
-                                <span>{topic.studyTimeMinutes}m Study</span>
+                                <span>{topic.studyTimeMinutes}m</span>
                               </span>
                             )}
 
@@ -1026,7 +1063,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Right: Status Pill & Action Chevron */}
                       <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                        <div
+                        <button
+                          type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
@@ -1043,10 +1081,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <BadgeIcon className="w-3.5 h-3.5 stroke-[2.5]" />
                           <span className="sm:hidden">{design.mobileLabel}</span>
                           <span className="hidden sm:inline">{design.badgeLabel}</span>
-                        </div>
+                        </button>
 
-                        {/* Action Chevron */}
-                        <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-1 shadow-2xs shrink-0">
+                        <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-0.5 shadow-2xs shrink-0">
                           <ChevronRight className="w-4 h-4 stroke-[2.5]" />
                         </div>
                       </div>
@@ -1172,161 +1209,192 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. 4 LUXURY HIGH-CONTRAST METRIC CARDS FOR SUBJECT (Glass Ring + Specular Shine + Mini Progress) */}
+        {/* 2. 4 LUXURY ELEVATED METRIC CARDS FOR SUBJECT (Glass Ring + Top Accent Strip + Mini Progress) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-          {/* Card 1: Royal Indigo / Violet Gradient -> Total Chapters */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 1: Chapters */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#6366F1] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none group-hover:bg-indigo-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Chapters</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <Layers className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Chapters
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-200/80 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <Layers className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {activeSubject.chapters.length}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
                   {activeSubject.chapters.length === 1 ? 'Chapter' : 'Chapters'}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                  <BookOpen className="w-3 h-3" />
-                  <span>Subject Modules</span>
+
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-[#6366F1] rounded-full h-full transition-all duration-500 shadow-xs"
+                  style={{ width: `${subjectPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+                <span className="truncate">
+                  {totalSubjectTopics} Topics
                 </span>
-                <span className="truncate text-white/75">
-                  • {totalSubjectTopics} Topics
+                <span className="text-slate-400 dark:text-slate-500 shrink-0">
+                  • Modules
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 2: Mastered Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#F43F5E] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-rose-500/10 blur-2xl pointer-events-none group-hover:bg-rose-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Mastered Topics
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <CheckCircle2 className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
               <div className="flex items-baseline justify-between">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                     {completedSubjectTopics}
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                  <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
                     / {totalSubjectTopics}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
                   {totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0}%
                 </span>
               </div>
 
-              {/* Sleek Mini Progress Track */}
-              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
                 <div
-                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  className="bg-[#F43F5E] rounded-full h-full transition-all duration-500 shadow-xs"
                   style={{ width: `${totalSubjectTopics > 0 ? (completedSubjectTopics / totalSubjectTopics) * 100 : 0}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {totalSubjectTopics - completedSubjectTopics === 0 ? 'All Completed! 🎉' : `${totalSubjectTopics - completedSubjectTopics} Remaining`}
                 </span>
-                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
                   Mastery
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 3: Sapphire Ocean / Sky Gradient -> Total Topics */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 3: Total Topics */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#0284C7] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-sky-500/10 blur-2xl pointer-events-none group-hover:bg-sky-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Total Topics</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <FileText className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Total Topics
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <FileText className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {totalSubjectTopics}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+                <span className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
                   Topics
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-sky-300" />
-                  <span>Subject Scope</span>
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
+                <div
+                  className="bg-[#0284C7] rounded-full h-full transition-all duration-500 shadow-xs"
+                  style={{ width: `${subjectPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+                <span className="truncate">
+                  Across {activeSubject.chapters.length} Chapters
                 </span>
-                <span className="truncate text-white/80">
-                  • Across {activeSubject.chapters.length} Chapters
+                <span className="text-sky-600 dark:text-sky-400 font-bold shrink-0">
+                  Subject Scope
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 4: Emerald Jade / Mint Gradient -> Subject Mastery Rate */}
-          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-            {/* Top Specular Gloss Edge & Ambient Glow */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Card 4: Subject Mastery */}
+          <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            {/* Top Accent Strip */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#10B981] opacity-80 group-hover:opacity-100 transition-opacity" />
+            {/* Ambient Glow */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none group-hover:bg-emerald-500/20 transition-all" />
 
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Subject Mastery</span>
-              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-                <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
+            <div className="relative z-10 flex items-center justify-between gap-2">
+              <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                Subject Mastery
+              </span>
+              <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+                <TrendingUp className="w-4 h-4 stroke-[2.3]" />
               </div>
             </div>
-            <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+            <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
               <div className="flex items-baseline justify-between">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                     {subjectPercent}%
                   </span>
-                  <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
                     Done
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
                   {completedSubjectTopics}/{totalSubjectTopics}
                 </span>
               </div>
 
-              {/* Sleek Mini Progress Track */}
-              <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+              {/* Progress Track */}
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
                 <div
-                  className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                  className="bg-[#10B981] rounded-full h-full transition-all duration-500 shadow-xs"
                   style={{ width: `${subjectPercent}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {completedSubjectTopics}/{totalSubjectTopics} Topics Done
                 </span>
-                <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
                   Mastery
                 </span>
               </div>
@@ -1427,113 +1495,93 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 const ChapterIcon = isChapterMastered ? CheckCircle2 : chapterBadge.icon;
 
                 return (
+                <div
+                  key={chapter.id}
+                  onClick={() => handleSelectChapter(chapter.id)}
+                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
+                >
+                  {/* Left Accent Indicator Strip */}
                   <div
-                    key={chapter.id}
-                    onClick={() => handleSelectChapter(chapter.id)}
-                    className="group relative flex items-stretch rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden cursor-pointer select-none"
-                  >
-                    {/* Bottom Accent Bar running full width under card */}
-                    <div
-                      className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 z-0"
-                      style={{ backgroundColor: palette.accentColor }}
-                    />
+                    className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
+                    style={{ backgroundColor: palette.accentColor }}
+                  />
 
-                    {/* Left Angled Step / Chapter Badge (Slanted Right Edge matching Mockup) */}
-                    <div
-                      className={`relative shrink-0 w-20 sm:w-28 md:w-32 bg-gradient-to-br ${palette.gradient} text-white flex flex-col items-center justify-center py-4 px-2 sm:px-3 text-center select-none z-10`}
-                      style={{
-                        clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%)'
-                      }}
-                    >
-                      <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-white/90 uppercase font-mono leading-none">
-                        CHAPTER
-                      </span>
-                      <span className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-mono leading-none tracking-tight mt-1 sm:mt-1.5 drop-shadow-xs">
-                        {formattedNum}
-                      </span>
-                    </div>
-
-                    {/* Card Body: Icon + Title/Description/Meta + Status/Chevron */}
-                    <div className="flex-1 min-w-0 p-3 sm:p-4 md:p-5 pl-2 sm:pl-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-4.5">
-                      {/* Middle Left: Circular Outline Icon + Title & Description */}
-                      <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
-                        {/* Circular Outline Icon */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
+                    {/* Left & Middle: Emblem + Title & Progress */}
+                    <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
+                      {/* Integrated Luxury Chapter Emblem */}
+                      <div className="relative shrink-0">
                         <div
-                          className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full border-2 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs ${
-                            isChapterMastered
-                              ? 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-500/10'
-                              : hasChapterStarted
-                              ? 'border-indigo-500/60 text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-500/10'
-                              : 'border-slate-300 dark:border-white/20 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-white/[0.04]'
-                          }`}
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200`}
                         >
-                          <ChapterIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2]" />
+                          <ChapterIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
                         </div>
-
-                        {/* Title & Description Column */}
-                        <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
-                          <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                            {chapter.name}
-                          </h3>
-
-                          {/* Meta Pills Row */}
-                          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
-                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                              <Layers className="w-3 h-3 text-indigo-500" />
-                              <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
-                            </span>
-
-                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                              <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                              <span>{completedInChapter}/{totalInChapter} Mastered</span>
-                            </span>
-
-                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0 tabular-nums">
-                              <Target className="w-3 h-3 text-blue-500" />
-                              <span>{chapterPercent}% Complete</span>
-                            </span>
-
-                            {weakInChapter > 0 && (
-                              <span className="flex items-center gap-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-500/20 font-bold shrink-0">
-                                <AlertTriangle className="w-3 h-3" />
-                                <span>{weakInChapter} Weak</span>
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
+                          {formattedNum}
+                        </span>
                       </div>
 
-                      {/* Right: Status Pill & Action Chevron */}
-                      <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                        <div
-                          className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs border select-none ${
+                      {/* Title & Stats */}
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
+                            {chapter.name}
+                          </h3>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${
                             isChapterMastered
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
                               : hasChapterStarted
-                              ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
-                              : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                          }`}
-                        >
-                          {isChapterMastered ? (
-                            <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                          ) : hasChapterStarted ? (
-                            <Zap className="w-3.5 h-3.5 stroke-[2.5]" />
-                          ) : (
-                            <Circle className="w-3.5 h-3.5 stroke-[2.5]" />
-                          )}
-                          <span className="sm:hidden">{chapterPercent}%</span>
-                          <span className="hidden sm:inline">
-                            {isChapterMastered ? 'MASTERED ✓' : hasChapterStarted ? `${chapterPercent}% DONE` : 'EXPLORE'}
+                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
+                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
+                          }`}>
+                            {chapterPercent}% COMPLETE
                           </span>
                         </div>
 
-                        {/* Action Chevron */}
-                        <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-1 shadow-2xs shrink-0">
-                          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                        {/* Visual Progress Bar */}
+                        <div className="w-full max-w-md h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
+                          <div
+                            className="h-full rounded-full transition-all duration-500 shadow-xs"
+                            style={{
+                              width: `${Math.max(chapterPercent > 0 ? 4 : 0, chapterPercent)}%`,
+                              backgroundColor: palette.accentColor
+                            }}
+                          />
+                        </div>
+
+                        {/* Meta Tags Row */}
+                        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium flex-wrap pt-0.5">
+                          <span className="flex items-center gap-1.5 font-mono">
+                            <Layers className="w-3.5 h-3.5 text-indigo-500" />
+                            <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
+                          </span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                            <span>{completedInChapter}/{totalInChapter} Mastered</span>
+                          </span>
+                          {weakInChapter > 0 && (
+                            <>
+                              <span className="text-slate-300 dark:text-slate-600">•</span>
+                              <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold font-mono">
+                                <AlertTriangle className="w-3.5 h-3.5" />
+                                <span>{weakInChapter} Weak</span>
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
+
+                    {/* Right: Status Action CTA */}
+                    <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
+                      <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs">
+                        <span>{hasChapterStarted ? 'View Topics' : 'Explore'}</span>
+                        <ChevronRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
+                      </div>
+                    </div>
                   </div>
+                </div>
                 );
               })
             )}
@@ -1699,161 +1747,192 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 3. 4 LUXURY HIGH-CONTRAST METRIC CARDS (Glass Ring + Specular Shine + Mini Progress) */}
+      {/* 3. 4 LUXURY ELEVATED METRIC CARDS (Linear & Apple Health Style) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-        {/* Card 1: Royal Indigo / Violet Gradient -> Total Topics */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#6366F1] via-[#4F46E5] to-[#3730A3] text-white flex flex-col justify-between overflow-hidden border border-indigo-300/30 dark:border-indigo-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(79,70,229,0.35),0_4px_10px_-2px_rgba(79,70,229,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(79,70,229,0.48),0_6px_14px_-2px_rgba(79,70,229,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Specular Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        {/* Card 1: Total Topics */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+          {/* Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#6366F1] opacity-80 group-hover:opacity-100 transition-opacity" />
+          {/* Ambient Glow */}
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none group-hover:bg-indigo-500/20 transition-all" />
 
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Total Topics</span>
-            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-              <BookOpen className="w-4 h-4 text-white drop-shadow-xs" />
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+              Total Topics
+            </span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+              <BookOpen className="w-4 h-4 stroke-[2.3]" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                 {totalTopicsCount}
               </span>
-              <span className="text-[11px] sm:text-xs font-bold text-white/80 uppercase tracking-wide">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
                 Topics
               </span>
             </div>
-            <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                <Layers className="w-3 h-3" />
-                <span>{currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'}</span>
+
+            {/* Curriculum Mini Segment Track */}
+            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-[#6366F1] rounded-full h-full transition-all duration-500 shadow-xs"
+                style={{ width: `${overallPercentage}%` }}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <span className="truncate">
+                {currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'}
               </span>
-              <span className="truncate text-white/75">
+              <span className="text-slate-400 dark:text-slate-500 shrink-0">
                 • {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters
               </span>
             </div>
           </div>
         </div>
 
-        {/* Card 2: Crimson Ruby / Pink Gradient -> Mastered Topics */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#F43F5E] via-[#E11D48] to-[#9F1239] text-white flex flex-col justify-between overflow-hidden border border-rose-300/30 dark:border-rose-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(225,29,72,0.35),0_4px_10px_-2px_rgba(225,29,72,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(225,29,72,0.48),0_6px_14px_-2px_rgba(225,29,72,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Specular Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        {/* Card 2: Mastered Topics */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+          {/* Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#F43F5E] opacity-80 group-hover:opacity-100 transition-opacity" />
+          {/* Ambient Glow */}
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-rose-500/10 blur-2xl pointer-events-none group-hover:bg-rose-500/20 transition-all" />
 
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Mastered Topics</span>
-            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-              <CheckCircle2 className="w-4 h-4 text-white drop-shadow-xs" />
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+              Mastered Topics
+            </span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+              <CheckCircle2 className="w-4 h-4 stroke-[2.3]" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {completedTopicsCount}
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-white/70 font-mono">
+                <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
                   / {totalTopicsCount}
                 </span>
               </div>
-              <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+              <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
                 {totalTopicsCount > 0 ? Math.round((completedTopicsCount / totalTopicsCount) * 100) : 0}%
               </span>
             </div>
 
             {/* Sleek Mini Progress Track */}
-            <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
               <div
-                className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                className="bg-[#F43F5E] rounded-full h-full transition-all duration-500 shadow-xs"
                 style={{ width: `${totalTopicsCount > 0 ? (completedTopicsCount / totalTopicsCount) * 100 : 0}%` }}
               />
             </div>
 
-            <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
               <span className="truncate">
                 {totalTopicsCount - completedTopicsCount === 0 ? 'All Completed! 🎉' : `${totalTopicsCount - completedTopicsCount} Remaining`}
               </span>
-              <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+              <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
                 Mastery
               </span>
             </div>
           </div>
         </div>
 
-        {/* Card 3: Sapphire Ocean / Sky Gradient -> Exam Runway */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] text-white flex flex-col justify-between overflow-hidden border border-sky-300/30 dark:border-sky-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(2,132,199,0.35),0_4px_10px_-2px_rgba(2,132,199,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(2,132,199,0.48),0_6px_14px_-2px_rgba(2,132,199,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Specular Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        {/* Card 3: Exam Runway */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+          {/* Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#0284C7] opacity-80 group-hover:opacity-100 transition-opacity" />
+          {/* Ambient Glow */}
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-sky-500/10 blur-2xl pointer-events-none group-hover:bg-sky-500/20 transition-all" />
 
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Exam Runway</span>
-            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-              <Clock className="w-4 h-4 text-white drop-shadow-xs" />
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+              Exam Runway
+            </span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+              <Clock className="w-4 h-4 stroke-[2.3]" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                 {daysRemaining > 0 ? daysRemaining : 0}
               </span>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide text-white/80">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
                 {daysRemaining === 1 ? 'Day Left' : 'Days Runway'}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5 pt-1 text-[11px] sm:text-xs text-white/90 font-medium truncate">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/15 backdrop-blur-xs border border-white/20 text-[10px] sm:text-[11px] font-mono shrink-0">
-                <Calendar className="w-3 h-3" />
-                <span>{daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left` : 'Today'}</span>
+            {/* Visual Runway Progress Track */}
+            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
+              <div
+                className="bg-[#0284C7] rounded-full h-full transition-all duration-500 shadow-xs"
+                style={{ width: `${Math.min(100, Math.max(10, 100 - (daysRemaining / 60) * 100))}%` }}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <span className="truncate">
+                {daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left` : 'Exam Today'}
               </span>
-              <span className="truncate text-white/80">
-                Target: {formattedExamDate}
+              <span className="text-sky-600 dark:text-sky-400 font-bold shrink-0">
+                {formattedExamDate}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Card 4: Emerald Jade / Mint Gradient -> Completion Rate */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white flex flex-col justify-between overflow-hidden border border-emerald-300/30 dark:border-emerald-400/20 ring-1 ring-inset ring-white/20 shadow-[0_10px_28px_-4px_rgba(16,185,129,0.35),0_4px_10px_-2px_rgba(16,185,129,0.2)] hover:shadow-[0_18px_36px_-4px_rgba(16,185,129,0.48),0_6px_14px_-2px_rgba(16,185,129,0.25)] hover:-translate-y-1 hover:scale-[1.015] transition-all duration-300">
-          {/* Top Specular Gloss Edge & Ambient Glow */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+        {/* Card 4: Completion Rate */}
+        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+          {/* Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#10B981] opacity-80 group-hover:opacity-100 transition-opacity" />
+          {/* Ambient Glow */}
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none group-hover:bg-emerald-500/20 transition-all" />
 
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-white/90 font-mono">Completion Rate</span>
-            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-inner flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-white/25 shrink-0">
-              <TrendingUp className="w-4 h-4 text-white drop-shadow-xs" />
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            <span className="text-[11px] sm:text-xs font-black tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+              Completion Rate
+            </span>
+            <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs shrink-0">
+              <TrendingUp className="w-4 h-4 stroke-[2.3]" />
             </div>
           </div>
-          <div className="relative z-10 mt-3 sm:mt-4 space-y-1.5">
+
+          <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight drop-shadow-xs">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {overallPercentage}%
                 </span>
-                <span className="text-[10px] sm:text-xs font-bold text-white/75 uppercase tracking-wide">
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
                   Done
                 </span>
               </div>
-              <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/25 text-[10px] sm:text-[11px] font-black font-mono tabular-nums">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
                 {completedTopicsCount}/{totalTopicsCount}
               </span>
             </div>
 
             {/* Sleek Mini Progress Track */}
-            <div className="w-full bg-black/25 rounded-full h-1.5 overflow-hidden shadow-inner">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
               <div
-                className="bg-white rounded-full h-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                className="bg-[#10B981] rounded-full h-full transition-all duration-500 shadow-xs"
                 style={{ width: `${overallPercentage}%` }}
               />
             </div>
 
-            <div className="flex items-center justify-between text-[11px] sm:text-xs text-white/85 font-medium">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
               <span className="truncate">
-                {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters Total
+                {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters
               </span>
-              <span className="text-white/70 font-mono text-[10px] uppercase tracking-wider shrink-0">
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
                 Curriculum
               </span>
             </div>
@@ -1998,104 +2077,83 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative flex items-stretch rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden cursor-pointer select-none"
+                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
                 >
-                  {/* Bottom Accent Bar running full width under card */}
+                  {/* Left Accent Indicator Strip */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 z-0"
+                    className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
                     style={{ backgroundColor: palette.accentColor }}
                   />
 
-                  {/* Left Angled Step / Subject Badge (Slanted Right Edge matching Mockup) */}
-                  <div
-                    className={`relative shrink-0 w-20 sm:w-28 md:w-32 bg-gradient-to-br ${palette.gradient} text-white flex flex-col items-center justify-center py-4 px-2 sm:px-3 text-center select-none z-10`}
-                    style={{
-                      clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%)'
-                    }}
-                  >
-                    <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-white/90 uppercase font-mono leading-none">
-                      SUBJECT
-                    </span>
-                    <span className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-mono leading-none tracking-tight mt-1 sm:mt-1.5 drop-shadow-xs">
-                      {formattedNum}
-                    </span>
-                  </div>
-
-                  {/* Card Body: Icon + Title/Description/Meta + Status/Chevron */}
-                  <div className="flex-1 min-w-0 p-3 sm:p-4 md:p-5 pl-2 sm:pl-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-4.5">
-                    {/* Middle Left: Circular Outline Icon + Title & Description */}
-                    <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
-                      {/* Circular Outline Icon */}
-                      <div
-                        className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full border-2 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-xs ${
-                          isSubjectMastered
-                            ? 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-500/10'
-                            : hasSubjectStarted
-                            ? 'border-indigo-500/60 text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-500/10'
-                            : 'border-slate-300 dark:border-white/20 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-white/[0.04]'
-                        }`}
-                      >
-                        <BadgeIcon className="w-5 sm:w-5.5 h-5 sm:h-5.5 stroke-[2.2]" />
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
+                    {/* Left & Middle: Emblem + Title & Progress */}
+                    <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
+                      {/* Integrated Luxury Subject Emblem */}
+                      <div className="relative shrink-0">
+                        <div
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200`}
+                        >
+                          <BadgeIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
+                        </div>
+                        {/* Index Badge Tag */}
+                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
+                          {formattedNum}
+                        </span>
                       </div>
 
-                      {/* Title & Description Column */}
-                      <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
-                        <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                          {subject.name}
-                        </h3>
+                      {/* Title & Stats */}
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
+                            {subject.name}
+                          </h3>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${
+                            isSubjectMastered
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                              : hasSubjectStarted
+                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
+                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
+                          }`}>
+                            {percent}% DONE
+                          </span>
+                        </div>
 
-                        {/* Meta Pills Row */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
-                          <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                            <BookOpen className="w-3 h-3 text-indigo-500" />
+                        {/* Visual Progress Bar */}
+                        <div className="w-full max-w-md h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
+                          <div
+                            className="h-full rounded-full transition-all duration-500 shadow-xs"
+                            style={{
+                              width: `${Math.max(percent > 0 ? 4 : 0, percent)}%`,
+                              backgroundColor: palette.accentColor
+                            }}
+                          />
+                        </div>
+
+                        {/* Meta Tags Row */}
+                        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium flex-wrap pt-0.5">
+                          <span className="flex items-center gap-1.5 font-mono">
+                            <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                             <span>{totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'}</span>
                           </span>
-
-                          <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                            <Layers className="w-3 h-3 text-blue-500" />
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span className="flex items-center gap-1.5 font-mono">
+                            <Layers className="w-3.5 h-3.5 text-sky-500" />
                             <span>{subjectTotalTopics} Topics</span>
                           </span>
-
-                          <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                            <span>{completedChapters}/{totalChapters} Chapters Done</span>
-                          </span>
-
-                          <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0 tabular-nums">
-                            <Target className="w-3 h-3 text-purple-500" />
-                            <span>{percent}% Curriculum Done</span>
+                          <span className="text-slate-300 dark:text-slate-600">•</span>
+                          <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                            <span>{completedChapters}/{totalChapters} Chapters Mastered</span>
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right: Status Pill & Action Chevron */}
+                    {/* Right: Status Action CTA */}
                     <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                      <div
-                        className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs border select-none ${
-                          isSubjectMastered
-                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                            : hasSubjectStarted
-                            ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
-                            : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                        }`}
-                      >
-                        {isSubjectMastered ? (
-                          <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                        ) : hasSubjectStarted ? (
-                          <Zap className="w-3.5 h-3.5 stroke-[2.5]" />
-                        ) : (
-                          <Circle className="w-3.5 h-3.5 stroke-[2.5]" />
-                        )}
-                        <span className="sm:hidden">{percent}%</span>
-                        <span className="hidden sm:inline">
-                          {isSubjectMastered ? 'MASTERED ✓' : hasSubjectStarted ? `${percent}% READY` : 'EXPLORE'}
-                        </span>
-                      </div>
-
-                      {/* Action Chevron */}
-                      <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-1 shadow-2xs shrink-0">
-                        <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                      <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs">
+                        <span>{hasSubjectStarted ? 'Continue' : 'Explore'}</span>
+                        <ChevronRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </div>
                   </div>
