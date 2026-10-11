@@ -14,21 +14,35 @@ interface EditExamTargetModalProps {
 
 const PRESET_EXAMS = [
   { name: 'SSC CGL 2026', code: 'SSC_CGL', date: '2026-10-25', year: 2026 },
+  { name: 'SSC CHSL 2027', code: 'SSC_CHSL', date: '2027-03-15', year: 2027 },
+  { name: 'SSC CPO 2026', code: 'SSC_CPO', date: '2026-11-28', year: 2026 },
+  { name: 'SSC MTS 2026', code: 'SSC_MTS', date: '2026-12-10', year: 2026 },
   { name: 'UPSC CSE 2027', code: 'UPSC_CSE', date: '2027-05-23', year: 2027 },
   { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-20', year: 2026 },
   { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-12-18', year: 2026 },
   { name: 'NDA Defence 2027', code: 'NDA_DEFENCE', date: '2027-04-18', year: 2027 },
-  { name: 'State PCS 2026', code: 'STATE_PCS', date: '2026-12-05', year: 2026 },
-  { name: 'SSC CHSL 2027', code: 'SSC_CHSL', date: '2027-03-15', year: 2027 }
+  { name: 'State PCS 2026', code: 'STATE_PCS', date: '2026-12-05', year: 2026 }
 ];
 
 const getPresetLogo = (codeOrName: string) => {
   const s = (codeOrName || '').toLowerCase();
-  if (s.includes('ssc') || s.includes('cgl') || s.includes('chsl')) return '/exam-logos/ssc.png';
+  if (
+    s.includes('ssc') ||
+    s.includes('cgl') ||
+    s.includes('chsl') ||
+    s.includes('cpo') ||
+    s.includes('mts') ||
+    s.includes('steno') ||
+    s.includes('havaldar') ||
+    s.includes('staff selection')
+  ) {
+    return '/exam-logos/ssc.png';
+  }
   if (s.includes('railway') || s.includes('rrb') || s.includes('ntpc')) return '/exam-logos/railways.png';
   if (s.includes('bank') || s.includes('ibps') || s.includes('po')) return '/exam-logos/ibps.png';
   if (s.includes('nda') || s.includes('defence') || s.includes('cds')) return '/exam-logos/defence.webp';
-  return '/exam-logos/upsc.svg';
+  if (s.includes('upsc') || s.includes('pcs') || s.includes('psc') || s.includes('civil')) return '/exam-logos/upsc.svg';
+  return '/exam-logos/custom-target.png';
 };
 
 export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({

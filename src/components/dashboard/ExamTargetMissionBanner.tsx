@@ -61,18 +61,29 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
   const examMeta: ExamVisualMeta = React.useMemo(() => {
     const raw = `${examName} ${currentExam?.code || ''}`.toLowerCase();
 
-    // 1) SSC Exams (SSC CGL, CHSL, CPO, MTS, GD, Steno)
-    if (raw.includes('ssc') || raw.includes('cgl') || raw.includes('chsl') || raw.includes('cpo') || raw.includes('mts') || raw.includes('staff selection')) {
+    // 1) SSC Exams (SSC CGL, CHSL, CPO, MTS, GD, Steno, JE, Selection Post, Havaldar, etc.)
+    if (
+      raw.includes('ssc') ||
+      raw.includes('cgl') ||
+      raw.includes('chsl') ||
+      raw.includes('cpo') ||
+      raw.includes('mts') ||
+      raw.includes('steno') ||
+      raw.includes('havaldar') ||
+      raw.includes('gd constable') ||
+      raw.includes('selection post') ||
+      raw.includes('staff selection')
+    ) {
       return {
         key: 'ssc',
-        authorityName: 'Staff Selection Commission',
-        hindiAuthority: 'कर्मचारी चयन आयोग • भारत सरकार',
-        motto: 'सत्यमेव जयते • निष्पक्ष एवं पारदर्शी चयन',
+        authorityName: 'Staff Selection Commission • भारत सरकार',
+        hindiAuthority: 'कर्मचारी चयन आयोग • Staff Selection Commission',
+        motto: 'सत्यमेव जयते • निष्पक्ष, पारदर्शी एवं तीव्र चयन',
         logoSrc: '/exam-logos/ssc.png',
-        badgeLabel: 'Staff Selection Commission',
-        gradientBadge: 'from-rose-500 to-amber-500 text-white',
+        badgeLabel: 'Staff Selection Commission (SSC)',
+        gradientBadge: 'from-rose-600 via-red-500 to-amber-500 text-white',
         ambientGlow: 'bg-rose-500/10 dark:bg-rose-500/15',
-        borderColor: 'border-rose-200/80 dark:border-rose-500/20',
+        borderColor: 'border-rose-200/80 dark:border-rose-500/25',
         accentColor: '#E11D48'
       };
     }

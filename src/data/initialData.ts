@@ -1467,6 +1467,28 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     category: 'ssc',
     description: 'Quant, Reasoning, English, General Awareness (10+2 Level)',
     subjects: JSON.parse(JSON.stringify(INITIAL_SSC_SUBJECTS))
+  },
+  {
+    id: 'exam_ssc_cpo_2026',
+    name: 'SSC CPO SI 2026',
+    code: 'SSC_CPO',
+    targetYear: 2026,
+    examDate: '2026-11-28',
+    badge: 'Central Police SI',
+    category: 'ssc',
+    description: 'Delhi Police & CAPF Sub-Inspector: Paper 1 & 2 English & GK',
+    subjects: JSON.parse(JSON.stringify(INITIAL_SSC_SUBJECTS))
+  },
+  {
+    id: 'exam_ssc_mts_2026',
+    name: 'SSC MTS & Havaldar 2026',
+    code: 'SSC_MTS',
+    targetYear: 2026,
+    examDate: '2026-12-10',
+    badge: 'Multi-Tasking Staff',
+    category: 'ssc',
+    description: 'Session 1 (Math/Reasoning) & Session 2 (English/General Awareness)',
+    subjects: JSON.parse(JSON.stringify(INITIAL_SSC_SUBJECTS))
   }
 ];
 

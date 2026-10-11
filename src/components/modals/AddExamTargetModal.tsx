@@ -22,7 +22,17 @@ interface AddExamTargetModalProps {
 }
 
 const getCatalogPresetLogo = (category: string, code: string) => {
-  if (category === 'ssc' || code.includes('SSC')) return '/exam-logos/ssc.png';
+  const c = `${category} ${code}`.toLowerCase();
+  if (
+    c.includes('ssc') ||
+    c.includes('cgl') ||
+    c.includes('chsl') ||
+    c.includes('cpo') ||
+    c.includes('mts') ||
+    c.includes('steno')
+  ) {
+    return '/exam-logos/ssc.png';
+  }
   if (category === 'railway' || code.includes('RRB')) return '/exam-logos/railways.png';
   if (category === 'banking' || code.includes('IBPS')) return '/exam-logos/ibps.png';
   if (category === 'defence' || code.includes('NDA')) return '/exam-logos/defence.webp';
