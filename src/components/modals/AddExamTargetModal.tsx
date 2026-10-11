@@ -33,10 +33,26 @@ const getCatalogPresetLogo = (category: string, code: string) => {
   ) {
     return '/exam-logos/ssc.png';
   }
-  if (category === 'railway' || code.includes('RRB')) return '/exam-logos/railways.png';
-  if (category === 'banking' || code.includes('IBPS')) return '/exam-logos/ibps.png';
-  if (category === 'defence' || code.includes('NDA')) return '/exam-logos/defence.webp';
-  if (category === 'upsc' || category === 'state_pcs' || code.includes('UPSC') || code.includes('PCS')) return '/exam-logos/upsc.svg';
+  if (
+    category === 'railway' ||
+    c.includes('rrb') ||
+    c.includes('ntpc') ||
+    c.includes('group d') ||
+    c.includes('alp')
+  ) {
+    return '/exam-logos/railways.png';
+  }
+  if (category === 'banking' || c.includes('ibps')) return '/exam-logos/ibps.png';
+  if (category === 'defence' || c.includes('nda')) return '/exam-logos/defence.webp';
+  if (
+    category === 'upsc' ||
+    category === 'state_pcs' ||
+    c.includes('upsc') ||
+    c.includes('pcs') ||
+    c.includes('ias')
+  ) {
+    return '/exam-logos/upsc.png';
+  }
   return '/exam-logos/custom-target.png';
 };
 

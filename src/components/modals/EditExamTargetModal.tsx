@@ -20,6 +20,8 @@ const PRESET_EXAMS = [
   { name: 'UPSC CSE 2027', code: 'UPSC_CSE', date: '2027-05-23', year: 2027 },
   { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-20', year: 2026 },
   { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-12-18', year: 2026 },
+  { name: 'Railway Group D 2026', code: 'RRB_GROUP_D', date: '2026-11-15', year: 2026 },
+  { name: 'Railway ALP 2026', code: 'RRB_ALP', date: '2026-12-28', year: 2026 },
   { name: 'NDA Defence 2027', code: 'NDA_DEFENCE', date: '2027-04-18', year: 2027 },
   { name: 'State PCS 2026', code: 'STATE_PCS', date: '2026-12-05', year: 2026 }
 ];
@@ -38,10 +40,33 @@ const getPresetLogo = (codeOrName: string) => {
   ) {
     return '/exam-logos/ssc.png';
   }
-  if (s.includes('railway') || s.includes('rrb') || s.includes('ntpc')) return '/exam-logos/railways.png';
+  if (
+    s.includes('railway') ||
+    s.includes('rail') ||
+    s.includes('rrb') ||
+    s.includes('ntpc') ||
+    s.includes('group d') ||
+    s.includes('alp') ||
+    s.includes('loco') ||
+    s.includes('rpf') ||
+    s.includes('technician')
+  ) {
+    return '/exam-logos/railways.png';
+  }
   if (s.includes('bank') || s.includes('ibps') || s.includes('po')) return '/exam-logos/ibps.png';
   if (s.includes('nda') || s.includes('defence') || s.includes('cds')) return '/exam-logos/defence.webp';
-  if (s.includes('upsc') || s.includes('pcs') || s.includes('psc') || s.includes('civil')) return '/exam-logos/upsc.svg';
+  if (
+    s.includes('upsc') ||
+    s.includes('pcs') ||
+    s.includes('psc') ||
+    s.includes('civil') ||
+    s.includes('ias') ||
+    s.includes('ips') ||
+    s.includes('ifs') ||
+    s.includes('dholpur')
+  ) {
+    return '/exam-logos/upsc.png';
+  }
   return '/exam-logos/custom-target.png';
 };
 

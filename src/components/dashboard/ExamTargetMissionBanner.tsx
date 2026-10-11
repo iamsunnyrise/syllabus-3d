@@ -88,18 +88,29 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
       };
     }
 
-    // 2) Indian Railways (RRB NTPC, Group D, ALP, RPF, JE)
-    if (raw.includes('railway') || raw.includes('rrb') || raw.includes('ntpc') || raw.includes('loco') || raw.includes('group d') || raw.includes('alp') || raw.includes('rpf')) {
+    // 2) Indian Railways (RRB NTPC, Group D, ALP, Technician, RPF SI/Constable, RRB JE, Paramedical)
+    if (
+      raw.includes('railway') ||
+      raw.includes('rail') ||
+      raw.includes('rrb') ||
+      raw.includes('ntpc') ||
+      raw.includes('group d') ||
+      raw.includes('alp') ||
+      raw.includes('loco') ||
+      raw.includes('technician') ||
+      raw.includes('rpf') ||
+      raw.includes('indian railways')
+    ) {
       return {
         key: 'railway',
         authorityName: 'Ministry of Railways • Indian Railways',
-        hindiAuthority: 'भारतीय रेल • Railway Recruitment Board',
+        hindiAuthority: 'भारतीय रेल • Railway Recruitment Board (RRB)',
         motto: 'राष्ट्र की जीवन रेखा • Lifeline of the Nation',
         logoSrc: '/exam-logos/railways.png',
-        badgeLabel: 'Indian Railways RRB Target',
-        gradientBadge: 'from-red-600 to-rose-500 text-white',
+        badgeLabel: 'Indian Railways (RRB Target)',
+        gradientBadge: 'from-red-600 via-rose-600 to-amber-500 text-white',
         ambientGlow: 'bg-red-500/10 dark:bg-red-500/15',
-        borderColor: 'border-red-200/80 dark:border-red-500/20',
+        borderColor: 'border-red-200/80 dark:border-red-500/25',
         accentColor: '#DC2626'
       };
     }
@@ -136,16 +147,27 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
       };
     }
 
-    // 5) UPSC Civil Services (IAS, IPS, IFS, CSE)
-    if (raw.includes('upsc') || raw.includes('civil') || raw.includes('ias') || raw.includes('ips') || raw.includes('ifs')) {
+    // 5) UPSC Civil Services & National Examinations (IAS, IPS, IFS, CSE, ESE, EPFO, etc.)
+    if (
+      raw.includes('upsc') ||
+      raw.includes('civil service') ||
+      raw.includes('ias') ||
+      raw.includes('ips') ||
+      raw.includes('ifs') ||
+      raw.includes('cse') ||
+      raw.includes('dholpur house') ||
+      raw.includes('epfo') ||
+      raw.includes('ese') ||
+      raw.includes('union public service')
+    ) {
       return {
         key: 'upsc',
-        authorityName: 'Union Public Service Commission',
+        authorityName: 'Union Public Service Commission (UPSC)',
         hindiAuthority: 'संघ लोक सेवा आयोग • भारत सरकार',
         motto: 'सत्यमेव जयते • राष्ट्र निर्माण का संकल्प',
-        logoSrc: '/exam-logos/upsc.svg',
-        badgeLabel: 'Union Public Service Commission',
-        gradientBadge: 'from-amber-600 via-amber-500 to-yellow-500 text-white',
+        logoSrc: '/exam-logos/upsc.png',
+        badgeLabel: 'Union Public Service Commission (UPSC)',
+        gradientBadge: 'from-amber-600 via-yellow-600 to-orange-500 text-white',
         ambientGlow: 'bg-amber-500/10 dark:bg-amber-500/15',
         borderColor: 'border-amber-300/80 dark:border-amber-500/25',
         accentColor: '#D97706'
@@ -159,7 +181,7 @@ export const ExamTargetMissionBanner: React.FC<ExamTargetMissionBannerProps> = (
         authorityName: 'State Public Service Commission',
         hindiAuthority: 'राज्य लोक सेवा आयोग • State Civil Services',
         motto: 'सत्यमेव जयते • लोक सेवा एवं समर्पण',
-        logoSrc: '/exam-logos/upsc.svg',
+        logoSrc: '/exam-logos/upsc.png',
         badgeLabel: 'State Civil Services Target',
         gradientBadge: 'from-amber-600 to-orange-500 text-white',
         ambientGlow: 'bg-amber-500/10 dark:bg-amber-500/15',

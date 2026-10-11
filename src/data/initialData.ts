@@ -1436,6 +1436,28 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     subjects: INITIAL_RAILWAY_SUBJECTS
   },
   {
+    id: 'exam_rrb_group_d_2026',
+    name: 'Railway RRB Group D 2026',
+    code: 'RRB_GROUP_D',
+    targetYear: 2026,
+    examDate: '2026-11-15',
+    badge: 'Indian Railways Level 1',
+    category: 'railway',
+    description: 'Mathematics, General Science, Reasoning & General Awareness',
+    subjects: INITIAL_RAILWAY_SUBJECTS
+  },
+  {
+    id: 'exam_rrb_alp_2026',
+    name: 'Railway RRB ALP 2026',
+    code: 'RRB_ALP',
+    targetYear: 2026,
+    examDate: '2026-12-28',
+    badge: 'Assistant Loco Pilot',
+    category: 'railway',
+    description: 'CBT 1 & CBT 2: Math, Basic Science & Engineering, Trade Theory',
+    subjects: INITIAL_RAILWAY_SUBJECTS
+  },
+  {
     id: 'exam_nda_defence_2027',
     name: 'NDA Defence 2027',
     code: 'NDA_DEFENCE',
