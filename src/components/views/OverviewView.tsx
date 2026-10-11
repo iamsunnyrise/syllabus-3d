@@ -26,7 +26,7 @@ import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
 import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
-import { DailyInspirationBanner } from '../dashboard/DailyInspirationBanner';
+import { ExamTargetMissionBanner } from '../dashboard/ExamTargetMissionBanner';
 import { AppFooter } from '../common/AppFooter';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
@@ -251,8 +251,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         )}
       </div>
 
-      {/* 2. MOTIVATIONAL QUOTE BANNER (Interactive Daily Inspiration Hub) */}
-      <DailyInspirationBanner onOpenFocus={onOpenFocus} />
+      {/* 2. EXAM TARGET MISSION BANNER (Big Beautiful Typography + Official Exam Logo) */}
+      <ExamTargetMissionBanner onOpenFocus={onOpenFocus} onNavigate={onNavigate} />
 
       {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
       {nextRecommendedTopic ? (

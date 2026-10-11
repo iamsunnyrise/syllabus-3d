@@ -21,6 +21,14 @@ interface AddExamTargetModalProps {
   onExamAdded?: (examId: string) => void;
 }
 
+const getCatalogPresetLogo = (category: string, code: string) => {
+  if (category === 'ssc' || code.includes('SSC')) return '/exam-logos/ssc.png';
+  if (category === 'railway' || code.includes('RRB')) return '/exam-logos/railways.png';
+  if (category === 'banking' || code.includes('IBPS')) return '/exam-logos/ibps.png';
+  if (category === 'defence' || code.includes('NDA')) return '/exam-logos/defence.webp';
+  return null;
+};
+
 export const AddExamTargetModal: React.FC<AddExamTargetModalProps> = ({
   isOpen,
   onClose,
@@ -144,6 +152,7 @@ export const AddExamTargetModal: React.FC<AddExamTargetModalProps> = ({
                 const isAlreadyEnrolled = exams.some(
                   e => e.name.toLowerCase() === p.name.toLowerCase() || e.id === p.id
                 );
+                const logo = getCatalogPresetLogo(p.category, p.code);
 
                 return (
                   <button
@@ -157,9 +166,14 @@ export const AddExamTargetModal: React.FC<AddExamTargetModalProps> = ({
                     }`}
                   >
                     <div className="flex items-start justify-between gap-1 w-full">
-                      <span className="font-extrabold text-slate-900 dark:text-white leading-tight">
-                        {p.name}
-                      </span>
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        {logo && (
+                          <img src={logo} alt="" className="w-4 h-4 object-contain shrink-0" />
+                        )}
+                        <span className="font-extrabold text-slate-900 dark:text-white leading-tight truncate">
+                          {p.name}
+                        </span>
+                      </div>
                       {isSelected ? (
                         <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-[#7AA2F7] shrink-0" />
                       ) : isAlreadyEnrolled ? (

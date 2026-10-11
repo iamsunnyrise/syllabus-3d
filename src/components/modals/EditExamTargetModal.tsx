@@ -17,9 +17,18 @@ const PRESET_EXAMS = [
   { name: 'UPSC CSE 2026', code: 'UPSC_CSE', date: '2026-05-24', year: 2026 },
   { name: 'IBPS PO 2026', code: 'IBPS_PO', date: '2026-11-10', year: 2026 },
   { name: 'Railway NTPC 2026', code: 'RRB_NTPC', date: '2026-09-18', year: 2026 },
+  { name: 'NDA 2026', code: 'NDA_DEFENCE', date: '2026-09-06', year: 2026 },
   { name: 'State PCS 2026', code: 'STATE_PCS', date: '2026-12-05', year: 2026 },
   { name: 'SSC CHSL 2026', code: 'SSC_CHSL', date: '2026-07-20', year: 2026 }
 ];
+
+const getPresetLogo = (code: string) => {
+  if (code.includes('SSC')) return '/exam-logos/ssc.png';
+  if (code.includes('RRB')) return '/exam-logos/railways.png';
+  if (code.includes('IBPS')) return '/exam-logos/ibps.png';
+  if (code.includes('NDA')) return '/exam-logos/defence.webp';
+  return null;
+};
 
 export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({
   isOpen,
@@ -149,18 +158,22 @@ export const EditExamTargetModal: React.FC<EditExamTargetModalProps> = ({
             <div className="flex flex-wrap gap-1.5">
               {PRESET_EXAMS.map(p => {
                 const isMatch = examName.toLowerCase() === p.name.toLowerCase();
+                const logo = getPresetLogo(p.code);
                 return (
                   <button
                     key={p.code}
                     type="button"
                     onClick={() => handleSelectPreset(p)}
-                    className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                       isMatch
                         ? 'bg-blue-50 dark:bg-[#7AA2F7]/20 border-blue-500 text-blue-600 dark:text-[#7AA2F7] font-bold shadow-xs'
                         : 'bg-slate-100 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 hover:border-slate-400'
                     }`}
                   >
-                    {p.name}
+                    {logo && (
+                      <img src={logo} alt="" className="w-3.5 h-3.5 object-contain shrink-0" />
+                    )}
+                    <span>{p.name}</span>
                   </button>
                 );
               })}
