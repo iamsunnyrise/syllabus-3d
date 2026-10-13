@@ -80,22 +80,22 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
   const targetSlotMeta = [
     {
       num: '01',
-      title: 'Top Non-Negotiable Target',
-      badge: 'Primary Priority',
+      title: 'Priority Target',
+      badge: 'Priority',
       badgeClass: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/25',
       accentGlow: 'hover:border-amber-500/40'
     },
     {
       num: '02',
-      title: 'Core Practice & Problem Sprint',
-      badge: 'Deep Practice',
+      title: 'Practice & Problems',
+      badge: 'Practice',
       badgeClass: 'bg-sky-500/15 text-sky-700 dark:text-sky-400 border-sky-500/25',
       accentGlow: 'hover:border-sky-500/40'
     },
     {
       num: '03',
-      title: 'Revision or Supporting Milestone',
-      badge: 'Speed Drill',
+      title: 'Revision & Review',
+      badge: 'Revision',
       badgeClass: 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/25',
       accentGlow: 'hover:border-purple-500/40'
     }
@@ -124,7 +124,7 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
-                  Top 3 Non-Negotiable Targets
+                  Top 3 Daily Targets
                 </h3>
                 {completedTargets.length === 3 ? (
                   <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 animate-pulse">

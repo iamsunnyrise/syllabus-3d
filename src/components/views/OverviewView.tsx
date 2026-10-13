@@ -280,9 +280,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Jump Back In
                   </span>
-                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${nextRecommendedTopic.badgeColor}`}>
-                    {nextRecommendedTopic.badge}
-                  </span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     {toNaturalCase(nextRecommendedTopic.subjectName)} • {toNaturalCase(nextRecommendedTopic.chapterName)}
                   </span>
@@ -293,7 +290,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 </h3>
 
                 {/* Subtopics / Readiness Status Summary */}
-                <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-medium mt-1">
+                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
                   {nextRecommendedTopic.topic.subtopics && nextRecommendedTopic.topic.subtopics.length > 0 ? (
                     <span className="flex items-center gap-1.5 font-mono">
                       <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
@@ -301,13 +298,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                       <span className="text-emerald-600 dark:text-emerald-400 font-bold">{nextRecommendedTopic.topic.completionPercentage || 0}% Mastered</span>
                     </span>
                   ) : (
-                    <span className="text-slate-500 dark:text-slate-400">Ready for active revision & study notes</span>
+                    <span>Ready for study & notes</span>
                   )}
-                  {nextRecommendedTopic.topic.studyTimeMinutes ? (
-                    <span className="hidden sm:inline-flex items-center gap-1 text-slate-400 dark:text-slate-500 font-mono">
-                      • {nextRecommendedTopic.topic.studyTimeMinutes} mins logged
-                    </span>
-                  ) : null}
                 </div>
               </div>
             </div>
@@ -354,54 +346,46 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {[
           {
             id: 'topics',
-            title: 'TOTAL TOPICS',
+            title: 'Total Topics',
             value: overallStats.totalTopics || 0,
             icon: BookOpen,
-            badge: 'CURRICULUM',
             accentColor: '#10B981',
             iconBg: 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
             glowColor: 'bg-emerald-500',
-            footerLeft: 'Active Subjects',
-            footerRight: `${currentExam?.subjects?.length || 0} In Track`,
+            subtext: `${currentExam?.subjects?.length || 0} active subjects in track`,
             progressPercent: overallStats.completionPercentage || 0
           },
           {
             id: 'completed',
-            title: 'COMPLETED',
+            title: 'Completed',
             value: overallStats.completedCount || 0,
             icon: CheckCircle2,
-            badge: 'MASTERED',
             accentColor: '#0284C7',
             iconBg: 'bg-sky-500/10 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/20',
             glowColor: 'bg-sky-500',
-            footerLeft: 'Coverage',
-            footerRight: `${overallStats.completedCount || 0} of ${overallStats.totalTopics || 0} Done`,
+            subtext: `${overallStats.completedCount || 0} of ${overallStats.totalTopics || 0} topics done`,
             progressPercent: overallStats.totalTopics > 0 ? Math.round((overallStats.completedCount / overallStats.totalTopics) * 100) : 0
           },
           {
             id: 'hours',
-            title: 'STUDY HOURS',
-            value: totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0',
+            title: 'Study Hours',
+            value: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}h`,
             icon: Clock,
-            badge: 'FOCUS TIME',
             accentColor: '#F59E0B',
             iconBg: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20',
             glowColor: 'bg-amber-500',
-            footerLeft: 'Target: 15h Pace',
-            footerRight: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'} hrs`,
+            subtext: 'Goal: 15h pace',
             progressPercent: Math.min(100, Math.round((totalStudyHours / 15) * 100))
           },
           {
             id: 'rate',
-            title: 'COMPLETION RATE',
+            title: 'Completion Rate',
             value: `${overallStats.completionPercentage || 0}%`,
             icon: Target,
-            badge: 'MASTERY',
             accentColor: '#8B5CF6',
             iconBg: 'bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/20',
             glowColor: 'bg-violet-500',
-            footerLeft: 'Syllabus Pace',
-            footerRight: `${overallStats.completionPercentage || 0}% Score`,
+            subtext: 'Overall syllabus progress',
             progressPercent: overallStats.completionPercentage || 0
           }
         ].map((card) => {
@@ -427,23 +411,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
               {/* Top Row: Category Title + Translucent Glowing Icon */}
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 truncate">
+                <span className="text-xs sm:text-[13px] font-bold text-slate-600 dark:text-slate-300 tracking-tight">
                   {card.title}
                 </span>
-                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 shadow-2xs ${card.iconBg}`}>
-                  <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.3]" />
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 shadow-2xs ${card.iconBg}`}>
+                  <Icon className="w-4 h-4 stroke-[2.3]" />
                 </div>
               </div>
 
-              {/* Metric Value & Badge */}
-              <div className="my-2 sm:my-3">
-                <div className="flex items-baseline justify-between gap-1">
-                  <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
-                    {card.value}
-                  </div>
-                  <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/10 shrink-0">
-                    {card.badge}
-                  </span>
+              {/* Metric Value */}
+              <div className="my-2 sm:my-2.5">
+                <div className="text-2xl sm:text-3xl font-black font-grotesk tracking-tight text-slate-900 dark:text-white tabular-nums">
+                  {card.value}
                 </div>
 
                 {/* Sleek Visual Progress Track */}
@@ -461,10 +440,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 </div>
               </div>
 
-              {/* Footer Row */}
-              <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-2 mt-auto text-xs font-mono">
-                <span className="text-slate-500 dark:text-slate-400 font-medium truncate">{card.footerLeft}</span>
-                <span className="font-bold shrink-0 tabular-nums" style={{ color: card.accentColor }}>{card.footerRight}</span>
+              {/* Clean Single Minimal Caption */}
+              <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] mt-auto">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate block">
+                  {card.subtext}
+                </span>
               </div>
             </div>
           );
@@ -743,9 +723,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                     Recommended Focus
-                  </span>
-                  <span className={`px-1.5 py-0.5 rounded-lg text-xs font-bold border ${nextRecommendedTopic.badgeColor}`}>
-                    {nextRecommendedTopic.badge}
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate mt-0.5">

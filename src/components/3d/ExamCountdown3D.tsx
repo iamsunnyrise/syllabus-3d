@@ -134,10 +134,10 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
     const remaining = Math.max(0, total - done);
     const days = Math.max(1, timeLeft.days);
 
-    if (remaining === 0) return { text: 'Syllabus 100% Completed', isComplete: true };
+    if (remaining === 0) return { text: 'Syllabus Completed', isComplete: true };
     const perDay = (remaining / days).toFixed(1);
     return {
-      text: `~${perDay} topics/day needed (${remaining} remaining)`,
+      text: `~${perDay} topics/day pace`,
       isComplete: false
     };
   }, [overallStats?.totalTopics, overallStats?.completedCount, timeLeft.days]);
@@ -150,7 +150,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${phaseConfig.barGradient} opacity-75 pointer-events-none`} />
       <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-all ${phaseConfig.glowColor}`} />
 
-      {/* Header: Identity, Exam Date, & Dynamic Phase Urgency */}
+      {/* Header: Identity, Exam Date, & Dynamic Pace */}
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           {/* Target Icon with Dynamic Urgency Theme */}
@@ -163,15 +163,9 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
           </div>
 
           <div className="min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate font-grotesk">
-                {examName} Countdown
-              </h2>
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider border ${phaseConfig.badgeClass} shrink-0`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${phaseConfig.dotColor} animate-pulse`} />
-                {phaseConfig.label}
-              </span>
-            </div>
+            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate font-grotesk">
+              {examName} Countdown
+            </h2>
 
             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
               <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
