@@ -184,6 +184,20 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [isAutoRotate, setIsAutoRotate] = useState<boolean>(true);
   const [pdfColorTheme, setPdfColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
   const [showThemeDropdown, setShowThemeDropdown] = useState<boolean>(false);
+  const themeDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showThemeDropdown) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (themeDropdownRef.current && !themeDropdownRef.current.contains(e.target as Node)) {
+        setShowThemeDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showThemeDropdown]);
 
   const handleSetPdfColorTheme = (theme: PdfColorTheme) => {
     soundManager.playClick();
@@ -919,7 +933,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
           {/* Right Action Tools: Highlighter, Notes, Fit Mode, Night Mode, Split Study & Fullscreen */}
           {/* Note: This row stays ALWAYS visible, never cut off! */}
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 overflow-x-auto no-scrollbar py-0.5 md:py-0 w-full md:w-auto justify-between md:justify-end">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 overflow-visible py-0.5 md:py-0 w-full md:w-auto justify-between md:justify-end">
             
             {/* View Mode Switcher on Mobile only */}
             <div className="flex md:hidden items-center !bg-[#24283B] p-0.5 rounded-xl border !border-[#292E42] shrink-0">
@@ -1062,36 +1076,38 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
 
             {/* EYE-CARE / NIGHT READING THEMES (Pinned & Fully Styled) */}
-            <div className="relative flex items-center rounded-xl !bg-[#24283B] border !border-[#292E42] overflow-hidden shrink-0">
-              <button
-                type="button"
-                onClick={handleQuickThemeToggle}
-                className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
-                  pdfColorTheme !== 'light'
-                    ? '!bg-amber-500/20 !text-amber-300'
-                    : '!bg-[#24283B] !text-[#C0CAF5] hover:!text-white hover:bg-white/5'
-                }`}
-                title={pdfColorTheme === 'light' ? 'Switch to Night Mode (Glare-free dark background)' : 'Switch to Day Mode (Original white)'}
-              >
-                <span className="text-sm leading-none shrink-0">{PDF_THEMES[pdfColorTheme].badge}</span>
-                <span className="hidden xl:inline font-medium">
-                  {pdfColorTheme === 'light' ? 'Night Mode' : PDF_THEMES[pdfColorTheme].shortLabel}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowThemeDropdown(prev => !prev);
-                }}
-                className={`px-1 sm:px-1.5 py-1.5 text-xs font-semibold transition-all cursor-pointer border-l !border-[#292E42] ${
-                  pdfColorTheme !== 'light'
-                    ? '!bg-amber-500/20 !text-amber-300'
-                    : '!bg-[#24283B] !text-[#A9B1D6] hover:!text-white hover:bg-white/5'
-                }`}
-                title="Choose Eye-Care Reading Mode: Night, OLED Pure Black, Sepia, Day"
-              >
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showThemeDropdown ? 'rotate-180' : ''}`} />
-              </button>
+            <div ref={themeDropdownRef} className="relative shrink-0">
+              <div className="flex items-center rounded-xl !bg-[#24283B] border !border-[#292E42] overflow-hidden">
+                <button
+                  type="button"
+                  onClick={handleQuickThemeToggle}
+                  className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
+                    pdfColorTheme !== 'light'
+                      ? '!bg-amber-500/20 !text-amber-300'
+                      : '!bg-[#24283B] !text-[#C0CAF5] hover:!text-white hover:bg-white/5'
+                  }`}
+                  title={pdfColorTheme === 'light' ? 'Switch to Night Mode (Glare-free dark background)' : 'Switch to Day Mode (Original white)'}
+                >
+                  <span className="text-sm leading-none shrink-0">{PDF_THEMES[pdfColorTheme].badge}</span>
+                  <span className="hidden xl:inline font-medium">
+                    {pdfColorTheme === 'light' ? 'Night Mode' : PDF_THEMES[pdfColorTheme].shortLabel}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowThemeDropdown(prev => !prev);
+                  }}
+                  className={`px-1 sm:px-1.5 py-1.5 text-xs font-semibold transition-all cursor-pointer border-l !border-[#292E42] ${
+                    pdfColorTheme !== 'light'
+                      ? '!bg-amber-500/20 !text-amber-300'
+                      : '!bg-[#24283B] !text-[#A9B1D6] hover:!text-white hover:bg-white/5'
+                  }`}
+                  title="Choose Eye-Care Reading Mode: Night, OLED Pure Black, Sepia, Day"
+                >
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showThemeDropdown ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
 
               {/* Reading Themes Menu */}
               {showThemeDropdown && (
