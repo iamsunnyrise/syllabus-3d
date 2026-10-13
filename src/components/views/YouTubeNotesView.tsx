@@ -714,8 +714,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
   if (viewState === 'input') {
     return (
       <div className="w-full max-w-7xl mx-auto space-y-4 sm:space-y-6 animate-view-fade font-sans pb-36 sm:pb-24 px-1 sm:px-2">
-        {/* ═══════════════ 1. EXECUTIVE PAGE HERO HEADER ═══════════════ */}
-        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4 overflow-hidden">
+        {/* ═══════════════ 1. PAGE HERO HEADER ═══════════════ */}
+        <div className="relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm overflow-hidden">
           {/* Specular top highlight and ambient gradient */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500/50 dark:via-rose-400/50 to-transparent pointer-events-none" />
           <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-rose-500/[0.04] dark:bg-rose-500/[0.08] blur-3xl pointer-events-none" />
@@ -724,22 +724,19 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
               <SectionBadgeIcon section="youtube-notes" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
               <div className="min-w-0 space-y-1">
-                <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-rose-600 dark:text-rose-400 flex-wrap">
-                  <span className="truncate">AI YouTube Notes Studio</span>
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400 flex-wrap">
+                  <span>YouTube Notes</span>
                   <span className="text-slate-300 dark:text-slate-600">•</span>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 text-rose-700 dark:text-rose-300 text-[11px] font-bold">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300 text-[11px] font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-                    <span>gemini-3.6-flash</span>
-                  </span>
-                  <span className="hidden xs:inline-flex px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
-                    AI Studio Pro
+                    <span>Gemini AI</span>
                   </span>
                 </div>
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                  AI YouTube Notes &amp; Lecture Studio
+                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
+                  YouTube Notes
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Turn educational YouTube lectures into structured study notes, formulas, cheat sheets &amp; active recall cards.
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                  Convert lecture videos into structured notes, formulas, and flashcards.
                 </p>
               </div>
             </div>
@@ -773,32 +770,8 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 className="flex-1 lg:flex-initial h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
               >
                 <KeyRound className="w-4 h-4 shrink-0 text-white" />
-                <span>{apiKey ? 'Gemini Key Configured' : 'Optional: Personal Key'}</span>
+                <span>{apiKey ? 'API Key Configured' : 'API Key'}</span>
               </button>
-            </div>
-          </div>
-
-          {/* Integrated AI Telemetry Strip */}
-          <div className="relative z-10 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 text-xs">
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 font-bold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>1-Click Direct Engine: <strong className="font-mono">gemini-3.6-flash</strong></span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-medium">
-                <span>Library:</span>
-                <strong className="text-slate-900 dark:text-white tabular-nums">{savedNotes.length} Lecture Summaries</strong>
-              </div>
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-medium">
-                <span>Multi-lingual:</span>
-                <strong className="text-slate-900 dark:text-white">Hindi &amp; English</strong>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 font-bold text-xs">
-                <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                <span>LaTeX &amp; Table Ready</span>
-              </span>
             </div>
           </div>
         </div>
@@ -813,18 +786,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 <div className="w-8 h-8 rounded-xl bg-purple-500/15 flex items-center justify-center border border-purple-500/25">
                   <BookOpen className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-wider font-mono">Saved Notes</span>
+                <span className="text-xs font-bold">Saved Notes</span>
               </div>
-              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400">
                 Library
               </span>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono tabular-nums leading-none">
+              <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tabular-nums leading-none">
                 {savedNotes.length}
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
-                {savedNotes.length === 1 ? '1 Lecture Summary' : `${savedNotes.length} Lecture Summaries`}
+                Saved in library
               </p>
             </div>
           </div>
@@ -837,18 +810,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 <div className="w-8 h-8 rounded-xl bg-rose-500/15 flex items-center justify-center border border-rose-500/25">
                   <Zap className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-wider font-mono">AI Model</span>
+                <span className="text-xs font-bold">AI Model</span>
               </div>
-              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25">
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-rose-500/10 text-rose-600 dark:text-rose-400">
                 Engine
               </span>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-black text-rose-600 dark:text-rose-400 font-mono leading-none truncate">
-                gemini-3.6
+              <div className="text-xl sm:text-2xl font-black text-rose-600 dark:text-rose-400 leading-none truncate">
+                Gemini 3.6 Flash
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
-                Direct Semantic Video Parser
+                Fast semantic parser
               </p>
             </div>
           </div>
@@ -861,18 +834,18 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 <div className="w-8 h-8 rounded-xl bg-sky-500/15 flex items-center justify-center border border-sky-500/25">
                   <FileText className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-wider font-mono">STEM Precision</span>
+                <span className="text-xs font-bold">STEM Precision</span>
               </div>
-              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400">
                 KaTeX
               </span>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-black text-sky-600 dark:text-sky-400 font-mono leading-none">
+              <div className="text-xl sm:text-2xl font-black text-sky-600 dark:text-sky-400 leading-none">
                 LaTeX &amp; Tables
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
-                Formula &amp; Table Extraction
+                Formulas and tables
               </p>
             </div>
           </div>
@@ -885,26 +858,26 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
                 <div className="w-8 h-8 rounded-xl bg-emerald-500/15 flex items-center justify-center border border-emerald-500/25">
                   <BookmarkPlus className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-wider font-mono">Syllabus Link</span>
+                <span className="text-xs font-bold">Syllabus Link</span>
               </div>
-              <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
-                Integrated
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                Topic
               </span>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono leading-none">
-                1-Click Attach
+              <div className="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 leading-none">
+                Topic Linking
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium pt-1.5 truncate">
-                Connect Directly to Exam Topics
+                Attach to syllabus
               </p>
             </div>
           </div>
         </div>
 
-        {/* ═══════════════ 4. URL INPUT & GENERATOR CARD ═══════════════ */}
-        <div className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-4 sm:p-6 transition-all duration-300 space-y-3">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+        {/* ═══════════════ 3. URL INPUT & GENERATOR CARD ═══════════════ */}
+        <div className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-4 sm:p-5 transition-all duration-300 space-y-3">
+          <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 block">
             YouTube Video URL
           </label>
           <div className="relative">
@@ -1010,7 +983,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
             {/* Language Toggle */}
             <div>
-              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 block">
                 Notes Language
               </label>
               <div className="inline-flex rounded-xl p-1 bg-slate-100 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/[0.06]">
@@ -1036,7 +1009,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
             {/* Note Type */}
             <div>
-              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 block">
                 Note Type
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -1075,7 +1048,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
 
             {/* Include Options */}
             <div>
-              <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 block">
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 block">
                 Include in Notes
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -1136,7 +1109,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               ) : (
                 <Sparkles className="w-5 h-5" />
               )}
-              {isGenerating ? 'Generating Notes with AI...' : '✨ Generate Notes'}
+              {isGenerating ? 'Generating Notes with AI...' : 'Generate Notes'}
             </button>
           </div>
         )}
@@ -1152,7 +1125,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium transition-colors cursor-pointer py-1 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <ClipboardPaste className="w-3.5 h-3.5 text-violet-500" />
-            <span>{showManualPaste ? 'Hide Custom Transcript' : 'Optional: Paste custom transcript / lecture text manually'}</span>
+            <span>{showManualPaste ? 'Hide Custom Transcript' : 'Paste custom transcript'}</span>
           </button>
         </div>
 
@@ -1166,7 +1139,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <ClipboardPaste className="w-4 h-4 text-amber-500" />
-                <h3 className="text-sm font-bold text-amber-600 dark:text-amber-400">Paste Transcript Manually (Optional)</h3>
+                <h3 className="text-sm font-bold text-amber-600 dark:text-amber-400">Paste Transcript Manually</h3>
               </div>
               <button
                 type="button"
@@ -1177,7 +1150,7 @@ export const YouTubeNotesView: React.FC<YouTubeNotesViewProps> = ({
               </button>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
-              Copy the transcript from YouTube (click &quot;...&quot; → &quot;Show transcript&quot;) and paste it here if you have custom notes.
+              Paste video transcript or custom lecture text here.
             </p>
             <textarea
               value={manualTranscript}
