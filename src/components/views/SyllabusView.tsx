@@ -550,9 +550,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   {formatTitleCase(activeChapter.name)}
                 </h1>
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                  <span>{totalInActiveChapter} Topics Total</span>
-                  <span>•</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{completedInActiveChapter} Mastered ({chapterPercent}%)</span>
+                  <span className="font-mono">{totalInActiveChapter} Topics · {completedInActiveChapter} Mastered</span>
                 </div>
               </div>
             </div>
@@ -1084,6 +1082,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     const totalSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.length, 0);
     const completedSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'completed').length, 0);
     const subjectPercent = totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0;
+    const completedSubjectChapters = activeSubject.chapters.filter(c => c.topics.length > 0 && c.topics.every(t => t.status === 'completed')).length;
     const subjectBadge = getSubjectBadgeStyle(activeSubject.name);
     const SubjectBadgeIcon = subjectBadge.icon;
 
@@ -1147,33 +1146,23 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   {formatTitleCase(activeSubject.name)}
                 </h1>
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                  <span>{activeSubject.chapters.length} Chapters</span>
-                  <span>•</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{completedSubjectTopics}/{totalSubjectTopics} Topics Mastered ({subjectPercent}%)</span>
+                  <span className="font-mono">{activeSubject.chapters.length} Chapters · {totalSubjectTopics} Topics</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Quick Actions (Back Button & Edit Subject) */}
+          {/* Quick Actions (Edit Subject) */}
           <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end shrink-0">
             <button
               type="button"
-              onClick={handleBackToSubjects}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 border border-slate-200/60 dark:border-white/10"
-              title="Return to subjects list"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>All Subjects</span>
-            </button>
-            <button
-              type="button"
               onClick={() => setEditingSubject(activeSubject)}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+              className="p-2 sm:px-3 sm:py-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs flex items-center gap-1.5 text-xs font-bold"
               title="Edit Subject"
               aria-label="Edit Subject"
             >
-              <Edit2 className="w-4 h-4" />
+              <Edit2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Edit</span>
             </button>
           </div>
         </div>
@@ -1213,7 +1202,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
               <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {totalSubjectTopics} Topics
+                  {completedSubjectChapters} of {activeSubject.chapters.length} completed
                 </span>
               </div>
             </div>
@@ -1355,16 +1344,13 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     {filteredChapters.length} of {activeSubject.chapters.length} Chapters
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#94A3B8] font-medium mt-0.5">
-                  Select a chapter to study topics, monitor completion, and track revisions
-                </p>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => onOpenAddTopic(activeSubject.id)}
-                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                   title={`Add new topic to ${activeSubject.name}`}
                 >
                   <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -1380,7 +1366,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder={`Search chapters in ${activeSubject.name}...`}
+                placeholder="Search chapters..."
                 className="w-full pl-9 sm:pl-10 pr-9 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#161828] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:ring-2 focus:ring-[#4F46E5]/15 dark:focus:ring-indigo-400/20 shadow-2xs transition-all"
               />
               {searchInput && (
@@ -1462,7 +1448,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                       {/* Title & Stats */}
                       <div className="min-w-0 flex-1 space-y-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
+                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
                             {chapter.name}
                           </h3>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${
@@ -1472,7 +1458,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                               ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
                               : 'bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
                           }`}>
-                            {chapterPercent}% COMPLETE
+                            {isChapterMastered ? '100% Done' : `${chapterPercent}%`}
                           </span>
                         </div>
 
@@ -1514,7 +1500,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                     {/* Right: Status Action CTA */}
                     <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
                       <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs">
-                        <span>{hasChapterStarted ? 'View Topics' : 'Explore'}</span>
+                        <span>View Topics</span>
                         <ChevronRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </div>
