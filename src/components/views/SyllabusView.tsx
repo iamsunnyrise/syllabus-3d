@@ -630,12 +630,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-baseline">
                 <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {totalInActiveChapter}
-                </span>
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
-                  Topics
                 </span>
               </div>
 
@@ -647,12 +644,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {activeSubject.name}
-                </span>
-                <span className="text-slate-400 dark:text-slate-500 shrink-0">
-                  • Chapter Scope
                 </span>
               </div>
             </div>
@@ -675,17 +669,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline justify-between">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                    {completedInActiveChapter}
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
-                    / {totalInActiveChapter}
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
-                  {totalInActiveChapter > 0 ? Math.round((completedInActiveChapter / totalInActiveChapter) * 100) : 0}%
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                  {completedInActiveChapter}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
+                  / {totalInActiveChapter}
                 </span>
               </div>
 
@@ -697,12 +686,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {totalInActiveChapter - completedInActiveChapter === 0 ? 'All Completed! 🎉' : `${totalInActiveChapter - completedInActiveChapter} Remaining`}
-                </span>
-                <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
-                  Mastery
+                  {totalInActiveChapter - completedInActiveChapter === 0 ? 'All Completed! 🎉' : `${totalInActiveChapter - completedInActiveChapter} topics remaining`}
                 </span>
               </div>
             </div>
@@ -725,12 +711,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-baseline">
                 <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {inProgressInActiveChapter}
-                </span>
-                <span className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
-                  Active
                 </span>
               </div>
 
@@ -742,12 +725,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Rotation'}
-                </span>
-                <span className="text-sky-600 dark:text-sky-400 font-bold shrink-0">
-                  Study Active
                 </span>
               </div>
             </div>
@@ -770,17 +750,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline justify-between">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                    {chapterPercent}%
-                  </span>
-                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
-                    Done
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
-                  {completedInActiveChapter}/{totalInActiveChapter}
+              <div className="flex items-baseline">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                  {chapterPercent}%
                 </span>
               </div>
 
@@ -792,12 +764,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {completedInActiveChapter}/{totalInActiveChapter} Topics Done
-                </span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
-                  Mastery
+                  Overall chapter progress
                 </span>
               </div>
             </div>
@@ -1228,12 +1197,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-baseline">
                 <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {activeSubject.chapters.length}
-                </span>
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
-                  {activeSubject.chapters.length === 1 ? 'Chapter' : 'Chapters'}
                 </span>
               </div>
 
@@ -1245,12 +1211,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
                   {totalSubjectTopics} Topics
-                </span>
-                <span className="text-slate-400 dark:text-slate-500 shrink-0">
-                  • Modules
                 </span>
               </div>
             </div>
@@ -1273,17 +1236,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline justify-between">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                    {completedSubjectTopics}
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
-                    / {totalSubjectTopics}
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
-                  {totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0}%
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                  {completedSubjectTopics}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
+                  / {totalSubjectTopics}
                 </span>
               </div>
 
@@ -1295,12 +1253,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {totalSubjectTopics - completedSubjectTopics === 0 ? 'All Completed! 🎉' : `${totalSubjectTopics - completedSubjectTopics} Remaining`}
-                </span>
-                <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
-                  Mastery
+                  {totalSubjectTopics - completedSubjectTopics === 0 ? 'All Completed! 🎉' : `${totalSubjectTopics - completedSubjectTopics} topics remaining`}
                 </span>
               </div>
             </div>
@@ -1323,12 +1278,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-baseline">
                 <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                   {totalSubjectTopics}
-                </span>
-                <span className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
-                  Topics
                 </span>
               </div>
 
@@ -1340,12 +1292,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  Across {activeSubject.chapters.length} Chapters
-                </span>
-                <span className="text-sky-600 dark:text-sky-400 font-bold shrink-0">
-                  Subject Scope
+                  Across {activeSubject.chapters.length} chapters
                 </span>
               </div>
             </div>
@@ -1368,17 +1317,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             </div>
 
             <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-              <div className="flex items-baseline justify-between">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                    {subjectPercent}%
-                  </span>
-                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
-                    Done
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
-                  {completedSubjectTopics}/{totalSubjectTopics}
+              <div className="flex items-baseline">
+                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                  {subjectPercent}%
                 </span>
               </div>
 
@@ -1390,12 +1331,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {completedSubjectTopics}/{totalSubjectTopics} Topics Done
-                </span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
-                  Mastery
+                  Overall subject progress
                 </span>
               </div>
             </div>
@@ -1411,7 +1349,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               <div>
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                    Chapters &amp; Syllabus Modules
+                    Chapters
                   </h2>
                   <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
                     {filteredChapters.length} of {activeSubject.chapters.length} Chapters
@@ -1653,9 +1591,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <span>{overallPercentage}% Mastered</span>
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2 flex-wrap">
-              <span>Master every subject, chapter, and topic with structured multi-tier precision.</span>
-              <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2">
               <span className="text-slate-600 dark:text-slate-300 font-mono text-xs font-semibold">
                 {currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'} · {totalTopicsCount} Topics
               </span>
@@ -1709,7 +1645,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Daily Pacing Velocity:
+                Daily Pacing:
               </span>
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-amber-500/15 dark:bg-amber-400/20 border border-amber-400/40 text-xs sm:text-sm font-black text-amber-800 dark:text-amber-200 font-mono tabular-nums">
                 {pacingForecast ? `${pacingForecast.requiredDailyPace} Topics / Day` : 'On Track'}
@@ -1726,13 +1662,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <Calendar className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
                 <span>
                   {pacingForecast?.finishLineForecastDate
-                    ? `Estimated Completion: ${pacingForecast.finishLineForecastDate}`
-                    : `Target Exam Date: ${formattedExamDate}`}
+                    ? `Estimated Finish: ${pacingForecast.finishLineForecastDate}`
+                    : `Target Exam: ${formattedExamDate}`}
                 </span>
-              </span>
-              <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
-              <span className="text-slate-500 dark:text-slate-400 font-mono text-xs">
-                {daysRemaining > 0 ? `${daysRemaining} Days Runway` : 'Target Exam Day'}
               </span>
             </div>
           </div>
@@ -1766,12 +1698,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
 
           <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-            <div className="flex items-baseline gap-1.5">
+            <div className="flex items-baseline">
               <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
                 {totalTopicsCount}
-              </span>
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide font-mono">
-                Topics
               </span>
             </div>
 
@@ -1811,17 +1740,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
 
           <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-            <div className="flex items-baseline justify-between">
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                  {completedTopicsCount}
-                </span>
-                <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
-                  / {totalTopicsCount}
-                </span>
-              </div>
-              <span className="px-2 py-0.5 rounded-full bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/30 text-[10px] sm:text-[11px] font-black font-mono text-rose-600 dark:text-rose-400 tabular-nums">
-                {totalTopicsCount > 0 ? Math.round((completedTopicsCount / totalTopicsCount) * 100) : 0}%
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                {completedTopicsCount}
+              </span>
+              <span className="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 font-mono">
+                / {totalTopicsCount}
               </span>
             </div>
 
@@ -1833,12 +1757,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+            <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
               <span className="truncate">
-                {totalTopicsCount - completedTopicsCount === 0 ? 'All Completed! 🎉' : `${totalTopicsCount - completedTopicsCount} Remaining`}
-              </span>
-              <span className="text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wider shrink-0">
-                Mastery
+                {totalTopicsCount - completedTopicsCount === 0 ? 'All Completed! 🎉' : `${totalTopicsCount - completedTopicsCount} topics remaining`}
               </span>
             </div>
           </div>
@@ -1866,7 +1787,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 {daysRemaining > 0 ? daysRemaining : 0}
               </span>
               <span className="text-xs sm:text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">
-                {daysRemaining === 1 ? 'Day Left' : 'Days Runway'}
+                {daysRemaining === 1 ? 'Day Left' : 'Days'}
               </span>
             </div>
 
@@ -1906,17 +1827,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
 
           <div className="relative z-10 mt-3 sm:mt-4 space-y-2">
-            <div className="flex items-baseline justify-between">
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
-                  {overallPercentage}%
-                </span>
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide font-mono">
-                  Done
-                </span>
-              </div>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
-                {completedTopicsCount}/{totalTopicsCount}
+            <div className="flex items-baseline">
+              <span className="text-3xl sm:text-4xl font-black font-mono leading-none tabular-nums tracking-tight text-slate-900 dark:text-white">
+                {overallPercentage}%
               </span>
             </div>
 
@@ -1928,12 +1841,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
+            <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
               <span className="truncate">
-                {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters
-              </span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0">
-                Curriculum
+                Overall syllabus progress
               </span>
             </div>
           </div>
@@ -1949,7 +1859,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight">
-                  Exam Subjects &amp; Syllabus Modules
+                  Subjects
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
                   {filteredSubjects.length} of {currentExam.subjects.length} Subjects
@@ -2143,7 +2053,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <span className="text-slate-300 dark:text-slate-600">•</span>
                           <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                            <span>{completedChapters}/{totalChapters} Chapters Mastered</span>
+                            <span>{completedChapters}/{totalChapters} Mastered</span>
                           </span>
                         </div>
                       </div>
