@@ -99,15 +99,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const platformsSafe = Array.isArray(platforms) ? platforms : [];
 
   // Collapsible Groups State
-  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('syllabus3d_sidebar_collapsed_sections');
+        return saved ? JSON.parse(saved) : {};
+      } catch {}
+    }
+    return {};
+  });
 
   const toggleSection = (title: string) => {
     soundManager.playClick();
     haptics.selection();
-    setCollapsedSections(prev => ({
-      ...prev,
-      [title]: !prev[title]
-    }));
+    setCollapsedSections(prev => {
+      const next = {
+        ...prev,
+        [title]: !prev[title]
+      };
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('syllabus3d_sidebar_collapsed_sections', JSON.stringify(next));
+        } catch {}
+      }
+      return next;
+    });
   };
 
   // ⌨️ Power-User Keyboard Shortcuts (Alt+1 through Alt+6)

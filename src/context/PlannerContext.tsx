@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { PlannerTask, PlannerColumnStatus } from '../types/syllabus';
 import { getTodayDateString } from '../utils/spacedRepetition';
 import { soundManager } from '../utils/soundEffects';
@@ -72,38 +72,51 @@ const PlannerContext = createContext<PlannerContextType | undefined>(undefined);
 export const PlannerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [plannerTasks, setPlannerTasks] = useState<PlannerTask[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY_PLANNER);
-      if (saved) {
-        try { return JSON.parse(saved); } catch {}
-      }
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY_PLANNER);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      } catch {}
     }
     return INITIAL_PLANNER_TASKS;
   });
 
-  const savePlannerTasks = (tasks: PlannerTask[]) => {
-    setPlannerTasks(tasks);
+  const persistTasks = useCallback((tasks: PlannerTask[]) => {
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(STORAGE_KEY_PLANNER, JSON.stringify(tasks));
       } catch {}
     }
-  };
+  }, []);
 
-  const addPlannerTask = (taskData: Omit<PlannerTask, 'id'>) => {
+  const addPlannerTask = useCallback((taskData: Omit<PlannerTask, 'id'>) => {
     const newTask: PlannerTask = {
       ...taskData,
-      id: 'task_' + Math.random().toString(36).substr(2, 9)
+      id: 'task_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9)
     };
-    const updated = [newTask, ...plannerTasks];
-    savePlannerTasks(updated);
+    setPlannerTasks(prev => {
+      const updated = [newTask, ...(prev || [])];
+      persistTasks(updated);
+      return updated;
+    });
     soundManager.playClick();
-  };
+  }, [persistTasks]);
 
-  const togglePlannerTask = (taskId: string) => {
-    const updated = plannerTasks.map(t => {
-      if (t.id !== taskId) return t;
-      const isComp = t.status === 'completed';
-      const nextStatus: PlannerColumnStatus = isComp ? 'today' : 'completed';
+  const togglePlannerTask = useCallback((taskId: string) => {
+    setPlannerTasks(prev => {
+      let isComp = false;
+      const updated = (prev || []).map(t => {
+        if (!t || t.id !== taskId) return t;
+        isComp = t.status === 'completed';
+        const nextStatus: PlannerColumnStatus = isComp ? 'today' : 'completed';
+        return {
+          ...t,
+          status: nextStatus,
+          completedAt: !isComp ? getTodayDateString() : undefined
+        };
+      });
       if (!isComp) {
         soundManager.playCompleteChime();
         haptics.success();
@@ -112,18 +125,21 @@ export const PlannerProvider: React.FC<{ children: React.ReactNode }> = ({ child
         soundManager.playClick();
         haptics.light();
       }
-      return {
-        ...t,
-        status: nextStatus,
-        completedAt: !isComp ? getTodayDateString() : undefined
-      };
+      persistTasks(updated);
+      return updated;
     });
-    savePlannerTasks(updated);
-  };
+  }, [persistTasks]);
 
-  const movePlannerTask = (taskId: string, newStatus: PlannerColumnStatus) => {
-    const updated = plannerTasks.map(t => {
-      if (t.id !== taskId) return t;
+  const movePlannerTask = useCallback((taskId: string, newStatus: PlannerColumnStatus) => {
+    setPlannerTasks(prev => {
+      const updated = (prev || []).map(t => {
+        if (!t || t.id !== taskId) return t;
+        return {
+          ...t,
+          status: newStatus,
+          completedAt: newStatus === 'completed' ? getTodayDateString() : undefined
+        };
+      });
       if (newStatus === 'completed') {
         soundManager.playCompleteChime();
         haptics.success();
@@ -132,38 +148,50 @@ export const PlannerProvider: React.FC<{ children: React.ReactNode }> = ({ child
         soundManager.playClick();
         haptics.light();
       }
-      return {
-        ...t,
-        status: newStatus,
-        completedAt: newStatus === 'completed' ? getTodayDateString() : undefined
-      };
+      persistTasks(updated);
+      return updated;
     });
-    savePlannerTasks(updated);
-  };
+  }, [persistTasks]);
 
-  const deletePlannerTask = (taskId: string) => {
-    const updated = plannerTasks.filter(t => t.id !== taskId);
-    savePlannerTasks(updated);
+  const deletePlannerTask = useCallback((taskId: string) => {
+    setPlannerTasks(prev => {
+      const updated = (prev || []).filter(t => t && t.id !== taskId);
+      persistTasks(updated);
+      return updated;
+    });
     soundManager.playClick();
-  };
+  }, [persistTasks]);
 
-  const clearCompletedPlannerTasks = () => {
-    const updated = plannerTasks.filter(t => t.status !== 'completed');
-    savePlannerTasks(updated);
+  const clearCompletedPlannerTasks = useCallback(() => {
+    setPlannerTasks(prev => {
+      const updated = (prev || []).filter(t => t && t.status !== 'completed');
+      persistTasks(updated);
+      return updated;
+    });
     soundManager.playClick();
-  };
+  }, [persistTasks]);
+
+  const value = useMemo(
+    () => ({
+      plannerTasks,
+      addPlannerTask,
+      togglePlannerTask,
+      movePlannerTask,
+      deletePlannerTask,
+      clearCompletedPlannerTasks
+    }),
+    [
+      plannerTasks,
+      addPlannerTask,
+      togglePlannerTask,
+      movePlannerTask,
+      deletePlannerTask,
+      clearCompletedPlannerTasks
+    ]
+  );
 
   return (
-    <PlannerContext.Provider
-      value={{
-        plannerTasks,
-        addPlannerTask,
-        togglePlannerTask,
-        movePlannerTask,
-        deletePlannerTask,
-        clearCompletedPlannerTasks
-      }}
-    >
+    <PlannerContext.Provider value={value}>
       {children}
     </PlannerContext.Provider>
   );

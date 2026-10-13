@@ -122,11 +122,21 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const pipWindowRef = useRef<Window | null>(null);
   const tickIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const sessionRef = useRef<TimerSessionState>(session);
+  useEffect(() => {
+    sessionRef.current = session;
+  }, [session]);
 
   const updateSettings = useCallback((partial: Partial<FloatingTimerSettings>) => {
     setSettings(prev => {
       const updated = { ...prev, ...partial };
-      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(updated));
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(updated));
+        }
+      } catch (e) {
+        console.warn('Error saving timer settings:', e);
+      }
       return updated;
     });
   }, []);
@@ -180,6 +190,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   const handleSessionComplete = useCallback(() => {
+    const current = sessionRef.current;
     releaseWakeLock();
     setSession(prev => {
       const completedState: TimerSessionState = {
@@ -199,24 +210,24 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
       try {
         new Notification('Study Session Completed! 🎉', {
-          body: `${session.topicName || 'Topic'} study goal reached! Great job!`,
+          body: `${current.topicName || 'Topic'} study goal reached! Great job!`,
           icon: '/logo.png',
           tag: 'study-timer-complete'
         });
       } catch (e) {}
     }
 
-    if (session.totalDurationSec > 0) {
-      logStudySession(Math.round(session.totalDurationSec / 60), session.topicId);
+    if (current.totalDurationSec > 0) {
+      logStudySession(Math.round(current.totalDurationSec / 60), current.topicId);
     }
 
     // Save detailed Focus Session Log for date-wise timeline and analytics
     try {
       const now = Date.now();
-      const start = session.startTimestamp || (now - session.totalDurationSec * 1000);
-      const durationSec = session.mode === 'stopwatch'
-        ? session.stopwatchElapsedSec
-        : session.totalDurationSec;
+      const start = current.startTimestamp || (now - current.totalDurationSec * 1000);
+      const durationSec = current.mode === 'stopwatch'
+        ? current.stopwatchElapsedSec
+        : current.totalDurationSec;
 
       if (durationSec >= 30) {
         saveFocusSessionLog({
@@ -227,14 +238,14 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           formattedEndTime: formatTimeOfDay(now),
           durationMinutes: Math.max(1, Math.round(durationSec / 60)),
           durationSeconds: durationSec,
-          mode: session.mode,
-          topicId: session.topicId,
-          topicName: session.topicName || 'Deep Focus Session',
-          subjectName: session.subjectName,
-          subjectColor: session.subjectColor,
-          chapterName: session.chapterName,
+          mode: current.mode,
+          topicId: current.topicId,
+          topicName: current.topicName || 'Deep Focus Session',
+          subjectName: current.subjectName,
+          subjectColor: current.subjectColor,
+          chapterName: current.chapterName,
           status: 'completed',
-          loopsCompleted: session.currentLoop || 1
+          loopsCompleted: current.currentLoop || 1
         });
       }
     } catch (e) {
@@ -250,7 +261,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       pipWindowRef.current = null;
       setIsPiPActive(false);
     }
-  }, [session, logStudySession, persistSession, notifyAndroidTimerChange, releaseWakeLock]);
+  }, [logStudySession, persistSession, notifyAndroidTimerChange, releaseWakeLock]);
 
   const startTimer = useCallback((options?: StartTimerOptions) => {
     const now = Date.now();
@@ -536,18 +547,28 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         } catch (e) {}
       }
     }
+
+    return () => {
+      releaseWakeLock();
+      if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
+        try {
+          navigator.mediaSession.playbackState = 'none';
+        } catch (e) {}
+      }
+    };
   }, [session.status, session.topicName, session.subjectName, acquireWakeLock, releaseWakeLock, pauseTimer, resumeTimer, stopTimer]);
 
   // Background Visibility & Focus Real-Time Timestamp Synchronization
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (session.status === 'running') {
+      const current = sessionRef.current;
+      if (current.status === 'running') {
         const now = Date.now();
-        if (session.mode === 'stopwatch' && session.startTimestamp) {
-          const elapsed = Math.floor((now - session.startTimestamp - session.accumulatedPausedMs) / 1000);
+        if (current.mode === 'stopwatch' && current.startTimestamp) {
+          const elapsed = Math.floor((now - current.startTimestamp - current.accumulatedPausedMs) / 1000);
           setSession(prev => ({ ...prev, stopwatchElapsedSec: elapsed }));
-        } else if (session.targetEndTimestamp) {
-          const remaining = Math.max(0, Math.ceil((session.targetEndTimestamp - now) / 1000));
+        } else if (current.targetEndTimestamp) {
+          const remaining = Math.max(0, Math.ceil((current.targetEndTimestamp - now) / 1000));
           setSession(prev => ({ ...prev, remainingSec: remaining }));
           if (remaining <= 0) {
             handleSessionComplete();
@@ -565,7 +586,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleVisibilityChange);
     };
-  }, [session.status, session.mode, session.startTimestamp, session.targetEndTimestamp, session.accumulatedPausedMs, handleSessionComplete, acquireWakeLock]);
+  }, [handleSessionComplete, acquireWakeLock]);
 
   const requestPictureInPicture = useCallback(async (): Promise<boolean> => {
     if ('documentPictureInPicture' in window && window.documentPictureInPicture) {
@@ -601,10 +622,10 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                   ${isPaused ? '▶' : '⏸'}
                 </button>
                 <div style="text-align: center;">
-                  <div style="font-size: 22px; font-weight: 800; font-family: monospace; letter-spacing: -0.02em; color: #FFFFFF;">
+                  <div id="pip-time" style="font-size: 22px; font-weight: 800; font-family: monospace; letter-spacing: -0.02em; color: #FFFFFF;">
                     🛡 ${timeStr}
                   </div>
-                  <div style="font-size: 10px; font-weight: 600; color: ${isPaused ? '#FACC15' : '#94A3B8'};">
+                  <div id="pip-status" style="font-size: 10px; font-weight: 600; color: ${isPaused ? '#FACC15' : '#94A3B8'};">
                     ${isPaused ? 'Paused' : 'Time remaining'}
                   </div>
                 </div>
@@ -613,7 +634,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 </button>
               </div>
               <div style="width: 100%; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; margin-top: 6px;">
-                <div style="width: ${Math.min(100, Math.max(0, progressPercent * 100))}%; height: 100%; background: #2DD4BF; transition: width 0.3s ease;"></div>
+                <div id="pip-progress" style="width: ${Math.min(100, Math.max(0, progressPercent * 100))}%; height: 100%; background: #2DD4BF; transition: width 0.3s ease;"></div>
               </div>
             </div>
           `;
@@ -621,8 +642,9 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           const playBtn = pipWindow.document.getElementById('pip-play-btn');
           if (playBtn) {
             playBtn.onclick = () => {
-              if (session.status === 'running') pauseTimer();
-              else if (session.status === 'paused') resumeTimer();
+              const cur = sessionRef.current;
+              if (cur.status === 'running') pauseTimer();
+              else if (cur.status === 'paused') resumeTimer();
             };
           }
           const closeBtn = pipWindow.document.getElementById('pip-close-btn');
@@ -647,7 +669,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     return false;
-  }, [session, pauseTimer, resumeTimer]);
+  }, [pauseTimer, resumeTimer]);
 
   const exitPictureInPicture = useCallback(async () => {
     if (pipWindowRef.current) {
@@ -657,6 +679,44 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       pipWindowRef.current = null;
       setIsPiPActive(false);
     }
+  }, []);
+
+  // Keep live Picture-in-Picture window synchronized on ticks
+  useEffect(() => {
+    if (!pipWindowRef.current || pipWindowRef.current.closed) return;
+    try {
+      const pipDoc = pipWindowRef.current.document;
+      const current = sessionRef.current;
+      const secs = current.mode === 'stopwatch' ? current.stopwatchElapsedSec : current.remainingSec;
+      const mins = Math.floor(secs / 60);
+      const s = secs % 60;
+      const timeStr = String(mins).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      const isPaused = current.status === 'paused';
+      const progressPercent = current.totalDurationSec > 0 ? (current.totalDurationSec - current.remainingSec) / current.totalDurationSec : 0;
+
+      const timeEl = pipDoc.getElementById('pip-time');
+      const statusEl = pipDoc.getElementById('pip-status');
+      const playBtn = pipDoc.getElementById('pip-play-btn');
+      const progressEl = pipDoc.getElementById('pip-progress');
+
+      if (timeEl) timeEl.textContent = `🛡 ${timeStr}`;
+      if (statusEl) {
+        statusEl.textContent = isPaused ? 'Paused' : 'Time remaining';
+        statusEl.style.color = isPaused ? '#FACC15' : '#94A3B8';
+      }
+      if (playBtn) playBtn.textContent = isPaused ? '▶' : '⏸';
+      if (progressEl) progressEl.style.width = `${Math.min(100, Math.max(0, progressPercent * 100))}%`;
+    } catch (e) {}
+  }, [session.remainingSec, session.stopwatchElapsedSec, session.status, session.mode, session.totalDurationSec]);
+
+  // Clean up PiP window on unmount
+  useEffect(() => {
+    return () => {
+      if (pipWindowRef.current) {
+        try { pipWindowRef.current.close(); } catch (e) {}
+        pipWindowRef.current = null;
+      }
+    };
   }, []);
 
   const contextValue = useMemo(() => ({

@@ -29,7 +29,13 @@ export const FloatingTimerOverlay: React.FC = () => {
       const w = isMobile ? 200 : 240;
       const defaultX = Math.max(12, window.innerWidth - w - 16);
       const defaultY = isMobile ? window.innerHeight - 130 : 90;
-      return settings.position || { x: defaultX, y: defaultY };
+      const basePos = settings.position || { x: defaultX, y: defaultY };
+      const maxX = Math.max(8, window.innerWidth - w - 8);
+      const maxY = Math.max(8, window.innerHeight - 44 - 60);
+      return {
+        x: Math.min(Math.max(8, basePos.x), maxX),
+        y: Math.min(Math.max(8, basePos.y), maxY)
+      };
     }
     return { x: 16, y: 90 };
   });
@@ -48,6 +54,19 @@ export const FloatingTimerOverlay: React.FC = () => {
     return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
   });
 
+  const clampPosition = useCallback((pos: { x: number; y: number }, collapsed: boolean = isCollapsedToEmoji) => {
+    if (typeof window === 'undefined') return pos;
+    const isMobile = window.innerWidth < 640;
+    const overlayWidth = collapsed ? 50 : isMobile ? 200 : 240;
+    const overlayHeight = collapsed ? 50 : 44;
+    const maxX = Math.max(8, window.innerWidth - overlayWidth - 8);
+    const maxY = Math.max(8, window.innerHeight - overlayHeight - 60);
+    return {
+      x: Math.min(Math.max(8, pos.x), maxX),
+      y: Math.min(Math.max(8, pos.y), maxY)
+    };
+  }, [isCollapsedToEmoji]);
+
   useEffect(() => {
     const handleFontSync = () => {
       const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
@@ -65,9 +84,17 @@ export const FloatingTimerOverlay: React.FC = () => {
 
   useEffect(() => {
     if (settings.rememberPosition && settings.position) {
-      setPosition(settings.position);
+      setPosition(clampPosition(settings.position));
     }
-  }, [settings.rememberPosition, settings.position]);
+  }, [settings.rememberPosition, settings.position, clampPosition]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition(prev => clampPosition(prev));
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [clampPosition]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     const target = e.target as HTMLElement;
@@ -83,7 +110,9 @@ export const FloatingTimerOverlay: React.FC = () => {
     };
 
     if (overlayRef.current) {
-      overlayRef.current.setPointerCapture(e.pointerId);
+      try {
+        overlayRef.current.setPointerCapture(e.pointerId);
+      } catch {}
     }
   }, [position]);
 
@@ -148,6 +177,7 @@ export const FloatingTimerOverlay: React.FC = () => {
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
         onClick={e => {
           if (hasMovedRef.current) return;
           soundManager.playClick();
@@ -201,6 +231,7 @@ export const FloatingTimerOverlay: React.FC = () => {
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onClick={e => {
         const target = e.target as HTMLElement;
         if (target.closest('button')) return;

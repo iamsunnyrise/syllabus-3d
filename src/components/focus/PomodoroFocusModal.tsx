@@ -160,11 +160,14 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   useEffect(() => {
     if (defaultTopicId) {
       setSelectedTopicId(defaultTopicId);
-      const top = allTopics.find(t => t.topic.id === defaultTopicId);
-      if (top) setSessionTopic(top.topic.id, top.topic.name, top.subjectName, top.chapterName, top.subjectColor);
+      const top = allTopics.find(t => t?.topic?.id === defaultTopicId);
+      if (top?.topic) setSessionTopic(top.topic.id, top.topic.name, top.subjectName, top.chapterName, top.subjectColor);
     } else if (allTopics.length > 0 && !selectedTopicId) {
-      setSelectedTopicId(allTopics[0].topic.id);
-      setSessionTopic(allTopics[0].topic.id, allTopics[0].topic.name, allTopics[0].subjectName, allTopics[0].chapterName, allTopics[0].subjectColor);
+      const first = allTopics[0];
+      if (first?.topic) {
+        setSelectedTopicId(first.topic.id);
+        setSessionTopic(first.topic.id, first.topic.name, first.subjectName, first.chapterName, first.subjectColor);
+      }
     }
   }, [defaultTopicId, allTopics]);
 
@@ -289,11 +292,12 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   // MediaSession API Integration for Lock-Screen and Earbud Controls
   useEffect(() => {
     if (!isOpen && session.status === 'idle') {
+      mediaSessionManager.setActionHandlers({});
       mediaSessionManager.clear();
       return;
     }
 
-    const top = allTopics.find(t => t.topic.id === selectedTopicId);
+    const top = allTopics.find(t => t?.topic?.id === selectedTopicId);
     const minsLeft = Math.ceil(session.remainingSec / 60);
     const track = SOUND_TRACKS.find(s => s.id === activeSound);
 
@@ -301,7 +305,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       title: session.mode === 'stopwatch'
         ? `Stopwatch (${formatTimerParts(session.stopwatchElapsedSec).mStr}:${formatTimerParts(session.stopwatchElapsedSec).sStr})`
         : `${session.mode.toUpperCase()} • ${minsLeft}m left`,
-      artist: top ? `${top.topic.name} • ${top.subjectName}` : 'Deep Study Mode',
+      artist: top?.topic?.name ? `${top.topic.name} • ${top.subjectName}` : 'Deep Study Mode',
       album: track ? `Music: ${track.label}` : 'Deep Focus'
     });
 
@@ -320,6 +324,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         resetTimer();
       }
     });
+
+    return () => {
+      mediaSessionManager.setActionHandlers({});
+      mediaSessionManager.clear();
+    };
   }, [isOpen, session.status, session.remainingSec, session.stopwatchElapsedSec, session.mode, activeSound, selectedTopicId, isRunning, isPaused, handleTogglePlay, resetTimer, allTopics]);
 
   // Keyboard shortcut listener (Space = Play/Pause, Esc = Close, F = Fullscreen, D = Theme)

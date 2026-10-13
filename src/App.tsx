@@ -71,6 +71,24 @@ const ViewLoadingFallback: React.FC = () => (
   </div>
 );
 
+const VALID_VIEWS = new Set<AppView>([
+  'overview',
+  'planner',
+  'platforms',
+  'syllabus',
+  'subjects',
+  'revision',
+  'weak',
+  'mindmap',
+  'analytics',
+  'heatmap',
+  'pacing',
+  'settings',
+  'youtube-notes',
+  'mock-tracker',
+  'landing'
+]);
+
 export const App: React.FC = () => {
   const { isAuthenticated, isLoading, authView, setAuthView } = useAuth();
   const { isFullModalOpen, openFullModal, closeFullModal, setSessionTopic } = useTimer();
@@ -192,6 +210,13 @@ export const App: React.FC = () => {
 
   const syllabusBackHandlerRef = useRef<(() => boolean) | null>(null);
 
+  // Cleanup toast timer on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
+
   // 🛡️ Proactive Storage Health Check & Auto-Healing on Startup
   useEffect(() => {
     storageManager.checkStorageHealthAndAutoHeal();
@@ -199,17 +224,18 @@ export const App: React.FC = () => {
 
   // Navigate with History Push
   const handleNavigate = useCallback((newView: AppView) => {
-    if (newView === currentView) return;
-    if (newView !== 'syllabus') {
+    const targetView: AppView = newView && VALID_VIEWS.has(newView) ? newView : 'overview';
+    if (targetView === currentView) return;
+    if (targetView !== 'syllabus') {
       setTargetSubjectId('');
     }
-    if (newView === 'overview') {
+    if (targetView === 'overview') {
       setViewHistory([]);
     } else {
       setViewHistory(prev => [...prev, currentView]);
     }
-    window.history.pushState({ view: newView }, '');
-    setCurrentView(newView);
+    window.history.pushState({ view: targetView }, '');
+    setCurrentView(targetView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     soundManager.playClick();
   }, [currentView]);
@@ -222,6 +248,10 @@ export const App: React.FC = () => {
 
   // Global Back Handler
   const handleBack = useCallback(() => {
+    if (isMobileDrawerOpen) {
+      setIsMobileDrawerOpen(false);
+      return;
+    }
     if (selectedTopic) {
       setSelectedTopic(null);
       return;
@@ -263,7 +293,7 @@ export const App: React.FC = () => {
     if (viewHistory.length > 0) {
       const previousView = viewHistory[viewHistory.length - 1];
       setViewHistory(prev => prev.slice(0, -1));
-      setCurrentView(previousView);
+      setCurrentView(previousView && VALID_VIEWS.has(previousView) ? previousView : 'overview');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       soundManager.playClick();
     } else if (currentView !== 'overview') {
@@ -272,6 +302,7 @@ export const App: React.FC = () => {
       soundManager.playClick();
     }
   }, [
+    isMobileDrawerOpen,
     selectedTopic,
     isSearchOpen,
     isAiArchitectOpen,
@@ -289,6 +320,10 @@ export const App: React.FC = () => {
   // Browser History / Android Back Button Support
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
+      if (isMobileDrawerOpen) {
+        setIsMobileDrawerOpen(false);
+        return;
+      }
       if (selectedTopic) {
         setSelectedTopic(null);
         return;
@@ -327,12 +362,12 @@ export const App: React.FC = () => {
         if (handled) return;
       }
 
-      if (e.state && e.state.view) {
+      if (e.state && e.state.view && VALID_VIEWS.has(e.state.view)) {
         setCurrentView(e.state.view);
       } else if (viewHistory.length > 0) {
         const previousView = viewHistory[viewHistory.length - 1];
         setViewHistory(prev => prev.slice(0, -1));
-        setCurrentView(previousView);
+        setCurrentView(previousView && VALID_VIEWS.has(previousView) ? previousView : 'overview');
       } else {
         setCurrentView('overview');
       }
@@ -341,6 +376,7 @@ export const App: React.FC = () => {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [
+    isMobileDrawerOpen,
     selectedTopic,
     isSearchOpen,
     isAiArchitectOpen,
@@ -570,6 +606,8 @@ export const App: React.FC = () => {
     isAiArchitectOpen,
     isAddTopicOpen,
     isRevisionSessionOpen,
+    isWalkAndReviseOpen,
+    isBacklogRescueOpen,
     selectedTopic,
     isFullModalOpen,
     isMobileDrawerOpen,

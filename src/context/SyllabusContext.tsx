@@ -374,9 +374,9 @@ const SyllabusContext = createContext<SyllabusContextType | undefined>(undefined
 
 const loadInitialActiveDataset = () => {
   if (typeof window === 'undefined') return null;
-  const activeId = localStorage.getItem('syllabus3d_active_profile_id') || 'profile_default';
-  if (activeId === 'profile_default') return null;
   try {
+    const activeId = localStorage.getItem('syllabus3d_active_profile_id') || 'profile_default';
+    if (activeId === 'profile_default') return null;
     const raw = localStorage.getItem(`syllabus3d_profile_data_${activeId}`);
     if (raw) return JSON.parse(raw);
   } catch (e) {}
@@ -390,24 +390,24 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const [activeProfileId, setActiveProfileId] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_active_profile_id');
-      if (saved) return saved;
+      try {
+        const saved = localStorage.getItem('syllabus3d_active_profile_id');
+        if (saved) return saved;
+      } catch (e) {}
     }
     return 'profile_default';
   });
 
   const [profiles, setProfiles] = useState<UserProfileItem[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_profiles');
-      if (saved) {
-        try {
+      try {
+        const saved = localStorage.getItem('syllabus3d_profiles');
+        if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        } catch (e) {}
-      }
-      const savedProf = localStorage.getItem('syllabus3d_profile');
-      if (savedProf) {
-        try {
+        }
+        const savedProf = localStorage.getItem('syllabus3d_profile');
+        if (savedProf) {
           const p = JSON.parse(savedProf);
           return [{
             id: 'profile_default',
@@ -426,8 +426,8 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             createdAt: '2026-08-01T00:00:00.000Z',
             lastActiveAt: new Date().toISOString()
           }];
-        } catch (e) {}
-      }
+        }
+      } catch (e) {}
     }
     return [{
       id: 'profile_default',
@@ -450,10 +450,13 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [exams, setExams] = useState<Exam[]>(() => {
     if (initialActiveDataset?.exams) return initialActiveDataset.exams;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_exams');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_exams');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
     }
     return INITIAL_EXAMS;
   });
@@ -461,10 +464,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [profile, setProfile] = useState<UserProgressProfile>(() => {
     if (initialActiveDataset?.profile) return initialActiveDataset.profile;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_profile');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_profile');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {}
     }
     return INITIAL_PROFILE;
   });
@@ -472,10 +477,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [achievements, setAchievements] = useState<AchievementBadge[]>(() => {
     if (initialActiveDataset?.achievements) return initialActiveDataset.achievements;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_achievements');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_achievements');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {}
     }
     return INITIAL_ACHIEVEMENTS;
   });
@@ -483,10 +490,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [activityHistory, setActivityHistory] = useState<DailyActivity[]>(() => {
     if (initialActiveDataset?.activityHistory) return initialActiveDataset.activityHistory;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_activity');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_activity');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {}
     }
     return INITIAL_ACTIVITY_HISTORY;
   });
@@ -494,10 +503,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [revisions, setRevisions] = useState<RevisionRecord[]>(() => {
     if (initialActiveDataset?.revisions) return initialActiveDataset.revisions;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_revisions');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_revisions');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {}
     }
     const initRevs: RevisionRecord[] = [];
     const ssc = INITIAL_EXAMS[0];
@@ -518,10 +529,12 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [plannerTasks, setPlannerTasks] = useState<PlannerTask[]>(() => {
     if (initialActiveDataset?.plannerTasks) return initialActiveDataset.plannerTasks;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_planner');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_planner');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {}
     }
     return INITIAL_PLANNER_TASKS;
   });
@@ -573,13 +586,13 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [platforms, setPlatforms] = useState<ExternalPlatform[]>(() => {
     if (initialActiveDataset?.platforms) return initialActiveDataset.platforms;
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('syllabus3d_platforms');
-      if (saved) {
-        try {
+      try {
+        const saved = localStorage.getItem('syllabus3d_platforms');
+        if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        } catch (e) {}
-      }
+        }
+      } catch (e) {}
     }
     return INITIAL_PLATFORMS;
   });
@@ -720,7 +733,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   });
   const [lastCloudSyncAt, setLastCloudSyncAt] = useState<string | null>(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('syllabus3d_last_cloud_sync_at');
+      try {
+        return localStorage.getItem('syllabus3d_last_cloud_sync_at');
+      } catch (e) {}
     }
     return null;
   });
@@ -777,7 +792,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           const syncTime = cloudData.timestamp || new Date().toISOString();
           setLastCloudSyncAt(syncTime);
           if (typeof window !== 'undefined') {
-            localStorage.setItem('syllabus3d_last_cloud_sync_at', syncTime);
+            try {
+              localStorage.setItem('syllabus3d_last_cloud_sync_at', syncTime);
+            } catch (e) {}
           }
           soundManager.playCompleteChime();
         } else {
@@ -789,7 +806,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           const now = new Date().toISOString();
           setLastCloudSyncAt(now);
           if (typeof window !== 'undefined') {
-            localStorage.setItem('syllabus3d_last_cloud_sync_at', now);
+            try {
+              localStorage.setItem('syllabus3d_last_cloud_sync_at', now);
+            } catch (e) {}
           }
         }
       } catch (err: any) {
@@ -835,7 +854,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setLastCloudSyncAt(res.timestamp || new Date().toISOString());
         setCloudSyncError(null);
         if (typeof window !== 'undefined' && res.timestamp) {
-          localStorage.setItem('syllabus3d_last_cloud_sync_at', res.timestamp);
+          try {
+            localStorage.setItem('syllabus3d_last_cloud_sync_at', res.timestamp);
+          } catch (e) {}
         }
       } else {
         setCloudSyncStatus('error');
@@ -899,9 +920,9 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const allTopics = useMemo(() => {
     if (!currentExam) return [];
     const list: Array<{ subjectName: string; subjectColor: string; chapterName: string; topic: Topic }> = [];
-    currentExam.subjects.forEach(s => {
-      s.chapters.forEach(ch => {
-        ch.topics.forEach(t => {
+    (currentExam.subjects || []).forEach(s => {
+      (s.chapters || []).forEach(ch => {
+        (ch.topics || []).forEach(t => {
           list.push({ subjectName: s.name, subjectColor: s.color, chapterName: ch.name, topic: t });
         });
       });
@@ -977,7 +998,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const subjectStats = useMemo((): SubjectStats[] => {
     if (!currentExam) return [];
-    return currentExam.subjects.map(s => {
+    return (currentExam.subjects || []).map(s => {
       let total = 0;
       let completed = 0;
       let weak = 0;
@@ -986,8 +1007,8 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       let accuracyCount = 0;
       let lastDate: string | null = null;
 
-      s.chapters.forEach(ch => {
-        ch.topics.forEach(t => {
+      (s.chapters || []).forEach(ch => {
+        (ch.topics || []).forEach(t => {
           total++;
           totalMins += t.studyTimeMinutes;
           if (t.status === 'completed') completed++;
@@ -1718,7 +1739,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             totalChapters: 1,
             chapters: []
           };
-          subjects.push(newSubject);
+          subjects = [...subjects, newSubject];
         }
 
         // 2. Determine Chapter inside Subject
@@ -1738,7 +1759,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               description: payload.newChapterDescription?.trim() || 'Custom study unit',
               topics: newTopicObjects
             };
-            chapters.push(newChapter);
+            chapters = [...chapters, newChapter];
           } else {
             chapters = chapters.map(ch => {
               if (ch.id !== targetChapterId) return ch;
@@ -1850,7 +1871,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 totalChapters: mergedChapters.length
               };
             } else {
-              updatedSubjects.push(newSub);
+              updatedSubjects = [...updatedSubjects, newSub];
             }
           }
 
@@ -2542,15 +2563,17 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const resetToDemo = () => {
-    localStorage.removeItem('syllabus3d_exams');
-    localStorage.removeItem('syllabus3d_profile');
-    localStorage.removeItem('syllabus3d_achievements');
-    localStorage.removeItem('syllabus3d_activity');
-    localStorage.removeItem('syllabus3d_revisions');
-    localStorage.removeItem('syllabus3d_planner');
-    localStorage.removeItem('syllabus3d_platforms');
-    localStorage.removeItem('syllabus3d_top3');
-    localStorage.removeItem('syllabus3d_daily_reflections');
+    try {
+      localStorage.removeItem('syllabus3d_exams');
+      localStorage.removeItem('syllabus3d_profile');
+      localStorage.removeItem('syllabus3d_achievements');
+      localStorage.removeItem('syllabus3d_activity');
+      localStorage.removeItem('syllabus3d_revisions');
+      localStorage.removeItem('syllabus3d_planner');
+      localStorage.removeItem('syllabus3d_platforms');
+      localStorage.removeItem('syllabus3d_top3');
+      localStorage.removeItem('syllabus3d_daily_reflections');
+    } catch (e) {}
     setExams(INITIAL_EXAMS);
     setProfile(INITIAL_PROFILE);
     setAchievements(INITIAL_ACHIEVEMENTS);
@@ -3107,7 +3130,16 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       reflectionsHistory,
       pdfHighlights,
       audioSettings: soundManager.getSettings(),
-      theme: (typeof window !== 'undefined' ? localStorage.getItem('syllabus3d_theme') : 'dark') || 'dark'
+      theme: (() => {
+        if (typeof window !== 'undefined') {
+          try {
+            return localStorage.getItem('syllabus3d_theme') || 'dark';
+          } catch {
+            return 'dark';
+          }
+        }
+        return 'dark';
+      })()
     }, null, 2);
   };
 

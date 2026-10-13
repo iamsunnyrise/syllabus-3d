@@ -106,7 +106,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const subjectProgressList = useMemo(() => {
     if (!currentExam?.subjects || currentExam.subjects.length === 0) return [];
     return currentExam.subjects.map(subject => {
-      const stat = subjectStats.find(s => s.subjectId === subject.id) || {
+      const stat = (subjectStats || []).find(s => s.subjectId === subject.id) || {
         completedTopics: 0,
         totalTopics: 0,
         percentage: 0,
@@ -133,7 +133,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         weakCount: stat.weakCount
       };
     });
-  }, [currentExam?.subjects, subjectStats]);
+  }, [currentExam, subjectStats]);
 
   // Smart Next Recommended Target HUD
   const nextRecommendedTopic = useMemo(() => {
@@ -142,7 +142,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
     let inProgress: { topic: Topic; subjectName: string; chapterName: string; badge: string; badgeColor: string } | null = null;
     let notStarted: { topic: Topic; subjectName: string; chapterName: string; badge: string; badgeColor: string } | null = null;
 
-    for (const subject of currentExam.subjects) {
+    for (const subject of currentExam.subjects || []) {
       for (const chapter of subject.chapters || []) {
         for (const topic of chapter.topics || []) {
           if (!weakOrDue && (topic.status === 'weak' || topic.isWeak)) {
@@ -183,12 +183,15 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
     }
 
     return weakOrDue || inProgress || notStarted || null;
-  }, [currentExam?.subjects]);
+  }, [currentExam]);
 
   // Circular Progress calculations
   const radius = 56;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (overallStats.completionPercentage / 100) * circumference;
+  const completionPct = overallStats?.completionPercentage || 0;
+  const strokeDashoffset = Number.isFinite(completionPct)
+    ? circumference - (completionPct / 100) * circumference
+    : circumference;
 
   const examName = currentExam?.name || 'SSC CGL 2026';
   const examYear = currentExam?.targetYear || 2026;
@@ -619,17 +622,17 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <div className="w-full h-2.5 rounded-full bg-slate-200/80 dark:bg-black/30 overflow-hidden flex p-0.5 shadow-inner border border-slate-200/50 dark:border-white/[0.08]">
                 <div
                   className="h-full bg-emerald-500 rounded-l-full transition-all duration-500"
-                  style={{ width: `${(overallStats.completedCount / (overallStats.totalTopics || 1)) * 100}%` }}
+                  style={{ width: `${overallStats.totalTopics > 0 ? ((overallStats.completedCount || 0) / overallStats.totalTopics) * 100 : 0}%` }}
                   title="Completed"
                 />
                 <div
                   className="h-full bg-blue-600 dark:bg-blue-400 transition-all duration-500"
-                  style={{ width: `${(overallStats.inProgressCount / (overallStats.totalTopics || 1)) * 100}%` }}
+                  style={{ width: `${overallStats.totalTopics > 0 ? ((overallStats.inProgressCount || 0) / overallStats.totalTopics) * 100 : 0}%` }}
                   title="In Progress"
                 />
                 <div
                   className="h-full bg-rose-500 rounded-r-full transition-all duration-500"
-                  style={{ width: `${(overallStats.weakCount / (overallStats.totalTopics || 1)) * 100}%` }}
+                  style={{ width: `${overallStats.totalTopics > 0 ? ((overallStats.weakCount || 0) / overallStats.totalTopics) * 100 : 0}%` }}
                   title="Needs Revision"
                 />
               </div>

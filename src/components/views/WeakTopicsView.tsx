@@ -53,8 +53,8 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
     let timePressure = 0;
     let totalTraps = 0;
 
-    weakTopics.forEach(item => {
-      item.topic.mistakes?.forEach(m => {
+    (weakTopics || []).forEach(item => {
+      item.topic?.mistakes?.forEach(m => {
         totalTraps++;
         if (m.mistakeType === 'conceptual') conceptual++;
         else if (m.mistakeType === 'calculation') calculation++;
@@ -69,7 +69,7 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
 
   // Filtered Weak Topics
   const filteredWeakTopics = useMemo(() => {
-    return weakTopics.filter(wt => {
+    return (weakTopics || []).filter(wt => {
       // 1. Subject Filter
       if (selectedSubject !== 'all' && wt.subjectName !== selectedSubject) {
         return false;
@@ -77,14 +77,15 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
 
       // 2. Fallacy Filter
       if (selectedFallacy !== 'all') {
-        const hasFallacy = wt.topic.mistakes?.some(m => m.mistakeType === selectedFallacy);
+        const hasFallacy = wt.topic?.mistakes?.some(m => m.mistakeType === selectedFallacy);
         if (!hasFallacy) return false;
       }
 
       // 3. Severity Filter
-      if (severityFilter === 'critical' && wt.topic.accuracy >= 50) return false;
-      if (severityFilter === 'moderate' && (wt.topic.accuracy < 50 || wt.topic.accuracy >= 75)) return false;
-      if (severityFilter === 'traps_only' && (!wt.topic.mistakes || wt.topic.mistakes.length === 0)) return false;
+      const acc = wt.topic?.accuracy ?? 0;
+      if (severityFilter === 'critical' && acc >= 50) return false;
+      if (severityFilter === 'moderate' && (acc < 50 || acc > 70)) return false;
+      if (severityFilter === 'traps_only' && (!wt.topic?.mistakes || wt.topic.mistakes.length === 0)) return false;
 
       // 4. Search Query
       if (searchQuery.trim()) {
@@ -303,11 +304,11 @@ export const WeakTopicsView: React.FC<WeakTopicsViewProps> = ({
                 : 'bg-slate-50 dark:bg-[#1B1C28] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-slate-300 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <span>All Subjects ({weakTopics.length})</span>
+            <span>All Subjects ({(weakTopics || []).length})</span>
           </button>
 
-          {currentExam?.subjects.map(s => {
-            const count = weakTopics.filter(w => w.subjectName === s.name).length;
+          {currentExam?.subjects?.map(s => {
+            const count = (weakTopics || []).filter(w => w.subjectName === s.name).length;
             const isSelected = selectedSubject === s.name;
             return (
               <button

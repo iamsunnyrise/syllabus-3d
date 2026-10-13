@@ -34,10 +34,12 @@ export const PinLockProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Load configuration from localStorage
   const [config, setConfig] = useState<PinLockConfig>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        return { ...DEFAULT_PIN_CONFIG, ...parsed };
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          return { ...DEFAULT_PIN_CONFIG, ...parsed };
+        }
       }
     } catch (e) {
       console.error('[PinLock] Error loading stored config:', e);
@@ -48,10 +50,12 @@ export const PinLockProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // App is locked by default on startup if PIN is enabled and configured
   const [isLocked, setIsLocked] = useState<boolean>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed: PinLockConfig = JSON.parse(stored);
-        return Boolean(parsed.isEnabled && parsed.pinHash);
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed: PinLockConfig = JSON.parse(stored);
+          return Boolean(parsed.isEnabled && parsed.pinHash);
+        }
       }
     } catch {}
     return false;
@@ -69,7 +73,9 @@ export const PinLockProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const saveConfig = useCallback((newConfig: PinLockConfig) => {
     setConfig(newConfig);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+      }
     } catch (e) {
       console.error('[PinLock] Error saving config:', e);
     }
@@ -117,6 +123,48 @@ export const PinLockProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setIsLocked(true);
     }
   }, []);
+
+  // Auto-lock on tab switch and idle timeout
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!config.isEnabled || !config.pinHash) return;
+
+    const handleVisibilityChange = () => {
+      if (configRef.current.lockOnTabSwitch && document.visibilityState === 'hidden') {
+        lockApp();
+      }
+    };
+
+    let idleTimer: ReturnType<typeof setTimeout> | null = null;
+    const resetIdleTimer = () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      const timeoutMins = configRef.current.autoLockTimeout;
+      if (timeoutMins > 0) {
+        idleTimer = setTimeout(() => {
+          lockApp();
+        }, timeoutMins * 60 * 1000);
+      }
+    };
+
+    const handleActivity = () => {
+      resetIdleTimer();
+    };
+
+    resetIdleTimer();
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('mousemove', handleActivity);
+    window.addEventListener('keydown', handleActivity);
+    window.addEventListener('touchstart', handleActivity);
+
+    return () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('mousemove', handleActivity);
+      window.removeEventListener('keydown', handleActivity);
+      window.removeEventListener('touchstart', handleActivity);
+    };
+  }, [config.isEnabled, config.pinHash, lockApp]);
 
   // Unlock application with entered PIN
   const unlockApp = useCallback(

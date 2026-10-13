@@ -18,22 +18,38 @@ export function getTodayDateString(): string {
 }
 
 export function addDays(dateStr: string, days: number): string {
+  const safeDays = typeof days === 'number' && !isNaN(days) ? Math.round(days) : 0;
   try {
-    const d = new Date(dateStr);
+    let d: Date;
+    // Robust local parsing for YYYY-MM-DD to avoid UTC timezone off-by-one shifts
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+      const parts = dateStr.split('-').map(Number);
+      d = new Date(parts[0], parts[1] - 1, parts[2]);
+    } else {
+      d = new Date(dateStr);
+    }
+
     if (isNaN(d.getTime())) {
       const now = new Date();
-      now.setDate(now.getDate() + days);
-      return now.toISOString().split('T')[0];
+      now.setDate(now.getDate() + safeDays);
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     }
-    d.setDate(d.getDate() + days);
+
+    d.setDate(d.getDate() + safeDays);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   } catch {
     const now = new Date();
-    now.setDate(now.getDate() + days);
-    return now.toISOString().split('T')[0];
+    now.setDate(now.getDate() + safeDays);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
 
@@ -45,7 +61,8 @@ export function calculateAdaptiveIntervals(
   accuracy: number = 0,
   isWeak: boolean = false
 ): number[] {
-  if (isWeak || (accuracy > 0 && accuracy < 60)) {
+  const safeAccuracy = typeof accuracy === 'number' && !isNaN(accuracy) ? accuracy : 0;
+  if (isWeak || (safeAccuracy > 0 && safeAccuracy < 60)) {
     // Weak / Low accuracy concepts need tight consolidation intervals
     return [1, 2, 4, 10];
   }
@@ -53,7 +70,7 @@ export function calculateAdaptiveIntervals(
   const baseIntervals = DIFFICULTY_INTERVALS[difficulty] || DIFFICULTY_INTERVALS.Medium;
 
   // If high accuracy (>85%), slightly widen intervals
-  if (accuracy >= 85) {
+  if (safeAccuracy >= 85) {
     return baseIntervals.map((days, idx) => (idx === 0 ? days : Math.round(days * 1.3)));
   }
 
@@ -137,7 +154,12 @@ export function gradeRevision(
   grade: 'again' | 'hard' | 'good' | 'easy'
 ): { nextRevisionDate: string; nextStage: number } {
   let intervalDays = 1;
-  let nextStage = revision.stage;
+  const currentInterval =
+    typeof revision?.intervalDays === 'number' && !isNaN(revision.intervalDays) && revision.intervalDays > 0
+      ? revision.intervalDays
+      : 1;
+  const currentStage = typeof revision?.stage === 'number' && !isNaN(revision.stage) ? revision.stage : 1;
+  let nextStage = currentStage;
   const today = getTodayDateString();
 
   switch (grade) {
@@ -148,18 +170,18 @@ export function gradeRevision(
       break;
     case 'hard':
       // Hard recall: Minor interval increase
-      intervalDays = Math.max(1, Math.round(revision.intervalDays * 1.2));
-      nextStage = Math.min(4, revision.stage + 1);
+      intervalDays = Math.max(1, Math.round(currentInterval * 1.2));
+      nextStage = Math.min(4, currentStage + 1);
       break;
     case 'good':
       // Good recall: Standard x2.0 interval growth
-      intervalDays = Math.max(3, Math.round(revision.intervalDays * 2.0));
-      nextStage = Math.min(4, revision.stage + 1);
+      intervalDays = Math.max(3, Math.round(currentInterval * 2.0));
+      nextStage = Math.min(4, currentStage + 1);
       break;
     case 'easy':
       // Easy recall: x3.0 interval growth
-      intervalDays = Math.max(7, Math.round(revision.intervalDays * 3.0));
-      nextStage = Math.min(4, revision.stage + 1);
+      intervalDays = Math.max(7, Math.round(currentInterval * 3.0));
+      nextStage = Math.min(4, currentStage + 1);
       break;
   }
 

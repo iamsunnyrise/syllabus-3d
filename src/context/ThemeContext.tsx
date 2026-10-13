@@ -33,24 +33,31 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   const [enable3D, setEnable3DState] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('mocktracker_3d');
-      return saved !== null ? saved === 'true' : true;
-    } catch {
-      return true;
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('mocktracker_3d');
+        return saved !== null ? saved === 'true' : true;
+      } catch {
+        return true;
+      }
     }
+    return true;
   });
 
   const [reducedMotion, setReducedMotionState] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('mocktracker_reduced_motion');
-      return saved !== null ? saved === 'true' : false;
-    } catch {
-      return false;
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('mocktracker_reduced_motion');
+        return saved !== null ? saved === 'true' : false;
+      } catch {
+        return false;
+      }
     }
+    return false;
   });
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
     const root = document.documentElement;
     // Strip all obsolete legacy themes from html element
     root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'dark', 'light', 'warm-cream');
@@ -63,7 +70,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.add('light');
     }
     try {
-      localStorage.setItem('syllabus3d_theme', theme);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('syllabus3d_theme', theme);
+      }
     } catch {}
   }, [theme]);
 
@@ -71,8 +80,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (newTheme === 'dark' || newTheme === 'light' || newTheme === 'warm-cream') {
       setThemeState(newTheme);
     } else if (newTheme === 'system') {
-      const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setThemeState(isSysDark ? 'dark' : 'light');
+      if (typeof window !== 'undefined' && window.matchMedia) {
+        const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setThemeState(isSysDark ? 'dark' : 'light');
+      } else {
+        setThemeState('light');
+      }
     }
   };
 
@@ -83,14 +96,18 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const setEnable3D = (enable: boolean) => {
     setEnable3DState(enable);
     try {
-      localStorage.setItem('mocktracker_3d', String(enable));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('mocktracker_3d', String(enable));
+      }
     } catch {}
   };
 
   const setReducedMotion = (reduced: boolean) => {
     setReducedMotionState(reduced);
     try {
-      localStorage.setItem('mocktracker_reduced_motion', String(reduced));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('mocktracker_reduced_motion', String(reduced));
+      }
     } catch {}
   };
 

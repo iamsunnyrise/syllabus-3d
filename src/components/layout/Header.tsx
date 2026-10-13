@@ -85,6 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
   } = useTheme();
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
   const [isExamMenuOpen, setIsExamMenuOpen] = useState(false);
+  const examMenuRef = useRef<HTMLDivElement>(null);
   const [isEditExamModalOpen, setIsEditExamModalOpen] = useState(false);
   const [isAddExamModalOpen, setIsAddExamModalOpen] = useState(false);
   const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
@@ -98,6 +99,14 @@ export const Header: React.FC<HeaderProps> = ({
   const dueRevisionCount = dueRevisionsSafe.length;
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
   const weakTopicsCount = weakTopicsSafe.length;
+  const examsSafe = Array.isArray(exams) ? exams : [];
+  const profileSafe = profile || {
+    currentStreak: 0,
+    avatarColor: 'from-blue-600 to-indigo-600',
+    avatarUrl: '',
+    avatarEmoji: '',
+    name: 'Aspirant'
+  };
 
   const studyHubViews: AppView[] = [
     'revision',
@@ -114,16 +123,21 @@ export const Header: React.FC<HeaderProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (studyHubRef.current && !studyHubRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (studyHubRef.current && !studyHubRef.current.contains(target)) {
         setIsStudyHubOpen(false);
+      }
+      if (examMenuRef.current && !examMenuRef.current.contains(target)) {
+        setIsExamMenuOpen(false);
       }
     };
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isStudyHubOpen) {
-        setIsStudyHubOpen(false);
+      if (e.key === 'Escape') {
+        if (isStudyHubOpen) setIsStudyHubOpen(false);
+        if (isExamMenuOpen) setIsExamMenuOpen(false);
       }
     };
-    if (isStudyHubOpen) {
+    if (isStudyHubOpen || isExamMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       window.addEventListener('keydown', handleEscape);
     }
@@ -131,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [isStudyHubOpen]);
+  }, [isStudyHubOpen, isExamMenuOpen]);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -158,13 +172,14 @@ export const Header: React.FC<HeaderProps> = ({
     let d = 15;
     if (examDateStr.includes('-')) {
       const parts = examDateStr.split('-').map(Number);
-      if (parts.length >= 3 && !isNaN(parts[0])) {
+      if (parts.length >= 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
         y = parts[0];
         m = parts[1] - 1;
         d = parts[2];
       }
     }
     const targetTime = new Date(y, m, d, 9, 0, 0).getTime();
+    if (isNaN(targetTime)) return null;
     const diff = targetTime - now;
     if (diff <= 0) return 0;
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
@@ -173,7 +188,7 @@ export const Header: React.FC<HeaderProps> = ({
   const rawExamName = currentExam?.name || 'Syllabus Exam';
   const hasTrailingYear = /\s+(20\d{2})$/.test(rawExamName);
   const trailingYearMatch = rawExamName.match(/\s+(20\d{2})$/)?.[1];
-  const targetYear = currentExam?.targetYear || (trailingYearMatch ? Number(trailingYearMatch) : (currentExam?.examDate ? new Date(currentExam.examDate).getFullYear() : 2026));
+  const targetYear = currentExam?.targetYear || (trailingYearMatch ? Number(trailingYearMatch) : (currentExam?.examDate && !isNaN(new Date(currentExam.examDate).getTime()) ? new Date(currentExam.examDate).getFullYear() : 2026));
   const examDisplayName = hasTrailingYear ? rawExamName.replace(/\s+20\d{2}$/, '') : rawExamName;
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
@@ -216,7 +231,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* Responsive Exam Selector (Mobile & Desktop) with Target Year & Live Countdown */}
-          <div className="relative min-w-0 flex-1 sm:flex-initial">
+          <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
             <button
               onClick={() => setIsExamMenuOpen(prev => !prev)}
               className="flex items-center gap-1.5 sm:gap-2 h-9 px-2 sm:px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500 dark:hover:border-blue-400 transition-all cursor-pointer text-xs sm:text-sm font-bold text-slate-900 dark:text-white shadow-subtle-depth active:scale-95 group min-w-0"
@@ -246,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <div className="flex items-center gap-1.5">
                     <Target className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Target Exams ({exams.length})
+                      Target Exams ({examsSafe.length})
                     </span>
                   </div>
                   <button
@@ -265,11 +280,11 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {/* Enrolled Exams List */}
                 <div className="py-1.5 space-y-1 max-h-64 overflow-y-auto">
-                  {exams.map(ex => {
+                  {examsSafe.map(ex => {
                     const isCurrent = ex.id === currentExam?.id;
                     const exHasYear = /\s+(20\d{2})$/.test(ex.name);
                     const exYearMatch = ex.name.match(/\s+(20\d{2})$/)?.[1];
-                    const exTargetYear = ex.targetYear || (exYearMatch ? Number(exYearMatch) : (ex.examDate ? new Date(ex.examDate).getFullYear() : 2026));
+                    const exTargetYear = ex.targetYear || (exYearMatch ? Number(exYearMatch) : (ex.examDate && !isNaN(new Date(ex.examDate).getTime()) ? new Date(ex.examDate).getFullYear() : 2026));
                     const exDisplayName = exHasYear ? ex.name.replace(/\s+20\d{2}$/, '') : ex.name;
                     const daysLeft = getExamDaysRemaining(ex.examDate, exTargetYear);
                     const totalSubjs = ex.subjects?.length || 0;
@@ -337,7 +352,7 @@ export const Header: React.FC<HeaderProps> = ({
                           >
                             <Settings2 className="w-3.5 h-3.5" />
                           </button>
-                          {exams.length > 1 && (
+                          {examsSafe.length > 1 && (
                             <button
                               type="button"
                               onClick={() => {
@@ -780,7 +795,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="hidden sm:flex h-9 items-center gap-1 px-2.5 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth shrink-0">
             <Flame className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-500 fill-amber-500 shrink-0" />
             <span className="text-xs tabular-nums font-black text-slate-900 dark:text-white font-mono">
-              {profile.currentStreak}d
+              {profileSafe.currentStreak ?? 0}d
             </span>
           </div>
 
@@ -855,21 +870,21 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenSettings();
             }}
             className={`h-9 w-9 rounded-full bg-gradient-to-tr ${
-              profile.avatarColor || 'from-blue-600 to-indigo-600'
+              profileSafe.avatarColor || 'from-blue-600 to-indigo-600'
             } border border-slate-200/80 dark:border-white/[0.08] text-white font-bold flex items-center justify-center text-xs shadow-sm cursor-pointer overflow-hidden active:scale-95 hover:border-blue-500 dark:hover:border-blue-400 transition-all shrink-0`}
-            title={`Profile: ${profile.name || 'Aspirant'}`}
+            title={`Profile: ${profileSafe.name || 'Aspirant'}`}
             aria-label="Open profile settings"
           >
-            {profile.avatarUrl ? (
+            {profileSafe.avatarUrl ? (
               <img
-                src={profile.avatarUrl}
-                alt={profile.name || 'User'}
+                src={profileSafe.avatarUrl}
+                alt={profileSafe.name || 'User'}
                 className="w-full h-full object-cover"
               />
-            ) : profile.avatarEmoji ? (
-              <span className="text-sm leading-none drop-shadow">{profile.avatarEmoji}</span>
+            ) : profileSafe.avatarEmoji ? (
+              <span className="text-sm leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
             ) : (
-              (profile.name || 'A').charAt(0).toUpperCase()
+              (profileSafe.name || 'A').charAt(0).toUpperCase()
             )}
           </button>
         </div>

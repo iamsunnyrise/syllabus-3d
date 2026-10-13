@@ -138,7 +138,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
 
   // Timer Typography Font Selection
   const [timerFont, setTimerFont] = useState<TimerFontFamily>(() => {
-    return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+    try {
+      return (localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily) || 'jetbrains';
+    } catch {
+      return 'jetbrains';
+    }
   });
 
   const handleSelectTimerFont = (font: TimerFontFamily) => {
@@ -151,10 +155,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
 
   useEffect(() => {
     const handleFontSync = () => {
-      const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
-      if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
-        setTimerFont(saved);
-      }
+      try {
+        const saved = localStorage.getItem('syllabus3d_timer_font') as TimerFontFamily;
+        if (saved && (saved === 'jetbrains' || saved === 'roboto-mono' || saved === 'orbitron')) {
+          setTimerFont(saved);
+        }
+      } catch {}
     };
     window.addEventListener('storage', handleFontSync);
     window.addEventListener('syllabus3d_timer_font_change', handleFontSync);
@@ -343,36 +349,47 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
     reader.onload = (event) => {
       const img = new window.Image();
       img.onload = () => {
-        // High quality client-side resize to 256x256 WebP/JPEG
-        const canvas = document.createElement('canvas');
-        const maxDim = 256;
-        let width = img.width;
-        let height = img.height;
-        if (width > height) {
-          if (width > maxDim) {
-            height = Math.round((height * maxDim) / width);
-            width = maxDim;
+        try {
+          // High quality client-side resize to 256x256 WebP/JPEG
+          const canvas = document.createElement('canvas');
+          const maxDim = 256;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
           }
-        } else {
-          if (height > maxDim) {
-            width = Math.round((width * maxDim) / height);
-            height = maxDim;
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+            updateProfile({ avatarUrl: compressedDataUrl });
+            updateUserSession({ avatarUrl: compressedDataUrl });
+            soundManager.playCompleteChime();
+            setAvatarNotice(true);
+            setTimeout(() => setAvatarNotice(false), 3000);
           }
-        }
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, width, height);
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
-          updateProfile({ avatarUrl: compressedDataUrl });
-          updateUserSession({ avatarUrl: compressedDataUrl });
-          soundManager.playCompleteChime();
-          setAvatarNotice(true);
-          setTimeout(() => setAvatarNotice(false), 3000);
+        } catch (err) {
+          console.error('Failed to compress avatar image', err);
+          alert('Failed to process image. Please try another image.');
         }
       };
+      img.onerror = () => {
+        alert('Failed to load image. Please select a valid image file.');
+      };
       img.src = event.target?.result as string;
+    };
+    reader.onerror = () => {
+      alert('Failed to read image file.');
     };
     reader.readAsDataURL(file);
     e.target.value = '';
@@ -422,8 +439,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
   const handleAddDays = (days: number) => {
     soundManager.playClick();
     const current = new Date(examDate);
-    current.setDate(current.getDate() + days);
-    setExamDate(current.toISOString().split('T')[0]);
+    if (!isNaN(current.getTime())) {
+      current.setDate(current.getDate() + days);
+      setExamDate(current.toISOString().split('T')[0]);
+    }
   };
 
   const handleSaveProfile = (e: React.FormEvent) => {
@@ -455,16 +474,25 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
     reader.onload = evt => {
       const content = evt.target?.result as string;
       if (content) {
-        const success = importData(content);
-        if (success) {
-          setImportStatus('success');
-          soundManager.playCompleteChime();
-        } else {
+        try {
+          const success = importData(content);
+          if (success) {
+            setImportStatus('success');
+            soundManager.playCompleteChime();
+          } else {
+            setImportStatus('error');
+          }
+        } catch (err) {
+          console.error('Import failed', err);
           setImportStatus('error');
         }
       }
     };
+    reader.onerror = () => {
+      setImportStatus('error');
+    };
     reader.readAsText(file);
+    e.target.value = '';
   };
 
   const handleLogout = async () => {

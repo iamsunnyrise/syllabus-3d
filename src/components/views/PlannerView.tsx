@@ -226,8 +226,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   }, [monthOffset]);
 
   const filteredTasks = useMemo(() => {
-    if (selectedSubjectFilter === 'all') return plannerTasks;
-    return plannerTasks.filter(t => t.subjectName === selectedSubjectFilter);
+    const tasks = plannerTasks || [];
+    if (selectedSubjectFilter === 'all') return tasks;
+    return tasks.filter(t => t.subjectName === selectedSubjectFilter);
   }, [plannerTasks, selectedSubjectFilter]);
 
   const todayTasks = useMemo(() => filteredTasks.filter(t => t.status === 'today'), [filteredTasks]);
@@ -239,8 +240,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   const completedTodayCount = completedTasks.length;
   const todayProgressPercent = totalTodayCount > 0 ? Math.round((completedTodayCount / totalTodayCount) * 100) : 0;
 
-  const totalPlannedMinutes = useMemo(() => plannerTasks.reduce((acc, t) => acc + (t.estimatedMinutes || 0), 0), [plannerTasks]);
-  const completedMinutes = useMemo(() => plannerTasks.filter(t => t.status === 'completed').reduce((acc, t) => acc + (t.estimatedMinutes || 0), 0), [plannerTasks]);
+  const totalPlannedMinutes = useMemo(() => (plannerTasks || []).reduce((acc, t) => acc + (t.estimatedMinutes || 0), 0), [plannerTasks]);
+  const completedMinutes = useMemo(() => (plannerTasks || []).filter(t => t.status === 'completed').reduce((acc, t) => acc + (t.estimatedMinutes || 0), 0), [plannerTasks]);
 
   // Month-level statistics
   const monthStats = useMemo(() => {
@@ -282,10 +283,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   // Smart suggestions
   const smartSuggestions = useMemo(() => {
     const suggestions: Array<{ type: 'revision' | 'weak'; label: string; topicName: string; subjectName: string; subjectColor: string; topicId?: string }> = [];
-    const plannerTopicNames = new Set(plannerTasks.map(t => t.topicName));
+    const plannerTopicNames = new Set((plannerTasks || []).map(t => t.topicName));
 
-    dueRevisions.slice(0, 2).forEach(rev => {
-      if (!plannerTopicNames.has(rev.topicName)) {
+    (dueRevisions || []).slice(0, 2).forEach(rev => {
+      if (rev && !plannerTopicNames.has(rev.topicName)) {
         suggestions.push({
           type: 'revision',
           label: '🔄 Revision Due',
@@ -297,8 +298,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       }
     });
 
-    weakTopics.slice(0, 2).forEach(wt => {
-      if (!plannerTopicNames.has(wt.topic.name)) {
+    (weakTopics || []).slice(0, 2).forEach(wt => {
+      if (wt?.topic && !plannerTopicNames.has(wt.topic.name)) {
         suggestions.push({
           type: 'weak',
           label: '⚠️ Weak Topic',
@@ -314,19 +315,19 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   }, [dueRevisions, weakTopics, plannerTasks]);
 
   const filteredTopicsForModal = useMemo(() => {
-    if (!topicSearchQuery.trim()) return allTopics;
+    if (!topicSearchQuery.trim()) return allTopics || [];
     const q = topicSearchQuery.toLowerCase();
-    return allTopics.filter(t =>
-      t.topic.name.toLowerCase().includes(q) ||
-      t.subjectName.toLowerCase().includes(q) ||
-      t.chapterName.toLowerCase().includes(q)
+    return (allTopics || []).filter(t =>
+      t.topic?.name?.toLowerCase().includes(q) ||
+      t.subjectName?.toLowerCase().includes(q) ||
+      t.chapterName?.toLowerCase().includes(q)
     );
   }, [allTopics, topicSearchQuery]);
 
   /* ──── HANDLERS ──── */
 
   const handleToggleWithConfetti = useCallback((taskId: string) => {
-    const task = plannerTasks.find(t => t.id === taskId);
+    const task = (plannerTasks || []).find(t => t.id === taskId);
     togglePlannerTask(taskId);
 
     if (task && task.status !== 'completed') {
@@ -366,8 +367,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   const handleAddPresetTarget = (title: string, duration: number, cat: TaskCategory, p: TaskPriority) => {
     addPlannerTask({
       topicName: title,
-      subjectName: selectedSubjectFilter !== 'all' ? selectedSubjectFilter : (currentExam?.subjects[0]?.name || 'Study Sprint'),
-      subjectColor: currentExam?.subjects[0]?.color || '#4F46E5',
+      subjectName: selectedSubjectFilter !== 'all' ? selectedSubjectFilter : (currentExam?.subjects?.[0]?.name || 'Study Sprint'),
+      subjectColor: currentExam?.subjects?.[0]?.color || '#4F46E5',
       status: selectedCalendarDate === getTodayDateString() ? 'today' : 'upcoming',
       scheduledDate: selectedCalendarDate || getTodayDateString(),
       estimatedMinutes: duration,
@@ -384,7 +385,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     if (!customTitle.trim() && !selectedSyllabusTopicId) return;
 
     if (selectedSyllabusTopicId) {
-      const topicObj = allTopics.find(t => t.topic.id === selectedSyllabusTopicId);
+      const topicObj = (allTopics || []).find(t => t.topic?.id === selectedSyllabusTopicId);
       if (topicObj) {
         addPlannerTask({
           topicId: topicObj.topic.id,
@@ -440,10 +441,20 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   };
 
   const formatSelectedDateReadable = (dStr: string) => {
+    if (!dStr) return '';
     try {
-      const [y, m, d] = dStr.split('-').map(Number);
-      const dt = new Date(y, m - 1, d);
-      return dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      const parts = dStr.split('-').map(Number);
+      if (parts.length === 3 && parts.every(n => !isNaN(n))) {
+        const dt = new Date(parts[0], parts[1] - 1, parts[2]);
+        if (!isNaN(dt.getTime())) {
+          return dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        }
+      }
+      const dt = new Date(dStr);
+      if (!isNaN(dt.getTime())) {
+        return dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      return dStr;
     } catch {
       return dStr;
     }
@@ -924,7 +935,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
 
         {/* Right: Subject Filter Pills (Inline on desktop/tablet) */}
-        {viewMode !== 'routine' && currentExam && currentExam.subjects.length > 0 && (
+        {viewMode !== 'routine' && currentExam && (currentExam.subjects?.length || 0) > 0 && (
           <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar min-w-0">
             <button
               type="button"
@@ -943,11 +954,11 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono tabular-nums font-bold ${
                 selectedSubjectFilter === 'all' ? 'bg-indigo-600/15 text-indigo-700 dark:text-indigo-300' : 'bg-slate-200/80 dark:bg-white/10 text-slate-800 dark:text-slate-200'
               }`}>
-                {plannerTasks.length}
+                {(plannerTasks || []).length}
               </span>
             </button>
-            {currentExam.subjects.map(s => {
-              const count = plannerTasks.filter(t => t.subjectName === s.name).length;
+            {(currentExam.subjects || []).map(s => {
+              const count = (plannerTasks || []).filter(t => t.subjectName === s.name).length;
               const isSelected = selectedSubjectFilter === s.name;
               const SubjIcon = getSubjectIcon(s.name);
               return (
@@ -1325,7 +1336,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <span className="truncate">
                   {calendarSubMode === 'month'
                     ? monthData.monthName
-                    : `${weekDays[0]?.monthName} ${weekDays[0]?.dayNum} – ${weekDays[6]?.monthName} ${weekDays[6]?.dayNum}, ${weekDays[0]?.dateObj.getFullYear()}`}
+                    : `${weekDays[0]?.monthName} ${weekDays[0]?.dayNum} – ${weekDays[6]?.monthName} ${weekDays[6]?.dayNum}, ${weekDays[0]?.dateObj?.getFullYear() || ''}`}
                 </span>
               </div>
             </div>

@@ -275,7 +275,9 @@ class StorageManager {
         timeStyle: 'short'
       });
       if (typeof window !== 'undefined') {
-        localStorage.setItem('syllabus3d_last_snapshot_at', nowStr);
+        try {
+          localStorage.setItem('syllabus3d_last_snapshot_at', nowStr);
+        } catch {}
       }
       return true;
     } catch (err) {
@@ -289,7 +291,21 @@ class StorageManager {
    */
   public async getLatestSafetySnapshot(): Promise<FullAppSnapshot | null> {
     try {
-      return await appDB.get<FullAppSnapshot>('app_state', 'safety_snapshot_latest');
+      const snap = await appDB.get<FullAppSnapshot>('app_state', 'safety_snapshot_latest');
+      if (!snap) return null;
+      // Schema upgrade sanity: ensure all collection arrays are guaranteed to prevent null crashes
+      return {
+        ...snap,
+        version: snap.version || '1.0.0',
+        exams: Array.isArray(snap.exams) ? snap.exams : [],
+        achievements: Array.isArray(snap.achievements) ? snap.achievements : [],
+        activityHistory: Array.isArray(snap.activityHistory) ? snap.activityHistory : [],
+        revisions: Array.isArray(snap.revisions) ? snap.revisions : [],
+        plannerTasks: Array.isArray(snap.plannerTasks) ? snap.plannerTasks : [],
+        platforms: Array.isArray(snap.platforms) ? snap.platforms : [],
+        top3Targets: Array.isArray(snap.top3Targets) ? snap.top3Targets : [],
+        reflectionsHistory: Array.isArray(snap.reflectionsHistory) ? snap.reflectionsHistory : []
+      };
     } catch {
       return null;
     }

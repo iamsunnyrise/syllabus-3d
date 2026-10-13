@@ -58,35 +58,35 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
   // Overall counts
   const totalTopicNodes = useMemo(() => {
     let count = 0;
-    currentExam.subjects.forEach(s => s.chapters.forEach(ch => { count += ch.topics.length; }));
+    (currentExam.subjects || []).forEach(s => (s.chapters || []).forEach(ch => { count += (ch.topics || []).length; }));
     return count;
   }, [currentExam]);
 
   const masteredNodesCount = useMemo(() => {
     let count = 0;
-    currentExam.subjects.forEach(s => s.chapters.forEach(ch => {
-      count += ch.topics.filter(t => t.status === 'completed').length;
+    (currentExam.subjects || []).forEach(s => (s.chapters || []).forEach(ch => {
+      count += (ch.topics || []).filter(t => t.status === 'completed').length;
     }));
     return count;
   }, [currentExam]);
 
   const inProgressNodesCount = useMemo(() => {
     let count = 0;
-    currentExam.subjects.forEach(s => s.chapters.forEach(ch => {
-      count += ch.topics.filter(t => t.status === 'in_progress').length;
+    (currentExam.subjects || []).forEach(s => (s.chapters || []).forEach(ch => {
+      count += (ch.topics || []).filter(t => t.status === 'in_progress').length;
     }));
     return count;
   }, [currentExam]);
 
   const weakNodesCount = useMemo(() => {
     let count = 0;
-    currentExam.subjects.forEach(s => s.chapters.forEach(ch => {
-      count += ch.topics.filter(t => t.status === 'weak' || t.isWeak).length;
+    (currentExam.subjects || []).forEach(s => (s.chapters || []).forEach(ch => {
+      count += (ch.topics || []).filter(t => t.status === 'weak' || t.isWeak).length;
     }));
     return count;
   }, [currentExam]);
 
-  const overallPercent = totalTopicNodes > 0 ? Math.round((masteredNodesCount / totalTopicNodes) * 100) : 0;
+  const overallPercent = totalTopicNodes > 0 && Number.isFinite(masteredNodesCount) ? Math.round((masteredNodesCount / totalTopicNodes) * 100) : 0;
 
   // Subject Icon & Theme Helper
   const getSubjectMeta = (name: string, fallbackColor?: string) => {
@@ -179,7 +179,11 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
 
   const handleZoom = (delta: number) => {
     soundManager.playClick();
-    setZoomLevel(prev => Math.max(0.6, Math.min(1.8, Number((prev + delta).toFixed(2)))));
+    setZoomLevel(prev => {
+      const current = Number.isFinite(prev) ? prev : 1;
+      const next = Math.max(0.6, Math.min(1.8, Number((current + delta).toFixed(2))));
+      return Number.isFinite(next) ? next : 1;
+    });
   };
 
   const handleResetZoom = () => {
@@ -334,11 +338,11 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
               </span>
             </button>
 
-            {currentExam.subjects.map(s => {
+            {(currentExam.subjects || []).map(s => {
               const isSel = selectedSubjectId === s.id;
               const meta = getSubjectMeta(s.name, s.color);
               const SubjIcon = meta.icon;
-              const sTotalTopics = s.chapters.reduce((acc, c) => acc + c.topics.length, 0);
+              const sTotalTopics = (s.chapters || []).reduce((acc, c) => acc + (c.topics || []).length, 0);
 
               return (
                 <button
@@ -427,7 +431,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
         {/* ZOOMABLE GRAPH CONTENT WRAPPER */}
         <div
           className="relative z-10 w-full flex flex-col items-center justify-start transition-transform duration-300 origin-top py-2 sm:py-4"
-          style={{ transform: `scale(${zoomLevel})` }}
+          style={{ transform: `scale(${Number.isFinite(zoomLevel) ? zoomLevel : 1})` }}
         >
           {viewLayout === 'radial' ? (
             /* CONSTELLATION WEB MODE */
@@ -491,8 +495,8 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                 {activeSubjects.map(subj => {
                   const meta = getSubjectMeta(subj.name, subj.color);
                   const SubjIcon = meta.icon;
-                  const totalInSubj = subj.chapters.reduce((acc, c) => acc + c.topics.length, 0);
-                  const completedInSubj = subj.chapters.reduce((acc, c) => acc + c.topics.filter(t => t.status === 'completed').length, 0);
+                  const totalInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).length, 0);
+                  const completedInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).filter(t => t.status === 'completed').length, 0);
                   const subjPercent = totalInSubj > 0 ? Math.round((completedInSubj / totalInSubj) * 100) : 0;
 
                   return (
@@ -524,7 +528,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                               {subj.name}
                             </h4>
                             <span className="mindmap-meta-text text-[9px] sm:text-[10px] font-mono text-slate-300">
-                              {subj.chapters.length} {subj.chapters.length === 1 ? 'Chapter' : 'Chapters'} · {totalInSubj} Concepts
+                              {(subj.chapters || []).length} {(subj.chapters || []).length === 1 ? 'Chapter' : 'Chapters'} · {totalInSubj} Concepts
                             </span>
                           </div>
                         </div>
@@ -539,10 +543,10 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
 
                       {/* Chapters & Neural Concept Nodes */}
                       <div className="space-y-2.5 sm:space-y-3">
-                        {subj.chapters.map(chap => {
+                        {(subj.chapters || []).map(chap => {
                           const matchingTopics = searchQuery
-                            ? chap.topics.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                            : chap.topics;
+                            ? (chap.topics || []).filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                            : (chap.topics || []);
 
                           if (searchQuery && matchingTopics.length === 0) return null;
 
@@ -599,8 +603,8 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
               {activeSubjects.map(subj => {
                 const meta = getSubjectMeta(subj.name, subj.color);
                 const SubjIcon = meta.icon;
-                const totalInSubj = subj.chapters.reduce((acc, c) => acc + c.topics.length, 0);
-                const completedInSubj = subj.chapters.reduce((acc, c) => acc + c.topics.filter(t => t.status === 'completed').length, 0);
+                const totalInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).length, 0);
+                const completedInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).filter(t => t.status === 'completed').length, 0);
                 const subjPercent = totalInSubj > 0 ? Math.round((completedInSubj / totalInSubj) * 100) : 0;
 
                 return (
@@ -625,7 +629,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                             {subj.name}
                           </h3>
                           <span className="mindmap-meta-text text-[9px] sm:text-[10px] font-mono text-slate-300">
-                            {subj.chapters.length} Chapters · {totalInSubj} Topics
+                            {(subj.chapters || []).length} Chapters · {totalInSubj} Topics
                           </span>
                         </div>
                       </div>
@@ -639,10 +643,10 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
 
                     {/* Chapters Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pl-0 sm:pl-2">
-                      {subj.chapters.map(chap => {
+                      {(subj.chapters || []).map(chap => {
                         const matchingTopics = searchQuery
-                          ? chap.topics.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                          : chap.topics;
+                          ? (chap.topics || []).filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                          : (chap.topics || []);
 
                         if (searchQuery && matchingTopics.length === 0) return null;
 

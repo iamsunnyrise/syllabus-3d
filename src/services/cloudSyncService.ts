@@ -147,17 +147,21 @@ export function subscribeUserCloudData(
 ): Unsubscribe | (() => void) {
   if (!uid) return () => {};
 
+  let isCancelled = false;
   let unsubscribeFirestore: (() => void) | null = null;
 
   import('./firebase').then(({ initFirebase }) => {
+    if (isCancelled) return;
     const { db, isConfigured } = initFirebase();
     if (isConfigured && db) {
       import('firebase/firestore').then(({ doc, onSnapshot }) => {
+        if (isCancelled) return;
         try {
           const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
-          unsubscribeFirestore = onSnapshot(
+          const unsub = onSnapshot(
             docRef,
             snapshot => {
+              if (isCancelled) return;
               if (snapshot.exists()) {
                 const data = snapshot.data();
                 const fullData = (data?.snapshot || data) as FullAppSnapshot;
@@ -168,6 +172,12 @@ export function subscribeUserCloudData(
               console.warn('Firestore real-time subscription error:', error);
             }
           );
+
+          if (isCancelled) {
+            unsub();
+          } else {
+            unsubscribeFirestore = unsub;
+          }
         } catch (err) {
           console.warn('Could not establish real-time subscription:', err);
         }
@@ -177,6 +187,7 @@ export function subscribeUserCloudData(
 
   // Multi-tab storage listener for local vault
   const handleStorageChange = (e: StorageEvent) => {
+    if (isCancelled) return;
     if (e.key === `${CLOUD_VAULT_PREFIX}${uid}` && e.newValue) {
       try {
         const parsed = JSON.parse(e.newValue);
@@ -188,6 +199,7 @@ export function subscribeUserCloudData(
   if (typeof window !== 'undefined') {
     window.addEventListener('storage', handleStorageChange);
     return () => {
+      isCancelled = true;
       window.removeEventListener('storage', handleStorageChange);
       if (unsubscribeFirestore) {
         unsubscribeFirestore();
@@ -196,6 +208,7 @@ export function subscribeUserCloudData(
   }
 
   return () => {
+    isCancelled = true;
     if (unsubscribeFirestore) {
       unsubscribeFirestore();
     }
@@ -226,7 +239,9 @@ export async function deleteUserCloudData(uid: string): Promise<CloudSyncResult>
   }
 
   if (typeof window !== 'undefined') {
-    localStorage.removeItem(`${CLOUD_VAULT_PREFIX}${uid}`);
+    try {
+      localStorage.removeItem(`${CLOUD_VAULT_PREFIX}${uid}`);
+    } catch {}
   }
 
   return { success: true };

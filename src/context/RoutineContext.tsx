@@ -32,10 +32,12 @@ const RoutineContext = createContext<RoutineContextType | undefined>(undefined);
 const dayIndexToRoutineDay: RoutineDay[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // Helper to convert "HH:MM" string to minutes from midnight
-export const timeToMinutes = (t: string): number => {
+export const timeToMinutes = (t?: string | null): number => {
   if (!t || typeof t !== 'string') return 0;
-  const [h, m] = t.split(':').map(Number);
-  return (h || 0) * 60 + (m || 0);
+  const parts = t.split(':');
+  const h = parseInt(parts[0], 10);
+  const m = parseInt(parts[1], 10);
+  return (isNaN(h) ? 0 : h) * 60 + (isNaN(m) ? 0 : m);
 };
 
 // Helper to format minutes duration to e.g. "1h 30m"
@@ -52,7 +54,8 @@ export const formatSlotDuration = (startTime: string, endTime: string): string =
 };
 
 // Helper to format 24h "HH:MM" to 12h "hh:mm AM/PM"
-export const format12Hour = (time24: string): string => {
+export const format12Hour = (time24?: string | null): string => {
+  if (!time24 || typeof time24 !== 'string') return '';
   const [hStr, mStr] = time24.split(':');
   let h = parseInt(hStr, 10) || 0;
   const m = mStr || '00';
@@ -72,13 +75,13 @@ export const RoutineProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Load initial slots
   const [routineSlots, setRoutineSlots] = useState<RoutineSlot[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        try {
+      try {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        } catch (e) {}
-      }
+        }
+      } catch (e) {}
     }
     // Seed default with the Early Bird template
     const defaultTpl = PROVEN_ROUTINE_TEMPLATES[0];
@@ -92,16 +95,16 @@ export const RoutineProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Re-load when activeProfileId changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const saved = localStorage.getItem(storageKey);
-    if (saved) {
-      try {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
           setRoutineSlots(parsed);
           return;
         }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
     // Fallback if brand new profile
     const defaultTpl = PROVEN_ROUTINE_TEMPLATES[0];
     setRoutineSlots(defaultTpl.slots.map((s, idx) => ({
@@ -138,12 +141,12 @@ export const RoutineProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return `${h}:${m}`;
   }, [now]);
 
-  const todayStr = useMemo(() => getTodayDateString(), []);
+  const todayStr = useMemo(() => getTodayDateString(), [now]);
 
   // Compute Active & Next Slot
   const { activeSlot, nextSlot } = useMemo(() => {
     const currentMins = timeToMinutes(currentTimeString);
-    const todaySlots = routineSlots.filter(s => s.days.includes(currentDay));
+    const todaySlots = routineSlots.filter(s => (s.days || []).includes(currentDay));
 
     let active: RoutineSlot | null = null;
     let next: RoutineSlot | null = null;

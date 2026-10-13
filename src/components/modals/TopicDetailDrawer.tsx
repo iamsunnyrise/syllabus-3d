@@ -305,13 +305,15 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
   }, [activeTab]);
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
+    let interval: ReturnType<typeof setInterval> | undefined;
     if (isTimerRunning) {
       interval = setInterval(() => {
         setTimerSeconds(prev => prev + 1);
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isTimerRunning]);
 
   // ⌨️ Power User Keyboard Shortcuts for Topic Detail Drawer
@@ -426,7 +428,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     editTopic(liveTopic.id, {
       name: editName.trim(),
       difficulty: editDifficulty,
-      weightage: editWeightage !== undefined && editWeightage > 0 ? Number(editWeightage) : undefined
+      weightage: editWeightage !== undefined && !isNaN(Number(editWeightage)) && Number(editWeightage) >= 0 ? Math.min(100, Math.max(0, Number(editWeightage))) : undefined
     });
 
     soundManager.playCompleteChime();

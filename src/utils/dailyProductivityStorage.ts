@@ -23,11 +23,14 @@ const createDefaultTargets = (): Top3Target[] => [
 ];
 
 export const loadStoredTop3Targets = (): Top3Target[] => {
+  if (typeof window === 'undefined') return createDefaultTargets();
   try {
     const raw = localStorage.getItem(TOP3_STORAGE_KEY);
     if (!raw) return createDefaultTargets();
 
     const data: StoredTop3Data = JSON.parse(raw);
+    if (!data || typeof data !== 'object') return createDefaultTargets();
+
     const today = getTodayDateKey();
 
     // If it's a new day, auto-archive previous day's targets into history if needed, and reset 3 slots
@@ -50,6 +53,7 @@ export const loadStoredTop3Targets = (): Top3Target[] => {
 };
 
 export const saveStoredTop3Targets = (targets: Top3Target[]): void => {
+  if (typeof window === 'undefined') return;
   try {
     const data: StoredTop3Data = {
       date: getTodayDateKey(),
@@ -62,6 +66,7 @@ export const saveStoredTop3Targets = (targets: Top3Target[]): void => {
 };
 
 export const loadStoredReflections = (): DailyReflection[] => {
+  if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(REFLECTIONS_STORAGE_KEY);
     if (!raw) return [];
@@ -74,27 +79,29 @@ export const loadStoredReflections = (): DailyReflection[] => {
 };
 
 export const saveStoredReflection = (reflection: DailyReflection): DailyReflection[] => {
-  try {
-    const existing = loadStoredReflections();
-    // Replace if reflection for today already exists, otherwise prepend
-    const filtered = existing.filter(r => r.date !== reflection.date);
-    const updated = [reflection, ...filtered];
-    localStorage.setItem(REFLECTIONS_STORAGE_KEY, JSON.stringify(updated));
-    return updated;
-  } catch (e) {
-    console.error('Failed to save daily reflection:', e);
-    return [];
+  const existing = loadStoredReflections();
+  // Replace if reflection for today already exists, otherwise prepend
+  const filtered = existing.filter(r => r.date !== reflection.date);
+  const updated = [reflection, ...filtered];
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(REFLECTIONS_STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.error('Failed to save daily reflection:', e);
+    }
   }
+  return updated;
 };
 
 export const deleteStoredReflection = (id: string): DailyReflection[] => {
-  try {
-    const existing = loadStoredReflections();
-    const updated = existing.filter(r => r.id !== id);
-    localStorage.setItem(REFLECTIONS_STORAGE_KEY, JSON.stringify(updated));
-    return updated;
-  } catch (e) {
-    console.error('Failed to delete daily reflection:', e);
-    return [];
+  const existing = loadStoredReflections();
+  const updated = existing.filter(r => r.id !== id);
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(REFLECTIONS_STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.error('Failed to delete daily reflection:', e);
+    }
   }
+  return updated;
 };

@@ -90,7 +90,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   useEffect(() => {
     if (initialSubjectId && initialSubjectId !== lastInitialSubjectRef.current) {
       lastInitialSubjectRef.current = initialSubjectId;
-      if (currentExam?.subjects.some(s => s.id === initialSubjectId)) {
+      if (currentExam?.subjects?.some(s => s.id === initialSubjectId)) {
         setSelectedSubjectId(initialSubjectId);
         setSelectedChapterId(null);
       }
@@ -180,7 +180,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   };
 
   // Overall Exam Stats
-  const allTopicsInExam = currentExam.subjects.flatMap(s => s.chapters.flatMap(c => c.topics));
+  const allTopicsInExam = (currentExam.subjects || []).flatMap(s => (s.chapters || []).flatMap(c => c.topics || []));
   const totalTopicsCount = allTopicsInExam.length;
   const completedTopicsCount = allTopicsInExam.filter(t => t.status === 'completed').length;
   const overallPercentage = totalTopicsCount > 0 ? Math.round((completedTopicsCount / totalTopicsCount) * 100) : 0;
@@ -224,33 +224,33 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
   // Filtered Subjects for Level 1
   const filteredSubjects = useMemo(() => {
-    if (!searchTerm.trim()) return currentExam.subjects;
+    if (!searchTerm.trim()) return currentExam.subjects || [];
     const term = searchTerm.toLowerCase();
-    return currentExam.subjects.filter(s =>
+    return (currentExam.subjects || []).filter(s =>
       s.name.toLowerCase().includes(term) ||
-      s.chapters.some(c => c.name.toLowerCase().includes(term) || c.topics.some(t => t.name.toLowerCase().includes(term)))
+      (s.chapters || []).some(c => c.name.toLowerCase().includes(term) || (c.topics || []).some(t => t.name.toLowerCase().includes(term)))
     );
   }, [currentExam, searchTerm]);
 
   // Filtered Chapters for Level 2
   const filteredChapters = useMemo(() => {
     if (!activeSubject) return [];
-    if (!searchTerm.trim()) return activeSubject.chapters;
+    if (!searchTerm.trim()) return activeSubject.chapters || [];
     const term = searchTerm.toLowerCase();
-    return activeSubject.chapters.filter(c =>
+    return (activeSubject.chapters || []).filter(c =>
       c.name.toLowerCase().includes(term) ||
-      c.topics.some(t => t.name.toLowerCase().includes(term) || t.subtopics.some(st => st.toLowerCase().includes(term)))
+      (c.topics || []).some(t => t.name.toLowerCase().includes(term) || (t.subtopics || []).some(st => st.toLowerCase().includes(term)))
     );
   }, [activeSubject, searchTerm]);
 
   // Filtered Topics for Level 3
   const filteredChapterTopics = useMemo(() => {
     if (!activeChapter) return [];
-    return activeChapter.topics.filter(t => {
+    return (activeChapter.topics || []).filter(t => {
       const matchesSearch =
         searchTerm.trim() === '' ||
         t.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        t.subtopics.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()));
+        (t.subtopics || []).some(s => s.toLowerCase().includes(searchTerm.toLowerCase()));
 
       const matchesStatus = statusFilter === 'all' || t.status === statusFilter;
       return matchesSearch && matchesStatus;
@@ -974,7 +974,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                               </span>
                             )}
 
-                            {topic.status !== 'not_started' && topic.accuracy !== undefined && topic.accuracy > 0 && (
+                            {topic.status !== 'not_started' && topic.accuracy !== undefined && !isNaN(topic.accuracy) && topic.accuracy > 0 && (
                               <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
                                 <Target className="w-3 h-3 text-rose-500" />
                                 <span>{topic.accuracy}%</span>
@@ -1063,10 +1063,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   // LEVEL 2: SUBJECT CHAPTERS DIRECTORY (Matching Reference Hierarchy)
   // ═══════════════════════════════════════════════════════════════════
   if (activeSubject && (!selectedChapterId || !activeChapter)) {
-    const totalSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.length, 0);
-    const completedSubjectTopics = activeSubject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'completed').length, 0);
+    const totalSubjectTopics = (activeSubject.chapters || []).reduce((a, c) => a + (c.topics || []).length, 0);
+    const completedSubjectTopics = (activeSubject.chapters || []).reduce((a, c) => a + (c.topics || []).filter(t => t.status === 'completed').length, 0);
     const subjectPercent = totalSubjectTopics > 0 ? Math.round((completedSubjectTopics / totalSubjectTopics) * 100) : 0;
-    const completedSubjectChapters = activeSubject.chapters.filter(c => c.topics.length > 0 && c.topics.every(t => t.status === 'completed')).length;
+    const completedSubjectChapters = (activeSubject.chapters || []).filter(c => (c.topics || []).length > 0 && c.topics.every(t => t.status === 'completed')).length;
     const subjectBadge = getSubjectBadgeStyle(activeSubject.name);
     const SubjectBadgeIcon = subjectBadge.icon;
 
@@ -1390,10 +1390,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               </div>
             ) : (
               filteredChapters.map((chapter, idx) => {
-                const totalInChapter = chapter.topics.length;
-                const completedInChapter = chapter.topics.filter(t => t.status === 'completed').length;
-                const inProgressInChapter = chapter.topics.filter(t => t.status === 'in_progress').length;
-                const weakInChapter = chapter.topics.filter(t => t.status === 'weak').length;
+                const totalInChapter = (chapter.topics || []).length;
+                const completedInChapter = (chapter.topics || []).filter(t => t.status === 'completed').length;
+                const inProgressInChapter = (chapter.topics || []).filter(t => t.status === 'in_progress').length;
+                const weakInChapter = (chapter.topics || []).filter(t => t.status === 'weak').length;
                 const chapterPercent = totalInChapter > 0 ? Math.round((completedInChapter / totalInChapter) * 100) : 0;
                 const isChapterMastered = chapterPercent === 100 && totalInChapter > 0;
                 const hasChapterStarted = chapterPercent > 0 || inProgressInChapter > 0;
@@ -1765,7 +1765,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shadow-inner">
               <div
                 className="bg-[#0284C7] rounded-full h-full transition-all duration-500 shadow-xs"
-                style={{ width: `${Math.min(100, Math.max(10, 100 - (daysRemaining / 60) * 100))}%` }}
+                style={{ width: `${Math.min(100, Math.max(10, 100 - ((Number.isFinite(daysRemaining) ? daysRemaining : 0) / 60) * 100))}%` }}
               />
             </div>
 
@@ -1939,10 +1939,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             filteredSubjects.map((subject, sIdx) => {
               const badgeStyle = getSubjectBadgeStyle(subject.name);
               const BadgeIcon = badgeStyle.icon;
-              const subjectTotalTopics = subject.chapters.reduce((a, c) => a + c.topics.length, 0);
-              const subjectCompletedTopics = subject.chapters.reduce((a, c) => a + c.topics.filter(t => t.status === 'completed').length, 0);
-              const totalChapters = subject.chapters.length;
-              const completedChapters = subject.chapters.filter(ch => ch.topics.length > 0 && ch.topics.every(t => t.status === 'completed')).length;
+              const subjectTotalTopics = (subject.chapters || []).reduce((a, c) => a + (c.topics || []).length, 0);
+              const subjectCompletedTopics = (subject.chapters || []).reduce((a, c) => a + (c.topics || []).filter(t => t.status === 'completed').length, 0);
+              const totalChapters = (subject.chapters || []).length;
+              const completedChapters = (subject.chapters || []).filter(ch => (ch.topics || []).length > 0 && ch.topics.every(t => t.status === 'completed')).length;
 
               const percent = subjectTotalTopics > 0
                 ? Math.round((subjectCompletedTopics / subjectTotalTopics) * 100)
