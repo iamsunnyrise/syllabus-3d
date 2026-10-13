@@ -585,26 +585,16 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               </button>
             </div>
 
-            {/* Back to All Chapters Button */}
-            <button
-              type="button"
-              onClick={handleBackToChapters}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-slate-800 dark:text-white text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 border border-slate-200/60 dark:border-white/10"
-              title="Return to chapters list"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Chapters</span>
-            </button>
-
             {/* Edit Chapter Button */}
             <button
               type="button"
               onClick={() => setEditingChapter({ subjectId: activeSubject.id, chapter: activeChapter })}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+              className="p-2 sm:px-3 sm:py-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.12] border border-slate-200/60 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs flex items-center gap-1.5 text-xs font-bold"
               title="Edit Chapter"
               aria-label="Edit Chapter"
             >
-              <Edit2 className="w-4 h-4" />
+              <Edit2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Edit</span>
             </button>
           </div>
         </div>
@@ -644,7 +634,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
               <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {activeSubject.name}
+                  {completedInActiveChapter}/{totalInActiveChapter} Mastered
                 </span>
               </div>
             </div>
@@ -725,7 +715,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
               <div className="flex items-center text-xs font-mono text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  {weakInActiveChapter > 0 ? `${weakInActiveChapter} Weak Focus` : 'Active Rotation'}
+                  {inProgressInActiveChapter > 0 ? 'Currently studying' : 'Ready to start'}
                 </span>
               </div>
             </div>
@@ -777,24 +767,21 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           {/* Header Bar: Tab, Search & Add Topic */}
           <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <div className="space-y-0.5">
+              <div>
                 <div className="flex items-center gap-2 min-w-0">
                   <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight truncate">
-                    Topics Content
+                    Topics
                   </h2>
                   <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/70 dark:border-indigo-500/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
                     {filteredChapterTopics.length} of {totalInActiveChapter} Topics
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-[#CBD5E1] font-medium">
-                  Click a topic to launch full study details, notes, revision, and questions
-                </p>
               </div>
 
               <button
                 type="button"
                 onClick={() => onOpenAddTopic(activeSubject.id, activeChapter.id)}
-                className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                className="px-3.5 sm:px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 title="Add new topic to this chapter"
               >
                 <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -809,7 +796,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Search topics in this chapter..."
+                placeholder="Search topics..."
                 className="w-full pl-9 pr-8 py-2 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-[#161828] border border-slate-200/80 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#94A3B8] focus:outline-none focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:ring-2 focus:ring-[#4F46E5]/15 dark:focus:ring-indigo-400/20 shadow-2xs transition-all"
               />
               {searchInput && (
@@ -962,12 +949,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         {/* Title & Stats */}
                         <div className="min-w-0 flex-1 space-y-2">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
+                            <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
                               {topic.name}
                             </h3>
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${design.statusPillClass}`}>
-                              {design.badgeLabel}
-                            </span>
                           </div>
 
                           {/* In-Card Topic Mastery Track */}
