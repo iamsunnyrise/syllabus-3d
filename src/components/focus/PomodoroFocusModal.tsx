@@ -60,11 +60,11 @@ interface PomodoroFocusModalProps {
 }
 
 const SOUND_TRACKS: { id: AmbientSoundType; label: string; tag: string }[] = [
-  { id: 'binaural', label: 'Lo-Fi Study', tag: 'Alpha 432Hz Waves' },
-  { id: 'rain', label: 'Rain Ambience', tag: 'Gentle Downpour' },
-  { id: 'ocean', label: 'Ocean Waves', tag: 'Pacific Surf' },
+  { id: 'binaural', label: 'Lo-Fi', tag: 'Alpha Waves' },
+  { id: 'rain', label: 'Rain', tag: 'Gentle Downpour' },
+  { id: 'ocean', label: 'Ocean', tag: 'Surf' },
   { id: 'fireplace', label: 'Campfire', tag: 'Cozy Crackle' },
-  { id: 'none', label: 'Mute Audio', tag: 'Silent Study' }
+  { id: 'none', label: 'Mute', tag: 'Silent' }
 ];
 
 export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
@@ -302,7 +302,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         ? `Stopwatch (${formatTimerParts(session.stopwatchElapsedSec).mStr}:${formatTimerParts(session.stopwatchElapsedSec).sStr})`
         : `${session.mode.toUpperCase()} • ${minsLeft}m left`,
       artist: top ? `${top.topic.name} • ${top.subjectName}` : 'Deep Study Mode',
-      album: track ? `Music: ${track.label}` : 'Deep Focus Chamber'
+      album: track ? `Music: ${track.label}` : 'Deep Focus'
     });
 
     mediaSessionManager.setPlaybackState(
@@ -630,7 +630,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
             <Target className="w-4 h-4" />
           </div>
-          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Today's Focus</span>
+          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Today's Focus</span>
         </div>
         <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
           {completedCount}/{totalTasksCount}
@@ -707,7 +707,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
             <Target className="w-4 h-4" />
           </div>
-          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Current Target</span>
+          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Current Target</span>
         </div>
 
         <button
@@ -746,10 +746,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           <div className="w-7 h-7 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] dark:text-[#A78BFA] flex items-center justify-center">
             <Music className="w-4 h-4" />
           </div>
-          <div>
-            <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Focus Ambience</h3>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{currentSoundTrack.label}</p>
-          </div>
+          <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight">Focus Ambience</h3>
         </div>
 
         <div className="flex items-center gap-1">
@@ -842,9 +839,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
             <BarChart3 className="w-4 h-4" />
           </div>
-          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">Session Stats</span>
-          <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8]">
-            {filteredLogsForStats.length} done
+          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Session Stats</span>
+          <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8]">
+            {filteredLogsForStats.length}
           </span>
         </div>
 
@@ -965,12 +962,12 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         </div>
       </div>
 
-      {/* Date-wise Session Logs Timeline Preview (Kis date ko, kis time se kis time tak, kis subject ke kis chapter ke topic par focus kiya) */}
+      {/* Date-wise Session Logs Timeline Preview */}
       <div className="pt-2 border-t border-slate-200/70 dark:border-white/[0.08] space-y-2.5">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
-            <Calendar className="w-3 h-3 text-[#0066FF] dark:text-[#38BDF8]" />
-            <span>Session Logs ({statsDateFilterLabel})</span>
+          <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
+            <span>Session Logs</span>
           </span>
           <button
             type="button"
@@ -980,7 +977,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             }}
             className="text-[11px] font-bold text-[#0066FF] dark:text-[#38BDF8] hover:underline flex items-center gap-1 cursor-pointer"
           >
-            <span>Full Audit</span>
+            <span>History</span>
             <ExternalLink className="w-2.5 h-2.5" />
           </button>
         </div>
@@ -988,12 +985,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         {/* Session List Preview */}
         <div className="space-y-2 max-h-56 overflow-y-auto pr-0.5 no-scrollbar">
           {filteredLogsForStats.length === 0 ? (
-            <div className="py-4 px-3 rounded-2xl bg-slate-50/80 dark:bg-white/[0.02] border border-dashed border-slate-200 dark:border-white/10 text-center space-y-1">
-              <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                No sessions logged for {statsDateFilterLabel}
-              </p>
-              <p className="text-[10px] text-slate-400">
-                Run the Pomodoro or Stopwatch timer above to record deep study!
+            <div className="py-4 px-3 rounded-2xl bg-slate-50/80 dark:bg-white/[0.02] border border-dashed border-slate-200 dark:border-white/10 text-center">
+              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                No sessions logged yet
               </p>
             </div>
           ) : (
@@ -1066,7 +1060,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           className="w-full py-2 px-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 border border-slate-200/80 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
         >
           <Calendar className="w-3.5 h-3.5 text-[#0066FF] dark:text-[#38BDF8]" />
-          <span>View Date-wise Calendar & Full History</span>
+          <span>View Session History</span>
         </button>
       </div>
     </div>
@@ -1127,12 +1121,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               <GraduationCap className="w-4 h-4 text-white" />
             </div>
             <div className="truncate">
-              <h1 className="text-xs sm:text-sm font-black tracking-wider text-slate-900 dark:text-white uppercase truncate">
-                Chamber
+              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-slate-900 dark:text-white truncate">
+                Focus Mode
               </h1>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block truncate">
-                Distraction-Free Study Sanctum
-              </p>
             </div>
           </div>
 
@@ -1219,7 +1210,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 onClose();
               }}
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 flex items-center justify-center cursor-pointer transition-all active:scale-95 shadow-xs"
-              title="Exit Focus Chamber (Esc)"
+              title="Exit Focus Mode (Esc)"
               aria-label="Close"
             >
               <X className="w-4 h-4" />
@@ -1491,11 +1482,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">
                     {isRunning
                       ? session.mode === 'stopwatch'
-                        ? 'Elapsed Time Running'
-                        : `${Math.round(progressPercent * 100)}% Complete • In Flow`
+                        ? 'Running'
+                        : `${Math.round(progressPercent * 100)}% Complete`
                       : isPaused
-                      ? 'Paused • Ready to Resume'
-                      : 'Ready to Launch'}
+                      ? 'Paused'
+                      : 'Ready'}
                   </span>
                 </div>
               </div>
@@ -1586,11 +1577,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 <span>
                   {isRunning
                     ? session.mode === 'stopwatch'
-                      ? '⏱ Stopwatch Running'
-                      : '⚡ Focus Session in Flow'
+                      ? 'Stopwatch'
+                      : 'Focusing'
                     : isPaused
-                    ? '⏸ Paused'
-                    : '🎯 Ready to Launch'}
+                    ? 'Paused'
+                    : 'Ready'}
                 </span>
                 <span className="text-slate-300 dark:text-slate-600">•</span>
                 <span className="text-slate-500 dark:text-slate-400 font-mono">
