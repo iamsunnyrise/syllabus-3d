@@ -4053,7 +4053,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* Fullscreen Zen Header Bar (Hides smoothly when isZenMode is true) */}
         {!isZenMode && (
-          <div className={`border-b ${
+          <div className={`relative z-[190] border-b ${
             readerTheme === 'sepia' || readerTheme === 'candle'
               ? 'border-[#DEC4A5]/70 bg-[#F4E6C8]/90 text-[#3E2B1A]'
               : readerTheme === 'sage'
@@ -4146,7 +4146,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     {/* Floating Appearance Popover */}
                     {showAppearanceMenu && (
                       <div
-                        className="absolute top-full mt-2 right-0 z-[200] w-80 max-w-[calc(100vw-2rem)] p-4 rounded-3xl bg-white/95 dark:bg-[#151622]/95 backdrop-blur-xl border border-slate-200 dark:border-white/15 shadow-2xl flex flex-col gap-3.5 animate-scale-in text-slate-800 dark:text-slate-100"
+                        className="absolute top-full mt-2 right-0 z-[200] w-80 max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar p-4 rounded-3xl bg-white/95 dark:bg-[#151622]/95 backdrop-blur-xl border border-slate-200 dark:border-white/15 shadow-2xl flex flex-col gap-3.5 animate-scale-in text-slate-800 dark:text-slate-100"
                         onClick={e => e.stopPropagation()}
                       >
                         <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-white/10">
@@ -4759,7 +4759,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* Table of Contents Floating Panel */}
         {isTocOpen && (
-          <div className="fixed top-14 right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] max-h-[75vh] z-[180] bg-white/95 dark:bg-[#151622]/95 backdrop-blur-xl border border-[#E2E8F0] dark:border-[#2B2D3D] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
+          <div className="fixed top-16 right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] max-h-[75vh] z-[210] bg-white/95 dark:bg-[#151622]/95 backdrop-blur-xl border border-[#E2E8F0] dark:border-[#2B2D3D] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
             <div className="p-3.5 px-4 bg-slate-50/90 dark:bg-[#1A1B28]/90 border-b border-[#E2E8F0] dark:border-[#272730] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <List className="w-4 h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
