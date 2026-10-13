@@ -535,7 +535,7 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                       Choose Note Template
                     </h3>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      Select layout for your new note page (7 Templates)
+                      Select layout for your new note page
                     </p>
                   </div>
                 </div>
@@ -553,31 +553,7 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
 
               {/* Template Items List */}
               <div className="p-3 overflow-y-auto overscroll-contain space-y-2 custom-scrollbar">
-                {/* 1. 🎯 Interactive Quiz / MCQ Practice */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    setShowQuizImportModal(true);
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-indigo-50/40 dark:bg-indigo-950/20 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-500 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Sparkles className="w-5 h-5 text-amber-300" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-indigo-700 dark:text-indigo-400 text-sm">🎯 Interactive Quiz / MCQ</span>
-                      <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 font-bold">New</span>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      Practice 4-option MCQ questions with instant feedback and answer explanations
-                    </p>
-                  </div>
-                </button>
-
-                {/* 2. 📄 Blank Notes Page */}
+                {/* 📄 Blank Notes Page */}
                 <button
                   type="button"
                   onClick={() => {
@@ -597,131 +573,11 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
                     </p>
                   </div>
                 </button>
-
-                {/* 3. 🧮 Formula & Shortcuts */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    handleAddNewNote(
-                      'Formula Sheet',
-                      `# Key Formulas & Speed Shortcuts\n> [!FORMULA]\n> Standard Equation: Speed = Distance / Time\n> Average Speed = 2xy / (x + y)\n\n> [!TIP]\n> Ratio Trick: Speed ratio a:b equals Time ratio b:a.\n\n### Revision Checklist\n- [ ] Memorize 5 key unit conversions\n- [ ] Practice 5 previous year exam questions`
-                    );
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-purple-50/40 dark:bg-purple-950/20 hover:bg-purple-50 dark:hover:bg-purple-950/40 border border-purple-200/60 dark:border-purple-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Sigma className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-purple-700 dark:text-purple-300 text-sm">🧮 Formula & Shortcuts</div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      LaTeX formulas, derivation blocks, equations & speed calculation tricks
-                    </p>
-                  </div>
-                </button>
-
-                {/* 4. 📊 Comparison Table */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    handleAddNewNote(
-                      'Comparison Table',
-                      `# Concept Comparison Table\n| Case / Parameter | Formula | Shortcut Rule |\n| :--- | :--- | :--- |\n| Case 1: Constant Distance | $t_1 / t_2 = s_2 / s_1$ | Time inversely proportional to speed |\n| Case 2: Constant Time | $d_1 / d_2 = s_1 / s_2$ | Distance directly proportional to speed |\n| Case 3: Relative Speed | $S_{rel} = s_1 + s_2$ | Opposite directions: add speeds |`
-                    );
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-cyan-50/40 dark:bg-cyan-950/20 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-cyan-200/60 dark:border-cyan-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <TableIcon className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-cyan-700 dark:text-cyan-300 text-sm">📊 Comparison Table</div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      Side-by-side concept matrix for comparative analysis and differences
-                    </p>
-                  </div>
-                </button>
-
-                {/* 5. ⚠️ Rules & Traps Guide */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    handleAddNewNote(
-                      'Rules & Traps Guide',
-                      `# Golden Rules & Exam Traps\n> [!RULE]\n> Golden Rule: Fundamental concept definition and rules.\n\n> [!WARNING]\n> High-Frequency Trap: Watch out for negative markings in tricky exceptions!\n\n### High-Yield Questions\n- [ ] Check subject-verb agreement\n- [ ] Verify standard conversions`
-                    );
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-rose-50/40 dark:bg-rose-950/20 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200/60 dark:border-rose-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <AlertTriangle className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-rose-700 dark:text-rose-300 text-sm">⚠️ Rules & Traps Guide</div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      Examiner traps, negative marking warnings & golden conceptual rules
-                    </p>
-                  </div>
-                </button>
-
-                {/* 6. 🎯 PYQ & Solved Tricks */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    handleAddNewNote(
-                      'PYQ & Solved Tricks',
-                      `# Solved Previous Year Exam Questions (PYQ)\n> [!EXAMPLE]\n> Question: A train crosses a 300m bridge in 20 seconds. Speed = ?\n> Solution: Total distance = train + bridge.\n\n### Self Practice Checklist\n- [ ] Solve 2023 Tier 1 Questions\n- [ ] Solve 2024 Tier 2 Questions`
-                    );
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-amber-50/40 dark:bg-amber-950/20 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Zap className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-amber-700 dark:text-amber-300 text-sm">🎯 PYQ & Solved Tricks</div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      Previous year questions with examiner solutions and speed techniques
-                    </p>
-                  </div>
-                </button>
-
-                {/* 7. 🎓 Cornell Study System */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddTemplatesMenu(false);
-                    handleAddNewNote(
-                      'Cornell Notes',
-                      `# Cornell Note-Taking System\n> [!CUE]\n> Key Questions & Recall Cues:\n> - What is the core theorem / law?\n> - Which condition must hold true?\n\n### Core Notes & Explanations\n- Detailed explanation with key principles\n- Step-by-step logic breakdown\n- Highlighted keywords: ==important concept==\n\n> [!SUMMARY]\n> Executive Summary:\n> In 2-3 sentences, capture the overall lesson takeaway for active recall revision.`
-                    );
-                    soundManager.playClick();
-                  }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-emerald-50/40 dark:bg-emerald-950/20 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 text-left cursor-pointer transition-all active:scale-[0.99] group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <BookOpen className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">🎓 Cornell Study System</div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">
-                      Structured cue column, lecture breakdown notes, and quick summary block
-                    </p>
-                  </div>
-                </button>
               </div>
 
               {/* Footer */}
               <div className="p-3 bg-slate-50 dark:bg-[#11121A] border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span>All templates support Markdown & LaTeX</span>
+                <span>Clean canvas layout</span>
                 <button
                   type="button"
                   onClick={() => setShowAddTemplatesMenu(false)}
