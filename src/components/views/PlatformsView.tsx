@@ -33,6 +33,20 @@ export const stripEmojis = (str: string): string => {
     .trim();
 };
 
+export const formatTitleCase = (str: string): string => {
+  if (!str) return '';
+  const trimmed = str.trim();
+  if (trimmed.length <= 2) return trimmed.toUpperCase();
+  if (trimmed === trimmed.toUpperCase() && /[A-Z]/.test(trimmed)) {
+    return trimmed
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  return trimmed;
+};
+
 export interface BrandTheme {
   name: string;
   brandColor: string;
@@ -598,11 +612,6 @@ export const PlatformsView: React.FC = () => {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-3.5 sm:gap-5">
           <div className="space-y-1.5 sm:space-y-2 max-w-xl">
             <div className="flex items-center gap-2 flex-wrap">
-              {/* Removed uppercase (Issue 4) */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/15 text-cyan-200 border border-cyan-500/30 backdrop-blur-md shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-                Connected Study Hub
-              </span>
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-slate-300 bg-white/[0.06] border border-white/10 backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -612,26 +621,21 @@ export const PlatformsView: React.FC = () => {
               </span>
             </div>
 
-            {/* Page title aligned with Sidebar navigation (Issue 10) */}
             <div className="flex items-center gap-3">
               <SectionBadgeIcon section="platforms" size="md" />
               <h1 className="study-hub-banner-title text-xl sm:text-2xl md:text-3xl font-black text-white font-sans tracking-tight leading-tight">
-                Study Station &amp; Hub
+                Study Station
               </h1>
             </div>
-            <p className="study-hub-banner-subtitle text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed">
-              Course batches, mock test portals, and connected study resources.
-            </p>
           </div>
 
           <div className="flex items-center shrink-0">
-            {/* Standard Primary CTA button (Issue 3) */}
             <button
               onClick={handleOpenAdd}
               className="btn-primary py-2 px-3.5 sm:px-4 text-xs sm:text-[13px] rounded-xl font-bold shadow-md active:scale-95 cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Add Platform / Batch</span>
+              <span>Add Platform</span>
             </button>
           </div>
         </div>
@@ -744,7 +748,7 @@ export const PlatformsView: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by platform name, subject, batch, or URL..."
+              placeholder="Search platforms or URLs..."
               className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/15 transition-all"
             />
             {searchQuery && (
@@ -762,8 +766,11 @@ export const PlatformsView: React.FC = () => {
           {/* Quick Metrics & Reset Filter */}
           <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0">
             <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#1B1C28] px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
-              <strong className="text-slate-900 dark:text-white font-black tabular-nums">{filteredPlatforms.length}</strong>
-              <span className="text-slate-400"> of {platforms.length} Portals</span>
+              {filteredPlatforms.length === platforms.length ? (
+                <span><strong className="text-slate-900 dark:text-white font-black tabular-nums">{platforms.length}</strong> Portals</span>
+              ) : (
+                <span><strong className="text-slate-900 dark:text-white font-black tabular-nums">{filteredPlatforms.length}</strong> of {platforms.length} Portals</span>
+              )}
             </span>
 
             {selectedCategory !== 'all' && (
@@ -788,13 +795,13 @@ export const PlatformsView: React.FC = () => {
             aria-label="Filter study portals by category"
           >
             {[
-              { id: 'all', label: 'All Portals', count: categoryCounts.all },
+              { id: 'all', label: 'All', count: categoryCounts.all },
               { id: 'course', label: 'Courses', count: categoryCounts.course },
               { id: 'test_series', label: 'Mock Tests', count: categoryCounts.test_series },
               { id: 'reference', label: 'Tools & Reference', count: categoryCounts.reference },
               ...customCategoriesList.map(cat => ({ 
                 id: cat, 
-                label: cat,
+                label: formatTitleCase(cat),
                 count: categoryCounts[cat] || 0
               })),
               { id: 'pinned', label: 'Pinned', count: categoryCounts.pinned },
@@ -906,15 +913,15 @@ export const PlatformsView: React.FC = () => {
                   
                   {/* LEFT STEP INFOGRAPHIC BLOCK */}
                   <div
-                    className="relative w-full sm:w-28 md:w-32 shrink-0 py-4 sm:py-6 px-3 flex items-center justify-center text-center overflow-hidden select-none"
+                    className="relative w-full sm:w-24 md:w-28 shrink-0 py-4 sm:py-5 px-3 flex items-center justify-center text-center overflow-hidden select-none"
                     style={{ background: stepGradient }}
                   >
-                    {/* Top Gloss Highlight Edge (Signature Infographic Detail from Reference) */}
-                    <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/40 pointer-events-none" />
+                    {/* Top Gloss Highlight Edge */}
+                    <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/30 pointer-events-none" />
                     <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
                     
-                    {/* Pure Centered Number (Without 'STEP') */}
-                    <span className="text-3xl sm:text-5xl md:text-6xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-md">
+                    {/* Pure Centered Number */}
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-sm">
                       {stepNumber}
                     </span>
                   </div>
@@ -922,28 +929,22 @@ export const PlatformsView: React.FC = () => {
                   {/* RIGHT MAIN CONTENT AREA */}
                   <div className="flex-1 p-3.5 sm:p-4 md:p-5 flex flex-col justify-between min-w-0 space-y-2.5">
                     
-                    {/* Header Row: Title | Icon + Controls */}
+                    {/* Header Row: Icon + Title + Controls */}
                     <div className="flex items-center justify-between gap-2 min-w-0">
-                      <div className="flex items-center gap-2 min-w-0 flex-1">
-                        <h2
-                          className="text-base sm:text-lg font-black uppercase tracking-tight truncate font-sans text-slate-900 dark:text-white"
-                          style={{ color: isKnownBrand && theme.name !== 'X (Twitter)' ? accentColor : undefined }}
-                          title={platform.name}
-                        >
-                          {platform.name}
-                        </h2>
-
-                        <span className="text-slate-300 dark:text-slate-600 font-light select-none text-base sm:text-lg shrink-0">
-                          |
-                        </span>
-
+                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
                         <div
-                          className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
                           style={{ color: accentColor }}
                           title={platform.name}
                         >
-                          {theme.renderIcon('w-4 h-4 sm:w-5 sm:h-5 drop-shadow-xs')}
+                          {theme.renderIcon('w-4 h-4 sm:w-4.5 sm:h-4.5 drop-shadow-xs')}
                         </div>
+                        <h2
+                          className="text-base sm:text-[17px] font-bold tracking-tight truncate font-sans text-slate-900 dark:text-white"
+                          title={platform.name}
+                        >
+                          {formatTitleCase(platform.name)}
+                        </h2>
                       </div>
 
                       {/* Quick Card Tool Controls: Pin, Edit, Delete */}
@@ -984,23 +985,19 @@ export const PlatformsView: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Middle Row: Signature 4-Dot Infographic Track + Full Category Badge */}
-                    <div className="flex items-center gap-2 select-none py-0.5 flex-wrap">
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                        <span className="w-2.5 h-2.5 rounded-full opacity-35" style={{ backgroundColor: accentColor }} />
-                      </div>
-                      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">
-                        {categoryBadgeLabel}
+                    {/* Middle Row: Category Badge */}
+                    <div className="flex items-center gap-2 select-none py-0.5">
+                      <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80">
+                        {formatTitleCase(categoryBadgeLabel)}
                       </span>
                     </div>
 
-                    {/* Description Text (Crisp, High Contrast) */}
-                    <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium line-clamp-2 leading-relaxed min-h-[36px]">
-                      {formatReadableText(platform.description) || `Direct access to ${cleanDomain} resources and tests.`}
-                    </p>
+                    {/* Description Text */}
+                    {platform.description?.trim() ? (
+                      <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-normal line-clamp-2 leading-relaxed">
+                        {formatReadableText(platform.description)}
+                      </p>
+                    ) : null}
 
                     {/* Bottom Row: Domain Badge, Login Hint & Open Button */}
                     <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto">
