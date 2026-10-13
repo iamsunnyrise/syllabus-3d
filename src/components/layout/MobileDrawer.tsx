@@ -128,7 +128,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         },
         {
           id: 'platforms' as AppView,
-          label: 'Study Station & Hub',
+          label: 'Study Hub',
           icon: Globe,
           badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
           badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
@@ -136,18 +136,18 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         },
         {
           id: 'youtube-notes' as AppView,
-          label: 'AI YouTube Notes',
+          label: 'YouTube Notes',
           icon: Video,
-          badge: 'AI',
-          badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
+          badge: null,
+          badgeStyle: '',
           iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
         },
         {
           id: 'mock-tracker' as AppView,
-          label: 'Mock Test Tracker',
+          label: 'Mock Tracker',
           icon: Trophy,
-          badge: '3D Pro',
-          badgeStyle: 'bg-[#00D2FF]/20 text-[#00D2FF] border-[#00D2FF]/30 font-black',
+          badge: null,
+          badgeStyle: '',
           iconBg: 'bg-gradient-to-tr from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/30'
         }
       ]
@@ -159,13 +159,13 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           id: 'planner' as AppView,
           label: 'Study Planner',
           icon: CalendarCheck,
-          badge: todayTasksCount > 0 ? `${todayTasksCount} today` : null,
+          badge: todayTasksCount > 0 ? `${todayTasksCount}` : null,
           badgeStyle: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30 font-bold',
           iconBg: 'bg-teal-500/15 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400 border-teal-500/30'
         },
         {
           id: 'pacing' as AppView,
-          label: 'Target Pacing & Forecast',
+          label: 'Target Pacing',
           icon: Clock,
           badge: null,
           badgeStyle: '',
@@ -181,7 +181,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         },
         {
           id: 'weak' as AppView,
-          label: 'Weak Topics & Traps',
+          label: 'Weak Topics',
           icon: AlertTriangle,
           badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
           badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-black',
@@ -194,7 +194,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       items: [
         {
           id: 'analytics' as AppView,
-          label: 'Analytics & Heatmap',
+          label: 'Analytics',
           icon: BarChart3,
           badge: null,
           badgeStyle: '',
@@ -202,7 +202,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         },
         {
           id: 'settings' as AppView,
-          label: 'App Settings',
+          label: 'Settings',
           icon: Settings,
           badge: null,
           badgeStyle: '',
@@ -242,10 +242,10 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider font-serif leading-none">
-                    SYLLABUS 3D
+                  <h2 className="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                    Study Planner
                   </h2>
-                  <span className="text-xs font-mono font-black uppercase px-1.5 py-0.2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50">
+                  <span className="text-[10px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50">
                     PRO
                   </span>
                 </div>

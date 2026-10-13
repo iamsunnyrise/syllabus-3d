@@ -178,24 +178,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'pacing' as AppView,
           label: 'Target Pacing',
           icon: Clock,
-          badge: 'Live',
-          badgeColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+          badge: null,
+          badgeColor: '',
           shortcut: '4'
         },
         {
           id: 'youtube-notes' as AppView,
-          label: 'AI YouTube Notes',
+          label: 'YouTube Notes',
           icon: Video,
-          badge: 'AI',
-          badgeColor: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20',
+          badge: null,
+          badgeColor: '',
           shortcut: '5'
         },
         {
           id: 'mock-tracker' as AppView,
-          label: 'Mock Test Tracker',
+          label: 'Mock Tracker',
           icon: Trophy,
-          badge: '3D Pro',
-          badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-cyan-400 border border-indigo-500/20',
+          badge: null,
+          badgeColor: '',
           shortcut: '6'
         }
       ]
@@ -207,7 +207,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'revision' as AppView,
           label: 'Spaced Revision',
           icon: RotateCw,
-          badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length} due` : null,
+          badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length}` : null,
           badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
         },
         {
@@ -219,14 +219,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         },
         {
           id: 'mindmap' as AppView,
-          label: 'Syllabus Mindmap',
+          label: 'Mindmap',
           icon: BrainCircuit,
           badge: null,
           badgeColor: ''
         },
         {
           id: 'analytics' as AppView,
-          label: 'Analytics & Heatmap',
+          label: 'Analytics',
           icon: BarChart3,
           badge: null,
           badgeColor: ''
@@ -238,7 +238,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       items: [
         {
           id: 'platforms' as AppView,
-          label: 'Study Station & Hub',
+          label: 'Study Hub',
           icon: Globe,
           badge: platformsSafe.length || null,
           badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
@@ -278,7 +278,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div className="flex items-center gap-1.5">
                 <span
                   role="presentation"
-                  className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none shrink-0"
+                  className="text-sm font-bold tracking-tight text-slate-900 dark:text-white leading-none shrink-0"
                 >
                   Study Planner
                 </span>
@@ -290,20 +290,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     haptics.selection();
                     if (onOpenPricing) onOpenPricing();
                   }}
-                  className="px-1.5 py-0.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-xs font-extrabold tracking-wider font-sora shrink-0 cursor-pointer transition-colors active:scale-90"
+                  className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold tracking-wider shrink-0 cursor-pointer transition-colors active:scale-90"
                   title="View Pro Plans & Pricing"
                   aria-label="View Pro Plans"
                 >
                   PRO
                 </button>
               </div>
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
                 {currentExam?.name ? currentExam.name : 'Personal Study Plan'}
               </p>
-              <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
-                <span>Learn • Note • Revise</span>
-              </div>
             </div>
           </div>
 
@@ -362,10 +358,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   onOpenFocus();
                 }}
                 className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
-                title="3D Focus Chamber"
+                title="Focus Mode"
               >
                 <Timer className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
-                <span className="truncate">Chamber</span>
+                <span className="truncate">Focus</span>
               </button>
             )}
           </div>
@@ -382,12 +378,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   onClick={() => toggleSection(section.title)}
                   className="w-full flex items-center justify-between px-2 pt-2.5 pb-1 text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400 group/sec cursor-pointer select-none hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
                 >
-                  <div className="flex items-center gap-1.5">
-                    <span>{section.title}</span>
-                    <span className="text-xs font-mono font-bold px-1.5 py-0.2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400">
-                      {section.items.length}
-                    </span>
-                  </div>
+                  <span className="text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400">
+                    {section.title}
+                  </span>
                   <ChevronDown
                     className={`w-3 h-3 text-slate-400 dark:text-slate-500 group-hover/sec:text-slate-700 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
                       isCollapsedSection ? '-rotate-90' : 'rotate-0'
@@ -481,16 +474,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
-                  {profileSafe.levelTitle || 'Novice Scholar'}
+                  {profileSafe.name || 'Aspirant'}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-white/60 leading-none truncate mt-0.5">
-                  {profileSafe.name || 'Active Profile'}
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-none truncate mt-0.5">
+                  {profileSafe.levelTitle || 'Novice Scholar'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 text-xs font-bold rounded-lg bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-white font-mono border border-slate-300/80 dark:border-white/20 leading-none">
+              <span className="px-1.5 py-0.5 text-xs font-bold rounded-lg bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-300 font-mono leading-none">
                 Lvl {profileSafe.level || 1}
               </span>
             </div>
