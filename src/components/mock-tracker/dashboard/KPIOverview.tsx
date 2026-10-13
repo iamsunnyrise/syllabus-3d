@@ -7,7 +7,7 @@ export const KPIOverview: React.FC = () => {
   const { kpis, setActiveView } = useMocks();
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
       {/* 1. Total Mocks */}
       <StatCard
         title="Total Mocks"
@@ -22,7 +22,6 @@ export const KPIOverview: React.FC = () => {
       <StatCard
         title="Average Score"
         value={kpis.averageScore > 0 ? `${kpis.averageScore}` : '0'}
-        subtitle="Across all attempts"
         icon={<Target className="w-4 h-4" />}
         accentColor="#38BDF8"
         onClick={() => setActiveView('analytics')}
@@ -32,7 +31,6 @@ export const KPIOverview: React.FC = () => {
       <StatCard
         title="Best Score"
         value={kpis.bestScore > 0 ? `${kpis.bestScore}` : '0'}
-        subtitle="All-time high score"
         icon={<Award className="w-4 h-4" />}
         accentColor="#BEFFCC"
         trend={kpis.bestScore >= 150 ? { value: 'Peak', isPositive: true } : undefined}
@@ -43,7 +41,6 @@ export const KPIOverview: React.FC = () => {
       <StatCard
         title="Avg Accuracy"
         value={kpis.averageAccuracy > 0 ? `${kpis.averageAccuracy}%` : '0%'}
-        subtitle="Attempt quality ratio"
         icon={<CheckCircle2 className="w-4 h-4" />}
         accentColor="#5EE88A"
         trend={kpis.averageAccuracy >= 85 ? { value: 'High', isPositive: true } : undefined}
@@ -54,7 +51,6 @@ export const KPIOverview: React.FC = () => {
       <StatCard
         title="Avg Percentile"
         value={kpis.averagePercentile > 0 ? `${kpis.averagePercentile}%` : '0%'}
-        subtitle="Overall competitive tier"
         icon={<TrendingUp className="w-4 h-4" />}
         accentColor="#A78BFA"
         onClick={() => setActiveView('percentile')}
@@ -64,7 +60,6 @@ export const KPIOverview: React.FC = () => {
       <StatCard
         title="Best Percentile"
         value={kpis.bestPercentile > 0 ? `${kpis.bestPercentile}%` : '0%'}
-        subtitle="Highest standing achieved"
         icon={<Zap className="w-4 h-4" />}
         accentColor="#F472B6"
         trend={kpis.bestPercentile >= 95 ? { value: 'Top 5%', isPositive: true } : undefined}

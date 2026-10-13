@@ -51,13 +51,13 @@ const MockTrackerContent: React.FC = () => {
 
   const navTabs: { id: NavView; label: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'home', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4 shrink-0" /> },
-    { id: 'full-length', label: 'Full Length Mocks', icon: <Target className="w-4 h-4 shrink-0" /> },
-    { id: 'sectional', label: 'Sectional Drills', icon: <Zap className="w-4 h-4 shrink-0" /> },
-    { id: 'chapter-wise', label: 'Chapter-Wise Hub', icon: <BookOpen className="w-4 h-4 shrink-0" />, badge: 'New' },
-    { id: 'mocks', label: 'All Mock Tests', icon: <Layers className="w-4 h-4 shrink-0" /> },
-    { id: 'percentile', label: 'Percentile Tracker', icon: <TrendingUp className="w-4 h-4 shrink-0" /> },
-    { id: 'analytics', label: 'Analytics & Insights', icon: <BarChart2 className="w-4 h-4 shrink-0" /> },
-    { id: 'settings', label: 'Settings & Data', icon: <SettingsIcon className="w-4 h-4 shrink-0" /> },
+    { id: 'full-length', label: 'Full Length', icon: <Target className="w-4 h-4 shrink-0" /> },
+    { id: 'sectional', label: 'Sectionals', icon: <Zap className="w-4 h-4 shrink-0" /> },
+    { id: 'chapter-wise', label: 'Chapter-Wise', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
+    { id: 'mocks', label: 'All Mocks', icon: <Layers className="w-4 h-4 shrink-0" /> },
+    { id: 'percentile', label: 'Percentile', icon: <TrendingUp className="w-4 h-4 shrink-0" /> },
+    { id: 'analytics', label: 'Analytics', icon: <BarChart2 className="w-4 h-4 shrink-0" /> },
+    { id: 'settings', label: 'Settings', icon: <SettingsIcon className="w-4 h-4 shrink-0" /> },
   ];
 
   const handleTabClick = (id: NavView) => {
@@ -97,15 +97,16 @@ const MockTrackerContent: React.FC = () => {
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white">
-                  Mock Tracker 3D
+                  Mock Tracker
                 </h1>
-                <span className="whitespace-nowrap shrink-0 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 uppercase tracking-wide">
-                  Percentile Pro
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold">
+                  {settings.selectedExam || 'SSC CGL'}
+                </span>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  Target: <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span>
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
-                {settings.selectedExam || 'SSC CGL'} • Target: <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span>
-              </p>
             </div>
           </div>
 
@@ -200,22 +201,20 @@ const MockTrackerContent: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. GOLDEN AMBER MOCK STREAK & PERCENTILE BANNER */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-[#FFC72C] via-[#FFB703] to-[#FB8500] text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md shadow-amber-500/15">
+      {/* 2. GOLDEN AMBER MOCK STREAK BANNER */}
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-3.5 min-w-0">
-          <span className="text-3xl sm:text-4xl select-none leading-none shrink-0">🔥</span>
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shrink-0">
+            🔥
+          </div>
           <div className="min-w-0">
-            <div className="text-xl sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight tabular-nums">
+            <div className="text-xl sm:text-2xl font-black font-sans tracking-tight leading-tight tabular-nums">
               {gamification.streakDays || 1} Day Mock Streak
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-slate-950/85 mt-1 leading-normal">
-              Target: <span className="font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span> • Level <span className="tabular-nums">{gamification.level}</span> ({gamification.levelTitle}) • <span className="tabular-nums font-bold">{gamification.totalXp} XP</span> Earned
+            <div className="text-xs sm:text-[13px] font-semibold text-slate-950/80 mt-0.5">
+              Target: <span className="font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span> • <span className="tabular-nums font-bold">{gamification.totalXp} XP</span>
             </div>
           </div>
-        </div>
-        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/10 text-xs font-bold text-slate-900 shrink-0 self-start sm:self-auto">
-          <Target className="w-3.5 h-3.5 fill-current" />
-          <span>{settings.selectedExam || 'SSC CGL'} Prep Track</span>
         </div>
       </div>
 

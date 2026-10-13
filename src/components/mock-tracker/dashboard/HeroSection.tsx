@@ -21,21 +21,19 @@ export const HeroSection: React.FC = () => {
         <div className="lg:col-span-7 space-y-5">
           
           {/* Top Status Pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-bold font-sans">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-semibold font-sans">
             <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">Target Exam: <span className="font-extrabold">{settings.selectedExam}</span> • Target <span className="tabular-nums font-extrabold">{settings.targetPercentile}%ile</span></span>
+            <span>{settings.selectedExam || 'Exam'} Performance</span>
           </div>
 
           <div>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
-              {kpis.totalMocks > 0 ? (
-                <>
-                  You have logged <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{kpis.totalMocks} mock attempts</span>. 
-                  Your current average percentile is <span className="text-emerald-600 dark:text-emerald-400 font-bold tabular-nums">{kpis.averagePercentile}%ile</span> with an average score of <span className="text-slate-900 dark:text-white font-bold tabular-nums">{kpis.averageScore} marks</span>.
-                </>
-              ) : (
-                'Start logging your mock tests to unlock 3D trajectory tracking, section diagnostic intelligence, and automated percentile gap analysis.'
-              )}
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              Mock Analysis &amp; Trajectory
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed mt-1">
+              {kpis.totalMocks > 0
+                ? `${kpis.totalMocks} tests logged · Current average: ${kpis.averagePercentile}%ile (${kpis.averageScore} marks).`
+                : 'Log tests to track score trends, sectional accuracy, and percentile goals.'}
             </p>
           </div>
 
@@ -61,7 +59,7 @@ export const HeroSection: React.FC = () => {
                 <span className="truncate">Best Score</span>
               </div>
               <div className="mt-1 text-sm sm:text-base font-black font-sans tabular-nums text-slate-900 dark:text-white">
-                {kpis.bestScore > 0 ? `${kpis.bestScore} M` : '0'}
+                {kpis.bestScore > 0 ? kpis.bestScore : '0'}
               </div>
             </div>
 
