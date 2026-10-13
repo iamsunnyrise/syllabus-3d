@@ -780,18 +780,19 @@
   }
 
   /* Segmented Controls (Target Board / Calendar / Routine) */
-  html.warm-cream .p-1:has(> button) {
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) {
     background-color: #EFE0C2 !important;
     border-color: #E2D1B3 !important;
   }
 
-  html.warm-cream .p-1:has(> button) button {
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button {
     color: #5C5716 !important;
   }
 
-  html.warm-cream .p-1:has(> button) button.bg-white,
-  html.warm-cream .p-1:has(> button) button.shadow-xs,
-  html.warm-cream .p-1:has(> button) button.font-black {
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.bg-white,
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.shadow-xs,
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.font-black,
+  html.warm-cream:not(:has(.pdf-reader-isolated)) button.shadow-xs {
     background-color: #FFFDF8 !important;
     color: #1C1B05 !important;
     box-shadow: 0 1px 4px rgba(56, 55, 13, 0.1) !important;

@@ -712,97 +712,157 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
       onClick={e => e.stopPropagation()}
       onMouseDown={e => e.stopPropagation()}
       onTouchStart={e => e.stopPropagation()}
-      className={`fixed inset-0 z-[9999] flex flex-col bg-[#16161E] text-[#C0CAF5] animate-fade-in select-none overflow-hidden font-sans ${
+      className={`pdf-reader-isolated fixed inset-0 z-[9999] flex flex-col bg-[#16161E] text-[#C0CAF5] animate-fade-in select-none overflow-hidden font-sans ${
         isFullscreen ? 'w-screen h-screen' : ''
       }`}
     >
       
-      {/* 1. SINGLE SLEEK COMPACT TOP HEADER BAR (HIDDEN IN FULLSCREEN) */}
+      {/* 1. RESPONSIVE TOP HEADER BAR (NEVER CUTS OFF CONTROLS IN ANY SCREEN SIZE) */}
       {!isFullscreen && (
-        <div className="px-3 sm:px-4 py-2 bg-[#181926]/95 backdrop-blur-md border-b border-[#292E42] flex items-center justify-between gap-2.5 shrink-0 z-30 shadow-md overflow-x-auto no-scrollbar">
+        <header className="px-3 sm:px-4 py-2 bg-[#181926]/95 backdrop-blur-md border-b border-[#292E42] flex flex-col md:flex-row md:items-center md:justify-between gap-2 shrink-0 z-30 shadow-md">
           
-          {/* Left: Back Arrow, Thumbnails Drawer Toggle & Document Info */}
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                handleCloseReader();
-              }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-[#C0CAF5] hover:text-white text-xs font-semibold transition-all border border-[#292E42] hover:border-slate-600 cursor-pointer shadow-sm active:scale-95 group shrink-0"
-              title="Go back to Topic Notes (Esc)"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-              <span className="hidden sm:inline">Back</span>
-            </button>
+          {/* Top/Main Row: Navigation, Document Title & Right Action Suite */}
+          <div className="flex items-center justify-between gap-2 w-full md:w-auto shrink-0">
+            {/* Left: Back Arrow, Thumbnails Drawer Toggle & Document Info */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  handleCloseReader();
+                }}
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl !bg-[#24283B] hover:!bg-[#2F354D] !text-[#C0CAF5] hover:!text-white text-xs font-semibold transition-all border !border-[#292E42] hover:!border-slate-600 cursor-pointer active:scale-95 group shrink-0"
+                title="Go back to Topic Notes (Esc)"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+                <span className="hidden sm:inline">Back</span>
+              </button>
 
-            {/* THUMBNAILS SIDEBAR TOGGLE */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                setShowThumbnailSidebar(prev => !prev);
-              }}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 shrink-0 ${
-                showThumbnailSidebar
-                  ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50 font-bold shadow-[0_0_12px_rgba(99,102,241,0.3)]'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
-              }`}
-              title="Toggle Thumbnails Sidebar (Shortcut: T)"
-            >
-              <PanelLeft className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Thumbnails</span>
-            </button>
+              {/* THUMBNAILS SIDEBAR TOGGLE */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setShowThumbnailSidebar(prev => !prev);
+                }}
+                className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0 ${
+                  showThumbnailSidebar
+                    ? '!bg-indigo-600/30 !text-indigo-300 !border-indigo-500/50 font-bold'
+                    : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42]'
+                }`}
+                title="Toggle Thumbnails Sidebar (Shortcut: T)"
+              >
+                <PanelLeft className="w-3.5 h-3.5" />
+                <span className="hidden xl:inline">Thumbnails</span>
+              </button>
 
-            <div className="h-4 w-px bg-slate-700/60 hidden sm:block shrink-0" />
+              <div className="h-4 w-px bg-slate-700/60 hidden sm:block shrink-0" />
 
-            <div className="min-w-0 flex items-center gap-2 shrink-0">
-              {attachments.length > 1 ? (
-                <div className="relative max-w-[150px] sm:max-w-[200px] shrink-0">
-                  <select
-                    value={selectedAttachmentId}
-                    onChange={e => {
-                      soundManager.playClick();
-                      setSelectedAttachmentId(e.target.value);
-                    }}
-                    className="w-full pl-2.5 pr-7 py-1.5 rounded-xl !bg-[#16161E] border border-[#292E42] text-xs font-semibold !text-white focus:outline-none focus:border-indigo-400 appearance-none cursor-pointer truncate shadow-inner"
+              <div className="min-w-0 flex items-center gap-2 shrink-0">
+                {attachments.length > 1 ? (
+                  <div className="relative max-w-[120px] sm:max-w-[160px] md:max-w-[200px] shrink-0">
+                    <select
+                      value={selectedAttachmentId}
+                      onChange={e => {
+                        soundManager.playClick();
+                        setSelectedAttachmentId(e.target.value);
+                      }}
+                      className="w-full pl-2.5 pr-7 py-1.5 rounded-xl !bg-[#16161E] border !border-[#292E42] text-xs font-semibold !text-white focus:outline-none focus:!border-indigo-400 appearance-none cursor-pointer truncate"
+                    >
+                      {attachments.map(att => (
+                        <option key={att.id} value={att.id} className="bg-[#16161E] text-white">
+                          📑 {att.name}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-[#A9B1D6] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+                ) : (
+                  <div className="truncate flex items-center gap-1.5 max-w-[120px] sm:max-w-[160px] md:max-w-[200px] shrink-0" title={currentAttachment?.name || topicName}>
+                    <img src="/pdf_icon_3d.png" alt="PDF" className="w-4 h-4 object-contain shrink-0 drop-shadow-sm" />
+                    <span className="text-xs font-semibold text-slate-200 truncate">
+                      {currentAttachment?.name || topicName}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Stepper on Mobile (compact) */}
+            <div className="flex md:hidden items-center gap-1 shrink-0">
+              {totalPages > 0 && (
+                <div className="flex items-center gap-1 px-1.5 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-semibold !text-[#A9B1D6] shrink-0">
+                  <button
+                    type="button"
+                    disabled={currentPage <= 1}
+                    onClick={() => scrollToPage(currentPage - 1)}
+                    className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                    title="Previous Page"
                   >
-                    {attachments.map(att => (
-                      <option key={att.id} value={att.id} className="bg-[#16161E] text-white">
-                        📑 {att.name}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#A9B1D6] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-              ) : (
-                <div className="truncate flex items-center gap-2 max-w-[150px] sm:max-w-xs shrink-0" title={currentAttachment?.name || topicName}>
-                  <img src="/pdf_icon_3d.png" alt="PDF" className="w-4 h-4 object-contain shrink-0 drop-shadow-sm" />
-                  <span className="text-xs font-semibold text-slate-200 truncate">
-                    {currentAttachment?.name || topicName}
-                  </span>
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                  </button>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handlePageInputSubmit();
+                    }}
+                    className="inline-flex items-center"
+                  >
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={pageInputValue}
+                      onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
+                      onFocus={(e) => e.target.select()}
+                      onBlur={handlePageInputSubmit}
+                      className="w-8 text-center py-0.5 px-0.5 rounded-lg !bg-[#13141F] !text-white font-semibold text-xs border !border-slate-700/80 focus:!border-indigo-400 outline-none tabular-nums"
+                    />
+                  </form>
+                  <span className="text-slate-500 font-medium">/</span>
+                  <span className="text-slate-200 font-semibold tabular-nums pr-0.5">{totalPages}</span>
+                  <button
+                    type="button"
+                    disabled={currentPage >= totalPages}
+                    onClick={() => scrollToPage(currentPage + 1)}
+                    className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                    title="Next Page"
+                  >
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               )}
+
+              {/* Close Button on Mobile (Always Visible!) */}
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onClose();
+                }}
+                className="p-1.5 rounded-xl !bg-[#24283B] hover:!bg-rose-500/20 !text-[#A9B1D6] hover:!text-rose-400 border !border-[#292E42] transition-colors cursor-pointer active:scale-95"
+                title="Close PDF View (Esc)"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          <div className="h-4 w-px bg-slate-700/60 hidden md:block shrink-0" />
-
-          {/* Center: Interactive Page Jumper & View Mode Switcher */}
+          {/* Center (Desktop): Interactive Page Jumper & View Mode Switcher */}
           {totalPages > 0 && (
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="hidden md:flex items-center gap-2 shrink-0">
               {/* Stepper with Direct Numeric Page Input */}
-              <div className="flex items-center gap-1 px-1.5 py-1 rounded-xl bg-[#24283B] border border-[#292E42] text-xs font-semibold text-[#A9B1D6] shrink-0 shadow-sm">
+              <div className="flex items-center gap-1 px-1.5 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-semibold !text-[#A9B1D6] shrink-0">
                 <button
                   type="button"
                   disabled={currentPage <= 1}
                   onClick={() => scrollToPage(currentPage - 1)}
-                  className="p-1 hover:text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                  className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                   title="Previous Page (Left Arrow / Page Up)"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
-                <span className="hidden sm:inline text-slate-400 text-[11px] font-medium px-0.5">Page</span>
+                <span className="hidden lg:inline text-slate-400 text-[11px] font-medium px-0.5">Page</span>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -818,7 +878,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                     onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
                     onFocus={(e) => e.target.select()}
                     onBlur={handlePageInputSubmit}
-                    className="w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-semibold text-xs border border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all shadow-inner"
+                    className="w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-semibold text-xs border !border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all"
                     title="Click to jump to any page number (Press Enter)"
                   />
                 </form>
@@ -828,7 +888,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   type="button"
                   disabled={currentPage >= totalPages}
                   onClick={() => scrollToPage(currentPage + 1)}
-                  className="p-1 hover:text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                  className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                   title="Next Page (Right Arrow / Page Down / Space)"
                 >
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -836,22 +896,22 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               </div>
 
               {/* View Mode Switcher: Flow vs Single */}
-              <div className="flex items-center bg-[#24283B] p-0.5 rounded-xl border border-[#292E42] shrink-0 shadow-sm">
+              <div className="flex items-center !bg-[#24283B] p-0.5 rounded-xl border !border-[#292E42] shrink-0">
                 <button
                   type="button"
                   onClick={() => {
                     soundManager.playClick();
                     setViewMode('flow');
                   }}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     viewMode === 'flow'
-                      ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                      : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                      ? '!bg-indigo-600 !text-white font-bold'
+                      : '!text-[#A9B1D6] hover:!text-white hover:bg-white/5'
                   }`}
                   title="Continuous Scroll Mode: Read entire document vertically"
                 >
                   <Rows className="w-3.5 h-3.5" />
-                  <span>Scroll</span>
+                  <span className="hidden xl:inline">Scroll</span>
                 </button>
                 <button
                   type="button"
@@ -859,25 +919,58 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                     soundManager.playClick();
                     setViewMode('single');
                   }}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     viewMode === 'single'
-                      ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                      : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                      ? '!bg-indigo-600 !text-white font-bold'
+                      : '!text-[#A9B1D6] hover:!text-white hover:bg-white/5'
                   }`}
                   title="Single Page Mode: Flip page-by-page like slides/presentation (Instant 0ms flip)"
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span>Single</span>
+                  <span className="hidden xl:inline">Single</span>
                 </button>
               </div>
             </div>
           )}
 
-          <div className="h-4 w-px bg-slate-700/60 hidden lg:block shrink-0" />
-
-          {/* Right Action Tools: Highlighter, Chrome Fit Mode, Zoom, Split Study, Download & Fullscreen */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          {/* Right Action Tools: Highlighter, Chrome Fit Mode, Zoom, Night Mode, Split Study, Download & Fullscreen */}
+          {/* Note: This row stays ALWAYS visible, never cut off! */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 overflow-x-auto no-scrollbar py-0.5 md:py-0 w-full md:w-auto justify-between md:justify-end">
             
+            {/* View Mode Switcher on Mobile only */}
+            <div className="flex md:hidden items-center !bg-[#24283B] p-0.5 rounded-xl border !border-[#292E42] shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setViewMode('flow');
+                }}
+                className={`p-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  viewMode === 'flow'
+                    ? '!bg-indigo-600 !text-white font-bold'
+                    : '!text-[#A9B1D6] hover:!text-white hover:bg-white/5'
+                }`}
+                title="Continuous Scroll Mode"
+              >
+                <Rows className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setViewMode('single');
+                }}
+                className={`p-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  viewMode === 'single'
+                    ? '!bg-indigo-600 !text-white font-bold'
+                    : '!text-[#A9B1D6] hover:!text-white hover:bg-white/5'
+                }`}
+                title="Single Page Flip Mode"
+              >
+                <FileText className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
             {/* HIGHLIGHTER MAIN TOGGLE */}
             <button
               type="button"
@@ -889,15 +982,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   return next;
                 });
               }}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 ${
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 isHighlightMode
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold shadow-[0_0_12px_rgba(245,158,11,0.25)]'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                  ? '!bg-amber-500/20 !text-amber-300 !border-amber-500/40 font-bold'
+                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42]'
               }`}
               title="Toggle PDF Highlighter (Shortcut: H)"
             >
-              <Highlighter className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2]" />
-              <span className="hidden sm:inline">Highlight</span>
+              <Highlighter className="w-3.5 h-3.5 stroke-[2]" />
+              <span className="hidden xl:inline">Highlight</span>
               {highlights.length > 0 && (
                 <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold tabular-nums ${
                   isHighlightMode ? 'bg-amber-400/20 text-amber-300' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
@@ -919,15 +1012,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   return next;
                 });
               }}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 ${
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 isCommentMode
-                  ? 'bg-blue-500/20 text-blue-300 border-blue-500/40 font-bold shadow-[0_0_12px_rgba(59,130,246,0.25)]'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                  ? '!bg-blue-500/20 !text-blue-300 !border-blue-500/40 font-bold'
+                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42]'
               }`}
               title="Add Sticky Note or Comment anywhere on PDF (Shortcut: N)"
             >
-              <MessageSquarePlus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2]" />
-              <span className="hidden sm:inline">Note</span>
+              <MessageSquarePlus className="w-3.5 h-3.5 stroke-[2]" />
+              <span className="hidden xl:inline">Note</span>
               {comments.length > 0 && (
                 <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold tabular-nums ${
                   isCommentMode ? 'bg-blue-400/20 text-blue-200' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
@@ -945,15 +1038,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 soundManager.playClick();
                 setShowCommentsSidebar(prev => !prev);
               }}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 ${
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 showCommentsSidebar
-                  ? 'bg-sky-500/20 text-sky-300 border-sky-500/40 font-bold'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                  ? '!bg-sky-500/20 !text-sky-300 !border-sky-500/40 font-bold'
+                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42]'
               }`}
               title="View all sticky notes & comments across pages"
             >
               <StickyNote className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">All Notes</span>
+              <span className="hidden 2xl:inline">All Notes</span>
               {comments.length > 0 && (
                 <span className="text-[10px] tabular-nums font-bold text-sky-300/80">({comments.length})</span>
               )}
@@ -971,26 +1064,26 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   setScale(1.0);
                 }
               }}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 ${
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 fitMode === 'fit-page'
-                  ? 'bg-indigo-600/25 text-indigo-300 border-indigo-500/40 font-bold'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42]'
+                  ? '!bg-indigo-600/25 !text-indigo-300 !border-indigo-500/40 font-bold'
+                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42]'
               }`}
               title={fitMode === 'fit-page' ? 'Switch to Fit Width (100% full-width view)' : 'Fit Entire Page to Screen (Chrome style full page view)'}
             >
               {fitMode === 'fit-page' ? <Shrink className="w-3.5 h-3.5" /> : <Expand className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">{fitMode === 'fit-page' ? 'Fit Page' : 'Fit to Page'}</span>
+              <span className="hidden xl:inline">{fitMode === 'fit-page' ? 'Fit Page' : 'Fit to Page'}</span>
             </button>
 
             {/* Zoom Controls with Presets Dropdown */}
-            <div className="relative flex items-center bg-[#24283B] p-0.5 rounded-xl border border-[#292E42] shadow-sm">
+            <div className="relative flex items-center !bg-[#24283B] p-0.5 rounded-xl border !border-[#292E42] shrink-0">
               <button
                 type="button"
                 onClick={() => {
                   setFitMode('custom');
                   setScale(s => Math.max(s - 0.2, 0.4));
                 }}
-                className="p-1.5 rounded-lg hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white cursor-pointer transition-colors"
+                className="p-1 sm:p-1.5 rounded-lg hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white cursor-pointer transition-colors"
                 title="Zoom Out (-)"
               >
                 <ZoomOut className="w-3.5 h-3.5" />
@@ -999,7 +1092,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               <button
                 type="button"
                 onClick={() => setShowZoomDropdown(p => !p)}
-                className="px-2 py-0.5 text-xs font-semibold tabular-nums text-slate-200 hover:text-white hover:bg-[#2F354D] rounded-md cursor-pointer flex items-center gap-0.5 transition-colors"
+                className="px-1.5 sm:px-2 py-0.5 text-xs font-semibold tabular-nums !text-slate-200 hover:!text-white hover:!bg-[#2F354D] rounded-md cursor-pointer flex items-center gap-0.5 transition-colors"
                 title="Zoom Presets"
               >
                 <span>{Math.round(scale * 100)}%</span>
@@ -1012,7 +1105,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   setFitMode('custom');
                   setScale(s => Math.min(s + 0.2, 3.0));
                 }}
-                className="p-1.5 rounded-lg hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white cursor-pointer transition-colors"
+                className="p-1 sm:p-1.5 rounded-lg hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white cursor-pointer transition-colors"
                 title="Zoom In (+)"
               >
                 <ZoomIn className="w-3.5 h-3.5" />
@@ -1020,7 +1113,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
               {/* Zoom Presets Menu */}
               {showZoomDropdown && (
-                <div className="absolute right-0 top-full mt-2 w-36 rounded-xl bg-[#1F2335] border border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
+                <div className="absolute right-0 top-full mt-2 w-36 rounded-xl !bg-[#1F2335] border !border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
                   {[
                     { label: 'Fit to Width (↔)', mode: 'fit-width' as PdfFitMode, scale: 1.0 },
                     { label: 'Fit to Page (↕)', mode: 'fit-page' as PdfFitMode, scale: 1.0 },
@@ -1040,7 +1133,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                         setScale(opt.scale);
                         setShowZoomDropdown(false);
                       }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-[#24283B] text-xs font-semibold text-[#A9B1D6] hover:text-white flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:!bg-[#24283B] text-xs font-semibold !text-[#A9B1D6] hover:!text-white flex items-center justify-between cursor-pointer"
                     >
                       <span className="tabular-nums">{opt.label}</span>
                       {((opt.mode === 'fit-page' && fitMode === 'fit-page') ||
@@ -1061,7 +1154,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 soundManager.playClick();
                 setRotation(r => (r + 90) % 360);
               }}
-              className="flex items-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border border-[#292E42] transition-colors cursor-pointer active:scale-95 shadow-sm"
+              className="flex items-center gap-1 p-1.5 sm:px-2 rounded-xl !bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white border !border-[#292E42] transition-colors cursor-pointer active:scale-95 shrink-0"
               title={`Rotate 90° clockwise (Shortcut: R)${rotation > 0 ? ` - Current: ${rotation}°` : ''}`}
             >
               <RotateCw className="w-3.5 h-3.5" />
@@ -1077,30 +1170,30 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 soundManager.playClick();
                 setIsAutoRotate(prev => !prev);
               }}
-              className={`hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs transition-all cursor-pointer shadow-sm active:scale-95 ${
+              className={`hidden sm:flex items-center gap-1 px-2 py-1.5 rounded-xl border text-xs transition-all cursor-pointer active:scale-95 shrink-0 ${
                 isAutoRotate
-                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)] font-bold'
-                  : 'bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border-[#292E42] font-semibold'
+                  ? '!bg-emerald-500/20 !text-emerald-300 !border-emerald-500/40 font-bold'
+                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42] font-semibold'
               }`}
               title={isAutoRotate ? 'Auto-Rotate ON: Automatically matches PDF orientation to device tilt' : 'Auto-Rotate OFF: Manual orientation'}
             >
               <span className="text-[11px]">Auto</span>
             </button>
 
-            {/* EYE-CARE / NIGHT READING THEMES */}
-            <div className="relative flex items-center rounded-xl bg-[#24283B] border border-[#292E42] shadow-sm overflow-hidden">
+            {/* EYE-CARE / NIGHT READING THEMES (Pinned & Fully Styled) */}
+            <div className="relative flex items-center rounded-xl !bg-[#24283B] border !border-[#292E42] overflow-hidden shrink-0">
               <button
                 type="button"
                 onClick={handleQuickThemeToggle}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
+                className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
                   pdfColorTheme !== 'light'
-                    ? 'bg-amber-500/20 text-amber-300'
-                    : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                    ? '!bg-amber-500/20 !text-amber-300'
+                    : '!bg-[#24283B] !text-[#C0CAF5] hover:!text-white hover:bg-white/5'
                 }`}
                 title={pdfColorTheme === 'light' ? 'Switch to Night Mode (Glare-free dark background)' : 'Switch to Day Mode (Original white)'}
               >
-                <span className="text-sm leading-none">{PDF_THEMES[pdfColorTheme].badge}</span>
-                <span className="hidden sm:inline font-medium">
+                <span className="text-sm leading-none shrink-0">{PDF_THEMES[pdfColorTheme].badge}</span>
+                <span className="hidden xl:inline font-medium">
                   {pdfColorTheme === 'light' ? 'Night Mode' : PDF_THEMES[pdfColorTheme].shortLabel}
                 </span>
               </button>
@@ -1110,10 +1203,10 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   setShowZoomDropdown(false);
                   setShowThemeDropdown(prev => !prev);
                 }}
-                className={`px-1.5 py-1.5 text-xs font-semibold transition-all cursor-pointer border-l border-[#292E42] ${
+                className={`px-1 sm:px-1.5 py-1.5 text-xs font-semibold transition-all cursor-pointer border-l !border-[#292E42] ${
                   pdfColorTheme !== 'light'
-                    ? 'bg-amber-500/20 text-amber-300'
-                    : 'text-[#A9B1D6] hover:text-white hover:bg-white/5'
+                    ? '!bg-amber-500/20 !text-amber-300'
+                    : '!bg-[#24283B] !text-[#A9B1D6] hover:!text-white hover:bg-white/5'
                 }`}
                 title="Choose Eye-Care Reading Mode: Night, OLED Pure Black, Sepia, Day"
               >
@@ -1122,7 +1215,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
               {/* Reading Themes Menu */}
               {showThemeDropdown && (
-                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-[#1F2335] border border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
+                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl !bg-[#1F2335] border !border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
                   <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                     Eye-Care Reading Themes
                   </div>
@@ -1136,8 +1229,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                         onClick={() => handleSetPdfColorTheme(themeKey)}
                         className={`w-full text-left px-2.5 py-2 rounded-lg transition-all flex items-center justify-between cursor-pointer ${
                           isSelected
-                            ? 'bg-indigo-600/30 text-white font-bold border border-indigo-500/30'
-                            : 'hover:bg-[#24283B] text-[#A9B1D6] hover:text-white'
+                            ? '!bg-indigo-600/30 !text-white font-bold border !border-indigo-500/30'
+                            : 'hover:!bg-[#24283B] !text-[#A9B1D6] hover:!text-white'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
@@ -1174,10 +1267,10 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   onOpenSplitStudy(selectedAttachmentId);
                 }}
                 title="Open Split-Screen to read this PDF and take notes side-by-side"
-                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl !bg-indigo-500/15 hover:!bg-indigo-500/25 border !border-indigo-500/30 !text-indigo-300 text-xs font-semibold transition-all cursor-pointer active:scale-95 shrink-0"
               >
                 <Columns className="w-3.5 h-3.5" />
-                <span>Split Study</span>
+                <span className="hidden xl:inline">Split Study</span>
               </button>
             )}
 
@@ -1187,10 +1280,10 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 type="button"
                 onClick={handleDownload}
                 title={`Download ${currentAttachment.name}`}
-                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-1 cursor-pointer transition-all shadow-sm active:scale-95"
+                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl !bg-emerald-500/15 hover:!bg-emerald-500/25 border !border-emerald-500/30 !text-emerald-300 text-xs font-semibold flex items-center gap-1 cursor-pointer transition-all active:scale-95 shrink-0"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Download</span>
+                <span className="hidden xl:inline">Download</span>
               </button>
             )}
 
@@ -1200,25 +1293,25 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               data-testid="pdf-fullscreen-btn"
               onClick={toggleFullscreen}
               title={isFullscreen ? 'Exit Fullscreen' : 'Enter 100% Fullscreen PDF (Only PDF)'}
-              className="p-1.5 rounded-xl bg-[#24283B] hover:bg-[#2F354D] text-[#A9B1D6] hover:text-white border border-[#292E42] transition-colors cursor-pointer flex items-center justify-center active:scale-95 shadow-sm"
+              className="p-1.5 rounded-xl !bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white border !border-[#292E42] transition-colors cursor-pointer flex items-center justify-center active:scale-95 shrink-0"
             >
               {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             </button>
 
-            {/* Close Button */}
+            {/* Close Button on Desktop (Always Visible, Pinned to Right!) */}
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
                 onClose();
               }}
-              className="p-1.5 rounded-xl bg-[#24283B] hover:bg-rose-500/20 text-[#A9B1D6] hover:text-rose-400 border border-[#292E42] hover:border-rose-500/30 transition-colors cursor-pointer active:scale-95 shadow-sm"
+              className="hidden md:flex p-1.5 rounded-xl !bg-[#24283B] hover:!bg-rose-500/20 !text-[#A9B1D6] hover:!text-rose-400 border !border-[#292E42] hover:!border-rose-500/30 transition-colors cursor-pointer active:scale-95 shrink-0"
               title="Close PDF View (Esc)"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        </header>
       )}
 
       {/* 2. DEDICATED HIGHLIGHTER PALETTE SUB-TOOLBAR (HIDDEN IN FULLSCREEN) */}
