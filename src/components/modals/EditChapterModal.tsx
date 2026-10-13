@@ -17,8 +17,9 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const { editChapter, deleteChapter } = useSyllabus();
+  const { editChapter, deleteChapter, addChapter } = useSyllabus();
 
+  const isCreateMode = !chapter;
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -28,15 +29,23 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
       setName(chapter.name);
       setDesc(chapter.description || '');
       setShowDeleteConfirm(false);
+    } else {
+      setName('');
+      setDesc('');
+      setShowDeleteConfirm(false);
     }
-  }, [chapter]);
+  }, [chapter, isOpen]);
 
-  if (!isOpen || !chapter) return null;
+  if (!isOpen) return null;
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    editChapter(subjectId, chapter.id, { name: name.trim(), description: desc.trim() });
+    if (isCreateMode) {
+      addChapter(subjectId, { name: name.trim(), description: desc.trim() });
+    } else if (chapter) {
+      editChapter(subjectId, chapter.id, { name: name.trim(), description: desc.trim() });
+    }
     onClose();
   };
 
@@ -60,7 +69,7 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
               <Layers className="w-4 h-4" />
             </div>
             <h4 className="text-base font-extrabold text-slate-900 dark:text-white">
-              Edit Chapter
+              {isCreateMode ? 'Add New Chapter' : 'Edit Chapter'}
             </h4>
           </div>
 
@@ -72,7 +81,7 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
           </button>
         </div>
 
-        {showDeleteConfirm ? (
+        {showDeleteConfirm && chapter ? (
           <div className="p-6 space-y-4 text-center">
             <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6" />
@@ -104,13 +113,15 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
           <form onSubmit={handleSave} className="p-6 space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Chapter Name
+                Chapter Name <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
+                placeholder="e.g. Modern History / Geometry"
                 required
+                autoFocus
                 className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
@@ -128,15 +139,17 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
               />
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-              <button
-                type="button"
-                onClick={() => setShowDeleteConfirm(true)}
-                className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                <span>Delete</span>
-              </button>
+            <div className={`flex items-center ${!isCreateMode ? 'justify-between' : 'justify-end'} pt-4 border-t border-slate-100 dark:border-slate-800`}>
+              {!isCreateMode && (
+                <button
+                  type="button"
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  <span>Delete</span>
+                </button>
+              )}
 
               <div className="flex items-center gap-2">
                 <button
@@ -148,10 +161,11 @@ export const EditChapterModal: React.FC<EditChapterModalProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-brand-500 hover:bg-brand-600 rounded-xl shadow-md transition-all"
+                  disabled={!name.trim()}
+                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Save className="w-3.5 h-3.5" />
-                  <span>Save Changes</span>
+                  <span>{isCreateMode ? '+ Add Chapter' : 'Save Changes'}</span>
                 </button>
               </div>
             </div>

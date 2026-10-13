@@ -70,7 +70,8 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
   const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
   const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
-  const [editingChapter, setEditingChapter] = useState<{ subjectId: string; chapter: Chapter } | null>(null);
+  const [editingChapter, setEditingChapter] = useState<{ subjectId: string; chapter: Chapter | null } | null>(null);
+  const [isAddChapterOpen, setIsAddChapterOpen] = useState(false);
 
   // 150ms Debounce for 60 FPS typing and filtering across massive syllabus hierarchies
   useEffect(() => {
@@ -1333,6 +1334,15 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   type="button"
+                  onClick={() => setIsAddChapterOpen(true)}
+                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  title={`Add new chapter to ${activeSubject.name}`}
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                  <span>Add Chapter</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => onOpenAddTopic(activeSubject.id)}
                   className="px-3.5 sm:px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                   title={`Add new topic to ${activeSubject.name}`}
@@ -1502,6 +1512,18 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             isOpen={Boolean(editingSubject)}
             subject={editingSubject}
             onClose={() => setEditingSubject(null)}
+          />
+        )}
+
+        {(editingChapter || isAddChapterOpen) && (
+          <EditChapterModal
+            isOpen={Boolean(editingChapter || isAddChapterOpen)}
+            subjectId={activeSubject.id}
+            chapter={editingChapter?.chapter || null}
+            onClose={() => {
+              setEditingChapter(null);
+              setIsAddChapterOpen(false);
+            }}
           />
         )}
       </div>

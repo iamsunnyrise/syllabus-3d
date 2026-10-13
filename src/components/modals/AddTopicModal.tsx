@@ -9,7 +9,8 @@ import {
   Check,
   FileText,
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  AlertCircle
 } from 'lucide-react';
 import { DifficultyLevel } from '../../types/syllabus';
 import { soundManager } from '../../utils/soundEffects';
@@ -71,7 +72,12 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
   const [bulkTextInput, setBulkTextInput] = useState('');
   const [bulkDefaultDifficulty, setBulkDefaultDifficulty] = useState<DifficultyLevel>('Medium');
 
+  // Error validation state
+  const [errorMessage, setErrorMessage] = useState('');
+
   const hasNoSubjects = !currentExam || currentExam.subjects.length === 0;
+  const effectiveIsNewSubject = isNewSubject || hasNoSubjects;
+  const effectiveIsNewChapter = isNewChapter || effectiveIsNewSubject;
 
   // Initialize or update selection whenever modal opens or target props change
   useEffect(() => {
@@ -84,6 +90,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
     setNewSubjectName('');
     setNewChapterName('');
     setNewChapterDesc('');
+    setErrorMessage('');
 
     if (hasNoSubjects) {
       setIsNewSubject(true);
@@ -175,11 +182,14 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const effectiveIsNewSubject = isNewSubject || hasNoSubjects;
-    const effectiveIsNewChapter = isNewChapter || effectiveIsNewSubject;
-
-    if (effectiveIsNewSubject && !newSubjectName.trim()) return;
-    if (effectiveIsNewChapter && !newChapterName.trim()) return;
+    if (effectiveIsNewSubject && !newSubjectName.trim()) {
+      setErrorMessage('Please enter a Subject Name');
+      return;
+    }
+    if (effectiveIsNewChapter && !newChapterName.trim()) {
+      setErrorMessage('Please enter a Chapter Name');
+      return;
+    }
 
     let topicsToCreate: Array<{
       name: string;
@@ -189,24 +199,36 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
     }> = [];
 
     if (creationMode === 'single') {
-      if (!singleTopicName.trim()) return;
-      const subtopics = singleSubtopicsText
-        .split(',')
-        .map(s => s.trim())
-        .filter(Boolean);
+      if (!singleTopicName.trim()) {
+        // If adding to an existing chapter, topic name is required
+        if (!effectiveIsNewChapter && !effectiveIsNewSubject) {
+          setErrorMessage('Please enter a Topic Name');
+          return;
+        }
+      } else {
+        const subtopics = singleSubtopicsText
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean);
 
-      const parsedWeightage = singleWeightage.trim() ? Number(singleWeightage) : 3;
+        const parsedWeightage = singleWeightage.trim() ? Number(singleWeightage) : 3;
 
-      topicsToCreate.push({
-        name: singleTopicName.trim(),
-        difficulty: singleDifficulty,
-        weightage: parsedWeightage,
-        subtopics: subtopics.length > 0 ? subtopics : ['Core Concepts']
-      });
+        topicsToCreate.push({
+          name: singleTopicName.trim(),
+          difficulty: singleDifficulty,
+          weightage: parsedWeightage,
+          subtopics: subtopics.length > 0 ? subtopics : ['Core Concepts']
+        });
+      }
     } else {
-      if (parsedBulkTopics.length === 0) return;
+      if (parsedBulkTopics.length === 0 && !effectiveIsNewChapter && !effectiveIsNewSubject) {
+        setErrorMessage('Please paste at least one topic to import');
+        return;
+      }
       topicsToCreate = parsedBulkTopics;
     }
+
+    setErrorMessage('');
 
     addMultipleCustomTopicsWithHierarchy({
       isNewSubject: effectiveIsNewSubject,
@@ -284,6 +306,13 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
 
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="px-5 sm:px-6 py-4 overflow-y-auto space-y-4 flex-1">
+          {errorMessage && (
+            <div className="p-3 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center gap-2 animate-shake">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
           {onOpenAiArchitect && (
             <div className="p-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border border-blue-500/25 flex items-center justify-between gap-3 shadow-2xs">
               <div className="flex items-center gap-2.5 min-w-0">
@@ -466,6 +495,24 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                 </span>
               </div>
             )}
+
+            {!isNewSubject && isNewChapter && subjectMatch && (
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/80 dark:bg-amber-500/10 border border-amber-200/70 dark:border-amber-500/20 text-xs font-semibold text-amber-900 dark:text-amber-300">
+                <Layers className="w-3.5 h-3.5 text-amber-500 stroke-[2.5] shrink-0" />
+                <span className="truncate">
+                  Creating chapter in <strong className="text-slate-900 dark:text-white">{subjectMatch.name}</strong>: <strong className="text-slate-900 dark:text-white">{newChapterName.trim() || 'Enter chapter name'}</strong>
+                </span>
+              </div>
+            )}
+
+            {isNewSubject && (
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-50/80 dark:bg-indigo-500/10 border border-indigo-200/70 dark:border-indigo-500/20 text-xs font-semibold text-indigo-900 dark:text-indigo-300">
+                <BookOpen className="w-3.5 h-3.5 text-indigo-500 stroke-[2.5] shrink-0" />
+                <span className="truncate">
+                  New Subject: <strong className="text-slate-900 dark:text-white">{newSubjectName.trim() || 'Enter subject name'}</strong> &rsaquo; <strong className="text-slate-900 dark:text-white">{newChapterName.trim() || 'Enter chapter name'}</strong>
+                </span>
+              </div>
+            )}
           </div>
 
           {/* MODE SEGMENTED SELECTOR */}
@@ -577,16 +624,31 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
             /* SINGLE TOPIC MODE */
             <div className="space-y-3.5">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-                  Topic Name
-                </label>
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                    Topic Name {!effectiveIsNewChapter && !effectiveIsNewSubject && <span className="text-rose-500 font-bold">*</span>}
+                  </label>
+                  {(effectiveIsNewChapter || effectiveIsNewSubject) && (
+                    <span className="text-[11px] text-slate-400 font-normal">(Optional for new chapter)</span>
+                  )}
+                </div>
                 <input
                   type="text"
                   value={singleTopicName}
-                  onChange={(e) => setSingleTopicName(e.target.value)}
-                  placeholder="e.g. Percentage & Fractional Conversions"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
-                  required={creationMode === 'single'}
+                  onChange={(e) => {
+                    setSingleTopicName(e.target.value);
+                    if (errorMessage) setErrorMessage('');
+                  }}
+                  placeholder={
+                    effectiveIsNewChapter
+                      ? "e.g. Percentage & Fractional Conversions (Optional)"
+                      : "e.g. Percentage & Fractional Conversions"
+                  }
+                  className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border ${
+                    errorMessage && !singleTopicName.trim() && !effectiveIsNewChapter && !effectiveIsNewSubject
+                      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/20'
+                      : 'border-slate-200 dark:border-[#272738] focus:border-indigo-500 focus:ring-indigo-500/20'
+                  } text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 shadow-2xs`}
                 />
               </div>
 
@@ -673,21 +735,43 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
 
             <button
               type="submit"
-              disabled={creationMode === 'bulk' && parsedBulkTopics.length === 0}
+              disabled={
+                effectiveIsNewSubject
+                  ? !newSubjectName.trim() || !newChapterName.trim()
+                  : effectiveIsNewChapter
+                    ? !newChapterName.trim()
+                    : creationMode === 'bulk'
+                      ? parsedBulkTopics.length === 0
+                      : !singleTopicName.trim()
+              }
               onClick={() => haptics.medium()}
               className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 min-h-[42px] tap-bounce ${
-                creationMode === 'bulk' && parsedBulkTopics.length === 0
+                (effectiveIsNewSubject
+                  ? !newSubjectName.trim() || !newChapterName.trim()
+                  : effectiveIsNewChapter
+                    ? !newChapterName.trim()
+                    : creationMode === 'bulk'
+                      ? parsedBulkTopics.length === 0
+                      : !singleTopicName.trim())
                   ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
                   : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/25 active:scale-98 cursor-pointer'
               }`}
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>
-                {creationMode === 'bulk'
-                  ? parsedBulkTopics.length > 0
-                    ? `Add ${parsedBulkTopics.length} Topics Now`
-                    : 'Add Topics'
-                  : 'Add Topic'}
+                {effectiveIsNewSubject
+                  ? (creationMode === 'bulk' ? parsedBulkTopics.length : (singleTopicName.trim() ? 1 : 0)) > 0
+                    ? `Create Subject, Chapter & Topics`
+                    : 'Create Subject & Chapter'
+                  : effectiveIsNewChapter
+                    ? (creationMode === 'bulk' ? parsedBulkTopics.length : (singleTopicName.trim() ? 1 : 0)) > 0
+                      ? `Create Chapter & Topic`
+                      : 'Create Chapter'
+                    : creationMode === 'bulk'
+                      ? parsedBulkTopics.length > 0
+                        ? `Add ${parsedBulkTopics.length} Topics Now`
+                        : 'Add Topics'
+                      : 'Add Topic'}
               </span>
             </button>
           </div>

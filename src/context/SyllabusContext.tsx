@@ -91,7 +91,7 @@ export interface CreateMultipleCustomTopicsPayload {
   newChapterName?: string;
   newChapterDescription?: string;
 
-  topics: Array<{
+  topics?: Array<{
     name: string;
     difficulty?: DifficultyLevel;
     weightage?: number;
@@ -1673,6 +1673,10 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         };
       });
     });
+
+    soundManager.playCompleteChime();
+    haptics.success();
+    confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 } });
   };
 
   const addCustomTopicWithHierarchy = (payload: CreateCustomTopicPayload) => {
@@ -1696,9 +1700,11 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const addMultipleCustomTopicsWithHierarchy = (payload: CreateMultipleCustomTopicsPayload) => {
-    if (!payload.topics || payload.topics.length === 0) return;
+    const rawTopics = payload.topics || [];
+    const hasTopics = rawTopics.length > 0;
+    if (!hasTopics && !payload.isNewChapter && !payload.isNewSubject) return;
 
-    const newTopicObjects: Topic[] = payload.topics.map(t => ({
+    const newTopicObjects: Topic[] = hasTopics ? rawTopics.map(t => ({
       id: 'top_' + Math.random().toString(36).substr(2, 9),
       name: t.name.trim(),
       subtopics: t.subtopics && t.subtopics.length > 0 ? t.subtopics : ['Core Concepts'],
@@ -1714,7 +1720,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       weightage: t.weightage || 3,
       notes: '',
       mistakes: []
-    }));
+    })) : [];
 
     setExams(prevExams => {
       const targetExamId = currentExam?.id || profile.selectedExamId || (prevExams[0]?.id);
@@ -1986,6 +1992,8 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
 
     soundManager.playCompleteChime();
+    haptics.success();
+    confetti({ particleCount: 35, spread: 55, origin: { y: 0.8 } });
   };
 
   const editChapter = (subjectId: string, chapterId: string, updates: { name?: string; description?: string }) => {
