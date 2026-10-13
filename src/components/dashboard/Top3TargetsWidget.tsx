@@ -127,12 +127,12 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
                   Top 3 Daily Targets
                 </h3>
                 {completedTargets.length === 3 ? (
-                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 animate-pulse">
-                    🏆 3/3 Crushed!
+                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    3/3 Done
                   </span>
                 ) : completedTargets.length > 0 ? (
                   <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
-                    ⚡ {completedTargets.length}/3 Done
+                    {completedTargets.length}/3 Done
                   </span>
                 ) : null}
               </div>

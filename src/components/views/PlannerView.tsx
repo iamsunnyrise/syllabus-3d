@@ -456,7 +456,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     { id: 'today', title: "Today's Targets", icon: Target, badgeCol: 'bg-blue-100/90 text-blue-800 border border-blue-300 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30', tasks: todayTasks },
     { id: 'in_progress', title: 'Deep Focus', icon: Zap, badgeCol: 'bg-purple-100/90 text-purple-800 border border-purple-300 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30', tasks: inProgressTasks },
     { id: 'upcoming', title: 'This Week', icon: Layers, badgeCol: 'bg-amber-100/90 text-amber-900 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30', tasks: upcomingTasks },
-    { id: 'completed', title: 'Conquered', icon: CheckCircle2, badgeCol: 'bg-emerald-100/90 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30', tasks: completedTasks }
+    { id: 'completed', title: 'Completed', icon: CheckCircle2, badgeCol: 'bg-emerald-100/90 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30', tasks: completedTasks }
   ];
 
   const getSubjectIcon = (name: string) => {
@@ -500,26 +500,20 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             <SectionBadgeIcon section="planner" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
             <div className="min-w-0 space-y-1">
               <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-amber-600 dark:text-amber-400 flex-wrap">
-                <span className="truncate">Study Planner &amp; Sprint Chamber</span>
+                <span className="truncate">Study Planner</span>
                 <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-black">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  <span>Daily Sprint</span>
-                  <span className="text-amber-400">•</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-semibold">
                   <span className="font-mono tabular-nums">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </span>
                 {currentExam && (
-                  <span className="hidden xs:inline-flex px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
+                  <span className="hidden xs:inline-flex px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.08] text-[11px] font-semibold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/10">
                     🎯 {currentExam.name}
                   </span>
                 )}
               </div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Study Planner &amp; Daily Sprint
+                Study Planner
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                Target tracking, daily sprints, time blocking, and adaptive study queue management.
-              </p>
             </div>
           </div>
 
@@ -571,9 +565,6 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500/25 via-orange-500/20 to-amber-400/35 dark:from-amber-500/30 dark:via-orange-500/25 dark:to-amber-400/40 border border-amber-400/50 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shadow-lg shadow-amber-500/15 dark:shadow-amber-500/20 group-hover:scale-105 transition-transform">
                 🔥
               </div>
-              <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-black bg-amber-400 text-slate-950 shadow-xs border border-amber-200">
-                LIVE
-              </span>
             </div>
 
             <div className="min-w-0">
@@ -583,12 +574,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 </h2>
                 <span className="streak-conquered-badge px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-400/20 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-400/40 text-[11px] font-black font-mono tabular-nums flex items-center gap-1 shadow-2xs">
                   <Sparkles className="w-3 h-3 text-amber-700 dark:text-amber-300" />
-                  <span>{todayProgressPercent}% Conquered Today</span>
+                  <span>{todayProgressPercent}% Today</span>
                 </span>
               </div>
-              <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-semibold mt-1.5 leading-snug">
-                Consistency is mastery. Personal best record:{' '}
-                <span className="streak-record-val text-amber-900 dark:text-amber-300 font-black tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
+              <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium mt-1 leading-snug">
+                Personal best:{' '}
+                <span className="streak-record-val text-amber-900 dark:text-amber-300 font-bold tabular-nums whitespace-nowrap">{profile.longestStreak || 24} days</span>
               </p>
             </div>
           </div>
@@ -647,18 +638,15 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             })}
           </div>
 
-          {/* Right: Quick Target Status & Multiplier */}
+          {/* Right: Quick Target Status & Action */}
           <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
             <div className="text-right hidden sm:block">
               <div
-                className="streak-target-status text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 justify-end"
+                className="streak-target-status text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 justify-end"
               >
                 <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
-                <span>{completedTodayCount} of {totalTodayCount} Conquered</span>
+                <span>{completedTodayCount} of {totalTodayCount} Done</span>
               </div>
-              <span className="streak-multiplier-text text-[11px] text-amber-800 dark:text-amber-300 font-black font-mono">
-                1.25x XP Streak Multiplier Active
-              </span>
             </div>
 
             {onOpenFocusChamber && (
@@ -679,16 +667,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         </div>
       </div>
 
-      {/* 3. FOUR NEXT-GEN LUXURY METRIC GLASS CARDS */}
+      {/* 3. FOUR NEXT-GEN METRIC GLASS CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-        {/* Card 1: Today's Velocity & Flow */}
+        {/* Card 1: Daily Progress */}
         <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Specular Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
             <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              Today's Velocity
+              Daily Progress
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-xs transition-transform group-hover:scale-110">
               <TrendingUp className="w-4 h-4 stroke-[2.5]" />
@@ -718,12 +706,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-700 dark:text-emerald-300'
                 : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-700 dark:text-indigo-300'
             }`}>
-              {todayProgressPercent === 100 ? '✓ Complete' : 'In Sprint'}
+              {todayProgressPercent === 100 ? 'Done' : 'Active'}
             </span>
           </div>
         </div>
 
-        {/* Card 2: Planned Runway & Focus Time */}
+        {/* Card 2: Planned Study */}
         <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Specular Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
@@ -742,26 +730,26 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-400 dark:text-slate-500 ml-0.5">h</span>
             </div>
             <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 shrink-0">
-              {(completedMinutes / 60).toFixed(1)}h finished
+              {(completedMinutes / 60).toFixed(1)}h done
             </span>
           </div>
 
           <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">Runway Remaining</span>
+            <span className="truncate">Remaining</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
             </span>
           </div>
         </div>
 
-        {/* Card 3: Target Queue & Yield */}
+        {/* Card 3: Targets */}
         <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-sky-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Specular Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
             <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              Target Queue
+              Targets
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 border border-sky-500/20 text-sky-600 dark:text-sky-400 shadow-xs transition-transform group-hover:scale-110">
               <Target className="w-4 h-4 stroke-[2.5]" />
@@ -783,21 +771,21 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           </div>
 
           <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">Active Queue</span>
+            <span className="truncate">Upcoming</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
-              {upcomingTasks.length} Upcoming
+              {upcomingTasks.length} scheduled
             </span>
           </div>
         </div>
 
-        {/* Card 4: Academic Level & XP Prestige */}
+        {/* Card 4: Academic Level & XP */}
         <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
           {/* Top Specular Line */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
 
           <div className="relative z-10 flex items-center justify-between gap-1.5">
             <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              XP &amp; Rank
+              XP &amp; Level
             </span>
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs transition-transform group-hover:scale-110">
               <Award className="w-4 h-4 stroke-[2.5]" />
@@ -817,7 +805,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           </div>
 
           <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">{profile.xp} Total XP</span>
+            <span className="truncate">{profile.xp} XP</span>
             <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
               +25 XP / target
             </span>
@@ -1009,8 +997,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold shrink-0">
                   <Target className="w-3.5 h-3.5 stroke-[2.4]" />
                 </div>
-                <span className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white truncate">
-                  Today's 3 Non-Negotiable Core Targets
+                <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white truncate">
+                  Daily Core Targets
                 </span>
                 <span className="px-2 py-0.5 rounded-full text-[10.5px] font-mono font-black bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/20 shrink-0">
                   {top3CompletedCount}/3 Done
@@ -1119,17 +1107,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           {col.id === 'completed' && <Trophy className="w-4 h-4 text-emerald-500" />}
                         </div>
                         <div className="space-y-0.5">
-                          <p className="text-xs font-black text-slate-900 dark:text-slate-100">
-                            {col.id === 'upcoming' && 'Queue Clear'}
-                            {col.id === 'today' && 'Runway Open'}
-                            {col.id === 'in_progress' && 'Ready For Sprint'}
-                            {col.id === 'completed' && 'Awaiting Conquests'}
+                          <p className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                            {col.id === 'upcoming' && 'No Upcoming Targets'}
+                            {col.id === 'today' && 'No Targets Today'}
+                            {col.id === 'in_progress' && 'No Active Tasks'}
+                            {col.id === 'completed' && 'No Completed Tasks'}
                           </p>
-                          <p className="text-xs font-medium text-slate-600 dark:text-slate-300 max-w-[180px] leading-snug mx-auto">
+                          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 max-w-[180px] leading-snug mx-auto">
                             {col.id === 'upcoming' && 'Schedule targets for upcoming days.'}
-                            {col.id === 'today' && "Ready for today's high-yield targets."}
+                            {col.id === 'today' && 'Add targets for today to get started.'}
                             {col.id === 'in_progress' && 'Start a focus sprint on any target.'}
-                            {col.id === 'completed' && 'Finished tasks will celebrate here.'}
+                            {col.id === 'completed' && 'Completed tasks will appear here.'}
                           </p>
                         </div>
                         {(col.id === 'upcoming' || col.id === 'today') && (
@@ -1605,13 +1593,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 <div className="flex items-center gap-3 text-xs font-semibold text-slate-700 dark:text-slate-300 flex-wrap">
                   <span className="font-bold font-mono text-slate-900 dark:text-white flex items-center gap-1.5">
                     <CalendarCheck className="w-4 h-4 text-indigo-500" />
-                    <span>Week Yield:</span>
+                    <span>This Week:</span>
                   </span>
                   <span className="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-white/[0.06] font-mono font-bold tabular-nums">
                     {filteredTasks.filter(t => weekDays.some(d => d.dateStr === t.scheduledDate)).length} Targets Scheduled
                   </span>
                   <span className="px-2 py-0.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono font-bold tabular-nums">
-                    {filteredTasks.filter(t => weekDays.some(d => d.dateStr === t.scheduledDate) && t.status === 'completed').length} Conquered
+                    {filteredTasks.filter(t => weekDays.some(d => d.dateStr === t.scheduledDate) && t.status === 'completed').length} Done
                   </span>
                 </div>
 
@@ -1666,7 +1654,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-mono">Conquered</span>
+                    <span className="text-slate-400 block text-[10px] uppercase font-mono">Completed</span>
                     <span className="text-sm font-black text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
                       {monthStats.done} ({monthStats.rate}%)
                     </span>
@@ -1731,7 +1719,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           </span>
 
                           {allCompleted && (
-                            <span className="w-2 h-2 rounded-full bg-emerald-500" title="All targets conquered!" />
+                            <span className="w-2 h-2 rounded-full bg-emerald-500" title="All targets completed" />
                           )}
                         </div>
 
@@ -1772,7 +1760,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       )}
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      {selectedDateTasks.length} Targets • {Math.round(selectedDateTotalMinutes / 60 * 10) / 10}h Planned Study • {selectedDateCompletedCount} Conquered
+                      {selectedDateTasks.length} Targets • {Math.round(selectedDateTotalMinutes / 60 * 10) / 10}h Planned • {selectedDateCompletedCount} Done
                     </p>
                   </div>
 
