@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   X,
   FileText,
-  Download,
   Maximize2,
   Minimize2,
   ChevronDown,
@@ -183,7 +182,6 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   const [fitMode, setFitMode] = useState<PdfFitMode>('fit-width');
   const [rotation, setRotation] = useState<number>(0);
   const [isAutoRotate, setIsAutoRotate] = useState<boolean>(true);
-  const [showZoomDropdown, setShowZoomDropdown] = useState<boolean>(false);
   const [pdfColorTheme, setPdfColorTheme] = useState<PdfColorTheme>(() => loadPdfColorTheme());
   const [showThemeDropdown, setShowThemeDropdown] = useState<boolean>(false);
 
@@ -690,20 +688,6 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleDownload = () => {
-    if (!currentAttachment) return;
-    soundManager.playCompleteChime();
-    const fileName = currentAttachment.name.endsWith('.pdf') ? currentAttachment.name : `${currentAttachment.name}.pdf`;
-
-    if (pdfBlobUrl) {
-      const a = document.createElement('a');
-      a.href = pdfBlobUrl;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-  };
 
   return createPortal(
     <div
@@ -933,7 +917,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             </div>
           )}
 
-          {/* Right Action Tools: Highlighter, Chrome Fit Mode, Zoom, Night Mode, Split Study, Download & Fullscreen */}
+          {/* Right Action Tools: Highlighter, Notes, Fit Mode, Night Mode, Split Study & Fullscreen */}
           {/* Note: This row stays ALWAYS visible, never cut off! */}
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 overflow-x-auto no-scrollbar py-0.5 md:py-0 w-full md:w-auto justify-between md:justify-end">
             
@@ -1075,110 +1059,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               <span className="hidden xl:inline">{fitMode === 'fit-page' ? 'Fit Page' : 'Fit to Page'}</span>
             </button>
 
-            {/* Zoom Controls with Presets Dropdown */}
-            <div className="relative flex items-center !bg-[#24283B] p-0.5 rounded-xl border !border-[#292E42] shrink-0">
-              <button
-                type="button"
-                onClick={() => {
-                  setFitMode('custom');
-                  setScale(s => Math.max(s - 0.2, 0.4));
-                }}
-                className="p-1 sm:p-1.5 rounded-lg hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white cursor-pointer transition-colors"
-                title="Zoom Out (-)"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
 
-              <button
-                type="button"
-                onClick={() => setShowZoomDropdown(p => !p)}
-                className="px-1.5 sm:px-2 py-0.5 text-xs font-semibold tabular-nums !text-slate-200 hover:!text-white hover:!bg-[#2F354D] rounded-md cursor-pointer flex items-center gap-0.5 transition-colors"
-                title="Zoom Presets"
-              >
-                <span>{Math.round(scale * 100)}%</span>
-                <ChevronDown className="w-2.5 h-2.5 opacity-70" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setFitMode('custom');
-                  setScale(s => Math.min(s + 0.2, 3.0));
-                }}
-                className="p-1 sm:p-1.5 rounded-lg hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white cursor-pointer transition-colors"
-                title="Zoom In (+)"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Zoom Presets Menu */}
-              {showZoomDropdown && (
-                <div className="absolute right-0 top-full mt-2 w-36 rounded-xl !bg-[#1F2335] border !border-[#292E42] shadow-2xl p-1.5 space-y-1 z-50 animate-fade-in">
-                  {[
-                    { label: 'Fit to Width (↔)', mode: 'fit-width' as PdfFitMode, scale: 1.0 },
-                    { label: 'Fit to Page (↕)', mode: 'fit-page' as PdfFitMode, scale: 1.0 },
-                    { label: '50%', mode: 'custom' as PdfFitMode, scale: 0.5 },
-                    { label: '75%', mode: 'custom' as PdfFitMode, scale: 0.75 },
-                    { label: '100% (Actual)', mode: 'custom' as PdfFitMode, scale: 1.0 },
-                    { label: '125%', mode: 'custom' as PdfFitMode, scale: 1.25 },
-                    { label: '150%', mode: 'custom' as PdfFitMode, scale: 1.5 },
-                    { label: '200%', mode: 'custom' as PdfFitMode, scale: 2.0 },
-                  ].map(opt => (
-                    <button
-                      key={opt.label}
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setFitMode(opt.mode);
-                        setScale(opt.scale);
-                        setShowZoomDropdown(false);
-                      }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:!bg-[#24283B] text-xs font-semibold !text-[#A9B1D6] hover:!text-white flex items-center justify-between cursor-pointer"
-                    >
-                      <span className="tabular-nums">{opt.label}</span>
-                      {((opt.mode === 'fit-page' && fitMode === 'fit-page') ||
-                        (opt.mode === 'fit-width' && fitMode === 'fit-width') ||
-                        (opt.mode === 'custom' && fitMode === 'custom' && Math.abs(scale - opt.scale) < 0.05)) && (
-                        <Check className="w-3.5 h-3.5 text-indigo-400" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* ROTATE 90° CLOCKWISE */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                setRotation(r => (r + 90) % 360);
-              }}
-              className="flex items-center gap-1 p-1.5 sm:px-2 rounded-xl !bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white border !border-[#292E42] transition-colors cursor-pointer active:scale-95 shrink-0"
-              title={`Rotate 90° clockwise (Shortcut: R)${rotation > 0 ? ` - Current: ${rotation}°` : ''}`}
-            >
-              <RotateCw className="w-3.5 h-3.5" />
-              {rotation > 0 && (
-                <span className="text-[10px] font-semibold tabular-nums text-indigo-300">{rotation}°</span>
-              )}
-            </button>
-
-            {/* AUTO-ROTATE TO MATCH PHONE ORIENTATION */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                setIsAutoRotate(prev => !prev);
-              }}
-              className={`hidden sm:flex items-center gap-1 px-2 py-1.5 rounded-xl border text-xs transition-all cursor-pointer active:scale-95 shrink-0 ${
-                isAutoRotate
-                  ? '!bg-emerald-500/20 !text-emerald-300 !border-emerald-500/40 font-bold'
-                  : '!bg-[#24283B] hover:!bg-[#2F354D] !text-[#A9B1D6] hover:!text-white !border-[#292E42] font-semibold'
-              }`}
-              title={isAutoRotate ? 'Auto-Rotate ON: Automatically matches PDF orientation to device tilt' : 'Auto-Rotate OFF: Manual orientation'}
-            >
-              <span className="text-[11px]">Auto</span>
-            </button>
 
             {/* EYE-CARE / NIGHT READING THEMES (Pinned & Fully Styled) */}
             <div className="relative flex items-center rounded-xl !bg-[#24283B] border !border-[#292E42] overflow-hidden shrink-0">
@@ -1200,7 +1081,6 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  setShowZoomDropdown(false);
                   setShowThemeDropdown(prev => !prev);
                 }}
                 className={`px-1 sm:px-1.5 py-1.5 text-xs font-semibold transition-all cursor-pointer border-l !border-[#292E42] ${
@@ -1274,18 +1154,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               </button>
             )}
 
-            {/* Download PDF Button */}
-            {currentAttachment && (
-              <button
-                type="button"
-                onClick={handleDownload}
-                title={`Download ${currentAttachment.name}`}
-                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl !bg-emerald-500/15 hover:!bg-emerald-500/25 border !border-emerald-500/30 !text-emerald-300 text-xs font-semibold flex items-center gap-1 cursor-pointer transition-all active:scale-95 shrink-0"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span className="hidden xl:inline">Download</span>
-              </button>
-            )}
+
 
             {/* Fullscreen Toggle Button */}
             <button
@@ -1688,7 +1557,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
       )}
 
       {/* 4. MAIN WORKSPACE WITH OPTIONAL THUMBNAIL SIDEBAR */}
-      <div className="flex-1 relative min-h-0 w-full h-full bg-[#16161E] flex flex-row overflow-hidden" onClick={() => setShowZoomDropdown(false)}>
+      <div className="flex-1 relative min-h-0 w-full h-full bg-[#16161E] flex flex-row overflow-hidden">
         {/* Left Thumbnails Sidebar Drawer */}
         {showThumbnailSidebar && !isFullscreen && totalPages > 0 && (
           <div className="w-48 sm:w-56 md:w-60 bg-[#141624] border-r border-[#292E42] flex flex-col shrink-0 z-20 shadow-2xl animate-fade-in select-none">
