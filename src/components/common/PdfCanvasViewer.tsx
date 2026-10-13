@@ -799,7 +799,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <span className="px-2 py-0.5 rounded-lg bg-[#16161E] border border-[#292E42] font-mono text-[11px] font-bold text-[#C0CAF5] min-w-[70px] text-center">
+            <span className="px-2 py-0.5 rounded-lg bg-[#16161E] border border-[#292E42] tabular-nums text-[11px] font-bold text-[#C0CAF5] min-w-[70px] text-center">
               {numPages > 0 ? `${currentPage} / ${numPages}` : '...'}
             </span>
 
@@ -847,7 +847,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
             <button
               type="button"
               onClick={() => setScale(1.0)}
-              className="px-2 py-0.5 rounded-lg bg-[#24283B] text-[11px] font-mono font-bold text-[#7AA2F7] cursor-pointer"
+              className="px-2 py-0.5 rounded-lg bg-[#24283B] text-[11px] tabular-nums font-bold text-[#7AA2F7] cursor-pointer"
               title="100% Zoom"
             >
               {Math.round(scale * 100)}%
