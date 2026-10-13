@@ -37,6 +37,19 @@ describe('quizUtils', () => {
 This is a standard study note with paragraphs and formulas.
 `;
     expect(isQuizContent(normalNotes)).toBe(false);
+
+    const constitutionNotes = `
+## 2. Clause-wise detail
+### Article 15(2): Public places me entry aur use (Sabse unique clause)
+Isme kya kya aata hai:
+- (a) Shops, public restaurants, hotels, cinema halls
+- (b) Wells, tanks, bathing ghats, roads
+## Homework
+1. Article 15(1) aur 15(2) me 2 main differences likho.
+2. 15(4) kaun se case ke baad aaya aur kyun?
+`;
+    expect(isQuizContent(constitutionNotes)).toBe(false);
+    expect(parseQuizQuestions(constitutionNotes).questions.length).toBe(0);
   });
 
   it('parses questions, options, answer and explanation from Gemini output', () => {

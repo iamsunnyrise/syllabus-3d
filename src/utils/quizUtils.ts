@@ -31,15 +31,24 @@ export function extractGeminiShareUrl(input: string): string | null {
 
 /**
  * Checks if the given text contains a quiz structure (questions, options A-D, answers).
+ * Must not false-positive on regular study notes that have subclauses like (a), (b) or numbered questions.
  */
 export function isQuizContent(text: string): boolean {
   if (!text) return false;
+  // 1. Explicit quiz callout created by quiz generator or quiz markdown template
   const hasQuizCallout = />\s*\[!QUIZ\]/i.test(text);
-  const hasMultipleQuestions = (text.match(/(?:(?:###\s*(?:Q|Question)\s*\d+)|(?:\b(?:Q|Question)\s*\d+[:.])|(?:\b\d+\.\s+[^\n]+\?))/gi) || []).length >= 1;
-  const hasOptions = (text.match(/(?:^[ \t]*(?:[-*]\s*)?[\(\[]?[A-D][\)\]][\s.:])/gmi) || []).length >= 2;
-  const hasAnswer = /(?:(?:\*\*|#|\b)(?:Correct\s*)?Answer\s*[:*]+)/i.test(text);
+  if (hasQuizCallout) return true;
 
-  return hasQuizCallout || (hasMultipleQuestions && hasOptions) || (hasOptions && hasAnswer);
+  // 2. Strict quiz detection for pasted text:
+  // Must have dedicated question identifiers (e.g. "Q1:", "Question 1:", "### Q1:")
+  const questionCount = (text.match(/(?:^[ \t]*(?:###\s*)?(?:Q|Question|MCQ)\s*\d+[:.]|\bQuestion\s*\d+[:.])/gmi) || []).length;
+  // Must have multiple choice options (e.g. A) Option, - [A] Option, (A) Option)
+  const optionCount = (text.match(/^[ \t]*(?:[-*]\s*)?[\(\[]?[A-D][\)\]][\s.:\t]+/gmi) || []).length;
+  // Must have explicit answer markers (e.g. **Answer:** B, Correct Answer: C, Ans: A)
+  const answerCount = (text.match(/(?:(?:\*\*|__|\b)(?:Correct\s*)?Ans(?:wer)?(?:\*\*|__)?\s*[:*]+\s*[\(\[]?[A-Ea-e][\)\]]?)/gmi) || []).length;
+
+  // A document without [!QUIZ] is ONLY a quiz if it has explicit questions, options, AND answers
+  return (questionCount >= 1 && optionCount >= 2 && answerCount >= 1);
 }
 
 /**
@@ -67,8 +76,10 @@ export function parseQuizQuestions(markdown: string): ParsedQuiz {
   let currentExplanation = '';
   let isParsingExplanation = false;
 
+  const hasQuizCallout = />\s*\[!QUIZ\]/i.test(markdown);
+
   const finalizeCurrentQuestion = () => {
-    if (currentQuestion && currentQuestion.question && currentOptions.length >= 2) {
+    if (currentQuestion && currentQuestion.question && currentOptions.length >= 2 && (currentQuestion.correctAnswer || hasQuizCallout)) {
       questions.push({
         id: `q-${questions.length + 1}`,
         index: questions.length + 1,
@@ -97,10 +108,10 @@ export function parseQuizQuestions(markdown: string): ParsedQuiz {
     }
 
     // Check for start of a new question:
-    // Matches: "### Q1: ...", "### Question 1: ...", "1. Question ...?", "Q1. Question ...", "1) Question ..."
-    const questionMatch = line.match(/^(?:###\s*)?(?:(?:Q|Question)\s*(\d+)[:.]?\s*|\b(\d+)[\.\)]\s+)(.+)$/i);
+    // Matches: "### Q1: ...", "### Question 1: ...", "Q1. ...", "Question 1: ...", "1. Question ...?"
+    const questionMatch = line.match(/^(?:###\s*)?(?:(?:Q|Question|MCQ)\s*(\d+)[:.]?\s*(.*)|\b(\d+)[\.\)]\s+([^\n]+\?)\s*)$/i);
     const isNewQuestionHeading = Boolean(
-      (line.startsWith('###') && (line.toLowerCase().includes('q') || line.toLowerCase().includes('question'))) ||
+      (line.match(/^###\s*(?:Q|Question|MCQ)\b/i)) ||
       questionMatch
     );
 
@@ -109,9 +120,9 @@ export function parseQuizQuestions(markdown: string): ParsedQuiz {
 
       let qText = '';
       if (questionMatch) {
-        qText = questionMatch[3] || questionMatch[0];
+        qText = questionMatch[2] || questionMatch[4] || questionMatch[0];
       } else {
-        qText = line.replace(/^###\s*(?:Q|Question\s*\d+[:.]?)?\s*/i, '');
+        qText = line.replace(/^###\s*(?:(?:Q|Question|MCQ)\s*\d+[:.]?)?\s*/i, '');
       }
 
       currentQuestion = {
