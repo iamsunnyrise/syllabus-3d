@@ -277,7 +277,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
   <title>${escapeHtml(topicName)} - Academic Notes PDF</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 
     @page {
       size: A4 portrait;
@@ -395,7 +395,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .exam-tag {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'DM Mono', monospace;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
@@ -510,7 +510,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .callout-body p {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'DM Mono', monospace;
       font-size: 12.5px;
       line-height: 1.6;
       margin-bottom: 4px;
@@ -672,7 +672,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .printable-code {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'DM Mono', monospace;
       font-size: 12px;
       padding: 2px 6px;
       background: #F1F5F9;
@@ -697,7 +697,7 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       align-items: center;
       font-size: 11px;
       color: #94A3B8;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'DM Mono', monospace;
       break-inside: avoid;
       page-break-inside: avoid;
     }

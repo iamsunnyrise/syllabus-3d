@@ -572,7 +572,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   const getTimerFontClass = () => {
     if (timerFont === 'orbitron') return 'font-orbitron tracking-wider';
-    if (timerFont === 'jetbrains') return 'font-mono [font-feature-settings:"zero"_0] tracking-tight';
+    if (timerFont === 'jetbrains') return 'font-mono tracking-tight';
     return 'font-roboto-mono tracking-tight';
   };
 
@@ -1866,7 +1866,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 </label>
                 <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10">
                   {[
-                    { id: 'jetbrains', label: 'JetBrains', sub: 'Practical', fontClass: 'font-mono' },
+                    { id: 'jetbrains', label: 'DM Mono', sub: 'Clean & Open 0', fontClass: 'font-mono' },
                     { id: 'roboto-mono', label: 'Roboto', sub: 'Clean Digital', fontClass: 'font-roboto-mono' },
                     { id: 'orbitron', label: 'Orbitron', sub: 'Futuristic', fontClass: 'font-orbitron' }
                   ].map(f => (

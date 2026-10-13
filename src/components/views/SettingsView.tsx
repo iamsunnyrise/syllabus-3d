@@ -1874,9 +1874,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   {[
                     {
                       id: 'jetbrains',
-                      name: 'JetBrains Mono',
-                      tag: 'Practical',
-                      desc: 'Developer precision & balanced monospace glyphs',
+                      name: 'DM Mono',
+                      tag: 'Clean Minimal',
+                      desc: 'Clean geometric numbers with open zero and high clarity',
                       preview: '25:00',
                       fontClass: 'font-mono'
                     },

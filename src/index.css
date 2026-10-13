@@ -3,7 +3,7 @@
    Primary Body & Interface: Inter (Tall x-height, maximum legibility)
    Study Dashboard & Headings: Space Grotesk Bold (Crisp, modern, geometric)
    Pricing & Subscriptions: Sora ExtraBold & Manrope ExtraBold
-   Timers & Precision Counters: JetBrains Mono / Roboto Mono / Orbitron
+   Timers & Precision Counters: DM Mono / Roboto Mono / Orbitron
    ═══════════════════════════════════════════════════════════════ */
 
 @tailwind base;
@@ -874,7 +874,7 @@
     line-height: 1.25;
   }
 
-  /* Unified 3-Family Typography Scale (Inter, Plus Jakarta Sans, JetBrains Mono) */
+  /* Unified 3-Family Typography Scale (Inter, Plus Jakarta Sans, DM Mono) */
   .font-serif, [class*="font-serif"], .font-book {
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
@@ -1149,9 +1149,15 @@
   }
 
   /* Tabular numbers for stats, timers, dates, and counters */
-  .font-mono, [class*="font-mono"], .tabular-nums, code, kbd {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  .tabular-nums {
     font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 0;
+  }
+
+  .font-mono, [class*="font-mono"], code, kbd {
+    font-family: 'DM Mono', 'Plus Jakarta Sans', 'Inter', ui-monospace, SFMono-Regular, monospace !important;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'zero' 0;
   }
 
   /* ♿ Accessibility: Clean, Visible Keyboard Focus-Visible Rings (WCAG 2.1 AA) */
