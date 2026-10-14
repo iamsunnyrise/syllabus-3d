@@ -2038,18 +2038,18 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const getThemeContainerClass = () => {
     switch (readerTheme) {
       case 'sepia':
-        return 'reader-theme-sepia book-page-sheet border shadow-md transition-all duration-300';
+        return 'reader-theme-sepia book-page-sheet border shadow-md transition-colors duration-200';
       case 'sage':
-        return 'reader-theme-sage book-page-sheet border shadow-md transition-all duration-300';
+        return 'reader-theme-sage book-page-sheet border shadow-md transition-colors duration-200';
       case 'candle':
-        return 'reader-theme-candle book-page-sheet border shadow-md transition-all duration-300';
+        return 'reader-theme-candle book-page-sheet border shadow-md transition-colors duration-200';
       case 'oled':
       case 'midnight':
-        return 'reader-theme-oled dark border shadow-2xl transition-all duration-300';
+        return 'reader-theme-oled dark border shadow-2xl transition-colors duration-200';
       case 'paper':
       case 'default':
       default:
-        return 'reader-theme-paper book-page-sheet border shadow-md transition-all duration-300';
+        return 'reader-theme-paper book-page-sheet border shadow-md transition-colors duration-200';
     }
   };
 
@@ -5936,16 +5936,16 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       {/* 📄 DOCUMENT DESK (Elevated Paper Canvas with Margins & Shadow) */}
       <div className={`w-full ${
         isDarkTheme && (viewMode === 'study' || viewMode === 'split')
-          ? 'bg-[#06070B] border-[#1C1E2A]'
+          ? 'bg-[#080A12]/80 border-[#1C1E2A]'
           : 'bg-slate-100/90 dark:bg-[#0A0D16] border-slate-200/90 dark:border-white/10'
-      } p-1 sm:p-7 md:p-8 ${showOfficeRuler ? 'sm:rounded-b-2xl sm:border-t-0 rounded-2xl' : 'rounded-2xl'} border flex flex-col items-center min-h-[420px] sm:min-h-[580px] relative transition-all shadow-inner overflow-x-auto print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
+      } ${viewMode === 'study' ? 'p-1 sm:p-3 md:p-4' : 'p-1 sm:p-6 md:p-7'} ${showOfficeRuler ? 'sm:rounded-b-2xl sm:border-t-0 rounded-2xl' : 'rounded-2xl'} border flex flex-col items-center ${viewMode === 'study' ? 'min-h-[380px]' : 'min-h-[420px] sm:min-h-[580px]'} relative transition-colors duration-200 shadow-inner overflow-visible print:bg-transparent print:p-0 print:border-none print:shadow-none`}>
         
         {/* 1. EDIT MODE: Elevated A4 Document Page */}
         {viewMode === 'edit' && (
           <div className="w-full flex justify-center print:hidden">
             <div
-              className={`w-full ${getReaderWidthClass()} bg-white dark:bg-[#14151E] rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-all origin-top my-1 sm:my-2 select-text`}
-              style={{ transform: `scale(${editorZoom / 100})`, minHeight: '540px' }}
+              className={`w-full ${getReaderWidthClass()} bg-white dark:bg-[#14151E] rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-colors duration-200 origin-top my-1 sm:my-2 select-text`}
+              style={editorZoom !== 100 ? { transform: `scale(${editorZoom / 100})`, minHeight: '540px' } : { minHeight: '540px' }}
             >
               {/* Document Running Header Watermark */}
               <div className="px-3.5 sm:px-10 pt-3.5 sm:pt-5 pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono select-none">
@@ -5988,7 +5988,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* 2. SPLIT LIVE VIEW: Side-by-Side Dual Sheets */}
         {viewMode === 'split' && (
-          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4 my-2 print:hidden" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
+          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4 my-2 print:hidden" style={editorZoom !== 100 ? { transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' } : undefined}>
             {/* Left Sheet: Markdown Editor */}
             <div className="bg-white dark:bg-[#14151E] rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px]">
               <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500 font-bold uppercase select-none">
@@ -6039,10 +6039,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* 3. STUDY MODE: Magazine-Quality Elevated A4 Reading Paper */}
         {viewMode === 'study' && (
-          <div className={`w-full ${getReaderWidthClass()} my-2 select-text`} style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
-            <div className={`relative rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-all ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
+          <div className={`w-full ${getReaderWidthClass()} my-1 sm:my-2 select-text`} style={editorZoom !== 100 ? { transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' } : undefined}>
+            <div className={`relative rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-colors duration-200 ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
               {/* Study Sheet Header */}
-              <div className={`px-4 sm:px-12 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b ${
+              <div className={`px-4 sm:px-10 pt-4 sm:pt-5 pb-3 sm:pb-3.5 border-b ${
                 isDarkTheme
                   ? 'border-slate-800 text-slate-400'
                   : 'border-slate-200/50 dark:border-slate-700/50 text-slate-400'
@@ -6060,7 +6060,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               </div>
 
               {/* Formatted Notes Content */}
-              <div className="p-4 sm:p-12 md:p-14 min-h-[380px] sm:min-h-[580px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
+              <div className="p-4 sm:p-10 md:p-12 min-h-[320px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
                 {renderedFormattedNotes}
               </div>
 
