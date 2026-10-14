@@ -39,7 +39,10 @@ export function isQuizContent(text: string): boolean {
   const hasQuizCallout = />\s*\[!QUIZ\]/i.test(text);
   if (hasQuizCallout) return true;
 
-  // 2. Strict quiz detection for pasted text:
+  // 2. Explicit quiz title at top of document
+  const isDedicatedQuizDocument = /^#\s+.*(?:Quiz|MCQ|Practice\s*Questions|Test\s*Series)/im.test(text);
+
+  // 3. Strict quiz detection for pasted text:
   // Must have dedicated question identifiers (e.g. "Q1:", "Question 1:", "### Q1:")
   const questionCount = (text.match(/(?:^[ \t]*(?:###\s*)?(?:Q|Question|MCQ)\s*\d+[:.]|\bQuestion\s*\d+[:.])/gmi) || []).length;
   // Must have multiple choice options (e.g. A) Option, - [A] Option, (A) Option)
@@ -47,8 +50,20 @@ export function isQuizContent(text: string): boolean {
   // Must have explicit answer markers (e.g. **Answer:** B, Correct Answer: C, Ans: A)
   const answerCount = (text.match(/(?:(?:\*\*|__|\b)(?:Correct\s*)?Ans(?:wer)?(?:\*\*|__)?\s*[:*]+\s*[\(\[]?[A-Ea-e][\)\]]?)/gmi) || []).length;
 
-  // A document without [!QUIZ] is ONLY a quiz if it has explicit questions, options, AND answers
-  return (questionCount >= 1 && optionCount >= 2 && answerCount >= 1);
+  const hasMinimumQuizStructure = (questionCount >= 1 && optionCount >= 2 && answerCount >= 1);
+  if (!hasMinimumQuizStructure) return false;
+
+  // 🛡️ CRITICAL GUARD: Long structured study notes with substantial non-quiz sections (e.g. Gemini notes with 1-2 practice questions at bottom)
+  // must NEVER be hijacked into an interactive quiz station that hides all the user's notes!
+  if (!isDedicatedQuizDocument) {
+    const hasMajorStudyHeadings = (text.match(/^##\s+(?!(?:Q|Question|MCQ|Practice|Quiz)\b).+$/gm) || []).length >= 2;
+    const hasTables = text.includes('|') && (text.match(/\|.*\|/g) || []).length >= 3;
+    if (text.length > 800 && (questionCount < 3 || hasMajorStudyHeadings || hasTables)) {
+      return false; // It's a comprehensive study note! Keep it as study notes.
+    }
+  }
+
+  return true;
 }
 
 /**

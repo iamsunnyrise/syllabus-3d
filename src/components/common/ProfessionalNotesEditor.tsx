@@ -222,12 +222,15 @@ const NoteTabsTrack: React.FC<NoteTabsTrackProps> = React.memo(({
     if (!el) return;
 
     el.addEventListener('scroll', checkScroll, { passive: true });
-    const ro = new ResizeObserver(() => checkScroll());
-    ro.observe(el);
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => checkScroll());
+      ro.observe(el);
+    }
 
     return () => {
       el.removeEventListener('scroll', checkScroll);
-      ro.disconnect();
+      if (ro) ro.disconnect();
     };
   }, [checkScroll, noteItems.length]);
 
@@ -865,7 +868,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     }
 
     debounceTimerRef.current = setTimeout(() => {
-      onSave(newText, updatedItems);
+      onSave(repairedText, updatedItems);
       setSaveStatus('saved');
       setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }, 600);
@@ -1295,25 +1298,26 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // Sync canvas dimensions with notes text container
   const updateCanvasSize = useCallback((canvas: HTMLCanvasElement | null, container: HTMLElement | null) => {
     if (!canvas || !container) return;
+    if (highlighterMode !== 'freefall' && strokes.length === 0) return;
     const rect = container.getBoundingClientRect();
     const scrollW = Math.max(container.scrollWidth, rect.width);
-    const scrollH = Math.max(container.scrollHeight, rect.height);
+    const scrollH = Math.min(8192, Math.max(container.scrollHeight, rect.height));
 
     if (canvas.width !== scrollW || canvas.height !== scrollH) {
       canvas.width = scrollW;
       canvas.height = scrollH;
       redrawCanvas(canvas);
     }
-  }, [redrawCanvas]);
+  }, [highlighterMode, strokes.length, redrawCanvas]);
 
   useEffect(() => {
-    if (viewMode === 'study') {
+    if (viewMode === 'study' && (highlighterMode === 'freefall' || strokes.length > 0)) {
       const activeCanvas = isFullscreen ? fullscreenCanvasRef.current : canvasRef.current;
       const activeContainer = isFullscreen ? fsNotesContainerRef.current : notesContainerRef.current;
       updateCanvasSize(activeCanvas, activeContainer);
       redrawCanvas(activeCanvas);
     }
-  }, [strokes, isFullscreen, viewMode, activeNoteId, updateCanvasSize, redrawCanvas]);
+  }, [strokes, isFullscreen, viewMode, activeNoteId, highlighterMode, updateCanvasSize, redrawCanvas]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     if (highlighterMode !== 'freefall' || !isHighlighterActive) return;
@@ -1437,6 +1441,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
   // Direct Screenshot / Image & Smart AI Table/Formula Paste Handler (Ctrl + V)
   const handlePaste = async (e: React.ClipboardEvent) => {
+    e.stopPropagation();
     // 1. Check for image / screenshot paste first
     const items = e.clipboardData?.items;
     if (items) {
@@ -2199,21 +2204,35 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const parseInlineMarkdown = (text: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
     if (!text) return [];
 
-    // Pre-repair malformed arrows and LaTeX artifacts (e.g. $ ightarrow$, $\rightarrow$, etc.)
-    const cleanArrowText = text
-      .replace(/\$\s*(?:\\)?r?ightarrow\s*\$/gi, ' → ')
-      .replace(/\\rightarrow/g, ' → ')
-      .replace(/\$\s*\\?leftarrow\s*\$/gi, ' ← ')
-      .replace(/\\leftarrow/g, ' ← ')
-      .replace(/\$\s*\\?Longleftrightarrow\s*\$/gi, ' ⟺ ')
-      .replace(/\\Longleftrightarrow/g, ' ⟺ ')
-      .replace(/(\s*)\$\s*ightarrow\s*\$(\s*)/gi, ' → ')
-      .replace(/\$\s*ightarrow\s*/gi, ' → ')
-      .replace(/\s*ightarrow\s*\$/gi, ' → ')
-      .replace(/\s*→\s*/g, ' → ');
+    // FAST-PATH: If text has no markdown indicators, bypass all regex splits, replaces, and DOM allocations
+    if (!/[*_`~$==⏱️\\]/.test(text)) {
+      return [text];
+    }
+
+    // Pre-repair malformed arrows and LaTeX artifacts (only if relevant chars exist)
+    let cleanArrowText = text;
+    if (text.includes('$') || text.includes('\\') || text.includes('ightarrow')) {
+      cleanArrowText = text
+        .replace(/\$\s*(?:\\)?r?ightarrow\s*\$/gi, ' → ')
+        .replace(/\\rightarrow/g, ' → ')
+        .replace(/\$\s*\\?leftarrow\s*\$/gi, ' ← ')
+        .replace(/\\leftarrow/g, ' ← ')
+        .replace(/\$\s*\\?Longleftrightarrow\s*\$/gi, ' ⟺ ')
+        .replace(/\\Longleftrightarrow/g, ' ⟺ ')
+        .replace(/(\s*)\$\s*ightarrow\s*\$(\s*)/gi, ' → ')
+        .replace(/\$\s*ightarrow\s*/gi, ' → ')
+        .replace(/\s*ightarrow\s*\$/gi, ' → ')
+        .replace(/\s*→\s*/g, ' → ');
+    }
 
     // Pre-repair malformed highlight tags (e.g. ==b:==Text==== -> ==b:Text==)
-    const sanitizedText = repairMalformedHighlights(cleanArrowText);
+    const sanitizedText = cleanArrowText.includes('==')
+      ? repairMalformedHighlights(cleanArrowText)
+      : cleanArrowText;
+
+    if (!/[*_`~$==⏱️\\]/.test(sanitizedText)) {
+      return [sanitizedText];
+    }
 
     // HIGHLIGHT MUST COME FIRST so bold/code inside highlights don't break the == tags!
     const tokenRegex = /(==+[\s\S]+?==+|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/g;
@@ -3397,6 +3416,31 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     );
   };
 
+  // Memoized formatted notes document to prevent expensive synchronous re-parsing on unrelated renders
+  const renderedFormattedNotes = React.useMemo(() => {
+    return renderFormattedNotes();
+  }, [
+    content,
+    images,
+    activeNote.id,
+    activeNote.title,
+    promptCopied,
+    userQuizAnswers,
+    readerFontSize,
+    readerFontFamily,
+    readerLayout,
+    readerLineHeight,
+    readerTheme,
+    readerWidth,
+    isDarkTheme,
+    codeCopiedIdx,
+    readingProgress,
+    topicName,
+    subjectName,
+    chapterName,
+    examName
+  ]);
+
   const wordCount = content.trim().length > 0 ? content.trim().split(/\s+/).length : 0;
   const charCount = content.length;
 
@@ -4535,25 +4579,27 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             {viewMode === 'study' && (
               <div className="relative" ref={fsNotesContainerRef}>
                 <div className={`p-6 sm:p-12 rounded-3xl ${getThemeContainerClass()} min-h-[70vh] select-text cursor-text relative z-10`} style={getThemeInlineStyle()}>
-                  {renderFormattedNotes(getFontSizeClass())}
+                  {renderedFormattedNotes}
                 </div>
 
                 {/* Freefall Canvas Overlay */}
-                <canvas
-                  ref={fullscreenCanvasRef}
-                  onMouseDown={startDrawing}
-                  onMouseMove={drawMove}
-                  onMouseUp={endDrawing}
-                  onMouseLeave={endDrawing}
-                  onTouchStart={startDrawing}
-                  onTouchMove={drawMove}
-                  onTouchEnd={endDrawing}
-                  className={`absolute inset-0 z-20 rounded-3xl ${
-                    highlighterMode === 'freefall' && isHighlighterActive
-                      ? 'pointer-events-auto cursor-crosshair'
-                      : 'pointer-events-none'
-                  }`}
-                />
+                {(highlighterMode === 'freefall' || strokes.length > 0) && (
+                  <canvas
+                    ref={fullscreenCanvasRef}
+                    onMouseDown={startDrawing}
+                    onMouseMove={drawMove}
+                    onMouseUp={endDrawing}
+                    onMouseLeave={endDrawing}
+                    onTouchStart={startDrawing}
+                    onTouchMove={drawMove}
+                    onTouchEnd={endDrawing}
+                    className={`absolute inset-0 z-20 rounded-3xl ${
+                      highlighterMode === 'freefall' && isHighlighterActive
+                        ? 'pointer-events-auto cursor-crosshair'
+                        : 'pointer-events-none'
+                    }`}
+                  />
+                )}
               </div>
             )}
 
@@ -4564,7 +4610,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   onChange={e => updateContentAndSave(e.target.value)}
                   onPaste={handlePaste}
                   onKeyDown={handleEditorKeyDown}
-                  onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
+                  onInput={(e) => { const el = e.currentTarget; requestAnimationFrame(() => { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }); }}
                   style={{ minHeight: '200px', height: 'auto' }}
                   rows={8}
                   className={`w-full p-6 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] ${
@@ -4581,7 +4627,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   onChange={e => updateContentAndSave(e.target.value)}
                   onPaste={handlePaste}
                   onKeyDown={handleEditorKeyDown}
-                  onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}
+                  onInput={(e) => { const el = e.currentTarget; requestAnimationFrame(() => { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }); }}
                   style={{ minHeight: '200px', height: 'auto' }}
                   rows={8}
                   className={`w-full p-5 rounded-3xl bg-white dark:bg-[#12131C] border border-[#E2E8F0] dark:border-[#272730] ${
@@ -4589,7 +4635,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   } text-[#11120F] dark:text-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#2563EB] shadow-sm resize-none`}
                 />
                 <div className={`p-6 rounded-3xl ${getThemeContainerClass()} overflow-y-auto max-h-[80vh] custom-scrollbar select-text`} style={getThemeInlineStyle()}>
-                  {renderFormattedNotes(getFontSizeClass())}
+                  {renderedFormattedNotes}
                 </div>
               </div>
             )}
@@ -5896,7 +5942,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         
         {/* 1. EDIT MODE: Elevated A4 Document Page */}
         {viewMode === 'edit' && (
-          <div className="w-full flex justify-center print:hidden" onPaste={handlePaste}>
+          <div className="w-full flex justify-center print:hidden">
             <div
               className={`w-full ${getReaderWidthClass()} bg-white dark:bg-[#14151E] rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col transition-all origin-top my-1 sm:my-2 select-text`}
               style={{ transform: `scale(${editorZoom / 100})`, minHeight: '540px' }}
@@ -5922,7 +5968,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 onChange={e => updateContentAndSave(e.target.value)}
                 onPaste={handlePaste}
                 onKeyDown={handleEditorKeyDown}
-                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(420, el.scrollHeight) + 'px'; }}
+                onInput={(e) => { const el = e.currentTarget; requestAnimationFrame(() => { el.style.height = 'auto'; el.style.height = Math.max(420, el.scrollHeight) + 'px'; }); }}
                 style={{ minHeight: '420px', height: 'auto' }}
                 placeholder={`Paste your notes from Gemini, ChatGPT, or Claude here, or write your own!\n\n✨ Notion AI Studio: After pasting, click "✨ Notion AI" in the ribbon above or press Ctrl+J to choose from 6 formats (Notion Master, Cornell, Active Recall Q&A, Speed Cheat Sheet, Deep Outline, Zero-Loss Normalizer) with 100% data preservation!\n\n> [!FORMULA]\n> Your formulas here\n\n> [!TIP]\n> Your shortcuts here\n\n> [!WARNING]\n> Exam traps here\n\n- [ ] Checklist items`}
                 rows={12}
@@ -5942,7 +5988,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* 2. SPLIT LIVE VIEW: Side-by-Side Dual Sheets */}
         {viewMode === 'split' && (
-          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4 my-2 print:hidden" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }} onPaste={handlePaste}>
+          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4 my-2 print:hidden" style={{ transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' }}>
             {/* Left Sheet: Markdown Editor */}
             <div className="bg-white dark:bg-[#14151E] rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px]">
               <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500 font-bold uppercase select-none">
@@ -5955,7 +6001,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 onChange={e => updateContentAndSave(e.target.value)}
                 onPaste={handlePaste}
                 onKeyDown={handleEditorKeyDown}
-                onInput={(e) => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.max(500, el.scrollHeight) + 'px'; }}
+                onInput={(e) => { const el = e.currentTarget; requestAnimationFrame(() => { el.style.height = 'auto'; el.style.height = Math.max(500, el.scrollHeight) + 'px'; }); }}
                 style={{ minHeight: '500px', height: 'auto' }}
                 placeholder="Type or paste markdown..."
                 rows={10}
@@ -5976,7 +6022,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 <span>{activeNote.title}</span>
               </div>
               <div className="flex-1 p-5 overflow-y-auto max-h-[620px] custom-scrollbar select-text">
-                {renderFormattedNotes()}
+                {renderedFormattedNotes}
               </div>
             </div>
           </div>
@@ -5986,7 +6032,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {viewMode !== 'study' && (
           <div className="hidden print:block space-y-4 w-full">
             <div className="p-0 select-text">
-              {renderFormattedNotes()}
+              {renderedFormattedNotes}
             </div>
           </div>
         )}
@@ -6015,25 +6061,27 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
               {/* Formatted Notes Content */}
               <div className="p-4 sm:p-12 md:p-14 min-h-[380px] sm:min-h-[580px] select-text cursor-text relative z-10 print:p-0 print:border-none print:shadow-none">
-                {renderFormattedNotes()}
+                {renderedFormattedNotes}
               </div>
 
-              {/* Freefall Canvas Overlay (Hidden in print) */}
-              <canvas
-                ref={canvasRef}
-                onMouseDown={startDrawing}
-                onMouseMove={drawMove}
-                onMouseUp={endDrawing}
-                onMouseLeave={endDrawing}
-                onTouchStart={startDrawing}
-                onTouchMove={drawMove}
-                onTouchEnd={endDrawing}
-                className={`absolute inset-0 z-20 print:hidden ${
-                  highlighterMode === 'freefall' && isHighlighterActive
-                    ? 'pointer-events-auto cursor-crosshair'
-                    : 'pointer-events-none'
-                }`}
-              />
+              {/* Freefall Canvas Overlay (Mounted only when using freefall highlighter or strokes exist) */}
+              {(highlighterMode === 'freefall' || strokes.length > 0) && (
+                <canvas
+                  ref={canvasRef}
+                  onMouseDown={startDrawing}
+                  onMouseMove={drawMove}
+                  onMouseUp={endDrawing}
+                  onMouseLeave={endDrawing}
+                  onTouchStart={startDrawing}
+                  onTouchMove={drawMove}
+                  onTouchEnd={endDrawing}
+                  className={`absolute inset-0 z-20 print:hidden ${
+                    highlighterMode === 'freefall' && isHighlighterActive
+                      ? 'pointer-events-auto cursor-crosshair'
+                      : 'pointer-events-none'
+                  }`}
+                />
+              )}
             </div>
           </div>
         )}
