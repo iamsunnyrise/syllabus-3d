@@ -988,6 +988,46 @@
     color: #231204 !important;
     font-weight: 900 !important;
   }
+  /* Sepia Table Styling - 100% Contrast & Warm Elegance */
+  .reader-theme-sepia table,
+  html.dark .reader-theme-sepia table,
+  .reader-theme-sepia .table-container-box,
+  html.dark .reader-theme-sepia .table-container-box {
+    background-color: #FDF9F2 !important;
+    border-color: #DFCDB2 !important;
+    color: #2E1E0F !important;
+  }
+  .reader-theme-sepia .table-header-bar,
+  html.dark .reader-theme-sepia .table-header-bar {
+    background-color: #EDE0C8 !important;
+    border-color: #DFCDB2 !important;
+    color: #6B4B24 !important;
+  }
+  .reader-theme-sepia th,
+  html.dark .reader-theme-sepia th {
+    background-color: #EADBC3 !important;
+    color: #231204 !important;
+    border-color: #DFCDB2 !important;
+    font-weight: 900 !important;
+  }
+  .reader-theme-sepia td,
+  html.dark .reader-theme-sepia td {
+    color: #2E1E0F !important;
+    border-color: rgba(223, 205, 178, 0.6) !important;
+  }
+  .reader-theme-sepia tbody tr:nth-child(even),
+  html.dark .reader-theme-sepia tbody tr:nth-child(even) {
+    background-color: #F5EBD7 !important;
+  }
+  .reader-theme-sepia tbody tr:nth-child(odd),
+  html.dark .reader-theme-sepia tbody tr:nth-child(odd) {
+    background-color: #FDF9F2 !important;
+  }
+  .reader-theme-sepia td strong,
+  html.dark .reader-theme-sepia td strong {
+    color: #1A0C02 !important;
+    font-weight: 900 !important;
+  }
 
   /* 3. 🌿 Sage Mint (Eye Fatigue Relief) */
   .reader-theme-sage,
@@ -1040,6 +1080,46 @@
     color: #0E2813 !important;
     font-weight: 900 !important;
   }
+  /* Sage Table Styling */
+  .reader-theme-sage table,
+  html.dark .reader-theme-sage table,
+  .reader-theme-sage .table-container-box,
+  html.dark .reader-theme-sage .table-container-box {
+    background-color: #F7FAF6 !important;
+    border-color: #BED8BC !important;
+    color: #143019 !important;
+  }
+  .reader-theme-sage .table-header-bar,
+  html.dark .reader-theme-sage .table-header-bar {
+    background-color: #DFECE0 !important;
+    border-color: #BED8BC !important;
+    color: #1B4D22 !important;
+  }
+  .reader-theme-sage th,
+  html.dark .reader-theme-sage th {
+    background-color: #D6E6D7 !important;
+    color: #0E2813 !important;
+    border-color: #BED8BC !important;
+    font-weight: 900 !important;
+  }
+  .reader-theme-sage td,
+  html.dark .reader-theme-sage td {
+    color: #143019 !important;
+    border-color: rgba(190, 216, 188, 0.6) !important;
+  }
+  .reader-theme-sage tbody tr:nth-child(even),
+  html.dark .reader-theme-sage tbody tr:nth-child(even) {
+    background-color: #EBF3EA !important;
+  }
+  .reader-theme-sage tbody tr:nth-child(odd),
+  html.dark .reader-theme-sage tbody tr:nth-child(odd) {
+    background-color: #F7FAF6 !important;
+  }
+  .reader-theme-sage td strong,
+  html.dark .reader-theme-sage td strong {
+    color: #081B0C !important;
+    font-weight: 900 !important;
+  }
 
   /* 4. 🕯️ Candlelight Amber (Night Study) */
   .reader-theme-candle,
@@ -1090,6 +1170,46 @@
   .reader-theme-candle div[class*="border-l-4"] h2,
   .reader-theme-candle div[class*="border-l-4"] h2 * {
     color: #261202 !important;
+    font-weight: 900 !important;
+  }
+  /* Candle Table Styling */
+  .reader-theme-candle table,
+  html.dark .reader-theme-candle table,
+  .reader-theme-candle .table-container-box,
+  html.dark .reader-theme-candle .table-container-box {
+    background-color: #FDFBF7 !important;
+    border-color: #E8D4BE !important;
+    color: #351E0A !important;
+  }
+  .reader-theme-candle .table-header-bar,
+  html.dark .reader-theme-candle .table-header-bar {
+    background-color: #F0E0CE !important;
+    border-color: #E8D4BE !important;
+    color: #6E3B12 !important;
+  }
+  .reader-theme-candle th,
+  html.dark .reader-theme-candle th {
+    background-color: #EAD5BE !important;
+    color: #261202 !important;
+    border-color: #E8D4BE !important;
+    font-weight: 900 !important;
+  }
+  .reader-theme-candle td,
+  html.dark .reader-theme-candle td {
+    color: #351E0A !important;
+    border-color: rgba(232, 212, 190, 0.6) !important;
+  }
+  .reader-theme-candle tbody tr:nth-child(even),
+  html.dark .reader-theme-candle tbody tr:nth-child(even) {
+    background-color: #F6ECE0 !important;
+  }
+  .reader-theme-candle tbody tr:nth-child(odd),
+  html.dark .reader-theme-candle tbody tr:nth-child(odd) {
+    background-color: #FDFBF7 !important;
+  }
+  .reader-theme-candle td strong,
+  html.dark .reader-theme-candle td strong {
+    color: #1A0B01 !important;
     font-weight: 900 !important;
   }
 

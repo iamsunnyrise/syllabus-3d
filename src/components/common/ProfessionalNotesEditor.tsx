@@ -2199,7 +2199,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     if (!text) return [];
 
     // FAST-PATH: If text has no markdown indicators, bypass all regex splits, replaces, and DOM allocations
-    if (!/[*_`~$==⏱️\\]/.test(text)) {
+    if (!/[*_`~$==⏱️\\<]/.test(text)) {
       return [text];
     }
 
@@ -2224,17 +2224,22 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       ? repairMalformedHighlights(cleanArrowText)
       : cleanArrowText;
 
-    if (!/[*_`~$==⏱️\\]/.test(sanitizedText)) {
+    if (!/[*_`~$==⏱️\\<]/.test(sanitizedText)) {
       return [sanitizedText];
     }
 
     // HIGHLIGHT MUST COME FIRST so bold/code inside highlights don't break the == tags!
-    const tokenRegex = /(==+[\s\S]+?==+|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/g;
+    const tokenRegex = /(<br\s*\/?>|==+[\s\S]+?==+|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|~~[^~]+~~|\$\$[^\$]+\$\$|\$[^\$]+\$|\\\([^\\]+\\\)|⏱️\s*(?:\[\d{1,2}:\d{2}(?::\d{2})?\]|\d{1,2}:\d{2}(?::\d{2})?))/gi;
     const parts = sanitizedText.split(tokenRegex);
 
     return parts.map((part, index) => {
       const k = `${keyPrefix}-${index}`;
       if (!part) return null;
+
+      // HTML <br> / <br/> / <BR> Line Breaks
+      if (/^<br\s*\/?>$/i.test(part)) {
+        return <br key={k} />;
+      }
 
       // Multi-Color Highlights (==text==, ==g:text==, ==p:text==, ==b:text==, ==r:text==)
       if (part.startsWith('==') && part.endsWith('==') && part.length >= 4) {
@@ -2866,15 +2871,83 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             return 'text-left';
           };
 
+          // Theme-aware Table Styles
+          let tableBoxStyle = 'border-[#E2E8F0] dark:border-[#272730] bg-white/95 dark:bg-[#12131A]/95';
+          let tableActionBarStyle = 'bg-slate-100/80 dark:bg-[#181926]/90 border-[#E2E8F0] dark:border-[#272730] text-slate-600 dark:text-slate-400';
+          let tableHeaderRowStyle = 'bg-slate-100/90 dark:bg-slate-800/80 border-[#E2E8F0] dark:border-[#272730] text-[#0F172A] dark:text-[#C0CAF5]';
+          let tableThBorder = 'border-[#E2E8F0]/60 dark:border-[#272730]/60';
+          let tableTbodyDivide = 'divide-[#E2E8F0]/50 dark:divide-[#272730]/60';
+          let tableRowEven = 'bg-transparent';
+          let tableRowOdd = 'bg-slate-50/60 dark:bg-[#161722]/40';
+          let tableRowHover = 'hover:bg-blue-500/5 dark:hover:bg-blue-400/5';
+          let tableTdBorder = 'border-[#E2E8F0]/40 dark:border-[#272730]/40';
+          let tableTdColor = isDarkTheme ? '#E2E8F0' : '#1E293B';
+          let tableCopyBtnStyle = 'bg-white/80 dark:bg-white/5 border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+          let tableIconColor = isDarkTheme ? 'text-[#7AA2F7]' : 'text-[#2563EB]';
+
+          if (readerTheme === 'sepia') {
+            tableBoxStyle = 'border-[#DECDB3] bg-[#FDF9F2] shadow-sm';
+            tableActionBarStyle = 'bg-[#EDE0C8] border-[#DECDB3] text-[#6B4B24]';
+            tableHeaderRowStyle = 'bg-[#EADBC3] border-[#DECDB3] text-[#231204]';
+            tableThBorder = 'border-[#DECDB3]';
+            tableTbodyDivide = 'divide-[#DECDB3]/60';
+            tableRowEven = 'bg-[#FDF9F2]';
+            tableRowOdd = 'bg-[#F5EBD7]';
+            tableRowHover = 'hover:bg-[#EADBC3]/60';
+            tableTdBorder = 'border-[#DECDB3]/50';
+            tableTdColor = '#2E1E0F';
+            tableCopyBtnStyle = 'bg-[#FAF1DF] border-[#DECDB3] text-[#6B4B24] hover:text-[#231204] hover:bg-[#EDE0C8]';
+            tableIconColor = 'text-amber-700';
+          } else if (readerTheme === 'sage') {
+            tableBoxStyle = 'border-[#BED8BC] bg-[#F7FAF6] shadow-sm';
+            tableActionBarStyle = 'bg-[#DFECE0] border-[#BED8BC] text-[#1B4D22]';
+            tableHeaderRowStyle = 'bg-[#D6E6D7] border-[#BED8BC] text-[#0E2813]';
+            tableThBorder = 'border-[#BED8BC]';
+            tableTbodyDivide = 'divide-[#BED8BC]/60';
+            tableRowEven = 'bg-[#F7FAF6]';
+            tableRowOdd = 'bg-[#EBF3EA]';
+            tableRowHover = 'hover:bg-[#D6E6D7]/60';
+            tableTdBorder = 'border-[#BED8BC]/50';
+            tableTdColor = '#143019';
+            tableCopyBtnStyle = 'bg-[#EDF5EC] border-[#BED8BC] text-[#1B4D22] hover:text-[#0E2813] hover:bg-[#DFECE0]';
+            tableIconColor = 'text-emerald-700';
+          } else if (readerTheme === 'candle') {
+            tableBoxStyle = 'border-[#E8D4BE] bg-[#FDFBF7] shadow-sm';
+            tableActionBarStyle = 'bg-[#F0E0CE] border-[#E8D4BE] text-[#6E3B12]';
+            tableHeaderRowStyle = 'bg-[#EAD5BE] border-[#E8D4BE] text-[#261202]';
+            tableThBorder = 'border-[#E8D4BE]';
+            tableTbodyDivide = 'divide-[#E8D4BE]/60';
+            tableRowEven = 'bg-[#FDFBF7]';
+            tableRowOdd = 'bg-[#F6ECE0]';
+            tableRowHover = 'hover:bg-[#EAD5BE]/60';
+            tableTdBorder = 'border-[#E8D4BE]/50';
+            tableTdColor = '#351E0A';
+            tableCopyBtnStyle = 'bg-[#FAF0E3] border-[#E8D4BE] text-[#6E3B12] hover:text-[#261202] hover:bg-[#F0E0CE]';
+            tableIconColor = 'text-orange-700';
+          } else if (readerTheme === 'oled' || readerTheme === 'midnight') {
+            tableBoxStyle = 'border-[#222533] bg-[#000000] shadow-md';
+            tableActionBarStyle = 'bg-[#0A0B10] border-[#222533] text-slate-400';
+            tableHeaderRowStyle = 'bg-[#10121A] border-[#222533] text-white';
+            tableThBorder = 'border-[#222533]';
+            tableTbodyDivide = 'divide-[#222533]';
+            tableRowEven = 'bg-[#000000]';
+            tableRowOdd = 'bg-[#08090E]';
+            tableRowHover = 'hover:bg-[#151722]';
+            tableTdBorder = 'border-[#1E202B]';
+            tableTdColor = '#F8FAFC';
+            tableCopyBtnStyle = 'bg-white/5 border-[#222533] text-slate-300 hover:text-white hover:bg-white/10';
+            tableIconColor = 'text-[#7AA2F7]';
+          }
+
           elements.push(
             <div
               key={'table-' + i}
-              className="my-5 rounded-2xl border border-[#E2E8F0] dark:border-[#272730] shadow-sm bg-white/90 dark:bg-[#12131A]/95 backdrop-blur-sm overflow-hidden [break-inside:avoid]"
+              className={`my-5 rounded-2xl border ${tableBoxStyle} backdrop-blur-sm overflow-hidden [break-inside:avoid] table-container-box`}
             >
               {/* Table Top Action Bar */}
-              <div className="flex items-center justify-between px-3.5 py-1.5 bg-slate-100/70 dark:bg-[#181926]/90 border-b border-[#E2E8F0] dark:border-[#272730] text-[11px] font-mono">
-                <span className="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5 uppercase tracking-wider">
-                  <TableIcon className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#7AA2F7]" />
+              <div className={`flex items-center justify-between px-3.5 py-1.5 border-b ${tableActionBarStyle} text-[11px] font-mono table-header-bar`}>
+                <span className="font-bold flex items-center gap-1.5 uppercase tracking-wider">
+                  <TableIcon className={`w-3.5 h-3.5 ${tableIconColor}`} />
                   Comparison Table ({dataRows.length} Rows)
                 </span>
                 <button
@@ -2883,7 +2956,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     navigator.clipboard.writeText(repaired);
                     soundManager.playClick();
                   }}
-                  className="inline-flex items-center gap-1 text-[10.5px] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-2 py-0.5 rounded bg-white/60 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 border border-slate-200 dark:border-slate-700/60 cursor-pointer transition-all active:scale-95"
+                  className={`inline-flex items-center gap-1 text-[10.5px] px-2 py-0.5 rounded border cursor-pointer transition-all active:scale-95 ${tableCopyBtnStyle}`}
                   title="Copy Markdown Table"
                 >
                   <Copy className="w-3 h-3" />
@@ -2895,30 +2968,30 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <div className="overflow-x-auto scrollbar-thin">
                 <table className="w-full border-collapse min-w-[380px] font-sans">
                   <thead>
-                    <tr className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/80 dark:to-slate-800/40 border-b border-[#E2E8F0] dark:border-[#272730] text-[11px] font-black uppercase tracking-wider text-[#11120F] dark:text-[#C0CAF5] font-mono">
+                    <tr className={`border-b text-[11px] font-black uppercase tracking-wider font-mono ${tableHeaderRowStyle}`}>
                       {rawHeaders.map((h, hIdx) => (
                         <th
                           key={hIdx}
-                          className={`py-3 px-4 font-black border-r border-[#E2E8F0]/50 dark:border-[#272730]/50 last:border-r-0 ${getAlignClass(alignments[hIdx])}`}
+                          className={`py-3 px-4 font-black border-r ${tableThBorder} last:border-r-0 ${getAlignClass(alignments[hIdx])}`}
                         >
                           {parseInlineMarkdown(h, `th-${i}-${hIdx}`)}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#E2E8F0]/40 dark:divide-[#272730]/60">
+                  <tbody className={`divide-y ${tableTbodyDivide}`}>
                     {dataRows.map((row, rIdx) => (
                       <tr
                         key={rIdx}
-                        className={`transition-colors hover:bg-[#2563EB]/5 dark:hover:bg-[#7AA2F7]/5 ${
-                          rIdx % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/50 dark:bg-[#161722]/40'
+                        className={`transition-colors ${tableRowHover} ${
+                          rIdx % 2 === 0 ? tableRowEven : tableRowOdd
                         }`}
                       >
                         {row.map((cell, cIdx) => (
                           <td
                             key={cIdx}
-                            style={{ lineHeight: spacing.lineHeight }}
-                            className={`${spacing.tableCellPadding} ${fontSize} font-medium border-r border-[#E2E8F0]/30 dark:border-[#272730]/30 last:border-r-0 ${spacing.lineHeightClass} ${getAlignClass(alignments[cIdx])}`}
+                            style={{ lineHeight: spacing.lineHeight, color: tableTdColor }}
+                            className={`${spacing.tableCellPadding} ${fontSize} font-medium border-r ${tableTdBorder} last:border-r-0 ${spacing.lineHeightClass} ${getAlignClass(alignments[cIdx])}`}
                           >
                             {parseInlineMarkdown(cell, `td-${i}-${rIdx}-${cIdx}`)}
                           </td>
@@ -3311,9 +3384,12 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           </div>
         );
       }
-      // 6. Bullet lists
-      else if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
-        const rawBullet = line.trim().substring(2);
+      // 6. Bullet lists (- item, * item, • item, · item, ▪ item, ▫ item, including lines wrapped in <br>)
+      else if (
+        line.trim().replace(/^(?:\s*<br\s*\/?>\s*)+/gi, '').match(/^([-*•·▪▫])\s+(.*)$/)
+      ) {
+        const cleanBulletLine = line.trim().replace(/^(?:\s*<br\s*\/?>\s*)+/gi, '').replace(/(?:\s*<br\s*\/?>\s*)+$/gi, '');
+        const rawBullet = cleanBulletLine.replace(/^[-*•·▪▫]\s+/, '');
         const bulletDotBg =
           readerTheme === 'sage'
             ? 'bg-emerald-600'
@@ -3354,10 +3430,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         );
       }
       // 7. Numbered lists (1. Item)
-      else if (/^\s*\d+\.\s+(.*)$/.test(line.trim())) {
-        const numMatch = line.trim().match(/^\s*(\d+)\.\s+(.*)$/);
+      else if (/^\s*(?:<br\s*\/?>\s*)?\d+\.\s+(.*)$/i.test(line.trim())) {
+        const cleanNumLine = line.trim().replace(/^(?:\s*<br\s*\/?>\s*)+/gi, '').replace(/(?:\s*<br\s*\/?>\s*)+$/gi, '');
+        const numMatch = cleanNumLine.match(/^\s*(\d+)\.\s+(.*)$/);
         const num = numMatch ? numMatch[1] : '1';
-        const numText = numMatch ? numMatch[2] : line.trim();
+        const numText = numMatch ? numMatch[2] : cleanNumLine;
         const numBadgeStyle =
           readerTheme === 'sage'
             ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
@@ -3409,8 +3486,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           </div>
         );
       }
-      // 9. Blank Line
-      else if (line.trim() === '') {
+      // 9. Blank Line or Standalone <br>
+      else if (line.trim() === '' || /^<br\s*\/?>$/i.test(line.trim())) {
         elements.push(<div key={i} className={spacing.blankLineHeight} />);
       }
       // 10. Inline Images
@@ -3471,6 +3548,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             ? '#F8FAFC'
             : '#1E293B';
 
+        const cleanParagraphText = line
+          .replace(/^(?:\s*<br\s*\/?>\s*)+/gi, '')
+          .replace(/(?:\s*<br\s*\/?>\s*)+$/gi, '');
+
         elements.push(
           <p
             key={i}
@@ -3481,7 +3562,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               isFirstParagraph && readerFontFamily === 'serif' ? 'book-drop-cap' : ''
             }`}
           >
-            {parseInlineMarkdown(line, `p-${i}`)}
+            {parseInlineMarkdown(cleanParagraphText, `p-${i}`)}
           </p>
         );
       }
@@ -4155,13 +4236,33 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   </div>
 
                   <div className="min-w-0">
-                    <div className={`flex items-center gap-2 text-[10px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono`}>
+                    <div className={`flex items-center gap-2 text-[10px] font-bold ${
+                      readerTheme === 'sepia'
+                        ? 'text-amber-900'
+                        : readerTheme === 'sage'
+                        ? 'text-emerald-900'
+                        : readerTheme === 'candle'
+                        ? 'text-orange-950'
+                        : isDarkTheme
+                        ? 'text-blue-400'
+                        : 'text-[#2563EB] dark:text-[#7AA2F7]'
+                    } truncate font-mono`}>
                       <span>{subjectName || 'Subject'}</span>
                       <span>•</span>
                       <span className="truncate">{chapterName || 'Chapter'}</span>
                     </div>
                     <h2 className={`text-xs sm:text-sm font-black truncate ${getFontFamilyClass()}`}>
-                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
+                      {topicName} • <span className={
+                        readerTheme === 'sepia'
+                          ? 'text-amber-800'
+                          : readerTheme === 'sage'
+                          ? 'text-emerald-800'
+                          : readerTheme === 'candle'
+                          ? 'text-orange-900'
+                          : isDarkTheme
+                          ? 'text-blue-400'
+                          : 'text-[#2563EB] dark:text-[#7AA2F7]'
+                      }>{activeNote.title}</span>
                     </h2>
                   </div>
                 </div>
@@ -4489,11 +4590,31 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <ArrowLeft className="w-4 h-4" />
                   </button>
                   <div className="min-w-0">
-                    <div className={`text-[10px] font-bold ${isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'} truncate font-mono leading-none`}>
+                    <div className={`text-[10px] font-bold ${
+                      readerTheme === 'sepia'
+                        ? 'text-amber-900'
+                        : readerTheme === 'sage'
+                        ? 'text-emerald-900'
+                        : readerTheme === 'candle'
+                        ? 'text-orange-950'
+                        : isDarkTheme
+                        ? 'text-blue-400'
+                        : 'text-[#2563EB] dark:text-[#7AA2F7]'
+                    } truncate font-mono leading-none`}>
                       {subjectName || 'Subject'} • {chapterName || 'Chapter'}
                     </div>
                     <h2 className={`text-xs font-black truncate leading-tight mt-0.5 ${getFontFamilyClass()}`}>
-                      {topicName} • <span className={isDarkTheme ? 'text-blue-400' : 'text-[#2563EB] dark:text-[#7AA2F7]'}>{activeNote.title}</span>
+                      {topicName} • <span className={
+                        readerTheme === 'sepia'
+                          ? 'text-amber-800'
+                          : readerTheme === 'sage'
+                          ? 'text-emerald-800'
+                          : readerTheme === 'candle'
+                          ? 'text-orange-900'
+                          : isDarkTheme
+                          ? 'text-blue-400'
+                          : 'text-[#2563EB] dark:text-[#7AA2F7]'
+                      }>{activeNote.title}</span>
                     </h2>
                   </div>
                 </div>
