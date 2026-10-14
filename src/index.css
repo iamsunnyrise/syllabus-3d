@@ -937,81 +937,160 @@
   }
 
   /* 2. 📜 Warm Kindle Sepia */
-  .reader-theme-sepia {
-    background-color: #F8EED8 !important;
-    color: #3C2E1E !important;
-    border-color: #E2CFAC !important;
-    box-shadow: 0 4px 20px -2px rgba(92, 64, 30, 0.1), inset 0 0 60px rgba(184, 138, 77, 0.05) !important;
-  }
+  /* 2. 📜 Warm Kindle Sepia */
+  .reader-theme-sepia,
   html.dark .reader-theme-sepia {
-    background-color: #241C15 !important;
-    color: #EAD8C3 !important;
-    border-color: #483726 !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6) !important;
+    background-color: #FAF1DF !important;
+    color: #2E1E0F !important;
+    border-color: #E0CEAA !important;
+    box-shadow: 0 4px 20px -2px rgba(92, 64, 30, 0.12) !important;
   }
-  .reader-theme-sepia h1, .reader-theme-sepia h2, .reader-theme-sepia h3, .reader-theme-sepia h4 {
-    color: #26170A !important;
+  .reader-theme-sepia h1,
+  .reader-theme-sepia h1 *,
+  .reader-theme-sepia [data-heading-id] h1 {
+    color: #231204 !important;
   }
-  html.dark .reader-theme-sepia h1, html.dark .reader-theme-sepia h2, html.dark .reader-theme-sepia h3, html.dark .reader-theme-sepia h4 {
-    color: #FDF2E2 !important;
+  .reader-theme-sepia h2,
+  .reader-theme-sepia h2 *,
+  .reader-theme-sepia [data-heading-id] h2 {
+    color: #231204 !important;
   }
-  .reader-theme-sepia p, .reader-theme-sepia li, .reader-theme-sepia .reading-column {
-    color: #43301B !important;
+  .reader-theme-sepia h3,
+  .reader-theme-sepia h3 *,
+  .reader-theme-sepia [data-heading-id] h3 {
+    color: #B45309 !important;
   }
-  html.dark .reader-theme-sepia p, html.dark .reader-theme-sepia li, html.dark .reader-theme-sepia .reading-column {
-    color: #E2CFB8 !important;
+  .reader-theme-sepia h4,
+  .reader-theme-sepia h4 *,
+  .reader-theme-sepia [data-heading-id] h4 {
+    color: #92400E !important;
+  }
+  .reader-theme-sepia p,
+  .reader-theme-sepia li,
+  .reader-theme-sepia .reading-column,
+  .reader-theme-sepia span:not([class*="bg-"]):not([class*="badge"]) {
+    color: #2E1E0F !important;
+  }
+  .reader-theme-sepia strong,
+  .reader-theme-sepia strong *,
+  .reader-theme-sepia b,
+  .reader-theme-sepia b * {
+    color: #1A0C02 !important;
+    font-weight: 800 !important;
+  }
+  .reader-theme-sepia div[class*="border-l-4"] {
+    background: rgba(245, 158, 11, 0.14) !important;
+    border-color: rgba(217, 119, 6, 0.4) !important;
+    border-left-color: #D97706 !important;
+  }
+  .reader-theme-sepia div[class*="border-l-4"] h2,
+  .reader-theme-sepia div[class*="border-l-4"] h2 * {
+    color: #231204 !important;
+    font-weight: 900 !important;
   }
 
   /* 3. 🌿 Sage Mint (Eye Fatigue Relief) */
-  .reader-theme-sage {
-    background-color: #EDF5EC !important;
-    color: #1F3824 !important;
-    border-color: #C8DEC6 !important;
-    box-shadow: 0 4px 20px -2px rgba(35, 71, 41, 0.08), inset 0 0 60px rgba(50, 99, 58, 0.04) !important;
-  }
+  .reader-theme-sage,
   html.dark .reader-theme-sage {
-    background-color: #152317 !important;
-    color: #D3E7D5 !important;
-    border-color: #273F2B !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6) !important;
+    background-color: #EDF5EC !important;
+    color: #143019 !important;
+    border-color: #C2DEC0 !important;
+    box-shadow: 0 4px 20px -2px rgba(35, 71, 41, 0.1) !important;
   }
-  .reader-theme-sage h1, .reader-theme-sage h2, .reader-theme-sage h3, .reader-theme-sage h4 {
-    color: #112615 !important;
+  .reader-theme-sage h1,
+  .reader-theme-sage h1 *,
+  .reader-theme-sage [data-heading-id] h1 {
+    color: #0E2813 !important;
   }
-  html.dark .reader-theme-sage h1, html.dark .reader-theme-sage h2, html.dark .reader-theme-sage h3, html.dark .reader-theme-sage h4 {
-    color: #E8F7EA !important;
+  .reader-theme-sage h2,
+  .reader-theme-sage h2 *,
+  .reader-theme-sage [data-heading-id] h2 {
+    color: #0E2813 !important;
   }
-  .reader-theme-sage p, .reader-theme-sage li, .reader-theme-sage .reading-column {
-    color: #203624 !important;
+  .reader-theme-sage h3,
+  .reader-theme-sage h3 *,
+  .reader-theme-sage [data-heading-id] h3 {
+    color: #047857 !important;
   }
-  html.dark .reader-theme-sage p, html.dark .reader-theme-sage li, html.dark .reader-theme-sage .reading-column {
-    color: #CCE2CE !important;
+  .reader-theme-sage h4,
+  .reader-theme-sage h4 *,
+  .reader-theme-sage [data-heading-id] h4 {
+    color: #065F46 !important;
+  }
+  .reader-theme-sage p,
+  .reader-theme-sage li,
+  .reader-theme-sage .reading-column,
+  .reader-theme-sage span:not([class*="bg-"]):not([class*="badge"]) {
+    color: #143019 !important;
+  }
+  .reader-theme-sage strong,
+  .reader-theme-sage strong *,
+  .reader-theme-sage b,
+  .reader-theme-sage b * {
+    color: #081B0C !important;
+    font-weight: 800 !important;
+  }
+  .reader-theme-sage div[class*="border-l-4"] {
+    background: rgba(16, 185, 129, 0.14) !important;
+    border-color: rgba(5, 150, 105, 0.4) !important;
+    border-left-color: #059669 !important;
+  }
+  .reader-theme-sage div[class*="border-l-4"] h2,
+  .reader-theme-sage div[class*="border-l-4"] h2 * {
+    color: #0E2813 !important;
+    font-weight: 900 !important;
   }
 
   /* 4. 🕯️ Candlelight Amber (Night Study) */
-  .reader-theme-candle {
-    background-color: #F9EFE1 !important;
-    color: #442B15 !important;
-    border-color: #E6D2B8 !important;
-    box-shadow: 0 4px 20px -2px rgba(115, 68, 25, 0.1), inset 0 0 60px rgba(217, 137, 56, 0.05) !important;
-  }
+  .reader-theme-candle,
   html.dark .reader-theme-candle {
-    background-color: #261A11 !important;
-    color: #EED7BF !important;
-    border-color: #442D1C !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6) !important;
+    background-color: #FAF0E3 !important;
+    color: #351E0A !important;
+    border-color: #E8D3BC !important;
+    box-shadow: 0 4px 20px -2px rgba(115, 68, 25, 0.12) !important;
   }
-  .reader-theme-candle h1, .reader-theme-candle h2, .reader-theme-candle h3, .reader-theme-candle h4 {
-    color: #2E1705 !important;
+  .reader-theme-candle h1,
+  .reader-theme-candle h1 *,
+  .reader-theme-candle [data-heading-id] h1 {
+    color: #261202 !important;
   }
-  html.dark .reader-theme-candle h1, html.dark .reader-theme-candle h2, html.dark .reader-theme-candle h3, html.dark .reader-theme-candle h4 {
-    color: #FDEEDC !important;
+  .reader-theme-candle h2,
+  .reader-theme-candle h2 *,
+  .reader-theme-candle [data-heading-id] h2 {
+    color: #261202 !important;
   }
-  .reader-theme-candle p, .reader-theme-candle li, .reader-theme-candle .reading-column {
-    color: #462D17 !important;
+  .reader-theme-candle h3,
+  .reader-theme-candle h3 *,
+  .reader-theme-candle [data-heading-id] h3 {
+    color: #C2410C !important;
   }
-  html.dark .reader-theme-candle p, html.dark .reader-theme-candle li, html.dark .reader-theme-candle .reading-column {
-    color: #E6CEAF !important;
+  .reader-theme-candle h4,
+  .reader-theme-candle h4 *,
+  .reader-theme-candle [data-heading-id] h4 {
+    color: #9A3412 !important;
+  }
+  .reader-theme-candle p,
+  .reader-theme-candle li,
+  .reader-theme-candle .reading-column,
+  .reader-theme-candle span:not([class*="bg-"]):not([class*="badge"]) {
+    color: #351E0A !important;
+  }
+  .reader-theme-candle strong,
+  .reader-theme-candle strong *,
+  .reader-theme-candle b,
+  .reader-theme-candle b * {
+    color: #1A0B01 !important;
+    font-weight: 800 !important;
+  }
+  .reader-theme-candle div[class*="border-l-4"] {
+    background: rgba(234, 88, 12, 0.14) !important;
+    border-color: rgba(194, 65, 12, 0.4) !important;
+    border-left-color: #EA580C !important;
+  }
+  .reader-theme-candle div[class*="border-l-4"] h2,
+  .reader-theme-candle div[class*="border-l-4"] h2 * {
+    color: #261202 !important;
+    font-weight: 900 !important;
   }
 
   /* 5. 🖤 Pitch Dark OLED - Maximum Readability & High Contrast */
