@@ -259,47 +259,48 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
       {nextRecommendedTopic ? (
-        <div className="relative rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-violet-600/10 dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-blue-500/25 dark:border-blue-400/30 p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-200 overflow-hidden group jump-back-in-hub">
+        <div className="relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 overflow-hidden group jump-back-in-hub">
           {/* Subtle Ambient Radial Highlight */}
-          <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/15 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/25 transition-all" />
+          <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/10 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/15 transition-all" />
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             {/* Left: Icon & Topic Meta */}
             <div className="flex items-start sm:items-center gap-3.5 min-w-0">
-              <div className="relative shrink-0">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-blue-500/50 transition-all duration-200">
-                  <Play className="w-5 h-5 fill-current ml-0.5" />
-                </div>
-                {/* Live pulsing ring indicator */}
-                <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white dark:border-[#0E111D]" />
-                </span>
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-all">
+                <Play className="w-4 sm:w-4.5 h-4 sm:h-4.5 fill-current ml-0.5" />
               </div>
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     Jump Back In
                   </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
                     {toNaturalCase(nextRecommendedTopic.subjectName)} • {toNaturalCase(nextRecommendedTopic.chapterName)}
                   </span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight mt-1 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight mt-1 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-sans">
                   {nextRecommendedTopic.topic.name}
                 </h3>
 
-                {/* Subtopics / Readiness Status Summary */}
-                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                {/* Subtopics / Readiness Status Summary with Progress Indicator */}
+                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-sans mt-1">
                   {nextRecommendedTopic.topic.subtopics && nextRecommendedTopic.topic.subtopics.length > 0 ? (
-                    <span className="flex items-center gap-1.5 font-mono">
-                      <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <div className="w-20 sm:w-24 h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                          style={{ width: `${nextRecommendedTopic.topic.completionPercentage || 0}%` }}
+                        />
+                      </div>
+                      <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                        {nextRecommendedTopic.topic.completionPercentage || 0}% Mastered
+                      </span>
                       <span className="text-slate-300 dark:text-slate-600">•</span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">{nextRecommendedTopic.topic.completionPercentage || 0}% Mastered</span>
-                    </span>
+                      <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
+                    </div>
                   ) : (
                     <span>Ready for study & notes</span>
                   )}
@@ -316,7 +317,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="px-3.5 py-2.5 rounded-xl bg-white/80 hover:bg-white dark:bg-white/[0.06] dark:hover:bg-white/[0.10] text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-sm backdrop-blur-sm"
+                  className="px-3.5 py-2 rounded-xl bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-2xs hover:shadow-xs"
                   title="Quick 25m Focus Sprint"
                 >
                   <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -334,7 +335,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     onNavigate('syllabus');
                   }
                 }}
-                className="btn-primary px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/30 flex items-center gap-2 cursor-pointer active:scale-95 hover:shadow-lg transition-all"
+                className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-xs flex items-center gap-2 cursor-pointer active:scale-95 transition-all"
               >
                 <span>Resume Study</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
