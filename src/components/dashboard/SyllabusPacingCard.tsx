@@ -1,22 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import {
-  Clock,
   Calendar,
   Flag,
   Sparkles,
   Zap,
   TrendingUp,
-  AlertTriangle,
-  CheckCircle2,
   ChevronDown,
   ChevronUp,
   Sliders,
   ShieldCheck,
   ArrowRight,
-  Info,
-  CalendarDays
+  Printer
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import {
   calculatePacingForecast,
   simulateWhatIfPaces,
@@ -29,11 +26,13 @@ import { soundManager } from '../../utils/soundEffects';
 interface SyllabusPacingCardProps {
   onOpenEditExamTarget?: () => void;
   onNavigateToSyllabus?: () => void;
+  onPrint?: () => void;
 }
 
 export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
   onOpenEditExamTarget,
-  onNavigateToSyllabus
+  onNavigateToSyllabus,
+  onPrint
 }) => {
   const {
     currentExam,
@@ -44,7 +43,6 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
   // Revision buffer state (stored in localStorage)
   const [revisionBufferDays, setRevisionBufferDays] = useState<number>(() => getStoredRevisionBuffer());
   const [isWhatIfOpen, setIsWhatIfOpen] = useState<boolean>(false);
-  const [selectedWhatIfPace, setSelectedWhatIfPace] = useState<number | null>(null);
 
   const examDateStr = currentExam?.examDate || '2026-10-15';
   const examName = currentExam?.name || 'Target Exam';
@@ -72,246 +70,261 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
     saveStoredRevisionBuffer(days);
   };
 
+  const handlePrint = () => {
+    soundManager.playClick();
+    if (onPrint) {
+      onPrint();
+    } else {
+      window.print();
+    }
+  };
+
   const bufferOptions = [7, 14, 21, 30];
 
   return (
     <div className="relative rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm p-4 sm:p-6 overflow-hidden space-y-4 sm:space-y-5 select-none transition-all print:p-4 print:border print:border-black print:shadow-none">
       
-      {/* Top Specular Line & Ambient Decorative Glow */}
+      {/* Subtle Specular Highlight */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/40 dark:via-indigo-400/50 to-transparent pointer-events-none" />
-      <div className="absolute -top-14 -right-14 w-60 h-60 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/15 dark:to-purple-500/10 blur-3xl pointer-events-none print:hidden" />
-      <div className="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-amber-500/5 dark:bg-emerald-500/5 blur-2xl pointer-events-none print:hidden" />
 
-      {/* TOP HEADER ROW */}
-      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
-        <div className="flex items-start sm:items-center gap-2.5 sm:gap-3">
-          {/* App Icon */}
-          <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-xl sm:rounded-2xl bg-[#4F46E5] text-white flex items-center justify-center font-bold shadow-md shadow-indigo-500/25 shrink-0 mt-0.5 sm:mt-0">
-            <Clock className="w-4.5 sm:w-5.5 h-4.5 sm:h-5.5 stroke-[2.3]" />
+      {/* 🖨️ PRINT-ONLY DESK REVISION SUMMARY HEADER */}
+      <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
+        <div className="flex justify-between items-start">
+          <div>
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-700 block">
+              TARGET PACING &amp; FINISH-LINE CHEATSHEET
+            </span>
+            <h1 className="text-2xl font-black uppercase tracking-tight text-black mt-1">
+              🎯 {examName.toUpperCase()}
+            </h1>
+            <div className="flex items-center gap-3 text-xs font-mono text-gray-700 mt-2">
+              <span>Exam Date: <strong>{forecast.examDateFormatted}</strong></span>
+              <span>• Progress: <strong>{forecast.completionPercentage}% ({forecast.topicsCompleted}/{forecast.topicsTotal} Topics)</strong></span>
+            </div>
           </div>
+          <div className="text-right text-xs font-mono">
+            <div className="font-bold text-black uppercase">Study Desk Target Sheet</div>
+            <div className="text-gray-600 mt-1">Printed: {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+          </div>
+        </div>
+      </div>
 
-          <div className="min-w-0 flex-1 space-y-1">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
-              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-[#F5F5F7] tracking-tight leading-tight">
-                Target Pacing &amp; Simulator
-              </h3>
-
-              {/* Dynamic Status Chip */}
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black tracking-wide border shadow-2xs shrink-0 ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeBorder} ${forecast.statusTheme.badgeText}`}>
+      {/* 1. TOP HEADER ROW */}
+      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-white/[0.06]">
+        <div className="flex items-center gap-3">
+          <SectionBadgeIcon section="pacing" size="lg" className="shrink-0" />
+          <div className="min-w-0 space-y-0.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+                Target Pacing
+              </h2>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wide border shadow-2xs ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeBorder} ${forecast.statusTheme.badgeText}`}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-current" />
                 <span>{forecast.statusLabel}</span>
               </span>
             </div>
-
-            {/* Clean Meta Pills */}
-            <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap text-[10px] sm:text-[11px] text-slate-500 dark:text-[#A1A1AA] font-sans">
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">
-                🎯 {examName}
-              </span>
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">
-                📅 {forecast.examDateFormatted}
-              </span>
-              <span className="px-1.5 sm:px-2 py-0.5 rounded-md bg-indigo-500/10 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-500/20 dark:border-indigo-500/25">
-                ⏳ {forecast.totalDaysLeft}d left
-              </span>
-            </div>
+            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5 flex-wrap">
+              <span className="font-semibold text-slate-700 dark:text-slate-200">{examName}</span>
+              <span className="text-slate-300 dark:text-slate-600">•</span>
+              <span>Exam on {forecast.examDateFormatted}</span>
+              <span className="text-slate-300 dark:text-slate-600">•</span>
+              <span className="font-bold text-indigo-600 dark:text-indigo-400">{forecast.totalDaysLeft} days left</span>
+            </p>
           </div>
         </div>
 
-        {/* Quick Target Date Editor & What-If Actions */}
-        <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 sm:gap-2 shrink-0 no-print pt-0.5">
-          {onOpenEditExamTarget && (
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                onOpenEditExamTarget();
-              }}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-[#CBD5E1] hover:text-indigo-600 dark:hover:text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
-              title="Change target exam or exam date"
-            >
-              <Calendar className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
-              <span className="truncate">Change Target</span>
-            </button>
-          )}
-
+        {/* Quick Actions */}
+        <div className="flex items-center gap-2 shrink-0 self-stretch md:self-auto no-print">
           <button
+            type="button"
             onClick={() => {
               soundManager.playClick();
               setIsWhatIfOpen(prev => !prev);
             }}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-xl border text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95 ${
+            className={`flex-1 md:flex-initial h-9 sm:h-10 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95 ${
               isWhatIfOpen
-                ? 'bg-[#4F46E5] text-white border-transparent shadow-xs font-black'
-                : 'bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border-slate-200 dark:border-white/10 text-slate-700 dark:text-[#CBD5E1]'
+                ? 'bg-indigo-600 text-white border-transparent shadow-xs'
+                : 'bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200'
             }`}
-            title="Open interactive What-If pace simulator"
+            title="Toggle What-If pace simulator"
           >
             <Sliders className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">What-If Pace</span>
+            <span>What-If Pace</span>
             {isWhatIfOpen ? <ChevronUp className="w-3.5 h-3.5 shrink-0" /> : <ChevronDown className="w-3.5 h-3.5 shrink-0" />}
           </button>
+
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="h-9 sm:h-10 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
+            title="Print cheatsheet (Ctrl + P)"
+          >
+            <Printer className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
+            <span className="hidden sm:inline">Print</span>
+          </button>
+
+          {onOpenEditExamTarget && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenEditExamTarget();
+              }}
+              className="flex-1 md:flex-initial h-9 sm:h-10 px-3.5 sm:px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm shadow-indigo-500/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+              title="Change target exam date"
+            >
+              <Calendar className="w-3.5 h-3.5 shrink-0 text-white" />
+              <span>Change Target</span>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* 1. VISUAL SEGMENTED PACING TIMELINE & 3 MILESTONE CARDS */}
-      <div className="relative z-10 space-y-2.5">
-        
-        {/* Mobile-Optimized 3-Milestone Stepper Cards */}
-        <div className="grid grid-cols-3 gap-1.5 sm:gap-3 text-center">
-          {/* Step 1: Today */}
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#1A1B28] border border-slate-200/80 dark:border-[#272738] flex flex-col justify-center shadow-2xs">
-            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold text-slate-500 dark:text-[#A1A1AA] uppercase flex items-center justify-center gap-1">
+      {/* 2. TIMELINE STEPPER & PROGRESS */}
+      <div className="relative z-10 space-y-3">
+        {/* 3 Milestone Steppers */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
+          {/* Today */}
+          <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex flex-col justify-center shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center justify-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
               <span>Today</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-sans text-slate-800 dark:text-slate-100 tabular-nums truncate mt-0.5">
+            <span className="text-xs sm:text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums truncate mt-0.5">
               {forecast.todayFormatted}
             </span>
           </div>
 
-          {/* Step 2: Forecast Finish Line */}
-          <div className={`p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border flex flex-col justify-center shadow-2xs ${
+          {/* Forecast Finish */}
+          <div className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border flex flex-col justify-center shadow-2xs ${
             forecast.status === 'ahead' || forecast.status === 'on_track'
               ? 'bg-emerald-500/10 dark:bg-emerald-500/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
               : forecast.status === 'behind_mild'
               ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400'
               : 'bg-rose-500/10 dark:bg-rose-500/15 border-rose-500/30 text-rose-600 dark:text-rose-400'
           }`}>
-            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold uppercase flex items-center justify-center gap-1">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
               <Flag className="w-3 h-3" />
-              <span>Finish Line</span>
+              <span>Forecast Finish</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-sans tabular-nums truncate mt-0.5">
+            <span className="text-xs sm:text-sm font-black tabular-nums truncate mt-0.5">
               {forecast.finishLineForecastDate}
             </span>
           </div>
 
-          {/* Step 3: Target Exam Day */}
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-[#7AA2F7]/15 border border-indigo-500/20 dark:border-[#7AA2F7]/30 text-[#2563EB] dark:text-[#7AA2F7] flex flex-col justify-center shadow-2xs">
-            <span className="text-[9.5px] sm:text-[10px] font-sans font-bold uppercase flex items-center justify-center gap-1">
-              <span>🎯 Exam Day</span>
+          {/* Target Exam */}
+          <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 flex flex-col justify-center shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
+              <span>Target Exam</span>
             </span>
-            <span className="text-[11px] sm:text-sm font-black font-sans tabular-nums truncate mt-0.5">
+            <span className="text-xs sm:text-sm font-black tabular-nums truncate mt-0.5">
               {forecast.examDateFormatted}
             </span>
           </div>
         </div>
 
-        {/* Multi-Segment Pacing Horizon Bar */}
-        <div className="space-y-1.5 pt-0.5">
-          <div className="relative h-2.5 sm:h-3.5 w-full rounded-full bg-slate-100 dark:bg-[#1E1F2C] border border-slate-200/80 dark:border-[#282A3A] overflow-hidden flex shadow-inner">
-            {/* Segment 1: Completed Topics */}
+        {/* Progress Bar & Indicators */}
+        <div className="space-y-1.5">
+          <div className="relative h-2.5 sm:h-3 w-full rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 overflow-hidden flex shadow-inner">
             <div
-              className="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-[#7AA2F7] dark:via-[#6366F1] dark:to-[#818CF8] transition-all duration-1000 shadow-sm"
+              className="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-500 dark:via-indigo-500 dark:to-purple-500 transition-all duration-700 shadow-sm"
               style={{ width: `${Math.max(4, forecast.completionPercentage)}%` }}
-              title={`Completed Syllabus: ${forecast.completionPercentage}% (${forecast.topicsCompleted}/${forecast.topicsTotal} Topics)`}
-            />
-            
-            {/* Segment 2: Remaining Learning Journey */}
-            <div
-              className="h-full bg-slate-200/50 dark:bg-white/5 transition-all duration-1000"
-              style={{ width: `${Math.max(0, 100 - forecast.completionPercentage)}%` }}
-              title={`Remaining Syllabus: ${forecast.topicsRemaining} Topics`}
             />
           </div>
 
-          {/* Clean Legend Chips */}
-          <div className="flex flex-wrap items-center justify-between gap-1.5 text-[10px] sm:text-[11px] pt-0.5">
-            <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-700 dark:text-[#7AA2F7] font-mono font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-[#7AA2F7]" />
-                <span>{forecast.topicsCompleted} Done ({forecast.completionPercentage}%)</span>
+          <div className="flex items-center justify-between gap-2 text-[11px] sm:text-xs">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-slate-800 dark:text-slate-200">
+                {forecast.topicsCompleted} of {forecast.topicsTotal} completed ({forecast.completionPercentage}%)
               </span>
-              <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#1E1F2C] text-slate-600 dark:text-slate-400 font-mono font-bold">
-                <span>⏳ {forecast.topicsRemaining} Left</span>
+              <span className="text-slate-300 dark:text-slate-600">•</span>
+              <span className="text-slate-500 dark:text-slate-400 font-medium">
+                {forecast.topicsRemaining} remaining
               </span>
             </div>
-
-            <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-mono font-bold">
-              <ShieldCheck className="w-3 h-3" />
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5" />
               <span>{forecast.bufferDays}d Buffer</span>
             </span>
           </div>
         </div>
       </div>
 
-      {/* 2. 4-COLUMN CORE DIAGNOSTIC KPI BENTO TILES */}
+      {/* 3. 4 CORE KPI BENTO TILES */}
       <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
-        
-        {/* TILE 1: Finish-Line Forecast Date */}
-        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-indigo-400/50 transition-colors">
+        {/* Card 1: Finish Line */}
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-purple-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
-              Finish-Line Date
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Finish Line
             </span>
-            <div className="w-6 h-6 rounded-lg bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <div className="w-6 h-6 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
               <Flag className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums truncate">
+          <div className="mt-2">
+            <div className="text-base sm:text-xl font-black text-slate-900 dark:text-white tabular-nums truncate">
               {forecast.finishLineForecastDate}
             </div>
-            <div className="text-[10.5px] sm:text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5 truncate">
+            <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5 truncate">
               {forecast.daysUntilFinish} study days needed
             </div>
           </div>
         </div>
 
-        {/* TILE 2: Required Daily Pace */}
-        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-amber-400/50 transition-colors">
+        {/* Card 2: Required Pace */}
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-rose-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
-              Required Velocity
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Required Pace
             </span>
-            <div className="w-6 h-6 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <div className="w-6 h-6 rounded-lg bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
               <Zap className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-amber-600 dark:text-amber-400 tabular-nums truncate">
-              {forecast.requiredDailyPace} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
+          <div className="mt-2">
+            <div className="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400 tabular-nums truncate">
+              {forecast.requiredDailyPace} <span className="text-xs font-bold text-slate-400">topics/day</span>
             </div>
-            <div className="text-[10.5px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 mt-0.5 truncate">
-              <span className="sm:hidden">~{forecast.requiredWeeklyPace}/wk • ~{forecast.requiredDailyStudyMinutes}m/d</span>
-              <span className="hidden sm:inline">~{forecast.requiredWeeklyPace} topics/wk • ~{forecast.requiredDailyStudyMinutes}m/day</span>
+            <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+              ~{forecast.requiredWeeklyPace}/wk • ~{forecast.requiredDailyStudyMinutes}m/day
             </div>
           </div>
         </div>
 
-        {/* TILE 3: Actual Velocity */}
-        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-blue-400/50 transition-colors">
+        {/* Card 3: Current Pace */}
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-blue-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
-              Your Pace (14d)
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Current Pace
             </span>
-            <div className="w-6 h-6 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7] flex items-center justify-center shrink-0">
+            <div className="w-6 h-6 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
               <TrendingUp className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1.5">
-            <div className="text-sm sm:text-xl font-black font-sans tracking-tight text-blue-600 dark:text-[#7AA2F7] tabular-nums truncate">
-              {forecast.actualDailyVelocity} <span className="text-[10px] sm:text-[11px] font-bold font-sans">topics/day</span>
+          <div className="mt-2">
+            <div className="text-base sm:text-xl font-black text-blue-600 dark:text-blue-400 tabular-nums truncate">
+              {forecast.actualDailyVelocity} <span className="text-xs font-bold text-slate-400">topics/day</span>
             </div>
-            <div className="text-[10.5px] sm:text-[11px] font-semibold mt-0.5 truncate">
+            <div className="text-[11px] font-semibold mt-0.5 truncate">
               {forecast.actualDailyVelocity >= forecast.requiredDailyPace ? (
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
-                  +{(forecast.actualDailyVelocity - forecast.requiredDailyPace).toFixed(1)} ahead
+                <span className="text-emerald-600 dark:text-emerald-400">
+                  +{(forecast.actualDailyVelocity - forecast.requiredDailyPace).toFixed(1)} ahead of target
                 </span>
               ) : (
-                <span className="text-amber-600 dark:text-amber-400 font-bold">
-                  -{(forecast.requiredDailyPace - forecast.actualDailyVelocity).toFixed(1)} behind
+                <span className="text-amber-600 dark:text-amber-400">
+                  -{(forecast.requiredDailyPace - forecast.actualDailyVelocity).toFixed(1)} behind target
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        {/* TILE 4: Revision Margin */}
-        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-emerald-400/50 transition-colors">
+        {/* Card 4: Revision Buffer */}
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-2xs flex flex-col justify-between hover:border-emerald-400/50 transition-colors">
           <div className="flex items-center justify-between gap-1">
-            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 dark:text-[#A1A1AA]">
-              Revision Margin
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Revision Buffer
             </span>
             <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${
               forecast.bufferMarginDays >= forecast.bufferDays
@@ -323,43 +336,34 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
               <ShieldCheck className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="mt-1.5">
-            <div className={`text-sm sm:text-xl font-black font-sans tracking-tight tabular-nums truncate ${
+          <div className="mt-2">
+            <div className={`text-base sm:text-xl font-black tabular-nums truncate ${
               forecast.bufferMarginDays >= forecast.bufferDays
                 ? 'text-emerald-600 dark:text-emerald-400'
                 : forecast.bufferMarginDays > 0
                 ? 'text-amber-600 dark:text-amber-400'
                 : 'text-rose-600 dark:text-rose-400'
             }`}>
-              {forecast.bufferMarginDays < 0 ? (
-                <span>{forecast.bufferMarginDays}d Overrun</span>
-              ) : (
-                <span>+{forecast.bufferMarginDays}d Safe</span>
-              )}
+              {forecast.bufferDays} <span className="text-xs font-bold text-slate-400">Days</span>
             </div>
-            <div className="text-[10.5px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 mt-0.5 truncate">
-              {forecast.bufferMarginDays >= forecast.bufferDays ? 'Safe buffer' : 'Buffer compressed'}
+            <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+              {forecast.bufferMarginDays >= 0 ? `+${forecast.bufferMarginDays}d safe runway` : `${forecast.bufferMarginDays}d buffer overrun`}
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. REVISION BUFFER SEGMENTED CONTROL */}
-      <div className="relative z-10 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-[#181928] border border-slate-200/80 dark:border-[#272738] space-y-1.5 sm:space-y-2 shadow-2xs">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-500 shrink-0" />
-            <span className="text-xs font-black text-slate-800 dark:text-slate-200">
-              Target Revision Buffer
-            </span>
-          </div>
-          <span className="text-[10.5px] sm:text-[11px] font-mono text-slate-500 dark:text-[#A1A1AA] hidden xs:inline">
-            Days before exam reserved for active recall
+      {/* 4. REVISION BUFFER SELECTOR */}
+      <div className="relative z-10 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/90 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+          <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+            Target Revision Buffer
           </span>
         </div>
 
         {/* Segmented Control */}
-        <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-200/70 dark:bg-[#10111A] border border-slate-200/60 dark:border-white/5">
+        <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-200/70 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/5 w-full sm:w-auto sm:min-w-[280px]">
           {bufferOptions.map(bDays => {
             const isSelected = revisionBufferDays === bDays;
             return (
@@ -367,16 +371,16 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
                 key={bDays}
                 type="button"
                 onClick={() => handleBufferChange(bDays)}
-                className={`py-1.5 sm:py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer active:scale-95 text-center flex items-center justify-center gap-1 ${
+                className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 text-center flex items-center justify-center gap-1 ${
                   isSelected
-                    ? 'bg-[#4F46E5] text-white shadow-xs font-black'
+                    ? 'bg-indigo-600 text-white shadow-xs font-black'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
                 title={`Reserve ${bDays} days before exam for revision`}
               >
                 <span>{bDays}d</span>
                 {bDays === 14 && (
-                  <span className="text-[9px] text-amber-300 font-sans font-black">★</span>
+                  <span className="text-[9px] text-amber-300 font-black">★</span>
                 )}
               </button>
             );
@@ -384,61 +388,58 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         </div>
       </div>
 
-      {/* 4. ACTIONABLE COACHING CALLOUT / PRESCRIPTION */}
-      <div className={`relative z-10 p-3 sm:p-4 rounded-xl sm:rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs ${
+      {/* 5. ACTIONABLE COACHING BANNER */}
+      <div className={`relative z-10 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs ${
         forecast.status === 'ahead' || forecast.status === 'on_track'
-          ? 'bg-gradient-to-br from-emerald-500/10 via-blue-500/5 to-transparent border-emerald-500/30'
+          ? 'bg-emerald-500/10 dark:bg-emerald-500/15 border-emerald-500/30'
           : forecast.status === 'behind_mild'
-          ? 'bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border-amber-500/30'
-          : 'bg-gradient-to-br from-rose-500/10 via-red-500/5 to-transparent border-rose-500/30'
+          ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30'
+          : 'bg-rose-500/10 dark:bg-rose-500/15 border-rose-500/30'
       }`}>
-        <div className="space-y-1 min-w-0 flex-1">
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+        <div className="space-y-0.5 min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base">{forecast.statusTheme.icon}</span>
-            <h4 className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white">
+            <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
               {forecast.catchUpAdvice.title}
             </h4>
-            <span className={`px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-black tracking-wide ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeText} border ${forecast.statusTheme.badgeBorder}`}>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${forecast.statusTheme.badgeBg} ${forecast.statusTheme.badgeText} border ${forecast.statusTheme.badgeBorder}`}>
               {forecast.catchUpAdvice.actionBadge}
             </span>
           </div>
-          <p className="text-[11.5px] sm:text-xs text-slate-600 dark:text-[#CBD5E1] font-medium leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
             {forecast.catchUpAdvice.detail}
           </p>
         </div>
 
         {onNavigateToSyllabus && (
           <button
+            type="button"
             onClick={() => {
               soundManager.playClick();
               onNavigateToSyllabus();
             }}
-            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-black shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer active:scale-95 tap-bounce"
+            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm shadow-indigo-500/20 transition-all flex items-center justify-center gap-1.5 shrink-0 cursor-pointer active:scale-95"
           >
             <span>Study Next Topic</span>
-            <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         )}
       </div>
 
-      {/* 5. INTERACTIVE "WHAT-IF" PACE SIMULATOR DRAWER */}
+      {/* 6. "WHAT-IF" PACE SIMULATOR DRAWER */}
       {isWhatIfOpen && (
-        <div className="relative z-10 p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50/40 dark:from-[#181926] dark:to-[#161C2C] border border-blue-200/80 dark:border-[#2D3250] space-y-3 animate-fade-in no-print">
+        <div className="relative z-10 p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-indigo-200/80 dark:border-indigo-500/30 space-y-3 animate-fade-in no-print">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-[#7AA2F7]" />
-              <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
-                "What-If" Pace Simulator
+              <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                What-If Pace Simulator
               </h4>
             </div>
-            <span className="text-[10.5px] sm:text-[11px] text-slate-500 dark:text-[#A1A1AA] font-mono">
-              {forecast.topicsRemaining} Topics Left
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+              {forecast.topicsRemaining} topics remaining
             </span>
           </div>
-
-          <p className="text-[11px] sm:text-xs text-slate-600 dark:text-[#9496A1]">
-            See how increasing daily pace accelerates your finish line and expands revision time:
-          </p>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5">
             {simulations.map(sim => {
@@ -446,31 +447,31 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
               return (
                 <div
                   key={sim.dailyPace}
-                  className={`p-2 sm:p-3 rounded-lg sm:rounded-2xl border transition-all ${
+                  className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
                     sim.isSafe
-                      ? 'bg-white dark:bg-[#1E2030] border-slate-200 dark:border-[#2C3048]'
+                      ? 'bg-white dark:bg-white/[0.04] border-slate-200 dark:border-white/10'
                       : 'bg-amber-500/5 dark:bg-amber-500/10 border-amber-500/30'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] sm:text-xs font-black text-slate-900 dark:text-white font-mono">
-                      {sim.dailyPace} {sim.dailyPace === 1 ? 'Topic' : 'Topics'}/d
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">
+                      {sim.dailyPace} {sim.dailyPace === 1 ? 'topic' : 'topics'}/day
                     </span>
                     {isCurrent && (
-                      <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7]">
+                      <span className="px-1.5 py-0.2 rounded text-[9px] font-bold uppercase bg-blue-500/15 text-blue-600 dark:text-blue-400">
                         Current
                       </span>
                     )}
                   </div>
 
-                  <div className="mt-1 sm:mt-1.5 space-y-0.5">
-                    <div className="text-[11px] sm:text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                  <div className="mt-1 space-y-0.5 text-[11px]">
+                    <div className="font-bold text-slate-800 dark:text-slate-200 truncate">
                       🏁 {sim.forecastDateFormatted}
                     </div>
-                    <div className="text-[9.5px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                      {sim.daysNeeded} Days Needed
+                    <div className="text-slate-500 dark:text-slate-400">
+                      {sim.daysNeeded} study days
                     </div>
-                    <div className="text-[9.5px] sm:text-[10px] font-bold text-emerald-600 dark:text-emerald-400 pt-0.5">
+                    <div className="font-bold text-emerald-600 dark:text-emerald-400">
                       {sim.statusText}
                     </div>
                   </div>
@@ -481,15 +482,15 @@ export const SyllabusPacingCard: React.FC<SyllabusPacingCardProps> = ({
         </div>
       )}
 
-      {/* 6. CLEAN INK-FRIENDLY DESK CHEATSHEET PRINT SECTION (Ctrl + P) */}
+      {/* 7. DESK CHEATSHEET PRINT SECTION (Ctrl + P) */}
       <div className="hidden print:block pt-3 border-t-2 border-black text-black">
         <h4 className="text-xs font-black uppercase tracking-wider mb-2">
-          📋 TARGET PACING &amp; FINISH-LINE TARGET SPECIFICATION
+          📋 TARGET PACING &amp; FINISH-LINE SPECIFICATION
         </h4>
         <table className="w-full text-xs font-mono border-collapse border border-black">
           <tbody>
             <tr className="border-b border-black">
-              <td className="p-1.5 font-bold border-r border-black w-1/2">Target Exam & Target Date:</td>
+              <td className="p-1.5 font-bold border-r border-black w-1/2">Target Exam &amp; Date:</td>
               <td className="p-1.5">{examName} • {forecast.examDateFormatted} ({forecast.totalDaysLeft} Days Left)</td>
             </tr>
             <tr className="border-b border-black">
