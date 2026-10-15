@@ -195,46 +195,43 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
     <div className="space-y-5 pb-8 sm:pb-12 animate-fade-in max-w-full overflow-x-hidden font-sans">
       
       {/* 1. EXECUTIVE HEADER & CONTROLS */}
-      <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1E1F2E] border border-[#E2E8F0] dark:border-[#262738] shadow-subtle-depth space-y-3 sm:space-y-4">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 sm:gap-4">
+      <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
           
           {/* Left Title Capsule */}
-          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <SectionBadgeIcon section="mindmap" size="lg" />
+          <div className="flex items-center gap-3 min-w-0">
+            <SectionBadgeIcon section="mindmap" size="md" />
 
             <div className="min-w-0 space-y-0.5">
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#2563EB] dark:text-[#7AA2F7]">
-                <span>{currentExam.name}</span>
-                <span>•</span>
-                <span>Neural Concept Graph</span>
+              <div className="flex items-center gap-2">
+                <h1 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight font-sans">
+                  Syllabus Mindmap
+                </h1>
+                <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 font-sans truncate max-w-[150px] sm:max-w-[200px]">
+                  {currentExam.name}
+                </span>
               </div>
-              <h1 className="text-sm xs:text-base sm:text-xl font-black text-[#11120F] dark:text-[#F5F5F7] tracking-tight uppercase truncate">
-                Interactive Syllabus Mindmap
-              </h1>
-              <p className="text-xs text-[#65675F] dark:text-[#94A3B8] font-medium hidden sm:block">
-                Visual constellation displaying subject hierarchies, topic connections & live mastery status
-              </p>
             </div>
           </div>
 
           {/* Right Toolbar: Search, Mode Switcher & Zoom */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full lg:w-auto justify-between lg:justify-end">
+          <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-between lg:justify-end">
             
             {/* Quick Concept Filter */}
             <div className="relative flex-1 sm:flex-initial sm:min-w-[200px]">
-              <Search className="w-3.5 h-3.5 text-[#85877E] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter concept nodes..."
-                className="w-full pl-8 pr-7 py-1.5 rounded-xl bg-[#F8FAFC] dark:bg-[#151622] border border-[#E2E8F0] dark:border-[#262738] text-xs font-medium text-[#11120F] dark:text-white placeholder-[#85877E] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#7AA2F7]"
+                className="w-full pl-8 pr-7 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[#85877E] hover:text-[#11120F] dark:hover:text-white p-1.5 min-w-[28px] min-h-[28px] flex items-center justify-center cursor-pointer rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                   aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -242,58 +239,58 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
               )}
             </div>
 
-            {/* Mobile Actions Container */}
+            {/* Layout Switcher & Zoom Controls */}
             <div className="flex items-center gap-1.5 sm:gap-2">
               {/* Layout Switcher */}
-              <div className="flex items-center p-0.5 sm:p-1 rounded-xl bg-[#F8FAFC] dark:bg-[#151622] border border-[#E2E8F0] dark:border-[#262738] shadow-2xs">
+              <div className="flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 shadow-2xs">
                 <button
                   onClick={() => {
                     setViewLayout('radial');
                     soundManager.playClick();
                   }}
-                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer font-sans ${
                     viewLayout === 'radial'
-                      ? 'bg-[#11120F] dark:bg-white text-white dark:text-black shadow-xs font-black'
-                      : 'text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs font-black'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <Orbit className="w-3.5 h-3.5 shrink-0" />
-                  <span><span className="hidden sm:inline">Constellation </span>Web</span>
+                  <span>Constellation Web</span>
                 </button>
                 <button
                   onClick={() => {
                     setViewLayout('tree');
                     soundManager.playClick();
                   }}
-                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer font-sans ${
                     viewLayout === 'tree'
-                      ? 'bg-[#11120F] dark:bg-white text-white dark:text-black shadow-xs font-black'
-                      : 'text-[#65675F] dark:text-[#94A3B8] hover:text-[#11120F] dark:hover:text-white'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs font-black'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <Network className="w-3.5 h-3.5 shrink-0" />
-                  <span><span className="hidden sm:inline">Hierarchy </span>Tree</span>
+                  <span>Hierarchy Tree</span>
                 </button>
               </div>
 
               {/* Zoom Controls */}
-              <div className="flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-xl bg-[#F8FAFC] dark:bg-[#151622] border border-[#E2E8F0] dark:border-[#262738] shadow-2xs">
+              <div className="flex items-center gap-0.5 p-0.5 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 shadow-2xs">
                 <button
                   type="button"
                   onClick={() => handleZoom(-0.15)}
-                  className="p-1.5 sm:p-1 rounded-lg text-[#65675F] dark:text-[#94A3B8] hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[28px] min-h-[28px] flex items-center justify-center active:scale-90 transition-transform"
+                  className="p-1 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[26px] min-h-[26px] flex items-center justify-center active:scale-90 transition-transform"
                   title="Zoom Out"
                   aria-label="Zoom out"
                 >
                   <ZoomOut className="w-3.5 h-3.5" />
                 </button>
-                <span className="text-[10px] sm:text-[11px] font-mono font-bold px-1 sm:px-1.5 text-[#11120F] dark:text-[#F5F5F7] tabular-nums">
+                <span className="text-[11px] font-bold px-1.5 text-slate-800 dark:text-slate-200 tabular-nums font-sans">
                   {Math.round(zoomLevel * 100)}%
                 </span>
                 <button
                   type="button"
                   onClick={() => handleZoom(0.15)}
-                  className="p-1.5 sm:p-1 rounded-lg text-[#65675F] dark:text-[#94A3B8] hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[28px] min-h-[28px] flex items-center justify-center active:scale-90 transition-transform"
+                  className="p-1 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[26px] min-h-[26px] flex items-center justify-center active:scale-90 transition-transform"
                   title="Zoom In"
                   aria-label="Zoom in"
                 >
@@ -302,7 +299,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                 <button
                   type="button"
                   onClick={handleResetZoom}
-                  className="p-1.5 sm:p-1 rounded-lg text-[#65675F] dark:text-[#94A3B8] hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[28px] min-h-[28px] flex items-center justify-center active:scale-90 transition-transform"
+                  className="p-1 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer min-w-[26px] min-h-[26px] flex items-center justify-center active:scale-90 transition-transform"
                   title="Reset Zoom"
                   aria-label="Reset zoom"
                 >
@@ -314,7 +311,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
         </div>
 
         {/* 2. SUBJECT FILTER PILLS & HUD QUICK LEGEND */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 sm:gap-3 pt-2.5 sm:pt-3 border-t border-[#EEEEE8] dark:border-[#262738]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 pt-2.5 border-t border-slate-100 dark:border-white/[0.06]">
           
           {/* Subject Pills (Scrollable) */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 w-full md:w-auto">
@@ -323,16 +320,16 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                 setSelectedSubjectId('all');
                 soundManager.playClick();
               }}
-              className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all cursor-pointer border shrink-0 active:scale-95 tap-bounce ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer border shrink-0 active:scale-95 font-sans ${
                 selectedSubjectId === 'all'
-                  ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                  : 'bg-[#F8FAFC] dark:bg-[#151622] text-[#65675F] dark:text-[#A1A1B2] border-[#E2E8F0] dark:border-[#262738] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-xs font-black'
+                  : 'bg-slate-50 dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-indigo-500/40'
               }`}
             >
-              <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <Layers className="w-3.5 h-3.5" />
               <span>All Subjects</span>
-              <span className={`px-1 sm:px-1.5 py-0.2 rounded-md text-[9px] sm:text-[10px] font-mono tabular-nums ${
-                selectedSubjectId === 'all' ? 'bg-white/20 dark:bg-black/20' : 'bg-[#EEEEE8] dark:bg-[#1E1F2E] text-[#85877E]'
+              <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold tabular-nums font-sans ${
+                selectedSubjectId === 'all' ? 'bg-white/20 dark:bg-black/20' : 'bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400'
               }`}>
                 {totalTopicNodes}
               </span>
@@ -351,16 +348,16 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                     setSelectedSubjectId(s.id);
                     soundManager.playClick();
                   }}
-                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap border transition-all cursor-pointer shrink-0 active:scale-95 tap-bounce ${
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap border transition-all cursor-pointer shrink-0 active:scale-95 font-sans ${
                     isSel
-                      ? 'bg-[#11120F] dark:bg-white text-white dark:text-black border-transparent shadow-xs font-black'
-                      : 'bg-[#F8FAFC] dark:bg-[#151622] text-[#65675F] dark:text-[#A1A1B2] border-[#E2E8F0] dark:border-[#262738] hover:border-[#2563EB] dark:hover:border-[#7AA2F7]'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-xs font-black'
+                      : 'bg-slate-50 dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-indigo-500/40'
                   }`}
                 >
-                  <SubjIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: isSel ? undefined : meta.color }} />
+                  <SubjIcon className="w-3.5 h-3.5" style={{ color: isSel ? undefined : meta.color }} />
                   <span>{s.name}</span>
-                  <span className={`px-1 sm:px-1.5 py-0.2 rounded-md text-[9px] sm:text-[10px] font-mono tabular-nums ${
-                    isSel ? 'bg-white/20 dark:bg-black/20' : 'bg-[#EEEEE8] dark:bg-[#1E1F2E] text-[#85877E]'
+                  <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold tabular-nums font-sans ${
+                    isSel ? 'bg-white/20 dark:bg-black/20' : 'bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400'
                   }`}>
                     {sTotalTopics}
                   </span>
@@ -369,18 +366,18 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
             })}
           </div>
 
-          {/* HUD Status Legend (Zero raw emojis) */}
-          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono font-bold shrink-0 flex-wrap">
-            <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-emerald-500/20">
-              <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
+          {/* HUD Status Legend */}
+          <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] font-bold shrink-0 flex-wrap font-sans">
+            <span className="flex items-center gap-1 text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20">
+              <CheckCircle2 className="w-3 h-3 stroke-[2.5]" />
               <span>Mastered ({masteredNodesCount})</span>
             </span>
-            <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 bg-amber-500/10 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-amber-500/20">
-              <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
+            <span className="flex items-center gap-1 text-amber-700 dark:text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20">
+              <Zap className="w-3 h-3 fill-current" />
               <span>In Progress ({inProgressNodesCount})</span>
             </span>
-            <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 bg-rose-500/10 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-rose-500/20">
-              <AlertTriangle className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+            <span className="flex items-center gap-1 text-rose-700 dark:text-rose-300 bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-500/20">
+              <AlertTriangle className="w-3 h-3" />
               <span>Weak ({weakNodesCount})</span>
             </span>
           </div>
@@ -437,91 +434,105 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
             /* CONSTELLATION WEB MODE */
             <div className="relative w-full max-w-4xl flex flex-col items-center">
               
-              {/* 1. CENTRAL TARGET CORE PLANETARY ORB */}
+              {/* 1. CENTRAL TARGET CORE EXECUTIVE HUB */}
               <div className="relative z-20 flex flex-col items-center">
-                
-                {/* Outer Rotating Constellation Ring */}
-                <div className="w-28 sm:w-44 h-28 sm:h-44 rounded-full border border-dashed border-cyan-500/40 p-2 flex items-center justify-center relative animate-spin-slow">
-                  {/* Orbiting Satellite Light */}
-                  <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff]" />
-                  <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-pink-400 shadow-[0_0_10px_#ff007f]" />
-                </div>
+                <div className="group relative px-6 py-4 sm:px-8 sm:py-5 rounded-2xl sm:rounded-3xl bg-slate-900/95 dark:bg-[#0D1120]/95 border border-cyan-500/40 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl flex flex-col items-center text-center space-y-2.5 min-w-[240px] sm:min-w-[280px] max-w-sm transition-all duration-300 hover:scale-[1.02] select-none">
+                  
+                  {/* Top Capsule Badge */}
+                  <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase font-sans">
+                    <Sparkles className="w-3 h-3 text-cyan-400 fill-cyan-400" />
+                    <span>Target Core</span>
+                  </div>
 
-                {/* Inner Glowing Core Container */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 sm:w-36 h-24 sm:h-36 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-600 to-pink-500 p-[2px] shadow-[0_0_35px_rgba(6,182,212,0.45)]">
-                  <div className="w-full h-full rounded-full bg-[#070A18] flex flex-col items-center justify-center text-center p-1.5 sm:p-2.5 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-radial from-cyan-500/15 via-transparent to-transparent pointer-events-none" />
-                    
-                    <span className="text-[8px] sm:text-[10px] font-black text-cyan-400 uppercase tracking-widest font-mono flex items-center gap-1">
-                      <Sparkles className="w-2 h-2 sm:w-2.5 sm:h-2.5" />
-                      TARGET CORE
+                  {/* Exam Title */}
+                  <h3 className="mindmap-core-title text-sm sm:text-base font-black text-white tracking-tight font-sans uppercase line-clamp-1">
+                    {currentExam.name}
+                  </h3>
+
+                  {/* Progress & Stats Row */}
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 font-sans">
+                    <span>{masteredNodesCount} of {totalTopicNodes} Mastered</span>
+                    <span className="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-200 font-bold text-[11px]">
+                      {overallPercent}%
                     </span>
+                  </div>
 
-                    <h3 className="mindmap-core-title text-[11px] sm:text-[14px] font-black text-white leading-tight mt-0.5 sm:mt-1 uppercase tracking-tight line-clamp-1">
-                      {currentExam.name}
-                    </h3>
-
-                    <div className="mt-1 sm:mt-1.5 px-1.5 sm:px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[9px] sm:text-[10px] font-mono font-bold text-cyan-300">
-                      {masteredNodesCount}/{totalTopicNodes} ({overallPercent}%)
-                    </div>
+                  {/* Smooth Progress Bar */}
+                  <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    {overallPercent > 0 ? (
+                      <div
+                        className="bg-gradient-to-r from-cyan-400 to-indigo-400 h-full rounded-full transition-all duration-500"
+                        style={{ width: `${overallPercent}%` }}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </div>
 
-              {/* Dynamic SVG Energy Connector Beams */}
-              <div className="w-full h-6 sm:h-16 relative flex items-center justify-center pointer-events-none">
-                <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="beamGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
-                    </linearGradient>
-                  </defs>
-                  <line
-                    x1="50%"
-                    y1="0"
-                    x2="50%"
-                    y2="100%"
-                    stroke="url(#beamGradient)"
-                    strokeWidth="2"
-                    strokeDasharray="4 4"
-                    className="animate-pulse"
-                  />
-                </svg>
-              </div>
+              {/* Dynamic SVG Energy Connector Beams (Only when subjects exist) */}
+              {activeSubjects.length > 0 && (
+                <div className="w-full h-6 sm:h-12 relative flex items-center justify-center pointer-events-none">
+                  <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="beamGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
+                      </linearGradient>
+                    </defs>
+                    <line
+                      x1="50%"
+                      y1="0"
+                      x2="50%"
+                      y2="100%"
+                      stroke="url(#beamGradient)"
+                      strokeWidth="2"
+                      strokeDasharray="4 4"
+                      className="animate-pulse"
+                    />
+                  </svg>
+                </div>
+              )}
+
+              {/* Zero Subjects Empty State */}
+              {activeSubjects.length === 0 && (
+                <div className="mt-8 p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 text-center max-w-md mx-auto space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center mx-auto">
+                    <Layers className="w-6 h-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-bold text-white font-sans">No Subjects Found</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                      Add subjects and chapters to <strong className="text-slate-200">{currentExam.name}</strong> to view your interactive concept graph.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* 2. SUBJECT CONSTELLATION MODULES GRID */}
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 mt-1 sm:mt-2">
-                {activeSubjects.map(subj => {
-                  const meta = getSubjectMeta(subj.name, subj.color);
-                  const SubjIcon = meta.icon;
-                  const totalInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).length, 0);
-                  const completedInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).filter(t => t.status === 'completed').length, 0);
-                  const subjPercent = totalInSubj > 0 ? Math.round((completedInSubj / totalInSubj) * 100) : 0;
+              {activeSubjects.length > 0 && (
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 mt-1 sm:mt-2">
+                  {activeSubjects.map(subj => {
+                    const meta = getSubjectMeta(subj.name, subj.color);
+                    const SubjIcon = meta.icon;
+                    const totalInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).length, 0);
+                    const completedInSubj = (subj.chapters || []).reduce((acc, c) => acc + (c.topics || []).filter(t => t.status === 'completed').length, 0);
+                    const subjPercent = totalInSubj > 0 ? Math.round((completedInSubj / totalInSubj) * 100) : 0;
 
-                  return (
-                    <div
-                      key={subj.id}
-                      className="group relative p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#0F1426]/90 hover:bg-[#131930] border border-[#212C4A] hover:border-cyan-500/50 shadow-xl backdrop-blur-xl transition-all duration-300 overflow-hidden space-y-3 sm:space-y-3.5"
-                    >
-                      {/* Ambient Glowing Top Border */}
+                    return (
                       <div
-                        className="absolute top-0 left-0 right-0 h-[2px] opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          background: `linear-gradient(90deg, transparent, ${meta.color}, transparent)`
-                        }}
-                      />
-
-                      {/* Subject Module Header */}
-                      <div className="flex items-center justify-between gap-2.5 sm:gap-3 pb-2.5 sm:pb-3 border-b border-white/10">
-                        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                          
-                          {/* 3D Squircle Icon Badge */}
-                          <div
-                            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${meta.gradient} border ${meta.border} ${meta.text} flex items-center justify-center shadow-md shrink-0`}
-                          >
-                            <SubjIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-                          </div>
+                        key={subj.id}
+                        className="group relative p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#0F1426]/90 hover:bg-[#131930] border border-[#212C4A] hover:border-cyan-500/40 shadow-xl backdrop-blur-xl transition-all duration-300 overflow-hidden space-y-3 sm:space-y-3.5"
+                      >
+                        {/* Subject Module Header */}
+                        <div className="flex items-center justify-between gap-2.5 sm:gap-3 pb-2.5 sm:pb-3 border-b border-white/10">
+                          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                            
+                            {/* 3D Squircle Icon Badge */}
+                            <div
+                              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${meta.gradient} border ${meta.border} ${meta.text} flex items-center justify-center shadow-md shrink-0`}
+                            >
+                              <SubjIcon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+                            </div>
 
                           <div className="min-w-0">
                             <h4 className="mindmap-subj-title text-xs sm:text-base font-black text-white tracking-tight uppercase truncate group-hover:text-cyan-300 transition-colors">
@@ -596,6 +607,7 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                   );
                 })}
               </div>
+              )}
             </div>
           ) : (
             /* HIERARCHY TREE VIEW */
@@ -612,11 +624,6 @@ export const MindMapView: React.FC<MindMapViewProps> = ({ onOpenTopicDrawer }) =
                     key={subj.id}
                     className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#0F1426]/90 border border-[#212C4A] shadow-xl space-y-2.5 sm:space-y-3.5 backdrop-blur-md relative overflow-hidden"
                   >
-                    {/* Top Accent line */}
-                    <div
-                      className="absolute top-0 left-0 right-0 h-[2px]"
-                      style={{ background: `linear-gradient(90deg, transparent, ${meta.color}, transparent)` }}
-                    />
 
                     {/* Subject Header */}
                     <div className="flex items-center justify-between gap-2.5 sm:gap-3 pb-2 border-b border-white/10">
