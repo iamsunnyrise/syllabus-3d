@@ -344,7 +344,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       ) : null}
 
-      {/* 💎 OPTION 2: 4 MODERN ELEVATED METRIC KPI CARDS (Linear / Apple Health Style) */}
+      {/* 💎 4 MODERN EXECUTIVE METRIC BENTO CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           {
@@ -353,10 +353,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: overallStats.totalTopics || 0,
             icon: BookOpen,
             accentColor: '#10B981',
-            iconBg: 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-            glowColor: 'bg-emerald-500',
+            iconBg: 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/25',
+            hoverBorder: 'hover:border-emerald-500/40 dark:hover:border-emerald-400/40',
+            badge: `${currentExam?.subjects?.length || 0} Subjects`,
             subtext: `${currentExam?.subjects?.length || 0} active subjects in track`,
-            progressPercent: overallStats.completionPercentage || 0
+            progressPercent: overallStats.totalTopics > 0 ? Math.round((overallStats.completedCount / overallStats.totalTopics) * 100) : 0
           },
           {
             id: 'completed',
@@ -364,9 +365,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: overallStats.completedCount || 0,
             icon: CheckCircle2,
             accentColor: '#0284C7',
-            iconBg: 'bg-sky-500/10 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/20',
-            glowColor: 'bg-sky-500',
-            subtext: `${overallStats.completedCount || 0} of ${overallStats.totalTopics || 0} topics done`,
+            iconBg: 'bg-sky-500/10 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/25',
+            hoverBorder: 'hover:border-sky-500/40 dark:hover:border-sky-400/40',
+            badge: `${overallStats.totalTopics > 0 ? Math.round((overallStats.completedCount / overallStats.totalTopics) * 100) : 0}% Done`,
+            subtext: `${overallStats.completedCount || 0} of ${overallStats.totalTopics || 0} topics mastered`,
             progressPercent: overallStats.totalTopics > 0 ? Math.round((overallStats.completedCount / overallStats.totalTopics) * 100) : 0
           },
           {
@@ -375,9 +377,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}h`,
             icon: Clock,
             accentColor: '#F59E0B',
-            iconBg: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20',
-            glowColor: 'bg-amber-500',
-            subtext: 'Goal: 15h pace',
+            iconBg: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/25',
+            hoverBorder: 'hover:border-amber-500/40 dark:hover:border-amber-400/40',
+            badge: 'Goal: 15h',
+            subtext: `${totalStudyHours > 0 ? totalStudyHours.toFixed(1) : '0.0'}h of 15h weekly pace`,
             progressPercent: Math.min(100, Math.round((totalStudyHours / 15) * 100))
           },
           {
@@ -386,8 +389,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             value: `${overallStats.completionPercentage || 0}%`,
             icon: Target,
             accentColor: '#8B5CF6',
-            iconBg: 'bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/20',
-            glowColor: 'bg-violet-500',
+            iconBg: 'bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/25',
+            hoverBorder: 'hover:border-violet-500/40 dark:hover:border-violet-400/40',
+            badge: `${Math.max(0, (overallStats.totalTopics || 0) - (overallStats.completedCount || 0))} Left`,
             subtext: 'Overall syllabus progress',
             progressPercent: overallStats.completionPercentage || 0
           }
@@ -396,58 +400,46 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           return (
             <div
               key={card.id}
-              className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:dark:border-white/[0.16] p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:dark:shadow-[0_8px_28px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden"
+              className={`group relative rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 ${card.hoverBorder} p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 select-none flex flex-col justify-between overflow-hidden`}
             >
-              {/* Top Accent Strip with Ambient Glow */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[2.5px] opacity-80 group-hover:opacity-100 transition-opacity"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${card.accentColor}, transparent)`,
-                  boxShadow: `0 0 10px ${card.accentColor}`
-                }}
-              />
-
-              {/* Subtle Ambient Radial Highlight */}
-              <div
-                className={`absolute -top-8 -right-8 w-24 h-24 rounded-full blur-2xl opacity-15 dark:opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity ${card.glowColor}`}
-              />
-
-              {/* Top Row: Category Title + Translucent Glowing Icon */}
+              {/* Top Row: Icon Squircle + Micro Context Pill Badge */}
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs sm:text-[13px] font-bold text-slate-600 dark:text-slate-300 tracking-tight">
-                  {card.title}
-                </span>
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-110 shadow-2xs ${card.iconBg}`}>
-                  <Icon className="w-4 h-4 stroke-[2.3]" />
+                <div className={`w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-105 shadow-2xs ${card.iconBg}`}>
+                  <Icon className="w-4.5 sm:w-5 h-4.5 sm:h-5 stroke-[2.2]" />
                 </div>
+
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold tracking-wide border shrink-0 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-white/10 font-sans">
+                  {card.badge}
+                </span>
               </div>
 
-              {/* Metric Value */}
-              <div className="my-2 sm:my-2.5">
-                <div className="text-2xl sm:text-3xl font-black font-grotesk tracking-tight text-slate-900 dark:text-white tabular-nums">
+              {/* Middle Section: Hero Metric Value & Label */}
+              <div className="my-3 sm:my-3.5 space-y-0.5">
+                <div className="text-2xl sm:text-3xl font-black font-grotesk tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
                   {card.value}
                 </div>
-
-                {/* Sleek Visual Progress Track */}
-                <div className="mt-2.5">
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all duration-500 shadow-xs"
-                      style={{
-                        width: `${Math.max(4, card.progressPercent)}%`,
-                        backgroundColor: card.accentColor,
-                        boxShadow: `0 0 8px ${card.accentColor}80`
-                      }}
-                    />
-                  </div>
+                <div className="text-xs sm:text-[13px] font-bold text-slate-500 dark:text-slate-400 pt-1">
+                  {card.title}
                 </div>
               </div>
 
-              {/* Clean Single Minimal Caption */}
-              <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] mt-auto">
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate block">
-                  {card.subtext}
-                </span>
+              {/* Bottom Section: Smooth Progress Track & Context Subtext */}
+              <div className="space-y-2 mt-auto">
+                <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {card.progressPercent > 0 ? (
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${Math.min(100, card.progressPercent)}%`,
+                        backgroundColor: card.accentColor
+                      }}
+                    />
+                  ) : null}
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium font-sans">
+                  <span className="truncate">{card.subtext}</span>
+                </div>
               </div>
             </div>
           );
