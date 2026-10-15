@@ -943,259 +943,16 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
             {activeTab === 'overview' && (
               <div key="overview" className={`space-y-4 sm:space-y-5 ${slideDirection === 'forward' ? 'animate-slide-in-right' : 'animate-slide-in-left'}`}>
                 
-                {/* 1. TOPIC STATS HERO TILES (ACCURACY % & STUDY TIME) */}
-                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                  {/* Accuracy Tile */}
-                  <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-75" />
-                    
-                    {/* Top Row: Icon + Label (Full width, never wraps awkwardly) */}
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <div className="w-6 h-6 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
-                        <Target className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 truncate tracking-tight">
-                        Mock Accuracy
-                      </span>
-                    </div>
-
-                    {/* Bottom Row: Big Number on Left, Status Pill on Right */}
-                    <div className="flex items-baseline justify-between gap-1 mt-2.5">
-                      <span className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono tabular-nums leading-none">
-                        {liveTopic.accuracy || 0}%
-                      </span>
-                      <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-md border shrink-0 ${
-                        (liveTopic.accuracy || 0) >= 80
-                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/25'
-                          : (liveTopic.accuracy || 0) >= 60
-                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/25'
-                          : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/25'
-                      }`}>
-                        {(liveTopic.accuracy || 0) >= 80 ? 'Mastered' : (liveTopic.accuracy || 0) >= 60 ? 'Moderate' : 'Needs Work'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Study Time Tile */}
-                  <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-75" />
-                    
-                    {/* Top Row: Icon + Label (Full width, never wraps awkwardly) */}
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <div className="w-6 h-6 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-                        <Clock className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 truncate tracking-tight">
-                        Total Studied
-                      </span>
-                    </div>
-
-                    {/* Bottom Row: Big Number on Left, Logged Hours on Right */}
-                    <div className="flex items-baseline justify-between gap-1 mt-2.5">
-                      <span className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono tabular-nums leading-none">
-                        {liveTopic.studyTimeMinutes || 0}m
-                      </span>
-                      <span className="text-[10px] sm:text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] px-1.5 sm:px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-white/[0.06] shrink-0">
-                        {Math.round(((liveTopic.studyTimeMinutes || 0) / 60) * 10) / 10}h Logged
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. ACCURACY CONTROLLER (SLIDER & PRESET CHIPS) */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
-                        <Target className="w-4 h-4 stroke-[2.2]" />
-                      </div>
-                      <div>
-                        <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight block">
-                          Update Mock Test Accuracy
-                        </span>
-                        <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-normal flex items-center gap-1.5 flex-wrap mt-0.5">
-                          <span>Calibrate question accuracy from latest PYQ mock test</span>
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[9.5px] font-mono font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
-                            ⚡ Linked with Mock Tracker
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    {accuracySavedNotice && (
-                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold flex items-center gap-1 animate-fade-in shrink-0">
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
-                        <span>Saved!</span>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Accuracy Slider */}
-                  <div className="space-y-2 p-3 rounded-xl bg-slate-50/80 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08]">
-                    <div className="flex justify-between items-center text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
-                      <span className="text-[11px]">0% Untested</span>
-                      <span className="text-xs sm:text-sm font-mono font-black text-cyan-600 dark:text-cyan-400 tabular-nums px-2.5 py-0.5 rounded-lg bg-cyan-500/10 border border-cyan-500/25">
-                        {accuracyInput}%
-                      </span>
-                      <span className="text-[11px]">100% Pro</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="5"
-                      value={accuracyInput}
-                      onChange={e => {
-                        const val = Number(e.target.value);
-                        setAccuracyInput(val);
-                        handleSaveAccuracy(val);
-                      }}
-                      className="w-full h-2 rounded-lg bg-slate-200 dark:bg-zinc-800 accent-cyan-500 cursor-pointer"
-                    />
-                  </div>
-
-                  {/* 5-Column Responsive Presets */}
-                  <div className="grid grid-cols-5 gap-1.5 sm:gap-2 pt-0.5">
-                    {[
-                      { label: 'Weak', val: 40 },
-                      { label: 'Avg', val: 65 },
-                      { label: 'Target', val: 80 },
-                      { label: 'Good', val: 90 },
-                      { label: 'Pro', val: 98 }
-                    ].map(chip => {
-                      const isSelected = liveTopic.accuracy === chip.val;
-                      return (
-                        <button
-                          key={chip.val}
-                          type="button"
-                          onClick={() => handleSaveAccuracy(chip.val)}
-                          className={`py-2 px-1 rounded-xl text-center transition-all cursor-pointer border active:scale-95 flex flex-col items-center justify-center gap-0.5 ${
-                            isSelected
-                              ? 'bg-cyan-500 text-white border-cyan-400 shadow-sm shadow-cyan-500/30'
-                              : 'bg-slate-50 dark:bg-[#13141F] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500/50'
-                          }`}
-                        >
-                          <span className="text-xs sm:text-sm font-mono font-black tabular-nums leading-none">
-                            {chip.val}%
-                          </span>
-                          <span className={`text-[10px] font-semibold leading-none ${
-                            isSelected ? 'text-cyan-100' : 'text-slate-400 dark:text-slate-500'
-                          }`}>
-                            {chip.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* 3. STUDY TIME LOGGER (+15M, +30M, STOPWATCH) */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
-                        <Clock className="w-4 h-4 stroke-[2.2]" />
-                      </div>
-                      <div>
-                        <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight block">
-                          Log Study & Practice Time
-                        </span>
-                        <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-normal block mt-0.5">
-                          Add sprint minutes or track live study with built-in stopwatch
-                        </span>
-                      </div>
-                    </div>
-                    {timeSavedNotice && (
-                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold flex items-center gap-1 animate-fade-in shrink-0">
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
-                        <span>Logged!</span>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* 1-Click Quick Add Buttons */}
-                  <div className="space-y-1.5">
-                    <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-                      Quick Add Minutes:
-                    </span>
-                    <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
-                      {[
-                        { mins: 15, sub: '15m' },
-                        { mins: 30, sub: '30m' },
-                        { mins: 45, sub: '45m' },
-                        { mins: 60, sub: '1h' }
-                      ].map(item => (
-                        <button
-                          key={item.mins}
-                          type="button"
-                          onClick={() => handleAddStudyMinutes(item.mins)}
-                          className="py-2 px-1.5 rounded-xl bg-slate-50 dark:bg-[#13141F] hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500/30 border border-slate-200/80 dark:border-white/[0.08] text-xs font-mono font-bold text-slate-800 dark:text-slate-100 transition-all cursor-pointer active:scale-95 text-center flex flex-col items-center justify-center gap-0.5"
-                        >
-                          <span className="font-black">+{item.mins}m</span>
-                          <span className="text-[9px] font-sans font-medium text-slate-400 dark:text-slate-500">
-                            {item.sub}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Live Topic Stopwatch */}
-                  <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50/80 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        {isTimerRunning && (
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                        )}
-                        <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                          {isTimerRunning ? 'Stopwatch Running' : 'Live Stopwatch'}
-                        </span>
-                      </div>
-                      <span className="text-xl sm:text-2xl font-mono tabular-nums font-black text-slate-900 dark:text-white block mt-0.5">
-                        {formatStopwatch(timerSeconds)}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      {!isTimerRunning ? (
-                        <button
-                          type="button"
-                          onClick={() => setIsTimerRunning(true)}
-                          className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition-all shadow-sm shadow-amber-500/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                          <span>Start Timer</span>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={handleStopAndLogStopwatch}
-                          className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-sm shadow-emerald-600/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
-                        >
-                          <Check className="w-3.5 h-3.5 stroke-[3]" />
-                          <span>Save ({Math.max(1, Math.round(timerSeconds / 60))}m)</span>
-                        </button>
-                      )}
-
-                      {timerSeconds > 0 && !isTimerRunning && (
-                        <button
-                          type="button"
-                          onClick={() => setTimerSeconds(0)}
-                          className="p-2 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors border border-transparent hover:border-rose-500/20"
-                          title="Reset Stopwatch"
-                          aria-label="Reset Stopwatch"
-                        >
-                          <RotateCcw className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. PREPARATION STATUS SELECTOR (Segmented Pill Group) */}
+                {/* 1. PREPARATION STATUS SELECTOR (Segmented Pill Group) */}
                 <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-2.5">
-                  <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-                    Preparation Status
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                      Preparation Status
+                    </span>
+                    <span className="text-[11px] font-sans text-slate-400 dark:text-slate-500">
+                      Current mastery level
+                    </span>
+                  </div>
                   <div
                     role="radiogroup"
                     aria-label="Preparation Status"
@@ -1225,7 +982,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                               haptics.medium();
                             }
                           }}
-                          className={`py-2 px-2.5 rounded-lg text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95 ${
+                          className={`py-2 px-2.5 rounded-lg text-xs font-sans transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95 ${
                             isSelected
                               ? st.activeClasses
                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium'
@@ -1239,40 +996,284 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   </div>
                 </div>
 
-                {/* 5. SPACED REPETITION INTELLIGENCE & SYNC TILE */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3 relative overflow-hidden">
+                {/* 2. TOPIC STATS HERO TILES (ACCURACY % & STUDY TIME) */}
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                  {/* Accuracy Tile */}
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-80" />
+                    
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                        <Target className="w-4 h-4" />
+                      </div>
+                      <span className="text-xs font-bold font-sans text-slate-700 dark:text-slate-300 truncate">
+                        Mock Accuracy
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline justify-between gap-1 mt-3">
+                      <span className="text-2xl sm:text-3xl font-black font-sans text-slate-900 dark:text-white tabular-nums leading-none">
+                        {liveTopic.accuracy || 0}%
+                      </span>
+                      <span className={`text-[11px] font-sans font-bold px-2 py-0.5 rounded-md border shrink-0 ${
+                        (liveTopic.accuracy || 0) >= 80
+                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/25'
+                          : (liveTopic.accuracy || 0) >= 60
+                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/25'
+                          : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/25'
+                      }`}>
+                        {(liveTopic.accuracy || 0) >= 80 ? 'Mastered' : (liveTopic.accuracy || 0) >= 60 ? 'Moderate' : 'Needs Work'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Study Time Tile */}
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-80" />
+                    
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                        <Clock className="w-4 h-4" />
+                      </div>
+                      <span className="text-xs font-bold font-sans text-slate-700 dark:text-slate-300 truncate">
+                        Total Studied
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline justify-between gap-1 mt-3">
+                      <span className="text-2xl sm:text-3xl font-black font-sans text-slate-900 dark:text-white tabular-nums leading-none">
+                        {liveTopic.studyTimeMinutes || 0}m
+                      </span>
+                      <span className="text-[11px] font-sans font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-white/[0.06] shrink-0 tabular-nums">
+                        {Math.round(((liveTopic.studyTimeMinutes || 0) / 60) * 10) / 10}h Logged
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. ACCURACY CONTROLLER (SLIDER & PRESET CHIPS) */}
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 flex items-center justify-center shrink-0">
+                        <Target className="w-4 h-4 stroke-[2.2]" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-sm font-bold font-sans text-slate-900 dark:text-white tracking-tight">
+                            Update Mock Test Accuracy
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-sans font-bold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/25">
+                            ⚡ Linked with Mock Tracker
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-sans truncate mt-0.5">
+                          Calibrate question accuracy from latest PYQ mock test
+                        </p>
+                      </div>
+                    </div>
+                    {accuracySavedNotice && (
+                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-sans font-bold flex items-center gap-1 animate-fade-in shrink-0">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        <span>Saved!</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Accuracy Slider */}
+                  <div className="space-y-2 p-3 sm:p-3.5 rounded-xl bg-slate-50/80 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08]">
+                    <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-500 dark:text-slate-400">
+                      <span className="text-[11px] font-sans">0% Untested</span>
+                      <span className="text-xs sm:text-sm font-sans font-black text-cyan-600 dark:text-cyan-400 tabular-nums px-3 py-0.5 rounded-lg bg-cyan-500/15 border border-cyan-500/30 shadow-2xs">
+                        {accuracyInput}%
+                      </span>
+                      <span className="text-[11px] font-sans">100% Pro</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="5"
+                      value={accuracyInput}
+                      onChange={e => {
+                        const val = Number(e.target.value);
+                        setAccuracyInput(val);
+                        handleSaveAccuracy(val);
+                      }}
+                      className="w-full h-2 rounded-lg bg-slate-200 dark:bg-zinc-800 accent-cyan-500 cursor-pointer"
+                    />
+                  </div>
+
+                  {/* 5-Column Responsive Presets */}
+                  <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
+                    {[
+                      { label: 'Weak', val: 40 },
+                      { label: 'Avg', val: 65 },
+                      { label: 'Target', val: 80 },
+                      { label: 'Good', val: 90 },
+                      { label: 'Pro', val: 98 }
+                    ].map(chip => {
+                      const isSelected = liveTopic.accuracy === chip.val;
+                      return (
+                        <button
+                          key={chip.val}
+                          type="button"
+                          onClick={() => handleSaveAccuracy(chip.val)}
+                          className={`py-2 px-1.5 rounded-xl text-center transition-all cursor-pointer border active:scale-95 flex flex-col items-center justify-center gap-0.5 ${
+                            isSelected
+                              ? 'bg-cyan-600 text-white border-cyan-500 shadow-sm shadow-cyan-500/30 font-bold'
+                              : 'bg-slate-50 dark:bg-[#13141F] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500/50 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/20'
+                          }`}
+                        >
+                          <span className="text-xs sm:text-sm font-sans font-black tabular-nums leading-none">
+                            {chip.val}%
+                          </span>
+                          <span className={`text-[10px] font-sans font-semibold leading-none ${
+                            isSelected ? 'text-cyan-100' : 'text-slate-400 dark:text-slate-500'
+                          }`}>
+                            {chip.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 4. STUDY TIME LOGGER (+15M, +30M, STOPWATCH) */}
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
+                        <Clock className="w-4 h-4 stroke-[2.2]" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-sm font-bold font-sans text-slate-900 dark:text-white tracking-tight block">
+                          Log Study & Practice Time
+                        </span>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-sans truncate mt-0.5">
+                          Add sprint minutes or track live study with built-in stopwatch
+                        </p>
+                      </div>
+                    </div>
+                    {timeSavedNotice && (
+                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-sans font-bold flex items-center gap-1 animate-fade-in shrink-0">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        <span>Logged!</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* 1-Click Quick Add Buttons - Clean Single Label, No Duplicates! */}
+                  <div className="space-y-1.5">
+                    <span className="text-[11px] font-bold font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wide block">
+                      Quick Add Sprint:
+                    </span>
+                    <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                      {[
+                        { mins: 15, label: '+15m' },
+                        { mins: 30, label: '+30m' },
+                        { mins: 45, label: '+45m' },
+                        { mins: 60, label: '+1h' }
+                      ].map(item => (
+                        <button
+                          key={item.mins}
+                          type="button"
+                          onClick={() => handleAddStudyMinutes(item.mins)}
+                          className="py-2.5 px-2 rounded-xl bg-slate-50 dark:bg-[#13141F] hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500/30 border border-slate-200/80 dark:border-white/[0.08] text-xs font-bold font-sans text-slate-800 dark:text-slate-100 transition-all cursor-pointer active:scale-95 text-center flex items-center justify-center gap-1 shadow-2xs"
+                        >
+                          <Plus className="w-3 h-3 text-amber-500 shrink-0" />
+                          <span>{item.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Live Topic Stopwatch */}
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50/80 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        {isTimerRunning && (
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                        )}
+                        <span className="text-[11px] font-bold font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                          {isTimerRunning ? 'Stopwatch Running' : 'Live Stopwatch'}
+                        </span>
+                      </div>
+                      <span className="text-xl sm:text-2xl font-sans tabular-nums font-black text-slate-900 dark:text-white block mt-0.5">
+                        {formatStopwatch(timerSeconds)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {!isTimerRunning ? (
+                        <button
+                          type="button"
+                          onClick={() => setIsTimerRunning(true)}
+                          className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-sans transition-all shadow-sm shadow-amber-500/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
+                        >
+                          <Play className="w-3.5 h-3.5 fill-current" />
+                          <span>Start Timer</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleStopAndLogStopwatch}
+                          className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold font-sans transition-all shadow-sm shadow-emerald-600/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
+                        >
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          <span>Save ({Math.max(1, Math.round(timerSeconds / 60))}m)</span>
+                        </button>
+                      )}
+
+                      {timerSeconds > 0 && !isTimerRunning && (
+                        <button
+                          type="button"
+                          onClick={() => setTimerSeconds(0)}
+                          className="p-2 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors border border-transparent hover:border-rose-500/20"
+                          title="Reset Stopwatch"
+                          aria-label="Reset Stopwatch"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 5. SPACED REPETITION INTELLIGENCE & RETENTION TILE */}
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3.5 relative overflow-hidden">
                   <div className="flex items-center justify-between gap-2 sm:gap-3">
-                    <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <div className="flex items-center gap-2.5 min-w-0">
                       <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 flex items-center justify-center shrink-0">
                         <RotateCw className="w-4 h-4 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                          <span className="text-sm font-bold font-sans text-slate-900 dark:text-white tracking-tight">
                             Spaced Repetition & Retention
                           </span>
-                          <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                             SM-2 Adaptive
                           </span>
                         </div>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono block truncate mt-0.5">
-                          Optimal curve: [{adaptiveIntervals.map(i => `${i}d`).join(' → ')}]
-                        </span>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-sans truncate mt-0.5">
+                          Optimal recall curve: {adaptiveIntervals.map(i => `${i}d`).join(' → ')}
+                        </p>
                       </div>
                     </div>
 
                     {/* Live Badge */}
                     <div className="shrink-0">
                       {liveTopic.status === 'completed' && activeRevisionCard?.completedDate ? (
-                        <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                        <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                           ✓ Retained
                         </span>
                       ) : activeRevisionCard ? (
-                        <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
+                        <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
                           Stage {activeRevisionCard.stage} of 4
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-slate-100 dark:bg-[#13141F] text-slate-500 dark:text-slate-400 border border-slate-200/80 dark:border-white/[0.08]">
+                        <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-lg bg-slate-100 dark:bg-[#13141F] text-slate-500 dark:text-slate-400 border border-slate-200/80 dark:border-white/[0.08]">
                           Unscheduled
                         </span>
                       )}
@@ -1280,7 +1281,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   </div>
 
                   {/* 4-Stage Adaptive Interval Progression Visualizer */}
-                  <div className="grid grid-cols-4 gap-1.5">
+                  <div className="grid grid-cols-4 gap-2">
                     {adaptiveIntervals.map((intervalDays, idx) => {
                       const stageNum = idx + 1;
                       const isPassed = activeRevisionCard ? (activeRevisionCard.stage > stageNum || Boolean(activeRevisionCard.completedDate)) : false;
@@ -1289,7 +1290,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       return (
                         <div
                           key={stageNum}
-                          className={`p-2 rounded-xl border text-center transition-all ${
+                          className={`p-2.5 rounded-xl border text-center transition-all ${
                             isPassed
                               ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
                               : isCurrent
@@ -1297,16 +1298,16 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                               : 'bg-slate-50 dark:bg-[#13141F] text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-white/[0.08]'
                           }`}
                         >
-                          <div className={`text-[10px] sm:text-xs font-mono font-bold uppercase ${
+                          <div className={`text-[10px] font-sans font-bold uppercase tracking-wider ${
                             isPassed
                               ? 'text-emerald-700 dark:text-emerald-300'
                               : isCurrent
                               ? 'text-indigo-100'
-                              : 'text-slate-500 dark:text-slate-400'
+                              : 'text-slate-400 dark:text-slate-500'
                           }`}>
                             Stage {stageNum}
                           </div>
-                          <div className={`text-xs sm:text-sm font-mono font-black tabular-nums my-0.5 ${
+                          <div className={`text-base sm:text-lg font-sans font-black tabular-nums my-0.5 ${
                             isPassed
                               ? 'text-emerald-800 dark:text-emerald-200'
                               : isCurrent
@@ -1315,14 +1316,14 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           }`}>
                             {intervalDays}d
                           </div>
-                          <div className={`text-[10px] font-medium leading-none ${
+                          <div className={`text-[10px] font-sans font-semibold leading-none ${
                             isPassed
                               ? 'text-emerald-600 dark:text-emerald-400'
                               : isCurrent
-                              ? 'text-white/90 font-bold'
+                              ? 'text-white font-bold'
                               : 'text-slate-400 dark:text-slate-500'
                           }`}>
-                            {isPassed ? '✓ Passed' : isCurrent ? '● Active' : 'Upcoming'}
+                            {isPassed ? '✓ Done' : isCurrent ? '● Active' : 'Upcoming'}
                           </div>
                         </div>
                       );
@@ -1331,7 +1332,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
                   {/* Schedule Details & 1-Click Action */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-1">
-                    <div className="text-xs font-mono text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                    <div className="text-xs font-sans text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
                       <span className="truncate">
                         {activeRevisionCard ? (
@@ -1353,7 +1354,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                             soundManager.playCompleteChime();
                             haptics.success();
                           }}
-                          className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                          className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold font-sans shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>Mark Mastered & Queue</span>
@@ -1366,13 +1367,13 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                             soundManager.playCompleteChime();
                             haptics.medium();
                           }}
-                          className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                          className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold font-sans shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
                         >
                           <Zap className="w-3.5 h-3.5 text-amber-300" />
                           <span>⚡ Revise Today</span>
                         </button>
                       ) : (
-                        <span className="w-full sm:w-auto px-2.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 text-center">
+                        <span className="w-full sm:w-auto px-3 py-1.5 rounded-xl text-xs font-sans font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 text-center">
                           ✓ Ready in Today's Queue
                         </span>
                       )}
@@ -1381,13 +1382,13 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 </div>
 
                 {/* 6. Subtopics Checklist */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3.5">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                      <span className="text-sm font-bold font-sans text-slate-900 dark:text-white tracking-tight">
                         Subtopics & Concept Checklist
                       </span>
-                      <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-indigo-500/15 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
+                      <span className="px-2 py-0.5 rounded-full text-xs font-sans font-bold bg-indigo-500/15 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
                         {liveTopic.subtopics ? liveTopic.subtopics.length : 0}
                       </span>
                     </div>
@@ -1400,7 +1401,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           setSubtopicMode('single');
                           soundManager.playClick();
                         }}
-                        className={`px-2.5 sm:px-3 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                        className={`px-3 py-1 text-xs font-bold font-sans rounded-lg transition-all cursor-pointer ${
                           subtopicMode === 'single'
                             ? 'bg-white dark:bg-[#1E1F2C] text-slate-900 dark:text-white shadow-xs font-black'
                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -1414,7 +1415,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           setSubtopicMode('bulk');
                           soundManager.playClick();
                         }}
-                        className={`flex items-center gap-1 px-2.5 sm:px-3 py-1 text-xs font-black rounded-lg transition-all cursor-pointer ${
+                        className={`flex items-center gap-1 px-3 py-1 text-xs font-bold font-sans rounded-lg transition-all cursor-pointer ${
                           subtopicMode === 'bulk'
                             ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs'
                             : 'text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300'
@@ -1432,11 +1433,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                       liveTopic.subtopics.map((sub, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-400/40 transition-colors"
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/40 dark:hover:border-indigo-400/40 transition-colors group"
                         >
                           <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 shrink-0" />
-                            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">{sub}</span>
+                            <span className="text-xs font-semibold font-sans text-slate-800 dark:text-slate-200 truncate">{sub}</span>
                           </div>
                           <button
                             type="button"
@@ -1450,7 +1451,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                         </div>
                       ))
                     ) : (
-                      <p className="text-xs text-slate-400 dark:text-slate-500 font-mono italic py-1">No subtopics added yet.</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 font-sans italic py-1">No subtopics added yet.</p>
                     )}
                   </div>
 
@@ -1463,11 +1464,11 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                           value={newSubtopicInput}
                           onChange={(e) => setNewSubtopicInput(e.target.value)}
                           placeholder="Add subtopic (or comma-separated)..."
-                          className="flex-1 px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/10 text-xs font-medium focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                          className="flex-1 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-[#13141F] border border-slate-200/80 dark:border-white/10 text-xs font-medium font-sans focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                         />
                         <button
                           type="submit"
-                          className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-all active:scale-95 shrink-0 shadow-sm shadow-indigo-600/25 flex items-center justify-center gap-1"
+                          className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold font-sans uppercase tracking-wider cursor-pointer transition-all active:scale-95 shrink-0 shadow-sm shadow-indigo-600/25 flex items-center justify-center gap-1"
                         >
                           + Add
                         </button>
