@@ -925,15 +925,9 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
+                    className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
                   >
-                    {/* Left Accent Indicator Strip */}
-                    <div
-                      className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
-                      style={{ backgroundColor: design.palette.accentColor }}
-                    />
-
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       {/* Left & Middle: Emblem + Title & Meta */}
                       <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
                         {/* Integrated Luxury Topic Emblem with Quick Status Toggle */}
@@ -1442,17 +1436,11 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={chapter.id}
                   onClick={() => handleSelectChapter(chapter.id)}
-                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
+                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
                 >
-                  {/* Left Accent Indicator Strip */}
-                  <div
-                    className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
-                    style={{ backgroundColor: palette.accentColor }}
-                  />
-
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
-                    {/* Left & Middle: Emblem + Title & Progress */}
-                    <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4">
+                    {/* Left: Emblem + Title & Meta */}
+                    <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
                       {/* Integrated Luxury Chapter Emblem */}
                       <div className="relative shrink-0">
                         <div
@@ -1460,54 +1448,32 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         >
                           <ChapterIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
                         </div>
-                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
+                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-bold font-sans shadow-2xs text-slate-700 dark:text-slate-200">
                           {formattedNum}
                         </span>
                       </div>
 
-                      {/* Title & Stats */}
-                      <div className="min-w-0 flex-1 space-y-2">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
-                            {chapter.name}
-                          </h3>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${
-                            isChapterMastered
-                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
-                              : hasChapterStarted
-                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
-                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                          }`}>
-                            {isChapterMastered ? '100% Done' : `${chapterPercent}%`}
-                          </span>
-                        </div>
-
-                        {/* Visual Progress Bar */}
-                        <div className="w-full max-w-md h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
-                          <div
-                            className="h-full rounded-full transition-all duration-500 shadow-xs"
-                            style={{
-                              width: `${Math.max(chapterPercent > 0 ? 4 : 0, chapterPercent)}%`,
-                              backgroundColor: palette.accentColor
-                            }}
-                          />
-                        </div>
+                      {/* Title & Metadata */}
+                      <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
+                        <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-sans">
+                          {chapter.name}
+                        </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium flex-wrap pt-0.5">
-                          <span className="flex items-center gap-1.5 font-mono">
-                            <Layers className="w-3.5 h-3.5 text-indigo-500" />
+                        <div className="flex items-center gap-2.5 sm:gap-3 text-xs text-slate-500 dark:text-slate-400 font-semibold font-sans flex-wrap">
+                          <span className="flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                             <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
                           </span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                          <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                             <span>{completedInChapter}/{totalInChapter} Mastered</span>
                           </span>
                           {weakInChapter > 0 && (
                             <>
                               <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold font-mono">
+                              <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold">
                                 <AlertTriangle className="w-3.5 h-3.5" />
                                 <span>{weakInChapter} Weak</span>
                               </span>
@@ -1517,11 +1483,43 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Right: Status Action CTA */}
-                    <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                      <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs">
+                    {/* Right: Progress Metric + Continue Action */}
+                    <div className="flex items-center gap-3.5 sm:gap-5 shrink-0 self-end sm:self-center justify-between sm:justify-end w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/[0.06]">
+                      {/* Progress Bar & Percentage */}
+                      <div className="flex flex-col items-start sm:items-end gap-1.5 min-w-[110px] sm:min-w-[130px]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs sm:text-sm font-black font-sans text-slate-900 dark:text-white tabular-nums">
+                            {chapterPercent}%
+                          </span>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-sans border ${
+                            isChapterMastered
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                              : hasChapterStarted
+                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
+                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
+                          }`}>
+                            {isChapterMastered ? 'Mastered' : hasChapterStarted ? 'In Progress' : 'Not Started'}
+                          </span>
+                        </div>
+
+                        {/* Sleek Progress Track */}
+                        <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
+                          {chapterPercent > 0 ? (
+                            <div
+                              className="h-full rounded-full transition-all duration-500"
+                              style={{
+                                width: `${chapterPercent}%`,
+                                backgroundColor: palette.accentColor
+                              }}
+                            />
+                          ) : null}
+                        </div>
+                      </div>
+
+                      {/* Action Button */}
+                      <div className="flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold font-sans text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs shrink-0">
                         <span>View Topics</span>
-                        <ChevronRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
+                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </div>
                   </div>
@@ -2013,17 +2011,11 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 <div
                   key={subject.id}
                   onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none overflow-hidden"
+                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
                 >
-                  {/* Left Accent Indicator Strip */}
-                  <div
-                    className="absolute top-0 bottom-0 left-0 w-1.5 transition-all duration-200 group-hover:w-2"
-                    style={{ backgroundColor: palette.accentColor }}
-                  />
-
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-2 sm:pl-3">
-                    {/* Left & Middle: Emblem + Title & Progress */}
-                    <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4">
+                    {/* Left: Emblem + Title & Meta */}
+                    <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
                       {/* Integrated Luxury Subject Emblem */}
                       <div className="relative shrink-0">
                         <div
@@ -2032,64 +2024,74 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                           <BadgeIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
                         </div>
                         {/* Index Badge Tag */}
-                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
+                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-bold font-sans shadow-2xs text-slate-700 dark:text-slate-200">
                           {formattedNum}
                         </span>
                       </div>
 
-                      {/* Title & Stats */}
-                      <div className="min-w-0 flex-1 space-y-2">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
-                            {subject.name}
-                          </h3>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black font-mono border ${
-                            isSubjectMastered
-                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
-                              : hasSubjectStarted
-                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
-                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                          }`}>
-                            {percent}% DONE
-                          </span>
-                        </div>
-
-                        {/* Visual Progress Bar */}
-                        <div className="w-full max-w-md h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
-                          <div
-                            className="h-full rounded-full transition-all duration-500 shadow-xs"
-                            style={{
-                              width: `${Math.max(percent > 0 ? 4 : 0, percent)}%`,
-                              backgroundColor: palette.accentColor
-                            }}
-                          />
-                        </div>
+                      {/* Title & Metadata */}
+                      <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
+                        <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-sans">
+                          {subject.name}
+                        </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium flex-wrap pt-0.5">
-                          <span className="flex items-center gap-1.5 font-mono">
-                            <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
+                        <div className="flex items-center gap-2.5 sm:gap-3 text-xs text-slate-500 dark:text-slate-400 font-semibold font-sans flex-wrap">
+                          <span className="flex items-center gap-1.5">
+                            <BookOpen className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                             <span>{totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'}</span>
                           </span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5 font-mono">
-                            <Layers className="w-3.5 h-3.5 text-sky-500" />
+                          <span className="flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-sky-500 shrink-0" />
                             <span>{subjectTotalTopics} Topics</span>
                           </span>
                           <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                          <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                             <span>{completedChapters}/{totalChapters} Mastered</span>
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right: Status Action CTA */}
-                    <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                      <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs">
+                    {/* Right: Progress Metric + Continue Action */}
+                    <div className="flex items-center gap-3.5 sm:gap-5 shrink-0 self-end sm:self-center justify-between sm:justify-end w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/[0.06]">
+                      {/* Progress Bar & Percentage */}
+                      <div className="flex flex-col items-start sm:items-end gap-1.5 min-w-[110px] sm:min-w-[130px]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs sm:text-sm font-black font-sans text-slate-900 dark:text-white tabular-nums">
+                            {percent}%
+                          </span>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-sans border ${
+                            isSubjectMastered
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                              : hasSubjectStarted
+                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
+                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
+                          }`}>
+                            {isSubjectMastered ? 'Mastered' : hasSubjectStarted ? 'In Progress' : 'Not Started'}
+                          </span>
+                        </div>
+
+                        {/* Sleek Progress Track */}
+                        <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
+                          {percent > 0 ? (
+                            <div
+                              className="h-full rounded-full transition-all duration-500"
+                              style={{
+                                width: `${percent}%`,
+                                backgroundColor: palette.accentColor
+                              }}
+                            />
+                          ) : null}
+                        </div>
+                      </div>
+
+                      {/* Continue CTA Button */}
+                      <div className="flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold font-sans text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs shrink-0">
                         <span>{hasSubjectStarted ? 'Continue' : 'Explore'}</span>
-                        <ChevronRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
+                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </div>
                   </div>
