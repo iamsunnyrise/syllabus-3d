@@ -497,6 +497,13 @@
     color: #1C1B05 !important;
   }
 
+  /* Live Focus Slot HUD Card in Warm Parchment */
+  html.warm-cream .live-routine-hud {
+    background-color: #FFFDF8 !important;
+    border: 1.5px solid #E5CCA2 !important;
+    box-shadow: 0 4px 20px rgba(56, 55, 13, 0.08) !important;
+  }
+
   /* Sidebar in Warm Parchment (Clean Luxury Ivory matching theme) */
   html.warm-cream aside {
     background-color: #FFFDF8 !important;

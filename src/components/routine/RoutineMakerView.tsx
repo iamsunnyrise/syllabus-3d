@@ -24,7 +24,8 @@ import {
   Square,
   AlertCircle,
   ExternalLink,
-  Target
+  Target,
+  Hourglass
 } from 'lucide-react';
 import {
   RoutineSlot,
@@ -285,19 +286,19 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           {/* Card 1: Discipline Score */}
           <div className="p-3.5 rounded-2xl bg-slate-50/90 dark:bg-[#161828] border border-slate-200/70 dark:border-white/10 flex flex-col justify-between">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-bold font-sans text-slate-500 dark:text-slate-400">
                 Discipline Score
               </span>
-              <div className="w-7 h-7 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
                 <CheckCircle2 className="w-4 h-4 stroke-[2.2]" />
               </div>
             </div>
             <div className="mt-2 space-y-1.5">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-xl sm:text-2xl font-black font-mono text-blue-600 dark:text-blue-400 tabular-nums">
+                <span className="text-xl sm:text-2xl font-black font-sans text-blue-600 dark:text-blue-400 tabular-nums">
                   {todayAdherencePercent}%
                 </span>
-                <span className="text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+                <span className="text-[11px] text-slate-400 dark:text-slate-500 font-sans font-medium">
                   ({todayCompletedStudySlotsCount}/{todayStudySlotsCount} Done)
                 </span>
               </div>
@@ -313,23 +314,23 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           {/* Card 2: Today's Study Load */}
           <div className="p-3.5 rounded-2xl bg-slate-50/90 dark:bg-[#161828] border border-slate-200/70 dark:border-white/10 flex flex-col justify-between">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-bold font-sans text-slate-500 dark:text-slate-400">
                 Today's Study Load
               </span>
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
                 <BookOpen className="w-4 h-4 stroke-[2.2]" />
               </div>
             </div>
             <div className="mt-2">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-xl sm:text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+                <span className="text-xl sm:text-2xl font-black font-sans text-emerald-600 dark:text-emerald-400 tabular-nums">
                   {totalPlannedStudyHours}h
                 </span>
-                <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                <span className="text-[11px] text-slate-400 dark:text-slate-500 font-sans font-medium">
                   Deep Work
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-mono">
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 font-sans font-medium">
                 {todayStudySlotsCount} focus sessions planned
               </p>
             </div>
@@ -338,20 +339,20 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           {/* Card 3: Today's Live Clock */}
           <div className="p-3.5 rounded-2xl bg-slate-50/90 dark:bg-[#161828] border border-slate-200/70 dark:border-white/10 flex flex-col justify-between">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-bold font-sans text-slate-500 dark:text-slate-400">
                 Today ({currentDay})
               </span>
-              <div className="w-7 h-7 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                 <Clock className="w-4 h-4 stroke-[2.2]" />
               </div>
             </div>
             <div className="mt-2">
               <div className="flex items-baseline gap-2">
-                <span className="text-xl sm:text-2xl font-black font-mono text-slate-900 dark:text-white tabular-nums">
+                <span className="text-xl sm:text-2xl font-black font-sans text-slate-900 dark:text-white tabular-nums">
                   {currentTimeString}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium mt-1">
+              <div className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-sans font-semibold mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Live time sync</span>
               </div>
@@ -361,19 +362,19 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
           {/* Card 4: Daily Momentum / Reset */}
           <div className="p-3.5 rounded-2xl bg-slate-50/90 dark:bg-[#161828] border border-slate-200/70 dark:border-white/10 flex flex-col justify-between">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-bold font-sans text-slate-500 dark:text-slate-400">
                 Daily Momentum
               </span>
-              <div className="w-7 h-7 rounded-lg bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
                 <Flame className="w-4 h-4 stroke-[2.2]" />
               </div>
             </div>
             <div className="mt-2 flex items-center justify-between gap-2">
               <div>
-                <p className="text-base sm:text-lg font-black text-slate-800 dark:text-slate-200">
+                <p className="text-base sm:text-lg font-black font-sans text-slate-800 dark:text-slate-200">
                   {todayCompletedStudySlotsCount > 0 ? `${todayCompletedStudySlotsCount} Completed` : 'Ready to Start'}
                 </p>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 font-sans font-medium">
                   {todayCompletedStudySlotsCount > 0 ? 'Keep the streak alive!' : 'Track off your slots'}
                 </p>
               </div>
@@ -394,97 +395,137 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
       </div>
 
       {/* ═════════════════ 2. LIVE ACTIVE SLOT SPOTLIGHT HUD ═════════════════ */}
-      {activeSlot ? (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50/80 via-indigo-50/50 to-purple-50/60 dark:from-[#13172E] dark:via-[#191933] dark:to-[#16152B] border-2 border-blue-500/40 dark:border-indigo-500/40 shadow-lg shadow-blue-500/5 dark:shadow-indigo-500/10 relative overflow-hidden animate-fade-in print:hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500" />
-          
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-2 min-w-0 flex-1">
+      {activeSlot ? (() => {
+        const activeCfg = CATEGORY_CONFIG[activeSlot.category] || CATEGORY_CONFIG.custom;
+        const activeAccent = CATEGORY_ACCENT_CLASSES[activeSlot.category] || CATEGORY_ACCENT_CLASSES.custom;
+        const isLiveCompleted = todayCompletedSlotIds.includes(activeSlot.id);
+
+        return (
+          <div className="live-routine-hud group relative overflow-hidden rounded-2xl bg-white dark:bg-[#121424] border border-blue-200/80 dark:border-indigo-500/30 shadow-[0_4px_24px_-4px_rgba(59,130,246,0.12)] dark:shadow-[0_4px_24px_-4px_rgba(99,102,241,0.2)] p-4 sm:p-5.5 animate-fade-in print:hidden">
+            {/* Top Multi-Color Glowing Gradient Strip */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500" />
+            
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/5 dark:bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
+
+            {/* 1. Header Row: Status Pills & Time Remaining */}
+            <div className="flex items-center justify-between gap-2.5 flex-wrap">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-600 text-white shadow-xs">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold font-sans bg-blue-600 text-white shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                  LIVE NOW
+                  LIVE FOCUS SLOT
                 </span>
 
-                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-200">
-                  {format12Hour(activeSlot.startTime)} - {format12Hour(activeSlot.endTime)} ({formatSlotDuration(activeSlot.startTime, activeSlot.endTime)})
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold font-sans bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-white/10 tabular-nums">
+                  <Clock className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                  <span>{format12Hour(activeSlot.startTime)} – {format12Hour(activeSlot.endTime)}</span>
+                  <span className="text-slate-400 dark:text-slate-500 font-normal">({formatSlotDuration(activeSlot.startTime, activeSlot.endTime)})</span>
                 </span>
 
-                <span className="px-2 py-0.5 rounded-md text-xs font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/25 font-mono">
-                  ⏳ {activeRemainingMins} mins remaining
+                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold font-sans border ${activeAccent.badge}`}>
+                  <span>{activeCfg.icon}</span>
+                  <span>{activeCfg.label}</span>
                 </span>
+
+                {activeSlot.subjectName && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold font-sans bg-slate-100 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/10 text-slate-700 dark:text-slate-300">
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: activeSlot.subjectColor || '#3B82F6' }}
+                    />
+                    <span>{activeSlot.subjectName}</span>
+                  </span>
+                )}
               </div>
 
-              <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate">
-                {activeSlot.title}
-              </h3>
-
-              {/* Progress Bar */}
-              <div className="space-y-1 max-w-xl">
-                <div className="w-full h-2 bg-slate-200/80 dark:bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700"
-                    style={{ width: `${activeSlotProgress}%` }}
-                  />
-                </div>
-                <div className="flex justify-between items-center text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  <span>{activeSlotProgress}% time elapsed</span>
-                  <span>Ends at {format12Hour(activeSlot.endTime)}</span>
-                </div>
+              {/* Countdown Pill */}
+              <div className="shrink-0">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-sans bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30 tabular-nums shadow-2xs">
+                  <Hourglass className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>{activeRemainingMins} mins remaining</span>
+                </span>
               </div>
-
-              {activeSlot.notes && (
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-white/[0.04] border border-blue-200/50 dark:border-white/10 max-w-xl">
-                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium line-clamp-2">
-                    💡 <span className="font-bold">Strategy:</span> {activeSlot.notes}
-                  </p>
-                </div>
-              )}
             </div>
 
-            {/* Quick Actions for Active Slot */}
-            <div className="flex items-center gap-2 shrink-0 self-start md:self-center">
-              <button
-                type="button"
-                onClick={() => toggleSlotCompleteToday(activeSlot.id)}
-                className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
-                  todayCompletedSlotIds.includes(activeSlot.id)
-                    ? 'bg-emerald-600 text-white font-black hover:bg-emerald-700 border-emerald-600 shadow-xs'
-                    : 'bg-white dark:bg-[#1E202E] border-slate-200 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5'
-                }`}
-              >
-                <CheckCircle2 className={`w-4 h-4 ${todayCompletedSlotIds.includes(activeSlot.id) ? 'text-white' : 'text-emerald-500'}`} />
-                <span>{todayCompletedSlotIds.includes(activeSlot.id) ? 'Done Today! ✨' : 'Mark Done'}</span>
-              </button>
+            {/* 2. Title & Strategy Row */}
+            <div className="mt-3 sm:mt-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-2 min-w-0 flex-1">
+                <h3 className={`text-xl sm:text-2xl font-black font-sans text-slate-900 dark:text-white tracking-tight truncate ${isLiveCompleted ? 'line-through text-slate-400 dark:text-slate-500' : ''}`}>
+                  {activeSlot.title}
+                </h3>
 
-              {onOpenFocusChamber && activeSlot.category !== 'sleep' && activeSlot.category !== 'break' && (
+                {activeSlot.notes && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10 text-xs text-slate-600 dark:text-slate-300 font-sans max-w-2xl">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <p className="min-w-0 truncate">
+                      <strong className="text-slate-800 dark:text-slate-100 font-semibold">Strategy:</strong> {activeSlot.notes}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2.5 shrink-0 self-start md:self-center">
                 <button
                   type="button"
-                  onClick={() => onOpenFocusChamber(activeSlot.topicName || activeSlot.title)}
-                  className="btn-primary py-2 px-4 text-xs font-bold shadow-sm shadow-blue-500/20"
+                  onClick={() => toggleSlotCompleteToday(activeSlot.id)}
+                  className={`py-2 px-3.5 rounded-xl text-xs font-bold font-sans transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    isLiveCompleted
+                      ? 'bg-emerald-600 text-white font-extrabold hover:bg-emerald-700 border-emerald-600 shadow-xs'
+                      : 'bg-white dark:bg-[#1E202E] border-slate-200 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5'
+                  }`}
                 >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Start Focus Chamber</span>
+                  <CheckCircle2 className={`w-4 h-4 ${isLiveCompleted ? 'text-white' : 'text-emerald-500'}`} />
+                  <span>{isLiveCompleted ? 'Completed Today! ✨' : 'Mark Done'}</span>
                 </button>
-              )}
+
+                {onOpenFocusChamber && activeSlot.category !== 'sleep' && activeSlot.category !== 'break' && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenFocusChamber(activeSlot.topicName || activeSlot.title)}
+                    className="py-2 px-4 rounded-xl text-xs font-bold font-sans text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 shadow-md hover:shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>Start Focus Chamber</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 3. Progress Slider & Telemetry */}
+            <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5">
+              <div className="flex justify-between items-center text-xs font-sans text-slate-500 dark:text-slate-400">
+                <span className="font-semibold text-slate-700 dark:text-slate-300 tabular-nums">
+                  {activeSlotProgress}% time elapsed
+                </span>
+                <span className="text-slate-400 dark:text-slate-500 tabular-nums">
+                  Finishes at {format12Hour(activeSlot.endTime)}
+                </span>
+              </div>
+              <div className="w-full h-2 bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700 shadow-2xs"
+                  style={{ width: `${activeSlotProgress}%` }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ) : nextSlot ? (
+        );
+      })() : nextSlot ? (
         <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-[#151726] border border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3 animate-fade-in print:hidden">
           <div className="flex items-center gap-2.5 min-w-0">
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 shrink-0">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-sans font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 shrink-0">
               NEXT UP
             </span>
-            <span className="font-mono font-bold text-xs text-slate-600 dark:text-slate-300 shrink-0">
+            <span className="font-sans font-bold text-xs text-slate-700 dark:text-slate-300 shrink-0 tabular-nums">
               {format12Hour(nextSlot.startTime)}
             </span>
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 truncate">
+            <span className="text-xs sm:text-sm font-bold font-sans text-slate-800 dark:text-slate-200 truncate">
               {nextSlot.title}
             </span>
           </div>
 
-          <span className="text-[11px] font-mono font-semibold text-slate-400 shrink-0">
+          <span className="text-xs font-sans font-semibold text-slate-400 shrink-0 tabular-nums">
             Duration: {formatSlotDuration(nextSlot.startTime, nextSlot.endTime)}
           </span>
         </div>
@@ -605,7 +646,7 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                     </h3>
                   </div>
 
-                  <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 tabular-nums px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200/70 dark:border-white/10">
+                  <span className="text-xs font-sans font-semibold text-slate-500 dark:text-slate-400 tabular-nums px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200/70 dark:border-white/10">
                     {group.timeRange} • {group.slots.length} Blocks
                   </span>
                 </div>
@@ -653,21 +694,21 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                             <div className="space-y-1.5 min-w-0 flex-1">
                               {/* Meta Row: Time, Category & Subject */}
                               <div className="flex items-center gap-2 flex-wrap text-xs">
-                                <span className="font-mono font-black text-slate-900 dark:text-white text-xs sm:text-sm">
+                                <span className="font-sans font-black text-slate-900 dark:text-white text-xs sm:text-sm tabular-nums">
                                   {format12Hour(slot.startTime)} - {format12Hour(slot.endTime)}
                                 </span>
 
-                                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5">
+                                <span className="text-[11px] font-sans font-semibold text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 tabular-nums">
                                   {formatSlotDuration(slot.startTime, slot.endTime)}
                                 </span>
 
-                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold border ${accent.badge}`}>
+                                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold font-sans border ${accent.badge}`}>
                                   <span>{cfg.icon}</span>
                                   <span>{cfg.label}</span>
                                 </span>
 
                                 {slot.subjectName && (
-                                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-slate-700 dark:text-slate-300">
+                                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold font-sans bg-slate-100 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-slate-700 dark:text-slate-300">
                                     <span
                                       className="w-2 h-2 rounded-full shrink-0"
                                       style={{ backgroundColor: slot.subjectColor || '#3B82F6' }}
@@ -677,20 +718,20 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                                 )}
 
                                 {isCurrentlyActive && (
-                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-blue-600 text-white animate-pulse">
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-sans font-black bg-blue-600 text-white shadow-2xs">
                                     CURRENT
                                   </span>
                                 )}
                               </div>
 
                               {/* Slot Title */}
-                              <h4 className={`text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white ${isCompleted ? 'line-through text-slate-400 dark:text-slate-500' : ''}`}>
+                              <h4 className={`text-sm sm:text-[15px] font-bold font-sans text-slate-900 dark:text-white ${isCompleted ? 'line-through text-slate-400 dark:text-slate-500' : ''}`}>
                                 {slot.title}
                               </h4>
 
                               {/* Strategy / Notes */}
                               {slot.notes && (
-                                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal leading-relaxed">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 font-normal leading-relaxed font-sans">
                                   💡 {slot.notes}
                                 </p>
                               )}
@@ -701,7 +742,7 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                                   {slot.checklists.map((target, tIdx) => (
                                     <span
                                       key={tIdx}
-                                      className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 text-[10px] font-medium text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 flex items-center gap-1"
+                                      className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 text-[10px] font-medium text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 flex items-center gap-1 font-sans"
                                     >
                                       <Check className="w-2.5 h-2.5 text-emerald-500" />
                                       <span>{target}</span>
@@ -721,7 +762,7 @@ export const RoutineMakerView: React.FC<RoutineMakerViewProps> = ({
                                 return (
                                   <span
                                     key={day}
-                                    className={`w-5 h-5 text-[10px] font-mono font-bold rounded flex items-center justify-center transition-colors ${
+                                    className={`w-5 h-5 text-[10px] font-sans font-bold rounded flex items-center justify-center transition-colors ${
                                       isDayActive
                                         ? 'bg-blue-600/10 dark:bg-blue-400/15 text-blue-600 dark:text-blue-400 font-black'
                                         : 'text-slate-300 dark:text-slate-700'
