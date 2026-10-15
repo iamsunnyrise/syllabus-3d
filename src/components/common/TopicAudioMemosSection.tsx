@@ -323,343 +323,344 @@ export const TopicAudioMemosSection: React.FC<TopicAudioMemosSectionProps> = ({
   };
 
   return (
-    <div className="space-y-4">
-      
-      {/* 1. HEADER & RECORD BUTTON */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/20">
-            <Mic className="w-5 h-5 stroke-[2.2]" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm sm:text-base font-bold text-[#191A17] dark:text-[#F5F5F7]">
-                Voice Notes
-              </h3>
-              <span className="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono bg-[#EEEEE8] dark:bg-[#23232A] text-[#65675F] dark:text-[#A1A1AA]">
-                {audioMemos.length} {audioMemos.length === 1 ? 'Note' : 'Notes'}
-              </span>
+    <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs overflow-hidden">
+      {/* Executive Top Accent Gradient */}
+      <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 opacity-90" />
+
+      <div className="p-4 sm:p-5 space-y-4">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-100 dark:border-white/[0.06]">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center shrink-0 shadow-xs">
+              <Mic className="w-5 h-5 stroke-[2.2]" />
             </div>
-          </div>
-        </div>
-
-        {!isRecording && !recordedBlob && (
-          <button
-            onClick={handleStartRecording}
-            className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-600/20 transition-all cursor-pointer active:scale-95 shrink-0"
-          >
-            <Mic className="w-4 h-4 stroke-[2.5]" />
-            <span>Record Voice Note</span>
-          </button>
-        )}
-      </div>
-
-      {/* Notifications */}
-      {successNotice && (
-        <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold animate-fade-in">
-          <CheckCircle2 className="w-4 h-4 stroke-[2.5] shrink-0" />
-          <span>{successNotice}</span>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold animate-fade-in">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          <span>{errorMessage}</span>
-        </div>
-      )}
-
-      {/* 2. LIVE VOICE RECORDING ACTIVE STUDIO */}
-      {isRecording && (
-        <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-purple-950/40 via-[#18181D] to-rose-950/30 border-2 border-purple-500/50 shadow-xl space-y-4 animate-fade-in">
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-rose-500 animate-ping" />
-              <span className="text-xs font-bold text-rose-400 uppercase tracking-wider font-mono">
-                Recording Live Audio...
-              </span>
-            </div>
-            <span className="text-lg sm:text-xl font-mono font-black text-[#F5F5F7]">
-              {formatTime(recordingSeconds)}
-            </span>
-          </div>
-
-          {/* Pulsing Audio Wave Animation */}
-          <div className="flex items-center justify-center gap-1.5 py-4">
-            {[40, 75, 55, 95, 60, 85, 45, 90, 70, 100, 65, 80, 50].map((height, i) => (
-              <div
-                key={i}
-                className="w-1.5 bg-gradient-to-t from-purple-500 to-rose-400 rounded-full animate-pulse"
-                style={{
-                  height: `${height * 0.4}px`,
-                  animationDuration: `${0.4 + (i % 4) * 0.2}s`
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Live Speech-to-Text Transcript Preview if available */}
-          {recordingTranscript && (
-            <div className="p-3 rounded-xl bg-white/5 border border-purple-500/20 text-xs text-purple-200 leading-relaxed max-h-24 overflow-y-auto">
-              <span className="text-[11px] font-bold text-purple-400 uppercase block mb-0.5">
-                💬 Live Speech-to-Text:
-              </span>
-              "{recordingTranscript}"
-            </div>
-          )}
-
-          {/* Recording Action Buttons */}
-          <div className="flex items-center justify-center gap-3 pt-2">
-            <button
-              onClick={handleDiscardRecording}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#23232A] hover:bg-rose-500/20 text-[#A1A1AA] hover:text-rose-400 border border-[#272730] text-xs font-semibold cursor-pointer transition-all"
-            >
-              <X className="w-4 h-4" />
-              <span>Discard</span>
-            </button>
-
-            <button
-              onClick={handleStopRecording}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-lg shadow-rose-600/30 cursor-pointer active:scale-95 transition-all"
-            >
-              <Square className="w-4 h-4 fill-white" />
-              <span>Stop & Review</span>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 3. RECORDED AUDIO PREVIEW & SAVE FORM */}
-      {!isRecording && recordedBlob && (
-        <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFC] dark:bg-[#1C1C22] border-2 border-purple-500/40 shadow-xl space-y-4 animate-fade-in">
-          <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0] dark:border-[#272730]">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#191A17] dark:text-[#F5F5F7]">
-              <Sparkles className="w-4 h-4 text-purple-500" />
-              <span>Review Voice Note ({formatTime(recordingSeconds)})</span>
-            </div>
-            <button
-              type="button"
-              onClick={handleDiscardRecording}
-              className="p-1 rounded-lg text-[#85877E] hover:text-[#191A17] dark:hover:text-white cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Audio Player Preview */}
-          {previewAudioUrl && (
-            <div className="p-3 rounded-xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730]">
-              <audio controls src={previewAudioUrl} className="w-full h-9" />
-            </div>
-          )}
-
-          {/* Voice Memo Title */}
-          <div>
-            <label className="block text-xs font-semibold text-[#191A17] dark:text-[#F5F5F7] mb-1">
-              Voice Memo Title
-            </label>
-            <input
-              type="text"
-              value={recordingTitle}
-              onChange={e => setRecordingTitle(e.target.value)}
-              placeholder="e.g. Important Theorem Shortcut / Exceptions"
-              className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] text-xs font-semibold text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-purple-500"
-            />
-          </div>
-
-          {/* Speech-to-Text Transcript if captured */}
-          {recordingTranscript && (
             <div>
-              <label className="block text-xs font-semibold text-[#191A17] dark:text-[#F5F5F7] mb-1">
-                Captured Transcript (Speech-to-Text)
+              <div className="flex items-center gap-2">
+                <h4 className="text-sm sm:text-base font-bold font-sans text-slate-900 dark:text-slate-100 tracking-tight">
+                  Voice Notes & Audio Memos
+                </h4>
+                <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold tabular-nums bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                  {audioMemos.length} {audioMemos.length === 1 ? 'Note' : 'Notes'}
+                </span>
+              </div>
+              <p className="text-[11px] font-sans text-slate-400 dark:text-slate-500">
+                Record formula tricks, quick audio summaries & voice flashcards
+              </p>
+            </div>
+          </div>
+
+          {!isRecording && !recordedBlob && (
+            <button
+              onClick={handleStartRecording}
+              className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs shadow-purple-600/20 transition-all cursor-pointer active:scale-95 shrink-0"
+            >
+              <Mic className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>Record Voice Note</span>
+            </button>
+          )}
+        </div>
+
+        {/* Notifications */}
+        {successNotice && (
+          <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold animate-fade-in">
+            <CheckCircle2 className="w-4 h-4 stroke-[2.5] shrink-0" />
+            <span>{successNotice}</span>
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold animate-fade-in">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {/* 2. LIVE VOICE RECORDING ACTIVE STUDIO */}
+        {isRecording && (
+          <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-purple-950/40 via-[#18181D] to-rose-950/30 border-2 border-purple-500/50 shadow-xl space-y-4 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-rose-500 animate-ping" />
+                <span className="text-xs font-bold text-rose-400 uppercase tracking-wider font-mono">
+                  Recording Live Audio...
+                </span>
+              </div>
+              <span className="text-lg sm:text-xl font-mono font-black text-[#F5F5F7]">
+                {formatTime(recordingSeconds)}
+              </span>
+            </div>
+
+            {/* Pulsing Audio Wave Animation */}
+            <div className="flex items-center justify-center gap-1.5 py-4">
+              {[40, 75, 55, 95, 60, 85, 45, 90, 70, 100, 65, 80, 50].map((height, i) => (
+                <div
+                  key={i}
+                  className="w-1.5 bg-gradient-to-t from-purple-500 to-rose-400 rounded-full animate-pulse"
+                  style={{
+                    height: `${height * 0.4}px`,
+                    animationDuration: `${0.4 + (i % 4) * 0.2}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Live Speech-to-Text Transcript Preview if available */}
+            {recordingTranscript && (
+              <div className="p-3 rounded-xl bg-white/5 border border-purple-500/20 text-xs text-purple-200 leading-relaxed max-h-24 overflow-y-auto">
+                <span className="text-[11px] font-bold text-purple-400 uppercase block mb-0.5">
+                  💬 Live Speech-to-Text:
+                </span>
+                "{recordingTranscript}"
+              </div>
+            )}
+
+            {/* Recording Action Buttons */}
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <button
+                onClick={handleDiscardRecording}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#23232A] hover:bg-rose-500/20 text-[#A1A1AA] hover:text-rose-400 border border-[#272730] text-xs font-semibold cursor-pointer transition-all"
+              >
+                <X className="w-4 h-4" />
+                <span>Discard</span>
+              </button>
+
+              <button
+                onClick={handleStopRecording}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-lg shadow-rose-600/30 cursor-pointer active:scale-95 transition-all"
+              >
+                <Square className="w-4 h-4 fill-white" />
+                <span>Stop & Review</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 3. RECORDED AUDIO PREVIEW & SAVE FORM */}
+        {!isRecording && recordedBlob && (
+          <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-purple-500/40 shadow-xl space-y-4 animate-fade-in">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-white/[0.08]">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-slate-100 font-sans">
+                <Sparkles className="w-4 h-4 text-purple-500" />
+                <span>Review Voice Note ({formatTime(recordingSeconds)})</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleDiscardRecording}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Audio Player Preview */}
+            {previewAudioUrl && (
+              <div className="p-3 rounded-xl bg-white dark:bg-[#18181D] border border-slate-200 dark:border-white/[0.08]">
+                <audio controls src={previewAudioUrl} className="w-full h-9" />
+              </div>
+            )}
+
+            {/* Voice Memo Title */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1 font-sans">
+                Voice Memo Title
               </label>
-              <textarea
-                value={recordingTranscript}
-                onChange={e => setRecordingTranscript(e.target.value)}
-                rows={2}
-                className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] text-xs font-medium text-[#191A17] dark:text-[#F5F5F7] focus:outline-none focus:border-purple-500"
+              <input
+                type="text"
+                value={recordingTitle}
+                onChange={e => setRecordingTitle(e.target.value)}
+                placeholder="e.g. Important Theorem Shortcut / Exceptions"
+                className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#18181D] border border-slate-200 dark:border-white/[0.08] text-xs font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-purple-500"
               />
             </div>
-          )}
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E2E8F0] dark:border-[#272730]">
-            <button
-              type="button"
-              onClick={handleDiscardRecording}
-              className="px-4 py-2 rounded-xl bg-white dark:bg-[#23232A] border border-[#E2E8F0] dark:border-[#272730] text-xs font-medium text-[#65675F] dark:text-[#A1A1AA] hover:text-[#191A17] dark:hover:text-white cursor-pointer"
-            >
-              Discard
-            </button>
-            <button
-              type="button"
-              onClick={handleSaveVoiceNote}
-              className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-600/20 cursor-pointer active:scale-95 transition-all"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Save Voice Note</span>
-            </button>
-          </div>
-        </div>
-      )}
+            {/* Speech-to-Text Transcript if captured */}
+            {recordingTranscript && (
+              <div>
+                <label className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1 font-sans">
+                  Captured Transcript (Speech-to-Text)
+                </label>
+                <textarea
+                  value={recordingTranscript}
+                  onChange={e => setRecordingTranscript(e.target.value)}
+                  rows={2}
+                  className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#18181D] border border-slate-200 dark:border-white/[0.08] text-xs font-medium text-slate-900 dark:text-slate-100 focus:outline-none focus:border-purple-500"
+                />
+              </div>
+            )}
 
-      {/* 4. SAVED VOICE NOTES LIST */}
-      <div className="space-y-3">
-        {audioMemos.length > 0 ? (
-          audioMemos.map((memo, index) => {
-            const isPlaying = playingMemoId === memo.id;
-
-            return (
-              <div
-                key={memo.id}
-                className={`p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#18181D] border transition-all shadow-subtle-depth flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5 ${
-                  isPlaying
-                    ? 'border-purple-500 dark:border-purple-500 ring-1 ring-purple-500/30'
-                    : 'border-[#E2E8F0] dark:border-[#272730] hover:border-purple-500/50'
-                }`}
+            {/* Action Buttons */}
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 dark:border-white/[0.08]">
+              <button
+                type="button"
+                onClick={handleDiscardRecording}
+                className="px-4 py-2 rounded-xl bg-white dark:bg-[#23232A] border border-slate-200 dark:border-white/[0.08] text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
               >
-                {/* Left: Play/Pause Button & Memo Title */}
-                <div className="flex items-start sm:items-center gap-3.5 flex-1 min-w-0">
-                  
-                  {/* Play / Pause Circular Button */}
-                  <button
-                    onClick={() => handleTogglePlayMemo(memo)}
-                    className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-md transition-all cursor-pointer active:scale-90 ${
-                      isPlaying
-                        ? 'bg-purple-600 text-white shadow-purple-600/30 animate-pulse'
-                        : 'bg-purple-500/15 hover:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30'
-                    }`}
-                    title={isPlaying ? 'Pause Audio' : 'Play Voice Memo'}
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-5 h-5 fill-white" />
-                    ) : (
-                      <Play className="w-5 h-5 fill-current ml-0.5" />
-                    )}
-                  </button>
+                Discard
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveVoiceNote}
+                className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs shadow-purple-600/20 cursor-pointer active:scale-95 transition-all"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Save Voice Note</span>
+              </button>
+            </div>
+          </div>
+        )}
 
-                  {/* Title & Metadata */}
-                  <div className="space-y-1 min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 font-mono">
-                        🎙️ Voice Memo #{index + 1}
-                      </span>
-                      <span className="text-[11px] font-bold font-mono text-[#2563EB] dark:text-[#8B5CF6]">
-                        {formatTime(memo.durationSeconds)}
-                      </span>
-                    </div>
+        {/* 4. SAVED VOICE NOTES LIST OR UNIFIED EMPTY STATE */}
+        <div className="space-y-3">
+          {audioMemos.length > 0 ? (
+            audioMemos.map((memo, index) => {
+              const isPlaying = playingMemoId === memo.id;
 
-                    <h4 className="text-xs sm:text-sm font-semibold text-[#191A17] dark:text-[#F5F5F7] truncate">
-                      {memo.title}
-                    </h4>
+              return (
+                <div
+                  key={memo.id}
+                  className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5 ${
+                    isPlaying
+                      ? 'bg-purple-500/[0.06] border-2 border-purple-500 shadow-md ring-2 ring-purple-500/10'
+                      : 'bg-slate-50/70 hover:bg-white dark:bg-white/[0.03] dark:hover:bg-white/[0.06] border border-slate-200/80 hover:border-slate-300 dark:border-white/[0.08] dark:hover:border-white/20 shadow-xs'
+                  }`}
+                >
+                  {/* Left: Play/Pause Button & Memo Title */}
+                  <div className="flex items-start sm:items-center gap-3.5 flex-1 min-w-0">
+                    <button
+                      onClick={() => handleTogglePlayMemo(memo)}
+                      className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 shadow-xs transition-all cursor-pointer active:scale-90 ${
+                        isPlaying
+                          ? 'bg-purple-600 text-white shadow-purple-600/30 ring-4 ring-purple-500/20 animate-pulse'
+                          : 'bg-purple-500/15 hover:bg-purple-500/25 text-purple-600 dark:text-purple-400 border border-purple-500/30'
+                      }`}
+                      title={isPlaying ? 'Pause Audio' : 'Play Voice Memo'}
+                    >
+                      {isPlaying ? (
+                        <Pause className="w-5 h-5 fill-white" />
+                      ) : (
+                        <Play className="w-5 h-5 fill-current ml-0.5" />
+                      )}
+                    </button>
 
-                    {memo.transcript && (
-                      <p className="text-[11px] text-[#65675F] dark:text-[#A1A1AA] italic line-clamp-1">
-                        "{memo.transcript}"
-                      </p>
-                    )}
+                    <div className="space-y-1 min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold font-mono bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                          🎙️ Memo #{index + 1}
+                        </span>
+                        <span className="text-[11px] font-bold font-mono tabular-nums text-slate-700 dark:text-slate-300">
+                          {formatTime(memo.durationSeconds)}
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                          <Clock className="w-3 h-3" />
+                          <span>{memo.recordedAt}</span>
+                        </span>
+                      </div>
 
-                    <div className="flex items-center gap-3 text-[11px] text-[#85877E] dark:text-slate-400 pt-0.5">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        <span>Recorded {memo.recordedAt}</span>
-                      </span>
+                      <h5 className="text-xs sm:text-sm font-bold font-sans text-slate-800 dark:text-slate-100 truncate">
+                        {memo.title}
+                      </h5>
+
+                      {memo.transcript && (
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 italic line-clamp-1 bg-white/60 dark:bg-white/[0.04] p-1.5 rounded-lg border border-slate-200/50 dark:border-white/[0.05]">
+                          "{memo.transcript}"
+                        </p>
+                      )}
                     </div>
                   </div>
+
+                  {/* Right: Actions & Tools */}
+                  <div className="flex items-center gap-1.5 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/80 dark:border-white/[0.08] justify-end">
+                    {/* Playback Speed Controller */}
+                    {isPlaying && (
+                      <button
+                        onClick={handleCyclePlaybackSpeed}
+                        className="px-2.5 py-1 rounded-xl bg-purple-600/10 hover:bg-purple-600/20 text-purple-600 dark:text-purple-300 text-xs font-mono font-bold border border-purple-500/30 cursor-pointer transition-colors"
+                        title="Cycle playback speed"
+                      >
+                        {playbackSpeed}x
+                      </button>
+                    )}
+
+                    {/* Insert Transcript to Notes Button */}
+                    {memo.transcript && onInsertTranscriptToNotes && (
+                      <button
+                        onClick={() => onInsertTranscriptToNotes(`\n> 🎙️ **Voice Memo (${memo.title})**:\n> ${memo.transcript}\n`)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-purple-500/15 dark:bg-white/[0.06] dark:hover:bg-purple-500/20 text-slate-700 hover:text-purple-600 dark:text-slate-300 dark:hover:text-purple-300 border border-slate-200/80 dark:border-white/[0.08] text-xs font-semibold transition-colors cursor-pointer"
+                        title="Insert Transcript into Topic Notes"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline font-sans">Add to Notes</span>
+                      </button>
+                    )}
+
+                    {/* Download Audio */}
+                    <button
+                      onClick={(e) => handleDownloadMemo(e, memo)}
+                      className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/20 transition-all cursor-pointer"
+                      title="Download Audio (.webm)"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                    </button>
+
+                    {/* Delete Button */}
+                    {deletingId === memo.id ? (
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={(e) => handleDeleteMemo(e, memo.id, memo.storageKey)}
+                          className="px-2.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold cursor-pointer transition-colors"
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          onClick={() => setDeletingId(null)}
+                          className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setDeletingId(memo.id)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer"
+                        title="Delete Voice Memo"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
-
-                {/* Right: Actions & Tools */}
-                <div className="flex items-center gap-2 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-[#E2E8F0] dark:border-[#272730] justify-end">
-                  
-                  {/* Playback Speed Controller */}
-                  {isPlaying && (
-                    <button
-                      onClick={handleCyclePlaybackSpeed}
-                      className="px-2.5 py-1 rounded-xl bg-[#23232A] hover:bg-[#2E2E38] text-purple-400 text-xs font-mono font-bold border border-[#272730] cursor-pointer"
-                      title="Cycle playback speed"
-                    >
-                      {playbackSpeed}x
-                    </button>
-                  )}
-
-                  {/* Insert Transcript to Notes Button */}
-                  {memo.transcript && onInsertTranscriptToNotes && (
-                    <button
-                      onClick={() => onInsertTranscriptToNotes(`\n> 🎙️ **Voice Memo (${memo.title})**:\n> ${memo.transcript}\n`)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#F8FAFC] dark:bg-[#23232A] hover:bg-purple-500/15 dark:hover:bg-purple-500/20 text-[#65675F] dark:text-[#A1A1AA] hover:text-[#191A17] dark:hover:text-white border border-[#E2E8F0] dark:border-[#272730] text-xs font-semibold transition-colors cursor-pointer"
-                      title="Insert Transcript into Topic Notes"
-                    >
-                      <FileText className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Add to Notes</span>
-                    </button>
-                  )}
-
-                  {/* Download Audio */}
+              );
+            })
+          ) : (
+            /* Unified Empty State */
+            !isRecording && !recordedBlob && (
+              <div className="py-8 sm:py-10 px-4 text-center rounded-xl sm:rounded-2xl bg-slate-50/60 dark:bg-white/[0.02] border border-dashed border-slate-200 dark:border-white/[0.08] space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center mx-auto shadow-xs">
+                  <Mic className="w-6 h-6 stroke-[2]" />
+                </div>
+                <div className="space-y-1 max-w-sm mx-auto">
+                  <h5 className="text-xs sm:text-sm font-bold font-sans text-slate-800 dark:text-slate-200">
+                    No Voice Notes Recorded Yet
+                  </h5>
+                  <p className="text-[11px] font-sans text-slate-400 dark:text-slate-500 leading-relaxed">
+                    Record high-yield shortcuts, mnemonics, or concept summaries to listen and revise on the go.
+                  </p>
+                </div>
+                <div className="pt-1">
                   <button
-                    onClick={(e) => handleDownloadMemo(e, memo)}
-                    className="p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#23232A] hover:bg-[#EEEEE8] dark:hover:bg-[#2D2D35] text-[#65675F] dark:text-[#A1A1AA] hover:text-[#191A17] dark:hover:text-white transition-colors cursor-pointer"
-                    title="Download Audio (.webm)"
+                    onClick={handleStartRecording}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs shadow-purple-600/20 transition-all cursor-pointer active:scale-95"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Mic className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <span>Record First Voice Memo</span>
                   </button>
-
-                  {/* Delete Button */}
-                  {deletingId === memo.id ? (
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={(e) => handleDeleteMemo(e, memo.id, memo.storageKey)}
-                        className="px-2 py-1.5 rounded-lg bg-rose-600 text-white text-[11px] font-bold cursor-pointer hover:bg-rose-700"
-                      >
-                        Confirm
-                      </button>
-                      <button
-                        onClick={() => setDeletingId(null)}
-                        className="p-1 rounded-lg text-[#85877E] hover:text-[#191A17] dark:hover:text-white cursor-pointer"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setDeletingId(memo.id)}
-                      className="p-2 rounded-xl text-[#85877E] hover:text-rose-600 hover:bg-rose-500/10 dark:hover:bg-rose-500/20 transition-colors cursor-pointer"
-                      title="Delete Voice Memo"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
                 </div>
               </div>
-            );
-          })
-        ) : (
-          /* Empty State */
-          !isRecording && !recordedBlob && (
-            <div className="py-10 sm:py-12 px-4 text-center rounded-2xl bg-white dark:bg-[#18181D] border border-[#E2E8F0] dark:border-[#272730] shadow-subtle-depth space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 mx-auto shadow-sm">
-                <Mic className="w-6 h-6" />
-              </div>
-              <div className="space-y-1">
-                <h4 className="text-sm sm:text-base font-bold text-[#191A17] dark:text-[#F5F5F7]">
-                  No Voice Notes Recorded Yet
-                </h4>
-              </div>
-
-              <div className="pt-1">
-                <button
-                  onClick={handleStartRecording}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-600/20 transition-all cursor-pointer active:scale-95"
-                >
-                  <Mic className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Record First Voice Memo</span>
-                </button>
-              </div>
-            </div>
-          )
-        )}
+            )
+          )}
+        </div>
       </div>
-
     </div>
   );
 };
