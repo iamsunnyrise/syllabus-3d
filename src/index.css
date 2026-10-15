@@ -403,64 +403,73 @@
   }
 
   /* Focus Timer (Pomodoro) Primary Hero Button in Study Hub Dropdown */
-  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r,
+  html.warm-cream .study-station-popover .study-hub-hero-card,
   html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) {
-    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
-    border: none !important;
-    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.35) !important;
-    color: #1C1B05 !important;
+    background: linear-gradient(135deg, #FFFDF8 0%, #F9F1E2 100%) !important;
+    border: 1.5px solid #E5CCA2 !important;
+    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.12) !important;
+    color: #2A2402 !important;
   }
 
-  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r *,
-  html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) * {
-    color: #1C1B05 !important;
+  html.warm-cream .study-station-popover .study-hub-hero-card .hero-title,
+  html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) span.hero-title {
+    color: #2A2402 !important;
+    font-weight: 800 !important;
   }
 
-  html.warm-cream header div.absolute.top-full button.bg-gradient-to-r p,
+  html.warm-cream .study-station-popover .study-hub-hero-card .hero-desc,
   html.warm-cream header div.absolute.top-full button:has(svg.lucide-timer) p {
-    color: #38370D !important;
-    font-weight: 600 !important;
+    color: #63571E !important;
+    font-weight: 500 !important;
   }
 
-  /* The 8 Study Station Tool Buttons inside Dropdown Grid */
-  html.warm-cream header div.absolute.top-full .grid button {
-    background-color: #FAF4E6 !important;
-    border: 1px solid #E8DCC4 !important;
-    border-radius: 12px !important;
+  html.warm-cream .study-station-popover .study-hub-hero-card .hero-action-pill {
+    background: linear-gradient(135deg, #E1A837 0%, #D49B24 100%) !important;
     color: #1C1B05 !important;
+    font-weight: 800 !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(225, 168, 55, 0.25) !important;
+  }
+
+  html.warm-cream .study-station-popover .study-hub-hero-card div:has(> svg.lucide-timer) {
+    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
+    color: #1C1B05 !important;
+  }
+
+  /* The Study Station Tool Buttons inside Popover */
+  html.warm-cream .study-station-popover .study-tool-btn {
+    background-color: #FFFDF8 !important;
+    border: 1px solid #EADBCE !important;
+    border-radius: 12px !important;
+    color: #2A2402 !important;
     transition: all 0.15s ease !important;
   }
 
-  html.warm-cream header div.absolute.top-full .grid button:hover {
-    background-color: #F3E5C8 !important;
-    border-color: #E1A837 !important;
+  html.warm-cream .study-station-popover .study-tool-btn:hover {
+    background-color: #FAF2DF !important;
+    border-color: #D6BD92 !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 3px 10px rgba(225, 168, 55, 0.2) !important;
+    box-shadow: 0 3px 10px rgba(225, 168, 55, 0.16) !important;
   }
 
-  /* Tool Title inside button (Revision, Weak Topics, Mind Map, etc.) */
-  html.warm-cream header div.absolute.top-full .grid button span.font-bold {
+  html.warm-cream .study-station-popover .study-tool-btn.active-tool {
+    background-color: #F7EBD3 !important;
+    border-color: #D4BE98 !important;
+    box-shadow: 0 2px 8px rgba(225, 168, 55, 0.2) !important;
+  }
+
+  html.warm-cream .study-station-popover .study-tool-btn .tool-title {
     color: #1C1B05 !important;
     font-weight: 800 !important;
   }
 
-  /* Tool Subtitle inside button (Spaced Recall, Diagnostic Matrix, Visual Graph, etc.) */
-  html.warm-cream header div.absolute.top-full .grid button span.text-\[10px\],
-  html.warm-cream header div.absolute.top-full .grid button .text-slate-400,
-  html.warm-cream header div.absolute.top-full .grid button .text-slate-500 {
-    color: #5C5716 !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
+  html.warm-cream .study-station-popover .study-tool-btn .tool-subtitle {
+    color: #6E611E !important;
+    font-weight: 500 !important;
   }
 
-  /* Badges on tool buttons (e.g. revision count "2", AI badge) */
-  html.warm-cream header div.absolute.top-full .grid button span.font-mono {
-    background-color: #E1A837 !important;
-    color: #1C1B05 !important;
-    font-weight: 800 !important;
-  }
-
-  /* Dropdown Footer Button / Link ("Go to Complete Study Dashboard") */
+  /* Dropdown Footer Button ("Go to Complete Study Dashboard") */
+  html.warm-cream .study-station-popover .study-hub-footer-btn,
   html.warm-cream header div.absolute.top-full .pt-2 button,
   html.warm-cream header div.absolute.top-full div.p-1\.5 button {
     background-color: #FAF4E6 !important;
@@ -469,6 +478,7 @@
     font-weight: 800 !important;
   }
 
+  html.warm-cream .study-station-popover .study-hub-footer-btn:hover,
   html.warm-cream header div.absolute.top-full .pt-2 button:hover,
   html.warm-cream header div.absolute.top-full div.p-1\.5 button:hover {
     background-color: #E1A837 !important;
@@ -476,6 +486,7 @@
     color: #1C1B05 !important;
   }
 
+  html.warm-cream .study-station-popover .study-hub-footer-btn *,
   html.warm-cream header div.absolute.top-full .pt-2 button *,
   html.warm-cream header div.absolute.top-full div.p-1\.5 button * {
     color: inherit !important;
