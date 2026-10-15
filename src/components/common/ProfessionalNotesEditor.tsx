@@ -75,7 +75,12 @@ import { soundManager } from '../../utils/soundEffects';
 import { generateAndOpenNotesPdf } from '../../utils/pdfGenerator';
 import { TopicImageAttachment, TopicLecture, TopicNoteItem } from '../../types/syllabus';
 import { parseTimestampToSeconds } from '../../utils/youtubeUtils';
-import { formatAiNotes, generateAiNotesPrompt } from '../../utils/aiNotesFormatter';
+import {
+  formatAiNotes,
+  generateAiNotesPrompt,
+  beautifyPastedAiNotesZeroLoss,
+  isAiNotesContent
+} from '../../utils/aiNotesFormatter';
 import { MathBlock, InlineMath } from '../../utils/mathRenderer';
 import {
   cleanAndRepairMarkdownTable,
@@ -779,6 +784,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   const [notionAiPastedText, setNotionAiPastedText] = useState<string>('');
   const [showAiPastePromptToast, setShowAiPastePromptToast] = useState<boolean>(false);
   const [pendingAiPastedText, setPendingAiPastedText] = useState<string>('');
+  const [lastPastedAiNotes, setLastPastedAiNotes] = useState<{
+    previousContent: string;
+    rawText: string;
+    formattedText: string;
+    sourceLlm: string;
+    stats: {
+      wordsCount: number;
+      headingsCount: number;
+      calloutsCount: number;
+      tablesCount: number;
+      formulasCount: number;
+    };
+  } | null>(null);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const speechRecognitionRef = useRef<any>(null);
@@ -1440,6 +1458,22 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     });
   };
 
+  // Undo AI Paste - restores original raw text 1:1
+  const handleUndoAiPaste = () => {
+    if (!lastPastedAiNotes) return;
+    soundManager.playClick();
+    if (content.includes(lastPastedAiNotes.formattedText)) {
+      const reverted = content.replace(lastPastedAiNotes.formattedText, lastPastedAiNotes.rawText);
+      updateContentAndSave(reverted);
+    } else {
+      updateContentAndSave(lastPastedAiNotes.previousContent);
+    }
+    setLastPastedAiNotes(null);
+    setShowAiPastePromptToast(false);
+    setPasteNotice('Reverted to raw unformatted pasted text');
+    setTimeout(() => setPasteNotice(null), 3000);
+  };
+
   // Direct Screenshot / Image & Smart AI Table/Formula Paste Handler (Ctrl + V)
   const handlePaste = async (e: React.ClipboardEvent) => {
     e.stopPropagation();
@@ -1481,13 +1515,62 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     const htmlText = e.clipboardData?.getData('text/html');
 
     if (plainText) {
-      // Offer 1-Click Notion AI Studio when user pastes notes from Gemini / ChatGPT / Claude (>80 chars)
-      if (plainText.length > 80) {
-        setPendingAiPastedText(plainText);
-        setShowAiPastePromptToast(true);
-        setTimeout(() => setShowAiPastePromptToast(false), 10000);
+      // Do not format if user is pasting into a single-line input (e.g. title or search)
+      if (e.target instanceof HTMLInputElement && e.target.type !== 'textarea') {
+        return;
       }
 
+      // Check if text is AI Notes from Gemini, ChatGPT, Claude, DeepSeek, etc.
+      const shouldFormatAsAiNotes = isAiNotesContent(plainText);
+
+      if (shouldFormatAsAiNotes) {
+        const beautified = beautifyPastedAiNotesZeroLoss(plainText, {
+          topicName: activeNote?.title || topicName,
+          subjectName,
+          chapterName,
+          examName,
+          htmlText
+        });
+
+        if (beautified.isTransformed) {
+          e.preventDefault();
+          soundManager.playCompleteChime();
+
+          setLastPastedAiNotes({
+            previousContent: content,
+            rawText: plainText,
+            formattedText: beautified.content,
+            sourceLlm: beautified.sourceLlm,
+            stats: beautified.stats
+          });
+
+          setPendingAiPastedText(plainText);
+          setShowAiPastePromptToast(true);
+
+          const targetEl = e.target instanceof HTMLTextAreaElement ? e.target : textareaRef.current;
+          if (targetEl) {
+            const start = targetEl.selectionStart ?? content.length;
+            const end = targetEl.selectionEnd ?? content.length;
+            const newContent = content.substring(0, start) + beautified.content + content.substring(end);
+            updateContentAndSave(newContent);
+            setTimeout(() => {
+              if (targetEl) {
+                targetEl.selectionStart = start + beautified.content.length;
+                targetEl.selectionEnd = start + beautified.content.length;
+              }
+            }, 0);
+          } else {
+            const newContent = content.trim() ? `${content}\n\n${beautified.content}` : beautified.content;
+            updateContentAndSave(newContent);
+          }
+
+          setPasteNotice(`✓ ${beautified.sourceLlm} Notes Formatted into Professional Digital Note (100% Content Preserved)`);
+          setTimeout(() => setPasteNotice(null), 4500);
+          return;
+        }
+      }
+
+      // Fallback: check for standalone table paste or TSV
       const isTargetInput = e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement;
       const processed = processPastedNotesContent(plainText, htmlText);
 
@@ -6576,7 +6659,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         document.body
       )}
 
-      {/* ✨ Floating Notion AI Paste Prompt Banner */}
+      {/* ✨ Floating Digital Notes / Notion AI Paste Status Banner */}
       {showAiPastePromptToast && (
         <div className="fixed bottom-24 right-6 z-[190] animate-slide-in flex items-center gap-3 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-700 text-white shadow-2xl border border-white/20 backdrop-blur-md">
           <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
@@ -6584,31 +6667,68 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           </div>
           <div className="text-xs">
             <p className="font-black flex items-center gap-1.5">
-              <span>Pasted AI Notes?</span>
-              <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-white/20">Notion AI</span>
+              <span>{lastPastedAiNotes ? `✓ ${lastPastedAiNotes.sourceLlm} Digital Note Created` : 'Pasted AI Notes?'}</span>
+              <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-white/20">
+                {lastPastedAiNotes ? '100% Preserved' : 'Notion AI'}
+              </span>
             </p>
-            <p className="text-[11px] text-white/80">Structure into Notion, Cornell, or Cheat Sheet format</p>
+            <p className="text-[11px] text-white/80">
+              {lastPastedAiNotes
+                ? `${lastPastedAiNotes.stats.wordsCount} words • ${lastPastedAiNotes.stats.calloutsCount} Callouts • ${lastPastedAiNotes.stats.tablesCount} Tables`
+                : 'Structure into Notion, Cornell, or Cheat Sheet format'}
+            </p>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playCompleteChime();
-              setNotionAiPastedText(pendingAiPastedText);
-              setShowAiPastePromptToast(false);
-              setIsNotionAiModalOpen(true);
-            }}
-            className="px-3 py-1.5 rounded-xl bg-white text-violet-800 hover:bg-slate-100 text-xs font-black transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
-          >
-            Open Studio
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowAiPastePromptToast(false)}
-            className="p-1 text-white/70 hover:text-white cursor-pointer"
-            title="Dismiss"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            {viewMode === 'edit' && (
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setViewMode('study');
+                }}
+                className="px-2.5 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1"
+                title="View rendered digital note paper"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">View Paper</span>
+              </button>
+            )}
+
+            {lastPastedAiNotes && (
+              <button
+                type="button"
+                onClick={handleUndoAiPaste}
+                className="px-2.5 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-amber-200 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1"
+                title="Revert to raw unformatted pasted text"
+              >
+                <UndoIcon className="w-3.5 h-3.5" />
+                <span>Undo</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playCompleteChime();
+                setNotionAiPastedText(pendingAiPastedText);
+                setShowAiPastePromptToast(false);
+                setIsNotionAiModalOpen(true);
+              }}
+              className="px-3 py-1.5 rounded-xl bg-white text-violet-800 hover:bg-slate-100 text-xs font-black transition-all cursor-pointer shadow-sm active:scale-95"
+            >
+              Open Studio
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowAiPastePromptToast(false)}
+              className="p-1 text-white/70 hover:text-white cursor-pointer ml-1"
+              title="Dismiss"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       )}
 

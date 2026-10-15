@@ -58,6 +58,7 @@ import {
   updatePdfCommentInList,
   deletePdfCommentFromList
 } from '../../utils/pdfCommentStorage';
+import { beautifyPastedAiNotesZeroLoss, isAiNotesContent } from '../../utils/aiNotesFormatter';
 
 const PdfCanvasViewer = React.lazy(() => import('./PdfCanvasViewer').then(m => ({ default: m.PdfCanvasViewer })));
 
@@ -438,6 +439,19 @@ export const SplitScreenPdfStudyModal: React.FC<SplitScreenPdfStudyModalProps> =
           reader.readAsDataURL(file);
           return;
         }
+      }
+    }
+
+    const plainText = e.clipboardData?.getData('text/plain');
+    if (plainText && isAiNotesContent(plainText)) {
+      const beautified = beautifyPastedAiNotesZeroLoss(plainText, {
+        topicName
+      });
+      if (beautified.isTransformed) {
+        e.preventDefault();
+        soundManager.playCompleteChime();
+        setNotesContent(prev => prev.trim() ? `${prev}\n\n${beautified.content}` : beautified.content);
+        return;
       }
     }
   };

@@ -19,6 +19,12 @@ import {
   repairAllTablesInDocument,
   sanitizeAiCitations
 } from './tableUtils';
+import {
+  beautifyPastedAiNotesZeroLoss,
+  isAiNotesContent
+} from './aiNotesFormatter';
+
+export { beautifyPastedAiNotesZeroLoss, isAiNotesContent };
 
 export type NoteFormatType =
   | 'notion_master'       // 🌟 Notion Pro Master Notes (High-Yield Callouts, Tables, Formulas)
@@ -1110,33 +1116,8 @@ export function transformToHierarchicalOutline(rawText: string, options?: NoteTr
  */
 export function transformToZeroLossNormalizer(rawText: string, options?: NoteTransformOptions): string {
   if (!rawText || !rawText.trim()) return '';
-
-  // 1. Sanitize citations
-  let text = sanitizeAiCitations(rawText);
-
-  // 2. Convert TSV if applicable
-  if (isTsvTable(text)) {
-    text = tsvToMarkdownTable(text);
-  }
-
-  // 3. Strip leading & trailing AI chatter
-  const lines = text.replace(/\r\n/g, '\n').split('\n');
-  const cleanLines = stripConversationalClutter(lines);
-
-  // 4. Scan and repair all tables in document
-  const intermediate = cleanLines.join('\n');
-  const repairedTables = repairAllTablesInDocument(intermediate);
-
-  // 5. Normalize math formulas
-  const mathNormalized = normalizeMathFormulas(repairedTables);
-
-  // 6. Ensure topic title is anchored if missing
-  let result = mathNormalized.trim();
-  if (options?.topicName && !result.startsWith('# ')) {
-    result = `# ${options.topicName}\n\n${result}`;
-  }
-
-  return cleanOutputMarkdown(result);
+  const beautified = beautifyPastedAiNotesZeroLoss(rawText, options);
+  return beautified.content;
 }
 
 /**
