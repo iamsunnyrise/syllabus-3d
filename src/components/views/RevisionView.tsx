@@ -22,9 +22,7 @@ import {
   ChevronRight,
   Flame,
   FileText,
-  AlertTriangle,
-  Footprints,
-  Headphones
+  AlertTriangle
 } from 'lucide-react';
 import { getTodayDateString, formatDateReadable, isDatePastOrToday } from '../../utils/dateUtils';
 import { RevisionRecord, Topic } from '../../types/syllabus';
@@ -408,158 +406,151 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       </div>
 
       {/* 1. EXECUTIVE HERO BANNER */}
-      <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3.5 sm:space-y-4 overflow-hidden">
-        {/* Specular top highlight and ambient gradient */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/40 dark:via-indigo-400/50 to-transparent pointer-events-none" />
-        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-indigo-500/[0.04] dark:bg-indigo-500/[0.08] blur-3xl pointer-events-none" />
+      <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs overflow-hidden">
+        {/* Executive Specular Top Highlight and Gradient Accent */}
+        <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 opacity-90" />
+        
+        <div className="p-4 sm:p-6 space-y-3.5">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4">
+            
+            {/* Title and Icon Capsule */}
+            <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+              <SectionBadgeIcon section="revision" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
 
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 relative z-10">
-          
-          {/* Title and Icon Capsule */}
-          <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
-            <SectionBadgeIcon section="revision" size="lg" className="shrink-0 mt-0.5 sm:mt-0" />
-
-            <div className="min-w-0 space-y-1">
-              <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-primary-600 dark:text-primary-400">
-                <span className="truncate">Ebbinghaus Spaced Repetition</span>
-                <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
-                <span className="hidden xs:inline truncate text-slate-500 dark:text-slate-400 font-medium">Memory Retention Engine</span>
-              </div>
-              
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Spaced Repetition &amp; Revision
-              </h1>
-              
-              <div className="flex items-center gap-2 flex-wrap pt-0.5">
-                <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-normal hidden sm:block">
-                  Lock concepts into permanent recall with Ebbinghaus intervals (1d → 3d → 7d → 21d+).
-                </p>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Reactive Sync
-                </span>
-                {currentExam && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-white/10">
-                    <span>🎯</span>
-                    <span>{currentExam.name}</span>
+              <div className="min-w-0 space-y-1">
+                <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-primary-600 dark:text-primary-400">
+                  <span className="truncate">Ebbinghaus Spaced Repetition</span>
+                  <span className="hidden xs:inline text-slate-300 dark:text-slate-600">•</span>
+                  <span className="hidden xs:inline truncate text-slate-500 dark:text-slate-400 font-medium">Memory Retention Engine</span>
+                </div>
+                
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                  Spaced Repetition &amp; Revision
+                </h1>
+                
+                <div className="flex items-center gap-2 flex-wrap pt-0.5">
+                  <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 font-normal hidden sm:block">
+                    Lock concepts into permanent recall with Ebbinghaus intervals (1d → 3d → 7d → 21d+).
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Live Reactive Sync
                   </span>
-                )}
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20">
-                  <span>⚡</span>
-                  <span className="tabular-nums">{revisions.length} Total in Pipeline</span>
-                </span>
+                  {currentExam && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-white/10">
+                      <span>🎯</span>
+                      <span>{currentExam.name}</span>
+                    </span>
+                  )}
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20">
+                    <span>⚡</span>
+                    <span className="tabular-nums">{revisions.length} Total in Pipeline</span>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Action Cluster: Mobile-Responsive Grid (NO HORIZONTAL OVERFLOW!) */}
-          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-2.5 w-full lg:w-auto shrink-0 pt-1 lg:pt-0">
-            {/* Live Resync */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                resyncAllRevisions();
-                setJustSynced(true);
-                setTimeout(() => setJustSynced(false), 2200);
-              }}
-              title="Instantly re-verify and align spaced revision intervals with your syllabus topics"
-              className={`h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl border text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
-                justSynced
-                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                  : 'bg-white dark:bg-[#1A1B28] hover:bg-slate-50 dark:hover:bg-[#202234] border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200'
-              }`}
-            >
-              <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-500 dark:text-slate-400'}`} />
-              <span className="truncate">{justSynced ? '✓ Synced!' : 'Live Resync'}</span>
-            </button>
-
-            {/* 🚶 Walk & Revise */}
-            {onOpenWalkAndRevise && (
+            {/* Right Action Cluster: Clean & Balanced (Walk & Revise REMOVED) */}
+            <div className="flex items-center gap-2 sm:gap-2.5 w-full sm:w-auto shrink-0 justify-end pt-1 lg:pt-0">
+              {/* Live Resync */}
               <button
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
-                  onOpenWalkAndRevise();
+                  resyncAllRevisions();
+                  setJustSynced(true);
+                  setTimeout(() => setJustSynced(false), 2200);
                 }}
-                title="Hands-free continuous audio revision with lock screen & earphone support"
-                className="h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] font-bold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/25 hover:border-purple-500/40 transition-all active:scale-95 cursor-pointer shadow-xs flex items-center justify-center gap-1.5"
+                title="Instantly re-verify and align spaced revision intervals with your syllabus topics"
+                className={`h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl border text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
+                  justSynced
+                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                    : 'bg-white dark:bg-[#1A1B28] hover:bg-slate-50 dark:hover:bg-[#202234] border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200'
+                }`}
               >
-                <Footprints className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
-                <span className="truncate">Walk &amp; Revise</span>
-                <Headphones className="w-3 h-3 opacity-70 shrink-0" />
+                <Zap className={`w-3.5 h-3.5 ${justSynced ? 'text-emerald-500 fill-emerald-500 animate-pulse' : 'text-slate-500 dark:text-slate-400'}`} />
+                <span className="truncate">{justSynced ? '✓ Synced!' : 'Live Resync'}</span>
               </button>
-            )}
 
-            {/* Primary Action: Start Due Revision */}
-            <button
-              type="button"
-              onClick={() => {
-                if (dueRevisions.length > 0) {
-                  soundManager.playClick();
-                  onOpenRevisionSession();
-                }
-              }}
-              disabled={dueRevisions.length === 0}
-              className={`col-span-2 sm:col-span-1 h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 ${
-                dueRevisions.length > 0
-                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white shadow-md shadow-indigo-500/25 cursor-pointer active:scale-95'
-                  : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-xs cursor-default'
-              }`}
-            >
-              {dueRevisions.length > 0 ? (
-                <>
-                  <Play className="w-3.5 h-3.5 fill-current shrink-0 text-white" />
-                  <span className="font-bold text-white">
-                    Start Due Revision ({dueRevisions.length})
-                  </span>
-                </>
-              ) : (
-                <>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                    All Revisions Cleared ✓
-                  </span>
-                </>
-              )}
-            </button>
+              {/* Primary Action: Start Due Revision or All Cleared */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (dueRevisions.length > 0) {
+                    soundManager.playClick();
+                    onOpenRevisionSession();
+                  }
+                }}
+                disabled={dueRevisions.length === 0}
+                className={`h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-xs sm:text-[13px] font-bold transition-all flex items-center justify-center gap-2 ${
+                  dueRevisions.length > 0
+                    ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white shadow-md shadow-indigo-500/25 cursor-pointer active:scale-95'
+                    : 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 shadow-xs cursor-default'
+                }`}
+              >
+                {dueRevisions.length > 0 ? (
+                  <>
+                    <Play className="w-3.5 h-3.5 fill-current shrink-0 text-white" />
+                    <span className="font-bold text-white">
+                      Start Due Revision ({dueRevisions.length})
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span className="font-bold text-emerald-700 dark:text-emerald-300">
+                      All Revisions Cleared ✓
+                    </span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* 2. 4-STAGE RETENTION PIPELINE BENTO CARDS */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         
         {/* Stage 1 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="space-y-2">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+          <div className="space-y-3">
             <div className="flex items-center justify-between gap-1">
-              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25 whitespace-nowrap">
+              <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 whitespace-nowrap">
                 Stage 1 • 1d
               </span>
-              <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                <Zap className="w-3.5 h-3.5" />
+              <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0">
+                <Zap className="w-4 h-4" />
               </div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-                {stage1Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-none tracking-tight">
+                  {stage1Count}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  cards
+                </span>
               </div>
-              <p className="text-xs sm:text-[13px] font-bold text-blue-600 dark:text-blue-400 mt-1 truncate">Initial Recall</p>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Fresh concepts learned</p>
+              <p className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400 mt-2 truncate">
+                Initial Recall
+              </p>
+              <p className="text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 truncate font-normal">
+                Fresh concepts learned
+              </p>
             </div>
           </div>
 
           {/* Micro Telemetry Track */}
-          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
-              <span>Pipeline share</span>
-              <span className="font-bold text-slate-600 dark:text-slate-300">{stage1Pct}%</span>
+          <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-sans text-slate-400 dark:text-slate-500">
+              <span className="font-medium">Pipeline share</span>
+              <span className="font-bold tabular-nums text-slate-700 dark:text-slate-300">{stage1Pct}%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-blue-500"
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-blue-500 to-indigo-500"
                 style={{ width: `${Math.max(stage1Count > 0 ? 5 : 0, stage1Pct)}%` }}
               />
             </div>
@@ -567,35 +558,44 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         </div>
 
         {/* Stage 2 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-amber-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="space-y-2">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+          <div className="space-y-3">
             <div className="flex items-center justify-between gap-1">
-              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 whitespace-nowrap">
+              <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 whitespace-nowrap">
                 Stage 2 • 3d
               </span>
-              <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-                <Flame className="w-3.5 h-3.5" />
+              <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0">
+                <Flame className="w-4 h-4" />
               </div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-                {stage2Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-none tracking-tight">
+                  {stage2Count}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  cards
+                </span>
               </div>
-              <p className="text-xs sm:text-[13px] font-bold text-amber-600 dark:text-amber-400 mt-1 truncate">Consolidation</p>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Reinforcing neural paths</p>
+              <p className="text-xs sm:text-sm font-bold text-amber-600 dark:text-amber-400 mt-2 truncate">
+                Consolidation
+              </p>
+              <p className="text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 truncate font-normal">
+                Reinforcing neural paths
+              </p>
             </div>
           </div>
 
           {/* Micro Telemetry Track */}
-          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
-              <span>Pipeline share</span>
-              <span className="font-bold text-slate-600 dark:text-slate-300">{stage2Pct}%</span>
+          <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-sans text-slate-400 dark:text-slate-500">
+              <span className="font-medium">Pipeline share</span>
+              <span className="font-bold tabular-nums text-slate-700 dark:text-slate-300">{stage2Pct}%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-amber-500"
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-amber-500 to-orange-500"
                 style={{ width: `${Math.max(stage2Count > 0 ? 5 : 0, stage2Pct)}%` }}
               />
             </div>
@@ -603,35 +603,44 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         </div>
 
         {/* Stage 3 */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-purple-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="space-y-2">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-fuchsia-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+          <div className="space-y-3">
             <div className="flex items-center justify-between gap-1">
-              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25 whitespace-nowrap">
+              <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 whitespace-nowrap">
                 Stage 3 • 7d
               </span>
-              <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                <BrainCircuit className="w-3.5 h-3.5" />
+              <div className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center shrink-0">
+                <BrainCircuit className="w-4 h-4" />
               </div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-                {stage3Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-none tracking-tight">
+                  {stage3Count}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  cards
+                </span>
               </div>
-              <p className="text-xs sm:text-[13px] font-bold text-purple-600 dark:text-purple-400 mt-1 truncate">Long-Term Sync</p>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Deep memory retention</p>
+              <p className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400 mt-2 truncate">
+                Long-Term Sync
+              </p>
+              <p className="text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 truncate font-normal">
+                Deep memory retention
+              </p>
             </div>
           </div>
 
           {/* Micro Telemetry Track */}
-          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
-              <span>Pipeline share</span>
-              <span className="font-bold text-slate-600 dark:text-slate-300">{stage3Pct}%</span>
+          <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-sans text-slate-400 dark:text-slate-500">
+              <span className="font-medium">Pipeline share</span>
+              <span className="font-bold tabular-nums text-slate-700 dark:text-slate-300">{stage3Pct}%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-purple-500"
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-purple-500 to-fuchsia-500"
                 style={{ width: `${Math.max(stage3Count > 0 ? 5 : 0, stage3Pct)}%` }}
               />
             </div>
@@ -639,35 +648,44 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         </div>
 
         {/* Stage 4 / Mastered */}
-        <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/40 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100" />
-          <div className="space-y-2">
+        <div className="group relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] hover:border-emerald-500/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+          <div className="space-y-3">
             <div className="flex items-center justify-between gap-1">
-              <span className="px-2 py-0.5 text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 whitespace-nowrap">
+              <span className="px-2.5 py-1 text-xs font-sans font-bold rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
                 Stage 4 • 21d+
               </span>
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0" title="Mastered Vault">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0" title="Mastered Vault">
+                <ShieldCheck className="w-4 h-4" />
               </div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-tight">
-                {stage4Count} <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">cards</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black font-sans tabular-nums text-slate-900 dark:text-white leading-none tracking-tight">
+                  {stage4Count}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  cards
+                </span>
               </div>
-              <p className="text-xs sm:text-[13px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 truncate">Permanently Locked</p>
-              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-normal">Exam-ready permanent recall</p>
+              <p className="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-2 truncate">
+                Permanently Locked
+              </p>
+              <p className="text-[11px] sm:text-xs text-slate-400 dark:text-slate-500 truncate font-normal">
+                Exam-ready permanent recall
+              </p>
             </div>
           </div>
 
           {/* Micro Telemetry Track */}
-          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-white/5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-1">
-              <span>Pipeline share</span>
-              <span className="font-bold text-slate-600 dark:text-slate-300">{stage4Pct}%</span>
+          <div className="pt-3 mt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-sans text-slate-400 dark:text-slate-500">
+              <span className="font-medium">Pipeline share</span>
+              <span className="font-bold tabular-nums text-slate-700 dark:text-slate-300">{stage4Pct}%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-emerald-500"
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-emerald-500 to-teal-500"
                 style={{ width: `${Math.max(stage4Count > 0 ? 5 : 0, stage4Pct)}%` }}
               />
             </div>
@@ -676,7 +694,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
       </div>
 
       {/* 3. SEARCH & QUEUE FILTER TOOLBAR */}
-      <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-3">
+      <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#181822] border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
         
         {/* Tabs & Search Row */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
