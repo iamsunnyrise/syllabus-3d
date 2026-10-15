@@ -679,150 +679,196 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       </div>
 
       {/* 3. FOUR NEXT-GEN METRIC GLASS CARDS */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
-        {/* Card 1: Daily Progress */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Specular Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
+      {(() => {
+        const studyProgressPercent = totalPlannedMinutes > 0 ? Math.min(100, Math.round((completedMinutes / totalPlannedMinutes) * 100)) : 0;
+        const targetsCompletedRate = plannerTasks.length > 0 ? Math.round((completedTasks.length / plannerTasks.length) * 100) : 0;
+        const xpCurrent = (profile.xp || 0) % 300;
+        const xpPercent = Math.min(100, Math.round((xpCurrent / 300) * 100));
 
-          <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              Daily Progress
-            </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-xs transition-transform group-hover:scale-110">
-              <TrendingUp className="w-4 h-4 stroke-[2.5]" />
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+            {/* Card 1: Daily Progress */}
+            <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/40 dark:hover:border-indigo-400/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+              {/* Top Row: Icon Squircle + Context Pill Badge */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-transform group-hover:scale-105 shadow-2xs shrink-0">
+                  <TrendingUp className="w-4.5 sm:w-5 h-4.5 sm:h-5 stroke-[2.2]" />
+                </div>
+
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold tracking-wide border shrink-0 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-white/10 font-sans">
+                  {todayProgressPercent === 100
+                    ? '100% Done'
+                    : totalTodayCount > 0
+                    ? `${completedTodayCount}/${totalTodayCount} Done`
+                    : '0 Active'}
+                </span>
+              </div>
+
+              {/* Middle Section: Hero Metric Value & Label */}
+              <div className="my-3 sm:my-3.5 space-y-0.5">
+                <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                  {todayProgressPercent}%
+                </div>
+                <div className="text-xs sm:text-[13px] font-bold text-slate-500 dark:text-slate-400 pt-1 font-sans">
+                  Daily Progress
+                </div>
+              </div>
+
+              {/* Bottom Section: Smooth Progress Track & Context Subtext */}
+              <div className="space-y-2 mt-auto">
+                <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {todayProgressPercent > 0 ? (
+                    <div
+                      className="bg-indigo-600 dark:bg-indigo-500 rounded-full h-full transition-all duration-500"
+                      style={{ width: `${todayProgressPercent}%` }}
+                    />
+                  ) : null}
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 font-sans">
+                  <span className="truncate">{completedTodayCount} of {totalTodayCount} completed</span>
+                  <span className={`shrink-0 ${todayProgressPercent === 100 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-500 dark:text-slate-400'}`}>
+                    {todayProgressPercent === 100 ? 'All Done! 🎉' : `${Math.max(0, totalTodayCount - completedTodayCount)} left`}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2: Planned Study */}
+            <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/40 dark:hover:border-rose-400/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+              {/* Top Row: Icon Squircle + Context Pill Badge */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 text-rose-600 dark:text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105 shadow-2xs shrink-0">
+                  <Clock className="w-4.5 sm:w-5 h-4.5 sm:h-5 stroke-[2.2]" />
+                </div>
+
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold tracking-wide border shrink-0 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-white/10 font-sans">
+                  {(completedMinutes / 60).toFixed(1)}h done
+                </span>
+              </div>
+
+              {/* Middle Section: Hero Metric Value & Label */}
+              <div className="my-3 sm:my-3.5 space-y-0.5">
+                <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                  {(totalPlannedMinutes / 60).toFixed(1)}
+                  <span className="text-lg sm:text-xl font-bold text-slate-400 dark:text-slate-500 ml-0.5">h</span>
+                </div>
+                <div className="text-xs sm:text-[13px] font-bold text-slate-500 dark:text-slate-400 pt-1 font-sans">
+                  Planned Study
+                </div>
+              </div>
+
+              {/* Bottom Section: Smooth Progress Track & Context Subtext */}
+              <div className="space-y-2 mt-auto">
+                <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {studyProgressPercent > 0 ? (
+                    <div
+                      className="bg-rose-500 rounded-full h-full transition-all duration-500"
+                      style={{ width: `${studyProgressPercent}%` }}
+                    />
+                  ) : null}
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 font-sans">
+                  <span className="truncate">Remaining study</span>
+                  <span className="font-bold text-slate-900 dark:text-white shrink-0">
+                    {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: Targets */}
+            <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-sky-500/40 dark:hover:border-sky-400/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+              {/* Top Row: Icon Squircle + Context Pill Badge */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/25 text-sky-600 dark:text-sky-400 flex items-center justify-center transition-transform group-hover:scale-105 shadow-2xs shrink-0">
+                  <Target className="w-4.5 sm:w-5 h-4.5 sm:h-5 stroke-[2.2]" />
+                </div>
+
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold tracking-wide border shrink-0 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-white/10 font-sans">
+                  {todayTasks.length} Today
+                </span>
+              </div>
+
+              {/* Middle Section: Hero Metric Value & Label */}
+              <div className="my-3 sm:my-3.5 space-y-0.5">
+                <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                  {plannerTasks.length}
+                </div>
+                <div className="text-xs sm:text-[13px] font-bold text-slate-500 dark:text-slate-400 pt-1 font-sans">
+                  Active Targets
+                </div>
+              </div>
+
+              {/* Bottom Section: Smooth Progress Track & Context Subtext */}
+              <div className="space-y-2 mt-auto">
+                <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {targetsCompletedRate > 0 ? (
+                    <div
+                      className="bg-sky-500 rounded-full h-full transition-all duration-500"
+                      style={{ width: `${targetsCompletedRate}%` }}
+                    />
+                  ) : null}
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 font-sans">
+                  <span className="truncate">{inProgressTasks.length} in focus</span>
+                  <span className="font-bold text-slate-900 dark:text-white shrink-0">
+                    {upcomingTasks.length} scheduled
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Academic Level & XP */}
+            <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-emerald-400/40 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+              {/* Top Row: Icon Squircle + Context Pill Badge */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl sm:rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center transition-transform group-hover:scale-105 shadow-2xs shrink-0">
+                  <Award className="w-4.5 sm:w-5 h-4.5 sm:h-5 stroke-[2.2]" />
+                </div>
+
+                <span
+                  className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold tracking-wide border shrink-0 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border-slate-200/70 dark:border-white/10 font-sans truncate max-w-[120px] sm:max-w-[140px]"
+                  title={profile.levelTitle || 'Novice Scholar'}
+                >
+                  {profile.levelTitle || 'Novice Scholar'}
+                </span>
+              </div>
+
+              {/* Middle Section: Hero Metric Value & Label */}
+              <div className="my-3 sm:my-3.5 space-y-0.5">
+                <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                  Lvl {profile.level}
+                </div>
+                <div className="text-xs sm:text-[13px] font-bold text-slate-500 dark:text-slate-400 pt-1 font-sans">
+                  Scholar Rank
+                </div>
+              </div>
+
+              {/* Bottom Section: Smooth Progress Track & Context Subtext */}
+              <div className="space-y-2 mt-auto">
+                <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                  {xpPercent > 0 ? (
+                    <div
+                      className="bg-emerald-500 rounded-full h-full transition-all duration-500"
+                      style={{ width: `${xpPercent}%` }}
+                    />
+                  ) : null}
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 font-sans">
+                  <span className="truncate">{profile.xp} XP</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+                    +25 XP / target
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div className="relative z-10 my-3 flex items-baseline justify-between gap-2">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
-              {todayProgressPercent}%
-            </div>
-            {/* Micro SVG Circular Gauge */}
-            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-200 dark:text-white/10" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="88" strokeDashoffset={88 - (88 * todayProgressPercent) / 100} strokeLinecap="round" className="text-indigo-600 dark:text-indigo-400 transition-all duration-700" />
-              </svg>
-              <span className="absolute text-[9px] font-mono font-black text-slate-800 dark:text-white">
-                {completedTodayCount}
-              </span>
-            </div>
-          </div>
-
-          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">{completedTodayCount} of {totalTodayCount} Done</span>
-            <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold shrink-0 border ${
-              todayProgressPercent === 100
-                ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-700 dark:text-emerald-300'
-                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-700 dark:text-indigo-300'
-            }`}>
-              {todayProgressPercent === 100 ? 'Done' : 'Active'}
-            </span>
-          </div>
-        </div>
-
-        {/* Card 2: Planned Study */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-rose-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Specular Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
-
-          <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              Planned Study
-            </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/20 text-rose-600 dark:text-rose-400 shadow-xs transition-transform group-hover:scale-110">
-              <Clock className="w-4 h-4 stroke-[2.5]" />
-            </div>
-          </div>
-
-          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 flex-wrap">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
-              {(totalPlannedMinutes / 60).toFixed(1)}<span className="text-lg sm:text-xl font-bold text-slate-400 dark:text-slate-500 ml-0.5">h</span>
-            </div>
-            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 shrink-0">
-              {(completedMinutes / 60).toFixed(1)}h done
-            </span>
-          </div>
-
-          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">Remaining</span>
-            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
-              {Math.max(0, (totalPlannedMinutes - completedMinutes) / 60).toFixed(1)}h left
-            </span>
-          </div>
-        </div>
-
-        {/* Card 3: Targets */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-sky-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Specular Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
-
-          <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              Targets
-            </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 border border-sky-500/20 text-sky-600 dark:text-sky-400 shadow-xs transition-transform group-hover:scale-110">
-              <Target className="w-4 h-4 stroke-[2.5]" />
-            </div>
-          </div>
-
-          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
-              {plannerTasks.length}
-            </div>
-            <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/10 border border-sky-500/20 text-sky-700 dark:text-sky-300">
-                {todayTasks.length} Today
-              </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/10 border border-sky-500/20 text-sky-700 dark:text-sky-300">
-                {inProgressTasks.length} Focus
-              </span>
-            </div>
-          </div>
-
-          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">Upcoming</span>
-            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
-              {upcomingTasks.length} scheduled
-            </span>
-          </div>
-        </div>
-
-        {/* Card 4: Academic Level & XP */}
-        <div className="group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/50 shadow-xs sm:shadow-sm text-slate-900 dark:text-white flex flex-col justify-between overflow-hidden hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-          {/* Top Specular Line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70 group-hover:opacity-100 pointer-events-none" />
-
-          <div className="relative z-10 flex items-center justify-between gap-1.5">
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
-              XP &amp; Level
-            </span>
-            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs transition-transform group-hover:scale-110">
-              <Award className="w-4 h-4 stroke-[2.5]" />
-            </div>
-          </div>
-
-          <div className="relative z-10 my-3 flex items-baseline justify-between gap-1.5 min-w-0">
-            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white tabular-nums leading-none whitespace-nowrap shrink-0">
-              Lvl {profile.level}
-            </div>
-            <span
-              className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 truncate max-w-[130px] sm:max-w-none shrink min-w-0"
-              title={profile.levelTitle || 'Scholar'}
-            >
-              {profile.levelTitle || 'Scholar'}
-            </span>
-          </div>
-
-          <div className="relative z-10 pt-2 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
-            <span className="truncate">{profile.xp} XP</span>
-            <span className="font-mono text-slate-950 dark:text-white font-black shrink-0">
-              +25 XP / target
-            </span>
-          </div>
-        </div>
-      </div>
+        );
+      })()}
 
       {/* 4. SMART SUGGESTIONS STRIP (If any) */}
       {smartSuggestions.length > 0 && (
