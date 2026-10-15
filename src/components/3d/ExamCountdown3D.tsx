@@ -135,9 +135,9 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
     const days = Math.max(1, timeLeft.days);
 
     if (remaining === 0) return { text: 'Syllabus Completed', isComplete: true };
-    const perDay = (remaining / days).toFixed(1);
+    const perDay = Math.abs(Number((remaining / days).toFixed(1)));
     return {
-      text: `~${perDay} topics/day pace`,
+      text: `${perDay} topics/day pace`,
       isComplete: false
     };
   }, [overallStats?.totalTopics, overallStats?.completedCount, timeLeft.days]);
@@ -154,20 +154,20 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           {/* Target Icon with Dynamic Urgency Theme */}
-          <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl border flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-all duration-200 ${
+          <div className={`w-9 sm:w-10 h-9 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 shadow-2xs transition-all duration-200 ${
             timeLeft.days <= 30
               ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400'
               : 'bg-blue-500/10 dark:bg-blue-500/15 border-blue-500/30 text-blue-600 dark:text-blue-400'
           }`}>
-            <Target className="w-5 h-5 stroke-[2.3]" />
+            <Target className="w-4 sm:w-4.5 h-4 sm:h-4.5 stroke-[2.3]" />
           </div>
 
           <div className="min-w-0">
-            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white tracking-tight truncate font-grotesk">
+            <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight truncate font-sans">
               {examName} Countdown
             </h2>
 
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-sans mt-0.5">
               <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
               <span className="truncate">Exam Date: <strong className="text-slate-800 dark:text-slate-200 font-semibold">{formattedDate}</strong></span>
               {timeLeft.isProjected && (
@@ -179,34 +179,27 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
           </div>
         </div>
 
-        {/* Pace Requirement HUD */}
-        <div className="flex items-center gap-1.5 text-xs font-mono self-start sm:self-auto px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 dark:from-amber-950/40 dark:to-orange-950/30 border border-amber-500/25 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 shadow-2xs">
-          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0 animate-pulse" />
-          <span className="truncate font-bold">{paceTarget.text}</span>
+        {/* Pace Requirement Badge */}
+        <div className="flex items-center gap-1.5 text-xs font-sans self-start sm:self-auto px-3 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 shadow-2xs font-semibold">
+          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" />
+          <span className="truncate">{paceTarget.text}</span>
         </div>
       </div>
 
-      {/* 4 Unified, Mission-Clock Split-Flap Digit Cards */}
+      {/* 4 Clean Modern Executive Countdown Cards */}
       <div className="relative z-10 grid grid-cols-4 gap-2 sm:gap-3.5">
         {cards.map(c => (
           <div
             key={c.label}
-            className={`relative py-3.5 sm:py-5 px-1.5 sm:px-3 rounded-2xl border text-center flex flex-col items-center justify-center transition-all duration-300 select-none shadow-xs hover:shadow-md hover:-translate-y-0.5 group/card overflow-hidden ${
+            className={`relative py-3.5 sm:py-5 px-1.5 sm:px-3 rounded-xl sm:rounded-2xl border text-center flex flex-col items-center justify-center transition-all duration-200 select-none shadow-2xs hover:shadow-xs group/card overflow-hidden ${
               c.isPrimary
-                ? 'bg-gradient-to-b from-amber-50/90 via-amber-100/40 to-amber-50/60 dark:from-amber-950/40 dark:via-amber-900/10 dark:to-transparent border-amber-400/60 dark:border-amber-500/40 shadow-amber-500/5'
-                : 'bg-gradient-to-b from-slate-50/90 via-white to-slate-50/50 dark:from-white/[0.06] dark:via-white/[0.03] dark:to-transparent border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
+                ? 'bg-amber-500/[0.07] dark:bg-amber-500/[0.08] border-amber-400/50 dark:border-amber-500/35'
+                : 'bg-slate-50/70 dark:bg-white/[0.03] border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
             }`}
           >
-            {/* Split-Flap Center Crease Line */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-px h-px bg-slate-300/50 dark:bg-black/40 pointer-events-none" />
-
-            {/* Precision Notch Side Cutouts */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-2 rounded-r-full bg-slate-300/60 dark:bg-slate-700/70 pointer-events-none" />
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-2 rounded-l-full bg-slate-300/60 dark:bg-slate-700/70 pointer-events-none" />
-
             {/* Digits Display */}
             <div className="relative z-10 flex items-baseline justify-center">
-              <span className={`text-3xl sm:text-4xl md:text-5xl font-black font-mono tabular-nums tracking-tight leading-none drop-shadow-xs ${
+              <span className={`text-2xl sm:text-4xl md:text-5xl font-black font-sans tabular-nums tracking-tight leading-none ${
                 c.isPrimary
                   ? 'text-amber-600 dark:text-amber-400'
                   : 'text-slate-900 dark:text-white'
@@ -215,23 +208,20 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
               </span>
             </div>
 
-            {/* Unit Label with Precision Dot for SECS */}
-            <div className="relative z-10 flex items-center gap-1.5 mt-2">
-              <span className={`text-[10px] sm:text-xs font-black uppercase tracking-widest font-mono ${
-                c.isPrimary ? 'text-amber-700 dark:text-amber-400/90' : 'text-slate-400 dark:text-slate-500'
+            {/* Unit Label */}
+            <div className="relative z-10 mt-1.5 sm:mt-2">
+              <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider font-sans ${
+                c.isPrimary ? 'text-amber-700 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'
               }`}>
                 {c.label}
               </span>
-              {c.label === 'SECS' && (
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping inline-block" />
-              )}
             </div>
           </div>
         ))}
       </div>
 
       {/* Footer: Dynamic Runway Timeline Track & Motivational Target */}
-      <div className="relative z-10 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-mono">
+      <div className="relative z-10 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-sans">
         <div className="flex items-center gap-2 min-w-0">
           <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
           <span className="truncate text-slate-600 dark:text-slate-300">
@@ -241,8 +231,8 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
           <span className="text-slate-500 dark:text-slate-400 hidden sm:inline truncate">{phaseConfig.sub}</span>
         </div>
 
-        <div className="flex items-center gap-1.5 font-bold text-amber-600 dark:text-amber-400 self-end sm:self-auto shrink-0">
-          <Flame className="w-3.5 h-3.5 fill-current animate-bounce" />
+        <div className="flex items-center gap-1.5 font-semibold text-amber-600 dark:text-amber-400 self-end sm:self-auto shrink-0">
+          <Flame className="w-3.5 h-3.5 fill-current" />
           <span>Keep Consistent & Focused</span>
         </div>
       </div>
