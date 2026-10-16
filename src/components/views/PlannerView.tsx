@@ -1743,48 +1743,65 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
           {/* SUBMODE 2: FULL MONTH MATRIX (LINEAR / NOTION CALENDAR STYLE) */}
           {calendarSubMode === 'month' && (
-            <div className="space-y-3.5">
+            <div className="space-y-4">
               {/* Month Statistics Banner */}
-              <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#121424] border border-slate-200/80 dark:border-white/10 shadow-xs flex items-center justify-between gap-3 flex-wrap">
-                <div className="flex items-center gap-4 text-xs font-semibold">
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-mono">Month Targets</span>
-                    <span className="text-sm font-black text-slate-900 dark:text-white font-mono tabular-nums">
+              <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                  {/* Month Targets Pill */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200/70 dark:border-white/[0.08]">
+                    <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      Targets
+                    </span>
+                    <span className="text-sm font-black font-mono text-slate-900 dark:text-white tabular-nums">
                       {monthStats.total}
                     </span>
                   </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-mono">Completed</span>
-                    <span className="text-sm font-black text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+
+                  {/* Completed Pill */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                    <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider">
+                      Completed
+                    </span>
+                    <span className="text-sm font-black font-mono tabular-nums">
                       {monthStats.done} ({monthStats.rate}%)
                     </span>
                   </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-mono">Active Study Days</span>
-                    <span className="text-sm font-black text-indigo-600 dark:text-[#7AA2F7] font-mono tabular-nums">
+
+                  {/* Active Days Pill */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400">
+                    <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider">
+                      Active Days
+                    </span>
+                    <span className="text-sm font-black font-mono tabular-nums">
                       {monthStats.activeDaysCount} Days
                     </span>
                   </div>
                 </div>
 
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  Click any date to inspect and plan targets
+                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                  <span>Click any date below to inspect & schedule</span>
                 </div>
               </div>
 
-              {/* 7-Column Month Grid */}
-              <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-2">
+              {/* 7-Column Modern Month Matrix with Hairline Borders */}
+              <div className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm overflow-hidden">
                 {/* Day Header Row */}
-                <div className="grid grid-cols-7 gap-1 text-center pb-2 border-b border-slate-100 dark:border-white/[0.06]">
-                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(dn => (
-                    <span key={dn} className="text-[11px] font-mono font-bold uppercase text-slate-400">
+                <div className="grid grid-cols-7 border-b border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.02]">
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((dn, idx) => (
+                    <div
+                      key={dn}
+                      className={`py-2.5 text-center text-[11px] font-mono font-black uppercase tracking-wider ${
+                        idx >= 5 ? 'text-slate-400 dark:text-slate-500' : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                    >
                       {dn}
-                    </span>
+                    </div>
                   ))}
                 </div>
 
-                {/* 35 or 42 Cells Grid */}
-                <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
+                {/* 35 or 42 Cells Grid with 1px Hairline Borders */}
+                <div className="grid grid-cols-7 gap-px bg-slate-200/70 dark:bg-white/[0.08]">
                   {monthData.cells.map(cell => {
                     const dayTasks = filteredTasks.filter(t => t.scheduledDate === cell.dateStr);
                     const isSelected = selectedCalendarDate === cell.dateStr;
@@ -1797,45 +1814,74 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           soundManager.playClick();
                           setSelectedCalendarDate(cell.dateStr);
                         }}
-                        className={`min-h-[64px] sm:min-h-[82px] p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border transition-all flex flex-col justify-between cursor-pointer group ${
+                        className={`min-h-[78px] sm:min-h-[96px] p-2 sm:p-2.5 transition-all flex flex-col justify-between cursor-pointer group relative ${
                           isSelected
-                            ? 'bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-500 ring-2 ring-indigo-500/30 shadow-xs'
+                            ? 'bg-indigo-50/90 dark:bg-indigo-950/40 ring-2 ring-inset ring-indigo-500 z-10'
                             : cell.isToday
-                            ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/60 shadow-2xs'
+                            ? 'bg-indigo-50/40 dark:bg-indigo-950/20 hover:bg-indigo-50/70 dark:hover:bg-indigo-950/30'
                             : cell.isCurrentMonth
-                            ? 'bg-slate-50/60 dark:bg-white/[0.02] border-slate-200/60 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20'
-                            : 'bg-transparent border-transparent opacity-35'
+                            ? 'bg-white dark:bg-[#121424] hover:bg-slate-50/80 dark:hover:bg-white/[0.03]'
+                            : 'bg-slate-50/40 dark:bg-black/20 hover:bg-slate-50 dark:hover:bg-white/[0.02]'
                         }`}
                       >
+                        {/* Cell Top Header */}
                         <div className="flex items-center justify-between">
-                          <span className={`text-[11px] sm:text-xs font-mono font-bold ${
-                            cell.isToday
-                              ? 'w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-black'
-                              : isSelected
-                              ? 'text-indigo-600 dark:text-indigo-400 font-black'
-                              : 'text-slate-700 dark:text-slate-300'
-                          }`}>
-                            {cell.dayNum}
-                          </span>
-
-                          {allCompleted && (
-                            <span className="w-2 h-2 rounded-full bg-emerald-500" title="All targets completed" />
+                          {cell.isToday ? (
+                            <span className="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-mono font-bold text-xs shadow-xs">
+                              {cell.dayNum}
+                            </span>
+                          ) : (
+                            <span className={`text-xs font-mono font-bold ${
+                              isSelected
+                                ? 'text-indigo-600 dark:text-indigo-400 font-black'
+                                : cell.isCurrentMonth
+                                ? 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white'
+                                : 'text-slate-300 dark:text-slate-600'
+                            }`}>
+                              {cell.dayNum}
+                            </span>
                           )}
+
+                          <div className="flex items-center gap-1">
+                            {allCompleted && (
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20" title="All targets completed" />
+                            )}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                soundManager.playClick();
+                                setTargetDate(cell.dateStr);
+                                setShowAddModal(true);
+                              }}
+                              className="w-5 h-5 rounded-md bg-slate-100 hover:bg-indigo-600 hover:text-white dark:bg-white/[0.06] dark:hover:bg-indigo-600 text-slate-400 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center cursor-pointer"
+                              title="Add target on this date"
+                            >
+                              <Plus className="w-3 h-3 stroke-[2.5]" />
+                            </button>
+                          </div>
                         </div>
 
                         {/* Task Dots / Badges */}
-                        <div className="space-y-0.5 mt-1 overflow-hidden">
-                          {dayTasks.slice(0, 2).map(t => (
-                            <div
-                              key={t.id}
-                              className="px-1 py-0.2 rounded text-[9px] truncate font-medium flex items-center gap-1 bg-white dark:bg-black/40 border border-slate-200/60 dark:border-white/10"
-                            >
-                              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: t.subjectColor || '#6366F1' }} />
-                              <span className="truncate">{t.topicName}</span>
-                            </div>
-                          ))}
+                        <div className="space-y-1 mt-1 overflow-hidden">
+                          {dayTasks.slice(0, 2).map(t => {
+                            const isDone = t.status === 'completed';
+                            return (
+                              <div
+                                key={t.id}
+                                className={`px-1.5 py-0.5 rounded-md text-[9.5px] truncate font-medium flex items-center gap-1.5 border transition-all ${
+                                  isDone
+                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-slate-400 dark:text-slate-500 line-through'
+                                    : 'bg-white/90 dark:bg-black/30 border-slate-200/70 dark:border-white/[0.08] text-slate-700 dark:text-slate-300 shadow-2xs'
+                                }`}
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: t.subjectColor || '#6366F1' }} />
+                                <span className="truncate">{t.topicName}</span>
+                              </div>
+                            );
+                          })}
                           {dayTasks.length > 2 && (
-                            <span className="text-[8.5px] font-mono text-slate-400 block px-1">
+                            <span className="text-[9px] font-mono font-bold text-indigo-600 dark:text-indigo-400 block px-1">
                               +{dayTasks.length - 2} more
                             </span>
                           )}
@@ -1847,21 +1893,35 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               </div>
 
               {/* Day Focus Inspector Card for Selected Date */}
-              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-3">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
+              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
                   <div>
-                    <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                      <CalendarCheck className="w-4 h-4 text-indigo-500" />
-                      <span>{formatSelectedDateReadable(selectedCalendarDate)}</span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                        <CalendarCheck className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
+                        {formatSelectedDateReadable(selectedCalendarDate)}
+                      </h3>
                       {selectedCalendarDate === getTodayDateString() && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-indigo-600 text-white shadow-xs">
                           Today
                         </span>
                       )}
-                    </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      {selectedDateTasks.length} Targets • {Math.round(selectedDateTotalMinutes / 60 * 10) / 10}h Planned • {selectedDateCompletedCount} Done
-                    </p>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 pl-9">
+                      <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] font-mono tabular-nums">
+                        {selectedDateTasks.length} {selectedDateTasks.length === 1 ? 'Target' : 'Targets'}
+                      </span>
+                      <span>•</span>
+                      <span className="font-mono tabular-nums">
+                        ⏱️ {Math.round(selectedDateTotalMinutes / 60 * 10) / 10}h Planned
+                      </span>
+                      <span>•</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                        ✓ {selectedDateCompletedCount} Done
+                      </span>
+                    </div>
                   </div>
 
                   <button
@@ -1871,40 +1931,58 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       setTargetDate(selectedCalendarDate);
                       setShowAddModal(true);
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-xs"
+                    className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-xs shadow-indigo-500/20 shrink-0"
                   >
                     <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                    <span>Add Target to this Date</span>
+                    <span>Schedule Target</span>
                   </button>
                 </div>
 
-                {/* Selected Date Tasks */}
+                {/* Selected Date Tasks List */}
                 <div className="space-y-2">
                   {selectedDateTasks.length === 0 ? (
-                    <div className="py-8 text-center border border-dashed border-slate-200 dark:border-white/10 rounded-2xl p-4">
-                      <p className="text-xs font-bold text-slate-700 dark:text-slate-300">No study targets scheduled for this date</p>
-                      <p className="text-xs text-slate-400 mt-0.5">Add high-yield syllabus topics or quick practice sets.</p>
-                      <div className="flex items-center justify-center gap-2 mt-3 flex-wrap">
+                    <div className="py-7 px-4 text-center rounded-2xl border border-dashed border-slate-200/90 dark:border-white/10 bg-slate-50/40 dark:bg-white/[0.01] space-y-3">
+                      <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto">
+                        <Calendar className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">
+                          No study targets scheduled for this date
+                        </p>
+                        <p className="text-xs text-slate-400 mt-0.5">
+                          Pick a quick 1-click sprint or schedule a syllabus chapter above.
+                        </p>
+                      </div>
+
+                      {/* 1-Click Sprint Presets */}
+                      <div className="flex items-center justify-center gap-2 pt-1 flex-wrap">
                         <button
                           type="button"
                           onClick={() => handleAddPresetTarget('50 MCQ Problem Sprint', 45, 'practice', 'high')}
-                          className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-indigo-50 hover:text-indigo-600 text-xs font-bold transition-colors cursor-pointer"
+                          className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#161828] hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center gap-1"
                         >
-                          + 50 MCQs (45m)
+                          <span>📝 50 MCQs (45m)</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => handleAddPresetTarget('Core Chapter Theory Deep Dive', 60, 'concept', 'high')}
-                          className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-indigo-50 hover:text-indigo-600 text-xs font-bold transition-colors cursor-pointer"
+                          className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#161828] hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center gap-1"
                         >
-                          + Theory (60m)
+                          <span>🧠 Theory (60m)</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => handleAddPresetTarget('High-Yield Formula Recall', 30, 'revision', 'medium')}
-                          className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-indigo-50 hover:text-indigo-600 text-xs font-bold transition-colors cursor-pointer"
+                          className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#161828] hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center gap-1"
                         >
-                          + Formulas (30m)
+                          <span>🔄 Formulas (30m)</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleAddPresetTarget('Full Mock Test Exam Review', 60, 'mock', 'high')}
+                          className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#161828] hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-300 border border-slate-200/80 dark:border-white/10 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center gap-1"
+                        >
+                          <span>⚡ Mock (60m)</span>
                         </button>
                       </div>
                     </div>
@@ -1917,17 +1995,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           className={`p-3 rounded-2xl border flex items-center justify-between gap-3 transition-all ${
                             isDone
                               ? 'bg-emerald-500/5 dark:bg-emerald-500/[0.03] border-emerald-500/20 text-slate-400 line-through'
-                              : 'bg-slate-50/70 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-slate-100'
+                              : 'bg-white dark:bg-[#161828] border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-slate-100 shadow-2xs hover:border-indigo-400/50'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
                             <button
                               type="button"
                               onClick={() => handleToggleWithConfetti(t.id)}
-                              className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center shrink-0 cursor-pointer ${
+                              className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
                                 isDone
                                   ? 'bg-emerald-500 border-emerald-500 text-white'
-                                  : 'border-slate-300 dark:border-white/30 hover:border-emerald-500'
+                                  : 'border-slate-300 dark:border-white/30 hover:border-emerald-500 hover:bg-emerald-500/10'
                               }`}
                             >
                               {isDone && <Check className="w-3 h-3 stroke-[3]" />}
