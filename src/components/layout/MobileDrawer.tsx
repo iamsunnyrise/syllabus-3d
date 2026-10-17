@@ -303,23 +303,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 onSelectView('targets');
                 onClose();
               }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
                 activeView === 'targets'
                   ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
-                <span className="truncate">Top 3 Daily Targets</span>
-              </div>
-              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold shrink-0 ${
-                completedTargets.length === 3
-                  ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
-              }`}>
-                {completedTargets.length}/3
-              </span>
+              <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
+              <span className="truncate">Top 3 Daily Targets</span>
             </button>
           </div>
 

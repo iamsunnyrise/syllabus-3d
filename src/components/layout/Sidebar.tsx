@@ -330,20 +330,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 aria-label="Top 3 Daily Targets"
               >
                 <Target className="w-4.5 h-4.5 text-amber-500 stroke-[2.2]" />
-                <span className={`absolute -top-1 -right-1 px-1 py-0.2 rounded-full text-[9px] font-mono font-bold leading-none ${
-                  completedTargets.length === 3
-                    ? 'bg-emerald-500 text-white'
-                    : 'bg-amber-500 text-slate-950 font-black'
-                }`}>
-                  {completedTargets.length}/3
-                </span>
               </button>
 
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                 <span>Top 3 Daily Targets</span>
-                <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">
-                  {completedTargets.length}/3 Done
-                </span>
               </div>
             </div>
 
@@ -571,23 +561,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onSelectView('targets');
                 }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
                   activeView === 'targets'
                     ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
                     : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
-                  <span className="truncate">Top 3 Daily Targets</span>
-                </div>
-                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold shrink-0 ${
-                  completedTargets.length === 3
-                    ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'
-                    : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
-                }`}>
-                  {completedTargets.length}/3
-                </span>
+                <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
+                <span className="truncate">Top 3 Daily Targets</span>
               </button>
             </div>
 
