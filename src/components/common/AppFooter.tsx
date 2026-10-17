@@ -177,7 +177,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
             {/* Modal Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#2563EB]/15 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-xl bg-[#4A53FA]/15 dark:bg-[#4A53FA]/25 text-[#4A53FA] dark:text-[#6F7DFA] flex items-center justify-center font-bold">
                   <Share2 className="w-4.5 h-4.5" />
                 </div>
                 <div>
@@ -247,7 +247,7 @@ export const AppFooter: React.FC<AppFooterProps> = ({ onNavigate }) => {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs transition-all cursor-pointer active:scale-95 ${
                     hasCopied
                       ? 'bg-emerald-500 text-white shadow-xs'
-                      : 'bg-[#2563EB] dark:bg-[#7AA2F7] text-white dark:text-black hover:opacity-90'
+                      : 'bg-[#4A53FA] text-white hover:opacity-90 shadow-sm shadow-[#4A53FA]/25'
                   }`}
                 >
                   {hasCopied ? (

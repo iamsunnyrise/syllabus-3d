@@ -122,7 +122,7 @@ export const PWAInstallBanner: React.FC = () => {
           <div className="flex items-center gap-1.5 shrink-0">
             <button
               onClick={handleInstallClick}
-              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] dark:from-[#7AA2F7] dark:to-[#5B8BF5] text-white dark:text-[#0B0B0D] text-xs font-black shadow-sm active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#4A53FA] to-[#3941D6] text-white text-xs font-black shadow-sm active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Install</span>
@@ -151,7 +151,7 @@ export const PWAInstallBanner: React.FC = () => {
           >
             <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#222638] pb-3">
               <div className="flex items-center gap-2">
-                <Smartphone className="w-5 h-5 text-[#2563EB] dark:text-[#7AA2F7]" />
+                <Smartphone className="w-5 h-5 text-[#4A53FA] dark:text-[#6F7DFA]" />
                 <h3 className="text-sm font-black">Install on iPhone / iPad</h3>
               </div>
               <button

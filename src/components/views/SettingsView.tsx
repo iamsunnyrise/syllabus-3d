@@ -1355,6 +1355,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
                     Deep dark glassmorphism for focused night study and reduced eye fatigue
                   </span>
+                  {/* Color Palette Swatch Preview */}
+                  <div className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-white/5">
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#992BFF' }} title="#992BFF - Purple" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#4A53FA' }} title="#4A53FA - Indigo" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#FF3B4B' }} title="#FF3B4B - Red" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#FF6105' }} title="#FF6105 - Orange" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#138EFF' }} title="#138EFF - Azure" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#E950F7' }} title="#E950F7 - Magenta" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#0BA84A' }} title="#0BA84A - Green" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-2xs shrink-0" style={{ backgroundColor: '#13A3B5' }} title="#13A3B5 - Teal" />
+                  </div>
                 </div>
               </button>
 
@@ -1367,15 +1378,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                 }}
                 className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
                   theme === 'light'
-                    ? 'bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-md'
+                    ? 'bg-white border-[#4A53FA] ring-2 ring-[#4A53FA]/20 shadow-md'
                     : 'bg-white dark:bg-[#151622] border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100'
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#EEF0FF] border border-[#BAC2FD] flex items-center justify-center text-[#4A53FA] shrink-0">
                     <Sun className="w-5 h-5" />
                   </div>
-                  {theme === 'light' && <Check className="w-4 h-4 text-blue-600 stroke-[3]" />}
+                  {theme === 'light' && <Check className="w-4 h-4 text-[#4A53FA] stroke-[3]" />}
                 </div>
                 <div>
                   <span className="text-xs sm:text-[14px] font-extrabold text-slate-900 dark:text-white block">
@@ -1384,6 +1395,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">
                     Ultra-crisp, high-contrast alabaster workspace with daylight clarity
                   </span>
+                  {/* Color Palette Swatch Preview */}
+                  <div className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-white/5">
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#992BFF' }} title="#992BFF - Purple" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#4A53FA' }} title="#4A53FA - Indigo" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#FF3B4B' }} title="#FF3B4B - Red" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#FF6105' }} title="#FF6105 - Orange" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#138EFF' }} title="#138EFF - Azure" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#E950F7' }} title="#E950F7 - Magenta" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#0BA84A' }} title="#0BA84A - Green" />
+                    <span className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs shrink-0" style={{ backgroundColor: '#13A3B5' }} title="#13A3B5 - Teal" />
+                  </div>
                 </div>
               </button>
 

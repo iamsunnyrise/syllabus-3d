@@ -39,39 +39,39 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       label: 'Home',
       icon: Home,
       isActive: activeView === 'overview',
-      accentColor: '#6366F1', // Indigo
-      darkAccentColor: '#818CF8',
-      glowColor: 'rgba(99, 102, 241, 0.45)',
+      accentColor: '#4A53FA', // Electric Indigo
+      darkAccentColor: '#6F7DFA',
+      glowColor: 'rgba(74, 83, 250, 0.45)',
       lightCircleBg: '#FFFFFF',
       darkCircleBg: '#181B2E',
-      lightRing: '#6366F1',
-      darkRing: '#818CF8'
+      lightRing: '#4A53FA',
+      darkRing: '#6F7DFA'
     },
     {
       id: 'syllabus' as AppView,
       label: 'Syllabus',
       icon: BookOpen,
       isActive: isSyllabusActive,
-      accentColor: '#2563EB', // Blue
-      darkAccentColor: '#60A5FA',
-      glowColor: 'rgba(37, 99, 235, 0.45)',
+      accentColor: '#992BFF', // Electric Purple
+      darkAccentColor: '#B05EFB',
+      glowColor: 'rgba(153, 43, 255, 0.45)',
       lightCircleBg: '#FFFFFF',
-      darkCircleBg: '#152238',
-      lightRing: '#2563EB',
-      darkRing: '#60A5FA'
+      darkCircleBg: '#1D1230',
+      lightRing: '#992BFF',
+      darkRing: '#B05EFB'
     },
     {
       id: 'mock-tracker' as AppView,
       label: 'Mocks',
       icon: Trophy,
       isActive: activeView === 'mock-tracker',
-      accentColor: '#059669', // Emerald
-      darkAccentColor: '#34D399',
-      glowColor: 'rgba(16, 185, 129, 0.45)',
+      accentColor: '#FF6105', // Tangerine Orange
+      darkAccentColor: '#FFA670',
+      glowColor: 'rgba(255, 97, 5, 0.45)',
       lightCircleBg: '#FFFFFF',
-      darkCircleBg: '#12261E',
-      lightRing: '#059669',
-      darkRing: '#34D399',
+      darkCircleBg: '#2A170A',
+      lightRing: '#FF6105',
+      darkRing: '#FFA670',
       hasPing: true
     },
     {
@@ -79,13 +79,13 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       label: 'Notes',
       icon: Video,
       isActive: activeView === 'youtube-notes',
-      accentColor: '#E11D48', // Rose / Red
-      darkAccentColor: '#FB7185',
-      glowColor: 'rgba(244, 63, 94, 0.45)',
+      accentColor: '#FF3B4B', // Coral Red
+      darkAccentColor: '#FF9CA3',
+      glowColor: 'rgba(255, 59, 75, 0.45)',
       lightCircleBg: '#FFFFFF',
       darkCircleBg: '#2C1722',
-      lightRing: '#E11D48',
-      darkRing: '#FB7185',
+      lightRing: '#FF3B4B',
+      darkRing: '#FF9CA3',
       badgeText: 'AI'
     },
     {
@@ -93,13 +93,13 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       label: 'Planner',
       icon: CalendarCheck,
       isActive: activeView === 'planner',
-      accentColor: '#D97706', // Amber
-      darkAccentColor: '#FBBF24',
-      glowColor: 'rgba(245, 158, 11, 0.45)',
+      accentColor: '#138EFF', // Sky Azure
+      darkAccentColor: '#82C4FC',
+      glowColor: 'rgba(19, 142, 255, 0.45)',
       lightCircleBg: '#FFFFFF',
-      darkCircleBg: '#2B2114',
-      lightRing: '#D97706',
-      darkRing: '#FBBF24',
+      darkCircleBg: '#142233',
+      lightRing: '#138EFF',
+      darkRing: '#82C4FC',
       count: todayTasksCount
     }
   ];

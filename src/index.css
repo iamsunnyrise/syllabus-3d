@@ -12,42 +12,55 @@
 
 @layer base {
   :root {
-    /* 🎨 Professional 5-Color Theme System (High-Contrast & Refined Aesthetic) */
-    /* 1. Primary: #0F172A | 2. Secondary: #2563EB | 3. Accent: #0284C7 | 4. Tertiary: #6366F1 | 5. Background: #F8FAFC */
+    /* 🎨 Elite 8-Color Dynamic Palette System */
+    /* 1. Purple: #992BFF | 2. Indigo: #4A53FA | 3. Red: #FF3B4B | 4. Orange: #FF6105 */
+    /* 5. Azure: #138EFF | 6. Magenta: #E950F7 | 7. Green: #0BA84A | 8. Teal: #13A3B5 | 9. White: #FFFFFF */
     --color-background: #F8FAFC;
     --color-primary: #0F172A;
-    --color-primary-accent: #2563EB;
-    --color-accent-light: #F1F5F9;
-    --color-secondary-accent: #0284C7;
-    --color-tertiary-accent: #6366F1;
+    --color-primary-accent: #4A53FA;
+    --color-accent-light: #EEF0FF;
+    --color-secondary-accent: #138EFF;
+    --color-tertiary-accent: #992BFF;
     --color-surface: #FFFFFF;
     --color-surface-soft: #F1F5F9;
     --color-border: #E2E8F0;
     --color-text-primary: #0F172A;
     --color-text-secondary: #334155;
     --color-text-muted: #475569;
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-error: #EF4444;
+    --color-success: #0BA84A;
+    --color-warning: #FF6105;
+    --color-error: #FF3B4B;
+    --color-teal: #13A3B5;
+    --color-magenta: #E950F7;
+    --color-orange: #FF6105;
+    --color-indigo: #4A53FA;
+    --color-purple: #992BFF;
+    --color-azure: #138EFF;
   }
 
   .dark {
-    /* 🌑 Deep Obsidian & Midnight Violet Theme (#090A12, #7C3AED, #22D3EE, #A78BFA) */
+    /* 🌑 Deep Obsidian & Electric Indigo/Purple Theme */
     --color-background: #090A12;
     --color-primary: #FFFFFF;
-    --color-primary-accent: #7C3AED;
-    --color-accent-light: #A78BFA;
-    --color-secondary-accent: #22D3EE;
-    --color-tertiary-accent: #A78BFA;
+    --color-primary-accent: #4A53FA;
+    --color-accent-light: rgba(74, 83, 250, 0.15);
+    --color-secondary-accent: #138EFF;
+    --color-tertiary-accent: #992BFF;
     --color-surface: #131522;
     --color-surface-soft: #191C2C;
     --color-border: rgba(255, 255, 255, 0.08);
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #E2E8F0;
     --color-text-muted: #94A3B8;
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-error: #EF4444;
+    --color-success: #0BA84A;
+    --color-warning: #FF6105;
+    --color-error: #FF3B4B;
+    --color-teal: #13A3B5;
+    --color-magenta: #E950F7;
+    --color-orange: #FF6105;
+    --color-indigo: #4A53FA;
+    --color-purple: #992BFF;
+    --color-azure: #138EFF;
   }
 
   .warm-cream {
@@ -70,12 +83,12 @@
   }
 
   ::selection {
-    background-color: rgba(124, 58, 237, 0.25);
+    background-color: rgba(74, 83, 250, 0.22);
     color: #0F172A;
   }
 
   .dark ::selection {
-    background-color: rgba(34, 211, 238, 0.3);
+    background-color: rgba(74, 83, 250, 0.35);
     color: #FFFFFF;
   }
 
@@ -118,9 +131,9 @@
   html:not(.dark):not(.warm-cream) body {
     background-color: #F8FAFC !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.05) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.04) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(74, 83, 250, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(19, 142, 255, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(153, 43, 255, 0.04) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #0F172A !important;
   }
@@ -128,9 +141,9 @@
   .dark body {
     background-color: #090A12 !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(34, 211, 238, 0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(74, 83, 250, 0.14) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(19, 142, 255, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(153, 43, 255, 0.07) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #F8FAFC !important;
   }

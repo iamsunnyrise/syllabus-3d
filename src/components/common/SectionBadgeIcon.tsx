@@ -74,81 +74,81 @@ export const SectionBadgeIcon: React.FC<SectionBadgeIconProps> = ({
             <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
           </linearGradient>
 
-          {/* 1. Dashboard: Royal Sapphire Blue */}
+          {/* 1. Dashboard: Electric Indigo / Royal Blue */}
           <linearGradient id={`bg-overview-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="50%" stopColor="#2563EB" />
-            <stop offset="100%" stopColor="#1D4ED8" />
+            <stop offset="0%" stopColor="#6F7DFA" />
+            <stop offset="50%" stopColor="#4A53FA" />
+            <stop offset="100%" stopColor="#3941D6" />
           </linearGradient>
 
-          {/* 2. Syllabus Explorer: Royal Purple / Violet */}
+          {/* 2. Syllabus Explorer: Electric Purple */}
           <linearGradient id={`bg-syllabus-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="50%" stopColor="#7C3AED" />
-            <stop offset="100%" stopColor="#5B21B6" />
+            <stop offset="0%" stopColor="#B05EFB" />
+            <stop offset="50%" stopColor="#992BFF" />
+            <stop offset="100%" stopColor="#8014E6" />
           </linearGradient>
 
-          {/* 3. Study Planner: Electric Cerulean Sky */}
+          {/* 3. Study Planner: Sky Azure Blue */}
           <linearGradient id={`bg-planner-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#0EA5E9" />
-            <stop offset="55%" stopColor="#0284C7" />
-            <stop offset="100%" stopColor="#0369A1" />
+            <stop offset="0%" stopColor="#4AA8FB" />
+            <stop offset="55%" stopColor="#138EFF" />
+            <stop offset="100%" stopColor="#0771D6" />
           </linearGradient>
 
-          {/* 4. Target Pacing: Vivid Mint & Emerald */}
+          {/* 4. Target Pacing: Vivid Emerald Green */}
           <linearGradient id={`bg-pacing-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#10B981" />
-            <stop offset="55%" stopColor="#059669" />
-            <stop offset="100%" stopColor="#047857" />
+            <stop offset="0%" stopColor="#39C769" />
+            <stop offset="55%" stopColor="#0BA84A" />
+            <stop offset="100%" stopColor="#058A3B" />
           </linearGradient>
 
-          {/* 5. AI YouTube Notes: Ruby Crimson */}
+          {/* 5. AI YouTube Notes: Coral Crimson Red */}
           <linearGradient id={`bg-youtube-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F43F5E" />
-            <stop offset="55%" stopColor="#E11D48" />
-            <stop offset="100%" stopColor="#9F1239" />
+            <stop offset="0%" stopColor="#FF6D77" />
+            <stop offset="55%" stopColor="#FF3B4B" />
+            <stop offset="100%" stopColor="#E11E30" />
           </linearGradient>
 
-          {/* 7. Mock Test Tracker: Radiant Amber Gold */}
+          {/* 7. Mock Test Tracker: Vibrant Tangerine Orange */}
           <linearGradient id={`bg-mock-tracker-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F59E0B" />
-            <stop offset="55%" stopColor="#D97706" />
-            <stop offset="100%" stopColor="#B45309" />
+            <stop offset="0%" stopColor="#FFA670" />
+            <stop offset="55%" stopColor="#FF6105" />
+            <stop offset="100%" stopColor="#E04B00" />
           </linearGradient>
 
           {/* 8. Spaced Revision: Tangerine Orange */}
           <linearGradient id={`bg-revision-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FB923C" />
-            <stop offset="55%" stopColor="#EA580C" />
-            <stop offset="100%" stopColor="#C2410C" />
+            <stop offset="0%" stopColor="#FFA670" />
+            <stop offset="55%" stopColor="#FF6105" />
+            <stop offset="100%" stopColor="#E04B00" />
           </linearGradient>
 
           {/* 9. Weak Topics: Crimson Fire Alert */}
           <linearGradient id={`bg-weak-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FB7185" />
-            <stop offset="55%" stopColor="#E11D48" />
-            <stop offset="100%" stopColor="#881337" />
+            <stop offset="0%" stopColor="#FF6D77" />
+            <stop offset="55%" stopColor="#FF3B4B" />
+            <stop offset="100%" stopColor="#B40F1E" />
           </linearGradient>
 
-          {/* 10. Syllabus Mindmap: Cosmic Violet & Magenta */}
+          {/* 10. Syllabus Mindmap: Cosmic Violet & Neon Magenta */}
           <linearGradient id={`bg-mindmap-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#C084FC" />
-            <stop offset="55%" stopColor="#9333EA" />
-            <stop offset="100%" stopColor="#6B21A8" />
+            <stop offset="0%" stopColor="#EB75F8" />
+            <stop offset="55%" stopColor="#992BFF" />
+            <stop offset="100%" stopColor="#630CB8" />
           </linearGradient>
 
-          {/* 11. Analytics & Heatmap: Cyan Oceanic */}
+          {/* 11. Analytics & Heatmap: Vibrant Teal Cyan */}
           <linearGradient id={`bg-analytics-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#22D3EE" />
-            <stop offset="55%" stopColor="#0284C7" />
-            <stop offset="100%" stopColor="#1E3A8A" />
+            <stop offset="0%" stopColor="#43C6C8" />
+            <stop offset="55%" stopColor="#13A3B5" />
+            <stop offset="100%" stopColor="#0C8392" />
           </linearGradient>
 
-          {/* 12. Study Station & Hub: Royal Indigo */}
+          {/* 12. Study Station & Hub: Royal Indigo to Purple */}
           <linearGradient id={`bg-platforms-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#6366F1" />
-            <stop offset="55%" stopColor="#4F46E5" />
-            <stop offset="100%" stopColor="#3730A3" />
+            <stop offset="0%" stopColor="#6F7DFA" />
+            <stop offset="55%" stopColor="#4A53FA" />
+            <stop offset="100%" stopColor="#992BFF" />
           </linearGradient>
 
           {/* 13. Settings: Titanium Carbon Slate */}
@@ -205,32 +205,32 @@ function getSectionTheme(section: string, uid: string): { gradientId: string; gl
   switch (section) {
     case 'overview':
     case 'landing':
-      return { gradientId: `bg-overview-${uid}`, glowColor: '#3B82F6' };
+      return { gradientId: `bg-overview-${uid}`, glowColor: '#4A53FA' };
     case 'syllabus':
     case 'subjects':
-      return { gradientId: `bg-syllabus-${uid}`, glowColor: '#8B5CF6' };
+      return { gradientId: `bg-syllabus-${uid}`, glowColor: '#992BFF' };
     case 'planner':
-      return { gradientId: `bg-planner-${uid}`, glowColor: '#0EA5E9' };
+      return { gradientId: `bg-planner-${uid}`, glowColor: '#138EFF' };
     case 'pacing':
-      return { gradientId: `bg-pacing-${uid}`, glowColor: '#10B981' };
+      return { gradientId: `bg-pacing-${uid}`, glowColor: '#0BA84A' };
     case 'youtube-notes':
-      return { gradientId: `bg-youtube-${uid}`, glowColor: '#F43F5E' };
+      return { gradientId: `bg-youtube-${uid}`, glowColor: '#FF3B4B' };
     case 'mock-tracker':
-      return { gradientId: `bg-mock-tracker-${uid}`, glowColor: '#F59E0B' };
+      return { gradientId: `bg-mock-tracker-${uid}`, glowColor: '#FF6105' };
     case 'revision':
-      return { gradientId: `bg-revision-${uid}`, glowColor: '#FB923C' };
+      return { gradientId: `bg-revision-${uid}`, glowColor: '#FF6105' };
     case 'weak':
-      return { gradientId: `bg-weak-${uid}`, glowColor: '#E11D48' };
+      return { gradientId: `bg-weak-${uid}`, glowColor: '#FF3B4B' };
     case 'mindmap':
-      return { gradientId: `bg-mindmap-${uid}`, glowColor: '#C084FC' };
+      return { gradientId: `bg-mindmap-${uid}`, glowColor: '#E950F7' };
     case 'analytics':
     case 'heatmap':
-      return { gradientId: `bg-analytics-${uid}`, glowColor: '#06B6D4' };
+      return { gradientId: `bg-analytics-${uid}`, glowColor: '#13A3B5' };
     case 'platforms':
-      return { gradientId: `bg-platforms-${uid}`, glowColor: '#6366F1' };
+      return { gradientId: `bg-platforms-${uid}`, glowColor: '#4A53FA' };
     case 'settings':
     default:
-      return { gradientId: `bg-settings-${uid}`, glowColor: '#64748B' };
+      return { gradientId: `bg-settings-${uid}`, glowColor: '#4A53FA' };
   }
 }
 

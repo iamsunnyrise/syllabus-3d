@@ -876,11 +876,11 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-500" />
+              <Sun className="w-4 h-4 text-[#FF6105]" />
             ) : theme === 'warm-cream' ? (
-              <Sparkles className="w-4 h-4 text-amber-500" />
+              <Sparkles className="w-4 h-4 text-[#E1A837]" />
             ) : (
-              <Moon className="w-4 h-4 text-blue-600" />
+              <Moon className="w-4 h-4 text-[#4A53FA]" />
             )}
           </button>
 
@@ -893,8 +893,8 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenSettings();
             }}
             className={`h-9 w-9 rounded-full bg-gradient-to-tr ${
-              profileSafe.avatarColor || 'from-blue-600 to-indigo-600'
-            } border border-slate-200/80 dark:border-white/[0.08] text-white font-bold flex items-center justify-center text-xs shadow-sm cursor-pointer overflow-hidden active:scale-95 hover:border-blue-500 dark:hover:border-blue-400 transition-all shrink-0`}
+              profileSafe.avatarColor || 'from-[#4A53FA] to-[#992BFF]'
+            } border border-slate-200/80 dark:border-white/[0.08] text-white font-bold flex items-center justify-center text-xs shadow-sm cursor-pointer overflow-hidden active:scale-95 hover:border-[#4A53FA] dark:hover:border-[#6F7DFA] transition-all shrink-0`}
             title={`Profile: ${profileSafe.name || 'Aspirant'}`}
             aria-label="Open profile settings"
           >

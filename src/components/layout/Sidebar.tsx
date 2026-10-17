@@ -361,7 +361,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
                 title="AI Syllabus Architect (PDF & Text)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                <Sparkles className="w-3.5 h-3.5 text-[#992BFF] dark:text-[#B05EFB] shrink-0" />
                 <span className="truncate">AI Studio</span>
               </button>
             )}
@@ -376,7 +376,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
                 title="Focus Mode"
               >
-                <Timer className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
+                <Timer className="w-3.5 h-3.5 text-[#FF6105] dark:text-[#FFA670] shrink-0" />
                 <span className="truncate">Focus</span>
               </button>
             )}
@@ -419,7 +419,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             aria-current={isActive ? 'page' : undefined}
                             className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-sm transition-all duration-150 cursor-pointer select-none ${
                               isActive
-                                ? 'bg-blue-600 text-white font-bold shadow-sm'
+                                ? 'bg-[#4A53FA] text-white font-bold shadow-md shadow-[#4A53FA]/25'
                                 : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white font-medium'
                             }`}
                           >
