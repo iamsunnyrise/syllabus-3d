@@ -3,7 +3,6 @@ import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
-import { AppFooter } from '../common/AppFooter';
 import { PunditsHeroBanner } from '../dashboard/PunditsHeroBanner';
 import { PortalFeatureCards } from '../dashboard/PortalFeatureCards';
 
@@ -79,9 +78,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         onNavigate={onNavigate}
         onOpenPricing={onOpenPricing}
       />
-
-      {/* 3. PROFESSIONAL & ADVANCED HOMEPAGE FOOTER */}
-      <AppFooter onNavigate={onNavigate} />
     </div>
   );
 };
