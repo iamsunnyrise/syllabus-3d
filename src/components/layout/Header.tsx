@@ -21,19 +21,6 @@ import {
   Trash2,
   Check,
   Target,
-  BookOpen,
-  CalendarDays,
-  Timer,
-  RotateCw,
-  BrainCircuit,
-  AlertTriangle,
-  Clock,
-  BarChart3,
-  Video,
-  Trophy,
-  Compass,
-  ArrowRight,
-  LayoutGrid,
   User
 } from 'lucide-react';
 import { usePinLock } from '../../context/PinLockContext';
@@ -89,12 +76,8 @@ export const Header: React.FC<HeaderProps> = ({
   const [isEditExamModalOpen, setIsEditExamModalOpen] = useState(false);
   const [isAddExamModalOpen, setIsAddExamModalOpen] = useState(false);
   const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
-  const [isStudyHubOpen, setIsStudyHubOpen] = useState(false);
-  const studyHubRef = useRef<HTMLDivElement>(null);
   const [isOnline, setIsOnline] = useState<boolean>(() => typeof navigator !== 'undefined' ? navigator.onLine : true);
 
-  const plannerTasksSafe = Array.isArray(plannerTasks) ? plannerTasks : [];
-  const todayTasksCount = plannerTasksSafe.filter(t => t.status === 'today').length;
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const dueRevisionCount = dueRevisionsSafe.length;
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
@@ -108,36 +91,19 @@ export const Header: React.FC<HeaderProps> = ({
     name: 'Aspirant'
   };
 
-  const studyHubViews: AppView[] = [
-    'revision',
-    'weak',
-    'mindmap',
-    'pacing',
-    'analytics',
-    'heatmap',
-    'youtube-notes',
-    'mock-tracker',
-    'platforms'
-  ];
-  const isStudyHubActive = currentView ? studyHubViews.includes(currentView) : false;
-
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Node;
-      if (studyHubRef.current && !studyHubRef.current.contains(target)) {
-        setIsStudyHubOpen(false);
-      }
       if (examMenuRef.current && !examMenuRef.current.contains(target)) {
         setIsExamMenuOpen(false);
       }
     };
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (isStudyHubOpen) setIsStudyHubOpen(false);
         if (isExamMenuOpen) setIsExamMenuOpen(false);
       }
     };
-    if (isStudyHubOpen || isExamMenuOpen) {
+    if (isExamMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       window.addEventListener('keydown', handleEscape);
     }
@@ -145,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [isStudyHubOpen, isExamMenuOpen]);
+  }, [isExamMenuOpen]);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -436,389 +402,6 @@ export const Header: React.FC<HeaderProps> = ({
           </h1>
         </div>
 
-        {/* Desktop Quick Navigation Hub (Syllabus, Planner, Study Station Hub) */}
-        <nav
-          aria-label="Quick Navigation"
-          className="hidden xl:flex items-center gap-1 p-1 rounded-2xl bg-slate-100/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-md shadow-2xs shrink-0 select-none"
-        >
-          {/* 1. Syllabus Pill */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              onNavigate?.('syllabus');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              currentView === 'syllabus'
-                ? 'bg-white dark:bg-[#1E2138] text-blue-600 dark:text-[#7AA2F7] shadow-xs border border-slate-200/60 dark:border-white/10'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
-            }`}
-            title="Open Syllabus Explorer"
-            aria-label="Open Syllabus Explorer"
-            aria-current={currentView === 'syllabus' ? 'page' : undefined}
-          >
-            <BookOpen className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${
-              currentView === 'syllabus' ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
-            }`} />
-            <span>Syllabus</span>
-          </button>
-
-          {/* 2. Planner Pill */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              onNavigate?.('planner');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              currentView === 'planner' || currentView === 'routine'
-                ? 'bg-white dark:bg-[#1E2138] text-blue-600 dark:text-[#7AA2F7] shadow-xs border border-slate-200/60 dark:border-white/10'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
-            }`}
-            title="Open Study Planner"
-            aria-label="Open Study Planner"
-            aria-current={(currentView === 'planner' || currentView === 'routine') ? 'page' : undefined}
-          >
-            <CalendarDays className={`w-3.5 h-3.5 ${
-              (currentView === 'planner' || currentView === 'routine') ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
-            }`} />
-            <span>Planner</span>
-            {todayTasksCount > 0 && (
-              <span className="px-1.5 py-0.2 rounded-full text-xs font-mono font-bold bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30 tabular-nums">
-                {todayTasksCount}
-              </span>
-            )}
-          </button>
-
-          <div className="w-[1px] h-4 bg-slate-200 dark:bg-white/10 mx-0.5" />
-
-          {/* 3. Study Station Hub Popover */}
-          <div className="relative" ref={studyHubRef}>
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.light();
-                setIsStudyHubOpen(prev => !prev);
-              }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                isStudyHubActive || isStudyHubOpen
-                  ? 'bg-white dark:bg-[#1E2138] text-indigo-600 dark:text-blue-300 shadow-xs border border-indigo-200/60 dark:border-blue-700/50'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
-              }`}
-              title="Study Station Hub: Focus Timer, Spaced Revision, Mind Map, Weak Topics & More"
-              aria-label="Open Study Station Hub"
-              aria-expanded={isStudyHubOpen}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500 dark:text-blue-400" />
-              <span>Study Station Hub</span>
-              <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${isStudyHubOpen ? 'rotate-180 text-indigo-600 dark:text-blue-400' : ''}`} />
-            </button>
-
-            {/* Dropdown Card */}
-            {isStudyHubOpen && (
-              <div className="study-station-popover absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-84 sm:w-[410px] rounded-2xl bg-white/95 dark:bg-[#111322]/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-3 z-50 animate-fade-in space-y-2.5">
-                {/* Header Bar */}
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                      <Compass className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-bold font-sans text-slate-800 dark:text-white tracking-tight">
-                      Study Station Hub
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-sans font-medium text-slate-400 dark:text-slate-500">
-                    Engines & Tools
-                  </span>
-                </div>
-
-                {/* Primary Focus Button (Luxury Pomodoro) */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsStudyHubOpen(false);
-                    soundManager.playClick();
-                    onOpenFocusModal?.();
-                  }}
-                  className="study-hub-hero-card w-full flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white shadow-md hover:shadow-indigo-500/20 transition-all active:scale-[0.98] group cursor-pointer border border-white/10"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform">
-                      <Timer className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                    </div>
-                    <div className="min-w-0 text-left">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="hero-title text-xs sm:text-sm font-bold font-sans tracking-tight">Focus Timer (Pomodoro)</span>
-                        <span className="px-1.5 py-0.5 rounded-md text-[10px] font-sans font-extrabold uppercase tracking-wide bg-white/20 text-white border border-white/20">
-                          3D Dial
-                        </span>
-                      </div>
-                      <p className="hero-desc text-[11px] text-white/80 font-sans truncate mt-0.5">
-                        Chronometer sprint with binaural audio
-                      </p>
-                    </div>
-                  </div>
-                  <div className="hero-action-pill shrink-0 hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white/15 group-hover:bg-white/25 text-white transition-all">
-                    <span>Launch</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-white/80 group-hover:text-white sm:hidden group-hover:translate-x-0.5 transition-transform shrink-0" />
-                </button>
-
-                {/* Section 1: Practice & AI Learning */}
-                <div className="space-y-1.5">
-                  <div className="px-1 flex items-center justify-between">
-                    <span className="text-[10px] font-bold font-sans tracking-wider uppercase text-slate-400 dark:text-slate-500">
-                      Practice & AI Learning
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {/* Spaced Revision */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('revision');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'revision'
-                          ? 'active-tool bg-amber-500/10 text-amber-900 dark:text-amber-200 border-amber-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <RotateCw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="tool-title text-xs font-bold truncate font-sans">Revision</span>
-                          {dueRevisionCount > 0 && (
-                            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-sans bg-amber-500 text-white shrink-0 shadow-2xs">
-                              {dueRevisionCount}
-                            </span>
-                          )}
-                        </div>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Spaced Recall</span>
-                      </div>
-                    </button>
-
-                    {/* Weak Topics */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('weak');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'weak'
-                          ? 'active-tool bg-rose-500/10 text-rose-900 dark:text-rose-200 border-rose-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="tool-title text-xs font-bold truncate font-sans">Weak Topics</span>
-                          {weakTopicsCount > 0 && (
-                            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-sans bg-rose-500 text-white shrink-0 shadow-2xs">
-                              {weakTopicsCount}
-                            </span>
-                          )}
-                        </div>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Diagnostic Matrix</span>
-                      </div>
-                    </button>
-
-                    {/* AI YouTube Notes */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('youtube-notes');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'youtube-notes'
-                          ? 'active-tool bg-purple-500/10 text-purple-900 dark:text-purple-200 border-purple-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="tool-title text-xs font-bold truncate font-sans">YouTube AI</span>
-                          <span className="px-1.5 py-0.2 rounded text-[10px] font-extrabold font-sans bg-purple-600 text-white shrink-0 shadow-2xs">
-                            AI
-                          </span>
-                        </div>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Lecture Notes</span>
-                      </div>
-                    </button>
-
-                    {/* Syllabus Mindmap */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('mindmap');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'mindmap'
-                          ? 'active-tool bg-indigo-500/10 text-indigo-900 dark:text-blue-200 border-indigo-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <BrainCircuit className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="tool-title text-xs font-bold truncate block font-sans">Mindmap</span>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Visual Graph</span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Section 2: Velocity & Tracking */}
-                <div className="space-y-1.5">
-                  <div className="px-1 flex items-center justify-between">
-                    <span className="text-[10px] font-bold font-sans tracking-wider uppercase text-slate-400 dark:text-slate-500">
-                      Velocity & Analytics
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {/* Target Pacing */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('pacing');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'pacing'
-                          ? 'active-tool bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 border-emerald-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="tool-title text-xs font-bold truncate block font-sans">Target Pacing</span>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Exam Velocity</span>
-                      </div>
-                    </button>
-
-                    {/* Mock Test Tracker */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('mock-tracker');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'mock-tracker'
-                          ? 'active-tool bg-cyan-500/10 text-cyan-900 dark:text-cyan-200 border-cyan-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="tool-title text-xs font-bold truncate block font-sans">Mock Tracker</span>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Scores & Ranks</span>
-                      </div>
-                    </button>
-
-                    {/* Analytics & Heatmap */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('analytics');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'analytics'
-                          ? 'active-tool bg-blue-500/10 text-blue-900 dark:text-blue-200 border-blue-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="tool-title text-xs font-bold truncate block font-sans">Analytics</span>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Heatmap & XP</span>
-                      </div>
-                    </button>
-
-                    {/* Platforms & Resources */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStudyHubOpen(false);
-                        soundManager.playClick();
-                        haptics.selection();
-                        onNavigate?.('platforms');
-                      }}
-                      className={`study-tool-btn group flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl text-left transition-all cursor-pointer border ${
-                        currentView === 'platforms'
-                          ? 'active-tool bg-slate-500/10 text-slate-900 dark:text-white border-slate-500/30 shadow-2xs'
-                          : 'bg-slate-50/70 hover:bg-slate-100/90 dark:bg-white/[0.03] dark:hover:bg-white/[0.07] border-slate-200/50 dark:border-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 text-slate-800 dark:text-slate-200'
-                      }`}
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="tool-title text-xs font-bold truncate block font-sans">Platforms</span>
-                        <span className="tool-subtitle text-[11px] text-slate-400 dark:text-slate-500 truncate block font-sans font-normal mt-0.5">Study Portals</span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Footer: Link to Dashboard Overview */}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsStudyHubOpen(false);
-                      soundManager.playClick();
-                      haptics.selection();
-                      onNavigate?.('overview');
-                    }}
-                    className="study-hub-footer-btn w-full text-center py-2 px-3 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-50/80 hover:bg-indigo-50/60 dark:bg-white/[0.03] dark:hover:bg-indigo-950/30 border border-slate-200/70 dark:border-white/[0.06] hover:border-indigo-200 dark:hover:border-indigo-800/40 transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans group shadow-2xs"
-                  >
-                    <span>Go to Complete Study Dashboard</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 transition-all" />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </nav>
 
         {/* Right Side Tools */}
         <div className="flex items-center gap-2 shrink-0">
