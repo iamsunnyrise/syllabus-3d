@@ -1137,10 +1137,6 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
       return;
     }
-    if (!isHighlighterActive) {
-      setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
-      return;
-    }
 
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed) {
@@ -1148,8 +1144,23 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       return;
     }
 
-    // Ignore selections made inside input or textarea elements
-    if (sel.anchorNode?.parentElement?.closest('textarea, input')) {
+    const anchor = sel.anchorNode;
+    const anchorEl = anchor instanceof Element ? anchor : anchor?.parentElement;
+
+    // Ignore selections made inside input, textarea, or button elements
+    if (anchorEl?.closest('textarea, input, button, [contenteditable="true"]')) {
+      setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
+      return;
+    }
+
+    // Ensure the selection is within the notes reading area or active notes container
+    const isInsideNotes = Boolean(
+      anchorEl?.closest('[data-notes-viewer="true"], .reading-column, .select-text') ||
+      (notesContainerRef.current && notesContainerRef.current.contains(anchor)) ||
+      (fsNotesContainerRef.current && fsNotesContainerRef.current.contains(anchor))
+    );
+
+    if (!isInsideNotes) {
       setSelectionTooltip(prev => (prev.visible ? { ...prev, visible: false } : prev));
       return;
     }
@@ -1166,10 +1177,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       if (rect && (rect.width > 0 || rect.height > 0)) {
         const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
         const centerX = rect.left + rect.width / 2;
-        const clampedX = Math.min(window.innerWidth - 140, Math.max(140, centerX));
-        // On mobile or near top, place below selection to avoid colliding with status bar
-        const isBelow = isMobile || rect.top < 70;
-        const posY = isBelow ? rect.bottom + 12 : rect.top - 12;
+        // Tooltip is centered with translate(-50%, ...) - clamp X to stay inside viewport
+        const clampedX = Math.min(window.innerWidth - 160, Math.max(160, centerX));
+        // Place below if near top (< 75px) or on mobile
+        const isBelow = isMobile || rect.top < 75;
+        const posY = isBelow ? rect.bottom + 10 : rect.top - 10;
         const clampedY = Math.max(16, Math.min(window.innerHeight - 70, posY));
 
         setSelectionTooltip({
@@ -1183,10 +1195,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     } catch (e) {
       // ignore
     }
-  }, [viewMode, isHighlighterActive]);
+  }, [viewMode]);
 
   const handleMouseUpSelection = () => {
-    setTimeout(updateSelectionTooltip, 30);
+    setTimeout(updateSelectionTooltip, 20);
   };
 
   useEffect(() => {
@@ -1195,12 +1207,24 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     let timeoutId: any = null;
     const handleSelectionChange = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateSelectionTooltip, 80);
+      timeoutId = setTimeout(updateSelectionTooltip, 60);
+    };
+
+    const handleMouseUp = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateSelectionTooltip, 20);
     };
 
     document.addEventListener('selectionchange', handleSelectionChange);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchend', handleMouseUp);
+    window.addEventListener('scroll', handleSelectionChange, { passive: true, capture: true });
+
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchend', handleMouseUp);
+      window.removeEventListener('scroll', handleSelectionChange, { capture: true });
       clearTimeout(timeoutId);
     };
   }, [viewMode, updateSelectionTooltip]);
@@ -2367,10 +2391,14 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               e.stopPropagation();
               soundManager.playClick();
               const rect = e.currentTarget.getBoundingClientRect();
+              const isBelow = rect.top < 75;
+              const clampedX = Math.min(window.innerWidth - 160, Math.max(160, rect.left + rect.width / 2));
+              const posY = isBelow ? rect.bottom + 10 : rect.top - 10;
               setSelectionTooltip({
                 visible: true,
-                x: Math.max(12, rect.left + rect.width / 2),
-                y: Math.max(10, rect.top - 8),
+                x: clampedX,
+                y: Math.max(16, Math.min(window.innerHeight - 70, posY)),
+                isBelow,
                 text: highlightText
               });
             }}
@@ -3823,17 +3851,18 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // ----------------------------------------------------------------------------------
   const renderFloatingHighlighter = () => {
     if (!selectionTooltip.visible) return null;
+    if (typeof document === 'undefined') return null;
 
     const activeColorMeta = NOTE_HIGHLIGHT_PALETTE.find(c => c.prefix === selectedHighlightColor) || NOTE_HIGHLIGHT_PALETTE[0];
 
-    return (
+    return createPortal(
       <div
         style={{
           position: 'fixed',
           left: `${selectionTooltip.x}px`,
           top: `${selectionTooltip.y}px`,
           transform: selectionTooltip.isBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)',
-          zIndex: 9999
+          zIndex: 99999
         }}
         className="flex items-center gap-2 p-1.5 px-3 rounded-full bg-[#11120F]/95 dark:bg-[#1C1D26]/95 text-white shadow-2xl border border-white/20 animate-fade-in select-none backdrop-blur-md"
         onMouseDown={e => e.preventDefault()}
@@ -3915,7 +3944,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         >
           <X className="w-3.5 h-3.5" />
         </button>
-      </div>
+      </div>,
+      document.body
     );
   };
 
@@ -4925,7 +4955,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         >
           <div className={`mx-auto ${getReaderWidthClass()}`}>
             {viewMode === 'study' && (
-              <div className="relative" ref={fsNotesContainerRef}>
+              <div data-notes-viewer="true" className="relative" ref={fsNotesContainerRef}>
                 <div className={`p-6 sm:p-12 rounded-3xl ${getThemeContainerClass()} min-h-[70vh] select-text cursor-text relative z-10`} style={getThemeInlineStyle()}>
                   {renderedFormattedNotes}
                 </div>
@@ -5063,8 +5093,6 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             </div>
           </div>
         )}
-
-        {renderFloatingHighlighter()}
       </div>,
       document.body
     );
@@ -6375,7 +6403,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             </div>
 
             {/* Right Sheet: Live Rendered Page */}
-            <div className={`rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px] overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()}>
+            <div data-notes-viewer="true" className={`rounded-xl shadow-lg shadow-slate-300/30 dark:shadow-black/70 border border-slate-200/90 dark:border-slate-800/80 flex flex-col min-h-[580px] overflow-hidden ${getThemeContainerClass()}`} style={getThemeInlineStyle()}>
               <div className={`px-4 py-2.5 border-b ${
                 readerTheme === 'sage'
                   ? 'border-emerald-600/20 text-emerald-900/70'
@@ -6409,7 +6437,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {/* 3. STUDY MODE: Magazine-Quality Elevated A4 Reading Paper */}
         {viewMode === 'study' && (
           <div className={`w-full ${getReaderWidthClass()} my-1 sm:my-2 select-text`} style={editorZoom !== 100 ? { transform: `scale(${editorZoom / 100})`, transformOrigin: 'top center' } : undefined}>
-            <div className={`relative rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-colors duration-200 ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
+            <div data-notes-viewer="true" className={`relative rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/70 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-colors duration-200 ${getThemeContainerClass()}`} style={getThemeInlineStyle()} ref={notesContainerRef}>
               {/* Study Sheet Header */}
               <div className={`px-4 sm:px-10 pt-4 sm:pt-5 pb-3 sm:pb-3.5 border-b ${
                 readerTheme === 'sage'
