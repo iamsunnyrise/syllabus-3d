@@ -128,63 +128,64 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#F59E0B]/12 via-transparent to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       {/* 🌟 Top Navigation Bar */}
-      <header className="relative z-10 w-full px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] bg-white/80 dark:bg-[#090A12]/80 backdrop-blur-md shrink-0">
-        
-        {/* Left: Back button */}
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            onClose();
-          }}
-          className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-white/10 transition-all cursor-pointer shadow-2xs active:scale-95"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
-
-        {/* Center: Exam Target Name */}
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/25 flex items-center justify-center shrink-0">
-            <Target className="w-4 h-4 stroke-[2.5]" />
-          </div>
-          <h1 className="text-base sm:text-xl font-black tracking-tight uppercase text-slate-900 dark:text-white truncate">
-            {examName}
-          </h1>
-        </div>
-
-        {/* Right: Edit Date & Close (X) */}
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              setIsEditModalOpen(true);
-            }}
-            className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/25 text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
-            title="Change Target Exam Date"
-          >
-            <Calendar className="w-4 h-4 text-amber-500" />
-            <span className="hidden sm:inline">Edit Target Date</span>
-            <span className="sm:hidden">Edit</span>
-          </button>
-
+      <header className="relative z-10 w-full border-b border-slate-200/80 dark:border-white/[0.08] bg-white/80 dark:bg-[#090A12]/80 backdrop-blur-md shrink-0">
+        <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3">
+          {/* Left: Back button */}
           <button
             type="button"
             onClick={() => {
               soundManager.playClick();
               onClose();
             }}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
-            aria-label="Close"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-white/10 transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
           >
-            <X className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back</span>
           </button>
+
+          {/* Center: Exam Target Name */}
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/25 flex items-center justify-center shrink-0">
+              <Target className="w-4 h-4 stroke-[2.5]" />
+            </div>
+            <h1 className="text-base sm:text-lg font-black tracking-tight uppercase text-slate-900 dark:text-white truncate">
+              {examName}
+            </h1>
+          </div>
+
+          {/* Right: Edit Date & Close (X) */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                setIsEditModalOpen(true);
+              }}
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/25 text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+              title="Change Target Exam Date"
+            >
+              <Calendar className="w-4 h-4 text-amber-500" />
+              <span className="hidden sm:inline">Edit Target Date</span>
+              <span className="sm:hidden">Edit</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onClose();
+              }}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </header>
 
       {/* 🎯 Main Full-Screen Center Area */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-14 max-w-5xl mx-auto w-full">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-12 max-w-3xl mx-auto w-full">
         
         {/* Interactive Target Exam Date Badge */}
         <button
@@ -202,7 +203,7 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
         </button>
 
         {/* 4 HUGE Countdown Digit Cards (Edge-to-Edge Responsive Grid) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-6 w-full max-w-4xl">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5 w-full max-w-3xl">
           {cards.map(c => (
             <div
               key={c.label}
