@@ -27,7 +27,6 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   onOpenFocus
 }) => {
   const { openFullModal } = useTimer();
-  const [activeSlide, setActiveSlide] = useState(0);
   const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
 
   return (
@@ -41,25 +40,19 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#F59E0B_0.75px,transparent_0.75px)] [background-size:20px_20px]" />
 
       {/* Main Banner Content Area */}
-      <div className="relative z-10 px-4 sm:px-8 pt-7 sm:pt-9 pb-5 flex flex-col items-center justify-center">
+      <div className="relative z-10 px-4 sm:px-8 pt-7 sm:pt-9 pb-6 sm:pb-7 flex flex-col items-center justify-center">
         
         {/* Center: Brand Typography & 4 Feature Pillars */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto w-full">
           
-          {/* Top Badge: "WELCOME to" with Golden Wing Lines */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-1">
-            {/* Left Gold Wing Line */}
-            <div className="h-[2px] sm:h-[2.5px] w-8 sm:w-14 md:w-18 bg-[#FFE600] rounded-full" />
-            
+          {/* Top Badge: "WELCOME to" */}
+          <div className="flex items-center justify-center mb-1">
             {/* Red Pill with Bright Yellow Border */}
             <div className="px-5 sm:px-7 py-1 sm:py-1.5 rounded-full bg-[#B91C1C] border-2 border-[#FFE600] shadow-[0_2px_12px_rgba(185,28,28,0.6)] flex items-center justify-center">
               <span className="font-serif font-black text-white text-xs sm:text-sm md:text-base tracking-wide select-none">
                 WELCOME to
               </span>
             </div>
-
-            {/* Right Gold Wing Line */}
-            <div className="h-[2px] sm:h-[2.5px] w-8 sm:w-14 md:w-18 bg-[#FFE600] rounded-full" />
           </div>
 
           {/* Main Title: Massive Bold Serif Typography with High Visibility Solid Colors */}
@@ -177,26 +170,6 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
 
         </div>
 
-      </div>
-
-      {/* Bottom Carousel Indicator Dots */}
-      <div className="relative z-10 flex items-center justify-center gap-1.5 pb-4">
-        <button
-          type="button"
-          onClick={() => setActiveSlide(0)}
-          className={`h-1.5 rounded-full transition-all cursor-pointer ${
-            activeSlide === 0 ? 'w-5 bg-[#F59E0B]' : 'w-1.5 bg-neutral-600'
-          }`}
-          aria-label="Slide 1"
-        />
-        <button
-          type="button"
-          onClick={() => setActiveSlide(1)}
-          className={`h-1.5 rounded-full transition-all cursor-pointer ${
-            activeSlide === 1 ? 'w-5 bg-[#F59E0B]' : 'w-1.5 bg-neutral-600'
-          }`}
-          aria-label="Slide 2"
-        />
       </div>
 
       {/* 🎯 Exam Date & Countdown Interactive Modal */}
