@@ -15,15 +15,15 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full select-none">
       
-      {/* 🖥️ Card 1: FREE Live Mock */}
+      {/* 🖥️ Card 1: Syllabus Explorer */}
       <div
         onClick={() => {
           soundManager.playClick();
           haptics.medium();
-          onNavigate('mock-tracker');
+          onNavigate('syllabus');
         }}
         className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
-        title="Open FREE Live Mock Tests & Analysis"
+        title="Open Syllabus Explorer & Track Subjects"
       >
         {/* Subtle Ambient Hover Glow */}
         <div className="absolute -top-12 -right-12 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all pointer-events-none" />
@@ -35,52 +35,69 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
             <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
 
-            {/* Top Bar with LIVE TEST Badge */}
+            {/* Top Bar with SYLLABUS Badge */}
             <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
             <circle cx="42" cy="31" r="3" fill="#EF4444" />
             <circle cx="50" cy="31" r="3" fill="#F59E0B" />
             <circle cx="58" cy="31" r="3" fill="#10B981" />
 
-            {/* LIVE TEST Badge in Header */}
-            <rect x="85" y="24" width="70" height="14" rx="7" fill="#1E40AF" />
-            <circle cx="93" cy="31" r="2.5" fill="#EF4444" className="animate-pulse" />
-            <text x="122" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
-              LIVE TEST
+            {/* SYLLABUS Badge in Header */}
+            <rect x="75" y="24" width="90" height="14" rx="7" fill="#2563EB" />
+            <circle cx="85" cy="31" r="2.5" fill="#10B981" className="animate-pulse" />
+            <text x="123" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
+              SYLLABUS 3D
             </text>
 
-            {/* Live Test Screen Content (Stopwatch Dial + Questions) */}
-            <g transform="translate(45, 52)">
-              {/* Question Checklist Lines */}
-              <rect x="0" y="2" width="12" height="12" rx="3" fill="#DBEAFE" stroke="#3B82F6" strokeWidth="1.2" />
-              <polyline points="3,8 5,10 9,5" stroke="#1D4ED8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <rect x="18" y="4" width="45" height="3" rx="1.5" fill="#94A3B8" />
-              <rect x="18" y="10" width="35" height="2.5" rx="1.2" fill="#CBD5E1" />
+            {/* Syllabus Screen Content (Curriculum Tree + Mastery Ring) */}
+            <g transform="translate(40, 48)">
+              {/* Subject 1: Quant */}
+              <rect x="0" y="0" width="84" height="18" rx="5" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
+              <rect x="4" y="4" width="10" height="10" rx="3" fill="#3B82F6" />
+              <text x="9" y="11.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">∑</text>
+              <rect x="18" y="5" width="46" height="3" rx="1.5" fill="#1E40AF" />
+              <rect x="18" y="10" width="30" height="2" rx="1" fill="#93C5FD" />
+              <circle cx="76" cy="9" r="3" fill="#DBEAFE" />
+              <polyline points="74.5,9 75.5,10 77.5,8" stroke="#1E40AF" strokeWidth="0.8" fill="none" />
 
-              <rect x="0" y="20" width="12" height="12" rx="3" fill="#DBEAFE" stroke="#3B82F6" strokeWidth="1.2" />
-              <polyline points="3,26 5,28 9,23" stroke="#1D4ED8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <rect x="18" y="22" width="50" height="3" rx="1.5" fill="#94A3B8" />
-              <rect x="18" y="28" width="40" height="2.5" rx="1.2" fill="#CBD5E1" />
+              {/* Subject 2: Reasoning */}
+              <rect x="0" y="22" width="84" height="18" rx="5" fill="#F5F3FF" stroke="#DDD6FE" strokeWidth="1" />
+              <rect x="4" y="26" width="10" height="10" rx="3" fill="#8B5CF6" />
+              <text x="9" y="33.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">⚡</text>
+              <rect x="18" y="27" width="42" height="3" rx="1.5" fill="#5B21B6" />
+              <rect x="18" y="32" width="28" height="2" rx="1" fill="#C4B5FD" />
+              <circle cx="76" cy="31" r="3" fill="#EDE9FE" />
+              <polyline points="74.5,31 75.5,32 77.5,30" stroke="#5B21B6" strokeWidth="0.8" fill="none" />
 
-              <rect x="0" y="38" width="12" height="12" rx="3" fill="#F1F5F9" stroke="#CBD5E1" strokeWidth="1.2" />
-              <rect x="18" y="40" width="42" height="3" rx="1.5" fill="#94A3B8" />
-              <rect x="18" y="46" width="30" height="2.5" rx="1.2" fill="#CBD5E1" />
+              {/* Subject 3: General Studies */}
+              <rect x="0" y="44" width="84" height="18" rx="5" fill="#ECFDF5" stroke="#A7F3D0" strokeWidth="1" />
+              <rect x="4" y="48" width="10" height="10" rx="3" fill="#10B981" />
+              <text x="9" y="55.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">✓</text>
+              <rect x="18" y="49" width="40" height="3" rx="1.5" fill="#047857" />
+              <rect x="18" y="54" width="25" height="2" rx="1" fill="#6EE7B7" />
+              <circle cx="76" cy="53" r="3" fill="#D1FAE5" />
+              <polyline points="74.5,53 75.5,54 77.5,52" stroke="#047857" strokeWidth="0.8" fill="none" />
             </g>
 
-            {/* Stopwatch Timer Dial on Right */}
-            <g transform="translate(160, 78)">
-              <circle cx="0" cy="0" r="22" fill="#EFF6FF" stroke="#3B82F6" strokeWidth="2.5" />
-              <circle cx="0" cy="0" r="18" stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="3 2" />
-              {/* Stopwatch Tick marks */}
-              <line x1="0" y1="-18" x2="0" y2="-15" stroke="#1D4ED8" strokeWidth="1.5" />
-              <line x1="18" y1="0" x2="15" y2="0" stroke="#1D4ED8" strokeWidth="1.5" />
-              <line x1="0" y1="18" x2="0" y2="15" stroke="#1D4ED8" strokeWidth="1.5" />
-              <line x1="-18" y1="0" x2="-15" y2="0" stroke="#1D4ED8" strokeWidth="1.5" />
-              {/* Needle Pointer */}
-              <line x1="0" y1="0" x2="8" y2="-10" stroke="#EF4444" strokeWidth="2" strokeLinecap="round" />
-              <circle cx="0" cy="0" r="2.5" fill="#1E293B" />
-              {/* Pulsing Signal Wave */}
-              <circle cx="16" cy="-16" r="4" fill="#A855F7" opacity="0.8" className="animate-ping" />
-              <circle cx="16" cy="-16" r="3" fill="#A855F7" />
+            {/* Right: Circular Mastery Gauge */}
+            <g transform="translate(165, 80)">
+              <circle cx="0" cy="0" r="23" fill="#EFF6FF" stroke="#DBEAFE" strokeWidth="3" />
+              <circle cx="0" cy="0" r="23" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="144" strokeDashoffset="42" strokeLinecap="round" transform="rotate(-90)" />
+              
+              {/* Inner Book Icon */}
+              <g transform="translate(-8.5, -9) scale(0.75)">
+                <path d="M 4 19.5 A 2.5 2.5 0 0 1 6.5 17 H 20" stroke="#1D4ED8" strokeWidth="2" fill="none" strokeLinecap="round" />
+                <path d="M 6.5 2 H 20 V 22 H 6.5 A 2.5 2.5 0 0 1 4 19.5 V 4.5 A 2.5 2.5 0 0 1 6.5 2 Z" stroke="#1D4ED8" strokeWidth="2" fill="#DBEAFE" strokeLinecap="round" />
+                <line x1="9" y1="7" x2="15" y2="7" stroke="#1E40AF" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="9" y1="11" x2="14" y2="11" stroke="#1E40AF" strokeWidth="1.5" strokeLinecap="round" />
+              </g>
+
+              <text x="0" y="15" fill="#1E40AF" fontSize="5.5" fontWeight="black" textAnchor="middle">
+                TRACK
+              </text>
+
+              {/* Sparkle badge */}
+              <circle cx="16" cy="-16" r="3.5" fill="#F59E0B" className="animate-pulse" />
+              <polygon points="16,-19 17,-17 19,-16 17,-15 16,-13 15,-15 13,-16 15,-17" fill="#FFFFFF" />
             </g>
 
             {/* Monitor Stand Base */}
@@ -92,16 +109,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         {/* Title & Micro Action */}
         <div className="mt-3 space-y-1">
           <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            FREE Live Mock
+            Syllabus Explorer
           </h3>
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Weekly Live Mocks • All-India Rank Percentile
+            Complete Exam Curriculum • Subjects, Chapters & Mastery Track
           </p>
         </div>
 
         {/* Bottom Action Pill */}
         <div className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50 group-hover:bg-blue-600 group-hover:text-white transition-all">
-          <span>Start Live Test</span>
+          <span>Explore Syllabus</span>
           <span>→</span>
         </div>
       </div>
