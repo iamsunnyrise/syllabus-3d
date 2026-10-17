@@ -36,34 +36,41 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
       <div className="relative z-10 px-4 sm:px-8 pt-7 sm:pt-9 pb-5 flex flex-col items-center justify-center">
         
         {/* Center: Brand Typography & 4 Feature Pillars */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto w-full">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto w-full">
           
-          {/* "WELCOME TO" Red Banner Ribbon */}
-          <div className="inline-flex items-center justify-center px-4 py-0.5 rounded-full bg-gradient-to-r from-[#DC2626] via-[#B91C1C] to-[#991B1B] text-white text-[11px] sm:text-xs font-serif font-black tracking-wider uppercase border border-[#FCA5A5]/40 shadow-sm mb-2.5">
-            WELCOME TO
-          </div>
-
-          {/* Luminous High-Visibility 3D Brand Title */}
-          <div className="relative my-1">
-            {/* Ambient Warm Golden Title Glow */}
-            <div className="absolute -inset-x-8 -inset-y-4 bg-gradient-to-r from-amber-500/0 via-amber-400/25 to-amber-500/0 blur-xl pointer-events-none" />
+          {/* Top Badge: "WELCOME to" with Golden Wing Lines */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-1">
+            {/* Left Gold Wing Line */}
+            <div className="h-[2px] sm:h-[2.5px] w-8 sm:w-14 md:w-18 bg-[#FFE600] rounded-full" />
             
-            <h1 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wider uppercase font-sans text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FEF08A] to-[#F59E0B] drop-shadow-[0_4px_20px_rgba(245,158,11,0.6)]">
-              SYLLABUS 3D
-            </h1>
+            {/* Red Pill with Bright Yellow Border */}
+            <div className="px-5 sm:px-7 py-1 sm:py-1.5 rounded-full bg-[#B91C1C] border-2 border-[#FFE600] shadow-[0_2px_12px_rgba(185,28,28,0.6)] flex items-center justify-center">
+              <span className="font-serif font-black text-white text-xs sm:text-sm md:text-base tracking-wide select-none">
+                WELCOME to
+              </span>
+            </div>
+
+            {/* Right Gold Wing Line */}
+            <div className="h-[2px] sm:h-[2.5px] w-8 sm:w-14 md:w-18 bg-[#FFE600] rounded-full" />
           </div>
 
-          {/* Exam Target Badges Capsule */}
-          <div className="mt-2.5 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1 rounded-full border border-[#F59E0B]/50 bg-black/40 backdrop-blur-md text-[11px] sm:text-xs font-bold text-amber-200 tracking-wide font-sans">
-            <span>SSC CGL</span>
-            <span className="text-amber-500">•</span>
-            <span>CHSL</span>
-            <span className="text-amber-500">•</span>
-            <span>CPO</span>
-            <span className="text-amber-500">•</span>
-            <span>MTS</span>
-            <span className="text-amber-500">•</span>
-            <span>RAILWAYS</span>
+          {/* Main Title: Massive Bold Serif Typography with High Visibility Solid Colors */}
+          <h1 className="relative font-serif font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none select-none my-2 sm:my-3 drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)] flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
+            <span className="text-white">SYLLABUS</span>
+            <span className="text-[#FFE600]">3D</span>
+          </h1>
+
+          {/* Exam Target Capsule: Solid Black Pill with 2px Bright Yellow Border & Yellow Pipes */}
+          <div className="mt-2.5 sm:mt-3.5 inline-flex items-center flex-wrap justify-center rounded-full border-2 border-[#FFE600] bg-black px-4 sm:px-7 py-1.5 sm:py-2 shadow-xl">
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">SSC CGL</span>
+            <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">CHSL</span>
+            <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">CPO</span>
+            <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">MTS</span>
+            <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">RAILWAYS</span>
           </div>
 
           {/* 4 Feature Columns inside Banner */}
