@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Home,
   Target,
-  Moon,
   RotateCw,
   BrainCircuit,
   BookOpen,
@@ -79,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenFocus,
   onOpenShortcuts,
   onOpenPricing,
-  onOpenNightJournal,
+  onOpenNightJournal: _onOpenNightJournal,
   isCollapsed = false,
   onToggleCollapse
 }) => {
@@ -340,27 +339,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
             }`}>
               {completedTargets.length}/3
-            </span>
-          </button>
-
-          {/* Night Journal Link (1-Min Reflection) */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.selection();
-              if (onOpenNightJournal) {
-                onOpenNightJournal();
-              }
-            }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-950/30 hover:text-purple-700 dark:hover:text-purple-300 group"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <Moon className="w-4 h-4 stroke-[2.2] text-purple-500 group-hover:scale-110 transition-transform shrink-0" />
-              <span className="truncate">Night Journal</span>
-            </div>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/20 shrink-0">
-              1-Min
             </span>
           </button>
         </div>
