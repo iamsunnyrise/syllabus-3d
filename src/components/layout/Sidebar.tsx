@@ -250,7 +250,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
-      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Exactly Like Screenshot) */}
+      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Exactly Centered in Header Row) */}
       {onToggleCollapse && (
         <button
           type="button"
@@ -259,7 +259,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onToggleCollapse();
           }}
-          className="absolute -right-3.5 top-[76px] z-50 w-7 h-7 rounded-full bg-white dark:bg-[#090A12] border border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
+          className="absolute -right-3.5 top-7 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-white dark:bg-[#090A12] border border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
           title={isCollapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)'}
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
@@ -273,8 +273,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* =========================================================================
           STATE A: COLLAPSED SLIM ICON-ONLY SIDEBAR (70px Width)
-          Matches the reference screenshot with circular logo, exam squircle card,
-          golden active pill, sleek outline icons, and coral-red logout at bottom.
+          Matches the reference screenshot with circular logo, golden active pill,
+          sleek outline icons, and coral-red logout at bottom.
           ========================================================================= */}
       {isCollapsed ? (
         <div className="flex flex-col h-full justify-between items-center w-full">
@@ -296,28 +296,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* Scrollable Middle Navigation Rail */}
           <div className="flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full">
-            {/* 1. App / Target Exam Squircle Card (Row 2 in Screenshot) */}
-            <div className="relative group flex items-center justify-center w-full pb-1">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectView('targets');
-                }}
-                className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200/90 dark:border-white/10 flex items-center justify-center text-amber-500 transition-all cursor-pointer shadow-2xs group active:scale-95"
-                title={`Active Target: ${currentExam?.name || 'SSC CGL 2026'}`}
-                aria-label="Target Exam"
-              >
-                <Target className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform stroke-[2.2]" />
-              </button>
-
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
-                <span className="text-amber-400 font-bold">{currentExam?.name || 'SSC CGL 2026'}</span>
-                <span className="text-[10px] text-slate-400 font-normal">Active Exam Target</span>
-              </div>
-            </div>
-
-            {/* 2. Core Section (Home & Syllabus) */}
+            {/* 1. Core Section (Home & Syllabus) */}
             {coreItems.map(item => {
               const Icon = item.icon;
               const isActive = activeView === item.id;

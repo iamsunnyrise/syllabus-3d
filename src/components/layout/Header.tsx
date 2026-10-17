@@ -158,11 +158,11 @@ export const Header: React.FC<HeaderProps> = ({
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
   return (
-    <header className="sticky top-0 z-30 h-14 bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.07] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden">
+    <header className="sticky top-0 z-30 h-14 bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden relative">
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
         {/* Left Side: Mobile Menu Button, Desktop Sidebar Toggle & Brand Seal */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-initial">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-initial md:pl-2">
           {/* Mobile Drawer Button (< md) */}
           <button
             onClick={() => {
@@ -353,8 +353,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Center: Clean Portal Title ("Home", "Daily Practice Schedule", etc.) matching Reference */}
-        <div className="flex items-center justify-center flex-1 min-w-0 px-2 sm:px-4">
+        {/* Center: Clean Portal Title ("Home", "Daily Practice Schedule", etc.) Perfectly Centered */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none max-w-[42%] text-center">
           <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate">
             {currentView === 'overview'
               ? 'Home'
