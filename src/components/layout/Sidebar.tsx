@@ -12,7 +12,6 @@ import {
   Video,
   ChevronDown,
   User,
-  Bookmark,
   LogOut
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -182,13 +181,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'settings',
           label: 'My profile',
           icon: User
-        },
-        {
-          id: 'weak',
-          label: 'Saved Question',
-          icon: Bookmark,
-          badge: weakTopicsSafe.length || null,
-          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
         },
         {
           id: 'youtube-notes',
