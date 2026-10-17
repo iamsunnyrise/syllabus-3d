@@ -309,6 +309,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
                         : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                     }`}
+                    title={item.label}
                     aria-label={item.label}
                   >
                     <Icon className="w-5 h-5 stroke-[2.2]" />
@@ -346,6 +347,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
                         : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                     }`}
+                    title={item.label}
                     aria-label={item.label}
                   >
                     <Icon className="w-5 h-5 stroke-[2]" />
@@ -391,6 +393,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
                         : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                     }`}
+                    title={item.label}
                     aria-label={item.label}
                   >
                     <Icon className="w-5 h-5 stroke-[2]" />
@@ -434,24 +437,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
 
-            {onOpenPricing && (
-              <div className="relative group flex items-center justify-center w-full">
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onOpenPricing();
-                  }}
-                  className="w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
-                  aria-label="Pricing & Plans"
-                >
-                  <ShoppingCart className="w-5 h-5 stroke-[2]" />
-                </button>
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
-                  Pricing & Plans
-                </div>
-              </div>
-            )}
+
 
             {onOpenShortcuts && (
               <div className="relative group flex items-center justify-center w-full">
