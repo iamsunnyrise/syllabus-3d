@@ -236,6 +236,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         onOpenPricing={onOpenPricing}
         examName={examName}
         onOpenFocus={onOpenFocus}
+        onOpenTopicDrawer={onOpenTopicDrawer}
       />
 
       {/* 🖥️ 2. THREE LARGE MONITOR FEATURE CARDS (Syllabus Explorer, Mock Test Tracker, Mock & Study Portals) */}
@@ -246,94 +247,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
       {/* 3. EXAM TARGET MISSION BANNER (Countdown & Official Exam Badge) */}
       <ExamTargetMissionBanner onOpenFocus={onOpenFocus} onNavigate={onNavigate} />
-
-      {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}
-      {nextRecommendedTopic ? (
-        <div className="relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] p-4 sm:p-5 shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 overflow-hidden group jump-back-in-hub">
-          {/* Subtle Ambient Radial Highlight */}
-          <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/10 dark:bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/15 transition-all" />
-
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            {/* Left: Icon & Topic Meta */}
-            <div className="flex items-start sm:items-center gap-3.5 min-w-0">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-all">
-                <Play className="w-4 sm:w-4.5 h-4 sm:h-4.5 fill-current ml-0.5" />
-              </div>
-
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Jump Back In
-                  </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
-                    {toNaturalCase(nextRecommendedTopic.subjectName)} • {toNaturalCase(nextRecommendedTopic.chapterName)}
-                  </span>
-                </div>
-
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight mt-1 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-sans">
-                  {nextRecommendedTopic.topic.name}
-                </h3>
-
-                {/* Subtopics / Readiness Status Summary with Progress Indicator */}
-                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-sans mt-1">
-                  {nextRecommendedTopic.topic.subtopics && nextRecommendedTopic.topic.subtopics.length > 0 ? (
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                      <div className="w-20 sm:w-24 h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
-                        <div
-                          className="h-full bg-emerald-500 rounded-full transition-all duration-500"
-                          style={{ width: `${nextRecommendedTopic.topic.completionPercentage || 0}%` }}
-                        />
-                      </div>
-                      <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
-                        {nextRecommendedTopic.topic.completionPercentage || 0}% Mastered
-                      </span>
-                      <span className="text-slate-300 dark:text-slate-600">•</span>
-                      <span>{nextRecommendedTopic.topic.subtopics.length} Subtopics</span>
-                    </div>
-                  ) : (
-                    <span>Ready for study & notes</span>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Interactive Action Buttons */}
-            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 self-stretch sm:self-auto justify-end">
-              {onOpenFocus && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onOpenFocus();
-                  }}
-                  className="px-3.5 py-2 rounded-xl bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer border border-slate-200/80 dark:border-white/10 shadow-2xs hover:shadow-xs"
-                  title="Quick 25m Focus Sprint"
-                >
-                  <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                  <span>25m Focus</span>
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  if (onOpenTopicDrawer) {
-                    onOpenTopicDrawer(nextRecommendedTopic.topic, nextRecommendedTopic.subjectName, nextRecommendedTopic.chapterName);
-                  } else {
-                    onNavigate('syllabus');
-                  }
-                }}
-                className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-xs flex items-center gap-2 cursor-pointer active:scale-95 transition-all"
-              >
-                <span>Resume Study</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
 
       {/* 💎 4 MODERN EXECUTIVE METRIC BENTO CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">

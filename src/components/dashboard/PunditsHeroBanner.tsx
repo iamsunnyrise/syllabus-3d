@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
-  Tv,
+  Play,
   Timer,
   CalendarDays,
   CalendarClock
@@ -9,7 +9,10 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { AppView } from '../layout/Sidebar';
 import { ExamDateModal } from '../modals/ExamDateModal';
+import { ContinueStudyModal } from '../modals/ContinueStudyModal';
 import { useTimer } from '../../context/TimerContext';
+import { useSyllabus } from '../../context/SyllabusContext';
+import { Topic } from '../../types/syllabus';
 
 interface PunditsHeroBannerProps {
   onNavigate: (view: AppView) => void;
@@ -17,6 +20,7 @@ interface PunditsHeroBannerProps {
   examName?: string;
   onOpenExamDate?: () => void;
   onOpenFocus?: () => void;
+  onOpenTopicDrawer?: (topic: Topic, subjectName: string, chapterName: string) => void;
 }
 
 export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
@@ -24,10 +28,36 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   onOpenPricing,
   examName = 'SSC CGL',
   onOpenExamDate,
-  onOpenFocus
+  onOpenFocus,
+  onOpenTopicDrawer
 }) => {
   const { openFullModal } = useTimer();
+  const { currentExam } = useSyllabus();
   const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
+  const [isContinueStudyModalOpen, setIsContinueStudyModalOpen] = useState(false);
+
+  // Active topic for dynamic subtitle
+  const activeTopic = useMemo(() => {
+    if (!currentExam?.subjects) return null;
+    let weakOrDue: { topic: Topic; subjectName: string; chapterName: string } | null = null;
+    let inProgress: { topic: Topic; subjectName: string; chapterName: string } | null = null;
+    let notStarted: { topic: Topic; subjectName: string; chapterName: string } | null = null;
+
+    for (const subject of currentExam.subjects || []) {
+      for (const chapter of subject.chapters || []) {
+        for (const topic of chapter.topics || []) {
+          if (!weakOrDue && (topic.status === 'weak' || topic.isWeak || topic.status === 'revision_due')) {
+            weakOrDue = { topic, subjectName: subject.name, chapterName: chapter.name };
+          } else if (!inProgress && topic.status === 'in_progress') {
+            inProgress = { topic, subjectName: subject.name, chapterName: chapter.name };
+          } else if (!notStarted && topic.status === 'not_started') {
+            notStarted = { topic, subjectName: subject.name, chapterName: chapter.name };
+          }
+        }
+      }
+    }
+    return weakOrDue || inProgress || notStarted || null;
+  }, [currentExam]);
 
   return (
     <div className="relative w-full rounded-3xl bg-[#090A0F] text-white border border-[#F59E0B]/30 shadow-2xl dark:shadow-[0_12px_45px_rgba(0,0,0,0.65)] overflow-hidden select-none">
@@ -75,23 +105,24 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           {/* 4 Feature Columns inside Banner */}
           <div className="mt-5 sm:mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 w-full">
             
-            {/* 1. Weekly FREE Live Mocks */}
+            {/* 1. Continue Study (Jump Back In) */}
             <div
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
-                onNavigate('mock-tracker');
+                setIsContinueStudyModalOpen(true);
               }}
+              title="Continue Study - Jump Back In"
               className="p-2.5 sm:p-3 rounded-xl bg-black/50 border border-[#F59E0B]/30 hover:border-[#F59E0B] transition-all cursor-pointer flex flex-col items-center justify-center text-center group hover:bg-[#F59E0B]/10 active:scale-95 shadow-xs"
             >
               <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/15 text-[#FBBF24] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
-                <Tv className="w-3.5 h-3.5" />
+                <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
               </div>
               <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">
-                Weekly FREE
+                Continue Study
               </span>
-              <span className="text-[10px] text-amber-300 font-medium">
-                Live Mocks
+              <span className="text-[10px] text-amber-300 font-medium truncate max-w-full px-1">
+                {activeTopic?.topic?.name || 'Resume Study'}
               </span>
             </div>
 
@@ -177,6 +208,17 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
         <ExamDateModal
           isOpen={isExamDateModalOpen}
           onClose={() => setIsExamDateModalOpen(false)}
+        />
+      )}
+
+      {/* 🎯 Continue Study (Jump Back In) Interactive Modal */}
+      {isContinueStudyModalOpen && (
+        <ContinueStudyModal
+          isOpen={isContinueStudyModalOpen}
+          onClose={() => setIsContinueStudyModalOpen(false)}
+          onOpenTopicDrawer={onOpenTopicDrawer}
+          onOpenFocus={onOpenFocus}
+          onNavigate={onNavigate}
         />
       )}
 
