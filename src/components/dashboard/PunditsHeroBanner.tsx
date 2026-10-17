@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Tv,
-  FileText,
+  Timer,
   CalendarDays,
   CalendarClock
 } from 'lucide-react';
@@ -9,20 +9,24 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { AppView } from '../layout/Sidebar';
 import { ExamDateModal } from '../modals/ExamDateModal';
+import { useTimer } from '../../context/TimerContext';
 
 interface PunditsHeroBannerProps {
   onNavigate: (view: AppView) => void;
   onOpenPricing?: () => void;
   examName?: string;
   onOpenExamDate?: () => void;
+  onOpenFocus?: () => void;
 }
 
 export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   onNavigate,
   onOpenPricing,
   examName = 'SSC CGL',
-  onOpenExamDate
+  onOpenExamDate,
+  onOpenFocus
 }) => {
+  const { openFullModal } = useTimer();
   const [activeSlide, setActiveSlide] = useState(0);
   const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
 
@@ -98,23 +102,28 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
               </span>
             </div>
 
-            {/* 2. Test Series for SSC */}
+            {/* 2. Focus Mode & Pomodoro */}
             <div
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
-                onNavigate('syllabus');
+                if (onOpenFocus) {
+                  onOpenFocus();
+                } else {
+                  openFullModal();
+                }
               }}
+              title="Open Focus Mode & Pomodoro Timer"
               className="p-2.5 sm:p-3 rounded-xl bg-black/50 border border-[#F59E0B]/30 hover:border-[#F59E0B] transition-all cursor-pointer flex flex-col items-center justify-center text-center group hover:bg-[#F59E0B]/10 active:scale-95 shadow-xs"
             >
               <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/15 text-[#FBBF24] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
-                <FileText className="w-3.5 h-3.5" />
+                <Timer className="w-3.5 h-3.5" />
               </div>
               <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">
-                Test Series
+                Focus Mode
               </span>
               <span className="text-[10px] text-amber-300 font-medium">
-                for SSC Exams
+                & Pomodoro
               </span>
             </div>
 

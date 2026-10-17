@@ -236,6 +236,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         onNavigate={onNavigate}
         onOpenPricing={onOpenPricing}
         examName={examName}
+        onOpenFocus={onOpenFocus}
       />
 
       {/* 🖥️ 2. THREE LARGE MONITOR FEATURE CARDS (Syllabus Explorer, Mock Test Tracker, Mock & Study Portals) */}
