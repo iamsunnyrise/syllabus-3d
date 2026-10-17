@@ -43,10 +43,15 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
             WELCOME TO
           </div>
 
-          {/* Huge Golden Brand Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#FFFBEB] via-[#FBBF24] to-[#D97706] drop-shadow-[0_2px_14px_rgba(245,158,11,0.4)]">
-            THE PUNDITS
-          </h1>
+          {/* Luminous High-Visibility 3D Brand Title */}
+          <div className="relative my-1">
+            {/* Ambient Warm Golden Title Glow */}
+            <div className="absolute -inset-x-8 -inset-y-4 bg-gradient-to-r from-amber-500/0 via-amber-400/25 to-amber-500/0 blur-xl pointer-events-none" />
+            
+            <h1 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wider uppercase font-sans text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FEF08A] to-[#F59E0B] drop-shadow-[0_4px_20px_rgba(245,158,11,0.6)]">
+              SYLLABUS 3D
+            </h1>
+          </div>
 
           {/* Exam Target Badges Capsule */}
           <div className="mt-2.5 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1 rounded-full border border-[#F59E0B]/50 bg-black/40 backdrop-blur-md text-[11px] sm:text-xs font-bold text-amber-200 tracking-wide font-sans">
