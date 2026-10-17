@@ -62,15 +62,13 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
 
           {/* Exam Target Capsule: Solid Black Pill with 2px Bright Yellow Border & Yellow Pipes */}
           <div className="mt-2.5 sm:mt-3.5 inline-flex items-center flex-wrap justify-center rounded-full border-2 border-[#FFE600] bg-black px-4 sm:px-7 py-1.5 sm:py-2 shadow-xl">
-            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">SSC CGL</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">SSC</span>
             <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
-            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">CHSL</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">BANK</span>
             <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
-            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">CPO</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">UPSC</span>
             <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
-            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">MTS</span>
-            <span className="text-[#FFE600] font-black text-xs sm:text-sm md:text-base mx-2 sm:mx-3">|</span>
-            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">RAILWAYS</span>
+            <span className="text-white font-serif font-bold text-xs sm:text-sm md:text-base tracking-wider">ANY EXAM</span>
           </div>
 
           {/* 4 Feature Columns inside Banner */}
