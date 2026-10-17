@@ -5105,7 +5105,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     <div className="space-y-3" onPaste={handlePaste} onMouseUp={handleMouseUpSelection} onTouchEnd={handleMouseUpSelection}>
       
       {/* 🌟 MS WORD OFFICE RIBBON STUDIO (Quick Access, Ribbon Tabs & Command Shelves) */}
-      <div className="rounded-2xl bg-white dark:bg-[#151620] border border-[#E2E8F0] dark:border-[#272730] shadow-sm relative no-print overflow-hidden divide-y divide-[#E2E8F0]/80 dark:divide-[#272730]">
+      <div className="rounded-2xl bg-white dark:bg-[#0F1019] border border-slate-200/70 dark:border-white/[0.06] shadow-sm relative no-print overflow-hidden divide-y divide-slate-200/50 dark:divide-white/[0.04]">
         
         {/* Tier 1 (Mobile): Note Tabs Full Track + Quick Action Strip */}
         <div className="sm:hidden p-2 bg-[#F8FAFC] dark:bg-[#11121A] space-y-2">
@@ -5195,17 +5195,17 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         </div>
 
         {/* Tier 1 (Desktop): Office Quick Access Bar & Multi-Note Tabs Track */}
-        <div className="hidden sm:flex p-2 px-3 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border-b border-slate-200/90 dark:border-white/10 items-center justify-between gap-3 shadow-xs">
+        <div className="hidden sm:flex p-2.5 px-4 bg-white/80 dark:bg-[#0D0E18]/90 backdrop-blur-xl border-b border-slate-200/60 dark:border-white/[0.06] items-center justify-between gap-4">
           {/* Quick Access Toolbar */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
             {/* Office Word App Badge */}
-            <div className="flex items-center gap-2 pr-2.5 border-r border-slate-200 dark:border-slate-800">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-700 text-white flex items-center justify-center font-black shadow-xs text-xs select-none">
+            <div className="flex items-center gap-2.5 pr-3 border-r border-slate-200/80 dark:border-white/[0.08]">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-600 to-violet-700 text-white flex items-center justify-center font-black shadow-md text-sm select-none ring-1 ring-black/10">
                 W
               </div>
               <div className="hidden lg:block select-none">
-                <div className="text-[12px] font-black text-slate-800 dark:text-slate-100 leading-tight">Document Studio</div>
-                <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">Word Engine v3.0</div>
+                <div className="text-[13px] font-extrabold text-slate-800 dark:text-white leading-tight tracking-tight">Document Studio</div>
+                <div className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Notes Engine v3.0</div>
               </div>
             </div>
 
@@ -5213,7 +5213,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             <button
               type="button"
               onClick={handleSave}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
               title="Save Notes (Ctrl + S)"
             >
               {saveSuccess ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Save className="w-3.5 h-3.5" />}
@@ -5224,30 +5224,30 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
             <button
               type="button"
               onClick={() => { soundManager.playClick(); window.print(); }}
-              className="p-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
               title="Print Document (Ctrl + P)"
             >
-              <Printer className="w-3.5 h-3.5" />
+              <Printer className="w-4 h-4" />
             </button>
 
             {/* Quick PDF Export */}
             <button
               type="button"
               onClick={() => { soundManager.playClick(); handleExportPdf(); }}
-              className="p-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
               title="Download Notes as PDF"
             >
-              <FileDown className="w-3.5 h-3.5" />
+              <FileDown className="w-4 h-4" />
             </button>
 
             {/* Fullscreen Zen Reading */}
             <button
               type="button"
               onClick={() => { soundManager.playCompleteChime(); setIsFullscreen(true); }}
-              className="p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-indigo-500 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors cursor-pointer"
               title="Fullscreen Immersive Reading (Zen Mode)"
             >
-              <Maximize className="w-3.5 h-3.5" />
+              <Maximize className="w-4 h-4" />
             </button>
           </div>
 
@@ -5260,8 +5260,8 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
         {/* Desktop Ribbon Studio (Tier 2 Tabs + Tier 3 Shelves) */}
         <div className="hidden sm:block">
           {/* Tier 2: Office Ribbon Tabs Bar */}
-        <div className="px-3 py-1 bg-slate-50/90 dark:bg-[#0E101A]/95 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-1 p-0.5 rounded-xl bg-slate-200/50 dark:bg-white/[0.05]">
+        <div className="px-4 py-1.5 bg-slate-50/80 dark:bg-[#0B0D16]/90 border-b border-slate-200/60 dark:border-white/[0.06] flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-0.5 p-0.5 rounded-xl bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200/50 dark:border-white/[0.04]">
             {[
               { id: 'home', label: 'Home' },
               { id: 'insert', label: 'Insert' },
@@ -5276,10 +5276,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                   soundManager.playClick();
                   setActiveRibbonTab(tab.id as any);
                 }}
-                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer rounded-lg ${
+                className={`px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer rounded-lg ${
                   activeRibbonTab === tab.id
-                    ? 'bg-white dark:bg-[#1E2032] text-blue-600 dark:text-blue-400 shadow-xs font-black'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-white/[0.08] text-blue-600 dark:text-blue-400 shadow-sm font-extrabold'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.04]'
                 }`}
               >
                 {tab.label}
@@ -5322,24 +5322,24 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                 setIsNotionAiModalOpen(true);
               }}
               title="Notion AI Note Studio (Ctrl + J) — Select from 6 formats"
-              className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-black transition-all active:scale-95 cursor-pointer shadow-xs shrink-0"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white text-xs font-bold transition-all active:scale-95 cursor-pointer shadow-sm shrink-0"
             >
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-amber-300" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-200" />
               <span>Notion AI</span>
-              <span className="hidden sm:inline-block px-1 py-0.2 rounded text-[9px] bg-white/20 font-mono font-normal">
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded-md text-[9px] bg-white/15 font-mono">
                 Ctrl+J
-              </span>
+              </kbd>
             </button>
 
             {/* Quick View Mode Pills */}
-            <div className="flex items-center gap-0.5 bg-slate-100 dark:bg-[#0D0E15] p-0.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs">
+            <div className="flex items-center gap-0.5 bg-slate-100/80 dark:bg-white/[0.04] p-0.5 rounded-xl border border-slate-200/50 dark:border-white/[0.04] text-xs">
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('study'); }}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'study'
-                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-blue-500 dark:bg-blue-500 text-white shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.04]'
                 }`}
                 title="Study View"
               >
@@ -5349,10 +5349,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('edit'); }}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'edit'
-                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-blue-500 dark:bg-blue-500 text-white shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.04]'
                 }`}
                 title="Edit Notes"
               >
@@ -5362,10 +5362,10 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               <button
                 type="button"
                 onClick={() => { soundManager.playClick(); setViewMode('split'); }}
-                className={`hidden md:flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-all ${
+                className={`hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${
                   viewMode === 'split'
-                    ? 'bg-blue-600 dark:bg-[#7AA2F7] text-white dark:text-[#0B0B0D] shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-blue-500 dark:bg-blue-500 text-white shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.04]'
                 }`}
                 title="Split Live View"
               >
@@ -5392,11 +5392,11 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
         {/* Tier 3: Ribbon Command Shelves (Contextual to active tab, collapsible) */}
         {!isRibbonCollapsed && (
-          <div className="px-2.5 py-1.5 bg-[#F8FAFC] dark:bg-[#11121A] overflow-x-auto no-scrollbar min-h-[46px] flex items-center border-t border-slate-100 dark:border-slate-800/60">
+          <div className="px-4 py-2 bg-white/60 dark:bg-[#0D0E18]/80 overflow-x-auto no-scrollbar min-h-[48px] flex items-center border-t border-slate-100/80 dark:border-white/[0.04]">
           
           {/* TAB 1: HOME RIBBON */}
           {activeRibbonTab === 'home' && (
-            <div className="flex items-center gap-2.5 divide-x divide-slate-200 dark:divide-slate-800">
+            <div className="flex items-center gap-3 divide-x divide-slate-200/60 dark:divide-white/[0.06]">
               {/* Group: Clipboard */}
               <div className="flex flex-col items-center justify-between pr-2.5 gap-1">
                 <div className="flex items-center gap-1">
@@ -5419,7 +5419,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <span>Done</span>
                   </button>
                 </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Clipboard</span>
+                <span className="text-[10px] font-semibold text-slate-400/80 dark:text-slate-500 uppercase tracking-wider select-none">Clipboard</span>
               </div>
 
               {/* Group: Font & Formatting */}
@@ -5466,7 +5466,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     `c`
                   </button>
                 </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Font</span>
+                <span className="text-[10px] font-semibold text-slate-400/80 dark:text-slate-500 uppercase tracking-wider select-none">Font</span>
               </div>
 
               {/* Group: Headings / Styles */}
@@ -5500,7 +5500,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <span>H3</span>
                   </button>
                 </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Styles</span>
+                <span className="text-[10px] font-semibold text-slate-400/80 dark:text-slate-500 uppercase tracking-wider select-none">Styles</span>
               </div>
 
               {/* Group: Highlighters (Streamlined Executive Suite) */}
@@ -5594,7 +5594,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     </div>
                   )}
                 </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Highlights</span>
+                <span className="text-[10px] font-semibold text-slate-400/80 dark:text-slate-500 uppercase tracking-wider select-none">Highlights</span>
               </div>
 
               {/* Group: Lists & Quotes */}
@@ -5626,7 +5626,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
                     <Quote className="w-3 h-3 text-slate-500" />
                   </button>
                 </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider select-none">Paragraph</span>
+                <span className="text-[10px] font-semibold text-slate-400/80 dark:text-slate-500 uppercase tracking-wider select-none">Paragraph</span>
               </div>
             </div>
           )}
