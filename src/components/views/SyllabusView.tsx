@@ -925,129 +925,111 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      {/* Left & Middle: Emblem + Title & Meta */}
-                      <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
-                        {/* Integrated Luxury Topic Emblem with Quick Status Toggle */}
-                        <div className="relative shrink-0">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
-                              updateTopicStatus(topic.id, nextStatus);
-                              if (nextStatus === 'completed') {
-                                soundManager.playCompleteChime();
-                              } else {
-                                soundManager.playClick();
-                              }
-                            }}
-                            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${design.palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200 cursor-pointer active:scale-95`}
-                            title={topic.status === 'completed' ? 'Mark in progress' : 'Mark completed'}
-                          >
-                            <BadgeIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
-                          </button>
-                          {/* Index Badge Tag */}
-                          <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-black font-mono shadow-2xs text-slate-700 dark:text-slate-200">
-                            {design.formattedNum}
-                          </span>
+                    {/* Left & Middle: Emblem + Title & Meta */}
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                      {/* Reference Style Pale Yellow Circular Emblem */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
+                          updateTopicStatus(topic.id, nextStatus);
+                          if (nextStatus === 'completed') {
+                            soundManager.playCompleteChime();
+                          } else {
+                            soundManager.playClick();
+                          }
+                        }}
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 active:scale-95 transition-transform cursor-pointer relative"
+                        title={topic.status === 'completed' ? 'Completed (Click to toggle)' : 'Click to mark completed'}
+                      >
+                        {/* Reference Quiz Document Icon */}
+                        <div className="w-4.5 h-5.5 sm:w-5 sm:h-6 rounded-[3px] bg-[#FCD34D] p-1 flex flex-col justify-between shadow-2xs">
+                          <div className="flex items-center gap-1">
+                            <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-[1px] ${topic.status === 'completed' ? 'bg-emerald-600' : 'bg-[#2563EB]'}`} />
+                            <div className="h-0.5 sm:h-1 flex-1 rounded-[1px] bg-[#0F172A]" />
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-[1px] ${topic.status === 'completed' ? 'bg-emerald-600' : 'bg-[#2563EB]'}`} />
+                            <div className="h-0.5 sm:h-1 flex-1 rounded-[1px] bg-[#0F172A]" />
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-[1px] ${topic.status === 'completed' ? 'bg-emerald-600' : 'bg-[#2563EB]'}`} />
+                            <div className="h-0.5 sm:h-1 flex-1 rounded-[1px] bg-[#0F172A]" />
+                          </div>
                         </div>
 
-                        {/* Title & Stats */}
-                        <div className="min-w-0 flex-1 space-y-2">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-grotesk">
-                              {topic.name}
-                            </h3>
-                          </div>
+                        {topic.status === 'completed' && (
+                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs text-[10px] font-black">
+                            ✓
+                          </span>
+                        )}
+                      </button>
 
-                          {/* In-Card Topic Mastery Track */}
-                          <div className="w-full max-w-md h-1.5 sm:h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden shadow-inner">
-                            <div
-                              className="h-full rounded-full transition-all duration-500 shadow-xs"
-                              style={{
-                                width: topic.status === 'completed' ? '100%' : topic.status === 'in_progress' ? '50%' : topic.status === 'weak' ? '25%' : '0%',
-                                backgroundColor: design.palette.accentColor
-                              }}
-                            />
-                          </div>
+                      {/* Title & Metadata */}
+                      <div className="min-w-0 flex-1 py-0.5">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
+                          {topic.name}
+                        </h3>
 
-                          {/* Meta Pills Row */}
-                          <div className="flex items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
-                            {(topic.studyTimeMinutes || 0) > 0 && (
-                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+                        {/* Meta Tags Row */}
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                          <span className={topic.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400 font-bold' : topic.status === 'in_progress' ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500'}>
+                            {topic.status === 'completed' ? 'Mastered' : topic.status === 'in_progress' ? 'In Progress' : 'Not Started'}
+                          </span>
+                          {(topic.studyTimeMinutes || 0) > 0 && (
+                            <>
+                              <span>•</span>
+                              <span className="inline-flex items-center gap-1">
                                 <Clock className="w-3 h-3 text-amber-500" />
                                 <span>{topic.studyTimeMinutes}m</span>
                               </span>
-                            )}
-
-                            {topic.status !== 'not_started' && topic.accuracy !== undefined && !isNaN(topic.accuracy) && topic.accuracy > 0 && (
-                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 shrink-0">
-                                <Target className="w-3 h-3 text-rose-500" />
+                            </>
+                          )}
+                          {topic.status !== 'not_started' && topic.accuracy !== undefined && !isNaN(topic.accuracy) && topic.accuracy > 0 && (
+                            <>
+                              <span>•</span>
+                              <span className="inline-flex items-center gap-1 text-rose-500 font-semibold">
+                                <Target className="w-3 h-3" />
                                 <span>{topic.accuracy}%</span>
                               </span>
-                            )}
-
-                            {topic.difficulty && (
-                              <span className="flex items-center gap-1 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 shrink-0">
-                                <span className={`w-1.5 h-1.5 rounded-full ${topic.difficulty === 'Hard' ? 'bg-rose-500' : topic.difficulty === 'Medium' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
-                                <span>{topic.difficulty}</span>
-                              </span>
-                            )}
-
-                            {unresolvedMistakes > 0 && (
-                              <span className="flex items-center gap-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-500/20 font-bold shrink-0">
-                                <AlertTriangle className="w-3 h-3" />
-                                <span>{unresolvedMistakes} {unresolvedMistakes === 1 ? 'Trap' : 'Traps'}</span>
-                              </span>
-                            )}
-
-                            {hasNotes && (
-                              <span className="flex items-center gap-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-md border border-blue-500/20 font-bold shrink-0">
-                                <FileText className="w-3 h-3" />
-                                <span>Notes</span>
-                              </span>
-                            )}
-
-                            {hasPdf && (
-                              <span className="flex items-center gap-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-md border border-purple-500/20 font-bold shrink-0">
-                                <BookOpen className="w-3 h-3" />
-                                <span>PDF</span>
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right: Status Pill & Action Chevron */}
-                      <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const nextStatus: TopicStatus = topic.status === 'completed' ? 'in_progress' : 'completed';
-                            updateTopicStatus(topic.id, nextStatus);
-                            if (nextStatus === 'completed') {
-                              soundManager.playCompleteChime();
-                            } else {
-                              soundManager.playClick();
-                            }
-                          }}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-transform active:scale-95 cursor-pointer shadow-2xs border select-none hover:opacity-90 ${design.statusPillClass}`}
-                          title="Click to toggle status"
-                        >
-                          <BadgeIcon className="w-3.5 h-3.5 stroke-[2.5]" />
-                          <span className="sm:hidden">{design.mobileLabel}</span>
-                          <span className="hidden sm:inline">{design.badgeLabel}</span>
-                        </button>
-
-                        <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl bg-slate-50 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-300 group-hover:bg-[#4F46E5] group-hover:text-white group-hover:border-[#4F46E5] transition-all duration-200 group-hover:translate-x-0.5 shadow-2xs shrink-0">
-                          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                            </>
+                          )}
+                          {unresolvedMistakes > 0 && (
+                            <>
+                              <span>•</span>
+                              <span className="text-rose-500 font-bold">{unresolvedMistakes} {unresolvedMistakes === 1 ? 'Trap' : 'Traps'}</span>
+                            </>
+                          )}
+                          {hasNotes && (
+                            <>
+                              <span>•</span>
+                              <span className="text-blue-500 font-medium">Notes</span>
+                            </>
+                          )}
+                          {hasPdf && (
+                            <>
+                              <span>•</span>
+                              <span className="text-purple-500 font-medium">PDF</span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
+
+                    {/* Right: Golden "Start Now" Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name);
+                      }}
+                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                    >
+                      Start Now
+                    </button>
                   </div>
                 );
               })
@@ -1433,97 +1415,58 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 const ChapterIcon = isChapterMastered ? CheckCircle2 : chapterBadge.icon;
 
                 return (
-                <div
-                  key={chapter.id}
-                  onClick={() => handleSelectChapter(chapter.id)}
-                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4">
+                  <div
+                    key={chapter.id}
+                    onClick={() => handleSelectChapter(chapter.id)}
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
+                  >
                     {/* Left: Emblem + Title & Meta */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
-                      {/* Integrated Luxury Chapter Emblem */}
-                      <div className="relative shrink-0">
-                        <div
-                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200`}
-                        >
-                          <ChapterIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
-                        </div>
-                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-bold font-sans shadow-2xs text-slate-700 dark:text-slate-200">
-                          {formattedNum}
-                        </span>
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                      {/* Reference Style Pale Yellow Circular Emblem */}
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
+                        <FileText className="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-[2.2]" />
+                        {isChapterMastered && (
+                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs text-[10px] font-black">
+                            ✓
+                          </span>
+                        )}
                       </div>
 
                       {/* Title & Metadata */}
-                      <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
-                        <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-sans">
+                      <div className="min-w-0 flex-1 py-0.5">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
                           {chapter.name}
                         </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-2.5 sm:gap-3 text-xs text-slate-500 dark:text-slate-400 font-semibold font-sans flex-wrap">
-                          <span className="flex items-center gap-1.5">
-                            <Layers className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                            <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
-                          </span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                            <span>{completedInChapter}/{totalInChapter} Mastered</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                          <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
+                          <span>•</span>
+                          <span className={isChapterMastered ? 'text-emerald-600 dark:text-emerald-400 font-bold' : hasChapterStarted ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500'}>
+                            {completedInChapter}/{totalInChapter} Mastered ({chapterPercent}%)
                           </span>
                           {weakInChapter > 0 && (
                             <>
-                              <span className="text-slate-300 dark:text-slate-600">•</span>
-                              <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold">
-                                <AlertTriangle className="w-3.5 h-3.5" />
-                                <span>{weakInChapter} Weak</span>
-                              </span>
+                              <span>•</span>
+                              <span className="text-rose-500 font-bold">{weakInChapter} Weak</span>
                             </>
                           )}
                         </div>
                       </div>
                     </div>
 
-                    {/* Right: Progress Metric + Continue Action */}
-                    <div className="flex items-center gap-3.5 sm:gap-5 shrink-0 self-end sm:self-center justify-between sm:justify-end w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/[0.06]">
-                      {/* Progress Bar & Percentage */}
-                      <div className="flex flex-col items-start sm:items-end gap-1.5 min-w-[110px] sm:min-w-[130px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-xs sm:text-sm font-black font-sans text-slate-900 dark:text-white tabular-nums">
-                            {chapterPercent}%
-                          </span>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-sans border ${
-                            isChapterMastered
-                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
-                              : hasChapterStarted
-                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
-                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                          }`}>
-                            {isChapterMastered ? 'Mastered' : hasChapterStarted ? 'In Progress' : 'Not Started'}
-                          </span>
-                        </div>
-
-                        {/* Sleek Progress Track */}
-                        <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
-                          {chapterPercent > 0 ? (
-                            <div
-                              className="h-full rounded-full transition-all duration-500"
-                              style={{
-                                width: `${chapterPercent}%`,
-                                backgroundColor: palette.accentColor
-                              }}
-                            />
-                          ) : null}
-                        </div>
-                      </div>
-
-                      {/* Action Button */}
-                      <div className="flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold font-sans text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs shrink-0">
-                        <span>View Topics</span>
-                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
-                      </div>
-                    </div>
+                    {/* Right: Golden "Start Now" Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectChapter(chapter.id);
+                      }}
+                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                    >
+                      Start Now
+                    </button>
                   </div>
-                </div>
                 );
               })
             )}
@@ -2007,96 +1950,56 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               const formattedNum = (sIdx + 1).toString().padStart(2, '0');
               const palette = TOPIC_PALETTES[sIdx % TOPIC_PALETTES.length];
 
-              return (
-                <div
-                  key={subject.id}
-                  onClick={() => handleSelectSubject(subject.id)}
-                  className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 p-4 sm:p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-500/40 dark:hover:border-indigo-400/30 transition-all duration-200 cursor-pointer select-none overflow-hidden"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4">
+                return (
+                  <div
+                    key={subject.id}
+                    onClick={() => handleSelectSubject(subject.id)}
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
+                  >
                     {/* Left: Emblem + Title & Meta */}
-                    <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
-                      {/* Integrated Luxury Subject Emblem */}
-                      <div className="relative shrink-0">
-                        <div
-                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${palette.gradient} text-white flex items-center justify-center shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200`}
-                        >
-                          <BadgeIcon className="w-6 h-6 stroke-[2.2] drop-shadow-xs" />
-                        </div>
-                        {/* Index Badge Tag */}
-                        <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-white dark:bg-[#1A1C2E] border border-slate-200/80 dark:border-white/15 text-[10px] font-bold font-sans shadow-2xs text-slate-700 dark:text-slate-200">
-                          {formattedNum}
-                        </span>
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                      {/* Reference Style Pale Yellow Circular Emblem */}
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
+                        <BookOpen className="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-[2.2]" />
+                        {isSubjectMastered && (
+                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs text-[10px] font-black">
+                            ✓
+                          </span>
+                        )}
                       </div>
 
                       {/* Title & Metadata */}
-                      <div className="min-w-0 flex-1 space-y-1 sm:space-y-1.5">
-                        <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate font-sans">
+                      <div className="min-w-0 flex-1 py-0.5">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white uppercase leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
                           {subject.name}
                         </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-2.5 sm:gap-3 text-xs text-slate-500 dark:text-slate-400 font-semibold font-sans flex-wrap">
-                          <span className="flex items-center gap-1.5">
-                            <BookOpen className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                            <span>{totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'}</span>
-                          </span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5">
-                            <Layers className="w-3.5 h-3.5 text-sky-500 shrink-0" />
-                            <span>{subjectTotalTopics} Topics</span>
-                          </span>
-                          <span className="text-slate-300 dark:text-slate-600">•</span>
-                          <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                            <span>{completedChapters}/{totalChapters} Mastered</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                          <span>{totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'}</span>
+                          <span>•</span>
+                          <span>{subjectTotalTopics} Topics</span>
+                          <span>•</span>
+                          <span className={isSubjectMastered ? 'text-emerald-600 dark:text-emerald-400 font-bold' : hasSubjectStarted ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500'}>
+                            {percent}% Mastered
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right: Progress Metric + Continue Action */}
-                    <div className="flex items-center gap-3.5 sm:gap-5 shrink-0 self-end sm:self-center justify-between sm:justify-end w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-white/[0.06]">
-                      {/* Progress Bar & Percentage */}
-                      <div className="flex flex-col items-start sm:items-end gap-1.5 min-w-[110px] sm:min-w-[130px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-xs sm:text-sm font-black font-sans text-slate-900 dark:text-white tabular-nums">
-                            {percent}%
-                          </span>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-sans border ${
-                            isSubjectMastered
-                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
-                              : hasSubjectStarted
-                              ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
-                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border-slate-200/80 dark:border-white/10'
-                          }`}>
-                            {isSubjectMastered ? 'Mastered' : hasSubjectStarted ? 'In Progress' : 'Not Started'}
-                          </span>
-                        </div>
-
-                        {/* Sleek Progress Track */}
-                        <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.08] overflow-hidden">
-                          {percent > 0 ? (
-                            <div
-                              className="h-full rounded-full transition-all duration-500"
-                              style={{
-                                width: `${percent}%`,
-                                backgroundColor: palette.accentColor
-                              }}
-                            />
-                          ) : null}
-                        </div>
-                      </div>
-
-                      {/* Continue CTA Button */}
-                      <div className="flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-xs sm:text-[13px] font-bold font-sans text-slate-700 dark:text-slate-200 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200 shadow-2xs shrink-0">
-                        <span>{hasSubjectStarted ? 'Continue' : 'Explore'}</span>
-                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
-                      </div>
-                    </div>
+                    {/* Right: Golden "Start Now" Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectSubject(subject.id);
+                      }}
+                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                    >
+                      Start Now
+                    </button>
                   </div>
-                </div>
-              );
+                );
             })
           )}
         </div>
