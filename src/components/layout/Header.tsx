@@ -6,7 +6,6 @@ import { usePWA } from '../../hooks/usePWA';
 import { haptics } from '../../utils/haptics';
 import {
   Search,
-  Flame,
   Sun,
   Moon,
   ChevronDown,
@@ -37,7 +36,6 @@ import {
   LayoutGrid,
   User
 } from 'lucide-react';
-import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 import { usePinLock } from '../../context/PinLockContext';
 import { soundManager } from '../../utils/soundEffects';
 import { EditExamTargetModal } from '../modals/EditExamTargetModal';
@@ -231,18 +229,6 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-xs font-bold hidden lg:inline">Sidebar</span>
             </button>
           )}
-
-          {/* Brand Seal + "THE PUNDITS" Title */}
-          <div
-            onClick={() => onNavigate?.('overview')}
-            className="flex items-center gap-2 cursor-pointer group select-none shrink-0"
-            title="THE PUNDITS • Home"
-          >
-            <BrandEmblemLogo size="sm" />
-            <span className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif hidden sm:inline">
-              THE PUNDITS
-            </span>
-          </div>
 
           {/* Responsive Exam Selector (Mobile & Desktop) with Target Year & Live Countdown */}
           <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
@@ -854,14 +840,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="hidden md:inline">Search...</span>
             <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-xs font-mono bg-slate-100 dark:bg-white/[0.06] rounded-lg text-slate-500 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">⌘K</kbd>
           </button>
-
-          {/* Streak Indicator (Hidden on mobile < sm to keep header clean and spacious) */}
-          <div className="hidden sm:flex h-9 items-center gap-1 px-2.5 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] shadow-subtle-depth shrink-0">
-            <Flame className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-500 fill-amber-500 shrink-0" />
-            <span className="text-xs tabular-nums font-black text-slate-900 dark:text-white font-mono">
-              {profileSafe.currentStreak ?? 0}d
-            </span>
-          </div>
 
           {/* Quick Safety PIN Lock Trigger */}
           {isConfigured && (
