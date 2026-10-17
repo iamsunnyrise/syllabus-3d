@@ -1138,11 +1138,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
           {/* Right Tools & Navigation */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            {/* Fullscreen Toggle (Hidden on small mobile screens to keep header stable) */}
+            {/* Fullscreen Toggle */}
             <button
               type="button"
               onClick={handleToggleFullscreen}
-              className={`hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
+              className={`flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
                 isBrowserFullscreen
                   ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                   : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
@@ -1242,75 +1242,95 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       )}
 
       {/* 2. MAIN SCROLLABLE CONTENT (Mobile-Friendly, Rock-Solid Stability) */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full relative z-20 pb-36 sm:pb-28">
+      <main className={`flex-1 overflow-x-hidden overscroll-contain relative z-20 ${
+        isBrowserFullscreen
+          ? 'overflow-hidden flex flex-col items-center justify-center p-0 w-full h-full'
+          : 'overflow-y-auto px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full pb-36 sm:pb-28'
+      }`}>
         
         {/* TOP SEGMENTED CAPSULE BAR (Aerospace Grade Segmented Control) */}
-        <div className="flex items-center justify-center px-1">
-          <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-slate-200/80 dark:bg-[#141628]/90 border border-slate-300/80 dark:border-white/[0.08] backdrop-blur-2xl shadow-sm max-w-full overflow-x-auto no-scrollbar gap-1 sm:gap-1.5">
-            {[
-              { id: 'focus', label: 'Focus', icon: GraduationCap, mins: focusDurationMinutes, mode: 'pomodoro' as TimerMode },
-              { id: 'short', label: 'Short Break', icon: Coffee, mins: 5, mode: 'break' as TimerMode },
-              { id: 'long', label: 'Long Break', icon: TreePine, mins: 15, mode: 'break' as TimerMode },
-              { id: 'custom', label: 'Custom', icon: Settings, mins: customTimerMinutes, mode: 'timer' as TimerMode }
-            ].map(tab => {
-              const Icon = tab.icon;
-              const isActive = (tab.id === 'focus' && session.mode === 'pomodoro') ||
-                (tab.id === 'short' && session.mode === 'break' && session.totalDurationSec <= 10 * 60) ||
-                (tab.id === 'long' && session.mode === 'break' && session.totalDurationSec > 10 * 60) ||
-                (tab.id === 'custom' && session.mode === 'timer');
+        {!isBrowserFullscreen && (
+          <div className="flex items-center justify-center px-1">
+            <div className="inline-flex items-center p-1 sm:p-1.5 rounded-full bg-slate-200/80 dark:bg-[#141628]/90 border border-slate-300/80 dark:border-white/[0.08] backdrop-blur-2xl shadow-sm max-w-full overflow-x-auto no-scrollbar gap-1 sm:gap-1.5">
+              {[
+                { id: 'focus', label: 'Focus', icon: GraduationCap, mins: focusDurationMinutes, mode: 'pomodoro' as TimerMode },
+                { id: 'short', label: 'Short Break', icon: Coffee, mins: 5, mode: 'break' as TimerMode },
+                { id: 'long', label: 'Long Break', icon: TreePine, mins: 15, mode: 'break' as TimerMode },
+                { id: 'custom', label: 'Custom', icon: Settings, mins: customTimerMinutes, mode: 'timer' as TimerMode }
+              ].map(tab => {
+                const Icon = tab.icon;
+                const isActive = (tab.id === 'focus' && session.mode === 'pomodoro') ||
+                  (tab.id === 'short' && session.mode === 'break' && session.totalDurationSec <= 10 * 60) ||
+                  (tab.id === 'long' && session.mode === 'break' && session.totalDurationSec > 10 * 60) ||
+                  (tab.id === 'custom' && session.mode === 'timer');
 
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    haptics.selection();
-                    if (tab.id === 'custom') {
-                      setIsSettingsOpen(true);
-                    } else {
-                      setSessionMode(tab.mode, tab.mins);
-                    }
-                  }}
-                  className={`flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
-                    isActive
-                      ? 'text-white font-black shadow-md'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/[0.06]'
-                  }`}
-                  style={{
-                    background: isActive ? modeTheme.btnGrad : undefined,
-                    boxShadow: isActive ? `0 4px 15px ${modeTheme.glow}` : undefined
-                  }}
-                >
-                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span className="hidden xs:inline">{tab.label}</span>
-                  <span className="xs:hidden">{tab.id === 'short' ? 'Short' : tab.id === 'long' ? 'Long' : tab.label}</span>
-                  <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-white/20 text-white' : 'bg-slate-300/60 dark:bg-white/10 text-slate-500 dark:text-slate-400'
-                  }`}>
-                    {tab.mins}m
-                  </span>
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      if (tab.id === 'custom') {
+                        setIsSettingsOpen(true);
+                      } else {
+                        setSessionMode(tab.mode, tab.mins);
+                      }
+                    }}
+                    className={`flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap ${
+                      isActive
+                        ? 'text-white font-black shadow-md'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/[0.06]'
+                    }`}
+                    style={{
+                      background: isActive ? modeTheme.btnGrad : undefined,
+                      boxShadow: isActive ? `0 4px 15px ${modeTheme.glow}` : undefined
+                    }}
+                  >
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                    <span className="hidden xs:inline">{tab.label}</span>
+                    <span className="xs:hidden">{tab.id === 'short' ? 'Short' : tab.id === 'long' ? 'Long' : tab.label}</span>
+                    <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-slate-300/60 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                    }`}>
+                      {tab.mins}m
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* 3-COLUMN STUDIO LAYOUT ON DESKTOP / STABLE STACK ON MOBILE */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+        <div className={`w-full items-center ${
+          isBrowserFullscreen
+            ? 'flex flex-col items-center justify-center my-auto'
+            : 'grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6'
+        }`}>
           
           {/* 🎯 CENTER COLUMN: HERO 3D CHRONOMETER DIAL */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2 my-1 sm:my-4">
+          <div className={`flex flex-col items-center justify-center ${
+            isBrowserFullscreen
+              ? 'w-full my-auto'
+              : 'lg:col-span-6 order-1 lg:order-2 my-1 sm:my-4'
+          }`}>
             
             {/* 3D Elevated Chronograph Chassis */}
             <div
-              className={`relative w-[275px] h-[275px] xs:w-76 xs:h-76 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 ${
+              onClick={handleTogglePlay}
+              className={`relative rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 cursor-pointer select-none group/chassis ${
+                isBrowserFullscreen
+                  ? 'w-[320px] h-[320px] xs:w-[360px] xs:h-[360px] sm:w-[440px] sm:h-[440px] md:w-[500px] md:h-[500px] lg:w-[540px] lg:h-[540px]'
+                  : 'w-[275px] h-[275px] xs:w-76 xs:h-76 sm:w-88 sm:h-88 md:w-96 md:h-96'
+              } ${
                 isRunning ? 'ring-2 sm:ring-4 ring-offset-2 dark:ring-offset-black' : ''
               }`}
               style={{
                 borderColor: isRunning ? modeTheme.primary : undefined,
                 boxShadow: isRunning ? `0 0 50px ${modeTheme.glow}` : undefined
               }}
+              title={isRunning ? "Click to Pause (Space)" : "Click to Start (Space)"}
             >
               {/* SVG 360x360 Chronometer Gauge */}
               <svg className="w-full h-full overflow-visible" viewBox="0 0 360 360">
@@ -1502,7 +1522,11 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             </div>
 
             {/* TACTILE HARDWARE DOCK */}
-            <div className="flex flex-col items-center gap-2.5 mt-5 sm:mt-6">
+            <div className={`transition-all duration-300 ${
+              isBrowserFullscreen
+                ? 'fixed bottom-8 left-1/2 -translate-x-1/2 z-40 opacity-0 hover:opacity-100 focus-within:opacity-100 flex flex-col items-center gap-2.5'
+                : 'flex flex-col items-center gap-2.5 mt-5 sm:mt-6'
+            }`}>
               <div className="inline-flex items-center gap-2.5 sm:gap-4 p-2 sm:p-2.5 rounded-full bg-white/90 dark:bg-[#121528]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.1)]">
                 
                 {/* Reset / Rewind */}
@@ -1576,176 +1600,190 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               </div>
 
               {/* Keyboard Shortcut Hint (Desktop only) */}
-              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 dark:text-slate-500">
-                Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> to {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> to reset
-              </span>
+              {!isBrowserFullscreen && (
+                <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                  Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> to {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> to reset
+                </span>
+              )}
 
               {/* Mobile Live Flow Indicator Pill (Mobile only) */}
-              <div className="sm:hidden flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/10 text-[11px] font-bold text-slate-700 dark:text-slate-200 shadow-2xs">
-                <span className="w-2 h-2 rounded-full animate-ping" style={{ backgroundColor: modeTheme.primary }} />
-                <span>
-                  {isRunning
-                    ? session.mode === 'stopwatch'
-                      ? 'Stopwatch'
-                      : 'Focusing'
-                    : isPaused
-                    ? 'Paused'
-                    : 'Ready'}
-                </span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="text-slate-500 dark:text-slate-400 font-mono">
-                  {completedCount}/{totalTasksCount} Tasks
-                </span>
-              </div>
+              {!isBrowserFullscreen && (
+                <div className="sm:hidden flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/70 dark:border-white/10 text-[11px] font-bold text-slate-700 dark:text-slate-200 shadow-2xs">
+                  <span className="w-2 h-2 rounded-full animate-ping" style={{ backgroundColor: modeTheme.primary }} />
+                  <span>
+                    {isRunning
+                      ? session.mode === 'stopwatch'
+                        ? 'Stopwatch'
+                        : 'Focusing'
+                      : isPaused
+                      ? 'Paused'
+                      : 'Ready'}
+                  </span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="text-slate-500 dark:text-slate-400 font-mono">
+                    {completedCount}/{totalTasksCount} Tasks
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* MOBILE SUB-TIMER DECK (Sleek Segmented Tabs for Tasks, Ambience, and Stats) */}
-            <div className="lg:hidden w-full max-w-md mx-auto space-y-3 pt-3">
-              {/* Mobile Segmented Switcher */}
-              <div className="flex items-center justify-center">
-                <div className="flex items-center p-1 rounded-2xl bg-white/80 dark:bg-[#121424]/90 border border-slate-200/90 dark:border-white/10 shadow-sm backdrop-blur-xl w-full gap-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      haptics.selection();
-                      setMobileTab('tasks');
-                    }}
-                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      mobileTab === 'tasks'
-                        ? 'bg-[#0066FF] text-white font-black shadow-sm'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    <Target className="w-3.5 h-3.5" />
-                    <span>Tasks ({completedCount}/{totalTasksCount})</span>
-                  </button>
+            {!isBrowserFullscreen && (
+              <div className="lg:hidden w-full max-w-md mx-auto space-y-3 pt-3">
+                {/* Mobile Segmented Switcher */}
+                <div className="flex items-center justify-center">
+                  <div className="flex items-center p-1 rounded-2xl bg-white/80 dark:bg-[#121424]/90 border border-slate-200/90 dark:border-white/10 shadow-sm backdrop-blur-xl w-full gap-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setMobileTab('tasks');
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        mobileTab === 'tasks'
+                          ? 'bg-[#0066FF] text-white font-black shadow-sm'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <Target className="w-3.5 h-3.5" />
+                      <span>Tasks ({completedCount}/{totalTasksCount})</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      haptics.selection();
-                      setMobileTab('music');
-                    }}
-                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      mobileTab === 'music'
-                        ? 'bg-[#8B5CF6] text-white font-black shadow-sm'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    <Music className="w-3.5 h-3.5" />
-                    <span>Ambience</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setMobileTab('music');
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        mobileTab === 'music'
+                          ? 'bg-[#8B5CF6] text-white font-black shadow-sm'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <Music className="w-3.5 h-3.5" />
+                      <span>Ambience</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      haptics.selection();
-                      setMobileTab('stats');
-                    }}
-                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      mobileTab === 'stats'
-                        ? 'bg-emerald-600 text-white font-black shadow-sm'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    <BarChart3 className="w-3.5 h-3.5" />
-                    <span>Stats</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setMobileTab('stats');
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        mobileTab === 'stats'
+                          ? 'bg-emerald-600 text-white font-black shadow-sm'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <BarChart3 className="w-3.5 h-3.5" />
+                      <span>Stats</span>
+                    </button>
+                  </div>
                 </div>
+
+                {/* Mobile Tab 1: Tasks */}
+                {mobileTab === 'tasks' && (
+                  <div className="space-y-3 animate-fade-in">
+                    {renderCurrentTaskCard()}
+                    {renderTodayFocusCard()}
+                  </div>
+                )}
+
+                {/* Mobile Tab 2: Ambience */}
+                {mobileTab === 'music' && (
+                  <div className="animate-fade-in">
+                    {renderFocusMusicCard()}
+                  </div>
+                )}
+
+                {/* Mobile Tab 3: Stats */}
+                {mobileTab === 'stats' && (
+                  <div className="animate-fade-in">
+                    {renderSessionStatsCard()}
+                  </div>
+                )}
               </div>
-
-              {/* Mobile Tab 1: Tasks */}
-              {mobileTab === 'tasks' && (
-                <div className="space-y-3 animate-fade-in">
-                  {renderCurrentTaskCard()}
-                  {renderTodayFocusCard()}
-                </div>
-              )}
-
-              {/* Mobile Tab 2: Ambience */}
-              {mobileTab === 'music' && (
-                <div className="animate-fade-in">
-                  {renderFocusMusicCard()}
-                </div>
-              )}
-
-              {/* Mobile Tab 3: Stats */}
-              {mobileTab === 'stats' && (
-                <div className="animate-fade-in">
-                  {renderSessionStatsCard()}
-                </div>
-              )}
-            </div>
+            )}
           </div>
 
           {/* ◀️ LEFT COLUMN (Desktop Studio Layout): Today's Focus & Ambience */}
-          <div className="hidden lg:block lg:col-span-3 space-y-4 order-2 lg:order-1">
-            {renderTodayFocusCard()}
-            {renderFocusMusicCard()}
-          </div>
+          {!isBrowserFullscreen && (
+            <div className="hidden lg:block lg:col-span-3 space-y-4 order-2 lg:order-1">
+              {renderTodayFocusCard()}
+              {renderFocusMusicCard()}
+            </div>
+          )}
 
           {/* ▶️ RIGHT COLUMN (Desktop Studio Layout): Session Stats & Current Task */}
-          <div className="hidden lg:block lg:col-span-3 space-y-4 order-3">
-            {renderSessionStatsCard()}
-            {renderCurrentTaskCard()}
-          </div>
+          {!isBrowserFullscreen && (
+            <div className="hidden lg:block lg:col-span-3 space-y-4 order-3">
+              {renderSessionStatsCard()}
+              {renderCurrentTaskCard()}
+            </div>
+          )}
         </div>
       </main>
 
       {/* 3. FLOATING BOTTOM SEGMENTED TIMER SELECTOR CAPSULE */}
-      <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xs sm:max-w-sm pointer-events-auto">
-        <div className="flex items-center p-1 sm:p-1.5 rounded-full bg-slate-900/90 dark:bg-[#0E101D]/95 border border-slate-700/60 dark:border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl">
-          {[
-            { id: 'pomodoro', label: 'Pomodoro', icon: Zap, mode: 'pomodoro' },
-            { id: 'countdown', label: 'Countdown', icon: Hourglass, mode: 'timer' },
-            { id: 'stopwatch', label: 'Stopwatch', icon: StopwatchIcon, mode: 'stopwatch' },
-          ].map(tool => {
-            const Icon = tool.icon;
-            const isActive = (tool.id === 'pomodoro' && session.mode === 'pomodoro') ||
-              (tool.id === 'countdown' && session.mode === 'timer') ||
-              (tool.id === 'stopwatch' && session.mode === 'stopwatch');
+      {!isBrowserFullscreen && (
+        <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xs sm:max-w-sm pointer-events-auto">
+          <div className="flex items-center p-1 sm:p-1.5 rounded-full bg-slate-900/90 dark:bg-[#0E101D]/95 border border-slate-700/60 dark:border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl">
+            {[
+              { id: 'pomodoro', label: 'Pomodoro', icon: Zap, mode: 'pomodoro' },
+              { id: 'countdown', label: 'Countdown', icon: Hourglass, mode: 'timer' },
+              { id: 'stopwatch', label: 'Stopwatch', icon: StopwatchIcon, mode: 'stopwatch' },
+            ].map(tool => {
+              const Icon = tool.icon;
+              const isActive = (tool.id === 'pomodoro' && session.mode === 'pomodoro') ||
+                (tool.id === 'countdown' && session.mode === 'timer') ||
+                (tool.id === 'stopwatch' && session.mode === 'stopwatch');
 
-            // Dynamic color matching the timer's current active visual theme
-            const activeColorClass = tool.id === 'pomodoro'
-              ? 'bg-gradient-to-r from-[#0066FF] to-[#2563EB] text-white shadow-md shadow-blue-500/35 ring-1 ring-white/20'
-              : tool.id === 'countdown'
-              ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/35 ring-1 ring-white/20'
-              : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/35 ring-1 ring-white/20';
+              // Dynamic color matching the timer's current active visual theme
+              const activeColorClass = tool.id === 'pomodoro'
+                ? 'bg-gradient-to-r from-[#0066FF] to-[#2563EB] text-white shadow-md shadow-blue-500/35 ring-1 ring-white/20'
+                : tool.id === 'countdown'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/35 ring-1 ring-white/20'
+                : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/35 ring-1 ring-white/20';
 
-            return (
-              <button
-                key={tool.id}
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.selection();
-                  if (tool.id === 'countdown') {
-                    setSessionMode('timer', customTimerMinutes);
-                  } else if (tool.id === 'stopwatch') {
-                    setSessionMode('stopwatch', 0);
-                  } else {
-                    setSessionMode('pomodoro', focusDurationMinutes);
-                  }
-                }}
-                className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
-                  isActive
-                    ? `${activeColorClass} font-black`
-                    : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5 shrink-0" />
-                <span>{tool.label}</span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={tool.id}
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    if (tool.id === 'countdown') {
+                      setSessionMode('timer', customTimerMinutes);
+                    } else if (tool.id === 'stopwatch') {
+                      setSessionMode('stopwatch', 0);
+                    } else {
+                      setSessionMode('pomodoro', focusDurationMinutes);
+                    }
+                  }}
+                  className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
+                    isActive
+                      ? `${activeColorClass} font-black`
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{tool.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Smooth Bottom Ambient Scrim to prevent content clashes when scrolling behind bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-30 sm:hidden" />
+      {!isBrowserFullscreen && (
+        <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-30 sm:hidden" />
+      )}
 
       {/* TOPIC SEARCH MODAL OVERLAY */}
       {isTopicSearchOpen && (
