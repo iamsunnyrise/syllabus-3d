@@ -239,7 +239,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               <BrandEmblemLogo size="sm" />
               <div className="min-w-0">
                 <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
-                  THE PUNDITS
+                  SYLLABUS 3D
                 </span>
                 <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 font-mono tracking-wider truncate mt-0.5">
                   {currentExam?.name || 'SSC CGL 2026'}

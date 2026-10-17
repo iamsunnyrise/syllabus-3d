@@ -256,7 +256,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <BrandEmblemLogo size="sm" />
             <div className="min-w-0 flex-1">
               <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
-                THE PUNDITS
+                SYLLABUS 3D
               </span>
               <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
                 {currentExam?.name || 'SSC CGL 2026'}
