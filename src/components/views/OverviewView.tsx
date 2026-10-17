@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
-import { ExamCountdown3D } from '../3d/ExamCountdown3D';
 import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { ExamTargetMissionBanner } from '../dashboard/ExamTargetMissionBanner';
 import { AppFooter } from '../common/AppFooter';
@@ -437,11 +436,6 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           );
         })}
       </div>
-
-
-
-      {/* 2. Clean Target Countdown Flip Clock */}
-      <ExamCountdown3D />
 
       {/* 4. TOP 3 NON-NEGOTIABLES & NIGHT REFLECTION WIDGET */}
       <Top3TargetsWidget />

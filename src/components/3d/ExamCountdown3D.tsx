@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
-import { Calendar, Target, Clock, Zap, Flame } from 'lucide-react';
+import { Calendar, Target, Clock, Zap, Flame, Pencil } from 'lucide-react';
 
-export const ExamCountdown3D: React.FC = React.memo(() => {
+interface ExamCountdown3DProps {
+  onEditDate?: () => void;
+  className?: string;
+}
+
+export const ExamCountdown3D: React.FC<ExamCountdown3DProps> = React.memo(({ onEditDate, className = '' }) => {
   const { currentExam, overallStats } = useSyllabus();
 
   // Calculate dynamic countdown with automatic smart rollover if date has passed
@@ -145,7 +150,7 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
   const examName = currentExam?.name || 'Target Exam';
 
   return (
-    <div className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden exam-countdown-card">
+    <div className={`group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden exam-countdown-card ${className}`}>
       {/* Subtle Top Accent Glow */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${phaseConfig.barGradient} opacity-75 pointer-events-none`} />
       <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-all ${phaseConfig.glowColor}`} />
@@ -174,6 +179,16 @@ export const ExamCountdown3D: React.FC = React.memo(() => {
                 <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold shrink-0">
                   (Projected)
                 </span>
+              )}
+              {onEditDate && (
+                <button
+                  type="button"
+                  onClick={onEditDate}
+                  className="ml-1 p-0.5 rounded hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors cursor-pointer"
+                  title="Change Exam Date"
+                >
+                  <Pencil className="w-3 h-3" />
+                </button>
               )}
             </div>
           </div>

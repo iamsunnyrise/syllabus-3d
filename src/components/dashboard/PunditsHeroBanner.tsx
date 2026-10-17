@@ -3,24 +3,28 @@ import {
   Tv,
   FileText,
   CalendarDays,
-  LineChart
+  CalendarClock
 } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { AppView } from '../layout/Sidebar';
+import { ExamDateModal } from '../modals/ExamDateModal';
 
 interface PunditsHeroBannerProps {
   onNavigate: (view: AppView) => void;
   onOpenPricing?: () => void;
   examName?: string;
+  onOpenExamDate?: () => void;
 }
 
 export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   onNavigate,
   onOpenPricing,
-  examName = 'SSC CGL'
+  examName = 'SSC CGL',
+  onOpenExamDate
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
 
   return (
     <div className="relative w-full rounded-3xl bg-[#090A0F] text-white border border-[#F59E0B]/30 shadow-2xl dark:shadow-[0_12px_45px_rgba(0,0,0,0.65)] overflow-hidden select-none">
@@ -135,23 +139,28 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
               </span>
             </div>
 
-            {/* 4. Strategy & Guidance */}
+            {/* 4. Exam Date & Live Countdown */}
             <div
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
-                onNavigate('analytics');
+                if (onOpenExamDate) {
+                  onOpenExamDate();
+                } else {
+                  setIsExamDateModalOpen(true);
+                }
               }}
+              title="Open Exam Date & Live Countdown"
               className="p-2.5 sm:p-3 rounded-xl bg-black/50 border border-[#F59E0B]/30 hover:border-[#F59E0B] transition-all cursor-pointer flex flex-col items-center justify-center text-center group hover:bg-[#F59E0B]/10 active:scale-95 shadow-xs"
             >
               <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/15 text-[#FBBF24] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
-                <LineChart className="w-3.5 h-3.5" />
+                <CalendarClock className="w-3.5 h-3.5" />
               </div>
               <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">
-                Strategy &
+                Exam Date
               </span>
               <span className="text-[10px] text-amber-300 font-medium">
-                Guidance
+                & Countdown
               </span>
             </div>
 
@@ -180,6 +189,14 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           aria-label="Slide 2"
         />
       </div>
+
+      {/* 🎯 Exam Date & Countdown Interactive Modal */}
+      {isExamDateModalOpen && (
+        <ExamDateModal
+          isOpen={isExamDateModalOpen}
+          onClose={() => setIsExamDateModalOpen(false)}
+        />
+      )}
 
     </div>
   );
