@@ -22,7 +22,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('syllabus');
         }}
-        className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#131525] dark:to-[#0B0D18] border border-slate-200/90 dark:border-white/[0.08] hover:border-blue-500/50 dark:hover:border-blue-500/40 p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Syllabus Explorer & Track Subjects"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -106,20 +106,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </svg>
         </div>
 
-        {/* Title & Micro Action */}
-        <div className="mt-3 space-y-1">
-          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        {/* Title & Action */}
+        <div className="mt-4 flex flex-col items-center gap-3">
+          <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors font-grotesk">
             Syllabus Explorer
           </h3>
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Complete Exam Curriculum • Subjects, Chapters & Mastery Track
-          </p>
-        </div>
 
-        {/* Bottom Action Pill */}
-        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50 group-hover:bg-blue-600 group-hover:text-white transition-all">
-          <span>Explore Syllabus</span>
-          <span>→</span>
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-500/30 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-xs">
+            <span>Explore Syllabus</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+          </div>
         </div>
       </div>
 
@@ -130,7 +126,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('mock-tracker');
         }}
-        className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#131525] dark:to-[#0B0D18] border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/50 dark:hover:border-amber-500/40 p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Mock Test Tracker & Performance Analytics"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -217,20 +213,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </svg>
         </div>
 
-        {/* Title & Micro Action */}
-        <div className="mt-3 space-y-1">
-          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+        {/* Title & Action */}
+        <div className="mt-4 flex flex-col items-center gap-3">
+          <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors font-grotesk">
             Mock Test Tracker
           </h3>
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Full Mocks & Sectional Tests • All-India Rank, Percentile & Score Tracker
-          </p>
-        </div>
 
-        {/* Bottom Action Pill */}
-        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-2xs">
-          <span>Open Mock Tracker</span>
-          <span>→</span>
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-amber-500/30 group-hover:bg-amber-500 group-hover:text-black group-hover:border-amber-500 transition-all shadow-xs">
+            <span>Open Mock Tracker</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+          </div>
         </div>
       </div>
 
@@ -241,7 +233,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('platforms');
         }}
-        className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#131525] dark:to-[#0B0D18] border border-slate-200/90 dark:border-white/[0.08] hover:border-teal-500/50 dark:hover:border-teal-500/40 p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Mock Study Portals & Practice Platforms"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -312,20 +304,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </svg>
         </div>
 
-        {/* Title & Micro Action */}
-        <div className="mt-3 space-y-1">
-          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+        {/* Title & Action */}
+        <div className="mt-4 flex flex-col items-center gap-3">
+          <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-teal-500 dark:group-hover:text-teal-400 transition-colors font-grotesk">
             Mock & Study Portals
           </h3>
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Direct Access to Testbook, Oliveboard & Top Exam Platforms
-          </p>
-        </div>
 
-        {/* Bottom Action Pill */}
-        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-200/80 dark:border-teal-700/50 group-hover:bg-teal-600 group-hover:text-white transition-all shadow-2xs">
-          <span>Open Study Portals</span>
-          <span>→</span>
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-200/80 dark:border-teal-500/30 group-hover:bg-teal-600 group-hover:text-white group-hover:border-teal-600 transition-all shadow-xs">
+            <span>Open Study Portals</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+          </div>
         </div>
       </div>
 
