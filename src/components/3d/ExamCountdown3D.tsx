@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSyllabus } from '../../context/SyllabusContext';
-import { Calendar, Target, Clock, Zap, Flame, Pencil } from 'lucide-react';
+import { Calendar, Target, Pencil } from 'lucide-react';
 
 interface ExamCountdown3DProps {
   onEditDate?: () => void;
@@ -8,7 +8,7 @@ interface ExamCountdown3DProps {
 }
 
 export const ExamCountdown3D: React.FC<ExamCountdown3DProps> = React.memo(({ onEditDate, className = '' }) => {
-  const { currentExam, overallStats } = useSyllabus();
+  const { currentExam } = useSyllabus();
 
   // Calculate dynamic countdown with automatic smart rollover if date has passed
   const [timeLeft, setTimeLeft] = useState<{
@@ -132,21 +132,6 @@ export const ExamCountdown3D: React.FC<ExamCountdown3DProps> = React.memo(({ onE
     };
   }, [timeLeft.days]);
 
-  // Daily Pace Target calculation (topics per day)
-  const paceTarget = useMemo(() => {
-    const total = overallStats?.totalTopics || 0;
-    const done = overallStats?.completedCount || 0;
-    const remaining = Math.max(0, total - done);
-    const days = Math.max(1, timeLeft.days);
-
-    if (remaining === 0) return { text: 'Syllabus Completed', isComplete: true };
-    const perDay = Math.abs(Number((remaining / days).toFixed(1)));
-    return {
-      text: `${perDay} topics/day pace`,
-      isComplete: false
-    };
-  }, [overallStats?.totalTopics, overallStats?.completedCount, timeLeft.days]);
-
   const examName = currentExam?.name || 'Target Exam';
 
   return (
@@ -193,12 +178,6 @@ export const ExamCountdown3D: React.FC<ExamCountdown3DProps> = React.memo(({ onE
             </div>
           </div>
         </div>
-
-        {/* Pace Requirement Badge */}
-        <div className="flex items-center gap-1.5 text-xs font-sans self-start sm:self-auto px-3 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 shadow-2xs font-semibold">
-          <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" />
-          <span className="truncate">{paceTarget.text}</span>
-        </div>
       </div>
 
       {/* 4 Clean Modern Executive Countdown Cards */}
@@ -233,23 +212,6 @@ export const ExamCountdown3D: React.FC<ExamCountdown3DProps> = React.memo(({ onE
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Footer: Dynamic Runway Timeline Track & Motivational Target */}
-      <div className="relative z-10 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-sans">
-        <div className="flex items-center gap-2 min-w-0">
-          <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
-          <span className="truncate text-slate-600 dark:text-slate-300">
-            Runway: <strong className="text-slate-900 dark:text-white font-bold">{timeLeft.days} Days {timeLeft.hours}h</strong> remaining
-          </span>
-          <span className="text-slate-300 dark:text-slate-600 hidden sm:inline">•</span>
-          <span className="text-slate-500 dark:text-slate-400 hidden sm:inline truncate">{phaseConfig.sub}</span>
-        </div>
-
-        <div className="flex items-center gap-1.5 font-semibold text-amber-600 dark:text-amber-400 self-end sm:self-auto shrink-0">
-          <Flame className="w-3.5 h-3.5 fill-current" />
-          <span>Keep Consistent & Focused</span>
-        </div>
       </div>
     </div>
   );
