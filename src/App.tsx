@@ -40,6 +40,7 @@ const PacingView = lazy(() => import('./components/views/PacingView').then(m => 
 const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
 const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
 const MockTrackerView = lazy(() => import('./components/views/MockTrackerView').then(m => ({ default: m.MockTrackerView })));
+const DailyTargetsView = lazy(() => import('./components/views/DailyTargetsView').then(m => ({ default: m.DailyTargetsView })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
 const TopicDetailDrawer = lazy(() => import('./components/modals/TopicDetailDrawer').then(m => ({ default: m.TopicDetailDrawer })));
@@ -53,6 +54,8 @@ const KeyboardShortcutsModal = lazy(() => import('./components/modals/KeyboardSh
 const WalkAndReviseModal = lazy(() => import('./components/modals/WalkAndReviseModal').then(m => ({ default: m.WalkAndReviseModal })));
 const SmartBacklogRescueModal = lazy(() => import('./components/modals/SmartBacklogRescueModal').then(m => ({ default: m.SmartBacklogRescueModal })));
 const PricingSubscriptionModal = lazy(() => import('./components/modals/PricingSubscriptionModal').then(m => ({ default: m.PricingSubscriptionModal })));
+const DailyReflectionModal = lazy(() => import('./components/modals/DailyReflectionModal').then(m => ({ default: m.DailyReflectionModal })));
+const ReflectionHistoryModal = lazy(() => import('./components/modals/ReflectionHistoryModal').then(m => ({ default: m.ReflectionHistoryModal })));
 
 const ViewLoadingFallback: React.FC = () => (
   <div className="w-full space-y-5 animate-view-fade select-none pb-12">
@@ -73,6 +76,7 @@ const ViewLoadingFallback: React.FC = () => (
 
 const VALID_VIEWS = new Set<AppView>([
   'overview',
+  'targets',
   'planner',
   'routine',
   'platforms',
@@ -135,6 +139,8 @@ export const App: React.FC = () => {
   const [isRevisionSessionOpen, setIsRevisionSessionOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
+  const [isNightJournalOpen, setIsNightJournalOpen] = useState(false);
+  const [isReflectionHistoryOpen, setIsReflectionHistoryOpen] = useState(false);
   const [shortcutToast, setShortcutToast] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [focusTopicId, setFocusTopicId] = useState<string | undefined>(undefined);
@@ -351,6 +357,14 @@ export const App: React.FC = () => {
       }
       if (isBacklogRescueOpen) {
         setIsBacklogRescueOpen(false);
+        return;
+      }
+      if (isNightJournalOpen) {
+        setIsNightJournalOpen(false);
+        return;
+      }
+      if (isReflectionHistoryOpen) {
+        setIsReflectionHistoryOpen(false);
         return;
       }
       if (isFullModalOpen) {
@@ -842,6 +856,7 @@ export const App: React.FC = () => {
           onOpenFocus={() => handleLaunchFocus(undefined)}
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
           onOpenPricing={() => setIsPricingOpen(true)}
+          onOpenNightJournal={() => setIsNightJournalOpen(true)}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={toggleDesktopSidebar}
         />
@@ -868,6 +883,10 @@ export const App: React.FC = () => {
           onOpenFocus={() => {
             setIsMobileDrawerOpen(false);
             handleLaunchFocus(undefined);
+          }}
+          onOpenNightJournal={() => {
+            setIsMobileDrawerOpen(false);
+            setIsNightJournalOpen(true);
           }}
           onOpenSearch={() => {
             setIsMobileDrawerOpen(false);
@@ -925,6 +944,18 @@ export const App: React.FC = () => {
 
             {/* Lazy-Loaded Secondary Views with Suspense Fallback & Per-View Crash Protection */}
             <Suspense fallback={<ViewLoadingFallback />}>
+              {currentView === 'targets' && (
+                <ViewErrorBoundary sectionName="Top 3 Daily Targets" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                  <DailyTargetsView
+                    onOpenTopicDrawer={handleOpenTopicDrawer}
+                    onOpenFocus={handleLaunchFocus}
+                    onNavigate={handleNavigate}
+                    onOpenNightJournal={() => setIsNightJournalOpen(true)}
+                    onOpenHistory={() => setIsReflectionHistoryOpen(true)}
+                  />
+                </ViewErrorBoundary>
+              )}
+
               {(currentView === 'planner' || currentView === 'routine') && (
                 <ViewErrorBoundary sectionName={currentView === 'routine' ? "Daily Routine" : "Study Planner"} showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <PlannerView
@@ -1182,6 +1213,30 @@ export const App: React.FC = () => {
             <PricingSubscriptionModal
               isOpen={isPricingOpen}
               onClose={() => setIsPricingOpen(false)}
+            />
+          </ViewErrorBoundary>
+        )}
+        {isNightJournalOpen && (
+          <ViewErrorBoundary sectionName="Night Reflection Journal Modal" onReset={() => setIsNightJournalOpen(false)}>
+            <DailyReflectionModal
+              isOpen={isNightJournalOpen}
+              onClose={() => setIsNightJournalOpen(false)}
+              onOpenHistory={() => {
+                setIsNightJournalOpen(false);
+                setIsReflectionHistoryOpen(true);
+              }}
+            />
+          </ViewErrorBoundary>
+        )}
+        {isReflectionHistoryOpen && (
+          <ViewErrorBoundary sectionName="Reflection History Modal" onReset={() => setIsReflectionHistoryOpen(false)}>
+            <ReflectionHistoryModal
+              isOpen={isReflectionHistoryOpen}
+              onClose={() => setIsReflectionHistoryOpen(false)}
+              onOpenNewReflection={() => {
+                setIsReflectionHistoryOpen(false);
+                setIsNightJournalOpen(true);
+              }}
             />
           </ViewErrorBoundary>
         )}

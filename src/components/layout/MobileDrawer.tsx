@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
   X,
+  Target,
+  Moon,
   LayoutDashboard,
   CalendarCheck,
   BrainCircuit,
   BookOpen,
   RotateCw,
   AlertTriangle,
-  BarChart3,
   Settings,
   Plus,
   Globe,
@@ -18,16 +19,11 @@ import {
   Clock,
   Sparkles,
   Video,
-  Trophy,
   Smartphone,
   Download,
   Home,
-  Folder,
   User,
-  LogOut,
-  Radio,
-  FileText,
-  Bookmark
+  LogOut
 } from 'lucide-react';
 import { AppView } from './Sidebar';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -46,6 +42,7 @@ interface MobileDrawerProps {
   onOpenAddTopic?: () => void;
   onOpenAiArchitect?: () => void;
   onOpenFocus?: () => void;
+  onOpenNightJournal?: () => void;
   onOpenSearch?: () => void;
 }
 
@@ -57,9 +54,10 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onOpenAddTopic,
   onOpenAiArchitect,
   onOpenFocus,
+  onOpenNightJournal,
   onOpenSearch
 }) => {
-  const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile } = useSyllabus();
+  const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile, top3Targets } = useSyllabus();
   const { user, logout } = useAuth();
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
 
@@ -76,6 +74,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
   const platformsSafe = Array.isArray(platforms) ? platforms : [];
+  const top3TargetsSafe = Array.isArray(top3Targets) ? top3Targets : [];
+  const completedTargets = top3TargetsSafe.filter(t => t.text && t.text.trim() && t.completed);
 
   // Mobile Swipe-to-Dismiss Drawer Gesture State
   const drawerTouchStartX = useRef<number | null>(null);
@@ -123,22 +123,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       title: 'TESTS',
       items: [
         {
-          id: 'mock-tracker' as AppView,
-          label: 'ProMocks',
-          icon: FileText,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
-        },
-        {
-          id: 'mock-tracker' as AppView,
-          label: 'FREE Live Mock',
-          icon: Radio,
-          badge: 'LIVE',
-          badgeStyle: 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30 font-bold',
-          iconBg: 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30'
-        },
-        {
           id: 'syllabus' as AppView,
           label: 'Syllabus Explorer',
           icon: BookOpen,
@@ -166,22 +150,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           badge: null,
           badgeStyle: '',
           iconBg: 'bg-slate-500/15 text-slate-600 dark:text-slate-300 border-slate-500/30'
-        },
-        {
-          id: 'analytics' as AppView,
-          label: 'Performance',
-          icon: BarChart3,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30'
-        },
-        {
-          id: 'weak' as AppView,
-          label: 'Saved Question',
-          icon: Bookmark,
-          badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
-          badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
-          iconBg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
         },
         {
           id: 'youtube-notes' as AppView,
@@ -283,7 +251,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             </div>
           </div>
 
-          {/* 1.6 HOME & DAILY PRACTICE SCHEDULE */}
+          {/* 1.6 HOME, TOP 3 TARGETS & NIGHT JOURNAL */}
           <div className="space-y-1">
             <button
               type="button"
@@ -302,28 +270,53 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               <span className="truncate">Home</span>
             </button>
 
+            {/* Top 3 Daily Targets Link */}
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
-                onSelectView('planner');
+                onSelectView('targets');
                 onClose();
               }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold ${
-                activeView === 'planner'
-                  ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                activeView === 'targets'
+                  ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <div className="flex items-center gap-3 min-w-0">
-                <Folder className="w-4 h-4 stroke-[2.2]" />
-                <span className="truncate">Daily Practice Schedule</span>
+                <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
+                <span className="truncate">Top 3 Daily Targets</span>
               </div>
-              {plannerTasksSafe.filter(t => t.status === 'today').length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">
-                  {plannerTasksSafe.filter(t => t.status === 'today').length}
-                </span>
-              )}
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold shrink-0 ${
+                completedTargets.length === 3
+                  ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'
+                  : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
+              }`}>
+                {completedTargets.length}/3
+              </span>
+            </button>
+
+            {/* Night Journal Link */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                onClose();
+                if (onOpenNightJournal) {
+                  onOpenNightJournal();
+                }
+              }}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-950/30 hover:text-purple-700 dark:hover:text-purple-300 group"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <Moon className="w-4 h-4 stroke-[2.2] text-purple-500 group-hover:scale-110 transition-transform shrink-0" />
+                <span className="truncate">Night Journal</span>
+              </div>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/20 shrink-0">
+                1-Min
+              </span>
             </button>
           </div>
 

@@ -410,6 +410,8 @@ export const Header: React.FC<HeaderProps> = ({
           <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate">
             {currentView === 'overview'
               ? 'Home'
+              : currentView === 'targets'
+              ? 'Top 3 Daily Targets'
               : (currentView === 'planner' || currentView === 'routine')
               ? (currentView === 'routine' ? 'Daily Routine' : 'Daily Practice Schedule')
               : currentView === 'mock-tracker'

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Home,
+  Target,
+  Moon,
   RotateCw,
   BrainCircuit,
   BookOpen,
@@ -22,6 +24,7 @@ import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 
 export type AppView =
   | 'overview'
+  | 'targets'
   | 'planner'
   | 'routine'
   | 'platforms'
@@ -60,6 +63,7 @@ interface SidebarProps {
   onOpenFocus?: () => void;
   onOpenShortcuts?: () => void;
   onOpenPricing?: () => void;
+  onOpenNightJournal?: () => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
 }
@@ -72,10 +76,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenFocus,
   onOpenShortcuts,
   onOpenPricing,
+  onOpenNightJournal,
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, currentExam } = useSyllabus();
+  const { profile, dueRevisions, weakTopics, plannerTasks, platforms, currentExam, top3Targets } = useSyllabus();
   const { user, logout } = useAuth();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
@@ -91,6 +96,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
   const platformsSafe = Array.isArray(platforms) ? platforms : [];
+  const top3TargetsSafe = Array.isArray(top3Targets) ? top3Targets : [];
+  const completedTargets = top3TargetsSafe.filter(t => t.text && t.text.trim() && t.completed);
 
   // Collapsible Groups State
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(() => {
@@ -287,6 +294,53 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <Home className="w-4 h-4 stroke-[2.2]" />
             <span className="truncate">Home</span>
+          </button>
+
+          {/* Top 3 Daily Targets Link */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              onSelectView('targets');
+            }}
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+              activeView === 'targets'
+                ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
+                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
+              <span className="truncate">Top 3 Daily Targets</span>
+            </div>
+            <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold shrink-0 ${
+              completedTargets.length === 3
+                ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'
+                : 'bg-amber-500/20 text-amber-700 dark:text-amber-300'
+            }`}>
+              {completedTargets.length}/3
+            </span>
+          </button>
+
+          {/* Night Journal Link (1-Min Reflection) */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              if (onOpenNightJournal) {
+                onOpenNightJournal();
+              }
+            }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-950/30 hover:text-purple-700 dark:hover:text-purple-300 group"
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <Moon className="w-4 h-4 stroke-[2.2] text-purple-500 group-hover:scale-110 transition-transform shrink-0" />
+              <span className="truncate">Night Journal</span>
+            </div>
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/20 shrink-0">
+              1-Min
+            </span>
           </button>
         </div>
 

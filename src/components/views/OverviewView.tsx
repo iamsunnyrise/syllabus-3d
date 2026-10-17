@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { Topic } from '../../types/syllabus';
-import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { ExamTargetMissionBanner } from '../dashboard/ExamTargetMissionBanner';
 import { AppFooter } from '../common/AppFooter';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
@@ -438,10 +437,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         })}
       </div>
 
-      {/* 4. TOP 3 NON-NEGOTIABLES & NIGHT REFLECTION WIDGET */}
-      <Top3TargetsWidget />
-
-      {/* 5. SYLLABUS MASTERY ENGINE */}
+      {/* 4. SYLLABUS MASTERY ENGINE */}
       <div className="w-full p-4 sm:p-5.5 rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col justify-between relative overflow-hidden space-y-4">
         
         {/* Header Row */}
