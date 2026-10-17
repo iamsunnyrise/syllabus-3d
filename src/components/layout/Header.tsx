@@ -14,7 +14,6 @@ import {
   WifiOff,
   Download,
   Settings2,
-  PanelLeftOpen,
   Sparkles,
   Lock,
   Plus,
@@ -178,23 +177,6 @@ export const Header: React.FC<HeaderProps> = ({
             <Menu className="w-4 h-4" />
           </button>
 
-          {/* Desktop Sidebar Toggle (>= md): Appears when sidebar is collapsed */}
-          {isSidebarCollapsed && onToggleDesktopSidebar && (
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.light();
-                onToggleDesktopSidebar();
-              }}
-              className="hidden md:flex items-center gap-1.5 h-9 px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-amber-500 transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 group animate-fade-in"
-              title="Open sidebar (Ctrl+B)"
-              aria-label="Open sidebar"
-            >
-              <PanelLeftOpen className="w-4 h-4 text-slate-800 dark:text-slate-200 group-hover:text-amber-500 transition-colors group-hover:scale-110" />
-              <span className="text-xs font-bold hidden lg:inline">Sidebar</span>
-            </button>
-          )}
 
           {/* Responsive Exam Selector (Mobile & Desktop) with Target Year & Live Countdown */}
           <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
