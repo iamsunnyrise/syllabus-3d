@@ -90,12 +90,22 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     openPermissionModal
   } = useTimer();
   const { theme, isDark, toggleTheme } = useTheme();
+  const isSepia = theme === 'warm-cream';
 
   const [enableWallpaper, setEnableWallpaper] = useState<boolean>(() => {
     try {
       return localStorage.getItem('syllabus3d_focus_wallpaper') !== 'false';
     } catch {
       return true;
+    }
+  });
+
+  const [darkWallpaperChoice, setDarkWallpaperChoice] = useState<'day' | 'night'>(() => {
+    try {
+      const saved = localStorage.getItem('syllabus3d_focus_dark_wallpaper');
+      return (saved === 'night' || saved === 'day') ? saved : 'day';
+    } catch {
+      return 'day';
     }
   });
 
@@ -108,6 +118,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       return next;
     });
   }, []);
+
+  const handleSelectDarkWallpaper = useCallback((choice: 'day' | 'night') => {
+    setDarkWallpaperChoice(choice);
+    try {
+      localStorage.setItem('syllabus3d_focus_dark_wallpaper', choice);
+    } catch {}
+  }, []);
+
+  const cardBaseStyle = useMemo(() => {
+    if (isSepia) {
+      return 'bg-[#FFF9EE]/85 dark:bg-[#FFF9EE]/85 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_8px_30px_rgba(180,140,80,0.12)]';
+    }
+    if (isDark) {
+      return 'bg-[#111322]/85 border-white/[0.10] text-white shadow-xl';
+    }
+    return 'bg-white/85 border-slate-200/90 text-slate-900 shadow-lg';
+  }, [isSepia, isDark]);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBrowserFullscreen, setIsBrowserFullscreen] = useState(false);
@@ -655,7 +682,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 1: Today's Focus Checklist
   const renderTodayFocusCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3.5">
+    <div className={`rounded-3xl ${cardBaseStyle} backdrop-blur-2xl p-4 sm:p-5 space-y-3.5`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
@@ -732,7 +759,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 2: Current Focus Target Topic
   const renderCurrentTaskCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3">
+    <div className={`rounded-3xl ${cardBaseStyle} backdrop-blur-2xl p-4 sm:p-5 space-y-3`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
@@ -771,7 +798,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 3: Focus Music & Waveform Ambience
   const renderFocusMusicCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3">
+    <div className={`rounded-3xl ${cardBaseStyle} backdrop-blur-2xl p-4 sm:p-5 space-y-3`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] dark:text-[#A78BFA] flex items-center justify-center">
@@ -863,7 +890,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 4: Advanced Session Stats 2x2 Bento Grid + Date-Wise Timeline
   const renderSessionStatsCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-4 relative">
+    <div className={`rounded-3xl ${cardBaseStyle} backdrop-blur-2xl p-4 sm:p-5 space-y-4 relative`}>
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -1104,28 +1131,81 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     >
       {/* 🌌 Contained Atmospheric Background System (Zero Bleed, Theme-Cohesive) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-        {/* 🌃 Night Mode Realistic Cozy Study Desk Wallpaper */}
-        {isDark && enableWallpaper && (
+        {/* 🖼️ Realistic Study Desk Ambience Wallpaper (Dark, Sepia & Light) */}
+        {enableWallpaper && (
           <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-            <img
-              src="/focus-desk-night.png"
-              alt="Night Study Desk Ambience"
-              className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
-              style={{
-                opacity: 0.65,
-                filter: 'brightness(0.96) contrast(1.04)'
-              }}
-            />
-            {/* Cinematic Multi-stop Vignette & Depth Mask */}
-            <div
-              className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
-              style={{
-                background: `
-                  radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.38) 0%, rgba(9, 10, 18, 0.70) 62%, rgba(6, 7, 13, 0.92) 100%),
-                  linear-gradient(to bottom, rgba(9, 10, 18, 0.78) 0%, rgba(9, 10, 18, 0.22) 35%, rgba(9, 10, 18, 0.52) 70%, rgba(6, 7, 13, 0.92) 100%)
-                `
-              }}
-            />
+            {isDark ? (
+              <>
+                {/* Dark Mode: Sunlit Desk with Cinematic Night Studio Vignette (or Nocturnal Desk) */}
+                <img
+                  src={darkWallpaperChoice === 'night' ? "/focus-desk-night.png" : "/focus-desk-day.jpg"}
+                  alt="Dark Study Desk Ambience"
+                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                  style={{
+                    opacity: darkWallpaperChoice === 'night' ? 0.65 : 0.55,
+                    filter: darkWallpaperChoice === 'night'
+                      ? 'brightness(0.96) contrast(1.04)'
+                      : 'brightness(0.68) contrast(1.18) saturate(0.92)'
+                  }}
+                />
+                {/* Cinematic Multi-stop Vignette & Depth Mask */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background: `
+                      radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.38) 0%, rgba(9, 10, 18, 0.70) 62%, rgba(6, 7, 13, 0.92) 100%),
+                      linear-gradient(to bottom, rgba(9, 10, 18, 0.78) 0%, rgba(9, 10, 18, 0.22) 35%, rgba(9, 10, 18, 0.52) 70%, rgba(6, 7, 13, 0.92) 100%)
+                    `
+                  }}
+                />
+              </>
+            ) : isSepia ? (
+              <>
+                {/* Sepia Mode: Sunlit Desk with Warm Golden Cream Ambience */}
+                <img
+                  src="/focus-desk-day.jpg"
+                  alt="Sepia Study Desk Ambience"
+                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                  style={{
+                    opacity: 0.72,
+                    filter: 'sepia(0.35) saturate(1.2) brightness(0.98)'
+                  }}
+                />
+                {/* Warm Sepia Atmospheric Vignette */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background: `
+                      radial-gradient(ellipse at 50% 50%, rgba(250, 238, 217, 0.40) 0%, rgba(250, 238, 217, 0.72) 62%, rgba(246, 235, 212, 0.92) 100%),
+                      linear-gradient(to bottom, rgba(250, 238, 217, 0.78) 0%, rgba(250, 238, 217, 0.20) 35%, rgba(250, 238, 217, 0.50) 70%, rgba(246, 235, 212, 0.90) 100%)
+                    `
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                {/* Light Mode: Sunlit Desk with Crisp Studio Ambience */}
+                <img
+                  src="/focus-desk-day.jpg"
+                  alt="Daylight Study Desk Ambience"
+                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                  style={{
+                    opacity: 0.65,
+                    filter: 'brightness(0.98) contrast(1.02)'
+                  }}
+                />
+                {/* Crisp Alabaster Atmospheric Vignette */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background: `
+                      radial-gradient(ellipse at 50% 50%, rgba(248, 250, 252, 0.40) 0%, rgba(248, 250, 252, 0.72) 62%, rgba(241, 245, 249, 0.92) 100%),
+                      linear-gradient(to bottom, rgba(248, 250, 252, 0.78) 0%, rgba(248, 250, 252, 0.20) 35%, rgba(248, 250, 252, 0.50) 70%, rgba(241, 245, 249, 0.90) 100%)
+                    `
+                  }}
+                />
+              </>
+            )}
           </div>
         )}
 
@@ -1200,7 +1280,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               {isBrowserFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
             </button>
 
-            {/* Theme Toggle (Day / Night Ambience) */}
+            {/* Ambience Theme Toggle (Dark / Sepia / Light) */}
             <button
               type="button"
               onClick={() => {
@@ -1209,10 +1289,22 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 toggleTheme();
               }}
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
-              title={isDark ? "Switch to Day Mode (D)" : "Switch to Night Study Desk Ambience (D)"}
-              aria-label="Toggle Night Mode"
+              title={
+                theme === 'dark'
+                  ? 'Switch to Day Ambience (D)'
+                  : theme === 'light'
+                  ? 'Switch to Sepia Ambience (D)'
+                  : 'Switch to Night Ambience (D)'
+              }
+              aria-label="Toggle Ambience Mode"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+              {theme === 'dark' ? (
+                <Moon className="w-4 h-4 text-indigo-400" />
+              ) : theme === 'warm-cream' ? (
+                <Coffee className="w-4 h-4 text-amber-600" />
+              ) : (
+                <Sun className="w-4 h-4 text-amber-500" />
+              )}
             </button>
 
             {/* Picture-in-Picture (Hidden on small mobile screens) */}
@@ -2000,22 +2092,57 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 </div>
               </div>
 
-              {/* Night Ambience Wallpaper Toggle */}
-              <div className="pt-2 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-                <div>
-                  <span className="block font-bold text-xs text-slate-900 dark:text-white">Night Study Desk Ambience</span>
-                  <span className="block text-[10px] text-slate-400 dark:text-slate-500">Cozy realistic study desk wallpaper</span>
+              {/* Study Desk Ambience Wallpaper Toggle */}
+              <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="block font-bold text-xs text-slate-900 dark:text-white">Study Desk Wallpaper</span>
+                    <span className="block text-[10px] text-slate-400 dark:text-slate-500">Realistic study desk background</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleToggleWallpaper}
+                    className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${
+                      enableWallpaper ? 'bg-[#0066FF] justify-end' : 'bg-slate-300 dark:bg-white/20 justify-start'
+                    }`}
+                    title={enableWallpaper ? "Disable Desk Wallpaper" : "Enable Desk Wallpaper"}
+                  >
+                    <div className="w-4 h-4 rounded-full bg-white shadow-md" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleToggleWallpaper}
-                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${
-                    enableWallpaper ? 'bg-[#0066FF] justify-end' : 'bg-slate-300 dark:bg-white/20 justify-start'
-                  }`}
-                  title={enableWallpaper ? "Disable Night Desk Wallpaper" : "Enable Night Desk Wallpaper"}
-                >
-                  <div className="w-4 h-4 rounded-full bg-white shadow-md" />
-                </button>
+
+                {/* Dark Mode Wallpaper Switcher */}
+                {isDark && enableWallpaper && (
+                  <div className="pt-1">
+                    <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">
+                      Dark Mode Wallpaper Style:
+                    </span>
+                    <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10">
+                      <button
+                        type="button"
+                        onClick={() => handleSelectDarkWallpaper('day')}
+                        className={`px-2 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          darkWallpaperChoice === 'day'
+                            ? 'bg-white dark:bg-[#1E2235] text-[#0066FF] dark:text-[#38BDF8] shadow-xs'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                      >
+                        ☀️ Sunlit Desk
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSelectDarkWallpaper('night')}
+                        className={`px-2 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          darkWallpaperChoice === 'night'
+                            ? 'bg-white dark:bg-[#1E2235] text-[#0066FF] dark:text-[#38BDF8] shadow-xs'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                      >
+                        🌙 Nocturnal Lamp
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
