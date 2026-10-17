@@ -22,6 +22,8 @@ import {
   Flame,
   Waves,
   Volume2,
+  Sun,
+  Moon,
   Maximize2,
   Minimize2,
   PictureInPicture2,
@@ -87,7 +89,25 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     showFloatingOverlay,
     openPermissionModal
   } = useTimer();
-  const { theme, isDark } = useTheme();
+  const { theme, isDark, toggleTheme } = useTheme();
+
+  const [enableWallpaper, setEnableWallpaper] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('syllabus3d_focus_wallpaper') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
+  const handleToggleWallpaper = useCallback(() => {
+    setEnableWallpaper(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem('syllabus3d_focus_wallpaper', String(next));
+      } catch {}
+      return next;
+    });
+  }, []);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBrowserFullscreen, setIsBrowserFullscreen] = useState(false);
@@ -353,11 +373,13 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         handleResetOrStop();
       } else if (e.key === 'f' || e.key === 'F') {
         handleToggleFullscreen();
+      } else if (e.key === 'd' || e.key === 'D') {
+        toggleTheme();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, isTopicSearchOpen, isSettingsOpen, onClose]);
+  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, toggleTheme, isTopicSearchOpen, isSettingsOpen, onClose]);
 
   // Today's Focus Checklist from Planner or Syllabus
   const todayTasks = useMemo(() => {
@@ -558,10 +580,10 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     if (isDark) {
       return {
         containerClass: 'bg-[#090A12] text-white',
-        centerAura: `radial-gradient(ellipse at 50% 45%, ${modeTheme.glow.replace('0.45', '0.20').replace('0.55', '0.22')} 0%, rgba(15, 23, 42, 0.45) 42%, transparent 72%)`,
-        cornerAura1: 'radial-gradient(circle at 8% 8%, rgba(30, 58, 138, 0.22) 0%, transparent 55%)',
-        cornerAura2: 'radial-gradient(circle at 92% 92%, rgba(99, 102, 241, 0.18) 0%, transparent 55%)',
-        dotPattern: 'rgba(255, 255, 255, 0.035)',
+        centerAura: `radial-gradient(ellipse at 50% 45%, ${modeTheme.glow.replace('0.45', '0.16').replace('0.55', '0.18')} 0%, rgba(15, 23, 42, 0.35) 42%, transparent 72%)`,
+        cornerAura1: 'radial-gradient(circle at 8% 8%, rgba(30, 58, 138, 0.15) 0%, transparent 55%)',
+        cornerAura2: 'radial-gradient(circle at 92% 92%, rgba(99, 102, 241, 0.12) 0%, transparent 55%)',
+        dotPattern: 'rgba(255, 255, 255, 0.025)',
         runningAura: modeTheme.glow
       };
     }
@@ -633,7 +655,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 1: Today's Focus Checklist
   const renderTodayFocusCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3.5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#0066FF]/10 text-[#0066FF] dark:text-[#38BDF8] flex items-center justify-center">
@@ -710,7 +732,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 2: Current Focus Target Topic
   const renderCurrentTaskCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
+    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
@@ -749,7 +771,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 3: Focus Music & Waveform Ambience
   const renderFocusMusicCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-3">
+    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] dark:text-[#A78BFA] flex items-center justify-center">
@@ -841,7 +863,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   // Sub-timer Card 4: Advanced Session Stats 2x2 Bento Grid + Date-Wise Timeline
   const renderSessionStatsCard = () => (
-    <div className="rounded-3xl bg-white/90 dark:bg-[#131522]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl p-4 sm:p-5 shadow-sm space-y-4 relative">
+    <div className="rounded-3xl bg-white/90 dark:bg-[#111322]/85 border border-slate-200/90 dark:border-white/[0.10] backdrop-blur-2xl p-4 sm:p-5 shadow-lg space-y-4 relative">
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -1082,6 +1104,31 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     >
       {/* 🌌 Contained Atmospheric Background System (Zero Bleed, Theme-Cohesive) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+        {/* 🌃 Night Mode Realistic Cozy Study Desk Wallpaper */}
+        {isDark && enableWallpaper && (
+          <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+            <img
+              src="/focus-desk-night.png"
+              alt="Night Study Desk Ambience"
+              className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+              style={{
+                opacity: 0.65,
+                filter: 'brightness(0.96) contrast(1.04)'
+              }}
+            />
+            {/* Cinematic Multi-stop Vignette & Depth Mask */}
+            <div
+              className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.38) 0%, rgba(9, 10, 18, 0.70) 62%, rgba(6, 7, 13, 0.92) 100%),
+                  linear-gradient(to bottom, rgba(9, 10, 18, 0.78) 0%, rgba(9, 10, 18, 0.22) 35%, rgba(9, 10, 18, 0.52) 70%, rgba(6, 7, 13, 0.92) 100%)
+                `
+              }}
+            />
+          </div>
+        )}
+
         {/* 1. Primary Center Atmosphere Vignette */}
         <div
           className="absolute inset-0 transition-all duration-1000"
@@ -1151,6 +1198,21 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               aria-label="Toggle Fullscreen"
             >
               {isBrowserFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
+
+            {/* Theme Toggle (Day / Night Ambience) */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                toggleTheme();
+              }}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+              title={isDark ? "Switch to Day Mode (D)" : "Switch to Night Study Desk Ambience (D)"}
+              aria-label="Toggle Night Mode"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
             </button>
 
             {/* Picture-in-Picture (Hidden on small mobile screens) */}
@@ -1936,6 +1998,24 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     </button>
                   ))}
                 </div>
+              </div>
+
+              {/* Night Ambience Wallpaper Toggle */}
+              <div className="pt-2 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
+                <div>
+                  <span className="block font-bold text-xs text-slate-900 dark:text-white">Night Study Desk Ambience</span>
+                  <span className="block text-[10px] text-slate-400 dark:text-slate-500">Cozy realistic study desk wallpaper</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleToggleWallpaper}
+                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${
+                    enableWallpaper ? 'bg-[#0066FF] justify-end' : 'bg-slate-300 dark:bg-white/20 justify-start'
+                  }`}
+                  title={enableWallpaper ? "Disable Night Desk Wallpaper" : "Enable Night Desk Wallpaper"}
+                >
+                  <div className="w-4 h-4 rounded-full bg-white shadow-md" />
+                </button>
               </div>
             </div>
 
