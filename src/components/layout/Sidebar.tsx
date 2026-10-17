@@ -14,7 +14,10 @@ import {
   Video,
   ChevronDown,
   User,
-  LogOut
+  LogOut,
+  Gauge,
+  BarChart3,
+  AlertTriangle
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -178,6 +181,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           icon: RotateCw,
           badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length}` : null,
           badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+        },
+        {
+          id: 'weak',
+          label: 'Weak Topics',
+          icon: AlertTriangle,
+          badge: weakTopicsSafe.length ? `${weakTopicsSafe.length}` : null,
+          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
         }
       ]
     },
@@ -188,6 +198,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'settings',
           label: 'My profile',
           icon: User
+        },
+        {
+          id: 'pacing',
+          label: 'Target Pacing',
+          icon: Gauge,
+          shortcut: '4'
+        },
+        {
+          id: 'analytics',
+          label: 'Analytics',
+          icon: BarChart3
         },
         {
           id: 'youtube-notes',
