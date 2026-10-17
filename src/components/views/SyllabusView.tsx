@@ -37,7 +37,6 @@ import { EditChapterModal } from '../modals/EditChapterModal';
 import { soundManager } from '../../utils/soundEffects';
 import { calculatePacingForecast } from '../../utils/pacingCalculator';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
-import { DailyProgressWidget } from '../dashboard/DailyProgressWidget';
 
 interface SyllabusViewProps {
   onOpenTopicDrawer: (topic: Topic, subName: string, chName: string) => void;
@@ -601,16 +600,127 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. EXECUTIVE DAILY PROGRESS CARD FOR CHAPTER */}
-        <DailyProgressWidget
-          completed={completedInActiveChapter}
-          total={totalInActiveChapter > 0 ? totalInActiveChapter : 5}
-          dayRankText="—"
-          dayRankTotal={4833}
-          dayRankLabel="Day 10 rank"
-          attemptedTotal={totalInActiveChapter > 0 ? (totalInActiveChapter === 5 ? 127 : totalInActiveChapter) : 127}
-          accuracyPercentage={chapterPercent}
-        />
+        {/* 2. 4 ROUNDED EXECUTIVE METRIC CARDS FOR CHAPTER */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 print:hidden">
+          {/* Card 1: Total Topics */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <FileText className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {completedInActiveChapter}/{totalInActiveChapter} Done
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {totalInActiveChapter}
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Chapter Topics
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#6366F1]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                {completedInActiveChapter} of {totalInActiveChapter} mastered
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Mastered Topics */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-[#FFF1F2] dark:bg-rose-500/15 border border-[#FECDD3] dark:border-rose-400/30 text-rose-500 dark:text-rose-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <CheckCircle2 className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {totalInActiveChapter > 0 ? Math.round((completedInActiveChapter / totalInActiveChapter) * 100) : 0}% Done
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="flex items-baseline gap-1.5 text-slate-900 dark:text-white leading-none">
+                <span className="text-2xl sm:text-3xl font-black font-sans tracking-tight tabular-nums">
+                  {completedInActiveChapter}
+                </span>
+                <span className="text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-500 font-sans">
+                  / {totalInActiveChapter}
+                </span>
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Mastered Topics
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#F43F5E]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                {totalInActiveChapter - completedInActiveChapter === 0 && totalInActiveChapter > 0
+                  ? 'All Completed! 🎉'
+                  : `${Math.max(0, totalInActiveChapter - completedInActiveChapter)} topics remaining`}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: In Progress / Active */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/25 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <Zap className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {inProgressInActiveChapter > 0 ? 'Active' : 'Idle'}
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {inProgressInActiveChapter}
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                In Progress
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#0284C7]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                {inProgressInActiveChapter > 0 ? 'Currently studying' : 'Ready to start'}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Chapter Mastery */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-[#ECFDF5] dark:bg-emerald-500/15 border border-[#A7F3D0] dark:border-emerald-400/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <TrendingUp className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {Math.max(0, totalInActiveChapter - completedInActiveChapter)} Left
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {chapterPercent}%
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Chapter Mastery
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#10B981]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                Overall chapter progress
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* 3. TOPICS CONTENT CONTAINER */}
         <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
@@ -978,16 +1088,125 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           </div>
         </div>
 
-        {/* 2. EXECUTIVE DAILY PROGRESS CARD FOR SUBJECT */}
-        <DailyProgressWidget
-          completed={completedSubjectTopics}
-          total={totalSubjectTopics > 0 ? totalSubjectTopics : 5}
-          dayRankText="—"
-          dayRankTotal={4833}
-          dayRankLabel="Day 10 rank"
-          attemptedTotal={totalSubjectTopics > 0 ? (totalSubjectTopics === 5 ? 127 : totalSubjectTopics) : 127}
-          accuracyPercentage={subjectPercent}
-        />
+        {/* 2. 4 ROUNDED EXECUTIVE METRIC CARDS FOR SUBJECT */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 print:hidden">
+          {/* Card 1: Chapters */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <Layers className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {completedSubjectChapters}/{activeSubject.chapters.length} Done
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {activeSubject.chapters.length}
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Total Chapters
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#6366F1]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                {completedSubjectTopics} of {totalSubjectTopics} topics mastered
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Mastered Topics */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-[#FFF1F2] dark:bg-rose-500/15 border border-[#FECDD3] dark:border-rose-400/30 text-rose-500 dark:text-rose-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <CheckCircle2 className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {subjectPercent}% Done
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="flex items-baseline gap-1.5 text-slate-900 dark:text-white leading-none">
+                <span className="text-2xl sm:text-3xl font-black font-sans tracking-tight tabular-nums">
+                  {completedSubjectTopics}
+                </span>
+                <span className="text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-500 font-sans">
+                  / {totalSubjectTopics}
+                </span>
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Mastered Topics
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#F43F5E]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                {Math.max(0, totalSubjectTopics - completedSubjectTopics)} topics remaining
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Subject Topics */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/25 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <FileText className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {activeSubject.name}
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {totalSubjectTopics}
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Subject Topics
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#0284C7]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                Across {activeSubject.chapters.length} chapters
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Subject Mastery */}
+          <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-full bg-[#ECFDF5] dark:bg-emerald-500/15 border border-[#A7F3D0] dark:border-emerald-400/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                <TrendingUp className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+                {Math.max(0, totalSubjectTopics - completedSubjectTopics)} Left
+              </span>
+            </div>
+
+            <div className="my-3 space-y-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+                {subjectPercent}%
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                Subject Mastery
+              </div>
+            </div>
+
+            <div className="space-y-1.5 mt-auto pt-2">
+              <div className="w-3.5 h-1.5 rounded-full bg-[#10B981]" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+                Overall subject progress
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* 3. CHAPTERS CONTENT CONTAINER */}
         <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
@@ -1311,16 +1530,130 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 3. EXECUTIVE DAILY PROGRESS CARD (Matching Reference Portal Style) */}
-      <DailyProgressWidget
-        completed={completedTopicsCount}
-        total={totalTopicsCount > 0 ? totalTopicsCount : 5}
-        dayRankText="—"
-        dayRankTotal={4833}
-        dayRankLabel="Day 10 rank"
-        attemptedTotal={totalTopicsCount > 0 ? (totalTopicsCount === 5 ? 127 : totalTopicsCount) : 127}
-        accuracyPercentage={overallStats.averageAccuracy > 0 ? Math.round(overallStats.averageAccuracy) : (overallPercentage > 0 ? overallPercentage : 0)}
-      />
+      {/* 3. 4 ROUNDED EXECUTIVE METRIC CARDS (Matching Reference Screenshot) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 print:hidden">
+        {/* Card 1: Total Topics */}
+        <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+          <div className="flex items-center justify-between gap-2">
+            <div className="w-10 h-10 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 text-amber-700 dark:text-amber-300 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <BookOpen className="w-5 h-5 stroke-[2.2]" />
+            </div>
+            <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+              {currentExam.subjects.length} {currentExam.subjects.length === 1 ? 'Subject' : 'Subjects'}
+            </span>
+          </div>
+
+          <div className="my-3 space-y-0.5">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+              {totalTopicsCount}
+            </div>
+            <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+              Total Topics
+            </div>
+          </div>
+
+          <div className="space-y-1.5 mt-auto pt-2">
+            <div className="w-3.5 h-1.5 rounded-full bg-[#6366F1]" />
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+              {currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters in track
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2: Mastered Topics */}
+        <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+          <div className="flex items-center justify-between gap-2">
+            <div className="w-10 h-10 rounded-full bg-[#FFF1F2] dark:bg-rose-500/15 border border-[#FECDD3] dark:border-rose-400/30 text-rose-500 dark:text-rose-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <CheckCircle2 className="w-5 h-5 stroke-[2.2]" />
+            </div>
+            <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+              {overallPercentage}% Done
+            </span>
+          </div>
+
+          <div className="my-3 space-y-0.5">
+            <div className="flex items-baseline gap-1.5 text-slate-900 dark:text-white leading-none">
+              <span className="text-2xl sm:text-3xl font-black font-sans tracking-tight tabular-nums">
+                {completedTopicsCount}
+              </span>
+              <span className="text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-500 font-sans">
+                / {totalTopicsCount}
+              </span>
+            </div>
+            <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+              Mastered Topics
+            </div>
+          </div>
+
+          <div className="space-y-1.5 mt-auto pt-2">
+            <div className="w-3.5 h-1.5 rounded-full bg-[#F43F5E]" />
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+              {Math.max(0, totalTopicsCount - completedTopicsCount)} topics remaining
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3: Exam Runway */}
+        <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+          <div className="flex items-center justify-between gap-2">
+            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <Clock className="w-5 h-5 stroke-[2.2]" />
+            </div>
+            <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+              {daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left` : 'Exam Today'}
+            </span>
+          </div>
+
+          <div className="my-3 space-y-0.5">
+            <div className="flex items-baseline gap-1.5 text-slate-900 dark:text-white leading-none">
+              <span className="text-2xl sm:text-3xl font-black font-sans tracking-tight tabular-nums">
+                {daysRemaining > 0 ? daysRemaining : 0}
+              </span>
+              <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 font-sans">
+                days left
+              </span>
+            </div>
+            <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+              Exam Runway
+            </div>
+          </div>
+
+          <div className="space-y-1.5 mt-auto pt-2">
+            <div className="w-3.5 h-1.5 rounded-full bg-[#0284C7]" />
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+              {formattedExamDate}
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4: Completion Rate */}
+        <div className="group relative rounded-[28px] sm:rounded-[30px] p-5 sm:p-6 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between overflow-hidden select-none">
+          <div className="flex items-center justify-between gap-2">
+            <div className="w-10 h-10 rounded-full bg-[#ECFDF5] dark:bg-emerald-500/15 border border-[#A7F3D0] dark:border-emerald-400/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+              <TrendingUp className="w-5 h-5 stroke-[2.2]" />
+            </div>
+            <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold border shrink-0 bg-slate-50/80 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 font-sans">
+              {Math.max(0, totalTopicsCount - completedTopicsCount)} Left
+            </span>
+          </div>
+
+          <div className="my-3 space-y-0.5">
+            <div className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-slate-900 dark:text-white tabular-nums leading-none">
+              {overallPercentage}%
+            </div>
+            <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-300 pt-1 font-sans">
+              Completion Rate
+            </div>
+          </div>
+
+          <div className="space-y-1.5 mt-auto pt-2">
+            <div className="w-3.5 h-1.5 rounded-full bg-[#10B981]" />
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium font-sans truncate">
+              Overall syllabus progress
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* 4. PORTAL CONTENT CONTAINER */}
       <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-4 print:p-0 print:border-none print:shadow-none">
