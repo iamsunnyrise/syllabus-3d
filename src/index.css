@@ -2547,18 +2547,18 @@ input, textarea, [contenteditable="true"], .selectable-text {
 
 /* 8. Header & Sidebar Translucent Frost */
 .dark header {
-  background-color: rgba(43, 43, 43, 0.95) !important;
+  background-color: rgba(9, 10, 18, 0.95) !important;
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
-  border-bottom: 1px solid #383838 !important;
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.4) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 .dark aside {
-  background-color: rgba(43, 43, 43, 0.98) !important;
+  background-color: #090A12 !important;
   backdrop-filter: blur(28px) !important;
   -webkit-backdrop-filter: blur(28px) !important;
-  border-right: 1px solid #383838 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 /* 9. Floating Mobile Nav */

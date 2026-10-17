@@ -812,7 +812,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] warm-cream:bg-[#FAEED9] text-slate-900 dark:text-[#F8FAFC] warm-cream:text-[#38370D]">
+    <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] warm-cream:bg-[#FAEED9] text-slate-900 dark:text-[#F8FAFC] warm-cream:text-[#38370D]">
       {/* 🌑 Clean Obsidian Ambient Canvas (Dark Mode, GPU-Accelerated) */}
       <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#090A12]">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent rounded-full blur-[140px]" />

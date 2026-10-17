@@ -250,8 +250,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
-      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Exactly Centered in Header Row) */}
-      {onToggleCollapse && (
+      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Only When Collapsed) */}
+      {onToggleCollapse && isCollapsed && (
         <button
           type="button"
           onClick={() => {
@@ -260,14 +260,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onToggleCollapse();
           }}
           className="absolute -right-3.5 top-7 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-white dark:bg-[#090A12] border border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
-          title={isCollapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)'}
-          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          title="Expand sidebar (Ctrl+B)"
+          aria-label="Expand sidebar"
         >
-          {isCollapsed ? (
-            <PanelLeftOpen className="w-4 h-4 stroke-[2.2]" />
-          ) : (
-            <PanelLeftClose className="w-4 h-4 stroke-[2.2]" />
-          )}
+          <PanelLeftOpen className="w-4 h-4 stroke-[2.2]" />
         </button>
       )}
 
@@ -569,28 +565,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   </p>
                 </div>
               </div>
+
+              {onToggleCollapse && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.light();
+                    onToggleCollapse();
+                  }}
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 ml-2"
+                  title="Collapse sidebar (Ctrl+B)"
+                  aria-label="Collapse sidebar"
+                >
+                  <PanelLeftClose className="w-4 h-4 stroke-[2.2]" />
+                </button>
+              )}
             </div>
 
             {/* Scrollable Navigation Body */}
             <div className="p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0">
-              {/* 2. Target Exam Card */}
-              <div className="p-2.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between shadow-2xs">
-                <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                  <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/25 flex items-center justify-center shrink-0">
-                    <Target className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div className="truncate min-w-0">
-                    <p className="text-xs font-black text-slate-900 dark:text-white truncate uppercase tracking-tight">
-                      {currentExam?.name || 'SSC CGL 2026'}
-                    </p>
-                    <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 truncate mt-0.5">
-                      Target Year: {currentExam?.targetYear || '2026'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
+              {/* 2. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
               <div className="space-y-3">
                 {navSections.map(section => {
                   const isCollapsedSection = Boolean(collapsedSections[section.title]);
