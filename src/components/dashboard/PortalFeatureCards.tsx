@@ -123,19 +123,15 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         </div>
       </div>
 
-      {/* 🖥️ Card 2: Pro Mocks / Paid Mocks */}
+      {/* 🖥️ Card 2: Mock Test Tracker */}
       <div
         onClick={() => {
           soundManager.playClick();
           haptics.medium();
-          if (onOpenPricing) {
-            onOpenPricing();
-          } else {
-            onNavigate('mock-tracker');
-          }
+          onNavigate('mock-tracker');
         }}
         className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
-        title="Explore Pro Mocks & Full Test Series"
+        title="Open Mock Test Tracker & Performance Analytics"
       >
         {/* Subtle Ambient Hover Glow */}
         <div className="absolute -top-12 -right-12 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
@@ -147,16 +143,17 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
             <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
 
-            {/* Top Bar with PAID Badge */}
+            {/* Top Bar with MOCK TESTS Badge */}
             <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
             <circle cx="42" cy="31" r="3" fill="#EF4444" />
             <circle cx="50" cy="31" r="3" fill="#F59E0B" />
             <circle cx="58" cy="31" r="3" fill="#10B981" />
 
-            {/* PAID Badge in Header */}
-            <rect x="165" y="24" width="35" height="14" rx="4" fill="#F59E0B" />
-            <text x="182.5" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
-              PAID
+            {/* MOCK TESTS Badge in Header */}
+            <rect x="125" y="24" width="75" height="14" rx="7" fill="#F59E0B" />
+            <circle cx="135" cy="31" r="2.5" fill="#FFFFFF" className="animate-pulse" />
+            <text x="165" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
+              MOCK TESTS
             </text>
 
             {/* Golden 3D Trophy in Screen Center */}
@@ -223,32 +220,32 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         {/* Title & Micro Action */}
         <div className="mt-3 space-y-1">
           <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-            Pro Mocks / Paid Mocks
+            Mock Test Tracker
           </h3>
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Full Test Series • TCS Pattern & Topic-Wise Mocks
+            Full Mocks & Sectional Tests • All-India Rank, Percentile & Score Tracker
           </p>
         </div>
 
         {/* Bottom Action Pill */}
-        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50 group-hover:bg-amber-600 group-hover:text-white transition-all">
-          <span>View Test Series</span>
+        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-2xs">
+          <span>Open Mock Tracker</span>
           <span>→</span>
         </div>
       </div>
 
-      {/* 🖥️ Card 3: Daily Practice Schedule */}
+      {/* 🖥️ Card 3: Mock & Study Portals */}
       <div
         onClick={() => {
           soundManager.playClick();
           haptics.medium();
-          onNavigate('planner');
+          onNavigate('platforms');
         }}
         className="group relative rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/[0.08] p-5 sm:p-6 shadow-sm hover:shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
-        title="Open Daily Practice Schedule & Routine"
+        title="Open Mock Study Portals & Practice Platforms"
       >
         {/* Subtle Ambient Hover Glow */}
-        <div className="absolute -top-12 -right-12 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all pointer-events-none" />
+        <div className="absolute -top-12 -right-12 w-36 h-36 bg-teal-500/10 rounded-full blur-2xl group-hover:bg-teal-500/20 transition-all pointer-events-none" />
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
@@ -257,49 +254,56 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
             <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
 
-            {/* Top Bar with DAILY SCHEDULE Badge */}
+            {/* Top Bar with STUDY PORTALS Badge */}
             <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
             <circle cx="42" cy="31" r="3" fill="#EF4444" />
             <circle cx="50" cy="31" r="3" fill="#F59E0B" />
             <circle cx="58" cy="31" r="3" fill="#10B981" />
 
-            {/* Calendar Mini Icon + Title */}
-            <rect x="75" y="24" width="90" height="14" rx="4" fill="#0284C7" />
-            <text x="120" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
-              DAILY SCHEDULE
+            {/* URL address pill in header */}
+            <rect x="70" y="24" width="100" height="14" rx="7" fill="#0D9488" />
+            <circle cx="80" cy="31" r="2.5" fill="#5EEAD4" className="animate-pulse" />
+            <text x="122" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
+              STUDY PORTALS
             </text>
 
-            {/* Checklist Subjects Inside Screen */}
-            <g transform="translate(42, 50)">
-              {/* Row 1: Maths */}
-              <circle cx="6" cy="6" r="3" fill="#3B82F6" />
-              <text x="15" y="8" fill="#1E293B" fontSize="6.5" fontWeight="bold">MATHS</text>
-              <circle cx="140" cy="6" r="4.5" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1" />
-              <polyline points="138,6 139.5,7.5 142.5,4.5" stroke="#16A34A" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Portal Cards Inside Screen */}
+            <g transform="translate(40, 50)">
+              {/* Portal 1: Testbook */}
+              <rect x="0" y="0" width="75" height="24" rx="6" fill="#F0FDFA" stroke="#99F6E4" strokeWidth="1" />
+              <rect x="5" y="5" width="14" height="14" rx="3" fill="#0D9488" />
+              <text x="12" y="15" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">TB</text>
+              <text x="24" y="12" fill="#134E4A" fontSize="6.5" fontWeight="bold">Testbook</text>
+              <text x="24" y="18" fill="#0D9488" fontSize="5" fontWeight="bold">Live Mocks</text>
+              <polyline points="65,10 68,10 68,13" stroke="#0D9488" strokeWidth="0.8" fill="none" />
+              <line x1="68" y1="10" x2="63" y2="15" stroke="#0D9488" strokeWidth="0.8" />
 
-              {/* Row 2: English */}
-              <circle cx="6" cy="18" r="3" fill="#8B5CF6" />
-              <text x="15" y="20" fill="#1E293B" fontSize="6.5" fontWeight="bold">ENGLISH</text>
-              <circle cx="140" cy="18" r="4.5" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1" />
-              <polyline points="138,18 139.5,19.5 142.5,16.5" stroke="#16A34A" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+              {/* Portal 2: Oliveboard */}
+              <rect x="85" y="0" width="75" height="24" rx="6" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
+              <rect x="90" y="5" width="14" height="14" rx="3" fill="#2563EB" />
+              <text x="97" y="15" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">OB</text>
+              <text x="109" y="12" fill="#1E3A8A" fontSize="6.5" fontWeight="bold">Oliveboard</text>
+              <text x="109" y="18" fill="#2563EB" fontSize="5" fontWeight="bold">All-India Rank</text>
+              <polyline points="150,10 153,10 153,13" stroke="#2563EB" strokeWidth="0.8" fill="none" />
+              <line x1="153" y1="10" x2="148" y2="15" stroke="#2563EB" strokeWidth="0.8" />
 
-              {/* Row 3: Reasoning */}
-              <circle cx="6" cy="30" r="3" fill="#F59E0B" />
-              <text x="15" y="32" fill="#1E293B" fontSize="6.5" fontWeight="bold">REASONING</text>
-              <circle cx="140" cy="30" r="4.5" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1" />
-              <polyline points="138,30 139.5,31.5 142.5,28.5" stroke="#16A34A" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+              {/* Portal 3: Practice Mock */}
+              <rect x="0" y="30" width="75" height="24" rx="6" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1" />
+              <rect x="5" y="35" width="14" height="14" rx="3" fill="#D97706" />
+              <text x="12" y="45" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">PM</text>
+              <text x="24" y="42" fill="#78350F" fontSize="6.5" fontWeight="bold">PracticeMock</text>
+              <text x="24" y="48" fill="#D97706" fontSize="5" fontWeight="bold">Quizzes & Tests</text>
+              <polyline points="65,40 68,40 68,43" stroke="#D97706" strokeWidth="0.8" fill="none" />
+              <line x1="68" y1="40" x2="63" y2="45" stroke="#D97706" strokeWidth="0.8" />
 
-              {/* Row 4: General Awareness */}
-              <circle cx="6" cy="42" r="3" fill="#10B981" />
-              <text x="15" y="44" fill="#1E293B" fontSize="6.5" fontWeight="bold">GENERAL AWARENESS</text>
-              <circle cx="140" cy="42" r="4.5" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1" />
-              <polyline points="138,42 139.5,43.5 142.5,40.5" stroke="#16A34A" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-
-              {/* Bottom Progress Bar */}
-              <rect x="0" y="54" width="146" height="4" rx="2" fill="#E2E8F0" />
-              <rect x="0" y="54" width="112" height="4" rx="2" fill="#0284C7" />
-              <text x="0" y="64" fill="#64748B" fontSize="5.5" fontWeight="bold">Daily Progress</text>
-              <text x="146" y="64" fill="#0284C7" fontSize="5.5" fontWeight="bold" textAnchor="end">78%</text>
+              {/* Portal 4: Official Portal */}
+              <rect x="85" y="30" width="75" height="24" rx="6" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
+              <rect x="90" y="35" width="14" height="14" rx="3" fill="#DB2777" />
+              <text x="97" y="45" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle">SSC</text>
+              <text x="109" y="42" fill="#831843" fontSize="6.5" fontWeight="bold">Official Portal</text>
+              <text x="109" y="48" fill="#DB2777" fontSize="5" fontWeight="bold">Updates & PYQ</text>
+              <polyline points="150,40 153,40 153,43" stroke="#DB2777" strokeWidth="0.8" fill="none" />
+              <line x1="153" y1="40" x2="148" y2="45" stroke="#DB2777" strokeWidth="0.8" />
             </g>
 
             {/* Monitor Stand Base */}
@@ -310,17 +314,17 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Title & Micro Action */}
         <div className="mt-3 space-y-1">
-          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
-            Daily Practice Schedule
+          <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+            Mock & Study Portals
           </h3>
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Day-by-Day Targets • Routine & Subject Checklists
+            Direct Access to Testbook, Oliveboard & Top Exam Platforms
           </p>
         </div>
 
         {/* Bottom Action Pill */}
-        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border border-sky-200/80 dark:border-sky-700/50 group-hover:bg-sky-600 group-hover:text-white transition-all">
-          <span>Open Schedule</span>
+        <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-200/80 dark:border-teal-700/50 group-hover:bg-teal-600 group-hover:text-white transition-all shadow-2xs">
+          <span>Open Study Portals</span>
           <span>→</span>
         </div>
       </div>
