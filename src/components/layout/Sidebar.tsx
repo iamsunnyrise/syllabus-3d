@@ -17,7 +17,9 @@ import {
   LogOut,
   Gauge,
   BarChart3,
-  AlertTriangle
+  AlertTriangle,
+  Trophy,
+  ShoppingCart
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -78,23 +80,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenAiArchitect,
   onOpenFocus,
   onOpenShortcuts,
-  onOpenPricing: _onOpenPricing,
+  onOpenPricing,
   onOpenNightJournal: _onOpenNightJournal,
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { profile, dueRevisions, weakTopics, currentExam } = useSyllabus();
+  const { dueRevisions, weakTopics, currentExam } = useSyllabus();
   const { user, logout } = useAuth();
 
-  // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
-  const profileSafe = profile || {
-    name: 'Aspirant',
-    level: 1,
-    levelTitle: 'Novice Scholar',
-    avatarColor: 'from-[#2563EB] to-indigo-600',
-    avatarUrl: '',
-    avatarEmoji: '🦁'
-  };
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
 
@@ -143,7 +136,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         const shortcutMap: Record<string, AppView> = {
           '1': 'overview',
           '2': 'syllabus',
-          '3': 'planner',
+          '3': 'targets',
           '4': 'pacing',
           '5': 'youtube-notes',
           '6': 'mock-tracker'
@@ -161,108 +154,289 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onSelectView]);
 
-  const navSections: NavSection[] = [
+  // Structured Navigation Groups for Syllabus 3D
+  const coreItems: NavItem[] = [
     {
-      title: 'TESTS',
-      items: [
-        {
-          id: 'syllabus',
-          label: 'Syllabus Explorer',
-          icon: BookOpen,
-          shortcut: '2'
-        },
-        {
-          id: 'revision',
-          label: 'Spaced Revision',
-          icon: RotateCw,
-          badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length}` : null,
-          badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-        },
-        {
-          id: 'weak',
-          label: 'Weak Topics',
-          icon: AlertTriangle,
-          badge: weakTopicsSafe.length ? `${weakTopicsSafe.length}` : null,
-          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
-        }
-      ]
+      id: 'overview',
+      label: 'Home',
+      icon: Home,
+      shortcut: '1'
     },
     {
-      title: 'MY ACCOUNT',
-      items: [
-        {
-          id: 'settings',
-          label: 'My profile',
-          icon: User
-        },
-        {
-          id: 'pacing',
-          label: 'Target Pacing',
-          icon: Gauge,
-          shortcut: '4'
-        },
-        {
-          id: 'analytics',
-          label: 'Analytics',
-          icon: BarChart3
-        },
-        {
-          id: 'youtube-notes',
-          label: 'YouTube Notes',
-          icon: Video,
-          shortcut: '5'
-        },
-        {
-          id: 'mindmap',
-          label: 'Mindmap',
-          icon: BrainCircuit
-        },
-        {
-          id: 'platforms',
-          label: 'Study Platforms',
-          icon: Globe
-        }
-      ]
+      id: 'syllabus',
+      label: 'Syllabus Explorer',
+      icon: BookOpen,
+      shortcut: '2'
+    }
+  ];
+
+  const practiceItems: NavItem[] = [
+    {
+      id: 'targets',
+      label: 'Daily Targets',
+      icon: Target,
+      shortcut: '3'
+    },
+    {
+      id: 'revision',
+      label: 'Spaced Revision',
+      icon: RotateCw,
+      badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length}` : null,
+      badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+    },
+    {
+      id: 'weak',
+      label: 'Weak Topics',
+      icon: AlertTriangle,
+      badge: weakTopicsSafe.length ? `${weakTopicsSafe.length}` : null,
+      badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+    },
+    {
+      id: 'mock-tracker',
+      label: 'Mock Tracker',
+      icon: Trophy,
+      shortcut: '6'
+    }
+  ];
+
+  const toolsItems: NavItem[] = [
+    {
+      id: 'pacing',
+      label: 'Target Pacing',
+      icon: Gauge,
+      shortcut: '4'
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: BarChart3
+    },
+    {
+      id: 'youtube-notes',
+      label: 'YouTube Notes',
+      icon: Video,
+      shortcut: '5'
+    },
+    {
+      id: 'mindmap',
+      label: 'Mindmap',
+      icon: BrainCircuit
+    },
+    {
+      id: 'platforms',
+      label: 'Study Platforms',
+      icon: Globe
+    }
+  ];
+
+  const navSections: NavSection[] = [
+    {
+      title: 'CORE',
+      items: coreItems
+    },
+    {
+      title: 'PRACTICE & TESTS',
+      items: practiceItems
+    },
+    {
+      title: 'STUDY TOOLS',
+      items: toolsItems
     }
   ];
 
   return (
     <aside
-      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none border-r border-slate-200/80 dark:border-white/[0.07] shadow-xs ${
+      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none border-r border-slate-200/80 dark:border-white/[0.08] shadow-xs relative ${
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
+      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Exactly Like Screenshot) */}
+      {onToggleCollapse && (
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            haptics.light();
+            onToggleCollapse();
+          }}
+          className="absolute -right-3.5 top-[76px] z-50 w-7 h-7 rounded-full bg-white dark:bg-[#090A12] border border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
+          title={isCollapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)'}
+          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {isCollapsed ? (
+            <PanelLeftOpen className="w-4 h-4 stroke-[2.2]" />
+          ) : (
+            <PanelLeftClose className="w-4 h-4 stroke-[2.2]" />
+          )}
+        </button>
+      )}
+
       {/* =========================================================================
           STATE A: COLLAPSED SLIM ICON-ONLY SIDEBAR (70px Width)
+          Matches the reference screenshot with circular logo, exam squircle card,
+          golden active pill, sleek outline icons, and coral-red logout at bottom.
           ========================================================================= */}
       {isCollapsed ? (
         <div className="flex flex-col h-full justify-between items-center w-full">
           {/* Top Section: Exactly h-14 (56px) baseline aligned with Header */}
-          <div className="h-14 w-full flex items-center justify-center border-b border-slate-200/80 dark:border-white/[0.07] shrink-0">
-            <div className="relative group flex items-center justify-center">
+          <div className="h-14 w-full flex items-center justify-center border-b border-slate-200/80 dark:border-white/[0.08] shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onSelectView('overview');
+              }}
+              className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent border border-amber-500/30 flex items-center justify-center p-1 hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow-sm group"
+              title="Syllabus 3D Home"
+              aria-label="Syllabus 3D Home"
+            >
+              <BrandEmblemLogo size="sm" />
+            </button>
+          </div>
+
+          {/* Scrollable Middle Navigation Rail */}
+          <div className="flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full">
+            {/* 1. App / Target Exam Squircle Card (Row 2 in Screenshot) */}
+            <div className="relative group flex items-center justify-center w-full pb-1">
               <button
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
-                  haptics.light();
-                  onToggleCollapse?.();
+                  onSelectView('targets');
                 }}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 transition-all cursor-pointer group active:scale-95"
-                title="Open sidebar (Ctrl+B)"
-                aria-label="Open sidebar"
+                className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200/90 dark:border-white/10 flex items-center justify-center text-amber-500 transition-all cursor-pointer shadow-2xs group active:scale-95"
+                title={`Active Target: ${currentExam?.name || 'SSC CGL 2026'}`}
+                aria-label="Target Exam"
               >
-                <PanelLeftOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <Target className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform stroke-[2.2]" />
               </button>
 
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
-                Open sidebar (Ctrl+B)
+              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
+                <span className="text-amber-400 font-bold">{currentExam?.name || 'SSC CGL 2026'}</span>
+                <span className="text-[10px] text-slate-400 font-normal">Active Exam Target</span>
               </div>
             </div>
-          </div>
 
-          {/* Scrollable Middle Navigation Icons */}
-          <div className="flex-1 py-2.5 px-2 overflow-y-auto custom-scrollbar flex flex-col items-center space-y-1.5 w-full">
-            {/* 1. Compact User Avatar Button */}
+            {/* 2. Core Section (Home & Syllabus) */}
+            {coreItems.map(item => {
+              const Icon = item.icon;
+              const isActive = activeView === item.id;
+              return (
+                <div key={item.id} className="relative group flex items-center justify-center w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectView(item.id);
+                    }}
+                    className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
+                      isActive
+                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                    aria-label={item.label}
+                  >
+                    <Icon className="w-5 h-5 stroke-[2.2]" />
+                  </button>
+
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                    <span>{item.label}</span>
+                    {item.shortcut && (
+                      <span className="text-slate-400 font-mono text-[10px]">
+                        Alt+{item.shortcut}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Divider */}
+            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+
+            {/* 3. Practice & Routine Section (Targets, Revision, Weak, Mock) */}
+            {practiceItems.map(item => {
+              const Icon = item.icon;
+              const isActive = activeView === item.id;
+              return (
+                <div key={item.id} className="relative group flex items-center justify-center w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectView(item.id);
+                    }}
+                    className={`relative flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
+                      isActive
+                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                    aria-label={item.label}
+                  >
+                    <Icon className="w-5 h-5 stroke-[2]" />
+                    {item.badge && (
+                      <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#090A12]" />
+                    )}
+                  </button>
+
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                    <span>{item.label}</span>
+                    {item.badge && (
+                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">
+                        {item.badge}
+                      </span>
+                    )}
+                    {item.shortcut && (
+                      <span className="text-slate-400 font-mono text-[10px]">
+                        Alt+{item.shortcut}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Divider */}
+            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+
+            {/* 4. Study Tools Section (Pacing, Analytics, YouTube, Mindmap, Platforms) */}
+            {toolsItems.map(item => {
+              const Icon = item.icon;
+              const isActive = activeView === item.id;
+              return (
+                <div key={item.id} className="relative group flex items-center justify-center w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectView(item.id);
+                    }}
+                    className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
+                      isActive
+                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                    aria-label={item.label}
+                  >
+                    <Icon className="w-5 h-5 stroke-[2]" />
+                  </button>
+
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                    <span>{item.label}</span>
+                    {item.shortcut && (
+                      <span className="text-slate-400 font-mono text-[10px]">
+                        Alt+{item.shortcut}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Divider */}
+            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+
+            {/* 5. Account & Utility Icons (Profile, Pricing, Shortcuts, AI Studio, Focus) */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
@@ -270,147 +444,59 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onSelectView('settings');
                 }}
-                className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200/60 dark:hover:bg-white/[0.06] transition-all cursor-pointer"
-                aria-label="User profile"
+                className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
+                  activeView === 'settings'
+                    ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 font-bold'
+                    : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                }`}
+                aria-label="My Profile"
               >
-                <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
-                  {profileSafe.avatarUrl ? (
-                    <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : profileSafe.avatarEmoji ? (
-                    <span>{profileSafe.avatarEmoji}</span>
-                  ) : (
-                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                  )}
-                </div>
+                <User className="w-5 h-5 stroke-[2]" />
               </button>
-
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
-                <span className="text-white font-bold">{user?.name || profileSafe.name || 'Aspirant'}</span>
+                <span className="text-white font-bold">{user?.name || 'Aspirant'}</span>
                 <span className="text-[10px] text-slate-400 font-normal">My profile & settings</span>
               </div>
             </div>
 
-            <div className="w-8 h-px bg-slate-200/80 dark:bg-white/[0.08] my-0.5" />
-
-            {/* 2. Home Icon */}
-            <div className="relative group flex items-center justify-center w-full">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectView('overview');
-                }}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
-                  activeView === 'overview'
-                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                }`}
-                aria-label="Home"
-              >
-                <Home className="w-5 h-5 stroke-[2.2]" />
-              </button>
-
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
-                <span>Home</span>
-                <span className="text-slate-400 font-mono text-[10px]">Alt+1</span>
+            {onOpenPricing && (
+              <div className="relative group flex items-center justify-center w-full">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    onOpenPricing();
+                  }}
+                  className="w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
+                  aria-label="Pricing & Plans"
+                >
+                  <ShoppingCart className="w-5 h-5 stroke-[2]" />
+                </button>
+                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
+                  Pricing & Plans
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* 3. Top 3 Targets Icon (Clean without badge) */}
-            <div className="relative group flex items-center justify-center w-full">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectView('targets');
-                }}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
-                  activeView === 'targets'
-                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                }`}
-                aria-label="Top 3 Daily Targets"
-              >
-                <Target className="w-5 h-5 text-amber-500 stroke-[2.2]" />
-              </button>
-
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
-                <span>Top 3 Daily Targets</span>
+            {onOpenShortcuts && (
+              <div className="relative group flex items-center justify-center w-full">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    onOpenShortcuts();
+                  }}
+                  className="w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-amber-500 flex items-center justify-center transition-all cursor-pointer active:scale-95"
+                  aria-label="Shortcuts Cheatsheet"
+                >
+                  <Keyboard className="w-5 h-5 stroke-[2]" />
+                </button>
+                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
+                  Shortcuts Cheatsheet
+                </div>
               </div>
-            </div>
+            )}
 
-            <div className="w-8 h-px bg-slate-200/80 dark:bg-white/[0.08] my-0.5" />
-
-            {/* 4. Nav Section Icons (Syllabus, Revision, Weak, Analytics, Pacing, YouTube, Mindmap, Platforms) */}
-            {navSections.map(section => (
-              <div key={section.title} className="flex flex-col items-center space-y-1.5 w-full">
-                {section.items.map(item => {
-                  const Icon = item.icon;
-                  const isActive = activeView === item.id;
-                  return (
-                    <div key={item.id} className="relative group flex items-center justify-center w-full">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          soundManager.playClick();
-                          onSelectView(item.id);
-                        }}
-                        className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
-                          isActive
-                            ? 'bg-slate-200 dark:bg-white/15 text-slate-900 dark:text-white font-bold ring-1 ring-slate-300 dark:ring-white/20'
-                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                        }`}
-                        aria-label={item.label}
-                      >
-                        <Icon className="w-5 h-5" />
-                        {item.badge && (
-                          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#090A12]" />
-                        )}
-                      </button>
-
-                      <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
-                        <span>{item.label}</span>
-                        {item.badge && (
-                          <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">
-                            {item.badge}
-                          </span>
-                        )}
-                        {item.shortcut && (
-                          <span className="text-slate-400 font-mono text-[10px]">
-                            Alt+{item.shortcut}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-
-            {/* Logout Icon */}
-            <div className="relative group flex items-center justify-center w-full">
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  if (window.confirm('Are you sure you want to log out of your session?')) {
-                    logout?.();
-                  }
-                }}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
-                aria-label="Logout"
-              >
-                <LogOut className="w-5 h-5 stroke-[2.2]" />
-              </button>
-
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-rose-300 text-xs font-bold whitespace-nowrap shadow-xl border border-rose-500/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
-                Logout
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Tools in Collapsed Mode */}
-          <div className="py-2.5 px-2 border-t border-slate-200/80 dark:border-white/[0.07] flex flex-col items-center space-y-1.5 w-full shrink-0">
             {onOpenAiArchitect && (
               <div className="relative group flex items-center justify-center w-full">
                 <button
@@ -419,10 +505,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="w-10 h-10 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-xl text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                   aria-label="AI Studio"
                 >
-                  <Sparkles className="w-4 h-4 text-[#992BFF]" />
+                  <Sparkles className="w-5 h-5 stroke-[2]" />
                 </button>
                 <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
                   AI Studio
@@ -438,10 +524,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="w-10 h-10 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-xl text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                   aria-label="Focus Mode"
                 >
-                  <Timer className="w-4 h-4 text-[#FF6105]" />
+                  <Timer className="w-5 h-5 stroke-[2]" />
                 </button>
                 <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
                   Focus Mode
@@ -449,35 +535,41 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             )}
 
-            {onOpenShortcuts && (
-              <div className="relative group flex items-center justify-center w-full">
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    haptics.selection();
-                    onOpenShortcuts();
-                  }}
-                  className="w-10 h-10 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer"
-                  aria-label="Shortcuts Cheatsheet"
-                >
-                  <Keyboard className="w-4 h-4 text-amber-500" />
-                </button>
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
-                  Shortcuts Cheatsheet
-                </div>
+            {/* Divider */}
+            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+
+            {/* 6. Logout in Coral-Red (Exact Bottom Item in Screenshot) */}
+            <div className="relative group flex items-center justify-center w-full">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  if (window.confirm('Are you sure you want to log out of your session?')) {
+                    logout?.();
+                  }
+                }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-colors cursor-pointer active:scale-95"
+                aria-label="Logout"
+              >
+                <LogOut className="w-5 h-5 stroke-[2]" />
+              </button>
+
+              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-rose-300 text-xs font-bold whitespace-nowrap shadow-xl border border-rose-500/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
+                Logout
               </div>
-            )}
+            </div>
           </div>
         </div>
       ) : (
         /* =========================================================================
            STATE B: EXPANDED FULL-WIDTH SIDEBAR (260px Width with Icons + Names)
+           Same dark theme and golden highlights, showing website logo, exam badge,
+           organized category headers, and page names with clean typography.
            ========================================================================= */
         <div className="flex flex-col h-full justify-between w-full">
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full min-h-0 flex-1">
             {/* 1. Header Branding: Exactly h-14 (56px) baseline aligned with Header */}
-            <div className="h-14 px-3.5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.07] shrink-0">
+            <div className="h-14 px-3.5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] shrink-0">
               <div
                 className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
                 onClick={() => {
@@ -486,98 +578,41 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 title="Go to Home"
               >
-                <BrandEmblemLogo size="sm" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent border border-amber-500/30 flex items-center justify-center p-1 shadow-sm shrink-0">
+                  <BrandEmblemLogo size="sm" />
+                </div>
                 <div className="min-w-0 flex-1">
                   <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
                     SYLLABUS 3D
                   </span>
                   <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
-                    {currentExam?.name || 'SSC CGL 2026'}
+                    {currentExam?.name || 'TARGET EXAM'}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Scrollable Navigation Body */}
-            <div className="p-3.5 space-y-3 overflow-y-auto custom-scrollbar">
-              {/* 2. User Profile Box with Collapse Button [<] */}
-              <div className="p-2.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] flex items-center justify-between shadow-2xs">
+            <div className="p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0">
+              {/* 2. Target Exam Card */}
+              <div className="p-2.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between shadow-2xs">
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                  <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
-                    {profileSafe.avatarUrl ? (
-                      <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                    ) : profileSafe.avatarEmoji ? (
-                      <span>{profileSafe.avatarEmoji}</span>
-                    ) : (
-                      <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
-                    )}
+                  <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/25 flex items-center justify-center shrink-0">
+                    <Target className="w-5 h-5 stroke-[2.2]" />
                   </div>
                   <div className="truncate min-w-0">
-                    <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
-                      {user?.name || profileSafe.name || 'Guest User'}
+                    <p className="text-xs font-black text-slate-900 dark:text-white truncate uppercase tracking-tight">
+                      {currentExam?.name || 'SSC CGL 2026'}
                     </p>
-                    <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
-                      Signed in
+                    <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 truncate mt-0.5">
+                      Target Year: {currentExam?.targetYear || '2026'}
                     </p>
                   </div>
                 </div>
-
-                {onToggleCollapse && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      haptics.light();
-                      onToggleCollapse();
-                    }}
-                    className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95"
-                    title="Collapse sidebar (Ctrl+B)"
-                    aria-label="Collapse sidebar"
-                  >
-                    <PanelLeftClose className="w-4 h-4" />
-                  </button>
-                )}
               </div>
 
-              {/* 3. Primary Top Navigation (Home & Daily Practice Schedule) */}
-              <div className="space-y-1">
-                {/* Home Link */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectView('overview');
-                  }}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
-                    activeView === 'overview'
-                      ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Home className="w-4 h-4 stroke-[2.2]" />
-                  <span className="truncate">Home</span>
-                </button>
-
-                {/* Top 3 Daily Targets Link (Clean without 0/3) */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    onSelectView('targets');
-                  }}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
-                    activeView === 'targets'
-                      ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
-                  <span className="truncate">Top 3 Daily Targets</span>
-                </button>
-              </div>
-
-              {/* 4. Categorized Sections (TESTS & MY ACCOUNT) */}
-              <div className="space-y-3 pt-1 border-t border-slate-200/70 dark:border-white/10">
+              {/* 3. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
+              <div className="space-y-3">
                 {navSections.map(section => {
                   const isCollapsedSection = Boolean(collapsedSections[section.title]);
                   return (
@@ -596,7 +631,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       </button>
 
                       {!isCollapsedSection && (
-                        <nav className="space-y-0.5 pt-0.5">
+                        <nav className="space-y-1 pt-0.5">
                           {section.items.map(item => {
                             const Icon = item.icon;
                             const isActive = activeView === item.id;
@@ -608,14 +643,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                   soundManager.playClick();
                                   onSelectView(item.id);
                                 }}
-                                className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-medium ${
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
                                   isActive
-                                    ? 'bg-slate-200/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold'
-                                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white'
+                                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                                 }`}
                               >
                                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                  <Icon className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />
+                                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`} />
                                   <span className="truncate">{item.label}</span>
                                 </div>
 
@@ -633,8 +668,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   );
                 })}
 
-                {/* 5. Red Logout Button */}
-                <div className="pt-1">
+                {/* 4. My Profile & Red Logout Button */}
+                <div className="pt-2 border-t border-slate-200/80 dark:border-white/[0.08] space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      onSelectView('settings');
+                    }}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                      activeView === 'settings'
+                        ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
+                    }`}
+                  >
+                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                    <span className="truncate">My Profile ({user?.name || 'Aspirant'})</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => {
@@ -643,7 +694,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         logout?.();
                       }
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-bold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
                   >
                     <LogOut className="w-4 h-4 stroke-[2.2]" />
                     <span>Logout</span>
@@ -653,8 +704,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
 
-          {/* Bottom Area: Keyboard Shortcuts & Quick Tools */}
-          <div className="p-3.5 pt-2 border-t border-slate-200/80 dark:border-white/[0.07] text-slate-800 dark:text-white space-y-1.5 shrink-0">
+          {/* Bottom Area: Quick Utility Tools */}
+          <div className="p-3 pt-2 border-t border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-white space-y-1.5 shrink-0">
             <div className="grid grid-cols-2 gap-1.5">
               {onOpenAiArchitect && (
                 <button
@@ -689,6 +740,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             {onOpenShortcuts && (
               <button
+                type="button"
                 onClick={() => {
                   soundManager.playClick();
                   haptics.selection();
