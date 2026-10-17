@@ -419,13 +419,13 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenSearch}
-            className="h-9 w-9 md:w-auto p-0 md:px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all flex items-center justify-center md:justify-start gap-1.5 cursor-pointer shadow-subtle-depth text-xs font-medium shrink-0 active:scale-95"
+            className="group h-9 w-9 md:w-auto p-0 md:px-3.5 rounded-full bg-slate-100/70 hover:bg-slate-200/60 dark:bg-white/[0.04] dark:hover:bg-white/[0.07] border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/15 transition-all flex items-center justify-center md:justify-start gap-2.5 cursor-pointer text-xs shrink-0 active:scale-95"
             title="Search Topics (Cmd + K)"
             aria-label="Search topics"
           >
-            <Search className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-            <span className="hidden md:inline">Search...</span>
-            <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-xs font-mono bg-slate-100 dark:bg-white/[0.06] rounded-lg text-slate-500 dark:text-slate-300 font-bold border border-slate-200/60 dark:border-white/[0.06]">⌘K</kbd>
+            <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors shrink-0" strokeWidth={2} />
+            <span className="hidden md:inline text-xs text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors font-medium">Search...</span>
+            <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-400/80 dark:text-white/40 bg-slate-200/50 dark:bg-white/[0.04] rounded-md border border-slate-300/30 dark:border-white/[0.06] leading-none select-none tracking-tight">⌘K</kbd>
           </button>
 
           {/* Quick Safety PIN Lock Trigger */}
