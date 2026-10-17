@@ -410,8 +410,8 @@ export const Header: React.FC<HeaderProps> = ({
           <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate">
             {currentView === 'overview'
               ? 'Home'
-              : currentView === 'planner'
-              ? 'Daily Practice Schedule'
+              : (currentView === 'planner' || currentView === 'routine')
+              ? (currentView === 'routine' ? 'Daily Routine' : 'Daily Practice Schedule')
               : currentView === 'mock-tracker'
               ? 'ProMocks'
               : currentView === 'syllabus'
@@ -469,16 +469,16 @@ export const Header: React.FC<HeaderProps> = ({
               onNavigate?.('planner');
             }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              currentView === 'planner'
+              currentView === 'planner' || currentView === 'routine'
                 ? 'bg-white dark:bg-[#1E2138] text-blue-600 dark:text-[#7AA2F7] shadow-xs border border-slate-200/60 dark:border-white/10'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.04]'
             }`}
             title="Open Study Planner"
             aria-label="Open Study Planner"
-            aria-current={currentView === 'planner' ? 'page' : undefined}
+            aria-current={(currentView === 'planner' || currentView === 'routine') ? 'page' : undefined}
           >
             <CalendarDays className={`w-3.5 h-3.5 ${
-              currentView === 'planner' ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
+              (currentView === 'planner' || currentView === 'routine') ? 'text-blue-600 dark:text-[#7AA2F7]' : 'text-slate-400 dark:text-slate-500'
             }`} />
             <span>Planner</span>
             {todayTasksCount > 0 && (

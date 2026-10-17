@@ -34,6 +34,7 @@ import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 export type AppView =
   | 'overview'
   | 'planner'
+  | 'routine'
   | 'platforms'
   | 'syllabus'
   | 'subjects'
@@ -330,7 +331,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onSelectView('planner');
             }}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold ${
-              activeView === 'planner'
+              activeView === 'planner' || activeView === 'routine'
                 ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
                 : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
             }`}

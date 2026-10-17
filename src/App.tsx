@@ -74,6 +74,7 @@ const ViewLoadingFallback: React.FC = () => (
 const VALID_VIEWS = new Set<AppView>([
   'overview',
   'planner',
+  'routine',
   'platforms',
   'syllabus',
   'subjects',
@@ -924,9 +925,10 @@ export const App: React.FC = () => {
 
             {/* Lazy-Loaded Secondary Views with Suspense Fallback & Per-View Crash Protection */}
             <Suspense fallback={<ViewLoadingFallback />}>
-              {currentView === 'planner' && (
-                <ViewErrorBoundary sectionName="Study Planner" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+              {(currentView === 'planner' || currentView === 'routine') && (
+                <ViewErrorBoundary sectionName={currentView === 'routine' ? "Daily Routine" : "Study Planner"} showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <PlannerView
+                    initialTab={currentView === 'routine' ? 'routine' : 'kanban'}
                     onOpenFocusChamber={handleLaunchFocus}
                     onOpenTopicDrawer={handleOpenTopicDrawer}
                     onOpenBacklogRescue={handleOpenBacklogRescue}

@@ -119,8 +119,9 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
-                onNavigate('planner');
+                onNavigate('routine');
               }}
+              title="Open Daily Routine & Schedule"
               className="p-2.5 sm:p-3 rounded-xl bg-black/50 border border-[#F59E0B]/30 hover:border-[#F59E0B] transition-all cursor-pointer flex flex-col items-center justify-center text-center group hover:bg-[#F59E0B]/10 active:scale-95 shadow-xs"
             >
               <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/15 text-[#FBBF24] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">

@@ -51,6 +51,7 @@ import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import confetti from 'canvas-confetti';
 
 interface PlannerViewProps {
+  initialTab?: 'kanban' | 'calendar' | 'routine';
   onOpenFocusChamber?: (topicId?: string) => void;
   onOpenTopicDrawer?: (topic: Topic, subName: string, chName: string) => void;
   onOpenBacklogRescue?: () => void;
@@ -76,6 +77,7 @@ const formatTitleCase = (str: string): string => {
 };
 
 export const PlannerView: React.FC<PlannerViewProps> = ({
+  initialTab = 'kanban',
   onOpenFocusChamber,
   onOpenTopicDrawer,
   onOpenBacklogRescue
@@ -97,7 +99,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   } = useSyllabus();
 
   // View Mode
-  const [viewMode, setViewMode] = useState<'kanban' | 'calendar' | 'routine'>('kanban');
+  const [viewMode, setViewMode] = useState<'kanban' | 'calendar' | 'routine'>(initialTab);
+
+  useEffect(() => {
+    if (initialTab) {
+      setViewMode(initialTab);
+    }
+  }, [initialTab]);
   const [mobileActiveColumn, setMobileActiveColumn] = useState<PlannerColumnStatus | 'all'>('all');
   const [showTop3Section, setShowTop3Section] = useState(false);
   const top3CompletedCount = useMemo(() => top3Targets ? top3Targets.filter(t => t.text && t.text.trim() && t.completed).length : 0, [top3Targets]);
