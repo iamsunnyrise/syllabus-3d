@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
   Home,
-  CalendarCheck,
   RotateCw,
-  AlertTriangle,
   BrainCircuit,
   BookOpen,
-  Settings,
-  Plus,
-  BarChart3,
   Timer,
   Globe,
   Keyboard,
-  Clock,
   PanelLeftClose,
   Sparkles,
   Video,
-  Trophy,
   ChevronDown,
   User,
-  FileText,
-  Radio,
   Bookmark,
-  LogOut,
-  Folder
+  LogOut
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -171,17 +161,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       title: 'TESTS',
       items: [
         {
-          id: 'mock-tracker',
-          label: 'ProMocks',
-          icon: FileText,
-          shortcut: '6'
-        },
-        {
-          id: 'mock-tracker',
-          label: 'FREE Live Mock',
-          icon: Radio
-        },
-        {
           id: 'syllabus',
           label: 'Syllabus Explorer',
           icon: BookOpen,
@@ -203,11 +182,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'settings',
           label: 'My profile',
           icon: User
-        },
-        {
-          id: 'analytics',
-          label: 'Performance',
-          icon: BarChart3
         },
         {
           id: 'weak',
@@ -321,30 +295,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <Home className="w-4 h-4 stroke-[2.2]" />
             <span className="truncate">Home</span>
-          </button>
-
-          {/* Daily Practice Schedule Link */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              onSelectView('planner');
-            }}
-            className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold ${
-              activeView === 'planner' || activeView === 'routine'
-                ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
-                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <Folder className="w-4 h-4 stroke-[2.2]" />
-              <span className="truncate">Daily Practice Schedule</span>
-            </div>
-            {plannerTasksSafe.filter(t => t.status === 'today').length > 0 && (
-              <span className="px-1.5 py-0.2 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">
-                {plannerTasksSafe.filter(t => t.status === 'today').length}
-              </span>
-            )}
           </button>
         </div>
 
