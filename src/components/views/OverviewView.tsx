@@ -29,6 +29,8 @@ import { Top3TargetsWidget } from '../dashboard/Top3TargetsWidget';
 import { ExamTargetMissionBanner } from '../dashboard/ExamTargetMissionBanner';
 import { AppFooter } from '../common/AppFooter';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
+import { PunditsHeroBanner } from '../dashboard/PunditsHeroBanner';
+import { PortalFeatureCards } from '../dashboard/PortalFeatureCards';
 import { soundManager } from '../../utils/soundEffects';
 
 const SUBJECT_ICON_MAP: Record<string, React.ElementType> = {
@@ -70,6 +72,7 @@ interface OverviewViewProps {
   onOpenFocus?: () => void;
   onOpenWalkAndRevise?: () => void;
   onOpenBacklogRescue?: () => void;
+  onOpenPricing?: () => void;
 }
 
 const toNaturalCase = (text: string): string => {
@@ -93,6 +96,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   onOpenFocus,
   onOpenWalkAndRevise,
   onOpenBacklogRescue,
+  onOpenPricing,
 }) => {
   const {
     overallStats,
@@ -228,33 +232,20 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         </div>
       </div>
 
-      {/* 1. TOP HEADER ROW: Dashboard Title + Add Task Button */}
-      <div className="flex items-center justify-between gap-3 pt-1">
-        <div className="flex items-center gap-3">
-          <SectionBadgeIcon section="overview" size="md" />
-          <h1 className="text-2xl sm:text-3xl font-bold font-grotesk text-slate-900 dark:text-white tracking-tight">
-            Dashboard
-          </h1>
-        </div>
+      {/* 🌟 1. ICONIC PUNDITS WELCOME HERO BANNER (Matches Reference Screenshot) */}
+      <PunditsHeroBanner
+        onNavigate={onNavigate}
+        onOpenPricing={onOpenPricing}
+        examName={examName}
+      />
 
-        {onOpenAddTopic && (
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              onOpenAddTopic();
-            }}
-            className="dashboard-add-task-btn group relative inline-flex items-center gap-2 h-10 sm:h-11 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-95 text-white font-extrabold text-xs sm:text-sm tracking-tight shadow-[0_4px_16px_rgba(79,70,229,0.35)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.45)] border border-indigo-400/30 transition-all duration-200 cursor-pointer overflow-hidden"
-          >
-            <div className="task-btn-icon-chip w-5 h-5 rounded-lg bg-white/20 dark:bg-black/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-90">
-              <Plus className="w-3.5 h-3.5 stroke-[3]" />
-            </div>
-            <span className="font-grotesk">Add Task</span>
-          </button>
-        )}
-      </div>
+      {/* 🖥️ 2. THREE LARGE MONITOR FEATURE CARDS (FREE Live Mock, Pro Mocks, Daily Practice Schedule) */}
+      <PortalFeatureCards
+        onNavigate={onNavigate}
+        onOpenPricing={onOpenPricing}
+      />
 
-      {/* 2. EXAM TARGET MISSION BANNER (Big Beautiful Typography + Official Exam Logo) */}
+      {/* 3. EXAM TARGET MISSION BANNER (Countdown & Official Exam Badge) */}
       <ExamTargetMissionBanner onOpenFocus={onOpenFocus} onNavigate={onNavigate} />
 
       {/* 🎯 OPTION 1: QUICK RESUME & IMMEDIATE ACTION HUB */}

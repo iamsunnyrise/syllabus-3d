@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  LayoutDashboard,
+  Home,
   CalendarCheck,
   RotateCw,
   AlertTriangle,
@@ -10,7 +10,6 @@ import {
   Plus,
   BarChart3,
   Timer,
-  ExternalLink,
   Globe,
   Keyboard,
   Clock,
@@ -18,13 +17,19 @@ import {
   Sparkles,
   Video,
   Trophy,
-  ChevronDown
+  ChevronDown,
+  User,
+  FileText,
+  Radio,
+  Bookmark,
+  LogOut,
+  Folder
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
-import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
+import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 
 export type AppView =
   | 'overview'
@@ -47,9 +52,8 @@ interface NavItem {
   id: AppView;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
-  isDashboard?: boolean;
-  badge: React.ReactNode;
-  badgeColor: string;
+  badge?: React.ReactNode;
+  badgeColor?: string;
   shortcut?: string;
 }
 
@@ -82,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onToggleCollapse
 }) => {
   const { profile, dueRevisions, weakTopics, plannerTasks, platforms, currentExam } = useSyllabus();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
   const profileSafe = profile || {
@@ -163,108 +167,69 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navSections: NavSection[] = [
     {
-      title: 'Core Modules',
+      title: 'TESTS',
       items: [
         {
-          id: 'overview' as AppView,
-          label: 'Dashboard',
-          icon: LayoutDashboard,
-          isDashboard: true,
-          badge: null,
-          badgeColor: '',
-          shortcut: '1'
+          id: 'mock-tracker',
+          label: 'ProMocks',
+          icon: FileText,
+          shortcut: '6'
         },
         {
-          id: 'syllabus' as AppView,
+          id: 'mock-tracker',
+          label: 'FREE Live Mock',
+          icon: Radio
+        },
+        {
+          id: 'syllabus',
           label: 'Syllabus Explorer',
           icon: BookOpen,
-          badge: null,
-          badgeColor: '',
           shortcut: '2'
         },
         {
-          id: 'planner' as AppView,
-          label: 'Study Planner',
-          icon: CalendarCheck,
-          badge: plannerTasksSafe.filter(t => t.status === 'today').length || null,
-          badgeColor: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20',
-          shortcut: '3'
-        },
-        {
-          id: 'pacing' as AppView,
-          label: 'Target Pacing',
-          icon: Clock,
-          badge: null,
-          badgeColor: '',
-          shortcut: '4'
-        },
-        {
-          id: 'youtube-notes' as AppView,
-          label: 'YouTube Notes',
-          icon: Video,
-          badge: null,
-          badgeColor: '',
-          shortcut: '5'
-        },
-        {
-          id: 'mock-tracker' as AppView,
-          label: 'Mock Tracker',
-          icon: Trophy,
-          badge: null,
-          badgeColor: '',
-          shortcut: '6'
-        }
-      ]
-    },
-    {
-      title: 'Mastery & Revision',
-      items: [
-        {
-          id: 'revision' as AppView,
+          id: 'revision',
           label: 'Spaced Revision',
           icon: RotateCw,
           badge: dueRevisionsSafe.length ? `${dueRevisionsSafe.length}` : null,
           badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-        },
-        {
-          id: 'weak' as AppView,
-          label: 'Weak Topics',
-          icon: AlertTriangle,
-          badge: weakTopicsSafe.length || null,
-          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
-        },
-        {
-          id: 'mindmap' as AppView,
-          label: 'Mindmap',
-          icon: BrainCircuit,
-          badge: null,
-          badgeColor: ''
-        },
-        {
-          id: 'analytics' as AppView,
-          label: 'Analytics',
-          icon: BarChart3,
-          badge: null,
-          badgeColor: ''
         }
       ]
     },
     {
-      title: 'System',
+      title: 'MY ACCOUNT',
       items: [
         {
-          id: 'platforms' as AppView,
-          label: 'Study Hub',
-          icon: Globe,
-          badge: platformsSafe.length || null,
-          badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
+          id: 'settings',
+          label: 'My profile',
+          icon: User
         },
         {
-          id: 'settings' as AppView,
-          label: 'Settings',
-          icon: Settings,
-          badge: null,
-          badgeColor: ''
+          id: 'analytics',
+          label: 'Performance',
+          icon: BarChart3
+        },
+        {
+          id: 'weak',
+          label: 'Saved Question',
+          icon: Bookmark,
+          badge: weakTopicsSafe.length || null,
+          badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+        },
+        {
+          id: 'youtube-notes',
+          label: 'YouTube Notes',
+          icon: Video,
+          shortcut: '5'
+        },
+        {
+          id: 'mindmap',
+          label: 'Mindmap',
+          icon: BrainCircuit
+        },
+        {
+          id: 'platforms',
+          label: 'Study Platforms',
+          icon: Globe
         }
       ]
     }
@@ -272,49 +237,51 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col w-[272px] h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 p-3 justify-between transition-colors duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
+      className={`hidden md:flex flex-col w-[260px] h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 p-3.5 justify-between transition-colors duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
         isCollapsed ? '-translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100'
       }`}
     >
-      <div className="space-y-2">
-        {/* Study Planner Header Branding */}
-        <div className="flex items-center justify-between gap-1.5 px-1 pt-0.5 pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+      <div className="space-y-3">
+        {/* 1. Header Branding: Golden Crest Logo + "THE PUNDITS" */}
+        <div className="flex items-center justify-between gap-2 px-1 pt-0.5 pb-2 border-b border-slate-200/70 dark:border-white/10">
           <div
             className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
             onClick={() => {
               soundManager.playClick();
               onSelectView('overview');
             }}
-            title="Go to Dashboard"
+            title="Go to Home"
           >
-            <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl overflow-hidden flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm shadow-indigo-500/20 bg-black border border-indigo-500/30">
-              <img src="/logo.png" alt="Study Planner Logo" className="w-full h-full object-cover" />
-            </div>
+            <BrandEmblemLogo size="sm" />
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5">
-                <span
-                  role="presentation"
-                  className="text-sm font-bold tracking-tight text-slate-900 dark:text-white leading-none shrink-0"
-                >
-                  Study Planner
-                </span>
-                <button
-                  type="button"
-                  onClick={e => {
-                    e.stopPropagation();
-                    soundManager.playClick();
-                    haptics.selection();
-                    if (onOpenPricing) onOpenPricing();
-                  }}
-                  className="px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 border border-indigo-200/80 dark:border-indigo-800/80 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold tracking-wider shrink-0 cursor-pointer transition-colors active:scale-90"
-                  title="View Pro Plans & Pricing"
-                  aria-label="View Pro Plans"
-                >
-                  PRO
-                </button>
-              </div>
-              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">
-                {currentExam?.name ? currentExam.name : 'Personal Study Plan'}
+              <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
+                THE PUNDITS
+              </span>
+              <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
+                {currentExam?.name || 'SSC CGL 2026'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. User Profile Box (Exact Match with Reference Image) */}
+        <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex items-center justify-between shadow-2xs">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
+              {profileSafe.avatarUrl ? (
+                <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+              ) : profileSafe.avatarEmoji ? (
+                <span>{profileSafe.avatarEmoji}</span>
+              ) : (
+                <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+              )}
+            </div>
+            <div className="truncate min-w-0">
+              <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
+                {user?.name || profileSafe.name || 'Guest User'}
+              </p>
+              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
+                Signed in
               </p>
             </div>
           </div>
@@ -327,64 +294,61 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 haptics.light();
                 onToggleCollapse();
               }}
-              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 group"
-              title="Close sidebar (Ctrl+B)"
-              aria-label="Close sidebar"
+              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95"
+              title="Collapse sidebar (Ctrl+B)"
+              aria-label="Collapse sidebar"
             >
-              <PanelLeftClose className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <PanelLeftClose className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* Action Buttons: Primary Add Custom Topic + Compact Tools Row */}
-        <div className="space-y-1.5 pt-0.5">
-          {onOpenAddTopic && (
-            <button
-              type="button"
-              onClick={onOpenAddTopic}
-              className="btn-primary w-full h-9 py-0 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer"
-              title="Add Topic"
-            >
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Add Topic</span>
-            </button>
-          )}
+        {/* 3. Primary Top Navigation (Home & Daily Practice Schedule) */}
+        <div className="space-y-1">
+          {/* Home Link */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              onSelectView('overview');
+            }}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+              activeView === 'overview'
+                ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
+                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <Home className="w-4 h-4 stroke-[2.2]" />
+            <span className="truncate">Home</span>
+          </button>
 
-          <div className="grid grid-cols-2 gap-1.5">
-            {onOpenAiArchitect && (
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenAiArchitect();
-                }}
-                className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
-                title="AI Syllabus Architect (PDF & Text)"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#992BFF] dark:text-[#B05EFB] shrink-0" />
-                <span className="truncate">AI Studio</span>
-              </button>
+          {/* Daily Practice Schedule Link */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              onSelectView('planner');
+            }}
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold ${
+              activeView === 'planner'
+                ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
+                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <Folder className="w-4 h-4 stroke-[2.2]" />
+              <span className="truncate">Daily Practice Schedule</span>
+            </div>
+            {plannerTasksSafe.filter(t => t.status === 'today').length > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                {plannerTasksSafe.filter(t => t.status === 'today').length}
+              </span>
             )}
-
-            {onOpenFocus && (
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onOpenFocus();
-                }}
-                className="py-1.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate active:scale-[0.98]"
-                title="Focus Mode"
-              >
-                <Timer className="w-3.5 h-3.5 text-[#FF6105] dark:text-[#FFA670] shrink-0" />
-                <span className="truncate">Focus</span>
-              </button>
-            )}
-          </div>
+          </button>
         </div>
 
-        {/* Categorized Navigation List */}
-        <div className="space-y-1.5 pt-1.5 border-t border-slate-200/80 dark:border-white/10">
+        {/* 4. Categorized Sections (TESTS & MY ACCOUNT) */}
+        <div className="space-y-3 pt-1 border-t border-slate-200/70 dark:border-white/10">
           {navSections.map(section => {
             const isCollapsedSection = Boolean(collapsedSections[section.title]);
             return (
@@ -392,121 +356,108 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleSection(section.title)}
-                  className="w-full flex items-center justify-between px-2 pt-2.5 pb-1 text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400 group/sec cursor-pointer select-none hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+                  className="w-full flex items-center justify-between px-2 pt-1 pb-1 text-[11px] font-black tracking-wider text-slate-400 dark:text-slate-500 uppercase hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
                 >
-                  <span className="text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400">
-                    {section.title}
-                  </span>
+                  <span>{section.title}</span>
                   <ChevronDown
-                    className={`w-3 h-3 text-slate-400 dark:text-slate-500 group-hover/sec:text-slate-700 dark:group-hover/sec:text-slate-300 transition-transform duration-200 ${
+                    className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${
                       isCollapsedSection ? '-rotate-90' : 'rotate-0'
                     }`}
                   />
                 </button>
 
                 {!isCollapsedSection && (
-                    <nav className="space-y-0.5 animate-fade-in pt-0.5">
-                      {section.items.map(item => {
-                        const isActive = activeView === item.id;
-                        return (
-                          <button
-                            key={item.id}
-                            type="button"
-                            onClick={() => {
-                              soundManager.playClick();
-                              onSelectView(item.id);
-                            }}
-                            aria-current={isActive ? 'page' : undefined}
-                            className={`group relative w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-sm transition-all duration-150 cursor-pointer select-none ${
-                              isActive
-                                ? 'bg-[#4A53FA] text-white font-bold shadow-md shadow-[#4A53FA]/25'
-                                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white font-medium'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                              <SectionBadgeIcon
-                                section={item.id}
-                                size="sm"
-                                isActive={isActive}
-                              />
-                              <span className="truncate text-sm leading-tight">
-                                {item.label}
-                              </span>
-                            </div>
+                  <nav className="space-y-0.5 pt-0.5">
+                    {section.items.map(item => {
+                      const Icon = item.icon;
+                      const isActive = activeView === item.id;
+                      return (
+                        <button
+                          key={`${section.title}-${item.label}`}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            onSelectView(item.id);
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-medium ${
+                            isActive
+                              ? 'bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold'
+                              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/70 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                            <Icon className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />
+                            <span className="truncate">{item.label}</span>
+                          </div>
 
-                            {/* Badge / Pill / Keyboard Hint */}
-                            <div className="flex items-center gap-1.5 ml-2 shrink-0">
-                              {item.badge !== null && (
-                                <span
-                                  className={`px-1.5 py-0.5 rounded-lg text-xs font-mono font-bold shrink-0 ${
-                                    isActive
-                                      ? 'bg-white/20 text-white border border-white/25'
-                                      : item.badgeColor
-                                  }`}
-                                >
-                                  {item.badge}
-                                </span>
-                              )}
+                          {/* Badge or Shortcut */}
+                          {item.badge && (
+                            <span className={`px-1.5 py-0.2 rounded-md text-[11px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
+                              {item.badge}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </nav>
+                )}
+              </div>
+            );
+          })}
 
-                              {item.shortcut && !item.badge && (
-                                <kbd className="opacity-0 group-hover:opacity-100 text-xs font-mono font-medium px-1.5 py-0.2 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 transition-opacity border border-slate-200 dark:border-white/15">
-                                  ⌥{item.shortcut}
-                                </kbd>
-                              )}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </nav>
-                  )}
-                </div>
-              );
-            })}
+          {/* 5. Red Logout Button */}
+          <div className="pt-1">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                if (window.confirm('Are you sure you want to log out of your session?')) {
+                  logout?.();
+                }
+              }}
+              className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+            >
+              <LogOut className="w-4 h-4 stroke-[2.2]" />
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Cards Area */}
+      {/* Bottom Area: Keyboard Shortcuts & Quick Tools */}
       <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white">
-        {/* User Profile & Level Card */}
-        <div className="p-2 px-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] space-y-1 shadow-2xs">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 min-w-0">
-              <div
-                className={`w-7 h-7 rounded-xl bg-gradient-to-br ${
-                  profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
-                } text-white font-black flex items-center justify-center text-xs shrink-0 shadow-xs overflow-hidden border border-slate-200 dark:border-white/20`}
-              >
-                {profileSafe.avatarUrl ? (
-                  <img
-                    src={profileSafe.avatarUrl}
-                    alt={profileSafe.name || 'Aspirant'}
-                    className="w-full h-full object-cover"
-                  />
-                ) : profileSafe.avatarEmoji ? (
-                  <span className="text-xs leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
-                ) : (
-                  (profileSafe.name ? profileSafe.name.charAt(0).toUpperCase() : 'A')
-                )}
-              </div>
-              <div className="truncate">
-                <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
-                  {profileSafe.name || 'Aspirant'}
-                </p>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-none truncate mt-0.5">
-                  {profileSafe.levelTitle || 'Novice Scholar'}
-                </p>
-              </div>
-            </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {onOpenAiArchitect && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenAiArchitect();
+              }}
+              className="py-1 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate"
+              title="AI Syllabus Architect"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#992BFF]" />
+              <span className="truncate">AI Studio</span>
+            </button>
+          )}
 
-            <div className="flex items-center gap-1 shrink-0">
-              <span className="px-1.5 py-0.5 text-xs font-bold rounded-lg bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-300 font-mono leading-none">
-                Lvl {profileSafe.level || 1}
-              </span>
-            </div>
-          </div>
+          {onOpenFocus && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenFocus();
+              }}
+              className="py-1 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate"
+              title="Focus Mode"
+            >
+              <Timer className="w-3.5 h-3.5 text-[#FF6105]" />
+              <span className="truncate">Focus</span>
+            </button>
+          )}
         </div>
 
-        {/* Keyboard Shortcuts Trigger */}
         {onOpenShortcuts && (
           <button
             onClick={() => {
@@ -514,16 +465,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               haptics.selection();
               onOpenShortcuts();
             }}
-            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500 dark:hover:border-blue-400 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold active:scale-[0.98] tap-bounce shadow-2xs"
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold"
             title="Keyboard Shortcuts Cheatsheet"
-            aria-label="Keyboard Shortcuts Cheatsheet"
           >
-            <Keyboard className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            <span className="text-xs font-semibold">Keyboard Shortcuts</span>
+            <Keyboard className="w-3.5 h-3.5 text-amber-500" />
+            <span className="text-xs font-semibold">Shortcuts Cheatsheet</span>
           </button>
         )}
       </div>
     </aside>
   );
 };
-

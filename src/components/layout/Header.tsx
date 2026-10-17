@@ -34,8 +34,10 @@ import {
   Trophy,
   Compass,
   ArrowRight,
-  LayoutGrid
+  LayoutGrid,
+  User
 } from 'lucide-react';
+import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 import { usePinLock } from '../../context/PinLockContext';
 import { soundManager } from '../../utils/soundEffects';
 import { EditExamTargetModal } from '../modals/EditExamTargetModal';
@@ -196,8 +198,8 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-30 bg-white/80 dark:bg-[#0E101B]/85 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-[0_1px_3px_rgba(15,23,42,0.04),0_4px_12px_-2px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.4)] px-2 sm:px-6 py-2 sm:py-2.5 pt-safe pl-safe pr-safe transition-colors print:hidden">
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
-        {/* Left Side: Mobile Menu Button, Desktop Gemini Collapse Toggle, Back Nav & Exam Selector */}
-        <div className="flex items-center gap-1 sm:gap-2 min-w-0 flex-1 sm:flex-initial">
+        {/* Left Side: Mobile Menu Button, Desktop Sidebar Toggle & Brand Seal */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-initial">
           {/* Mobile Drawer Button (< md) */}
           <button
             onClick={() => {
@@ -221,14 +223,26 @@ export const Header: React.FC<HeaderProps> = ({
                 haptics.light();
                 onToggleDesktopSidebar();
               }}
-              className="hidden md:flex items-center gap-1.5 h-9 px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-blue-500 dark:hover:border-blue-400 transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 group animate-fade-in"
+              className="hidden md:flex items-center gap-1.5 h-9 px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-amber-500 transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 group animate-fade-in"
               title="Open sidebar (Ctrl+B)"
               aria-label="Open sidebar"
             >
-              <PanelLeftOpen className="w-4 h-4 text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors group-hover:scale-110" />
+              <PanelLeftOpen className="w-4 h-4 text-slate-800 dark:text-slate-200 group-hover:text-amber-500 transition-colors group-hover:scale-110" />
               <span className="text-xs font-bold hidden lg:inline">Sidebar</span>
             </button>
           )}
+
+          {/* Brand Seal + "THE PUNDITS" Title */}
+          <div
+            onClick={() => onNavigate?.('overview')}
+            className="flex items-center gap-2 cursor-pointer group select-none shrink-0"
+            title="THE PUNDITS • Home"
+          >
+            <BrandEmblemLogo size="sm" />
+            <span className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif hidden sm:inline">
+              THE PUNDITS
+            </span>
+          </div>
 
           {/* Responsive Exam Selector (Mobile & Desktop) with Target Year & Live Countdown */}
           <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
@@ -405,10 +419,37 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Center: Desktop Quick Navigation Hub (Syllabus, Planner, Study Station Hub) */}
+        {/* Center: Clean Portal Title ("Home", "Daily Practice Schedule", etc.) matching Reference */}
+        <div className="flex items-center justify-center flex-1 min-w-0 px-2 sm:px-4">
+          <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate">
+            {currentView === 'overview'
+              ? 'Home'
+              : currentView === 'planner'
+              ? 'Daily Practice Schedule'
+              : currentView === 'mock-tracker'
+              ? 'ProMocks'
+              : currentView === 'syllabus'
+              ? 'Syllabus Explorer'
+              : currentView === 'revision'
+              ? 'Spaced Revision'
+              : currentView === 'weak'
+              ? 'Saved Question'
+              : currentView === 'analytics'
+              ? 'Performance'
+              : currentView === 'youtube-notes'
+              ? 'YouTube Notes'
+              : currentView === 'platforms'
+              ? 'Study Platforms'
+              : currentView === 'settings'
+              ? 'My Profile'
+              : currentViewTitle}
+          </h1>
+        </div>
+
+        {/* Desktop Quick Navigation Hub (Syllabus, Planner, Study Station Hub) */}
         <nav
           aria-label="Quick Navigation"
-          className="hidden lg:flex items-center gap-1 p-1 rounded-2xl bg-slate-100/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-md shadow-2xs shrink-0 select-none"
+          className="hidden xl:flex items-center gap-1 p-1 rounded-2xl bg-slate-100/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] backdrop-blur-md shadow-2xs shrink-0 select-none"
         >
           {/* 1. Syllabus Pill */}
           <button
@@ -857,7 +898,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Theme Toggle (Light <-> Dark) */}
+          {/* Theme Toggle (Light <-> Dark) - Styled matching Reference Screenshot */}
           <button
             type="button"
             onClick={() => {
@@ -865,7 +906,7 @@ export const Header: React.FC<HeaderProps> = ({
               haptics.light();
               handleThemeToggle();
             }}
-            className="h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-subtle-depth active:scale-90 shrink-0 flex items-center justify-center"
+            className="h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-amber-400"
             title={
               theme === 'dark'
                 ? "Switch to Pure Pro Light"
@@ -880,35 +921,34 @@ export const Header: React.FC<HeaderProps> = ({
             ) : theme === 'warm-cream' ? (
               <Sparkles className="w-4 h-4 text-[#E1A837]" />
             ) : (
-              <Moon className="w-4 h-4 text-[#4A53FA]" />
+              <Sun className="w-4 h-4 text-[#E5A800]" />
             )}
           </button>
 
-          {/* User Profile Avatar / Settings Trigger */}
+          {/* User Profile Pill Capsule - Matching Reference Screenshot */}
           <button
             type="button"
-            onClick={() => {
-              soundManager.playClick();
-              haptics.light();
-              onOpenSettings();
-            }}
-            className={`h-9 w-9 rounded-full bg-gradient-to-tr ${
-              profileSafe.avatarColor || 'from-[#4A53FA] to-[#992BFF]'
-            } border border-slate-200/80 dark:border-white/[0.08] text-white font-bold flex items-center justify-center text-xs shadow-sm cursor-pointer overflow-hidden active:scale-95 hover:border-[#4A53FA] dark:hover:border-[#6F7DFA] transition-all shrink-0`}
-            title={`Profile: ${profileSafe.name || 'Aspirant'}`}
+            onClick={onOpenSettings}
+            className="h-9 px-2.5 sm:px-3 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center gap-2 cursor-pointer transition-all active:scale-95 shadow-2xs"
+            title={`Profile: ${user?.name || profileSafe.name || 'Guest User'}`}
             aria-label="Open profile settings"
           >
-            {profileSafe.avatarUrl ? (
-              <img
-                src={profileSafe.avatarUrl}
-                alt={profileSafe.name || 'User'}
-                className="w-full h-full object-cover"
-              />
-            ) : profileSafe.avatarEmoji ? (
-              <span className="text-sm leading-none drop-shadow">{profileSafe.avatarEmoji}</span>
-            ) : (
-              (profileSafe.name || 'A').charAt(0).toUpperCase()
-            )}
+            <div className="w-5 h-5 rounded-full bg-slate-300 dark:bg-slate-600 flex items-center justify-center overflow-hidden shrink-0">
+              {profileSafe.avatarUrl ? (
+                <img
+                  src={profileSafe.avatarUrl}
+                  alt={profileSafe.name || 'User'}
+                  className="w-full h-full object-cover"
+                />
+              ) : profileSafe.avatarEmoji ? (
+                <span className="text-[11px] leading-none">{profileSafe.avatarEmoji}</span>
+              ) : (
+                <User className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+              )}
+            </div>
+            <span className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[85px] sm:max-w-[120px]">
+              {user?.name || profileSafe.name || 'Guest User'}
+            </span>
           </button>
         </div>
       </div>

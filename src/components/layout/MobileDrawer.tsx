@@ -20,14 +20,23 @@ import {
   Video,
   Trophy,
   Smartphone,
-  Download
+  Download,
+  Home,
+  Folder,
+  User,
+  LogOut,
+  Radio,
+  FileText,
+  Bookmark
 } from 'lucide-react';
 import { AppView } from './Sidebar';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { useAuth } from '../../context/AuthContext';
 import { usePWA } from '../../hooks/usePWA';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
+import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -51,6 +60,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onOpenSearch
 }) => {
   const { dueRevisions, weakTopics, plannerTasks, platforms, currentExam, profile } = useSyllabus();
+  const { user, logout } = useAuth();
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
@@ -110,16 +120,23 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
   const sections = [
     {
-      title: 'Learning & Mastery',
+      title: 'TESTS',
       items: [
         {
-          id: 'overview' as AppView,
-          label: 'Dashboard',
-          icon: LayoutDashboard,
-          is3dIcon: true,
+          id: 'mock-tracker' as AppView,
+          label: 'ProMocks',
+          icon: FileText,
           badge: null,
           badgeStyle: '',
-          iconBg: 'bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+          iconBg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+        },
+        {
+          id: 'mock-tracker' as AppView,
+          label: 'FREE Live Mock',
+          icon: Radio,
+          badge: 'LIVE',
+          badgeStyle: 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30 font-bold',
+          iconBg: 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30'
         },
         {
           id: 'syllabus' as AppView,
@@ -127,23 +144,44 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           icon: BookOpen,
           badge: null,
           badgeStyle: '',
-          iconBg: 'bg-sky-500/15 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/30'
+          iconBg: 'bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/30'
         },
         {
-          id: 'mindmap' as AppView,
-          label: 'Syllabus Mindmap',
-          icon: BrainCircuit,
+          id: 'revision' as AppView,
+          label: 'Spaced Revision',
+          icon: RotateCw,
+          badge: dueRevisionsSafe.length > 0 ? `${dueRevisionsSafe.length}` : null,
+          badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-bold',
+          iconBg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+        }
+      ]
+    },
+    {
+      title: 'MY ACCOUNT',
+      items: [
+        {
+          id: 'settings' as AppView,
+          label: 'My profile',
+          icon: User,
           badge: null,
           badgeStyle: '',
-          iconBg: 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30'
+          iconBg: 'bg-slate-500/15 text-slate-600 dark:text-slate-300 border-slate-500/30'
         },
         {
-          id: 'platforms' as AppView,
-          label: 'Study Hub',
-          icon: Globe,
-          badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
-          badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
-          iconBg: 'bg-indigo-500/15 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
+          id: 'analytics' as AppView,
+          label: 'Performance',
+          icon: BarChart3,
+          badge: null,
+          badgeStyle: '',
+          iconBg: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30'
+        },
+        {
+          id: 'weak' as AppView,
+          label: 'Saved Question',
+          icon: Bookmark,
+          badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
+          badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-bold',
+          iconBg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
         },
         {
           id: 'youtube-notes' as AppView,
@@ -151,73 +189,23 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           icon: Video,
           badge: null,
           badgeStyle: '',
-          iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
+          iconBg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
         },
         {
-          id: 'mock-tracker' as AppView,
-          label: 'Mock Tracker',
-          icon: Trophy,
+          id: 'mindmap' as AppView,
+          label: 'Mindmap',
+          icon: BrainCircuit,
           badge: null,
           badgeStyle: '',
-          iconBg: 'bg-gradient-to-tr from-[#00D2FF]/20 to-[#7C3AED]/20 text-[#7C3AED] dark:text-[#00D2FF] border border-[#00D2FF]/30'
-        }
-      ]
-    },
-    {
-      title: 'Productivity & Goals',
-      items: [
-        {
-          id: 'planner' as AppView,
-          label: 'Study Planner',
-          icon: CalendarCheck,
-          badge: todayTasksCount > 0 ? `${todayTasksCount}` : null,
-          badgeStyle: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30 font-bold',
-          iconBg: 'bg-teal-500/15 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400 border-teal-500/30'
+          iconBg: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30'
         },
         {
-          id: 'pacing' as AppView,
-          label: 'Target Pacing',
-          icon: Clock,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-blue-500/15 dark:bg-blue-500/20 text-blue-600 dark:text-[#7AA2F7] border-blue-500/30'
-        },
-        {
-          id: 'revision' as AppView,
-          label: 'Spaced Revision',
-          icon: RotateCw,
-          badge: dueRevisionsSafe.length > 0 ? `${dueRevisionsSafe.length}` : null,
-          badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-black',
-          iconBg: 'bg-amber-500/15 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30'
-        },
-        {
-          id: 'weak' as AppView,
-          label: 'Weak Topics',
-          icon: AlertTriangle,
-          badge: weakTopicsSafe.length > 0 ? `${weakTopicsSafe.length}` : null,
-          badgeStyle: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 font-black',
-          iconBg: 'bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
-        }
-      ]
-    },
-    {
-      title: 'Performance & System',
-      items: [
-        {
-          id: 'analytics' as AppView,
-          label: 'Analytics',
-          icon: BarChart3,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-blue-500/15 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 border-blue-500/30'
-        },
-        {
-          id: 'settings' as AppView,
-          label: 'Settings',
-          icon: Settings,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-slate-500/15 dark:bg-slate-500/20 text-slate-600 dark:text-slate-300 border-slate-500/30'
+          id: 'platforms' as AppView,
+          label: 'Study Platforms',
+          icon: Globe,
+          badge: platformsSafe.length > 0 ? `${platformsSafe.length}` : null,
+          badgeStyle: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30 font-bold',
+          iconBg: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30'
         }
       ]
     }
@@ -247,24 +235,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           
           {/* 1. BRANDING & EXAM TARGET HEADER */}
           <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/[0.08]">
-            <div className="flex items-center gap-3 min-w-0">
-              {/* 3D App Icon Badge */}
-              <div className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center shrink-0">
-                <img src="/logo.png" alt="Syllabus 3D Logo" className="w-full h-full object-contain drop-shadow-sm" />
-              </div>
+            <div className="flex items-center gap-2.5 min-w-0">
+              <BrandEmblemLogo size="sm" />
               <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <h2 className="text-sm font-bold text-slate-900 dark:text-white leading-none">
-                    Study Planner
-                  </h2>
-                  <span className="text-[10px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50">
-                    PRO
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 mt-0.5 text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
-                  <GraduationCap className="w-3 h-3 text-blue-600 dark:text-blue-400 shrink-0" />
-                  <span className="truncate">{currentExam?.name || 'SSC CGL 2026'}</span>
-                </div>
+                <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
+                  THE PUNDITS
+                </span>
+                <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 font-mono tracking-wider truncate mt-0.5">
+                  {currentExam?.name || 'SSC CGL 2026'}
+                </p>
               </div>
             </div>
 
@@ -281,29 +260,71 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             </button>
           </div>
 
-          {/* 1.5 ACTIVE PROFILE CARD & SWITCHER */}
-          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between gap-2.5 shadow-2xs">
+          {/* 1.5 USER PROFILE CARD (Exact Match with Reference Image) */}
+          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex items-center justify-between shadow-2xs">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div
-                className={`w-9 h-9 rounded-xl bg-gradient-to-tr ${
-                  profileSafe.avatarColor || 'from-[#2563EB] to-indigo-600'
-                } flex items-center justify-center text-white text-base font-bold shadow-xs border border-white/20 shrink-0 overflow-hidden`}
-              >
+              <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
                 {profileSafe.avatarUrl ? (
-                  <img src={profileSafe.avatarUrl} alt={profileSafe.name} className="w-full h-full object-cover" />
+                  <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : profileSafe.avatarEmoji ? (
+                  <span>{profileSafe.avatarEmoji}</span>
                 ) : (
-                  <span>{profileSafe.avatarEmoji || '🦁'}</span>
+                  <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                 )}
               </div>
-              <div className="min-w-0">
-                <h4 className="text-xs font-black text-slate-900 dark:text-white truncate leading-tight">
-                  {profileSafe.name || 'Aspirant'}
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-none mt-0.5 truncate">
-                  Lvl {profileSafe.level || 1} · {profileSafe.levelTitle || 'Novice Scholar'}
+              <div className="truncate min-w-0">
+                <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
+                  {user?.name || profileSafe.name || 'Guest User'}
+                </p>
+                <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
+                  Signed in
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* 1.6 HOME & DAILY PRACTICE SCHEDULE */}
+          <div className="space-y-1">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onSelectView('overview');
+                onClose();
+              }}
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                activeView === 'overview'
+                  ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Home className="w-4 h-4 stroke-[2.2]" />
+              <span className="truncate">Home</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onSelectView('planner');
+                onClose();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-semibold ${
+                activeView === 'planner'
+                  ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <Folder className="w-4 h-4 stroke-[2.2]" />
+                <span className="truncate">Daily Practice Schedule</span>
+              </div>
+              {plannerTasksSafe.filter(t => t.status === 'today').length > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                  {plannerTasksSafe.filter(t => t.status === 'today').length}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* 2. ACTION BUTTONS: AI ARCHITECT, ADD TARGET & FOCUS MODE */}
@@ -423,6 +444,24 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 </div>
               </div>
             ))}
+
+            {/* Red Logout Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  onClose();
+                  if (window.confirm('Are you sure you want to log out of your session?')) {
+                    logout?.();
+                  }
+                }}
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+              >
+                <LogOut className="w-4 h-4 stroke-[2.2]" />
+                <span>Logout</span>
+              </button>
+            </div>
           </div>
         </div>
 
