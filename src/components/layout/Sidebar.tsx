@@ -83,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { profile, dueRevisions, weakTopics, currentExam, top3Targets } = useSyllabus();
+  const { profile, dueRevisions, weakTopics, currentExam } = useSyllabus();
   const { user, logout } = useAuth();
 
   // 🛡️ Comprehensive Defensive Guards (Prevent any null/undefined crash)
@@ -97,8 +97,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
   const weakTopicsSafe = Array.isArray(weakTopics) ? weakTopics : [];
-  const top3TargetsSafe = Array.isArray(top3Targets) ? top3Targets : [];
-  const completedTargets = top3TargetsSafe.filter(t => t.text && t.text.trim() && t.completed);
 
   // Collapsible Groups State (Expanded mode only)
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(() => {
@@ -230,19 +228,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-white dark:bg-[#0E101B] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none overflow-y-auto custom-scrollbar border-r border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-[2px_0_24px_rgba(0,0,0,0.5)] ${
-        isCollapsed ? 'w-[70px] p-2' : 'w-[260px] p-3.5'
+      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none border-r border-slate-200/80 dark:border-white/[0.07] shadow-xs ${
+        isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
       {/* =========================================================================
           STATE A: COLLAPSED SLIM ICON-ONLY SIDEBAR (70px Width)
           ========================================================================= */}
       {isCollapsed ? (
-        <div className="flex flex-col h-full justify-between items-center py-1">
-          {/* Top Section: Open Toggle + User Avatar + Home + Targets */}
-          <div className="flex flex-col items-center space-y-2 w-full">
-            {/* 1. Open Sidebar Button at Top */}
-            <div className="relative group flex items-center justify-center w-full">
+        <div className="flex flex-col h-full justify-between items-center w-full">
+          {/* Top Section: Exactly h-14 (56px) baseline aligned with Header */}
+          <div className="h-14 w-full flex items-center justify-center border-b border-slate-200/80 dark:border-white/[0.07] shrink-0">
+            <div className="relative group flex items-center justify-center">
               <button
                 type="button"
                 onClick={() => {
@@ -250,7 +247,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   haptics.light();
                   onToggleCollapse?.();
                 }}
-                className="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 bg-slate-100 dark:bg-white/[0.05] hover:bg-amber-50 dark:hover:bg-amber-500/10 border border-slate-200 dark:border-white/10 transition-all cursor-pointer group active:scale-95"
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 transition-all cursor-pointer group active:scale-95"
                 title="Open sidebar (Ctrl+B)"
                 aria-label="Open sidebar"
               >
@@ -261,8 +258,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 Open sidebar (Ctrl+B)
               </div>
             </div>
+          </div>
 
-            {/* 2. Compact User Avatar */}
+          {/* Scrollable Middle Navigation Icons */}
+          <div className="flex-1 py-2.5 px-2 overflow-y-auto custom-scrollbar flex flex-col items-center space-y-1.5 w-full">
+            {/* 1. Compact User Avatar Button */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
@@ -270,16 +270,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onSelectView('settings');
                 }}
-                className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15 hover:ring-2 hover:ring-amber-500 transition-all cursor-pointer"
+                className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200/60 dark:hover:bg-white/[0.06] transition-all cursor-pointer"
                 aria-label="User profile"
               >
-                {profileSafe.avatarUrl ? (
-                  <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                ) : profileSafe.avatarEmoji ? (
-                  <span>{profileSafe.avatarEmoji}</span>
-                ) : (
-                  <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                )}
+                <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
+                  {profileSafe.avatarUrl ? (
+                    <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : profileSafe.avatarEmoji ? (
+                    <span>{profileSafe.avatarEmoji}</span>
+                  ) : (
+                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                  )}
+                </div>
               </button>
 
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
@@ -288,9 +290,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
 
-            <div className="w-8 h-px bg-slate-200 dark:bg-white/10 mx-auto my-1" />
+            <div className="w-8 h-px bg-slate-200/80 dark:bg-white/[0.08] my-0.5" />
 
-            {/* 3. Home Icon */}
+            {/* 2. Home Icon */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
@@ -298,14 +300,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onSelectView('overview');
                 }}
-                className={`relative w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
                   activeView === 'overview'
                     ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                 }`}
                 aria-label="Home"
               >
-                <Home className="w-4.5 h-4.5 stroke-[2.2]" />
+                <Home className="w-5 h-5 stroke-[2.2]" />
               </button>
 
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
@@ -314,7 +316,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
 
-            {/* 4. Top 3 Targets Icon */}
+            {/* 3. Top 3 Targets Icon (Clean without badge) */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
@@ -322,14 +324,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   soundManager.playClick();
                   onSelectView('targets');
                 }}
-                className={`relative w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
                   activeView === 'targets'
                     ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30 font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                 }`}
                 aria-label="Top 3 Daily Targets"
               >
-                <Target className="w-4.5 h-4.5 text-amber-500 stroke-[2.2]" />
+                <Target className="w-5 h-5 text-amber-500 stroke-[2.2]" />
               </button>
 
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
@@ -337,9 +339,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
 
-            <div className="w-8 h-px bg-slate-200 dark:bg-white/10 mx-auto my-1" />
+            <div className="w-8 h-px bg-slate-200/80 dark:bg-white/[0.08] my-0.5" />
 
-            {/* 5. Nav Section Icons (Syllabus, Revision, Weak, Analytics, Pacing, YouTube, Mindmap, Platforms) */}
+            {/* 4. Nav Section Icons (Syllabus, Revision, Weak, Analytics, Pacing, YouTube, Mindmap, Platforms) */}
             {navSections.map(section => (
               <div key={section.title} className="flex flex-col items-center space-y-1.5 w-full">
                 {section.items.map(item => {
@@ -353,16 +355,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           soundManager.playClick();
                           onSelectView(item.id);
                         }}
-                        className={`relative w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
+                        className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer select-none ${
                           isActive
                             ? 'bg-slate-200 dark:bg-white/15 text-slate-900 dark:text-white font-bold ring-1 ring-slate-300 dark:ring-white/20'
-                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                         }`}
                         aria-label={item.label}
                       >
-                        <Icon className="w-4.5 h-4.5" />
+                        <Icon className="w-5 h-5" />
                         {item.badge && (
-                          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#0E101B]" />
+                          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#090A12]" />
                         )}
                       </button>
 
@@ -395,10 +397,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     logout?.();
                   }
                 }}
-                className="w-10 h-10 rounded-2xl flex items-center justify-center text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
                 aria-label="Logout"
               >
-                <LogOut className="w-4.5 h-4.5 stroke-[2.2]" />
+                <LogOut className="w-5 h-5 stroke-[2.2]" />
               </button>
 
               <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-rose-300 text-xs font-bold whitespace-nowrap shadow-xl border border-rose-500/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
@@ -407,8 +409,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
 
-          {/* Bottom Section: AI Studio, Focus, Shortcuts Cheatsheet */}
-          <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-white/10 flex flex-col items-center w-full">
+          {/* Bottom Tools in Collapsed Mode */}
+          <div className="py-2.5 px-2 border-t border-slate-200/80 dark:border-white/[0.07] flex flex-col items-center space-y-1.5 w-full shrink-0">
             {onOpenAiArchitect && (
               <div className="relative group flex items-center justify-center w-full">
                 <button
@@ -417,7 +419,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="w-10 h-10 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer"
                   aria-label="AI Studio"
                 >
                   <Sparkles className="w-4 h-4 text-[#992BFF]" />
@@ -436,7 +438,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="w-10 h-10 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer"
                   aria-label="Focus Mode"
                 >
                   <Timer className="w-4 h-4 text-[#FF6105]" />
@@ -456,7 +458,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     haptics.selection();
                     onOpenShortcuts();
                   }}
-                  className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer"
                   aria-label="Shortcuts Cheatsheet"
                 >
                   <Keyboard className="w-4 h-4 text-amber-500" />
@@ -472,10 +474,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         /* =========================================================================
            STATE B: EXPANDED FULL-WIDTH SIDEBAR (260px Width with Icons + Names)
            ========================================================================= */
-        <>
-          <div className="space-y-3">
-            {/* 1. Header Branding: Golden Crest Logo + "THE PUNDITS" */}
-            <div className="flex items-center justify-between gap-2 px-1 pt-0.5 pb-2 border-b border-slate-200/70 dark:border-white/10">
+        <div className="flex flex-col h-full justify-between w-full">
+          <div className="flex flex-col w-full">
+            {/* 1. Header Branding: Exactly h-14 (56px) baseline aligned with Header */}
+            <div className="h-14 px-3.5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.07] shrink-0">
               <div
                 className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
                 onClick={() => {
@@ -496,160 +498,163 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
 
-            {/* 2. User Profile Box with Collapse Button [<] */}
-            <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex items-center justify-between shadow-2xs">
-              <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
-                  {profileSafe.avatarUrl ? (
-                    <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : profileSafe.avatarEmoji ? (
-                    <span>{profileSafe.avatarEmoji}</span>
-                  ) : (
-                    <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
-                  )}
-                </div>
-                <div className="truncate min-w-0">
-                  <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
-                    {user?.name || profileSafe.name || 'Guest User'}
-                  </p>
-                  <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
-                    Signed in
-                  </p>
-                </div>
-              </div>
-
-              {onToggleCollapse && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    haptics.light();
-                    onToggleCollapse();
-                  }}
-                  className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95"
-                  title="Collapse sidebar (Ctrl+B)"
-                  aria-label="Collapse sidebar"
-                >
-                  <PanelLeftClose className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-
-            {/* 3. Primary Top Navigation (Home & Daily Practice Schedule) */}
-            <div className="space-y-1">
-              {/* Home Link */}
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectView('overview');
-                }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
-                  activeView === 'overview'
-                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Home className="w-4 h-4 stroke-[2.2]" />
-                <span className="truncate">Home</span>
-              </button>
-
-              {/* Top 3 Daily Targets Link */}
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  onSelectView('targets');
-                }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
-                  activeView === 'targets'
-                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
-                <span className="truncate">Top 3 Daily Targets</span>
-              </button>
-            </div>
-
-            {/* 4. Categorized Sections (TESTS & MY ACCOUNT) */}
-            <div className="space-y-3 pt-1 border-t border-slate-200/70 dark:border-white/10">
-              {navSections.map(section => {
-                const isCollapsedSection = Boolean(collapsedSections[section.title]);
-                return (
-                  <div key={section.title} className="space-y-0.5">
-                    <button
-                      type="button"
-                      onClick={() => toggleSection(section.title)}
-                      className="w-full flex items-center justify-between px-2 pt-1 pb-1 text-[11px] font-black tracking-wider text-slate-400 dark:text-slate-500 uppercase hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
-                    >
-                      <span>{section.title}</span>
-                      <ChevronDown
-                        className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${
-                          isCollapsedSection ? '-rotate-90' : 'rotate-0'
-                        }`}
-                      />
-                    </button>
-
-                    {!isCollapsedSection && (
-                      <nav className="space-y-0.5 pt-0.5">
-                        {section.items.map(item => {
-                          const Icon = item.icon;
-                          const isActive = activeView === item.id;
-                          return (
-                            <button
-                              key={`${section.title}-${item.label}`}
-                              type="button"
-                              onClick={() => {
-                                soundManager.playClick();
-                                onSelectView(item.id);
-                              }}
-                              className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-medium ${
-                                isActive
-                                  ? 'bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold'
-                                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/70 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white'
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                <Icon className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />
-                                <span className="truncate">{item.label}</span>
-                              </div>
-
-                              {item.badge && (
-                                <span className={`px-1.5 py-0.2 rounded-md text-[11px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
-                                  {item.badge}
-                                </span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </nav>
+            {/* Scrollable Navigation Body */}
+            <div className="p-3.5 space-y-3 overflow-y-auto custom-scrollbar">
+              {/* 2. User Profile Box with Collapse Button [<] */}
+              <div className="p-2.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
+                    {profileSafe.avatarUrl ? (
+                      <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : profileSafe.avatarEmoji ? (
+                      <span>{profileSafe.avatarEmoji}</span>
+                    ) : (
+                      <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                     )}
                   </div>
-                );
-              })}
+                  <div className="truncate min-w-0">
+                    <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
+                      {user?.name || profileSafe.name || 'Guest User'}
+                    </p>
+                    <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
+                      Signed in
+                    </p>
+                  </div>
+                </div>
 
-              {/* 5. Red Logout Button */}
-              <div className="pt-1">
+                {onToggleCollapse && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.light();
+                      onToggleCollapse();
+                    }}
+                    className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95"
+                    title="Collapse sidebar (Ctrl+B)"
+                    aria-label="Collapse sidebar"
+                  >
+                    <PanelLeftClose className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+              {/* 3. Primary Top Navigation (Home & Daily Practice Schedule) */}
+              <div className="space-y-1">
+                {/* Home Link */}
                 <button
                   type="button"
                   onClick={() => {
                     soundManager.playClick();
-                    if (window.confirm('Are you sure you want to log out of your session?')) {
-                      logout?.();
-                    }
+                    onSelectView('overview');
                   }}
-                  className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                    activeView === 'overview'
+                      ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
+                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                  }`}
                 >
-                  <LogOut className="w-4 h-4 stroke-[2.2]" />
-                  <span>Logout</span>
+                  <Home className="w-4 h-4 stroke-[2.2]" />
+                  <span className="truncate">Home</span>
                 </button>
+
+                {/* Top 3 Daily Targets Link (Clean without 0/3) */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    onSelectView('targets');
+                  }}
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                    activeView === 'targets'
+                      ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
+                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
+                  <span className="truncate">Top 3 Daily Targets</span>
+                </button>
+              </div>
+
+              {/* 4. Categorized Sections (TESTS & MY ACCOUNT) */}
+              <div className="space-y-3 pt-1 border-t border-slate-200/70 dark:border-white/10">
+                {navSections.map(section => {
+                  const isCollapsedSection = Boolean(collapsedSections[section.title]);
+                  return (
+                    <div key={section.title} className="space-y-0.5">
+                      <button
+                        type="button"
+                        onClick={() => toggleSection(section.title)}
+                        className="w-full flex items-center justify-between px-2 pt-1 pb-1 text-[11px] font-black tracking-wider text-slate-400 dark:text-slate-500 uppercase hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
+                      >
+                        <span>{section.title}</span>
+                        <ChevronDown
+                          className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${
+                            isCollapsedSection ? '-rotate-90' : 'rotate-0'
+                          }`}
+                        />
+                      </button>
+
+                      {!isCollapsedSection && (
+                        <nav className="space-y-0.5 pt-0.5">
+                          {section.items.map(item => {
+                            const Icon = item.icon;
+                            const isActive = activeView === item.id;
+                            return (
+                              <button
+                                key={`${section.title}-${item.label}`}
+                                type="button"
+                                onClick={() => {
+                                  soundManager.playClick();
+                                  onSelectView(item.id);
+                                }}
+                                className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-medium ${
+                                  isActive
+                                    ? 'bg-slate-200/80 dark:bg-white/10 text-slate-900 dark:text-white font-bold'
+                                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                  <Icon className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />
+                                  <span className="truncate">{item.label}</span>
+                                </div>
+
+                                {item.badge && (
+                                  <span className={`px-1.5 py-0.2 rounded-md text-[11px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </nav>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* 5. Red Logout Button */}
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      if (window.confirm('Are you sure you want to log out of your session?')) {
+                        logout?.();
+                      }
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4 stroke-[2.2]" />
+                    <span>Logout</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Area: Keyboard Shortcuts & Quick Tools */}
-          <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white">
+          <div className="p-3.5 pt-2 border-t border-slate-200/80 dark:border-white/[0.07] text-slate-800 dark:text-white space-y-1.5 shrink-0">
             <div className="grid grid-cols-2 gap-1.5">
               {onOpenAiArchitect && (
                 <button
@@ -658,7 +663,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="py-1 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate"
+                  className="py-1 px-2 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer truncate"
                   title="AI Syllabus Architect"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-[#992BFF]" />
@@ -673,7 +678,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="py-1 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.08] transition-all cursor-pointer truncate"
+                  className="py-1 px-2 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer truncate"
                   title="Focus Mode"
                 >
                   <Timer className="w-3.5 h-3.5 text-[#FF6105]" />
@@ -689,7 +694,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   haptics.selection();
                   onOpenShortcuts();
                 }}
-                className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold"
+                className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold"
                 title="Keyboard Shortcuts Cheatsheet"
               >
                 <Keyboard className="w-3.5 h-3.5 text-amber-500" />
@@ -697,7 +702,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </button>
             )}
           </div>
-        </>
+        </div>
       )}
     </aside>
   );
