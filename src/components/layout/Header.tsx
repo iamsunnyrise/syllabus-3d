@@ -158,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
   return (
-    <header className="sticky top-0 z-30 h-14 w-full bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden relative">
+    <header className="sticky top-0 z-30 h-14 w-full bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden">
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
         {/* Left Side: Mobile Menu Button, Desktop Sidebar Toggle & Brand Seal */}

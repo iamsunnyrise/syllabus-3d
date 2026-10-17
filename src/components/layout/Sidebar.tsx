@@ -246,7 +246,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-30 select-none border-r border-slate-200/80 dark:border-white/[0.08] shadow-xs relative ${
+      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-40 select-none border-r border-slate-200/80 dark:border-white/[0.08] shadow-xs ${
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
