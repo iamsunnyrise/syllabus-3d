@@ -3800,10 +3800,31 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   };
 
   // ----------------------------------------------------------------------------------
+  // HIGHLIGHTER COLOR PALETTE CONFIGURATION
+  // ----------------------------------------------------------------------------------
+  const NOTE_HIGHLIGHT_PALETTE: Array<{
+    prefix: '' | 'g:' | 'p:' | 'b:' | 'r:';
+    label: string;
+    hex: string;
+    border: string;
+    glow: string;
+    textCol: string;
+    freefall: string;
+  }> = [
+    { prefix: '', label: 'Yellow', hex: '#FACC15', border: '#CA8A04', glow: 'rgba(250, 204, 21, 0.65)', textCol: '#0F172A', freefall: 'rgba(250, 204, 21, 0.42)' },
+    { prefix: 'g:', label: 'Green', hex: '#10B981', border: '#059669', glow: 'rgba(16, 185, 129, 0.65)', textCol: '#FFFFFF', freefall: 'rgba(52, 211, 153, 0.42)' },
+    { prefix: 'p:', label: 'Purple', hex: '#A855F7', border: '#7E22CE', glow: 'rgba(168, 85, 247, 0.65)', textCol: '#FFFFFF', freefall: 'rgba(192, 132, 252, 0.42)' },
+    { prefix: 'b:', label: 'Blue', hex: '#0EA5E9', border: '#0284C7', glow: 'rgba(14, 165, 233, 0.65)', textCol: '#FFFFFF', freefall: 'rgba(56, 189, 248, 0.42)' },
+    { prefix: 'r:', label: 'Rose', hex: '#F43F5E', border: '#E11D48', glow: 'rgba(244, 63, 94, 0.65)', textCol: '#FFFFFF', freefall: 'rgba(251, 113, 133, 0.42)' }
+  ];
+
+  // ----------------------------------------------------------------------------------
   // RENDER FLOATING TEXT HIGHLIGHTER TOOLTIP (For Box Mode)
   // ----------------------------------------------------------------------------------
   const renderFloatingHighlighter = () => {
     if (!selectionTooltip.visible) return null;
+
+    const activeColorMeta = NOTE_HIGHLIGHT_PALETTE.find(c => c.prefix === selectedHighlightColor) || NOTE_HIGHLIGHT_PALETTE[0];
 
     return (
       <div
@@ -3814,7 +3835,7 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           transform: selectionTooltip.isBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)',
           zIndex: 9999
         }}
-        className="flex items-center gap-1.5 p-1.5 px-2.5 rounded-2xl bg-[#11120F]/95 dark:bg-[#1C1D26]/95 text-white shadow-2xl border border-white/20 animate-fade-in select-none backdrop-blur-md"
+        className="flex items-center gap-2 p-1.5 px-3 rounded-full bg-[#11120F]/95 dark:bg-[#1C1D26]/95 text-white shadow-2xl border border-white/20 animate-fade-in select-none backdrop-blur-md"
         onMouseDown={e => e.preventDefault()}
         onTouchStart={e => e.stopPropagation()}
       >
@@ -3823,86 +3844,74 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
           type="button"
           onMouseDown={e => e.preventDefault()}
           onClick={() => applyHighlight(selectedHighlightColor, selectionTooltip.text)}
-          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-md cursor-pointer transition-transform active:scale-95"
-          title="Apply current highlight"
+          style={{
+            backgroundColor: activeColorMeta.hex,
+            color: activeColorMeta.textCol,
+            boxShadow: `0 2px 10px ${activeColorMeta.glow}`
+          }}
+          className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black cursor-pointer transition-transform active:scale-95 hover:opacity-90"
+          title={`Highlight with ${activeColorMeta.label}`}
         >
-          <Highlighter className="w-3.5 h-3.5 text-slate-950" />
+          <Highlighter className="w-3.5 h-3.5" style={{ color: activeColorMeta.textCol }} />
           <span>Highlight</span>
         </button>
 
-        <span className="h-4 w-[1px] bg-white/20 mx-0.5" />
+        <span className="h-4 w-[1px] bg-white/20" />
 
-        {/* 🟡 Yellow Highlight */}
-        <button
-          type="button"
-          onMouseDown={e => e.preventDefault()}
-          onClick={() => applyHighlight('', selectionTooltip.text)}
-          className={`w-5 h-5 rounded-full bg-yellow-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
-            selectedHighlightColor === '' ? 'ring-2 ring-white scale-110' : ''
-          }`}
-          title="Yellow (==text==)"
-        />
+        {/* 5 Distinct Color Circles with explicit backgroundColor and active Checkmark */}
+        <div className="flex items-center gap-1.5">
+          {NOTE_HIGHLIGHT_PALETTE.map(item => {
+            const isSelected = selectedHighlightColor === item.prefix;
+            return (
+              <button
+                key={item.prefix}
+                type="button"
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => {
+                  setSelectedHighlightColor(item.prefix);
+                  applyHighlight(item.prefix, selectionTooltip.text);
+                }}
+                style={{
+                  backgroundColor: item.hex,
+                  borderColor: isSelected ? '#FFFFFF' : 'rgba(0, 0, 0, 0.4)',
+                  boxShadow: isSelected ? `0 0 12px ${item.glow}` : '0 1px 3px rgba(0,0,0,0.3)'
+                }}
+                className={`w-6 h-6 rounded-full transition-all cursor-pointer flex items-center justify-center border-2 ${
+                  isSelected ? 'scale-125 ring-2 ring-white/90 ring-offset-1 ring-offset-black z-10' : 'hover:scale-120 opacity-90 hover:opacity-100'
+                }`}
+                title={`${item.label} Highlight`}
+              >
+                {isSelected && (
+                  <Check
+                    className="w-3.5 h-3.5 stroke-[3.5]"
+                    style={{ color: item.textCol }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-        {/* 🟢 Green Highlight */}
-        <button
-          type="button"
-          onMouseDown={e => e.preventDefault()}
-          onClick={() => applyHighlight('g:', selectionTooltip.text)}
-          className={`w-5 h-5 rounded-full bg-emerald-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
-            selectedHighlightColor === 'g:' ? 'ring-2 ring-white scale-110' : ''
-          }`}
-          title="Green (==g:text==)"
-        />
-
-        {/* 🟣 Purple Highlight */}
-        <button
-          type="button"
-          onMouseDown={e => e.preventDefault()}
-          onClick={() => applyHighlight('p:', selectionTooltip.text)}
-          className={`w-5 h-5 rounded-full bg-purple-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
-            selectedHighlightColor === 'p:' ? 'ring-2 ring-white scale-110' : ''
-          }`}
-          title="Purple (==p:text==)"
-        />
-
-        {/* 🔵 Blue Highlight */}
-        <button
-          type="button"
-          onMouseDown={e => e.preventDefault()}
-          onClick={() => applyHighlight('b:', selectionTooltip.text)}
-          className={`w-5 h-5 rounded-full bg-sky-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
-            selectedHighlightColor === 'b:' ? 'ring-2 ring-white scale-110' : ''
-          }`}
-          title="Blue (==b:text==)"
-        />
-
-        {/* 🔴 Rose Highlight */}
-        <button
-          type="button"
-          onMouseDown={e => e.preventDefault()}
-          onClick={() => applyHighlight('r:', selectionTooltip.text)}
-          className={`w-5 h-5 rounded-full bg-rose-400 hover:scale-125 active:scale-95 transition-transform shadow-xs cursor-pointer border border-black/30 ${
-            selectedHighlightColor === 'r:' ? 'ring-2 ring-white scale-110' : ''
-          }`}
-          title="Rose (==r:text==)"
-        />
+        <span className="h-4 w-[1px] bg-white/20" />
 
         {/* 🧽 Erase / Remove Highlight Button */}
         <button
           type="button"
           onMouseDown={e => e.preventDefault()}
           onClick={() => removeHighlight(selectionTooltip.text)}
-          className="px-2 py-0.5 ml-0.5 rounded-lg bg-rose-500/25 hover:bg-rose-500 text-rose-200 hover:text-white text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer border border-rose-500/40 active:scale-95"
-          title="Remove Highlight (Erase ==tags==)"
+          className="px-2.5 py-1 rounded-full bg-rose-500/25 hover:bg-rose-500 text-rose-200 hover:text-white text-xs font-bold flex items-center gap-1 transition-all cursor-pointer border border-rose-500/40 active:scale-95"
+          title="Remove Highlight (Erase tags)"
         >
-          <span>🧽 Erase</span>
+          <Eraser className="w-3.5 h-3.5" />
+          <span>Erase</span>
         </button>
 
         <button
           type="button"
           onMouseDown={e => e.preventDefault()}
           onClick={() => setSelectionTooltip({ visible: false, x: 0, y: 0, text: '' })}
-          className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/10 ml-0.5 cursor-pointer"
+          className="w-6 h-6 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          title="Close tooltip"
         >
           <X className="w-3.5 h-3.5" />
         </button>
@@ -3994,68 +4003,37 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
               </button>
             </div>
 
-            {/* Colors Switcher */}
+            {/* Colors Switcher with explicit inline styles and checkmark */}
             <div className="flex items-center gap-1.5 pl-1.5 border-l border-[#E2E8F0] dark:border-[#383A48]">
-              {/* Yellow */}
-              <button
-                type="button"
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => handleColorClick('', 'rgba(250, 204, 21, 0.42)')}
-                className={`w-4 h-4 rounded-full bg-yellow-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
-                  (highlighterMode === 'box' && selectedHighlightColor === '') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('250, 204, 21'))
-                    ? 'ring-2 ring-amber-500 scale-110'
-                    : ''
-                }`}
-                title="Yellow (Select text and click to highlight)"
-              />
-              {/* Green */}
-              <button
-                type="button"
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => handleColorClick('g:', 'rgba(52, 211, 153, 0.42)')}
-                className={`w-4 h-4 rounded-full bg-emerald-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
-                  (highlighterMode === 'box' && selectedHighlightColor === 'g:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('52, 211, 153'))
-                    ? 'ring-2 ring-emerald-500 scale-110'
-                    : ''
-                }`}
-                title="Green (Select text and click to highlight)"
-              />
-              {/* Purple */}
-              <button
-                type="button"
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => handleColorClick('p:', 'rgba(192, 132, 252, 0.42)')}
-                className={`w-4 h-4 rounded-full bg-purple-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
-                  (highlighterMode === 'box' && selectedHighlightColor === 'p:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('192, 132, 252'))
-                    ? 'ring-2 ring-purple-500 scale-110'
-                    : ''
-                }`}
-                title="Purple (Select text and click to highlight)"
-              />
-              {/* Blue */}
-              <button
-                type="button"
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => handleColorClick('b:', 'rgba(56, 189, 248, 0.42)')}
-                className={`w-4 h-4 rounded-full bg-sky-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
-                  (highlighterMode === 'box' && selectedHighlightColor === 'b:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('56, 189, 248'))
-                    ? 'ring-2 ring-sky-500 scale-110'
-                    : ''
-                }`}
-                title="Blue (Select text and click to highlight)"
-              />
-              {/* Rose */}
-              <button
-                type="button"
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => handleColorClick('r:', 'rgba(251, 113, 133, 0.42)')}
-                className={`w-4 h-4 rounded-full bg-rose-400 hover:scale-125 transition-transform cursor-pointer border border-black/20 ${
-                  (highlighterMode === 'box' && selectedHighlightColor === 'r:') || (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor.includes('251, 113, 133'))
-                    ? 'ring-2 ring-rose-500 scale-110'
-                    : ''
-                }`}
-                title="Rose (Select text and click to highlight)"
-              />
+              {NOTE_HIGHLIGHT_PALETTE.map(item => {
+                const isSelected =
+                  (highlighterMode === 'box' && selectedHighlightColor === item.prefix) ||
+                  (highlighterMode === 'freefall' && !isFreefallEraser && freefallColor === item.freefall);
+                return (
+                  <button
+                    key={item.prefix}
+                    type="button"
+                    onMouseDown={e => e.preventDefault()}
+                    onClick={() => handleColorClick(item.prefix, item.freefall)}
+                    style={{
+                      backgroundColor: item.hex,
+                      borderColor: isSelected ? '#FFFFFF' : 'rgba(0, 0, 0, 0.3)',
+                      boxShadow: isSelected ? `0 0 10px ${item.glow}` : undefined
+                    }}
+                    className={`w-5 h-5 rounded-full transition-all cursor-pointer border-2 flex items-center justify-center ${
+                      isSelected ? 'scale-125 ring-2 ring-indigo-500 z-10' : 'hover:scale-120 opacity-90 hover:opacity-100'
+                    }`}
+                    title={`${item.label} (Select text and click to highlight)`}
+                  >
+                    {isSelected && (
+                      <Check
+                        className="w-3 h-3 stroke-[3.5]"
+                        style={{ color: item.textCol }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Box Mode Erase Button */}
@@ -5521,45 +5499,32 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
 
                   {/* Quick Color Swatches */}
                   <div className="flex items-center gap-1 bg-white dark:bg-[#181822] p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        insertText('==', '==', 'Yellow highlight');
-                        setSelectedHighlightColor('');
-                        setFreefallColor('rgba(250, 204, 21, 0.42)');
-                        soundManager.playClick();
-                      }}
-                      className="w-5 h-5 rounded-md bg-yellow-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-yellow-950 shadow-2xs cursor-pointer"
-                      title="Yellow Highlight (==text==)"
-                    >
-                      Y
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        insertText('==g:', '==', 'Green highlight');
-                        setSelectedHighlightColor('g:');
-                        setFreefallColor('rgba(52, 211, 153, 0.42)');
-                        soundManager.playClick();
-                      }}
-                      className="w-5 h-5 rounded-md bg-emerald-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-emerald-950 shadow-2xs cursor-pointer"
-                      title="Green Highlight (==g:text==)"
-                    >
-                      G
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        insertText('==p:', '==', 'Purple highlight');
-                        setSelectedHighlightColor('p:');
-                        setFreefallColor('rgba(192, 132, 252, 0.42)');
-                        soundManager.playClick();
-                      }}
-                      className="w-5 h-5 rounded-md bg-purple-400/80 hover:scale-110 active:scale-95 transition-transform flex items-center justify-center text-[10px] font-bold text-purple-950 shadow-2xs cursor-pointer"
-                      title="Purple Highlight (==p:text==)"
-                    >
-                      P
-                    </button>
+                    {NOTE_HIGHLIGHT_PALETTE.map(item => {
+                      const isSelected = selectedHighlightColor === item.prefix;
+                      const char = item.label[0];
+                      return (
+                        <button
+                          key={item.prefix}
+                          type="button"
+                          onClick={() => {
+                            insertText(`==${item.prefix}`, '==', `${item.label} highlight`);
+                            setSelectedHighlightColor(item.prefix);
+                            setFreefallColor(item.freefall);
+                            soundManager.playClick();
+                          }}
+                          style={{
+                            backgroundColor: item.hex,
+                            color: item.textCol
+                          }}
+                          className={`w-5 h-5 rounded-md hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-[10px] font-bold shadow-2xs cursor-pointer ${
+                            isSelected ? 'ring-2 ring-indigo-500 scale-105' : 'opacity-90 hover:opacity-100'
+                          }`}
+                          title={`${item.label} Highlight (==${item.prefix}text==)`}
+                        >
+                          {char}
+                        </button>
+                      );
+                    })}
                   </div>
 
                   {/* Mode & Pen controls if active */}

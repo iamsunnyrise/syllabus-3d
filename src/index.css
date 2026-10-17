@@ -809,8 +809,7 @@
 
   html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.bg-white,
   html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.shadow-xs,
-  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.font-black,
-  html.warm-cream:not(:has(.pdf-reader-isolated)) button.shadow-xs {
+  html.warm-cream .p-1:has(> button):not(.pdf-reader-isolated *) button.font-black {
     background-color: #FFFDF8 !important;
     color: #1C1B05 !important;
     box-shadow: 0 1px 4px rgba(56, 55, 13, 0.1) !important;
