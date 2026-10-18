@@ -41,6 +41,7 @@ const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m
 const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
 const MockTrackerView = lazy(() => import('./components/views/MockTrackerView').then(m => ({ default: m.MockTrackerView })));
 const DailyTargetsView = lazy(() => import('./components/views/DailyTargetsView').then(m => ({ default: m.DailyTargetsView })));
+const StudyToolsView = lazy(() => import('./components/views/StudyToolsView').then(m => ({ default: m.StudyToolsView })));
 
 // ⚡ Lazy Loaded Heavy Modals & Drawers
 const TopicDetailDrawer = lazy(() => import('./components/modals/TopicDetailDrawer').then(m => ({ default: m.TopicDetailDrawer })));
@@ -91,7 +92,11 @@ const VALID_VIEWS = new Set<AppView>([
   'settings',
   'youtube-notes',
   'mock-tracker',
-  'landing'
+  'landing',
+  'study-tools',
+  'study-tools-vocab',
+  'study-tools-maths',
+  'study-tools-ga'
 ]);
 
 export const App: React.FC = () => {
@@ -1063,6 +1068,26 @@ export const App: React.FC = () => {
               {currentView === 'mock-tracker' && (
                 <ViewErrorBoundary sectionName="Mock Test Tracker" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <MockTrackerView />
+                </ViewErrorBoundary>
+              )}
+
+              {(currentView === 'study-tools' ||
+                currentView === 'study-tools-vocab' ||
+                currentView === 'study-tools-maths' ||
+                currentView === 'study-tools-ga') && (
+                <ViewErrorBoundary sectionName="Study Tools" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                  <StudyToolsView
+                    initialTab={
+                      currentView === 'study-tools-vocab'
+                        ? 'vocab'
+                        : currentView === 'study-tools-maths'
+                        ? 'maths'
+                        : currentView === 'study-tools-ga'
+                        ? 'ga'
+                        : 'vocab'
+                    }
+                    onNavigate={handleNavigate}
+                  />
                 </ViewErrorBoundary>
               )}
 

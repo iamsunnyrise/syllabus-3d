@@ -161,6 +161,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           iconBg: 'bg-slate-500/15 text-slate-600 dark:text-slate-300 border-slate-500/30'
         },
         {
+          id: 'study-tools' as AppView,
+          label: 'Study Tools (Vocab, Maths, GA)',
+          icon: Sparkles,
+          badge: 'New',
+          badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-bold',
+          iconBg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+        },
+        {
           id: 'pacing' as AppView,
           label: 'Target Pacing',
           icon: Gauge,

@@ -19,7 +19,11 @@ import {
   BarChart3,
   AlertTriangle,
   Trophy,
-  ShoppingCart
+  ShoppingCart,
+  Calculator,
+  Compass,
+  Languages,
+  Wrench
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -44,15 +48,26 @@ export type AppView =
   | 'settings'
   | 'youtube-notes'
   | 'mock-tracker'
-  | 'landing';
+  | 'landing'
+  | 'study-tools'
+  | 'study-tools-vocab'
+  | 'study-tools-maths'
+  | 'study-tools-ga';
 
-interface NavItem {
+export interface SubNavItem {
+  id: AppView;
+  label: string;
+  icon?: React.ComponentType<{ className?: string }>;
+}
+
+export interface NavItem {
   id: AppView;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   badge?: React.ReactNode;
   badgeColor?: string;
   shortcut?: string;
+  subItems?: SubNavItem[];
 }
 
 interface NavSection {
@@ -200,6 +215,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const toolsItems: NavItem[] = [
+    {
+      id: 'study-tools',
+      label: 'Study Tools',
+      icon: Sparkles,
+      badge: 'New',
+      badgeColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30',
+      subItems: [
+        {
+          id: 'study-tools-vocab',
+          label: 'Vocabulary',
+          icon: Languages
+        },
+        {
+          id: 'study-tools-maths',
+          label: 'Maths',
+          icon: Calculator
+        },
+        {
+          id: 'study-tools-ga',
+          label: 'General Awareness',
+          icon: Compass
+        }
+      ]
+    },
     {
       id: 'pacing',
       label: 'Target Pacing',
@@ -379,7 +418,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {/* 4. Study Tools Section (Pacing, Analytics, YouTube, Mindmap, Platforms) */}
             {toolsItems.map(item => {
               const Icon = item.icon;
-              const isActive = activeView === item.id;
+              const isActive = activeView === item.id || Boolean(item.subItems?.some(s => s.id === activeView));
               return (
                 <div key={item.id} className="relative group flex items-center justify-center w-full">
                   <button
@@ -393,14 +432,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
                         : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                     }`}
-                    title={item.label}
+                    title={item.subItems ? `${item.label} (Vocabulary, Maths, GA)` : item.label}
                     aria-label={item.label}
                   >
                     <Icon className="w-5 h-5 stroke-[2]" />
                   </button>
 
                   <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
-                    <span>{item.label}</span>
+                    <span>{item.subItems ? `${item.label} (Vocab, Maths, GA)` : item.label}</span>
                     {item.shortcut && (
                       <span className="text-slate-400 font-mono text-[10px]">
                         Alt+{item.shortcut}
@@ -594,32 +633,67 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         <nav className="space-y-1 pt-0.5">
                           {section.items.map(item => {
                             const Icon = item.icon;
-                            const isActive = activeView === item.id;
+                            const isDirectActive = activeView === item.id;
+                            const isChildActive = Boolean(item.subItems?.some(s => s.id === activeView));
+                            const isParentActive = isDirectActive || isChildActive;
                             return (
-                              <button
-                                key={`${section.title}-${item.label}`}
-                                type="button"
-                                onClick={() => {
-                                  soundManager.playClick();
-                                  onSelectView(item.id);
-                                }}
-                                className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
-                                  isActive
-                                    ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_12px_rgba(245,158,11,0.15)]'
-                                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`} />
-                                  <span className="truncate">{item.label}</span>
-                                </div>
+                              <div key={`${section.title}-${item.label}`} className="space-y-1">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    soundManager.playClick();
+                                    onSelectView(item.id);
+                                  }}
+                                  className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                                    isDirectActive
+                                      ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                                      : isChildActive
+                                      ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                    <Icon className={`w-4 h-4 shrink-0 ${isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`} />
+                                    <span className="truncate">{item.label}</span>
+                                  </div>
 
-                                {item.badge && (
-                                  <span className={`px-1.5 py-0.2 rounded-md text-[11px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
-                                    {item.badge}
-                                  </span>
+                                  {item.badge && (
+                                    <span className={`px-1.5 py-0.2 rounded-md text-[11px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
+                                      {item.badge}
+                                    </span>
+                                  )}
+                                </button>
+
+                                {/* Nested Sub-Items (Vocabulary, Maths, General Awareness) */}
+                                {item.subItems && item.subItems.length > 0 && (
+                                  <div className="ml-3 pl-3 border-l-2 border-slate-200/90 dark:border-white/10 space-y-0.5 pt-0.5">
+                                    {item.subItems.map(sub => {
+                                      const SubIcon = sub.icon;
+                                      const isSubActive = activeView === sub.id;
+                                      return (
+                                        <button
+                                          key={sub.id}
+                                          type="button"
+                                          onClick={() => {
+                                            soundManager.playClick();
+                                            onSelectView(sub.id);
+                                          }}
+                                          className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none ${
+                                            isSubActive
+                                              ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold border border-amber-500/35 shadow-2xs'
+                                              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/40 dark:hover:bg-white/[0.04]'
+                                          }`}
+                                        >
+                                          {SubIcon && (
+                                            <SubIcon className={`w-3.5 h-3.5 shrink-0 ${isSubActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400'}`} />
+                                          )}
+                                          <span className="truncate">{sub.label}</span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
                                 )}
-                              </button>
+                              </div>
                             );
                           })}
                         </nav>
