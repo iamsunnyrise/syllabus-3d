@@ -384,6 +384,8 @@ export const Header: React.FC<HeaderProps> = ({
               ? 'Vocabulary'
               : currentView === 'study-tools-maths'
               ? 'Maths'
+              : currentView === 'study-tools-calc-booster'
+              ? 'Calculation Booster'
               : currentView === 'study-tools-ga'
               ? 'General Awareness'
               : currentView === 'settings'

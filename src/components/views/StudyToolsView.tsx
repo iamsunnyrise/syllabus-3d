@@ -32,9 +32,11 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
+export type MathsSubTab = 'overview' | 'calc-booster';
 
 interface StudyToolsViewProps {
   initialTab?: StudyToolTab;
+  initialMathsTab?: MathsSubTab;
   onNavigate?: (view: AppView) => void;
 }
 
@@ -414,9 +416,11 @@ const GA_TOPICS: GaTopic[] = [
 
 export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   initialTab = 'vocab',
+  initialMathsTab = 'overview',
   onNavigate
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
+  const [mathsSubTab, setMathsSubTab] = useState<MathsSubTab>(initialMathsTab);
 
   // Sync when initialTab prop updates
   useEffect(() => {
@@ -424,6 +428,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       setActiveTab(initialTab);
     }
   }, [initialTab]);
+
+  // Sync when initialMathsTab prop updates
+  useEffect(() => {
+    if (initialMathsTab) {
+      setMathsSubTab(initialMathsTab);
+    }
+  }, [initialMathsTab]);
 
   // -------------------------------------------------------------
   // VOCAB STATE
@@ -613,6 +624,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 soundManager.playClick();
                 haptics.selection();
                 setActiveTab('vocab');
+                onNavigate?.('study-tools-vocab');
               }}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'vocab'
@@ -633,6 +645,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 soundManager.playClick();
                 haptics.selection();
                 setActiveTab('maths');
+                onNavigate?.(mathsSubTab === 'calc-booster' ? 'study-tools-calc-booster' : 'study-tools-maths');
               }}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'maths'
@@ -653,6 +666,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 soundManager.playClick();
                 haptics.selection();
                 setActiveTab('ga');
+                onNavigate?.('study-tools-ga');
               }}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'ga'
@@ -949,8 +963,62 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'maths' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Mental Calculation Speed Drill Card */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-blue-900/30 via-indigo-900/20 to-slate-900/40 border border-blue-500/30 shadow-md">
+          {/* Sub Navigation: Formulas & Speed Drills vs Calculation Booster */}
+          <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setMathsSubTab('overview');
+                onNavigate?.('study-tools-maths');
+              }}
+              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                mathsSubTab === 'overview'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <Calculator className="w-4 h-4" />
+              <span>Formulas & Speed Drills</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setMathsSubTab('calc-booster');
+                onNavigate?.('study-tools-calc-booster');
+              }}
+              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                mathsSubTab === 'calc-booster'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <Zap className="w-4 h-4" />
+              <span>Calculation Booster</span>
+            </button>
+          </div>
+
+          {mathsSubTab === 'calc-booster' ? (
+            <div className="p-8 sm:p-14 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col items-center justify-center text-center space-y-4 min-h-[380px] animate-fade-in">
+              <div className="w-16 h-16 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                <Zap className="w-8 h-8" />
+              </div>
+              <div className="space-y-1.5 max-w-md">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  Calculation Booster
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Calculation Booster section ready hai. Abi koi tools ya exercises add nahi ki gayi hain.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Mental Calculation Speed Drill Card */}
+              <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-blue-900/30 via-indigo-900/20 to-slate-900/40 border border-blue-500/30 shadow-md">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-500/20 pb-4">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
@@ -1141,6 +1209,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               })}
             </div>
           </div>
+            </>
+          )}
         </div>
       )}
 

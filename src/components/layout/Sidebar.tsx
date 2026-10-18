@@ -23,7 +23,8 @@ import {
   Calculator,
   Compass,
   Languages,
-  Wrench
+  Wrench,
+  Zap
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { useAuth } from '../../context/AuthContext';
@@ -52,6 +53,7 @@ export type AppView =
   | 'study-tools'
   | 'study-tools-vocab'
   | 'study-tools-maths'
+  | 'study-tools-calc-booster'
   | 'study-tools-ga';
 
 export interface SubNavItem {
@@ -231,6 +233,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'study-tools-maths',
           label: 'Maths',
           icon: Calculator
+        },
+        {
+          id: 'study-tools-calc-booster',
+          label: 'Calculation Booster',
+          icon: Zap
         },
         {
           id: 'study-tools-ga',
