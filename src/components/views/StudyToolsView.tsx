@@ -27,7 +27,8 @@ import {
   Plus,
   ArrowRight,
   Hash,
-  Boxes
+  Boxes,
+  Volume2
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
@@ -62,6 +63,8 @@ interface VocabItem {
   mnemonic: string;
   frequency: 'High' | 'Very High' | 'Repeated';
   examTags: string[];
+  collocation?: string;
+  derivatives?: string;
 }
 
 const DEFAULT_VOCAB_DATA: VocabItem[] = [
@@ -78,7 +81,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Fame in modern social media is often ephemeral and fades rapidly.',
     mnemonic: 'Sounds like "e-flower" -> A flower blooms for a very short, ephemeral time.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'NDA']
+    examTags: ['SSC CGL', 'CHSL', 'NDA'],
+    collocation: 'Ephemeral pleasure / fame / beauty',
+    derivatives: 'Ephemerality (noun), Ephemerally (adverb)'
   },
   {
     id: 'v2',
@@ -93,7 +98,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'The billionaire retired early to dedicate his life as a philanthropist.',
     mnemonic: 'Phil (Love) + Anthro (Human) -> One who loves humanity.',
     frequency: 'Very High',
-    examTags: ['SSC CGL', 'CPO', 'Banking']
+    examTags: ['SSC CGL', 'CPO', 'Banking'],
+    collocation: 'Generous / Renowned philanthropist',
+    derivatives: 'Philanthropy (noun), Philanthropic (adjective)'
   },
   {
     id: 'v3',
@@ -108,7 +115,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Trust him with your surprise party plan and he is sure to spill the beans.',
     mnemonic: 'Imagine dropping a jar of beans -> All hidden beans scatter in the open!',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'MTS']
+    examTags: ['SSC CGL', 'CHSL', 'MTS'],
+    collocation: 'Spill the beans to the press / police'
   },
   {
     id: 'v4',
@@ -123,7 +131,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Benevolent leaders always consider the welfare of their poorest citizens.',
     mnemonic: 'Bene is opposite of Mal (Malnutrition, Malpractice).',
     frequency: 'High',
-    examTags: ['SSC CGL', 'CDS', 'CAT']
+    examTags: ['SSC CGL', 'CDS', 'CAT'],
+    collocation: 'Root in Benevolence, Beneficial, Benediction'
   },
   {
     id: 'v5',
@@ -138,7 +147,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'The auditor was meticulous in cross-verifying every single receipt.',
     mnemonic: 'Meticulous = "Matters tick closely" -> Checking every small tick-mark carefully.',
     frequency: 'Very High',
-    examTags: ['SSC CGL', 'CHSL', 'IBPS PO']
+    examTags: ['SSC CGL', 'CHSL', 'IBPS PO'],
+    collocation: 'Meticulous in / about doing research',
+    derivatives: 'Meticulously (adverb), Meticulousness (noun)'
   },
   {
     id: 'v6',
@@ -153,7 +164,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'In traditional theology, the Supreme Creator is believed to be omniscient.',
     mnemonic: 'Omni (All) + Scient (Science/Knowing) -> Knowing everything.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CPO', 'Steno']
+    examTags: ['SSC CGL', 'CPO', 'Steno'],
+    collocation: 'Omniscient narrator / deity',
+    derivatives: 'Omniscience (noun), Omnisciently (adverb)'
   },
   {
     id: 'v7',
@@ -168,7 +181,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Aspirants often burn the midnight oil during the final revision month.',
     mnemonic: 'Before electricity, studying late required keeping the oil lamp burning until midnight.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'Railway']
+    examTags: ['SSC CGL', 'CHSL', 'Railway'],
+    collocation: 'Burn the midnight oil to crack exam'
   },
   {
     id: 'v8',
@@ -183,7 +197,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Arrange the historical events in strict chronological order.',
     mnemonic: 'Chronometer is an instrument designed to measure precise time.',
     frequency: 'High',
-    examTags: ['SSC CGL', 'NDA', 'CDS']
+    examTags: ['SSC CGL', 'NDA', 'CDS'],
+    collocation: 'Root in Chronic illness, Synchronize clocks'
   },
   {
     id: 'v9',
@@ -198,7 +213,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'The sagacious counsel of the elder saved the community from a catastrophic conflict.',
     mnemonic: 'Sage means a wise saint -> Sagacious means sage-like wisdom.',
     frequency: 'Very High',
-    examTags: ['SSC CGL', 'CPO', 'Banking']
+    examTags: ['SSC CGL', 'CPO', 'Banking'],
+    collocation: 'Sagacious advice / leader / decision',
+    derivatives: 'Sagacity (noun), Sagaciously (adverb)'
   },
   {
     id: 'v10',
@@ -213,7 +230,349 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'The doctor diagnosed the child as a chronic somnambulist.',
     mnemonic: 'Somn (Sleep) + Ambul (Walk as in Ambulance) -> Walks while asleep.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'CPO']
+    examTags: ['SSC CGL', 'CHSL', 'CPO'],
+    collocation: 'Chronic somnambulist',
+    derivatives: 'Somnambulism (noun)'
+  },
+  {
+    id: 'v11',
+    word: 'Mitigate',
+    phonetic: '/ˈmɪt.ɪ.ɡeɪt/',
+    hindi: 'कम करना / शांत करना / गंभीरता घटाना',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Make something bad less severe, serious, or painful.',
+    synonyms: ['Alleviate', 'Assuage', 'Palliate', 'Mollify', 'Abate'],
+    antonyms: ['Aggravate', 'Exacerbate', 'Intensify', 'Worsen'],
+    example: 'The government planted mangrove belts along the coast to mitigate flood devastation.',
+    mnemonic: 'Miti (Mitti / Mud) daal kar aag bujhana -> Fire intensity kam karna.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'Banking', 'CDS'],
+    collocation: 'Mitigate risks / disaster / losses / impact',
+    derivatives: 'Mitigation (noun), Unmitigated (adjective)'
+  },
+  {
+    id: 'v12',
+    word: 'Alacrity',
+    phonetic: '/əˈlæk.rə.ti/',
+    hindi: 'तत्परता / उत्साह / फुर्ती',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'Brisk and cheerful readiness; promptness in response.',
+    synonyms: ['Eagerness', 'Promptness', 'Celerity', 'Briskness', 'Zeal'],
+    antonyms: ['Lethargy', 'Reluctance', 'Apathy', 'Sluggishness'],
+    example: 'She accepted the prestigious fellowship with alacrity and packed her bags within hours.',
+    mnemonic: 'Sound like "All-Creativity" or "Electricity" -> High speed and energetic readiness.',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'IBPS PO', 'CAT'],
+    collocation: 'Accept / Respond with alacrity',
+    derivatives: 'Alacritous (adjective)'
+  },
+  {
+    id: 'v13',
+    word: 'Castigate',
+    phonetic: '/ˈkæs.tɪ.ɡeɪt/',
+    hindi: 'कड़ी आलोचना करना / फटकारना',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Reprimand or chastise someone severely.',
+    synonyms: ['Chastise', 'Rebuke', 'Censure', 'Reprimand', 'Berate'],
+    antonyms: ['Praise', 'Commend', 'Laud', 'Extol'],
+    example: 'The parliamentary committee castigated the contractor for gross safety violations.',
+    mnemonic: 'Castigate sounds like "Caste gate" -> Gatekeeper scolded/punished strictly.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CPO', 'NDA'],
+    collocation: 'Castigate someone for negligence / misconduct',
+    derivatives: 'Castigation (noun)'
+  },
+  {
+    id: 'v14',
+    word: 'Fastidious',
+    phonetic: '/fæˈstɪd.i.əs/',
+    hindi: 'तुनकमिज़ाज / जिसे खुश करना कठिन हो',
+    type: 'word',
+    partOfSpeech: 'Adjective',
+    meaning: 'Very attentive to and concerned about accuracy and detail; hard to please.',
+    synonyms: ['Punctilious', 'Fussy', 'Finicky', 'Meticulous', 'Overcritical'],
+    antonyms: ['Carefree', 'Easygoing', 'Lenient', 'Undemanding'],
+    example: 'The chef was fastidious about the temperature of the ovens and presentation.',
+    mnemonic: 'Fastidious = Fast (Upwaas) + Tedious -> Making everyone fast because you are hard to please.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'Steno'],
+    collocation: 'Fastidious about cleanliness / appearance',
+    derivatives: 'Fastidiously (adverb), Fastidiousness (noun)'
+  },
+  {
+    id: 'v15',
+    word: 'Plethora',
+    phonetic: '/ˈpleθ.ər.ə/',
+    hindi: 'प्रचुरता / आधिक्य (ज़रूरत से ज़्यादा)',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'A large or excessive amount of something.',
+    synonyms: ['Surfeit', 'Superabundance', 'Glut', 'Profusion', 'Excess'],
+    antonyms: ['Paucity', 'Scarcity', 'Dearth', 'Shortage'],
+    example: 'The online store provides a plethora of study resources, confusing new learners.',
+    mnemonic: 'Plethora sounds like "Plate-thoda" -> Plate bhar ke khana (excess food).',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'Banking', 'CDS'],
+    collocation: 'A plethora of options / choices / complaints',
+    derivatives: 'Plethoric (adjective)'
+  },
+  {
+    id: 'v16',
+    word: 'Ubiquitous',
+    phonetic: '/juːˈbɪk.wɪ.təs/',
+    hindi: 'सर्वव्यापी / जो हर जगह उपस्थित हो',
+    type: 'word',
+    partOfSpeech: 'Adjective',
+    meaning: 'Present, appearing, or found everywhere at the same time.',
+    synonyms: ['Omnipresent', 'Pervasive', 'Universal', 'Prevalent'],
+    antonyms: ['Rare', 'Scarce', 'Infrequent', 'Localized'],
+    example: 'Smartphones and digital QR codes have become ubiquitous across Indian markets.',
+    mnemonic: 'Ubiquitous -> "You-be-everywhere" -> Present in every corner.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'IBPS PO'],
+    collocation: 'Ubiquitous presence / influence',
+    derivatives: 'Ubiquity (noun), Ubiquitously (adverb)'
+  },
+  {
+    id: 'v17',
+    word: 'Paucity',
+    phonetic: '/ˈpɔː.sə.ti/',
+    hindi: 'अभाव / कमी / न्यूनता',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'The presence of something only in small or insufficient quantities or amounts.',
+    synonyms: ['Scarcity', 'Dearth', 'Shortage', 'Deficiency', 'Deficit'],
+    antonyms: ['Abundance', 'Surplus', 'Plethora', 'Plenty'],
+    example: 'The prosecution collapsed due to a severe paucity of verifiable evidence.',
+    mnemonic: 'Paucity sounds like "Pau" (1/4th kg in Hindi) -> Bahut thodi maatra (very low quantity).',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CPO', 'Banking'],
+    collocation: 'Paucity of funds / evidence / talent',
+    derivatives: 'Paucity (noun)'
+  },
+  {
+    id: 'v18',
+    word: 'Venerate',
+    phonetic: '/ˈven.ər.eɪt/',
+    hindi: 'आदर करना / सम्मान करना / पूजना',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Regard with great respect; revere deeply.',
+    synonyms: ['Revere', 'Worship', 'Hallow', 'Adore', 'Exalt'],
+    antonyms: ['Despise', 'Disdain', 'Scorn', 'Degrade'],
+    example: 'Citizens venerate the freedom fighters who sacrificed their youth for independence.',
+    mnemonic: 'Venerate sounds like "Van-naari" or "Venerable" (Respected old sages).',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'CHSL', 'NDA'],
+    collocation: 'Venerated as a hero / saint',
+    derivatives: 'Veneration (noun), Venerable (adjective)'
+  },
+  {
+    id: 'v19',
+    word: 'Inadvertently',
+    phonetic: '/ˌɪn.ədˈvɜː.tənt.li/',
+    hindi: 'अनजाने में / भूलवश / बिना इरादे के',
+    type: 'word',
+    partOfSpeech: 'Adverb',
+    meaning: 'Without intention; accidentally or casually.',
+    synonyms: ['Unintentionally', 'Accidentally', 'Unwittingly', 'Involuntarily'],
+    antonyms: ['Deliberately', 'Intentionally', 'Purposely', 'Knowingly'],
+    example: 'He inadvertently deleted the essential backup files while cleaning his hard drive.',
+    mnemonic: 'In (Not) + Advertisement (Focus/Notice) -> Bina dhyan diye galti se ho jaana.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'Banking'],
+    collocation: 'Inadvertently reveal / disclose / delete / overlook',
+    derivatives: 'Inadvertent (adjective), Inadvertence (noun)'
+  },
+  {
+    id: 'v20',
+    word: 'Pragmatic',
+    phonetic: '/præɡˈmæt.ɪk/',
+    hindi: 'व्यावहारिक / यथार्थवादी',
+    type: 'word',
+    partOfSpeech: 'Adjective',
+    meaning: 'Dealing with things sensibly and realistically in a way based on practical considerations.',
+    synonyms: ['Practical', 'Realistic', 'Sensible', 'Hard-headed', 'Rational'],
+    antonyms: ['Idealistic', 'Impractical', 'Quixotic', 'Visionary'],
+    example: 'A pragmatic revision timetable focuses on high-weightage topics rather than finishing everything.',
+    mnemonic: 'Pragmatic = "Practical + Automatic" -> Ground reality par chalna.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'IBPS PO', 'CDS'],
+    collocation: 'Pragmatic approach / solution / compromise',
+    derivatives: 'Pragmatically (adverb), Pragmatism (noun)'
+  },
+  {
+    id: 'v21',
+    word: 'Vacillate',
+    phonetic: '/ˈvæs.ɪ.leɪt/',
+    hindi: 'डगमगाना / हिचकिचाना / अनिर्णय की स्थिति',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Waver between different opinions or actions; be indecisive.',
+    synonyms: ['Waver', 'Hesitate', 'Fluctuate', 'Dither', 'Oscillate'],
+    antonyms: ['Resolute', 'Decide', 'Determine', 'Persevere'],
+    example: 'Do not vacillate between optional subjects once your preparation begins.',
+    mnemonic: 'Sounds like "Oscillate" (Pendulum ki tarah idhar-udhar hilna).',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'CPO', 'Banking'],
+    collocation: 'Vacillate between two choices / opinions',
+    derivatives: 'Vacillation (noun), Vacillating (adjective)'
+  },
+  {
+    id: 'v22',
+    word: 'Equanimity',
+    phonetic: '/ˌek.wəˈnɪm.ə.ti/',
+    hindi: 'मानसिक संतुलन / धैर्य / समचित्तता',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'Mental calmness, composure, and evenness of temper, especially in a difficult situation.',
+    synonyms: ['Composure', 'Serenity', 'Poise', 'Tranquility', 'Self-possession'],
+    antonyms: ['Agitation', 'Perturbation', 'Anxiety', 'Frenzy'],
+    example: 'The captain maintained calm equanimity despite conceding two quick goals.',
+    mnemonic: 'Equal + Animated -> Keeping emotional level equal in both victory and defeat.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CDS', 'CAT'],
+    collocation: 'Accept / Bear with equanimity',
+    derivatives: 'Equanimous (adjective)'
+  },
+  {
+    id: 'v23',
+    word: 'Resilient',
+    phonetic: '/rɪˈzɪl.i.ənt/',
+    hindi: 'लचीला / संकट से शीघ्र उबरने वाला',
+    type: 'word',
+    partOfSpeech: 'Adjective',
+    meaning: 'Able to withstand or recover quickly from difficult conditions.',
+    synonyms: ['Tough', 'Hardy', 'Adaptable', 'Buoyant', 'Tenacious'],
+    antonyms: ['Fragile', 'Vulnerable', 'Delicate', 'Brittle'],
+    example: 'Resilient candidates learn from failed mock tests instead of losing confidence.',
+    mnemonic: 'Spring coils re-bound (resile) after heavy pressure.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'Banking', 'CHSL'],
+    collocation: 'Resilient against economic shocks / adversity',
+    derivatives: 'Resilience (noun), Resiliently (adverb)'
+  },
+  {
+    id: 'v24',
+    word: 'Vilify',
+    phonetic: '/ˈvɪl.ɪ.faɪ/',
+    hindi: 'बदनामी करना / निंदा करना / गाली देना',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Speak or write about in an abusively disparaging manner.',
+    synonyms: ['Defame', 'Malign', 'Slander', 'Disparage', 'Denigrate'],
+    antonyms: ['Commend', 'Extol', 'Praise', 'Glorify'],
+    example: 'It is unethical to vilify honest public servants for political leverage.',
+    mnemonic: 'Vilify sounds like "Villain banadena" -> Kisi ko villain bana kar badnaam karna.',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'CPO', 'Steno'],
+    collocation: 'Vilify someone in the media / press',
+    derivatives: 'Vilification (noun)'
+  },
+  {
+    id: 'v25',
+    word: 'Reticent',
+    phonetic: '/ˈret.ɪ.sənt/',
+    hindi: 'अल्पभाषी / मौन / संकोची',
+    type: 'word',
+    partOfSpeech: 'Adjective',
+    meaning: 'Not revealing one\'s thoughts or feelings readily; reserved.',
+    synonyms: ['Reserved', 'Taciturn', 'Withdrawn', 'Introverted', 'Secretive'],
+    antonyms: ['Loquacious', 'Garrulous', 'Voluble', 'Talkative'],
+    example: 'The witness was noticeably reticent about the identity of the mastermind.',
+    mnemonic: 'Re + Silent -> Staying silent repeatedly.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'Banking'],
+    collocation: 'Reticent about past events / personal feelings',
+    derivatives: 'Reticence (noun), Reticently (adverb)'
+  },
+  {
+    id: 'v26',
+    word: 'Vociferously',
+    phonetic: '/vəˈsɪf.ər.əs.li/',
+    hindi: 'ज़ोर-शोर से / मुखरता से / चिल्लाकर',
+    type: 'word',
+    partOfSpeech: 'Adverb',
+    meaning: 'In a loud, forceful, or clamorous manner.',
+    synonyms: ['Clamorously', 'Vehemently', 'Stridently', 'Loudly'],
+    antonyms: ['Quietly', 'Silently', 'Mildly', 'Faintly'],
+    example: 'The students vociferously protested against the unfair delay in exam results.',
+    mnemonic: 'Vocal + Ferocious -> Bahut loud aur forceful aawaz me bolna.',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'IBPS PO', 'CDS'],
+    collocation: 'Protest / Object / Deny vociferously',
+    derivatives: 'Vociferous (adjective), Vociferousness (noun)'
+  },
+  {
+    id: 'v27',
+    word: 'Exonerate',
+    phonetic: '/ɪɡˈzɒn.ə.reɪt/',
+    hindi: 'दोषमुक्त करना / बेगुनाह साबित करना',
+    type: 'word',
+    partOfSpeech: 'Verb',
+    meaning: 'Absolve someone from blame for a fault or wrongdoing.',
+    synonyms: ['Acquit', 'Absolve', 'Vindicate', 'Exculpate', 'Clear'],
+    antonyms: ['Inculpate', 'Convict', 'Blame', 'Criminate'],
+    example: 'Fresh DNA evidence emerged to exonerate the man after five years in prison.',
+    mnemonic: 'Ex (Exit/Out) + Onus (Burden of blame) -> Blame ke bojh se mukt karna.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'CHSL', 'CPO'],
+    collocation: 'Exonerate someone from all charges / blame',
+    derivatives: 'Exoneration (noun)'
+  },
+  {
+    id: 'v28',
+    word: 'Aberration',
+    phonetic: '/ˌæb.əˈreɪ.ʃən/',
+    hindi: 'विचलन / असामान्यता / सामान्य पथ से भटकाव',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'A departure from what is normal, usual, or expected, typically an unwelcome one.',
+    synonyms: ['Anomaly', 'Deviation', 'Divergence', 'Eccentricity', 'Peculiarity'],
+    antonyms: ['Normality', 'Conformity', 'Regularity', 'Standard'],
+    example: 'The sudden spike in inflation was deemed a seasonal aberration by economists.',
+    mnemonic: 'Ab + Err (Error) + ation -> Error or deviation from normal pattern.',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'Banking', 'CAT'],
+    collocation: 'Temporary aberration, Mental aberration',
+    derivatives: 'Aberrant (adjective)'
+  },
+  {
+    id: 'v29',
+    word: 'Scrupulously',
+    phonetic: '/ˈskruː.pjə.ləs.li/',
+    hindi: 'अत्यंत ईमानदारी व सावधानी से',
+    type: 'word',
+    partOfSpeech: 'Adverb',
+    meaning: 'In a very careful, thorough, and conscientious manner; with moral integrity.',
+    synonyms: ['Conscientiously', 'Meticulously', 'Punctiliously', 'Painstakingly'],
+    antonyms: ['Dishonestly', 'Carelessly', 'Negligently', 'Corruptly'],
+    example: 'The election commission scrupulously followed every security protocol during voting.',
+    mnemonic: 'Scruple means moral doubt -> Scrupulous person never acts dishonestly.',
+    frequency: 'Repeated',
+    examTags: ['SSC CGL', 'Banking', 'CHSL'],
+    collocation: 'Scrupulously honest / fair / clean / observed',
+    derivatives: 'Scrupulous (adjective), Scrupulousness (noun)'
+  },
+  {
+    id: 'v30',
+    word: 'Cacophony',
+    phonetic: '/kəˈkɒf.ə.ni/',
+    hindi: 'कर्णकटु ध्वनि / भारी कोलाहल',
+    type: 'word',
+    partOfSpeech: 'Noun',
+    meaning: 'A harsh, discordant mixture of sounds.',
+    synonyms: ['Dissonance', 'Din', 'Clamor', 'Racket', 'Discord'],
+    antonyms: ['Euphony', 'Harmony', 'Melody', 'Symphony'],
+    example: 'As soon as the factory siren sounded, a cacophony of engines filled the air.',
+    mnemonic: 'Caco (Harsh/Bad) + Phone (Sound) -> Bad, jarring noise.',
+    frequency: 'Very High',
+    examTags: ['SSC CGL', 'CHSL', 'NDA'],
+    collocation: 'A cacophony of car horns / alarms',
+    derivatives: 'Cacophonous (adjective)'
   }
 ];
 
@@ -419,6 +778,29 @@ const GA_TOPICS: GaTopic[] = [
   }
 ];
 
+const getPosBadgeColor = (pos: string) => {
+  const p = (pos || '').toLowerCase();
+  if (p.includes('noun')) return 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border-emerald-500/30';
+  if (p.includes('verb') && !p.includes('adverb')) return 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30';
+  if (p.includes('adjective') || p.includes('adj')) return 'bg-blue-500/15 text-blue-800 dark:text-blue-300 border-blue-500/30';
+  if (p.includes('adverb') || p.includes('adv')) return 'bg-purple-500/15 text-purple-800 dark:text-purple-300 border-purple-500/30';
+  if (p.includes('idiom')) return 'bg-rose-500/15 text-rose-800 dark:text-rose-300 border-rose-500/30';
+  if (p.includes('root') || p.includes('prefix')) return 'bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border-cyan-500/30';
+  return 'bg-slate-500/15 text-slate-800 dark:text-slate-300 border-slate-500/30';
+};
+
+const speakWord = (text: string) => {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+    } catch {}
+  }
+};
+
 export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   initialTab = 'vocab',
   initialMathsTab = 'overview',
@@ -447,6 +829,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   // -------------------------------------------------------------
   const [vocabSearch, setVocabSearch] = useState('');
   const [vocabTypeFilter, setVocabTypeFilter] = useState<'all' | 'word' | 'ows' | 'idiom' | 'root'>('all');
+  const [vocabPosFilter, setVocabPosFilter] = useState<'all' | 'noun' | 'verb' | 'adjective' | 'adverb'>('all');
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [masteredVocabIds, setMasteredVocabIds] = useState<Set<string>>(() => {
@@ -461,15 +844,25 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   const filteredVocab = useMemo(() => {
     return DEFAULT_VOCAB_DATA.filter(item => {
       const matchesType = vocabTypeFilter === 'all' || item.type === vocabTypeFilter;
+      const posLow = item.partOfSpeech.toLowerCase();
+      const matchesPos = vocabPosFilter === 'all' || (
+        vocabPosFilter === 'noun' && posLow.includes('noun') ||
+        vocabPosFilter === 'verb' && posLow.includes('verb') && !posLow.includes('adverb') ||
+        vocabPosFilter === 'adjective' && (posLow.includes('adjective') || posLow.includes('adj')) ||
+        vocabPosFilter === 'adverb' && (posLow.includes('adverb') || posLow.includes('adv'))
+      );
       const q = vocabSearch.toLowerCase().trim();
       const matchesSearch = !q ||
         item.word.toLowerCase().includes(q) ||
         item.hindi.toLowerCase().includes(q) ||
         item.meaning.toLowerCase().includes(q) ||
+        item.partOfSpeech.toLowerCase().includes(q) ||
+        (item.collocation && item.collocation.toLowerCase().includes(q)) ||
+        (item.derivatives && item.derivatives.toLowerCase().includes(q)) ||
         item.synonyms.some(s => s.toLowerCase().includes(q));
-      return matchesType && matchesSearch;
+      return matchesType && matchesPos && matchesSearch;
     });
-  }, [vocabSearch, vocabTypeFilter]);
+  }, [vocabSearch, vocabTypeFilter, vocabPosFilter]);
 
   const currentFlashcard = filteredVocab[activeCardIndex] || filteredVocab[0];
 
@@ -702,65 +1095,100 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'vocab' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={vocabSearch}
-                onChange={e => {
-                  setVocabSearch(e.target.value);
-                  setActiveCardIndex(0);
-                }}
-                placeholder="Search words, hindi meaning, synonyms..."
-                className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-              />
-              {vocabSearch && (
-                <button
-                  type="button"
-                  onClick={() => setVocabSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-
-            {/* Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-              {[
-                { id: 'all', label: 'All Words' },
-                { id: 'word', label: 'High-Yield' },
-                { id: 'ows', label: 'OWS (One Word)' },
-                { id: 'idiom', label: 'Idioms & Phrases' },
-                { id: 'root', label: 'Root Words' }
-              ].map(f => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    setVocabTypeFilter(f.id as any);
+          {/* Top Control Bar: Search + Category Pills + POS Sub-filters + Mastered Counter */}
+          <div className="space-y-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              {/* Search Input */}
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={vocabSearch}
+                  onChange={e => {
+                    setVocabSearch(e.target.value);
                     setActiveCardIndex(0);
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                    vocabTypeFilter === f.id
-                      ? 'bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/40 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
+                  placeholder="Search words, hindi meaning, POS, grammar, synonyms..."
+                  className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                />
+                {vocabSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setVocabSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Filter Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                {[
+                  { id: 'all', label: 'All Words' },
+                  { id: 'word', label: 'High-Yield' },
+                  { id: 'ows', label: 'OWS (One Word)' },
+                  { id: 'idiom', label: 'Idioms & Phrases' },
+                  { id: 'root', label: 'Root Words' }
+                ].map(f => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setVocabTypeFilter(f.id as any);
+                      setActiveCardIndex(0);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                      vocabTypeFilter === f.id
+                        ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Mastered Counter */}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold shrink-0">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>{masteredVocabIds.size} Mastered</span>
+              </div>
             </div>
 
-            {/* Mastered Counter */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold shrink-0">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>{masteredVocabIds.size} Mastered</span>
-            </div>
+            {/* Part of Speech Sub-Filter Pills (Active for High-Yield or All) */}
+            {(vocabTypeFilter === 'word' || vocabTypeFilter === 'all') && (
+              <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-white/[0.06] overflow-x-auto no-scrollbar">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                  Part of Speech:
+                </span>
+                {[
+                  { id: 'all', label: 'All POS' },
+                  { id: 'noun', label: 'Noun' },
+                  { id: 'verb', label: 'Verb' },
+                  { id: 'adjective', label: 'Adjective' },
+                  { id: 'adverb', label: 'Adverb' }
+                ].map(p => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setVocabPosFilter(p.id as any);
+                      setActiveCardIndex(0);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                      vocabPosFilter === p.id
+                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs font-black'
+                        : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Flashcard Active Recall Spotlight */}
@@ -771,7 +1199,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <div className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[360px]">
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30 font-mono">
+                    <span className={`px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider border font-mono ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
                       {currentFlashcard.partOfSpeech}
                     </span>
                     <span className="text-xs font-mono text-slate-400">
@@ -796,9 +1224,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 {/* Central Word and Meaning Display */}
                 <div className="py-6 space-y-4">
                   <div>
-                    <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-                      {currentFlashcard.word}
-                    </h2>
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                        {currentFlashcard.word}
+                      </h2>
+                      <button
+                        type="button"
+                        onClick={() => speakWord(currentFlashcard.word)}
+                        title="Pronounce word"
+                        className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                    </div>
                     <p className="text-sm font-mono text-amber-600 dark:text-amber-400 mt-1">
                       {currentFlashcard.phonetic} • <span className="font-sans font-bold">{currentFlashcard.hindi}</span>
                     </p>
@@ -851,6 +1289,22 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             </div>
                           )}
                         </div>
+
+                        {/* Collocation & Word Family */}
+                        {(currentFlashcard.collocation || currentFlashcard.derivatives) && (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs">
+                            {currentFlashcard.collocation && (
+                              <div className="p-2.5 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/25 text-blue-900 dark:text-blue-300">
+                                📌 <strong>Collocation / Prep:</strong> {currentFlashcard.collocation}
+                              </div>
+                            )}
+                            {currentFlashcard.derivatives && (
+                              <div className="p-2.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 text-emerald-900 dark:text-emerald-300">
+                                🌳 <strong>Word Family:</strong> {currentFlashcard.derivatives}
+                              </div>
+                            )}
+                          </div>
+                        )}
 
                         {/* Example Sentence */}
                         <div className="p-2.5 rounded-xl bg-amber-500/5 dark:bg-amber-500/[0.04] border-l-2 border-amber-500 text-xs italic text-slate-700 dark:text-slate-300">
@@ -939,8 +1393,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             </p>
                           </div>
 
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 shrink-0 uppercase">
-                            {item.type}
+                          <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border shrink-0 uppercase ${getPosBadgeColor(item.partOfSpeech)}`}>
+                            {item.partOfSpeech.replace(' (OWS)', '').replace(' / Root', '').replace(' / Adj', '')}
                           </span>
                         </div>
                       );
@@ -959,7 +1413,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">No words match your search filter.</p>
               <button
                 type="button"
-                onClick={() => { setVocabSearch(''); setVocabTypeFilter('all'); }}
+                onClick={() => { setVocabSearch(''); setVocabTypeFilter('all'); setVocabPosFilter('all'); }}
                 className="text-xs text-amber-600 dark:text-amber-400 font-bold underline cursor-pointer"
               >
                 Clear all filters
