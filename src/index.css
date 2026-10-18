@@ -519,43 +519,87 @@
     box-shadow: 0 4px 20px rgba(56, 55, 13, 0.08) !important;
   }
 
-  /* Sidebar in Warm Parchment (Clean Luxury Ivory matching theme) */
-  html.warm-cream aside {
-    background-color: #FFFDF8 !important;
-    border-right: 1px solid #E2D1B3 !important;
-    color: #38370D !important;
+  /* Sidebar Theme: Deep Pitch-Black Canvas with Warm Golden Capsule Active Highlights (Matches Reference UI) */
+  aside,
+  .dark aside,
+  html.warm-cream aside,
+  html:not(.dark) aside {
+    background-color: #000000 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: none !important;
+    color: #FFFFFF !important;
   }
 
-  html.warm-cream aside .text-slate-900,
-  html.warm-cream aside .text-slate-800,
-  html.warm-cream aside h1 {
-    color: #1C1B05 !important;
+  aside [data-sidebar-active="true"],
+  html.warm-cream aside [data-sidebar-active="true"],
+  .dark aside [data-sidebar-active="true"] {
+    background-color: #241F0A !important;
+    background: #241F0A !important;
+    border: 1px solid rgba(225, 168, 55, 0.25) !important;
+    color: #FBBF24 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 2px 12px rgba(225, 168, 55, 0.12) !important;
+    font-weight: 700 !important;
+  }
+  aside [data-sidebar-active="true"] *,
+  html.warm-cream aside [data-sidebar-active="true"] *,
+  .dark aside [data-sidebar-active="true"] * {
+    color: #FBBF24 !important;
   }
 
-  html.warm-cream aside .text-slate-500,
-  html.warm-cream aside .text-slate-400 {
-    color: #524E12 !important;
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #D4D4D8 !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+    color: #A1A1AA !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #FFFFFF !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+    color: #FFFFFF !important;
   }
 
-  html.warm-cream aside button {
-    color: #38370D !important;
-    font-weight: 600 !important;
+  aside [data-sidebar-logout="true"],
+  html.warm-cream aside [data-sidebar-logout="true"],
+  .dark aside [data-sidebar-logout="true"] {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #F87171 !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
   }
-
-  html.warm-cream aside button:hover {
-    background-color: #FAF4E6 !important;
-    color: #1C1B05 !important;
+  aside [data-sidebar-logout="true"] *,
+  html.warm-cream aside [data-sidebar-logout="true"] *,
+  .dark aside [data-sidebar-logout="true"] * {
+    color: #F87171 !important;
   }
-
-  html.warm-cream aside button[aria-current="page"] {
-    background: linear-gradient(135deg, #E1A837 0%, #CCA32F 100%) !important;
-    color: #1C1B05 !important;
-    box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
-    font-weight: 800 !important;
+  aside [data-sidebar-logout="true"]:hover,
+  html.warm-cream aside [data-sidebar-logout="true"]:hover,
+  .dark aside [data-sidebar-logout="true"]:hover {
+    background-color: rgba(244, 63, 94, 0.1) !important;
+    color: #FDA4AF !important;
   }
-
-  html.warm-cream aside button[aria-current="page"] * {
-    color: #1C1B05 !important;
+  aside [data-sidebar-logout="true"]:hover *,
+  html.warm-cream aside [data-sidebar-logout="true"]:hover *,
+  .dark aside [data-sidebar-logout="true"]:hover * {
+    color: #FDA4AF !important;
   }
 
   /* Mobile Floating Dock in Warm Parchment */
@@ -2560,7 +2604,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 }
 
 .dark aside {
-  background-color: #090A12 !important;
+  background-color: #000000 !important;
   backdrop-filter: blur(28px) !important;
   -webkit-backdrop-filter: blur(28px) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -2571,8 +2615,7 @@ aside nav > div,
 aside nav div,
 aside [role="navigation"],
 aside [role="navigation"] > div,
-aside [role="navigation"] div,
-aside button {
+aside [role="navigation"] div {
   background-color: transparent !important;
   background: transparent !important;
   border: none !important;
@@ -2864,11 +2907,11 @@ html:not(.dark) header {
 }
 
 html:not(.dark) aside {
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: #000000 !important;
   backdrop-filter: blur(28px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  border-right: 1px solid rgba(226, 232, 240, 0.85) !important;
-  box-shadow: 1px 0 12px -2px rgba(15, 23, 42, 0.02) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
 }
 
 /* 9. Floating Mobile Nav */

@@ -335,7 +335,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#F8FAFC] dark:bg-[#090A12] text-slate-800 dark:text-slate-200 justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-40 select-none border-r border-slate-200/80 dark:border-white/[0.08] shadow-xs ${
+      className={`hidden md:flex flex-col h-screen fixed top-0 left-0 bg-black text-white justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-40 select-none border-r border-white/[0.08] shadow-xs ${
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
@@ -348,7 +348,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             haptics.light();
             onToggleCollapse();
           }}
-          className="absolute -right-3.5 top-7 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-white dark:bg-[#090A12] border border-slate-300 dark:border-white/20 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
+          className="absolute -right-3.5 top-7 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-black border border-white/20 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
           title="Expand sidebar (Ctrl+B)"
           aria-label="Expand sidebar"
         >
@@ -362,9 +362,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           sleek outline icons, and coral-red logout at bottom.
           ========================================================================= */}
       {isCollapsed ? (
-        <div className="flex flex-col h-full justify-between items-center w-full">
+        <div className="flex flex-col h-full justify-between items-center w-full bg-black">
           {/* Top Section: Exactly h-14 (56px) baseline aligned with Header */}
-          <div className="h-14 w-full flex items-center justify-center border-b border-slate-200/80 dark:border-white/[0.08] shrink-0">
+          <div className="h-14 w-full flex items-center justify-center border-b border-white/[0.08] shrink-0 bg-black">
             <button
               type="button"
               onClick={() => {
@@ -380,7 +380,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Scrollable Middle Navigation Rail */}
-          <div className="flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full">
+          <div className="flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full bg-black">
             {/* 1. Core Section (Home & Syllabus) */}
             {coreItems.map(item => {
               const Icon = item.icon;
@@ -389,14 +389,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <div key={item.id} className="relative group flex items-center justify-center w-full">
                   <button
                     type="button"
+                    data-sidebar-item="true"
+                    data-sidebar-active={isActive ? 'true' : 'false'}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
                     }}
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                        ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
                     }`}
                     title={item.label}
                     aria-label={item.label}
@@ -404,7 +406,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Icon className="w-5 h-5 stroke-[2.2]" />
                   </button>
 
-                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.label}</span>
                   </div>
                 </div>
@@ -412,7 +414,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
 
             {/* Divider */}
-            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+            <div className="w-7 h-px bg-white/[0.08] my-1 shrink-0" />
 
             {/* 3. Practice & Routine Section (Targets, Revision, Weak, Mock) */}
             {practiceItems.map(item => {
@@ -422,25 +424,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <div key={item.id} className="relative group flex items-center justify-center w-full">
                   <button
                     type="button"
+                    data-sidebar-item="true"
+                    data-sidebar-active={isActive ? 'true' : 'false'}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
                     }}
                     className={`relative flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                        ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
                     }`}
                     title={item.label}
                     aria-label={item.label}
                   >
                     <Icon className="w-5 h-5 stroke-[2]" />
                     {item.badge && (
-                      <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#090A12]" />
+                      <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-black" />
                     )}
                   </button>
 
-                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.label}</span>
                     {item.badge && (
                       <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-xs font-mono">
@@ -453,7 +457,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
 
             {/* Divider */}
-            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+            <div className="w-7 h-px bg-white/[0.08] my-1 shrink-0" />
 
             {/* 4. Study Tools Section (Pacing, Analytics, YouTube, Mindmap, Platforms) */}
             {toolsItems.map(item => {
@@ -463,14 +467,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <div key={item.id} className="relative group flex items-center justify-center w-full">
                   <button
                     type="button"
+                    data-sidebar-item="true"
+                    data-sidebar-active={isActive ? 'true' : 'false'}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
                     }}
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                        ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
                     }`}
                     title={item.subItems ? `${item.label} (Vocabulary, Maths, GA)` : item.label}
                     aria-label={item.label}
@@ -478,7 +484,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Icon className="w-5 h-5 stroke-[2]" />
                   </button>
 
-                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
+                  <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.subItems ? `${item.label} (Vocab, Maths, GA)` : item.label}</span>
                   </div>
                 </div>
@@ -486,32 +492,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
 
             {/* Divider */}
-            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+            <div className="w-7 h-px bg-white/[0.08] my-1 shrink-0" />
 
             {/* 5. Account & Utility Icons (Profile, Pricing, Shortcuts, AI Studio, Focus) */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
+                data-sidebar-item="true"
+                data-sidebar-active={activeView === 'settings' ? 'true' : 'false'}
                 onClick={() => {
                   soundManager.playClick();
                   onSelectView('settings');
                 }}
                 className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                   activeView === 'settings'
-                    ? 'w-11 h-11 rounded-2xl bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 font-bold'
-                    : 'w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                    ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 font-bold'
+                    : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
                 }`}
                 aria-label="My Profile"
               >
                 <User className="w-5 h-5 stroke-[2]" />
               </button>
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
+              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex flex-col backdrop-blur-md">
                 <span className="text-white font-bold">{user?.name || 'Aspirant'}</span>
-                <span className="text-[10px] text-slate-400 font-normal">My profile & settings</span>
+                <span className="text-[10px] text-zinc-400 font-normal">My profile & settings</span>
               </div>
             </div>
-
-
 
             {onOpenShortcuts && (
               <div className="relative group flex items-center justify-center w-full">
@@ -521,12 +527,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenShortcuts();
                   }}
-                  className="w-10 h-10 rounded-xl text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-amber-500 flex items-center justify-center transition-all cursor-pointer active:scale-95"
+                  className="w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-amber-400 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                   aria-label="Shortcuts Cheatsheet"
                 >
                   <Keyboard className="w-5 h-5 stroke-[2]" />
                 </button>
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
+                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
                   Shortcuts Cheatsheet
                 </div>
               </div>
@@ -545,7 +551,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <Sparkles className="w-5 h-5 stroke-[2]" />
                 </button>
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
+                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
                   AI Studio
                 </div>
               </div>
@@ -564,32 +570,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <Timer className="w-5 h-5 stroke-[2]" />
                 </button>
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
+                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50">
                   Focus Mode
                 </div>
               </div>
             )}
 
             {/* Divider */}
-            <div className="w-7 h-px bg-slate-200/80 dark:bg-white/[0.08] my-1 shrink-0" />
+            <div className="w-7 h-px bg-white/[0.08] my-1 shrink-0" />
 
             {/* 6. Logout in Coral-Red (Exact Bottom Item in Screenshot) */}
             <div className="relative group flex items-center justify-center w-full">
               <button
                 type="button"
+                data-sidebar-logout="true"
                 onClick={() => {
                   soundManager.playClick();
                   if (window.confirm('Are you sure you want to log out of your session?')) {
                     logout?.();
                   }
                 }}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-colors cursor-pointer active:scale-95"
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-[#F87171] hover:text-rose-300 hover:bg-rose-500/10 transition-colors cursor-pointer active:scale-95"
                 aria-label="Logout"
               >
-                <LogOut className="w-5 h-5 stroke-[2]" />
+                <LogOut className="w-5 h-5 stroke-[2] text-[#F87171]" />
               </button>
 
-              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-rose-300 text-xs font-bold whitespace-nowrap shadow-xl border border-rose-500/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
+              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-zinc-900/95 text-rose-300 text-xs font-bold whitespace-nowrap shadow-xl border border-rose-500/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 backdrop-blur-md">
                 Logout
               </div>
             </div>
@@ -598,13 +605,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ) : (
         /* =========================================================================
            STATE B: EXPANDED FULL-WIDTH SIDEBAR (260px Width with Icons + Names)
-           Same dark theme and golden highlights, showing website logo, exam badge,
-           organized category headers, and page names with clean typography.
+           Matches reference screenshot: Pitch black background, golden capsule
+           active highlights, crisp text, and coral-red logout.
            ========================================================================= */
-        <div className="flex flex-col h-full justify-between w-full">
+        <div className="flex flex-col h-full justify-between w-full bg-black text-white">
           <div className="flex flex-col w-full min-h-0 flex-1">
             {/* 1. Header Branding: Exactly h-14 (56px) baseline aligned with Header */}
-            <div className="h-14 px-3.5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] shrink-0">
+            <div className="h-14 px-3.5 flex items-center justify-between border-b border-white/[0.08] shrink-0 bg-black">
               <div
                 className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
                 onClick={() => {
@@ -617,10 +624,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <BrandEmblemLogo size="sm" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
+                  <span className="text-sm font-black tracking-tight text-white uppercase font-serif block leading-none">
                     SYLLABUS 3D
                   </span>
-                  <p className="text-xs font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
+                  <p className="text-xs font-bold text-amber-400 tracking-wider font-mono truncate mt-0.5">
                     {currentExam?.name || 'TARGET EXAM'}
                   </p>
                 </div>
@@ -634,7 +641,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     haptics.light();
                     onToggleCollapse();
                   }}
-                  className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 ml-2"
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0 active:scale-95 ml-2"
                   title="Collapse sidebar (Ctrl+B)"
                   aria-label="Collapse sidebar"
                 >
@@ -644,7 +651,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {/* Sidebar Progress Track with smooth #8D7A02 -> #E1A837 -> #FAEED9 gradient */}
-            <div className="h-[2.5px] w-full bg-[#8D7A02]/20 overflow-hidden shrink-0">
+            <div className="h-[2px] w-full bg-[#8D7A02]/20 overflow-hidden shrink-0">
               <div 
                 className="h-full bg-gradient-to-r from-[#8D7A02] via-[#E1A837] to-[#FAEED9] transition-all duration-700 ease-out shadow-[0_0_8px_rgba(225,168,55,0.6)]" 
                 style={{ width: `${Math.max(5, overallStats?.completionPercentage || 0)}%` }} 
@@ -652,28 +659,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {/* Scrollable Navigation Body */}
-            <div className="p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0">
+            <div className="p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0 bg-black">
               {/* 2. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
               <div className="space-y-3">
                 {navSections.map(section => {
                   const isCollapsedSection = Boolean(collapsedSections[section.title] || collapsedSections[section.title.toUpperCase()]);
                   return (
-                    <div key={section.title} className="space-y-0.5">
+                    <div key={section.title} className="space-y-1">
                       <button
                         type="button"
                         onClick={() => toggleSection(section.title)}
-                        className="w-full flex items-center justify-between px-2 pt-1.5 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
+                        className="sidebar-section-header w-full flex items-center justify-between px-3 pt-3 pb-1 text-[11px] font-bold tracking-wider text-zinc-500 uppercase hover:text-zinc-300 transition-colors cursor-pointer select-none"
                       >
-                        <span className="font-semibold">{section.title}</span>
+                        <span>{section.title}</span>
                         <ChevronDown
-                          className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
+                          className={`w-3.5 h-3.5 text-zinc-500 transition-transform duration-200 ${
                             isCollapsedSection ? '-rotate-90' : 'rotate-0'
                           }`}
                         />
                       </button>
 
                       {!isCollapsedSection && (
-                        <div role="navigation" aria-label={section.title} className="space-y-0.5 pt-0.5 bg-transparent border-0 shadow-none">
+                        <div role="navigation" aria-label={section.title} className="space-y-1 pt-0.5">
                           {section.items.map(item => {
                             const Icon = item.icon;
                             const isDirectActive = activeView === item.id;
@@ -683,10 +690,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             const isSubExpanded = hasSubItems && Boolean(expandedSubMenus[item.id]);
 
                             return (
-                              <div key={`${section.title}-${item.label}`} className="space-y-0.5 bg-transparent border-0 shadow-none">
-                                <div className="flex items-center gap-1 w-full bg-transparent border-0 shadow-none">
+                              <div key={`${section.title}-${item.label}`} className="space-y-1">
+                                <div className="flex items-center gap-1 w-full">
                                   <button
                                     type="button"
+                                    data-sidebar-item="true"
+                                    data-sidebar-active={isDirectActive ? 'true' : 'false'}
                                     onClick={() => {
                                       soundManager.playClick();
                                       if (hasSubItems && !isSubExpanded) {
@@ -694,31 +703,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                       }
                                       onSelectView(item.id);
                                     }}
-                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs sm:text-sm transition-colors duration-150 cursor-pointer select-none bg-transparent border-0 shadow-none ${
+                                    className={`flex-1 flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sm transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                                       isDirectActive
-                                        ? 'text-amber-500 dark:text-amber-400 font-bold'
+                                        ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
                                         : isChildActive
-                                        ? 'text-amber-600 dark:text-amber-400 font-semibold'
-                                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04]'
+                                        ? 'bg-[#241F0A]/50 text-[#FBBF24] font-semibold'
+                                        : 'bg-transparent text-zinc-300 hover:text-white hover:bg-white/[0.05] font-medium border-0'
                                     }`}
                                   >
-                                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                    <div className="flex items-center gap-3 min-w-0 flex-1">
                                       <Icon className={`w-4 h-4 shrink-0 transition-colors ${
-                                        isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'
+                                        isParentActive ? 'text-[#FBBF24]' : 'text-zinc-400 group-hover:text-white'
                                       }`} />
                                       <span className="truncate">{item.label}</span>
                                     </div>
 
                                     <div className="flex items-center gap-1.5 shrink-0">
                                       {item.badge && (
-                                        <span className={`text-xs font-mono font-bold ${
-                                          isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-slate-400'
+                                        <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded-md ${
+                                          isParentActive ? 'bg-amber-500/20 text-[#FBBF24]' : 'bg-white/10 text-zinc-400'
                                         }`}>
                                           {item.badge}
                                         </span>
-                                      )}
-                                      {isDirectActive && (
-                                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.9)] shrink-0 ml-1" />
                                       )}
                                     </div>
                                   </button>
@@ -727,22 +733,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <button
                                       type="button"
                                       onClick={(e) => toggleSubMenu(item.id, e)}
-                                      className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04] rounded-lg transition-colors cursor-pointer shrink-0 bg-transparent border-0 shadow-none"
+                                      className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.05] rounded-xl transition-colors cursor-pointer shrink-0"
                                       title={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                       aria-label={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                     >
                                       <ChevronDown
                                         className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${
-                                          isSubExpanded ? 'rotate-0 text-amber-500 dark:text-amber-400' : '-rotate-90'
+                                          isSubExpanded ? 'rotate-0 text-[#FBBF24]' : '-rotate-90'
                                         }`}
                                       />
                                     </button>
                                   )}
                                 </div>
 
-                                {/* Nested Sub-Items: Clean Indented List (No Box Shape, No Container Background) */}
+                                {/* Nested Sub-Items */}
                                 {hasSubItems && isSubExpanded && (
-                                  <div className="pl-6 space-y-0.5 pt-0.5 transition-all duration-200">
+                                  <div className="pl-6 space-y-1 pt-0.5 transition-all duration-200">
                                     {item.subItems!.map(sub => {
                                       const SubIcon = sub.icon;
                                       const isSubActive = activeView === sub.id;
@@ -750,23 +756,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                         <button
                                           key={sub.id}
                                           type="button"
+                                          data-sidebar-item="true"
+                                          data-sidebar-active={isSubActive ? 'true' : 'false'}
                                           onClick={() => {
                                             soundManager.playClick();
                                             haptics.selection();
                                             onSelectView(sub.id);
                                           }}
-                                          className={`group w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-colors duration-150 cursor-pointer select-none bg-transparent border-0 shadow-none ${
+                                          className={`group w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                                             isSubActive
-                                              ? 'text-amber-500 dark:text-amber-400 font-bold'
-                                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/40 dark:hover:bg-white/[0.04]'
+                                              ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_10px_rgba(225,168,55,0.1)]'
+                                              : 'bg-transparent text-zinc-400 hover:text-white hover:bg-white/[0.05] font-medium border-0'
                                           }`}
                                         >
                                           <div className="flex items-center gap-2.5 min-w-0 flex-1">
                                             {SubIcon && (
                                               <SubIcon className={`w-3.5 h-3.5 shrink-0 transition-colors ${
                                                 isSubActive
-                                                  ? 'text-amber-500 dark:text-amber-400'
-                                                  : 'text-slate-500 dark:text-slate-400 group-hover:text-amber-500 dark:group-hover:text-amber-400'
+                                                  ? 'text-[#FBBF24]'
+                                                  : 'text-zinc-500 group-hover:text-zinc-300'
                                               }`} />
                                             )}
                                             <span className="truncate">{sub.label}</span>
@@ -774,16 +782,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                                           <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
                                             {sub.badge && (
-                                              <span className={`text-xs font-mono font-bold ${
+                                              <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
                                                 isSubActive
-                                                  ? 'text-amber-500 dark:text-amber-400'
-                                                  : 'text-slate-400 dark:text-slate-500'
+                                                  ? 'bg-amber-500/20 text-[#FBBF24]'
+                                                  : 'bg-white/10 text-zinc-400'
                                               }`}>
                                                 {sub.badge}
                                               </span>
-                                            )}
-                                            {isSubActive && (
-                                              <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.9)] shrink-0" />
                                             )}
                                           </div>
                                         </button>
@@ -801,38 +806,38 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 })}
 
                 {/* 4. My Profile & Red Logout Button */}
-                <div className="pt-2 border-t border-slate-200/80 dark:border-white/[0.08] space-y-0.5">
+                <div className="pt-3 mt-2 border-t border-white/[0.08] space-y-1">
                   <button
                     type="button"
+                    data-sidebar-item="true"
+                    data-sidebar-active={activeView === 'settings' ? 'true' : 'false'}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView('settings');
                     }}
-                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors cursor-pointer select-none bg-transparent border-0 shadow-none ${
+                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm transition-all cursor-pointer select-none active:scale-[0.98] ${
                       activeView === 'settings'
-                        ? 'text-amber-500 dark:text-amber-400 font-bold'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04]'
+                        ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
+                        : 'bg-transparent text-zinc-300 hover:text-white hover:bg-white/[0.05] font-medium border-0'
                     }`}
                   >
-                    <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`} />
+                    <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-[#FBBF24]' : 'text-zinc-400'}`} />
                     <span className="truncate">My Profile ({user?.name || 'Aspirant'})</span>
-                    {activeView === 'settings' && (
-                      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.9)] shrink-0 ml-auto" />
-                    )}
                   </button>
 
                   <button
                     type="button"
+                    data-sidebar-logout="true"
                     onClick={() => {
                       soundManager.playClick();
                       if (window.confirm('Are you sure you want to log out of your session?')) {
                         logout?.();
                       }
                     }}
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer select-none bg-transparent border-0 shadow-none"
+                    className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm font-medium text-[#F87171] hover:text-rose-300 hover:bg-rose-500/10 transition-colors cursor-pointer select-none bg-transparent border-0"
                   >
-                    <LogOut className="w-4 h-4 stroke-[2.2] shrink-0" />
-                    <span>Logout</span>
+                    <LogOut className="w-4 h-4 stroke-[2.2] shrink-0 text-[#F87171]" />
+                    <span className="text-[#F87171]">Logout</span>
                   </button>
                 </div>
               </div>
@@ -840,7 +845,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Bottom Area: Quick Utility Tools */}
-          <div className="p-3 pt-2 border-t border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-white space-y-1.5 shrink-0">
+          <div className="p-3 pt-2 border-t border-white/[0.08] bg-black text-white space-y-1.5 shrink-0">
             <div className="grid grid-cols-2 gap-1.5">
               {onOpenAiArchitect && (
                 <button
@@ -849,10 +854,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="py-1 px-2 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer truncate"
+                  className="py-1.5 px-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 border border-white/[0.08] transition-all cursor-pointer truncate"
                   title="AI Syllabus Architect"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-[#992BFF]" />
+                  <Sparkles className="w-3.5 h-3.5 text-purple-400" />
                   <span className="truncate">AI Studio</span>
                 </button>
               )}
@@ -864,10 +869,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="py-1 px-2 rounded-xl bg-slate-100/70 hover:bg-slate-200/70 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-white/[0.07] transition-all cursor-pointer truncate"
+                  className="py-1.5 px-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 border border-white/[0.08] transition-all cursor-pointer truncate"
                   title="Focus Mode"
                 >
-                  <Timer className="w-3.5 h-3.5 text-[#FF6105]" />
+                  <Timer className="w-3.5 h-3.5 text-amber-400" />
                   <span className="truncate">Focus</span>
                 </button>
               )}
@@ -881,10 +886,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   haptics.selection();
                   onOpenShortcuts();
                 }}
-                className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] hover:border-amber-500 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer text-xs font-semibold"
+                className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:border-amber-500/50 text-zinc-300 hover:text-white transition-all cursor-pointer text-xs font-semibold"
                 title="Keyboard Shortcuts Cheatsheet"
               >
-                <Keyboard className="w-3.5 h-3.5 text-amber-500" />
+                <Keyboard className="w-3.5 h-3.5 text-amber-400" />
                 <span className="text-xs font-semibold">Shortcuts Cheatsheet</span>
               </button>
             )}
