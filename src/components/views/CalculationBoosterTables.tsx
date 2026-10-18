@@ -1056,7 +1056,7 @@ export const CalculationBoosterTables: React.FC = () => {
         <div className="space-y-6 animate-fade-in">
           {!drillActive ? (
             /* Setup Phase Card */
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs max-w-3xl mx-auto space-y-6">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs w-full space-y-7">
               <div className="text-center space-y-2">
                 <div className="w-16 h-16 rounded-3xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto shadow-inner">
                   <Target className="w-8 h-8" />
@@ -1064,23 +1064,23 @@ export const CalculationBoosterTables: React.FC = () => {
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                   Table Speed Drill Configuration
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
                   Customize the tables and format you want to practice. Speed drills develop split-second calculation reflexes.
                 </p>
               </div>
 
               {/* Setting 1: Select Tables Range */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
                   1. Select Tables Range:
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
                   {[
                     { id: '1-10', label: 'Tables 1 - 10 (Basics)' },
                     { id: '11-20', label: 'Tables 11 - 20 (Core CGL/Bank)' },
                     { id: '21-30', label: 'Tables 21 - 30 (Advanced)' },
                     { id: '31-40', label: 'Tables 31 - 40 (Mastery)' },
-                    { id: 'primes', label: 'Primes (13,17,19,23,29..)' },
+                    { id: 'primes', label: 'Primes (13,17,19,23..)' },
                     { id: 'all', label: 'Full Range (1 to 40)' }
                   ].map(r => (
                     <button
@@ -1092,7 +1092,7 @@ export const CalculationBoosterTables: React.FC = () => {
                       }}
                       className={`p-3 rounded-2xl border text-xs font-bold text-left transition-all cursor-pointer ${
                         practiceRange === r.id
-                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs ring-2 ring-blue-400/30'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-blue-500/40'
                       }`}
                     >
@@ -1102,89 +1102,92 @@ export const CalculationBoosterTables: React.FC = () => {
                 </div>
               </div>
 
-              {/* Setting 2: Quiz Format (MCQ vs Direct Typing) */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
-                  2. Answer Input Mode:
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setPracticeType('mcq');
-                    }}
-                    className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center gap-3 ${
-                      practiceType === 'mcq'
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                        : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-blue-500/40'
-                    }`}
-                  >
-                    <ListOrdered className="w-5 h-5 shrink-0" />
-                    <div className="text-left">
-                      <div>4-Choice MCQ Sprint</div>
-                      <div className="text-[10px] font-normal opacity-80">Keys 1, 2, 3, 4 supported</div>
-                    </div>
-                  </button>
+              {/* Setting 2 & Setting 3 in Responsive 2-Column Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Setting 2: Quiz Format (MCQ vs Direct Typing) */}
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
+                    2. Answer Input Mode:
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setPracticeType('mcq');
+                      }}
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center gap-3 ${
+                        practiceType === 'mcq'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                          : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-blue-500/40'
+                      }`}
+                    >
+                      <ListOrdered className="w-5 h-5 shrink-0" />
+                      <div className="text-left">
+                        <div>4-Choice MCQ</div>
+                        <div className="text-[10px] font-normal opacity-80">Keys 1, 2, 3, 4 supported</div>
+                      </div>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setPracticeType('type');
-                    }}
-                    className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center gap-3 ${
-                      practiceType === 'type'
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                        : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-blue-500/40'
-                    }`}
-                  >
-                    <Hash className="w-5 h-5 shrink-0" />
-                    <div className="text-left">
-                      <div>Speed Keypad Typing</div>
-                      <div className="text-[10px] font-normal opacity-80">Instant auto-check</div>
-                    </div>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setPracticeType('type');
+                      }}
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center gap-3 ${
+                        practiceType === 'type'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                          : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-blue-500/40'
+                      }`}
+                    >
+                      <Hash className="w-5 h-5 shrink-0" />
+                      <div className="text-left">
+                        <div>Speed Keypad Typing</div>
+                        <div className="text-[10px] font-normal opacity-80">Instant auto-check</div>
+                      </div>
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Setting 3: Timer Mode */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
-                  3. Practice Duration:
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setPracticeDuration('zen');
-                    }}
-                    className={`p-3 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                      practiceDuration === 'zen'
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                        : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <Flame className="w-4 h-4" />
-                    <span>Streak Mode (Endless)</span>
-                  </button>
+                {/* Setting 3: Timer Mode */}
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
+                    3. Practice Duration:
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setPracticeDuration('zen');
+                      }}
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                        practiceDuration === 'zen'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                          : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      <Flame className="w-4 h-4" />
+                      <span>Streak Mode (Endless)</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setPracticeDuration('60s');
-                    }}
-                    className={`p-3 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                      practiceDuration === '60s'
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                        : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <Clock className="w-4 h-4" />
-                    <span>60-Second Blitz Test</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setPracticeDuration('60s');
+                      }}
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                        practiceDuration === '60s'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                          : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      <Clock className="w-4 h-4" />
+                      <span>60-Second Blitz Test</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1192,7 +1195,7 @@ export const CalculationBoosterTables: React.FC = () => {
               <button
                 type="button"
                 onClick={handleStartDrill}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-black text-sm sm:text-base transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               >
                 <Play className="w-5 h-5 fill-current" />
                 <span>Start Practice Drill Now</span>
@@ -1200,7 +1203,7 @@ export const CalculationBoosterTables: React.FC = () => {
             </div>
           ) : (
             /* Active Drill Arena */
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-md max-w-2xl mx-auto space-y-6 animate-scale-in">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-md w-full max-w-4xl mx-auto space-y-7 animate-scale-in">
               
               {/* Top Stats Bar */}
               <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-white/[0.06] pb-4">
@@ -1320,7 +1323,7 @@ export const CalculationBoosterTables: React.FC = () => {
 
           {/* 60s Blitz Summary Modal / Card */}
           {showBlitzSummary && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-blue-500/40 shadow-xl max-w-lg mx-auto text-center space-y-5 animate-scale-in">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-blue-500/40 shadow-xl w-full max-w-2xl mx-auto text-center space-y-6 animate-scale-in">
               <div className="w-16 h-16 rounded-3xl bg-amber-500/20 text-amber-500 flex items-center justify-center mx-auto shadow-inner">
                 <Trophy className="w-8 h-8" />
               </div>

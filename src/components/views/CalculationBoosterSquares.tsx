@@ -1568,7 +1568,7 @@ export const CalculationBoosterSquares: React.FC = () => {
         <div className="space-y-6 animate-fade-in">
           {!drillActive ? (
             /* Drill Setup Phase */
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs max-w-3xl mx-auto space-y-6">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs w-full space-y-7">
               <div className="text-center space-y-2">
                 <div className="w-16 h-16 rounded-3xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto shadow-inner">
                   <Target className="w-8 h-8" />
@@ -1576,17 +1576,17 @@ export const CalculationBoosterSquares: React.FC = () => {
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                   Squares Speed Drill Configuration
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
                   Test your split-second square and square root recall under timer pressure.
                 </p>
               </div>
 
               {/* Setting 1: Range */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
                   1. Select Range:
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
                   {[
                     { id: '1-25', label: '1 - 25 (Foundations)' },
                     { id: '26-40', label: '26 - 40 (Core CGL/Bank)' },
@@ -1605,7 +1605,7 @@ export const CalculationBoosterSquares: React.FC = () => {
                       }}
                       className={`p-3 rounded-2xl border text-xs font-bold text-left transition-all cursor-pointer ${
                         practiceRange === r.id
-                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs ring-2 ring-purple-400/30'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-purple-500/40'
                       }`}
                     >
@@ -1616,11 +1616,11 @@ export const CalculationBoosterSquares: React.FC = () => {
               </div>
 
               {/* Setting 2: Question Type (Square, Root, Mixed) */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
                   2. Question Mode:
                 </label>
-                <div className="grid grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { id: 'square', label: 'Square (N² = ?)' },
                     { id: 'root', label: 'Root (√X = ?)' },
@@ -1635,7 +1635,7 @@ export const CalculationBoosterSquares: React.FC = () => {
                       }}
                       className={`p-3 rounded-2xl border text-xs font-bold text-center transition-all cursor-pointer ${
                         practiceQType === q.id
-                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs ring-2 ring-purple-400/30'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 hover:border-purple-500/40'
                       }`}
                     >
@@ -1645,19 +1645,19 @@ export const CalculationBoosterSquares: React.FC = () => {
                 </div>
               </div>
 
-              {/* Setting 3: Input Format & Duration */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
+              {/* Setting 3: Input Format & Duration in Responsive 2-Column Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="space-y-2.5">
                   <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
                     3. Input Mode:
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setPracticeType('mcq')}
-                      className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer ${
                         practiceType === 'mcq'
-                          ? 'bg-purple-600 text-white border-purple-600'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
                       }`}
                     >
@@ -1666,9 +1666,9 @@ export const CalculationBoosterSquares: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setPracticeType('type')}
-                      className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer ${
                         practiceType === 'type'
-                          ? 'bg-purple-600 text-white border-purple-600'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
                       }`}
                     >
@@ -1677,33 +1677,33 @@ export const CalculationBoosterSquares: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
                     4. Drill Duration:
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setPracticeDuration('zen')}
-                      className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                         practiceDuration === 'zen'
-                          ? 'bg-purple-600 text-white border-purple-600'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
                       }`}
                     >
-                      <Flame className="w-3.5 h-3.5" />
-                      <span>Streak</span>
+                      <Flame className="w-4 h-4" />
+                      <span>Streak (Endless)</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPracticeDuration('60s')}
-                      className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      className={`p-3.5 rounded-2xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                         practiceDuration === '60s'
-                          ? 'bg-purple-600 text-white border-purple-600'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
                           : 'bg-slate-50 dark:bg-[#141624] border-slate-200/80 dark:border-white/[0.06] text-slate-700 dark:text-slate-300'
                       }`}
                     >
-                      <Clock className="w-3.5 h-3.5" />
+                      <Clock className="w-4 h-4" />
                       <span>60s Blitz</span>
                     </button>
                   </div>
@@ -1714,7 +1714,7 @@ export const CalculationBoosterSquares: React.FC = () => {
               <button
                 type="button"
                 onClick={handleStartDrill}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-black text-sm sm:text-base transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               >
                 <Play className="w-5 h-5 fill-current" />
                 <span>Start Squares Drill Now</span>
@@ -1722,7 +1722,7 @@ export const CalculationBoosterSquares: React.FC = () => {
             </div>
           ) : (
             /* Active Drill Arena */
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-md max-w-2xl mx-auto space-y-6 animate-scale-in">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-md w-full max-w-4xl mx-auto space-y-7 animate-scale-in">
               
               {/* Top Stats Bar */}
               <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-white/[0.06] pb-4">
@@ -1853,7 +1853,7 @@ export const CalculationBoosterSquares: React.FC = () => {
 
           {/* 60s Blitz Summary Card */}
           {showBlitzSummary && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-purple-500/40 shadow-xl max-w-lg mx-auto text-center space-y-5 animate-scale-in">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-purple-500/40 shadow-xl w-full max-w-2xl mx-auto text-center space-y-6 animate-scale-in">
               <div className="w-16 h-16 rounded-3xl bg-amber-500/20 text-amber-500 flex items-center justify-center mx-auto shadow-inner">
                 <Trophy className="w-8 h-8" />
               </div>
