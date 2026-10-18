@@ -734,17 +734,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <button
                                       type="button"
                                       onClick={(e) => toggleSubMenu(item.id, e)}
-                                      className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer shrink-0 ${
-                                        isSubExpanded
-                                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 shadow-2xs'
-                                          : 'text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.08]'
-                                      }`}
+                                      className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.08] transition-colors cursor-pointer shrink-0"
                                       title={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                       aria-label={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                     >
                                       <ChevronDown
                                         className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${
-                                          isSubExpanded ? 'rotate-0' : '-rotate-90'
+                                          isSubExpanded ? 'rotate-0 text-amber-500 dark:text-amber-400' : '-rotate-90'
                                         }`}
                                       />
                                     </button>
@@ -772,15 +768,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                               : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
                                           }`}
                                         >
-                                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
                                             {SubIcon && (
-                                              <div className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-colors ${
+                                              <SubIcon className={`w-4 h-4 shrink-0 transition-colors ${
                                                 isSubActive
-                                                  ? 'bg-amber-500 text-white dark:bg-amber-500 dark:text-slate-950 font-bold shadow-xs'
-                                                  : 'bg-white/90 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 border border-slate-200/60 dark:border-white/[0.05]'
-                                              }`}>
-                                                <SubIcon className="w-3 h-3 stroke-[2.2]" />
-                                              </div>
+                                                  ? 'text-amber-600 dark:text-amber-400'
+                                                  : 'text-slate-500 dark:text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                                              }`} />
                                             )}
                                             <span className="truncate">{sub.label}</span>
                                           </div>
