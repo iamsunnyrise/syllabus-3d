@@ -829,7 +829,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   // -------------------------------------------------------------
   const [vocabSearch, setVocabSearch] = useState('');
   const [vocabTypeFilter, setVocabTypeFilter] = useState<'all' | 'word' | 'ows' | 'idiom' | 'root'>('all');
-  const [vocabPosFilter, setVocabPosFilter] = useState<'all' | 'noun' | 'verb' | 'adjective' | 'adverb'>('all');
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [masteredVocabIds, setMasteredVocabIds] = useState<Set<string>>(() => {
@@ -844,13 +843,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   const filteredVocab = useMemo(() => {
     return DEFAULT_VOCAB_DATA.filter(item => {
       const matchesType = vocabTypeFilter === 'all' || item.type === vocabTypeFilter;
-      const posLow = item.partOfSpeech.toLowerCase();
-      const matchesPos = vocabPosFilter === 'all' || (
-        vocabPosFilter === 'noun' && posLow.includes('noun') ||
-        vocabPosFilter === 'verb' && posLow.includes('verb') && !posLow.includes('adverb') ||
-        vocabPosFilter === 'adjective' && (posLow.includes('adjective') || posLow.includes('adj')) ||
-        vocabPosFilter === 'adverb' && (posLow.includes('adverb') || posLow.includes('adv'))
-      );
       const q = vocabSearch.toLowerCase().trim();
       const matchesSearch = !q ||
         item.word.toLowerCase().includes(q) ||
@@ -860,9 +852,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
         (item.collocation && item.collocation.toLowerCase().includes(q)) ||
         (item.derivatives && item.derivatives.toLowerCase().includes(q)) ||
         item.synonyms.some(s => s.toLowerCase().includes(q));
-      return matchesType && matchesPos && matchesSearch;
+      return matchesType && matchesSearch;
     });
-  }, [vocabSearch, vocabTypeFilter, vocabPosFilter]);
+  }, [vocabSearch, vocabTypeFilter]);
 
   const currentFlashcard = filteredVocab[activeCardIndex] || filteredVocab[0];
 
@@ -1095,100 +1087,65 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'vocab' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Top Control Bar: Search + Category Pills + POS Sub-filters + Mastered Counter */}
-          <div className="space-y-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              {/* Search Input */}
-              <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={vocabSearch}
-                  onChange={e => {
-                    setVocabSearch(e.target.value);
-                    setActiveCardIndex(0);
-                  }}
-                  placeholder="Search words, hindi meaning, POS, grammar, synonyms..."
-                  className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-                />
-                {vocabSearch && (
-                  <button
-                    type="button"
-                    onClick={() => setVocabSearch('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Filter Pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-                {[
-                  { id: 'all', label: 'All Words' },
-                  { id: 'word', label: 'High-Yield' },
-                  { id: 'ows', label: 'OWS (One Word)' },
-                  { id: 'idiom', label: 'Idioms & Phrases' },
-                  { id: 'root', label: 'Root Words' }
-                ].map(f => (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setVocabTypeFilter(f.id as any);
-                      setActiveCardIndex(0);
-                    }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                      vocabTypeFilter === f.id
-                        ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Mastered Counter */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold shrink-0">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>{masteredVocabIds.size} Mastered</span>
-              </div>
+          {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={vocabSearch}
+                onChange={e => {
+                  setVocabSearch(e.target.value);
+                  setActiveCardIndex(0);
+                }}
+                placeholder="Search words, hindi meaning, grammar, synonyms..."
+                className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              />
+              {vocabSearch && (
+                <button
+                  type="button"
+                  onClick={() => setVocabSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
+                >
+                  ✕
+                </button>
+              )}
             </div>
 
-            {/* Part of Speech Sub-Filter Pills (Active for High-Yield or All) */}
-            {(vocabTypeFilter === 'word' || vocabTypeFilter === 'all') && (
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-white/[0.06] overflow-x-auto no-scrollbar">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                  Part of Speech:
-                </span>
-                {[
-                  { id: 'all', label: 'All POS' },
-                  { id: 'noun', label: 'Noun' },
-                  { id: 'verb', label: 'Verb' },
-                  { id: 'adjective', label: 'Adjective' },
-                  { id: 'adverb', label: 'Adverb' }
-                ].map(p => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setVocabPosFilter(p.id as any);
-                      setActiveCardIndex(0);
-                    }}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                      vocabPosFilter === p.id
-                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs font-black'
-                        : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              {[
+                { id: 'all', label: 'All Words' },
+                { id: 'word', label: 'High-Yield' },
+                { id: 'ows', label: 'OWS (One Word)' },
+                { id: 'idiom', label: 'Idioms & Phrases' },
+                { id: 'root', label: 'Root Words' }
+              ].map(f => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setVocabTypeFilter(f.id as any);
+                    setActiveCardIndex(0);
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    vocabTypeFilter === f.id
+                      ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Mastered Counter */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold shrink-0">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>{masteredVocabIds.size} Mastered</span>
+            </div>
           </div>
 
           {/* Flashcard Active Recall Spotlight */}
@@ -1199,11 +1156,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <div className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[360px]">
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
                   <div className="flex items-center gap-2">
-                    <span className={`px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider border font-mono ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
-                      {currentFlashcard.partOfSpeech}
-                    </span>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 font-mono">
                       Card {activeCardIndex + 1} of {filteredVocab.length}
+                    </span>
+                    <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full bg-amber-500/10">
+                      {currentFlashcard.frequency} Frequency
                     </span>
                   </div>
 
@@ -1224,10 +1181,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 {/* Central Word and Meaning Display */}
                 <div className="py-6 space-y-4">
                   <div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                         {currentFlashcard.word}
                       </h2>
+                      {/* Part of Speech attached directly to the Word */}
+                      <span className={`px-2.5 py-1 rounded-xl text-xs font-bold uppercase tracking-wider border font-mono ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
+                        {currentFlashcard.partOfSpeech}
+                      </span>
                       <button
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
@@ -1413,7 +1374,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">No words match your search filter.</p>
               <button
                 type="button"
-                onClick={() => { setVocabSearch(''); setVocabTypeFilter('all'); setVocabPosFilter('all'); }}
+                onClick={() => { setVocabSearch(''); setVocabTypeFilter('all'); }}
                 className="text-xs text-amber-600 dark:text-amber-400 font-bold underline cursor-pointer"
               >
                 Clear all filters
