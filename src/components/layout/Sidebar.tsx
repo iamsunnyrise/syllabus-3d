@@ -406,11 +406,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                   <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.label}</span>
-                    {item.shortcut && (
-                      <span className="text-slate-400 font-mono text-[10px]">
-                        Alt+{item.shortcut}
-                      </span>
-                    )}
                   </div>
                 </div>
               );
@@ -448,13 +443,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.label}</span>
                     {item.badge && (
-                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">
+                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-xs font-mono">
                         {item.badge}
-                      </span>
-                    )}
-                    {item.shortcut && (
-                      <span className="text-slate-400 font-mono text-[10px]">
-                        Alt+{item.shortcut}
                       </span>
                     )}
                   </div>
@@ -490,11 +480,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                   <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-xl bg-slate-900/95 dark:bg-[#181C30]/95 text-white text-xs font-bold whitespace-nowrap shadow-xl border border-slate-700/80 dark:border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 z-50 flex items-center gap-1.5 backdrop-blur-md">
                     <span>{item.subItems ? `${item.label} (Vocab, Maths, GA)` : item.label}</span>
-                    {item.shortcut && (
-                      <span className="text-slate-400 font-mono text-[10px]">
-                        Alt+{item.shortcut}
-                      </span>
-                    )}
                   </div>
                 </div>
               );
@@ -722,11 +707,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                           isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-slate-400'
                                         }`}>
                                           {item.badge}
-                                        </span>
-                                      )}
-                                      {item.shortcut && (
-                                        <span className="hidden xl:inline-block text-xs font-mono text-slate-400 dark:text-slate-500">
-                                          Alt+{item.shortcut}
                                         </span>
                                       )}
                                       {isDirectActive && (
