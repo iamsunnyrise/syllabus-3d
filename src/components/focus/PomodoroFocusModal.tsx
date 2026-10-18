@@ -109,6 +109,29 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     }
   });
 
+  const [wallpaperOpacity, setWallpaperOpacity] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('syllabus3d_focus_wallpaper_opacity');
+      if (saved) {
+        const parsed = parseFloat(saved);
+        if (!isNaN(parsed) && parsed >= 0.25 && parsed <= 1.0) {
+          return parsed;
+        }
+      }
+      return 0.95; // Default high opacity for vivid, beautiful study desk ambience
+    } catch {
+      return 0.95;
+    }
+  });
+
+  const handleSetWallpaperOpacity = useCallback((val: number) => {
+    const clamped = Math.max(0.25, Math.min(1.0, val));
+    setWallpaperOpacity(clamped);
+    try {
+      localStorage.setItem('syllabus3d_focus_wallpaper_opacity', clamped.toFixed(2));
+    } catch {}
+  }, []);
+
   const handleToggleWallpaper = useCallback(() => {
     setEnableWallpaper(prev => {
       const next = !prev;
@@ -128,12 +151,12 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   const cardBaseStyle = useMemo(() => {
     if (isSepia) {
-      return 'bg-[#FFF9EE]/85 dark:bg-[#FFF9EE]/85 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_8px_30px_rgba(180,140,80,0.12)]';
+      return 'bg-[#FFF9EE]/92 dark:bg-[#FFF9EE]/92 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_10px_35px_rgba(180,140,80,0.16)]';
     }
     if (isDark) {
-      return 'bg-[#111322]/85 border-white/[0.10] text-white shadow-xl';
+      return 'bg-[#111322]/90 border-white/[0.12] text-white shadow-[0_12px_40px_rgba(0,0,0,0.6)]';
     }
-    return 'bg-white/85 border-slate-200/90 text-slate-900 shadow-lg';
+    return 'bg-white/92 border-slate-200/90 text-slate-900 shadow-[0_10px_35px_rgba(0,0,0,0.08)]';
   }, [isSepia, isDark]);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -1136,26 +1159,33 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
             {isDark ? (
               <>
-                {/* Dark Mode: Sunlit Desk with Cinematic Night Studio Vignette (or Nocturnal Desk) */}
+                {/* Dark Mode: Sunlit Desk or Nocturnal Lamp Desk */}
                 <img
                   src={darkWallpaperChoice === 'night' ? "/focus-desk-night.png" : "/focus-desk-day.jpg"}
                   alt="Dark Study Desk Ambience"
                   className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
                   style={{
-                    opacity: darkWallpaperChoice === 'night' ? 0.65 : 0.55,
+                    opacity: darkWallpaperChoice === 'night'
+                      ? Math.min(1.0, wallpaperOpacity * 0.96)
+                      : Math.min(0.92, wallpaperOpacity * 0.85),
                     filter: darkWallpaperChoice === 'night'
-                      ? 'brightness(0.96) contrast(1.04)'
-                      : 'brightness(0.68) contrast(1.18) saturate(0.92)'
+                      ? 'brightness(0.98) contrast(1.04) saturate(1.05)'
+                      : 'brightness(0.70) contrast(1.18) saturate(0.95)'
                   }}
                 />
                 {/* Cinematic Multi-stop Vignette & Depth Mask */}
                 <div
                   className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
                   style={{
-                    background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.38) 0%, rgba(9, 10, 18, 0.70) 62%, rgba(6, 7, 13, 0.92) 100%),
-                      linear-gradient(to bottom, rgba(9, 10, 18, 0.78) 0%, rgba(9, 10, 18, 0.22) 35%, rgba(9, 10, 18, 0.52) 70%, rgba(6, 7, 13, 0.92) 100%)
-                    `
+                    background: darkWallpaperChoice === 'night'
+                      ? `
+                        radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.12) 0%, rgba(9, 10, 18, 0.35) 65%, rgba(6, 7, 13, 0.65) 100%),
+                        linear-gradient(to bottom, rgba(9, 10, 18, 0.48) 0%, transparent 22%, transparent 78%, rgba(6, 7, 13, 0.65) 100%)
+                      `
+                      : `
+                        radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.22) 0%, rgba(9, 10, 18, 0.50) 65%, rgba(6, 7, 13, 0.82) 100%),
+                        linear-gradient(to bottom, rgba(9, 10, 18, 0.65) 0%, rgba(9, 10, 18, 0.15) 30%, rgba(9, 10, 18, 0.40) 70%, rgba(6, 7, 13, 0.85) 100%)
+                      `
                   }}
                 />
               </>
@@ -1167,17 +1197,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   alt="Sepia Study Desk Ambience"
                   className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
                   style={{
-                    opacity: 0.72,
-                    filter: 'sepia(0.35) saturate(1.2) brightness(0.98)'
+                    opacity: wallpaperOpacity,
+                    filter: 'sepia(0.08) saturate(1.10) brightness(0.99) contrast(1.03)'
                   }}
                 />
-                {/* Warm Sepia Atmospheric Vignette */}
+                {/* Warm Sepia Atmospheric Vignette - Feather-soft for max visibility */}
                 <div
                   className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
                   style={{
                     background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(250, 238, 217, 0.40) 0%, rgba(250, 238, 217, 0.72) 62%, rgba(246, 235, 212, 0.92) 100%),
-                      linear-gradient(to bottom, rgba(250, 238, 217, 0.78) 0%, rgba(250, 238, 217, 0.20) 35%, rgba(250, 238, 217, 0.50) 70%, rgba(246, 235, 212, 0.90) 100%)
+                      radial-gradient(ellipse at 50% 50%, rgba(250, 238, 217, 0.05) 0%, rgba(250, 238, 217, 0.18) 60%, rgba(246, 235, 212, 0.45) 100%),
+                      linear-gradient(to bottom, rgba(250, 238, 217, 0.32) 0%, transparent 20%, transparent 80%, rgba(246, 235, 212, 0.42) 100%)
                     `
                   }}
                 />
@@ -1190,17 +1220,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   alt="Daylight Study Desk Ambience"
                   className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
                   style={{
-                    opacity: 0.65,
-                    filter: 'brightness(0.98) contrast(1.02)'
+                    opacity: wallpaperOpacity,
+                    filter: 'brightness(0.99) contrast(1.04) saturate(1.05)'
                   }}
                 />
-                {/* Crisp Alabaster Atmospheric Vignette */}
+                {/* Crisp Alabaster Atmospheric Vignette - Feather-soft for max visibility */}
                 <div
                   className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
                   style={{
                     background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(248, 250, 252, 0.40) 0%, rgba(248, 250, 252, 0.72) 62%, rgba(241, 245, 249, 0.92) 100%),
-                      linear-gradient(to bottom, rgba(248, 250, 252, 0.78) 0%, rgba(248, 250, 252, 0.20) 35%, rgba(248, 250, 252, 0.50) 70%, rgba(241, 245, 249, 0.90) 100%)
+                      radial-gradient(ellipse at 50% 50%, rgba(248, 250, 252, 0.05) 0%, rgba(248, 250, 252, 0.18) 60%, rgba(241, 245, 249, 0.45) 100%),
+                      linear-gradient(to bottom, rgba(248, 250, 252, 0.32) 0%, transparent 20%, transparent 80%, rgba(241, 245, 249, 0.42) 100%)
                     `
                   }}
                 />
@@ -1211,19 +1241,19 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
         {/* 1. Primary Center Atmosphere Vignette */}
         <div
-          className="absolute inset-0 transition-all duration-1000"
+          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
           style={{ background: bgThemeStyles.centerAura }}
         />
 
         {/* 2. Top-Left Ambient Radiance (Zero Viewport Bleed) */}
         <div
-          className="absolute inset-0 transition-all duration-1000"
+          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
           style={{ background: bgThemeStyles.cornerAura1 }}
         />
 
         {/* 3. Bottom-Right Ambient Radiance (Zero Viewport Bleed) */}
         <div
-          className="absolute inset-0 transition-all duration-1000"
+          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
           style={{ background: bgThemeStyles.cornerAura2 }}
         />
 
@@ -1238,14 +1268,16 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           />
         )}
 
-        {/* 5. Minimalist Precision Dot Grid Texture */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-          style={{
-            backgroundImage: `radial-gradient(${bgThemeStyles.dotPattern} 1px, transparent 1px)`,
-            backgroundSize: '24px 24px'
-          }}
-        />
+        {/* 5. Minimalist Precision Dot Grid Texture (Disabled when wallpaper active for crisp photographic clarity) */}
+        {!enableWallpaper && (
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+            style={{
+              backgroundImage: `radial-gradient(${bgThemeStyles.dotPattern} 1px, transparent 1px)`,
+              backgroundSize: '24px 24px'
+            }}
+          />
+        )}
       </div>
 
       {/* 1. TOP UTILITY HEADER (Clean, Responsive, Mobile-Stable - Hidden in Fullscreen) */}
@@ -2093,7 +2125,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               </div>
 
               {/* Study Desk Ambience Wallpaper Toggle */}
-              <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-2">
+              <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-2.5">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="block font-bold text-xs text-slate-900 dark:text-white">Study Desk Wallpaper</span>
@@ -2110,6 +2142,57 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     <div className="w-4 h-4 rounded-full bg-white shadow-md" />
                   </button>
                 </div>
+
+                {/* Wallpaper Opacity Interactive Slider & Quick Presets */}
+                {enableWallpaper && (
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                        Background Opacity
+                      </span>
+                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-blue-500/10 text-[#0066FF] dark:text-[#38BDF8]">
+                        {Math.round(wallpaperOpacity * 100)}%
+                      </span>
+                    </div>
+
+                    <input
+                      type="range"
+                      min="0.30"
+                      max="1.0"
+                      step="0.05"
+                      value={wallpaperOpacity}
+                      onChange={(e) => handleSetWallpaperOpacity(parseFloat(e.target.value))}
+                      className="w-full accent-[#0066FF] h-1.5 bg-slate-200 dark:bg-white/10 rounded-lg cursor-pointer"
+                    />
+
+                    {/* Quick Opacity Presets */}
+                    <div className="grid grid-cols-4 gap-1 pt-0.5">
+                      {[
+                        { label: '50%', val: 0.50 },
+                        { label: '75%', val: 0.75 },
+                        { label: '90%', val: 0.90 },
+                        { label: '100%', val: 1.0 }
+                      ].map(preset => (
+                        <button
+                          key={preset.label}
+                          type="button"
+                          onClick={() => {
+                            handleSetWallpaperOpacity(preset.val);
+                            soundManager.playClick();
+                            haptics.selection();
+                          }}
+                          className={`py-1 text-[10px] font-mono font-bold rounded-lg border transition-all cursor-pointer ${
+                            Math.abs(wallpaperOpacity - preset.val) < 0.03
+                              ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-xs'
+                              : 'bg-white dark:bg-white/[0.05] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/10 hover:text-slate-900 dark:hover:text-white'
+                          }`}
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Dark Mode Wallpaper Switcher */}
                 {isDark && enableWallpaper && (
