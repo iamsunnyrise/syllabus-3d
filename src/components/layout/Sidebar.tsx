@@ -673,7 +673,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       </button>
 
                       {!isCollapsedSection && (
-                        <nav className="space-y-0.5 pt-0.5">
+                        <div role="navigation" aria-label={section.title} className="space-y-0.5 pt-0.5 bg-transparent border-0 shadow-none">
                           {section.items.map(item => {
                             const Icon = item.icon;
                             const isDirectActive = activeView === item.id;
@@ -683,8 +683,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             const isSubExpanded = hasSubItems && Boolean(expandedSubMenus[item.id]);
 
                             return (
-                              <div key={`${section.title}-${item.label}`} className="space-y-0.5">
-                                <div className="flex items-center gap-1 w-full">
+                              <div key={`${section.title}-${item.label}`} className="space-y-0.5 bg-transparent border-0 shadow-none">
+                                <div className="flex items-center gap-1 w-full bg-transparent border-0 shadow-none">
                                   <button
                                     type="button"
                                     onClick={() => {
@@ -794,7 +794,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               </div>
                             );
                           })}
-                        </nav>
+                        </div>
                       )}
                     </div>
                   );

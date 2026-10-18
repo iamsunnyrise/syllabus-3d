@@ -2566,17 +2566,27 @@ input, textarea, [contenteditable="true"], .selectable-text {
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-aside nav button {
+aside nav,
+aside nav > div,
+aside nav div,
+aside [role="navigation"],
+aside [role="navigation"] > div,
+aside [role="navigation"] div,
+aside button {
   background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
-aside nav button:hover {
+aside nav button:hover,
+aside [role="navigation"] button:hover {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 /* 9. Floating Mobile Nav */
-.dark nav > div {
+.dark nav[aria-label*="Mobile"] > div,
+.dark nav[aria-label*="Floating"] > div {
   background-color: rgba(43, 43, 43, 0.95) !important;
   backdrop-filter: blur(28px) !important;
   -webkit-backdrop-filter: blur(28px) !important;
@@ -2862,7 +2872,8 @@ html:not(.dark) aside {
 }
 
 /* 9. Floating Mobile Nav */
-html:not(.dark) nav > div {
+html:not(.dark) nav[aria-label*="Mobile"] > div,
+html:not(.dark) nav[aria-label*="Floating"] > div {
   background-color: rgba(255, 255, 255, 0.88) !important;
   backdrop-filter: blur(28px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
