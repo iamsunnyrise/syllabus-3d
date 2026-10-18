@@ -38,11 +38,103 @@ const STORAGE_KEY_MASTERED_SQUARES = 'syllabus3d_squares_mastered_v1';
 const STORAGE_KEY_STATS_SQUARES = 'syllabus3d_squares_stats_v1';
 const STORAGE_KEY_WEAK_SQUARES = 'syllabus3d_squares_weak_v1';
 
-export type SquareRange = '1-25' | '26-40' | '41-50' | '51-60' | 'ending-5' | 'all' | 'weak';
+export type SquareRange = '1-25' | '26-40' | '41-50' | '51-60' | 'ending-5' | 'roots' | 'all' | 'weak';
 export type SquaresBoosterMode = 'learn' | 'practice' | 'stats';
 export type PracticeType = 'mcq' | 'type';
 export type PracticeDuration = 'zen' | '60s';
 export type PracticeQuestionType = 'square' | 'root' | 'mixed';
+
+export interface RootConstantItem {
+  id: string;
+  n: number;
+  symbol: string;
+  approx: string;
+  fourDecimals: string;
+  fractionApprox: string;
+  simplification?: string;
+  examApplication: string;
+  tip: string;
+}
+
+export const IMPORTANT_ROOT_CONSTANTS: RootConstantItem[] = [
+  {
+    id: 'sqrt-2',
+    n: 2,
+    symbol: '√2',
+    approx: '1.414',
+    fourDecimals: '1.4142',
+    fractionApprox: '99/70 ≈ 1.414',
+    simplification: 'Base Surd',
+    examApplication: 'Diagonal of square (d = a√2), sin 45° = cos 45° = 1/√2 ≈ 0.707, 45°-45°-90° triangle.',
+    tip: '1.414 (Remember as "14-14")'
+  },
+  {
+    id: 'sqrt-3',
+    n: 3,
+    symbol: '√3',
+    approx: '1.732',
+    fourDecimals: '1.7320',
+    fractionApprox: '97/56 ≈ 1.732',
+    simplification: 'Base Surd',
+    examApplication: 'Equilateral Triangle Area = (√3/4)a², Height = (√3/2)a, tan 60° = √3, heights & distances.',
+    tip: '1.732 (Remember as "17-32")'
+  },
+  {
+    id: 'sqrt-5',
+    n: 5,
+    symbol: '√5',
+    approx: '2.236',
+    fourDecimals: '2.2360',
+    fractionApprox: '161/72 ≈ 2.236',
+    simplification: 'Base Surd',
+    examApplication: 'Golden Ratio φ = (1+√5)/2, right triangle with legs 1 and 2 (Hypotenuse = √5).',
+    tip: '2.236 (Double 2, then 36)'
+  },
+  {
+    id: 'sqrt-7',
+    n: 7,
+    symbol: '√7',
+    approx: '2.645',
+    fourDecimals: '2.6457',
+    fractionApprox: '37/14 ≈ 2.642',
+    simplification: 'Base Surd',
+    examApplication: 'Circle chords, tangent calculations, simplifying algebraic surds.',
+    tip: '2.645 (or 2.646)'
+  },
+  {
+    id: 'sqrt-8',
+    n: 8,
+    symbol: '√8',
+    approx: '2.828',
+    fourDecimals: '2.8284',
+    fractionApprox: '2 × 1.414',
+    simplification: '√8 = √(4 × 2) = 2√2 = 2 × 1.414',
+    examApplication: 'Doubled √2 in Mensuration, diagonal of cube face & simplifying surds.',
+    tip: '2 × 1.414 = 2.828 (Exact double of √2)'
+  },
+  {
+    id: 'sqrt-6',
+    n: 6,
+    symbol: '√6',
+    approx: '2.449',
+    fourDecimals: '2.4494',
+    fractionApprox: '√2 × √3',
+    simplification: '√6 = √2 × √3 = 1.414 × 1.732',
+    examApplication: 'Product of √2 and √3 in 3D geometry and heights & distances.',
+    tip: '1.414 × 1.732 ≈ 2.449'
+  },
+  {
+    id: 'sqrt-10',
+    n: 10,
+    symbol: '√10',
+    approx: '3.162',
+    fourDecimals: '3.1622',
+    fractionApprox: '19/6 ≈ 3.166',
+    simplification: '√(2 × 5) = 1.414 × 2.236',
+    examApplication: 'High-speed approximation, very close to π ≈ 3.1416.',
+    tip: '3.162'
+  }
+];
 
 interface SquareStats {
   totalAnswered: number;
@@ -247,6 +339,9 @@ export const CalculationBoosterSquares: React.FC = () => {
     };
   }, [isPlayingAuto, selectedNum, isSpeechEnabled]);
 
+  const [isRootsHidden, setIsRootsHidden] = useState<boolean>(false);
+  const [revealedRoots, setRevealedRoots] = useState<Set<number>>(new Set());
+
   // Compute number list based on range filter
   const visibleNumbers = useMemo(() => {
     if (rangeFilter === '1-25') return Array.from({ length: 25 }, (_, i) => i + 1);
@@ -254,12 +349,17 @@ export const CalculationBoosterSquares: React.FC = () => {
     if (rangeFilter === '41-50') return Array.from({ length: 10 }, (_, i) => i + 41);
     if (rangeFilter === '51-60') return Array.from({ length: 10 }, (_, i) => i + 51);
     if (rangeFilter === 'ending-5') return ENDING_IN_5;
+    if (rangeFilter === 'roots') return [2, 3, 5, 7, 8, 6, 10];
     if (rangeFilter === 'weak') {
       const weaks = Object.keys(weakSquares).map(Number);
       return weaks.length > 0 ? weaks : [23, 29, 37, 43, 47, 53, 57];
     }
     return Array.from({ length: 60 }, (_, i) => i + 1);
   }, [rangeFilter, weakSquares]);
+
+  const activeRoot = useMemo(() => {
+    return IMPORTANT_ROOT_CONSTANTS.find(r => r.n === selectedNum) || IMPORTANT_ROOT_CONSTANTS[0];
+  }, [selectedNum]);
 
   const handleSelectNumber = (num: number) => {
     soundManager.playClick();
@@ -304,6 +404,19 @@ export const CalculationBoosterSquares: React.FC = () => {
     }
   };
 
+  const handleSpeakRoot = (r: RootConstantItem) => {
+    soundManager.playClick();
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const text = `Square root of ${r.n} is approximately ${r.approx}`;
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 1.0;
+        window.speechSynthesis.speak(u);
+      } catch {}
+    }
+  };
+
   // -------------------------------------------------------------------
   // PRACTICE DRILL ENGINE STATE
   // -------------------------------------------------------------------
@@ -320,8 +433,8 @@ export const CalculationBoosterSquares: React.FC = () => {
     square: number;
     isRoot: boolean;
     questionText: string;
-    answer: number;
-    options: number[];
+    answer: string | number;
+    options: (string | number)[];
   }>({
     num: 37,
     square: 1369,
@@ -347,6 +460,7 @@ export const CalculationBoosterSquares: React.FC = () => {
     if (practiceRange === '41-50') return Array.from({ length: 10 }, (_, i) => i + 41);
     if (practiceRange === '51-60') return Array.from({ length: 10 }, (_, i) => i + 51);
     if (practiceRange === 'ending-5') return ENDING_IN_5;
+    if (practiceRange === 'roots') return [2, 3, 5, 7, 8, 6, 10];
     if (practiceRange === 'weak') {
       const weaks = Object.keys(weakSquares).map(Number);
       return weaks.length > 0 ? weaks : [23, 29, 37, 43, 47, 53, 57];
@@ -356,6 +470,40 @@ export const CalculationBoosterSquares: React.FC = () => {
 
   // Generate a new random question
   const generateQuestion = useCallback(() => {
+    if (practiceRange === 'roots') {
+      const rootItem = IMPORTANT_ROOT_CONSTANTS[Math.floor(Math.random() * IMPORTANT_ROOT_CONSTANTS.length)];
+      const isReverse = practiceType === 'type' ? false : Math.random() > 0.5;
+      let questionText = '';
+      let answer: string | number = '';
+      let options: (string | number)[] = [];
+
+      if (isReverse) {
+        questionText = `${rootItem.approx} ≈ ?`;
+        answer = rootItem.symbol;
+        const otherSymbols = IMPORTANT_ROOT_CONSTANTS.filter(r => r.id !== rootItem.id).map(r => r.symbol);
+        const wrongOpts = otherSymbols.sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [...wrongOpts, answer].sort(() => Math.random() - 0.5);
+      } else {
+        questionText = `${rootItem.symbol} ≈ ?`;
+        answer = rootItem.approx;
+        const otherApprox = IMPORTANT_ROOT_CONSTANTS.filter(r => r.id !== rootItem.id).map(r => r.approx);
+        const wrongOpts = otherApprox.sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [...wrongOpts, answer].sort(() => Math.random() - 0.5);
+      }
+
+      setCurrentQuestion({
+        num: rootItem.n,
+        square: rootItem.n * rootItem.n,
+        isRoot: true,
+        questionText,
+        answer,
+        options
+      });
+      setDrillFeedback(null);
+      setTypeInput('');
+      return;
+    }
+
     const pool = practiceNumberPool;
     const num = pool[Math.floor(Math.random() * pool.length)];
     const square = num * num;
@@ -408,7 +556,7 @@ export const CalculationBoosterSquares: React.FC = () => {
     setCurrentQuestion({ num, square, isRoot, questionText, answer, options });
     setDrillFeedback(null);
     setTypeInput('');
-  }, [practiceNumberPool, practiceQType]);
+  }, [practiceNumberPool, practiceQType, practiceRange, practiceType]);
 
   // Start Drill
   const handleStartDrill = () => {
@@ -450,10 +598,10 @@ export const CalculationBoosterSquares: React.FC = () => {
   }, [drillActive, practiceDuration, timeLeft, drillScore, saveStats]);
 
   // Answer handler
-  const handleAnswerSubmit = (selected: number) => {
+  const handleAnswerSubmit = (selected: string | number) => {
     if (drillFeedback !== null) return;
 
-    const isCorrect = selected === currentQuestion.answer;
+    const isCorrect = String(selected).trim().toLowerCase() === String(currentQuestion.answer).trim().toLowerCase();
     setDrillTotal(t => t + 1);
 
     if (isCorrect) {
@@ -521,12 +669,13 @@ export const CalculationBoosterSquares: React.FC = () => {
 
   // Handle typing input
   const handleTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.replace(/\D/g, '');
+    const val = e.target.value;
     setTypeInput(val);
 
-    const numericVal = parseInt(val, 10);
-    if (!isNaN(numericVal) && val.length === String(currentQuestion.answer).length) {
-      handleAnswerSubmit(numericVal);
+    const cleanInput = val.trim().toLowerCase();
+    const cleanAns = String(currentQuestion.answer).trim().toLowerCase();
+    if (cleanInput === cleanAns || (cleanInput.length >= 3 && cleanInput === cleanAns.replace('.', ''))) {
+      handleAnswerSubmit(currentQuestion.answer);
     }
   };
 
@@ -540,11 +689,15 @@ export const CalculationBoosterSquares: React.FC = () => {
       setTypeInput(prev => prev.slice(0, -1));
       return;
     }
+    if (digit === '.' && typeInput.includes('.')) {
+      return;
+    }
     const nextVal = typeInput + digit;
     setTypeInput(nextVal);
-    const numericVal = parseInt(nextVal, 10);
-    if (!isNaN(numericVal) && nextVal.length === String(currentQuestion.answer).length) {
-      handleAnswerSubmit(numericVal);
+    const cleanInput = nextVal.trim().toLowerCase();
+    const cleanAns = String(currentQuestion.answer).trim().toLowerCase();
+    if (cleanInput === cleanAns || (cleanInput.length >= 3 && cleanInput === cleanAns.replace('.', ''))) {
+      handleAnswerSubmit(currentQuestion.answer);
     }
   };
 
@@ -650,6 +803,7 @@ export const CalculationBoosterSquares: React.FC = () => {
                     { id: '41-50', label: '41 - 50 (Base 50 Trick)' },
                     { id: '51-60', label: '51 - 60 (Base 50+ Trick)' },
                     { id: 'ending-5', label: 'Ending in 5 (5,15,25..)' },
+                    { id: 'roots', label: '🔥 Key Roots (√2, √3, √5, √7, √8)' },
                     { id: 'all', label: 'All (1 to 60)' }
                   ] as const
                 ).map(r => (
@@ -665,6 +819,7 @@ export const CalculationBoosterSquares: React.FC = () => {
                       else if (r.id === '41-50') setSelectedNum(46);
                       else if (r.id === '51-60') setSelectedNum(54);
                       else if (r.id === 'ending-5') setSelectedNum(35);
+                      else if (r.id === 'roots') setSelectedNum(2);
                     }}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                       rangeFilter === r.id
@@ -714,7 +869,7 @@ export const CalculationBoosterSquares: React.FC = () => {
               </div>
             </div>
 
-            {/* Number Chips 1 to 60 */}
+            {/* Number Chips 1 to 60 or Roots */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
               {visibleNumbers.map(num => {
                 const isSelected = selectedNum === num;
@@ -736,10 +891,144 @@ export const CalculationBoosterSquares: React.FC = () => {
                         : 'bg-slate-100 dark:bg-white/[0.05] border border-slate-200/60 dark:border-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
                     }`}
                   >
-                    <span>{num}</span>
+                    <span>{rangeFilter === 'roots' ? `√${num}` : num}</span>
                     {isMastered && <CheckCircle2 className="w-3 h-3 text-emerald-400" />}
                     {isWeak && <Flame className="w-3 h-3 text-rose-500" />}
                   </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 🌟 Key Irrational Square Roots Quick Vault (√2, √3, √5, √7, √8) */}
+          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-slate-900/50 dark:bg-[#0E101B] border border-purple-500/30 shadow-md space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 dark:text-amber-400 border border-amber-500/30 uppercase tracking-wider">
+                    High-Yield Exam Constants
+                  </span>
+                  <span className="text-xs text-purple-600 dark:text-purple-300/80 font-mono font-semibold">
+                    SSC CGL • Banking • Railways • CDS
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>Essential Square Roots Vault: √2, √3, √5, √7, √8</span>
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  Directly memorized decimal values and standard surd simplifications for rapid exam calculations.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setIsRootsHidden(!isRootsHidden);
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    isRootsHidden
+                      ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                      : 'bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10'
+                  }`}
+                >
+                  {isRootsHidden ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                  <span>{isRootsHidden ? 'Values Hidden' : 'Blind Test'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setActiveMode('practice');
+                    setPracticeRange('roots');
+                    handleStartDrill();
+                  }}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+                >
+                  <Target className="w-3.5 h-3.5" />
+                  <span>Practice Roots</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Root Cards Grid: √2, √3, √5, √7, √8, √6, √10 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-1">
+              {IMPORTANT_ROOT_CONSTANTS.map(root => {
+                const isHidden = isRootsHidden && !revealedRoots.has(root.n);
+
+                return (
+                  <div
+                    key={root.id}
+                    onClick={() => {
+                      setSelectedNum(root.n);
+                      setRangeFilter('roots');
+                    }}
+                    className={`p-3.5 rounded-2xl border transition-all flex flex-col justify-between space-y-3 cursor-pointer ${
+                      selectedNum === root.n && rangeFilter === 'roots'
+                        ? 'bg-purple-600/15 dark:bg-purple-600/25 border-purple-500 ring-2 ring-purple-400/40 shadow-md'
+                        : 'bg-white dark:bg-[#141624] hover:bg-slate-50 dark:hover:bg-[#181a2e] border-slate-200/80 dark:border-white/10 hover:border-purple-500/40'
+                    }`}
+                  >
+                    {/* Card Top: Symbol & Recite */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-mono font-black text-purple-600 dark:text-purple-400">
+                        {root.symbol}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSpeakRoot(root);
+                        }}
+                        className="p-1 rounded-lg text-slate-400 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer"
+                        title={`Recite ${root.symbol}`}
+                      >
+                        <Volume2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    {/* Value Display / Tap to reveal */}
+                    <div className="py-1">
+                      {isHidden ? (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            soundManager.playClick();
+                            setRevealedRoots(prev => {
+                              const next = new Set(prev);
+                              next.add(root.n);
+                              return next;
+                            });
+                          }}
+                          className="w-full py-1.5 px-2 rounded-xl bg-amber-500/20 border border-dashed border-amber-500/60 text-amber-600 dark:text-amber-300 text-xs font-mono font-bold hover:bg-amber-500/30 transition-all cursor-pointer text-center"
+                        >
+                          ? Tap to Reveal
+                        </button>
+                      ) : (
+                        <div className="space-y-0.5">
+                          <div className="text-2xl font-mono font-black text-slate-900 dark:text-white tracking-wide">
+                            ≈ {root.approx}
+                          </div>
+                          <div className="text-[10px] font-mono text-purple-600 dark:text-purple-300/80">
+                            4 dec: {root.fourDecimals}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Surd & Exam Tip */}
+                    <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-1 text-[11px]">
+                      <div className="font-mono text-amber-600 dark:text-amber-400 font-bold">
+                        {root.simplification}
+                      </div>
+                      <div className="text-slate-500 dark:text-slate-400 line-clamp-2 leading-tight">
+                        {root.examApplication}
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -751,275 +1040,523 @@ export const CalculationBoosterSquares: React.FC = () => {
               
               {/* Left Column: Big Interactive Square Showcase (7 cols) */}
               <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-6">
-                
-                {/* Header with Star and Blind recall */}
-                <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/[0.06] pb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/20">
-                      Square Explorer
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => toggleMastered(selectedNum)}
-                      className={`p-1.5 rounded-xl transition-all cursor-pointer ${
-                        masteredSquares.has(selectedNum)
-                          ? 'bg-amber-500/20 text-amber-500'
-                          : 'text-slate-400 hover:text-amber-500 hover:bg-slate-100'
-                      }`}
-                      title={masteredSquares.has(selectedNum) ? 'Mastered' : 'Mark as Mastered'}
-                    >
-                      <Star className="w-4 h-4 fill-current" />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
-                      className={`p-1.5 rounded-xl transition-all cursor-pointer ${
-                        isSpeechEnabled
-                          ? 'bg-purple-500/20 text-purple-600 dark:text-purple-400'
-                          : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                      }`}
-                      title={isSpeechEnabled ? 'Voice Enabled' : 'Voice Muted'}
-                    >
-                      {isSpeechEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setIsAnswersHidden(!isAnswersHidden);
-                      }}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                        isAnswersHidden
-                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                          : 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300'
-                      }`}
-                    >
-                      {isAnswersHidden ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                      <span>{isAnswersHidden ? 'Answer Hidden' : 'Hide Answer'}</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Main Hero Equation Display */}
-                <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center space-y-4 rounded-3xl bg-gradient-to-br from-purple-900/10 via-indigo-900/5 to-slate-900/20 border border-purple-500/20">
-                  <div className="text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">
-                    Square of {selectedNum} (वर्ग)
-                  </div>
-
-                  <div className="flex items-center justify-center gap-3 text-4xl sm:text-6xl font-mono font-black text-slate-900 dark:text-white">
-                    <span>{selectedNum}²</span>
-                    <span className="text-purple-500">=</span>
-
-                    {isAnswersHidden && !revealedNumbers.has(selectedNum) ? (
-                      <button
-                        type="button"
-                        onClick={() => handleToggleReveal(selectedNum)}
-                        className="px-6 py-2 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 border-2 border-dashed border-amber-500 text-2xl sm:text-3xl font-mono font-bold hover:bg-amber-500/30 transition-all cursor-pointer"
-                      >
-                        ? Tap to Reveal
-                      </button>
-                    ) : (
-                      <span className="text-purple-600 dark:text-purple-400 animate-scale-in">
-                        {SQUARES_MAP[selectedNum]}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Reverse Root Relation */}
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-black/30 px-4 py-1.5 rounded-xl border border-slate-200/60 dark:border-white/10">
-                    <span>Square Root:</span>
-                    <span className="text-slate-900 dark:text-white">
-                      √{SQUARES_MAP[selectedNum]} = {selectedNum}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Key Insights & Unit Digit Indicator */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
-                      Unit Digit Property
-                    </span>
-                    <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                      {getUnitDigitRule(selectedNum)}
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
-                      Tens / Base Category
-                    </span>
-                    <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                      {selectedNum <= 25
-                        ? 'Foundation Tier (1 - 25)'
-                        : selectedNum <= 40
-                        ? 'Core Exam Tier (26 - 40)'
-                        : selectedNum <= 50
-                        ? 'Base 50 Deviation (41 - 50)'
-                        : 'Base 50+ Surplus (51 - 60)'}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Navigation */}
-                <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-white/[0.06]">
-                  <button
-                    type="button"
-                    disabled={selectedNum <= 1}
-                    onClick={() => handleSelectNumber(selectedNum - 1)}
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                    <span>{selectedNum - 1}² ({selectedNum > 1 ? (selectedNum - 1) * (selectedNum - 1) : ''})</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSpeakSingle(selectedNum)}
-                    className="px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                    <span>Recite</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    disabled={selectedNum >= 60}
-                    onClick={() => handleSelectNumber(selectedNum + 1)}
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
-                  >
-                    <span>{selectedNum + 1}² ({selectedNum < 60 ? (selectedNum + 1) * (selectedNum + 1) : ''})</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Column: Vedic Math Shortcut & Drill Launcher (5 cols) */}
-              <div className="lg:col-span-5 space-y-5">
-                
-                {/* Vedic Mental Math Trick Card */}
-                <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent border border-purple-500/20 shadow-xs space-y-3">
-                  <div className="flex items-center gap-2 text-purple-700 dark:text-purple-400 font-bold text-sm">
-                    <Sparkles className="w-4 h-4" />
-                    <span>Vedic Mental Math Trick</span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                    {getSquareTrick(selectedNum)}
-                  </p>
-
-                  <div className="p-3 rounded-2xl bg-white/70 dark:bg-black/30 border border-purple-500/20 text-[11px] font-mono text-purple-800 dark:text-purple-300 space-y-1">
-                    <div>
-                      💡 <strong>Vedic Rule Summary:</strong>
-                    </div>
-                    {selectedNum >= 41 && selectedNum <= 50 && (
-                      <div>(25 - Deficiency) | (Deficiency)²</div>
-                    )}
-                    {selectedNum >= 51 && selectedNum <= 60 && (
-                      <div>(25 + Surplus) | (Surplus)²</div>
-                    )}
-                    {selectedNum % 10 === 5 && (
-                      <div>(Tens × Next Tens) | 25</div>
-                    )}
-                    {selectedNum % 10 !== 5 && (selectedNum < 41 || selectedNum > 60) && (
-                      <div>(a + b)² = a² + 2ab + b²</div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Instant Drill Launcher */}
-                <div className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4">
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Target className="w-4 h-4 text-purple-500" />
-                      <span>Test Your Square Recall</span>
-                    </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Ready to test Squares 1 to 60 with fast timer drills?
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setActiveMode('practice');
-                      setPracticeRange('all');
-                      handleStartDrill();
-                    }}
-                    className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Zap className="w-4 h-4" />
-                    <span>Start Squares Speed Drill</span>
-                  </button>
-                </div>
-
-                {/* Landmark Squares Table */}
-                <div className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-3">
-                  <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
-                    High-Frequency Landmark Squares
-                  </h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { n: 25, val: 625, tag: 'Quarter Landmark' },
-                      { n: 32, val: 1024, tag: '2¹⁰ Power' },
-                      { n: 50, val: 2500, tag: 'Midway Base' },
-                      { n: 60, val: 3600, tag: 'Boundary' }
-                    ].map(item => (
-                      <div
-                        key={item.n}
-                        onClick={() => setSelectedNum(item.n)}
-                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#141624] border border-slate-200/60 dark:border-white/5 cursor-pointer hover:border-purple-500/40 transition-all flex flex-col justify-between"
-                      >
-                        <span className="text-[10px] text-slate-400 font-mono">{item.tag}</span>
-                        <span className="text-sm font-mono font-bold text-slate-900 dark:text-white">
-                          {item.n}² = {item.val}
+                {rangeFilter === 'roots' ? (
+                  <>
+                    {/* Header with Blind recall & Recite */}
+                    <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/[0.06] pb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          Irrational Root Vault
+                        </span>
+                        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
+                          {activeRoot.symbol}
                         </span>
                       </div>
-                    ))}
-                  </div>
-                </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleSpeakRoot(activeRoot)}
+                          className="p-1.5 rounded-xl bg-purple-500/20 text-purple-600 dark:text-purple-400 hover:bg-purple-500/30 transition-all cursor-pointer"
+                          title="Recite Root Value"
+                        >
+                          <Volume2 className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            setIsRootsHidden(!isRootsHidden);
+                          }}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                            isRootsHidden
+                              ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                              : 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300'
+                          }`}
+                        >
+                          {isRootsHidden ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                          <span>{isRootsHidden ? 'Values Hidden' : 'Hide Value'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Main Hero Root Equation Display */}
+                    <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center space-y-4 rounded-3xl bg-gradient-to-br from-indigo-900/15 via-purple-900/10 to-slate-900/20 border border-purple-500/25">
+                      <div className="text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">
+                        Square Root of {activeRoot.n} (वर्गमूल)
+                      </div>
+
+                      <div className="flex items-center justify-center gap-3 text-4xl sm:text-6xl font-mono font-black text-slate-900 dark:text-white">
+                        <span className="text-purple-600 dark:text-purple-400">{activeRoot.symbol}</span>
+                        <span className="text-slate-400">≈</span>
+
+                        {isRootsHidden && !revealedRoots.has(activeRoot.n) ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              setRevealedRoots(prev => new Set(prev).add(activeRoot.n));
+                            }}
+                            className="px-6 py-2 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 border-2 border-dashed border-amber-500 text-2xl sm:text-3xl font-mono font-bold hover:bg-amber-500/30 transition-all cursor-pointer"
+                          >
+                            ? Tap to Reveal
+                          </button>
+                        ) : (
+                          <span className="text-purple-600 dark:text-purple-400 animate-scale-in">
+                            {activeRoot.approx}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Precision & Reverse Relation */}
+                      <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-500 dark:text-slate-400">
+                        <span className="bg-white/60 dark:bg-black/30 px-3 py-1 rounded-xl border border-slate-200/60 dark:border-white/10">
+                          4 Decimals: <strong className="text-slate-900 dark:text-white">{activeRoot.fourDecimals}</strong>
+                        </span>
+                        <span className="bg-white/60 dark:bg-black/30 px-3 py-1 rounded-xl border border-slate-200/60 dark:border-white/10">
+                          ({activeRoot.approx})² ≈ {activeRoot.n}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Key Properties / Surd Simplification */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
+                          Surd Simplification
+                        </span>
+                        <div className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
+                          {activeRoot.simplification}
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
+                          Fraction Approximation
+                        </span>
+                        <div className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200">
+                          {activeRoot.fractionApprox}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Navigation for Roots */}
+                    <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-white/[0.06]">
+                      {(() => {
+                        const rootIndices = IMPORTANT_ROOT_CONSTANTS.map(r => r.n);
+                        const currIdx = rootIndices.indexOf(selectedNum);
+                        const prevNum = currIdx > 0 ? rootIndices[currIdx - 1] : null;
+                        const nextNum = currIdx < rootIndices.length - 1 ? rootIndices[currIdx + 1] : null;
+
+                        return (
+                          <>
+                            <button
+                              type="button"
+                              disabled={prevNum === null}
+                              onClick={() => prevNum !== null && handleSelectNumber(prevNum)}
+                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                              <span>{prevNum !== null ? `√${prevNum}` : 'First'}</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleSpeakRoot(activeRoot)}
+                              className="px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                            >
+                              <Volume2 className="w-3.5 h-3.5" />
+                              <span>Recite Root</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              disabled={nextNum === null}
+                              onClick={() => nextNum !== null && handleSelectNumber(nextNum)}
+                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+                            >
+                              <span>{nextNum !== null ? `√${nextNum}` : 'Last'}</span>
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Header with Star and Blind recall */}
+                    <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/[0.06] pb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                          Square Explorer
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => toggleMastered(selectedNum)}
+                          className={`p-1.5 rounded-xl transition-all cursor-pointer ${
+                            masteredSquares.has(selectedNum)
+                              ? 'bg-amber-500/20 text-amber-500'
+                              : 'text-slate-400 hover:text-amber-500 hover:bg-slate-100'
+                          }`}
+                          title={masteredSquares.has(selectedNum) ? 'Mastered' : 'Mark as Mastered'}
+                        >
+                          <Star className="w-4 h-4 fill-current" />
+                        </button>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setIsSpeechEnabled(!isSpeechEnabled)}
+                          className={`p-1.5 rounded-xl transition-all cursor-pointer ${
+                            isSpeechEnabled
+                              ? 'bg-purple-500/20 text-purple-600 dark:text-purple-400'
+                              : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                          }`}
+                          title={isSpeechEnabled ? 'Voice Enabled' : 'Voice Muted'}
+                        >
+                          {isSpeechEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            setIsAnswersHidden(!isAnswersHidden);
+                          }}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                            isAnswersHidden
+                              ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                              : 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300'
+                          }`}
+                        >
+                          {isAnswersHidden ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                          <span>{isAnswersHidden ? 'Answer Hidden' : 'Hide Answer'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Main Hero Equation Display */}
+                    <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center space-y-4 rounded-3xl bg-gradient-to-br from-purple-900/10 via-indigo-900/5 to-slate-900/20 border border-purple-500/20">
+                      <div className="text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">
+                        Square of {selectedNum} (वर्ग)
+                      </div>
+
+                      <div className="flex items-center justify-center gap-3 text-4xl sm:text-6xl font-mono font-black text-slate-900 dark:text-white">
+                        <span>{selectedNum}²</span>
+                        <span className="text-purple-500">=</span>
+
+                        {isAnswersHidden && !revealedNumbers.has(selectedNum) ? (
+                          <button
+                            type="button"
+                            onClick={() => handleToggleReveal(selectedNum)}
+                            className="px-6 py-2 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 border-2 border-dashed border-amber-500 text-2xl sm:text-3xl font-mono font-bold hover:bg-amber-500/30 transition-all cursor-pointer"
+                          >
+                            ? Tap to Reveal
+                          </button>
+                        ) : (
+                          <span className="text-purple-600 dark:text-purple-400 animate-scale-in">
+                            {SQUARES_MAP[selectedNum]}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Reverse Root Relation */}
+                      <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-black/30 px-4 py-1.5 rounded-xl border border-slate-200/60 dark:border-white/10">
+                        <span>Square Root:</span>
+                        <span className="text-slate-900 dark:text-white">
+                          √{SQUARES_MAP[selectedNum]} = {selectedNum}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Key Insights & Unit Digit Indicator */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
+                          Unit Digit Property
+                        </span>
+                        <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                          {getUnitDigitRule(selectedNum)}
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
+                          Tens / Base Category
+                        </span>
+                        <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                          {selectedNum <= 25
+                            ? 'Foundation Tier (1 - 25)'
+                            : selectedNum <= 40
+                            ? 'Core Exam Tier (26 - 40)'
+                            : selectedNum <= 50
+                            ? 'Base 50 Deviation (41 - 50)'
+                            : 'Base 50+ Surplus (51 - 60)'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Navigation */}
+                    <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-white/[0.06]">
+                      <button
+                        type="button"
+                        disabled={selectedNum <= 1}
+                        onClick={() => handleSelectNumber(selectedNum - 1)}
+                        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span>{selectedNum - 1}² ({selectedNum > 1 ? (selectedNum - 1) * (selectedNum - 1) : ''})</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleSpeakSingle(selectedNum)}
+                        className="px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                      >
+                        <Volume2 className="w-3.5 h-3.5" />
+                        <span>Recite</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        disabled={selectedNum >= 60}
+                        onClick={() => handleSelectNumber(selectedNum + 1)}
+                        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+                      >
+                        <span>{selectedNum + 1}² ({selectedNum < 60 ? (selectedNum + 1) * (selectedNum + 1) : ''})</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Right Column: Vedic Math Shortcut / Root Exam Tip & Drill Launcher (5 cols) */}
+              <div className="lg:col-span-5 space-y-5">
+                {rangeFilter === 'roots' ? (
+                  <>
+                    {/* Root Exam Applications Card */}
+                    <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent border border-purple-500/20 shadow-xs space-y-3">
+                      <div className="flex items-center gap-2 text-purple-700 dark:text-purple-400 font-bold text-sm">
+                        <Sparkles className="w-4 h-4" />
+                        <span>Exam Applications & Formulas</span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                        {activeRoot.examApplication}
+                      </p>
+
+                      <div className="p-3 rounded-2xl bg-white/70 dark:bg-black/30 border border-purple-500/20 text-[11px] font-mono text-purple-800 dark:text-purple-300 space-y-1">
+                        <div>
+                          💡 <strong>Memory Tip & Surd Rule:</strong>
+                        </div>
+                        <div>{activeRoot.tip}</div>
+                      </div>
+                    </div>
+
+                    {/* Instant Root Drill Launcher */}
+                    <div className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4">
+                      <div>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                          <Target className="w-4 h-4 text-purple-500" />
+                          <span>Test Important Roots Recall</span>
+                        </h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                          Test your recall of √2, √3, √5, √7, √8 with flash speed drills.
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setActiveMode('practice');
+                          setPracticeRange('roots');
+                          handleStartDrill();
+                        }}
+                        className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Zap className="w-4 h-4" />
+                        <span>Start Roots Speed Drill</span>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Vedic Mental Math Trick Card */}
+                    <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent border border-purple-500/20 shadow-xs space-y-3">
+                      <div className="flex items-center gap-2 text-purple-700 dark:text-purple-400 font-bold text-sm">
+                        <Sparkles className="w-4 h-4" />
+                        <span>Vedic Mental Math Trick</span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                        {getSquareTrick(selectedNum)}
+                      </p>
+
+                      <div className="p-3 rounded-2xl bg-white/70 dark:bg-black/30 border border-purple-500/20 text-[11px] font-mono text-purple-800 dark:text-purple-300 space-y-1">
+                        <div>
+                          💡 <strong>Vedic Rule Summary:</strong>
+                        </div>
+                        {selectedNum >= 41 && selectedNum <= 50 && (
+                          <div>(25 - Deficiency) | (Deficiency)²</div>
+                        )}
+                        {selectedNum >= 51 && selectedNum <= 60 && (
+                          <div>(25 + Surplus) | (Surplus)²</div>
+                        )}
+                        {selectedNum % 10 === 5 && (
+                          <div>(Tens × Next Tens) | 25</div>
+                        )}
+                        {selectedNum % 10 !== 5 && (selectedNum < 41 || selectedNum > 60) && (
+                          <div>(a + b)² = a² + 2ab + b²</div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Instant Drill Launcher */}
+                    <div className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4">
+                      <div>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                          <Target className="w-4 h-4 text-purple-500" />
+                          <span>Test Your Square Recall</span>
+                        </h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                          Ready to test Squares 1 to 60 with fast timer drills?
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setActiveMode('practice');
+                          setPracticeRange('all');
+                          handleStartDrill();
+                        }}
+                        className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Zap className="w-4 h-4" />
+                        <span>Start Squares Speed Drill</span>
+                      </button>
+                    </div>
+
+                    {/* Landmark Squares Table */}
+                    <div className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-3">
+                      <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
+                        High-Frequency Landmark Squares
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          { n: 25, val: 625, tag: 'Quarter Landmark' },
+                          { n: 32, val: 1024, tag: '2¹⁰ Power' },
+                          { n: 50, val: 2500, tag: 'Midway Base' },
+                          { n: 60, val: 3600, tag: 'Boundary' }
+                        ].map(item => (
+                          <div
+                            key={item.n}
+                            onClick={() => setSelectedNum(item.n)}
+                            className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#141624] border border-slate-200/60 dark:border-white/5 cursor-pointer hover:border-purple-500/40 transition-all flex flex-col justify-between"
+                          >
+                            <span className="text-[10px] text-slate-400 font-mono">{item.tag}</span>
+                            <span className="text-sm font-mono font-bold text-slate-900 dark:text-white">
+                              {item.n}² = {item.val}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           ) : (
             /* VIEW TYPE 2: GRID MATRIX OVERVIEW */
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 animate-fade-in">
-              {visibleNumbers.map(num => {
-                const sq = SQUARES_MAP[num];
-                const isMastered = masteredSquares.has(num);
-
-                return (
+            rangeFilter === 'roots' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 animate-fade-in">
+                {IMPORTANT_ROOT_CONSTANTS.map(root => (
                   <div
-                    key={num}
+                    key={root.id}
                     onClick={() => {
-                      setSelectedNum(num);
+                      setSelectedNum(root.n);
                       setLearnViewType('single');
                     }}
-                    className="p-4 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 hover:border-purple-500/40 hover:scale-102 transition-all shadow-xs flex flex-col justify-between space-y-2 cursor-pointer"
+                    className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 hover:border-purple-500/40 hover:scale-102 transition-all shadow-xs flex flex-col justify-between space-y-3 cursor-pointer"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-slate-400">
-                        {num}²
+                      <span className="text-xl font-mono font-black text-purple-600 dark:text-purple-400">
+                        {root.symbol}
                       </span>
-                      {isMastered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSpeakRoot(root);
+                        }}
+                        className="p-1 rounded-lg text-slate-400 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer"
+                        title={`Recite ${root.symbol}`}
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
                     </div>
 
-                    <div className="text-xl font-mono font-black text-purple-600 dark:text-purple-400">
-                      {sq}
+                    <div className="space-y-0.5">
+                      <div className="text-2xl font-mono font-black text-slate-900 dark:text-white tracking-wide">
+                        ≈ {root.approx}
+                      </div>
+                      <div className="text-xs font-mono text-purple-600 dark:text-purple-300/80">
+                        4 Decimals: {root.fourDecimals}
+                      </div>
                     </div>
 
-                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-white/[0.06] pt-1.5 flex items-center justify-between">
-                      <span>√{sq}</span>
-                      <span>= {num}</span>
+                    <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] space-y-1 text-xs">
+                      <div className="font-mono font-bold text-amber-600 dark:text-amber-400">
+                        {root.simplification}
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+                        {root.examApplication}
+                      </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 animate-fade-in">
+                {visibleNumbers.map(num => {
+                  const sq = SQUARES_MAP[num];
+                  const isMastered = masteredSquares.has(num);
+
+                  return (
+                    <div
+                      key={num}
+                      onClick={() => {
+                        setSelectedNum(num);
+                        setLearnViewType('single');
+                      }}
+                      className="p-4 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 hover:border-purple-500/40 hover:scale-102 transition-all shadow-xs flex flex-col justify-between space-y-2 cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-bold text-slate-400">
+                          {num}²
+                        </span>
+                        {isMastered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
+                      </div>
+
+                      <div className="text-xl font-mono font-black text-purple-600 dark:text-purple-400">
+                        {sq}
+                      </div>
+
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-white/[0.06] pt-1.5 flex items-center justify-between">
+                        <span>√{sq}</span>
+                        <span>= {num}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )
           )}
         </div>
       )}
@@ -1056,6 +1593,7 @@ export const CalculationBoosterSquares: React.FC = () => {
                     { id: '41-50', label: '41 - 50 (Base 50 Trick)' },
                     { id: '51-60', label: '51 - 60 (Base 50+ Trick)' },
                     { id: 'ending-5', label: 'Ending in 5' },
+                    { id: 'roots', label: '🔥 Key Roots (√2, √3, √5, √7, √8)' },
                     { id: 'all', label: 'Full Range (1 to 60)' }
                   ].map(r => (
                     <button
@@ -1273,20 +1811,31 @@ export const CalculationBoosterSquares: React.FC = () => {
               {/* Direct Typing Input & On-Screen Numpad */}
               {practiceType === 'type' && (
                 <div className="space-y-4 max-w-sm mx-auto">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    inputMode="numeric"
-                    value={typeInput}
-                    onChange={handleTypeChange}
-                    placeholder="Type Answer..."
-                    className="w-full py-3 text-center text-2xl font-mono font-black rounded-2xl bg-slate-50 dark:bg-[#141624] border-2 border-purple-500/50 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-purple-500/20"
-                    autoFocus
-                  />
+                  <div className="relative">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      inputMode="decimal"
+                      value={typeInput}
+                      onChange={handleTypeChange}
+                      placeholder={practiceRange === 'roots' ? 'Type Root (e.g. 1.414 or 1414)...' : 'Type Answer...'}
+                      className="w-full py-3 px-12 text-center text-2xl font-mono font-black rounded-2xl bg-slate-50 dark:bg-[#141624] border-2 border-purple-500/50 text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-purple-500/20"
+                      autoFocus
+                    />
+                    {typeInput.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setTypeInput('')}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 rounded-lg bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-[11px] font-mono font-bold transition-all cursor-pointer"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </div>
 
                   {/* Touch Numpad */}
                   <div className="grid grid-cols-3 gap-2">
-                    {['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', '0', '⌫'].map(btn => (
+                    {['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫'].map(btn => (
                       <button
                         key={btn}
                         type="button"
