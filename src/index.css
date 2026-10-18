@@ -12,55 +12,53 @@
 
 @layer base {
   :root {
-    /* 🎨 Elite 8-Color Dynamic Palette System */
-    /* 1. Purple: #992BFF | 2. Indigo: #4A53FA | 3. Red: #FF3B4B | 4. Orange: #FF6105 */
-    /* 5. Azure: #138EFF | 6. Magenta: #E950F7 | 7. Green: #0BA84A | 8. Teal: #13A3B5 | 9. White: #FFFFFF */
-    --color-background: #F8FAFC;
-    --color-primary: #0F172A;
-    --color-primary-accent: #4A53FA;
-    --color-accent-light: #EEF0FF;
-    --color-secondary-accent: #138EFF;
-    --color-tertiary-accent: #992BFF;
-    --color-surface: #FFFFFF;
-    --color-surface-soft: #F1F5F9;
-    --color-border: #E2E8F0;
-    --color-text-primary: #0F172A;
-    --color-text-secondary: #334155;
-    --color-text-muted: #475569;
-    --color-success: #0BA84A;
-    --color-warning: #FF6105;
-    --color-error: #FF3B4B;
-    --color-teal: #13A3B5;
-    --color-magenta: #E950F7;
-    --color-orange: #FF6105;
-    --color-indigo: #4A53FA;
-    --color-purple: #992BFF;
-    --color-azure: #138EFF;
+    /* 👑 4-Colour Luxury Palette System (#FAEED9, #E1A837, #8D7A02, #38370D) */
+    --color-background: #FAEED9;
+    --color-primary: #38370D;
+    --color-primary-accent: #E1A837;
+    --color-accent-light: #FBF4E6;
+    --color-secondary-accent: #8D7A02;
+    --color-tertiary-accent: #E1A837;
+    --color-surface: #FFFDF8;
+    --color-surface-soft: #F6EBD4;
+    --color-border: #E2D1B3;
+    --color-text-primary: #38370D;
+    --color-text-secondary: #58531A;
+    --color-text-muted: #8D7A02;
+    --color-success: #15803D;
+    --color-warning: #E1A837;
+    --color-error: #B91C1C;
+    --color-teal: #8D7A02;
+    --color-magenta: #E1A837;
+    --color-orange: #E1A837;
+    --color-indigo: #8D7A02;
+    --color-purple: #E1A837;
+    --color-azure: #8D7A02;
   }
 
   .dark {
-    /* 🌑 Deep Obsidian & Electric Indigo/Purple Theme */
-    --color-background: #090A12;
-    --color-primary: #FFFFFF;
-    --color-primary-accent: #4A53FA;
-    --color-accent-light: rgba(74, 83, 250, 0.15);
-    --color-secondary-accent: #138EFF;
-    --color-tertiary-accent: #992BFF;
-    --color-surface: #131522;
-    --color-surface-soft: #191C2C;
-    --color-border: rgba(255, 255, 255, 0.08);
-    --color-text-primary: #FFFFFF;
-    --color-text-secondary: #E2E8F0;
-    --color-text-muted: #94A3B8;
-    --color-success: #0BA84A;
-    --color-warning: #FF6105;
-    --color-error: #FF3B4B;
-    --color-teal: #13A3B5;
-    --color-magenta: #E950F7;
-    --color-orange: #FF6105;
-    --color-indigo: #4A53FA;
-    --color-purple: #992BFF;
-    --color-azure: #138EFF;
+    /* 🌑 Deep Obsidian Bronze & Glowing Gold Theme */
+    --color-background: #121104;
+    --color-primary: #FAEED9;
+    --color-primary-accent: #E1A837;
+    --color-accent-light: rgba(225, 168, 55, 0.15);
+    --color-secondary-accent: #8D7A02;
+    --color-tertiary-accent: #E1A837;
+    --color-surface: #38370D;
+    --color-surface-soft: #262507;
+    --color-border: #8D7A02;
+    --color-text-primary: #FAEED9;
+    --color-text-secondary: #E2D1B3;
+    --color-text-muted: #D6C7A8;
+    --color-success: #15803D;
+    --color-warning: #E1A837;
+    --color-error: #B91C1C;
+    --color-teal: #8D7A02;
+    --color-magenta: #E1A837;
+    --color-orange: #E1A837;
+    --color-indigo: #8D7A02;
+    --color-purple: #E1A837;
+    --color-azure: #8D7A02;
   }
 
   .warm-cream {
@@ -83,13 +81,13 @@
   }
 
   ::selection {
-    background-color: rgba(74, 83, 250, 0.22);
-    color: #0F172A;
+    background-color: rgba(225, 168, 55, 0.4) !important;
+    color: #38370D !important;
   }
 
   .dark ::selection {
-    background-color: rgba(74, 83, 250, 0.35);
-    color: #FFFFFF;
+    background-color: rgba(225, 168, 55, 0.45) !important;
+    color: #FAEED9 !important;
   }
 
   .warm-cream ::selection,
@@ -128,24 +126,28 @@
     letter-spacing: -0.025em;
   }
 
-  html:not(.dark):not(.warm-cream) body {
-    background-color: #F8FAFC !important;
+  html:not(.dark) body,
+  html.warm-cream body,
+  html.warm-cream #root,
+  html.warm-cream .min-h-screen,
+  html.warm-cream main {
+    background-color: #FAEED9 !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(74, 83, 250, 0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(19, 142, 255, 0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(153, 43, 255, 0.04) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.14) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
-    color: #0F172A !important;
+    color: #38370D !important;
   }
 
   .dark body {
-    background-color: #090A12 !important;
+    background-color: #121104 !important;
     background-image: 
-      radial-gradient(ellipse at 50% -10%, rgba(74, 83, 250, 0.14) 0%, transparent 60%),
-      radial-gradient(ellipse at 95% 40%, rgba(19, 142, 255, 0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 80%, rgba(153, 43, 255, 0.07) 0%, transparent 50%) !important;
+      radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.16) 0%, transparent 60%),
+      radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 5% 80%, rgba(56, 55, 13, 0.25) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
-    color: #F8FAFC !important;
+    color: #FAEED9 !important;
   }
 
   /* 👑 Warm Parchment Gold Theme (#FAEED9, #E1A837, #8D7A02, #38370D) */
@@ -2355,8 +2357,8 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-[#1E1E24]"],
 .dark [class*="dark:bg-[#202020]"],
 .dark [class*="dark:bg-[#2B2B2B]"] {
-  background-color: #1E293B !important;
-  border-color: #334155 !important;
+  background-color: #38370D !important;
+  border-color: #8D7A02 !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -2382,8 +2384,8 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-white/[0.03]"],
 .dark [class*="dark:bg-white/[0.06]"],
 .dark [class*="dark:bg-[#383838]"] {
-  background-color: #0F172A !important;
-  border-color: #334155 !important;
+  background-color: #262507 !important;
+  border-color: #8D7A02 !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
@@ -2408,7 +2410,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:border-white/20"],
 .dark [class*="border-slate-200"],
 .dark [class*="border-slate-300"] {
-  border-color: #334155 !important;
+  border-color: #8D7A02 !important;
 }
 
 /* 4. Razor-Sharp High-Contrast Typography in Dark Mode */
@@ -2420,7 +2422,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark h6,
 .dark .font-heading,
 .dark .app-title {
-  color: #FFFFFF !important;
+  color: #FAEED9 !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
@@ -2435,7 +2437,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-white"],
 .dark [class*="dark:text-[#F5F5F7]"],
 .dark [class*="dark:text-[#C0CAF5]"] {
-  color: #FFFFFF !important;
+  color: #FAEED9 !important;
 }
 
 /* Explicit Dark Text Preserved in Dark Mode (e.g. for light pills/badges) */
@@ -2443,10 +2445,10 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-black"],
 .dark [class*="dark:text-slate-900"],
 .dark [class*="dark:text-slate-950"] {
-  color: #0F172A !important;
+  color: #121104 !important;
 }
 
-/* Secondary & Muted Text in Dark Mode (Neutral Light Graphite & Zinc) */
+/* Secondary & Muted Text in Dark Mode (Warm Linen / Ivory Muted) */
 .dark [class*="text-[#65675F]"],
 .dark [class*="text-[#85877E]"],
 .dark [class*="text-[#454740]"],
@@ -2464,19 +2466,22 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-slate-400"],
 .dark [class*="dark:text-[#A1A1AA]"],
 .dark [class*="dark:text-[#A1A1B2]"] {
-  color: #D4D4D8 !important;
+  color: #D6C7A8 !important;
 }
 
 /* 5. Luminous Interactive Accents & Status Glows */
 .dark [class*="text-[#2563EB]"],
 .dark [class*="dark:text-[#7AA2F7]"],
-.dark [class*="dark:text-blue-400"] {
-  color: #93C5FD !important;
+.dark [class*="dark:text-blue-400"],
+.dark [class*="text-[#4A53FA]"],
+.dark [class*="text-[#138EFF]"] {
+  color: #E1A837 !important;
 }
 
 .dark [class*="text-amber-400"],
-.dark [class*="dark:text-amber-400"] {
-  color: #FCD34D !important;
+.dark [class*="dark:text-amber-400"],
+.dark [class*="text-amber-500"] {
+  color: #E1A837 !important;
 }
 
 .dark [class*="text-emerald-400"],
@@ -2493,15 +2498,15 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark header button,
 .dark header [class*="dark:bg-[#18181D]"],
 .dark header [class*="dark:bg-[#151624]"] {
-  background-color: #383838 !important;
-  border-color: #484848 !important;
-  color: #FFFFFF !important;
+  background-color: #38370D !important;
+  border-color: #8D7A02 !important;
+  color: #FAEED9 !important;
 }
 .dark header button:hover,
 .dark header [class*="dark:bg-[#18181D]"]:hover {
-  background-color: #444444 !important;
-  border-color: #555555 !important;
-  color: #FFFFFF !important;
+  background-color: #4A4812 !important;
+  border-color: #E1A837 !important;
+  color: #FAEED9 !important;
 }
 
 

@@ -60,7 +60,8 @@ export const Header: React.FC<HeaderProps> = ({
     profile,
     plannerTasks,
     dueRevisions,
-    weakTopics
+    weakTopics,
+    overallStats
   } = useSyllabus();
   const { user } = useAuth();
   const { isConfigured, lockApp } = usePinLock();
@@ -528,6 +529,14 @@ export const Header: React.FC<HeaderProps> = ({
         isOpen={isPwaModalOpen}
         onClose={() => setIsPwaModalOpen(false)}
       />
+
+      {/* Top Header Progress Bar: smooth #8D7A02 -> #E1A837 -> #FAEED9 animated gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#8D7A02]/15 overflow-hidden pointer-events-none">
+        <div 
+          className="h-full bg-gradient-to-r from-[#8D7A02] via-[#E1A837] to-[#FAEED9] transition-all duration-700 ease-out shadow-[0_0_8px_rgba(225,168,55,0.6)]" 
+          style={{ width: `${Math.max(3, overallStats?.completionPercentage || 0)}%` }} 
+        />
+      </div>
     </header>
   );
 };

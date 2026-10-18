@@ -21,15 +21,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('syllabus3d_theme');
-        if (saved === 'light' || saved === 'dark' || saved === 'warm-cream') {
-          return saved as Theme;
+        if (saved === 'dark') {
+          return 'dark';
         }
-        return 'light';
+        return 'warm-cream';
       } catch {
-        return 'light';
+        return 'warm-cream';
       }
     }
-    return 'light';
+    return 'warm-cream';
   });
 
   const [enable3D, setEnable3DState] = useState<boolean>(() => {
@@ -63,10 +63,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'dark', 'light', 'warm-cream');
     if (theme === 'dark') {
       root.classList.add('dark');
-    } else if (theme === 'warm-cream') {
-      root.classList.add('warm-cream');
-      root.classList.add('light');
     } else {
+      root.classList.add('warm-cream');
       root.classList.add('light');
     }
     try {
@@ -77,20 +75,22 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const setTheme = (newTheme: any) => {
-    if (newTheme === 'dark' || newTheme === 'light' || newTheme === 'warm-cream') {
-      setThemeState(newTheme);
+    if (newTheme === 'dark') {
+      setThemeState('dark');
+    } else if (newTheme === 'light' || newTheme === 'warm-cream') {
+      setThemeState('warm-cream');
     } else if (newTheme === 'system') {
       if (typeof window !== 'undefined' && window.matchMedia) {
         const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setThemeState(isSysDark ? 'dark' : 'light');
+        setThemeState(isSysDark ? 'dark' : 'warm-cream');
       } else {
-        setThemeState('light');
+        setThemeState('warm-cream');
       }
     }
   };
 
   const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : prev === 'light' ? 'warm-cream' : 'dark'));
+    setThemeState(prev => (prev === 'dark' ? 'warm-cream' : 'dark'));
   };
 
   const setEnable3D = (enable: boolean) => {

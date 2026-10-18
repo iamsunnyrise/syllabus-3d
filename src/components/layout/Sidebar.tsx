@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isCollapsed = false,
   onToggleCollapse
 }) => {
-  const { dueRevisions, weakTopics, currentExam } = useSyllabus();
+  const { dueRevisions, weakTopics, currentExam, overallStats } = useSyllabus();
   const { user, logout } = useAuth();
 
   const dueRevisionsSafe = Array.isArray(dueRevisions) ? dueRevisions : [];
@@ -641,6 +641,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <PanelLeftClose className="w-4 h-4 stroke-[2.2]" />
                 </button>
               )}
+            </div>
+
+            {/* Sidebar Progress Track with smooth #8D7A02 -> #E1A837 -> #FAEED9 gradient */}
+            <div className="h-[2.5px] w-full bg-[#8D7A02]/20 overflow-hidden shrink-0">
+              <div 
+                className="h-full bg-gradient-to-r from-[#8D7A02] via-[#E1A837] to-[#FAEED9] transition-all duration-700 ease-out shadow-[0_0_8px_rgba(225,168,55,0.6)]" 
+                style={{ width: `${Math.max(5, overallStats?.completionPercentage || 0)}%` }} 
+              />
             </div>
 
             {/* Scrollable Navigation Body */}
