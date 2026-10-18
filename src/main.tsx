@@ -21,7 +21,7 @@ if (typeof window !== 'undefined') {
 if (typeof window !== 'undefined' && 'caches' in window) {
   caches.keys().then((keys) => {
     keys.forEach((key) => {
-      if (key.startsWith('syllabus-3d') && !key.includes('v2.5')) {
+      if (key.startsWith('syllabus-3d') && !key.includes('v2.7')) {
         caches.delete(key);
       }
     });
