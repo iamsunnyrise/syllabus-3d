@@ -30,6 +30,7 @@ import {
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
+import { CalculationBoosterTables } from './CalculationBoosterTables';
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
@@ -1002,19 +1003,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {mathsSubTab === 'calc-booster' ? (
-            <div className="p-8 sm:p-14 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col items-center justify-center text-center space-y-4 min-h-[380px] animate-fade-in">
-              <div className="w-16 h-16 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
-                <Zap className="w-8 h-8" />
-              </div>
-              <div className="space-y-1.5 max-w-md">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                  Calculation Booster
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Calculation Booster section ready hai. Abi koi tools ya exercises add nahi ki gayi hain.
-                </p>
-              </div>
-            </div>
+            <CalculationBoosterTables />
           ) : (
             <>
               {/* Mental Calculation Speed Drill Card */}
