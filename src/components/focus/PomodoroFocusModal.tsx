@@ -1182,7 +1182,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] ${enableWallpaper ? 'bg-black text-slate-900 dark:text-white' : bgThemeStyles.containerClass} flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-500 pomodoro-focus-chamber`}
+      className={`fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] ${enableWallpaper ? (isDark ? 'bg-[#090A12] text-white' : isSepia ? 'bg-[#FAEED9] text-[#38370D]' : 'bg-[#F8FAFC] text-slate-900') : bgThemeStyles.containerClass} flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-500 pomodoro-focus-chamber`}
       onClick={e => e.stopPropagation()}
     >
       {/* 🌌 Contained Atmospheric Background System (Zero Bleed, Theme-Cohesive) */}
@@ -1433,11 +1433,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       )}
 
       {/* 2. MAIN SCROLLABLE CONTENT (Mobile-Friendly, Rock-Solid Stability) */}
-      <main className={`flex-1 overflow-x-hidden overscroll-contain relative z-20 ${
-        isBrowserFullscreen
-          ? 'overflow-hidden flex flex-col items-center justify-center p-0 w-full h-full'
-          : 'overflow-y-auto px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full pb-36 sm:pb-28'
-      }`}>
+      <main
+        className={`pomodoro-focus-main focus-chamber-main flex-1 overflow-x-hidden overscroll-contain relative z-20 ${
+          isBrowserFullscreen
+            ? 'overflow-hidden flex flex-col items-center justify-center p-0 w-full h-full'
+            : 'overflow-y-auto px-3.5 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 max-w-7xl mx-auto w-full pb-36 sm:pb-28'
+        }`}
+        style={{
+          backgroundColor: 'transparent',
+          backgroundImage: 'none'
+        }}
+      >
         
         {/* TOP SEGMENTED CAPSULE BAR (Aerospace Grade Segmented Control) */}
         {!isBrowserFullscreen && (

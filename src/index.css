@@ -138,7 +138,7 @@
   html.warm-cream body,
   html.warm-cream #root,
   html.warm-cream .min-h-screen,
-  html.warm-cream main {
+  html.warm-cream main:not(.pomodoro-focus-main):not(.focus-chamber-main) {
     background-color: #FAEED9 !important;
     background-image: 
       radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.18) 0%, transparent 60%),
@@ -167,7 +167,7 @@
   html.warm-cream body,
   html.warm-cream #root,
   html.warm-cream .min-h-screen,
-  html.warm-cream main {
+  html.warm-cream main:not(.pomodoro-focus-main):not(.focus-chamber-main) {
     background-color: #FAEED9 !important;
     background-image: 
       radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.18) 0%, transparent 60%),
@@ -175,6 +175,21 @@
       radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.14) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #38370D !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     FOCUS CHAMBER TRANSPARENCY OVERRIDES (Preserve full background)
+     ═══════════════════════════════════════════════════════════════ */
+  .pomodoro-focus-chamber main,
+  .pomodoro-focus-chamber .pomodoro-focus-main,
+  html.warm-cream .pomodoro-focus-chamber main,
+  html.warm-cream .pomodoro-focus-chamber .pomodoro-focus-main,
+  html.warm-cream main.pomodoro-focus-main,
+  html:not(.dark) .pomodoro-focus-chamber main,
+  html.dark .pomodoro-focus-chamber main {
+    background-color: transparent !important;
+    background-image: none !important;
+    background: transparent !important;
   }
 
   /* Canvas Layer Overrides (Handling hardcoded light & dark slate container classes) */
