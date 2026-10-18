@@ -398,7 +398,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
                         ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:text-white'
                     }`}
                     title={item.label}
                     aria-label={item.label}
@@ -433,7 +433,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={`relative flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
                         ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:text-white'
                     }`}
                     title={item.label}
                     aria-label={item.label}
@@ -476,7 +476,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
                         ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 shadow-[0_2px_12px_rgba(225,168,55,0.15)] font-bold'
-                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
+                        : 'w-10 h-10 rounded-xl text-zinc-400 hover:text-white'
                     }`}
                     title={item.subItems ? `${item.label} (Vocabulary, Maths, GA)` : item.label}
                     aria-label={item.label}
@@ -507,7 +507,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                   activeView === 'settings'
                     ? 'w-11 h-11 rounded-2xl bg-[#241F0A] text-[#FBBF24] border border-amber-500/30 font-bold'
-                    : 'w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-white'
+                    : 'w-10 h-10 rounded-xl text-zinc-400 hover:text-white'
                 }`}
                 aria-label="My Profile"
               >
@@ -527,7 +527,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenShortcuts();
                   }}
-                  className="w-10 h-10 rounded-xl text-zinc-400 hover:bg-white/[0.06] hover:text-amber-400 flex items-center justify-center transition-all cursor-pointer active:scale-95"
+                  className="w-10 h-10 rounded-xl text-zinc-400 hover:text-amber-400 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                   aria-label="Shortcuts Cheatsheet"
                 >
                   <Keyboard className="w-5 h-5 stroke-[2]" />
@@ -708,7 +708,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                         ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
                                         : isChildActive
                                         ? 'bg-[#241F0A]/50 text-[#FBBF24] font-semibold'
-                                        : 'bg-transparent text-zinc-300 hover:text-white hover:bg-white/[0.05] font-medium border-0'
+                                        : 'bg-transparent text-zinc-300 hover:text-white font-medium border-0'
                                     }`}
                                   >
                                     <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -721,7 +721,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <div className="flex items-center gap-1.5 shrink-0">
                                       {item.badge && (
                                         <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded-md ${
-                                          isParentActive ? 'bg-amber-500/20 text-[#FBBF24]' : 'bg-white/10 text-zinc-400'
+                                          isParentActive ? 'bg-amber-500/20 text-[#FBBF24]' : 'bg-zinc-800 text-zinc-400'
                                         }`}>
                                           {item.badge}
                                         </span>
@@ -733,7 +733,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <button
                                       type="button"
                                       onClick={(e) => toggleSubMenu(item.id, e)}
-                                      className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.05] rounded-xl transition-colors cursor-pointer shrink-0"
+                                      className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white rounded-xl transition-colors cursor-pointer shrink-0 bg-transparent border-0"
                                       title={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                       aria-label={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                     >
@@ -766,7 +766,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                           className={`group w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                                             isSubActive
                                               ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_10px_rgba(225,168,55,0.1)]'
-                                              : 'bg-transparent text-zinc-400 hover:text-white hover:bg-white/[0.05] font-medium border-0'
+                                              : 'bg-transparent text-zinc-400 hover:text-white font-medium border-0'
                                           }`}
                                         >
                                           <div className="flex items-center gap-2.5 min-w-0 flex-1">
@@ -785,7 +785,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                               <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
                                                 isSubActive
                                                   ? 'bg-amber-500/20 text-[#FBBF24]'
-                                                  : 'bg-white/10 text-zinc-400'
+                                                  : 'bg-zinc-800 text-zinc-400'
                                               }`}>
                                                 {sub.badge}
                                               </span>
@@ -818,7 +818,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm transition-all cursor-pointer select-none active:scale-[0.98] ${
                       activeView === 'settings'
                         ? 'bg-[#241F0A] text-[#FBBF24] border border-amber-500/25 font-bold shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
-                        : 'bg-transparent text-zinc-300 hover:text-white hover:bg-white/[0.05] font-medium border-0'
+                        : 'bg-transparent text-zinc-300 hover:text-white font-medium border-0'
                     }`}
                   >
                     <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-[#FBBF24]' : 'text-zinc-400'}`} />
@@ -854,7 +854,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenAiArchitect();
                   }}
-                  className="py-1.5 px-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 border border-white/[0.08] transition-all cursor-pointer truncate"
+                  className="sidebar-utility-btn py-1.5 px-2 rounded-xl text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer truncate"
                   title="AI Syllabus Architect"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-purple-400" />
@@ -869,7 +869,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     soundManager.playClick();
                     onOpenFocus();
                   }}
-                  className="py-1.5 px-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 border border-white/[0.08] transition-all cursor-pointer truncate"
+                  className="sidebar-utility-btn py-1.5 px-2 rounded-xl text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer truncate"
                   title="Focus Mode"
                 >
                   <Timer className="w-3.5 h-3.5 text-amber-400" />
@@ -886,7 +886,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   haptics.selection();
                   onOpenShortcuts();
                 }}
-                className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:border-amber-500/50 text-zinc-300 hover:text-white transition-all cursor-pointer text-xs font-semibold"
+                className="sidebar-utility-btn w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-zinc-300 hover:text-white transition-all cursor-pointer text-xs font-semibold"
                 title="Keyboard Shortcuts Cheatsheet"
               >
                 <Keyboard className="w-3.5 h-3.5 text-amber-400" />

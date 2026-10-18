@@ -188,47 +188,47 @@
      ═══════════════════════════════════════════════════════════════ */
 
   /* Tier 1: Pure Ivory Parchment Card Surfaces (Cards, Panels, Modals, Topic Rows) */
-  html.warm-cream .bg-white,
-  html.warm-cream [class*="bg-white/"]:not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
-  html.warm-cream .bg-\[\#121424\],
-  html.warm-cream .bg-\[\#151622\],
-  html.warm-cream .bg-\[\#181A2A\],
-  html.warm-cream .bg-\[\#131522\],
-  html.warm-cream .bg-\[\#0E101B\]:not(aside),
-  html.warm-cream .bg-\[\#11131F\] {
+  html.warm-cream .bg-white:not(aside):not(aside *),
+  html.warm-cream [class*="bg-white/"]:not(aside):not(aside *):not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
+  html.warm-cream .bg-\[\#121424\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#151622\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#181A2A\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#131522\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#0E101B\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#11131F\]:not(aside):not(aside *) {
     background-color: #FFFDF8 !important;
     border-color: #E2D1B3 !important;
     color: #38370D !important;
   }
 
   /* Tier 2: Sand-Parchment Elevated Plates, Secondary Sections & Metric Pills */
-  html.warm-cream .bg-slate-50,
-  html.warm-cream [class*="bg-slate-50"],
-  html.warm-cream .bg-\[\#1B243B\],
-  html.warm-cream .bg-\[\#181B2B\],
-  html.warm-cream .bg-\[\#161828\],
-  html.warm-cream .bg-\[\#191C2C\],
-  html.warm-cream .bg-\[\#1A1C2C\] {
+  html.warm-cream .bg-slate-50:not(aside):not(aside *),
+  html.warm-cream [class*="bg-slate-50"]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#1B243B\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#181B2B\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#161828\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#191C2C\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#1A1C2C\]:not(aside):not(aside *) {
     background-color: #F7EBD3 !important;
     border-color: #E2D1B3 !important;
     color: #38370D !important;
   }
 
   /* Tier 3: Soft Muted Parchment Wells, Unselected Items & Table Headers */
-  html.warm-cream .bg-slate-100,
-  html.warm-cream [class*="bg-slate-100"],
-  html.warm-cream .bg-\[\#1A1B29\],
-  html.warm-cream .bg-\[\#202234\],
-  html.warm-cream .bg-\[\#25283D\] {
+  html.warm-cream .bg-slate-100:not(aside):not(aside *),
+  html.warm-cream [class*="bg-slate-100"]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#1A1B29\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#202234\]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#25283D\]:not(aside):not(aside *) {
     background-color: #EFE0C2 !important;
     border-color: #E2D1B3 !important;
     color: #38370D !important;
   }
 
   /* Tier 4: Inset Tracks, Deep Wells, Progress Meters & Segment Controls */
-  html.warm-cream .bg-slate-200,
-  html.warm-cream [class*="bg-slate-200"],
-  html.warm-cream .bg-\[\#0D1424\] {
+  html.warm-cream .bg-slate-200:not(aside):not(aside *),
+  html.warm-cream [class*="bg-slate-200"]:not(aside):not(aside *),
+  html.warm-cream .bg-\[\#0D1424\]:not(aside):not(aside *) {
     background-color: #E5D5BA !important;
     border-color: #D8C6A5 !important;
   }
@@ -236,17 +236,17 @@
   /* ═══════════════════════════════════════════════════════════════
      BORDERS & AMBIENT SHADOWS IN WARM PARCHMENT THEME
      ═══════════════════════════════════════════════════════════════ */
-  html.warm-cream [class*="border-slate-"],
-  html.warm-cream [class*="border-gray-"],
-  html.warm-cream [class*="border-white/"],
-  html.warm-cream [class*="border-indigo-100"],
-  html.warm-cream [class*="border-blue-100"] {
+  html.warm-cream [class*="border-slate-"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-gray-"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-white/"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-indigo-100"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-blue-100"]:not(aside):not(aside *) {
     border-color: #E2D1B3 !important;
   }
 
-  html.warm-cream [class*="border-slate-300"],
-  html.warm-cream [class*="border-slate-400"],
-  html.warm-cream [class*="border-blue-200"] {
+  html.warm-cream [class*="border-slate-300"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-slate-400"]:not(aside):not(aside *),
+  html.warm-cream [class*="border-blue-200"]:not(aside):not(aside *) {
     border-color: #D4BE98 !important;
   }
 
@@ -271,33 +271,33 @@
   /* ═══════════════════════════════════════════════════════════════
      TEXT & TYPOGRAPHY READABILITY (WCAG AAA Contrast System)
      ═══════════════════════════════════════════════════════════════ */
-  html.warm-cream .text-slate-900,
-  html.warm-cream .text-slate-800,
-  html.warm-cream .dark\:text-white,
-  html.warm-cream .dark\:text-\[\#F5F5F7\],
-  html.warm-cream .dark\:text-\[\#F8FAFC\],
-  html.warm-cream h1:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h2:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h3:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
+  html.warm-cream .text-slate-900:not(aside):not(aside *),
+  html.warm-cream .text-slate-800:not(aside):not(aside *),
+  html.warm-cream .dark\:text-white:not(aside):not(aside *),
+  html.warm-cream .dark\:text-\[\#F5F5F7\]:not(aside):not(aside *),
+  html.warm-cream .dark\:text-\[\#F8FAFC\]:not(aside):not(aside *),
+  html.warm-cream h1:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h2:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h3:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h4:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h5:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h6:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
     color: #1C1B05 !important;
   }
 
-  html.warm-cream .text-slate-700,
-  html.warm-cream .text-slate-600,
-  html.warm-cream .dark\:text-slate-200,
-  html.warm-cream .dark\:text-slate-300 {
+  html.warm-cream .text-slate-700:not(aside):not(aside *),
+  html.warm-cream .text-slate-600:not(aside):not(aside *),
+  html.warm-cream .dark\:text-slate-200:not(aside):not(aside *),
+  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *) {
     color: #38370D !important;
   }
 
-  html.warm-cream .text-slate-500,
-  html.warm-cream .text-slate-400,
-  html.warm-cream .dark\:text-slate-400,
-  html.warm-cream .dark\:text-slate-500,
-  html.warm-cream .dark\:text-\[\#94A3B8\],
-  html.warm-cream .dark\:text-\[\#CBD5E1\] {
+  html.warm-cream .text-slate-500:not(aside):not(aside *),
+  html.warm-cream .text-slate-400:not(aside):not(aside *),
+  html.warm-cream .dark\:text-slate-400:not(aside):not(aside *),
+  html.warm-cream .dark\:text-slate-500:not(aside):not(aside *),
+  html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *),
+  html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *) {
     color: #5C5716 !important;
   }
 
@@ -523,15 +523,76 @@
   aside,
   .dark aside,
   html.warm-cream aside,
+  html.light aside,
   html:not(.dark) aside {
     background-color: #000000 !important;
+    background: #000000 !important;
     border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: none !important;
     color: #FFFFFF !important;
   }
 
+  /* ALL buttons inside aside default to transparent */
+  aside button,
+  html.warm-cream aside button,
+  html.light aside button,
+  html:not(.dark) aside button {
+    background-color: transparent !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Inactive nav items in aside */
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: #D4D4D8 !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+    color: #A1A1AA !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+  }
+  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+    color: #FFFFFF !important;
+  }
+
+  /* Active item capsule pill */
   aside [data-sidebar-active="true"],
+  aside button[data-sidebar-active="true"],
   html.warm-cream aside [data-sidebar-active="true"],
+  html.warm-cream aside button[data-sidebar-active="true"],
+  html.light aside [data-sidebar-active="true"],
+  html.light aside button[data-sidebar-active="true"],
+  html:not(.dark) aside [data-sidebar-active="true"],
+  html:not(.dark) aside button[data-sidebar-active="true"],
   .dark aside [data-sidebar-active="true"] {
     background-color: #241F0A !important;
     background: #241F0A !important;
@@ -542,41 +603,39 @@
     font-weight: 700 !important;
   }
   aside [data-sidebar-active="true"] *,
+  aside button[data-sidebar-active="true"] *,
   html.warm-cream aside [data-sidebar-active="true"] *,
+  html.warm-cream aside button[data-sidebar-active="true"] *,
+  html:not(.dark) aside [data-sidebar-active="true"] *,
   .dark aside [data-sidebar-active="true"] * {
     color: #FBBF24 !important;
   }
 
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+  /* Section headers */
+  aside .sidebar-section-header,
+  html.warm-cream aside .sidebar-section-header,
+  html:not(.dark) aside .sidebar-section-header {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
-    color: #D4D4D8 !important;
-    border-radius: 1rem !important;
-    box-shadow: none !important;
-    font-weight: 500 !important;
+    color: #71717A !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
   }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+  aside .sidebar-section-header:hover,
+  html.warm-cream aside .sidebar-section-header:hover {
     color: #A1A1AA !important;
   }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    color: #FFFFFF !important;
-  }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
-    color: #FFFFFF !important;
-  }
 
+  /* Logout button */
   aside [data-sidebar-logout="true"],
+  aside button[data-sidebar-logout="true"],
   html.warm-cream aside [data-sidebar-logout="true"],
+  html.warm-cream aside button[data-sidebar-logout="true"],
+  html.light aside [data-sidebar-logout="true"],
+  html:not(.dark) aside [data-sidebar-logout="true"],
   .dark aside [data-sidebar-logout="true"] {
     background-color: transparent !important;
     background: transparent !important;
@@ -586,20 +645,44 @@
     box-shadow: none !important;
   }
   aside [data-sidebar-logout="true"] *,
+  aside button[data-sidebar-logout="true"] *,
   html.warm-cream aside [data-sidebar-logout="true"] *,
+  html:not(.dark) aside [data-sidebar-logout="true"] *,
   .dark aside [data-sidebar-logout="true"] * {
     color: #F87171 !important;
   }
   aside [data-sidebar-logout="true"]:hover,
   html.warm-cream aside [data-sidebar-logout="true"]:hover,
+  html:not(.dark) aside [data-sidebar-logout="true"]:hover,
   .dark aside [data-sidebar-logout="true"]:hover {
     background-color: rgba(244, 63, 94, 0.1) !important;
+    background: rgba(244, 63, 94, 0.1) !important;
     color: #FDA4AF !important;
   }
   aside [data-sidebar-logout="true"]:hover *,
   html.warm-cream aside [data-sidebar-logout="true"]:hover *,
+  html:not(.dark) aside [data-sidebar-logout="true"]:hover *,
   .dark aside [data-sidebar-logout="true"]:hover * {
     color: #FDA4AF !important;
+  }
+
+  /* Quick utility tools at bottom (AI Studio, Focus, Shortcuts) */
+  aside .sidebar-utility-btn,
+  html.warm-cream aside .sidebar-utility-btn,
+  html.light aside .sidebar-utility-btn,
+  html:not(.dark) aside .sidebar-utility-btn {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #D4D4D8 !important;
+    box-shadow: none !important;
+  }
+  aside .sidebar-utility-btn:hover,
+  html.warm-cream aside .sidebar-utility-btn:hover,
+  html:not(.dark) aside .sidebar-utility-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #FFFFFF !important;
   }
 
   /* Mobile Floating Dock in Warm Parchment */
