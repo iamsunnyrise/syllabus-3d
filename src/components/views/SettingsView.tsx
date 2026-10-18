@@ -1924,17 +1924,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   {[
                     {
                       id: 'jetbrains',
-                      name: 'DM Mono',
-                      tag: 'Clean Minimal',
-                      desc: 'Clean geometric numbers with open zero and high clarity',
+                      name: 'Executive Sans',
+                      tag: 'Clean Open 0',
+                      desc: 'Clean geometric numbers with pure round zero and high clarity',
                       preview: '25:00',
                       fontClass: 'font-mono'
                     },
                     {
                       id: 'roboto-mono',
-                      name: 'Roboto Mono',
-                      tag: 'Clean Digital',
-                      desc: 'Minimalist geometric curves & razor-sharp legibility',
+                      name: 'Modern Digital',
+                      tag: 'Pure Round 0',
+                      desc: 'Minimalist geometric curves & razor-sharp legibility without slashes',
                       preview: '25:00',
                       fontClass: 'font-roboto-mono'
                     },

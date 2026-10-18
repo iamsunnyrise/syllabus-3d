@@ -395,7 +395,9 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .exam-tag {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1, 'zero' 0;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
@@ -510,7 +512,9 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .callout-body p {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1, 'zero' 0;
       font-size: 12.5px;
       line-height: 1.6;
       margin-bottom: 4px;
@@ -672,7 +676,9 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
     }
 
     .printable-code {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1, 'zero' 0;
       font-size: 12px;
       padding: 2px 6px;
       background: #F1F5F9;
@@ -697,7 +703,9 @@ export function generateAndOpenNotesPdf(options: GeneratePdfOptions): void {
       align-items: center;
       font-size: 11px;
       color: #94A3B8;
-      font-family: 'DM Mono', monospace;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1, 'zero' 0;
       break-inside: avoid;
       page-break-inside: avoid;
     }

@@ -96,6 +96,12 @@
     color: #38370D !important;
   }
 
+  /* 🎯 Global Clean Zero Rule: Eliminate slashed zero (line) and dotted zero (point) across the whole website */
+  *, *::before, *::after {
+    font-feature-settings: 'zero' 0;
+    -webkit-font-feature-settings: 'zero' 0;
+  }
+
   html {
     max-width: 100%;
     -webkit-tap-highlight-color: transparent;
@@ -118,7 +124,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01', 'liga', 'calt';
+    font-variant-numeric: normal;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01', 'liga', 'calt', 'zero' 0;
+    -webkit-font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01', 'liga', 'calt', 'zero' 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -1674,16 +1682,30 @@
     letter-spacing: -0.008em;
   }
 
-  /* Tabular numbers for stats, timers, dates, and counters */
-  .tabular-nums {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum' 1, 'zero' 0;
+  /* 🔤 Clean Monospace & Numbers System — Clean Unslashed & Undotted Zero across whole website */
+  .tabular-nums,
+  [class*="tabular-nums"] {
+    font-variant-numeric: tabular-nums !important;
+    font-feature-settings: 'tnum' 1, 'zero' 0 !important;
+    -webkit-font-feature-settings: 'tnum' 1, 'zero' 0 !important;
   }
 
-  .font-mono, [class*="font-mono"], code, kbd {
-    font-family: 'DM Mono', 'Plus Jakarta Sans', 'Inter', ui-monospace, SFMono-Regular, monospace !important;
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'zero' 0;
+  .font-mono,
+  [class*="font-mono"],
+  .font-roboto-mono,
+  [class*="font-roboto-mono"],
+  .font-dm-mono,
+  [class*="font-dm-mono"],
+  .font-jetbrains,
+  [class*="font-jetbrains"],
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-variant-numeric: tabular-nums !important;
+    font-feature-settings: 'tnum' 1, 'zero' 0 !important;
+    -webkit-font-feature-settings: 'tnum' 1, 'zero' 0 !important;
   }
 
   /* ♿ Accessibility: Clean, Visible Keyboard Focus-Visible Rings (WCAG 2.1 AA) */

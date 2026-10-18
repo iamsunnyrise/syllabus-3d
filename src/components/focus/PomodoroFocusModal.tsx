@@ -2067,8 +2067,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 </label>
                 <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10">
                   {[
-                    { id: 'jetbrains', label: 'DM Mono', sub: 'Clean & Open 0', fontClass: 'font-mono' },
-                    { id: 'roboto-mono', label: 'Roboto', sub: 'Clean Digital', fontClass: 'font-roboto-mono' },
+                    { id: 'jetbrains', label: 'Executive', sub: 'Clean Open 0', fontClass: 'font-mono' },
+                    { id: 'roboto-mono', label: 'Digital', sub: 'Pure Round 0', fontClass: 'font-roboto-mono' },
                     { id: 'orbitron', label: 'Orbitron', sub: 'Futuristic', fontClass: 'font-orbitron' }
                   ].map(f => (
                     <button

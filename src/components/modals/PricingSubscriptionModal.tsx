@@ -244,7 +244,7 @@ export const PricingSubscriptionModal: React.FC<PricingSubscriptionModalProps> =
                 {[
                   'AI YouTube Notes Generator with Timestamps',
                   'Real-time Multi-Device Cloud Sync',
-                  'All 3 Timer HUD Fonts: DM Mono, Roboto Mono, Orbitron',
+                  'All 3 Timer HUD Fonts: Executive, Modern Digital, Orbitron',
                   'Audio Memos & Voice Notes Recording',
                   'Smart Spaced Repetition (SM-2 Algorithm)',
                   'Full Mock Test Analytics & Target Gap Engine'
