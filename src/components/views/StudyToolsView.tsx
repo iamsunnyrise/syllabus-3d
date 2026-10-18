@@ -25,12 +25,14 @@ import {
   Play,
   RotateCcw,
   Plus,
-  ArrowRight
+  ArrowRight,
+  Hash
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { CalculationBoosterTables } from './CalculationBoosterTables';
+import { CalculationBoosterSquares } from './CalculationBoosterSquares';
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
@@ -422,6 +424,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
   const [mathsSubTab, setMathsSubTab] = useState<MathsSubTab>(initialMathsTab);
+  const [calcBoosterTool, setCalcBoosterTool] = useState<'tables' | 'squares'>('tables');
 
   // Sync when initialTab prop updates
   useEffect(() => {
@@ -1003,7 +1006,50 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {mathsSubTab === 'calc-booster' ? (
-            <CalculationBoosterTables />
+            <div className="space-y-6">
+              {/* Calculation Booster Tool Sub-Navigation */}
+              <div className="flex items-center p-1.5 rounded-2xl bg-white/90 dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-fit">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('tables');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    calcBoosterTool === 'tables'
+                      ? 'bg-blue-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Hash className="w-4 h-4" />
+                  <span>Tables (1 to 40)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('squares');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    calcBoosterTool === 'squares'
+                      ? 'bg-purple-600 text-white shadow-xs font-black ring-1 ring-purple-400/40'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Squares & Roots (1 to 60)</span>
+                </button>
+              </div>
+
+              {calcBoosterTool === 'tables' ? (
+                <CalculationBoosterTables />
+              ) : (
+                <CalculationBoosterSquares />
+              )}
+            </div>
           ) : (
             <>
               {/* Mental Calculation Speed Drill Card */}
