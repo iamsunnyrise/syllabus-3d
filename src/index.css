@@ -519,12 +519,196 @@
     box-shadow: 0 4px 20px rgba(56, 55, 13, 0.08) !important;
   }
 
-  /* Sidebar Theme: Deep Pitch-Black Canvas with Warm Golden Capsule Active Highlights (Matches Reference UI) */
-  aside,
-  .dark aside,
+  /* ═══════════════════════════════════════════════════════════════
+     👑 LUXURY SIDEBAR DESIGN SYSTEM — ADAPTIVE LIGHT & DARK MODES
+     Light Mode: Warm Ivory Parchment (#FFFDF8), Bronze Ink & Golden Capsule
+     Dark Mode: Deep Pitch-Black Canvas (#000000) & Radiant Amber Gold Capsule
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* 1. LIGHT MODE / WARM PARCHMENT SIDEBAR */
   html.warm-cream aside,
   html.light aside,
   html:not(.dark) aside {
+    background-color: #FFFDF8 !important;
+    background: #FFFDF8 !important;
+    border-right: 1px solid #E2D1B3 !important;
+    box-shadow: 1px 0 8px rgba(56, 55, 13, 0.03) !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream aside .sidebar-header-bar,
+  html.light aside .sidebar-header-bar,
+  html:not(.dark) aside .sidebar-header-bar {
+    border-color: #E2D1B3 !important;
+    background-color: #FFFDF8 !important;
+  }
+
+  html.warm-cream aside .sidebar-inner-container,
+  html.warm-cream aside .sidebar-scroll-rail,
+  html.warm-cream aside .sidebar-bottom-bar,
+  html.light aside .sidebar-inner-container,
+  html.light aside .sidebar-scroll-rail,
+  html.light aside .sidebar-bottom-bar,
+  html:not(.dark) aside .sidebar-inner-container,
+  html:not(.dark) aside .sidebar-scroll-rail,
+  html:not(.dark) aside .sidebar-bottom-bar {
+    background-color: #FFFDF8 !important;
+    background: #FFFDF8 !important;
+    color: #38370D !important;
+  }
+
+  html.warm-cream aside .sidebar-title,
+  html.light aside .sidebar-title,
+  html:not(.dark) aside .sidebar-title {
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream aside .sidebar-subtitle,
+  html.light aside .sidebar-subtitle,
+  html:not(.dark) aside .sidebar-subtitle {
+    color: #8D7A02 !important;
+  }
+
+  html.warm-cream aside .sidebar-section-header,
+  html.light aside .sidebar-section-header,
+  html:not(.dark) aside .sidebar-section-header {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #8D7A02 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+  html.warm-cream aside .sidebar-section-header:hover,
+  html.light aside .sidebar-section-header:hover,
+  html:not(.dark) aside .sidebar-section-header:hover {
+    color: #5A4E03 !important;
+  }
+
+  /* Light Mode Inactive Tabs */
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: #38370D !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
+  }
+
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+    color: #7D6C02 !important;
+  }
+
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+    background-color: #FAF0DC !important;
+    background: #FAF0DC !important;
+    color: #1C1B05 !important;
+  }
+
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+    color: #1C1B05 !important;
+  }
+
+  /* Light Mode Active Capsule Pill */
+  html.warm-cream aside [data-sidebar-active="true"],
+  html.warm-cream aside button[data-sidebar-active="true"],
+  html.light aside [data-sidebar-active="true"],
+  html.light aside button[data-sidebar-active="true"],
+  html:not(.dark) aside [data-sidebar-active="true"],
+  html:not(.dark) aside button[data-sidebar-active="true"] {
+    background: linear-gradient(135deg, #FAF0DC 0%, #F5E5C9 100%) !important;
+    background-color: #F5E8CF !important;
+    border: 1px solid #D8C6A5 !important;
+    color: #38370D !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 2px 8px rgba(225, 168, 55, 0.18) !important;
+    font-weight: 800 !important;
+  }
+
+  html.warm-cream aside [data-sidebar-active="true"] *,
+  html.warm-cream aside button[data-sidebar-active="true"] *,
+  html.light aside [data-sidebar-active="true"] *,
+  html.light aside button[data-sidebar-active="true"] *,
+  html:not(.dark) aside [data-sidebar-active="true"] *,
+  html:not(.dark) aside button[data-sidebar-active="true"] * {
+    color: #38370D !important;
+  }
+
+  html.warm-cream aside [data-sidebar-active="true"] svg,
+  html.light aside [data-sidebar-active="true"] svg,
+  html:not(.dark) aside [data-sidebar-active="true"] svg {
+    color: #8D7A02 !important;
+  }
+
+  /* Light Mode Logout */
+  html.warm-cream aside [data-sidebar-logout="true"],
+  html.warm-cream aside button[data-sidebar-logout="true"],
+  html.light aside [data-sidebar-logout="true"],
+  html.light aside button[data-sidebar-logout="true"],
+  html:not(.dark) aside [data-sidebar-logout="true"],
+  html:not(.dark) aside button[data-sidebar-logout="true"] {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #DC2626 !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
+  }
+
+  html.warm-cream aside [data-sidebar-logout="true"] *,
+  html.light aside [data-sidebar-logout="true"] *,
+  html:not(.dark) aside [data-sidebar-logout="true"] * {
+    color: #DC2626 !important;
+  }
+
+  html.warm-cream aside [data-sidebar-logout="true"]:hover,
+  html.light aside [data-sidebar-logout="true"]:hover,
+  html:not(.dark) aside [data-sidebar-logout="true"]:hover {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    background: rgba(239, 68, 68, 0.08) !important;
+    color: #B91C1C !important;
+  }
+
+  /* Light Mode Bottom Utilities */
+  html.warm-cream aside .sidebar-utility-btn,
+  html.light aside .sidebar-utility-btn,
+  html:not(.dark) aside .sidebar-utility-btn {
+    background-color: #FAF4E6 !important;
+    background: #FAF4E6 !important;
+    border: 1px solid #E2D1B3 !important;
+    color: #38370D !important;
+    box-shadow: 0 1px 3px rgba(56, 55, 13, 0.04) !important;
+  }
+
+  html.warm-cream aside .sidebar-utility-btn:hover,
+  html.light aside .sidebar-utility-btn:hover,
+  html:not(.dark) aside .sidebar-utility-btn:hover {
+    background-color: #F7EBD3 !important;
+    background: #F7EBD3 !important;
+    color: #1C1B05 !important;
+  }
+
+  /* 2. DARK MODE SIDEBAR */
+  .dark aside,
+  html.dark aside {
     background-color: #000000 !important;
     background: #000000 !important;
     border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -532,89 +716,35 @@
     color: #FFFFFF !important;
   }
 
-  /* ALL buttons inside aside default to transparent */
-  aside button,
-  html.warm-cream aside button,
-  html.light aside button,
-  html:not(.dark) aside button {
-    background-color: transparent !important;
-    background: transparent !important;
-    border-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+  .dark aside .sidebar-header-bar,
+  html.dark aside .sidebar-header-bar {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: #000000 !important;
   }
 
-  /* Inactive nav items in aside */
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
-    background-color: transparent !important;
-    background: transparent !important;
-    border: none !important;
-    border-color: transparent !important;
-    color: #D4D4D8 !important;
-    border-radius: 1rem !important;
-    box-shadow: none !important;
-    font-weight: 500 !important;
-  }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
-    color: #A1A1AA !important;
-  }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    background: rgba(255, 255, 255, 0.06) !important;
-    color: #FFFFFF !important;
-  }
-  aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+  .dark aside .sidebar-inner-container,
+  .dark aside .sidebar-scroll-rail,
+  .dark aside .sidebar-bottom-bar,
+  html.dark aside .sidebar-inner-container,
+  html.dark aside .sidebar-scroll-rail,
+  html.dark aside .sidebar-bottom-bar {
+    background-color: #000000 !important;
+    background: #000000 !important;
     color: #FFFFFF !important;
   }
 
-  /* Active item capsule pill */
-  aside [data-sidebar-active="true"],
-  aside button[data-sidebar-active="true"],
-  html.warm-cream aside [data-sidebar-active="true"],
-  html.warm-cream aside button[data-sidebar-active="true"],
-  html.light aside [data-sidebar-active="true"],
-  html.light aside button[data-sidebar-active="true"],
-  html:not(.dark) aside [data-sidebar-active="true"],
-  html:not(.dark) aside button[data-sidebar-active="true"],
-  .dark aside [data-sidebar-active="true"] {
-    background-color: #241F0A !important;
-    background: #241F0A !important;
-    border: 1px solid rgba(225, 168, 55, 0.25) !important;
-    color: #FBBF24 !important;
-    border-radius: 1rem !important;
-    box-shadow: 0 2px 12px rgba(225, 168, 55, 0.12) !important;
-    font-weight: 700 !important;
+  .dark aside .sidebar-title,
+  html.dark aside .sidebar-title {
+    color: #FFFFFF !important;
   }
-  aside [data-sidebar-active="true"] *,
-  aside button[data-sidebar-active="true"] *,
-  html.warm-cream aside [data-sidebar-active="true"] *,
-  html.warm-cream aside button[data-sidebar-active="true"] *,
-  html:not(.dark) aside [data-sidebar-active="true"] *,
-  .dark aside [data-sidebar-active="true"] * {
+
+  .dark aside .sidebar-subtitle,
+  html.dark aside .sidebar-subtitle {
     color: #FBBF24 !important;
   }
 
-  /* Section headers */
-  aside .sidebar-section-header,
-  html.warm-cream aside .sidebar-section-header,
-  html:not(.dark) aside .sidebar-section-header {
+  .dark aside .sidebar-section-header,
+  html.dark aside .sidebar-section-header {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
@@ -624,19 +754,69 @@
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
   }
-  aside .sidebar-section-header:hover,
-  html.warm-cream aside .sidebar-section-header:hover {
+
+  .dark aside .sidebar-section-header:hover,
+  html.dark aside .sidebar-section-header:hover {
     color: #A1A1AA !important;
   }
 
-  /* Logout button */
-  aside [data-sidebar-logout="true"],
-  aside button[data-sidebar-logout="true"],
-  html.warm-cream aside [data-sidebar-logout="true"],
-  html.warm-cream aside button[data-sidebar-logout="true"],
-  html.light aside [data-sidebar-logout="true"],
-  html:not(.dark) aside [data-sidebar-logout="true"],
-  .dark aside [data-sidebar-logout="true"] {
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  .dark aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.dark aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: #D4D4D8 !important;
+    border-radius: 1rem !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+  }
+
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html.dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+    color: #A1A1AA !important;
+  }
+
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  .dark aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.dark aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+  }
+
+  .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html.dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+    color: #FFFFFF !important;
+  }
+
+  .dark aside [data-sidebar-active="true"],
+  .dark aside button[data-sidebar-active="true"],
+  html.dark aside [data-sidebar-active="true"],
+  html.dark aside button[data-sidebar-active="true"] {
+    background-color: #241F0A !important;
+    background: #241F0A !important;
+    border: 1px solid rgba(225, 168, 55, 0.25) !important;
+    color: #FBBF24 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 2px 12px rgba(225, 168, 55, 0.12) !important;
+    font-weight: 700 !important;
+  }
+
+  .dark aside [data-sidebar-active="true"] *,
+  .dark aside button[data-sidebar-active="true"] *,
+  html.dark aside [data-sidebar-active="true"] *,
+  html.dark aside button[data-sidebar-active="true"] * {
+    color: #FBBF24 !important;
+  }
+
+  .dark aside [data-sidebar-logout="true"],
+  .dark aside button[data-sidebar-logout="true"],
+  html.dark aside [data-sidebar-logout="true"],
+  html.dark aside button[data-sidebar-logout="true"] {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
@@ -644,42 +824,29 @@
     border-radius: 1rem !important;
     box-shadow: none !important;
   }
-  aside [data-sidebar-logout="true"] *,
-  aside button[data-sidebar-logout="true"] *,
-  html.warm-cream aside [data-sidebar-logout="true"] *,
-  html:not(.dark) aside [data-sidebar-logout="true"] *,
-  .dark aside [data-sidebar-logout="true"] * {
+
+  .dark aside [data-sidebar-logout="true"] *,
+  html.dark aside [data-sidebar-logout="true"] * {
     color: #F87171 !important;
   }
-  aside [data-sidebar-logout="true"]:hover,
-  html.warm-cream aside [data-sidebar-logout="true"]:hover,
-  html:not(.dark) aside [data-sidebar-logout="true"]:hover,
-  .dark aside [data-sidebar-logout="true"]:hover {
+
+  .dark aside [data-sidebar-logout="true"]:hover,
+  html.dark aside [data-sidebar-logout="true"]:hover {
     background-color: rgba(244, 63, 94, 0.1) !important;
-    background: rgba(244, 63, 94, 0.1) !important;
-    color: #FDA4AF !important;
-  }
-  aside [data-sidebar-logout="true"]:hover *,
-  html.warm-cream aside [data-sidebar-logout="true"]:hover *,
-  html:not(.dark) aside [data-sidebar-logout="true"]:hover *,
-  .dark aside [data-sidebar-logout="true"]:hover * {
     color: #FDA4AF !important;
   }
 
-  /* Quick utility tools at bottom (AI Studio, Focus, Shortcuts) */
-  aside .sidebar-utility-btn,
-  html.warm-cream aside .sidebar-utility-btn,
-  html.light aside .sidebar-utility-btn,
-  html:not(.dark) aside .sidebar-utility-btn {
+  .dark aside .sidebar-utility-btn,
+  html.dark aside .sidebar-utility-btn {
     background-color: rgba(255, 255, 255, 0.04) !important;
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: #D4D4D8 !important;
     box-shadow: none !important;
   }
-  aside .sidebar-utility-btn:hover,
-  html.warm-cream aside .sidebar-utility-btn:hover,
-  html:not(.dark) aside .sidebar-utility-btn:hover {
+
+  .dark aside .sidebar-utility-btn:hover,
+  html.dark aside .sidebar-utility-btn:hover {
     background-color: rgba(255, 255, 255, 0.08) !important;
     background: rgba(255, 255, 255, 0.08) !important;
     color: #FFFFFF !important;
@@ -2705,8 +2872,8 @@ aside [role="navigation"] div {
   border-color: transparent !important;
   box-shadow: none !important;
 }
-aside nav button:hover,
-aside [role="navigation"] button:hover {
+.dark aside nav button:hover,
+.dark aside [role="navigation"] button:hover {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
@@ -2990,11 +3157,12 @@ html:not(.dark) header {
 }
 
 html:not(.dark) aside {
-  background-color: #000000 !important;
+  background-color: #FFFDF8 !important;
+  background: #FFFDF8 !important;
   backdrop-filter: blur(28px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: none !important;
+  border-right: 1px solid #E2D1B3 !important;
+  box-shadow: 1px 0 8px rgba(56, 55, 13, 0.03) !important;
 }
 
 /* 9. Floating Mobile Nav */
