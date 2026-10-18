@@ -355,7 +355,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Center: Clean Portal Title ("Home", "Daily Practice Schedule", etc.) Perfectly Centered */}
         <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none max-w-[42%] text-center">
-          <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate">
+          <p className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate" aria-label="Current Portal View">
             {currentView === 'overview'
               ? 'Home'
               : currentView === 'targets'
@@ -391,7 +391,7 @@ export const Header: React.FC<HeaderProps> = ({
               : currentView === 'settings'
               ? 'My Profile'
               : currentViewTitle}
-          </h1>
+          </p>
         </div>
 
 

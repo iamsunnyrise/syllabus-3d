@@ -320,15 +320,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navSections: NavSection[] = [
     {
-      title: 'CORE',
+      title: 'Core',
       items: coreItems
     },
     {
-      title: 'PRACTICE & TESTS',
+      title: 'Practice & Mocks',
       items: practiceItems
     },
     {
-      title: 'STUDY TOOLS',
+      title: 'Study Tools',
       items: toolsItems
     }
   ];
@@ -635,7 +635,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
                     SYLLABUS 3D
                   </span>
-                  <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
+                  <p className="text-xs font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
                     {currentExam?.name || 'TARGET EXAM'}
                   </p>
                 </div>
@@ -663,17 +663,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {/* 2. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
               <div className="space-y-3">
                 {navSections.map(section => {
-                  const isCollapsedSection = Boolean(collapsedSections[section.title]);
+                  const isCollapsedSection = Boolean(collapsedSections[section.title] || collapsedSections[section.title.toUpperCase()]);
                   return (
                     <div key={section.title} className="space-y-0.5">
                       <button
                         type="button"
                         onClick={() => toggleSection(section.title)}
-                        className="w-full flex items-center justify-between px-2 pt-1 pb-1 text-[11px] font-black tracking-wider text-slate-400 dark:text-slate-500 uppercase hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
+                        className="w-full flex items-center justify-between px-2 pt-1.5 pb-1 text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer select-none"
                       >
-                        <span>{section.title}</span>
+                        <span className="font-semibold">{section.title}</span>
                         <ChevronDown
-                          className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${
+                          className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
                             isCollapsedSection ? '-rotate-90' : 'rotate-0'
                           }`}
                         />
@@ -718,14 +718,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                                     <div className="flex items-center gap-1.5 shrink-0">
                                       {item.badge && (
-                                        <span className={`text-[10px] font-mono font-bold ${
+                                        <span className={`text-xs font-mono font-bold ${
                                           isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-slate-400'
                                         }`}>
                                           {item.badge}
                                         </span>
                                       )}
                                       {item.shortcut && (
-                                        <span className="hidden xl:inline-block text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                                        <span className="hidden xl:inline-block text-xs font-mono text-slate-400 dark:text-slate-500">
                                           Alt+{item.shortcut}
                                         </span>
                                       )}
@@ -786,7 +786,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                                           <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
                                             {sub.badge && (
-                                              <span className={`text-[10px] font-mono font-bold ${
+                                              <span className={`text-xs font-mono font-bold ${
                                                 isSubActive
                                                   ? 'text-amber-500 dark:text-amber-400'
                                                   : 'text-slate-400 dark:text-slate-500'

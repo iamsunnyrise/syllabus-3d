@@ -86,7 +86,7 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           </div>
 
           {/* Main Title: Massive Bold Serif Typography with High Visibility Solid Colors */}
-          <h1 className="relative font-serif font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none select-none my-2 sm:my-3 drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)] flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
+          <h1 className="relative font-serif font-black tracking-tight text-4xl sm:text-6xl leading-none select-none my-2 sm:my-3 drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)] flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
             <span className="text-white">SYLLABUS</span>
             <span className="text-[#FFE600]">3D</span>
           </h1>

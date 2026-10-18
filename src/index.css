@@ -1413,7 +1413,7 @@
      🎯 UNIFIED 5-TIER BUTTON SYSTEM (Professional 5-Color Palette)
      ══════════════════════════════════════════════════════════════════ */
   .btn-base {
-    @apply inline-flex items-center justify-center font-bold text-xs sm:text-[13px] 
+    @apply inline-flex items-center justify-center font-bold text-xs sm:text-sm 
            rounded-xl transition-all duration-150 select-none cursor-pointer 
            active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none 
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50 
