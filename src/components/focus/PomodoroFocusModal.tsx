@@ -38,7 +38,9 @@ import {
   ChevronDown,
   Folder,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { ambientEngine, AmbientSoundType } from '../../utils/ambientSounds';
 import { soundManager } from '../../utils/soundEffects';
@@ -118,9 +120,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           return parsed;
         }
       }
-      return 0.95; // Default high opacity for vivid, beautiful study desk ambience
+      return 1.0; // 100% full opacity so the entire wallpaper is completely visible
     } catch {
-      return 0.95;
+      return 1.0;
     }
   });
 
@@ -130,6 +132,26 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
     try {
       localStorage.setItem('syllabus3d_focus_wallpaper_opacity', clamped.toFixed(2));
     } catch {}
+  }, []);
+
+  const [hideSideCards, setHideSideCards] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('syllabus3d_focus_hide_side_cards') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const handleToggleSideCards = useCallback(() => {
+    setHideSideCards(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem('syllabus3d_focus_hide_side_cards', String(next));
+      } catch {}
+      return next;
+    });
+    soundManager.playClick();
+    haptics.selection();
   }, []);
 
   const handleToggleWallpaper = useCallback(() => {
@@ -150,14 +172,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   }, []);
 
   const cardBaseStyle = useMemo(() => {
+    if (enableWallpaper) {
+      if (isSepia) {
+        return 'bg-[#FFFDF8]/55 dark:bg-[#FFFDF8]/55 border-[#E6D7B9]/60 text-[#38370D] shadow-[0_8px_30px_rgba(180,140,80,0.14)] backdrop-blur-xl';
+      }
+      if (isDark) {
+        return 'bg-[#0E101D]/60 border-white/10 text-white shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl';
+      }
+      return 'bg-white/55 border-white/70 text-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl';
+    }
     if (isSepia) {
-      return 'bg-[#FFF9EE]/92 dark:bg-[#FFF9EE]/92 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_10px_35px_rgba(180,140,80,0.16)]';
+      return 'bg-[#FFF9EE]/92 dark:bg-[#FFF9EE]/92 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_10px_35px_rgba(180,140,80,0.16)] backdrop-blur-2xl';
     }
     if (isDark) {
-      return 'bg-[#111322]/90 border-white/[0.12] text-white shadow-[0_12px_40px_rgba(0,0,0,0.6)]';
+      return 'bg-[#111322]/90 border-white/[0.12] text-white shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl';
     }
-    return 'bg-white/92 border-slate-200/90 text-slate-900 shadow-[0_10px_35px_rgba(0,0,0,0.08)]';
-  }, [isSepia, isDark]);
+    return 'bg-white/92 border-slate-200/90 text-slate-900 shadow-[0_10px_35px_rgba(0,0,0,0.08)] backdrop-blur-2xl';
+  }, [enableWallpaper, isSepia, isDark]);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBrowserFullscreen, setIsBrowserFullscreen] = useState(false);
@@ -425,11 +456,13 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
         handleToggleFullscreen();
       } else if (e.key === 'd' || e.key === 'D') {
         toggleTheme();
+      } else if (e.key === 'z' || e.key === 'Z') {
+        handleToggleSideCards();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, toggleTheme, isTopicSearchOpen, isSettingsOpen, onClose]);
+  }, [isOpen, handleTogglePlay, handleResetOrStop, handleToggleFullscreen, toggleTheme, handleToggleSideCards, isTopicSearchOpen, isSettingsOpen, onClose]);
 
   // Today's Focus Checklist from Planner or Syllabus
   const todayTasks = useMemo(() => {
@@ -1149,132 +1182,89 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] ${bgThemeStyles.containerClass} flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-500 pomodoro-focus-chamber`}
+      className={`fixed inset-0 z-[100] w-full h-[100dvh] min-h-[100dvh] ${enableWallpaper ? 'bg-black text-slate-900 dark:text-white' : bgThemeStyles.containerClass} flex flex-col overflow-hidden font-sans select-none animate-fade-in transition-colors duration-500 pomodoro-focus-chamber`}
       onClick={e => e.stopPropagation()}
     >
       {/* 🌌 Contained Atmospheric Background System (Zero Bleed, Theme-Cohesive) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-        {/* 🖼️ Realistic Study Desk Ambience Wallpaper (Dark, Sepia & Light) */}
+        {/* 🖼️ Realistic Study Desk Ambience Wallpaper (Dark, Sepia & Light) - 100% Crisp & Unobstructed */}
         {enableWallpaper && (
           <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
             {isDark ? (
-              <>
-                {/* Dark Mode: Sunlit Desk or Nocturnal Lamp Desk */}
-                <img
-                  src={darkWallpaperChoice === 'night' ? "/focus-desk-night.png" : "/focus-desk-day.jpg"}
-                  alt="Dark Study Desk Ambience"
-                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
-                  style={{
-                    opacity: darkWallpaperChoice === 'night'
-                      ? Math.min(1.0, wallpaperOpacity * 0.96)
-                      : Math.min(0.92, wallpaperOpacity * 0.85),
-                    filter: darkWallpaperChoice === 'night'
-                      ? 'brightness(0.98) contrast(1.04) saturate(1.05)'
-                      : 'brightness(0.70) contrast(1.18) saturate(0.95)'
-                  }}
-                />
-                {/* Cinematic Multi-stop Vignette & Depth Mask */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
-                  style={{
-                    background: darkWallpaperChoice === 'night'
-                      ? `
-                        radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.12) 0%, rgba(9, 10, 18, 0.35) 65%, rgba(6, 7, 13, 0.65) 100%),
-                        linear-gradient(to bottom, rgba(9, 10, 18, 0.48) 0%, transparent 22%, transparent 78%, rgba(6, 7, 13, 0.65) 100%)
-                      `
-                      : `
-                        radial-gradient(ellipse at 50% 50%, rgba(9, 10, 18, 0.22) 0%, rgba(9, 10, 18, 0.50) 65%, rgba(6, 7, 13, 0.82) 100%),
-                        linear-gradient(to bottom, rgba(9, 10, 18, 0.65) 0%, rgba(9, 10, 18, 0.15) 30%, rgba(9, 10, 18, 0.40) 70%, rgba(6, 7, 13, 0.85) 100%)
-                      `
-                  }}
-                />
-              </>
+              <img
+                src={darkWallpaperChoice === 'night' ? "/focus-desk-night.png" : "/focus-desk-day.jpg"}
+                alt="Dark Study Desk Ambience"
+                className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                style={{
+                  opacity: wallpaperOpacity,
+                  filter: darkWallpaperChoice === 'night'
+                    ? 'brightness(0.98) contrast(1.04) saturate(1.05)'
+                    : 'brightness(0.72) contrast(1.15) saturate(0.95)'
+                }}
+              />
             ) : isSepia ? (
-              <>
-                {/* Sepia Mode: Sunlit Desk with Warm Golden Cream Ambience */}
-                <img
-                  src="/focus-desk-day.jpg"
-                  alt="Sepia Study Desk Ambience"
-                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
-                  style={{
-                    opacity: wallpaperOpacity,
-                    filter: 'sepia(0.08) saturate(1.10) brightness(0.99) contrast(1.03)'
-                  }}
-                />
-                {/* Warm Sepia Atmospheric Vignette - Feather-soft for max visibility */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
-                  style={{
-                    background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(250, 238, 217, 0.05) 0%, rgba(250, 238, 217, 0.18) 60%, rgba(246, 235, 212, 0.45) 100%),
-                      linear-gradient(to bottom, rgba(250, 238, 217, 0.32) 0%, transparent 20%, transparent 80%, rgba(246, 235, 212, 0.42) 100%)
-                    `
-                  }}
-                />
-              </>
+              <img
+                src="/focus-desk-day.jpg"
+                alt="Sepia Study Desk Ambience"
+                className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                style={{
+                  opacity: wallpaperOpacity,
+                  filter: 'sepia(0.04) saturate(1.06) brightness(1.0) contrast(1.02)'
+                }}
+              />
             ) : (
-              <>
-                {/* Light Mode: Sunlit Desk with Crisp Studio Ambience */}
-                <img
-                  src="/focus-desk-day.jpg"
-                  alt="Daylight Study Desk Ambience"
-                  className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
-                  style={{
-                    opacity: wallpaperOpacity,
-                    filter: 'brightness(0.99) contrast(1.04) saturate(1.05)'
-                  }}
-                />
-                {/* Crisp Alabaster Atmospheric Vignette - Feather-soft for max visibility */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
-                  style={{
-                    background: `
-                      radial-gradient(ellipse at 50% 50%, rgba(248, 250, 252, 0.05) 0%, rgba(248, 250, 252, 0.18) 60%, rgba(241, 245, 249, 0.45) 100%),
-                      linear-gradient(to bottom, rgba(248, 250, 252, 0.32) 0%, transparent 20%, transparent 80%, rgba(241, 245, 249, 0.42) 100%)
-                    `
-                  }}
-                />
-              </>
+              <img
+                src="/focus-desk-day.jpg"
+                alt="Daylight Study Desk Ambience"
+                className="w-full h-full object-cover object-center transform scale-[1.01] transition-all duration-700 ease-out"
+                style={{
+                  opacity: wallpaperOpacity,
+                  filter: 'brightness(1.0) contrast(1.02) saturate(1.04)'
+                }}
+              />
             )}
           </div>
         )}
 
-        {/* 1. Primary Center Atmosphere Vignette */}
-        <div
-          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
-          style={{ background: bgThemeStyles.centerAura }}
-        />
+        {/* Procedural Atmospheric Vignettes - Only rendered when wallpaper is disabled to keep photo crystal clear */}
+        {!enableWallpaper && (
+          <>
+            {/* 1. Primary Center Atmosphere Vignette */}
+            <div
+              className="absolute inset-0 transition-all duration-1000"
+              style={{ background: bgThemeStyles.centerAura }}
+            />
 
-        {/* 2. Top-Left Ambient Radiance (Zero Viewport Bleed) */}
-        <div
-          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
-          style={{ background: bgThemeStyles.cornerAura1 }}
-        />
+            {/* 2. Top-Left Ambient Radiance (Zero Viewport Bleed) */}
+            <div
+              className="absolute inset-0 transition-all duration-1000"
+              style={{ background: bgThemeStyles.cornerAura1 }}
+            />
 
-        {/* 3. Bottom-Right Ambient Radiance (Zero Viewport Bleed) */}
-        <div
-          className={`absolute inset-0 transition-all duration-1000 ${enableWallpaper ? 'opacity-20' : 'opacity-100'}`}
-          style={{ background: bgThemeStyles.cornerAura2 }}
-        />
+            {/* 3. Bottom-Right Ambient Radiance (Zero Viewport Bleed) */}
+            <div
+              className="absolute inset-0 transition-all duration-1000"
+              style={{ background: bgThemeStyles.cornerAura2 }}
+            />
 
-        {/* 4. Active Chrono Dial Aura (Soft breathing glow centered on chronometer when running) */}
+            {/* 4. Minimalist Precision Dot Grid Texture */}
+            <div
+              className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+              style={{
+                backgroundImage: `radial-gradient(${bgThemeStyles.dotPattern} 1px, transparent 1px)`,
+                backgroundSize: '24px 24px'
+              }}
+            />
+          </>
+        )}
+
+        {/* Active Chrono Dial Aura (Soft breathing glow centered on chronometer when running) */}
         {isRunning && (
           <div
             className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[380px] sm:w-[480px] md:w-[540px] h-[340px] xs:h-[380px] sm:h-[480px] md:h-[540px] rounded-full blur-3xl pointer-events-none transition-all duration-1000 animate-pulse"
             style={{
               background: `radial-gradient(circle, ${bgThemeStyles.runningAura} 0%, transparent 70%)`,
-              opacity: isDark ? 0.35 : 0.22
-            }}
-          />
-        )}
-
-        {/* 5. Minimalist Precision Dot Grid Texture (Disabled when wallpaper active for crisp photographic clarity) */}
-        {!enableWallpaper && (
-          <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-            style={{
-              backgroundImage: `radial-gradient(${bgThemeStyles.dotPattern} 1px, transparent 1px)`,
-              backgroundSize: '24px 24px'
+              opacity: isDark ? 0.35 : 0.18
             }}
           />
         )}
@@ -1310,6 +1300,21 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               aria-label="Toggle Fullscreen"
             >
               {isBrowserFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
+
+            {/* Panoramic / Zen Background View (Hide/Show Side Cards) */}
+            <button
+              type="button"
+              onClick={handleToggleSideCards}
+              className={`flex w-8 h-8 sm:w-9 sm:h-9 rounded-xl items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 border ${
+                hideSideCards
+                  ? 'bg-[#0066FF] text-white border-blue-500 shadow-md'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+              }`}
+              title={hideSideCards ? "Show Side Cards (Z)" : "Panoramic Background View (Z)"}
+              aria-label="Toggle Side Cards"
+            >
+              {hideSideCards ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
             </button>
 
             {/* Ambience Theme Toggle (Dark / Sepia / Light) */}
@@ -1490,14 +1495,14 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
         {/* 3-COLUMN STUDIO LAYOUT ON DESKTOP / STABLE STACK ON MOBILE */}
         <div className={`w-full items-center ${
-          isBrowserFullscreen
+          isBrowserFullscreen || hideSideCards
             ? 'flex flex-col items-center justify-center my-auto'
             : 'grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6'
         }`}>
           
           {/* 🎯 CENTER COLUMN: HERO 3D CHRONOMETER DIAL */}
           <div className={`flex flex-col items-center justify-center ${
-            isBrowserFullscreen
+            isBrowserFullscreen || hideSideCards
               ? 'w-full my-auto'
               : 'lg:col-span-6 order-1 lg:order-2 my-1 sm:my-4'
           }`}>
@@ -1505,8 +1510,12 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             {/* 3D Elevated Chronograph Chassis */}
             <div
               onClick={handleTogglePlay}
-              className={`relative rounded-full bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912] shadow-[0_20px_50px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 cursor-pointer select-none group/chassis ${
-                isBrowserFullscreen
+              className={`relative rounded-full ${
+                enableWallpaper
+                  ? 'bg-gradient-to-b from-white/90 via-slate-50/85 to-slate-100/90 dark:from-[#121424]/90 dark:via-[#0E101D]/85 dark:to-[#080912]/90 backdrop-blur-2xl'
+                  : 'bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-[#121424] dark:via-[#0E101D] dark:to-[#080912]'
+              } shadow-[0_20px_50px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_2px_rgba(255,255,255,0.8)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08),inset_0_1px_2px_rgba(255,255,255,0.12)] flex items-center justify-center p-3 sm:p-5 transition-all duration-500 cursor-pointer select-none group/chassis ${
+                isBrowserFullscreen || hideSideCards
                   ? 'w-[320px] h-[320px] xs:w-[360px] xs:h-[360px] sm:w-[440px] sm:h-[440px] md:w-[500px] md:h-[500px] lg:w-[540px] lg:h-[540px]'
                   : 'w-[275px] h-[275px] xs:w-76 xs:h-76 sm:w-88 sm:h-88 md:w-96 md:h-96'
               } ${
@@ -1814,8 +1823,8 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
             </div>
 
             {/* MOBILE SUB-TIMER DECK (Sleek Segmented Tabs for Tasks, Ambience, and Stats) */}
-            {!isBrowserFullscreen && (
-              <div className="lg:hidden w-full max-w-md mx-auto space-y-3 pt-3">
+            {!isBrowserFullscreen && !hideSideCards && (
+              <div className="lg:hidden w-full max-w-md mx-auto space-y-3 pt-3 animate-fade-in">
                 {/* Mobile Segmented Switcher */}
                 <div className="flex items-center justify-center">
                   <div className="flex items-center p-1 rounded-2xl bg-white/80 dark:bg-[#121424]/90 border border-slate-200/90 dark:border-white/10 shadow-sm backdrop-blur-xl w-full gap-1">
@@ -1898,16 +1907,16 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
           </div>
 
           {/* ◀️ LEFT COLUMN (Desktop Studio Layout): Today's Focus & Ambience */}
-          {!isBrowserFullscreen && (
-            <div className="hidden lg:block lg:col-span-3 space-y-4 order-2 lg:order-1">
+          {!isBrowserFullscreen && !hideSideCards && (
+            <div className="hidden lg:block lg:col-span-3 space-y-4 order-2 lg:order-1 animate-fade-in">
               {renderTodayFocusCard()}
               {renderFocusMusicCard()}
             </div>
           )}
 
           {/* ▶️ RIGHT COLUMN (Desktop Studio Layout): Session Stats & Current Task */}
-          {!isBrowserFullscreen && (
-            <div className="hidden lg:block lg:col-span-3 space-y-4 order-3">
+          {!isBrowserFullscreen && !hideSideCards && (
+            <div className="hidden lg:block lg:col-span-3 space-y-4 order-3 animate-fade-in">
               {renderSessionStatsCard()}
               {renderCurrentTaskCard()}
             </div>
@@ -2226,6 +2235,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                     </div>
                   </div>
                 )}
+                {/* Panoramic Desk View (Hide Side Cards) */}
+                <div className="flex items-center justify-between pt-2 border-t border-slate-200/80 dark:border-white/10">
+                  <div>
+                    <span className="block font-bold text-xs text-slate-900 dark:text-white">Panoramic Desk View</span>
+                    <span className="block text-[10px] text-slate-400 dark:text-slate-500">Hide side panels to view full wallpaper (Z)</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleToggleSideCards}
+                    className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${
+                      hideSideCards ? 'bg-[#0066FF] justify-end' : 'bg-slate-300 dark:bg-white/20 justify-start'
+                    }`}
+                    title={hideSideCards ? "Show Side Panels" : "Hide Side Panels for Full Background"}
+                  >
+                    <div className="w-4 h-4 rounded-full bg-white shadow-md" />
+                  </button>
+                </div>
               </div>
             </div>
 

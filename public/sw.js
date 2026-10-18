@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.8.4';
+const VERSION = 'v2.8.5';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
