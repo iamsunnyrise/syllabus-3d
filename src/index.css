@@ -2561,6 +2561,15 @@ input, textarea, [contenteditable="true"], .selectable-text {
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
+aside nav button {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+aside nav button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
 /* 9. Floating Mobile Nav */
 .dark nav > div {
   background-color: rgba(43, 43, 43, 0.95) !important;

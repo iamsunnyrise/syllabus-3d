@@ -680,7 +680,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       </button>
 
                       {!isCollapsedSection && (
-                        <nav className="space-y-1 pt-0.5">
+                        <nav className="space-y-0.5 pt-0.5">
                           {section.items.map(item => {
                             const Icon = item.icon;
                             const isDirectActive = activeView === item.id;
@@ -690,7 +690,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             const isSubExpanded = hasSubItems && Boolean(expandedSubMenus[item.id]);
 
                             return (
-                              <div key={`${section.title}-${item.label}`} className="space-y-1">
+                              <div key={`${section.title}-${item.label}`} className="space-y-0.5">
                                 <div className="flex items-center gap-1 w-full">
                                   <button
                                     type="button"
@@ -701,12 +701,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                       }
                                       onSelectView(item.id);
                                     }}
-                                    className={`flex-1 flex items-center justify-between px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs sm:text-sm transition-colors duration-150 cursor-pointer select-none bg-transparent border-0 shadow-none ${
                                       isDirectActive
-                                        ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                                        ? 'text-amber-500 dark:text-amber-400 font-bold'
                                         : isChildActive
-                                        ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/25 shadow-2xs'
-                                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                                        ? 'text-amber-600 dark:text-amber-400 font-semibold'
+                                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04]'
                                     }`}
                                   >
                                     <div className="flex items-center gap-2.5 min-w-0 flex-1">
@@ -718,14 +718,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                                     <div className="flex items-center gap-1.5 shrink-0">
                                       {item.badge && (
-                                        <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
+                                        <span className={`text-[10px] font-mono font-bold ${
+                                          isParentActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-slate-400'
+                                        }`}>
                                           {item.badge}
                                         </span>
                                       )}
                                       {item.shortcut && (
-                                        <span className="hidden xl:inline-block px-1.5 py-0.5 rounded text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 bg-slate-200/60 dark:bg-white/[0.05]">
+                                        <span className="hidden xl:inline-block text-[10px] font-mono text-slate-400 dark:text-slate-500">
                                           Alt+{item.shortcut}
                                         </span>
+                                      )}
+                                      {isDirectActive && (
+                                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.9)] shrink-0 ml-1" />
                                       )}
                                     </div>
                                   </button>
@@ -734,7 +739,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     <button
                                       type="button"
                                       onClick={(e) => toggleSubMenu(item.id, e)}
-                                      className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.08] transition-colors cursor-pointer shrink-0"
+                                      className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04] rounded-lg transition-colors cursor-pointer shrink-0 bg-transparent border-0 shadow-none"
                                       title={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                       aria-label={isSubExpanded ? "Collapse sub-menu" : "Expand sub-menu"}
                                     >
@@ -747,9 +752,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                   )}
                                 </div>
 
-                                {/* Nested Sub-Items Inset Capsule (Vocabulary, Maths, Calculation Booster, GA) */}
+                                {/* Nested Sub-Items: Clean Indented List (No Box Shape, No Container Background) */}
                                 {hasSubItems && isSubExpanded && (
-                                  <div className="ml-2.5 mr-0.5 my-1 p-1.5 rounded-2xl bg-slate-100/90 dark:bg-[#121422]/90 border border-slate-200/80 dark:border-white/[0.07] shadow-2xs space-y-1 transition-all duration-200">
+                                  <div className="pl-6 space-y-0.5 pt-0.5 transition-all duration-200">
                                     {item.subItems!.map(sub => {
                                       const SubIcon = sub.icon;
                                       const isSubActive = activeView === sub.id;
@@ -762,18 +767,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                             haptics.selection();
                                             onSelectView(sub.id);
                                           }}
-                                          className={`group w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none ${
+                                          className={`group w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-colors duration-150 cursor-pointer select-none bg-transparent border-0 shadow-none ${
                                             isSubActive
-                                              ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40 dark:shadow-[0_0_10px_rgba(245,158,11,0.18)] font-bold'
-                                              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
+                                              ? 'text-amber-500 dark:text-amber-400 font-bold'
+                                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/40 dark:hover:bg-white/[0.04]'
                                           }`}
                                         >
                                           <div className="flex items-center gap-2.5 min-w-0 flex-1">
                                             {SubIcon && (
-                                              <SubIcon className={`w-4 h-4 shrink-0 transition-colors ${
+                                              <SubIcon className={`w-3.5 h-3.5 shrink-0 transition-colors ${
                                                 isSubActive
-                                                  ? 'text-amber-600 dark:text-amber-400'
-                                                  : 'text-slate-500 dark:text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                                                  ? 'text-amber-500 dark:text-amber-400'
+                                                  : 'text-slate-500 dark:text-slate-400 group-hover:text-amber-500 dark:group-hover:text-amber-400'
                                               }`} />
                                             )}
                                             <span className="truncate">{sub.label}</span>
@@ -781,10 +786,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                                           <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
                                             {sub.badge && (
-                                              <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${
+                                              <span className={`text-[10px] font-mono font-bold ${
                                                 isSubActive
-                                                  ? 'bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30'
-                                                  : 'bg-slate-200/80 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400'
+                                                  ? 'text-amber-500 dark:text-amber-400'
+                                                  : 'text-slate-400 dark:text-slate-500'
                                               }`}>
                                                 {sub.badge}
                                               </span>
@@ -808,21 +813,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 })}
 
                 {/* 4. My Profile & Red Logout Button */}
-                <div className="pt-2 border-t border-slate-200/80 dark:border-white/[0.08] space-y-1">
+                <div className="pt-2 border-t border-slate-200/80 dark:border-white/[0.08] space-y-0.5">
                   <button
                     type="button"
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView('settings');
                     }}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors cursor-pointer select-none bg-transparent border-0 shadow-none ${
                       activeView === 'settings'
-                        ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] dark:bg-[#251E0E] dark:text-[#FBBF24] dark:border-amber-500/40'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
+                        ? 'text-amber-500 dark:text-amber-400 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/[0.04]'
                     }`}
                   >
-                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                    <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-amber-500 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`} />
                     <span className="truncate">My Profile ({user?.name || 'Aspirant'})</span>
+                    {activeView === 'settings' && (
+                      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.9)] shrink-0 ml-auto" />
+                    )}
                   </button>
 
                   <button
@@ -833,9 +841,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         logout?.();
                       }
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-bold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer select-none bg-transparent border-0 shadow-none"
                   >
-                    <LogOut className="w-4 h-4 stroke-[2.2]" />
+                    <LogOut className="w-4 h-4 stroke-[2.2] shrink-0" />
                     <span>Logout</span>
                   </button>
                 </div>
