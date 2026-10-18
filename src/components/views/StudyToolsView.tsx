@@ -36,6 +36,9 @@ import { haptics } from '../../utils/haptics';
 import { CalculationBoosterTables } from './CalculationBoosterTables';
 import { CalculationBoosterSquares } from './CalculationBoosterSquares';
 import { CalculationBoosterCubes } from './CalculationBoosterCubes';
+import { LEVEL_1_SET_01_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
+
+export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
@@ -49,7 +52,6 @@ interface StudyToolsViewProps {
 // -------------------------------------------------------------
 // VOCABULARY DATA
 // -------------------------------------------------------------
-export type VocabLevel = 'level-1' | 'level-2' | 'level-3' | 'advanced';
 
 interface VocabLevelConfig {
   id: VocabLevel;
@@ -119,28 +121,9 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
   }
 ];
 
-interface VocabItem {
-  id: string;
-  word: string;
-  phonetic: string;
-  hindi: string;
-  type: 'word' | 'ows' | 'idiom' | 'root';
-  partOfSpeech: string;
-  meaning: string;
-  synonyms: string[];
-  antonyms: string[];
-  example: string;
-  mnemonic: string;
-  frequency: 'High' | 'Very High' | 'Repeated';
-  examTags: string[];
-  collocation?: string;
-  derivatives?: string;
-  level?: VocabLevel;
-  set?: string;
-}
-
 const DEFAULT_VOCAB_DATA: VocabItem[] = [
-  // High-Yield vocabulary levels and sets ready to receive user's words
+  ...LEVEL_1_SET_01_WORDS,
+  // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
     word: 'Philanthropist',
@@ -466,6 +449,9 @@ const getPosBadgeColor = (pos: string) => {
   if (p.includes('verb') && !p.includes('adverb')) return 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30';
   if (p.includes('adjective') || p.includes('adj')) return 'bg-blue-500/15 text-blue-800 dark:text-blue-300 border-blue-500/30';
   if (p.includes('adverb') || p.includes('adv')) return 'bg-purple-500/15 text-purple-800 dark:text-purple-300 border-purple-500/30';
+  if (p.includes('preposition') || p.includes('prep')) return 'bg-indigo-500/15 text-indigo-800 dark:text-indigo-300 border-indigo-500/30';
+  if (p.includes('conjunction') || p.includes('conj')) return 'bg-teal-500/15 text-teal-800 dark:text-teal-300 border-teal-500/30';
+  if (p.includes('pronoun') || p.includes('determiner')) return 'bg-pink-500/15 text-pink-800 dark:text-pink-300 border-pink-500/30';
   if (p.includes('idiom')) return 'bg-rose-500/15 text-rose-800 dark:text-rose-300 border-rose-500/30';
   if (p.includes('root') || p.includes('prefix')) return 'bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border-cyan-500/30';
   return 'bg-slate-500/15 text-slate-800 dark:text-slate-300 border-slate-500/30';
