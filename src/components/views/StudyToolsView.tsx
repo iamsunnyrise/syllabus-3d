@@ -26,13 +26,15 @@ import {
   RotateCcw,
   Plus,
   ArrowRight,
-  Hash
+  Hash,
+  Boxes
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { CalculationBoosterTables } from './CalculationBoosterTables';
 import { CalculationBoosterSquares } from './CalculationBoosterSquares';
+import { CalculationBoosterCubes } from './CalculationBoosterCubes';
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
@@ -424,7 +426,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
   const [mathsSubTab, setMathsSubTab] = useState<MathsSubTab>(initialMathsTab);
-  const [calcBoosterTool, setCalcBoosterTool] = useState<'tables' | 'squares'>('tables');
+  const [calcBoosterTool, setCalcBoosterTool] = useState<'tables' | 'squares' | 'cubes'>('tables');
 
   // Sync when initialTab prop updates
   useEffect(() => {
@@ -1042,12 +1044,31 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <Sparkles className="w-4 h-4" />
                   <span>Squares & Roots (1 to 60)</span>
                 </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('cubes');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    calcBoosterTool === 'cubes'
+                      ? 'bg-cyan-600 text-white shadow-xs font-black ring-1 ring-cyan-400/40'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Boxes className="w-4 h-4" />
+                  <span>Cubes & Roots (1 to 30)</span>
+                </button>
               </div>
 
               {calcBoosterTool === 'tables' ? (
                 <CalculationBoosterTables />
-              ) : (
+              ) : calcBoosterTool === 'squares' ? (
                 <CalculationBoosterSquares />
+              ) : (
+                <CalculationBoosterCubes />
               )}
             </div>
           ) : (
