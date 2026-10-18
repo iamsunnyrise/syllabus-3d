@@ -7,8 +7,6 @@ import {
   Trash2,
   Sparkles,
   Flame,
-  Moon,
-  History,
   BookOpen,
   Edit2,
   Check,
@@ -18,8 +16,6 @@ import {
   Zap
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
-import { DailyReflectionModal } from '../modals/DailyReflectionModal';
-import { ReflectionHistoryModal } from '../modals/ReflectionHistoryModal';
 import { soundManager } from '../../utils/soundEffects';
 
 interface Top3TargetsWidgetProps {
@@ -32,17 +28,13 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
     updateTop3Target,
     toggleTop3Target,
     clearTop3Target,
-    allTopics,
-    reflectionsHistory
+    allTopics
   } = useSyllabus();
 
   const [editingTargetId, setEditingTargetId] = useState<string | null>(null);
   const [editText, setEditText] = useState<string>('');
   const [isPickerOpen, setIsPickerOpen] = useState<string | null>(null);
   const [pickerSearch, setPickerSearch] = useState<string>('');
-
-  const [isReflectionModalOpen, setIsReflectionModalOpen] = useState<boolean>(false);
-  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
 
   const filledTargets = top3Targets.filter(t => t.text.trim());
   const completedTargets = filledTargets.filter(t => t.completed);
@@ -112,11 +104,10 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
   }).slice(0, 15);
 
   return (
-    <>
-      <div className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden">
-        
-        {/* Top Header & Quick Actions */}
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
+    <div className="group relative rounded-2xl bg-white dark:bg-[#0E111D]/90 dark:backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-xs hover:shadow-md dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 p-4 sm:p-5.5 space-y-4 overflow-hidden">
+      
+      {/* Top Header */}
+      <div className="relative z-10 flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
           <div className="flex items-center gap-3">
             <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 shadow-2xs">
               <Target className="w-4 sm:w-4.5 h-4 sm:h-4.5 stroke-[2.3]" />
@@ -139,36 +130,6 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
             </div>
           </div>
 
-          {/* Action Pills */}
-          <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                setIsHistoryModalOpen(true);
-              }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/[0.08] text-xs font-semibold transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
-              title="View past reflection journal"
-            >
-              <History className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-              <span>History</span>
-              {reflectionsHistory.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-xs font-sans font-bold bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400">
-                  {reflectionsHistory.length}
-                </span>
-              )}
-            </button>
-
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                setIsReflectionModalOpen(true);
-              }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/25 text-xs font-semibold transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
-            >
-              <Moon className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-              <span>1-Min Journal</span>
-            </button>
-          </div>
         </div>
 
         {/* 3 Non-Negotiable Slots Grid */}
@@ -418,25 +379,6 @@ export const Top3TargetsWidget: React.FC<Top3TargetsWidgetProps> = ({ onNavigate
         </div>
 
       </div>
-
-      {/* Daily Reflection Modal */}
-      {isReflectionModalOpen && (
-        <DailyReflectionModal
-          isOpen={isReflectionModalOpen}
-          onClose={() => setIsReflectionModalOpen(false)}
-          onOpenHistory={() => setIsHistoryModalOpen(true)}
-        />
-      )}
-
-      {/* Reflection History Modal */}
-      {isHistoryModalOpen && (
-        <ReflectionHistoryModal
-          isOpen={isHistoryModalOpen}
-          onClose={() => setIsHistoryModalOpen(false)}
-          onOpenNewReflection={() => setIsReflectionModalOpen(true)}
-        />
-      )}
-    </>
   );
 };
 
