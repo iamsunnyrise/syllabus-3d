@@ -933,16 +933,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
           {/* Flashcard Active Recall Spotlight */}
           {currentFlashcard ? (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
               
-              {/* Left 7 Columns: Interactive 3D Flashcard */}
-              <div className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[360px]">
+              {/* Left: Interactive Word Flashcard (Wider: col-span-8 lg, col-span-9 xl) */}
+              <div className="lg:col-span-8 xl:col-span-9 flex flex-col justify-between p-6 sm:p-8 md:p-9 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[380px]">
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 font-mono">
                       Card {activeCardIndex + 1} of {filteredVocab.length}
                     </span>
-                    <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full bg-amber-500/10">
+                    <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 px-2.5 py-0.5 rounded-full bg-amber-500/10">
                       {currentFlashcard.frequency} Frequency
                     </span>
                   </div>
@@ -950,7 +950,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <button
                     type="button"
                     onClick={() => toggleMastered(currentFlashcard.id)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       masteredVocabIds.has(currentFlashcard.id)
                         ? 'bg-emerald-500 text-white shadow-xs'
                         : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 hover:border-emerald-500/40 border border-transparent'
@@ -962,32 +962,32 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* Central Word and Meaning Display */}
-                <div className="py-6 space-y-4">
+                <div className="py-6 space-y-5">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
                         {currentFlashcard.word}
                       </h2>
                       {/* Part of Speech attached directly to the Word */}
-                      <span className={`px-2.5 py-1 rounded-xl text-xs font-bold uppercase tracking-wider border font-mono ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
+                      <span className={`px-2.5 py-1 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider border font-mono ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
                         {currentFlashcard.partOfSpeech}
                       </span>
                       <button
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
                         title="Pronounce word"
-                        className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
+                        className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-2xs"
                       >
-                        <Volume2 className="w-4 h-4" />
+                        <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
-                    <p className="text-sm font-mono text-amber-600 dark:text-amber-400 mt-1">
-                      {currentFlashcard.phonetic} • <span className="font-sans font-bold">{currentFlashcard.hindi}</span>
+                    <p className="text-sm sm:text-base font-mono text-amber-600 dark:text-amber-400 mt-1.5">
+                      {currentFlashcard.phonetic} • <span className="font-sans font-bold text-slate-800 dark:text-slate-100">{currentFlashcard.hindi}</span>
                     </p>
                   </div>
 
                   {/* Toggle Flip to Reveal Meaning / Example */}
-                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] space-y-3">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#151726] border border-slate-200/80 dark:border-white/[0.08] space-y-3.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                         Exam Definition & Synonyms
@@ -1000,19 +1000,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         }}
                         className="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer flex items-center gap-1"
                       >
-                        <RotateCw className="w-3 h-3" />
+                        <RotateCw className="w-3.5 h-3.5" />
                         <span>{isCardFlipped ? 'Hide Details' : 'Flip to Reveal'}</span>
                       </button>
                     </div>
 
-                    <p className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
                       {currentFlashcard.meaning}
                     </p>
 
                     {isCardFlipped && (
-                      <div className="space-y-3 pt-3 border-t border-slate-200/70 dark:border-white/10 animate-fade-in text-xs sm:text-sm">
+                      <div className="space-y-3 pt-3.5 border-t border-slate-200/70 dark:border-white/10 animate-fade-in text-xs sm:text-sm">
                         {/* Synonyms & Antonyms */}
-                        <div className="space-y-1.5">
+                        <div className="space-y-2">
                           <div className="flex flex-wrap items-center gap-1.5">
                             <span className="font-bold text-emerald-600 dark:text-emerald-400">Synonyms:</span>
                             {currentFlashcard.synonyms.map(syn => (
@@ -1051,12 +1051,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         )}
 
                         {/* Example Sentence */}
-                        <div className="p-2.5 rounded-xl bg-amber-500/5 dark:bg-amber-500/[0.04] border-l-2 border-amber-500 text-xs italic text-slate-700 dark:text-slate-300">
+                        <div className="p-3 rounded-xl bg-amber-500/5 dark:bg-amber-500/[0.04] border-l-2 border-amber-500 text-xs sm:text-sm italic text-slate-700 dark:text-slate-300">
                           "{currentFlashcard.example}"
                         </div>
 
                         {/* Mnemonic Trick */}
-                        <div className="text-xs text-purple-700 dark:text-purple-300 font-medium bg-purple-500/10 p-2.5 rounded-xl">
+                        <div className="text-xs sm:text-sm text-purple-700 dark:text-purple-300 font-medium bg-purple-500/10 p-3 rounded-xl">
                           💡 <strong>Memory Trick:</strong> {currentFlashcard.mnemonic}
                         </div>
                       </div>
@@ -1074,9 +1074,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     ← Previous
                   </button>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
                     {currentFlashcard.examTags.map(tag => (
-                      <span key={tag} className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                      <span key={tag} className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 whitespace-nowrap">
                         {tag}
                       </span>
                     ))}
@@ -1092,20 +1092,20 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
               </div>
 
-              {/* Right 5 Columns: Word Bank Quick Browser */}
-              <div className="lg:col-span-5 p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-4">
+              {/* Right: Vocabulary Explorer (Smaller & Compact: col-span-4 lg, col-span-3 xl) */}
+              <div className="lg:col-span-4 xl:col-span-3 p-3.5 sm:p-4 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3">
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-amber-500" />
-                      <span>Vocabulary Explorer</span>
+                  <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-white/10">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-amber-500" />
+                      <span className="truncate">Vocabulary Explorer</span>
                     </h3>
-                    <span className="text-xs text-slate-400 font-mono">
-                      {filteredVocab.length} Available
+                    <span className="text-[11px] text-slate-400 font-mono shrink-0">
+                      {filteredVocab.length} words
                     </span>
                   </div>
 
-                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[380px] no-scrollbar mt-2">
+                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[420px] no-scrollbar mt-1.5 space-y-0.5">
                     {filteredVocab.map((item, idx) => {
                       const isSelected = activeCardIndex === idx;
                       const isMastered = masteredVocabIds.has(item.id);
@@ -1117,27 +1117,27 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             setActiveCardIndex(idx);
                             setIsCardFlipped(false);
                           }}
-                          className={`p-3 rounded-xl transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                          className={`p-2 sm:p-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between gap-2 ${
                             isSelected
                               ? 'bg-amber-500/10 dark:bg-amber-500/15 border-l-4 border-amber-500'
                               : 'hover:bg-slate-50 dark:hover:bg-white/[0.03]'
                           }`}
                         >
                           <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
                                 {item.word}
                               </span>
                               {isMastered && (
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                                <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />
                               )}
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                               {item.hindi}
                             </p>
                           </div>
 
-                          <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border shrink-0 uppercase ${getPosBadgeColor(item.partOfSpeech)}`}>
+                          <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md border shrink-0 uppercase tracking-tight ${getPosBadgeColor(item.partOfSpeech)}`}>
                             {item.partOfSpeech.replace(' (OWS)', '').replace(' / Root', '').replace(' / Adj', '')}
                           </span>
                         </div>
@@ -1146,8 +1146,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </div>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-800 dark:text-amber-300 text-xs leading-relaxed border border-amber-500/20">
-                  🎯 <strong>Pro Tip:</strong> Active recall by guessing the meaning before clicking "Flip" increases long-term memory retention by 300%.
+                <div className="p-2.5 rounded-2xl bg-amber-500/10 text-amber-800 dark:text-amber-300 text-[11px] leading-relaxed border border-amber-500/20">
+                  🎯 <strong>Pro Tip:</strong> Active recall by guessing the meaning before clicking "Flip" increases retention by 300%.
                 </div>
               </div>
             </div>
