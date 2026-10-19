@@ -19,7 +19,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, badge }
           />
         </div>
         <div className="flex items-center gap-1.5 font-sans">
-          <span className="text-sm font-black tracking-[0.2em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+          <span className="text-sm font-black tracking-[0.2em] uppercase text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
             SYLLABUS
           </span>
           <span className="text-sm font-black tracking-widest uppercase bg-gradient-to-r from-[#FDE047] via-[#F5C518] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(245,197,24,0.55)]">
@@ -35,10 +35,10 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, badge }
       )}
 
       {/* Heading & Subtitle */}
-      <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
+      <h1 className="auth-heading text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
         {title}
       </h1>
-      <p className="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-sm font-medium leading-relaxed">
+      <p className="auth-subtitle text-xs sm:text-sm text-slate-300 mt-1.5 max-w-sm font-medium leading-relaxed">
         {subtitle}
       </p>
     </div>

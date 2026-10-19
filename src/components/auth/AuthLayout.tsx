@@ -50,13 +50,13 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#000000] text-white selection:bg-[#F5C518]/30 overflow-x-hidden">
+    <div className="auth-screen-root min-h-screen w-full flex flex-col lg:flex-row bg-[#000000] text-white selection:bg-[#F5C518]/30 overflow-x-hidden">
       
       {/* ── LEFT HALF: DEEP NAVY WITH ANIMATED GOLDEN CREST & DOT MATRIX (Desktop Only, lg+) ── */}
       <div 
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="hidden lg:flex lg:w-1/2 flex-col justify-between p-10 xl:p-14 bg-[#070B16] relative overflow-hidden border-r border-white/5 select-none"
+        className="auth-left-panel hidden lg:flex lg:w-1/2 flex-col justify-between p-10 xl:p-14 bg-[#070B16] relative overflow-hidden border-r border-white/5 select-none"
       >
         
         {/* Amber/Gold Dot Matrix Pattern */}
@@ -144,7 +144,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
           <h2 className="text-2xl xl:text-3xl font-black text-white tracking-tight leading-tight">
             {headline}
           </h2>
-          <p className="text-xs xl:text-sm text-slate-400 max-w-md leading-relaxed font-medium">
+          <p className="auth-left-subtitle text-xs xl:text-sm text-slate-300 max-w-md leading-relaxed font-medium">
             {subtitle}
           </p>
         </div>
@@ -152,7 +152,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
       </div>
 
       {/* ── RIGHT HALF: PURE BLACK WITH CLEAN FORM CONTENT (50% on lg, 100% on mobile) ── */}
-      <div className="w-full lg:w-1/2 min-h-screen flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-[#000000] relative">
+      <div className="auth-right-panel w-full lg:w-1/2 min-h-screen flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-[#000000] relative">
         
         {/* Top-Right Dismiss (X) Button (NO "Back to Home" button!) */}
         <div className="w-full flex items-center justify-between lg:justify-end pb-4">
@@ -162,7 +162,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
               <img src="/auth-crest.jpg" alt="Syllabus 3D" className="w-full h-full object-cover rounded-md" />
             </div>
             <div className="flex items-center gap-1 font-sans">
-              <span className="text-xs font-black tracking-[0.18em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300">
+              <span className="text-xs font-black tracking-[0.18em] uppercase text-white">
                 SYLLABUS
               </span>
               <span className="text-xs font-black tracking-widest uppercase bg-gradient-to-r from-[#FDE047] via-[#F5C518] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(245,197,24,0.5)]">
@@ -178,7 +178,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
                 soundManager.playClick();
                 onBackToLanding();
               }}
-              className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer border border-white/10"
+              className="auth-close-btn w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white flex items-center justify-center transition-all cursor-pointer border border-white/15 shadow-sm"
               title="Close and return to landing"
               aria-label="Close"
             >

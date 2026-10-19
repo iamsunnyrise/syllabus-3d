@@ -24,19 +24,19 @@ export const AuthTextField = forwardRef<HTMLInputElement, AuthTextFieldProps>(({
       <div className="flex items-center justify-between">
         <label
           htmlFor={inputId}
-          className="block text-xs font-bold text-slate-300"
+          className="auth-label block text-xs font-extrabold text-slate-200"
         >
           {label}
         </label>
         {hint && (
-          <span className="text-[10px] font-semibold text-slate-500">
+          <span className="text-[10px] font-semibold text-slate-400">
             {hint}
           </span>
         )}
       </div>
 
       <div className="relative flex items-center">
-        <div className="absolute left-3.5 pointer-events-none text-slate-500">
+        <div className="absolute left-3.5 pointer-events-none text-slate-400">
           <Icon className="w-4 h-4" />
         </div>
 
@@ -45,7 +45,7 @@ export const AuthTextField = forwardRef<HTMLInputElement, AuthTextFieldProps>(({
           id={inputId}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
-          className={`w-full pl-10 pr-3.5 py-3 rounded-xl sm:rounded-2xl bg-[#080B14] border text-xs sm:text-sm font-semibold text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition-all ${
+          className={`auth-input w-full pl-10 pr-3.5 py-3 rounded-xl sm:rounded-2xl bg-[#080B14] border text-xs sm:text-sm font-semibold text-white placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
             error
               ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/30'
               : 'border-white/10 hover:border-white/20 focus:border-[#F5C518] focus:ring-[#F5C518]/30'

@@ -4195,6 +4195,180 @@ html.dark .exam-date-modal-bg {
   background-repeat: no-repeat;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   AUTH SCREEN CINEMATIC OBSIDIAN SUITE (Insulated from Theme Overrides)
+   ═══════════════════════════════════════════════════════════════ */
+.auth-screen-root,
+html.warm-cream .auth-screen-root,
+html:not(.dark) .auth-screen-root,
+html.light .auth-screen-root {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+.auth-screen-root .auth-left-panel,
+html.warm-cream .auth-screen-root .auth-left-panel,
+html:not(.dark) .auth-screen-root .auth-left-panel,
+html.light .auth-screen-root .auth-left-panel {
+  background-color: #070B16 !important;
+  background-image: none !important;
+}
+
+.auth-screen-root .auth-right-panel,
+html.warm-cream .auth-screen-root .auth-right-panel,
+html:not(.dark) .auth-screen-root .auth-right-panel,
+html.light .auth-screen-root .auth-right-panel,
+html.warm-cream .auth-screen-root .min-h-screen,
+html:not(.dark) .auth-screen-root .min-h-screen,
+html.light .auth-screen-root .min-h-screen {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+/* Headings & Subtitles */
+.auth-screen-root h1,
+.auth-screen-root h2,
+.auth-screen-root h3,
+.auth-screen-root .auth-heading,
+html.warm-cream .auth-screen-root h1,
+html.warm-cream .auth-screen-root h2,
+html.warm-cream .auth-screen-root h3,
+html.warm-cream .auth-screen-root .auth-heading,
+html:not(.dark) .auth-screen-root h1,
+html:not(.dark) .auth-screen-root h2,
+html:not(.dark) .auth-screen-root h3,
+html:not(.dark) .auth-screen-root .auth-heading {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+.auth-screen-root p,
+.auth-screen-root .auth-subtitle,
+.auth-screen-root .auth-left-subtitle,
+.auth-screen-root .text-slate-400,
+.auth-screen-root .text-slate-300,
+html.warm-cream .auth-screen-root p,
+html.warm-cream .auth-screen-root .auth-subtitle,
+html.warm-cream .auth-screen-root .auth-left-subtitle,
+html.warm-cream .auth-screen-root .text-slate-400,
+html.warm-cream .auth-screen-root .text-slate-300,
+html:not(.dark) .auth-screen-root p,
+html:not(.dark) .auth-screen-root .auth-subtitle,
+html:not(.dark) .auth-screen-root .auth-left-subtitle,
+html:not(.dark) .auth-screen-root .text-slate-400,
+html:not(.dark) .auth-screen-root .text-slate-300 {
+  color: #94A3B8 !important;
+}
+
+.auth-screen-root .auth-label,
+.auth-screen-root label,
+html.warm-cream .auth-screen-root .auth-label,
+html.warm-cream .auth-screen-root label,
+html:not(.dark) .auth-screen-root .auth-label,
+html:not(.dark) .auth-screen-root label {
+  color: #E2E8F0 !important;
+  font-weight: 800 !important;
+}
+
+/* Input Fields */
+.auth-screen-root input:not([type="checkbox"]):not([type="radio"]),
+.auth-screen-root .auth-input,
+html.warm-cream .auth-screen-root input:not([type="checkbox"]):not([type="radio"]),
+html.warm-cream .auth-screen-root .auth-input,
+html:not(.dark) .auth-screen-root input:not([type="checkbox"]):not([type="radio"]),
+html:not(.dark) .auth-screen-root .auth-input {
+  background-color: #080B14 !important;
+  background: #080B14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #FFFFFF !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+}
+
+.auth-screen-root input:not([type="checkbox"]):not([type="radio"]):focus,
+.auth-screen-root .auth-input:focus,
+html.warm-cream .auth-screen-root input:not([type="checkbox"]):not([type="radio"]):focus,
+html.warm-cream .auth-screen-root .auth-input:focus,
+html:not(.dark) .auth-screen-root input:not([type="checkbox"]):not([type="radio"]):focus,
+html:not(.dark) .auth-screen-root .auth-input:focus {
+  border-color: #F5C518 !important;
+  box-shadow: 0 0 0 2px rgba(245, 197, 24, 0.25) !important;
+  outline: none !important;
+}
+
+.auth-screen-root input::placeholder,
+.auth-screen-root .auth-input::placeholder,
+html.warm-cream .auth-screen-root input::placeholder,
+html.warm-cream .auth-screen-root .auth-input::placeholder,
+html:not(.dark) .auth-screen-root input::placeholder,
+html:not(.dark) .auth-screen-root .auth-input::placeholder {
+  color: #64748B !important;
+}
+
+/* Segmented Tabs */
+.auth-screen-root .auth-segmented-tabs,
+html.warm-cream .auth-screen-root .auth-segmented-tabs,
+html:not(.dark) .auth-screen-root .auth-segmented-tabs {
+  background-color: #090C16 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.auth-screen-root .auth-tab-active,
+html.warm-cream .auth-screen-root .auth-tab-active,
+html:not(.dark) .auth-screen-root .auth-tab-active {
+  background-color: #F5C518 !important;
+  color: #020617 !important;
+  font-weight: 900 !important;
+}
+
+.auth-screen-root .auth-tab-inactive,
+html.warm-cream .auth-screen-root .auth-tab-inactive,
+html:not(.dark) .auth-screen-root .auth-tab-inactive {
+  background-color: transparent !important;
+  color: #94A3B8 !important;
+}
+
+.auth-screen-root .auth-tab-inactive:hover,
+html.warm-cream .auth-screen-root .auth-tab-inactive:hover,
+html:not(.dark) .auth-screen-root .auth-tab-inactive:hover {
+  color: #FFFFFF !important;
+}
+
+/* Primary Gold Button & Text */
+.auth-screen-root button.bg-\[\#F5C518\],
+.auth-screen-root button.bg-\[\#F5C518\] *,
+html.warm-cream .auth-screen-root button.bg-\[\#F5C518\],
+html.warm-cream .auth-screen-root button.bg-\[\#F5C518\] *,
+html:not(.dark) .auth-screen-root button.bg-\[\#F5C518\],
+html:not(.dark) .auth-screen-root button.bg-\[\#F5C518\] * {
+  color: #020617 !important;
+}
+
+/* Social & Demo Buttons */
+.auth-screen-root .bg-\[\#090C15\],
+html.warm-cream .auth-screen-root .bg-\[\#090C15\],
+html:not(.dark) .auth-screen-root .bg-\[\#090C15\] {
+  background-color: #090C15 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Dismiss X Button */
+.auth-screen-root .auth-close-btn,
+html.warm-cream .auth-screen-root .auth-close-btn,
+html:not(.dark) .auth-screen-root .auth-close-btn {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #E2E8F0 !important;
+}
+.auth-screen-root .auth-close-btn:hover,
+html.warm-cream .auth-screen-root .auth-close-btn:hover,
+html:not(.dark) .auth-screen-root .auth-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+
 
 
 

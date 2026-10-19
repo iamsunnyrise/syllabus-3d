@@ -97,21 +97,21 @@ export const SignUpView: React.FC = () => {
   return (
     <div className="w-full">
       {/* Top Segmented Navigation Tabs */}
-      <div className="grid grid-cols-2 p-1 rounded-2xl bg-[#090C16] border border-white/10 mb-5 select-none">
+      <div className="auth-segmented-tabs grid grid-cols-2 p-1 rounded-2xl bg-[#090C16] border border-white/10 mb-5 select-none">
         <button
           type="button"
           onClick={() => {
             soundManager.playClick();
             setAuthView('login');
           }}
-          className="py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white cursor-pointer"
+          className="auth-tab-inactive py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-300 hover:text-white cursor-pointer"
         >
           Log In
         </button>
         <button
           type="button"
           onClick={() => setAuthView('signup')}
-          className="py-2 px-3 rounded-xl text-xs font-black transition-all bg-[#F5C518] text-slate-950 shadow-sm cursor-default"
+          className="auth-tab-active py-2 px-3 rounded-xl text-xs font-black transition-all bg-[#F5C518] text-slate-950 shadow-sm cursor-default"
         >
           Create Account
         </button>
@@ -256,7 +256,7 @@ export const SignUpView: React.FC = () => {
       </form>
 
       {/* Switch to Log In Footnote */}
-      <div className="mt-5 text-center text-xs font-semibold text-slate-400">
+      <div className="mt-5 text-center text-xs font-semibold text-slate-300">
         Already have an account?{' '}
         <button
           type="button"
@@ -264,7 +264,7 @@ export const SignUpView: React.FC = () => {
             soundManager.playClick();
             setAuthView('login');
           }}
-          className="font-bold text-[#F5C518] hover:underline cursor-pointer"
+          className="font-black text-[#F5C518] hover:text-[#FDE047] hover:underline cursor-pointer"
         >
           Log In
         </button>
