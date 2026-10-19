@@ -44,7 +44,7 @@ import { CalculationBoosterTriplets } from './CalculationBoosterTriplets';
 import { CalculationBoosterPowers } from './CalculationBoosterPowers';
 import { CalculationBoosterPrimes } from './CalculationBoosterPrimes';
 import { SscSpecialVocabView } from './SscSpecialVocabView';
-import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
+import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, LEVEL_1_SET_03_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
 
 export type { VocabItem, VocabLevel };
 
@@ -136,6 +136,7 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
 const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_01_WORDS,
   ...LEVEL_1_SET_02_WORDS,
+  ...LEVEL_1_SET_03_WORDS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',

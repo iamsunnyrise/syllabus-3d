@@ -270,7 +270,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'study-tools-vocab',
           label: 'Vocabulary',
           icon: Languages,
-          badge: '100+'
+          badge: '150+'
         },
         {
           id: 'study-tools-vocab-ssc',
