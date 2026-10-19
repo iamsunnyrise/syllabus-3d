@@ -36,34 +36,31 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
           </span>
         </div>
 
-        {/* Center: Grand Golden Circular Medallion */}
-        <div className="relative z-10 flex items-center justify-center my-auto py-8">
-          <div className="w-64 h-64 xl:w-72 xl:h-72 rounded-full bg-gradient-to-b from-[#F5C518] via-[#EAB308] to-[#CA8A04] text-slate-950 flex flex-col items-center justify-center p-6 shadow-2xl shadow-[#F5C518]/25 text-center transition-transform hover:scale-[1.02] duration-300">
-            {/* Top sacred symbol */}
-            <div className="text-[11px] font-black text-slate-950/70 mb-1 select-none">
-              ॐ
-            </div>
+        {/* Center: High-Impact 3D Golden Emblem */}
+        <div className="relative z-10 flex flex-col items-center justify-center my-auto py-6 group select-none">
+          {/* Ambient Multi-Layer Radial Glow */}
+          <div className="absolute w-72 h-72 xl:w-80 xl:h-80 rounded-full bg-gradient-to-tr from-[#F5C518]/30 via-amber-500/20 to-transparent blur-3xl opacity-75 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            {/* Center Book Graphic */}
-            <div className="w-20 h-20 xl:w-24 xl:h-24 flex items-center justify-center mb-1">
-              <svg className="w-full h-full text-slate-950 fill-current" viewBox="0 0 24 24">
-                <path d="M12 4.5C10.5 3.5 8.5 3 6.5 3 4.5 3 2.5 3.5 1 4.5v15c1.5-1 3.5-1.5 5.5-1.5 2 0 4 .5 5.5 1.5 1.5-1 3.5-1.5 5.5-1.5 2 0 4 .5 5.5 1.5v-15c-1.5-1-3.5-1.5-5.5-1.5-2 0-4 .5-5.5 1.5zm0 13c-1.3-.8-3-1.2-4.5-1.2-1.8 0-3.5.5-4.5 1.2V6.2C4 5.5 5.5 5 7.5 5c1.8 0 3.5.5 4.5 1.2v11.3zm10 0c-1-.7-2.7-1.2-4.5-1.2-1.5 0-3.2.4-4.5 1.2V6.2c1-.7 2.7-1.2 4.5-1.2 2 0 3.5.5 4.5 1.2v11.3z"/>
-              </svg>
+          {/* 3D Golden Crest Badge Container */}
+          <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-[2.5rem] bg-gradient-to-b from-[#181B26] to-[#0A0D15] p-2.5 shadow-2xl shadow-amber-500/20 border border-amber-400/30 hover:border-amber-400/60 transition-all duration-300 hover:scale-[1.03]">
+            {/* Inner subtle glow rim */}
+            <div className="w-full h-full rounded-[2rem] overflow-hidden flex items-center justify-center bg-[#07090F] relative">
+              <img
+                src="/auth-crest.jpg"
+                alt="Syllabus 3D Official 3D Crest"
+                className="w-full h-full object-cover object-center drop-shadow-2xl select-none"
+              />
             </div>
+          </div>
 
-            {/* Brand Title */}
-            <span className="text-xl xl:text-2xl font-black tracking-wider uppercase font-serif text-slate-950 leading-tight">
+          {/* Brand Tagline & Motto beneath the 3D Crest */}
+          <div className="mt-5 flex items-center gap-2 select-none">
+            <span className="text-xs font-black tracking-[0.25em] text-[#F5C518] uppercase">
               SYLLABUS 3D
             </span>
-
-            {/* Golden Ribbon Banner */}
-            <div className="mt-2 px-3.5 py-0.5 rounded-full bg-slate-950 text-[#F5C518] text-[10px] font-black tracking-widest uppercase shadow-sm">
+            <span className="text-slate-600">•</span>
+            <span className="px-2.5 py-0.5 rounded-full bg-[#F5C518]/15 border border-[#F5C518]/30 text-[#F5C518] text-[10px] font-black uppercase tracking-wider">
               ज्ञानं परमं ध्येयम्
-            </div>
-
-            {/* Bottom Subtitle */}
-            <span className="text-[10px] font-bold text-slate-950/75 mt-1.5 tracking-wider font-serif">
-              सीताराम
             </span>
           </div>
         </div>

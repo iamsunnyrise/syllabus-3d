@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.9.5';
+const VERSION = 'v2.9.6';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
@@ -13,6 +13,7 @@ const PRECACHE_ASSETS = [
   '/manifest.json',
   '/favicon.png',
   '/logo.png',
+  '/auth-crest.jpg',
   '/dashboard_icon_3d.png',
   '/pwa-192x192.png',
   '/pwa-512x512.png',
