@@ -1301,20 +1301,6 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
         {/* RIGHT: High-Impact Action Buttons */}
         <div className="relative z-10 flex items-center gap-2 sm:gap-2.5 flex-wrap shrink-0">
-          {/* Quick Cheatsheet Print Button */}
-          <button
-            type="button"
-            onClick={() => {
-              soundManager.playClick();
-              window.print();
-            }}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] warm-cream:bg-[#FAF0DC] warm-cream:hover:bg-[#E2D1B3] text-slate-700 dark:text-slate-200 warm-cream:text-[#38370D] border border-slate-200/80 dark:border-white/10 warm-cream:border-[#E2D1B3] text-xs font-bold transition-all active:scale-95 cursor-pointer select-none shadow-2xs"
-            title="Print Desk Revision Cheatsheet"
-          >
-            <FileText className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 warm-cream:text-[#8D7A02]" />
-            <span>Cheatsheet</span>
-          </button>
-
           {/* AI Architect Button */}
           {onOpenAiArchitect && (
             <button
