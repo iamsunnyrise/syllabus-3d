@@ -9,18 +9,23 @@ interface AuthHeaderProps {
 export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, badge }) => {
   return (
     <div className="flex flex-col items-start text-left mb-6">
-      {/* Brand Header with Circular Gold Logo Badge */}
-      <div className="flex items-center gap-2.5 mb-5 select-none">
-        <div className="w-8 h-8 rounded-full bg-[#F5C518] text-slate-950 flex items-center justify-center p-1.5 shadow-md shrink-0">
+      {/* Brand Header with 3D Crest Badge & Metallic Dual-Tone Typography */}
+      <div className="flex items-center gap-3 mb-5 select-none group cursor-default">
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-b from-[#1A1D29] to-[#0A0D15] p-1 shadow-md shadow-amber-500/20 border border-amber-400/40 flex items-center justify-center overflow-hidden shrink-0 transition-transform group-hover:scale-105 duration-300">
           <img
-            src="/logo.png"
+            src="/auth-crest.jpg"
             alt="SYLLABUS 3D"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover rounded-lg drop-shadow"
           />
         </div>
-        <span className="text-sm font-black tracking-wider text-white uppercase font-sans">
-          SYLLABUS 3D
-        </span>
+        <div className="flex items-center gap-1.5 font-sans">
+          <span className="text-sm font-black tracking-[0.2em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+            SYLLABUS
+          </span>
+          <span className="text-sm font-black tracking-widest uppercase bg-gradient-to-r from-[#FDE047] via-[#F5C518] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(245,197,24,0.55)]">
+            3D
+          </span>
+        </div>
       </div>
 
       {badge && (

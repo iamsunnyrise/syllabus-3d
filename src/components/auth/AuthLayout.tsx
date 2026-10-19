@@ -80,13 +80,18 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#F5C518]/[0.05] rounded-full blur-[140px] pointer-events-none" />
 
         {/* Top-Left Brand Logo Badge */}
-        <div className="relative z-10 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#F5C518] text-slate-950 flex items-center justify-center p-1.5 shadow-md">
-            <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain" />
+        <div className="relative z-10 flex items-center gap-3 select-none group cursor-default">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-b from-[#1A1D29] to-[#0A0D15] p-1 shadow-md shadow-amber-500/20 border border-amber-400/40 flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:border-amber-400/70">
+            <img src="/auth-crest.jpg" alt="Syllabus 3D" className="w-full h-full object-cover rounded-lg drop-shadow" />
           </div>
-          <span className="text-sm font-black tracking-wider text-white uppercase font-sans">
-            SYLLABUS 3D
-          </span>
+          <div className="flex items-center gap-1.5 font-sans">
+            <span className="text-sm font-black tracking-[0.2em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+              SYLLABUS
+            </span>
+            <span className="text-sm font-black tracking-widest uppercase bg-gradient-to-r from-[#FDE047] via-[#F5C518] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(245,197,24,0.55)]">
+              3D
+            </span>
+          </div>
         </div>
 
         {/* Center: High-Impact Animated 3D Golden Crest */}
@@ -152,13 +157,18 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
         {/* Top-Right Dismiss (X) Button (NO "Back to Home" button!) */}
         <div className="w-full flex items-center justify-between lg:justify-end pb-4">
           {/* Mobile Only Logo */}
-          <div className="flex lg:hidden items-center gap-2 select-none">
-            <div className="w-7 h-7 rounded-full bg-[#F5C518] text-slate-950 flex items-center justify-center p-1 shadow-md">
-              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain" />
+          <div className="flex lg:hidden items-center gap-2.5 select-none">
+            <div className="w-7 h-7 rounded-xl bg-gradient-to-b from-[#1A1D29] to-[#0A0D15] p-0.5 shadow-md shadow-amber-500/20 border border-amber-400/40 flex items-center justify-center overflow-hidden">
+              <img src="/auth-crest.jpg" alt="Syllabus 3D" className="w-full h-full object-cover rounded-md" />
             </div>
-            <span className="text-xs font-black tracking-wider text-white uppercase font-sans">
-              SYLLABUS 3D
-            </span>
+            <div className="flex items-center gap-1 font-sans">
+              <span className="text-xs font-black tracking-[0.18em] uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300">
+                SYLLABUS
+              </span>
+              <span className="text-xs font-black tracking-widest uppercase bg-gradient-to-r from-[#FDE047] via-[#F5C518] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(245,197,24,0.5)]">
+                3D
+              </span>
+            </div>
           </div>
 
           {onBackToLanding && (
