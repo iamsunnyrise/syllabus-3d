@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making of Constitution - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.8); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.92);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Revision Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.25);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.14) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS & SEARCH -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">Making of Constitution</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search date, name, topic..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key dates & names to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, table row ya heading par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete PDF Coverage • Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        Making of the <span class="text-gold underline decoration-olive">Indian Constitution</span>
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Bharat ka Samvidhan kaise bana? <strong class="text-gold">1928 ke Nehru Report</strong> se lekar <strong class="text-gold">26 January 1950</strong> tak ki poori kahani bilkul aasan <strong>Hinglish</strong> bhasha mein. Exam ka ek bhi question is notes se bahar nahi jayega!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-clock text-gold mr-1"></i> Time: <strong>2 Yrs, 11 Months, 18 Days</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-indian-rupee-sign text-gold mr-1"></i> Cost: <strong>₹64 Lakhs</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-users text-gold mr-1"></i> Total Seats: <strong>389 → 299</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">NEW FEATURE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emblem / Constitution Graphic Box -->
+                <div class="w-full md:w-72 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-dark text-gold flex items-center justify-center text-3xl border-2 border-olive">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-lg text-dark">SAMVIDHAN OF INDIA</h3>
+                    <p class="text-xs text-olive font-bold uppercase tracking-wider mt-0.5">World's Largest Written Constitution</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2 text-left text-xs font-semibold">
+                        <div class="bg-gold/30 p-2 rounded border border-olive">
+                            <span class="block text-olive">Original Articles</span>
+                            <span class="text-base font-extrabold text-dark">395</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded border border-olive">
+                            <span class="block text-olive">Original Parts</span>
+                            <span class="text-base font-extrabold text-dark">22 Parts</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded border border-olive">
+                            <span class="block text-olive">Schedules</span>
+                            <span class="text-base font-extrabold text-dark">8 Schedules</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded border border-olive">
+                            <span class="block text-olive">Symbol (Seal)</span>
+                            <span class="text-base font-extrabold text-dark">🐘 Elephant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 10 Comprehensive Modules + Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 10 Topics -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-book-open text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Basics & Forms of Govt</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">USA 1787, Communist, Monarchic, Totalitarian, Oligarchic</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-timeline text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Early Demand (1928–1935)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Nehru Report (1928), M.N. Roy (1934), INC Demand (1935)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-file-circle-xmark text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Offers from Britain</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Dominion Status, August Offer, Cripps, Wavell Plan</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-users-viewfinder text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Cabinet Mission & 389 Seats</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">3 Members, 292+4+93 Breakdown, Election Results</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-briefcase text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Interim Government (1946)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">2 Sept 1946, All 13 Ministers & Portfolios (INC & ML)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-sitemap text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Objective Resolution & Committees</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">13 Dec 1946, 8 Major & 13 Minor Committees</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-pen-nib text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Drafting Committee & Readings</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Dr. Ambedkar, 7 Members, Replacements & 3 Readings</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8 -->
+                <button onclick="jumpToTopic('topic-8')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">08</span>
+                            <i class="fa-solid fa-calendar-check text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Sessions, Adoption & Enforcement</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">11 Sessions, 26 Nov 1949 vs 26 Jan 1950, Articles</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 9 -->
+                <button onclick="jumpToTopic('topic-9')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">09</span>
+                            <i class="fa-solid fa-gavel text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Functions & Working of Assembly</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Sinha, Rajendra Prasad, Mavalankar, Flag, Anthem</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 10 -->
+                <button onclick="jumpToTopic('topic-10')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">10</span>
+                            <i class="fa-solid fa-award text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Significant Facts & Female Members</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">B.N. Rau, Calligraphers, 284 Signers, 15 Women</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: INTRODUCTION & FORMS OF GOVERNMENT
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Foundation</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Introduction to Constitution & Forms of Government</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- What is Constitution & Golden Facts -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="sub-card p-5 rounded-xl">
+                        <h3 class="font-bold text-lg text-dark flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-scroll text-olive"></i> Constitution Kya Hota Hai? (Definition)
+                        </h3>
+                        <p class="text-sm sm:text-base leading-relaxed">
+                            <strong>"A Constitution lays out certain ideals that form the basis of the kind of country a nation aspires to be."</strong>
+                        </p>
+                        <p class="text-sm text-olive font-medium mt-2 bg-gold/20 p-3 rounded-lg border border-olive/40">
+                            💡 <strong>Hinglish Mein Samjho:</strong> Constitution (Samvidhan) ek aisi supreme rules aur aadarsho (ideals) ki kitab hai jo yeh batati hai ki koi desh bhavishya mein kaisa banna chahta hai aur wahan ki sarkar kaise chalegi.
+                        </p>
+                    </div>
+
+                    <!-- Important Logic Point -->
+                    <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold">
+                        <h4 class="font-extrabold text-dark text-base mb-1">
+                            ⚠️ Very Important Conceptual Point (Statement Question in SSC):
+                        </h4>
+                        <p class="text-sm leading-relaxed font-medium">
+                            "While all <strong>democratic countries</strong> are likely to have a Constitution, it is <strong>NOT necessary</strong> that all countries that have a Constitution are democratic."
+                        </p>
+                        <p class="text-xs sm:text-sm text-olive mt-2 font-medium">
+                            👉 <strong>Matlab:</strong> Har लोकतांत्रिक (democratic) desh ke paas ek Constitution zaroor hota hai, lekin zaroori nahi ki jis desh ke paas Constitution ho wo democratic hi ho! (Jaise China ya North Korea ke paas apna Constitution toh hai, par wo democratic nahi hain).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Key Dates Box -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-gold font-bold">Fast Facts Box</span>
+                        <h3 class="text-lg font-serif font-bold text-cream mt-1 border-b border-olive pb-2">Origin & Nature</h3>
+                        <ul class="space-y-3 mt-3 text-sm">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-flag-usa text-gold mt-1"></i>
+                                <div>
+                                    <span class="text-cream/80 block text-xs">Tradition of Constitution began in:</span>
+                                    <strong class="text-gold text-base quiz-item">USA (in 1787)</strong>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-fire-flame-curved text-gold mt-1"></i>
+                                <div>
+                                    <span class="text-cream/80 block text-xs">Independence of USA:</span>
+                                    <strong class="text-gold text-base quiz-item">4th July 1776</strong>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-scale-unbalanced-flip text-gold mt-1"></i>
+                                <div>
+                                    <span class="text-cream/80 block text-xs">Nature of India's Constitution:</span>
+                                    <strong class="text-gold text-base quiz-item">Partly Rigid & Partly Flexible</strong>
+                                    <span class="block text-xs text-cream/80 mt-0.5">(Kuch articles aasani se amend hote hain, kuch ke liye tough special majority chahiye).</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Forms of Government Table/Cards -->
+            <div>
+                <h3 class="text-lg font-extrabold text-dark mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-globe text-olive"></i> Other Forms of Government (Alag-Alag Prakar ki Sarkarein)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- 1. Communist -->
+                    <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="gold-badge text-xs px-2.5 py-1 rounded">1. Communist</span>
+                                <i class="fa-solid fa-industry text-olive"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm font-semibold text-dark">
+                                Source or means of production controlled by government.
+                            </p>
+                            <p class="text-xs text-olive mt-1.5">
+                                <strong>Hinglish:</strong> Desh ki saari factories, resources aur production ke sadhano par seedha sarkar ka control hota hai.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-olive/40 text-xs">
+                            <strong class="text-dark">Examples:</strong> <span class="quiz-item font-semibold">China, Laos, North Korea, Cuba, Vietnam</span>.
+                        </div>
+                    </div>
+
+                    <!-- 2. Monarchic -->
+                    <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="gold-badge text-xs px-2.5 py-1 rounded">2. Monarchic</span>
+                                <i class="fa-solid fa-crown text-olive"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm font-semibold text-dark">
+                                A government by a single person → specifically a <strong>King or a Monarch</strong>.
+                            </p>
+                            <p class="text-xs text-olive mt-1.5">
+                                <strong>Hinglish:</strong> Jahan ek single vyakti yaani Raja ya Rani (Monarch) ka shasan chalta hai (Vanshavad/Hereditary).
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-olive/40 text-xs">
+                            <strong class="text-dark">Rule by:</strong> <span class="quiz-item font-semibold">King / Queen (Monarch)</span>.
+                        </div>
+                    </div>
+
+                    <!-- 3. Totalitarian -->
+                    <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="gold-badge text-xs px-2.5 py-1 rounded">3. Totalitarian</span>
+                                <i class="fa-solid fa-eye text-olive"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm font-semibold text-dark">
+                                Refers to <strong>total control over lives of citizens</strong> by whoever is ruling.
+                            </p>
+                            <p class="text-xs text-olive mt-1.5">
+                                <strong>Hinglish:</strong> Tanashahi! Jo bhi shasan kar raha hai uska aam janta ki personal aur public life par 100% control hota hai.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-olive/40 text-xs">
+                            <strong class="text-dark">Example:</strong> <span class="quiz-item font-semibold">North Korea</span>.
+                        </div>
+                    </div>
+
+                    <!-- 4. Oligarchic -->
+                    <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="gold-badge text-xs px-2.5 py-1 rounded">4. Oligarchic</span>
+                                <i class="fa-solid fa-user-tie text-olive"></i>
+                            </div>
+                            <p class="text-xs sm:text-sm font-semibold text-dark">
+                                <strong>A government of the few.</strong>
+                            </p>
+                            <p class="text-xs text-olive mt-1.5">
+                                <strong>Hinglish:</strong> Jab poore desh ki satta kuch chune hue ameer ya behad taqatwar logo ke chhote group ke haath mein ho.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-olive/40 text-xs">
+                            <strong class="text-dark">Examples:</strong> <span class="quiz-item font-semibold">Iran, Russia</span>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: DEMAND FOR CONSTITUENT ASSEMBLY (1928-1935)
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Historical Timeline</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Evolution of Constituent Assembly Demand (1928 – 1935)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 1928 -->
+                <div class="sub-card p-5 rounded-xl relative overflow-hidden">
+                    <div class="inline-block px-3 py-1 rounded-md bg-dark text-gold font-extrabold text-lg mb-3 quiz-item">1928</div>
+                    <h3 class="font-bold text-base text-dark mb-2">Nehru Report (Early Draft)</h3>
+                    <p class="text-sm text-dark leading-relaxed">
+                        The early draft of the Indian Constitution (<strong class="quiz-item">Nehru Report</strong>) was submitted by the <strong>All Parties Conference at Lucknow</strong> → chaired by <strong class="quiz-item">Motilal Nehru</strong>.
+                    </p>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 <strong>Hinglish Note:</strong> Dhyan rahe, 1928 wali Nehru Report <strong>Motilal Nehru</strong> (Jawaharlal Nehru ke pita) ki adhyakshata mein Lucknow ke All Parties Conference mein pesh hui thi. Yeh Indian Constitution banane ki sabse pehli koshish (early draft) thi.
+                    </p>
+                </div>
+
+                <!-- 1934 -->
+                <div class="sub-card p-5 rounded-xl relative overflow-hidden">
+                    <div class="inline-block px-3 py-1 rounded-md bg-dark text-gold font-extrabold text-lg mb-3 quiz-item">1934</div>
+                    <h3 class="font-bold text-base text-dark mb-2">First Idea of Constituent Assembly</h3>
+                    <p class="text-sm text-dark leading-relaxed">
+                        <strong class="quiz-item">M. N. Roy</strong> first proposed the idea of a <strong>Constituent Assembly</strong> for India.
+                    </p>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 <strong>Hinglish Note:</strong> Exam mein baar-baar pucha jata hai ki Bharat ke liye ek alag "Samvidhan Sabha" (Constituent Assembly) honi chahiye, yeh vichar (idea) sabse pehle kisne diya? Jawab: <strong>M. N. Roy (1934)</strong>.
+                    </p>
+                </div>
+
+                <!-- 1935 -->
+                <div class="sub-card p-5 rounded-xl relative overflow-hidden">
+                    <div class="inline-block px-3 py-1 rounded-md bg-dark text-gold font-extrabold text-lg mb-3 quiz-item">1935</div>
+                    <h3 class="font-bold text-base text-dark mb-2">Official Demand by Congress</h3>
+                    <p class="text-sm text-dark leading-relaxed">
+                        The <strong class="quiz-item">Indian National Congress (INC)</strong> officially demanded a Constituent Assembly to frame the Constitution of India.
+                    </p>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 <strong>Hinglish Note:</strong> M.N. Roy ke idea ke agle hi saal (1935 mein), Congress party ne pehli baar aadhikarik (officially) taur par Angrezo se Constituent Assembly ki maang ki.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: OFFERS FROM BRITAIN & DOMINION STATUS
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 3 • British Proposals</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Offers from Britain & Dominion Status</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Dominion Status Explanation Box -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl border-l-8 border-l-olive">
+                    <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Concept Clarity</span>
+                    <h3 class="text-lg font-extrabold text-dark mt-2">Dominion Status Kya Hota Hai?</h3>
+                    <p class="text-sm leading-relaxed mt-1">
+                        "It is a status given to certain countries that allowed them to be <strong>self-governing while remaining part of the British Empire</strong>. The term <em>'Dominion'</em> means <strong>'that which is mastered or ruled'</strong>."
+                    </p>
+                    <p class="text-xs sm:text-sm text-olive font-medium mt-2">
+                        👉 <strong>Simple Hinglish:</strong> Angrez kehte the ki aap apni sarkar khud chala lo (Self-governing), lekin aapka desh abhi bhi British Samrajya (British Crown) ke adheen hi rahega! Yaani azaadi adhoori thi.
+                    </p>
+                </div>
+
+                <!-- J.L. Nehru Quote -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-center">
+                    <div class="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-quote-left text-lg"></i> Famous Comment on Dominion Status
+                    </div>
+                    <blockquote class="text-base sm:text-lg font-serif font-bold text-cream italic">
+                        "Dominion status is dead as a door nail."
+                    </blockquote>
+                    <p class="text-xs text-gold font-bold mt-2">— Said by <span class="quiz-item underline">Jawaharlal Nehru</span></p>
+                    <p class="text-xs text-cream/80 mt-2">
+                        (Nehru ji ne saaf keh diya tha ki Dominion Status ki maang ab lohe ki mari hui keel ki tarah khatam ho chuki hai, humein ab sirf <strong>Purna Swaraj</strong> chahiye!)
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3 Rejected Offers -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                <!-- 1. August Offer -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded bg-dark text-gold font-bold text-xs uppercase">Offer #1</span>
+                            <span class="text-xs font-extrabold text-olive">❌ Rejected</span>
+                        </div>
+                        <h4 class="font-extrabold text-lg text-dark mb-2">1. August Offer: <span class="quiz-item">1940</span></h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li>Proposed by British Viceroy <strong class="quiz-item">Lord Linlithgow</strong> on <strong class="quiz-item">August 8, 1940</strong>, to gain Indian support during <strong>World War II</strong>.</li>
+                            <li>The offer promised <strong>Dominion Status</strong> for India after the war.</li>
+                        </ul>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 WW-II mein Bharatiyo ka saath paane ke liye Linlithgow ne yeh lalach diya tha.
+                    </p>
+                </div>
+
+                <!-- 2. Cripps Proposal -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded bg-dark text-gold font-bold text-xs uppercase">Offer #2</span>
+                            <span class="text-xs font-extrabold text-olive">❌ Rejected</span>
+                        </div>
+                        <h4 class="font-extrabold text-lg text-dark mb-2">2. Cripps Proposal: <span class="quiz-item">1942</span></h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li>Offered India <strong>Dominion Status</strong> after the war.</li>
+                            <li>Along with the creation of a <strong>Constituent Assembly</strong> to draft a new constitution.</li>
+                        </ul>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 Stafford Cripps ne bhi war ke baad Dominion Status ka hi offer diya, isliye ise bhi thukra diya gaya.
+                    </p>
+                </div>
+
+                <!-- 3. Wavell Plan -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded bg-dark text-gold font-bold text-xs uppercase">Offer #3</span>
+                            <span class="text-xs font-extrabold text-olive">❌ Rejected</span>
+                        </div>
+                        <h4 class="font-extrabold text-lg text-dark mb-2">3. Wavell Plan: <span class="quiz-item">1945</span></h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li>Also known as <strong class="quiz-item">Shimla Conference</strong>.</li>
+                            <li>Proposed by India's Viceroy, <strong class="quiz-item">Lord Wavell</strong> (1945), to resolve the political deadlock by creating a new, interim <strong>Executive Council with equal representation for Hindus and Muslims</strong>.</li>
+                        </ul>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 Congress aur Muslim League ke beech deadlock suljhane ke liye Shimla mein conference bulayi gayi thi.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Why Rejected Summary Banner -->
+            <div class="trick-box p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gold text-dark flex items-center justify-center font-extrabold text-lg shrink-0">!</div>
+                    <p class="text-sm font-medium">
+                        <strong class="text-gold">Why were all three plans (1940, 1942, 1945) rejected?</strong><br>
+                        Kyunki Congress ki maang <strong>"Purna Swaraj" (Complete Independence)</strong> thi, jabki Britishers baar-baar sirf <strong>"Dominion Status"</strong> offer kar rahe the!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: CABINET MISSION PLAN (1946) & SEATS ALLOCATION
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 3, 4 & 5 • Formation of Assembly</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Cabinet Mission Plan (1946), 389 Seats & Elections</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Cabinet Mission Intro + Tryst with Destiny -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Left: Cabinet Mission 3 Members -->
+                <div class="sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded">✅ Accepted Plan</span>
+                        <span class="text-xs font-bold text-olive">Year: 1946</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark mb-2">Cabinet Mission Plan: 1946</h3>
+                    <p class="text-xs sm:text-sm text-dark mb-4">
+                        <strong>Only Cabinet Mission Plan was accepted by both the Congress and the Muslim League</strong>, hence the Constituent Assembly of India was formed according to it!
+                    </p>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-olive mb-2">Three British Cabinet Members:</h4>
+                    <div class="space-y-2">
+                        <div class="p-2.5 rounded-lg bg-gold/30 border border-olive flex items-center justify-between text-sm font-bold">
+                            <span>1. <span class="quiz-item">Lord Pethick-Lawrence</span></span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Chairman</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center justify-between text-sm font-semibold">
+                            <span>2. <span class="quiz-item">Stafford Cripps</span></span>
+                            <span class="text-xs text-olive">Member (President of Board of Trade)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center justify-between text-sm font-semibold">
+                            <span>3. <span class="quiz-item">A. V. Alexander</span></span>
+                            <span class="text-xs text-olive">Member (First Lord of Admiralty)</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-olive font-semibold mt-3">
+                        🧠 <strong>Trick to Remember:</strong> <strong>P-S-A</strong> (Pethick, Stafford, Alexander) ya <strong>"CAL"</strong> (Cripps, Alexander, Lawrence).
+                    </p>
+                </div>
+
+                <!-- Right: Tryst with Destiny -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Page 4 • Famous Speech</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-2">"Tryst with Destiny" (14th Aug 1947)</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-2 leading-relaxed">
+                            Delivered on the midnight of <strong class="text-gold quiz-item">14th August 1947</strong> before the Constituent Assembly by <strong class="text-gold quiz-item">Jawaharlal Nehru</strong>.
+                        </p>
+                        <div class="my-4 p-3.5 rounded-lg bg-olive/25 border-l-4 border-gold">
+                            <p class="text-xs text-gold uppercase font-bold mb-1">Nehru referred to Gandhiji as:</p>
+                            <p class="text-sm sm:text-base font-serif italic text-cream">
+                                "The ambition of the greatest man of our generation has been to wipe every tear from every eye."
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-cream/80 border-t border-olive pt-2">
+                        💡 <strong>Hinglish:</strong> Nehru ji ne Constituent Assembly mein apne mashhoor bhashan <em>"Tryst with Destiny"</em> mein Mahatma Gandhi ke baare mein kaha tha ki hamari peedhi ke sabse mahan vyakti ka sapna har aankh se har aansu ponchna raha hai.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 389 Seats Visual Breakdown Tree -->
+            <div class="sub-card p-6 rounded-xl mb-8">
+                <h3 class="text-lg font-extrabold text-dark text-center mb-1">
+                    Composition of Constituent Assembly (Total Seats Breakdown)
+                </h3>
+                <p class="text-xs text-olive text-center font-medium mb-6">
+                    Cabinet Mission Plan ke tahat total <strong>389 Members</strong> tay kiye gaye the:
+                </p>
+
+                <!-- Top Node: 389 -->
+                <div class="max-w-xs mx-auto bg-dark text-gold text-center p-3 rounded-xl border-2 border-gold shadow mb-6">
+                    <span class="text-xs uppercase tracking-widest block text-cream">Total Strength</span>
+                    <strong class="text-3xl font-extrabold quiz-item">389 Members</strong>
+                </div>
+
+                <!-- Two Branches: Elected (296) & Nominated (93) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Branch 1: British India (Elected) -->
+                    <div class="p-4 rounded-xl bg-gold/25 border-2 border-dark">
+                        <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-3">
+                            <span class="font-extrabold text-dark text-base">1. British India (Elected Members)</span>
+                            <span class="dark-badge px-3 py-1 rounded-lg text-sm font-extrabold quiz-item">296 Seats</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="bg-cream p-3 rounded-lg border border-olive">
+                                <span class="text-2xl font-extrabold text-dark block quiz-item">292</span>
+                                <span class="text-xs font-bold text-olive uppercase">Governor's Provinces</span>
+                                <p class="text-xs text-dark mt-1">Elected from <strong>11 Governor Provinces</strong> of British India.</p>
+                            </div>
+                            <div class="bg-cream p-3 rounded-lg border border-olive">
+                                <span class="text-2xl font-extrabold text-dark block quiz-item">4</span>
+                                <span class="text-xs font-bold text-olive uppercase">Chief Commissioner's Provinces</span>
+                                <p class="text-xs text-dark mt-1">
+                                    1 each from:<br>
+                                    • <strong class="quiz-item">A</strong>jmer-Marwar<br>
+                                    • <strong class="quiz-item">B</strong>aluchistan<br>
+                                    • <strong class="quiz-item">C</strong>oorg<br>
+                                    • <strong class="quiz-item">D</strong>elhi
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-dark font-semibold mt-3 bg-cream/80 p-2 rounded border border-olive/40">
+                            🧠 <strong>Trick for 4 Chief Commissioner Provinces:</strong> <strong>A - B - C - D</strong> (Ajmer-Marwar, Baluchistan, Coorg, Delhi).
+                        </p>
+                    </div>
+
+                    <!-- Branch 2: Princely States (Nominated) -->
+                    <div class="p-4 rounded-xl bg-cream border-2 border-olive flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-3">
+                                <span class="font-extrabold text-dark text-base">2. Princely States (Deshi Riyasatein)</span>
+                                <span class="gold-badge px-3 py-1 rounded-lg text-sm font-extrabold quiz-item">93 Seats</span>
+                            </div>
+                            <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                                <li><strong>Nominated Members</strong> representing Princely States.</li>
+                                <li><strong>Not Elected</strong> — Rulers (Raja/Nawab) nominated them directly.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs">
+                            <strong class="text-gold">Exam Question:</strong> Constituent Assembly kaisi body thi?<br>
+                            👉 <strong>"It was partly elected and partly nominated."</strong> (296 Elected + 93 Nominated).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seats Allocation Rules & Election Results (Page 5) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Seats Allocation Rules -->
+                <div class="sub-card p-5 rounded-xl">
+                    <h3 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-olive"></i> Rules of Seats Allocation (Page 5)
+                    </h3>
+                    <ul class="space-y-3 text-xs sm:text-sm text-dark">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>3 Principal Communities:</strong> Seats allocated to each British province were divided among three principal communities: <strong class="quiz-item">Muslim, Sikh, and General</strong> (All others except Muslim & Sikh).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Population Ratio:</strong> <strong class="quiz-item">1 seat was allotted per 1 million (10 Lakh) population</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Nature of Assembly:</strong> Partly elected and partly nominated.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Method of Election (Indirect Elections):</strong> <strong class="quiz-item">Proportional Representation + Single Transferable Vote</strong> (Provincial Legislative Assembly ke members ne vote dala tha, aam janta ne direct vote nahi dala tha).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Election Results (July-August 1946) -->
+                <div class="sub-card p-5 rounded-xl bg-gold/15">
+                    <div class="flex items-center justify-between border-b border-olive pb-2 mb-3">
+                        <h3 class="font-extrabold text-base text-dark flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical text-olive"></i> Election Results (296 Seats)
+                        </h3>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">Held: July–August 1946</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2.5 text-center my-3">
+                        <div class="bg-cream p-3 rounded-lg border-2 border-dark">
+                            <span class="text-xs font-bold text-olive block">Congress (INC)</span>
+                            <strong class="text-2xl font-extrabold text-dark quiz-item">208</strong>
+                            <span class="text-[11px] block text-dark font-semibold">Majority</span>
+                        </div>
+                        <div class="bg-cream p-3 rounded-lg border border-olive">
+                            <span class="text-xs font-bold text-olive block">Muslim League</span>
+                            <strong class="text-2xl font-extrabold text-dark quiz-item">73</strong>
+                            <span class="text-[11px] block text-olive font-semibold">Seats</span>
+                        </div>
+                        <div class="bg-cream p-3 rounded-lg border border-olive">
+                            <span class="text-xs font-bold text-olive block">Independents</span>
+                            <strong class="text-2xl font-extrabold text-dark quiz-item">15</strong>
+                            <span class="text-[11px] block text-olive font-semibold">Seats</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-dark text-cream p-3.5 rounded-lg text-xs sm:text-sm mt-3 flex items-center justify-between">
+                        <div>
+                            <strong class="text-gold block">After Boycott of Muslim League & Partition:</strong>
+                            <span>Remaining total seats in Indian Constituent Assembly:</span>
+                        </div>
+                        <span class="text-2xl font-extrabold bg-gold text-dark px-3 py-1 rounded-lg quiz-item">299</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: INTERIM GOVERNMENT (1946)
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Transitional Administration</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Interim Government of India (2nd September 1946)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Interim Govt Key Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="sub-card p-4 rounded-xl">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded">Formation Date</span>
+                    <h3 class="text-lg font-extrabold text-dark mt-1 quiz-item">2nd September 1946</h3>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        The Interim Government (Antarim Sarkar) of India was formed on <strong>2nd September 1946</strong>. It lasted until India's independence on <strong>15th August 1947</strong>, and the partition of the country into India and Pakistan.
+                    </p>
+                </div>
+                <div class="sub-card p-4 rounded-xl">
+                    <span class="dark-badge text-xs px-2 py-0.5 rounded">President of the Executive Council</span>
+                    <h3 class="text-base font-extrabold text-dark mt-1">Viceroy & Governor-General of India:</h3>
+                    <ul class="text-xs sm:text-sm space-y-1 mt-1.5">
+                        <li>• <strong class="quiz-item">Viscount Wavell</strong> (till February 1947)</li>
+                        <li>• <strong class="quiz-item">Lord Mountbatten</strong> (from February 1947)</li>
+                        <li class="text-olive font-semibold pt-1">👉 Note: Vice-President of Executive Council was <strong>Jawaharlal Nehru</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Filter Buttons for Party (All / INC / Muslim League) -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <h3 class="font-extrabold text-base text-dark">
+                    <i class="fa-solid fa-id-card-clip text-olive mr-1"></i> All 13 Positions Held by Members of Interim Government:
+                </h3>
+                <div class="flex gap-2 text-xs font-bold">
+                    <button onclick="filterMinisters('ALL')" id="btn-ALL" class="px-3 py-1 rounded bg-dark text-gold border border-dark">All (13)</button>
+                    <button onclick="filterMinisters('INC')" id="btn-INC" class="px-3 py-1 rounded bg-cream text-dark border border-olive hover:bg-gold">INC (7)</button>
+                    <button onclick="filterMinisters('ML')" id="btn-ML" class="px-3 py-1 rounded bg-cream text-dark border border-olive hover:bg-gold">Muslim League (5)</button>
+                </div>
+            </div>
+
+            <!-- 13 Portfolio Table/Grid -->
+            <div class="overflow-x-auto rounded-xl border-2 border-dark">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-dark text-gold text-xs uppercase tracking-wider">
+                            <th class="p-3 border-b border-olive">#</th>
+                            <th class="p-3 border-b border-olive">Ministry / Portfolio (Vibhag)</th>
+                            <th class="p-3 border-b border-olive">Member Name</th>
+                            <th class="p-3 border-b border-olive">Party</th>
+                            <th class="p-3 border-b border-olive hidden md:table-cell">Memory Trick (Hinglish)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-olive/40 text-xs sm:text-sm bg-cream">
+                        <tr class="minister-row hover:bg-gold/20" data-party="OTHER">
+                            <td class="p-3 font-bold">1</td>
+                            <td class="p-3 font-bold text-dark">Commander-in-Chief</td>
+                            <td class="p-3 font-extrabold quiz-item">Sir Claude Auchinleck</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded bg-olive/20 text-dark font-bold text-xs">British Officer</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Sena ka sabse bada British adhikari</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">2</td>
+                            <td class="p-3 font-bold text-dark">Vice President, External Affairs & Commonwealth Relations</td>
+                            <td class="p-3 font-extrabold quiz-item">Jawaharlal Nehru</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Nehru ji videshi mamlo (External Affairs) ke expert the</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">3</td>
+                            <td class="p-3 font-bold text-dark">Home Affairs, Information & Broadcasting</td>
+                            <td class="p-3 font-extrabold quiz-item">Sardar Vallabhbhai Patel</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Ghar (Home) ko jodna Iron Man Patel ka kaam tha</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">4</td>
+                            <td class="p-3 font-bold text-dark">Agriculture and Food</td>
+                            <td class="p-3 font-extrabold quiz-item">Dr. Rajendra Prasad</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Bhagwan ka "Prasad" = Food & Agriculture</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="ML">
+                            <td class="p-3 font-bold">5</td>
+                            <td class="p-3 font-bold text-dark">Commerce</td>
+                            <td class="p-3 font-extrabold quiz-item">Ibrahim Ismail Chundrigar</td>
+                            <td class="p-3"><span class="dark-badge px-2 py-0.5 rounded text-xs">ML</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell"><strong>C</strong>ommerce = <strong>C</strong>hundrigar</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">6</td>
+                            <td class="p-3 font-bold text-dark">Defence</td>
+                            <td class="p-3 font-extrabold quiz-item">Baldev Singh</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Desh ke Defence ke liye "Bal" (Strength) chahiye = Baldev</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="ML">
+                            <td class="p-3 font-bold">7</td>
+                            <td class="p-3 font-bold text-dark">Finance</td>
+                            <td class="p-3 font-extrabold quiz-item">Liaquat Ali Khan</td>
+                            <td class="p-3"><span class="dark-badge px-2 py-0.5 rounded text-xs">ML</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Paisa (Finance) sambhalne ke liye "Liaquat" (kabiliyat) chahiye</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="ML">
+                            <td class="p-3 font-bold">8</td>
+                            <td class="p-3 font-bold text-dark">Health</td>
+                            <td class="p-3 font-extrabold quiz-item">Ghazanfar Ali Khan</td>
+                            <td class="p-3"><span class="dark-badge px-2 py-0.5 rounded text-xs">ML</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Interim govt mein Health Ghazanfar ke paas (Azaadi baad Amrit Kaur)</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">9</td>
+                            <td class="p-3 font-bold text-dark">Labour</td>
+                            <td class="p-3 font-extrabold quiz-item">Jagjivan Ram</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Mazdoor (Labour) ka "Jag-Jivan" mehnat se chalta hai</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="ML">
+                            <td class="p-3 font-bold">10</td>
+                            <td class="p-3 font-bold text-dark">Law</td>
+                            <td class="p-3 font-extrabold quiz-item">Jogendra Nath Mandal</td>
+                            <td class="p-3"><span class="dark-badge px-2 py-0.5 rounded text-xs">ML</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Interim Law Minister Mandal the (Azaadi baad Ambedkar ji)</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">11</td>
+                            <td class="p-3 font-bold text-dark">Education and Arts</td>
+                            <td class="p-3 font-extrabold quiz-item">C. Rajagopalachari</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Vidwan "Rajaji" = Education & Arts</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="ML">
+                            <td class="p-3 font-bold">12</td>
+                            <td class="p-3 font-bold text-dark">Railways and Communication, Post and Air</td>
+                            <td class="p-3 font-extrabold quiz-item">Abdur Rab Nishtar</td>
+                            <td class="p-3"><span class="dark-badge px-2 py-0.5 rounded text-xs">ML</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Rail aur Air ki patri = Nishtar</td>
+                        </tr>
+                        <tr class="minister-row hover:bg-gold/20" data-party="INC">
+                            <td class="p-3 font-bold">13</td>
+                            <td class="p-3 font-bold text-dark">Industries and Supplies</td>
+                            <td class="p-3 font-extrabold quiz-item">John Mathai</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">INC</span></td>
+                            <td class="p-3 text-xs text-olive hidden md:table-cell">Industry mein मिठाई (Mathai) supply hoti hai</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: OBJECTIVE RESOLUTION & COMMITTEES
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 6 • Blueprint & Committees</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Objective Resolution & Committees (8 Major + 13 Minor)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Objective Resolution Banner -->
+            <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">Foundation of Preamble</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-1">Objective Resolution (Uddeshya Prastav)</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1">
+                            Jawaharlal Nehru ji ne Constituent Assembly ke samne Constitution ka philosophy aur lakshya rakha, jise aage chal kar hamare Constitution ka <strong>Preamble (Prastavana)</strong> banaya gaya.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+                        <div class="bg-cream text-dark p-3 rounded-lg border-2 border-gold text-center">
+                            <span class="text-xs font-bold text-olive block uppercase">Presented On</span>
+                            <strong class="text-base font-extrabold quiz-item">13th Dec 1946</strong>
+                            <span class="text-[11px] block font-semibold">By J.L. Nehru</span>
+                        </div>
+                        <div class="bg-gold text-dark p-3 rounded-lg border-2 border-cream text-center">
+                            <span class="text-xs font-bold text-dark/80 block uppercase">Accepted On</span>
+                            <strong class="text-base font-extrabold quiz-item">22nd Jan 1947</strong>
+                            <span class="text-[11px] block font-semibold">By Constituent Assembly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8 Major Committees -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-extrabold text-dark flex items-center gap-2">
+                        <i class="fa-solid fa-star text-olive"></i> 8 Major Committees (Grouped by Chairman)
+                    </h3>
+                    <span class="gold-badge text-xs px-2.5 py-1 rounded">Total: 8 Major + 13 Minor</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- J.L. Nehru -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="text-xs font-bold text-olive uppercase">Chairman (3 Committees)</span>
+                        <h4 class="font-extrabold text-base text-dark mb-3 quiz-item">Jawaharlal Nehru</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm font-semibold text-dark">
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">1. Union Powers Committee</li>
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">2. Union Constitution Committee</li>
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">3. States Committee</li>
+                        </ul>
+                        <p class="text-[11px] text-olive mt-2 font-medium">💡 Trick: Jahan bhi <strong>"Union"</strong> ya <strong>"States"</strong> aaye = J.L. Nehru!</p>
+                    </div>
+
+                    <!-- Dr. Rajendra Prasad -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="text-xs font-bold text-olive uppercase">Chairman (2 Committees)</span>
+                        <h4 class="font-extrabold text-base text-dark mb-3 quiz-item">Dr. Rajendra Prasad</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm font-semibold text-dark">
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">4. Rules of Procedure Committee</li>
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">5. Steering Committee</li>
+                        </ul>
+                        <p class="text-[11px] text-olive mt-2 font-medium">💡 Trick: Assembly ke President the, toh <strong>Rules</strong> banana aur <strong>Steering</strong> pakadna unhi ka kaam tha!</p>
+                    </div>
+
+                    <!-- Sardar Patel -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="text-xs font-bold text-olive uppercase">Chairman (2 Committees)</span>
+                        <h4 class="font-extrabold text-base text-dark mb-3 quiz-item">Sardar Vallabhbhai Patel</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm font-semibold text-dark">
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">6. Provincial Constitution Committee</li>
+                            <li class="p-2 rounded bg-gold/25 border border-olive/40">7. Advisory Committee on Fundamental Rights, Minorities, and Tribal & Excluded Areas</li>
+                        </ul>
+                        <p class="text-[11px] text-olive mt-2 font-medium">💡 Trick: <strong>Provinces</strong> ko jodna aur <strong>Fundamental Rights/Minorities</strong> = Patel ji!</p>
+                    </div>
+
+                    <!-- B.R. Ambedkar -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-dark text-cream">
+                        <span class="text-xs font-bold text-gold uppercase">Most Important Committee</span>
+                        <h4 class="font-extrabold text-base text-cream mb-3 quiz-item">Dr. B. R. Ambedkar</h4>
+                        <div class="p-3 rounded-lg bg-gold text-dark font-extrabold text-sm border border-cream">
+                            8. Drafting Committee (Praroop Samiti)
+                        </div>
+                        <p class="text-[11px] text-cream/80 mt-3 font-medium">
+                            💡 Set up on <strong>29th August 1947</strong> with 7 members to prepare the actual draft of the Constitution.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All 13 Minor Committees -->
+            <div>
+                <h3 class="text-lg font-extrabold text-dark mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-olive"></i> All 13 Minor Committees & Their Chairmen (Complete List)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>1.</strong> Finance and Staff Committee</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Dr. Rajendra Prasad</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>2.</strong> Ad-hoc Committee on National Flag</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Dr. Rajendra Prasad</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>3.</strong> Credentials Committee</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Alladi Krishnaswami Ayyar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>4.</strong> House Committee</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">B. Pattabhi Sitaramayya</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>5.</strong> Committee on Chief Commissioners' Provinces</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">B. Pattabhi Sitaramayya</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>6.</strong> Order of Business Committee</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Dr. K. M. Munshi</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>7.</strong> Committee on Functions of Constituent Assembly</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">G. V. Mavalankar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>8.</strong> Ad-hoc Committee on the Supreme Court</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">S. Varadachariar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>9.</strong> Ad-hoc Committee on Citizenship</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">S. Varadachariar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>10.</strong> Expert Committee on Financial Provisions</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Nalini Ranjan Sarkar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>11.</strong> Linguistic Provinces Commission</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">S. K. Dhar</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm">
+                        <span><strong>12.</strong> Special Committee to Examine Draft Constitution</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Jawaharlal Nehru</strong>
+                    </div>
+                    <div class="sub-card p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm md:col-span-2 lg:col-span-3">
+                        <span><strong>13.</strong> Press Gallery Committee</span>
+                        <strong class="gold-badge px-2 py-0.5 rounded shrink-0 ml-2 quiz-item">Usha Nath Sen</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: DRAFTING COMMITTEE & 3 READINGS
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 7 • Heart of Constitution Making</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Drafting Committee (29 Aug 1947) & The 3 Readings</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Drafting Committee Overview & Ambedkar Election Fact -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                        <span class="gold-badge text-xs px-3 py-1 rounded-full">Set up on: <strong class="quiz-item">29th August 1947</strong></span>
+                        <span class="dark-badge text-xs px-3 py-1 rounded-full">Total Members: <strong class="quiz-item">7</strong> (1 Chairman + 6 Others)</span>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-dark text-cream mb-4 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gold uppercase font-bold block">Chairman of Drafting Committee</span>
+                            <h3 class="text-lg font-extrabold quiz-item">Dr. B. R. Ambedkar</h3>
+                            <span class="text-xs text-cream/80">Also known as <strong class="text-gold quiz-item">"Modern Manu"</strong> or <strong>"Modern Man"</strong></span>
+                        </div>
+                        <i class="fa-solid fa-user-graduate text-3xl text-gold"></i>
+                    </div>
+
+                    <h4 class="font-extrabold text-sm text-dark mb-2">Other 6 Members of Drafting Committee:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+                        <div class="p-2.5 rounded bg-gold/20 border border-olive font-semibold">
+                            1. <span class="quiz-item">Alladi Krishnaswami Ayyar</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-gold/20 border border-olive font-semibold">
+                            2. <span class="quiz-item">N. Gopalaswami Ayyangar</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-gold/20 border border-olive font-semibold">
+                            3. <span class="quiz-item">Muhammad Saadullah</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-gold/20 border border-olive font-semibold">
+                            6. <span class="quiz-item">K. M. Munshi</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-cream border-2 border-dark sm:col-span-2">
+                            <strong>4. <span class="quiz-item">B. L. Mitter</span></strong> → Later replaced by <strong class="text-olive underline quiz-item">N. Madhava Rau</strong> (due to ill health).
+                        </div>
+                        <div class="p-2.5 rounded bg-cream border-2 border-dark sm:col-span-2">
+                            <strong>5. <span class="quiz-item">D. P. Khaitan</span></strong> → Later replaced by <strong class="text-olive underline quiz-item">T. T. Krishnamachari</strong> (after Khaitan's death in 1948).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Ambedkar Election + Draft Dates -->
+                <div class="lg:col-span-5 flex flex-col justify-between gap-4">
+                    <!-- Ambedkar Constituency Fact -->
+                    <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Super Important SSC Question</span>
+                        <h4 class="text-base font-bold text-gold mt-2">Dr. B. R. Ambedkar Kahan Se Chun Kar Aaye The?</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm mt-2">
+                            <li>• <strong>Before Partition (July 1946):</strong> Elected to the Constituent Assembly from <strong class="text-gold quiz-item">Bengal</strong> (Jessore-Khulna).</li>
+                            <li>• <strong>After Partition (1947):</strong> Jab wo hissa East Pakistan mein chala gaya, he was elected from <strong class="text-gold quiz-item">Bombay Presidency</strong> (Poona seat vacated by M.R. Jayakar).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Draft Publication Dates -->
+                    <div class="sub-card p-5 rounded-xl">
+                        <h4 class="font-extrabold text-sm text-dark uppercase tracking-wider border-b border-olive pb-1.5 mb-3">
+                            Draft of Constitutional Assembly
+                        </h4>
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div>
+                                <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">21 Feb 1948</span>
+                                <p class="mt-1 font-medium"><strong>First Draft was published.</strong> It took <strong>8 months</strong> for the people of India to discuss and suggest changes.</p>
+                            </div>
+                            <div>
+                                <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">4 November 1948</span>
+                                <p class="mt-1 font-medium"><strong>Dr. B. R. Ambedkar introduced the Final Draft</strong> before the Constituent Assembly / public.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Readings Timeline -->
+            <div class="sub-card p-5 rounded-xl bg-gold/15">
+                <h3 class="font-extrabold text-base text-dark mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-book-reader text-olive"></i> Three Readings of the Constitution in Constituent Assembly
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs sm:text-sm">
+                    <div class="bg-cream p-4 rounded-xl border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase">1st Reading</span>
+                        <strong class="text-lg font-extrabold text-dark block mt-0.5 quiz-item">5 Days</strong>
+                        <span class="text-xs font-semibold text-dark block mt-1">4th Nov 1948 – 9th Nov 1948</span>
+                        <p class="text-[11px] text-olive mt-1">General discussion on the final draft.</p>
+                    </div>
+                    <div class="bg-cream p-4 rounded-xl border-2 border-dark">
+                        <span class="text-xs font-bold text-olive uppercase">2nd Reading (Longest)</span>
+                        <strong class="text-lg font-extrabold text-dark block mt-0.5 quiz-item">10 Months & 3 Days</strong>
+                        <span class="text-xs font-semibold text-dark block mt-1">15th Nov 1948 – 17th Oct 1949</span>
+                        <p class="text-[11px] text-olive mt-1">Clause-by-clause discussion & thousands of amendments.</p>
+                    </div>
+                    <div class="bg-cream p-4 rounded-xl border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase">3rd Reading</span>
+                        <strong class="text-lg font-extrabold text-dark block mt-0.5 quiz-item">Completed: 26 Nov 1949</strong>
+                        <span class="text-xs font-semibold text-dark block mt-1">Started 14th Nov – 26th Nov 1949</span>
+                        <p class="text-[11px] text-olive mt-1">Motion to pass the Constitution was adopted on 26 Nov 1949.</p>
+                    </div>
+                    <div class="bg-dark text-cream p-4 rounded-xl border border-gold flex flex-col justify-center">
+                        <span class="text-xs font-bold text-gold uppercase">1st Day Attendance</span>
+                        <strong class="text-2xl font-extrabold text-cream block mt-0.5 quiz-item">211 Members</strong>
+                        <p class="text-xs text-cream/80 mt-1">Were present on the 1st day of the Constituent Assembly (9 Dec 1946).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 8: SESSIONS, ADOPTION (26 NOV) & ENFORCEMENT (26 JAN)
+             ========================================== -->
+        <section id="topic-8" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">08</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 8 • Sessions & Commencements</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Important Sessions, Adoption (26 Nov 1949) & Enforcement (26 Jan 1950)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="sub-card p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold uppercase text-olive">Total Sessions Held</span>
+                    <strong class="text-2xl font-extrabold text-dark block mt-1 quiz-item">11 Sessions (165 Days)</strong>
+                    <span class="text-xs text-olive">(11 sessions for 165 days to frame the Constitution)</span>
+                </div>
+                <div class="sub-card p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold uppercase text-olive">Total Time Taken</span>
+                    <strong class="text-2xl font-extrabold text-dark block mt-1 quiz-item">2 Yrs, 11 Mos, 18 Days</strong>
+                    <span class="text-xs text-olive">(9 Dec 1946 se 26 Nov 1949 tak)</span>
+                </div>
+                <div class="sub-card p-4 rounded-xl text-center">
+                    <span class="text-xs font-bold uppercase text-olive">Total Budget / Cost</span>
+                    <strong class="text-2xl font-extrabold text-dark block mt-1 quiz-item">₹64 Lakhs</strong>
+                    <span class="text-xs text-olive">(Total expenditure to frame the Constitution)</span>
+                </div>
+            </div>
+
+            <!-- Key Sessions & Adoption vs Enforcement -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Left: Key Sessions Dates -->
+                <div class="sub-card p-5 rounded-xl">
+                    <h3 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-3">
+                        <i class="fa-solid fa-calendar-days text-olive mr-1"></i> Important Sessions Dates to Remember
+                    </h3>
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="flex items-center justify-between p-2.5 rounded bg-gold/25 border border-olive">
+                            <span class="font-bold">1st Session:</span>
+                            <strong class="quiz-item">9th – 23rd December 1946</strong>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded bg-cream border border-olive">
+                            <span class="font-bold">10th Session:</span>
+                            <strong class="quiz-item">6th – 17th October 1949</strong>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded bg-gold/25 border border-olive">
+                            <span class="font-bold">11th Session (Last Session of Framing):</span>
+                            <strong class="quiz-item">14th – 26th November 1949</strong>
+                        </div>
+                    </div>
+
+                    <!-- Provisions imposed on 26 Nov 1949 -->
+                    <div class="mt-5 pt-4 border-t-2 border-olive">
+                        <h4 class="font-extrabold text-sm text-dark mb-2">
+                            ⚡ Some Provisions Imposed Immediately on <span class="underline">26th November 1949</span>:
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold">
+                            <div class="p-2.5 rounded bg-dark text-gold text-center quiz-item">
+                                Citizenship<br><span class="text-cream font-normal">(Articles 5 – 9)</span>
+                            </div>
+                            <div class="p-2.5 rounded bg-dark text-gold text-center quiz-item">
+                                Elections<br><span class="text-cream font-normal">(Articles 324 – 329)</span>
+                            </div>
+                            <div class="p-2.5 rounded bg-dark text-gold text-center quiz-item">
+                                Provisional Parliament
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 26 Nov 1949 vs 26 Jan 1950 -->
+                <div class="space-y-4">
+                    <div class="sub-card p-4 rounded-xl border-l-8 border-l-olive">
+                        <div class="flex items-center justify-between">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">ADOPTED ON</span>
+                            <span class="text-xs font-extrabold text-olive">Samvidhan Divas</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mt-1 quiz-item">26th November 1949</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            Constitution was <strong>adopted / enacted</strong> on this day. Celebrated every year as <strong>"Constitution Day"</strong> (Samvidhan Divas).
+                        </p>
+                    </div>
+
+                    <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs">ENFORCED / COMMENCED ON</span>
+                            <span class="text-xs font-extrabold text-gold">Republic Day</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-gold mt-1 quiz-item">26th January 1950</h4>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1">
+                            Constitution was fully <strong>enforced / commenced</strong> on this day. Celebrated as <strong>THE REPUBLIC DAY OF INDIA</strong>.
+                        </p>
+                        <div class="mt-3 p-2.5 rounded bg-olive/30 border border-gold text-xs">
+                            <strong class="text-gold">Why was 26th January chosen?</strong><br>
+                            Kyunki 20 saal pehle <strong>26th January 1930</strong> ko pehla <strong class="quiz-item">"Purna Swaraj Day"</strong> manaya gaya tha, following the historic <strong>Lahore Session of INC (December 1929)</strong>!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 9: FUNCTIONS & WORKING OF CONSTITUENT ASSEMBLY
+             ========================================== -->
+        <section id="topic-9" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">09</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 8 • Dual Role & Landmark Decisions</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Working & Functions of the Constituent Assembly</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Working of Constituent Assembly -->
+                <div class="sub-card p-5 rounded-xl">
+                    <h3 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear text-olive"></i> Working of Constituent Assembly (First Meeting)
+                    </h3>
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive flex items-center justify-between">
+                            <span><strong>1st Meeting Date:</strong></span>
+                            <strong class="quiz-item">9th December 1946 (211 Members)</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream border border-olive flex items-center justify-between">
+                            <span><strong>Temporary President:</strong> (Oldest member)</span>
+                            <strong class="quiz-item">Dr. Sachchidananda Sinha</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive flex items-center justify-between">
+                            <span><strong>Permanent President:</strong> (Elected 11 Dec 1946)</span>
+                            <strong class="quiz-item">Dr. Rajendra Prasad</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream border border-olive flex items-center justify-between">
+                            <span><strong>Vice President:</strong></span>
+                            <strong class="quiz-item">H. C. Mukherjee</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dual Functions as First Parliament -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">First Parliament of India</span>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-2">Dual Functions of Constituent Assembly</h3>
+                        <p class="text-xs text-cream/85 mt-1 mb-4">
+                            Azaadi ke baad Constituent Assembly ne <strong>'First Parliament of India' (Dominion Legislature)</strong> ke roop mein 2 kaam kiye:
+                        </p>
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="p-3 rounded-lg bg-olive/30 border border-gold">
+                                <strong class="text-gold block">1. As a Law-Making Body (To Legislate):</strong>
+                                Chaired by <strong class="underline quiz-item">G. V. Mavalankar</strong> (who also became the 1st Speaker of Lok Sabha).
+                            </div>
+                            <div class="p-3 rounded-lg bg-olive/30 border border-gold">
+                                <strong class="text-gold block">2. As a Constitution-Making Body:</strong>
+                                Chaired by <strong class="underline quiz-item">Dr. Rajendra Prasad</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gold font-medium mt-3">
+                        🧠 <strong>Yaad Rakhein:</strong> Jab Constitution banane ke liye baithti thi toh adhyaksh <strong>Rajendra Prasad</strong> hote the, aur jab aam kanoon (Law) banane ke liye baithti thi toh adhyaksh <strong>G.V. Mavalankar</strong> hote the!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Other Landmark Adoptions by Constituent Assembly -->
+            <div class="sub-card p-5 rounded-xl">
+                <h3 class="font-extrabold text-base text-dark mb-3">
+                    <i class="fa-solid fa-flag text-olive mr-1"></i> Other Historical Adoptions by the Constituent Assembly
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+                    <div class="p-3.5 rounded-lg bg-gold/25 border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase block">National Flag Adopted</span>
+                        <strong class="text-base font-extrabold text-dark block mt-0.5 quiz-item">22nd July 1947</strong>
+                        <span class="text-xs text-dark">Tiranga ko National Flag apnaya gaya.</span>
+                    </div>
+                    <div class="p-3.5 rounded-lg bg-cream border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase block">Commonwealth Membership</span>
+                        <strong class="text-base font-extrabold text-dark block mt-0.5 quiz-item">May 1949</strong>
+                        <span class="text-xs text-dark">Ratified India's membership of Commonwealth.</span>
+                    </div>
+                    <div class="p-3.5 rounded-lg bg-gold/25 border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase block">National Anthem & Song</span>
+                        <strong class="text-base font-extrabold text-dark block mt-0.5 quiz-item">24th January 1950</strong>
+                        <span class="text-xs text-dark">
+                            • Anthem: <strong>"Jana Gana Mana"</strong> (<span class="quiz-item">Rabindranath Tagore</span>)<br>
+                            • Song: <strong>"Vande Mataram"</strong> (<span class="quiz-item">Bankim Chandra Chatterjee</span>)
+                        </span>
+                    </div>
+                    <div class="p-3.5 rounded-lg bg-cream border border-olive">
+                        <span class="text-xs font-bold text-olive uppercase block">1st President of India</span>
+                        <strong class="text-base font-extrabold text-dark block mt-0.5 quiz-item">Dr. Rajendra Prasad</strong>
+                        <span class="text-xs text-dark">Elected as 1st President of India (took office on <strong>26 Jan 1950</strong>).</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 10: SIGNIFICANT FACTS & FEMALE MEMBERS
+             ========================================== -->
+        <section id="topic-10" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">10</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 9 • Final Exam Boosters</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Significant Facts, Calligraphers & Important Female Members</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left 7 cols: Significant Facts -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl">
+                    <h3 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-4">
+                        <i class="fa-solid fa-bolt text-olive mr-1"></i> Significant Facts to Know (Direct One-Liners)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs text-olive font-bold block">Legal / Constitutional Advisor</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">B. N. Rau</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs text-olive font-bold block">Chief Draftsman</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">S. N. Mukherjee</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream border border-olive">
+                            <span class="text-xs text-olive font-bold block">Secretary of Constituent Assembly</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">H. V. R. Iyengar</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream border border-olive">
+                            <span class="text-xs text-olive font-bold block">Members Who Signed Constitution</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">284 Members</strong>
+                            <span class="text-xs text-olive block">(Including <strong class="quiz-item">15 Female Members</strong>)</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs text-olive font-bold block">Symbol (Seal) of Constituent Assembly</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">🐘 Elephant</strong>
+                            <span class="text-xs text-olive block">(Largest written Constitution)</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs text-olive font-bold block">Original Language of Constitution</span>
+                            <strong class="text-base font-extrabold text-dark quiz-item">English</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-dark text-cream sm:col-span-2 border border-gold">
+                            <span class="text-xs text-gold font-bold uppercase block mb-1">✍️ Constitution Calligraphers (Hath se sundar likhne wale):</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                                <div>• <strong>English Calligrapher:</strong> <span class="text-gold font-bold quiz-item">Prem Behari Narain Raizada</span></div>
+                                <div>• <strong>Hindi Calligrapher:</strong> <span class="text-gold font-bold quiz-item">Vasant Krishna Vaidya</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 5 cols: Important Female Members -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">Total 15 Women</span>
+                            <i class="fa-solid fa-venus text-gold text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-gold mb-2">Important Female Members of Constituent Assembly</h3>
+                        <p class="text-xs text-cream/80 mb-4">
+                            Constituent Assembly mein kul <strong>15 mahila sadasya</strong> thi. Exam ke liye yeh 3 naam sabse zyada important hain:
+                        </p>
+
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="p-3.5 rounded-lg bg-cream text-dark border-l-4 border-gold">
+                                <strong class="text-base font-extrabold block quiz-item">1. Rajkumari Amrit Kaur</strong>
+                                <span class="text-olive font-bold">👉 1st Health Minister of Independent India</span>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-cream text-dark border-l-4 border-gold">
+                                <strong class="text-base font-extrabold block quiz-item">2. Sucheta Kripalani</strong>
+                                <span class="text-olive font-bold">👉 1st Female Chief Minister of Uttar Pradesh (and India)</span>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-cream text-dark border-l-4 border-gold">
+                                <strong class="text-base font-extrabold block quiz-item">3. Sarojini Naidu</strong>
+                                <span class="text-olive font-bold">👉 1st Female Governor of Uttar Pradesh (and India)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (5 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "TOPICS AT A GLANCE" BUTTON -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or table row to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Making of Constitution Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test Mode: ON (Click blurred text)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test Mode: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Filter Interim Government Ministers by Party
+        function filterMinisters(party) {
+            const rows = document.querySelectorAll('.minister-row');
+            ['ALL', 'INC', 'ML'].forEach(p => {
+                const btn = document.getElementById('btn-' + p);
+                if (p === party) {
+                    btn.className = 'px-3 py-1 rounded bg-dark text-gold border border-dark';
+                } else {
+                    btn.className = 'px-3 py-1 rounded bg-cream text-dark border border-olive hover:bg-gold';
+                }
+            });
+
+            rows.forEach(row => {
+                if (party === 'ALL' || row.getAttribute('data-party') === party) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 5. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 6. Interactive Quiz Questions
+        const quizData = [
+            {
+                q: "1. Who first proposed the idea of a Constituent Assembly for India in 1934?",
+                options: ["Motilal Nehru", "M. N. Roy", "Jawaharlal Nehru", "Dr. B. R. Ambedkar"],
+                answer: 1,
+                exp: "M. N. Roy ne 1934 mein sabse pehle Constituent Assembly ka vichar diya tha."
+            },
+            {
+                q: "2. How many seats were allotted to the Princely States in the Cabinet Mission Plan?",
+                options: ["292 seats", "296 seats", "93 seats", "299 seats"],
+                answer: 2,
+                exp: "Total 389 seats mein se 93 Nominated seats Princely States ko di gayi thi."
+            },
+            {
+                q: "3. Who held the Finance portfolio in the Interim Government of 1946?",
+                options: ["John Mathai", "Liaquat Ali Khan", "Jagjivan Ram", "I. I. Chundrigar"],
+                answer: 1,
+                exp: "Interim Government (1946) mein Finance Minister Muslim League ke Liaquat Ali Khan the."
+            },
+            {
+                q: "4. Who replaced D. P. Khaitan in the Drafting Committee after his death?",
+                options: ["N. Madhava Rau", "T. T. Krishnamachari", "K. M. Munshi", "S. N. Mukherjee"],
+                answer: 1,
+                exp: "B.L. Mitter ko N. Madhava Rau ne aur D.P. Khaitan ko T.T. Krishnamachari ne replace kiya tha."
+            },
+            {
+                q: "5. Who was the Legal / Constitutional Advisor to the Constituent Assembly?",
+                options: ["B. N. Rau", "S. N. Mukherjee", "H. V. R. Iyengar", "G. V. Mavalankar"],
+                answer: 0,
+                exp: "B. N. Rau Legal/Constitutional Advisor the, jabki S. N. Mukherjee Chief Draftsman the."
+            },
+            {
+                q: "6. Who was the calligrapher of the Hindi version of the Original Constitution?",
+                options: ["Prem Behari Narain Raizada", "Vasant Krishna Vaidya", "Nandalal Bose", "Usha Nath Sen"],
+                answer: 1,
+                exp: "English Calligrapher Prem Behari Narain Raizada the aur Hindi Calligrapher Vasant Krishna Vaidya the."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 7. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'indian_polity_making_constitution_custom_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items & table rows
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main table tbody tr',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                // Avoid nesting inside quiz container
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards (not inside table rows to keep tables clean)
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    // Ignore if user clicked inside an already rendered student note or button
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            // Automatically turn off click-note mode after adding so user can read comfortably
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            // Remove existing inline rendered notes
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+
+            // Update count badge
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                // If target is a table row (TR), insert a companion row right below it
+                if (targetEl.tagName === 'TR') {
+                    const trWrapper = document.createElement('tr');
+                    trWrapper.className = 'student-custom-note-wrapper bg-gold/10';
+                    const td = document.createElement('td');
+                    td.colSpan = targetEl.children.length || 5;
+                    td.className = 'px-4 py-1';
+                    td.innerHTML = noteHtml;
+                    trWrapper.appendChild(td);
+                    targetEl.insertAdjacentElement('afterend', trWrapper);
+                } else {
+                    const divWrapper = document.createElement('div');
+                    divWrapper.className = 'student-custom-note-wrapper';
+                    divWrapper.innerHTML = noteHtml;
+                    targetEl.appendChild(divWrapper);
+                }
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n, i) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - MAKING OF INDIAN CONSTITUTION\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Making_of_Constitution_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>

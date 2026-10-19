@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   BookOpen,
   Calculator,
@@ -31,7 +32,11 @@ import {
   Volume2,
   Percent,
   Triangle,
-  ShieldCheck
+  ShieldCheck,
+  Maximize2,
+  Minimize2,
+  ExternalLink,
+  X
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
@@ -372,9 +377,34 @@ interface GaTopic {
   badge: string;
   keyPoints: { label: string; detail: string }[];
   summaryNote: string;
+  htmlFile?: string;
+  chapterTag?: string;
+  isInteractiveMasterChapter?: boolean;
 }
 
 const GA_TOPICS: GaTopic[] = [
+  {
+    id: 'ga-polity-making-constitution',
+    subject: 'Polity',
+    title: 'Making of Indian Constitution',
+    badge: 'Chapter 01 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/making_of_indian_constitution.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Basics & Forms of Govt', detail: 'Tradition started in USA (1787). Partly rigid & partly flexible. Communist (State owns means of production), Monarchic (King), Totalitarian (North Korea), Oligarchic (Rule of few).' },
+      { label: '02. Early Demand (1928-1935)', detail: '1928: Nehru Report (Motilal Nehru at Lucknow). 1934: M.N. Roy proposed idea of Constituent Assembly. 1935: INC officially demanded Constituent Assembly.' },
+      { label: '03. British Offers Rejected', detail: 'August Offer (1940, Linlithgow), Cripps Proposal (1942), Wavell Plan (1945). All offered Dominion Status, rejected for Purna Swaraj ("Dominion status is dead as a door nail" - Nehru).' },
+      { label: '04. Cabinet Mission & 389 Seats', detail: 'Accepted 1946 Plan (Pethick-Lawrence, Stafford Cripps, A.V. Alexander). 389 Seats (292 Provinces + 4 Chief Commissioners ABCD + 93 Princely States). 1 Seat per 10 Lakh. INC won 208, ML 73.' },
+      { label: '05. Interim Govt (2 Sept 1946)', detail: 'All 13 Portfolios: Nehru (Ext. Affairs), Patel (Home/IB), Rajendra Prasad (Food/Agri), Liaquat Ali Khan (Finance), Baldev Singh (Defence), Jagjivan Ram (Labour).' },
+      { label: '06. Objective Resolution & Committees', detail: 'Moved 13 Dec 1946 by Nehru, accepted 22 Jan 1947 (became Preamble). 8 Major Committees (Union/States = Nehru, Steering/Rules = Prasad, Provinces/FR = Patel).' },
+      { label: '07. Drafting Committee (29 Aug 1947)', detail: '7 Members chaired by Dr. B.R. Ambedkar ("Modern Manu"). Mitter replaced by Madhava Rau, Khaitan replaced by Krishnamachari. Ambedkar elected from Bengal then Bombay.' },
+      { label: '08. Sessions & Commencements', detail: '11 Sessions (165 Days), 2 Yrs 11 Mos 18 Days, ₹64 Lakhs. Adopted 26 Nov 1949 (Constitution Day). Enforced 26 Jan 1950 (Republic Day, 20 yrs after 1930 Purna Swaraj Day).' },
+      { label: '09. Working & Dual Role of Assembly', detail: '1st meeting 9 Dec 1946 (Sinha temp, Prasad permanent). Dual Role: Constitution Making (Rajendra Prasad) vs Law Making (G.V. Mavalankar, 1st Speaker of Lok Sabha).' },
+      { label: '10. Significant Facts & 15 Women', detail: 'B.N. Rau (Legal Advisor), S.N. Mukherjee (Chief Draftsman), Raizada (English Calligraphy), Vaidya (Hindi Calligraphy), 284 Signers including 15 Women (Amrit Kaur, Sucheta Kripalani, Sarojini Naidu).' }
+    ],
+    summaryNote: 'Trick for 4 Chief Commissioner Provinces: "ABCD" (Ajmer-Marwar, Baluchistan, Coorg, Delhi). After Partition, seats reduced from 389 to 299.'
+  },
   {
     id: 'ga1',
     subject: 'Polity',
@@ -681,7 +711,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   // -------------------------------------------------------------
   const [gaSearch, setGaSearch] = useState('');
   const [gaSubject, setGaSubject] = useState<string>('All');
-  const [expandedGaId, setExpandedGaId] = useState<string | null>('ga1');
+  const [expandedGaId, setExpandedGaId] = useState<string | null>('ga-polity-making-constitution');
+  const [interactiveGaModal, setInteractiveGaModal] = useState<{ url: string; title: string } | null>(null);
 
   const filteredGaTopics = useMemo(() => {
     return GA_TOPICS.filter(item => {
@@ -1801,11 +1832,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   className="rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 overflow-hidden shadow-xs transition-all"
                 >
                   {/* Topic Header Toggle */}
-                  <button
-                    type="button"
+                  <div
                     onClick={() => {
                       soundManager.playClick();
                       setExpandedGaId(isExpanded ? null : topic.id);
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        soundManager.playClick();
+                        setExpandedGaId(isExpanded ? null : topic.id);
+                      }
                     }}
                     className="w-full p-5 sm:p-6 flex items-center justify-between text-left hover:bg-slate-50/50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors"
                   >
@@ -1814,13 +1853,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         <Compass className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-300">
                             {topic.subject}
                           </span>
                           <span className="text-[10px] font-mono text-slate-400">
                             {topic.badge}
                           </span>
+                          {topic.htmlFile && (
+                            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                              ⚡ Interactive Masterclass
+                            </span>
+                          )}
                         </div>
                         <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">
                           {topic.title}
@@ -1828,14 +1872,70 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </div>
                     </div>
 
-                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                      isExpanded ? 'rotate-180' : 'rotate-0'
-                    }`} />
-                  </button>
+                    <div className="flex items-center gap-2">
+                      {topic.htmlFile && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            soundManager.playClick();
+                            setInteractiveGaModal({ url: topic.htmlFile!, title: topic.title });
+                          }}
+                          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>Open Master Notes</span>
+                        </button>
+                      )}
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
+                        isExpanded ? 'rotate-180' : 'rotate-0'
+                      }`} />
+                    </div>
+                  </div>
 
                   {/* Expanded Capsule Details */}
                   {isExpanded && (
                     <div className="p-5 sm:p-6 pt-0 border-t border-slate-100 dark:border-white/10 space-y-4 animate-fade-in">
+                      {/* Masterclass Banner for interactive HTML capsule */}
+                      {topic.htmlFile && (
+                        <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-purple-900/30 via-indigo-900/20 to-purple-900/30 border border-purple-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-slate-950 uppercase tracking-wider">
+                                Interactive Master Chapter
+                              </span>
+                              <span className="text-xs text-purple-600 dark:text-purple-300 font-medium">10 Modules • PYQ Quiz • Self-Test Mode</span>
+                            </div>
+                            <p className="text-xs text-slate-600 dark:text-slate-300">
+                              Complete high-yield Hinglish notes with interactive self-testing, PYQ practice quiz, and student note taking.
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 w-full sm:w-auto">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                soundManager.playClick();
+                                setInteractiveGaModal({ url: topic.htmlFile!, title: topic.title });
+                              }}
+                              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all cursor-pointer shrink-0"
+                            >
+                              <BookOpen className="w-4 h-4" />
+                              <span>Launch Master Notes</span>
+                            </button>
+                            <a
+                              href={topic.htmlFile}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0"
+                              title="Open in new tab"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              <span className="hidden sm:inline">New Tab</span>
+                            </a>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
                         {topic.keyPoints.map((kp, idx) => (
                           <div
@@ -1863,6 +1963,62 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             })}
           </div>
         </div>
+      )}
+
+      {/* Interactive GA Document Fullscreen Modal */}
+      {interactiveGaModal && createPortal(
+        <div className="fixed inset-0 z-[9999] flex flex-col bg-slate-950/95 backdrop-blur-md animate-fade-in">
+          {/* Header Bar */}
+          <div className="h-14 px-4 sm:px-6 bg-slate-900/90 border-b border-white/10 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                <BookOpen className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                  {interactiveGaModal.title}
+                </h3>
+                <span className="text-[11px] text-purple-300 font-medium hidden sm:inline">
+                  Interactive Study Capsule • Complete Hinglish Notes
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href={interactiveGaModal.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-medium transition-colors"
+                title="Open in new tab"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">New Tab</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setInteractiveGaModal(null);
+                }}
+                className="p-1.5 rounded-lg bg-white/10 hover:bg-red-500/20 text-slate-300 hover:text-red-400 transition-colors cursor-pointer"
+                aria-label="Close reader"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Iframe Viewport */}
+          <div className="flex-1 w-full h-full relative bg-[#FAEED9]">
+            <iframe
+              src={interactiveGaModal.url}
+              title={interactiveGaModal.title}
+              className="w-full h-full border-none"
+            />
+          </div>
+        </div>,
+        document.body
       )}
 
     </div>
