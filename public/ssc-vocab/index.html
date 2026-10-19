@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="vendor/lucide.min.js"></script>
   
   <style>
     :root {
@@ -672,6 +672,14 @@
         frame.src = 'about:blank';
         mobileTitle.textContent = "Dashboard";
       } else {
+        // If embedded in parent app, instruct parent to switch tab natively
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'SELECT_SSC_MODULE', target: target }, '*');
+            return;
+          }
+        } catch (e) {}
+
         welcomeScreen.style.display = 'none';
         
         // Show loader
