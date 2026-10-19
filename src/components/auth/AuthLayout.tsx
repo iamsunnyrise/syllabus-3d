@@ -1,13 +1,34 @@
 import React from 'react';
 import { X, Sparkles } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
+import { useAuth } from '../../context/AuthContext';
+import { AuthViewMode } from '../../types/auth';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
   onBackToLanding?: () => void;
+  authView?: AuthViewMode;
 }
 
-export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLanding }) => {
+export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLanding, authView: propAuthView }) => {
+  const { authView: contextAuthView } = useAuth();
+  const currentAuthView = propAuthView || contextAuthView;
+  const isSignup = currentAuthView === 'signup';
+  const isForgotPassword = currentAuthView === 'forgot_password';
+
+  // Dynamic Headline & Short Subtitle for Syllabus 3D
+  const headline = isSignup 
+    ? 'Welcome, aspirant.' 
+    : isForgotPassword 
+      ? 'Account recovery' 
+      : 'Welcome back, aspirant.';
+
+  const subtitle = isSignup
+    ? 'Start tracking your syllabus in 3D and master every topic.'
+    : isForgotPassword
+      ? 'Reset your password and get back to your study tracker.'
+      : 'Continue tracking your syllabus in 3D and master every topic.';
+
   // Interactive 3D Parallax & Spotlight state
   const [tilt, setTilt] = React.useState({ x: 0, y: 0, active: false });
   const [spotlight, setSpotlight] = React.useState({ x: 50, y: 50 });
@@ -114,12 +135,12 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, onBackToLandin
         </div>
 
         {/* Bottom Left: Aspirant Headline & Subtitle */}
-        <div className="relative z-10 space-y-2">
+        <div className="relative z-10 space-y-2 transition-all duration-300">
           <h2 className="text-2xl xl:text-3xl font-black text-white tracking-tight leading-tight">
-            Welcome back, aspirant.
+            {headline}
           </h2>
           <p className="text-xs xl:text-sm text-slate-400 max-w-md leading-relaxed font-medium">
-            Practice on the real SSC exam interface, review every attempt, and climb the rank list.
+            {subtitle}
           </p>
         </div>
 

@@ -791,7 +791,7 @@ export const App: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <AuthLayout onBackToLanding={() => setCurrentView('landing')}>
+      <AuthLayout onBackToLanding={() => setCurrentView('landing')} authView={authView}>
         {authView === 'login' && <LoginView />}
         {authView === 'signup' && <SignUpView />}
         {authView === 'forgot_password' && <ForgotPasswordView />}
