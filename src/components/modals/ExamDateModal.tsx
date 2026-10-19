@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Calendar, ArrowLeft, Pencil, Target } from 'lucide-react';
+import { X, Calendar, ArrowLeft, Pencil, Target, Clock, Timer, AlarmClock } from 'lucide-react';
 import { EditExamTargetModal } from './EditExamTargetModal';
 import { useSyllabus } from '../../context/SyllabusContext';
 import { soundManager } from '../../utils/soundEffects';
@@ -93,12 +93,60 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
     }
   }, [currentExam?.examDate]);
 
-  // 4 Clean Countdown Cards
-  const cards = useMemo(() => [
-    { label: 'DAYS', value: timeLeft.days, isPrimary: true },
-    { label: 'HOURS', value: timeLeft.hours, isPrimary: false },
-    { label: 'MINS', value: timeLeft.minutes, isPrimary: false },
-    { label: 'SECS', value: timeLeft.seconds, isPrimary: false }
+  // 4 Iconic 3D Wave Countdown Cards matching Picture 2
+  const countdownCards = useMemo(() => [
+    {
+      label: 'DAYS',
+      value: timeLeft.days,
+      headerGradient: 'bg-gradient-to-r from-[#FF8C38] via-[#FF7A1A] to-[#FF5E00]',
+      cardBorder: 'border-2 border-[#FF7A1A]/70 dark:border-[#FF7A1A]/50',
+      cardShadow: 'shadow-[0_20px_45px_rgba(255,107,0,0.22)] hover:shadow-[0_24px_55px_rgba(255,107,0,0.32)]',
+      badgeBg: 'bg-gradient-to-br from-[#FFA048] via-[#FF7A1A] to-[#EA580C]',
+      badgeBorder: 'border-2 border-white/95 dark:border-white/80',
+      badgeShadow: 'shadow-md shadow-orange-600/50',
+      labelColor: 'text-[#FF6200]',
+      dashColor: 'bg-[#FF6200]',
+      icon: <Calendar className="w-5 sm:w-6 h-5 sm:h-6 text-white stroke-[2.3]" />
+    },
+    {
+      label: 'HOURS',
+      value: timeLeft.hours,
+      headerGradient: 'bg-gradient-to-r from-[#5CB8FF] via-[#38A5FF] to-[#1E90FF]',
+      cardBorder: 'border-2 border-[#38A5FF]/70 dark:border-[#38A5FF]/50',
+      cardShadow: 'shadow-[0_20px_45px_rgba(13,132,255,0.20)] hover:shadow-[0_24px_55px_rgba(13,132,255,0.30)]',
+      badgeBg: 'bg-gradient-to-br from-[#5CB8FF] via-[#2B9BFF] to-[#0D84FF]',
+      badgeBorder: 'border-2 border-white/95 dark:border-white/80',
+      badgeShadow: 'shadow-md shadow-blue-600/50',
+      labelColor: 'text-[#0D84FF]',
+      dashColor: 'bg-[#0D84FF]',
+      icon: <Clock className="w-5 sm:w-6 h-5 sm:h-6 text-white stroke-[2.3]" />
+    },
+    {
+      label: 'MINS',
+      value: timeLeft.minutes,
+      headerGradient: 'bg-gradient-to-r from-[#3CD5A0] via-[#1DC990] to-[#0CB980]',
+      cardBorder: 'border-2 border-[#1DC990]/70 dark:border-[#1DC990]/50',
+      cardShadow: 'shadow-[0_20px_45px_rgba(12,185,128,0.20)] hover:shadow-[0_24px_55px_rgba(12,185,128,0.30)]',
+      badgeBg: 'bg-gradient-to-br from-[#3CD5A0] via-[#18B880] to-[#0B9B6A]',
+      badgeBorder: 'border-2 border-white/95 dark:border-white/80',
+      badgeShadow: 'shadow-md shadow-emerald-600/50',
+      labelColor: 'text-[#0CB980]',
+      dashColor: 'bg-[#0CB980]',
+      icon: <Timer className="w-5 sm:w-6 h-5 sm:h-6 text-white stroke-[2.3]" />
+    },
+    {
+      label: 'SECS',
+      value: timeLeft.seconds,
+      headerGradient: 'bg-gradient-to-r from-[#B088FF] via-[#9055FF] to-[#7C3AED]',
+      cardBorder: 'border-2 border-[#9055FF]/70 dark:border-[#9055FF]/50',
+      cardShadow: 'shadow-[0_20px_45px_rgba(139,92,246,0.22)] hover:shadow-[0_24px_55px_rgba(139,92,246,0.32)]',
+      badgeBg: 'bg-gradient-to-br from-[#B088FF] via-[#8B5CF6] to-[#6D28D9]',
+      badgeBorder: 'border-2 border-white/95 dark:border-white/80',
+      badgeShadow: 'shadow-md shadow-purple-600/50',
+      labelColor: 'text-[#8B5CF6]',
+      dashColor: 'bg-[#8B5CF6]',
+      icon: <AlarmClock className="w-5 sm:w-6 h-5 sm:h-6 text-white stroke-[2.3]" />
+    }
   ], [timeLeft]);
 
   // Close on Escape key press
@@ -123,12 +171,13 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
   const examName = currentExam?.name || 'Target Exam';
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] w-screen h-screen min-h-screen bg-[#F8FAFC] dark:bg-[#090A12] text-slate-900 dark:text-white flex flex-col overflow-y-auto animate-fade-in select-none">
-      {/* 🌟 Atmospheric Golden Background Lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#F59E0B]/12 via-transparent to-transparent rounded-full blur-[140px] pointer-events-none" />
+    <div className="fixed inset-0 z-[100] w-screen h-screen min-h-screen text-slate-900 dark:text-white flex flex-col overflow-y-auto animate-fade-in select-none exam-date-modal-bg bg-[#FAF0DC] dark:bg-[#090A12]">
+      {/* 🌟 Atmospheric Golden Background Lighting & Soft Desk Vignette */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FFFDF8]/70 via-[#FFF8EB]/50 to-[#FFF2DC]/75 dark:from-[#090A12]/85 dark:via-[#090A12]/80 dark:to-[#090A12]/92 backdrop-blur-[1px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[750px] h-[380px] bg-gradient-to-b from-[#F59E0B]/18 via-[#F59E0B]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       {/* 🌟 Top Navigation Bar */}
-      <header className="relative z-10 w-full px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] bg-white/80 dark:bg-[#090A12]/80 backdrop-blur-md shrink-0">
+      <header className="relative z-20 w-full px-4 sm:px-8 py-3.5 sm:py-4 flex items-center justify-between border-b border-slate-200/60 dark:border-white/[0.08] bg-white/75 dark:bg-[#090A12]/75 backdrop-blur-md shrink-0">
         
         {/* Left: Back button */}
         <button
@@ -137,15 +186,15 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
             soundManager.playClick();
             onClose();
           }}
-          className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-white/10 transition-all cursor-pointer shadow-2xs active:scale-95"
+          className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-white/90 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-amber-600 dark:text-amber-400" />
           <span>Back</span>
         </button>
 
         {/* Center: Exam Target Name */}
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/25 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25 flex items-center justify-center shrink-0">
             <Target className="w-4 h-4 stroke-[2.5]" />
           </div>
           <h1 className="text-base sm:text-xl font-black tracking-tight uppercase text-slate-900 dark:text-white truncate">
@@ -161,10 +210,10 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
               soundManager.playClick();
               setIsEditModalOpen(true);
             }}
-            className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/25 text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-400/35 text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
             title="Change Target Exam Date"
           >
-            <Calendar className="w-4 h-4 text-amber-500" />
+            <Calendar className="w-4 h-4 text-[#EA580C]" />
             <span className="hidden sm:inline">Edit Target Date</span>
             <span className="sm:hidden">Edit</span>
           </button>
@@ -175,7 +224,7 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
               soundManager.playClick();
               onClose();
             }}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -184,51 +233,82 @@ export const ExamDateModal: React.FC<ExamDateModalProps> = ({ isOpen, onClose })
       </header>
 
       {/* 🎯 Main Full-Screen Center Area */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-14 max-w-5xl mx-auto w-full">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-12 max-w-5xl mx-auto w-full">
         
-        {/* Interactive Target Exam Date Badge */}
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            setIsEditModalOpen(true);
-          }}
-          title="Click to edit target exam date"
-          className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white dark:bg-white/[0.04] hover:bg-slate-50 dark:hover:bg-white/[0.08] border border-slate-200/90 dark:border-white/10 text-slate-800 dark:text-slate-100 text-sm sm:text-base font-bold transition-all cursor-pointer shadow-xs active:scale-95 mb-8 sm:mb-12 group"
-        >
-          <Calendar className="w-4 sm:w-5 h-4 sm:h-5 text-amber-500 group-hover:scale-110 transition-transform" />
-          <span>Exam Date: <strong className="text-amber-600 dark:text-amber-400 font-black">{formattedDate}</strong></span>
-          <Pencil className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 ml-1 transition-colors" />
-        </button>
+        {/* Top Exam Date Capsule with Tapered Decorative Gold Whiskers */}
+        <div className="flex items-center justify-center gap-3 sm:gap-5 w-full mb-8 sm:mb-12">
+          {/* Left decorative whisker */}
+          <div className="hidden sm:block w-16 md:w-28 h-0.5 bg-gradient-to-r from-transparent via-[#F59E0B]/50 to-[#EA580C] rounded-full" />
 
-        {/* 4 HUGE Countdown Digit Cards (Edge-to-Edge Responsive Grid) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-6 w-full max-w-4xl">
-          {cards.map(c => (
+          {/* Interactive Target Exam Date Badge */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsEditModalOpen(true);
+            }}
+            title="Click to edit target exam date"
+            className="group inline-flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-white/95 dark:bg-[#121526]/95 hover:bg-white dark:hover:bg-[#181C30] border-2 border-amber-300/80 dark:border-amber-400/40 text-slate-800 dark:text-slate-100 text-sm sm:text-base font-bold transition-all cursor-pointer shadow-[0_8px_24px_rgba(234,88,12,0.12)] hover:shadow-[0_10px_30px_rgba(234,88,12,0.22)] active:scale-95"
+          >
+            <Calendar className="w-5 h-5 text-[#EA580C] group-hover:scale-110 transition-transform stroke-[2.3]" />
+            <span>Exam Date: <strong className="text-[#EA580C] font-black">{formattedDate}</strong></span>
+            <Pencil className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#EA580C] ml-1 transition-colors" />
+          </button>
+
+          {/* Right decorative whisker */}
+          <div className="hidden sm:block w-16 md:w-28 h-0.5 bg-gradient-to-l from-transparent via-[#F59E0B]/50 to-[#EA580C] rounded-full" />
+        </div>
+
+        {/* 4 ICONIC 3D WAVE COUNTDOWN CARDS */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl">
+          {countdownCards.map(c => (
             <div
               key={c.label}
-              className={`py-8 sm:py-12 md:py-14 px-3 sm:px-6 rounded-2xl sm:rounded-3xl border text-center flex flex-col items-center justify-center transition-all select-none shadow-md ${
-                c.isPrimary
-                  ? 'bg-amber-500/[0.08] dark:bg-amber-500/[0.12] border-amber-400/60 dark:border-amber-500/40 shadow-amber-500/10'
-                  : 'bg-white dark:bg-white/[0.03] border-slate-200/90 dark:border-white/[0.08]'
-              }`}
+              className={`group/card relative rounded-[26px] sm:rounded-[34px] bg-white dark:bg-[#121526] ${c.cardBorder} ${c.cardShadow} overflow-hidden transition-all duration-300 hover:-translate-y-1.5 select-none flex flex-col items-center pb-6 sm:pb-8`}
             >
-              {/* Massive Bold Digit Display */}
-              <span className={`text-5xl sm:text-7xl md:text-8xl font-black font-sans tabular-nums tracking-tight leading-none ${
-                c.isPrimary
-                  ? 'text-amber-600 dark:text-amber-400 drop-shadow-[0_2px_12px_rgba(245,158,11,0.25)]'
-                  : 'text-slate-900 dark:text-white'
-              }`}>
-                {String(c.value).padStart(2, '0')}
-              </span>
+              {/* Top Curved Wave Header Banner */}
+              <div className={`relative w-full h-18 sm:h-22 ${c.headerGradient} overflow-hidden flex items-center justify-center`}>
+                {/* Subtle translucent wave layer */}
+                <svg
+                  viewBox="0 0 400 120"
+                  preserveAspectRatio="none"
+                  className="absolute bottom-0 left-0 w-full h-10 sm:h-12 text-white/25 pointer-events-none"
+                  fill="currentColor"
+                >
+                  <path d="M0,40 C140,80 260,10 400,55 L400,120 L0,120 Z" />
+                </svg>
+                {/* Main wave cutting to card body */}
+                <svg
+                  viewBox="0 0 400 120"
+                  preserveAspectRatio="none"
+                  className="absolute -bottom-0.5 left-0 w-full h-8 sm:h-10 text-white dark:text-[#121526] pointer-events-none"
+                  fill="currentColor"
+                >
+                  <path d="M0,50 C120,20 280,75 400,45 L400,120 L0,120 Z" />
+                </svg>
 
-              {/* Clean Uppercase Unit Label */}
-              <span className={`text-xs sm:text-sm md:text-base font-black uppercase tracking-widest mt-3 sm:mt-4 ${
-                c.isPrimary
-                  ? 'text-amber-700 dark:text-amber-400'
-                  : 'text-slate-400 dark:text-slate-500'
-              }`}>
-                {c.label}
-              </span>
+                {/* Overlapping Round Emblem Icon Badge */}
+                <div className={`relative z-10 w-11 h-11 sm:w-13 sm:h-13 rounded-full ${c.badgeBg} ${c.badgeBorder} shadow-lg ${c.badgeShadow} flex items-center justify-center transition-transform duration-300 group-hover/card:scale-110`}>
+                  {c.icon}
+                </div>
+              </div>
+
+              {/* Big Bold Digits */}
+              <div className="relative z-10 px-2 mt-2 sm:mt-4 flex items-center justify-center">
+                <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-sans tabular-nums tracking-tight leading-none text-[#0B1528] dark:text-white">
+                  {c.value < 10 ? `0${c.value}` : c.value}
+                </span>
+              </div>
+
+              {/* Colored Unit Label */}
+              <div className="relative z-10 mt-2 sm:mt-3">
+                <span className={`text-xs sm:text-sm font-black uppercase tracking-[0.22em] font-sans ${c.labelColor}`}>
+                  {c.label}
+                </span>
+              </div>
+
+              {/* Bottom Accent Rounded Dash / Pill */}
+              <div className={`w-8 sm:w-10 h-1 sm:h-1.5 rounded-full ${c.dashColor} mt-2.5 sm:mt-3.5`} />
             </div>
           ))}
         </div>

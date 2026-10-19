@@ -4061,6 +4061,24 @@ html:not(.dark):not(.warm-cream) .daily-reflection-modal h3 {
   color: #0F172A !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   EXAM DATE COUNTDOWN MODAL DESK BACKDROP SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+.exam-date-modal-bg {
+  background-image: url('/focus-desk-day.jpg');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+}
+
+html.dark .exam-date-modal-bg {
+  background-image: url('/focus-desk-night.png');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+}
+
+
 
 
 
