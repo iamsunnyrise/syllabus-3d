@@ -7,6 +7,7 @@ interface Card3DTiltProps {
   className?: string;
   maxTilt?: number;
   perspective?: number;
+  glowColor?: string;
   onClick?: () => void;
 }
 
@@ -15,12 +16,14 @@ export const Card3DTilt: React.FC<Card3DTiltProps> = ({
   className = '',
   maxTilt = 6,
   perspective = 1000,
+  glowColor,
   onClick
 }) => {
   const { enable3D, reducedMotion } = useTheme();
   const { ref, transformStyle, glowStyle, onMouseMove, onMouseEnter, onMouseLeave } = use3DTilt(
     enable3D && !reducedMotion ? maxTilt : 0,
-    perspective
+    perspective,
+    glowColor
   );
 
   return (

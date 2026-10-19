@@ -53,10 +53,11 @@ export const SectionalMockCard: React.FC<SectionalMockCardProps> = ({ mock, onOp
   return (
     <Card3DTilt
       maxTilt={4}
-      className={`group relative p-5 border rounded-2xl transition-all duration-300 shadow-sm dark:shadow-3d-dark space-y-3.5 ${
+      glowColor="rgba(225, 168, 55, 0.08)"
+      className={`group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 space-y-3.5 select-none ${
         isDark
-          ? 'bg-darkSurface border-white/10 hover:border-white/20 text-white'
-          : 'bg-white border-slate-200 hover:border-slate-300 text-slate-900'
+          ? 'bg-[#121424] border-white/10 hover:border-white/20 text-white shadow-xs hover:shadow-[0_12px_36px_rgba(0,0,0,0.5)] hover:-translate-y-1'
+          : 'bg-[#FFFDF8] border-[#E2D1B3] hover:border-[#D4BE98] text-slate-900 shadow-[0_2px_10px_rgba(56,55,13,0.04)] hover:shadow-[0_12px_28px_rgba(56,55,13,0.1)] hover:-translate-y-1'
       }`}
     >
       {/* Top Header: Subject Badge, Platform Tag & Action Menu */}

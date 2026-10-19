@@ -8,7 +8,11 @@ interface TiltState {
   isHovered: boolean;
 }
 
-export function use3DTilt(maxTilt: number = 8, perspective: number = 1000) {
+export function use3DTilt(
+  maxTilt: number = 8, 
+  perspective: number = 1000,
+  glowColor: string = 'rgba(225, 168, 55, 0.09)'
+) {
   const ref = useRef<HTMLDivElement>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [tilt, setTilt] = useState<TiltState>({
@@ -86,7 +90,7 @@ export function use3DTilt(maxTilt: number = 8, perspective: number = 1000) {
 
   const glowStyle = isTouchDevice ? undefined : {
     background: tilt.isHovered 
-      ? `radial-gradient(circle at ${tilt.glowX}% ${tilt.glowY}%, rgba(16, 185, 129, 0.15), transparent 70%)`
+      ? `radial-gradient(circle at ${tilt.glowX}% ${tilt.glowY}%, ${glowColor}, transparent 70%)`
       : 'transparent',
     transition: 'background 0.2s ease-out'
   };
