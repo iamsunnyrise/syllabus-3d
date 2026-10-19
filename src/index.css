@@ -417,8 +417,10 @@
   /* 6. Accent Color Contrast Boost in Dark Mode */
   .dark .dark\:text-amber-400,
   .dark .dark\:text-amber-300,
-  .dark [class*="text-amber-400"]:not([class*="bg-amber"] *),
-  .dark [class*="text-amber-300"]:not([class*="bg-amber"] *) {
+  .dark .dark\:text-amber-200,
+  .dark [class*="text-amber-400"]:not(button.bg-amber-500:not([class*="/"]) *),
+  .dark [class*="text-amber-300"]:not(button.bg-amber-500:not([class*="/"]) *),
+  .dark [class*="text-amber-200"]:not(button.bg-amber-500:not([class*="/"]) *) {
     color: #FDE68A !important;
   }
 
@@ -450,13 +452,13 @@
     color: #7DD3FC !important;
   }
 
-  /* 7. Guaranteed Solid Dark Text on Solid Yellow / Gold Buttons & Badges */
-  .dark button.bg-amber-500 *,
-  .dark button.bg-amber-400 *,
-  .dark [class*="bg-amber-500"] span,
-  .dark [class*="bg-amber-500"] p,
-  .dark [class*="bg-amber-400"] span,
-  .dark [class*="bg-amber-400"] p {
+  /* 7. Guaranteed Solid Dark Text ONLY on 100% Solid Yellow / Gold Buttons & Badges (never translucent /10, /15, /20) */
+  .dark button.bg-amber-500:not([class*="/"]) *,
+  .dark button.bg-amber-400:not([class*="/"]) *,
+  .dark button[class*="from-amber-500"]:not([class*="/"]) *,
+  .dark button[class*="from-amber-400"]:not([class*="/"]) *,
+  .dark a.bg-amber-500:not([class*="/"]) *,
+  .dark a.bg-amber-400:not([class*="/"]) * {
     color: #020617 !important;
   }
 

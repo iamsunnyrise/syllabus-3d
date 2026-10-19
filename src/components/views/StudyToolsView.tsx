@@ -1018,13 +1018,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               
               {/* Left: Interactive Word Flashcard (Wider: col-span-9 lg, col-span-10 xl) */}
               <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-6 sm:p-8 md:p-9 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[480px] lg:min-h-[520px]">
+                
+                {/* 1. Top Card Meta Bar */}
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
                   <div className="flex items-center gap-2.5">
-                    <span className="px-3 py-1 rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.08] text-slate-800 dark:text-slate-200 border border-slate-200/90 dark:border-white/10 shadow-2xs">
+                    <span className="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs">
                       CARD {String(activeCardIndex + 1).padStart(2, '0')} / {String(filteredVocab.length).padStart(2, '0')}
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-amber-700 dark:text-amber-400 px-3 py-1 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
-                      <Flame className="w-3.5 h-3.5 text-amber-500" />
+                    <span className="text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1.5 shadow-2xs">
+                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300" />
                       <span>{currentFlashcard.frequency} Frequency</span>
                     </span>
                   </div>
@@ -1035,17 +1037,20 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs ${
                       masteredVocabIds.has(currentFlashcard.id)
                         ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs'
-                        : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-200/80 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10'
+                        : 'bg-slate-100 dark:bg-white/[0.10] text-slate-900 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/15'
                     }`}
                   >
-                    <CheckCircle2 className="w-4 h-4" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-300" />
                     <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered' : 'Mark Mastered'}</span>
                   </button>
                 </div>
 
-                {/* Central Word and Meaning Display */}
-                <div className={`py-5 sm:py-6 space-y-6 flex-1 flex flex-col ${isCardFlipped ? 'justify-between' : 'justify-center'}`}>
-                  <div>
+                {/* 2. Central Word, Pronunciation & Meaning Area */}
+                <div className="py-5 sm:py-6 space-y-6 flex-1 flex flex-col justify-center">
+                  
+                  {/* Word Header Block */}
+                  <div className="space-y-3">
+                    {/* Row 1: Word + Part of Speech + Audio Speaker + Phonetic Badge */}
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                       <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-none">
                         {currentFlashcard.word}
@@ -1058,46 +1063,51 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
                         title="Pronounce word"
-                        className="p-3 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-400 border border-amber-500/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                        className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
                       >
-                        <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                        <Volume2 className="w-5 h-5 text-amber-700 dark:text-amber-300" />
                       </button>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-2.5">
-                      <span className="text-base sm:text-lg font-mono font-medium text-amber-600 dark:text-amber-400">
+                      <span className="px-3.5 py-1.5 rounded-xl text-sm sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
                         {currentFlashcard.phonetic}
                       </span>
-                      <span className="text-slate-300 dark:text-white/20 hidden sm:inline">•</span>
-                      <span className="text-xl sm:text-2xl md:text-3xl font-black font-sans text-slate-900 dark:text-white tracking-wide">
-                        {currentFlashcard.hindi}
+                    </div>
+
+                    {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
+                    <div className="flex items-center gap-3 pt-1">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
+                        हिंदी अर्थ
                       </span>
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-slate-950 dark:text-white tracking-wide">
+                        {currentFlashcard.hindi}
+                      </h3>
                     </div>
                   </div>
 
-                  {/* Exam Definition & Synonyms Panel */}
+                  {/* 3. Exam Definition & Synonyms Panel */}
                   <div className="p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border-2 border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
-                    <div className="flex items-center justify-between pb-1">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 text-xs sm:text-sm font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 font-mono">
-                        <BookOpen className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-xs sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono">
+                        <BookOpen className="w-4 h-4 text-amber-700 dark:text-amber-300" />
                         <span>Exam Definition & Synonyms</span>
                       </div>
+                      
+                      {/* High-Contrast Interactive Toggle Button */}
                       <button
                         type="button"
                         onClick={() => {
                           soundManager.playClick();
                           setIsCardFlipped(prev => !prev);
                         }}
-                        className="text-xs sm:text-sm font-bold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                        className="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
                       >
-                        <RotateCw className="w-3.5 h-3.5" />
+                        <RotateCw className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
                         <span>{isCardFlipped ? 'Hide Details' : 'Flip to Reveal'}</span>
                       </button>
                     </div>
 
                     <div className="space-y-1.5">
                       {!isCardFlipped && (
-                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 block">
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block">
                           Primary Exam Meaning
                         </span>
                       )}
@@ -1178,10 +1188,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           soundManager.playClick();
                           setIsCardFlipped(true);
                         }}
-                        className="group mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 dark:from-amber-500/15 dark:via-orange-500/15 dark:to-transparent border-2 border-dashed border-amber-500/35 hover:border-amber-500/70 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs hover:shadow-sm"
+                        className="group mt-4 p-4 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border-2 border-dashed border-amber-500/40 dark:border-amber-400/50 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs hover:shadow-sm"
                       >
                         <div className="flex items-center gap-3.5">
-                          <div className="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                          <div className="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
                             <Sparkles className="w-5 h-5 text-slate-950" />
                           </div>
                           <div>
@@ -1193,21 +1203,21 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 Tap to Reveal
                               </span>
                             </div>
-                            <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 flex-wrap">
-                              <span className="font-bold text-emerald-700 dark:text-emerald-400">
+                            <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 flex-wrap font-medium">
+                              <span className="font-bold text-emerald-700 dark:text-emerald-300">
                                 ✓ {currentFlashcard.synonyms.length} Synonyms
                               </span>
                               {currentFlashcard.antonyms.length > 0 && (
                                 <>
-                                  <span>•</span>
-                                  <span className="font-bold text-rose-700 dark:text-rose-400">
+                                  <span className="text-slate-400">•</span>
+                                  <span className="font-bold text-rose-700 dark:text-rose-300">
                                     ✕ {currentFlashcard.antonyms.length} Antonyms
                                   </span>
                                 </>
                               )}
                               {currentFlashcard.mnemonic && (
                                 <>
-                                  <span>•</span>
+                                  <span className="text-slate-400">•</span>
                                   <span className="font-bold text-purple-700 dark:text-purple-300">
                                     💡 Memory Trick
                                   </span>
@@ -1217,36 +1227,28 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         </div>
 
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            soundManager.playClick();
-                            setIsCardFlipped(true);
-                          }}
-                          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-xs group-hover:scale-105 transition-all cursor-pointer whitespace-nowrap self-stretch sm:self-auto justify-center shrink-0"
-                        >
-                          <span>Flip to Reveal</span>
-                          <RotateCw className="w-4 h-4" />
-                        </button>
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs group-hover:translate-x-0.5 transition-transform shrink-0 self-stretch sm:self-auto justify-center">
+                          <span>Reveal All</span>
+                          <RotateCw className="w-4 h-4 text-slate-950" />
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Bottom Navigation */}
+                {/* 4. Bottom Navigation Bar */}
                 <div className="flex items-center justify-between gap-3 pt-5 border-t border-slate-100 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-slate-100 text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0"
+                    className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15"
                   >
                     ← Previous
                   </button>
 
                   <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
                     {currentFlashcard.examTags.map(tag => (
-                      <span key={tag} className="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 whitespace-nowrap shadow-2xs">
+                      <span key={tag} className="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-100 dark:bg-white/[0.10] border border-slate-200/80 dark:border-white/15 text-slate-800 dark:text-slate-100 whitespace-nowrap shadow-2xs">
                         {tag}
                       </span>
                     ))}
