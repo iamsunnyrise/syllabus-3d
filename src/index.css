@@ -4035,5 +4035,32 @@ body:has(.modal-container) nav[aria-label="Mobile Magic Navigation Dock"] {
   animation: authBorderPulse 4s ease-in-out infinite;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   DAILY REFLECTION MODAL THEME CONTRAST & VISIBILITY ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+.daily-reflection-modal h2,
+.daily-reflection-modal h3 {
+  letter-spacing: 0.025em;
+  font-weight: 800;
+}
+
+html.dark .daily-reflection-modal h2,
+html.dark .daily-reflection-modal h3 {
+  color: #FFFFFF !important;
+}
+
+html.warm-cream .daily-reflection-modal h2,
+html.warm-cream .daily-reflection-modal h3 {
+  color: #2D2C08 !important;
+}
+
+html.light:not(.dark):not(.warm-cream) .daily-reflection-modal h2,
+html:not(.dark):not(.warm-cream) .daily-reflection-modal h2,
+html.light:not(.dark):not(.warm-cream) .daily-reflection-modal h3,
+html:not(.dark):not(.warm-cream) .daily-reflection-modal h3 {
+  color: #0F172A !important;
+}
+
+
 
 

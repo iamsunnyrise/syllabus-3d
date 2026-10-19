@@ -61,7 +61,16 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
   const [distractionNote, setDistractionNote] = useState<string>(existingTodayReflection?.distractionNote || '');
   const [tomorrowPriority, setTomorrowPriority] = useState<string>(existingTodayReflection?.tomorrowPriority || '');
   const [eveningGratitude, setEveningGratitude] = useState<string>('');
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(true);
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -179,8 +188,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: '100% Focused & Disciplined',
       shortLabel: '100% Focused 🏆',
       emoji: '🏆',
-      activeStyle: 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-emerald-500/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 warm-cream:text-emerald-900 shadow-[0_0_20px_rgba(16,185,129,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Outstanding self-discipline! Keep this high-standard momentum rolling.'
     },
     {
@@ -188,8 +197,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: 'Social Media / Reels / Chats',
       shortLabel: 'Social Media 📱',
       emoji: '📱',
-      activeStyle: 'bg-rose-500/20 border-rose-500 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-rose-500/15 border-rose-500 text-rose-800 dark:text-rose-300 warm-cream:text-rose-900 shadow-[0_0_20px_rgba(244,63,94,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Defense: Turn phone to Airplane mode or leave it in another room during study blocks.'
     },
     {
@@ -197,8 +206,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: 'YouTube Rabbit Hole / Shorts',
       shortLabel: 'YouTube Trap 📺',
       emoji: '📺',
-      activeStyle: 'bg-cyan-500/20 border-cyan-500 text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-cyan-500/15 border-cyan-500 text-cyan-800 dark:text-cyan-300 warm-cream:text-cyan-900 shadow-[0_0_20px_rgba(6,182,212,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Defense: Only open specific saved lecture URLs in Split-Screen without clicking the feed.'
     },
     {
@@ -206,8 +215,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: 'Overthinking & Cutoff Anxiety',
       shortLabel: 'Overthinking 🧠',
       emoji: '🧠',
-      activeStyle: 'bg-purple-500/20 border-purple-500 text-purple-300 shadow-[0_0_20px_rgba(168,85,247,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-purple-500/15 border-purple-500 text-purple-800 dark:text-purple-300 warm-cream:text-purple-900 shadow-[0_0_20px_rgba(168,85,247,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Defense: Shift from future fear to today\'s input. One single solved question at a time.'
     },
     {
@@ -215,8 +224,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: 'Sleepiness & Energy Slump',
       shortLabel: 'Sleepiness 🥱',
       emoji: '🥱',
-      activeStyle: 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-amber-500/15 border-amber-500 text-amber-800 dark:text-amber-300 warm-cream:text-amber-900 shadow-[0_0_20px_rgba(245,158,11,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Defense: Take a 20-min power nap after lunch and hydrate with cold water before evening session.'
     },
     {
@@ -224,8 +233,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
       label: 'Other Unexpected Interruption',
       shortLabel: 'Other Interruption ⚠️',
       emoji: '⚠️',
-      activeStyle: 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.3)] font-bold',
-      inactiveStyle: 'bg-[#151828]/80 border-[#272B44] text-[#A6ADCE] hover:bg-[#1E233A] hover:text-white',
+      activeStyle: 'bg-indigo-500/15 border-indigo-500 text-indigo-800 dark:text-indigo-300 warm-cream:text-indigo-900 shadow-[0_0_20px_rgba(99,102,241,0.25)] font-bold',
+      inactiveStyle: 'bg-white/80 dark:bg-[#151828]/80 warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272B44] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-[#A6ADCE] warm-cream:text-[#38370D] hover:bg-slate-100 dark:hover:bg-[#1E233A] hover:text-slate-950 dark:hover:text-white',
       preventionTip: 'Defense: Schedule designated buffer time in your routine for daily errands.'
     }
   ];
@@ -256,50 +265,50 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[100] flex flex-col bg-[#070913] text-slate-100 select-none animate-fade-in font-sans overflow-hidden ${
-        isFullScreen ? 'w-screen h-screen' : 'p-3 sm:p-6 items-center justify-center bg-black/85 backdrop-blur-xl'
+      className={`fixed inset-0 z-[100] flex items-center justify-center select-none animate-fade-in font-sans ${
+        isFullScreen ? 'w-screen h-screen p-0 bg-black/95' : 'p-3 sm:p-5 md:p-6 bg-slate-950/75 backdrop-blur-md overflow-y-auto'
       }`}
       onClick={isFullScreen ? undefined : onClose}
     >
       {/* Ambient Night Atmosphere Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] sm:w-[1200px] h-[340px] bg-gradient-to-b from-purple-600/20 via-indigo-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] sm:w-[1200px] h-[340px] bg-gradient-to-b from-purple-600/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[350px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Main Container */}
       <div
-        className={`flex flex-col overflow-hidden transition-all duration-300 ${
+        className={`flex flex-col transition-all duration-300 daily-reflection-modal shadow-2xl relative overflow-hidden ${
           isFullScreen
-            ? 'w-full h-full flex-1'
-            : 'relative w-full max-w-5xl max-h-[92vh] bg-[#0A0D1B] border border-[#232842] rounded-3xl shadow-2xl shadow-purple-950/40 my-auto'
-        }`}
+            ? 'w-full h-full rounded-none'
+            : 'relative w-full max-w-5xl max-h-[90vh] rounded-3xl border border-slate-200 dark:border-[#232842] warm-cream:border-[#E2D1B3] my-auto'
+        } bg-white dark:bg-[#0A0D1B] warm-cream:bg-[#FFFDF8] text-slate-900 dark:text-slate-100 warm-cream:text-[#38370D]`}
         onClick={e => e.stopPropagation()}
       >
         {/* TOP BAR / NAVIGATION */}
-        <header className="px-4 sm:px-8 py-3.5 sm:py-4 bg-[#0E1122]/95 backdrop-blur-xl border-b border-[#222742] flex items-center justify-between gap-4 shrink-0 z-20">
+        <header className="px-4 sm:px-8 py-3.5 sm:py-4 bg-slate-50/95 dark:bg-[#0E1122]/95 warm-cream:bg-[#F6EBD4]/95 backdrop-blur-xl border-b border-slate-200 dark:border-[#222742] warm-cream:border-[#E2D1B3] flex items-center justify-between gap-4 shrink-0 z-20">
           {/* Left: Emblem, Title & Tags */}
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-purple-500 via-indigo-500 to-purple-700 p-0.5 shadow-lg shadow-purple-600/30 shrink-0 flex items-center justify-center">
-              <div className="w-full h-full bg-[#0E1122] rounded-[14px] flex items-center justify-center text-purple-300">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-purple-500 via-indigo-500 to-purple-700 p-0.5 shadow-lg shadow-purple-600/25 shrink-0 flex items-center justify-center">
+              <div className="w-full h-full bg-white dark:bg-[#0E1122] warm-cream:bg-[#FFFDF8] rounded-[14px] flex items-center justify-center text-purple-600 dark:text-purple-300 warm-cream:text-purple-700">
                 <Moon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2] animate-pulse" />
               </div>
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-purple-500/15 text-purple-700 dark:text-purple-300 warm-cream:text-purple-800 border border-purple-500/30">
                   DAY-END REFLECTION
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-300 bg-white/5 border border-white/10 flex items-center gap-1">
-                  <Calendar className="w-3 h-3 text-purple-400" />
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-700 dark:text-slate-300 warm-cream:text-[#38370D] bg-slate-100 dark:bg-white/5 warm-cream:bg-[#FAF0DC] border border-slate-200 dark:border-white/10 warm-cream:border-[#E2D1B3] flex items-center gap-1">
+                  <Calendar className="w-3 h-3 text-purple-500 dark:text-purple-400" />
                   {formattedToday}
                 </span>
-                <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 border border-amber-500/30">
                   +30 XP REWARD
                 </span>
               </div>
-              <h1 className="text-sm sm:text-lg font-black tracking-tight text-white mt-0.5 truncate flex items-center gap-2">
+              <h1 className="text-sm sm:text-lg font-black tracking-tight text-slate-900 dark:text-white warm-cream:text-[#38370D] mt-0.5 truncate flex items-center gap-2">
                 <span>1-Minute Night Study Journal</span>
-                <span className="text-[11px] font-normal text-slate-400 hidden md:inline">
+                <span className="text-[11px] font-normal text-slate-500 dark:text-slate-400 warm-cream:text-[#655602] hidden md:inline">
                   • De-stress, celebrate wins & wake up prepared
                 </span>
               </h1>
@@ -309,10 +318,10 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
           {/* Right: Targets, History, Screen Toggle & Close */}
           <div className="flex items-center gap-2 shrink-0">
             {/* Top 3 Targets Counter Badge */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#161A30] border border-[#2B3152] text-xs">
-              <Trophy className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-slate-300 text-[11px]">Top 3:</span>
-              <span className="font-extrabold text-amber-300 text-[11px]">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-[#161A30] warm-cream:bg-[#FAF0DC] border border-slate-200 dark:border-[#2B3152] warm-cream:border-[#E2D1B3] text-xs">
+              <Trophy className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+              <span className="text-slate-600 dark:text-slate-300 warm-cream:text-[#58531A] text-[11px]">Top 3:</span>
+              <span className="font-extrabold text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 text-[11px]">
                 {completedTargetsCount} / {Math.max(3, totalTargetsCount)} Done
               </span>
             </div>
@@ -325,10 +334,10 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                   onClose();
                   onOpenHistory();
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#161A30] hover:bg-[#202542] text-slate-300 hover:text-white border border-[#2A3050] transition-all text-xs font-bold cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#161A30] dark:hover:bg-[#202542] warm-cream:bg-[#FAF0DC] warm-cream:hover:bg-[#E2D1B3] text-slate-700 dark:text-slate-300 warm-cream:text-[#38370D] hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#2A3050] warm-cream:border-[#E2D1B3] transition-all text-xs font-bold cursor-pointer"
                 title="View Reflection History"
               >
-                <History className="w-3.5 h-3.5 text-purple-400" />
+                <History className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400" />
                 <span className="hidden md:inline">History</span>
               </button>
             )}
@@ -337,7 +346,7 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
             <button
               type="button"
               onClick={() => setIsFullScreen(!isFullScreen)}
-              className="p-2 rounded-xl bg-[#161A30] hover:bg-[#202542] text-slate-400 hover:text-white border border-[#2A3050] transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#161A30] dark:hover:bg-[#202542] warm-cream:bg-[#FAF0DC] warm-cream:hover:bg-[#E2D1B3] text-slate-600 dark:text-slate-400 warm-cream:text-[#655602] hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#2A3050] warm-cream:border-[#E2D1B3] transition-all cursor-pointer"
               title={isFullScreen ? 'Exit Full Screen' : 'Open Full Screen'}
             >
               {isFullScreen ? (
@@ -351,7 +360,7 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl bg-[#161A30] hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-[#2A3050] hover:border-rose-500/30 transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-rose-500/15 dark:bg-[#161A30] dark:hover:bg-rose-500/20 warm-cream:bg-[#FAF0DC] text-slate-600 dark:text-slate-400 warm-cream:text-[#655602] hover:text-rose-600 dark:hover:text-rose-300 border border-slate-200 dark:border-[#2A3050] warm-cream:border-[#E2D1B3] hover:border-rose-400/40 transition-all cursor-pointer"
               title="Close (Esc)"
             >
               <X className="w-4 h-4" />
@@ -370,22 +379,22 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
             <div className="lg:col-span-7 space-y-6">
 
               {/* SECTION 1: Focus & Energy Score */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg">
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 flex items-center justify-center text-xs font-mono font-black">
+                    <span className="w-5 h-5 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-600 dark:text-purple-300 warm-cream:text-purple-700 flex items-center justify-center text-xs font-mono font-black">
                       1
                     </span>
-                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-200">
+                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-900 dark:!text-white warm-cream:!text-[#38370D]">
                       Focus & Energy Today?
                     </h2>
                   </div>
-                  <span className="text-xs font-mono font-black text-amber-300 bg-amber-500/15 px-2.5 py-1 rounded-lg border border-amber-500/30">
+                  <span className="text-xs font-mono font-black text-amber-800 dark:text-amber-300 warm-cream:text-amber-900 bg-amber-500/15 px-2.5 py-1 rounded-lg border border-amber-500/30">
                     {rating} / 5 Score • {moodOptions.find(m => m.id === mood)?.label}
                   </span>
                 </div>
 
-                <p className="text-[11px] text-slate-400 mb-3">
+                <p className="text-[11px] text-slate-600 dark:text-slate-300 warm-cream:text-[#58531A] mb-3">
                   Rate your mental sharpness and consistency during your study blocks.
                 </p>
 
@@ -408,8 +417,8 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                         }}
                         className={`p-2.5 sm:p-3 rounded-2xl border transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 text-center relative overflow-hidden group ${
                           isSelected
-                            ? `${m.borderActive} ${m.bgActive} scale-102 font-black ring-1 ring-white/20`
-                            : 'bg-[#14172B] border-[#252A47] text-slate-400 hover:border-slate-500/60 hover:text-slate-200'
+                            ? `${m.borderActive} ${m.bgActive} scale-102 font-black ring-2 ring-purple-500/20`
+                            : 'bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#252A47] warm-cream:border-[#E2D1B3] text-slate-700 dark:text-slate-300 warm-cream:text-[#38370D] hover:border-slate-400 dark:hover:border-slate-500/60 hover:text-slate-950 dark:hover:text-slate-200'
                         }`}
                       >
                         <span className="text-xl sm:text-2xl select-none group-hover:scale-115 transition-transform duration-200">
@@ -419,12 +428,12 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                           <span className="text-xs font-bold block truncate">
                             {m.shortLabel}
                           </span>
-                          <span className="text-[9px] text-slate-400 font-mono hidden sm:block truncate opacity-80 mt-0.5">
+                          <span className="text-[9px] text-slate-500 dark:text-slate-400 warm-cream:text-[#655602] font-mono hidden sm:block truncate opacity-85 mt-0.5">
                             {m.id === 'fire' ? '5 pts' : m.id === 'lightning' ? '4 pts' : m.id === 'happy' ? '3 pts' : m.id === 'tired' ? '2 pts' : '1 pt'}
                           </span>
                         </div>
                         {isSelected && (
-                          <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
+                          <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10B981]" />
                         )}
                       </button>
                     );
@@ -433,18 +442,18 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
               </div>
 
               {/* SECTION 2: Today's Biggest Academic Win */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg space-y-3">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-xs font-mono font-black">
+                    <span className="w-5 h-5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-600 dark:text-emerald-300 warm-cream:text-emerald-700 flex items-center justify-center text-xs font-mono font-black">
                       2
                     </span>
-                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-200">
+                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-900 dark:!text-white warm-cream:!text-[#38370D]">
                       Today's Biggest Academic Win?
                     </h2>
-                    <span className="text-amber-400 font-black">*</span>
+                    <span className="text-amber-500 font-black">*</span>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-300 warm-cream:text-emerald-800 font-mono font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                     Celebrate Progress
                   </span>
                 </div>
@@ -456,15 +465,15 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                     onChange={e => setBiggestWin(e.target.value)}
                     rows={3}
                     placeholder="e.g. Mastered Trigonometric Identities PYQs, completed 45-min mock with 92% accuracy, and stuck to 4-hour morning routine!"
-                    className="w-full p-3.5 pr-10 rounded-xl bg-[#14172B] border border-[#272D4D] text-xs sm:text-sm leading-relaxed text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 custom-scrollbar transition-all"
+                    className="w-full p-3.5 pr-10 rounded-xl bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border border-slate-300 dark:border-[#272D4D] warm-cream:border-[#E2D1B3] text-xs sm:text-sm leading-relaxed text-slate-900 dark:text-white warm-cream:text-[#38370D] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 custom-scrollbar transition-all"
                   />
-                  <Trophy className="w-4 h-4 text-emerald-400/60 absolute right-3.5 top-3.5 pointer-events-none" />
+                  <Trophy className="w-4 h-4 text-emerald-500/60 dark:text-emerald-400/60 absolute right-3.5 top-3.5 pointer-events-none" />
                 </div>
 
                 {/* Quick Inspiration Chips */}
                 <div className="space-y-1.5">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center gap-1">
-                    <Lightbulb className="w-3 h-3 text-amber-400" />
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-slate-600 dark:text-slate-300 warm-cream:text-[#58531A] flex items-center gap-1">
+                    <Lightbulb className="w-3 h-3 text-amber-500 dark:text-amber-400" />
                     Quick Highlights:
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap">
@@ -476,7 +485,7 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                           setBiggestWin(prev => (prev ? `${prev}; ${chip}` : chip));
                           soundManager.playClick();
                         }}
-                        className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#171B32] hover:bg-[#222849] text-slate-300 hover:text-emerald-300 border border-[#2B3152] transition-colors cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white dark:bg-[#171B32] warm-cream:bg-[#FFFDF8] hover:bg-slate-100 dark:hover:bg-[#222849] warm-cream:hover:bg-[#F6EBD4] text-slate-700 dark:text-slate-200 warm-cream:text-[#38370D] hover:text-emerald-700 dark:hover:text-emerald-300 border border-slate-200 dark:border-[#2B3152] warm-cream:border-[#E2D1B3] transition-colors cursor-pointer"
                       >
                         + {chip}
                       </button>
@@ -486,17 +495,17 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
               </div>
 
               {/* SECTION 3: Top 3 Targets Accountability Checklist */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg space-y-3">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs font-mono font-black">
+                    <span className="w-5 h-5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-600 dark:text-amber-300 warm-cream:text-amber-700 flex items-center justify-center text-xs font-mono font-black">
                       3
                     </span>
-                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-200">
+                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-900 dark:!text-white warm-cream:!text-[#38370D]">
                       Top 3 Targets Accountability
                     </h2>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/25">
+                  <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/25">
                     {completedTargetsCount} of {Math.max(3, totalTargetsCount)} Completed
                   </span>
                 </div>
@@ -516,9 +525,9 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                         className={`flex items-center justify-between gap-3 p-3 rounded-xl border transition-all ${
                           hasText
                             ? target.completed
-                              ? 'bg-emerald-950/20 border-emerald-500/40 text-emerald-200 cursor-pointer'
-                              : 'bg-[#14172B] border-[#272D4D] text-slate-200 hover:border-slate-500/60 cursor-pointer'
-                            : 'bg-[#101324] border-[#1E233D] text-slate-500 opacity-60'
+                              ? 'bg-emerald-500/10 dark:bg-emerald-950/20 warm-cream:bg-emerald-500/15 border-emerald-500/40 text-emerald-900 dark:text-emerald-200 warm-cream:text-emerald-950 cursor-pointer'
+                              : 'bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border-slate-200 dark:border-[#272D4D] warm-cream:border-[#E2D1B3] text-slate-800 dark:text-slate-200 warm-cream:text-[#38370D] hover:border-slate-400 dark:hover:border-slate-500/60 cursor-pointer'
+                            : 'bg-slate-100/60 dark:bg-[#101324] warm-cream:bg-[#F6EBD4]/40 border-slate-200 dark:border-[#1E233D] warm-cream:border-[#E2D1B3] text-slate-400 dark:text-slate-500 opacity-75'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
@@ -528,17 +537,17 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                             className={`w-5 h-5 rounded-md flex items-center justify-center transition-colors shrink-0 ${
                               target.completed
                                 ? 'bg-emerald-500 text-white'
-                                : 'border border-slate-500 hover:border-slate-400'
+                                : 'border border-slate-400 dark:border-slate-500 hover:border-slate-600 dark:hover:border-slate-400'
                             }`}
                           >
                             {target.completed && <Check className="w-3.5 h-3.5 stroke-[2.5]" />}
                           </button>
-                          <span className={`text-xs sm:text-[13px] truncate ${target.completed ? 'line-through text-slate-400' : 'font-medium'}`}>
+                          <span className={`text-xs sm:text-[13px] truncate ${target.completed ? 'line-through text-slate-400 dark:text-slate-500' : 'font-medium'}`}>
                             {hasText ? target.text : `Target Slot #${idx + 1} (Not set today)`}
                           </span>
                         </div>
                         {target.completed && (
-                          <span className="text-[10px] font-mono font-bold text-emerald-400 shrink-0 bg-emerald-500/15 px-2 py-0.5 rounded">
+                          <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0 bg-emerald-500/15 px-2 py-0.5 rounded">
                             Done ✓
                           </span>
                         )}
@@ -554,22 +563,22 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
             <div className="lg:col-span-5 space-y-6">
 
               {/* SECTION 4: Focus Traps & Distractions */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg space-y-3">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center text-xs font-mono font-black">
+                    <span className="w-5 h-5 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-300 warm-cream:text-rose-700 flex items-center justify-center text-xs font-mono font-black">
                       4
                     </span>
-                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-200">
+                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-900 dark:!text-white warm-cream:!text-[#38370D]">
                       Where Did Focus Slip?
                     </h2>
                   </div>
-                  <span className="text-[10px] text-rose-400 font-mono font-bold bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+                  <span className="text-[10px] text-rose-700 dark:text-rose-300 warm-cream:text-rose-800 font-mono font-bold bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
                     Trap Defense
                   </span>
                 </div>
 
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600 dark:text-slate-300 warm-cream:text-[#58531A]">
                   Identifying traps removes their power for tomorrow.
                 </p>
 
@@ -601,9 +610,9 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
 
                 {/* Defense Insight Box */}
                 {selectedDistractionObj && (
-                  <div className="p-3 rounded-xl bg-[#14172B] border border-[#292F4F] space-y-2">
-                    <div className="flex items-start gap-2 text-[11px] text-amber-300 leading-snug">
-                      <ShieldCheck className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
+                  <div className="p-3 rounded-xl bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border border-slate-200 dark:border-[#292F4F] warm-cream:border-[#E2D1B3] space-y-2">
+                    <div className="flex items-start gap-2 text-[11px] text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 leading-snug">
+                      <ShieldCheck className="w-4 h-4 shrink-0 text-amber-500 dark:text-amber-400 mt-0.5" />
                       <span>{selectedDistractionObj.preventionTip}</span>
                     </div>
 
@@ -613,7 +622,7 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                         value={distractionNote}
                         onChange={e => setDistractionNote(e.target.value)}
                         placeholder="Optional: What rule will protect your study tomorrow?"
-                        className="w-full px-3 py-2 rounded-lg bg-[#0E1122] border border-[#2E3559] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 transition-all"
+                        className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#0E1122] warm-cream:bg-[#F6EBD4] border border-slate-300 dark:border-[#2E3559] warm-cream:border-[#E2D1B3] text-xs text-slate-900 dark:text-white warm-cream:text-[#38370D] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-400 transition-all"
                       />
                     )}
                   </div>
@@ -621,23 +630,23 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
               </div>
 
               {/* SECTION 5: Tomorrow Morning's #1 Launchpad Goal */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg space-y-3">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs font-mono font-black">
+                    <span className="w-5 h-5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-600 dark:text-amber-300 warm-cream:text-amber-700 flex items-center justify-center text-xs font-mono font-black">
                       5
                     </span>
-                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-200">
+                    <h2 className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-slate-900 dark:!text-white warm-cream:!text-[#38370D]">
                       Tomorrow's #1 Priority Goal
                     </h2>
-                    <span className="text-amber-400 font-black">*</span>
+                    <span className="text-amber-500 font-black">*</span>
                   </div>
-                  <span className="text-[10px] text-amber-400 font-mono font-bold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                  <span className="text-[10px] text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 font-mono font-bold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
                     Wake-Up Ready
                   </span>
                 </div>
 
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600 dark:text-slate-300 warm-cream:text-[#58531A]">
                   Decide tonight what you will crush first tomorrow. Zero morning confusion.
                 </p>
 
@@ -654,10 +663,10 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                         });
                         soundManager.playClick();
                       }}
-                      className="px-2 py-1.5 rounded-lg bg-[#14172B] hover:bg-[#1E233E] border border-[#262B47] text-center transition-colors cursor-pointer"
+                      className="px-2 py-1.5 rounded-lg bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] hover:bg-slate-100 dark:hover:bg-[#1E233E] warm-cream:hover:bg-[#F6EBD4] border border-slate-200 dark:border-[#262B47] warm-cream:border-[#E2D1B3] text-center transition-colors cursor-pointer"
                     >
-                      <span className="text-[11px] font-bold text-amber-300 block">{mt.label}</span>
-                      <span className="text-[8px] text-slate-400 block truncate">{mt.desc}</span>
+                      <span className="text-[11px] font-bold text-amber-700 dark:text-amber-300 warm-cream:text-amber-800 block">{mt.label}</span>
+                      <span className="text-[8px] text-slate-500 dark:text-slate-400 warm-cream:text-[#655602] block truncate">{mt.desc}</span>
                     </button>
                   ))}
                 </div>
@@ -669,17 +678,17 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                     value={tomorrowPriority}
                     onChange={e => setTomorrowPriority(e.target.value)}
                     placeholder="e.g. 7 AM: Revision of English 100 Rules & 30 Math Drills"
-                    className="w-full pl-3.5 pr-10 py-3 rounded-xl bg-[#14172B] border border-[#272D4D] text-xs sm:text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 shadow-inner transition-all"
+                    className="w-full pl-3.5 pr-10 py-3 rounded-xl bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border border-slate-300 dark:border-[#272D4D] warm-cream:border-[#E2D1B3] text-xs sm:text-sm font-bold text-slate-900 dark:text-white warm-cream:text-[#38370D] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 shadow-inner transition-all"
                   />
-                  <Sunrise className="w-4 h-4 text-amber-400/70 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Sunrise className="w-4 h-4 text-amber-500 dark:text-amber-400/70 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
               </div>
 
               {/* SECTION 6: Bedtime Mindset / Gratitude (Brain Dump) */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1022]/90 border border-[#222844] relative overflow-hidden shadow-lg space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 dark:bg-[#0D1022]/90 warm-cream:bg-[#FBF4E6] border border-slate-200/90 dark:border-[#222844] warm-cream:border-[#E2D1B3] relative overflow-hidden shadow-sm dark:shadow-lg space-y-2">
                 <div className="flex items-center gap-2">
-                  <Brain className="w-4 h-4 text-purple-400" />
-                  <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <Brain className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+                  <h3 className="text-xs font-bold text-slate-900 dark:!text-slate-100 warm-cream:!text-[#38370D] uppercase tracking-wider">
                     Bedtime De-Clutter / Sleep Mindset (Optional)
                   </h3>
                 </div>
@@ -688,9 +697,9 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
                   value={eveningGratitude}
                   onChange={e => setEveningGratitude(e.target.value)}
                   placeholder="One thought to park or be grateful for before sleeping..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#14172B] border border-[#272D4D] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-400 transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#14172B] warm-cream:bg-[#FFFDF8] border border-slate-300 dark:border-[#272D4D] warm-cream:border-[#E2D1B3] text-xs text-slate-900 dark:text-white warm-cream:text-[#38370D] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-all"
                 />
-                <p className="text-[10px] text-slate-500 italic">
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 warm-cream:text-[#655602] italic">
                   "Today is done. Rest well so your brain consolidates today's knowledge."
                 </p>
               </div>
@@ -704,17 +713,17 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
         </form>
 
         {/* FIXED FOOTER BAR */}
-        <footer className="px-4 sm:px-8 py-3.5 sm:py-4 bg-[#0A0D1D]/95 backdrop-blur-xl border-t border-[#222742] flex items-center justify-between gap-4 shrink-0 z-30">
+        <footer className="px-4 sm:px-8 py-3.5 sm:py-4 bg-slate-50/95 dark:bg-[#0A0D1D]/95 warm-cream:bg-[#F6EBD4]/95 backdrop-blur-xl border-t border-slate-200 dark:border-[#222742] warm-cream:border-[#E2D1B3] flex items-center justify-between gap-4 shrink-0 z-30">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl bg-[#14182E] hover:bg-[#1E2342] text-slate-300 hover:text-white text-xs font-bold border border-[#292F50] transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 dark:bg-[#14182E] dark:hover:bg-[#1E2342] warm-cream:bg-[#FFFDF8] warm-cream:hover:bg-[#E2D1B3] text-slate-700 dark:text-slate-300 warm-cream:text-[#38370D] hover:text-slate-950 dark:hover:text-white text-xs font-bold border border-slate-200 dark:border-[#292F50] warm-cream:border-[#E2D1B3] transition-colors cursor-pointer"
             >
               Close & Sleep
             </button>
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-slate-600 dark:text-slate-400 warm-cream:text-[#655602] font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400" />
               Daily reflection preserves focus streaks & awards +30 XP
             </span>
           </div>
@@ -723,7 +732,7 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({
             <button
               type="button"
               onClick={handleSubmit as any}
-              className="group relative px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm shadow-xl shadow-purple-900/40 hover:shadow-purple-700/60 transition-all active:scale-95 cursor-pointer flex items-center gap-2 overflow-hidden border border-purple-400/30"
+              className="group relative px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm shadow-xl shadow-purple-900/30 hover:shadow-purple-700/50 transition-all active:scale-95 cursor-pointer flex items-center gap-2 overflow-hidden border border-purple-400/30"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
               <Moon className="w-4 h-4 text-purple-200" />
