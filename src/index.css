@@ -17,23 +17,23 @@
     --color-primary: #38370D;
     --color-primary-accent: #E1A837;
     --color-accent-light: #FBF4E6;
-    --color-secondary-accent: #8D7A02;
+    --color-secondary-accent: #655602;
     --color-tertiary-accent: #E1A837;
     --color-surface: #FFFDF8;
     --color-surface-soft: #F6EBD4;
     --color-border: #E2D1B3;
     --color-text-primary: #38370D;
     --color-text-secondary: #58531A;
-    --color-text-muted: #8D7A02;
+    --color-text-muted: #655602;
     --color-success: #15803D;
-    --color-warning: #E1A837;
+    --color-warning: #B45309;
     --color-error: #B91C1C;
-    --color-teal: #8D7A02;
+    --color-teal: #655602;
     --color-magenta: #E1A837;
-    --color-orange: #E1A837;
-    --color-indigo: #8D7A02;
-    --color-purple: #E1A837;
-    --color-azure: #8D7A02;
+    --color-orange: #C2410C;
+    --color-indigo: #655602;
+    --color-purple: #7C3AED;
+    --color-azure: #655602;
   }
 
   .dark {
@@ -42,7 +42,7 @@
     --color-primary: #FAEED9;
     --color-primary-accent: #E1A837;
     --color-accent-light: rgba(225, 168, 55, 0.15);
-    --color-secondary-accent: #8D7A02;
+    --color-secondary-accent: #FBBF24;
     --color-tertiary-accent: #E1A837;
     --color-surface: #38370D;
     --color-surface-soft: #262507;
@@ -50,15 +50,15 @@
     --color-text-primary: #FAEED9;
     --color-text-secondary: #E2D1B3;
     --color-text-muted: #D6C7A8;
-    --color-success: #15803D;
-    --color-warning: #E1A837;
-    --color-error: #B91C1C;
-    --color-teal: #8D7A02;
-    --color-magenta: #E1A837;
-    --color-orange: #E1A837;
-    --color-indigo: #8D7A02;
-    --color-purple: #E1A837;
-    --color-azure: #8D7A02;
+    --color-success: #22C55E;
+    --color-warning: #FBBF24;
+    --color-error: #F87171;
+    --color-teal: #2DD4BF;
+    --color-magenta: #F472B6;
+    --color-orange: #FB923C;
+    --color-indigo: #818CF8;
+    --color-purple: #C084FC;
+    --color-azure: #38BDF8;
   }
 
   .warm-cream {
@@ -67,14 +67,14 @@
     --color-primary: #38370D;
     --color-primary-accent: #E1A837;
     --color-accent-light: #FBF4E6;
-    --color-secondary-accent: #8D7A02;
+    --color-secondary-accent: #655602;
     --color-tertiary-accent: #E1A837;
     --color-surface: #FFFDF8;
     --color-surface-soft: #F6EBD4;
     --color-border: #E2D1B3;
     --color-text-primary: #38370D;
     --color-text-secondary: #58531A;
-    --color-text-muted: #8D7A02;
+    --color-text-muted: #655602;
     --color-success: #15803D;
     --color-warning: #B45309;
     --color-error: #B91C1C;
@@ -310,18 +310,39 @@
 
   html.warm-cream .text-slate-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .text-slate-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-gray-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-gray-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-zinc-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-zinc-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .dark\:text-slate-200:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *):not(.study-hub-hero-banner *) {
+  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-gray-200:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-gray-300:not(aside):not(aside *):not(.study-hub-hero-banner *) {
     color: #38370D !important;
   }
 
   html.warm-cream .text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-zinc-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-zinc-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .dark\:text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .dark\:text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
   html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *):not(.study-hub-hero-banner *) {
     color: #5C5716 !important;
+  }
+
+  /* Dark Mode Secondary Text Contrast Guarantee (WCAG AA ≥ 4.5:1) */
+  .dark .text-slate-500:not(.study-hub-hero-banner *),
+  .dark .text-gray-500:not(.study-hub-hero-banner *),
+  .dark .text-zinc-500:not(.study-hub-hero-banner *),
+  .dark [class*="text-slate-500"]:not(.study-hub-hero-banner *),
+  .dark [class*="text-gray-500"]:not(.study-hub-hero-banner *) {
+    color: #CBD5E1 !important;
   }
 
   /* Countdown & Stat Labels Contrast Guarantee */
@@ -589,7 +610,7 @@
   html.warm-cream aside .sidebar-subtitle,
   html.light aside .sidebar-subtitle,
   html:not(.dark) aside .sidebar-subtitle {
-    color: #8D7A02 !important;
+    color: #655602 !important;
   }
 
   html.warm-cream aside .sidebar-section-header,
@@ -598,16 +619,16 @@
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
-    color: #8D7A02 !important;
+    color: #655602 !important;
     font-size: 11px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
   }
   html.warm-cream aside .sidebar-section-header:hover,
   html.light aside .sidebar-section-header:hover,
   html:not(.dark) aside .sidebar-section-header:hover {
-    color: #5A4E03 !important;
+    color: #1C1B05 !important;
   }
 
   /* Light Mode Inactive Tabs */
@@ -771,16 +792,16 @@
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
-    color: #71717A !important;
+    color: #A1A1AA !important;
     font-size: 11px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
   }
 
   .dark aside .sidebar-section-header:hover,
   html.dark aside .sidebar-section-header:hover {
-    color: #A1A1AA !important;
+    color: #FFFFFF !important;
   }
 
   .dark aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
@@ -888,16 +909,26 @@
   }
 
   html.warm-cream nav[aria-label="Mobile Floating Navigation Dock"] button[aria-current="page"] {
-    color: #8D7A02 !important;
+    color: #655602 !important;
     font-weight: 800 !important;
   }
 
-  /* Buttons & Action Badges in Warm Parchment */
+  /* Buttons & Action Badges in Warm Parchment (WCAG AAA Contrast Guarantee) */
   html.warm-cream button.bg-blue-600,
   html.warm-cream button.bg-\[\#3B82F6\],
   html.warm-cream button.bg-\[\#4F46E5\],
+  html.warm-cream button.bg-indigo-600,
+  html.warm-cream button.bg-indigo-500,
+  html.warm-cream button.bg-primary-600,
+  html.warm-cream button.bg-primary-500,
+  html.warm-cream button[class*="bg-indigo-600"],
+  html.warm-cream button[class*="bg-indigo-500"],
+  html.warm-cream button[class*="from-blue-600"],
+  html.warm-cream button[class*="from-indigo-600"],
   html.warm-cream .btn-primary {
     background-color: #E1A837 !important;
+    background-image: linear-gradient(135deg, #E1A837 0%, #D49D26 100%) !important;
+    border-color: #C9962A !important;
     color: #1C1B05 !important;
     box-shadow: 0 4px 14px rgba(225, 168, 55, 0.3) !important;
     font-weight: 800 !important;
@@ -906,14 +937,31 @@
   html.warm-cream button.bg-blue-600:hover,
   html.warm-cream button.bg-\[\#3B82F6\]:hover,
   html.warm-cream button.bg-\[\#4F46E5\]:hover,
+  html.warm-cream button.bg-indigo-600:hover,
+  html.warm-cream button.bg-indigo-500:hover,
+  html.warm-cream button.bg-primary-600:hover,
+  html.warm-cream button.bg-primary-500:hover,
+  html.warm-cream button[class*="bg-indigo-600"]:hover,
+  html.warm-cream button[class*="bg-indigo-500"]:hover,
+  html.warm-cream button[class*="from-blue-600"]:hover,
+  html.warm-cream button[class*="from-indigo-600"]:hover,
   html.warm-cream .btn-primary:hover {
     background-color: #CCA32F !important;
+    background-image: linear-gradient(135deg, #ECC052 0%, #C9962A 100%) !important;
     color: #1C1B05 !important;
   }
 
   html.warm-cream button.bg-blue-600 *,
   html.warm-cream button.bg-\[\#3B82F6\] *,
   html.warm-cream button.bg-\[\#4F46E5\] *,
+  html.warm-cream button.bg-indigo-600 *,
+  html.warm-cream button.bg-indigo-500 *,
+  html.warm-cream button.bg-primary-600 *,
+  html.warm-cream button.bg-primary-500 *,
+  html.warm-cream button[class*="bg-indigo-600"] *,
+  html.warm-cream button[class*="bg-indigo-500"] *,
+  html.warm-cream button[class*="from-blue-600"] *,
+  html.warm-cream button[class*="from-indigo-600"] *,
   html.warm-cream .btn-primary * {
     color: #1C1B05 !important;
   }
@@ -1112,21 +1160,24 @@
     border-color: #E2D1B3 !important;
   }
 
-  /* 5. Chips, Scope Pills & Segment Switchers */
+  /* 5. Chips, Scope Pills & Segment Switchers (WCAG AA/AAA Contrast) */
   html.warm-cream [class*="text-indigo-700"],
-  html.warm-cream [class*="text-indigo-600"] {
-    color: #8D7A02 !important;
+  html.warm-cream [class*="text-indigo-600"],
+  html.warm-cream [class*="text-indigo-500"],
+  html.warm-cream [class*="text-blue-700"],
+  html.warm-cream [class*="text-blue-600"] {
+    color: #655602 !important;
+    font-weight: 700 !important;
   }
 
   html.warm-cream [class*="bg-indigo-500/10"],
-  html.warm-cream [class*="bg-indigo-500/20"] {
+  html.warm-cream [class*="bg-indigo-500/20"],
+  html.warm-cream [class*="bg-blue-500/10"],
+  html.warm-cream [class*="bg-blue-500/20"] {
     background-color: rgba(225, 168, 55, 0.15) !important;
-    border-color: rgba(225, 168, 55, 0.3) !important;
-    color: #8D7A02 !important;
-  }
-
-  html.warm-cream [class*="text-indigo-500"] {
-    color: #E1A837 !important;
+    border-color: rgba(225, 168, 55, 0.35) !important;
+    color: #5A4E02 !important;
+    font-weight: 700 !important;
   }
 
   /* Segmented Controls (Target Board / Calendar / Routine) */
@@ -1160,8 +1211,14 @@
 
   html.warm-cream input::placeholder,
   html.warm-cream textarea::placeholder {
-    color: #8D7A02 !important;
-    opacity: 0.75 !important;
+    color: #655602 !important;
+    opacity: 0.85 !important;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #A1A1AA !important;
+    opacity: 0.85 !important;
   }
 
   html.warm-cream input:focus,
@@ -3851,7 +3908,8 @@ html.warm-cream .jump-back-in-hub .from-blue-600 {
 
 html.warm-cream .jump-back-in-hub .text-blue-700,
 html.warm-cream .jump-back-in-hub .text-blue-600 {
-  color: #8D7A02 !important;
+  color: #655602 !important;
+  font-weight: 700 !important;
 }
 
 html.warm-cream .jump-back-in-hub .bg-blue-600\/15 {
