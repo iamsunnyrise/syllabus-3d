@@ -2251,71 +2251,69 @@ html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .hom
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   STUDY HUB & PLATFORMS HERO BANNER (High Legibility & Modern Bento)
+   STUDY HUB & PLATFORMS HERO BANNER (Luxury Bento Cockpit)
    ══════════════════════════════════════════════════════════════════ */
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner,
 .study-hub-hero-banner {
   color: #FFFFFF !important;
-  background-color: #080911 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner h1,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-banner-title,
+html.warm-cream .study-hub-hero-banner {
+  background: linear-gradient(135deg, #1A1806 0%, #2A230C 50%, #121104 100%) !important;
+  border-color: rgba(141, 122, 2, 0.45) !important;
+  box-shadow: 0 16px 45px rgba(30, 25, 8, 0.45) !important;
+  color: #FAEED9 !important;
+}
+
+html.dark .study-hub-hero-banner {
+  background: linear-gradient(135deg, #090A14 0%, #0E1224 50%, #06070E 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7) !important;
+  color: #FFFFFF !important;
+}
+
+html:not(.dark):not(.warm-cream) .study-hub-hero-banner {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0A0F1D 100%) !important;
+  border-color: rgba(51, 65, 85, 0.6) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.22) !important;
+  color: #FFFFFF !important;
+}
+
 .study-hub-hero-banner h1,
 .study-hub-hero-banner .study-hub-banner-title {
   color: #FFFFFF !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner p,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-banner-subtitle,
 .study-hub-hero-banner p,
 .study-hub-hero-banner .study-hub-banner-subtitle {
-  color: #CBD5E1 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+  color: #E2E8F0 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-tile-count,
 .study-hub-hero-banner .study-hub-tile-count {
   color: #FFFFFF !important;
+  font-feature-settings: 'zero' 0 !important;
+  -webkit-font-feature-settings: 'zero' 0 !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-purple,
-.study-hub-hero-banner .study-hub-label-purple {
-  color: #D8B4FE !important;
-}
-
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-sky,
-.study-hub-hero-banner .study-hub-label-sky {
-  color: #BAE6FD !important;
-}
-
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-amber,
-.study-hub-hero-banner .study-hub-label-amber {
-  color: #FDE68A !important;
-}
-
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-label-emerald,
-.study-hub-hero-banner .study-hub-label-emerald {
-  color: #A7F3D0 !important;
-}
-
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-bento-tile,
 .study-hub-hero-banner .study-hub-bento-tile {
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-add-btn,
-.study-hub-hero-banner .study-hub-add-btn {
-  color: #FFFFFF !important;
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%) !important;
-  border-color: rgba(255, 255, 255, 0.25) !important;
+/* Ensure pill badge text & bg look sharp across all themes */
+.study-hub-hero-banner .study-hub-pill-badge {
+  text-shadow: none !important;
 }
-
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .study-hub-hero-banner .study-hub-add-btn *,
-.study-hub-hero-banner .study-hub-add-btn * {
-  color: #FFFFFF !important;
+html.warm-cream .study-hub-hero-banner .study-hub-pill-badge {
+  background-color: rgba(18, 17, 4, 0.85) !important;
+  border-color: rgba(225, 168, 55, 0.4) !important;
+  color: #FAEED9 !important;
+}
+html:not(.warm-cream) .study-hub-hero-banner .study-hub-pill-badge {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #F1F5F9 !important;
 }
 
 @keyframes pin-shake {
