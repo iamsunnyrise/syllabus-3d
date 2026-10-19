@@ -201,24 +201,7 @@ const MockTrackerContent: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. GOLDEN AMBER MOCK STREAK BANNER */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-        <div className="flex items-center gap-3.5 min-w-0">
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shrink-0">
-            🔥
-          </div>
-          <div className="min-w-0">
-            <div className="text-xl sm:text-2xl font-black font-sans tracking-tight leading-tight tabular-nums">
-              {gamification.streakDays || 1} Day Mock Streak
-            </div>
-            <div className="text-xs sm:text-[13px] font-semibold text-slate-950/80 mt-0.5">
-              Target: <span className="font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span> • <span className="tabular-nums font-bold">{gamification.totalXp} XP</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. DYNAMIC SUB-VIEW CONTENT */}
+      {/* 2. DYNAMIC SUB-VIEW CONTENT */}
       <div className="w-full">
         {activeView === 'home' && <HomeView />}
         {activeView === 'full-length' && <FullLengthView />}
