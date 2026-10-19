@@ -1044,7 +1044,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* Central Word and Meaning Display */}
-                <div className="py-5 sm:py-6 space-y-6 flex-1 flex flex-col justify-between">
+                <div className={`py-5 sm:py-6 space-y-6 flex-1 flex flex-col ${isCardFlipped ? 'justify-between' : 'justify-center'}`}>
                   <div>
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                       <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-none">
@@ -1095,11 +1095,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </button>
                     </div>
 
-                    <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-950 dark:text-white leading-snug tracking-tight">
-                      {currentFlashcard.meaning}
-                    </p>
+                    <div className="space-y-1.5">
+                      {!isCardFlipped && (
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 block">
+                          Primary Exam Meaning
+                        </span>
+                      )}
+                      <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-950 dark:text-white leading-tight tracking-tight">
+                        {currentFlashcard.meaning}
+                      </p>
+                    </div>
 
-                    {isCardFlipped && (
+                    {isCardFlipped ? (
                       <div className="space-y-4 pt-4 border-t border-slate-200/80 dark:border-white/10 animate-fade-in text-sm sm:text-base">
                         {/* Synonyms & Antonyms */}
                         <div className="space-y-3">
@@ -1163,6 +1170,65 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             </div>
                           </div>
                         )}
+                      </div>
+                    ) : (
+                      /* 🌟 UN-FLIPPED ACTIVE RECALL PROMPT & DRILL TEASER */
+                      <div
+                        onClick={() => {
+                          soundManager.playClick();
+                          setIsCardFlipped(true);
+                        }}
+                        className="group mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 dark:from-amber-500/15 dark:via-orange-500/15 dark:to-transparent border-2 border-dashed border-amber-500/35 hover:border-amber-500/70 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs hover:shadow-sm"
+                      >
+                        <div className="flex items-center gap-3.5">
+                          <div className="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                            <Sparkles className="w-5 h-5 text-slate-950" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                                Active Recall Drill
+                              </span>
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950">
+                                Tap to Reveal
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 flex-wrap">
+                              <span className="font-bold text-emerald-700 dark:text-emerald-400">
+                                ✓ {currentFlashcard.synonyms.length} Synonyms
+                              </span>
+                              {currentFlashcard.antonyms.length > 0 && (
+                                <>
+                                  <span>•</span>
+                                  <span className="font-bold text-rose-700 dark:text-rose-400">
+                                    ✕ {currentFlashcard.antonyms.length} Antonyms
+                                  </span>
+                                </>
+                              )}
+                              {currentFlashcard.mnemonic && (
+                                <>
+                                  <span>•</span>
+                                  <span className="font-bold text-purple-700 dark:text-purple-300">
+                                    💡 Memory Trick
+                                  </span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            soundManager.playClick();
+                            setIsCardFlipped(true);
+                          }}
+                          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-xs group-hover:scale-105 transition-all cursor-pointer whitespace-nowrap self-stretch sm:self-auto justify-center shrink-0"
+                        >
+                          <span>Flip to Reveal</span>
+                          <RotateCw className="w-4 h-4" />
+                        </button>
                       </div>
                     )}
                   </div>
