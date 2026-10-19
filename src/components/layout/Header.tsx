@@ -47,10 +47,10 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenMobileMenu,
   isSidebarCollapsed = false,
   onToggleDesktopSidebar,
-  currentViewTitle = 'SYLLABUS 3D',
-  currentView,
-  onNavigate,
-  onOpenFocusModal
+  currentViewTitle: _currentViewTitle = 'SYLLABUS 3D',
+  currentView: _currentView,
+  onNavigate: _onNavigate,
+  onOpenFocusModal: _onOpenFocusModal
 }) => {
   const {
     currentExam,
@@ -354,46 +354,6 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Center: Clean Portal Title ("Home", "Daily Practice Schedule", etc.) Perfectly Centered */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none max-w-[42%] text-center">
-          <p className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif truncate" aria-label="Current Portal View">
-            {currentView === 'overview'
-              ? 'Home'
-              : currentView === 'targets'
-              ? 'Top 3 Daily Targets'
-              : (currentView === 'planner' || currentView === 'routine')
-              ? (currentView === 'routine' ? 'Daily Routine' : 'Daily Practice Schedule')
-              : currentView === 'mock-tracker'
-              ? 'ProMocks'
-              : currentView === 'syllabus'
-              ? 'Syllabus Explorer'
-              : currentView === 'revision'
-              ? 'Spaced Revision'
-              : currentView === 'weak'
-              ? 'Weak Topics'
-              : currentView === 'analytics'
-              ? 'Analytics'
-              : currentView === 'pacing'
-              ? 'Target Pacing'
-              : currentView === 'youtube-notes'
-              ? 'YouTube Notes'
-              : currentView === 'platforms'
-              ? 'Study Platforms'
-              : currentView === 'study-tools'
-              ? 'Study Tools'
-              : currentView === 'study-tools-vocab'
-              ? 'Vocabulary'
-              : currentView === 'study-tools-maths'
-              ? 'Maths'
-              : currentView === 'study-tools-calc-booster'
-              ? 'Calculation Booster'
-              : currentView === 'study-tools-ga'
-              ? 'General Awareness'
-              : currentView === 'settings'
-              ? 'My Profile'
-              : currentViewTitle}
-          </p>
-        </div>
 
 
         {/* Right Side Tools */}
