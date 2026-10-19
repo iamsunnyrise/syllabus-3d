@@ -29,7 +29,8 @@ import {
   Hash,
   Boxes,
   Volume2,
-  Percent
+  Percent,
+  Triangle
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
@@ -38,13 +39,15 @@ import { CalculationBoosterTables } from './CalculationBoosterTables';
 import { CalculationBoosterSquares } from './CalculationBoosterSquares';
 import { CalculationBoosterCubes } from './CalculationBoosterCubes';
 import { CalculationBoosterFractions } from './CalculationBoosterFractions';
+import { CalculationBoosterTriplets } from './CalculationBoosterTriplets';
+import { CalculationBoosterPowers } from './CalculationBoosterPowers';
 import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
 
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
-export type CalcBoosterTool = 'tables' | 'squares' | 'cubes' | 'fractions';
+export type CalcBoosterTool = 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers';
 
 interface StudyToolsViewProps {
   initialTab?: StudyToolTab;
@@ -1316,6 +1319,40 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <Percent className="w-4 h-4" />
                   <span>Percentage to Fraction</span>
                 </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('triplets');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    calcBoosterTool === 'triplets'
+                      ? 'bg-indigo-600 text-white shadow-xs font-black ring-1 ring-indigo-400/40'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Triangle className="w-4 h-4 rotate-90" />
+                  <span>Pythagorean Triplets</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('powers');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    calcBoosterTool === 'powers'
+                      ? 'bg-violet-600 text-white shadow-xs font-black ring-1 ring-violet-400/40'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <span className="font-mono font-black text-xs">xʸ</span>
+                  <span>Higher Powers</span>
+                </button>
               </div>
 
               {calcBoosterTool === 'tables' ? (
@@ -1324,8 +1361,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 <CalculationBoosterSquares />
               ) : calcBoosterTool === 'cubes' ? (
                 <CalculationBoosterCubes />
-              ) : (
+              ) : calcBoosterTool === 'fractions' ? (
                 <CalculationBoosterFractions />
+              ) : calcBoosterTool === 'triplets' ? (
+                <CalculationBoosterTriplets />
+              ) : (
+                <CalculationBoosterPowers />
               )}
             </div>
           ) : (
