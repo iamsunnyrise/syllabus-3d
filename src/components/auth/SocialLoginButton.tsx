@@ -12,10 +12,10 @@ export const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({ onClick, i
       type="button"
       onClick={onClick}
       disabled={isLoading}
-      className="w-full h-12 rounded-2xl bg-white dark:bg-slate-900/90 warm-cream:bg-[#FFFDF9] border border-slate-200/90 dark:border-white/10 warm-cream:border-[#E5D7B7] hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-slate-800/80 active:scale-[0.99] text-slate-800 dark:text-slate-100 warm-cream:text-[#38370D] text-xs sm:text-sm font-bold flex items-center justify-center gap-3 transition-all shadow-xs hover:shadow-sm cursor-pointer disabled:opacity-50"
+      className="w-full h-12 rounded-xl sm:rounded-2xl bg-[#090C15] hover:bg-[#111624] border border-white/10 hover:border-white/20 active:scale-[0.99] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-3 transition-all shadow-xs cursor-pointer disabled:opacity-50"
     >
       {isLoading ? (
-        <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
+        <Loader2 className="w-4 h-4 animate-spin text-[#F5C518]" />
       ) : (
         /* Official Google "G" Icon */
         <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">

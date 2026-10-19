@@ -8,30 +8,32 @@ interface AuthHeaderProps {
 
 export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, badge }) => {
   return (
-    <div className="flex flex-col items-center text-center mb-6">
-      {/* App Logo with luxury glow ring */}
-      <div className="relative mb-3 group">
-        <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-40 blur-md group-hover:opacity-60 transition duration-300" />
-        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0D0F1A] border border-amber-500/40 p-2.5 flex items-center justify-center shadow-xl transition-transform duration-300 group-hover:scale-105">
+    <div className="flex flex-col items-start text-left mb-6">
+      {/* Brand Header with Circular Gold Logo Badge */}
+      <div className="flex items-center gap-2.5 mb-5 select-none">
+        <div className="w-8 h-8 rounded-full bg-[#F5C518] text-slate-950 flex items-center justify-center p-1.5 shadow-md shrink-0">
           <img
             src="/logo.png"
-            alt="SYLLABUS 3D Logo"
-            className="w-full h-full object-contain drop-shadow"
+            alt="SYLLABUS 3D"
+            className="w-full h-full object-contain"
           />
         </div>
+        <span className="text-sm font-black tracking-wider text-white uppercase font-sans">
+          SYLLABUS 3D
+        </span>
       </div>
 
-      {badge ? (
-        <span className="mb-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-500/25 text-amber-800 dark:text-amber-300 text-[10px] font-black uppercase tracking-wider">
+      {badge && (
+        <span className="mb-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F5C518]/15 border border-[#F5C518]/30 text-[#F5C518] text-[10px] font-black uppercase tracking-wider">
           {badge}
         </span>
-      ) : null}
+      )}
 
       {/* Heading & Subtitle */}
-      <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white warm-cream:text-[#232001]">
+      <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
         {title}
       </h1>
-      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 warm-cream:text-[#5E5211] mt-1.5 max-w-sm font-medium leading-relaxed">
+      <p className="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-sm font-medium leading-relaxed">
         {subtitle}
       </p>
     </div>

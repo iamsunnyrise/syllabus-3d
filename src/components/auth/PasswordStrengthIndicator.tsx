@@ -22,15 +22,15 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
         <div className="flex-1 grid grid-cols-3 gap-1.5 h-1.5 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-300"
-            style={{ backgroundColor: score >= 1 ? color : '#e2e8f0' }}
+            style={{ backgroundColor: score >= 1 ? color : 'rgba(255,255,255,0.1)' }}
           />
           <div
             className="h-full rounded-full transition-all duration-300"
-            style={{ backgroundColor: score >= 2 ? color : '#e2e8f0' }}
+            style={{ backgroundColor: score >= 2 ? color : 'rgba(255,255,255,0.1)' }}
           />
           <div
             className="h-full rounded-full transition-all duration-300"
-            style={{ backgroundColor: score >= 3 ? color : '#e2e8f0' }}
+            style={{ backgroundColor: score >= 3 ? color : 'rgba(255,255,255,0.1)' }}
           />
         </div>
 

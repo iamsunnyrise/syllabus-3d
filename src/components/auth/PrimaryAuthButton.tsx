@@ -17,11 +17,8 @@ export const PrimaryAuthButton: React.FC<PrimaryAuthButtonProps> = ({
     <button
       {...props}
       disabled={isLoading || disabled}
-      className={`relative w-full h-12 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm tracking-wide shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/35 transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer group overflow-hidden ${className}`}
+      className={`w-full h-12 rounded-xl sm:rounded-2xl bg-[#F5C518] hover:bg-[#E5B50F] active:bg-[#CCA00B] text-slate-950 font-black text-sm tracking-wide shadow-md shadow-[#F5C518]/25 transition-all duration-150 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${className}`}
     >
-      {/* Subtle light sweep reflection */}
-      <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out pointer-events-none" />
-
       {isLoading ? (
         <>
           <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
@@ -30,7 +27,7 @@ export const PrimaryAuthButton: React.FC<PrimaryAuthButtonProps> = ({
       ) : (
         <>
           <span>{children}</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </>
       )}
     </button>

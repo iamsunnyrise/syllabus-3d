@@ -39,7 +39,7 @@ export const ForgotPasswordView: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-4">
         <button
           type="button"
@@ -47,30 +47,30 @@ export const ForgotPasswordView: React.FC = () => {
             soundManager.playClick();
             setAuthView('login');
           }}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white warm-cream:text-[#655819] transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition-colors cursor-pointer"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-3.5 h-3.5 text-[#F5C518]" />
           <span>Back to Log In</span>
         </button>
       </div>
 
       <AuthHeader
         title="Reset Password"
-        subtitle="Enter your registered email and we'll send you a password recovery link."
+        subtitle="Enter your registered email and we'll send you a recovery link."
       />
 
       {isSuccess ? (
         <div className="space-y-5 text-center animate-fade-in">
-          <div className="w-16 h-16 rounded-3xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-3xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white warm-cream:text-[#232001]">
+            <h3 className="text-lg font-bold text-white">
               Check your email
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 warm-cream:text-[#5E5211] max-w-xs mx-auto leading-relaxed">
-              We've sent password reset instructions to <span className="font-bold text-slate-700 dark:text-slate-200">{email}</span>.
+            <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
+              We've sent password reset instructions to <span className="font-bold text-white">{email}</span>.
             </p>
           </div>
 
@@ -80,9 +80,9 @@ export const ForgotPasswordView: React.FC = () => {
               soundManager.playClick();
               setAuthView('login');
             }}
-            className="w-full py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 warm-cream:bg-[#EDE3CB] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white warm-cream:text-[#232001] text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3 rounded-xl sm:rounded-2xl bg-[#090C15] hover:bg-[#111624] border border-white/10 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-[#F5C518]" />
             <span>Return to Log In</span>
           </button>
         </div>
