@@ -695,7 +695,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [gaSubject, gaSearch]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 pb-28 pt-2 px-2 sm:px-4 animate-view-fade">
+    <div className="w-full max-w-[1650px] mx-auto space-y-6 pb-28 pt-2 px-2 sm:px-4 animate-view-fade">
       
       {/* 🌟 Top Hero Portal Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-6 sm:p-8 shadow-xs">
@@ -703,7 +703,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
         <div className="absolute bottom-0 left-1/3 -mb-20 w-80 h-80 bg-gradient-to-tr from-blue-500/10 via-indigo-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
-          <div className="space-y-2.5 max-w-2xl">
+          <div className="space-y-2.5 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 dark:bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               <span>Study Tools & Exam Accelerators</span>
@@ -847,7 +847,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
             {/* Search Input */}
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 max-w-lg">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -1571,7 +1571,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           {/* Formula Vault Search & Filters */}
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-              <div className="relative flex-1 max-w-md">
+              <div className="relative flex-1 max-w-lg">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -1666,7 +1666,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           
           {/* Controls: Search + Subject Pills */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 max-w-lg">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
