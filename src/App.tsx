@@ -747,31 +747,13 @@ export const App: React.FC = () => {
   if (currentView === 'landing') {
     return (
       <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#EDE9FE] dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC]">
-        {/* Top Product Overview banner (exactly like Picture 1) */}
+        {/* Top Product Overview banner */}
         <div className="p-3 sm:px-6 max-w-7xl w-full mx-auto animate-fade-in">
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6D28D9] to-[#22D3EE] text-white shadow-md">
+          <div className="flex items-center justify-center p-3 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6D28D9] to-[#7C3AED] text-white shadow-md">
             <div className="flex items-center gap-2 text-xs font-bold">
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                try {
-                  localStorage.setItem('syllabus3d_has_visited', 'true');
-                } catch {}
-                if (!isAuthenticated) {
-                  setAuthView('login');
-                  setCurrentView('overview');
-                } else {
-                  handleNavigate('overview');
-                }
-              }}
-              className="px-3.5 py-1.5 rounded-xl bg-white text-[#7C3AED] hover:bg-violet-50 text-xs font-black transition-all cursor-pointer shadow-xs active:scale-95 shrink-0"
-            >
-              ← Back to Dashboard
-            </button>
           </div>
         </div>
 
