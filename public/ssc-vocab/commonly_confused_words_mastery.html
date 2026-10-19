@@ -1,0 +1,5643 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commonly Confused Words Master App | होमोफ़ोन्स व समरूपी भिन्नार्थक शब्द नोट्स</title>
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --bg-card-hover: #273548;
+      --border-color: #334155;
+      --accent-primary: #ec4899; /* Vibrant Pink/Rose for Confused Words */
+      --accent-secondary: #3b82f6; /* Blue */
+      --accent-amber: #f59e0b;
+      --accent-success: #10b981;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-hindi: #fde047;
+      --tag-bg: rgba(236, 72, 153, 0.15);
+      --tag-color: #f472b6;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --accent-primary: #db2777;
+      --accent-secondary: #2563eb;
+      --accent-amber: #d97706;
+      --accent-success: #059669;
+      --accent-purple: #7c3aed;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-hindi: #b45309;
+      --tag-bg: rgba(219, 39, 119, 0.12);
+      --tag-color: #db2777;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+
+    .app-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 16px 20px 80px;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #31102f 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    [data-theme="light"] .header-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+    }
+    .header-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-action:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    [data-theme="light"] .stat-box {
+      background: rgba(241, 245, 249, 0.8);
+      border-color: #e2e8f0;
+    }
+    .stat-box i {
+      color: var(--accent-primary);
+    }
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+    .search-input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 14px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+    }
+
+    .view-switcher {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .view-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.3);
+    }
+
+    /* Alphabetical bar */
+    .alphabet-bar {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-top: 4px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .letter-btn {
+      min-width: 28px;
+      height: 28px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .letter-btn:hover {
+      background: var(--bg-card);
+      color: var(--accent-primary);
+    }
+    .letter-btn.active {
+      background: var(--accent-secondary);
+      color: #ffffff;
+    }
+
+    /* Main Confusion Pairs Grid */
+    .pairs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .pairs-grid {
+        grid-template-columns: 1fr;
+      }
+      .app-container {
+        padding: 12px 14px 70px;
+      }
+      .brand-text h1 {
+        font-size: 20px;
+      }
+    }
+
+    /* Confused Pair Main Card */
+    .pair-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+    .pair-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .pair-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .pair-badge {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-heading);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pair-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      color: var(--accent-primary);
+      background: rgba(236, 72, 153, 0.1);
+      border-color: var(--accent-primary);
+    }
+    .icon-btn.active-fav {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+    }
+
+    /* Sub-cards inside each pair */
+    .word-sub-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    [data-theme="light"] .word-sub-card {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .word-sub-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .word-name {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ipa-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .pos-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+
+    .hindi-meaning-pill {
+      background: linear-gradient(90deg, rgba(236, 72, 153, 0.12) 0%, rgba(236, 72, 153, 0.02) 100%);
+      border-left: 3.5px solid var(--accent-primary);
+      padding: 6px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-hindi);
+    }
+
+    .english-def {
+      font-size: 13.5px;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      border-left: 2px solid var(--border-color);
+      padding-left: 10px;
+      margin-top: 2px;
+    }
+    .example-list em {
+      color: var(--text-main);
+      font-style: normal;
+    }
+
+    /* Memory Distinction Box */
+    .distinction-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+      border: 1px dashed var(--accent-amber);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .distinction-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--accent-amber);
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Table View */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    .data-table th {
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+    .data-table tr:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* Flashcard Drill Mode */
+    .flashcard-mode {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .flashcard-wrapper {
+      width: 100%;
+      min-height: 380px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flashcard-wrapper.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border-color);
+    }
+
+    .flashcard-front {
+      background: linear-gradient(145deg, var(--bg-card), var(--bg-secondary));
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+    .flashcard-back {
+      background: linear-gradient(145deg, #31102f, var(--bg-secondary));
+      transform: rotateY(180deg);
+      border-color: rgba(236, 72, 153, 0.6);
+    }
+    [data-theme="light"] .flashcard-back {
+      background: linear-gradient(145deg, #fdf2f8, #ffffff);
+    }
+
+    .flashcard-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Quiz Mode */
+    .quiz-mode {
+      display: none;
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .quiz-option-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .quiz-option-btn:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card-hover);
+    }
+    .quiz-option-btn.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-success);
+      color: #34d399;
+      font-weight: 700;
+    }
+    .quiz-option-btn.wrong {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: #f43f5e;
+      color: #fb7185;
+    }
+
+    /* Floating Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent-primary);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Navigation */
+    .mobile-fab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: none;
+      justify-content: space-around;
+      padding: 10px 16px;
+      z-index: 99;
+    }
+    [data-theme="light"] .mobile-fab-bar {
+      background: rgba(255, 255, 255, 0.95);
+    }
+    @media (max-width: 640px) {
+      .mobile-fab-bar {
+        display: flex;
+      }
+    }
+    .fab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .fab-btn.active {
+      color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Header -->
+  <header class="header-banner">
+    <div class="top-nav">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h1>Commonly Confused Words Master Notes</h1>
+          <p>Complete Pairs & Trios • Hindi Meanings • IPA Phonetics • Memory Distinction Tricks</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-action" id="themeToggleBtn" onclick="toggleTheme()">
+          <i data-lucide="moon" id="themeIcon"></i> <span id="themeText">Dark</span>
+        </button>
+        <button class="btn-action" onclick="window.print()">
+          <i data-lucide="printer"></i> Print / PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-ribbon">
+      <div class="stat-box">
+        <i data-lucide="copy"></i>
+        <div>
+          <div class="stat-num" id="totalSetsCount">33</div>
+          <div class="stat-label">Word Pairs / Trios</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="sparkles"></i>
+        <div>
+          <div class="stat-num">70+</div>
+          <div class="stat-label">Individual Words</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="lightbulb"></i>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Memory Tricks</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="bookmark"></i>
+        <div>
+          <div class="stat-num" id="favCount">0</div>
+          <div class="stat-label">Bookmarked</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Controls Panel -->
+  <section class="controls-panel">
+    <div class="search-row">
+      <div class="search-input-wrapper">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by word, pair (e.g., 'adapt', 'counsel', 'loose', 'हवा'), or Hindi meaning..." oninput="handleSearch()">
+      </div>
+
+      <div class="view-switcher">
+        <button class="view-btn active" id="btnViewCards" onclick="switchView('cards')">
+          <i data-lucide="layout-grid"></i> Compare Cards
+        </button>
+        <button class="view-btn" id="btnViewTable" onclick="switchView('table')">
+          <i data-lucide="table"></i> Table
+        </button>
+        <button class="view-btn" id="btnViewFlashcard" onclick="switchView('flashcard')">
+          <i data-lucide="layers"></i> Flashcards
+        </button>
+        <button class="view-btn" id="btnViewQuiz" onclick="switchView('quiz')">
+          <i data-lucide="help-circle"></i> Quiz
+        </button>
+      </div>
+    </div>
+
+    <!-- Letter Bar -->
+    <div class="alphabet-bar" id="alphabetBar">
+      <button class="letter-btn active" onclick="filterByLetter('ALL', this)">ALL</button>
+    </div>
+  </section>
+
+  <!-- 1. Cards View -->
+  <main id="cardsView" class="pairs-grid"></main>
+
+  <!-- 2. Table View -->
+  <div id="tableView" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Confused Pair</th>
+          <th>Word & Pronunciation</th>
+          <th>Part of Speech</th>
+          <th>Hindi Meaning (अर्थ)</th>
+          <th>English Meaning</th>
+          <th>Memory Trick</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 3. Flashcard Drill Mode -->
+  <div id="flashcardView" class="flashcard-mode">
+    <div class="flashcard-wrapper" id="flashcardWrapper" onclick="flipFlashcard()">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <span class="pair-badge" id="fcPairTag">Pair Comparison</span>
+          <h2 class="word-name" style="font-size: 34px; margin: 24px 0; color: var(--accent-primary);" id="fcWordTitle">Accept vs Except</h2>
+          <span class="pos-badge" id="fcIpa">ac·cept / ex·cept</span>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px;">👉 Tap anywhere to reveal distinctions & Hindi meanings</p>
+        </div>
+        <div class="flashcard-back">
+          <div id="fcBackDetails" style="width: 100%; text-align: left;"></div>
+          <div class="distinction-box" style="margin-top: 14px; width: 100%; text-align: left;" id="fcTrick"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flashcard-controls">
+      <button class="btn-action" onclick="prevFlashcard()"><i data-lucide="chevron-left"></i> Previous</button>
+      <button class="btn-action" onclick="flipFlashcard()"><i data-lucide="rotate-cw"></i> Flip Card</button>
+      <button class="btn-action" onclick="shuffleFlashcards()"><i data-lucide="shuffle"></i> Shuffle</button>
+      <button class="btn-action" onclick="nextFlashcard()">Next <i data-lucide="chevron-right"></i></button>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted);" id="fcProgress">Card 1 of 33</p>
+  </div>
+
+  <!-- 4. Interactive Quiz Mode -->
+  <div id="quizView" class="quiz-mode">
+    <div class="quiz-header">
+      <div>
+        <span class="pair-badge" id="quizProgressTag">Question 1 / 10</span>
+        <h3 style="font-family: var(--font-heading); margin-top: 6px;">Confused Words Challenge</h3>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 12px; color: var(--text-muted);">Score</span>
+        <div style="font-weight: 800; font-size: 18px; color: var(--accent-primary);" id="quizScore">0</div>
+      </div>
+    </div>
+
+    <div id="quizContent">
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Fill in the blank with the correct word:</p>
+      <h2 id="quizQuestion" style="font-family: var(--font-heading); color: var(--accent-secondary); margin-bottom: 16px; font-size: 18px; line-height: 1.4;"></h2>
+      
+      <div class="quiz-options-list" id="quizOptions"></div>
+
+      <div id="quizFeedback" style="margin-top: 14px; font-size: 14px; font-weight: 600; display: none;"></div>
+
+      <button class="btn-action" id="quizNextBtn" style="margin-top: 16px; width: 100%; justify-content: center; display: none;" onclick="loadNextQuizQuestion()">
+        Next Question <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Navigation -->
+<nav class="mobile-fab-bar">
+  <button class="fab-btn active" onclick="switchView('cards')"><i data-lucide="layout-grid"></i>Cards</button>
+  <button class="fab-btn" onclick="switchView('table')"><i data-lucide="table"></i>Table</button>
+  <button class="fab-btn" onclick="switchView('flashcard')"><i data-lucide="layers"></i>Drill</button>
+  <button class="fab-btn" onclick="switchView('quiz')"><i data-lucide="help-circle"></i>Quiz</button>
+</nav>
+
+<!-- Toast -->
+<div id="toast" class="toast-msg"><i data-lucide="check-circle"></i> Copied to clipboard!</div>
+
+<script>
+// FULL COMPLETE DATASET OF ALL COMMONLY CONFUSED WORDS FROM PDF
+const confusedWordsData = [
+  {
+    pairId: "accept-except",
+    pairTitle: "Accept / Except",
+    trick: "The \"ex\" of except can help you to remember that it means excluding.",
+    words: [
+      {
+        word: "Accept",
+        ipa: "ac·​cept",
+        pos: "Verb",
+        hindi: "स्वीकार करना",
+        meaning: "To agree to take something, or to consider something as satisfactory, reasonable, or true.",
+        examples: [
+          "She accepted the job offer.",
+          "I offered him an apology, but he wouldn't accept it."
+        ]
+      },
+      {
+        word: "Except",
+        ipa: "ex·​cept",
+        pos: "Preposition",
+        hindi: "को छोड़ कर / के अलावा",
+        meaning: "To introduce the only thing or person that a statement does not apply to, or a fact that prevents a statement from being completely true.",
+        examples: [
+          "I could answer all the questions except for the last one.",
+          "The government has few options except to keep interest rates high."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "access-excess",
+    pairTitle: "Access / Excess",
+    trick: "The “ex” of excess means extra or exceeding.",
+    words: [
+      {
+        word: "Access",
+        ipa: "ac·​cess",
+        pos: "Noun / Verb",
+        hindi: "पहुंच / प्रवेश की अनुमति",
+        meaning: "Permission to approach, or pass to and from a place or to approach or communicate with a person or thing.",
+        examples: [
+          "The only access to the village is by boat.",
+          "Students need a card to access restricted areas such as residences and labs."
+        ]
+      },
+      {
+        word: "Excess",
+        ipa: "ex·​cess",
+        pos: "Noun / Adj.",
+        hindi: "ज़रूरत से ज़्यादा / आधिक्य",
+        meaning: "An amount that is more than acceptable, expected, or reasonable.",
+        examples: [
+          "An excess of enthusiasm is not always a good thing.",
+          "An excess of water causes the plant's roots to rot."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "adapt-adopt-adept",
+    pairTitle: "Adapt / Adopt / Adept",
+    trick: "The \"e\" in adept stands for \"expert\", while the \"o\" in adopt stands for taking something as your \"own\". Finally, the \"a\" in adapt stands for \"altering\" something to make it fit.",
+    words: [
+      {
+        word: "Adapt",
+        ipa: "ə-ˈdapt",
+        pos: "Transitive Verb",
+        hindi: "मेल बिठाना / अनुकूल बनाना / ढलना",
+        meaning: "To change your ideas or behavior to make them suitable for a new situation.",
+        examples: [
+          "It took me a while to adapt to the new job.",
+          "Sometimes you have to adapt the design to suit the customer's requirements."
+        ]
+      },
+      {
+        word: "Adopt",
+        ipa: "ə-ˈdäpt",
+        pos: "Verb",
+        hindi: "ग्रहण करना / अपनाना / गोद लेना",
+        meaning: "1. To accept or start to use something new (ग्रहण करना). 2. To legally take another person's child into your own family and care for them as your own child (गोद लेना).",
+        examples: [
+          "I think it's time to adopt a different strategy in my dealings with him.",
+          "The new tax would force companies to adopt energy-saving measures."
+        ]
+      },
+      {
+        word: "Adept",
+        ipa: "ə-ˈdept",
+        pos: "Noun / Adj.",
+        hindi: "माहिर / निपुण / कुशल",
+        meaning: "Having a natural ability to do something that needs skill; highly skilled.",
+        examples: [
+          "She's very adept at dealing with the media.",
+          "He’s adept at making people feel at ease."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "adverse-averse",
+    pairTitle: "Adverse / Averse",
+    trick: "Consider the 'D' in adverse and 'D' for damage.",
+    words: [
+      {
+        word: "Adverse",
+        ipa: "ad·​verse",
+        pos: "Adj.",
+        hindi: "विपरीत / हानिकर / प्रतिकूल",
+        meaning: "Having a negative or harmful effect on something.",
+        examples: [
+          "The match has been cancelled because of adverse weather conditions.",
+          "So far the drug is thought not to have any adverse effects."
+        ]
+      },
+      {
+        word: "Averse",
+        ipa: "ə-ˈvərs",
+        pos: "Adj.",
+        hindi: "विमुख / अनिच्छुक / विरोधी",
+        meaning: "Strongly disliking or opposed to something.",
+        examples: [
+          "Few people are averse to the idea of a free holiday.",
+          "Few politicians are averse to appearing on television."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "advice-advise",
+    pairTitle: "Advice / Advise",
+    trick: "Advice with 'C' is a Noun (सलाह), Advise with 'S' is a Verb (सलाह देना).",
+    words: [
+      {
+        word: "Advice",
+        ipa: "ad·​vice",
+        pos: "Noun",
+        hindi: "उपदेश / सलाह (Noun)",
+        meaning: "Guidance or recommendations offered with regard to prudent future action.",
+        examples: [
+          "Can I give you a piece of advice?",
+          "I need some advice on which computer to buy."
+        ]
+      },
+      {
+        word: "Advise",
+        ipa: "ad·​vise",
+        pos: "Verb",
+        hindi: "सलाह देना / राय देना (Verb)",
+        meaning: "To give advice to someone, or to suggest something.",
+        examples: [
+          "His doctor advised him against smoking.",
+          "I would strongly advise against making a sudden decision."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "affect-effect",
+    pairTitle: "Affect / Effect",
+    trick: "RAVEN: Remember Affect is a Verb, Effect is a Noun (generally).",
+    words: [
+      {
+        word: "Affect",
+        ipa: "af·​fect",
+        pos: "Verb",
+        hindi: "प्रभावित करना / असर डालना",
+        meaning: "To have an influence on someone or something, or to cause a change in someone or something.",
+        examples: [
+          "Both buildings were badly affected by the fire.",
+          "It's a disease that affects mainly older people."
+        ]
+      },
+      {
+        word: "Effect",
+        ipa: "ef·​fect",
+        pos: "Noun",
+        hindi: "प्रभाव / परिणाम / असर",
+        meaning: "The result of a particular influence; a change which is a result of an action.",
+        examples: [
+          "The radiation leak has had a disastrous effect on/upon the environment.",
+          "I tried taking tablets for the headache but they didn't have any effect."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "affectation-affection",
+    pairTitle: "Affectation / Affection",
+    trick: "Affectation has 'affect' (acting/pretence), Affection has 'affectionate' (love/warmth).",
+    words: [
+      {
+        word: "Affectation",
+        ipa: "af·​fec·​ta·​tion",
+        pos: "Noun",
+        hindi: "ढोंग / दिखावा / बनावटी व्यवहार",
+        meaning: "Speech or behavior that is not natural or sincere and is used to produce a certain artificial effect.",
+        examples: [
+          "She has so many little affectations.",
+          "His French accent is just an affectation."
+        ]
+      },
+      {
+        word: "Affection",
+        ipa: "af·​fec·​tion",
+        pos: "Noun",
+        hindi: "स्नेह / लगाव / प्रेम",
+        meaning: "A feeling of liking, fondness, or tenderness towards someone or something.",
+        examples: [
+          "She felt no affection for the child.",
+          "Pets should be treated with affection."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ale-ail",
+    pairTitle: "Ale / Ail",
+    trick: "Ale is brewed beer; Ail is illness (like ailment).",
+    words: [
+      {
+        word: "Ale",
+        ipa: "ˈāl",
+        pos: "Noun",
+        hindi: "शराब / बियर का एक प्रकार",
+        meaning: "Any of various types of beer, usually one that is dark and bitter.",
+        examples: [
+          "The bar serves two very different ales.",
+          "The ale has a solid mouthfeel with apricot flavors and is slightly alcoholic tasting."
+        ]
+      },
+      {
+        word: "Ail",
+        ipa: "ˈāl",
+        pos: "Verb",
+        hindi: "बीमार होना / परेशान करना / कष्ट देना",
+        meaning: "1. To be ill, or to cause to be ill (बीमार होना). 2. To cause difficulty and problems for someone or something (परेशान करना).",
+        examples: [
+          "She had been ailing for years before she died.",
+          "The government seems to have no understanding of what ails the country."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "alter-altar",
+    pairTitle: "Alter / Altar",
+    trick: "Altar with “ta” means table or table-like platform in a church/temple. Alter with 'e' means modify/edit.",
+    words: [
+      {
+        word: "Alter",
+        ipa: "al·​ter",
+        pos: "Verb",
+        hindi: "बदल देना / परिवर्तन करना",
+        meaning: "To change something, usually slightly, or to cause the characteristics of something to change.",
+        examples: [
+          "We've had to alter some of our plans.",
+          "Although the cost of making phone calls is going up, the charge for connecting to the internet will not alter."
+        ]
+      },
+      {
+        word: "Altar",
+        ipa: "al·​tar",
+        pos: "Noun",
+        hindi: "वेदी / पूजा की वेदी",
+        meaning: "A structure with a flat top, often shaped like a table, that is used in religious ceremonies (as a place to put religious offerings).",
+        examples: [
+          "A stone block that served as an altar stood at the front of the temple.",
+          "Before eating, it is customary to offer a part of every meal on the altar."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "allusion-illusion",
+    pairTitle: "Allusion / Illusion",
+    trick: "Remember 'illusion' refers to visual trickery since it contains 'ill' (like optical illusion makes you dizzy). Allusion is an indirect reference.",
+    words: [
+      {
+        word: "Allusion",
+        ipa: "al·​lu·​sion",
+        pos: "Noun",
+        hindi: "संकेत / अप्रत्यक्ष संदर्भ",
+        meaning: "Something that is said or written that is intended to make you think of a particular thing or person; an indirect reference.",
+        examples: [
+          "Her novels are packed with literary allusions.",
+          "The title is perhaps an allusion to the author's childhood."
+        ]
+      },
+      {
+        word: "Illusion",
+        ipa: "il·​lu·​sion",
+        pos: "Noun",
+        hindi: "गलतफहमी / भ्रम / माया",
+        meaning: "An idea or belief that is not true, or something that is not really what it seems to be.",
+        examples: [
+          "He had no illusions about his talents as a singer.",
+          "A large mirror in a room can create the illusion of space."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "apposite-opposite",
+    pairTitle: "Apposite / Opposite",
+    trick: "Remember APPOSITE as the 'Opposite of OPPOSITE' i.e. perfectly matched, appropriate, and most suitable.",
+    words: [
+      {
+        word: "Apposite",
+        ipa: "ap·​po·​site",
+        pos: "Adj.",
+        hindi: "सटीक / उपयुक्त / प्रासंगिक",
+        meaning: "Suitable and right for the occasion; highly appropriate.",
+        examples: [
+          "The film starts in a graveyard, an apposite image for the decaying society which is the theme of the film.",
+          "She thought in both languages, and selected the most apposite phrase from either."
+        ]
+      },
+      {
+        word: "Opposite",
+        ipa: "op·​po·​site",
+        pos: "Adj. / Noun",
+        hindi: "उल्टा / विपरीत / सामने",
+        meaning: "Something or someone that is completely different from another person or thing.",
+        examples: [
+          "You'd never know they're sisters - they're completely opposite to each other in every way."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ascent-assent",
+    pairTitle: "Ascent / Assent",
+    trick: "Ascent has a 'C' for 'climb', while assent has two 'S' that sound like 'yes' (agree to something).",
+    words: [
+      {
+        word: "Ascent",
+        ipa: "as·​cent",
+        pos: "Noun",
+        hindi: "चढ़ाई / उत्थान / ऊपर उठना",
+        meaning: "The act of climbing or moving upwards.",
+        examples: [
+          "She made her first successful ascent of Everest last year.",
+          "They followed a steep ascent to the top of the hill."
+        ]
+      },
+      {
+        word: "Assent",
+        ipa: "as·​sent",
+        pos: "Noun / Verb",
+        hindi: "मंज़ूरी / सहमति / अनुमति",
+        meaning: "Official agreement to or approval of an idea, plan, or request.",
+        examples: [
+          "Once the directors have given their assent to the proposal we can begin.",
+          "She nodded her assent to the proposal."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "assay-essay",
+    pairTitle: "Assay / Essay",
+    trick: "Remember 'ASSAY THE ESSAY' which means evaluate/test the essay.",
+    words: [
+      {
+        word: "Assay",
+        ipa: "as·​say",
+        pos: "Verb / Noun",
+        hindi: "परीक्षा करना / धातु या पदार्थ की शुद्धता जाँचना",
+        meaning: "To perform an examination on a metal/chemical in order to test how pure it is.",
+        examples: [
+          "He assayed the gold to determine its purity."
+        ]
+      },
+      {
+        word: "Essay",
+        ipa: "es·​say",
+        pos: "Noun",
+        hindi: "निबंध / लघु लेख",
+        meaning: "A short piece of writing on a particular subject, especially one done by students.",
+        examples: [
+          "For homework I want you to write an essay on endangered species.",
+          "Mr. John thought my history essay was terrific."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "aught-ought",
+    pairTitle: "Aught / Ought",
+    trick: "Remember 'Ought' has same letters as 'Tough' which means it indicates compulsion, moral duty and force.",
+    words: [
+      {
+        word: "Aught",
+        ipa: "ˈät",
+        pos: "Pronoun",
+        hindi: "कुछ भी / कोई भी चीज़",
+        meaning: "Anything whatever; all.",
+        examples: [
+          "Because Gina's parents are extremely controlling, she doesn't want to rely on them for aught.",
+          "The ill-behaved little boy claimed he didn't know aught about the broken glass."
+        ]
+      },
+      {
+        word: "Ought",
+        ipa: "ˈȯt",
+        pos: "Modal Verb",
+        hindi: "चाहिये (कर्तव्य / आवश्यकता)",
+        meaning: "Used to say that it is necessary, desirable, or duty to perform the action expressed.",
+        examples: [
+          "We ought to clean up before we go home.",
+          "She really ought to apologize."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "bail-bale",
+    pairTitle: "Bail / Bale",
+    trick: "Bail is for court release; Bale is a tightly bound bundle of hay or cotton.",
+    words: [
+      {
+        word: "Bail",
+        ipa: "ˈbāl",
+        pos: "Noun / Verb",
+        hindi: "ज़मानत",
+        meaning: "An amount of money that a person accused of a crime pays to a court so that they can be released until their trial.",
+        examples: [
+          "He was remanded on bail.",
+          "Because of a previous conviction, the judge refused to grant bail."
+        ]
+      },
+      {
+        word: "Bale",
+        ipa: "ˈbāl",
+        pos: "Noun / Verb",
+        hindi: "पोटली / गट्ठर (कपास या घास का)",
+        meaning: "A large amount of something such as paper, wool, hay or cloth that has been tied tightly together.",
+        examples: [
+          "The hay must be baled, and stacked as quickly as possible.",
+          "The washerman carried bales of clothes."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "bare-bear-beer",
+    pairTitle: "Bare / Bear / Beer",
+    trick: "Bare = naked/basic; Bear = endure/animal; Beer = alcoholic beverage.",
+    words: [
+      {
+        word: "Bare",
+        ipa: "ˈber",
+        pos: "Adj.",
+        hindi: "नग्न / बिना ढका / केवल (मूल)",
+        meaning: "1. Without any clothes or not covered by anything. 2. Only the most basic or important (केवल).",
+        examples: [
+          "Don't walk around outside in your bare feet.",
+          "I just packed the bare essentials (= the most basic things).",
+          "There isn't much time, so I'll just give you the bare facts."
+        ]
+      },
+      {
+        word: "Bear",
+        ipa: "ˈber",
+        pos: "Verb / Noun",
+        hindi: "सहन करना / भालू / वहन करना",
+        meaning: "To accept, tolerate, or endure something, especially something unpleasant.",
+        examples: [
+          "I cannot bear his constant criticism.",
+          "The strain must have been enormous but she bore it well."
+        ]
+      },
+      {
+        word: "Beer",
+        ipa: "ˈbāl",
+        pos: "Noun",
+        hindi: "शराब / बियर",
+        meaning: "A slightly bitter, alcoholic drink made from grain/hops.",
+        examples: [
+          "The morning after the party, the whole house stank of beer and cigarettes.",
+          "After a hard day's work they enjoy a beer or two."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "berth-birth",
+    pairTitle: "Berth / Birth",
+    trick: "Berth has 'e' like 'bed' in train; Birth has 'i' like 'infant'.",
+    words: [
+      {
+        word: "Berth",
+        ipa: "ˈbərth",
+        pos: "Noun / Verb",
+        hindi: "सीट / ट्रेन या जहाज़ में सोने की जगह / लंगर डालना",
+        meaning: "1. A bed in a boat, train, etc., or a place for a ship to stay in a port. 2. To tie up and moor a vessel.",
+        examples: [
+          "She booked a berth on the ferry from Palermo to Naples.",
+          "I got a berth on the middle deck.",
+          "The ship berthed at Sydney."
+        ]
+      },
+      {
+        word: "Birth",
+        ipa: "ˈbərth",
+        pos: "Noun",
+        hindi: "जन्म / उत्पत्ति",
+        meaning: "The time when a baby or young animal comes out of its mother's body.",
+        examples: [
+          "He weighed eight pounds at birth.",
+          "The application form will ask for your country/place of birth."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "beside-besides",
+    pairTitle: "Beside / Besides",
+    trick: "Just remember 'beside' means 'by the side of'. 'Besides' with an extra 'S' means 'in addition to' / 'also'.",
+    words: [
+      {
+        word: "Beside",
+        ipa: "be·​side",
+        pos: "Preposition",
+        hindi: "बगल में / पास में",
+        meaning: "At the side of, next to someone or something.",
+        examples: [
+          "Come and sit here beside me.",
+          "Our school was built right beside a river."
+        ]
+      },
+      {
+        word: "Besides",
+        ipa: "be·​sides",
+        pos: "Preposition / Adv.",
+        hindi: "के अतिरिक्त / इसके अलावा",
+        meaning: "In addition to; also; apart from.",
+        examples: [
+          "She won't mind if you're late - besides, it's hardly your fault.",
+          "Do you play any other sports besides basketball?"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "bridal-bridle",
+    pairTitle: "Bridal / Bridle",
+    trick: "Brides in their bridal gowns wait for grooms to arrive on their bridled horses.",
+    words: [
+      {
+        word: "Bridal",
+        ipa: "brid·​al",
+        pos: "Adj.",
+        hindi: "विवाह / विवाहोत्सव संबंधी / दुल्हन का",
+        meaning: "Of a woman about to be married, or of a marriage ceremony.",
+        examples: [
+          "The magazine had a section on bridal wear.",
+          "We stayed in the hotel's bridal suite."
+        ]
+      },
+      {
+        word: "Bridle",
+        ipa: "bri·​dle",
+        pos: "Noun / Verb",
+        hindi: "लगाम / गुस्सा प्रकट करना",
+        meaning: "1. A set of leather straps around a horse's head to control it (लगाम). 2. To show sudden anger or resentment (गुस्सा दिखाना).",
+        examples: [
+          "She saddled and bridled her favorite horse.",
+          "He bridled at the suggestion that he had been dishonest."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "bread-breed",
+    pairTitle: "Bread / Breed",
+    trick: "Bread is food (roti); Breed is reproduction or genetic race (nasl).",
+    words: [
+      {
+        word: "Bread",
+        ipa: "ˈbred",
+        pos: "Noun",
+        hindi: "पाव रोटी / रोटी / आहार",
+        meaning: "A basic food made from flour, water, and yeast mixed together and baked.",
+        examples: [
+          "Shall I cut you a slice of bread?",
+          "There's nothing better than fresh bread, straight from the oven."
+        ]
+      },
+      {
+        word: "Breed",
+        ipa: "ˈbrēd",
+        pos: "Verb / Noun",
+        hindi: "पालन पोषण करना / नस्ल",
+        meaning: "1. To keep and reproduce animals in a controlled way (पालन पोषण करना). 2. A particular type/strain of animal, plant or person (नस्ल).",
+        examples: [
+          "His main income comes from breeding cattle.",
+          "A new breed of film-maker has taken over Hollywood.",
+          "What's your favorite breed of dog?"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "canvas-canvass",
+    pairTitle: "Canvas / Canvass",
+    trick: "Canvas with 1 's' is cloth/painting surface. Canvass with 2 's' means Soliciting Support / Seeking votes.",
+    words: [
+      {
+        word: "Canvas",
+        ipa: "can·​vas",
+        pos: "Noun",
+        hindi: "किरमिच / चित्रपट / मोटा कपड़ा",
+        meaning: "A heavy, rough cloth used by artists for painting or for making tents, sails, and bags.",
+        examples: [
+          "I love sleeping under canvas.",
+          "These two canvases by Hockney would sell for £1,500,000."
+        ]
+      },
+      {
+        word: "Canvass",
+        ipa: "can·​vass",
+        pos: "Verb",
+        hindi: "वोट मांगना / चुनाव प्रचार करना / जनमत संग्रह",
+        meaning: "To try to get political support or votes, especially by visiting all houses in an area.",
+        examples: [
+          "I've been out canvassing for the Labor Party every evening this week.",
+          "A house-to-house canvass to ascertain the vote before the election."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "casual-causal",
+    pairTitle: "Casual / Causal",
+    trick: "Casual = careless/informal; Causal = cause and effect relationship.",
+    words: [
+      {
+        word: "Casual",
+        ipa: "ca·​su·​al",
+        pos: "Adj.",
+        hindi: "लापरवाही से किया गया / अनौपचारिक",
+        meaning: "1. Not taking much serious interest; relaxed. 2. Clothes that are informal and not for formal ceremonies.",
+        examples: [
+          "The psychologist's attitude seemed far too casual, even brutal.",
+          "Security around the conference hotel seemed almost casual."
+        ]
+      },
+      {
+        word: "Causal",
+        ipa: "caus​·​al",
+        pos: "Adj.",
+        hindi: "कारण संबंधी / कार्य-कारण परक",
+        meaning: "A relationship or link between two things in which one causes the other.",
+        examples: [
+          "In economics, we were asked to find the causal relationship between scarcity and higher prices.",
+          "Is there a causal relationship between violence on television and violent behavior?"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "cannon-canon",
+    pairTitle: "Cannon / Canon",
+    trick: "Cannon (weapon) has more N's (ammunition cannonballs). Canon with single 'n' is religious law or literary collection.",
+    words: [
+      {
+        word: "Cannon",
+        ipa: "can·​non",
+        pos: "Noun",
+        hindi: "तोप / भारी युद्धक अस्त्र",
+        meaning: "A large, powerful gun on wheels used in the past to fire heavy metal/stone cannonballs.",
+        examples: [
+          "The 5,000-pound cannon predates the Civil War.",
+          "The cannon were positioned on the field of battle."
+        ]
+      },
+      {
+        word: "Canon",
+        ipa: "can·​on",
+        pos: "Noun",
+        hindi: "ग्रंथ संग्रह / नियम / सिद्धांत",
+        meaning: "The writings or other works that are generally agreed to be good, important, and worth studying; religious law.",
+        examples: [
+          "He has made it into the canon of English poetry.",
+          "She argues that the canon must be opened up to more non-European writers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "calendar-calender",
+    pairTitle: "Calendar / Calender",
+    trick: "Calendar (A for almanac/dates) has 'dar'. Calender (E for equipment machine) has 'der'.",
+    words: [
+      {
+        word: "Calendar",
+        ipa: "cal·​en·​dar",
+        pos: "Noun / Verb",
+        hindi: "पंचांग / तिथि-पत्र / कार्यक्रम तय करना",
+        meaning: "1. A printed table showing days, weeks, and months of the year. 2. To schedule an official event on a particular date.",
+        examples: [
+          "An old calendar for 2021 was still hanging on the wall of her office.",
+          "The house calendared an anti-terrorism bill in November."
+        ]
+      },
+      {
+        word: "Calender",
+        ipa: "cal·​en·​der",
+        pos: "Noun / Verb",
+        hindi: "कपड़ा या कागज़ चिकना करने की रोलर मशीन",
+        meaning: "A machine that presses cloth, rubber, or paper between rollers in order to smooth and glaze it.",
+        examples: [
+          "Calender is glazing coater matching equipment.",
+          "They are coupled with plastics calender for continuously producing PVC sheets."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ceiling-sealing",
+    pairTitle: "Ceiling / Sealing",
+    trick: "Ceiling with 'C' is roof of room; Sealing with 'S' is packing/hunting seal animals.",
+    words: [
+      {
+        word: "Ceiling",
+        ipa: "ceil·​ing",
+        pos: "Noun",
+        hindi: "भीतरी छत / अधिकतम सीमा",
+        meaning: "1. The upper interior surface of a room. 2. An upper official limit on prices, wages or rents.",
+        examples: [
+          "I got a crick in my neck from painting the ceiling.",
+          "There is a 10% ceiling on rent increases."
+        ]
+      },
+      {
+        word: "Sealing",
+        ipa: "ˈsiː.lɪŋ",
+        pos: "Noun",
+        hindi: "शिकार (सील मछली का) / मुहरबंदी / बंद करना",
+        meaning: "1. The hunting and killing of seals (animals). 2. The action of fastening or closing something securely with a seal.",
+        examples: [
+          "Sealing is prohibited.",
+          "The clerk was sealing the letter in his office."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "cast-caste",
+    pairTitle: "Cast / Caste",
+    trick: "Cast = actors/throw; Caste (with 'e' for ethnic class) = social class system.",
+    words: [
+      {
+        word: "Cast",
+        ipa: "ˈkast",
+        pos: "Noun / Verb",
+        hindi: "अभिनेता वर्ग / ढालना / फेंकना / भूमिका देना",
+        meaning: "1. The actors in a film, play, or show (अभिनेता वर्ग). 2. To choose actors to play particular roles.",
+        examples: [
+          "After the final performance the director threw a party for the cast.",
+          "He was often cast as the villain."
+        ]
+      },
+      {
+        word: "Caste",
+        ipa: "ˈkast",
+        pos: "Noun",
+        hindi: "जाति / वर्ण / गोत्र",
+        meaning: "A system of dividing society into hereditary social classes, or any of these classes.",
+        examples: [
+          "He was from a higher caste.",
+          "The founders of the new nation rejected a social system based on caste."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "cereal-serial",
+    pairTitle: "Cereal / Serial",
+    trick: "Remember 'C' for Cereal and 'C' for Crop (grain). Serial with 'S' means sequence or series.",
+    words: [
+      {
+        word: "Cereal",
+        ipa: "ce·​re·​al",
+        pos: "Noun",
+        hindi: "अनाज / धान्य खाद्य",
+        meaning: "A food that is made from grain (wheat, corn, oats) and eaten with milk, especially in the morning.",
+        examples: [
+          "I hate it when cereal goes all soggy, so I try to eat it up quickly.",
+          "Drought has stunted the growth of this year's cereal crop."
+        ]
+      },
+      {
+        word: "Serial",
+        ipa: "se·​ri·​al",
+        pos: "Noun / Adj.",
+        hindi: "क्रमबद्ध / धारावाहिक",
+        meaning: "1. A story broadcast or printed in sequential parts (धारावाहिक). 2. Arranged one after another in order.",
+        examples: [
+          "She is currently filming a serial drama for the BBC.",
+          "He had difficulty in remembering the serial order of the tasks."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "cite-site",
+    pairTitle: "Cite / Site",
+    trick: "Remember 'Site' begins with 'S' and can be replaced with 'Spot' (place). 'Cite' with 'C' means citing citation.",
+    words: [
+      {
+        word: "Cite",
+        ipa: "ˈsīt",
+        pos: "Verb",
+        hindi: "प्रमाण देना / दृष्टान्त देना / उद्धृत करना",
+        meaning: "To mention something as proof for a theory, or speak/quote words taken from a writer.",
+        examples: [
+          "She cited three reasons why people get into debt.",
+          "She cites both T.S. Eliot and Virginia Woolf in her article."
+        ]
+      },
+      {
+        word: "Site",
+        ipa: "ˈsīt",
+        pos: "Noun",
+        hindi: "स्थान / कार्यस्थल / निर्माण स्थल",
+        meaning: "A place where something is, was, or will be built, or where an event happened.",
+        examples: [
+          "The company hasn't yet chosen the site for the new hospital.",
+          "This is the site of the accident."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "choir-quire",
+    pairTitle: "Choir / Quire",
+    trick: "Remember 'C' in Choir stands for 'Chorus' (group of singers). Quire is paper ream unit.",
+    words: [
+      {
+        word: "Choir",
+        ipa: "ˈkwī(-ə)r",
+        pos: "Noun",
+        hindi: "गायक मंडली / भजन मंडली",
+        meaning: "An organized group of singers, especially one that takes part in church services or concerts.",
+        examples: [
+          "The school choir practices every Monday lunchtime.",
+          "He sings in the church choir."
+        ]
+      },
+      {
+        word: "Quire",
+        ipa: "ˈkwī(-ə)r",
+        pos: "Noun",
+        hindi: "काग़ज़ का एक दस्ता (24 या 25 ताव)",
+        meaning: "A collection of 24 or 25 sheets of paper of the same size and quality.",
+        examples: [
+          "These quires are bound together in the correct order to produce the book.",
+          "She went and fetched a quire of paper."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "chord-cord",
+    pairTitle: "Chord / Cord",
+    trick: "Chord with 'h' is musical Harmony/geometric line. Cord is a rope or electrical cable.",
+    words: [
+      {
+        word: "Chord",
+        ipa: "ˈkȯrd",
+        pos: "Noun / Verb",
+        hindi: "स्वर संयोग (संगीत) / ज्या (रेखा गणित)",
+        meaning: "1. Three or more musical notes played simultaneously (स्वर संयोग). 2. A straight line joining the ends of an arc. 3. To harmonize.",
+        examples: [
+          "I am learning to play a new chord on the piano.",
+          "When the chord passes through the center of a circle it is called the diameter."
+        ]
+      },
+      {
+        word: "Cord",
+        ipa: "ˈkȯrd",
+        pos: "Noun",
+        hindi: "रस्सी / डोरी / बिजली का तार",
+        meaning: "1. A length of rope or string made of twisted threads. 2. A length of insulated wire that connects electrical equipment.",
+        examples: [
+          "Where's the cord that ties back the curtains?",
+          "Has anyone seen my phone charger's cord?"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "course-coarse",
+    pairTitle: "Course / Coarse",
+    trick: "Coarse has 'oar' like a rough wooden oar. Course is pathway/curriculum.",
+    words: [
+      {
+        word: "Course",
+        ipa: "as·​cent / ˈkȯrs",
+        pos: "Noun",
+        hindi: "पाठ्यक्रम / दिशा / भोजन क्रम",
+        meaning: "1. A set of classes or plan of study (पाठ्यक्रम). 2. Direction of movement (दिशा). 3. A part of a meal served in sequence (भोजन क्रम).",
+        examples: [
+          "They're going for a training course next week.",
+          "The pilot avoided a collision by changing course.",
+          "The four-course meal consists of a soup, an appetizer, an entrée, and dessert."
+        ]
+      },
+      {
+        word: "Coarse",
+        ipa: "ˈkȯrs",
+        pos: "Adj.",
+        hindi: "खुरदुरा / असभ्य / अशिष्ट",
+        meaning: "1. Rough in texture, not smooth. 2. Rude, offensive, or crude in language/manners.",
+        examples: [
+          "The coarse cloth was uncomfortable against his skin.",
+          "The coarse language on TV was bleeped out."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "coma-comma",
+    pairTitle: "Coma / Comma",
+    trick: "Coma (single m) = state of unconsciousness. Comma (double m) = punctuation pause mark.",
+    words: [
+      {
+        word: "Coma",
+        ipa: "co·​ma",
+        pos: "Noun",
+        hindi: "बेहोशी की हालत / अचेतनावस्था",
+        meaning: "A state of prolonged deep unconsciousness caused by brain damage, illness, or trauma.",
+        examples: [
+          "He's been in a coma for the past six weeks.",
+          "She went into a deep coma after taking an overdose of sleeping pills."
+        ]
+      },
+      {
+        word: "Comma",
+        ipa: "com·​ma",
+        pos: "Noun",
+        hindi: "अल्प विराम (चिह्न)",
+        meaning: "The punctuation symbol ( , ) indicating a slight pause or separating items in a list.",
+        examples: [
+          "Put a comma after the clause.",
+          "We usually put a comma after thousands in numbers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "compare-contrast",
+    pairTitle: "Compare / Contrast",
+    trick: "Take 'Par' from compare (means parallel/equal/similarity). Compare emphasizes similarities; Contrast emphasizes differences.",
+    words: [
+      {
+        word: "Compare",
+        ipa: "com·​pare",
+        pos: "Verb",
+        hindi: "तुलना करना / समानता दिखाना",
+        meaning: "To examine the character or qualities of two or more things in order to discover resemblances.",
+        examples: [
+          "Compare some recent work with your older stuff and you'll see how much you've improved."
+        ]
+      },
+      {
+        word: "Contrast",
+        ipa: "con·​trast",
+        pos: "Verb / Noun",
+        hindi: "फर्क दिखाना / विषमता / भिन्नता",
+        meaning: "To compare two people or things in order to show their glaring differences.",
+        examples: [
+          "The tartness of the lemons contrasts with the sweetness of the honey.",
+          "I like the contrast of the white trousers with the black jacket."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "compliment-complement",
+    pairTitle: "Compliment / Complement",
+    trick: "ComplIment has 'I' (I like your dress -> praise). ComplEment has 'E' (Complete the whole).",
+    words: [
+      {
+        word: "Compliment",
+        ipa: "com·​pli·​ment",
+        pos: "Noun / Verb",
+        hindi: "प्रशंसा / तारीफ़ / शुभकामना",
+        meaning: "A polite remark that expresses approval, admiration, or praise.",
+        examples: [
+          "Are you fishing for compliments?",
+          "I take it as a compliment when people say I look like my mother."
+        ]
+      },
+      {
+        word: "Complement",
+        ipa: "com·​ple·​ment",
+        pos: "Verb / Noun",
+        hindi: "पूरक होना / पूर्ण करने वाला",
+        meaning: "To make something else seem better or complete when combined with it.",
+        examples: [
+          "A fine dessert is a perfect complement to the dinner.",
+          "The music complements her voice perfectly."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "confidant-confident",
+    pairTitle: "Confidant / Confident",
+    trick: "If you are confidEnt, the belief is in 'mE'. If you have a confidAnt, you trust 'Another'.",
+    words: [
+      {
+        word: "Confidant",
+        ipa: "con·​fi·​dant",
+        pos: "Noun",
+        hindi: "विश्वासपात्र / राजदार मित्र",
+        meaning: "A person you trust and share your intimate feelings and private secrets with.",
+        examples: [
+          "He is a trusted confidant of the president.",
+          "Her brother is her closest confidant."
+        ]
+      },
+      {
+        word: "Confident",
+        ipa: "con·​fi·​dent",
+        pos: "Adj.",
+        hindi: "आत्मविश्वासी / आश्वस्त",
+        meaning: "Being certain of your abilities or having trust in people, plans, or the future.",
+        examples: [
+          "Be a bit more confident in yourself!",
+          "They don't sound confident about the future of the industry."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "conscious-conscientious",
+    pairTitle: "Conscious / Conscientious",
+    trick: "Conscious = awake & aware. Conscientious = guided by conscience (duty-bound & honest).",
+    words: [
+      {
+        word: "Conscious",
+        ipa: "con·​scious",
+        pos: "Adj.",
+        hindi: "जागरूक / होश में / जानबूझकर किया गया",
+        meaning: "1. Awake, aware, and responsive to one's surroundings. 2. Determined, intentional.",
+        examples: [
+          "He's still conscious but he's very badly injured.",
+          "He's obviously making a conscious effort to be nice to me."
+        ]
+      },
+      {
+        word: "Conscientious",
+        ipa: "con·​sci·​en·​tious",
+        pos: "Adj.",
+        hindi: "कर्तव्यनिष्ठ / ईमानदार / परिश्रमी",
+        meaning: "Feeling a strong moral responsibility to do work carefully, thoroughly, and honestly.",
+        examples: [
+          "She is a conscientious student of her class.",
+          "Smith is a conscientious and dedicated worker."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "considerable-considerate",
+    pairTitle: "Considerable / Considerate",
+    trick: "Considerable = large in size/quantity. Considerate = kind and thoughtful of others' feelings.",
+    words: [
+      {
+        word: "Considerable",
+        ipa: "con·​sid·​er·​able",
+        pos: "Adj.",
+        hindi: "बहुत अधिक / महत्वपूर्ण / विचारणीय",
+        meaning: "Large or of noticeable importance, size, or extent.",
+        examples: [
+          "The fire caused considerable damage to the house.",
+          "He exhibited considerable skill in driving through the snowstorm."
+        ]
+      },
+      {
+        word: "Considerate",
+        ipa: "con·​sid·​er·​ate",
+        pos: "Adj.",
+        hindi: "सहृदय / दूसरों का ध्यान रखने वाला / दयालु",
+        meaning: "Kind, helpful, and careful not to inconvenience or hurt others.",
+        examples: [
+          "It wasn't very considerate of you to eat all the cookies.",
+          "He is a considerate friend of mine."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "contempt-contemptuous",
+    pairTitle: "Contempt / Contemptuous",
+    trick: "Contempt is the Noun (feeling of disdain); Contemptuous is the Adjective (showing disdain).",
+    words: [
+      {
+        word: "Contempt",
+        ipa: "con·​tempt",
+        pos: "Noun",
+        hindi: "तिरस्कार / घृणा / अवमानना",
+        meaning: "A strong feeling of disliking and having no respect for someone or something.",
+        examples: [
+          "At school she had complete contempt for all her teachers.",
+          "He rewarded their kindness with hostility and contempt."
+        ]
+      },
+      {
+        word: "Contemptuous",
+        ipa: "con·​temp·​tu·​ous",
+        pos: "Adj.",
+        hindi: "तिरस्कारपूर्ण / हेय / अपमानजनक",
+        meaning: "Expressing or feeling a deep lack of respect; scornful.",
+        examples: [
+          "As one of the senior members, he was openly contemptuous of junior staff.",
+          "He was very contemptuous of 'popular' writers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "continual-continuous",
+    pairTitle: "Continual / Continuous",
+    trick: "Continual = recurring with intervals (बार-बार रुक-रुक कर). Continuous = unbroken without any pause (लगातार/अविच्छिन्न).",
+    words: [
+      {
+        word: "Continual",
+        ipa: "con·​tin·​u·​al",
+        pos: "Adj.",
+        hindi: "बार-बार होने वाला (रुक-रुक कर)",
+        meaning: "Happening repeatedly, frequently occurring with small interruptions.",
+        examples: [
+          "I've had continual problems with this car ever since I bought it.",
+          "I'm sorry - I can't work with these continual interruptions."
+        ]
+      },
+      {
+        word: "Continuous",
+        ipa: "con·​tin·​u·​ous",
+        pos: "Adj.",
+        hindi: "अविच्छिन्न / लगातार / बिना रुके",
+        meaning: "Without a pause, interruption, or gap in time or sequence.",
+        examples: [
+          "My computer makes a continuous low buzzing noise.",
+          "A continuous white line in the middle of the road means no overtaking."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "corps-corpse",
+    pairTitle: "Corps / Corpse",
+    trick: "Corps (pronounced 'kor') = military team. Corpse (pronounced 'korps') = dead body (shav).",
+    words: [
+      {
+        word: "Corps",
+        ipa: "ˈkȯrps (kor)",
+        pos: "Noun",
+        hindi: "सेना की पलटन / दल / समूह",
+        meaning: "1. A military unit trained to perform specialized duties (पलटन). 2. A body of people engaged in a common activity.",
+        examples: [
+          "The Royal Army Medical Corps.",
+          "A corps of technicians is accompanying the band on their tour."
+        ]
+      },
+      {
+        word: "Corpse",
+        ipa: "ˈkȯrps",
+        pos: "Noun",
+        hindi: "मृत शरीर / शव / लाश",
+        meaning: "A dead body, especially of a human being.",
+        examples: [
+          "The actor had to play a corpse lying in a morgue.",
+          "The corpse was in an advanced stage of decomposition."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "corporal-corporeal",
+    pairTitle: "Corporal / Corporeal",
+    trick: "Corporal relates to military rank / physical bodily punishment. Corporeal means tangible/material vs spiritual.",
+    words: [
+      {
+        word: "Corporal",
+        ipa: "cor·​po·​ral",
+        pos: "Noun / Adj.",
+        hindi: "सेना का छोटा अधिकारी / शारीरिक (दण्ड)",
+        meaning: "1. A non-commissioned officer in the army. 2. Of or relating to the physical human body (as in corporal punishment).",
+        examples: [
+          "Thank you, Corporal.",
+          "It specifically prohibited faculty from inflicting corporal punishment on students."
+        ]
+      },
+      {
+        word: "Corporeal",
+        ipa: "cor·​po·​re·​al",
+        pos: "Adj.",
+        hindi: "शारीरिक / स्थूल / भौतिक (जो आध्यात्मिक न हो)",
+        meaning: "Having, consisting of, or relating to a physical material body (not spiritual, intangible).",
+        examples: [
+          "Teacher asked the students to bring corporeal needs to the picnic.",
+          "Corporeal cravings such as hunger and thirst."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "council-counsel",
+    pairTitle: "Council / Counsel",
+    trick: "Relate the 2nd 'c' in council to 'c' in Committee. Relate the 's' in counsel to 's' in Advise.",
+    words: [
+      {
+        word: "Council",
+        ipa: "coun·​cil",
+        pos: "Noun",
+        hindi: "समिति / परिषद / सभा",
+        meaning: "An advisory, deliberative, or legislative body of people elected to govern an area.",
+        examples: [
+          "The town council is responsible for keeping the streets clean.",
+          "Teachers have constituted a students council."
+        ]
+      },
+      {
+        word: "Counsel",
+        ipa: "coun·​sel",
+        pos: "Verb / Noun",
+        hindi: "सलाह देना / परामर्श / वकील",
+        meaning: "To give advice, especially on social, personal, or legal problems.",
+        examples: [
+          "He was counseling athletes not to take steroids.",
+          "My job involves counselling unemployed people on how to find work."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "credible-creditable",
+    pairTitle: "Credible / Creditable",
+    trick: "Credible = Believable (विश्वास योग्य). Creditable = Praiseworthy/Deserving credit (प्रशंसनीय).",
+    words: [
+      {
+        word: "Credible",
+        ipa: "cred·​i·​ble",
+        pos: "Adj.",
+        hindi: "विश्वास करने योग्य / विश्वसनीय",
+        meaning: "Able to be believed, trusted, or convincing.",
+        examples: [
+          "They haven't produced any credible evidence for convicting him.",
+          "The story of what had happened to her was barely credible."
+        ]
+      },
+      {
+        word: "Creditable",
+        ipa: "cred·​it·​able",
+        pos: "Adj.",
+        hindi: "प्रशंसनीय / सम्मानजनक / श्रेयस्कर",
+        meaning: "Deserving praise, honor, or respect, though not outstanding.",
+        examples: [
+          "A very creditable 2–4 defeat."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "crime-sin",
+    pairTitle: "Crime / Sin",
+    trick: "Crime is violation of State laws (punished by court); Sin is violation of Divine/Moral law.",
+    words: [
+      {
+        word: "Crime",
+        ipa: "ˈkrīm",
+        pos: "Noun",
+        hindi: "अपराध / कानूनी जुर्म",
+        meaning: "An action or activity that is against the statutory law of the land.",
+        examples: [
+          "Violent crime has been reduced.",
+          "If you commit a crime, you will be punished."
+        ]
+      },
+      {
+        word: "Sin",
+        ipa: "ˈsin",
+        pos: "Noun / Verb",
+        hindi: "पाप / धार्मिक या नैतिक अपराध",
+        meaning: "An act that is considered a transgression of religious or moral law.",
+        examples: [
+          "He thinks a lot about sin.",
+          "Forgive me, Father, for I have sinned."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "defy-deify",
+    pairTitle: "Defy / Deify",
+    trick: "Defy sounds like Deny (disobey/rebel). Deify contains 'Dei' (Deity -> make into a God).",
+    words: [
+      {
+        word: "Defy",
+        ipa: "de·​fy",
+        pos: "Verb",
+        hindi: "विरोध करना / अवज्ञा करना / ललकारना",
+        meaning: "To openly resist or refuse to obey a person, law, or authority.",
+        examples: [
+          "It is rare to see children openly defying their teachers.",
+          "A few workers have defied the majority decision."
+        ]
+      },
+      {
+        word: "Deify",
+        ipa: "de·​i·​fy",
+        pos: "Verb",
+        hindi: "पूजा करना / देवता के समान मानना",
+        meaning: "To make someone or something into a god; idolize or worship.",
+        examples: [
+          "The Romans used to deify their emperors.",
+          "Indians deify the earth."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "dependent-dependant",
+    pairTitle: "Dependent / Dependant",
+    trick: "Dependent with 'E' is the Adjective (relying on). Dependant with 'A' is the Noun (person supported).",
+    words: [
+      {
+        word: "Dependent",
+        ipa: "de·​pen·​dent",
+        pos: "Adj.",
+        hindi: "आश्रित / निर्भर (Adjective)",
+        meaning: "Needing the support or aid of someone/something in order to survive.",
+        examples: [
+          "He has three dependent children.",
+          "It's very easy to become dependent on sleeping pills."
+        ]
+      },
+      {
+        word: "Dependant",
+        ipa: "de·​pen·​dant",
+        pos: "Noun",
+        hindi: "आश्रित व्यक्ति (Noun)",
+        meaning: "A person who relies on another for financial support (child, dependent family member).",
+        examples: [
+          "My pension will provide for my dependants.",
+          "As she has no dependants, there was no need for life cover."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "deprecate-depreciate",
+    pairTitle: "Deprecate / Depreciate",
+    trick: "Deprecate = express disapproval / belittle. Depreciate = lose monetary value (devalue).",
+    words: [
+      {
+        word: "Deprecate",
+        ipa: "dep·​re·​cate",
+        pos: "Verb",
+        hindi: "अमान्य करना / निंदा करना / तुच्छ समझना",
+        meaning: "To express strong disapproval of something, or belittle its value/importance.",
+        examples: [
+          "He always deprecates my achievements.",
+          "We deprecate this use of company funds for political purposes."
+        ]
+      },
+      {
+        word: "Depreciate",
+        ipa: "de·​pre·​ci·​ate",
+        pos: "Verb",
+        hindi: "कीमत घटना / मूल्य ह्रास होना",
+        meaning: "To diminish in value over a period of time.",
+        examples: [
+          "Our car depreciated by $1,500 in the first year.",
+          "In the last year our house has depreciated in value."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "desert-dessert",
+    pairTitle: "Desert / Dessert",
+    trick: "Remember the double 'S' in dessert stands for 'Sweet Stuff' served after dinner.",
+    words: [
+      {
+        word: "Desert",
+        ipa: "des·​ert",
+        pos: "Noun / Verb",
+        hindi: "रेगिस्तान / छोड़ कर भाग जाना",
+        meaning: "1. An arid, barren sandy region with little rain (रेगिस्तान). 2. To abandon or leave without permission (भाग जाना).",
+        examples: [
+          "They were lost in the desert for nine days.",
+          "He deserted his wife and family for another woman.",
+          "Soldiers who deserted and were caught were shot."
+        ]
+      },
+      {
+        word: "Dessert",
+        ipa: "des·​sert",
+        pos: "Noun",
+        hindi: "खाने के बाद की मिठाई",
+        meaning: "A sweet dish eaten at the conclusion of a meal (cakes, puddings, fruit).",
+        examples: [
+          "For dessert there's apple pie or fruit.",
+          "She made a fabulous dessert with alternate layers of chocolate and cream."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "dairy-diary",
+    pairTitle: "Dairy / Diary",
+    trick: "Dairy has 'ai' like 'milk' supplier. Diary has 'ia' like 'I am writing'.",
+    words: [
+      {
+        word: "Dairy",
+        ipa: "ˈder-ē",
+        pos: "Noun",
+        hindi: "दुग्धशाला / गोशाला / डेयरी उत्पाद",
+        meaning: "A farm building or facility where milk and dairy products (butter, cheese) are produced and sold.",
+        examples: [
+          "She eats no meat and very little dairy.",
+          "I’ll only buy non-fat dairy products."
+        ]
+      },
+      {
+        word: "Diary",
+        ipa: "di·​a·​ry",
+        pos: "Noun",
+        hindi: "दिनचर्या पत्रिका / दैनिकी",
+        meaning: "A personal book in which one records daily experiences, observations, and schedules.",
+        examples: [
+          "Don't forget to write the date of the meeting in your diary.",
+          "We kept a food-and-exercise diary."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "die-dye",
+    pairTitle: "Die / Dye",
+    trick: "Dye with 'YE' is like 'Yellow' color; Die with 'IE' relates to terminal illness/death.",
+    words: [
+      {
+        word: "Die",
+        ipa: "ˈdī",
+        pos: "Verb",
+        hindi: "मरना / देहांत होना",
+        meaning: "To cease living; stop being alive.",
+        examples: [
+          "Twelve people died in the accident.",
+          "Many people have a fear of dying."
+        ]
+      },
+      {
+        word: "Dye",
+        ipa: "ˈdī",
+        pos: "Verb / Noun",
+        hindi: "रंगना / रंगाई का पदार्थ",
+        meaning: "To color something (cloth, hair) using a coloring solution.",
+        examples: [
+          "For a change, why not dye your T-shirts?",
+          "He dyed his hair burgundy."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "disease-decease",
+    pairTitle: "Disease / Decease",
+    trick: "Disease has 'I' for 'illness'. Decease has 'E' for 'end of life' (death).",
+    words: [
+      {
+        word: "Disease",
+        ipa: "dis·​ease",
+        pos: "Noun",
+        hindi: "बीमारी / रोग",
+        meaning: "An illness of humans, animals, or plants caused by infection or internal organ failure.",
+        examples: [
+          "Starvation and disease have killed thousands of refugees.",
+          "The first symptom of the disease is a very high temperature."
+        ]
+      },
+      {
+        word: "Decease",
+        ipa: "de·​cease",
+        pos: "Noun",
+        hindi: "स्वर्गवास होना / मृत्यु / देहांत",
+        meaning: "A person's death; deceasing.",
+        examples: [
+          "The house will not be yours till after your mother's decease.",
+          "He had many debts at the time of his decease."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "draft-drought",
+    pairTitle: "Draft / Drought",
+    trick: "Draft is rough drawing/money slip; Drought is dry rainfall deficiency.",
+    words: [
+      {
+        word: "Draft",
+        ipa: "ˈdraft",
+        pos: "Noun / Verb",
+        hindi: "रेखा चित्र / नक्शा / प्रारूप",
+        meaning: "A preliminary version of a piece of writing or drawing before finalizing.",
+        examples: [
+          "This is only a rough draft - the finished article will have pictures too.",
+          "She asked me to check the draft of her proposal."
+        ]
+      },
+      {
+        word: "Drought",
+        ipa: "ˈdrau̇t",
+        pos: "Noun",
+        hindi: "सूखा / अकाल",
+        meaning: "A prolonged period of abnormally low rainfall leading to water shortage.",
+        examples: [
+          "This year a severe drought has ruined the crops.",
+          "The farmers had to sustain great loss of crops due to drought."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "dual-duel",
+    pairTitle: "Dual / Duel",
+    trick: "Duel ends in 'uel' like 'crUel' (a cruel combat between 2 people). Dual with 'al' means twofold.",
+    words: [
+      {
+        word: "Dual",
+        ipa: "du·​al",
+        pos: "Adj.",
+        hindi: "दोहरा / द्विपक्षीय",
+        meaning: "Having two parts, or combining two elements.",
+        examples: [
+          "This room has a dual purpose, serving as both a study and a dining room.",
+          "A product with dual action that kills bacteria and removes stains."
+        ]
+      },
+      {
+        word: "Duel",
+        ipa: "du·​el",
+        pos: "Noun / Verb",
+        hindi: "द्वंद्व युद्ध / दो व्यक्तियों की लड़ाई",
+        meaning: "A formal fight arranged between two people with deadly weapons to decide a dispute.",
+        examples: [
+          "The two men fought a duel over the lady."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "deference-difference",
+    pairTitle: "Deference / Difference",
+    trick: "Deference = respect/submission to elders. Difference = distinction/contrast.",
+    words: [
+      {
+        word: "Deference",
+        ipa: "def·​er·​ence",
+        pos: "Noun",
+        hindi: "सम्मान / आदर / शिष्टाचार",
+        meaning: "Polite respect shown for another person because of age, rank, or wisdom.",
+        examples: [
+          "He treats his wife with such deference.",
+          "The people in the court stood up out of deference on the arrival of the judge."
+        ]
+      },
+      {
+        word: "Difference",
+        ipa: "dif·​fer·​ence",
+        pos: "Noun",
+        hindi: "फ़र्क / अंतर / मतभेद",
+        meaning: "1. The state of not being identical. 2. A disagreement or dispute.",
+        examples: [
+          "What's the difference between an ape and a monkey?",
+          "They had an argument, but now they've settled their differences."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "elicit-illicit",
+    pairTitle: "Elicit / Illicit",
+    trick: "Illicit and Illegal both begin with 'ill'. Elicit and Evoke both begin with 'e'.",
+    words: [
+      {
+        word: "Elicit",
+        ipa: "elic·​it",
+        pos: "Verb",
+        hindi: "प्राप्त करना / उजागर करना / बाहर निकालना",
+        meaning: "To evoke or draw out a reaction, answer, or information from someone.",
+        examples: [
+          "The program has also elicited both positive and negative responses.",
+          "The questionnaire was intended to elicit information on eating habits."
+        ]
+      },
+      {
+        word: "Illicit",
+        ipa: "il·​lic·​it",
+        pos: "Adj.",
+        hindi: "अवैध / गैरकानूनी / निषिद्ध",
+        meaning: "Forbidden by law, rules, or custom; illegal.",
+        examples: [
+          "The illicit trade in stolen vehicles is going on at the city outskirts.",
+          "Illicit drugs such as cocaine are strictly banned."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "eligible-illegible",
+    trick: "Illegible = Unreadable text. If your application is illegible, you won't be eligible!",
+    pairTitle: "Eligible / Illegible",
+    words: [
+      {
+        word: "Eligible",
+        ipa: "el·​i·​gi·​ble",
+        pos: "Adj.",
+        hindi: "योग्य / पात्र / अर्ह",
+        meaning: "Having the right to do or obtain something; satisfying the required conditions.",
+        examples: [
+          "You might be eligible for a grant.",
+          "Only people over 18 are eligible to vote."
+        ]
+      },
+      {
+        word: "Illegible",
+        ipa: "il·​leg·​i·​ble",
+        pos: "Adj.",
+        hindi: "जो पढ़ा न जा सके / अस्पष्ट लिखावट",
+        meaning: "Not clear enough to be read; unreadable handwriting or print.",
+        examples: [
+          "His writing is almost illegible.",
+          "Incomplete or illegible claim forms will be deemed invalid."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "emigrant-immigrant",
+    pairTitle: "Emigrant / Immigrant",
+    trick: "Exit from home country = Emigrant (E). Enter into foreign country = Immigrant (I).",
+    words: [
+      {
+        word: "Emigrant",
+        ipa: "em·​i·​grant",
+        pos: "Noun",
+        hindi: "प्रवासी / देश छोड़ने वाला",
+        meaning: "A person who leaves their own country in order to settle permanently in another.",
+        examples: [
+          "For a growing number of emigrants, the US is a land of opportunities.",
+          "He is a British emigrant to Australia."
+        ]
+      },
+      {
+        word: "Immigrant",
+        ipa: "im·​mi·​grant",
+        pos: "Noun",
+        hindi: "देशांतर में बसने वाला / अप्रवासी",
+        meaning: "A person who comes to live permanently in a foreign country.",
+        examples: [
+          "A large immigrant population.",
+          "Illegal immigrants are sent back across the border."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "eminent-imminent",
+    pairTitle: "Eminent / Imminent",
+    trick: "Imminent has 'imm' like 'immediate' (going to happen right now). Eminent = famous & distinguished.",
+    words: [
+      {
+        word: "Eminent",
+        ipa: "em·​i·​nent",
+        pos: "Adj.",
+        hindi: "प्रसिद्ध / प्रतिष्ठित / प्रख्यात",
+        meaning: "Famous, respected, and distinguished within a particular sphere.",
+        examples: [
+          "He is an eminent historian.",
+          "The commission consisted of fifteen eminent political figures."
+        ]
+      },
+      {
+        word: "Imminent",
+        ipa: "im·​mi·​nent",
+        pos: "Adj.",
+        hindi: "घटित होने वाला / सिर पर मंडराता हुआ",
+        meaning: "About to happen; impending in the immediate future.",
+        examples: [
+          "A strike is imminent due to rise in petrol price.",
+          "A rain storm was imminent."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "exceptional-exceptionable",
+    pairTitle: "Exceptional / Exceptionable",
+    trick: "Exceptional = exceptionally good/outstanding. Exceptionable = causing objection/offensive.",
+    words: [
+      {
+        word: "Exceptional",
+        ipa: "ex·​cep·​tion·​al",
+        pos: "Adj.",
+        hindi: "विस्मयकारी / असाधारण / उत्कृष्ट",
+        meaning: "Unusually good; outstanding; not typical.",
+        examples: [
+          "The company has shown exceptional growth over the past two years.",
+          "This is an exceptional contract, guaranteeing no layoffs."
+        ]
+      },
+      {
+        word: "Exceptionable",
+        ipa: "ex·​cep·​tion·​able",
+        pos: "Adj.",
+        hindi: "आपत्तिजनक / अवांछनीय",
+        meaning: "Causing disapproval or objection; offensive.",
+        examples: [
+          "Exceptionable behavior.",
+          "As long as the language is not exceptionable, users can discuss any topic."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "excite-incite",
+    pairTitle: "Excite / Incite",
+    trick: "Excite stirs emotions/happiness. Incite increases violence/anger.",
+    words: [
+      {
+        word: "Excite",
+        ipa: "ex·​cite",
+        pos: "Verb",
+        hindi: "उत्तेजित करना / उत्साहित करना",
+        meaning: "To stir up strong positive emotions of joy and enthusiasm.",
+        examples: [
+          "We were very much excited by the news of India’s victory.",
+          "Special effects can really excite movie audiences."
+        ]
+      },
+      {
+        word: "Incite",
+        ipa: "in·​cite",
+        pos: "Verb",
+        hindi: "उकसाना / भड़काना / दंगा करवाना",
+        meaning: "To encourage or stir up violent or unlawful behavior.",
+        examples: [
+          "She was expelled for inciting her classmates to rebel.",
+          "They denied inciting the crowd to violence."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "expedient-expeditious",
+    pairTitle: "Expedient / Expeditious",
+    trick: "Expedient may have selfish/convenient tone. Expeditious is positive (speedy & efficient).",
+    words: [
+      {
+        word: "Expedient",
+        ipa: "ex·​pe·​di·​ent",
+        pos: "Adj.",
+        hindi: "लाभकारक / अवसरानुकूल / व्यावहारिक",
+        meaning: "Convenient and practical although possibly improper or immoral.",
+        examples: [
+          "It might be expedient not to pay him until the work is finished.",
+          "Management took expedient measures to improve finance."
+        ]
+      },
+      {
+        word: "Expeditious",
+        ipa: "ex·​pe·​di·​tious",
+        pos: "Adj.",
+        hindi: "फुर्तीला / त्वरित / शीघ्रगामी",
+        meaning: "Done with speed and efficiency; prompt.",
+        examples: [
+          "The bank was expeditious in replying to my letter.",
+          "India is expeditious in building infrastructure."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "extant-extent",
+    pairTitle: "Extant / Extent",
+    trick: "Extant means 'Available' / still existing (both have 'A'). Extent is magnitude/boundary limit.",
+    words: [
+      {
+        word: "Extant",
+        ipa: "ex·​tant",
+        pos: "Adj.",
+        hindi: "मौजूदा / विद्यमान / अभी भी जीवित",
+        meaning: "Still in existence; surviving document or artifact.",
+        examples: [
+          "We have some extant records from the 16th century.",
+          "Searching for the earliest extant Scandinavian history."
+        ]
+      },
+      {
+        word: "Extent",
+        ipa: "ex·​tent",
+        pos: "Noun",
+        hindi: "सीमा / हद / विस्तार",
+        meaning: "The area, length, or degree covered by something.",
+        examples: [
+          "We don't yet know the extent of his injuries.",
+          "She had not realized the extent to which children were affected."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "fain-feign",
+    pairTitle: "Fain / Feign",
+    trick: "Fain = gladly/willingly. Feign = fake/pretend.",
+    words: [
+      {
+        word: "Fain",
+        ipa: "ˈfān",
+        pos: "Adv. / Adj.",
+        hindi: "प्रसन्नता से / सहर्ष / खुशी से",
+        meaning: "Pleased or willing under the circumstances; gladly.",
+        examples: [
+          "I would fain forget what I had done.",
+          "I would fain do it."
+        ]
+      },
+      {
+        word: "Feign",
+        ipa: "ˈfān",
+        pos: "Verb",
+        hindi: "बहाना करना / स्वांग रचना",
+        meaning: "To pretend to be affected by a feeling, illness, or state.",
+        examples: [
+          "You know how everyone feigns surprise when you tell them your age.",
+          "She responded to his remarks with feigned amusement."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "fair-fare",
+    pairTitle: "Fair / Fare",
+    trick: "Fair is just/equitable or carnival fair (mela). Fare is ticket money or how you succeed/fare.",
+    words: [
+      {
+        word: "Fair",
+        ipa: "ˈfer",
+        pos: "Adj. / Noun",
+        hindi: "न्यायसंगत / मेला / गोरा",
+        meaning: "1. Treating people equally without bias (न्याय संगत). 2. A large public gathering/carnival with stalls and entertainment (मेला).",
+        examples: [
+          "Why should I have to do all the cleaning? It's not fair!",
+          "I bought a wooden salad bowl at the local craft fair."
+        ]
+      },
+      {
+        word: "Fare",
+        ipa: "ˈfer",
+        pos: "Noun / Verb",
+        hindi: "किराया / आगे जाना / प्रगति करना",
+        meaning: "1. The money paid for a journey on public transport. 2. To perform or succeed in a specified way.",
+        examples: [
+          "Train fares are going up again.",
+          "Low-paid workers will fare badly under this government."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "famous-popular",
+    pairTitle: "Famous / Popular",
+    trick: "Famous means well known. Popular means well-liked by people. (Someone famous for evil is infamous!).",
+    words: [
+      {
+        word: "Famous",
+        ipa: "fa·​mous",
+        pos: "Adj.",
+        hindi: "मशहूर / विख्यात",
+        meaning: "Known and recognized by a great many people.",
+        examples: [
+          "Marie Curie is famous for discovering radium.",
+          "A city famous for its nightlife."
+        ]
+      },
+      {
+        word: "Popular",
+        ipa: "pop·​u·​lar",
+        pos: "Adj.",
+        hindi: "लोकप्रिय / सर्वप्रिय",
+        meaning: "Liked, admired, or supported by many people.",
+        examples: [
+          "She's the most popular teacher in school.",
+          "Walking is a popular form of exercise."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "forceful-forcible",
+    pairTitle: "Forceful / Forcible",
+    trick: "Forceful means full of strength/persuasive power. Forcible means using violent physical force.",
+    words: [
+      {
+        word: "Forceful",
+        ipa: "force·​ful",
+        pos: "Adj.",
+        hindi: "प्रभावशाली / दमदार / ओजस्वी",
+        meaning: "Expressing opinions powerfully and commanding attention.",
+        examples: [
+          "The opposition leader led a very forceful attack in parliament.",
+          "He developed a forceful, emotional preaching style."
+        ]
+      },
+      {
+        word: "Forcible",
+        ipa: "forc·​ible",
+        pos: "Adj.",
+        hindi: "ज़ोर ज़बरदस्ती से किया गया / बलपूर्वक",
+        meaning: "Done by force, violence, or against someone's physical resistance.",
+        examples: [
+          "The burglar made a forcible entry into the apartment."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "foul-fowl",
+    pairTitle: "Foul / Fowl",
+    trick: "Fowl contains the word 'owl' (a bird!). Foul is dirty, offensive, or rules violation.",
+    words: [
+      {
+        word: "Foul",
+        ipa: "ˈfau̇(-ə)l",
+        pos: "Adj. / Noun",
+        hindi: "बहुत खराब / गंदा / नियमोल्लंघन",
+        meaning: "1. Extremely offensive, disgusting, or smelly. 2. A sports rules violation.",
+        examples: [
+          "There's too much foul language on TV these days.",
+          "The referee blew the whistle for a foul."
+        ]
+      },
+      {
+        word: "Fowl",
+        ipa: "ˈfau̇(-ə)l",
+        pos: "Noun",
+        hindi: "चिड़िया / मुर्गी / पक्षी",
+        meaning: "A bird of a type kept for meat or eggs (poultry).",
+        examples: [
+          "The farm had a large number of fowls.",
+          "I now eat more fish and fowl and less red meat."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "further-farther",
+    pairTitle: "Further / Farther",
+    trick: "Farther relates to physical distance (Far). Further relates to figurative depth, degree, or advancement.",
+    words: [
+      {
+        word: "Further",
+        ipa: "fur·​ther",
+        pos: "Adv. / Verb",
+        hindi: "और भी / अधिक / सहायता देना या आगे बढ़ाना",
+        meaning: "1. To a greater degree, depth, or abstract level (और भी). 2. To advance or promote progress.",
+        examples: [
+          "Every day she was sinking further into depression.",
+          "Additional training is the best way to further your career."
+        ]
+      },
+      {
+        word: "Farther",
+        ipa: "far·​ther",
+        pos: "Adv.",
+        hindi: "दूर / अधिक दूरी पर (दूरी सूचक)",
+        meaning: "At or to a greater physical distance in space.",
+        examples: [
+          "How much farther is it to the airport?",
+          "The fog's so thick, I can't see farther than ten meters."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "gamble-gambol",
+    pairTitle: "Gamble / Gambol",
+    trick: "Gambol = game-ball, skip and leap playfully like lambs. Gamble = risking money on bets.",
+    words: [
+      {
+        word: "Gamble",
+        ipa: "gam·​ble",
+        pos: "Verb / Noun",
+        hindi: "दाँव पर लगाना / जुआ खेलना",
+        meaning: "To take financial or personal risks in hope of gaining success or winning bets.",
+        examples: [
+          "Anyone who gambles on the stock exchange has to be prepared to lose money.",
+          "He gambles on the horses."
+        ]
+      },
+      {
+        word: "Gambol",
+        ipa: "gam·​bol",
+        pos: "Verb",
+        hindi: "हँसते-खेलते दौड़ना / उछल-कूद करना / कलोल करना",
+        meaning: "To run and jump about playfully in joyful high spirits.",
+        examples: [
+          "Lambs were gamboling in the spring sunshine.",
+          "The children gamboled around the colony."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "gaol-goal",
+    pairTitle: "Gaol / Goal",
+    trick: "Gaol is British archaic spelling for JAIL (prison). Goal is your target objective.",
+    words: [
+      {
+        word: "Gaol",
+        ipa: "ˈjāl",
+        pos: "Noun",
+        hindi: "जेल / कारागार",
+        meaning: "British English spelling variant of JAIL (prison).",
+        examples: [
+          "The central gaol is nearby.",
+          "Most of those in gaol had been debtors."
+        ]
+      },
+      {
+        word: "Goal",
+        ipa: "ˈgōl",
+        pos: "Noun",
+        hindi: "उद्देश्य / लक्ष्य / गोल (खेल में)",
+        meaning: "1. The object of a person's ambition or effort. 2. Point scored in football or hockey.",
+        examples: [
+          "The sales team have set themselves a series of goals to achieve.",
+          "Brazil won by three goals to one."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "gate-gait",
+    pairTitle: "Gate / Gait",
+    trick: "Walk with the right gait (way of walking) out of the door gate!",
+    words: [
+      {
+        word: "Gate",
+        ipa: "ˈgāt",
+        pos: "Noun",
+        hindi: "फाटक / प्रवेश द्वार",
+        meaning: "A hinged barrier in a wall, fence, or airport concourse.",
+        examples: [
+          "I pushed open the gate and went into the backyard.",
+          "All passengers for flight 103 please proceed to gate D4."
+        ]
+      },
+      {
+        word: "Gait",
+        ipa: "ˈgāt",
+        pos: "Noun",
+        hindi: "चलने का ढंग / चाल",
+        meaning: "A person's manner of walking or stepping.",
+        examples: [
+          "His gait is very unusual."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "gentle-genteel",
+    pairTitle: "Gentle / Genteel",
+    trick: "Gentleman is soft and civilized (Gentle). Genteel has double 'ee' and refers to polished upper-class pretension.",
+    words: [
+      {
+        word: "Gentle",
+        ipa: "gen·​tle",
+        pos: "Adj.",
+        hindi: "सौम्य / भद्र / कोमल / धीमा",
+        meaning: "Calm, kind, soft; not rough, violent, or steep.",
+        examples: [
+          "You can actually accomplish a lot more by gentle persuasion.",
+          "The path has a gentle slope."
+        ]
+      },
+      {
+        word: "Genteel",
+        ipa: "gen·​teel",
+        pos: "Adj.",
+        hindi: "बनावटी / उच्चवर्गीय शिष्टाचार दिखाने वाला",
+        meaning: "Polite, refined, or respectable, often in an affected or ostentatious way.",
+        examples: [
+          "He took elocution lessons to try to make his accent sound more genteel."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ghastly-ghostly",
+    pairTitle: "Ghastly / Ghostly",
+    trick: "Ghastly = terrifying, gruesome or very ill. Ghostly = resembling a translucent ghost.",
+    words: [
+      {
+        word: "Ghastly",
+        ipa: "ghast·​ly",
+        pos: "Adj.",
+        hindi: "खराब / भयावह / पीला व बीमार",
+        meaning: "1. Shocking, horrific, extremely bad (भयावह). 2. Looking extremely pale and unwell.",
+        examples: [
+          "Today's newspaper gives all the ghastly details of the murder.",
+          "You look ghastly - are you okay?"
+        ]
+      },
+      {
+        word: "Ghostly",
+        ipa: "ghost·​ly",
+        pos: "Adj.",
+        hindi: "भूत संबंधी / प्रेतवत / धुंधला व पारदर्शी",
+        meaning: "Eerie, pale, translucent like a ghost; faint and muffled sound.",
+        examples: [
+          "The palace has a ghostly look.",
+          "A ghostly voice / echo."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "hare-heir-hale",
+    pairTitle: "Hare / Heir / Hale",
+    trick: "Hale & Healthy both have 'e' (fit & strong). Hare = fast rabbit. Heir = legal successor (uttaradhikari).",
+    words: [
+      {
+        word: "Hare",
+        ipa: "ˈher",
+        pos: "Noun / Verb",
+        hindi: "खरगोश / द्रुत गति से भागना",
+        meaning: "1. A fast, long-eared mammal larger than a rabbit. 2. To sprint/run very fast.",
+        examples: [
+          "Umvundhla, the Hare is the character of folklore.",
+          "I saw her haring off down the road after Molly."
+        ]
+      },
+      {
+        word: "Heir",
+        ipa: "ˈer",
+        pos: "Noun",
+        hindi: "उत्तराधिकारी / वारिस",
+        meaning: "A person legally entitled to inherit the property or rank of another upon death.",
+        examples: [
+          "Despite having a large family, they still had no heir.",
+          "The heirs of the founder control 39% of the business."
+        ]
+      },
+      {
+        word: "Hale",
+        ipa: "ˈhāl",
+        pos: "Adj.",
+        hindi: "स्वस्थ / तंदुरुस्त (वृद्धावस्था में)",
+        meaning: "(Especially of an elderly person) strong and healthy; free from disease.",
+        examples: [
+          "Her grandfather was hale and hearty, walking five miles each day.",
+          "Pensioners aged 65 are hale and hearty."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "heal-heel",
+    pairTitle: "Heal / Heel",
+    trick: "Heel has double 'E' like 'fEEt'. Heal shares letters with 'HEALth'.",
+    words: [
+      {
+        word: "Heal",
+        ipa: "ˈhēl",
+        pos: "Verb",
+        hindi: "घाव भरना / ठीक होना",
+        meaning: "To become healthy again; recover from wounds or emotional pain.",
+        examples: [
+          "The wounds were gradually healing up.",
+          "A broken heart takes a long time to heal."
+        ]
+      },
+      {
+        word: "Heel",
+        ipa: "ˈhēl",
+        pos: "Noun",
+        hindi: "एड़ी (पैर का पिछला भाग)",
+        meaning: "The back part of the human foot below the ankle.",
+        examples: [
+          "A stone was digging into my heel."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "historic-historical-histrionic",
+    pairTitle: "Historic / Historical / Histrionic",
+    trick: "Historic = famous landmark in history. Historical = concerning past history. Histrionic = dramatic overacting.",
+    words: [
+      {
+        word: "Historic",
+        ipa: "his·​tor·​ic",
+        pos: "Adj.",
+        hindi: "ऐतिहासिक (महत्वपूर्ण घटना/इमारत)",
+        meaning: "Famous, prominent, or momentous in history.",
+        examples: [
+          "In a historic vote, women were permitted to become priests.",
+          "How many historic buildings are damaged by fire?"
+        ]
+      },
+      {
+        word: "Historical",
+        ipa: "his·​tor·​i·​cal",
+        pos: "Adj.",
+        hindi: "इतिहास सम्बन्धी / इतिहास का",
+        meaning: "Connected with the academic study or recording of past events.",
+        examples: [
+          "Many important historical documents were preserved.",
+          "She specializes in historical novels set in 18th-century England."
+        ]
+      },
+      {
+        word: "Histrionic",
+        ipa: "his·​tri·​on·​ic",
+        pos: "Adj.",
+        hindi: "नाटकीय / अति-भावुक और दिखावटी",
+        meaning: "Overly theatrical, melodramatic, or insincere in emotional display.",
+        examples: [
+          "She put on a histrionic display of grief at the funeral.",
+          "Protests against amalgamation became histrionic."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "honorary-honorific-honorable",
+    pairTitle: "Honorary / Honorific / Honorable",
+    trick: "Honorary = unpaid post or honorary degree. Honorific = title showing respect. Honorable = honest, reputable.",
+    words: [
+      {
+        word: "Honorary",
+        ipa: "hon·​or·​ary",
+        pos: "Adj.",
+        hindi: "सम्माननीय / अवैतनिक पद",
+        meaning: "1. Given as an honor without normal examinations (मानद उपाधि). 2. An official position without payment (अवैतनिक).",
+        examples: [
+          "She received an honorary doctorate from Exeter University.",
+          "Charities often have an honorary treasurer."
+        ]
+      },
+      {
+        word: "Honorific",
+        ipa: "hon·​or·​if·​ic",
+        pos: "Adj.",
+        hindi: "सम्मानप्रद / आदरसूचक",
+        meaning: "Conferring or expressing honor and high social respect (e.g. titles).",
+        examples: [
+          "Civic statues and honorific inscriptions were set up.",
+          "They received honorific awards for cultural contribution."
+        ]
+      },
+      {
+        word: "Honorable",
+        ipa: "hon·​or·​able",
+        pos: "Adj.",
+        hindi: "सम्मान योग्य / आदरणीय / चरित्रवान",
+        meaning: "Deserving respect, upright, noble, and morally honest.",
+        examples: [
+          "The neighbors are decent, honorable people.",
+          "The Honorable judge of the Supreme Court is highly qualified."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "human-humane",
+    pairTitle: "Human / Humane",
+    trick: "The 'E' in humane shows 'Empathy' (kindness and compassion).",
+    words: [
+      {
+        word: "Human",
+        ipa: "hu·​man",
+        pos: "Noun / Adj.",
+        hindi: "मानव / मानवीय (इंसानी)",
+        meaning: "Relating to or characteristic of humankind (with human fallibility).",
+        examples: [
+          "Industrial waste can pose a serious threat to humans.",
+          "Of course I make mistakes, I'm only human."
+        ]
+      },
+      {
+        word: "Humane",
+        ipa: "hu·​mane",
+        pos: "Adj.",
+        hindi: "दयालु / करुणावान / मानवीयतापूर्ण",
+        meaning: "Showing benevolence, compassion, and kindness towards suffering living beings.",
+        examples: [
+          "The humane way of dealing with a suffering animal is to euthanize it painlessly.",
+          "She advocated for more humane prison conditions."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ideal-idol-idle",
+    pairTitle: "Ideal / Idol / Idle",
+    trick: "Ideal = perfect; Idol = statue/hero worshipped; Idle = inactive/lazy.",
+    words: [
+      {
+        word: "Ideal",
+        ipa: "ide·​al",
+        pos: "Adj. / Noun",
+        hindi: "आदर्श / सर्वोत्तम",
+        meaning: "Satisfying one's conception of what is perfect; most suitable.",
+        examples: [
+          "In an ideal world, no one would go hungry.",
+          "They share the same high ideals."
+        ]
+      },
+      {
+        word: "Idol",
+        ipa: "ˈī-dᵊl",
+        pos: "Noun",
+        hindi: "देवमूर्ति / आदर्श व्यक्ति (नायक)",
+        meaning: "An image or representation of a god used as an object of worship; or a revered hero.",
+        examples: [
+          "Basketball players are his idols.",
+          "The ancient people worshipped a bronze idol of an elephant."
+        ]
+      },
+      {
+        word: "Idle",
+        ipa: "ˈī-dᵊl",
+        pos: "Adj. / Verb",
+        hindi: "कार्यहीन / बेकार / सुस्त / इंजन खाली चलना",
+        meaning: "1. Avoiding work; lazy; unemployed (कार्यहीन). 2. When an engine runs slowly without moving.",
+        examples: [
+          "Almost half of the workforce are now idle.",
+          "He left the engine idling and ran into the shop."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "impudent-imprudent",
+    pairTitle: "Impudent / Imprudent",
+    trick: "The 'R' in imprudent shows 'Reckless' (careless about future results). Impudent is disrespectful and rude.",
+    words: [
+      {
+        word: "Impudent",
+        ipa: "im·​pu·​dent",
+        pos: "Adj.",
+        hindi: "निर्लज्ज / बेहूदा / ढीठ / गुस्ताख़",
+        meaning: "Not showing due respect for another person; insolent and rude.",
+        examples: [
+          "He is an impudent child.",
+          "The class was very impudent towards the new teacher."
+        ]
+      },
+      {
+        word: "Imprudent",
+        ipa: "im·​pru·​dent",
+        pos: "Adj.",
+        hindi: "अविवेकपूर्ण / बेपरवाह / अदूरदर्शी",
+        meaning: "Not showing care for the consequences of an action; rash and unwise.",
+        examples: [
+          "The report criticizes the banks for being imprudent in lending.",
+          "It would be imprudent to become over-reliant on foreign markets."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "indict-indite",
+    pairTitle: "Indict / Indite",
+    trick: "Both 'indite' and 'write' end in '-ite' (put down in writing). Indict (pronounced in-dite) is courtroom accusation.",
+    words: [
+      {
+        word: "Indict",
+        ipa: "in-ˈdīt",
+        pos: "Verb",
+        hindi: "अभियोग लगाना / औपचारिक दोषारोपण",
+        meaning: "To officially charge or accuse someone with a serious crime in a court of law.",
+        examples: [
+          "He was indicted on drug charges at Snaresbrook Crown Court.",
+          "Five people were indicted for selling counterfeit currency."
+        ]
+      },
+      {
+        word: "Indite",
+        ipa: "in-ˈdīt",
+        pos: "Verb",
+        hindi: "लिखना / रचना करना / पद्य रचना",
+        meaning: "To write, compose, or put down thoughts into literary writing.",
+        examples: [
+          "He could indite a letter while conversing without getting confused.",
+          "His heart was inditing love and praise through his poetry."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "industrial-industrious",
+    pairTitle: "Industrial / Industrious",
+    trick: "Industrial relates to factories; Industrious relates to hard-working people.",
+    words: [
+      {
+        word: "Industrial",
+        ipa: "in·​dus·​tri·​al",
+        pos: "Adj.",
+        hindi: "उद्योग संबंधी / औद्योगिक",
+        meaning: "Relating to trade, manufacturing industry, and factories.",
+        examples: [
+          "He has an industrial background.",
+          "Clean up chemically polluted industrial sites."
+        ]
+      },
+      {
+        word: "Industrious",
+        ipa: "in·​dus·​tri·​ous",
+        pos: "Adj.",
+        hindi: "मेहनती / परिश्रमी / कर्मठ",
+        meaning: "Hard-working, diligent, and persevering.",
+        examples: [
+          "She's extremely competent and industrious.",
+          "Our employees are industrious and want to do a good job."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "indigenous-indigent",
+    pairTitle: "Indigenous / Indigent",
+    trick: "Indigenous = Native (swadeshi). Indigent = Poor/destitute (daridra).",
+    words: [
+      {
+        word: "Indigenous",
+        ipa: "in·​dig·​e·​nous",
+        pos: "Adj.",
+        hindi: "स्वदेशी / मूल निवासी",
+        meaning: "Originating or occurring naturally in a particular place; native.",
+        examples: [
+          "The indigenous population has long suffered exclusion.",
+          "IAF deployed indigenous fighter Tejas."
+        ]
+      },
+      {
+        word: "Indigent",
+        ipa: "in·​di·​gent",
+        pos: "Adj.",
+        hindi: "दरिद्र / निर्धन / ज़रूरतमंद",
+        meaning: "Poor; needy; impoverished; having no money.",
+        examples: [
+          "Legal aid services are provided to indigent clients.",
+          "Free medical help is provided to indigent patients in public hospitals."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "zealous-jealous",
+    pairTitle: "Zealous / Jealous",
+    trick: "Zealous is related to 'zeal' (great enthusiasm). Jealous is envy and suspicion in relationships.",
+    words: [
+      {
+        word: "Zealous",
+        ipa: "zeal·​ous",
+        pos: "Adj.",
+        hindi: "उत्साही / लगनशील / जोशपूर्ण",
+        meaning: "Having or showing fierce energy, zeal, and enthusiasm in support of a cause.",
+        examples: [
+          "He is a zealous supporter of government reforms.",
+          "The reporters were too zealous in their pursuit of the story."
+        ]
+      },
+      {
+        word: "Jealous",
+        ipa: "jeal·​ous",
+        pos: "Adj.",
+        hindi: "ईर्ष्यालु / डाह रखने वाला / जलन",
+        meaning: "Feeling or showing envy of someone's achievements, advantages, or lovers.",
+        examples: [
+          "I'm so jealous that she's going to that concert!",
+          "He had always been very jealous of his brother's good looks."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "knotty-naughty",
+    pairTitle: "Knotty / Naughty",
+    trick: "Knotty contains 'knot' (difficult complex problem to untie). Naughty is playful misbehavior (related to haughty).",
+    words: [
+      {
+        word: "Knotty",
+        ipa: "knot·​ty",
+        pos: "Adj.",
+        hindi: "जटिल / पेचीदा / गाँठदार",
+        meaning: "1. Full of knots (गाँठदार). 2. Complicated and difficult to solve (पेचीदा).",
+        examples: [
+          "It was a very knotty problem.",
+          "A knotty piece of wood."
+        ]
+      },
+      {
+        word: "Naughty",
+        ipa: "naugh·​ty",
+        pos: "Adj.",
+        hindi: "शरारती / नटखट",
+        meaning: "Badly behaved or disobedient (especially children).",
+        examples: [
+          "Now that's naughty - don't throw food on the floor!",
+          "We just sat there giggling like naughty schoolchildren."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "later-latter",
+    pairTitle: "Later / Latter",
+    trick: "Later relates to TIME (comparative of late). Latter relates to POSITION (the 2nd of two mentioned).",
+    words: [
+      {
+        word: "Later",
+        ipa: "lat·​er",
+        pos: "Adv.",
+        hindi: "बाद में / आगे चलकर (समय सूचक)",
+        meaning: "At a time in the future, or after the time mentioned.",
+        examples: [
+          "We could always go later in the season.",
+          "Police questioned him and he was later arrested."
+        ]
+      },
+      {
+        word: "Latter",
+        ipa: "lat·​ter",
+        pos: "Adj. / Noun",
+        hindi: "परवर्ती / दूसरा (दो में से पिछला)",
+        meaning: "1. Near the end of a period (परवर्ती). 2. The second of two people or things previously mentioned (दूसरा).",
+        examples: [
+          "Building of the library should begin in the latter part of next year.",
+          "She offered me more money or a car and I chose the latter."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "lightening-lightning",
+    pairTitle: "Lightening / Lightning",
+    trick: "Lightening (with 'e') is easing a load or brightening. Lightning (without 'e') is the flash in thunderstorms.",
+    words: [
+      {
+        word: "Lightening",
+        ipa: "ˈlīt-​niŋ",
+        pos: "Verb",
+        hindi: "प्रकाश होना / हल्का करना / बोझ घटाना",
+        meaning: "To become lighter in color or weight; make a burden less severe.",
+        examples: [
+          "The sky had lightened and there were breaks in the clouds.",
+          "Getting an assistant will lighten the workload considerably.",
+          "He lost 30 pounds to lighten the burden on his knee."
+        ]
+      },
+      {
+        word: "Lightning",
+        ipa: "light·​ning",
+        pos: "Noun",
+        hindi: "आकाशीय बिजली",
+        meaning: "A sudden flash of electricity between clouds or between cloud and ground.",
+        examples: [
+          "That tree was struck by lightning.",
+          "She changed her clothes with lightning speed."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "loose-lose",
+    pairTitle: "Loose / Lose",
+    trick: "Loose (double 'o') is loose fitting (dheela). Lose (single 'o') is to misplace or suffer defeat (kho dena).",
+    words: [
+      {
+        word: "Loose",
+        ipa: "ˈlüs",
+        pos: "Adj. / Verb",
+        hindi: "ढीला / खुला / बेकाबू व्यक्त करना",
+        meaning: "1. Not firmly fixed or tightly fitted. 2. To release or express emotions freely without control.",
+        examples: [
+          "There were some loose wires hanging out of the wall.",
+          "He loosed his frustration in a torrent of abuse."
+        ]
+      },
+      {
+        word: "Lose",
+        ipa: "ˈlüz",
+        pos: "Verb",
+        hindi: "खो देना / पराजित होना / गँवा देना",
+        meaning: "To be deprived of, misplace, or fail to win a match.",
+        examples: [
+          "I've lost my ticket.",
+          "If we lose this game, we're out of the tournament.",
+          "At least 600 staff will lose their jobs."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "luxuriant-luxurious",
+    pairTitle: "Luxuriant / Luxurious",
+    trick: "Take 'ant' from luxuriant: ants gather in huge numbers where sweets are; luxuriant means abundant vegetation growth. Luxurious means lavish lifestyle.",
+    words: [
+      {
+        word: "Luxuriant",
+        ipa: "lux·​u·​ri·​ant",
+        pos: "Adj.",
+        hindi: "अत्यधिक / प्रचुर / हरा-भरा / घना",
+        meaning: "Growing thickly, richly, and abundantly.",
+        examples: [
+          "Tall, luxuriant plants grew along the river bank.",
+          "We've bought a wonderfully luxuriant thick carpet for our bedroom."
+        ]
+      },
+      {
+        word: "Luxurious",
+        ipa: "lux·​u·​ri·​ous",
+        pos: "Adj.",
+        hindi: "शानदार / विलासी / ऐशो-आराम वाला",
+        meaning: "Extremely comfortable, elegant, and expensive.",
+        examples: [
+          "They have a very luxurious house in London.",
+          "We spent a luxurious weekend at a country resort."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "main-mane",
+    pairTitle: "Main / Mane",
+    trick: "'Main' and 'Important' both share the letter 'I'. 'Mane' is the hair of lion or horse.",
+    words: [
+      {
+        word: "Main",
+        ipa: "ˈmān",
+        pos: "Noun / Adj.",
+        hindi: "मुख्य / प्रमुख",
+        meaning: "Chief in importance, size, or extent; principal.",
+        examples: [
+          "One of the main reasons I came to England was to study the language.",
+          "Our main aim is to improve company productivity."
+        ]
+      },
+      {
+        word: "Mane",
+        ipa: "ˈmān",
+        pos: "Noun",
+        hindi: "अयाल / शेर या घोड़े के गर्दन के बाल / घने बाल",
+        meaning: "A growth of long thick hair on the neck of a horse or lion; or thick human hair.",
+        examples: [
+          "The film's lions were two male lions with majestic manes.",
+          "The painting depicts a beautiful lady with a flowing mane of red hair."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "mantle-mental",
+    pairTitle: "Mantle / Mental",
+    trick: "Mantle is a cloak / cover or duty of office. Mental is psychological (mind).",
+    words: [
+      {
+        word: "Mantle",
+        ipa: "man·​tle",
+        pos: "Noun",
+        hindi: "दायित्व / आवरण / लबादा",
+        meaning: "1. The responsibilities of an important post passed to a successor (दायित्व). 2. A layer covering a surface (आवरण).",
+        examples: [
+          "She unsuccessfully attempted to assume the mantle of the presidency.",
+          "A thick mantle of snow lay on the ground."
+        ]
+      },
+      {
+        word: "Mental",
+        ipa: "men·​tal",
+        pos: "Adj.",
+        hindi: "मानसिक / बुद्धि संबंधी",
+        meaning: "Relating to the mind or process of thinking.",
+        examples: [
+          "The family has a history of mental disorder.",
+          "A doctor was asked about the mental state of the prisoner."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "marry-merry",
+    pairTitle: "Marry / Merry",
+    trick: "'Merry' and 'Enjoy' both have 'E' in spelling. 'Marry' with 'A' is entering marriage.",
+    words: [
+      {
+        word: "Marry",
+        ipa: "mar·​ry",
+        pos: "Verb",
+        hindi: "विवाह करना / शादी करना",
+        meaning: "To become the legally accepted husband or wife of someone in a ceremony.",
+        examples: [
+          "Paul married Lucy four years ago.",
+          "They don't have any plans to marry at present."
+        ]
+      },
+      {
+        word: "Merry",
+        ipa: "mer·​ry",
+        pos: "Adj.",
+        hindi: "हर्षपूर्ण / प्रफुल्लित / आनंदित",
+        meaning: "Cheerful, lively, and full of festive joy (Merry Christmas).",
+        examples: [
+          "She's a merry little soul.",
+          "The party was merry and filled with laughter."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "memorable-memorial",
+    pairTitle: "Memorable / Memorial",
+    trick: "Memorable is worth remembering. Memorial is an monument or service honoring the dead.",
+    words: [
+      {
+        word: "Memorable",
+        ipa: "mem·​o·​ra·​ble",
+        pos: "Adj.",
+        hindi: "अविस्मरणीय / यादगार",
+        meaning: "Easily remembered, especially because of being special or unusual.",
+        examples: [
+          "I haven't seen them since that memorable evening when the boat capsized.",
+          "The lavish production makes this musical truly memorable."
+        ]
+      },
+      {
+        word: "Memorial",
+        ipa: "me·​mo·​ri·​al",
+        pos: "Adj. / Noun",
+        hindi: "स्मारक / स्मृति-उत्सव",
+        meaning: "Done, built, or held to preserve the memory of a deceased person or past event.",
+        examples: [
+          "Hundreds attended the professor's memorial service.",
+          "The memorial garden is dedicated to those who died in the accident."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "momentary-momentous",
+    pairTitle: "Momentary / Momentous",
+    trick: "Momentary = lasting a mere moment (brief). Momentous = huge significance shaping the future.",
+    words: [
+      {
+        word: "Momentary",
+        ipa: "mo·​men·​tary",
+        pos: "Adj.",
+        hindi: "क्षणिक / अस्थायी / पल भर का",
+        meaning: "Lasting for only a brief moment in time; fleeting.",
+        examples: [
+          "It was a momentary lapse, but it cost dearly.",
+          "The pain of the flu shot was only momentary."
+        ]
+      },
+      {
+        word: "Momentous",
+        ipa: "mo·​men·​tous",
+        pos: "Adj.",
+        hindi: "प्रभावशाली / अत्यंत महत्वपूर्ण / ऐतिहासिक",
+        meaning: "Of great importance, especially in its bearing on the future.",
+        examples: [
+          "The momentous news of the president's treaty.",
+          "Whether or not to move overseas was a momentous decision."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "official-officious",
+    pairTitle: "Official / Officious",
+    trick: "Officious sounds like interfering bureaucrat poking nose into everyone's affairs. Official is authorized.",
+    words: [
+      {
+        word: "Official",
+        ipa: "of·​fi·​cial",
+        pos: "Noun / Adj.",
+        hindi: "कार्यालय संबंधी / आधिकारिक / पदाधिकारी",
+        meaning: "1. A person holding public office or responsibility. 2. Relating to authority or approved procedures.",
+        examples: [
+          "A government or trade-union official.",
+          "The official statement was released this morning."
+        ]
+      },
+      {
+        word: "Officious",
+        ipa: "of·​fi·​cious",
+        pos: "Adj.",
+        hindi: "टांग अड़ाने वाला / हुक्म चलाने वाला / अति-उत्साही",
+        meaning: "Asserting authority or offering unwanted advice in an overbearing, interfering manner.",
+        examples: [
+          "He's an officious little man and widely disliked in the company.",
+          "We all tend to be officious from time to time."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "ordinance-ordnance",
+    pairTitle: "Ordinance / Ordnance",
+    trick: "Ordinance has 'I' like 'Illegal' (breaking a legal ordinance). Ordnance without 'I' is military weapons.",
+    words: [
+      {
+        word: "Ordinance",
+        ipa: "or·​di·​nance",
+        pos: "Noun",
+        hindi: "नियम / अध्यादेश / सरकारी आदेश",
+        meaning: "A law, bylaw, or regulation enacted by a municipal authority or government.",
+        examples: [
+          "A city ordinance forbids parking in this area.",
+          "Under the ordinance, the judge suspended offenders from driving."
+        ]
+      },
+      {
+        word: "Ordnance",
+        ipa: "ord·​nance",
+        pos: "Noun",
+        hindi: "युद्ध सामग्री / गोला-बारूद व तोपखाना",
+        meaning: "Mounted guns, artillery, military weapons, and ammunition.",
+        examples: [
+          "Bombers dropped heavy concentrations of ordnance on enemy airfields.",
+          "The army waited for heavy ordnance to arrive."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "pail-pale",
+    pairTitle: "Pail / Pale",
+    trick: "Pail has 'i' like 'fIlling' a water bucket. Pale is 'Peela' (yellowish skin complexion).",
+    words: [
+      {
+        word: "Pail",
+        ipa: "ˈpāl",
+        pos: "Noun",
+        hindi: "बाल्टी / डोल",
+        meaning: "A bucket, typically a cylindrical vessel for carrying liquids.",
+        examples: [
+          "Fill the pail with sand.",
+          "It took several pails of water to put out the fire."
+        ]
+      },
+      {
+        word: "Pale",
+        ipa: "ˈpāl",
+        pos: "Adj.",
+        hindi: "पीला पड़ना / फीका",
+        meaning: "Light in color or having lost normal skin complexion due to fear or illness.",
+        examples: [
+          "You're looking pale - are you feeling well?",
+          "She has a naturally pale complexion and dark hair."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "pain-pane",
+    pairTitle: "Pain / Pane",
+    trick: "Pain has 'in' (being 'in pain'). Pane is window glass.",
+    words: [
+      {
+        word: "Pain",
+        ipa: "ˈpān",
+        pos: "Noun",
+        hindi: "दर्द / पीड़ा / कष्ट",
+        meaning: "Physical suffering or discomfort caused by illness or injury.",
+        examples: [
+          "Her symptoms included abdominal pain and vomiting.",
+          "It's a film about the pains and pleasures of parenthood."
+        ]
+      },
+      {
+        word: "Pane",
+        ipa: "ˈpān",
+        pos: "Noun",
+        hindi: "खिड़की का काँच / शीशा",
+        meaning: "A single sheet of glass in a window or door frame.",
+        examples: [
+          "There are black window panes in my house.",
+          "Rioters punched through a window pane."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "patrol-petrol",
+    pairTitle: "Patrol / Petrol",
+    trick: "Both 'pAtrol' and 'Army' have 'A'. Petrol is vehicle fuel (gasoline).",
+    words: [
+      {
+        word: "Patrol",
+        ipa: "pa·​trol",
+        pos: "Noun / Verb",
+        hindi: "पहरा / गश्त लगाना",
+        meaning: "To keep watch over an area by regularly walking or driving around it.",
+        examples: [
+          "Three aircrafts are permanently on patrol.",
+          "The whole town is patrolled by police to prevent riots."
+        ]
+      },
+      {
+        word: "Petrol",
+        ipa: "pet·​rol",
+        pos: "Noun",
+        hindi: "पेट्रोल (ईंधन)",
+        meaning: "A refined petroleum liquid used as fuel for internal combustion engines.",
+        examples: [
+          "I'm a bit low on petrol.",
+          "I used a bit of petrol to get the campfire alight."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "persecute-prosecute",
+    pairTitle: "Persecute / Prosecute",
+    trick: "Persecute is harassing or abusing someone unjustly. Prosecute is taking legal trial action in court.",
+    words: [
+      {
+        word: "Persecute",
+        ipa: "per·​se·​cute",
+        pos: "Verb",
+        hindi: "अत्याचार करना / सताना / प्रताड़ित करना",
+        meaning: "To treat someone cruelly or unfairly over a long period because of race, religion, or beliefs.",
+        examples: [
+          "The film is about being persecuted for political beliefs.",
+          "She claimed the regime was persecuting dissidents."
+        ]
+      },
+      {
+        word: "Prosecute",
+        ipa: "pros·​e·​cute",
+        pos: "Verb",
+        hindi: "अभियोग लगाना / मुकदमा चलाना",
+        meaning: "To institute legal proceedings against a person accused of a crime in a court of law.",
+        examples: [
+          "He was prosecuted for fraud.",
+          "Trespassers will be prosecuted!"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "personal-personnel",
+    pairTitle: "Personal / Personnel",
+    trick: "Both 'EmployEE' and 'PEnsonnEl' have double 'E's (referring to staff/workers). Personal with single 'l' is private.",
+    words: [
+      {
+        word: "Personal",
+        ipa: "per·​son·​al",
+        pos: "Adj.",
+        hindi: "व्यक्तिगत / निजी",
+        meaning: "Belonging to or affecting a particular person rather than anyone else.",
+        examples: [
+          "I will give the matter my personal attention.",
+          "She has her own personal fitness instructor."
+        ]
+      },
+      {
+        word: "Personnel",
+        ipa: "per·​son·​nel",
+        pos: "Noun",
+        hindi: "कार्यकर्ता / कर्मचारी वर्ग / सेना कर्मी",
+        meaning: "People employed in an organization, company, or armed service.",
+        examples: [
+          "Handling difficult emergencies requires qualified personnel.",
+          "The sales personnel in a sales force evolves constantly."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "physic-physique",
+    pairTitle: "Physic / Physique",
+    trick: "Physic is medicine; Physique is muscular body shape.",
+    words: [
+      {
+        word: "Physic",
+        ipa: "phys·​ic",
+        pos: "Noun",
+        hindi: "औषधि-शास्त्र / दवा / रेचक",
+        meaning: "The art or practice of healing disease; a medicinal drug.",
+        examples: [
+          "The museum displays strange physic used centuries ago to cure diseases.",
+          "He helped police using his psychic and physical intuition."
+        ]
+      },
+      {
+        word: "Physique",
+        ipa: "phy·​sique",
+        pos: "Noun",
+        hindi: "शारीरिक गठन / देहयष्टि",
+        meaning: "The form, proportion, and muscular development of a person's body.",
+        examples: [
+          "He has a very powerful, muscular physique from regular athletics."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "plain-plane",
+    pairTitle: "Plain / Plane",
+    trick: "Aeroplane has 'plane' in it. Plain is simple or flat meadow land.",
+    words: [
+      {
+        word: "Plain",
+        ipa: "ˈplān",
+        pos: "Adj. / Noun",
+        hindi: "सादा / स्पष्ट / मैदानी इलाका",
+        meaning: "1. Not decorated; simple (सादा). 2. A large flat area of open land (मैदान).",
+        examples: [
+          "She wore a plain black dress.",
+          "High mountains rise above the plain."
+        ]
+      },
+      {
+        word: "Plane",
+        ipa: "ˈplān",
+        pos: "Noun",
+        hindi: "हवाई जहाज / स्तर / समतल सतह",
+        meaning: "1. An airplane. 2. A level of existence, thought, or quality.",
+        examples: [
+          "We'll be boarding the plane in about 20 minutes.",
+          "His work is on a completely different plane from other writers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "practice-practise",
+    pairTitle: "Practice / Practise",
+    trick: "Practice with 'C' is a Noun (अभ्यास). Practise with 'S' is a Verb (अभ्यास करना / साधना करना).",
+    words: [
+      {
+        word: "Practice",
+        ipa: "prac·​tice",
+        pos: "Noun",
+        hindi: "अभ्यास / कार्यप्रणाली (Noun)",
+        meaning: "1. The actual application or use of an idea or method. 2. Repeated exercise in an activity.",
+        examples: [
+          "I need some more practice before I take my driving test.",
+          "How do you intend to put these proposals into practice?"
+        ]
+      },
+      {
+        word: "Practise",
+        ipa: "prac·​tise",
+        pos: "Verb",
+        hindi: "अभ्यास करना / साधना करना / वकालत या डॉक्टरी करना (Verb)",
+        meaning: "To perform an activity repeatedly to gain proficiency, or work in a skilled profession.",
+        examples: [
+          "I need to practise my tennis serve.",
+          "How long have you been practising as a dentist?"
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "pray-prey",
+    pairTitle: "Pray / Prey",
+    trick: "Pray (with 'A') is addressing the Almighty (prarthana). Prey (with 'E') is eaten by predator.",
+    words: [
+      {
+        word: "Pray",
+        ipa: "ˈprā",
+        pos: "Verb",
+        hindi: "प्रार्थना करना / पूजा करना",
+        meaning: "To address solemn request or thanksgiving to God.",
+        examples: [
+          "Let us pray for the victims of this terrible disaster.",
+          "We're praying for good weather for tomorrow's game."
+        ]
+      },
+      {
+        word: "Prey",
+        ipa: "ˈprā",
+        pos: "Noun / Verb",
+        hindi: "शिकार / भोला भाला शिकार",
+        meaning: "1. An animal hunted and killed by another for food. 2. An easy vulnerable victim.",
+        examples: [
+          "A hawk hovered in the air before swooping on its prey.",
+          "Children are seen as easy prey for online scammers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "precede-proceed",
+    pairTitle: "Precede / Proceed",
+    trick: "Prefix 'Pre-' means before (go before). Prefix 'Pro-' means forward (go forward).",
+    words: [
+      {
+        word: "Precede",
+        ipa: "pre·​cede",
+        pos: "Verb",
+        hindi: "पहले आना / पूर्ववर्ती होना",
+        meaning: "To come before something in time, order, or rank.",
+        examples: [
+          "It would be helpful if you precede the report with an introduction.",
+          "Most English adjectives precede the noun they modify."
+        ]
+      },
+      {
+        word: "Proceed",
+        ipa: "pro·​ceed",
+        pos: "Verb",
+        hindi: "आगे बढ़ना / जारी रखना",
+        meaning: "To continue with an action or move forward as planned.",
+        examples: [
+          "Lawyers decided to proceed with the lawsuit.",
+          "Preparations for the festival are proceeding smoothly."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "prescribe-proscribe",
+    pairTitle: "Prescribe / Proscribe",
+    trick: "Proscribe contains 'O' like 'nO' (banning/forbidding). Prescribe contains 'E' like 'yEs' (recommending medicine).",
+    words: [
+      {
+        word: "Prescribe",
+        ipa: "pre·​scribe",
+        pos: "Verb",
+        hindi: "औषध निर्देशन / निर्धारित करना / परामर्श देना",
+        meaning: "To advise and authorize the use of a medicine; or lay down an authoritative rule.",
+        examples: [
+          "The drug is often prescribed for ulcers.",
+          "Penalties for tax default are prescribed by law."
+        ]
+      },
+      {
+        word: "Proscribe",
+        ipa: "pro·​scribe",
+        pos: "Verb",
+        hindi: "मना करना / त्याग करना / गैरकानूनी घोषित करना",
+        meaning: "To officially forbid, ban, or condemn something by law.",
+        examples: [
+          "Torture of prisoners is proscribed by international treaties.",
+          "Export of nuclear materials is proscribed by law."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "president-precedent",
+    pairTitle: "President / Precedent",
+    trick: "Precedent has 'precede' (earlier legal case instance). President has 'I' like singular leader.",
+    words: [
+      {
+        word: "President",
+        ipa: "pres·​i·​dent",
+        pos: "Noun",
+        hindi: "राष्ट्रपति / अध्यक्ष / सभापति",
+        meaning: "The elected head of a republican state or highest officer in an organization.",
+        examples: [
+          "Opposition groups fight to remove the president from power.",
+          "She's a friend of the president of the bank."
+        ]
+      },
+      {
+        word: "Precedent",
+        ipa: "pre·​ce·​dent",
+        pos: "Noun",
+        hindi: "पूर्व उदाहरण / मिसाल",
+        meaning: "An earlier event or action regarded as an authoritative example or rule for subsequent situations.",
+        examples: [
+          "There are several precedents for promoting qualified officers.",
+          "Politicians fear setting a dangerous precedent."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "principle-principal",
+    pairTitle: "Principle / Principal",
+    trick: "The PrinciPAL is your PAL (school head/main). A principLE is a ruLE.",
+    words: [
+      {
+        word: "Principle",
+        ipa: "prin·​ci·​ple",
+        pos: "Noun",
+        hindi: "सिद्धांत / नैतिक नियम",
+        meaning: "A fundamental truth or moral rule that serves as the foundation for belief and behaviour.",
+        examples: [
+          "He was a man of high principle."
+        ]
+      },
+      {
+        word: "Principal",
+        ipa: "prin·​ci·​pal",
+        pos: "Adj. / Noun",
+        hindi: "मुख्य / प्रधानाचार्य / मूलधन",
+        meaning: "1. First in order of importance; main (मुख्य). 2. The head of a school or college (प्रधानाचार्य).",
+        examples: [
+          "That was my principal reason for moving.",
+          "Once the principal signs the certificates, results will be declared."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "prospective-perspective",
+    pairTitle: "Prospective / Perspective",
+    trick: "Prospective = expected in the future (prospects). Perspective = viewpoint or angle of looking at things.",
+    words: [
+      {
+        word: "Prospective",
+        ipa: "pro·​spec·​tive",
+        pos: "Adj.",
+        hindi: "प्रत्याशित / भावी / होने वाला",
+        meaning: "Expected or expecting to happen or become something in the future.",
+        examples: [
+          "We've had three sets of prospective buyers inspecting the house.",
+          "What is the best way of contacting prospective clients?"
+        ]
+      },
+      {
+        word: "Perspective",
+        ipa: "per·​spec·​tive",
+        pos: "Noun",
+        hindi: "दृष्टिकोण / परिप्रेक्ष्य",
+        meaning: "A particular attitude toward or way of regarding and understanding something.",
+        examples: [
+          "Her attitude lends a fresh perspective to the subject.",
+          "His critical perspective towards authority caused debate."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "prophecy-prophesy",
+    pairTitle: "Prophecy / Prophesy",
+    trick: "Prophecy with 'C' is a Noun (भविष्यवाणी). Prophesy with 'S' is a Verb (भविष्यवाणी करना).",
+    words: [
+      {
+        word: "Prophecy",
+        ipa: "proph·​e·​cy",
+        pos: "Noun",
+        hindi: "भविष्यवाणी (Noun)",
+        meaning: "A prediction or prophetic statement of what will happen in the future.",
+        examples: [
+          "These doom and gloom prophecies are hurting business.",
+          "She was born with the extraordinary talent of prophecy."
+        ]
+      },
+      {
+        word: "Prophesy",
+        ipa: "proph·​e·​sy",
+        pos: "Verb",
+        hindi: "भविष्यवाणी करना (Verb)",
+        meaning: "To say or predict that a specific event will occur in the future.",
+        examples: [
+          "Few analysts could have prophesied this economic shift.",
+          "He prophesied that the CEO would stay for one year only."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "rein-reign",
+    pairTitle: "Rein / Reign",
+    trick: "Reign has 'g' like 'King/Sovereign'. Rein is the horse strap to control speed.",
+    words: [
+      {
+        word: "Rein",
+        ipa: "ˈrān",
+        pos: "Noun / Verb",
+        hindi: "लगाम / नियंत्रण करना",
+        meaning: "A long strap of leather used by a rider to control and direct a horse.",
+        examples: [
+          "Pull on both reins to stop the horse.",
+          "I always put my toddler on reins in crowded markets."
+        ]
+      },
+      {
+        word: "Reign",
+        ipa: "ˈrān",
+        pos: "Verb / Noun",
+        hindi: "आधिपत्य करना / शासनकाल / प्रचंड होना",
+        meaning: "To hold royal office as king/queen; or to prevail dominantly.",
+        examples: [
+          "Queen Victoria reigned over Britain from 1837 to 1901.",
+          "A panic reigned over the whole city."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "quite-quiet-quit",
+    pairTitle: "Quite / Quiet / Quit",
+    trick: "Quiet (e inside) = peaceful silence. Quite (e outside) = fully/completely. Quit (no e) = leave.",
+    words: [
+      {
+        word: "Quite",
+        ipa: "ˈkwīt",
+        pos: "Adv.",
+        hindi: "पूरी तौर से / काफी हद तक",
+        meaning: "To a great degree or completely; fairly.",
+        examples: [
+          "The two situations are quite different.",
+          "I'm quite tired but I can walk a bit further."
+        ]
+      },
+      {
+        word: "Quiet",
+        ipa: "qui·​et",
+        pos: "Adj. / Verb",
+        hindi: "शांत / चुपचाप / शांत करना",
+        meaning: "Making very little noise; calm and serene.",
+        examples: [
+          "She spoke in a quiet voice so as not to wake him.",
+          "The barking dogs quieted when they recognized me."
+        ]
+      },
+      {
+        word: "Quit",
+        ipa: "ˈkwit",
+        pos: "Verb",
+        hindi: "छोड़ना / त्यागना / नौकरी छोड़ना",
+        meaning: "To stop doing something or resign from a job.",
+        examples: [
+          "Would you quit your job if you won the lottery?",
+          "I'm going to quit smoking."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "respectable-respectful",
+    pairTitle: "Respectable / Respectful",
+    trick: "Respectable is worthy of respect (आदरणीय). Respectful is showing respect to others (आदरकारी).",
+    words: [
+      {
+        word: "Respectable",
+        ipa: "re·​spect·​able",
+        pos: "Adj.",
+        hindi: "आदरणीय / प्रतिष्ठित / पर्याप्त",
+        meaning: "Regarded by society to be good, proper, or of a decent standard.",
+        examples: [
+          "This part of the city has become quite respectable.",
+          "She earns a respectable salary."
+        ]
+      },
+      {
+        word: "Respectful",
+        ipa: "re·​spect·​ful",
+        pos: "Adj.",
+        hindi: "आदरकारी / आदरपूर्ण / विनीत",
+        meaning: "Feeling or showing polite reverence, honor, and admiration toward someone.",
+        examples: [
+          "He spoke in a respectful tone of voice.",
+          "There was a respectful two-minute silence for the martyrs."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "right-rite",
+    pairTitle: "Right / Rite",
+    trick: "Rite starts with 'rit' like 'RITual' (ceremony). Right means correct or legal entitlement.",
+    words: [
+      {
+        word: "Right",
+        ipa: "ˈrīt",
+        pos: "Adj. / Noun",
+        hindi: "सटीक / सही / अधिकार",
+        meaning: "1. Morally good, justified, or correct. 2. A moral or legal entitlement to have or do something.",
+        examples: [
+          "It isn't right to punish him unfairly.",
+          "Everybody has a right to equal treatment."
+        ]
+      },
+      {
+        word: "Rite",
+        ipa: "ˈrīt",
+        pos: "Noun",
+        hindi: "धार्मिक संस्कार / अनुष्ठान",
+        meaning: "A religious or other solemn ceremony or act performed in a customary way.",
+        examples: [
+          "You must go through an initiation rite to become a member.",
+          "Relatives performed the funeral rites immediately."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "route-rout",
+    pairTitle: "Route / Rout",
+    trick: "Route is road/pathway. Rout (without 'e') is total overwhelming defeat in battle.",
+    words: [
+      {
+        word: "Route",
+        ipa: "ˈrüt",
+        pos: "Noun / Verb",
+        hindi: "रास्ता / मार्ग / भेज देना",
+        meaning: "1. A way or course taken in getting from starting point to destination. 2. To send something along a path.",
+        examples: [
+          "The route we planned took us across Greece.",
+          "Deliveries are routed via London."
+        ]
+      },
+      {
+        word: "Rout",
+        ipa: "ˈrau̇t",
+        pos: "Verb / Noun",
+        hindi: "ज़बरदस्त हार / पराजित करना",
+        meaning: "A decisive, disorderly retreat or total defeat of enemy forces.",
+        examples: [
+          "The chess grandmaster routed all contenders.",
+          "The battle ended in a complete rout of the invasion force."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "sole-soul",
+    pairTitle: "Sole / Soul",
+    trick: "Sole ends with 'E' like 'shoE' (shoe bottom/single). Soul has 'U' (spiritual inner being).",
+    words: [
+      {
+        word: "Sole",
+        ipa: "ˈsōl",
+        pos: "Adj. / Noun",
+        hindi: "एकमात्र / अकेला / तलवा (पैर या जूते का)",
+        meaning: "1. One and only; single. 2. The underside of the human foot or shoe.",
+        examples: [
+          "She has sole responsibility for the project.",
+          "He has a cut on the sole of his foot."
+        ]
+      },
+      {
+        word: "Soul",
+        ipa: "ˈsōl",
+        pos: "Noun",
+        hindi: "आत्मा / रूह / अंतर्मन",
+        meaning: "The spiritual or immaterial part of a human being, regarded as immortal.",
+        examples: [
+          "May her soul rest in peace.",
+          "He puts his heart and soul into his work."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "sore-sour",
+    pairTitle: "Sore / Sour",
+    trick: "Both 'Sour' and 'Unfriendly' have 'U'. Sore is painful/aching wound.",
+    words: [
+      {
+        word: "Sore",
+        ipa: "ˈsȯr",
+        pos: "Adj. / Noun",
+        hindi: "दर्दनाक / दुखती हुई चोट / घाव",
+        meaning: "Painful, tender, and aching owing to injury, infection, or exertion.",
+        examples: [
+          "All the dust made my eyes sore and itchy."
+        ]
+      },
+      {
+        word: "Sour",
+        ipa: "ˈsau·uh",
+        pos: "Adj.",
+        hindi: "खट्टा / अप्रिय / चिड़चिड़ा",
+        meaning: "1. Having an acid taste like lemon. 2. Feeling bitter, resentful, or unfriendly.",
+        examples: [
+          "These green plums are very sour.",
+          "Overnight, their friendly relationship turned sour."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "spacious-specious",
+    pairTitle: "Spacious / Specious",
+    trick: "Spacious is related to 'Space' (large area). Specious sounds like 'Suspicious' (looks right but is false!).",
+    words: [
+      {
+        word: "Spacious",
+        ipa: "spa·​cious",
+        pos: "Adj.",
+        hindi: "विशाल / विस्तृत / खुली जगह वाला",
+        meaning: "Having ample space; roomy and large.",
+        examples: [
+          "A spacious house is comfortable to live in.",
+          "The new retail showroom is extremely spacious."
+        ]
+      },
+      {
+        word: "Specious",
+        ipa: "spe·​cious",
+        pos: "Adj.",
+        hindi: "दिखावटी / भ्रामक / ऊपरी तौर पर सही लगने वाला",
+        meaning: "Superficially plausible, but actually wrong, deceptive, or misleading.",
+        examples: [
+          "His whole political argument is specious.",
+          "Don’t misguide the court with specious reasoning."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "spiritual-spirituous",
+    pairTitle: "Spiritual / Spirituous",
+    trick: "Spiritual contains 'ritual' (religious soul beliefs). Spirituous has 'o' like 'alcohol' (distilled liquor).",
+    words: [
+      {
+        word: "Spiritual",
+        ipa: "spir·​i·​tu·​al",
+        pos: "Adj.",
+        hindi: "आध्यात्मिक / आत्मिक",
+        meaning: "Relating to the human spirit or religious soul matters rather than material possessions.",
+        examples: [
+          "Traditional ways of life fulfilled both economic and spiritual needs.",
+          "There is a deep spiritual dimension to her poetry."
+        ]
+      },
+      {
+        word: "Spirituous",
+        ipa: "spir·​i·​tu·​ous",
+        pos: "Adj.",
+        hindi: "शराब से युक्त / मद्यसार / एल्कोहॉलिक",
+        meaning: "Containing distilled alcohol (like rum, whiskey, brandy).",
+        examples: [
+          "The city allows selling spirituous liquors in sealed containers.",
+          "The state held a monopoly over spirituous beverages."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "stare-stair",
+    pairTitle: "Stare / Stair",
+    trick: "When you climb 'stairs' you get fresh 'air' (both share 'air'). Stare is fixed gaze with eyes.",
+    words: [
+      {
+        word: "Stare",
+        ipa: "ˈster",
+        pos: "Verb / Noun",
+        hindi: "घूरना / एकटक नज़र से देखना",
+        meaning: "To look fixedly or vacantly at someone or something with wide eyes.",
+        examples: [
+          "Don't stare at people like that, it's impolite.",
+          "She gave him a long stare but did not answer."
+        ]
+      },
+      {
+        word: "Stair",
+        ipa: "ˈster",
+        pos: "Noun",
+        hindi: "सीढ़ी / सोपान",
+        meaning: "A set of steps leading from one floor of a building to another.",
+        examples: [
+          "Go up the stairs and her office is on the right.",
+          "He stood at the foot of the stairs."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "stationary-stationery",
+    pairTitle: "Stationary / Stationery",
+    trick: "StationEry with 'E' stands for Envelopes, Pens, Erasers. StationAry with 'A' stands for At rest / Anchor.",
+    words: [
+      {
+        word: "Stationary",
+        ipa: "sta·​tion·​ary",
+        pos: "Adj.",
+        hindi: "ठहरा हुआ / स्थिर / अपरिवर्तित",
+        meaning: "Not moving, remaining in one place, or not changing in quantity.",
+        examples: [
+          "House prices have remained stationary for months.",
+          "The vehicle crashed into a stationary truck."
+        ]
+      },
+      {
+        word: "Stationery",
+        ipa: "sta·​tio·​nery",
+        pos: "Noun",
+        hindi: "लेखन सामग्री (कलम, कागज़, लिफाफे)",
+        meaning: "Writing and other office materials like paper, envelopes, pens, and notepads.",
+        examples: [
+          "I bought envelopes at the stationery store.",
+          "The office is spending too much budget on stationery supplies."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "statue-statute",
+    pairTitle: "Statue / Statute",
+    trick: "Statue is a sculpted figure. Statute (with 't') is a statutory law passed by legislature.",
+    words: [
+      {
+        word: "Statue",
+        ipa: "stat·​ue",
+        pos: "Noun",
+        hindi: "मूर्ति / प्रतिमा / बुत",
+        meaning: "A sculpted or cast three-dimensional figure of a person, deity, or animal in stone or bronze.",
+        examples: [
+          "They planned to erect a statue of the freedom fighter.",
+          "The colossal statue looks breathtaking."
+        ]
+      },
+      {
+        word: "Statute",
+        ipa: "stat·​ute",
+        pos: "Noun / Adj.",
+        hindi: "कानून / संविधि / अधिनियम",
+        meaning: "A written law passed by a legislative body and formally recorded.",
+        examples: [
+          "Many state statutes cover cybercrime and identity theft.",
+          "Salaries of public servants are governed by parliamentary statute."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "story-storey",
+    pairTitle: "Story / Storey",
+    trick: "Story is a tale or news article. Storey (with 'e') is a floor level of a building.",
+    words: [
+      {
+        word: "Story",
+        ipa: "sto·​ry",
+        pos: "Noun",
+        hindi: "कहानी / वृत्तांत / समाचार",
+        meaning: "An account of imaginary or real people and events told for entertainment.",
+        examples: [
+          "He made up a funny story about why he was late.",
+          "The main story in the paper today is the summit."
+        ]
+      },
+      {
+        word: "Storey",
+        ipa: "sto·​rey",
+        pos: "Noun",
+        hindi: "मंज़िल / तल्ला (भवन का)",
+        meaning: "A floor or level of a multi-level building.",
+        examples: [
+          "My bedroom is on the third storey.",
+          "The new glass skyscraper is 45 storeys high."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "suit-suite",
+    pairTitle: "Suit / Suite",
+    trick: "Suit (pronounced 'soot') = clothing outfit or lawsuit. Suite (pronounced 'sweet') = hotel room set.",
+    words: [
+      {
+        word: "Suit",
+        ipa: "ˈsüt",
+        pos: "Noun / Verb",
+        hindi: "सूट (वस्त्र) / मुकदमा / अनुकूल होना",
+        meaning: "1. A matching set of jacket and trousers/skirt. 2. A legal lawsuit in court.",
+        examples: [
+          "She wore an elegant dark blue business suit.",
+          "He filed a $10 million libel suit against the press."
+        ]
+      },
+      {
+        word: "Suite",
+        ipa: "ˈswēt",
+        pos: "Noun",
+        hindi: "होटल का कमरा (कमरों का सेट) / सोफा सेट",
+        meaning: "A connected set of rooms in a hotel or luxury building; or matching furniture set.",
+        examples: [
+          "The stadium features 12 luxury hospitality suites.",
+          "He works in the executive suite on the top floor."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "superficial-superfluous",
+    pairTitle: "Superficial / Superfluous",
+    trick: "Superfluous = super + overflow (excessive overabundance). Superficial = only on top surface / shallow.",
+    words: [
+      {
+        word: "Superficial",
+        ipa: "su·​per·​fi·​cial",
+        pos: "Adj.",
+        hindi: "ऊपरी / अगंभीर / सतही",
+        meaning: "Existing or occurring only at the surface; shallow and lacking depth.",
+        examples: [
+          "He's fun to talk to, but he can be very superficial.",
+          "The doctor treated the superficial surface wound."
+        ]
+      },
+      {
+        word: "Superfluous",
+        ipa: "su·​per·​flu·​ous",
+        pos: "Adj.",
+        hindi: "अनावश्यक / ज़रूरत से ज़्यादा / अतिरिक्त",
+        meaning: "Unnecessary, more than enough, redundant, or superfluous.",
+        examples: [
+          "The mayor plans to eliminate superfluous programs.",
+          "The report was weighed down by superfluous details."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "tamper-temper",
+    pairTitle: "Tamper / Temper",
+    trick: "Tamper and Alter both have 'A' (make unauthorized changes). Temper is mood/anger.",
+    words: [
+      {
+        word: "Tamper",
+        ipa: "tam·​per",
+        pos: "Verb",
+        hindi: "छेड़खानी करना / अनधिकृत हस्तक्षेप करना",
+        meaning: "To interfere with something without permission so as to cause damage or alteration.",
+        examples: [
+          "I could see immediately that the door lock had been tampered with.",
+          "She was charged with tampering with witnesses."
+        ]
+      },
+      {
+        word: "Temper",
+        ipa: "tem·​per",
+        pos: "Noun / Verb",
+        hindi: "गुस्सा / मिज़ाज / शांत करना",
+        meaning: "A person's state of mind seen in terms of being angry or calm.",
+        examples: [
+          "She has a fiery temper.",
+          "I found it hard to keep my temper with so many things going wrong."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "temporary-temporal",
+    pairTitle: "Temporary / Temporal",
+    trick: "Temporary is short-lived in time (asthayi). Temporal is worldly/material matters vs sacred.",
+    words: [
+      {
+        word: "Temporary",
+        ipa: "tem·​po·​rary",
+        pos: "Adj.",
+        hindi: "अस्थायी / कुछ समय के लिए",
+        meaning: "Lasting for only a limited time period; not permanent.",
+        examples: [
+          "The ceasefire is only a temporary solution.",
+          "Renting office space was a temporary measure."
+        ]
+      },
+      {
+        word: "Temporal",
+        ipa: "tem·​po·​ral",
+        pos: "Adj.",
+        hindi: "सांसारिक / भौतिक / सामयिक",
+        meaning: "Relating to worldly as opposed to spiritual affairs; or relating to time dimension.",
+        examples: [
+          "Clergy should not become preoccupied with temporal matters.",
+          "The drug affects spatial and temporal perception."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "urban-urbane",
+    pairTitle: "Urban / Urbane",
+    trick: "Urban is city-related. Urbane (with 'e' for elegant) is sophisticated, cultured and courteous.",
+    words: [
+      {
+        word: "Urban",
+        ipa: "ur·​ban",
+        pos: "Adj.",
+        hindi: "शहरी / नगर का",
+        meaning: "Relating to, or characteristic of a town or city.",
+        examples: [
+          "The government committed funds for urban regeneration.",
+          "Pollution is high in dense urban areas."
+        ]
+      },
+      {
+        word: "Urbane",
+        ipa: "ur·​bane",
+        pos: "Adj.",
+        hindi: "शिष्ट / भद्र / सभ्य व आकर्षक",
+        meaning: "(Especially of a man) courteous, suave, refined, and confident in social situations.",
+        examples: [
+          "His urbane manners impressed everyone at the reception.",
+          "Rahul was an urbane, generous host."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "vacation-vocation",
+    pairTitle: "Vacation / Vocation",
+    trick: "Vocation has 'O' for 'Occupation' (career calling). Vacation has 'A' for away on holiday.",
+    words: [
+      {
+        word: "Vacation",
+        ipa: "va·​ca·​tion",
+        pos: "Noun",
+        hindi: "छुट्टी / अवकाश",
+        meaning: "A period of time spent away from work or study in leisure or travel.",
+        examples: [
+          "We're taking a family vacation in June.",
+          "They traveled to Europe on vacation."
+        ]
+      },
+      {
+        word: "Vocation",
+        ipa: "vo·​ca·​tion",
+        pos: "Noun",
+        hindi: "पेशा / व्यवसाय / अंतःप्रेरणा",
+        meaning: "A person's employment or main occupation regarded as worthy and suited to them.",
+        examples: [
+          "I feel I've found my true vocation as a teacher.",
+          "To work in healthcare, you should have a strong vocation for helping."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "vain-vein",
+    pairTitle: "Vain / Vein",
+    trick: "Both 'Vain' and 'Arrogant' share 'A' (pride or in vain). Vein is blood vessel tube.",
+    words: [
+      {
+        word: "Vain",
+        ipa: "ˈvān",
+        pos: "Adj.",
+        hindi: "व्यर्थ / निष्फल / अहंकारी",
+        meaning: "1. Producing no result; useless (व्यर्थ). 2. Having excessive vanity or pride in appearance (अहंकारी).",
+        examples: [
+          "Doctors operated in the vain hope that he might recover.",
+          "He was very vain about his hair and clothing."
+        ]
+      },
+      {
+        word: "Vein",
+        ipa: "ˈvān",
+        pos: "Noun",
+        hindi: "शिरा / नस / रक्तवाहिनी",
+        meaning: "Any of the tubes forming the circulatory system carrying blood to the heart.",
+        examples: [
+          "The primary function of veins is to return deoxygenated blood.",
+          "I could feel the adrenaline pulsing through my veins."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "verbal-verbose",
+    pairTitle: "Verbal / Verbose",
+    trick: "Verbose = over-use of verbs/words (using too many words). Verbal = spoken oral language.",
+    words: [
+      {
+        word: "Verbal",
+        ipa: "ver·​bal",
+        pos: "Adj.",
+        hindi: "मौखिक / मुँह-ज़बानी / वाचिक",
+        meaning: "Spoken rather than written; relating to spoken words and communication.",
+        examples: [
+          "Was it put down in writing, or just a verbal agreement?",
+          "The position requires strong verbal communication skills."
+        ]
+      },
+      {
+        word: "Verbose",
+        ipa: "ver·​bose",
+        pos: "Adj.",
+        hindi: "वाचाल / शब्दाडंबरपूर्ण / बहुत अधिक शब्दों वाला",
+        meaning: "Using or containing far more words than are necessary; wordy.",
+        examples: [
+          "He was a notoriously verbose and lengthy speaker.",
+          "Her essay was overly verbose and needed editing."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "virtual-virtuous",
+    pairTitle: "Virtual / Virtuous",
+    trick: "Virtual relates to software simulated or near real. Virtuous relates to high moral virtue.",
+    words: [
+      {
+        word: "Virtual",
+        ipa: "vir·​tu·​al",
+        pos: "Adj.",
+        hindi: "वास्तविक (लगभग) / परोक्ष / आभासी (डिजिटल)",
+        meaning: "1. Almost or nearly as described. 2. Carried out using computer technology / online.",
+        examples: [
+          "He is a virtual prisoner in his own home.",
+          "Visit our website for an interactive virtual tour."
+        ]
+      },
+      {
+        word: "Virtuous",
+        ipa: "vir·​tu·​ous",
+        pos: "Adj.",
+        hindi: "नैतिक / सदाचारी / धर्मपरायण",
+        meaning: "Having or showing high moral standards and righteousness.",
+        examples: [
+          "She lives a very virtuous and charitable life.",
+          "He described them as virtuous, hard-working citizens."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "vassal-vessel",
+    pairTitle: "Vassal / Vessel",
+    trick: "Vassal = feudal servant state (jaagirdar/paradhin). Vessel = ship or water container pot.",
+    words: [
+      {
+        word: "Vassal",
+        ipa: "vas·​sal",
+        pos: "Noun",
+        hindi: "जागीरदार / पराधीन देश",
+        meaning: "1. A feudal subordinate holding land in return for allegiance (जागीरदार). 2. A country dominated by another power.",
+        examples: [
+          "Suriname was historically a vassal colony.",
+          "The small territory was treated as a vassal state."
+        ]
+      },
+      {
+        word: "Vessel",
+        ipa: "ves·​sel",
+        pos: "Noun",
+        hindi: "पानी का जहाज़ / पतीला / पात्र",
+        meaning: "1. A ship or large boat. 2. A hollow container for holding liquids.",
+        examples: [
+          "His fishing vessel sank off the coast.",
+          "We filled every pot, bowl and vessel with clean drinking water."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "waste-waist",
+    pairTitle: "Waste / Waist",
+    trick: "Waste refers to 'Excess' trash (both have 'E'). Waist is the body part around your belt.",
+    words: [
+      {
+        word: "Waste",
+        ipa: "ˈwāst",
+        pos: "Noun / Verb",
+        hindi: "अपव्यय / कचरा / व्यर्थ गँवाना",
+        meaning: "Unnecessary use of money, time, or resources; discarded material.",
+        examples: [
+          "That meeting was a complete waste of time.",
+          "My mother hated food waste on plates."
+        ]
+      },
+      {
+        word: "Waist",
+        ipa: "ˈwāst",
+        pos: "Noun",
+        hindi: "कमर",
+        meaning: "The part of the human body below the ribs and above the hips.",
+        examples: [
+          "These trousers are tight around my waist.",
+          "She wore an ornamental leather belt around her waist."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "wave-waive",
+    pairTitle: "Wave / Waive",
+    trick: "Wave is waving hand/sea wave. Waive (with 'i') is voluntarily relinquishing a right or fee.",
+    words: [
+      {
+        word: "Wave",
+        ipa: "ˈwāv",
+        pos: "Verb / Noun",
+        hindi: "इशारा करना / हाथ हिलाना / तरंग",
+        meaning: "1. To move your hand back and forth in greeting. 2. A ridge of water moving across the ocean.",
+        examples: [
+          "I was waving my hand like mad to catch his attention.",
+          "We listened to the ocean waves crashing against the shore."
+        ]
+      },
+      {
+        word: "Waive",
+        ipa: "ˈwāv",
+        pos: "Verb",
+        hindi: "छोड़ देना / छूट देना / त्याग करना",
+        meaning: "To voluntarily refrain from insisting on a fee, strict rule, or legal claim.",
+        examples: [
+          "The bank manager waived the transaction charge for loyal customers."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "wet-whet",
+    pairTitle: "Wet / Whet",
+    trick: "Wet = soaked in water. Whet (with 'h') = sharpen a knife or stimulate appetite/curiosity.",
+    words: [
+      {
+        word: "Wet",
+        ipa: "ˈwet",
+        pos: "Adj.",
+        hindi: "गीला / भीगा हुआ / वर्षा",
+        meaning: "Covered or saturated with water or other liquid.",
+        examples: [
+          "My bicycle got wet in the heavy rain.",
+          "We've had wet weather all week."
+        ]
+      },
+      {
+        word: "Whet",
+        ipa: "ˈ(h)wet",
+        pos: "Verb",
+        hindi: "धार लगाना / उत्तेजित करना / बढ़ा देना",
+        meaning: "1. To sharpen the blade of a knife or tool (धार करना). 2. To excite or stimulate an appetite or interest (बढ़ा देना).",
+        examples: [
+          "He whetted his hunting knife on a stone.",
+          "The short teaser trailer was released to whet viewers' curiosity."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "whither-wither",
+    pairTitle: "Whither / Wither",
+    trick: "Both 'Whither' and 'Which' have 'Whi' (to which place). Wither is shrinking/drying up.",
+    words: [
+      {
+        word: "Whither",
+        ipa: "whith·​er",
+        pos: "Adv.",
+        hindi: "किस स्थान को / किधर",
+        meaning: "To what place or state; where.",
+        examples: [
+          "Whither are they going in such a hurry?",
+          "You take me whither the road leads."
+        ]
+      },
+      {
+        word: "Wither",
+        ipa: "with·​er",
+        pos: "Verb",
+        hindi: "मुरझाना / निस्तेज होना / क्षीण होना",
+        meaning: "To become dry, shriveled, and decayed; or fade gradually.",
+        examples: [
+          "The crops withered in the drought.",
+          "The country risked allowing its industrial base to wither away."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "weather-whether",
+    pairTitle: "Weather / Whether",
+    trick: "Focus on 'ea' in 'weather' and 'sea' (climatic atmosphere). 'Whether' is the if/or conjunction.",
+    words: [
+      {
+        word: "Weather",
+        ipa: "weath·​er",
+        pos: "Noun / Verb",
+        hindi: "मौसम / संकट पार करना",
+        meaning: "1. The state of the atmosphere with respect to wind, temperature, and rain. 2. To successfully survive a storm or hardship.",
+        examples: [
+          "Mountain weather changes very quickly.",
+          "The small firm did well to weather the recession."
+        ]
+      },
+      {
+        word: "Whether",
+        ipa: "wheth·​er",
+        pos: "Conjunction",
+        hindi: "चाहे / या / यदि (संदेह या विकल्प व्यक्त करना)",
+        meaning: "Used to introduce an indirect question or expressing doubt between alternatives.",
+        examples: [
+          "I wasn't sure whether you'd like the movie.",
+          "It is a fascinating story, whether or not it is entirely true."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "womanly-womanish",
+    pairTitle: "Womanly / Womanish",
+    trick: "Womanly has a positive, mature connotation (nari-sulabh). Womanish has a slight critical or effeminate tone.",
+    words: [
+      {
+        word: "Womanly",
+        ipa: "wom·​an·​ly",
+        pos: "Adj.",
+        hindi: "नारी सुलभ / स्त्रीयोचित (सकारात्मक)",
+        meaning: "Qualities, grace, or physical features traditionally associated with an adult woman.",
+        examples: [
+          "She used her womanly charms and gentle wisdom to persuade him.",
+          "She referred in a positive way to womanly values of nurturing."
+        ]
+      },
+      {
+        word: "Womanish",
+        ipa: "wom·​an·​ish",
+        pos: "Adj.",
+        hindi: "जनाना / स्त्रियों जैसा (कभी-कभी नकारात्मक)",
+        meaning: "Characteristic of or associated with women rather than men, sometimes used in a condescending way.",
+        examples: [
+          "He had a womanish gentleness when dealing with young children.",
+          "He criticized the fashion for being too womanish."
+        ]
+      }
+    ]
+  },
+  {
+    pairId: "wreath-wreathe-wrath",
+    pairTitle: "Wreath / Wreathe / Wrath",
+    trick: "Wreath (Noun) = circular ring of flowers. Wreathe (Verb) = encircle/cover. Wrath (Noun) = extreme divine fury/anger.",
+    words: [
+      {
+        word: "Wreath",
+        ipa: "ˈrēth",
+        pos: "Noun",
+        hindi: "फूलों का हार / पुष्प चक्र",
+        meaning: "An arrangement of flowers, leaves, or stems in a circular band used for memorial tribute.",
+        examples: [
+          "The bride wore a delicate wreath of fresh flowers in her hair.",
+          "Two large wreaths were placed at the war memorial."
+        ]
+      },
+      {
+        word: "Wreathe",
+        ipa: "ˈrēt͟h",
+        pos: "Verb",
+        hindi: "घेरना / आच्छादित करना / लपेटना",
+        meaning: "To cover, encircle, wrap, or surround something with coils or flowers.",
+        examples: [
+          "Small roses were wreathed into the decorative arch.",
+          "The mountain peaks were wreathed in morning clouds."
+        ]
+      },
+      {
+        word: "Wrath",
+        ipa: "ˈrath",
+        pos: "Noun",
+        hindi: "रोष / भीषण क्रोध / प्रकोप",
+        meaning: "Extreme, vehement, vengeful anger or rage.",
+        examples: [
+          "The ancient citizens feared the wrath of the gods.",
+          "He fled to escape his father's wrath."
+        ]
+      }
+    ]
+  }
+];
+
+// STATE MANAGEMENT
+let activeLetter = 'ALL';
+let currentSearch = '';
+let bookmarkedPairs = JSON.parse(localStorage.getItem('confused_bookmarks') || '[]');
+let currentFlashcardIndex = 0;
+let quizQuestions = [];
+let currentQuizIdx = 0;
+let quizScore = 0;
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+  renderAlphabetBar();
+  renderCards();
+  renderTable();
+  updateBookmarkCount();
+  setupFlashcards();
+  initQuiz();
+  lucide.createIcons();
+});
+
+// THEME
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  if (newTheme === 'light') {
+    icon.setAttribute('data-lucide', 'sun');
+    text.textContent = 'Light';
+  } else {
+    icon.setAttribute('data-lucide', 'moon');
+    text.textContent = 'Dark';
+  }
+  lucide.createIcons();
+}
+
+// ALPHABET BAR
+function renderAlphabetBar() {
+  const letters = new Set();
+  confusedWordsData.forEach(item => {
+    const firstChar = item.pairTitle.trim().charAt(0).toUpperCase();
+    if (/[A-Z]/.test(firstChar)) letters.add(firstChar);
+  });
+
+  const sortedLetters = Array.from(letters).sort();
+  const container = document.getElementById('alphabetBar');
+  
+  sortedLetters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'letter-btn';
+    btn.textContent = l;
+    btn.onclick = () => filterByLetter(l, btn);
+    container.appendChild(btn);
+  });
+}
+
+// RENDER CARDS VIEW
+function renderCards() {
+  const grid = document.getElementById('cardsView');
+  grid.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+        <i data-lucide="search-x" style="width: 48px; height: 48px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h3 style="font-family: var(--font-heading); margin-bottom: 6px;">No Word Pairs Found</h3>
+        <p style="color: var(--text-muted); font-size: 14px;">Try searching for a different keyword, meaning in Hindi, or clearing the filter.</p>
+        <button class="btn-action" style="margin-top: 16px;" onclick="resetFilters()">Reset All Filters</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  filtered.forEach(item => {
+    const isFav = bookmarkedPairs.includes(item.pairId);
+    const card = document.createElement('article');
+    card.className = 'pair-card';
+    
+    let subCardsHtml = item.words.map(w => `
+      <div class="word-sub-card">
+        <div class="word-sub-top">
+          <div class="word-name">
+            ${w.word}
+            <span class="ipa-tag">${w.ipa}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="pos-badge">${w.pos}</span>
+            <button class="icon-btn" title="Pronounce" onclick="speakText('${escapeQuotes(w.word)}')">
+              <i data-lucide="volume-2" style="width:14px; height:14px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="hindi-meaning-pill">
+          ${w.hindi}
+        </div>
+
+        <div class="english-def">
+          ${w.meaning}
+        </div>
+
+        <div class="example-list">
+          ${w.examples.map(ex => `<div>• <em>${ex}</em></div>`).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="pair-card-header">
+        <span class="pair-badge"><i data-lucide="git-compare" style="width: 14px; height: 14px;"></i> ${item.pairTitle}</span>
+        <div class="pair-actions">
+          <button class="icon-btn" title="Copy Card" onclick="copyPair('${escapeQuotes(item.pairTitle)}', '${escapeQuotes(item.trick)}')">
+            <i data-lucide="copy"></i>
+          </button>
+          <button class="icon-btn ${isFav ? 'active-fav' : ''}" title="Bookmark" onclick="toggleBookmark('${item.pairId}', this)">
+            <i data-lucide="bookmark"></i>
+          </button>
+        </div>
+      </div>
+
+      ${subCardsHtml}
+
+      ${item.trick ? `
+        <div class="distinction-box">
+          <div class="distinction-badge"><i data-lucide="sparkles" style="width: 13px; height: 13px;"></i> Distinction Trick</div>
+          <div>${item.trick}</div>
+        </div>
+      ` : ''}
+    `;
+    grid.appendChild(card);
+  });
+
+  lucide.createIcons();
+}
+
+// RENDER TABLE
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  filtered.forEach(item => {
+    item.words.forEach((w, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        ${idx === 0 ? `<td rowspan="${item.words.length}" style="font-weight: 800; color: var(--accent-primary); border-right: 1px solid var(--border-color);">${item.pairTitle}</td>` : ''}
+        <td style="font-weight: 700; color: var(--text-main);">${w.word} <br><small class="ipa-tag">${w.ipa}</small></td>
+        <td><span class="pos-badge">${w.pos}</span></td>
+        <td style="color: var(--text-hindi); font-weight: 700;">${w.hindi}</td>
+        <td>
+          ${w.meaning}
+          <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
+            Ex: ${w.examples[0] || ''}
+          </div>
+        </td>
+        ${idx === 0 ? `<td rowspan="${item.words.length}" style="font-size: 12px; color: var(--accent-amber); border-left: 1px solid var(--border-color);">${item.trick || '-'}</td>` : ''}
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+}
+
+// FILTER
+function getFilteredData() {
+  return confusedWordsData.filter(item => {
+    if (activeLetter !== 'ALL') {
+      const firstChar = item.pairTitle.trim().charAt(0).toUpperCase();
+      if (firstChar !== activeLetter) return false;
+    }
+
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      const matchTitle = item.pairTitle.toLowerCase().includes(q);
+      const matchTrick = item.trick && item.trick.toLowerCase().includes(q);
+      const matchWords = item.words.some(w => 
+        w.word.toLowerCase().includes(q) || 
+        w.hindi.toLowerCase().includes(q) || 
+        w.meaning.toLowerCase().includes(q) ||
+        w.examples.some(ex => ex.toLowerCase().includes(q))
+      );
+      if (!matchTitle && !matchTrick && !matchWords) return false;
+    }
+
+    return true;
+  });
+}
+
+function handleSearch() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  renderCards();
+  renderTable();
+}
+
+function filterByLetter(letter, btn) {
+  activeLetter = letter;
+  document.querySelectorAll('#alphabetBar .letter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+  renderTable();
+}
+
+function resetFilters() {
+  activeLetter = 'ALL';
+  currentSearch = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('#alphabetBar .letter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  renderCards();
+  renderTable();
+}
+
+// VIEW SWITCHER
+function switchView(viewName) {
+  const views = {
+    cards: document.getElementById('cardsView'),
+    table: document.getElementById('tableView'),
+    flashcard: document.getElementById('flashcardView'),
+    quiz: document.getElementById('quizView')
+  };
+
+  const btns = {
+    cards: document.getElementById('btnViewCards'),
+    table: document.getElementById('btnViewTable'),
+    flashcard: document.getElementById('btnViewFlashcard'),
+    quiz: document.getElementById('btnViewQuiz')
+  };
+
+  Object.keys(views).forEach(key => {
+    views[key].style.display = (key === viewName) ? (key === 'cards' ? 'grid' : (key === 'table' ? 'block' : 'flex')) : 'none';
+    if (btns[key]) btns[key].classList.toggle('active', key === viewName);
+  });
+
+  document.querySelectorAll('.fab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(viewName.slice(0, 4)));
+  });
+
+  if (viewName === 'flashcard') {
+    setupFlashcards();
+  } else if (viewName === 'quiz') {
+    initQuiz();
+  }
+
+  lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// BOOKMARKS
+function toggleBookmark(pairId, btn) {
+  const idx = bookmarkedPairs.indexOf(pairId);
+  if (idx > -1) {
+    bookmarkedPairs.splice(idx, 1);
+    btn.classList.remove('active-fav');
+    showToast("Removed from bookmarks");
+  } else {
+    bookmarkedPairs.push(pairId);
+    btn.classList.add('active-fav');
+    showToast("Added to bookmarks ⭐");
+  }
+  localStorage.setItem('confused_bookmarks', JSON.stringify(bookmarkedPairs));
+  updateBookmarkCount();
+}
+
+function updateBookmarkCount() {
+  document.getElementById('favCount').textContent = bookmarkedPairs.length;
+}
+
+// AUDIO
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
+    showToast("🔊 Pronouncing: " + text);
+  } else {
+    showToast("Audio synthesis not supported on your browser.");
+  }
+}
+
+// COPY
+function copyPair(title, trick) {
+  const text = `Confused Pair: ${title}\nTrick: ${trick}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast("📋 Copied notes to clipboard!");
+  }).catch(() => {
+    showToast("Error copying text");
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<i data-lucide="check-circle"></i> ${msg}`;
+  lucide.createIcons();
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function escapeQuotes(str) {
+  return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// FLASHCARDS
+function setupFlashcards() {
+  currentFlashcardIndex = 0;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function loadFlashcard(idx) {
+  const wrapper = document.getElementById('flashcardWrapper');
+  wrapper.classList.remove('flipped');
+  const item = confusedWordsData[idx];
+
+  document.getElementById('fcPairTag').textContent = `Set #${idx + 1}`;
+  document.getElementById('fcWordTitle').textContent = item.pairTitle;
+  document.getElementById('fcIpa').textContent = item.words.map(w => `${w.word}: ${w.ipa}`).join(' | ');
+  
+  let backHtml = item.words.map(w => `
+    <div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+      <strong style="color:var(--accent-primary); font-size:16px;">${w.word}</strong> <span class="pos-badge">${w.pos}</span>: 
+      <span style="color:var(--text-hindi); font-weight:700;">${w.hindi}</span><br>
+      <small style="color:var(--text-main);">${w.meaning}</small>
+    </div>
+  `).join('');
+  document.getElementById('fcBackDetails').innerHTML = backHtml;
+  
+  document.getElementById('fcTrick').innerHTML = item.trick ? `
+    <div class="distinction-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> Distinction Trick</div>
+    <div>${item.trick}</div>
+  ` : '';
+  
+  document.getElementById('fcProgress').textContent = `Card ${idx + 1} of ${confusedWordsData.length}`;
+  lucide.createIcons();
+}
+
+function flipFlashcard() {
+  document.getElementById('flashcardWrapper').classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex + 1) % confusedWordsData.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function prevFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex - 1 + confusedWordsData.length) % confusedWordsData.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function shuffleFlashcards() {
+  currentFlashcardIndex = Math.floor(Math.random() * confusedWordsData.length);
+  loadFlashcard(currentFlashcardIndex);
+  showToast("🔀 Cards shuffled!");
+}
+
+// QUIZ
+function initQuiz() {
+  quizScore = 0;
+  currentQuizIdx = 0;
+  document.getElementById('quizScore').textContent = quizScore;
+  generateQuizQuestions();
+  loadQuizQuestion(currentQuizIdx);
+}
+
+function generateQuizQuestions() {
+  // Generate 10 contextual fill-in-the-blank questions
+  const questionsPool = [
+    {
+      q: "She ________ the job offer with great enthusiasm.",
+      options: ["accepted", "excepted"],
+      ans: "accepted",
+      expl: "Accept (Verb) means स्वीकार करना (agree to take), whereas except means excluding."
+    },
+    {
+      q: "Students need an ID card to ________ the library computers.",
+      options: ["access", "excess"],
+      ans: "access",
+      expl: "Access means पहुंच / प्रवेश की अनुमति, whereas excess means an amount more than reasonable."
+    },
+    {
+      q: "He is very ________ at playing classical violin.",
+      options: ["adept", "adapt", "adopt"],
+      ans: "adept",
+      expl: "Adept with 'e' (expert) means माहिर / निपुण."
+    },
+    {
+      q: "The flight was delayed due to ________ weather conditions.",
+      options: ["adverse", "averse"],
+      ans: "adverse",
+      expl: "Adverse (D for damage) means harmful/unfavorable conditions."
+    },
+    {
+      q: "Can you please give me a piece of ________?",
+      options: ["advice", "advise"],
+      ans: "advice",
+      expl: "Advice with 'C' is a Noun (सलाह), advise with 'S' is a Verb."
+    },
+    {
+      q: "The pollution will severely ________ public health.",
+      options: ["affect", "effect"],
+      ans: "affect",
+      expl: "Affect is the Verb meaning 'to influence/cause change'."
+    },
+    {
+      q: "The priest offered a solemn sacrifice upon the ________.",
+      options: ["altar", "alter"],
+      ans: "altar",
+      expl: "Altar with 'ta' is a sacred religious table/platform (वेदी)."
+    },
+    {
+      q: "She made an indirect ________ to Shakespeare in her speech.",
+      options: ["allusion", "illusion"],
+      ans: "allusion",
+      expl: "Allusion means an indirect reference (संकेत)."
+    },
+    {
+      q: "The criminal was released on ________ until his trial.",
+      options: ["bail", "bale"],
+      ans: "bail",
+      expl: "Bail is temporary court release money (ज़मानत)."
+    },
+    {
+      q: "Do you play any other sport ________ badminton?",
+      options: ["besides", "beside"],
+      ans: "besides",
+      expl: "Besides means 'in addition to' (के अतिरिक्त)."
+    },
+    {
+      q: "The bride looked gorgeous in her ________ gown.",
+      options: ["bridal", "bridle"],
+      ans: "bridal",
+      expl: "Bridal refers to marriage and wedding ceremony (विवाह संबंधी)."
+    },
+    {
+      q: "The artist painted a landscape on the large ________.",
+      options: ["canvas", "canvass"],
+      ans: "canvas",
+      expl: "Canvas with 1 's' is the rough painting cloth."
+    },
+    {
+      q: "He is an ________ student who puts great effort into his studies.",
+      options: ["industrious", "industrial"],
+      ans: "industrious",
+      expl: "Industrious means hard-working (मेहनती)."
+    },
+    {
+      q: "The school ________ signed all the graduation diplomas.",
+      options: ["principal", "principle"],
+      ans: "principal",
+      expl: "Principal (your PAL) is the school head (प्रधानाचार्य)."
+    },
+    {
+      q: "We need to buy pens and envelopes from the ________ shop.",
+      options: ["stationery", "stationary"],
+      ans: "stationery",
+      expl: "Stationery with 'E' stands for Envelopes and pens."
+    }
+  ];
+
+  quizQuestions = questionsPool.sort(() => 0.5 - Math.random()).slice(0, 10);
+}
+
+function loadQuizQuestion(idx) {
+  if (idx >= quizQuestions.length) {
+    document.getElementById('quizContent').innerHTML = `
+      <div style="text-align:center; padding: 30px 10px;">
+        <i data-lucide="trophy" style="width: 56px; height: 56px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h2 style="font-family: var(--font-heading); margin-bottom: 8px;">Quiz Completed!</h2>
+        <p style="font-size: 16px; margin-bottom: 20px;">Your Final Score: <strong>${quizScore} / ${quizQuestions.length}</strong> (${(quizScore/quizQuestions.length)*100}%)</p>
+        <button class="btn-action" style="margin: 0 auto;" onclick="initQuiz()"><i data-lucide="rotate-ccw"></i> Restart Quiz</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  const q = quizQuestions[idx];
+  document.getElementById('quizProgressTag').textContent = `Question ${idx + 1} / ${quizQuestions.length}`;
+  document.getElementById('quizQuestion').textContent = q.q;
+
+  const optionsContainer = document.getElementById('quizOptions');
+  optionsContainer.innerHTML = '';
+
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.innerHTML = `<span>${opt}</span> <i data-lucide="circle" style="width: 16px; height: 16px;"></i>`;
+    btn.onclick = () => selectQuizAnswer(btn, opt, q.ans, q.expl);
+    optionsContainer.appendChild(btn);
+  });
+
+  document.getElementById('quizFeedback').style.display = 'none';
+  document.getElementById('quizNextBtn').style.display = 'none';
+  lucide.createIcons();
+}
+
+function selectQuizAnswer(selectedBtn, selectedText, correctText, explanation) {
+  const allBtns = document.querySelectorAll('.quiz-option-btn');
+  allBtns.forEach(btn => btn.disabled = true);
+
+  const feedback = document.getElementById('quizFeedback');
+  feedback.style.display = 'block';
+
+  if (selectedText.toLowerCase() === correctText.toLowerCase()) {
+    selectedBtn.classList.add('correct');
+    quizScore += 1;
+    document.getElementById('quizScore').textContent = quizScore;
+    feedback.innerHTML = `<span style="color: #34d399;">✅ बिल्कुल सही जवाब!</span><br><small style="color:var(--text-muted);">${explanation}</small>`;
+  } else {
+    selectedBtn.classList.add('wrong');
+    allBtns.forEach(btn => {
+      if (btn.textContent.trim().toLowerCase().startsWith(correctText.toLowerCase())) {
+        btn.classList.add('correct');
+      }
+    });
+    feedback.innerHTML = `<span style="color: #fb7185;">❌ गलत उत्तर! सही उत्तर: <strong>${correctText}</strong></span><br><small style="color:var(--text-muted);">${explanation}</small>`;
+  }
+
+  document.getElementById('quizNextBtn').style.display = 'inline-flex';
+}
+
+function loadNextQuizQuestion() {
+  currentQuizIdx++;
+  loadQuizQuestion(currentQuizIdx);
+}
+</script>
+</body>
+</html>

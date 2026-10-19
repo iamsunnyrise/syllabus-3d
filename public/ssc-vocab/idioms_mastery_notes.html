@@ -1,0 +1,3516 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idioms & Phrases Smart Notes & Master App</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --bg-card-hover: #283548;
+      --border-color: #334155;
+      --accent-primary: #f59e0b;
+      --accent-secondary: #3b82f6;
+      --accent-success: #10b981;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-hindi: #fef08a;
+      --tag-bg: rgba(245, 158, 11, 0.15);
+      --tag-color: #fbbf24;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border-color: #e2e8f0;
+      --accent-primary: #d97706;
+      --accent-secondary: #2563eb;
+      --accent-success: #059669;
+      --accent-purple: #7c3aed;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-hindi: #b45309;
+      --tag-bg: rgba(217, 119, 6, 0.12);
+      --tag-color: #b45309;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 16px 20px 80px;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    [data-theme="light"] .header-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    }
+    .header-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(59, 130, 246, 0.05) 70%, transparent 100%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-action:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    [data-theme="light"] .stat-box {
+      background: rgba(241, 245, 249, 0.8);
+      border-color: #e2e8f0;
+    }
+    .stat-box i {
+      color: var(--accent-primary);
+    }
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+    .search-input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 14px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .view-switcher {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .view-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Filter Badges & Alphabet Bar */
+    .filter-tags-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .filter-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .filter-chip:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .filter-chip.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+
+    .alphabet-bar {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-top: 4px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .letter-btn {
+      min-width: 28px;
+      height: 28px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .letter-btn:hover {
+      background: var(--bg-card);
+      color: var(--accent-primary);
+    }
+    .letter-btn.active {
+      background: var(--accent-secondary);
+      color: #ffffff;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .app-container {
+        padding: 12px 14px 70px;
+      }
+      .brand-text h1 {
+        font-size: 20px;
+      }
+    }
+
+    /* Idiom Card Styling */
+    .idiom-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: var(--transition);
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .idiom-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(245, 158, 11, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-index {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      font-family: var(--font-heading);
+    }
+
+    .card-actions-quick {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      color: var(--accent-primary);
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--accent-primary);
+    }
+    .icon-btn.active-fav {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+    }
+
+    .idiom-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .idiom-title {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.3px;
+    }
+    [data-theme="light"] .idiom-title {
+      color: #0f172a;
+    }
+
+    /* Hindi Meaning Box */
+    .hindi-meaning-box {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.02) 100%);
+      border-left: 4px solid var(--accent-primary);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hindi-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-hindi);
+    }
+
+    /* English Meaning */
+    .english-meaning {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .meaning-label {
+      font-weight: 700;
+      color: var(--accent-secondary);
+      margin-right: 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Examples Section */
+    .examples-section {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    [data-theme="light"] .examples-section {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .example-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .example-item {
+      font-size: 13.5px;
+      color: var(--text-main);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .example-item::before {
+      content: '•';
+      position: absolute;
+      left: 2px;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* Extra Fact Box */
+    .extra-fact-box {
+      border-top: 1px dashed var(--border-color);
+      padding-top: 10px;
+      font-size: 12.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .extra-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.12);
+      padding: 2px 7px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .fact-detail {
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .fact-detail strong {
+      color: var(--text-main);
+    }
+
+    /* Table View */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    .data-table th {
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+    .data-table tr:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* Flashcard Mode */
+    .flashcard-mode {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .flashcard-wrapper {
+      width: 100%;
+      min-height: 340px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flashcard-wrapper.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border-color);
+    }
+
+    .flashcard-front {
+      background: linear-gradient(145deg, var(--bg-card), var(--bg-secondary));
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .flashcard-back {
+      background: linear-gradient(145deg, #1e1b4b, var(--bg-secondary));
+      transform: rotateY(180deg);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+    [data-theme="light"] .flashcard-back {
+      background: linear-gradient(145deg, #eef2ff, #ffffff);
+    }
+
+    .flashcard-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Quiz Mode */
+    .quiz-mode {
+      display: none;
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .quiz-option-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .quiz-option-btn:hover {
+      border-color: var(--accent-secondary);
+      background: var(--bg-card-hover);
+    }
+    .quiz-option-btn.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-success);
+      color: #34d399;
+      font-weight: 700;
+    }
+    .quiz-option-btn.wrong {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #f87171;
+    }
+
+    /* Hierarchy Group View */
+    .hierarchy-view {
+      display: none;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .hierarchy-group {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .hierarchy-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    /* Floating Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent-primary);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Bottom Navigation */
+    .mobile-fab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: none;
+      justify-content: space-around;
+      padding: 10px 16px;
+      z-index: 99;
+    }
+    [data-theme="light"] .mobile-fab-bar {
+      background: rgba(255, 255, 255, 0.95);
+    }
+    @media (max-width: 640px) {
+      .mobile-fab-bar {
+        display: flex;
+      }
+    }
+    .fab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .fab-btn.active {
+      color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top Banner -->
+  <header class="header-banner">
+    <div class="top-nav">
+      <div class="brand">
+        <div class="brand-icon">📚</div>
+        <div class="brand-text">
+          <h1>Idioms & Phrases Mastery Notes</h1>
+          <p>Complete Smart Study Guide • Hindi & English Meanings • Origin & Memory Mnemonics</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-action" id="themeToggleBtn" onclick="toggleTheme()">
+          <i data-lucide="moon" id="themeIcon"></i> <span id="themeText">Dark</span>
+        </button>
+        <button class="btn-action" onclick="window.print()">
+          <i data-lucide="printer"></i> Print / PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats Overview -->
+    <div class="stats-ribbon">
+      <div class="stat-box">
+        <i data-lucide="book-open"></i>
+        <div>
+          <div class="stat-num" id="totalIdiomsCount">144</div>
+          <div class="stat-label">Total Idioms</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="sparkles"></i>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">With Hindi Meaning</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="lightbulb"></i>
+        <div>
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Real Examples</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="bookmark"></i>
+        <div>
+          <div class="stat-num" id="favCount">0</div>
+          <div class="stat-label">Bookmarked</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Controls Panel -->
+  <section class="controls-panel">
+    <div class="search-row">
+      <div class="search-input-wrapper">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search idiom in English or Hindi (e.g., 'spur', 'हाथ', 'quarrel', 'danger')..." oninput="handleSearch()">
+      </div>
+
+      <div class="view-switcher">
+        <button class="view-btn active" id="btnViewCards" onclick="switchView('cards')">
+          <i data-lucide="layout-grid"></i> Cards
+        </button>
+        <button class="view-btn" id="btnViewTable" onclick="switchView('table')">
+          <i data-lucide="table"></i> Table
+        </button>
+        <button class="view-btn" id="btnViewHierarchy" onclick="switchView('hierarchy')">
+          <i data-lucide="folder-tree"></i> Grouped
+        </button>
+        <button class="view-btn" id="btnViewFlashcard" onclick="switchView('flashcard')">
+          <i data-lucide="layers"></i> Flashcard
+        </button>
+        <button class="view-btn" id="btnViewQuiz" onclick="switchView('quiz')">
+          <i data-lucide="help-circle"></i> Quiz
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="filter-tags-scroll" id="categoryChips">
+      <button class="filter-chip active" onclick="filterByCategory('all', this)"><i data-lucide="layers"></i> All Categories</button>
+      <button class="filter-chip" onclick="filterByCategory('Actions & Decisions', this)">🎯 Decisions & Actions</button>
+      <button class="filter-chip" onclick="filterByCategory('Conflict & Disagreement', this)">⚔️ Conflict & Dispute</button>
+      <button class="filter-chip" onclick="filterByCategory('Emotions & Psychology', this)">🧠 Emotions & Mood</button>
+      <button class="filter-chip" onclick="filterByCategory('Honesty & Deception', this)">🎭 Truth & Deception</button>
+      <button class="filter-chip" onclick="filterByCategory('Money & Finance', this)">💰 Money & Trade</button>
+      <button class="filter-chip" onclick="filterByCategory('Time & Delay', this)">⏳ Time & Waiting</button>
+      <button class="filter-chip" onclick="filterByCategory('Character & People', this)">👤 Character & Personality</button>
+      <button class="filter-chip" onclick="filterByCategory('Difficulty & Danger', this)">⚠️ Risk & Trouble</button>
+      <button class="filter-chip" onclick="filterByCategory('favs', this)"><i data-lucide="bookmark"></i> Bookmarked Only</button>
+    </div>
+
+    <!-- Alphabetical Jump Filter -->
+    <div class="alphabet-bar" id="alphabetBar">
+      <button class="letter-btn active" onclick="filterByLetter('ALL', this)">ALL</button>
+    </div>
+  </section>
+
+  <!-- 1. Cards View -->
+  <main id="cardsView" class="cards-grid"></main>
+
+  <!-- 2. Table View -->
+  <div id="tableView" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Idiom / Phrase</th>
+          <th>Hindi Meaning (अर्थ)</th>
+          <th>English Meaning</th>
+          <th>Key Examples</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 3. Hierarchy / Category Grouped View -->
+  <div id="hierarchyView" class="hierarchy-view"></div>
+
+  <!-- 4. Flashcard Drill Mode -->
+  <div id="flashcardView" class="flashcard-mode">
+    <div class="flashcard-wrapper" id="flashcardWrapper" onclick="flipFlashcard()">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <span class="card-index" id="fcIndex">#1</span>
+          <h2 class="idiom-title" style="font-size: 28px; margin: 20px 0;" id="fcTitle">At the spur of the moment</h2>
+          <p style="color: var(--text-muted); font-size: 13px;">👉 Tap anywhere to reveal meaning & Hindi translation</p>
+        </div>
+        <div class="flashcard-back">
+          <span class="card-index" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;" id="fcCategory">Decisions</span>
+          <div class="hindi-meaning-box" style="margin: 16px 0; width: 100%;">
+            <span class="hindi-text" style="font-size: 20px;" id="fcHindi">क्षण भर में (बिना सोचे-समझे)</span>
+          </div>
+          <p class="english-meaning" style="font-size: 16px; margin-bottom: 12px;" id="fcEnglish">Without planning; suddenly and spontaneously</p>
+          <div class="fact-detail" id="fcExtra" style="font-size: 13px; color: #cbd5e1;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flashcard-controls">
+      <button class="btn-action" onclick="prevFlashcard()"><i data-lucide="chevron-left"></i> Previous</button>
+      <button class="btn-action" onclick="flipFlashcard()"><i data-lucide="rotate-cw"></i> Flip Card</button>
+      <button class="btn-action" onclick="shuffleFlashcards()"><i data-lucide="shuffle"></i> Shuffle</button>
+      <button class="btn-action" onclick="nextFlashcard()">Next <i data-lucide="chevron-right"></i></button>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted);" id="fcProgress">Card 1 of 144</p>
+  </div>
+
+  <!-- 5. Interactive Quiz Mode -->
+  <div id="quizView" class="quiz-mode">
+    <div class="quiz-header">
+      <div>
+        <span class="card-index" id="quizProgressTag">Question 1 / 10</span>
+        <h3 style="font-family: var(--font-heading); margin-top: 6px;">Idiom Quiz Challenge</h3>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 12px; color: var(--text-muted);">Score</span>
+        <div style="font-weight: 800; font-size: 18px; color: var(--accent-primary);" id="quizScore">0</div>
+      </div>
+    </div>
+
+    <div id="quizContent">
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">What is the correct meaning of:</p>
+      <h2 id="quizQuestion" style="font-family: var(--font-heading); color: var(--accent-secondary); margin-bottom: 16px;">At logger heads</h2>
+      
+      <div class="quiz-options-list" id="quizOptions"></div>
+
+      <div id="quizFeedback" style="margin-top: 14px; font-size: 14px; font-weight: 600; display: none;"></div>
+
+      <button class="btn-action" id="quizNextBtn" style="margin-top: 16px; width: 100%; justify-content: center; display: none;" onclick="loadNextQuizQuestion()">
+        Next Question <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-fab-bar">
+  <button class="fab-btn active" onclick="switchView('cards')"><i data-lucide="layout-grid"></i>Cards</button>
+  <button class="fab-btn" onclick="switchView('table')"><i data-lucide="table"></i>Table</button>
+  <button class="fab-btn" onclick="switchView('hierarchy')"><i data-lucide="folder-tree"></i>Groups</button>
+  <button class="fab-btn" onclick="switchView('flashcard')"><i data-lucide="layers"></i>Drill</button>
+  <button class="fab-btn" onclick="switchView('quiz')"><i data-lucide="help-circle"></i>Quiz</button>
+</nav>
+
+<!-- Floating Toast -->
+<div id="toast" class="toast-msg"><i data-lucide="check-circle"></i> Copied to clipboard!</div>
+
+<script>
+// FULL COMPLETE DATASET FROM OCR (ALL 144 ITEMS)
+const idiomsData = [
+  {
+    num: 1,
+    idiom: "At the spur of the moment",
+    hindi: "क्षण भर में (बिना पूर्व योजना के)",
+    meaning: "Suddenly and spontaneously; without planning.",
+    examples: [
+      "I had to leave town on the spur of the moment.",
+      "In an interview we must reply at the spur of the moment."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Spur (horse rider's spur) instant speed deta hai -> instant action!",
+    etymology: "From horse riding spurs used to make a horse spring instantly.",
+    synonyms: "Impulsively, spontaneously, extempore"
+  },
+  {
+    num: 2,
+    idiom: "All in all",
+    hindi: "कुल मिलाकर / सब बातों पर विचार करते हुए",
+    meaning: "On the whole; all things considered.",
+    examples: [
+      "All in all it's been a good year.",
+      "All in all, it was a very good party.",
+      "All in all, the criticism seemed fair."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "All + In + All -> Sabhi cheezon ko ek sath jod kar.",
+    etymology: "Used in English literature since 15th century to denote comprehensive totality.",
+    synonyms: "Overall, in sum, on the whole"
+  },
+  {
+    num: 3,
+    idiom: "Apple-pie order",
+    hindi: "सुव्यवस्थित / एकदम करीने से रखा हुआ",
+    meaning: "In perfect order, completely neat and well-arranged.",
+    examples: [
+      "Please put everything in apple pie order before you leave.",
+      "Their house is always in apple pie order."
+    ],
+    category: "Character & People",
+    mnemonic: "Apple pie slices ko bake karte waqt bilkul perfect arrange kiya jata hai.",
+    etymology: "From French 'nappes pliées' (neatly folded linen).",
+    synonyms: "Spick and span, immaculate, pristine"
+  },
+  {
+    num: 4,
+    idiom: "At close quarters",
+    hindi: "बहुत ही नज़दीक से / बारीकी से",
+    meaning: "Close examinations; from a short distance away.",
+    examples: [
+      "Many of my friends proved selfish at close quarters.",
+      "When you see famous people at close quarters, they always appear much smaller than you imagined them."
+    ],
+    category: "Character & People",
+    mnemonic: "Quarters (paas ka room/area) -> nazdeek se dekhna.",
+    etymology: "From naval warfare where wooden warships fought in close quarters.",
+    synonyms: "In close proximity, face to face"
+  },
+  {
+    num: 5,
+    idiom: "Above board",
+    hindi: "ईमानदार / निष्कपट और वैधानिक",
+    meaning: "Honest and straightforward and legal without any deception.",
+    examples: [
+      "The deal was completely open and above board.",
+      "He is known for his above board conduct."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Taash khelte waqt hath table (board) ke upar rakhna taaki dhokha na ho.",
+    etymology: "Card playing metaphor: keeping hands above board so opponents can see.",
+    synonyms: "Trustworthy, legitimate, bona fide"
+  },
+  {
+    num: 6,
+    idiom: "As fit as a fiddle",
+    hindi: "बिल्कुल स्वस्थ, तन्दुरुस्त",
+    meaning: "Strong and healthy; in prime physical condition.",
+    examples: [
+      "My nana is 82, but he is as fit as a fiddle.",
+      "I feel as fit as a fiddle."
+    ],
+    category: "Character & People",
+    mnemonic: "Fiddle (violin) hamesha best condition aur tune me rakha jata hai.",
+    etymology: "In 16th century English, 'fit' meant handsome and well-crafted like a fiddle.",
+    synonyms: "In the pink of health, hale and hearty"
+  },
+  {
+    num: 7,
+    idiom: "At a loose end",
+    hindi: "बिना कुछ काम के / खाली / बेरोजगार",
+    meaning: "Unoccupied, unemployed, idle, having nothing to do.",
+    examples: [
+      "If you find yourself at a loose end, you could always clean the bathroom.",
+      "He has been at a loose end ever since he lost his job."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Rope ke dhage khule hain aur bandhe nahi hain -> bekaar/free.",
+    etymology: "Nautical origins: unattached loose rope ends waiting to be tied.",
+    synonyms: "Idle, unoccupied, free"
+  },
+  {
+    num: 8,
+    idiom: "At logger heads",
+    hindi: "किसी के साथ संघर्ष या असम्मत होना",
+    meaning: "In conflict with someone; strongly disagreeing.",
+    examples: [
+      "Kejriwal is at loggerheads with the Prime Minister over public spending.",
+      "We are at loggerheads with each other."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Lakkadhare (loggers) aapas me sir takra kar lad rahe hain.",
+    etymology: "Loggerhead was a heavy iron tool, later used for stubborn persons.",
+    synonyms: "At variance, feuding, disputing"
+  },
+  {
+    num: 9,
+    idiom: "At odds",
+    hindi: "अनबन होना / मतभेद होना",
+    meaning: "In opposition to someone; to disagree - in dispute.",
+    examples: [
+      "They are at odds over the funding of the project.",
+      "Gautam and his brother are always at odds over what to watch on T.V.",
+      "The members of the group were at odds over the selection procedure."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Odd numbers aapas me match nahi hote -> disagreement.",
+    etymology: "Derived from betting and probability differences.",
+    synonyms: "In conflict, discordant, clashing"
+  },
+  {
+    num: 10,
+    idiom: "At cross purposes",
+    hindi: "विरोधी दृष्टिकोण / परस्पर विरोधी उद्देश्य",
+    meaning: "With opposing viewpoints or misunderstanding each other's aims.",
+    examples: [
+      "I think we have been talking at cross purposes- I meant next year, not this year.",
+      "We are arguing at cross purposes. We are not even discussing the same thing.",
+      "I think we are talking at cross purposes here. You mean the old building, but I am talking about the new one."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Dono ke raste cross kar rahe hain, ek disha me nahi chal rahe.",
+    etymology: "From a 17th-century parlor game based on contradictory answers.",
+    synonyms: "Misunderstanding, conflicting goals"
+  },
+  {
+    num: 11,
+    idiom: "After one's own heart",
+    hindi: "समान राय या रुचि रखने वाला व्यक्ति (मनपसंद)",
+    meaning: "Someone who is similar to you (having the same opinions or interests as you).",
+    examples: [
+      "She's a woman after my own heart.",
+      "When she met a man after her own heart. She got married to him.",
+      "I was delighted by your comments about spirituality, you are clearly a man after my own heart."
+    ],
+    category: "Character & People",
+    mnemonic: "Jo bilkul aapke dil jaisi pasand rakhta ho.",
+    etymology: "Biblical origin from 1 Samuel 13:14 ('a man after his own heart').",
+    synonyms: "Like-minded, kindred spirit"
+  },
+  {
+    num: 12,
+    idiom: "At the bottom of",
+    hindi: "कुछ अप्रिय का असली कारण (मूल कारण)",
+    meaning: "To be the real reason for something unpleasant (mainly responsible for something).",
+    examples: [
+      "The desire for the money is at the bottom of much of the world's violence.",
+      "I don't know for certain why she dislikes you, but I suspect jealousy is at the bottom of it."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Problem ke talhatti (bottom) me chupaa hua root cause.",
+    etymology: "Metaphor of digging to the bottom foundation of an issue.",
+    synonyms: "Root cause, main factor"
+  },
+  {
+    num: 13,
+    idiom: "At loss",
+    hindi: "समझ में नहीं आना / असमंजस में",
+    meaning: "Not know what to do or say; completely puzzled.",
+    examples: [
+      "I was so surprised that I was at a loss for words.",
+      "I was terribly confused- really at a loss."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Loss of words / loss of ideas -> blank ho jana.",
+    etymology: "Hunting hounds losing the scent trail of prey.",
+    synonyms: "Perplexed, baffled, bewildered"
+  },
+  {
+    num: 14,
+    idiom: "At daggers drawn",
+    hindi: "जानी दुश्मन / कट्टर शत्रुता",
+    meaning: "To have bitter enmity; ready to fight fatally.",
+    examples: [
+      "The quarrel between the two brothers has grown more bitter now and they are at daggers drawn."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Khanjar (dagger) nikal kar aamne-saamne khade hona.",
+    etymology: "Soldiers pulling daggers from sheaths for hand-to-hand mortal combat.",
+    synonyms: "Mortal enemies, hostile, bitter foes"
+  },
+  {
+    num: 15,
+    idiom: "At large",
+    hindi: "बंधन मुक्त रखना / कानून की पकड़ से बाहर",
+    meaning: "Uncaptured and to keep unchained (if someone dangerous is at large, that person is free when they should not be).",
+    examples: [
+      "Twelve prisoners are at large following a series of escapes.",
+      "People keep their dogs at large, at night."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Khule me azaad ghumna bina kisi bandhan ke.",
+    etymology: "Anglo-Norman legal term meaning 'at liberty'.",
+    synonyms: "On the run, roaming free, uncaptured"
+  },
+  {
+    num: 16,
+    idiom: "Assume airs",
+    hindi: "श्रेष्ठता का दिखावा / घमंड दिखाना",
+    meaning: "To pretend superiority; behave arrogantly.",
+    examples: [
+      "Pay no attention to her. She is just putting on airs.",
+      "The rich are in the habit of assuming airs in the presence of in their poor relatives."
+    ],
+    category: "Character & People",
+    mnemonic: "Hawa me udna aur doosro ko chhota dikhana.",
+    etymology: "From French 'air' meaning noble mannerism, adapted to mean fake superiority.",
+    synonyms: "Put on airs, act haughty, boast"
+  },
+  {
+    num: 17,
+    idiom: "Argus eyed",
+    hindi: "अत्यंत चौकस, सतर्क",
+    meaning: "Extremely observant, vigilant or careful; keen-sighted.",
+    examples: [
+      "As a politician, he is Argus eyed."
+    ],
+    category: "Character & People",
+    mnemonic: "Argus giant ke paas 100 aankhein thi jo kabhi so nahi sakti thi.",
+    etymology: "Greek mythology: Argus Panoptes was an all-seeing 100-eyed monster guardian.",
+    synonyms: "Vigilant, watchful, eagle-eyed"
+  },
+  {
+    num: 18,
+    idiom: "Bear the brunt of",
+    hindi: "मुख्य आघात सहना / प्रमुख भार उठाना",
+    meaning: "To bear the main shock or brunt of something unpleasant.",
+    examples: [
+      "The poor have to bear the brunt of increasing prices.",
+      "Ordinary citizens will bear the brunt of higher taxes."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Aage aakar pehla shock/hamla jhelna.",
+    etymology: "Old Norse 'bruni' (fire/heat), military term for leading shock troop attacks.",
+    synonyms: "Endure worst part, take the impact"
+  },
+  {
+    num: 19,
+    idiom: "Bell the cat",
+    hindi: "खतरनाक या असंभव काम करने के लिए सहमत होना",
+    meaning: "To agree to perform a risky, dangerous, or impossible job or task.",
+    examples: [
+      "Who's going to bell the cat and tell mom we wrecked the car?"
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Chuhe sochte hain billi ke gale me ghanti bandhe, par risk kaun lega?",
+    etymology: "Aesop's ancient fable of mice plotting against a predatory cat.",
+    synonyms: "Take dangerous initiative, dare risk"
+  },
+  {
+    num: 20,
+    idiom: "Bid defiance",
+    hindi: "नज़रअंदाज़ करना, मना करना / खुली अवज्ञा करना",
+    meaning: "To ignore; to refuse to submit; challenge openly.",
+    examples: [
+      "Parth bade defiance to his father's wish of becoming a doctor and instead became an engineer."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Defiance = khullam-khulla aagya ka ullanghan.",
+    etymology: "'Bid' (announce/proclaim) + 'defiance' (refusal to yield).",
+    synonyms: "Defy, rebel against, resist"
+  },
+  {
+    num: 21,
+    idiom: "Beside oneself",
+    hindi: "किसी भावना की चरम स्थिति में होना (आपे से बाहर होना)",
+    meaning: "In an extreme state of some emotion (makes you almost out of control with grief, joy or anger).",
+    examples: [
+      "He was beside himself with grief when his wife died.",
+      "I was beside myself with joy.",
+      "She couldn't speak. She was beside herself with anger."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Aapne sharir se bahar ho jana itne tez emotion me.",
+    etymology: "Ancient concept that extreme emotion knocked the soul beside the physical body.",
+    synonyms: "Overwhelmed, frantic, delirious"
+  },
+  {
+    num: 22,
+    idiom: "Bring to book",
+    hindi: "दण्डित करना / हिसाब माँगना",
+    meaning: "To punish someone and make that person explain their behaviour.",
+    examples: [
+      "The manager was brought to book for his negligence.",
+      "A crime has been committed and whoever is responsible must be brought to book."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Kanoon ki kitaab (book) ke samne khada karke saza dena.",
+    etymology: "Courts keeping written books/records of trials and punishments.",
+    synonyms: "Call to account, penalize, prosecute"
+  },
+  {
+    num: 23,
+    idiom: "Back stairs influence",
+    hindi: "अनुचित तरीके से / चोर दरवाजे से प्रभाव डालना",
+    meaning: "By unfair means; utilizing secret or illegitimate connections.",
+    examples: [
+      "These days many persons are given good posts through back stairs influence."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Mukhya darwaje ke bajaye piche ki seedhiyon se rishwat/recommendation dena.",
+    etymology: "Royal palaces had back staircases used by secret intriguers to meet kings.",
+    synonyms: "Cronyism, backdoor politics, nepotism"
+  },
+  {
+    num: 24,
+    idiom: "Bird's eye view",
+    hindi: "ऊपर से देखा गया संक्षिप्त दृश्य / विहंगम दृष्टि",
+    meaning: "A view seen from high above; a concise and comprehensive view.",
+    examples: [
+      "Climb to the top of the Eiffel tower if you want a bird's eye view of the Paris.",
+      "We had a bird's eye view of the whole fair from the top of a giant wheel."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Aasman me udte pakshi ki nazar se poora shehar dekhna.",
+    etymology: "17th-century aerial perspective drawings of towns.",
+    synonyms: "Panoramic overview, aerial view, synopsis"
+  },
+  {
+    num: 25,
+    idiom: "Burn your boats/bridges",
+    hindi: "पीछे लौटने के सभी रास्ते बंद कर देना",
+    meaning: "Point of no return (destroying all possible ways of going back to previous situation).",
+    examples: [
+      "She didn't want to burn her boats by asking for a divorce."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Naav jala di to piche lautne ka koi option nahi bachega.",
+    etymology: "Conquerors burned their ships on landing so armies fought without thought of retreat.",
+    synonyms: "Cross the Rubicon, commit irreversibly"
+  },
+  {
+    num: 26,
+    idiom: "By the by",
+    hindi: "वैसे / प्रसंगवश",
+    meaning: "By the way; incidentally; in passing.",
+    examples: [
+      "By the by, what is your age?"
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Baat karte hue achanak koi doosra topic chhedna.",
+    etymology: "Archaic English phrase for incidental conversational transitions.",
+    synonyms: "Incidentally, by the way"
+  },
+  {
+    num: "26b",
+    idiom: "By and by",
+    hindi: "थोड़े समय के बाद / धीरे-धीरे",
+    meaning: "After a short period / gradually over time.",
+    examples: [
+      "You will get used to it by and by.",
+      "The weather is sure to clear up by and by.",
+      "You will feel better by and by.",
+      "He is recovering by and by after long illness."
+    ],
+    category: "Time & Delay",
+    mnemonic: "By and by = Waqt guzarne ke sath sath.",
+    etymology: "Repetitive Middle English expression indicating progress over intervals.",
+    synonyms: "Gradually, before long, eventually"
+  },
+  {
+    num: 27,
+    idiom: "Bated breath",
+    hindi: "सांस रोक कर प्रतीक्षा करना",
+    meaning: "Nervously waiting; in anxiety, suspense and expectancy.",
+    examples: [
+      "The fate of the match hung in balance and everybody waited for the result with bated breath."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Abated (ruk jana) saans ka suspense ke maare.",
+    etymology: "From Shakespeare's Merchant of Venice (1596).",
+    synonyms: "In suspense, anxiously, breathlessly"
+  },
+  {
+    num: 28,
+    idiom: "Bandy words",
+    hindi: "बेवजह या बेरहमी से बहस करना / ज़ुबानी जंग",
+    meaning: "To argue pointlessly or rudely; exchange quarrelsome words.",
+    examples: [
+      "I haven't come here to bandy words with you.",
+      "Obedient children don't bandy words with their parents when they are advised."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Bandy jaise ball ko idhar se udhar bar-bar phenkna.",
+    etymology: "Old game 'bandy' (precursor to tennis/hockey) where ball was struck to-and-fro.",
+    synonyms: "Bicker, squabble, spar verbally"
+  },
+  {
+    num: 29,
+    idiom: "Bee in one's bonnet",
+    hindi: "किसी चीज़ का भूत सवार होना / खुश करना मुश्किल (Fastidious)",
+    meaning: "To talk a lot about something you think is important; or to be fussy, hard to please (Syno: over-particular, selective).",
+    examples: [
+      "He has bee in his bonnet about spirituality.",
+      "She never stops talking about dieting- she's got a real bee in her bonnet about it.",
+      "She seems to have a bee in her bonnet because she is always finding faults with others.",
+      "He is very fussy about what he eats."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Topi (bonnet) ke andar bee ghum rahi ho to dimag me ek hi baat ghumti rehti hai.",
+    etymology: "16th-century Scottish phrase used to describe obsessive thinking.",
+    synonyms: "Obsession, fixated, fastidious, fussy"
+  },
+  {
+    num: 30,
+    idiom: "Bluestocking",
+    hindi: "विदुषी / किताबी व पाखंडी महिला",
+    meaning: "A scholarly and intellectual woman; educated but pedantic lady.",
+    examples: [
+      "Educated but pedantic lady.",
+      "Nobody likes to mix with her because she is a blue stocking."
+    ],
+    category: "Character & People",
+    mnemonic: "Blue stocking pehan kar literary societies me aane wali padhi-likhi mahila.",
+    etymology: "18th-century Blue Stockings Society in London founded by Elizabeth Montagu.",
+    synonyms: "Intellectual woman, scholar, bookish lady"
+  },
+  {
+    num: 31,
+    idiom: "Browbeat",
+    hindi: "किसी को धमकाना या डराना",
+    meaning: "To bully or intimidate someone into something.",
+    examples: [
+      "The president of the college always tries to brow beat the students opposed to him.",
+      "I was browbeaten into doing it once. I refuse to do it again."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Eyebrow tedi karke danda chalana / darrana.",
+    etymology: "To beat down someone's courage by knitting menacing eyebrows.",
+    synonyms: "Bully, intimidate, cow, tyrannize"
+  },
+  {
+    num: 32,
+    idiom: "Bad egg",
+    hindi: "बेईमान या बुरा व्यवहार करने वाला व्यक्ति / निकम्मा",
+    meaning: "Dishonest or ill-behaved person; a worthless fellow.",
+    examples: [
+      "He is a bad egg- don't believe anything he says.",
+      "He comes of a noble family but he himself is a bad egg."
+    ],
+    category: "Character & People",
+    mnemonic: "Kharaab sdaa hua anda jo upar se pata na chale.",
+    etymology: "19th-century schoolboy slang contrasted with 'good egg'.",
+    synonyms: "Scoundrel, black sheep, rogue"
+  },
+  {
+    num: 33,
+    idiom: "Beside the mark",
+    hindi: "अप्रासंगिक / बेतुका",
+    meaning: "Beside the point; irrelevant; not pertinent.",
+    examples: [
+      "Nobody agreed with him because his arguments were beside the mark."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Mark (target) ke bilkul bahar teer lagna.",
+    etymology: "Archery terminology for arrows falling wide of the target mark.",
+    synonyms: "Irrelevant, off-topic, inapt"
+  },
+  {
+    num: 34,
+    idiom: "Brown study",
+    hindi: "गहरी विचारों में होने की स्थिति / दिवास्वप्न",
+    meaning: "A state of deep, serious absorption in thoughts; day dream.",
+    examples: [
+      "Is he lost in a brown study?",
+      "He could not follow the significance of my offer, because he was in brown study."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Brown = gloomy / deep serious meditation.",
+    etymology: "16th-century English where 'brown' denoted gloomy, dark contemplation.",
+    synonyms: "Reverie, trance, deep contemplation"
+  },
+  {
+    num: 35,
+    idiom: "Blaze the trail",
+    hindi: "आंदोलन शुरू करना / नया मार्ग बनाना",
+    meaning: "To start a movement; to do something that has never been done before.",
+    examples: [
+      "Gandhi blazed the trail of indian national movement.",
+      "Professor William blazed a trail in the study of physics."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Jungle me pehle pedo par aag/cut nishan bana kar rasta dikhana.",
+    etymology: "Trail blazers cut white wood notches (blazes) on trees in unexplored forests.",
+    synonyms: "Pioneer, lead the way, initiate"
+  },
+  {
+    num: 36,
+    idiom: "By the rule of thumb",
+    hindi: "व्यावहारिक अनुभव के अनुसार",
+    meaning: "According to practical experience; a general principle developed through experiential rather than scientific means.",
+    examples: [
+      "Going by a rule of thumb, we stop for gas every 200 miles when we travel.",
+      "In older times, business was run by the rule of thumb."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Angoothe se rough napna bina scale ke.",
+    etymology: "Carpenters using the width of their thumb for quick rough measurements.",
+    synonyms: "Practical guide, rough estimate, heuristic"
+  },
+  {
+    num: 37,
+    idiom: "Big draw",
+    hindi: "बहुत बड़ा आकर्षण",
+    meaning: "A huge attraction that attracts huge crowds.",
+    examples: [
+      "The match btw India and Pakistan is always a big draw."
+    ],
+    category: "Character & People",
+    mnemonic: "Jo bohot badi crowd ko draw (khinch) le.",
+    etymology: "Theatre industry for plays that draw massive ticket buyers.",
+    synonyms: "Mega attraction, crowd puller, blockbuster"
+  },
+  {
+    num: 38,
+    idiom: "Broken reed",
+    hindi: "कमजोर या अविश्वसनीय व्यक्ति/सहारा",
+    meaning: "A weak or unreliable support or person that fails in need.",
+    examples: [
+      "You can't rely on her support. She is a broken reed.",
+      "I'd counted on her to help, but she turned out to be a broken reed."
+    ],
+    category: "Character & People",
+    mnemonic: "Tooti hui lakdi jis par bharosa karke gir jaoge.",
+    etymology: "Biblical prophecy in Isaiah 36:6 comparing false Egyptian aid to bruised reeds.",
+    synonyms: "Unreliable ally, fragile prop"
+  },
+  {
+    num: 39,
+    idiom: "Bit/piece of one's mind",
+    hindi: "डांटना, गुस्से में खरी-खरी बोलना",
+    meaning: "To scold; to speak angrily to someone about something they have done wrong.",
+    examples: [
+      "I have had enough from John. I'm going to give him a piece of my mind.",
+      "I'm going to give that mechanic a piece of my mind if the car's not fixed this time."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Apne dimag ka gussa saaf-saaf samne wale ke muh par bolna.",
+    etymology: "Colloquial English for expressing frank, unfiltered displeasure.",
+    synonyms: "Scold, reprimand, chew out"
+  },
+  {
+    num: 40,
+    idiom: "Carry matters with high hand",
+    hindi: "सख्ती से निपटना / निरंकुशता से काम लेना",
+    meaning: "To deal with a person or thing strictly, arbitrarily, or with arrogance.",
+    examples: [
+      "The owner carried matters with high hand and expelled two workers who were caught doing mischief in the office."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Unche hath se kadi sazayein thopna.",
+    etymology: "From ancient despots commanding with raised authoritative hands.",
+    synonyms: "Dictatorially, high-handedly, rigidly"
+  },
+  {
+    num: 41,
+    idiom: "Come home to",
+    hindi: "स्पष्ट रूप से समझ में आना",
+    meaning: "To understand clearly; to realize fully.",
+    examples: [
+      "She wanted to be the teacher in the college but soon it came home to her that she was not fit for the job."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Baat sidhi dil aur dimag (home) tak pahuch jana.",
+    etymology: "Truth driven so deeply it reaches the comfort of one's own home.",
+    synonyms: "Dawn upon, sink in, register"
+  },
+  {
+    num: 42,
+    idiom: "Call a spade a spade",
+    hindi: "किसी बात के बारे में सच बोलना / साफ़-साफ़ कहना",
+    meaning: "To speak frankly or say the truth about something- even if it is not polite or pleasant.",
+    examples: [
+      "People often get angry when one calls a spade a spade.",
+      "Let's call a spade a spade. The man is a liar."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Kudal ko kudal bolna, koi fancy naam nahi dena.",
+    etymology: "Ancient Greek proverb translated by Erasmus in 1500.",
+    synonyms: "Be blunt, speak candidly, tell unvarnished truth"
+  },
+  {
+    num: 43,
+    idiom: "Cut a sorry figure",
+    hindi: "खराब प्रदर्शन करना / लज्जित होना",
+    meaning: "To give a poor show; produce an unfavorable impression.",
+    examples: [
+      "The speaker cut a sorry figure in the meeting.",
+      "She cut a sorry figure in her maiden speech."
+    ],
+    category: "Character & People",
+    mnemonic: "Sorry kehne layak disgraceful performance dena.",
+    etymology: "'Cutting a figure' was making a posture; adding sorry made it pathetic.",
+    synonyms: "Perform poorly, make bad impression"
+  },
+  {
+    num: 44,
+    idiom: "Call names",
+    hindi: "किसी को अपमानजनक नाम से बुलाना / गाली देना",
+    meaning: "To call someone by an abusive and insulting name.",
+    examples: [
+      "I was afraid that if I wore glasses to school, the other kids would call me names."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Asli naam chhod kar bure naam se chidhana.",
+    etymology: "Old English phrase for derogatory verbal taunts.",
+    synonyms: "Insult, taunt, vilify, mock"
+  },
+  {
+    num: 45,
+    idiom: "Curtain lecture",
+    hindi: "पत्नी की कड़वी बात / एकांत में दी गई डांट",
+    meaning: "Wife's tough talk; a reprimand that a wife gives her husband in private.",
+    examples: [
+      "A reprimand that a wife gives her husband.",
+      "The husband seemed to have a curtain lecture at home."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Bed curtain ke peeche husband ko scolding milna.",
+    etymology: "Douglas Jerrold's famous 1846 book 'Mrs. Caudle's Curtain Lectures'.",
+    synonyms: "Private scolding, marital dressing-down"
+  },
+  {
+    num: 46,
+    idiom: "Cave in",
+    hindi: "छत का धसना / दबाव में आत्मसमर्पण करना",
+    meaning: "To collapse (for a roof or ceiling); or to give in to someone or something – yield under pressure.",
+    examples: [
+      "Because of the explosion, the roof of the building caved in, trapping several people.",
+      "Finally the manager caved in to the customer's demand.",
+      "I refuse to cave in under pressure from my opponent."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Gufa ki chhat girna ya dushmani ke samne toot jana.",
+    etymology: "Mining collapse term extended to psychological surrender.",
+    synonyms: "Yield, capitulate, surrender, collapse"
+  },
+  {
+    num: 47,
+    idiom: "Cloven hoof",
+    hindi: "बुरा इरादा / दुष्टता का संकेत",
+    meaning: "Evil intention; the sign of devilish character.",
+    examples: [
+      "He showed cloven hoof by cheating his parents."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Shaitan ke kate huye khur (cloven hoof) jo dhokha dikhate hain.",
+    etymology: "Legend that Satan could disguise himself as human but never disguise his split goat hooves.",
+    synonyms: "Malice, sinister motive, devilish trait"
+  },
+  {
+    num: 48,
+    idiom: "Clinch the issue/deal",
+    hindi: "विवाद को दूर करना / सौदा पक्का करना",
+    meaning: "To clear the controversy; decide the matter definitively; seal a transaction.",
+    examples: [
+      "The minister clinched the issue by accepting the genuine demand of the students.",
+      "After two weeks of negotiations, we were finally able to clinch the deal with the other firm."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Clinch = Keel ko mod kar pakka lock karna.",
+    etymology: "Fastening a nail permanently by bending the point over in carpentry.",
+    synonyms: "Seal the deal, settle dispute, finalize"
+  },
+  {
+    num: 49,
+    idiom: "Checkered/chequered career",
+    hindi: "उतार-चढ़ाव से भरा जीवन/करियर",
+    meaning: "Full of ups and downs; a background that includes many changes, especially of employment and fortunes.",
+    examples: [
+      "Parth had a checkered career, hopping from one city to another and one job to another.",
+      "I had a checkered career after college, taking any kind of work that I could find."
+    ],
+    category: "Character & People",
+    mnemonic: "Chess board ke black & white patterns jaise ups and downs.",
+    etymology: "From checkered cloth patterns consisting of alternating colors.",
+    synonyms: "Fluctuating career, up-and-down life"
+  },
+  {
+    num: 50,
+    idiom: "Cut both ends",
+    hindi: "दोनों पक्षों के पक्ष में बोलना",
+    meaning: "Argue in favour of both sides; playing both sides to stay safe.",
+    examples: [
+      "While participating in debate you should not cut both ends.",
+      "He is ambiguous because he always cut both ends."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Dono tarf talwar chalana taaki koi naraz na ho.",
+    etymology: "From double-edged cutting instruments.",
+    synonyms: "Equivocate, play both sides"
+  },
+  {
+    num: 51,
+    idiom: "Cock a snook",
+    hindi: "अवमानना करना / अँगूठा दिखाना",
+    meaning: "To show contempt; show that you do not respect someone by insulting them.",
+    examples: [
+      "She is so proud of her wealth that she always cocks a snook at the acts of her husband."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Naak par angootha laga kar chidhana.",
+    etymology: "British gesture of mockery with thumb on tip of nose.",
+    synonyms: "Mock, flout, thumb one's nose"
+  },
+  {
+    num: 52,
+    idiom: "Chapter and verse",
+    hindi: "पूर्ण विवरण देना / प्रमाण सहित बताना",
+    meaning: "In full detail or to give exact proof and authoritative references.",
+    examples: [
+      "I know all about it, chapter and verse.",
+      "He has such a sharp memory that he can narrate the story chapter and verse."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Bible ke chapter number aur verse number ke sath exact bolna.",
+    etymology: "Citing scriptures with verse numbers for unshakeable legal/religious proof.",
+    synonyms: "Detailed proof, in full detail, exact citation"
+  },
+  {
+    num: 53,
+    idiom: "Cool one's heels",
+    hindi: "प्रतीक्षा करना / इंतज़ार करना",
+    meaning: "To keep waiting; to wait for someone impatiently.",
+    examples: [
+      "I spent an hour cooling my heels in the waiting room while the doctor saw the other patients."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Garam pair ko thanda karte hue baith kar wait karna.",
+    etymology: "Riding horses resting their hooves outside an inn while master waited.",
+    synonyms: "Wait around, kick one's heels"
+  },
+  {
+    num: 54,
+    idiom: "Come in handy",
+    hindi: "उपयोगी होना / काम आना",
+    meaning: "To be useful or advantageous.",
+    examples: [
+      "This money will come in handy when we go on vacation.",
+      "Take some woollen clothes. They may come in handy in Shimla.",
+      "I think that this gadget will come in handy in the kitchen."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Hath ke paas turant kam aa jana.",
+    etymology: "Tools that fit the hand comfortably when immediate help is needed.",
+    synonyms: "Be useful, be convenient"
+  },
+  {
+    num: 55,
+    idiom: "Draw the long bow",
+    hindi: "अतिरंजित करना / बढ़ा-चढ़ाकर कहना",
+    meaning: "To exaggerate wildly; tell tall unbelievable tales.",
+    examples: [
+      "In calling him the best politician of the world, his followers draw the long bow."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Dhanush ki dori itni kheenchna ki tootne jaisa exaggerated ho jaye.",
+    etymology: "Robin Hood era archery where archers boasted fictional shot distances.",
+    synonyms: "Exaggerate, magnify, embellish"
+  },
+  {
+    num: 56,
+    idiom: "Dutch courage",
+    hindi: "शराब के प्रभाव में बहादुरी मारना",
+    meaning: "Bravery under alcoholic influence; confidence got from drinking alcohol before doing something that needs courage.",
+    examples: [
+      "The confidence that some people get from drinking alcohol before they do something that needs courage.",
+      "It was the Dutch courage that made the football fan attack the policeman."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Dutch Gin peekar aane wala nakli darr-heen banna.",
+    etymology: "17th-century British rivalry with Dutch gin-drinking soldiers.",
+    synonyms: "Liquid courage, false confidence"
+  },
+  {
+    num: 57,
+    idiom: "Down and out",
+    hindi: "गरीब और बेसहारा / कंगाल",
+    meaning: "Poor and ruined; someone who has no job, no home, no money.",
+    examples: [
+      "Someone who has no job, no home, no money.",
+      "I just assumed he was down and out, begging on the street corner.",
+      "After a slump in share market he is down and out these days."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Boxing me floor par gira hua (down) aur match se bahar (out).",
+    etymology: "Knocked down boxer counted out by the referee.",
+    synonyms: "Destitute, impoverished, broke"
+  },
+  {
+    num: 58,
+    idiom: "Days of reckoning",
+    hindi: "यादगार दिन, फैसले का दिन / हिसाब चुकाने का समय",
+    meaning: "Time to answer for one's actions; time when something must be dealt with.",
+    examples: [
+      "You may commit crime after crime but days of reckoning are never far off.",
+      "Taking out a further loan to cover your debts will only postpone the day of reckoning."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Reckoning = hisab-kitab ka din.",
+    etymology: "Final Day of Judgment in Christian theology and debt settlement day.",
+    synonyms: "Day of reckoning, judgment day, retribution"
+  },
+  {
+    num: 59,
+    idiom: "Down in the mouth",
+    hindi: "उदास / हताश",
+    meaning: "To be sad or depressed; out of elements.",
+    examples: [
+      "Now-a-days he is down in the mouth because he has suffered heavy loss in the business.",
+      "He looks a bit down in the mouth. Shall we try to find out what's wrong with him?"
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Muh latka kar baithna.",
+    etymology: "The corners of the mouth turn downward in melancholy.",
+    synonyms: "Dejected, depressed, despondent"
+  },
+  {
+    num: 60,
+    idiom: "Egg on",
+    hindi: "उकसाना / बढ़ावा देना",
+    meaning: "To urge someone to do something, usually something unwise; to provoke, encourage, incite someone.",
+    examples: [
+      "Don't egg him on! He gets himself into enough trouble without your encouragement.",
+      "The two boys kept throwing stones because the other children were egging them on."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Peeche se dhakka dena kisi ko gadbad karne ke liye.",
+    etymology: "From Old Norse 'eggja' (to goad with a sharp edge).",
+    synonyms: "Incite, instigate, goad, provoke"
+  },
+  {
+    num: 61,
+    idiom: "Eke out",
+    hindi: "अतिरिक्त आय जुटाना / गुज़ारा चलाना",
+    meaning: "Supplement income; to add to something with difficulty.",
+    examples: [
+      "He worked at two jobs in order to eke his income out.",
+      "To eke out his income he also works as a part time accountant in the evening."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Ek ek paisa jod kar kharcha pura karna.",
+    etymology: "Old English 'ēacan' (to enlarge/increase).",
+    synonyms: "Supplement, eke out a living, scrape by"
+  },
+  {
+    num: 62,
+    idiom: "Ever and anon",
+    hindi: "कभी - कभी / समय-समय पर",
+    meaning: "Now and then, sometimes occasionally.",
+    examples: [
+      "He visits his parents ever and anon."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Kabhi kabhi waqt par milna.",
+    etymology: "Classic early modern English phrase for recurrence.",
+    synonyms: "Periodically, occasionally, now and then"
+  },
+  {
+    num: 63,
+    idiom: "An eye wash",
+    hindi: "दिखावा, छल, बकवास / धोखा",
+    meaning: "A pretence, deception, nonsense; superficial illusion.",
+    examples: [
+      "It's not an eyewash. It's true.",
+      "My friend's promise to help me just proved an eye-wash."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Aankho par dikhava karna taaki sachai na dikhe.",
+    etymology: "Military cosmetic cleaning to impress visiting generals.",
+    synonyms: "Facade, sham, humbug, delusion"
+  },
+  {
+    num: 64,
+    idiom: "Fool's errand",
+    hindi: "मूर्खतापूर्ण कार्य / निष्फल प्रयास",
+    meaning: "An attempt to do something that has no chance of success.",
+    examples: [
+      "It's a fool's errand trying to get Rahul to join in anything.",
+      "Billions of dollars have been spent on long-range weather forecasting. But it's a fool's errand."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Murkho wala kaam jiska koi result na aaye.",
+    etymology: "Sending junior apprentices on fake tasks on April Fools' Day.",
+    synonyms: "Wild goose chase, pointless task"
+  },
+  {
+    num: 65,
+    idiom: "Fall foul of somebody",
+    hindi: "झगड़ा करना / किसी की नाराज़गी मोल लेना",
+    meaning: "To quarrel; get into conflict or disfavor with someone.",
+    examples: [
+      "Things were going well for her till she fell foul of the director.",
+      "They were once bosom friends but now they have fallen foul of each other."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Foul (ganda relation) me fas jana.",
+    etymology: "Nautical: two ships colliding or entangling rigging in bad weather.",
+    synonyms: "Clash with, cross, antagonize"
+  },
+  {
+    num: 66,
+    idiom: "Fly off the handle",
+    hindi: "आपे से बाहर हो जाना / अत्यधिक गुस्सा होना",
+    meaning: "To lose one's temper violently and suddenly.",
+    examples: [
+      "He's extremely irritable- he flies off the handle at the slightest thing."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Kulhadi ka dasta (handle) se loha alag ho jana.",
+    etymology: "Loose axe head flying dangerously off the handle when swung hard.",
+    synonyms: "Lose temper, go ballistic, blow up"
+  },
+  {
+    num: 67,
+    idiom: "Foot the bill",
+    hindi: "हिसाब चुका देना / बिल भरना",
+    meaning: "To pay for something or bill, especially expensive.",
+    examples: [
+      "My boss took me out for lunch and company footed the bill.",
+      "His parents can't afford to foot the bill for his college education."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Bill ke foot (niche) par sign karke payment karna.",
+    etymology: "Signing one's name at the foot of an account receipt to authorize payment.",
+    synonyms: "Pay the bill, settle the tab"
+  },
+  {
+    num: 68,
+    idiom: "Fair weather friend",
+    hindi: "स्वार्थी दोस्त / केवल सुख का साथी",
+    meaning: "Selfish friend who stays only when times are pleasant and leaves during hardship.",
+    examples: [
+      "A fair weather friend will never stand by you in difficulty."
+    ],
+    category: "Character & People",
+    mnemonic: "Achhe mausam me dost, buri barsat me gayab.",
+    etymology: "16th-century proverb about fair weather vs stormy adversity.",
+    synonyms: "Opportunistic friend, false friend"
+  },
+  {
+    num: 69,
+    idiom: "Flash in the pan",
+    hindi: "थोड़े समय के लिए हुआ / क्षणिक सफलता",
+    meaning: "Something that happened only for a short time and was not repeated.",
+    examples: [
+      "Sadly, their success was just a flash in the pan.",
+      "Tom had hoped to be a major film star, but his career was only a flash in the pan."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Bandook ke pan me barood chamka par goli nahi daudti.",
+    etymology: "Flintlock muskets where primer powder flashed without firing the bullet.",
+    synonyms: "Nine-day wonder, ephemeral success"
+  },
+  {
+    num: 70,
+    idiom: "Gain ground",
+    hindi: "सफल और लोकप्रिय बनना / आगे बढ़ना",
+    meaning: "To become successful and popular; make steady progress.",
+    examples: [
+      "The U.S. is gaining ground as cotton producer.",
+      "Our new product is gaining ground against that of our competitor."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Jung me dushman ki zameen jeet kar aage badhna.",
+    etymology: "Military troops capturing territory from opposing army.",
+    synonyms: "Make progress, advance, win popularity"
+  },
+  {
+    num: 71,
+    idiom: "Get off scot free",
+    hindi: "सज़ा से बचना / साफ़ बच निकलना",
+    meaning: "To escape punishment for a crime or wrongdoing.",
+    examples: [
+      "His wealthy uncle influenced the jury, and he ended up getting off scot-free.",
+      "A murderer can also very easily get off scot free for lack of evidence."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Scot (tax) diye bina free me chooth jana.",
+    etymology: "Old Scandinavian 'skot' (fine/tax); escaping without paying penalty.",
+    synonyms: "Go unpunished, get away with it"
+  },
+  {
+    num: 72,
+    idiom: "Gird up the loins",
+    hindi: "कार्रवाई के लिए खुद को तैयार करना / कमर कसना",
+    meaning: "To get ready, especially for hard work; to prepare oneself for something.",
+    examples: [
+      "Somebody has to do something about the problem, why don't you gird up your loins and do something?",
+      "Well, I guess I had better gird up my loins and go to work."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Kamar kasna mehnat se pehle.",
+    etymology: "Biblical custom of tucking long flowing robes into belt before battle or running.",
+    synonyms: "Brace oneself, prepare for action"
+  },
+  {
+    num: 73,
+    idiom: "Go to the dogs",
+    hindi: "गुणवत्ता या चरित्र में बदतर होना / बर्बाद होना",
+    meaning: "To be ruined, or to become worse in quality or character; for a country or organization to become less successful than in the past.",
+    examples: [
+      "He was a marvelous actor, but his drinking problems caused his career to go to the dogs.",
+      "The rich business man will go to the dogs because of his son's bad habits.",
+      "They sat in the bar the night before the election, moaning that the country was going to the dogs."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Kutto ke khane jaisi halat ho jana.",
+    etymology: "Discarding rotten kitchen scraps to street scavenger dogs in medieval times.",
+    synonyms: "Deteriorate, decay, go downhill"
+  },
+  {
+    num: 74,
+    idiom: "Give a wide berth",
+    hindi: "बचना या दूर रहना",
+    meaning: "To avoid a person or a place; keep safe distance.",
+    examples: [
+      "We should always give a wide berth to all selfish and mean persons.",
+      "The dog we are approaching is very mean. Better give it a wide berth."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Ship ko khatre se doori (berth) bana kar nikalna.",
+    etymology: "Sailing ships maintaining safe clearance from other anchored vessels.",
+    synonyms: "Steer clear of, evade, shun"
+  },
+  {
+    num: 75,
+    idiom: "Gentleman at large",
+    hindi: "अविश्वसनीय व्यक्ति / बिना काम-धंधे का व्यक्ति",
+    meaning: "An unreliable person; a person without job or responsibilities.",
+    examples: [
+      "We must not believe in a gentleman at large."
+    ],
+    category: "Character & People",
+    mnemonic: "Bina kisi bandhan ya kaam ke aazaad ghumne wala shaksh.",
+    etymology: "Historical phrase for gentlemen of leisure with no steady occupation.",
+    synonyms: "Drifter, vagrant gentleman, untrustworthy"
+  },
+  {
+    num: 76,
+    idiom: "Give a good account of oneself",
+    hindi: "अच्छा प्रदर्शन करना / सराहनीय काम करना",
+    meaning: "To do something well or thoroughly; perform creditably.",
+    examples: [
+      "The company will probably give a good account of itself in the next quarter.",
+      "She was not feeling well, and she didn't give a good account of herself in last night's game."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Apna performance report card shaandar dikhana.",
+    etymology: "Submitting a worthy accounting ledger of military performance.",
+    synonyms: "Perform well, do credit to oneself"
+  },
+  {
+    num: 77,
+    idiom: "Green horn",
+    hindi: "अनुभवहीन / नौसिखिया",
+    meaning: "An inexperienced or immature person, especially one who is easily deceived.",
+    examples: [
+      "Though a green horn in political field, he appears to have a bright future."
+    ],
+    category: "Character & People",
+    mnemonic: "Kachhe naye seeng (green horns) wala immature janwar.",
+    etymology: "Young cattle whose horns are immature and green.",
+    synonyms: "Novice, rookie, amateur, tyro"
+  },
+  {
+    num: 78,
+    idiom: "Give up the ghost",
+    hindi: "मृत्यु होना / दम तोड़ना",
+    meaning: "To die, or pass away; or a machine stopping work permanently.",
+    examples: [
+      "After long illness he gave up the ghost last week."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Shareer se aatma (ghost) nikal kar alag ho jana.",
+    etymology: "King James Bible translation of dying (giving up the Holy Spirit/breath).",
+    synonyms: "Pass away, breathe last, die"
+  },
+  {
+    num: 79,
+    idiom: "Go the whole hog",
+    hindi: "संपूर्ण तरीके से करना / पूरी तरह अंजाम देना",
+    meaning: "To do something as completely as possible or thoroughly.",
+    examples: [
+      "You will have to go the whole hog to come out of this mess."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Poora suar (hog) lena, aadha nahi chhodna.",
+    etymology: "18th-century butcher slang for purchasing the entire pig carcass.",
+    synonyms: "Go all the way, leave no stone unturned"
+  },
+  {
+    num: 80,
+    idiom: "Get into a scrape",
+    hindi: "समस्या में उलझना / मुसीबत में पड़ना",
+    meaning: "Awkward situation; to tangle into some sort of problem.",
+    examples: [
+      "He got into a scrape when his wife refused to let him help his sister."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Girte waqt chhil (scrape) jana.",
+    etymology: "From deer scraping trenches or slipping into tight bushes.",
+    synonyms: "Get into a mess, get into a jam"
+  },
+  {
+    num: 81,
+    idiom: "Get into hot water",
+    hindi: "मुसीबत में फंसना / परेशानी में पड़ना",
+    meaning: "Get into serious trouble or conflict.",
+    examples: [
+      "He got into hot water by marrying a girl of another caste."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Ubalte garam paani me girna.",
+    etymology: "Throwing boiling water on intruders in medieval siege defense.",
+    synonyms: "Be in deep trouble, land in soup"
+  },
+  {
+    num: 82,
+    idiom: "Give currency",
+    hindi: "किसी व्यक्ति या चीज को लोकप्रिय बनाना / बात फैलाना",
+    meaning: "To make publicly known; to spread a story around widely.",
+    examples: [
+      "We give no currency to those stories.",
+      "The govt has refused to give currency to a number of scams."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Currency note ki tarah baat ko bazaar me chala dena.",
+    etymology: "Putting ideas into active circulation like newly minted coins.",
+    synonyms: "Circulate, propagate, disseminate"
+  },
+  {
+    num: 83,
+    idiom: "Get down to brass tacks / tracks",
+    hindi: "महत्वपूर्ण विषय पर बात करना / मूल मुद्दे पर आना",
+    meaning: "To deal with matter straight; to start talking about the most important or basic facts of the situation.",
+    examples: [
+      "Instead of wasting time in discussion, please get down to brass tracks.",
+      "Let's get down to brass tracks. We have wasted too much time chatting."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Keelein (brass tacks) tak pahuchna jo cheez ko hold karti hain.",
+    etymology: "Shopkeepers measuring cloth on brass tacks embedded in counters.",
+    synonyms: "Get to the point, talk fundamentals"
+  },
+  {
+    num: 84,
+    idiom: "Give one a long rope",
+    hindi: "किसी को गलतियाँ करने देना / ढील देना",
+    meaning: "To let someone commit mistakes; to allow someone to do what they want, knowing that they will probably fail or get into trouble.",
+    examples: [
+      "He never gives his employees a long rope.",
+      "Never give your children a long rope."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Lambi rassi chhodna taaki wo khud fas jaye.",
+    etymology: "Proverb: 'Give him enough rope and he will hang himself'.",
+    synonyms: "Give leeway, free rein"
+  },
+  {
+    num: 85,
+    idiom: "Hold water",
+    hindi: "सत्य या मान्य / खरा उतरना",
+    meaning: "If a reason, argument or explanation holds water, it is true or sound, valid under scrutiny.",
+    examples: [
+      "Her alibi (excuse) just didn't hold water.",
+      "His statement will not hold water as it is not based on facts."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Bina chhed ka bartan hi paani rok sakta hai.",
+    etymology: "Testing pottery for cracks by filling it with water.",
+    synonyms: "Stand scrutiny, be logical, be sound"
+  },
+  {
+    num: 86,
+    idiom: "Hang together",
+    hindi: "एक दूसरे का समर्थन करना / सुसंगत होना",
+    meaning: "Support one another; or for statements to fit together consistently.",
+    examples: [
+      "The two statements delivered by the leader of the party do not hang together.",
+      "The story simply doesn't hang together."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Ek sath jude rehna.",
+    etymology: "Benjamin Franklin: 'We must indeed all hang together, or most assuredly we shall all hang separately.'",
+    synonyms: "Stand united, be consistent"
+  },
+  {
+    num: 87,
+    idiom: "Have an axe to grind",
+    hindi: "स्वार्थ के लिए / अपना उल्लू सीधा करना",
+    meaning: "To have a selfish interest or private agenda.",
+    examples: [
+      "Environmentalists have no political axe to grind- they just want to save the planet."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Apni kulhadi tez karne ke liye dusre ko kaam par lagana.",
+    etymology: "Story by Charles Miner (often attributed to Franklin) about a boy tricked into sharpening an axe.",
+    synonyms: "Selfish motive, ulterior purpose"
+  },
+  {
+    num: 88,
+    idiom: "Hit below the belt",
+    hindi: "किसी व्यक्ति की कमजोरी का फायदा उठाना / अनुचित वार करना",
+    meaning: "To strike unfairly; disregard rules to hurt an opponent.",
+    examples: [
+      "We should always face the enemy boldly and never hit him below the belt."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Boxing me belt ke niche punch marna niyam viruddh hai.",
+    etymology: "Marquess of Queensberry boxing regulations.",
+    synonyms: "Fight dirty, unfair blow"
+  },
+  {
+    num: 89,
+    idiom: "Herculean task",
+    hindi: "बहुत कठिन कार्य / अत्यंत दुष्कर कार्य",
+    meaning: "Very difficult task requiring enormous strength and effort.",
+    examples: [
+      "It is a herculean task to root out corruption in India."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Hercules dwara kiye gaye 12 kathin shram.",
+    etymology: "The twelve almost-impossible labors performed by Hercules in Greek mythology.",
+    synonyms: "Colossal job, formidable challenge"
+  },
+  {
+    num: 90,
+    idiom: "Halcyon days",
+    hindi: "शांति और खुशी के दिन / सुखद अतीत",
+    meaning: "A very happy and successful period in the past; peaceful golden days.",
+    examples: [
+      "She recalled the halcyon days of her youth/childhood."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Halcyon pakshi ke ande dete waqt shaant samundar.",
+    etymology: "Greek myth: Alcyone bird nested on calm winter waves.",
+    synonyms: "Golden days, peaceful era, bliss"
+  },
+  {
+    num: 91,
+    idiom: "Have feet of clay",
+    hindi: "कमजोरी / छुपा हुआ चारित्रिक दोष",
+    meaning: "To have hidden faults; to have a bad quality that you keep hidden despite noble appearance.",
+    examples: [
+      "Some of the greatest geniuses In the history had feet of clay.",
+      "The C.B.I. inquiry has revealed that many ministers have feet of clay."
+    ],
+    category: "Character & People",
+    mnemonic: "Bhavya pratima jiske pair kachhi mitti (clay) ke bane ho.",
+    etymology: "Biblical dream of Nebuchadnezzar (Daniel 2) where a giant statue had weak clay feet.",
+    synonyms: "Hidden flaw, character weakness"
+  },
+  {
+    num: 92,
+    idiom: "Hang/hold fire",
+    hindi: "अनसुलझे रहना, प्रतीक्षा करना / लंबित रखना",
+    meaning: "To delay or wait; to remain unresolved or hold off action.",
+    examples: [
+      "Kashmir problem has been hanging fire for many years.",
+      "I think we should hang fire and wait for other information."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Bandook ka fire hone me delay hona.",
+    etymology: "Flintlock firearms where primer ignited but the main powder barrel delayed firing.",
+    synonyms: "Postpone, defer, put on hold"
+  },
+  {
+    num: 93,
+    idiom: "High and dry",
+    hindi: "किसी को मुश्किल स्थिति में असहाय छोड़ना",
+    meaning: "To leave someone in a difficult situation without any help.",
+    examples: [
+      "We were left high and dry without any money or credit cards.",
+      "The stock market crash left us high and dry with debts of over 5 million."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Jahaaj sookhe me fas gaya jab paani chala gaya.",
+    etymology: "Ships grounded high on shore after the ebb tide retreats.",
+    synonyms: "Stranded, abandoned, helpless"
+  },
+  {
+    num: 94,
+    idiom: "Hit the nail on the head",
+    hindi: "सही समय पर सही काम करना / सटीक बात कहना",
+    meaning: "To do the right thing at the right time; state exact truth.",
+    examples: [
+      "He hit the nail on the head by resigning the job.",
+      "You have spotted the flaw, Gautam. You hit the nail on the head."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Keel ke bilkul center head par hathoda marna.",
+    etymology: "Carpentry: driving a nail straight into timber with a clean head strike.",
+    synonyms: "Spot on, accurate, precise"
+  },
+  {
+    num: 95,
+    idiom: "Hold in abeyance",
+    hindi: "किसी चीज को स्थगित करना / दुविधा में रखना",
+    meaning: "To stall or postpone something temporarily.",
+    examples: [
+      "This is a good plan but not at this time. Let's just hold it in abeyance until things get better."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Thande baste me daalna.",
+    etymology: "From Old French 'abeance' (suspension in law).",
+    synonyms: "Suspend, defer, put on ice"
+  },
+  {
+    num: 96,
+    idiom: "Hobson's choice",
+    hindi: "कोई विकल्प ना होना / विवशतापूर्ण एकमात्र विकल्प",
+    meaning: "No alternative; the choice between taking what is offered and getting nothing at all.",
+    examples: [
+      "We didn't really want that particular hotel, but it was the case of Hobson's choice. We booked very late and there was nothing else left.",
+      "It's Hobson's choice, because if I don't agree to do what they want, I'll lose my job."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Thomas Hobson: Stable ke darwaze wala ghoda lo ya kuch nahi.",
+    etymology: "16th-century Cambridge liveryman Thomas Hobson required customers to hire the horse nearest the door.",
+    synonyms: "Take it or leave it, no alternative"
+  },
+  {
+    num: 97,
+    idiom: "High and mighty",
+    hindi: "रईस और शक्तिशाली लोग / अहंकारी",
+    meaning: "Proud persons; behaving as if you are much more important than other people.",
+    examples: [
+      "He was acting all high and mighty.",
+      "The high and mighty forget that everything in the world is transient."
+    ],
+    category: "Character & People",
+    mnemonic: "High status aur mighty power ka ghamand.",
+    etymology: "Archaic proclamation honoring high monarchs, later applied ironically to arrogant people.",
+    synonyms: "Arrogant, imperious, conceited"
+  },
+  {
+    num: 98,
+    idiom: "Head and shoulders",
+    hindi: "दूसरों की तुलना में बहुत बेहतर",
+    meaning: "Clearly superior to someone or something; much better than other similar people or things.",
+    examples: [
+      "This wine is head and shoulders above that one.",
+      "There's no competition- they are head and shoulders above the rest."
+    ],
+    category: "Character & People",
+    mnemonic: "Kandhe aur sir tak lamba hona bheed se.",
+    etymology: "Physical stature imagery where a tall person towers head and shoulders over everyone.",
+    synonyms: "Far superior, in a league of one's own"
+  },
+  {
+    num: 99,
+    idiom: "Hold a brief",
+    hindi: "किसी का बचाव या समर्थन करना / वकालत करना",
+    meaning: "To defend or support someone; act as advocate for someone.",
+    examples: [
+      "It is very improper for parents to hold a brief for their children who are in the wrong.",
+      "Mahatma Gandhi held a brief for the poor and fought for their rights."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Vakil ki tarah brief file hath me leke defend karna.",
+    etymology: "British legal system where solicitors give a written brief to a barrister to argue in court.",
+    synonyms: "Advocate, champion, defend"
+  },
+  {
+    num: 100,
+    idiom: "Hush money",
+    hindi: "रिश्वत देना / मुँह बंद रखने के लिए रकम",
+    meaning: "To bribe; money paid to someone to prevent them from disclosing embarrassing or illegal information.",
+    examples: [
+      "He managed to escape punishment by paying hush money."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Hush (chup rehne) ke liye di gayi rishwat.",
+    etymology: "18th-century underworld slang for payoff bribes.",
+    synonyms: "Bribe, silence money, payoff"
+  },
+  {
+    num: 101,
+    idiom: "Hold/keep at bay",
+    hindi: "किसी अप्रिय चीज को नुकसान पहुंचाने से रोकना",
+    meaning: "To prevent someone or something unpleasant from harming you; keep at safe distance.",
+    examples: [
+      "He held the police at bay with a gun for several hours.",
+      "I held the attacker at bay while she got away and called the police."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Bay (door) par rok kar rakhna.",
+    etymology: "Hunting: cornered animal facing howling baying hounds.",
+    synonyms: "Ward off, hold off, stave off"
+  },
+  {
+    num: 102,
+    idiom: "Helter-skelter",
+    hindi: "सभी दिशाओं में / हड़बड़ी में तितर-बितर होना",
+    meaning: "Quickly and in all directions in disorganized confusion.",
+    examples: [
+      "When the police arrived the rioters ran helter-skelter."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Halt aur shelter khojne ke liye idhar-udhar bhagna.",
+    etymology: "16th-century English rhyming slang for chaotic haste.",
+    synonyms: "Pell-mell, headlong, chaotically"
+  },
+  {
+    num: 103,
+    idiom: "Have a brush with",
+    hindi: "संघर्ष में आना / तकरार होना / मुठभेड़",
+    meaning: "Have an encounter or come in contact/conflict with something (especially law).",
+    examples: [
+      "This was not the first time that Rahul had a brush with the law.",
+      "Our principal had a brush with the V.C. over the appointment of a lecturer."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Ragad kha kar nikalna.",
+    etymology: "Military skirmish where flanking scouts brushed against enemy outposts.",
+    synonyms: "Clash with, run-in with, skirmish"
+  },
+  {
+    num: 104,
+    idiom: "Hornet's nest",
+    hindi: "अप्रिय स्थिति / ततैया का छत्ता (बड़ा विवाद)",
+    meaning: "Raise controversy; a very difficult or unpleasant situation in which a lot of people get very angry and complain.",
+    examples: [
+      "His remarks on the role of women have stirred up hornet's nest amongst feminists.",
+      "His remarks about the lack of good women tennis players stirred up a (real) hornet’s nest."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Bhid/tataiya ke chhatte me hath dalna.",
+    etymology: "Agitating a nest of hornets results in furious swarming attacks.",
+    synonyms: "Controversy, hornet's nest, tempest"
+  },
+  {
+    num: 105,
+    idiom: "Hold somebody to ransom",
+    hindi: "किसी को कुछ करने के लिए मजबूर करना",
+    meaning: "To force someone to do something by putting that person in a situation where they have no choice; to demand concession by making someone captive.",
+    examples: [
+      "To demand concession by making someone captive.",
+      "It is a pity that a handful of militants are holding the nation to ransom."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Firauti (ransom) ke liye hostage banana.",
+    etymology: "Medieval capture of high nobles held for heavy gold ransom payments.",
+    synonyms: "Coerce, blackmail, hold hostage"
+  },
+  {
+    num: 106,
+    idiom: "Hole-and-corner",
+    hindi: "रहस्य / गुप्त और संदेहास्पद",
+    meaning: "Secret, underhand, conducted clandestinely.",
+    examples: [
+      "I have come to know of your hole and corner method of dealing with people.",
+      "I don't want any more hole-in-the-corner deals."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Kone aur chhed me chup kar sauda karna.",
+    etymology: "19th-century British phrase for shady back-alley dealings.",
+    synonyms: "Clandestine, surreptitious, furtive"
+  },
+  {
+    num: 107,
+    idiom: "In the lurch",
+    hindi: "मुश्किल में छोड़ना / मझधार में छोड़ देना",
+    meaning: "To leave a friend in difficulty; to not do for someone what had promised you would do.",
+    examples: [
+      "You must never leave your best friend in the lurch.",
+      "He said he would help with rent, but he left me in the lurch."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Lurch (jhoola khana/stumble) ke dauran akela chhod jana.",
+    etymology: "French board game 'lourche' where a stranded player lost with zero points.",
+    synonyms: "Abandon, desert, leave high and dry"
+  },
+  {
+    num: 108,
+    idiom: "In the red",
+    hindi: "नुकसान उठाना / घाटे में होना",
+    meaning: "Losing money, or suffer a financial loss; operating at deficit.",
+    examples: [
+      "State government has been operating in the red for five straight years.",
+      "Tourism is down and many hotels are operating in the red."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Khatoni me laal ink se loss darj hota hai.",
+    etymology: "Accountants recording debits in red ink and credits in black ink.",
+    synonyms: "Operating at loss, in debt, deficit"
+  },
+  {
+    num: 109,
+    idiom: "In the blues",
+    hindi: "दृष्टि या पहुंच से बाहर / उदास, अवसाद में",
+    meaning: "Completely gone or disappeared, entirely out of the sight or reach; or depressed / feeling sad.",
+    examples: [
+      "I have no idea where my keys have gone. They seem to have disappeared in the blue.",
+      "After his failure in the examination he is in the blues these days."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Blue sky me gayab ho jana ya blue mood me aana.",
+    etymology: "18th-century British reference to 'blue devils' (gloom and low spirits).",
+    synonyms: "Depressed, vanished into thin air"
+  },
+  {
+    num: 110,
+    idiom: "In cold blood",
+    hindi: "भावनाहीन / क्रूरतापूर्वक और जानबूझकर",
+    meaning: "Intentionally and without emotion or feeling; ruthlessly premeditated.",
+    examples: [
+      "The child was murdered in cold blood."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Bina gusse ya dukh ke thande dimaag se murder karna.",
+    etymology: "Belief that passionate acts occur in 'hot blood', while callous acts are 'cold blood'.",
+    synonyms: "Ruthlessly, deliberately, callously"
+  },
+  {
+    num: 111,
+    idiom: "In the dumps",
+    hindi: "दुखी / उदास / खिन्न",
+    meaning: "Unhappy, gloomy, dejected.",
+    examples: [
+      "She is a bit down in the dumps because she failed one of her exams.",
+      "Her visit cheered me up as I was in the dumps before her visits."
+    ],
+    category: "Emotions & Psychology",
+    mnemonic: "Kachre ke dher (dump) jaisa low feel hona.",
+    etymology: "Dutch 'domp' (damp mist / heavy depression).",
+    synonyms: "Downcast, despondent, gloomy"
+  },
+  {
+    num: 112,
+    idiom: "Kick one's heels",
+    hindi: "प्रतीक्षा में समय बर्बाद करना",
+    meaning: "To waste time in waiting; to be forced to wait for a period of time.",
+    examples: [
+      "As the train was late we had to kick our heels at the station."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Baithe-baithe pao ki ediyan (heels) marna.",
+    etymology: "Restless horses tapping hooves while standing tethered outside.",
+    synonyms: "Cool one's heels, twiddle thumbs, wait idly"
+  },
+  {
+    num: 113,
+    idiom: "Keep abreast of",
+    hindi: "अद्यतन रहना / साथ-साथ चलना",
+    meaning: "Not to fall behind; stay up to date, or to have knowledge or most recent information about something.",
+    examples: [
+      "She keeps herself abreast of the situation of the city.",
+      "It is very important for the young persons to keep abreast of political developments in the country."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Kandhe se kandha (breast) milakar barabar aage badhna.",
+    etymology: "Soldiers marching side-by-side in equal rank.",
+    synonyms: "Stay updated, keep informed"
+  },
+  {
+    num: 114,
+    idiom: "Live-wire",
+    hindi: "ऊर्जावान व्यक्ति / चुस्त और सक्रिय व्यक्ति",
+    meaning: "An energetic person; dynamic and vibrant personality.",
+    examples: [
+      "India needs live-wire political leaders who can put the country on the right track."
+    ],
+    category: "Character & People",
+    mnemonic: "Current wali chalti bijli ki taar.",
+    etymology: "Electrical wire carrying active high-voltage electric current.",
+    synonyms: "Dynamo, ball of fire, powerhouse"
+  },
+  {
+    num: 115,
+    idiom: "Latin and Greek",
+    hindi: "समझ से बाहर / कठिन और अबोधगम्य",
+    meaning: "Incomprehensible; totally foreign or impossible to understand.",
+    examples: [
+      "It's all Greek to me.",
+      "The speech of literary persons is always Latin and Greek to illiterate persons."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Latin aur Greek bhashayein jo aam logon ke samajh nahi aati.",
+    etymology: "Medieval monks writing in margins 'Graecum est; non potest legi' (It is Greek; it cannot be read).",
+    synonyms: "Incomprehensible, gibberish, unintelligible"
+  },
+  {
+    num: 116,
+    idiom: "Leaps and bounds",
+    hindi: "तेज़ी से / दिन दूनी रात चौगुनी गति से",
+    meaning: "Rapidly; with rapid energetic progress.",
+    examples: [
+      "In comparison to India, China has progressed by leaps and bounds in every field."
+    ],
+    category: "Time & Delay",
+    mnemonic: "Chhalang (leap) aur jump (bound) marke daudna.",
+    etymology: "Movement in large rapid bounds rather than small steps.",
+    synonyms: "Rapidly, swiftly, exponentially"
+  },
+  {
+    num: 117,
+    idiom: "Make both ends meet",
+    hindi: "जीने के लिए पर्याप्त पैसा कमाना / गुज़ारा करना",
+    meaning: "To live within one's means; to have enough money to pay for your basic expenses.",
+    examples: [
+      "I have to work at two jobs to make ends meet.",
+      "My wages were so low that I had to take a second job just to make ends meet."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Aamadni aur kharche ke do chhoro ko jodna.",
+    etymology: "Balancing the opening and closing ends of financial ledgers.",
+    synonyms: "Get by, scrape by, balance budget"
+  },
+  {
+    num: 118,
+    idiom: "Moot point",
+    hindi: "बहस/तर्क योग्य मुद्दा / अनसुलझा या अप्रासंगिक प्रश्न",
+    meaning: "A debatable question, an issue open to argument; also an irrelevant question, a matter of no importance.",
+    examples: [
+      "Whether Shakespeare actually wrote the poem remains a moot point among critics.",
+      "It's a moot point whether the chicken or the egg came first."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Moot court me students dwara behas kiya jane wala sawal.",
+    etymology: "Old English 'mōt' (meeting/assembly) where legal cases were argued for practice.",
+    synonyms: "Debatable issue, academic question"
+  },
+  {
+    num: 119,
+    idiom: "Man of straw",
+    hindi: "कमजोर व्यक्ति या विचार जिसे हराना आसान हो / प्रभावहीन",
+    meaning: "A person or an idea that is weak and easy to defeat; a person of no substance.",
+    examples: [
+      "The king being a man of straw, his orders were often disobeyed.",
+      "He was accused by his opponents of being a man of straw and lacking in decisiveness."
+    ],
+    category: "Character & People",
+    mnemonic: "Ghaas-phoos (straw) ka bana putla jise hawa gira de.",
+    etymology: "Straw scarecrows and courtroom false witnesses wearing straw.",
+    synonyms: "Pushover, figurehead, weakling"
+  },
+  {
+    num: 120,
+    idiom: "Mince matters",
+    hindi: "विनम्रता से अस्वीकृति का संकेत देना / बात छिपाना या घुमा-फिराकर कहना",
+    meaning: "Moderate or restrain one's language to be polite or avoid giving offense; hide the truth and pretend.",
+    examples: [
+      "Not to mince matters, I feel he should resign.",
+      "Don't mince words- say the truth.",
+      "Tell the truth to your parents because it does not pay to mince matters.",
+      "She is not straight forward in her speech, she minces matters."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Mince meat ki tarah shabdon ko chhota-chhota kaatna taaki kadwa na lage.",
+    etymology: "Chopping food into fine pieces to make it easy to swallow.",
+    synonyms: "Sugarcoat, beat about the bush, soften"
+  },
+  {
+    num: 121,
+    idiom: "Out of the woods",
+    hindi: "खतरे या कठिनाई से बाहर",
+    meaning: "Out of danger or difficulty.",
+    examples: [
+      "The patient is not out of the woods yet.",
+      "When the patient got out of the woods, everyone relaxed."
+    ],
+    category: "Difficulty & Danger",
+    mnemonic: "Ghane jungle (khatre) se bahar safe ground par aana.",
+    etymology: "Travellers emerging from bandit-ridden deep forests safely.",
+    synonyms: "Out of danger, in the clear, safe"
+  },
+  {
+    num: 122,
+    idiom: "One's Achilles heel",
+    hindi: "कमजोरी / दुखती रग / सबसे कमजोर पहलू",
+    meaning: "A weak point; a small problem or weakness in a person or system that can result in failure.",
+    examples: [
+      "Math has always been my Achilles heel.",
+      "However powerful a person may be, he is vulnerable because of his Achilles' heel."
+    ],
+    category: "Character & People",
+    mnemonic: "Achilles yoddha ki edi jo ekmatra kamjor jagah thi.",
+    etymology: "Thetis dipped infant Achilles in River Styx holding him by the heel, which stayed dry and vulnerable.",
+    synonyms: "Weak spot, vulnerability, soft underbelly"
+  },
+  {
+    num: 123,
+    idiom: "Odds and ends",
+    hindi: "विविध चीजें / फुटकर सामान",
+    meaning: "Miscellaneous things; various things of different types, usually small and not important, or of little value.",
+    examples: [
+      "I eventually found my keys buried beneath the odds and ends in the bottom of my bag.",
+      "I took most of the big things to the new house, but there are a few odds and ends left to pick."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Bache khuche chhote-mote tukde.",
+    etymology: "Tailors' scrap pieces of cloth and ends of threads.",
+    synonyms: "Bits and pieces, sundries, bric-a-brac"
+  },
+  {
+    num: 124,
+    idiom: "On the carpet",
+    hindi: "चर्चा या विचाराधीन / डांट-फटकार के लिए तलब",
+    meaning: "Under discussion or consideration; being examined or rebuked.",
+    examples: [
+      "What is on the carpet these days is in the newspapers.",
+      "Important matters will be on the carpet at today's meeting."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Boardroom ke carpet par khade hokar discussion hona.",
+    etymology: "French 'sur le tapis' (on the tablecloth) referencing conference tables.",
+    synonyms: "Under review, up for debate"
+  },
+  {
+    num: 125,
+    idiom: "Part and parcel",
+    hindi: "अविभाज्य भाग / अभिन्न अंग",
+    meaning: "Inseparable part; to be a feature of something, especially a feature that cannot be avoided.",
+    examples: [
+      "Being recognized on the street is part and parcel of being a celebrity.",
+      "Every Indian citizen living in India must regard himself as part and parcel of a larger whole."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Parcel ka andaruni hissa jo alag nahi kiya ja sakta.",
+    etymology: "16th-century legal terminology designating integral land plots.",
+    synonyms: "Integral component, essential element"
+  },
+  {
+    num: 126,
+    idiom: "Pass the buck",
+    hindi: "एक दूसरे को दोष देना / ज़िम्मेदारी दूसरे पर टालना",
+    meaning: "To blame each other; shift responsibility to someone else.",
+    examples: [
+      "Don't try to pass the buck! It's your fault, and everybody knows it.",
+      "Political parties pass the buck on to one another for failure on economic front."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Buck (marker) ko doosre player ke aage khiska dena.",
+    etymology: "Poker: passing a buckhorn-handled marker to designate the dealer. Harry Truman popularized 'The buck stops here'.",
+    synonyms: "Shift blame, dodge responsibility"
+  },
+  {
+    num: 127,
+    idiom: "Pin-money",
+    hindi: "आकस्मिक खर्चों के लिए छोटी रकम / जेब खर्च",
+    meaning: "A small amount of extra money that a person earns to buy things for himself that they want but do not need.",
+    examples: [
+      "She has a part time job that gives her pin money for extra treats for herself and the kids.",
+      "Grandma usually gives the children some pin money whenever she visits."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Pins aur chhote moti luxuries ke liye mila paisa.",
+    etymology: "Money granted to women to purchase expensive decorative straight pins in the 14th-16th centuries.",
+    synonyms: "Pocket money, petty cash, spending money"
+  },
+  {
+    num: 128,
+    idiom: "Play second fiddle to",
+    hindi: "कम महत्वपूर्ण या कमजोर स्थिति में होना / गौण भूमिका निभाना",
+    meaning: "To play a subordinate part; to be less important or in a weaker position than someone else.",
+    examples: [
+      "A self-respecting man can never play second fiddle to anyone.",
+      "He resented playing second fiddle to his younger brother."
+    ],
+    category: "Character & People",
+    mnemonic: "Lead violinist ke peeche 2nd violin bajana.",
+    etymology: "Orchestra hierarchy where the second violin section supports the concertmaster.",
+    synonyms: "Take second place, play subordinate role"
+  },
+  {
+    num: 129,
+    idiom: "Pull strings",
+    hindi: "लाभ प्राप्त करने के लिए अपने प्रभाव/सिफ़ारिश का उपयोग करना",
+    meaning: "Make use of one's influence and contacts to gain advantage; to secretly use the influence you have over important people in order to get something or to help someone.",
+    examples: [
+      "I can get it done easily by pulling a few strings.",
+      "It is impossible to get anything done around here without pulling some strings.",
+      "I may be able to pull a few strings for you if you need the document urgently."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Kathputli ke dhage kheench kar kaam karwana.",
+    etymology: "Puppeteer manipulating strings behind the curtain to control marionettes.",
+    synonyms: "Use connections, leverage influence"
+  },
+  {
+    num: 130,
+    idiom: "Quixotic project",
+    hindi: "सफल होने की संभावना ना होना / अव्यावहारिक योजना",
+    meaning: "Foolishly ideal; impractically idealistic; having or showing ideas that are different and unusual but not practical or likely to succeed.",
+    examples: [
+      "Being not worldly wise he wasted his money in quixotic project."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Don Quixote jaisi hawa me ladai wali impractical yojana.",
+    etymology: "Character Don Quixote in Cervantes' 1605 novel who fought windmills.",
+    synonyms: "Impractical scheme, utopian fantasy"
+  },
+  {
+    num: 131,
+    idiom: "Red-tapism",
+    hindi: "आधिकारिक नियमों और औपचारिकताओं का अत्यधिक पालन / लालफीताशाही",
+    meaning: "Official delay; the practice of requiring excessive paperwork and tedious procedures before official action can be considered or completed.",
+    examples: [
+      "Red tapism is bane of Indian bureaucracy."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Sarkari files par bandha laal feeta (red tape).",
+    etymology: "Historical British practice of binding official government documents with red cloth tape.",
+    synonyms: "Bureaucracy, official delay, excessive formality"
+  },
+  {
+    num: 132,
+    idiom: "See eye to eye",
+    hindi: "पूर्ण सहमति / एक मत होना",
+    meaning: "To be in full agreement; have harmonious viewpoints.",
+    examples: [
+      "My mother and I see eye to eye in most things.",
+      "We don't see eye to eye on a lot of things."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Aankh se aankh milakar sehmat hona.",
+    etymology: "Isaiah 52:8: 'they shall see eye to eye, when the Lord shall bring again Zion.'",
+    synonyms: "Agree fully, concur, be on same wavelength"
+  },
+  {
+    num: 133,
+    idiom: "Steer clear of",
+    hindi: "किसी चीज या व्यक्ति से दूर रहना क्योंकि वे खतरनाक हैं",
+    meaning: "To avoid something or someone because they are dangerous or bad for you.",
+    examples: [
+      "They warned their children to steer clear of drugs.",
+      "Everyone, if possible, should steer clear of selfish people.",
+      "I’d steer clear of Joe if I were you- he will only cause trouble.",
+      "Steer clear of fatty food."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Gaadi ka steering khatre se doosri taraf modna.",
+    etymology: "Nautical term for steering a boat clear away from hazardous shallow reefs.",
+    synonyms: "Avoid, give wide berth, shun"
+  },
+  {
+    num: 134,
+    idiom: "Spick and span",
+    hindi: "स्वच्छ और बेदाग / बिल्कुल साफ़-सुथरा",
+    meaning: "Neat, clean and spotless or in order.",
+    examples: [
+      "Her house looked spick and span because everything was in its place."
+    ],
+    category: "Character & People",
+    mnemonic: "Spick (naya keel) + Span (naya lakdi ka chip) = bilkul fresh.",
+    etymology: "16th-century Dutch/Norse phrase for brand-new shiny hardware.",
+    synonyms: "Spotless, immaculate, pristine"
+  },
+  {
+    num: 135,
+    idiom: "Spill the beans",
+    hindi: "गुप्त जानकारी बताना / भेद खोलना (अजाने में)",
+    meaning: "To tell the secret information, unintentionally.",
+    examples: [
+      "There is surprise party for Gautam on Wednesday. Please don't spill the beans.",
+      "So who spilled the beans about her affair with Akhil?"
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Beans ka packet girkar daane bikhar jana.",
+    etymology: "Ancient Greek voting with colored beans inside sealed urns.",
+    synonyms: "Let cat out of bag, leak secret, blab"
+  },
+  {
+    num: 136,
+    idiom: "Take somebody for a ride",
+    hindi: "धोखा देना / ठगना / उल्लू बनाना",
+    meaning: "To deceive someone; cheat or trick.",
+    examples: [
+      "I think we have been taken for a ride."
+    ],
+    category: "Honesty & Deception",
+    mnemonic: "Gaadi me ghumane ke bahane le jakar lootna.",
+    etymology: "1920s American gangster slang for driving someone away to be murdered or fleeced.",
+    synonyms: "Deceive, swindle, con, dupe"
+  },
+  {
+    num: 137,
+    idiom: "Throw cold water",
+    hindi: "निरुत्साहित करना / ठंडा पानी फेरना",
+    meaning: "To discourage or criticize someone's enthusiasm or plan.",
+    examples: [
+      "Instead of encouraging me, my business partner threw cold water on my plans.",
+      "You are always throwing cold water on my suggestions."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Utsah ki aag par thanda paani daal kar bujha dena.",
+    etymology: "Using cold water to drench and quench open flames.",
+    synonyms: "Dampen enthusiasm, discourage, disparage"
+  },
+  {
+    num: 138,
+    idiom: "Throw down the glove/gauntlet",
+    hindi: "चुनौती देना / ललकारना",
+    meaning: "To challenge; to invite someone to fight or compete with you.",
+    examples: [
+      "To invite someone to fight or compete with you.",
+      "He has thrown down the gauntlet to its competitors."
+    ],
+    category: "Conflict & Disagreement",
+    mnemonic: "Dwandva yuddha ke liye lohe ka dastaana (gauntlet) zameen par phenkna.",
+    etymology: "Medieval knight throwing down his armored glove to challenge an adversary to a duel.",
+    synonyms: "Challenge, issue challenge, defy"
+  },
+  {
+    num: 139,
+    idiom: "Take the floor",
+    hindi: "भाषण देना / मंच संभालना",
+    meaning: "Make a speech; begin addressing an audience.",
+    examples: [
+      "The last time you had the floor, you talked for an hour.",
+      "When the Prime minister took the floor in the cabinet meeting there was pin drop silence."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Sabke samne floor par aakar bolna shuru karna.",
+    etymology: "Parliamentary debate term for rising to address the speaker.",
+    synonyms: "Deliver speech, speak, address assembly"
+  },
+  {
+    num: 140,
+    idiom: "Turn coat",
+    hindi: "पक्ष बदलना / दलबदलू / गद्दार",
+    meaning: "A politician who changes side; apostate; a disloyal person who betrays his party; one who switches allegiance.",
+    examples: [
+      "Apostate",
+      "A disloyal person who betrays his party.",
+      "One who switches allegiance (loyalty or support for a ruler, country or belief)."
+    ],
+    category: "Character & People",
+    mnemonic: "Coat ko ulat kar doosri party ka rang dikhana.",
+    etymology: "Soldiers turning their double-colored uniform coats inside-out to switch sides.",
+    synonyms: "Defector, traitor, renegade, apostate"
+  },
+  {
+    num: 141,
+    idiom: "Up and doing",
+    hindi: "सक्रिय, व्यस्त / कर्मठ",
+    meaning: "Active, busy; engaged in lively work.",
+    examples: [
+      "A laborer should be up and doing daily if he has to earn his living."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Uthna aur kaam me lag jana.",
+    etymology: "Longfellow's poem: 'Let us then be up and doing, with a heart for any fate.'",
+    synonyms: "Industrious, active, bustling"
+  },
+  {
+    num: 142,
+    idiom: "White elephant",
+    hindi: "कम उपयोगिता और अधिक खर्च वाली कोई चीज / महंगा बोझ",
+    meaning: "Something with less utility and more expenditure; an expensive liability.",
+    examples: [
+      "Father has given me an old rolls Royce, but it's a real white elephant.",
+      "I have no place to park it and can't afford the gas for it."
+    ],
+    category: "Money & Finance",
+    mnemonic: "Safed haathi jiska koi kaam na ho par khilana bohot mehnga ho.",
+    etymology: "Siam kings gifted costly white elephants to courtiers they wished to financially ruin.",
+    synonyms: "Expensive liability, burdensome possession"
+  },
+  {
+    num: 143,
+    idiom: "Will o' the wisp",
+    hindi: "प्राप्त करना मुश्किल / मायावी या भ्रामक आशा",
+    meaning: "A person or thing that is impossible to reach, get or catch; unreal, elusive- thing difficult to catch, achieve- mayavi.",
+    examples: [
+      "Unreal, elusive- thing difficult to catch, achieve- mayavi.",
+      "Full employment is the will o the wisp that politicians have been chasing for decades.",
+      "To romantic poets, reality appears to be will o the wisp."
+    ],
+    category: "Actions & Decisions",
+    mnemonic: "Daldal ki bhramak roshni jo paas jane par gayab ho jati hai.",
+    etymology: "Phosphorescent swamp gas lights that misled night travellers into bogs.",
+    synonyms: "Mirage, chimera, elusive delusion, illusion"
+  }
+];
+
+// STATE MANAGEMENT
+let activeCategory = 'all';
+let activeLetter = 'ALL';
+let currentSearch = '';
+let bookmarkedIds = JSON.parse(localStorage.getItem('idiom_bookmarks') || '[]');
+let currentFlashcardIndex = 0;
+let quizQuestions = [];
+let currentQuizIdx = 0;
+let quizScore = 0;
+
+// INITIALIZE APP
+document.addEventListener('DOMContentLoaded', () => {
+  renderAlphabetBar();
+  renderCards();
+  renderTable();
+  renderHierarchy();
+  updateBookmarkCount();
+  setupFlashcards();
+  initQuiz();
+  lucide.createIcons();
+});
+
+// THEME TOGGLE
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  if (newTheme === 'light') {
+    icon.setAttribute('data-lucide', 'sun');
+    text.textContent = 'Light';
+  } else {
+    icon.setAttribute('data-lucide', 'moon');
+    text.textContent = 'Dark';
+  }
+  lucide.createIcons();
+}
+
+// GENERATE ALPHABET BAR
+function renderAlphabetBar() {
+  const letters = new Set();
+  idiomsData.forEach(item => {
+    const firstChar = item.idiom.trim().charAt(0).toUpperCase();
+    if (/[A-Z]/.test(firstChar)) letters.add(firstChar);
+  });
+
+  const sortedLetters = Array.from(letters).sort();
+  const container = document.getElementById('alphabetBar');
+  
+  sortedLetters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'letter-btn';
+    btn.textContent = l;
+    btn.onclick = () => filterByLetter(l, btn);
+    container.appendChild(btn);
+  });
+}
+
+// RENDER ALL CARDS
+function renderCards() {
+  const grid = document.getElementById('cardsView');
+  grid.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+        <i data-lucide="search-x" style="width: 48px; height: 48px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h3 style="font-family: var(--font-heading); margin-bottom: 6px;">No Idioms Found</h3>
+        <p style="color: var(--text-muted); font-size: 14px;">Try searching for a different keyword, meaning in Hindi, or clearing the filter.</p>
+        <button class="btn-action" style="margin-top: 16px;" onclick="resetFilters()">Reset All Filters</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  filtered.forEach(item => {
+    const isFav = bookmarkedIds.includes(item.num);
+    const card = document.createElement('article');
+    card.className = 'idiom-card';
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-index">#${item.num} • ${item.category}</span>
+        <div class="card-actions-quick">
+          <button class="icon-btn" title="Listen Pronunciation" onclick="speakText('${escapeQuotes(item.idiom)}')">
+            <i data-lucide="volume-2"></i>
+          </button>
+          <button class="icon-btn" title="Copy Card" onclick="copyIdiom('${escapeQuotes(item.idiom)}', '${escapeQuotes(item.hindi)}', '${escapeQuotes(item.meaning)}')">
+            <i data-lucide="copy"></i>
+          </button>
+          <button class="icon-btn ${isFav ? 'active-fav' : ''}" title="Bookmark" onclick="toggleBookmark('${item.num}', this)">
+            <i data-lucide="bookmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="idiom-title-row">
+        <h2 class="idiom-title">${item.idiom}</h2>
+      </div>
+
+      <div class="hindi-meaning-box">
+        <i data-lucide="languages" style="color: var(--accent-primary); width: 18px; height: 18px; flex-shrink: 0;"></i>
+        <span class="hindi-text">${item.hindi}</span>
+      </div>
+
+      <div class="english-meaning">
+        <span class="meaning-label">Meaning:</span> ${item.meaning}
+      </div>
+
+      <div class="examples-section">
+        <div class="example-title"><i data-lucide="quote" style="width: 13px; height: 13px;"></i> Exam Examples</div>
+        ${item.examples.map(ex => `<div class="example-item">${ex}</div>`).join('')}
+      </div>
+
+      <div class="extra-fact-box">
+        ${item.mnemonic ? `
+          <div class="fact-detail">
+            <span class="extra-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> Memory Trick</span> 
+            ${item.mnemonic}
+          </div>
+        ` : ''}
+        ${item.etymology ? `
+          <div class="fact-detail">
+            <span class="extra-badge" style="color: #38bdf8; background: rgba(56, 189, 248, 0.12);"><i data-lucide="history" style="width: 12px; height: 12px;"></i> Origin</span> 
+            ${item.etymology}
+          </div>
+        ` : ''}
+        ${item.synonyms ? `
+          <div class="fact-detail">
+            <span class="extra-badge" style="color: #34d399; background: rgba(52, 211, 153, 0.12);"><i data-lucide="tag" style="width: 12px; height: 12px;"></i> Synonyms</span> 
+            ${item.synonyms}
+          </div>
+        ` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  lucide.createIcons();
+}
+
+// RENDER TABLE VIEW
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  filtered.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${item.num}</strong></td>
+      <td style="font-weight: 700; color: var(--accent-primary);">${item.idiom}</td>
+      <td style="color: var(--text-hindi); font-weight: 600;">${item.hindi}</td>
+      <td>${item.meaning}</td>
+      <td>
+        <ul style="padding-left: 14px; margin: 0; font-size: 12.5px;">
+          ${item.examples.map(ex => `<li>${ex}</li>`).join('')}
+        </ul>
+      </td>
+      <td><span class="card-index">${item.category}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// RENDER HIERARCHY / GROUPED VIEW
+function renderHierarchy() {
+  const container = document.getElementById('hierarchyView');
+  container.innerHTML = '';
+
+  const grouped = {};
+  idiomsData.forEach(item => {
+    if (!grouped[item.category]) grouped[item.category] = [];
+    grouped[item.category].push(item);
+  });
+
+  for (const [cat, list] of Object.entries(grouped)) {
+    const section = document.createElement('section');
+    section.className = 'hierarchy-group';
+    section.innerHTML = `
+      <div class="hierarchy-header">
+        <i data-lucide="folder" style="color: var(--accent-primary);"></i>
+        <span>${cat}</span>
+        <span style="font-size: 13px; color: var(--text-muted); margin-left: auto;">(${list.length} Idioms)</span>
+      </div>
+      <div class="cards-grid">
+        ${list.map(item => `
+          <div class="idiom-card" style="padding: 16px;">
+            <div class="card-top">
+              <span class="card-index">#${item.num}</span>
+              <button class="icon-btn" onclick="speakText('${escapeQuotes(item.idiom)}')"><i data-lucide="volume-2"></i></button>
+            </div>
+            <h3 class="idiom-title" style="font-size: 16px;">${item.idiom}</h3>
+            <div class="hindi-text" style="font-size: 13.5px; color: var(--text-hindi);">${item.hindi}</div>
+            <p style="font-size: 13px; color: var(--text-muted);">${item.meaning}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(section);
+  }
+}
+
+// FILTER LOGIC
+function getFilteredData() {
+  return idiomsData.filter(item => {
+    // Category match
+    if (activeCategory === 'favs' && !bookmarkedIds.includes(item.num)) return false;
+    if (activeCategory !== 'all' && activeCategory !== 'favs' && item.category !== activeCategory) return false;
+
+    // Letter match
+    if (activeLetter !== 'ALL') {
+      const firstChar = item.idiom.trim().charAt(0).toUpperCase();
+      if (firstChar !== activeLetter) return false;
+    }
+
+    // Search query match
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      const matchIdiom = item.idiom.toLowerCase().includes(q);
+      const matchHindi = item.hindi.toLowerCase().includes(q);
+      const matchMeaning = item.meaning.toLowerCase().includes(q);
+      const matchExamples = item.examples.some(ex => ex.toLowerCase().includes(q));
+      const matchCategory = item.category.toLowerCase().includes(q);
+      if (!matchIdiom && !matchHindi && !matchMeaning && !matchExamples && !matchCategory) return false;
+    }
+
+    return true;
+  });
+}
+
+function handleSearch() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  renderCards();
+  renderTable();
+}
+
+function filterByCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('#categoryChips .filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+  renderTable();
+}
+
+function filterByLetter(letter, btn) {
+  activeLetter = letter;
+  document.querySelectorAll('#alphabetBar .letter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+  renderTable();
+}
+
+function resetFilters() {
+  activeCategory = 'all';
+  activeLetter = 'ALL';
+  currentSearch = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('#categoryChips .filter-chip').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.querySelectorAll('#alphabetBar .letter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  renderCards();
+  renderTable();
+}
+
+// VIEW SWITCHER
+function switchView(viewName) {
+  const views = {
+    cards: document.getElementById('cardsView'),
+    table: document.getElementById('tableView'),
+    hierarchy: document.getElementById('hierarchyView'),
+    flashcard: document.getElementById('flashcardView'),
+    quiz: document.getElementById('quizView')
+  };
+
+  const btns = {
+    cards: document.getElementById('btnViewCards'),
+    table: document.getElementById('btnViewTable'),
+    hierarchy: document.getElementById('btnViewHierarchy'),
+    flashcard: document.getElementById('btnViewFlashcard'),
+    quiz: document.getElementById('btnViewQuiz')
+  };
+
+  Object.keys(views).forEach(key => {
+    views[key].style.display = (key === viewName) ? (key === 'cards' ? 'grid' : (key === 'table' ? 'block' : 'flex')) : 'none';
+    if (btns[key]) btns[key].classList.toggle('active', key === viewName);
+  });
+
+  // Mobile Bottom nav toggle
+  document.querySelectorAll('.fab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(viewName.slice(0, 4)));
+  });
+
+  if (viewName === 'flashcard') {
+    setupFlashcards();
+  } else if (viewName === 'quiz') {
+    initQuiz();
+  }
+
+  lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// BOOKMARK / FAVORITES
+function toggleBookmark(num, btn) {
+  const n = isNaN(num) ? num : parseInt(num);
+  const idx = bookmarkedIds.indexOf(n);
+  if (idx > -1) {
+    bookmarkedIds.splice(idx, 1);
+    btn.classList.remove('active-fav');
+    showToast("Removed from bookmarks");
+  } else {
+    bookmarkedIds.push(n);
+    btn.classList.add('active-fav');
+    showToast("Added to bookmarks ⭐");
+  }
+  localStorage.setItem('idiom_bookmarks', JSON.stringify(bookmarkedIds));
+  updateBookmarkCount();
+}
+
+function updateBookmarkCount() {
+  document.getElementById('favCount').textContent = bookmarkedIds.length;
+}
+
+// TEXT TO SPEECH (AUDIO)
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
+    showToast("🔊 Pronouncing: " + text);
+  } else {
+    showToast("Audio synthesis not supported on your browser.");
+  }
+}
+
+// COPY IDIOM TO CLIPBOARD
+function copyIdiom(idiom, hindi, meaning) {
+  const text = `${idiom}\nअर्थ (Hindi): ${hindi}\nMeaning: ${meaning}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast("📋 Copied notes to clipboard!");
+  }).catch(() => {
+    showToast("Error copying text");
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<i data-lucide="check-circle"></i> ${msg}`;
+  lucide.createIcons();
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function escapeQuotes(str) {
+  return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// FLASHCARD LOGIC
+function setupFlashcards() {
+  currentFlashcardIndex = 0;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function loadFlashcard(idx) {
+  const wrapper = document.getElementById('flashcardWrapper');
+  wrapper.classList.remove('flipped');
+  const item = idiomsData[idx];
+
+  document.getElementById('fcIndex').textContent = `#${item.num}`;
+  document.getElementById('fcTitle').textContent = item.idiom;
+  document.getElementById('fcCategory').textContent = item.category;
+  document.getElementById('fcHindi').textContent = item.hindi;
+  document.getElementById('fcEnglish').textContent = item.meaning;
+  document.getElementById('fcExtra').innerHTML = `
+    <strong>Example:</strong> "${item.examples[0]}"<br>
+    ${item.mnemonic ? `<strong style="color:var(--accent-purple);">Trick:</strong> ${item.mnemonic}` : ''}
+  `;
+  document.getElementById('fcProgress').textContent = `Card ${idx + 1} of ${idiomsData.length}`;
+}
+
+function flipFlashcard() {
+  document.getElementById('flashcardWrapper').classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex + 1) % idiomsData.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function prevFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex - 1 + idiomsData.length) % idiomsData.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function shuffleFlashcards() {
+  currentFlashcardIndex = Math.floor(Math.random() * idiomsData.length);
+  loadFlashcard(currentFlashcardIndex);
+  showToast("🔀 Cards shuffled!");
+}
+
+// QUIZ LOGIC
+function initQuiz() {
+  quizScore = 0;
+  currentQuizIdx = 0;
+  document.getElementById('quizScore').textContent = quizScore;
+  generateQuizQuestions();
+  loadQuizQuestion(currentQuizIdx);
+}
+
+function generateQuizQuestions() {
+  const shuffled = [...idiomsData].sort(() => 0.5 - Math.random());
+  quizQuestions = shuffled.slice(0, 10);
+}
+
+function loadQuizQuestion(idx) {
+  if (idx >= quizQuestions.length) {
+    document.getElementById('quizContent').innerHTML = `
+      <div style="text-align:center; padding: 30px 10px;">
+        <i data-lucide="trophy" style="width: 56px; height: 56px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h2 style="font-family: var(--font-heading); margin-bottom: 8px;">Quiz Completed!</h2>
+        <p style="font-size: 16px; margin-bottom: 20px;">Your Final Score: <strong>${quizScore} / ${quizQuestions.length}</strong> (${(quizScore/quizQuestions.length)*100}%)</p>
+        <button class="btn-action" style="margin: 0 auto;" onclick="initQuiz()"><i data-lucide="rotate-ccw"></i> Restart Quiz</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  const q = quizQuestions[idx];
+  document.getElementById('quizProgressTag').textContent = `Question ${idx + 1} / ${quizQuestions.length}`;
+  document.getElementById('quizQuestion').textContent = q.idiom;
+  
+  const options = [q.hindi];
+  while (options.length < 4) {
+    const rand = idiomsData[Math.floor(Math.random() * idiomsData.length)].hindi;
+    if (!options.includes(rand)) options.push(rand);
+  }
+  options.sort(() => 0.5 - Math.random());
+
+  const optionsContainer = document.getElementById('quizOptions');
+  optionsContainer.innerHTML = '';
+
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.innerHTML = `<span>${opt}</span> <i data-lucide="circle" style="width: 16px; height: 16px;"></i>`;
+    btn.onclick = () => selectQuizAnswer(btn, opt, q.hindi);
+    optionsContainer.appendChild(btn);
+  });
+
+  document.getElementById('quizFeedback').style.display = 'none';
+  document.getElementById('quizNextBtn').style.display = 'none';
+  lucide.createIcons();
+}
+
+function selectQuizAnswer(selectedBtn, selectedText, correctText) {
+  const allBtns = document.querySelectorAll('.quiz-option-btn');
+  allBtns.forEach(btn => btn.disabled = true);
+
+  const feedback = document.getElementById('quizFeedback');
+  feedback.style.display = 'block';
+
+  if (selectedText === correctText) {
+    selectedBtn.classList.add('correct');
+    quizScore += 1;
+    document.getElementById('quizScore').textContent = quizScore;
+    feedback.innerHTML = `<span style="color: #34d399;">✅ बिल्कुल सही जवाब! (Correct Answer)</span>`;
+  } else {
+    selectedBtn.classList.add('wrong');
+    allBtns.forEach(btn => {
+      if (btn.textContent.trim().startsWith(correctText)) {
+        btn.classList.add('correct');
+      }
+    });
+    feedback.innerHTML = `<span style="color: #f87171;">❌ गलत उत्तर! सही उत्तर: <strong>${correctText}</strong></span>`;
+  }
+
+  document.getElementById('quizNextBtn').style.display = 'inline-flex';
+}
+
+function loadNextQuizQuestion() {
+  currentQuizIdx++;
+  loadQuizQuestion(currentQuizIdx);
+}
+</script>
+</body>
+</html>

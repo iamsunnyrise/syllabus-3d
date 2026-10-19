@@ -95,6 +95,7 @@ const VALID_VIEWS = new Set<AppView>([
   'landing',
   'study-tools',
   'study-tools-vocab',
+  'study-tools-vocab-ssc',
   'study-tools-maths',
   'study-tools-calc-booster',
   'study-tools-ga'
@@ -1056,19 +1057,25 @@ export const App: React.FC = () => {
 
               {(currentView === 'study-tools' ||
                 currentView === 'study-tools-vocab' ||
+                currentView === 'study-tools-vocab-ssc' ||
                 currentView === 'study-tools-maths' ||
                 currentView === 'study-tools-calc-booster' ||
                 currentView === 'study-tools-ga') && (
                 <ViewErrorBoundary sectionName="Study Tools" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
                   <StudyToolsView
                     initialTab={
-                      currentView === 'study-tools-vocab'
+                      currentView === 'study-tools-vocab' || currentView === 'study-tools-vocab-ssc'
                         ? 'vocab'
                         : currentView === 'study-tools-maths' || currentView === 'study-tools-calc-booster'
                         ? 'maths'
                         : currentView === 'study-tools-ga'
                         ? 'ga'
                         : 'vocab'
+                    }
+                    initialVocabTab={
+                      currentView === 'study-tools-vocab-ssc'
+                        ? 'ssc-special'
+                        : 'core'
                     }
                     initialMathsTab={
                       currentView === 'study-tools-calc-booster'

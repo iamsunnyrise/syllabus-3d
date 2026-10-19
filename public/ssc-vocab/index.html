@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Mastery Hub | Ultimate Preparation Portal</title>
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    :root {
+      --bg-base: #090d16;
+      --bg-sidebar: #0f172a;
+      --bg-card: #1e293b;
+      --bg-hover: #273549;
+      --border-color: #334155;
+      
+      --accent-primary: #38bdf8;
+      --accent-secondary: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      --sidebar-width: 280px;
+      --mobile-nav-height: 65px;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-sidebar: #ffffff;
+      --bg-card: #ffffff;
+      --bg-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-primary: #0284c7;
+      --accent-secondary: #9333ea;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow: hidden; /* Prevent body scroll, everything handled inside */
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* --- SIDEBAR (DESKTOP) --- */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .brand {
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .nav-menu {
+      flex: 1;
+      padding: 20px 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-menu::-webkit-scrollbar {
+      width: 4px;
+    }
+    .nav-menu::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      background-color: var(--bg-hover);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background-color: rgba(56, 189, 248, 0.1);
+      color: var(--accent-primary);
+      border-color: rgba(56, 189, 248, 0.2);
+    }
+    [data-theme="light"] .nav-item.active {
+      background-color: rgba(2, 132, 199, 0.1);
+      border-color: rgba(2, 132, 199, 0.2);
+    }
+
+    .nav-item i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-item .badge {
+      margin-left: auto;
+      background: var(--bg-hover);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      color: var(--text-muted);
+    }
+    .nav-item.active .badge {
+      background: var(--accent-primary);
+      color: #fff;
+    }
+
+    .sidebar-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: var(--bg-hover);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent-primary);
+    }
+
+    /* --- MAIN CONTENT --- */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 100vh;
+      width: calc(100vw - var(--sidebar-width));
+      background-color: var(--bg-base);
+    }
+
+    .mobile-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 60px;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 50;
+    }
+    .mobile-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    
+    .frame-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: var(--bg-base);
+    }
+
+    /* --- WELCOME SCREEN (Shown initially) --- */
+    #welcomeScreen {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-base);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      overflow-y: auto;
+      z-index: 10;
+    }
+    
+    .welcome-hero {
+      text-align: center;
+      max-width: 700px;
+      margin-bottom: 50px;
+    }
+    
+    .welcome-hero h1 {
+      font-family: var(--font-heading);
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .welcome-hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .module-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .module-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .m1 { background: rgba(56, 189, 248, 0.15); color: var(--accent-primary); }
+    .m2 { background: rgba(168, 85, 247, 0.15); color: var(--accent-secondary); }
+    .m3 { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .m4 { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .m5 { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+    .m6 { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+
+    .module-card h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .module-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      flex: 1;
+    }
+
+    .module-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    /* --- MOBILE BOTTOM NAVIGATION --- */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--mobile-nav-height);
+      background: var(--bg-sidebar);
+      border-top: 1px solid var(--border-color);
+      z-index: 150;
+      padding: 0 10px;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      flex: 0 0 70px;
+      padding: 8px 0;
+      border-radius: 8px;
+    }
+    
+    .mobile-nav-item.active {
+      color: var(--accent-primary);
+    }
+
+    .mobile-nav-item i {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none; /* Hide sidebar entirely on small screens */
+      }
+      .main-wrapper {
+        width: 100vw;
+        height: calc(100vh - var(--mobile-nav-height));
+      }
+      .mobile-header {
+        display: flex;
+      }
+      .mobile-bottom-nav {
+        display: flex;
+      }
+      .welcome-hero h1 {
+        font-size: 32px;
+      }
+    }
+    
+    /* Loader for iframe */
+    .loader-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .loader-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--accent-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- DESKTOP SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <i data-lucide="graduation-cap"></i>
+      </div>
+      <div class="brand-text">
+        <h1>English Pro</h1>
+        <p>Mastery Dashboard</p>
+      </div>
+    </div>
+    
+    <nav class="nav-menu">
+      <div class="nav-item active" data-target="home" onclick="loadModule('home', this)">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </div>
+            <!-- PRACTICE & QUIZ ZONE -->
+      <div class="nav-item" data-target="practice_zone_mastery.html" onclick="loadModule('practice_zone_mastery.html', this)" style="background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(139,92,246,0.12)); border: 1px solid rgba(236,72,153,0.35);">
+        <i data-lucide="award" style="color:#ec4899;"></i>
+        <span style="color:#f472b6; font-weight:700;">Practice & Quiz Zone</span>
+        <span class="badge" style="background:#ec4899; color:#fff;">A-Z</span>
+      </div>
+<div class="nav-item" data-target="vocabulary_mastery_457.html" onclick="loadModule('vocabulary_mastery_457.html', this)">
+        <i data-lucide="book-open"></i>
+        <span>Vocabulary (457)</span>
+      </div>
+      <div class="nav-item" data-target="phrasal_verbs_mastery.html" onclick="loadModule('phrasal_verbs_mastery.html', this)">
+        <i data-lucide="link"></i>
+        <span>Phrasal Verbs</span>
+      </div>
+      <div class="nav-item" data-target="idioms_mastery_notes.html" onclick="loadModule('idioms_mastery_notes.html', this)">
+        <i data-lucide="message-square"></i>
+        <span>Idioms & Phrases</span>
+      </div>
+      <div class="nav-item" data-target="root_words_mastery_notes.html" onclick="loadModule('root_words_mastery_notes.html', this)">
+        <i data-lucide="git-merge"></i>
+        <span>Root Words</span>
+      </div>
+      <div class="nav-item" data-target="commonly_confused_words_mastery.html" onclick="loadModule('commonly_confused_words_mastery.html', this)">
+        <i data-lucide="alert-circle"></i>
+        <span>Confused Words</span>
+      </div>
+      <div class="nav-item" data-target="fixed_prepositions_mastery.html" onclick="loadModule('fixed_prepositions_mastery.html', this)">
+        <i data-lucide="compass"></i>
+        <span>Fixed Prepositions</span>
+        <span class="badge">335+</span>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i data-lucide="moon" id="themeIconDesktop"></i> <span id="themeTextDesktop">Dark Mode</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="main-wrapper">
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+      <div class="brand-icon" style="width: 32px; height: 32px; font-size: 14px;">
+        <i data-lucide="graduation-cap"></i>
+      </div>
+      <div class="mobile-title" id="mobileTitle">Dashboard</div>
+      <button onclick="toggleTheme()" style="background:transparent; border:none; color:var(--text-main);">
+        <i data-lucide="moon" id="themeIconMobile"></i>
+      </button>
+    </header>
+
+    <div class="frame-container">
+      <div class="loader-overlay" id="frameLoader">
+        <div class="spinner"></div>
+      </div>
+      
+      <!-- IFRAME FOR NOTES -->
+      <iframe id="contentFrame" src="about:blank"></iframe>
+      
+      <!-- WELCOME / DASHBOARD SCREEN -->
+      <div id="welcomeScreen">
+        <div class="welcome-hero">
+          <h1>Welcome to English Mastery</h1>
+          <p>Your ultimate professional portal for mastering Vocabulary, Phrasal Verbs, Idioms, Root Words, Commonly Confused Words, and Fixed Prepositions. Access all your meticulously crafted interactive notes below.</p>
+        </div>
+        
+        <div class="modules-grid">
+          <!-- Card 1 -->
+                    <!-- FEATURED PRACTICE & QUIZ ZONE -->
+          <div class="module-card" onclick="loadModule('practice_zone_mastery.html', null)" style="border: 2px solid rgba(236,72,153,0.5); background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(139,92,246,0.1));">
+            <div class="module-icon" style="background: rgba(236, 72, 153, 0.2); color: #ec4899;"><i data-lucide="award"></i></div>
+            <h3 style="color:#f472b6;">Practice & Quiz Zone (A-Z)</h3>
+            <p>Letter-wise interactive word quizzes for all 457 words, plus Fixed Prepositions drills and Pronoun mock tests.</p>
+            <div class="module-meta">
+              <span style="color:#ec4899; font-weight:700;">Interactive Quizzes (A-Z)</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+
+<div class="module-card" onclick="loadModule('vocabulary_mastery_457.html', null)">
+            <div class="module-icon m1"><i data-lucide="book-open"></i></div>
+            <h3>Vocabulary (457 Words)</h3>
+            <p>Master 457 high-frequency words with pure Hindi meanings, mnemonics, and exam examples.</p>
+            <div class="module-meta">
+              <span>Interactive App</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="module-card" onclick="loadModule('phrasal_verbs_mastery.html', null)">
+            <div class="module-icon m2"><i data-lucide="link"></i></div>
+            <h3>Phrasal Verbs Mastery</h3>
+            <p>207 most important Phrasal Verbs sorted A-Z with visual associations and contextual usage.</p>
+            <div class="module-meta">
+              <span>Interactive App</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="module-card" onclick="loadModule('idioms_mastery_notes.html', null)">
+            <div class="module-icon m3"><i data-lucide="message-square"></i></div>
+            <h3>Idioms & Phrases</h3>
+            <p>Learn powerful idiomatic expressions to boost your fluency and ace reading comprehensions.</p>
+            <div class="module-meta">
+              <span>Smart Notes</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="module-card" onclick="loadModule('root_words_mastery_notes.html', null)">
+            <div class="module-icon m4"><i data-lucide="git-merge"></i></div>
+            <h3>Root Words Hub</h3>
+            <p>Unlock the secrets of English vocabulary by learning foundational root words.</p>
+            <div class="module-meta">
+              <span>Smart Notes</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="module-card" onclick="loadModule('commonly_confused_words_mastery.html', null)">
+            <div class="module-icon m5"><i data-lucide="alert-circle"></i></div>
+            <h3>Commonly Confused Words</h3>
+            <p>Eliminate silly mistakes. Learn the exact difference between tricky word pairs.</p>
+            <div class="module-meta">
+              <span>Smart Notes</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+          
+          <!-- Card 6: Fixed Prepositions -->
+          <div class="module-card" onclick="loadModule('fixed_prepositions_mastery.html', null)">
+            <div class="module-icon m6"><i data-lucide="compass"></i></div>
+            <h3>Fixed Prepositions Mastery</h3>
+            <p>Master 335+ words followed by prepositions (Nouns, Adjectives, Verbs) with Hindi meanings & quiz.</p>
+            <div class="module-meta">
+              <span>Smart Notes (335+)</span>
+              <span><i data-lucide="arrow-right" style="width:16px;height:16px;"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION -->
+  <nav class="mobile-bottom-nav">
+    <div class="mobile-nav-item active" data-target="home" onclick="loadModule('home', this)">
+      <i data-lucide="layout-dashboard"></i>
+      <span>Home</span>
+    </div>
+    <div class="mobile-nav-item" data-target="vocabulary_mastery_457.html" onclick="loadModule('vocabulary_mastery_457.html', this)">
+      <i data-lucide="book-open"></i>
+      <span>Vocab</span>
+    </div>
+    <div class="mobile-nav-item" data-target="phrasal_verbs_mastery.html" onclick="loadModule('phrasal_verbs_mastery.html', this)">
+      <i data-lucide="link"></i>
+      <span>Phrasals</span>
+    </div>
+    <div class="mobile-nav-item" data-target="idioms_mastery_notes.html" onclick="loadModule('idioms_mastery_notes.html', this)">
+      <i data-lucide="message-square"></i>
+      <span>Idioms</span>
+    </div>
+    <div class="mobile-nav-item" data-target="root_words_mastery_notes.html" onclick="loadModule('root_words_mastery_notes.html', this)">
+      <i data-lucide="git-merge"></i>
+      <span>Roots</span>
+    </div>
+    <div class="mobile-nav-item" data-target="commonly_confused_words_mastery.html" onclick="loadModule('commonly_confused_words_mastery.html', this)">
+      <i data-lucide="alert-circle"></i>
+      <span>Confused</span>
+    </div>
+    <div class="mobile-nav-item" data-target="fixed_prepositions_mastery.html" onclick="loadModule('fixed_prepositions_mastery.html', this)">
+      <i data-lucide="compass"></i>
+      <span>Prepos.</span>
+    </div>
+  </nav>
+
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Elements
+    const frame = document.getElementById('contentFrame');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const loader = document.getElementById('frameLoader');
+    const mobileTitle = document.getElementById('mobileTitle');
+
+    // Load Module Function
+    function loadModule(target, clickedElem) {
+      // 1. Update Active State in Navigation
+      document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(el => el.classList.remove('active'));
+      
+      if (clickedElem) {
+        // Find corresponding items in both navs and set active
+        const targetAttr = clickedElem.getAttribute('data-target');
+        document.querySelectorAll(`[data-target="${targetAttr}"]`).forEach(el => el.classList.add('active'));
+      } else {
+        // If clicked from a card, match by target string
+        document.querySelectorAll(`[data-target="${target}"]`).forEach(el => el.classList.add('active'));
+      }
+
+      // 2. Handle Routing
+      if (target === 'home') {
+        welcomeScreen.style.display = 'flex';
+        frame.src = 'about:blank';
+        mobileTitle.textContent = "Dashboard";
+      } else {
+        welcomeScreen.style.display = 'none';
+        
+        // Show loader
+        loader.classList.add('active');
+        frame.src = target;
+        
+        // Hide loader when loaded
+        frame.onload = () => {
+          loader.classList.remove('active');
+          // Try to pass current theme to iframe if possible (might be cross-origin restricted locally but fine on same origin)
+          syncThemeToFrame();
+        };
+
+        // Update Mobile Title based on target
+        if(target.includes('vocabulary')) mobileTitle.textContent = "Vocabulary (457)";
+        else if(target.includes('phrasal')) mobileTitle.textContent = "Phrasal Verbs";
+        else if(target.includes('idioms')) mobileTitle.textContent = "Idioms & Phrases";
+        else if(target.includes('root')) mobileTitle.textContent = "Root Words";
+        else if(target.includes('confused')) mobileTitle.textContent = "Confused Words";
+        else if(target.includes('prepositions')) mobileTitle.textContent = "Fixed Prepositions";
+        else if(target.includes('practice')) mobileTitle.textContent = "Practice & Quiz Zone";
+      }
+    }
+
+    // Theme Management
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('em_theme', next);
+      
+      updateThemeUI(next);
+      syncThemeToFrame();
+    }
+
+    function updateThemeUI(theme) {
+      const iconD = document.getElementById('themeIconDesktop');
+      const textD = document.getElementById('themeTextDesktop');
+      const iconM = document.getElementById('themeIconMobile');
+      
+      if (theme === 'light') {
+        iconD.setAttribute('data-lucide', 'sun');
+        iconM.setAttribute('data-lucide', 'sun');
+        textD.textContent = 'Light Mode';
+      } else {
+        iconD.setAttribute('data-lucide', 'moon');
+        iconM.setAttribute('data-lucide', 'moon');
+        textD.textContent = 'Dark Mode';
+      }
+      lucide.createIcons();
+    }
+
+    function syncThemeToFrame() {
+      try {
+        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (frame.contentWindow && frame.contentWindow.document) {
+          const frameDoc = frame.contentWindow.document.documentElement;
+          // The embedded notes use data-theme="light" or default for dark
+          if (frame.contentWindow.toggleTheme && typeof frame.contentWindow.toggleTheme === 'function') {
+            // Check if frame's theme matches parent
+            const frameTheme = frameDoc.getAttribute('data-theme') || 'dark';
+            if (frameTheme !== theme) {
+              frame.contentWindow.toggleTheme();
+            }
+          } else {
+             frameDoc.setAttribute('data-theme', theme);
+          }
+        }
+      } catch(e) {
+        // Ignore cross-origin errors if opened directly from file system in some browsers
+      }
+    }
+
+    // Initialize Theme on load
+    const savedTheme = localStorage.getItem('em_theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeUI(savedTheme);
+    }
+  </script>
+</body>
+</html>

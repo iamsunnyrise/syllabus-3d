@@ -52,6 +52,7 @@ export type AppView =
   | 'landing'
   | 'study-tools'
   | 'study-tools-vocab'
+  | 'study-tools-vocab-ssc'
   | 'study-tools-maths'
   | 'study-tools-calc-booster'
   | 'study-tools-ga';
@@ -270,6 +271,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           label: 'Vocabulary',
           icon: Languages,
           badge: '100+'
+        },
+        {
+          id: 'study-tools-vocab-ssc',
+          label: 'SSC Special Vocab',
+          icon: Sparkles,
+          badge: '7 Notes'
         },
         {
           id: 'study-tools-maths',

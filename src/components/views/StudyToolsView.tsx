@@ -43,16 +43,19 @@ import { CalculationBoosterFractions } from './CalculationBoosterFractions';
 import { CalculationBoosterTriplets } from './CalculationBoosterTriplets';
 import { CalculationBoosterPowers } from './CalculationBoosterPowers';
 import { CalculationBoosterPrimes } from './CalculationBoosterPrimes';
+import { SscSpecialVocabView } from './SscSpecialVocabView';
 import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
 
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
+export type VocabSubTab = 'core' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
 export type CalcBoosterTool = 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
 interface StudyToolsViewProps {
   initialTab?: StudyToolTab;
+  initialVocabTab?: VocabSubTab;
   initialMathsTab?: MathsSubTab;
   initialCalcBoosterTool?: CalcBoosterTool;
   onNavigate?: (view: AppView) => void;
@@ -481,11 +484,13 @@ const speakWord = (text: string) => {
 
 export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   initialTab = 'vocab',
+  initialVocabTab = 'core',
   initialMathsTab = 'overview',
   initialCalcBoosterTool = 'tables',
   onNavigate
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
+  const [vocabSubTab, setVocabSubTab] = useState<VocabSubTab>(initialVocabTab);
   const [mathsSubTab, setMathsSubTab] = useState<MathsSubTab>(initialMathsTab);
   const [calcBoosterTool, setCalcBoosterTool] = useState<CalcBoosterTool>(initialCalcBoosterTool);
 
@@ -495,6 +500,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       setActiveTab(initialTab);
     }
   }, [initialTab]);
+
+  // Sync when initialVocabTab prop updates
+  useEffect(() => {
+    if (initialVocabTab) {
+      setVocabSubTab(initialVocabTab);
+    }
+  }, [initialVocabTab]);
 
   // Sync when initialMathsTab prop updates
   useEffect(() => {
@@ -783,8 +795,56 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'vocab' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+          {/* Sub Navigation: Core Vocabulary vs SSC Special */}
+          <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setVocabSubTab('core');
+              }}
+              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                vocabSubTab === 'core'
+                  ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Core Vocabulary</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setVocabSubTab('ssc-special');
+              }}
+              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                vocabSubTab === 'ssc-special'
+                  ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-xs font-black ring-1 ring-pink-400/40'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-pink-400" />
+              <span>SSC Special</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                vocabSubTab === 'ssc-special'
+                  ? 'bg-white/20 text-white'
+                  : 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20'
+              }`}>
+                7 Modules
+              </span>
+            </button>
+          </div>
+
+          {vocabSubTab === 'ssc-special' ? (
+            <SscSpecialVocabView />
+          ) : (
+            <>
+              {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1202,6 +1262,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </button>
               </div>
             )
+          )}
+            </>
           )}
         </div>
       )}

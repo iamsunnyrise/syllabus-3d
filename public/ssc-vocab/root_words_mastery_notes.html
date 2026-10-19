@@ -1,0 +1,4001 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Root Words Vocabulary Mastery App | रूट वर्ड्स मास्टर नोट्स</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --bg-card-hover: #273549;
+      --border-color: #334155;
+      --accent-primary: #06b6d4; /* Vibrant Cyan */
+      --accent-secondary: #f59e0b; /* Amber */
+      --accent-success: #10b981;
+      --accent-purple: #a855f7;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-hindi: #fde047;
+      --tag-root-bg: rgba(6, 182, 212, 0.15);
+      --tag-root-color: #22d3ee;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --accent-primary: #0891b2;
+      --accent-secondary: #d97706;
+      --accent-success: #059669;
+      --accent-purple: #9333ea;
+      --accent-rose: #e11d48;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-hindi: #b45309;
+      --tag-root-bg: rgba(8, 145, 178, 0.12);
+      --tag-root-color: #0891b2;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+
+    .app-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 16px 20px 80px;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    [data-theme="light"] .header-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    }
+    .header-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.1) 70%, transparent 100%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-action:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Stats Overview */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    [data-theme="light"] .stat-box {
+      background: rgba(241, 245, 249, 0.8);
+      border-color: #e2e8f0;
+    }
+    .stat-box i {
+      color: var(--accent-primary);
+    }
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+    .search-input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 14px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+    }
+
+    .view-switcher {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .view-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Filter Badges & Root Words Bar */
+    .filter-tags-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .filter-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .filter-chip:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .filter-chip.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+
+    .roots-quick-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-top: 4px;
+      border-top: 1px dashed var(--border-color);
+      scrollbar-width: thin;
+    }
+
+    .root-pill-btn {
+      padding: 4px 10px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .root-pill-btn:hover {
+      background: var(--bg-card);
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .root-pill-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .app-container {
+        padding: 12px 14px 70px;
+      }
+      .brand-text h1 {
+        font-size: 20px;
+      }
+    }
+
+    /* Word Card Styling */
+    .word-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: var(--transition);
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .word-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(6, 182, 212, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .root-badge {
+      background: var(--tag-root-bg);
+      color: var(--tag-root-color);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pos-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .card-actions-quick {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      color: var(--accent-primary);
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--accent-primary);
+    }
+    .icon-btn.active-fav {
+      color: var(--accent-rose);
+      background: rgba(244, 63, 94, 0.15);
+      border-color: var(--accent-rose);
+    }
+
+    .word-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.3px;
+    }
+    [data-theme="light"] .word-title {
+      color: #0f172a;
+    }
+
+    /* Hindi Meaning Box */
+    .hindi-meaning-box {
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0.02) 100%);
+      border-left: 4px solid var(--accent-primary);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hindi-text {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text-hindi);
+    }
+
+    /* English Meaning */
+    .english-meaning {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Morphological Breakdown */
+    .morph-box {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    [data-theme="light"] .morph-box {
+      background: #f8fafc;
+    }
+
+    /* Examples Section */
+    .examples-section {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    [data-theme="light"] .examples-section {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .example-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .example-item {
+      font-size: 13.5px;
+      color: var(--text-main);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .example-item::before {
+      content: '•';
+      position: absolute;
+      left: 2px;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* Extra Fact Box */
+    .extra-fact-box {
+      border-top: 1px dashed var(--border-color);
+      padding-top: 10px;
+      font-size: 12.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .extra-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.12);
+      padding: 2px 7px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .fact-detail {
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .fact-detail strong {
+      color: var(--text-main);
+    }
+
+    /* Table View */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    .data-table th {
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+    .data-table tr:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* Hierarchy / Root Family Tree View */
+    .hierarchy-view {
+      display: none;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .root-tree-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .root-tree-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 18px;
+    }
+    .root-title-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .root-badge-lg {
+      background: linear-gradient(135deg, #06b6d4, #0284c7);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .root-meaning-lg {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-secondary);
+    }
+
+    /* Flashcard Mode */
+    .flashcard-mode {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .flashcard-wrapper {
+      width: 100%;
+      min-height: 360px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flashcard-wrapper.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border-color);
+    }
+
+    .flashcard-front {
+      background: linear-gradient(145deg, var(--bg-card), var(--bg-secondary));
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    .flashcard-back {
+      background: linear-gradient(145deg, #164e63, var(--bg-secondary));
+      transform: rotateY(180deg);
+      border-color: rgba(6, 182, 212, 0.6);
+    }
+    [data-theme="light"] .flashcard-back {
+      background: linear-gradient(145deg, #ecfeff, #ffffff);
+    }
+
+    .flashcard-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Quiz Mode */
+    .quiz-mode {
+      display: none;
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .quiz-option-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .quiz-option-btn:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card-hover);
+    }
+    .quiz-option-btn.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-success);
+      color: #34d399;
+      font-weight: 700;
+    }
+    .quiz-option-btn.wrong {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--accent-rose);
+      color: #fb7185;
+    }
+
+    /* Floating Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent-primary);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Bottom Navigation */
+    .mobile-fab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: none;
+      justify-content: space-around;
+      padding: 10px 16px;
+      z-index: 99;
+    }
+    [data-theme="light"] .mobile-fab-bar {
+      background: rgba(255, 255, 255, 0.95);
+    }
+    @media (max-width: 640px) {
+      .mobile-fab-bar {
+        display: flex;
+      }
+    }
+    .fab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .fab-btn.active {
+      color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top Banner -->
+  <header class="header-banner">
+    <div class="top-nav">
+      <div class="brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text">
+          <h1>Root Words Vocabulary Master App</h1>
+          <p>Scientific Etymology & Root-Based English Vocabulary • Hindi & English Notes</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-action" id="themeToggleBtn" onclick="toggleTheme()">
+          <i data-lucide="moon" id="themeIcon"></i> <span id="themeText">Dark</span>
+        </button>
+        <button class="btn-action" onclick="window.print()">
+          <i data-lucide="printer"></i> Print / PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats Overview -->
+    <div class="stats-ribbon">
+      <div class="stat-box">
+        <i data-lucide="git-branch"></i>
+        <div>
+          <div class="stat-num" id="totalRootsCount">36</div>
+          <div class="stat-label">Root Families</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="book-marked"></i>
+        <div>
+          <div class="stat-num" id="totalWordsCount">98+</div>
+          <div class="stat-label">Master Words</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="languages"></i>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Hindi & English</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <i data-lucide="bookmark"></i>
+        <div>
+          <div class="stat-num" id="favCount">0</div>
+          <div class="stat-label">Bookmarked</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Controls Panel -->
+  <section class="controls-panel">
+    <div class="search-row">
+      <div class="search-input-wrapper">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by Word, Root (e.g., 'Cide', 'Dol', 'Phobia'), Hindi Meaning, or Example..." oninput="handleSearch()">
+      </div>
+
+      <div class="view-switcher">
+        <button class="view-btn active" id="btnViewCards" onclick="switchView('cards')">
+          <i data-lucide="layout-grid"></i> Cards
+        </button>
+        <button class="view-btn" id="btnViewHierarchy" onclick="switchView('hierarchy')">
+          <i data-lucide="folder-tree"></i> Root Trees
+        </button>
+        <button class="view-btn" id="btnViewTable" onclick="switchView('table')">
+          <i data-lucide="table"></i> Table
+        </button>
+        <button class="view-btn" id="btnViewFlashcard" onclick="switchView('flashcard')">
+          <i data-lucide="layers"></i> Flashcards
+        </button>
+        <button class="view-btn" id="btnViewQuiz" onclick="switchView('quiz')">
+          <i data-lucide="help-circle"></i> Quiz
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="filter-tags-scroll" id="categoryChips">
+      <button class="filter-chip active" onclick="filterByCategory('all', this)"><i data-lucide="layers"></i> All Themes</button>
+      <button class="filter-chip" onclick="filterByCategory('Crime, Law & Violence', this)">⚖️ Crime & Violence (Cide, Culp, Mal)</button>
+      <button class="filter-chip" onclick="filterByCategory('Mind, Fear & Mania', this)">🧠 Mind, Phobias & Mania</button>
+      <button class="filter-chip" onclick="filterByCategory('Governance & Society', this)">🏛️ Governance (Cracy, Arch, Demo)</button>
+      <button class="filter-chip" onclick="filterByCategory('Emotions & Personality', this)">🎭 Feelings & Character (Dol, Male, Ambi)</button>
+      <button class="filter-chip" onclick="filterByCategory('Communication & Observation', this)">🗣️ Speech & Sight (Loqu, Specto, Eu)</button>
+      <button class="filter-chip" onclick="filterByCategory('Time, Body & Nature', this)">⏳ Time & Body (Chrono, Carn, Somni)</button>
+      <button class="filter-chip" onclick="filterByCategory('favs', this)"><i data-lucide="bookmark"></i> Bookmarked</button>
+    </div>
+
+    <!-- Roots Fast Quick Selector -->
+    <div class="roots-quick-bar" id="rootsQuickBar">
+      <button class="root-pill-btn active" onclick="filterByRoot('ALL', this)">ALL ROOTS</button>
+    </div>
+  </section>
+
+  <!-- 1. Cards View -->
+  <main id="cardsView" class="cards-grid"></main>
+
+  <!-- 2. Root Family / Hierarchy Tree View -->
+  <div id="hierarchyView" class="hierarchy-view"></div>
+
+  <!-- 3. Table View -->
+  <div id="tableView" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Root Word & Meaning</th>
+          <th>Hindi Meaning (अर्थ)</th>
+          <th>English Meaning</th>
+          <th>Morphology</th>
+          <th>Key Examples</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 4. Flashcard Drill Mode -->
+  <div id="flashcardView" class="flashcard-mode">
+    <div class="flashcard-wrapper" id="flashcardWrapper" onclick="flipFlashcard()">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <span class="root-badge" id="fcRootTag">Root: DOL (Sad/Pain)</span>
+          <h2 class="word-title" style="font-size: 32px; margin: 20px 0; color: var(--accent-primary);" id="fcWordTitle">Doleful</h2>
+          <span class="pos-tag" id="fcPos">adjective</span>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 16px;">👉 Tap anywhere to reveal meaning & Hindi translation</p>
+        </div>
+        <div class="flashcard-back">
+          <div class="hindi-meaning-box" style="margin: 14px 0; width: 100%;">
+            <span class="hindi-text" style="font-size: 22px;" id="fcHindi">उदास / शोकाकुल</span>
+          </div>
+          <p class="english-meaning" style="font-size: 15px; margin-bottom: 12px;" id="fcEnglish">A doleful expression, manner, or voice is depressing and miserable.</p>
+          <div class="fact-detail" id="fcExtra" style="font-size: 13px; color: #cbd5e1;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flashcard-controls">
+      <button class="btn-action" onclick="prevFlashcard()"><i data-lucide="chevron-left"></i> Previous</button>
+      <button class="btn-action" onclick="flipFlashcard()"><i data-lucide="rotate-cw"></i> Flip Card</button>
+      <button class="btn-action" onclick="shuffleFlashcards()"><i data-lucide="shuffle"></i> Shuffle</button>
+      <button class="btn-action" onclick="nextFlashcard()">Next <i data-lucide="chevron-right"></i></button>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted);" id="fcProgress">Card 1 of 98</p>
+  </div>
+
+  <!-- 5. Interactive Quiz Mode -->
+  <div id="quizView" class="quiz-mode">
+    <div class="quiz-header">
+      <div>
+        <span class="root-badge" id="quizProgressTag">Question 1 / 10</span>
+        <h3 style="font-family: var(--font-heading); margin-top: 6px;">Root Words Quiz Challenge</h3>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 12px; color: var(--text-muted);">Score</span>
+        <div style="font-weight: 800; font-size: 18px; color: var(--accent-primary);" id="quizScore">0</div>
+      </div>
+    </div>
+
+    <div id="quizContent">
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Identify the correct meaning of the word:</p>
+      <h2 id="quizQuestion" style="font-family: var(--font-heading); color: var(--accent-primary); margin-bottom: 16px;">Ambidextrous</h2>
+      
+      <div class="quiz-options-list" id="quizOptions"></div>
+
+      <div id="quizFeedback" style="margin-top: 14px; font-size: 14px; font-weight: 600; display: none;"></div>
+
+      <button class="btn-action" id="quizNextBtn" style="margin-top: 16px; width: 100%; justify-content: center; display: none;" onclick="loadNextQuizQuestion()">
+        Next Question <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-fab-bar">
+  <button class="fab-btn active" onclick="switchView('cards')"><i data-lucide="layout-grid"></i>Cards</button>
+  <button class="fab-btn" onclick="switchView('hierarchy')"><i data-lucide="folder-tree"></i>Roots</button>
+  <button class="fab-btn" onclick="switchView('table')"><i data-lucide="table"></i>Table</button>
+  <button class="fab-btn" onclick="switchView('flashcard')"><i data-lucide="layers"></i>Drill</button>
+  <button class="fab-btn" onclick="switchView('quiz')"><i data-lucide="help-circle"></i>Quiz</button>
+</nav>
+
+<!-- Floating Toast -->
+<div id="toast" class="toast-msg"><i data-lucide="check-circle"></i> Copied to clipboard!</div>
+
+<script>
+// FULL COMPLETE DATASET OF ALL ROOT WORDS & VOCABULARY FROM PDF
+const rootWordsDatabase = [
+  // 1. Dol - Sad/Pain
+  {
+    word: "Doleful",
+    pos: "adj.",
+    root: "Dol",
+    rootMeaning: "Sad / Pain (दुःख / दर्द)",
+    hindi: "उदास / शोकाकुल / दुखद",
+    meaning: "A doleful expression, manner, or voice is depressing and miserable.",
+    morphology: "Dol (pain) + -ful (full of)",
+    examples: ["He gave me a long, doleful look."],
+    category: "Emotions & Personality",
+    mnemonic: "Doleful sounds like 'Dukh-full' (full of sorrow)."
+  },
+  {
+    word: "Doldrums",
+    pos: "n.",
+    root: "Dol",
+    rootMeaning: "Sad / Pain (दुःख / दर्द)",
+    hindi: "मंदी / उदासी / गतिहीनता",
+    meaning: "1. Unsuccessful or showing no activity or development (मंदी). 2. Sad and with no energy or enthusiasm (उदासी).",
+    morphology: "Dol (grief/dull) + -drums (slump)",
+    examples: ["Her career was in the doldrums during those years."],
+    category: "Emotions & Personality",
+    mnemonic: "Doldrums = Dull + drums (no music, silent stagnant period)."
+  },
+  {
+    word: "Condolence",
+    pos: "n.",
+    root: "Dol",
+    rootMeaning: "Sad / Pain (दुःख / दर्द)",
+    hindi: "सहानुभूति / शोक संवेदना",
+    meaning: "(Sympathy) When you offer or express your condolences to someone, you express your sympathy for them because one of their friends or relatives has died recently.",
+    morphology: "Con- (together) + Dol (grieve/pain) + -ence",
+    examples: ["He expressed his condolences to the families of the people who died in the incident."],
+    category: "Emotions & Personality",
+    mnemonic: "Con (together) + Dole (grief) = Sharing pain together."
+  },
+  {
+    word: "Indolent",
+    pos: "adj.",
+    root: "Dol",
+    rootMeaning: "Sad / Pain (दुःख / दर्द)",
+    hindi: "आलसी / अकर्मण्य (जो मेहनत का कष्ट न उठाए)",
+    meaning: "Someone who is indolent is lazy and avoids exertion.",
+    morphology: "In- (not) + Dolens (feeling pain/trouble)",
+    examples: [
+      "Indolent teenagers who won't lift a finger to help.",
+      "They were indolent and addicted to a life of pleasure."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "In (no) + dol (pain) = Jo mehnat ka dard na lena chahe -> Lazy."
+  },
+
+  // 2. Burs - Money / Purse
+  {
+    word: "Bursary",
+    pos: "n.",
+    root: "Burs",
+    rootMeaning: "Money / Purse (पैसा / थैली / कोष)",
+    hindi: "छात्रवृत्ति / वजीफा",
+    meaning: "An amount of money given to a person by an organization, such as a university, to pay for them to study.",
+    morphology: "Burs (purse/funds) + -ary (place/thing)",
+    examples: ["She received a bursary to attend medical school."],
+    category: "Emotions & Personality",
+    mnemonic: "Burs (purse) se nikal kar student ko di jane wali scholarship."
+  },
+  {
+    word: "Bursar",
+    pos: "n.",
+    root: "Burs",
+    rootMeaning: "Money / Purse (पैसा / थैली / कोष)",
+    hindi: "कोषाध्यक्ष / वित्त प्रबंधक",
+    meaning: "A person who manages the financial affairs of a college or school.",
+    morphology: "Burs (treasury/purse) + -ar (person)",
+    examples: ["The bursar approved the university department's annual budget."],
+    category: "Emotions & Personality",
+    mnemonic: "Bursar = Purse/treasury sambhalne wala officer."
+  },
+  {
+    word: "Reimburse",
+    pos: "v.",
+    root: "Burs",
+    rootMeaning: "Money / Purse (पैसा / थैली / कोष)",
+    hindi: "खर्च वापस करना / चुकता करना",
+    meaning: "Repay (a person who has spent or lost money).",
+    morphology: "Re- (back/again) + Im- (in) + Burs (purse)",
+    examples: ["The company will reimburse you for your travelling expenses."],
+    category: "Emotions & Personality",
+    mnemonic: "Re (wapas) + in + purse = Jeb me wapas paise dalna."
+  },
+  {
+    word: "Disburse",
+    pos: "v.",
+    root: "Burs",
+    rootMeaning: "Money / Purse (पैसा / थैली / कोष)",
+    hindi: "व्यय करना / धन का वितरण करना",
+    meaning: "If a bank, organization, or government disburses money, it officially pays it to someone.",
+    morphology: "Dis- (away/out) + Burs (purse)",
+    examples: ["The bank has disbursed over $350m for the project."],
+    category: "Emotions & Personality",
+    mnemonic: "Dis (distribute) + purse = Purse se paise baantna."
+  },
+
+  // 3. Culp - Blame / Fault
+  {
+    word: "Culpable",
+    pos: "adj.",
+    root: "Culp",
+    rootMeaning: "Blame / Fault (दोष / अपराध)",
+    hindi: "गुनहगार / दोषी / दंडनीय",
+    meaning: "Deserving to be blamed or considered responsible for something bad.",
+    morphology: "Culp (blame) + -able (capable of)",
+    examples: ["He was held culpable (= blamed) for all that had happened."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Culpable Homicide = Kanoon me doshi paya jane wala apradh."
+  },
+  {
+    word: "Culprit",
+    pos: "n.",
+    root: "Culp",
+    rootMeaning: "Blame / Fault (दोष / अपराध)",
+    hindi: "अपराधी / दोषी व्यक्ति",
+    meaning: "A person who is responsible for a crime or other misdeed.",
+    morphology: "Culp (blame/guilt) + prit (ready)",
+    examples: ["Police have so far failed to find the culprits."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Culprit = Jo apradh ke liye culpable (blameworthy) ho."
+  },
+  {
+    word: "Inculpate",
+    pos: "v.",
+    root: "Culp",
+    rootMeaning: "Blame / Fault (दोष / अपराध)",
+    hindi: "दोषी ठहराना / अभियोग लगाना",
+    meaning: "Accuse or blame; incriminate someone in a crime.",
+    morphology: "In- (upon/in) + Culp (blame) + -ate",
+    examples: [
+      "He blamed himself, but also inculpated his fiancée.",
+      "Someone placed the pistol in your room in order to inculpate you."
+    ],
+    category: "Crime, Law & Violence",
+    mnemonic: "In + culpate = Kisi ke upar blame thopna."
+  },
+  {
+    word: "Exculpate",
+    pos: "v.",
+    root: "Culp",
+    rootMeaning: "Blame / Fault (दोष / अपराध)",
+    hindi: "निर्दोष ठहराना / दोषमुक्त करना",
+    meaning: "To free from blame or guilt; vindicate or exonerate.",
+    morphology: "Ex- (out of/free) + Culp (blame) + -ate",
+    examples: ["The pilot of the aircraft will surely be exculpated when all the facts are known."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Ex (exit) + culp (blame) = Dosh se bahar nikalna."
+  },
+
+  // 4. Pan - All / Whole
+  {
+    word: "Panacea",
+    pos: "n.",
+    root: "Pan",
+    rootMeaning: "All / Whole (सर्व / संपूर्ण)",
+    hindi: "रामबाण / सर्वरोगहारी औषधि",
+    meaning: "A solution or remedy for all difficulties or diseases.",
+    morphology: "Pan (all) + akos (cure/remedy)",
+    examples: ["Technology is not a panacea for all our problems."],
+    category: "Governance & Society",
+    mnemonic: "Pan (All) + Cure = Sabhi samasyaon ka single ilaj."
+  },
+  {
+    word: "Panarchy",
+    pos: "n.",
+    root: "Pan",
+    rootMeaning: "All / Whole (सर्व / संपूर्ण)",
+    hindi: "सार्वभौमिक शासन प्रणाली",
+    meaning: "An open, global rule of law that applies to those who select it, regardless of their location. They are no longer subjects of their own land or system of government, but of the panarchy.",
+    morphology: "Pan (all) + Archy (rule/governance)",
+    examples: ["The political theorist advocated for a panarchy where citizens choose jurisdictions voluntarily."],
+    category: "Governance & Society",
+    mnemonic: "Pan (sabka) + Archy (rule)."
+  },
+  {
+    word: "Pandemic",
+    pos: "adj. / n.",
+    root: "Pan",
+    rootMeaning: "All / Whole (सर्व / संपूर्ण)",
+    hindi: "सर्वव्यापी महामारी",
+    meaning: "(Of a disease) prevalent over the whole world; an epidemic that has spread over multiple countries or continents.",
+    morphology: "Pan (all) + Demos (people) + -ic",
+    examples: ["PANDEMIC is an epidemic that’s spread over multiple countries or continents."],
+    category: "Governance & Society",
+    mnemonic: "Pan (all) + Demos (people) = Sabhi desho ke logo ko prabhavit karne wali bimari."
+  },
+  {
+    word: "Epidemic",
+    pos: "n.",
+    root: "Pan (Related)",
+    rootMeaning: "Demos (People)",
+    hindi: "महामारी (क्षेत्रीय स्तर पर)",
+    meaning: "A disease that affects a large number of people within a community, population, or region.",
+    morphology: "Epi- (upon) + Demos (people)",
+    examples: ["The city faced a flu epidemic during the harsh winter months."],
+    category: "Governance & Society",
+    mnemonic: "Epi (local region) + Demos (people)."
+  },
+  {
+    word: "Endemic",
+    pos: "adj. / n.",
+    root: "Pan (Related)",
+    rootMeaning: "Demos (People)",
+    hindi: "स्थानिक / किसी विशेष क्षेत्र का",
+    meaning: "Something that belongs to or is native/confined to a particular people or country.",
+    morphology: "En- (in) + Demos (people)",
+    examples: ["Malaria is endemic to certain tropical regions."],
+    category: "Governance & Society",
+    mnemonic: "En (inside) + Demos = Khas ilaqe ke andar paya jane wala."
+  },
+
+  // 5. Ambi - Both
+  {
+    word: "Ambidextrous",
+    pos: "adj.",
+    root: "Ambi",
+    rootMeaning: "Both / Around (दोनों / दोतरफा)",
+    hindi: "सव्यसाची / दोनों हाथों से समान रूप से निपुण",
+    meaning: "Someone who is ambidextrous can use both their right hand and their left hand equally skilfully.",
+    morphology: "Ambi (both) + Dexter (right hand/skillful)",
+    examples: ["Few of us are naturally ambidextrous."],
+    category: "Emotions & Personality",
+    mnemonic: "Ambi (both) + Dextrous (skillful hands)."
+  },
+  {
+    word: "Ambiguous",
+    pos: "adj.",
+    root: "Ambi",
+    rootMeaning: "Both / Around (दोनों / दोतरफा)",
+    hindi: "अस्पष्ट / द्विअर्थी / संदेहास्पद",
+    meaning: "Unclear or confusing because it can be understood in more than one way.",
+    morphology: "Ambi (both ways) + Agere (to drive/lead)",
+    examples: [
+      "His reply to my question was somewhat ambiguous.",
+      "The wording of the agreement is ambiguous."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Ambi (two) meanings nikalne wali confusing statement."
+  },
+  {
+    word: "Ambivalent",
+    pos: "adj.",
+    root: "Ambi",
+    rootMeaning: "Both / Around (दोनों / दोतरफा)",
+    hindi: "मिले-जुले भाव वाला / उभयभावी",
+    meaning: "Feeling two different things about someone or something at the same time (e.g. liking and disliking simultaneously).",
+    morphology: "Ambi (both) + Valere (to be strong/worth)",
+    examples: [
+      "She remained ambivalent about her marriage.",
+      "An ambivalent attitude to exercise."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Ambi (dono feelings - haan aur naa) ek sath hona."
+  },
+  {
+    word: "Ambivert",
+    pos: "n.",
+    root: "Ambi",
+    rootMeaning: "Both / Around (दोनों / दोतरफा)",
+    hindi: "उभयमुखी व्यक्ति",
+    meaning: "A person who has features of both an introvert (prefers alone time) and an extrovert (loves socializing) in their personality.",
+    morphology: "Ambi (both) + Vertere (to turn)",
+    examples: ["An ambivert typically enjoys other people, but needs time alone."],
+    category: "Emotions & Personality",
+    mnemonic: "Introvert + Extrovert = Ambivert."
+  },
+
+  // 6. Acer/Acri - Bitter/Harsh
+  {
+    word: "Acrid",
+    pos: "adj.",
+    root: "Acer / Acri",
+    rootMeaning: "Bitter / Harsh / Sharp (कड़वा / तीखा / उग्र)",
+    hindi: "तीखा / कड़वा / नाक-गले में चुभने वाला",
+    meaning: "An acrid smell or taste is very strong, bitter, and unpleasant in your nose and throat.",
+    morphology: "Acri (sharp/bitter) + -id",
+    examples: ["Clouds of acrid smoke issued from the building."],
+    category: "Communication & Observation",
+    mnemonic: "Acrid smoke = Dhuan jo aankho aur gale me chubhe."
+  },
+  {
+    word: "Acrimony",
+    pos: "n.",
+    root: "Acer / Acri",
+    rootMeaning: "Bitter / Harsh / Sharp (कड़वा / तीखा / उग्र)",
+    hindi: "उग्रता / कटुता / कड़वाहट",
+    meaning: "Bitter and angry words or quarrels.",
+    morphology: "Acri (sharp/bitter) + -mony (state)",
+    examples: ["The council's first meeting ended in acrimony."],
+    category: "Communication & Observation",
+    mnemonic: "Acrimony = Rishto me aayi bitter acrid kadwahat."
+  },
+  {
+    word: "Exacerbate",
+    pos: "v.",
+    root: "Acer / Acri",
+    rootMeaning: "Bitter / Harsh / Sharp (कड़वा / तीखा / उग्र)",
+    hindi: "बिगड़ी हुई स्थिति को और बिगाड़ना / भड़काना",
+    meaning: "If something exacerbates a problem or bad situation, it makes it much worse and harsher.",
+    morphology: "Ex- (thoroughly) + Acerbus (harsh/bitter) + -ate",
+    examples: ["This attack will exacerbate the already tense relations between the two communities."],
+    category: "Communication & Observation",
+    mnemonic: "Ex (extra) + Acerbate (kadwa karna) = Situation aur kharab karna."
+  },
+  {
+    word: "Acerbic",
+    pos: "adj.",
+    root: "Acer / Acri",
+    rootMeaning: "Bitter / Harsh / Sharp (कड़वा / तीखा / उग्र)",
+    hindi: "कड़वा / कटु व्यंग्यपूर्ण",
+    meaning: "Showing criticism in a way that is clever and funny, but rather cruel and sharp.",
+    morphology: "Acerbus (sour/bitter) + -ic",
+    examples: [
+      "Acerbic commentary.",
+      "An acerbic reviewer."
+    ],
+    category: "Communication & Observation",
+    mnemonic: "Acerbic words = Teekhi aur chubhti hui remarks."
+  },
+
+  // 7. Specto - To Look/Examine
+  {
+    word: "Spectacular",
+    pos: "adj.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "शानदार / दर्शनीय / विस्मयकारी",
+    meaning: "Beautiful in a dramatic, eye-catching and sensational way.",
+    morphology: "Spectare (to watch) + -cular",
+    examples: [
+      "There was a spectacular sunset last night.",
+      "Spectacular mountain scenery."
+    ],
+    category: "Communication & Observation",
+    mnemonic: "Spectacles (chashma) se dekhne layak anokha nazara."
+  },
+  {
+    word: "Introspect",
+    pos: "v.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "आत्मविश्लेषण करना / अंतरावलोकन",
+    meaning: "To examine and consider your own ideas, thoughts, and feelings.",
+    morphology: "Intro- (within/inside) + Spect (look)",
+    examples: ["Sometimes we need to introspect about our own motives."],
+    category: "Communication & Observation",
+    mnemonic: "Intro (andar) + Spect (dekhna) = Apne andar jhaankna."
+  },
+  {
+    word: "Extrospection",
+    pos: "n.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "बहिर्दर्शन / बाह्य निरीक्षण",
+    meaning: "The consideration and observation of things external to the self; examination and study of externals.",
+    morphology: "Extro- (outside) + Spect (look) + -ion",
+    examples: ["Scientists rely on extrospection to measure environmental data accurately."],
+    category: "Communication & Observation",
+    mnemonic: "Extro (bahar) + Spect (dekhna) = External study."
+  },
+  {
+    word: "Retrospect",
+    pos: "n.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "बीते हुए को याद करना / सिंहावलोकन",
+    meaning: "Thinking now about something in the past; review of past events.",
+    morphology: "Retro- (backward/past) + Spect (look)",
+    examples: ["A full retrospect of the battle."],
+    category: "Communication & Observation",
+    mnemonic: "Retro (purana) + Spect (dekhna) = Piche mudkar dekhna."
+  },
+  {
+    word: "Circumspect",
+    pos: "adj.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "सावधान / सतर्क / चौकन्ना",
+    meaning: "Cautious in what you do and say and not taking risks.",
+    morphology: "Circum- (around) + Spect (look)",
+    examples: [
+      "The banks should have been more circumspect in their dealings.",
+      "The officials were very circumspect in their statements."
+    ],
+    category: "Communication & Observation",
+    mnemonic: "Circum (charo taraf) + Spect (dekhna) = Charo taraf dekh kar kadam rakhna."
+  },
+  {
+    word: "Spectate",
+    pos: "v.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "तमाशा देखना / दर्शक के रूप में देखना",
+    meaning: "To watch an activity, especially a sports event, without taking part.",
+    morphology: "Spect (watch) + -ate",
+    examples: ["Thousands gathered to spectate the marathon."],
+    category: "Communication & Observation",
+    mnemonic: "Spectator ka verb form."
+  },
+  {
+    word: "Spectator",
+    pos: "n. / adj.",
+    root: "Specto",
+    rootMeaning: "To Look / Examine (देखना / निरीक्षण)",
+    hindi: "दर्शक / तमाशबीन",
+    meaning: "Someone who watches something, especially a sporting event.",
+    morphology: "Spect (watch) + -ator (one who)",
+    examples: ["Thirty thousand spectators watched the final game."],
+    category: "Communication & Observation",
+    mnemonic: "Stadium me match dekhne wale log = Spectators."
+  },
+
+  // 8. Male/Melli/Mol/Molly - Soft/Sweet
+  {
+    word: "Mollycoddle",
+    pos: "v.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "ज़्यादा ही लाड़ प्यार करना / दुलारना",
+    meaning: "To give someone too much care, protection, or indulgence.",
+    morphology: "Molly (soft/pampered) + Coddle (tender treatment)",
+    examples: ["You're not helping the children by mollycoddling them - they have to grow up sometime."],
+    category: "Emotions & Personality",
+    mnemonic: "Molly ko coddle karke over-protect karna."
+  },
+  {
+    word: "Mollify",
+    pos: "v.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "नरम करना / शांत करना",
+    meaning: "To make someone less angry, upset, or hostile.",
+    morphology: "Mollis (soft) + -fy (to make)",
+    examples: ["I tried to mollify her by giving her flowers."],
+    category: "Emotions & Personality",
+    mnemonic: "Mollify = Mol (soft) banana gusse wale ko."
+  },
+  {
+    word: "Emollient",
+    pos: "n. / adj.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "त्वचा को मुलायम करने वाली क्रीम / शांत करने वाला",
+    meaning: "1. A liquid or cream which you put on your skin to make it softer or reduce pain (चमड़ी को मुलायम करने वाली). 2. Attempting to avoid confrontation or anger; calming or conciliatory (ठंडा करने वाला).",
+    morphology: "E- (out) + Mollis (soft) + -ent",
+    examples: ["The president's emollient approach to differences."],
+    category: "Emotions & Personality",
+    mnemonic: "Emollient lotion skin ko soft banata hai."
+  },
+  {
+    word: "Mellifluous",
+    pos: "adj.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "मधुर / मीठी आवाज़ वाला / कर्णप्रिय",
+    meaning: "A voice or piece of music that is smooth, sweet, gentle and very pleasant to listen to.",
+    morphology: "Mel (honey) + Fluere (to flow)",
+    examples: ["A deep mellifluous voice."],
+    category: "Emotions & Personality",
+    mnemonic: "Mel (Honey) + Fluous (Flow) = Shahad jaisi meethi behne wali aawaz."
+  },
+  {
+    word: "Molten",
+    pos: "adj.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "पिघला हुआ / गलित",
+    meaning: "Metal or rock in a liquid state because of great heat.",
+    morphology: "Melt -> Molten (softened by heat)",
+    examples: ["Molten glass / lava / lead."],
+    category: "Time, Body & Nature",
+    mnemonic: "Melt ho chuka molten lava."
+  },
+  {
+    word: "Melodious",
+    pos: "adj.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "सुरीला / मधुर",
+    meaning: "A melodious sound is pleasant and harmonious to listen to.",
+    morphology: "Mel (song/honey) + -ode (sing) + -ous",
+    examples: ["She spoke in a quietly melodious voice."],
+    category: "Communication & Observation",
+    mnemonic: "Melody se bhara hua = Melodious."
+  },
+  {
+    word: "Ameliorate",
+    pos: "v.",
+    root: "Male / Melli / Mol",
+    rootMeaning: "Soft / Mild / Honey (मुलायम / मीठा / शांत)",
+    hindi: "सुधारना / बेहतर बनाना",
+    meaning: "To make a bad or unpleasant situation better and more bearable.",
+    morphology: "Ad- (to) + Melior (better)",
+    examples: ["Foreign aid is badly needed to ameliorate the effects of the drought."],
+    category: "Governance & Society",
+    mnemonic: "Ameliorate = Make life better and softer."
+  },
+
+  // 9. Cide - Killing/Killer
+  {
+    word: "Patricide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "पिता की हत्या / पितृहंता",
+    meaning: "Killing or the killer of one's father.",
+    morphology: "Pater (father) + -cide (killing)",
+    examples: ["The prince was accused of patricide to usurp the throne."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Patri (Pita) + Cide (Hatya)."
+  },
+  {
+    word: "Matricide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "माता की हत्या / मातृघाती",
+    meaning: "Killing or the killer of one's mother.",
+    morphology: "Mater (mother) + -cide (killing)",
+    examples: ["In Greek tragedy, Orestes committed matricide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Matri (Mata) + Cide (Hatya)."
+  },
+  {
+    word: "Sororicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "बहन की हत्या",
+    meaning: "Killing or the killer of one's sister.",
+    morphology: "Soror (sister) + -cide (killing)",
+    examples: ["The tragic play explored the themes of sororicide and guilt."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Sorority (sisterhood) + Cide."
+  },
+  {
+    word: "Fratricide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "भाई की हत्या / भ्रातृ-हत्या",
+    meaning: "Killing or the killer of one's brother.",
+    morphology: "Frater (brother) + -cide (killing)",
+    examples: ["Mughal history witnessed frequent acts of fratricide for royal power."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Fraternity (bhaichara) + Cide (hatya)."
+  },
+  {
+    word: "Filicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "संतान की हत्या (पुत्र या पुत्री की हत्या)",
+    meaning: "The killing of one's own son or daughter.",
+    morphology: "Filius (son/child) + -cide (killing)",
+    examples: ["The court investigated the horrific case of filicide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Filial (santaan) + Cide."
+  },
+  {
+    word: "Parricide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "माता-पिता या निकट सम्बन्धी की हत्या",
+    meaning: "Killing or the killer of a parent or close relative.",
+    morphology: "Parens (parents) + -cide (killing)",
+    examples: ["Parricide was considered the most severe crime in ancient Rome."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Parents + Cide = Parricide."
+  },
+  {
+    word: "Uxoricide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "पत्नी की हत्या / पत्नी-हंता",
+    meaning: "Killing or the killer of one's wife.",
+    morphology: "Uxor (wife) + -cide (killing)",
+    examples: ["The suspect was charged with uxoricide after his wife disappeared."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Uxorious (patni-bhakt) vs Uxoricide (patni ki hatya)."
+  },
+  {
+    word: "Mariticide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "पति की हत्या",
+    meaning: "Killing or the killer of one's husband.",
+    morphology: "Maritus (husband) + -cide (killing)",
+    examples: ["The queen plotted mariticide to seize the kingdom."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Marital husband + Cide."
+  },
+  {
+    word: "Regicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "राजा की हत्या / राजहत्या",
+    meaning: "Killing or the killer of a king.",
+    morphology: "Rex/Regis (king) + -cide (killing)",
+    examples: ["Macbeth committed regicide when he murdered King Duncan."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Regal (King) + Cide."
+  },
+  {
+    word: "Homicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "मानव हत्या / नरहत्या",
+    meaning: "Killing or the killer of a human being.",
+    morphology: "Homo (human) + -cide (killing)",
+    examples: ["Detectives arrived at the scene of the homicide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Homo sapiens (insan) + Cide."
+  },
+  {
+    word: "Genocide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "नरसंहार / जातिसंहार",
+    meaning: "The murder of a whole group of people, especially a whole nation, race, or religious group.",
+    morphology: "Geno- (race/tribe) + -cide (killing)",
+    examples: ["The UN was created to prevent catastrophic events like genocide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Gene/Generation poori mitana = Genocide."
+  },
+  {
+    word: "Amicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "मित्र की हत्या",
+    meaning: "Killing or the killer of a friend.",
+    morphology: "Amicus (friend) + -cide (killing)",
+    examples: ["Betraying his closest companion, he committed amicide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Ami (friend) + Cide (killing)."
+  },
+  {
+    word: "Infanticide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "शिशु हत्या",
+    meaning: "The crime of killing an infant or young child.",
+    morphology: "Infant + -cide (killing)",
+    examples: ["Strict laws were enacted to eliminate female infanticide."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Infant (navjaat shishu) + Cide."
+  },
+  {
+    word: "Foeticide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "भ्रूण हत्या",
+    meaning: "The crime of killing a fetus / unborn baby.",
+    morphology: "Fetus + -cide (killing)",
+    examples: ["Female foeticide is severely punishable under Indian law."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Fetus (bhroon) + Cide."
+  },
+  {
+    word: "Insecticide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "कीटनाशक",
+    meaning: "Killing or killer of insects; a chemical substance used specifically to target and destroy insects.",
+    morphology: "Insect + -cide (killing)",
+    examples: ["Farmers sprayed insecticide across the crop fields."],
+    category: "Time, Body & Nature",
+    mnemonic: "Insect marne wali dawai."
+  },
+  {
+    word: "Pesticide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "पीड़कनाशी (कीड़े, फंगस व बैक्टीरिया नाशक)",
+    meaning: "Chemicals used to kill pests (fungus, bacteria, insects).",
+    morphology: "Pest + -cide (killing)",
+    examples: ["Pesticides are chemicals that may be used to kill fungus, bacteria, insects."],
+    category: "Time, Body & Nature",
+    mnemonic: "Pests ko khatam karne wala chemical."
+  },
+  {
+    word: "Bovicide",
+    pos: "n.",
+    root: "Cide",
+    rootMeaning: "Killing / Killer (हत्या / मारने वाला)",
+    hindi: "गो-हत्या / गाय की हत्या",
+    meaning: "The slaughter or killing of a cow / cattle.",
+    morphology: "Bovine (cattle/cow) + -cide (killing)",
+    examples: ["Certain ancient kingdoms banned bovicide completely."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Bovine (cow) + Cide."
+  },
+
+  // 10. Chiro - Hand
+  {
+    word: "Chiromancy",
+    pos: "n.",
+    root: "Chiro",
+    rootMeaning: "Hand (हाथ)",
+    hindi: "हस्तरेखा विद्या / पामिस्ट्री",
+    meaning: "Chiromancy and Palmistry is the practice and art of trying to find out what people are like and what will happen in their future life by examining the lines on the palms of their hands.",
+    morphology: "Chiro (hand) + Manteia (divination/prophecy)",
+    examples: ["She visited a local expert in chiromancy to know her future."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Chiro (hand) + Mancy (bhavishyawani)."
+  },
+  {
+    word: "Chiromancer",
+    pos: "n.",
+    root: "Chiro",
+    rootMeaning: "Hand (हाथ)",
+    hindi: "हस्तरेखा शास्त्री / पामिस्ट",
+    meaning: "One who practises chiromancy and reads palm lines.",
+    morphology: "Chiro (hand) + Mancer (practitioner)",
+    examples: ["The chiromancer examined the lines of my palm."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Hath dekhkar bhavishya batane wala."
+  },
+  {
+    word: "Chiropody",
+    pos: "n.",
+    root: "Chiro",
+    rootMeaning: "Hand (हाथ)",
+    hindi: "पाद व हस्त चिकित्सा",
+    meaning: "The study and treatment of problems and diseases of people's feet and hands.",
+    morphology: "Chiro (hand) + Pod (foot) + -y",
+    examples: ["He booked an appointment for chiropody to treat his painful feet."],
+    category: "Time, Body & Nature",
+    mnemonic: "Chiro (hand) + Pod (foot) treatment."
+  },
+  {
+    word: "Chiropodist",
+    pos: "n.",
+    root: "Chiro",
+    rootMeaning: "Hand (हाथ)",
+    hindi: "पाद चिकित्सक / पैरों का डॉक्टर",
+    meaning: "A person whose job is to treat problems and diseases of people's feet.",
+    morphology: "Chiro (hand) + Pod (foot) + -ist",
+    examples: ["The chiropodist treated the elderly patient's corns and nails."],
+    category: "Time, Body & Nature",
+    mnemonic: "Pairon ke rog theek karne wala specialist."
+  },
+
+  // 11. Greg - Flock/Herd/Group
+  {
+    word: "Aggregate",
+    pos: "v. / n.",
+    root: "Greg",
+    rootMeaning: "Flock / Herd / Group (झुंड / समूह)",
+    hindi: "कुल / कुल मिलाकर / एकत्रित करना",
+    meaning: "An aggregate amount or score is made up of several smaller amounts or scores added together.",
+    morphology: "Ad- (to) + Greg (flock) + -ate",
+    examples: ["They purchased an aggregate of 3,000 shares in the company."],
+    category: "Governance & Society",
+    mnemonic: "Poore group ka total sum = Aggregate score."
+  },
+  {
+    word: "Segregate",
+    pos: "v.",
+    root: "Greg",
+    rootMeaning: "Flock / Herd / Group (झुंड / समूह)",
+    hindi: "अलग करना / पृथक करना",
+    meaning: "To segregate two groups of people or things means to keep them physically apart from each other.",
+    morphology: "Se- (apart) + Greg (flock) + -ate",
+    examples: ["The psychiatric section is segregated from the rest of the prison."],
+    category: "Governance & Society",
+    mnemonic: "Se (separate) + Greg (group) = Group se alag karna."
+  },
+  {
+    word: "Congregate",
+    pos: "v.",
+    root: "Greg",
+    rootMeaning: "Flock / Herd / Group (झुंड / समूह)",
+    hindi: "एकत्र होना / इकट्ठा होना",
+    meaning: "When people congregate, they gather together and form a group.",
+    morphology: "Con- (together) + Greg (flock) + -ate",
+    examples: ["A crowd congregated around the entrance to the theatre, hoping to catch a glimpse of the stars of the show."],
+    category: "Governance & Society",
+    mnemonic: "Con (together) + Greg (group) = Ek sath jamawda lagana."
+  },
+  {
+    word: "Gregarious",
+    pos: "adj.",
+    root: "Greg",
+    rootMeaning: "Flock / Herd / Group (झुंड / समूह)",
+    hindi: "मिलनसार / सामाजिक / झुंड में रहने वाला",
+    meaning: "Someone who is gregarious enjoys being with other people and loves company.",
+    morphology: "Greg (flock/herd) + -arious (inclined to)",
+    examples: ["She is such a gregarious and outgoing person."],
+    category: "Emotions & Personality",
+    mnemonic: "Gregarious animals/people = Jo herd/group me khush rehte hain."
+  },
+
+  // 12. Mal - Bad/Evil
+  {
+    word: "Maladroit",
+    pos: "adj.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "अनाड़ी / बेढंगा / अकुशल",
+    meaning: "Clumsy or handling situations awkwardly and badly.",
+    morphology: "Mal (bad) + Adroit (skillful/clever)",
+    examples: ["Some of his first interviews with the press were rather maladroit."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Mal (bad) + Adroit (expert) = Jo expert na ho -> clumsy."
+  },
+  {
+    word: "Malady",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "बीमारी / रोग / गंभीर समस्या",
+    meaning: "A malady is an illness, chronic disease, or serious problem.",
+    morphology: "Mal (bad) + Habitus (condition)",
+    examples: ["An incurable malady."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Mal (bad) + body condition = bimari."
+  },
+  {
+    word: "Malicious",
+    pos: "adj.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "दुर्भावनापूर्ण / द्वेषपूर्ण / कपटी",
+    meaning: "Intended to harm people or their reputation, or cause embarrassment and upset; malevolent / maleficent.",
+    morphology: "Mal (evil) + -itious (full of)",
+    examples: ["He complained that he'd been receiving malicious phone calls."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Malice = Buri niyat."
+  },
+  {
+    word: "Malcontent",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "असंतोषी / असंतुष्ट और विद्रोही व्यक्ति",
+    meaning: "A person who is not satisfied with the way things are, complains a lot, and is unreasonable and difficult to deal with.",
+    morphology: "Mal (badly) + Content (satisfied)",
+    examples: ["The political leader dismissed the protesters as habitual malcontents."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Mal (not) + Content (khush) = Jo kabhi satisfied na ho."
+  },
+  {
+    word: "Malediction",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "शाप / अभिशाप / बददुआ",
+    meaning: "A magical word or phrase uttered with the intention of bringing about evil; a curse.",
+    morphology: "Male (evil) + Dicere (to speak) + -tion",
+    examples: ["He left, muttering maledictions against them."],
+    category: "Communication & Observation",
+    mnemonic: "Mal (evil) + Diction (bolna) = Bura bolna/shaap dena."
+  },
+  {
+    word: "Malefactor",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "अपराधी / कुकर्मी / पापी",
+    meaning: "A person who commits a crime or some other wrong.",
+    morphology: "Male (evil) + Facere (to do) + -or",
+    examples: ["A well-known criminal lawyer who had saved many a malefactor from going to jail."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Mal (bura) + Factor (karne wala) = Galat kaam karne wala."
+  },
+  {
+    word: "Malefaction",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "कुकर्म / अपराध / दुष्कृत्य",
+    meaning: "An evil deed; crime; wrongdoing.",
+    morphology: "Male (evil) + Factio (doing)",
+    examples: ["History recorded the cruel emperor's malefactions."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Bure karm = Malefaction."
+  },
+  {
+    word: "Maltreat",
+    pos: "v.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "दुर्व्यवहार करना / प्रताड़ित करना",
+    meaning: "To treat someone cruelly, violently, or unfairly.",
+    morphology: "Mal (badly) + Treat",
+    examples: ["He had been badly maltreated as a child."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Bad treatment = Maltreat."
+  },
+  {
+    word: "Malpractice",
+    pos: "n.",
+    root: "Mal",
+    rootMeaning: "Bad / Evil / Ill (बुरा / दुष्ट / अकुशल)",
+    hindi: "दुष्ट व्यवहार / कदाचार / अनियमितता",
+    meaning: "Improper, illegal, or negligent professional behaviour.",
+    morphology: "Mal (bad) + Practice",
+    examples: ["They are accused of medical / financial / electoral malpractice."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Profession me cheating ya illegal practice karna."
+  },
+
+  // 13. Bene/Ben/Bon - Good/Well
+  {
+    word: "Benediction",
+    pos: "n.",
+    root: "Bene",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "आशीर्वाद / मंगल वचन",
+    meaning: "A prayer asking God for help, blessing, and protection for someone.",
+    morphology: "Bene (well/good) + Dicere (to speak) + -tion",
+    examples: ["The priest raised his hands to deliver the benediction."],
+    category: "Communication & Observation",
+    mnemonic: "Bene (good) + Diction (speak) = Achha bolna/aashirwad."
+  },
+  {
+    word: "Beneficial",
+    pos: "adj.",
+    root: "Bene",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "लाभकारी / हितकर",
+    meaning: "Helpful, useful, or good in effect.",
+    morphology: "Bene (well) + Facere (to do) + -al",
+    examples: ["The beneficial effect on the economy."],
+    category: "Governance & Society",
+    mnemonic: "Benefit dene wala = Beneficial."
+  },
+  {
+    word: "Benefit",
+    pos: "n. / v.",
+    root: "Bene",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "लाभ / फायदा",
+    meaning: "An advantage or profit gained from something.",
+    morphology: "Bene (well) + Facere (to do)",
+    examples: ["Enjoy the benefits of being a member."],
+    category: "Governance & Society",
+    mnemonic: "Good advantage = Benefit."
+  },
+  {
+    word: "Benevolent",
+    pos: "adj.",
+    root: "Bene",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "दयालु / परोपकारी / कृपालु",
+    meaning: "Kind, generous, and helpful towards others.",
+    morphology: "Bene (well) + Volens (wishing)",
+    examples: ["He was a benevolent old man and wouldn't hurt a fly."],
+    category: "Emotions & Personality",
+    mnemonic: "Bene (achha) + Vol (chaahne wala) = Sabka bhala chahne wala."
+  },
+  {
+    word: "Bona fide",
+    pos: "adj.",
+    root: "Bene / Bon",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "प्रामाणिक / वास्तविक / नेकनीयत",
+    meaning: "If something or someone is bona fide, they are genuine, real, and in good faith.",
+    morphology: "Bonus (good) + Fides (faith)",
+    examples: ["Make sure you are dealing with a bona fide company."],
+    category: "Governance & Society",
+    mnemonic: "Bona (Good) + Fide (Faith) = Asli aur imaandar."
+  },
+  {
+    word: "Bon Voyage",
+    pos: "excl.",
+    root: "Bene / Bon",
+    rootMeaning: "Good / Well (अच्छा / शुभ / मंगल)",
+    hindi: "शुभ यात्रा!",
+    meaning: "A French phrase said to people going away, meaning 'I hope you have a safe and enjoyable journey'.",
+    morphology: "Bon (good) + Voyage (journey)",
+    examples: ["We cheered and wished them 'Bon Voyage!' as the cruise departed."],
+    category: "Communication & Observation",
+    mnemonic: "Bon (Good) + Voyage (Yatra)."
+  },
+
+  // 14. Caco - Bad
+  {
+    word: "Cacography",
+    pos: "n.",
+    root: "Caco",
+    rootMeaning: "Bad / Harsh / Ugly (बुरा / विकृत / कर्कश)",
+    hindi: "बुरी लिखावट / अशुद्ध वर्तनी",
+    meaning: "Bad handwriting or incorrect spelling.",
+    morphology: "Caco (bad) + Graph (writing) + -y",
+    examples: ["His cacography made the handwritten exam paper difficult to grade."],
+    category: "Communication & Observation",
+    mnemonic: "Caco (bad) + Graphy (handwriting)."
+  },
+  {
+    word: "Cacophony",
+    pos: "n.",
+    root: "Caco",
+    rootMeaning: "Bad / Harsh / Ugly (बुरा / विकृत / कर्कश)",
+    hindi: "कोलाहल / कर्कश ध्वनि",
+    meaning: "An unpleasant mixture of loud, harsh, jarring sounds.",
+    morphology: "Caco (bad) + Phone (sound) + -y",
+    examples: ["As we entered the farmyard we were met with a cacophony of animal sounds."],
+    category: "Communication & Observation",
+    mnemonic: "Caco (bad) + Phony (sound) = Kaan phadene wala shor."
+  },
+  {
+    word: "Calligraphy",
+    pos: "n.",
+    root: "Calli (Contrast to Caco)",
+    rootMeaning: "Calli = Beautiful",
+    hindi: "सुलेख / सुंदर हस्तलिपि",
+    meaning: "(The art of producing) beautiful writing, often created with a special pen or brush; decorative handwriting.",
+    morphology: "Calli (beautiful) + Graph (writing) + -y",
+    examples: ["A label written in admirable calligraphy."],
+    category: "Communication & Observation",
+    mnemonic: "Calli (sundar) + Graphy (likhawat) = Sunder sulekh."
+  },
+  {
+    word: "Calliphony",
+    pos: "n.",
+    root: "Calli (Contrast to Caco)",
+    rootMeaning: "Calli = Beautiful",
+    hindi: "मधुर ध्वनि / सुस्वर",
+    meaning: "A beautiful, melodious sound.",
+    morphology: "Calli (beautiful) + Phone (sound) + -y",
+    examples: ["The morning birds filled the valley with a sweet calliphony."],
+    category: "Communication & Observation",
+    mnemonic: "Calli (beautiful) + Phone (sound)."
+  },
+
+  // 15. Necro - Death/Dead Body
+  {
+    word: "Necrophobia",
+    pos: "n.",
+    root: "Necro",
+    rootMeaning: "Death / Dead Body (मृत्यु / शव)",
+    hindi: "मृत्यु या शव का भय",
+    meaning: "Extreme or irrational fear of death or dead bodies.",
+    morphology: "Necro (dead body) + Phobia (fear)",
+    examples: ["A person with necrophobia avoids visiting mortuaries or cemeteries."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Necro (Dead) + Phobia (Darr)."
+  },
+  {
+    word: "Necropolis",
+    pos: "n.",
+    root: "Necro",
+    rootMeaning: "Death / Dead Body (मृत्यु / शव)",
+    hindi: "कब्रिस्तान / महाश्मशान (प्राचीन)",
+    meaning: "A cemetery, especially a large one belonging to an ancient city.",
+    morphology: "Necro (dead) + Polis (city)",
+    examples: ["Archaeologists discovered ancient royal tombs in the Egyptian necropolis."],
+    category: "Time, Body & Nature",
+    mnemonic: "Necro (Murdoka) + Polis (Shehar) = Cemetery."
+  },
+  {
+    word: "Necromancy",
+    pos: "n.",
+    root: "Necro",
+    rootMeaning: "Death / Dead Body (मृत्यु / शव)",
+    hindi: "जादू-टोना / प्रेत-विद्या (मृतकों से संपर्क)",
+    meaning: "The act of communicating with the dead in order to discover what is going to happen in the future, or black magic.",
+    morphology: "Necro (dead) + Manteia (divination)",
+    examples: ["Ancient myths warned against the dark arts of necromancy."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Necro (dead) + Mancy (divination/magic)."
+  },
+
+  // 16. Mania - Madness/Obsession
+  {
+    word: "Kleptomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "चोरी करने की मानसिक बीमारी / लत",
+    meaning: "A strong impulse to steal, especially when there is no obvious economic motivation.",
+    morphology: "Klepto (steal) + Mania (madness)",
+    examples: ["The wealthy heir suffered from kleptomania and shoplifted trinkets."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Klepto (chori) + Mania (paagalpan)."
+  },
+  {
+    word: "Pyromania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "आग लगाने की सनक / पागलपन",
+    meaning: "An obsessive desire to set fire to things.",
+    morphology: "Pyro (fire) + Mania (madness)",
+    examples: ["The investigator concluded that the abandoned warehouse fire was caused by pyromania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Pyro (fire) + Mania (obsession)."
+  },
+  {
+    word: "Dipsomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "शराब की तीव्र लत / मद्यपान-उन्माद",
+    meaning: "A strong, uncontrollable craving to drink alcohol.",
+    morphology: "Dipsa (thirst) + Mania (madness)",
+    examples: ["He entered rehabilitation to overcome his severe dipsomania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Dipsa (alcohol thirst) + Mania."
+  },
+  {
+    word: "Bibliomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "पुस्तकों का अत्यधिक प्रेम / पुस्तक-संग्रह की सनक",
+    meaning: "Extreme fondness or craze for collecting books.",
+    morphology: "Biblio (book) + Mania (craze)",
+    examples: ["His bibliomania led to an apartment filled with thousands of unread rare books."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Bible/Books + Mania (Pyar)."
+  },
+  {
+    word: "Ergomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "काम करने का पागलपन / Workaholism",
+    meaning: "An excessive desire to work or exercise compulsively.",
+    morphology: "Ergo (work) + Mania (madness)",
+    examples: ["His ergomania often kept him working at the office for 16 hours a day."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Ergo (work/energy) + Mania."
+  },
+  {
+    word: "Logomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "वाचालता / बातूनीपन का उन्माद",
+    meaning: "A mania for words or excessive, continuous talking.",
+    morphology: "Logo (words/speech) + Mania",
+    examples: ["In his manic phase, the patient exhibited intense logomania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Logo (words) + Mania (bolne ka paagalpan)."
+  },
+  {
+    word: "Megalomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "बड़प्पन का रोग / सत्ता व शक्ति का उन्माद",
+    meaning: "An unnaturally strong wish for power and control, or the belief that you are very much more important and powerful than you really are.",
+    morphology: "Megalo (great/huge) + Mania",
+    examples: ["The dictator's megalomania led him to build gigantic gold monuments of himself."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Mega (bada) + Mania = Apne aap ko sabse bada samajhna."
+  },
+  {
+    word: "Pseudomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "झूठ बोलने की बीमारी",
+    meaning: "A mania for lying; an insane tendency to make false statements.",
+    morphology: "Pseudo (false) + Mania (craze)",
+    examples: ["Her constant fabrication of wild stories was diagnosed as pseudomania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Pseudo (fake/jhooth) + Mania."
+  },
+  {
+    word: "Squandermania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "फिजूलखर्ची की सनक / अंधाधुंध पैसा उड़ाना",
+    meaning: "The practice of spending money extravagantly and recklessly.",
+    morphology: "Squander (waste money) + Mania",
+    examples: ["Winning the lottery triggered a bout of reckless squandermania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Squander (paise udana) + Mania."
+  },
+  {
+    word: "Theomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "ईश्वरोन्माद / खुद को भगवान समझने का पागलपन",
+    meaning: "Religious madness, especially when it takes the form of believing oneself to be a god.",
+    morphology: "Theo (god) + Mania (madness)",
+    examples: ["The cult leader suffered from delusions of theomania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Theo (God) + Mania = Khud ko bhagwan samajhna."
+  },
+  {
+    word: "Photomania",
+    pos: "n.",
+    root: "Mania",
+    rootMeaning: "Madness / Obsession (पागलपन / सनक / लत)",
+    hindi: "प्रकाश-प्रेम / रोशनी की अत्यधिक सनक",
+    meaning: "An abnormal craving or love of light.",
+    morphology: "Photo (light) + Mania",
+    examples: ["Plants and certain nocturnal creatures exhibit forms of photomania."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Photon (light) + Mania."
+  },
+
+  // 17. Phobia - Abnormal Fear
+  {
+    word: "Acrophobia",
+    pos: "n.",
+    root: "Phobia / Acro",
+    rootMeaning: "Acro (Height) + Phobia (Fear)",
+    hindi: "ऊंचाई का डर",
+    meaning: "Extreme or irrational fear of heights.",
+    morphology: "Acro (height) + Phobia (fear)",
+    examples: ["Due to his acrophobia, he couldn't stand on the glass balcony on the 50th floor."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Acro (Height) + Phobia (Darr)."
+  },
+  {
+    word: "Astraphobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "आकाशीय बिजली की कड़क से डर",
+    meaning: "A fear of thunder and lightning.",
+    morphology: "Astrape (lightning) + Phobia (fear)",
+    examples: ["During monsoon storms, her astraphobia made her hide under blankets."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Astral lightning ka darr."
+  },
+  {
+    word: "Gamophobia",
+    pos: "n.",
+    root: "Phobia / Gam",
+    rootMeaning: "Gam (Marriage) + Phobia (Fear)",
+    hindi: "विवाह या रिश्ते के बंधन का डर",
+    meaning: "Gamophobia is an intense fear of commitment or marriage.",
+    morphology: "Gamo (marriage) + Phobia (fear)",
+    examples: ["His gamophobia caused him to break off the engagement at the last minute."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Gamy (shaadi) se darr lagna."
+  },
+  {
+    word: "Ergophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "काम करने का रोगात्मक भय",
+    meaning: "An irrational and persistent fear of work or finding employment.",
+    morphology: "Ergo (work) + Phobia (fear)",
+    examples: ["Psychotherapy helped him address his debilitating ergophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Ergo (kaam) + Phobia (darr)."
+  },
+  {
+    word: "Zoophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "जानवरों का असामान्य डर",
+    meaning: "Abnormal and extreme fear of animals.",
+    morphology: "Zoo (animal) + Phobia (fear)",
+    examples: ["Even a harmless puppy could trigger his zoophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Zoo (janwar) + Phobia."
+  },
+  {
+    word: "Xenophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "विदेशी लोगों को न पसंद करना / विदेशी-द्वेष",
+    meaning: "Extreme dislike or fear of foreigners, their customs, their religions, etc.",
+    morphology: "Xenos (stranger/foreigner) + Phobia",
+    examples: ["The rise in xenophobia threatened international diplomatic relations."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Xeno (ajnabi/foreigners) se nafrat ya darr."
+  },
+  {
+    word: "Pyrophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "आग से डर",
+    meaning: "The extreme or irrational fear of fire.",
+    morphology: "Pyro (fire) + Phobia (fear)",
+    examples: ["After surviving a house blaze, she developed severe pyrophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Pyro (fire) + Phobia."
+  },
+  {
+    word: "Nosophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "बीमारी होने का अत्यधिक डर",
+    meaning: "Nosophobia is the extreme or irrational fear of developing a disease.",
+    morphology: "Nosos (disease) + Phobia (fear)",
+    examples: ["Constant reading of medical symptoms exacerbated his nosophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Noso (disease) + Phobia."
+  },
+  {
+    word: "Ophidiophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "साँपों का डर",
+    meaning: "Abnormal fear of snakes.",
+    morphology: "Ophis (snake) + Phobia (fear)",
+    examples: ["He refused to go hiking in the woods because of his ophidiophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Ophidia (saanp ka varg) + Phobia."
+  },
+  {
+    word: "Agoraphobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "भीड़ या खुले स्थान से डर लगना",
+    meaning: "Fear of open space, public marketplaces, or being in crowded places where escape is hard.",
+    morphology: "Agora (marketplace/open assembly) + Phobia",
+    examples: ["Her agoraphobia prevented her from visiting crowded shopping malls."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Agora (bheed-bhad wala khula market) + Phobia."
+  },
+  {
+    word: "Algophobia",
+    pos: "n.",
+    root: "Phobia",
+    rootMeaning: "Phobia = Abnormal Fear (भय)",
+    hindi: "शरीर में कष्ट/दर्द होने का डर",
+    meaning: "Abnormal fear of physical pain.",
+    morphology: "Algos (pain) + Phobia (fear)",
+    examples: ["The dentist used extra anesthesia due to the patient's algophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Algesia (pain sensation) + Phobia."
+  },
+  {
+    word: "Androphobia",
+    pos: "n.",
+    root: "Phobia / Andr",
+    rootMeaning: "Andr (Male) + Phobia (Fear)",
+    hindi: "पुरुषों से डर / पुरुष-भीति",
+    meaning: "An abnormal and persistent fear or dislike of men.",
+    morphology: "Andr (male) + Phobia (fear)",
+    examples: ["Traumatic childhood experiences contributed to her androphobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Andro (male) + Phobia."
+  },
+  {
+    word: "Claustrophobia",
+    pos: "n.",
+    root: "Phobia / Claus",
+    rootMeaning: "Claus (Close) + Phobia (Fear)",
+    hindi: "बंद स्थानों का डर / संवृत स्थान-भीति",
+    meaning: "Fear of being trapped in closed, small, or confined spaces.",
+    morphology: "Claustrum (confined place) + Phobia",
+    examples: ["He took the stairs because elevator rides triggered his claustrophobia."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Closed room (claustrum) + Phobia."
+  },
+
+  // 18. Loqu/Loqui/Loc - Speak
+  {
+    word: "Loquacious",
+    pos: "adj.",
+    root: "Loqu / Loc",
+    rootMeaning: "To Speak / Talk (बोलना / बातचीत)",
+    hindi: "गप्पी / बातूनी / वाचाल",
+    meaning: "Someone who is loquacious talks a lot; very talkative.",
+    morphology: "Loquor (to speak) + -acious (abounding in)",
+    examples: ["The loquacious host kept everyone entertained for hours."],
+    category: "Communication & Observation",
+    mnemonic: "Loqui (bolna) se bhara hua = Talkative."
+  },
+  {
+    word: "Circumlocution",
+    pos: "n.",
+    root: "Loqu / Loc",
+    rootMeaning: "To Speak / Talk (बोलना / बातचीत)",
+    hindi: "कपटपूर्ण बातें / घुमा-फिराकर बात करना",
+    meaning: "The use of many words where fewer would do, especially in a deliberate attempt to be vague or evasive.",
+    morphology: "Circum- (around) + Locution (speaking)",
+    examples: ["Politicians are experts in circumlocution."],
+    category: "Communication & Observation",
+    mnemonic: "Circum (gol gol) + Locution (bolna) = Seedhi baat na karna."
+  },
+  {
+    word: "Eloquent",
+    pos: "adj.",
+    root: "Loqu / Loc",
+    rootMeaning: "To Speak / Talk (बोलना / बातचीत)",
+    hindi: "अर्थपूर्ण / वाक्पटु / सुवक्ता",
+    meaning: "Speech or writing that is eloquent is well expressed, fluent, and effective in persuading people.",
+    morphology: "E- (out) + Loqui (speak) + -ent",
+    examples: ["I heard him make a very eloquent speech at that dinner.."],
+    category: "Communication & Observation",
+    mnemonic: "Elegantly speaking = Eloquent."
+  },
+  {
+    word: "Obloquy",
+    pos: "n.",
+    root: "Loqu / Loc",
+    rootMeaning: "To Speak / Talk (बोलना / बातचीत)",
+    hindi: "अपमान / बदनामी / सार्वजनिक निंदा",
+    meaning: "Very strong public criticism, verbal blame, or disgrace.",
+    morphology: "Ob- (against) + Loqui (to speak)",
+    examples: ["His controversial essays have brought him much obloquy."],
+    category: "Communication & Observation",
+    mnemonic: "Ob (against) + Loqui (bolna) = Kisi ke khilaf bura bolna."
+  },
+  {
+    word: "Soliloquy",
+    pos: "n.",
+    root: "Loqu / Loc",
+    rootMeaning: "To Speak / Talk (बोलना / बातचीत)",
+    hindi: "आत्मभाषण / स्वगत-कथन",
+    meaning: "A speech in a play that the character speaks to himself or herself or to the people watching rather than to the other characters.",
+    morphology: "Solus (alone) + Loqui (to speak)",
+    examples: ["Hamlet's 'To be or not to be' is the most famous soliloquy in English literature."],
+    category: "Communication & Observation",
+    mnemonic: "Solo (akela) + Loqui (bolna) = Apne aap se akele me baat karna."
+  },
+
+  // 19. Acro - Height
+  {
+    word: "Acrobat",
+    pos: "n.",
+    root: "Acro",
+    rootMeaning: "Height / Tip / Peak (ऊंचाई / शीर्ष)",
+    hindi: "कलाबाज़ / नट (ऊंचाई पर करतब दिखाने वाला)",
+    meaning: "An acrobat is an entertainer who performs difficult physical acts such as jumping and balancing, especially in a circus.",
+    morphology: "Acro (tip/height) + Bainein (to walk/climb)",
+    examples: ["The circus acrobats performed breathtaking stunts high up on the trapeze."],
+    category: "Time, Body & Nature",
+    mnemonic: "Acro (height) par walk (bat) karne wala artist."
+  },
+  {
+    word: "Acrophyte",
+    pos: "n.",
+    root: "Acro",
+    rootMeaning: "Height / Tip / Peak (ऊंचाई / शीर्ष)",
+    hindi: "ऊंचे स्थानों पर उगने वाला पौधा",
+    meaning: "Any plant that grows at a high altitude on mountains.",
+    morphology: "Acro (high altitude) + Phyton (plant)",
+    examples: ["Alpine moss is a classic example of an acrophyte thriving in harsh mountain peaks."],
+    category: "Time, Body & Nature",
+    mnemonic: "Acro (height) + Phyte (paudha/plant)."
+  },
+  {
+    word: "Acropolis",
+    pos: "n.",
+    root: "Acro",
+    rootMeaning: "Height / Tip / Peak (ऊंचाई / शीर्ष)",
+    hindi: "ऊंचाई पर स्थित किला या नगर / दुर्ग",
+    meaning: "A fortified citadel or city situated at a high altitude.",
+    morphology: "Acro (high) + Polis (city)",
+    examples: ["Thousands of tourists visit the Acropolis of Athens every year."],
+    category: "Governance & Society",
+    mnemonic: "Acro (height) + Polis (city) = Pahadi ke upar ka nagar."
+  },
+
+  // 20. Clud/Clus/Claus - Shut/Close
+  {
+    word: "Recluse",
+    pos: "n.",
+    root: "Clud / Clus / Claus",
+    rootMeaning: "Shut / Close (बंद करना / अलग करना)",
+    hindi: "एकांतवासी / संन्यासी / वैरागी",
+    meaning: "A person who lives alone and avoids going outside or talking to other people.",
+    morphology: "Re- (back/away) + Claudere (to shut)",
+    examples: ["The reclusive author lived alone in a remote cabin in the woods."],
+    category: "Emotions & Personality",
+    mnemonic: "Re (peeche) + Cluse (close) = Apne aap ko kamre me band rakhne wala."
+  },
+  {
+    word: "Seclude",
+    pos: "v.",
+    root: "Clud / Clus / Claus",
+    rootMeaning: "Shut / Close (बंद करना / अलग करना)",
+    hindi: "अलग रखना / एकांत में रखना",
+    meaning: "To keep someone or something away from other people or things; isolate.",
+    morphology: "Se- (apart) + Claudere (to shut)",
+    examples: ["Typically, the bride would seclude herself in another room."],
+    category: "Emotions & Personality",
+    mnemonic: "Se (separate) + Clude (shut) = Door band karke alag rehna."
+  },
+  {
+    word: "Occlude",
+    pos: "v.",
+    root: "Clud / Clus / Claus",
+    rootMeaning: "Shut / Close (बंद करना / अलग करना)",
+    hindi: "अवरुद्ध करना / बंद करना / रुकावट डालना",
+    meaning: "To block, obstruct, or close up a passage or blood vessel.",
+    morphology: "Ob- (against/up) + Claudere (to close)",
+    examples: ["Veins can get occluded by blood clots."],
+    category: "Time, Body & Nature",
+    mnemonic: "Occlude = rasta block/close kar dena."
+  },
+  {
+    word: "Conclude",
+    pos: "v.",
+    root: "Clud / Clus / Claus",
+    rootMeaning: "Shut / Close (बंद करना / अलग करना)",
+    hindi: "समाप्त करना / निष्कर्ष निकालना",
+    meaning: "To end a speech, meeting, or piece of writing; arrive at an opinion.",
+    morphology: "Con- (completely) + Claudere (to close)",
+    examples: ["Before I conclude, I'd like to thank you all for coming."],
+    category: "Communication & Observation",
+    mnemonic: "Completely close karna discussion ko = Conclude."
+  },
+
+  // 21. Ami - Friend
+  {
+    word: "Amity",
+    pos: "n.",
+    root: "Ami",
+    rootMeaning: "Friend / Love (मित्र / सौहार्द)",
+    hindi: "मित्रता / सौहार्द / दोस्ताना संबंध",
+    meaning: "Amity is peaceful, friendly relations between people or countries.",
+    morphology: "Amicus (friend) + -ity (state)",
+    examples: ["He wished to live in amity with his neighbour."],
+    category: "Emotions & Personality",
+    mnemonic: "Ami (friend) + -ity = Friendship."
+  },
+  {
+    word: "Amiable",
+    pos: "adj.",
+    root: "Ami",
+    rootMeaning: "Friend / Love (मित्र / सौहार्द)",
+    hindi: "मिलनसार / सुशील / प्यारा",
+    meaning: "Pleasant and friendly in disposition.",
+    morphology: "Amicus (friend) + -able",
+    examples: ["He seemed an amiable young man."],
+    category: "Emotions & Personality",
+    mnemonic: "Ami (friendly) + able = Jo easily dost ban sake."
+  },
+
+  // 22. Arch - Ruler
+  {
+    word: "Anarchy",
+    pos: "n.",
+    root: "Arch",
+    rootMeaning: "Ruler / Leader / Rule (शासक / शासन)",
+    hindi: "अराजकता / शासनहीनता",
+    meaning: "A situation in which there is no organization and control, especially in society, because there is no effective government.",
+    morphology: "An- (without) + Archy (ruler/government)",
+    examples: ["The country has been in a state of anarchy since the inconclusive election."],
+    category: "Governance & Society",
+    mnemonic: "An (no) + Archy (rule) = Bina sarkar ke chaos."
+  },
+  {
+    word: "Monarchy",
+    pos: "n.",
+    root: "Arch",
+    rootMeaning: "Ruler / Leader / Rule (शासक / शासन)",
+    hindi: "राज-तंत्र / राजशाही",
+    meaning: "The system of having a king or queen.",
+    morphology: "Mono (single) + Archy (ruler)",
+    examples: ["Is monarchy relevant in the modern world or should it be abolished?"],
+    category: "Governance & Society",
+    mnemonic: "Mono (one king) + Archy (rule)."
+  },
+  {
+    word: "Patriarchy",
+    pos: "n.",
+    root: "Arch / Pater",
+    rootMeaning: "Arch (Rule) + Pater (Father)",
+    hindi: "पितृसत्ता / पुरुष प्रधान व्यवस्था",
+    meaning: "A society in which the oldest male is the leader of the family, or a society controlled by men in which they use their power to their own advantage.",
+    morphology: "Pater (father/male) + Archy (rule)",
+    examples: ["The main cause of women's and children's oppression is patriarchy."],
+    category: "Governance & Society",
+    mnemonic: "Patri (Father/Men) + Archy (rule)."
+  },
+  {
+    word: "Matriarchy",
+    pos: "n.",
+    root: "Arch / Mater",
+    rootMeaning: "Arch (Rule) + Mater (Mother)",
+    hindi: "मातृसत्ता / महिला प्रधान व्यवस्था",
+    meaning: "A type of society in which women have most of the authority and power, or a society in which property belongs to women and is given to children by women rather than men.",
+    morphology: "Mater (mother/woman) + Archy (rule)",
+    examples: ["Certain tribal communities in northeast India practice matriarchy."],
+    category: "Governance & Society",
+    mnemonic: "Matri (Mother/Women) + Archy (rule)."
+  },
+
+  // 23. Gam - Marriage
+  {
+    word: "Monogamy",
+    pos: "n.",
+    root: "Gam",
+    rootMeaning: "Marriage / Union (विवाह)",
+    hindi: "एक विवाह प्रथा",
+    meaning: "The fact or custom of having marriage with only one person at a time.",
+    morphology: "Mono (one) + Gamos (marriage)",
+    examples: ["Monogamy is the standard marital norm in most modern legal systems."],
+    category: "Governance & Society",
+    mnemonic: "Mono (ek) + Gamy (shaadi)."
+  },
+  {
+    word: "Bigamy",
+    pos: "n.",
+    root: "Gam",
+    rootMeaning: "Marriage / Union (विवाह)",
+    hindi: "द्विविवाह (कानूनी रूप से दो शादियाँ करना)",
+    meaning: "The crime of marrying a person while already legally married to someone else.",
+    morphology: "Bi- (two) + Gamos (marriage)",
+    examples: ["In court, he admitted that he had committed bigamy."],
+    category: "Governance & Society",
+    mnemonic: "Bi (do) + Gamy (shaadi)."
+  },
+  {
+    word: "Polygamy",
+    pos: "n.",
+    root: "Gam",
+    rootMeaning: "Marriage / Union (विवाह)",
+    hindi: "बहुविवाह (एक से अधिक जीवनसाथी रखना)",
+    meaning: "Polygamy is the custom in some societies in which someone can be legally married to more than one person at the same time.",
+    morphology: "Poly (many) + Gamos (marriage)",
+    examples: ["Polygamy was historically practiced by royal dynasties across the globe."],
+    category: "Governance & Society",
+    mnemonic: "Poly (anek) + Gamy (shaadi)."
+  },
+
+  // 24. Mor/Mori - Death/Die
+  {
+    word: "Mortal",
+    pos: "adj.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "नश्वर / प्राणनाशक",
+    meaning: "1. If you refer to the fact that people are mortal, you mean that they have to die and cannot live forever (नश्वर). 2. Causing death: fatal (प्राणनाशक).",
+    morphology: "Mors/Mortis (death) + -al",
+    examples: ["A mortal injury/illness."],
+    category: "Time, Body & Nature",
+    mnemonic: "Man is mortal (insan nashwar hai)."
+  },
+  {
+    word: "Immortal",
+    pos: "adj.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "अमर / अविनाशी",
+    meaning: "Living or lasting forever; never dying.",
+    morphology: "Im- (not) + Mortalis (mortal)",
+    examples: ["Immortal God."],
+    category: "Time, Body & Nature",
+    mnemonic: "Im (not) + Mortal (marrne wala) = Jo kabhi na mare."
+  },
+  {
+    word: "Mortify",
+    pos: "v.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "शर्मिंदा करना / लज्जित करना (मरने जैसा महसूस होना)",
+    meaning: "To make someone very embarrassed and extremely ashamed.",
+    morphology: "Mortis (death) + Facere (to make)",
+    examples: [
+      "He’s mortified by the fact that at 38 he still lives at home with his mother.",
+      "She was mortified to see her wrinkles in the mirror."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Sharm ke maare marr jane jaisi feeling aana = Mortified."
+  },
+  {
+    word: "Moribund",
+    pos: "adj.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "अन्त के करीब / मरणासन्न / निष्क्रिय",
+    meaning: "(Especially of an organization or business) not active or successful; at the point of terminal decline or death.",
+    morphology: "Mori (to die) + -bundus (tending toward)",
+    examples: ["A moribund economy/industry."],
+    category: "Governance & Society",
+    mnemonic: "Moribund = Bound to die soon."
+  },
+  {
+    word: "Morbid",
+    pos: "adj.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "घिनौनापन / अस्वस्थ मानसिक रुचि (मौत या बीमारी में)",
+    meaning: "Too interested in unpleasant, gruesome subjects, especially death.",
+    morphology: "Morbidus (diseased/sickly)",
+    examples: [
+      "A morbid fascination with death.",
+      "Some people have a morbid fascination with crime."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Morbid mind = Hamesha maut aur bimari ke baare me sochna."
+  },
+  {
+    word: "Morose",
+    pos: "adj.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "उदास / चिड़चिड़ा / रूखा",
+    meaning: "Unhappy, annoyed, and unwilling to speak or smile.",
+    morphology: "Mos/Moris (humor/temper) -> sullen",
+    examples: [
+      "A morose expression.",
+      "Why are you so morose these days?"
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Moraase mood = No smile, very sullen."
+  },
+  {
+    word: "Mortuary / Morgue",
+    pos: "n.",
+    root: "Mor / Mori",
+    rootMeaning: "Death / Die (मृत्यु / नश्वर)",
+    hindi: "मुर्दाघर / शवगृह",
+    meaning: "A building or a room in a hospital where dead bodies are kept before they are buried or examined.",
+    morphology: "Mortuarium (place for the dead)",
+    examples: ["The accident victims were taken to the hospital mortuary."],
+    category: "Time, Body & Nature",
+    mnemonic: "Mort (death) + -uary (place for dead bodies)."
+  },
+
+  // 25. Cata/Cad - Fall/Downward
+  {
+    word: "Catastrophe",
+    pos: "n.",
+    root: "Cata / Cad",
+    rootMeaning: "Fall / Downward (गिरना / पतन)",
+    hindi: "प्रलय / महाविपत्ति / सर्वनाश",
+    meaning: "A catastrophe is an unexpected event that causes great suffering or damage; a sudden disastrous disaster.",
+    morphology: "Cata (down) + Strophe (turn/overturn)",
+    examples: ["The earthquake was a terrible humanitarian catastrophe."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Cata (downward) + Strophe = Sab kuch ulat-pulat ho jana."
+  },
+  {
+    word: "Cataclysm",
+    pos: "n.",
+    root: "Cata / Cad",
+    rootMeaning: "Fall / Downward (गिरना / पतन)",
+    hindi: "उथल-पुथल / महाक्रांति / जलप्लावन",
+    meaning: "A cataclysm is an event that causes great change or harm.",
+    morphology: "Cata (down) + Klyzein (to wash over)",
+    examples: ["The political scandal caused a massive cataclysm across the nation."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Cata (down) + Clysm (flood/upheaval)."
+  },
+  {
+    word: "Cadence",
+    pos: "n.",
+    root: "Cata / Cad",
+    rootMeaning: "Fall / Downward (गिरना / पतन)",
+    hindi: "लहजा / सुर का उतार-चढ़ाव",
+    meaning: "The cadence of someone's voice is the way their voice gets higher and lower as they speak; rhythmic flow.",
+    morphology: "Cadere (to fall) + -ence",
+    examples: ["He spoke with the gentle, soothing cadence of a storyteller."],
+    category: "Communication & Observation",
+    mnemonic: "Aawaz ka chadhna aur girna (falling pitch) = Cadence."
+  },
+  {
+    word: "Cascade",
+    pos: "n. / v.",
+    root: "Cata / Cad",
+    rootMeaning: "Fall / Downward (गिरना / पतन)",
+    hindi: "झरना / एक के बाद एक तेजी से गिरना",
+    meaning: "1. A small waterfall. 2. A series of things that come quickly one after the other in rapid succession.",
+    morphology: "Cascata (waterfall from cadere: to fall)",
+    examples: ["The bank’s collapse led to a cascade of business failures."],
+    category: "Time, Body & Nature",
+    mnemonic: "Waterfall ki tarah lagataar girte chale jana."
+  },
+
+  // 26. Brev/Breve/Bri/Brie - Short
+  {
+    word: "Brevity",
+    pos: "n.",
+    root: "Brev / Bri",
+    rootMeaning: "Short / Brief (संक्षिप्त / छोटा)",
+    hindi: "संक्षिप्तता / अल्पता",
+    meaning: "Using only a few words or lasting only a short time.",
+    morphology: "Brevis (short) + -ity",
+    examples: [
+      "His essays are models of clarity and brevity.",
+      "The brevity of life."
+    ],
+    category: "Communication & Observation",
+    mnemonic: "Brevity is the soul of wit (Shakespeare)."
+  },
+  {
+    word: "Abbreviation",
+    pos: "n.",
+    root: "Brev / Bri",
+    rootMeaning: "Short / Brief (संक्षिप्त / छोटा)",
+    hindi: "लघुरूप / संक्षेप",
+    meaning: "A short form of a word or phrase.",
+    morphology: "Ad- (to) + Brevis (short) + -ation",
+    examples: ["\"ITV\" is the abbreviation for \"Independent Television\"."],
+    category: "Communication & Observation",
+    mnemonic: "Kise shabd ka short form banana."
+  },
+  {
+    word: "Abridge",
+    pos: "v.",
+    root: "Brev / Bri",
+    rootMeaning: "Short / Brief (संक्षिप्त / छोटा)",
+    hindi: "संक्षिप्त करना / छांटना",
+    meaning: "To make a book, play, or piece of writing shorter by removing details and information that is not important.",
+    morphology: "Abbreviare (shorten via French abregier)",
+    examples: ["To abridge a long essay."],
+    category: "Communication & Observation",
+    mnemonic: "Bridge lambe raste ko chhota karta hai; abridge lambi kitaab ko chhota karta hai."
+  },
+
+  // 27. Demo - People
+  {
+    word: "Democracy",
+    pos: "n.",
+    root: "Demo / Cracy",
+    rootMeaning: "Demo (People) + Cracy (Rule)",
+    hindi: "प्रजातंत्र / लोकतंत्र",
+    meaning: "A government by the people; the belief in freedom and equality between people, or a system in which power is held by elected representatives or people themselves.",
+    morphology: "Demos (people) + Kratos (power/rule)",
+    examples: ["India is the largest democracy in the world."],
+    category: "Governance & Society",
+    mnemonic: "Government of the people, by the people, for the people (Lincoln)."
+  },
+  {
+    word: "Democrat",
+    pos: "n.",
+    root: "Demo",
+    rootMeaning: "People (जनता / लोग)",
+    hindi: "प्रजातंत्रवादी / लोकतंत्र समर्थक",
+    meaning: "One who believes in and supports democracy and equal rights.",
+    morphology: "Demos (people) + -crat (advocate of rule)",
+    examples: ["As a true democrat, she believed in the right to free vote."],
+    category: "Governance & Society",
+    mnemonic: "Democracy ka pakshdhar."
+  },
+  {
+    word: "Demography",
+    pos: "n.",
+    root: "Demo",
+    rootMeaning: "People (जनता / लोग)",
+    hindi: "जनसांख्यिकी विज्ञान",
+    meaning: "Science of population; the study of changes in the number of births, marriages, deaths, etc. in a particular area during a period of time.",
+    morphology: "Demos (people) + Graphein (to write/study)",
+    examples: ["Demography helps planners allocate schools and hospitals effectively."],
+    category: "Governance & Society",
+    mnemonic: "Demos (people) ka graph aur data study karna."
+  },
+  {
+    word: "Demophobia",
+    pos: "n.",
+    root: "Demo / Phobia",
+    rootMeaning: "Demo (People) + Phobia (Fear)",
+    hindi: "भीड़ या लोगों से नफ़रत व डर",
+    meaning: "A hatred or irrational fear of people or crowds.",
+    morphology: "Demos (people) + Phobia (fear)",
+    examples: ["His demophobia made attending public rallies unbearable."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Demos (people) + Phobia (darr)."
+  },
+
+  // 28. Carn - Flesh
+  {
+    word: "Carnivore",
+    pos: "n.",
+    root: "Carn",
+    rootMeaning: "Flesh / Meat (मांस / शरीर)",
+    hindi: "मांसाहारी प्राणी",
+    meaning: "An animal that naturally eats meat and flesh.",
+    morphology: "Carnis (flesh) + Vorare (to devour)",
+    examples: ["Lions and tigers are apex carnivores."],
+    category: "Time, Body & Nature",
+    mnemonic: "Carn (flesh) + Vore (khana)."
+  },
+  {
+    word: "Carnal",
+    pos: "adj.",
+    root: "Carn",
+    rootMeaning: "Flesh / Meat (मांस / शरीर)",
+    hindi: "शारीरिक / कामुक / दैहिक",
+    meaning: "Relating to the physical feelings and wants of the body (sensual/fleshly desires).",
+    morphology: "Carnis (flesh) + -al",
+    examples: [
+      "Carnal desires.",
+      "Their ruling passion is that of carnal love."
+    ],
+    category: "Time, Body & Nature",
+    mnemonic: "Carnal = Fleshly body desires."
+  },
+  {
+    word: "Carnage",
+    pos: "n.",
+    root: "Carn",
+    rootMeaning: "Flesh / Meat (मांस / शरीर)",
+    hindi: "संहार / भीषण रक्तपात",
+    meaning: "The violent killing of large numbers of people, especially in war; massacre.",
+    morphology: "Carnis (flesh) + -age",
+    examples: ["The bombing was timed to cause as much carnage as possible."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Flesh aur khoon kharaba = Carnage."
+  },
+  {
+    word: "Reincarnate",
+    pos: "v.",
+    root: "Carn",
+    rootMeaning: "Flesh / Meat (मांस / शरीर)",
+    hindi: "पुनर्जन्म होना / नया रूप देना",
+    meaning: "1. If people believe that they will be reincarnated when they die, they believe that their spirit will live in the body of another person or animal. 2. To appear in a different form after disappearing.",
+    morphology: "Re- (again) + In- (into) + Carnis (flesh/body) + -ate",
+    examples: [
+      "Compared to the old model, the reincarnated Mini Cooper has a more powerful engine and looks more streamlined."
+    ],
+    category: "Time, Body & Nature",
+    mnemonic: "Re (fir se) + in-flesh (shareer me aana) = Punarjanm."
+  },
+
+  // 29. Andr - Male
+  {
+    word: "Polyandry",
+    pos: "n.",
+    root: "Andr / Gam",
+    rootMeaning: "Poly (Many) + Andr (Male/Husband)",
+    hindi: "बहुपति प्रथा",
+    meaning: "The practice or condition of being married to more than one husband at the same time.",
+    morphology: "Poly (many) + Aner/Andros (male/husband)",
+    examples: ["Draupadi's marriage in the Mahabharata is a famous epic instance of polyandry."],
+    category: "Governance & Society",
+    mnemonic: "Poly (multiple) + Andr (husbands)."
+  },
+  {
+    word: "Androcide",
+    pos: "n.",
+    root: "Andr / Cide",
+    rootMeaning: "Andr (Male) + Cide (Killing)",
+    hindi: "पुरुष-हत्या",
+    meaning: "The targeted killing of men or boys.",
+    morphology: "Andros (male) + -cide (killing)",
+    examples: ["Historical sieges often resulted in the androcide of captured warriors."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Andro (male) + Cide (hatya)."
+  },
+  {
+    word: "Androgynous",
+    pos: "adj.",
+    root: "Andr / Gyn",
+    rootMeaning: "Andr (Male) + Gyn (Female)",
+    hindi: "उभयलिंगी / स्त्री व पुरुष दोनों के गुणों वाला",
+    meaning: "Not distinctly masculine or feminine in appearance or in behaviour; combining both male and female characteristics.",
+    morphology: "Andros (male) + Gyne (female) + -ous",
+    examples: ["Fashion designers often embrace an androgynous aesthetic for modern runway collections."],
+    category: "Emotions & Personality",
+    mnemonic: "Andro (male) + Gyn (female) = Both traits in one."
+  },
+  {
+    word: "Misandry",
+    pos: "n.",
+    root: "Andr",
+    rootMeaning: "Miso (Hatred) + Andr (Male)",
+    hindi: "पुरुष-द्वेष / पुरुषों से नफ़रत",
+    meaning: "Dislike of, contempt for, or ingrained prejudice against men.",
+    morphology: "Misein (to hate) + Andros (men)",
+    examples: ["Misandry is the counterpart of misogyny."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Miso (hate) + Andr (male) = Hatred of men."
+  },
+
+  // 30. Chrono - Time
+  {
+    word: "Chronology",
+    pos: "n.",
+    root: "Chrono",
+    rootMeaning: "Time (समय / काल)",
+    hindi: "घटनाक्रम / कालक्रम",
+    meaning: "The chronology of a series of past events is the times at which they happened in the order in which they happened.",
+    morphology: "Chronos (time) + -logy (study/order)",
+    examples: ["I'm not sure of the chronology of events."],
+    category: "Time, Body & Nature",
+    mnemonic: "Chrono (time) order me arrange karna."
+  },
+  {
+    word: "Synchronization",
+    pos: "n.",
+    root: "Chrono",
+    rootMeaning: "Time (समय / काल)",
+    hindi: "समकालिकता / एक ही समय पर होना",
+    meaning: "1. The fact of happening at the same time, or making things happen simultaneously. 2. Causing a set of data or files to remain identical in more than one location.",
+    morphology: "Syn- (together) + Chronos (time) + -ization",
+    examples: [
+      "Lack of synchronization between the dancers made it look clumsy."
+    ],
+    category: "Time, Body & Nature",
+    mnemonic: "Sync (ek sath) + Chrono (time)."
+  },
+  {
+    word: "Chronicle",
+    pos: "n. / v.",
+    root: "Chrono",
+    rootMeaning: "Time (समय / काल)",
+    hindi: "इतिहास / कालक्रमबद्ध इतिहास लिखना",
+    meaning: "1. A written record of historical events (इतिहास). 2. To record a series of events in a factual and detailed way (इतिहास लिखना).",
+    morphology: "Chronika (annals of time)",
+    examples: [
+      "A chronicle of the French Revolution.",
+      "His work chronicles 20th-century migration."
+    ],
+    category: "Time, Body & Nature",
+    mnemonic: "Chronicle = Time ke anusar likha gaya record."
+  },
+  {
+    word: "Chronic",
+    pos: "adj. / n.",
+    root: "Chrono",
+    rootMeaning: "Time (समय / काल)",
+    hindi: "दीर्घकालिक / बहुकालीन / लंबे समय तक चलने वाला",
+    meaning: "(Especially of a disease or something bad) continuing for a long time; recurring persistently.",
+    morphology: "Chronikos (of time)",
+    examples: [
+      "Chronic diseases/conditions.",
+      "There is a chronic shortage of teachers."
+    ],
+    category: "Time, Body & Nature",
+    mnemonic: "Chronic illness = Jo lambe time tak theek na ho."
+  },
+
+  // 31. Cracy - Rule
+  {
+    word: "Autocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "तानाशाही / एकतंत्र",
+    meaning: "A system of government by one person with absolute, unchecked power.",
+    morphology: "Auto (self/one) + Kratos (power/rule)",
+    examples: ["The transition from autocracy to democracy took several decades."],
+    category: "Governance & Society",
+    mnemonic: "Auto (self) + Cracy (rule) = Ek akele ka shasan."
+  },
+  {
+    word: "Plutocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "धनिक तंत्र / पूंजीपतियों का शासन",
+    meaning: "A system of government in which the richest people in a country rule or hold power.",
+    morphology: "Ploutos (wealth) + Kratos (rule)",
+    examples: ["Critics argue that massive campaign donations turn democracy into a plutocracy."],
+    category: "Governance & Society",
+    mnemonic: "Pluto (Greek god of wealth) + Cracy (rule)."
+  },
+  {
+    word: "Aristocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "कुलीनतंत्र / संभ्रांत वर्ग का शासन",
+    meaning: "A class of people who hold high social rank and hereditary nobility ruling a state.",
+    morphology: "Aristos (best/noble) + Kratos (rule)",
+    examples: ["The French Revolution dismantled the power of the ruling aristocracy."],
+    category: "Governance & Society",
+    mnemonic: "Aristocrat (noble) ka rule = Aristocracy."
+  },
+  {
+    word: "Bureaucracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "नौकरशाही / अफसरशाही",
+    meaning: "A system of government in which most of the important decisions are taken by state officials rather than by elected representatives.",
+    morphology: "Bureau (desk/office) + Kratos (rule)",
+    examples: ["Excessive red tape is a notorious symptom of rigid bureaucracy."],
+    category: "Governance & Society",
+    mnemonic: "Bureau (office desk) wale babuon ka shasan."
+  },
+  {
+    word: "Mobocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "भीड़तंत्र / अनियंत्रित भीड़ का शासन",
+    meaning: "Rule, domination, or lawlessness controlled by the violent mob or masses.",
+    morphology: "Mob (unruly crowd) + Kratos (rule)",
+    examples: ["When police retreated, the rioting city descended into mobocracy."],
+    category: "Governance & Society",
+    mnemonic: "Mob (bheed) + Cracy (shasan)."
+  },
+  {
+    word: "Theocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "धर्मतंत्र / पादरी या धार्मिक नेताओं का शासन",
+    meaning: "A country or government that is ruled by religious leaders claiming divine guidance.",
+    morphology: "Theo (god/religion) + Kratos (rule)",
+    examples: ["Vatican City and ancient Egypt are historical examples of theocracy."],
+    category: "Governance & Society",
+    mnemonic: "Theo (God/Religion) + Cracy (rule)."
+  },
+  {
+    word: "Meritocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "योग्यता-तंत्र / प्रतिभा-आधारित प्रणाली",
+    meaning: "A social system, society, or organization in which people get success or power because of their abilities and merit, not because of their money or social position.",
+    morphology: "Meritum (merit/worth) + Kratos (rule)",
+    examples: ["The company is a meritocracy. Good work is rewarded with promotions."],
+    category: "Governance & Society",
+    mnemonic: "Merit par milne wali success = Meritocracy."
+  },
+  {
+    word: "Oligocracy / Oligarchy",
+    pos: "n.",
+    root: "Cracy / Arch",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "अल्पतंत्र / थोड़े लोगों का शासन",
+    meaning: "Government or domination by a small, select group of powerful individuals.",
+    morphology: "Oligos (few) + Kratos / Archy (rule)",
+    examples: ["A wealthy cartel formed an oligarchy controlling the nation's energy sector."],
+    category: "Governance & Society",
+    mnemonic: "Oligo (few) + Cracy (rule)."
+  },
+  {
+    word: "Gerontocracy",
+    pos: "n.",
+    root: "Cracy",
+    rootMeaning: "Rule / Power / Governance (शासन / तंत्र)",
+    hindi: "वृद्धतंत्र / बुजुर्गों का शासन",
+    meaning: "A state, society, or governing council ruled exclusively by elderly people.",
+    morphology: "Geron (old man) + Kratos (rule)",
+    examples: ["Ancient Sparta was advised by a council representing a gerontocracy."],
+    category: "Governance & Society",
+    mnemonic: "Geriatric (elderly) + Cracy (rule)."
+  },
+
+  // 32. Omni - All
+  {
+    word: "Omnivore",
+    pos: "n.",
+    root: "Omni",
+    rootMeaning: "All / Every (सर्व / सब)",
+    hindi: "सर्वभक्षी प्राणी",
+    meaning: "An animal that is naturally able to eat both plants and meat.",
+    morphology: "Omnis (all) + Vorare (to eat)",
+    examples: ["Humans and bears are omnivores with diverse diets."],
+    category: "Time, Body & Nature",
+    mnemonic: "Omni (sab kuch) + Vore (khane wala)."
+  },
+  {
+    word: "Omnipresent",
+    pos: "adj. / n.",
+    root: "Omni",
+    rootMeaning: "All / Every (सर्व / सब)",
+    hindi: "सर्वव्यापी / हर जगह उपस्थित",
+    meaning: "Present or having an effect everywhere at the same time; ubiquitous.",
+    morphology: "Omnis (all) + Praesens (present)",
+    examples: ["In today's digital era, smartphones seem omnipresent."],
+    category: "Time, Body & Nature",
+    mnemonic: "Omni (all places) + Present."
+  },
+  {
+    word: "Omniscient",
+    pos: "adj. / n.",
+    root: "Omni",
+    rootMeaning: "All / Every (सर्व / सब)",
+    hindi: "सर्वज्ञ / अन्तर्यामी / सब कुछ जानने वाला",
+    meaning: "If you describe someone as omniscient, you mean they know or seem to know everything.",
+    morphology: "Omnis (all) + Scire (to know)",
+    examples: ["God is omniscient."],
+    category: "Mind, Fear & Mania",
+    mnemonic: "Omni (all) + Science/Sci (know) = All-knowing."
+  },
+  {
+    word: "Omnipotent",
+    pos: "adj. / n.",
+    root: "Omni",
+    rootMeaning: "All / Every (सर्व / सब)",
+    hindi: "सर्वशक्तिमान / असीम शक्तिशाली",
+    meaning: "Having unlimited, infinite power and able to do anything.",
+    morphology: "Omnis (all) + Potens (powerful)",
+    examples: ["The ancient deity was worshipped as omnipotent creator of the universe."],
+    category: "Governance & Society",
+    mnemonic: "Omni (all) + Potent (power)."
+  },
+  {
+    word: "Omnibus",
+    pos: "n.",
+    root: "Omni",
+    rootMeaning: "All / Every (सर्व / सब)",
+    hindi: "सार्वजनिक वाहन (बस) / संयुक्त संग्रह",
+    meaning: "1. An omnibus is a bus for everyone. 2. A book consisting of two or more parts/stories that have already been published separately.",
+    morphology: "Omnibus (Latin dative plural: 'for all')",
+    examples: ["A new omnibus edition of three thrillers."],
+    category: "Communication & Observation",
+    mnemonic: "Omnibus = For all people / All books in one."
+  },
+
+  // 33. Fide - Faith
+  {
+    word: "Mala fide",
+    pos: "adj.",
+    root: "Fide / Mal",
+    rootMeaning: "Fide (Faith) + Mal (Bad)",
+    hindi: "बदनीयत / कपटपूर्ण / दुर्भावना से किया गया",
+    meaning: "Illegal or dishonest; carried out with intent to deceive; in bad faith.",
+    morphology: "Malus (bad) + Fides (faith)",
+    examples: ["They are trying to prove that the company and its foreign associates acted with mala fide intent."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Mala (bad) + Fide (faith/intention)."
+  },
+  {
+    word: "Fidelity",
+    pos: "n.",
+    root: "Fide",
+    rootMeaning: "Faith / Loyalty (विश्वास / वफादारी)",
+    hindi: "ईमानदारी / निष्ठा / वफादारी",
+    meaning: "Fidelity is loyalty and faithfulness to a person, spouse, organization, or set of beliefs.",
+    morphology: "Fides (faith) + -ity",
+    examples: [
+      "I had to promise fidelity to the Queen.",
+      "Fidelity to your principles."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Fidelity = High loyalty & trust (Jaise Hi-Fi audio quality)."
+  },
+  {
+    word: "Infidelity",
+    pos: "n.",
+    root: "Fide",
+    rootMeaning: "Faith / Loyalty (विश्वास / वफादारी)",
+    hindi: "नमकहरामी / बेवफ़ाई / विश्वासघात",
+    meaning: "The action or state of being unfaithful to a spouse or breaking faith.",
+    morphology: "In- (not) + Fidelitas (fidelity)",
+    examples: [
+      "Her infidelity continued after her marriage.",
+      "I divorced him for infidelity."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "In (no) + Fidelity (wafa)."
+  },
+
+  // 34. Somni/Somna - Sleep
+  {
+    word: "Somnambulist",
+    pos: "n.",
+    root: "Somni",
+    rootMeaning: "Sleep (नींद / निद्रा)",
+    hindi: "नींद में चलने वाला व्यक्ति",
+    meaning: "A person who suffers from somnambulism (a condition in which a person walks around while they are sleeping).",
+    morphology: "Somnus (sleep) + Ambulare (to walk) + -ist",
+    examples: ["They say it's dangerous to wake a somnambulist."],
+    category: "Time, Body & Nature",
+    mnemonic: "Somni (sleep) + Ambulance/Amble (walk) = Sleepwalker."
+  },
+  {
+    word: "Somniloquist",
+    pos: "n.",
+    root: "Somni / Loqu",
+    rootMeaning: "Somni (Sleep) + Loqu (Speak)",
+    hindi: "नींद में बोलने / बड़बड़ाने वाला व्यक्ति",
+    meaning: "One who talks in his or her sleep.",
+    morphology: "Somnus (sleep) + Loqui (to speak) + -ist",
+    examples: ["His roommate was a somniloquist who revealed funny secrets at night."],
+    category: "Communication & Observation",
+    mnemonic: "Somni (sleep) + Loquist (speaker)."
+  },
+  {
+    word: "Insomnia",
+    pos: "n.",
+    root: "Somni",
+    rootMeaning: "Sleep (नींद / निद्रा)",
+    hindi: "अनिद्रा / नींद न आने की बीमारी",
+    meaning: "Habitual sleeplessness; chronic inability to fall or stay asleep.",
+    morphology: "In- (without) + Somnus (sleep) + -ia",
+    examples: ["Stress and late screen time contributed to his chronic insomnia."],
+    category: "Time, Body & Nature",
+    mnemonic: "In (no) + Somnia (sleep)."
+  },
+  {
+    word: "Somnolent",
+    pos: "adj. / n.",
+    root: "Somni",
+    rootMeaning: "Sleep (नींद / निद्रा)",
+    hindi: "निद्रा लाने वाला / उनींदा / सुस्त",
+    meaning: "Causing sleep or drowsiness; feeling sleepy.",
+    morphology: "Somnolentus (sleepy)",
+    examples: ["A somnolent summer's afternoon."],
+    category: "Time, Body & Nature",
+    mnemonic: "Somnolent weather = Aalas aur neend se bhara din."
+  },
+
+  // 35. Eu - Good
+  {
+    word: "Euphony",
+    pos: "n.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "सुस्वर / कानों को प्रिय लगने वाली ध्वनि",
+    meaning: "A pleasing, sweet sound, especially in speech, cadence, or music.",
+    morphology: "Eu (good) + Phone (voice/sound)",
+    examples: ["The poet selected his words carefully for maximum euphony."],
+    category: "Communication & Observation",
+    mnemonic: "Eu (good) + Phone (sound) = Sweet harmony."
+  },
+  {
+    word: "Euphemism",
+    pos: "n.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "कठोर बात को कोमल रीति से कहना / मंगल-भाषण",
+    meaning: "A polite word or phrase used to avoid saying an unpleasant, harsh, or offensive word directly.",
+    morphology: "Eu (good) + Pheme (speaking) + -ism",
+    examples: ["\"Senior citizen\" is a euphemism for \"old person\"."],
+    category: "Communication & Observation",
+    mnemonic: "Eu (achhe dhang se) speak karna harsh reality ko."
+  },
+  {
+    word: "Euphoria",
+    pos: "n.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "परम आनंद का अनुभव / अत्यधिक उल्लास",
+    meaning: "Euphoria is a feeling of intense happiness, bliss, and excitement.",
+    morphology: "Eu (well) + Phero (to bear) -> state of well-being",
+    examples: [
+      "There was euphoria after the elections.",
+      "They were in a state of euphoria for days after they won the prize."
+    ],
+    category: "Emotions & Personality",
+    mnemonic: "Euphoria = Extreme high joy & bliss."
+  },
+  {
+    word: "Euthanasia",
+    pos: "n.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "सुखमृत्य / इच्छामृत्यु (दर्द-रहित मृत्यु)",
+    meaning: "The act of killing someone painlessly who is very ill or very old so that they do not suffer any more; mercy killing.",
+    morphology: "Eu (good/easy) + Thanatos (death)",
+    examples: ["Although some people campaign for the right to euthanasia, it is still illegal in most countries."],
+    category: "Crime, Law & Violence",
+    mnemonic: "Eu (good) + Thanatos (death) = Easy painless death."
+  },
+  {
+    word: "Eulogize",
+    pos: "v.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "प्रशंसा करना / गुणगान करना",
+    meaning: "To praise someone or something highly in a speech or piece of writing.",
+    morphology: "Eu (good) + Logos (word/speech) + -ize",
+    examples: ["Critics everywhere have eulogized her new novel."],
+    category: "Communication & Observation",
+    mnemonic: "Eu (good) + Logy (words) = Kisi ki tareef me bolna."
+  },
+  {
+    word: "Eureka",
+    pos: "excl.",
+    root: "Eu",
+    rootMeaning: "Good / Well / Pleasant (अच्छा / मधुर)",
+    hindi: "मैंने पा लिया! (सफलता पर हर्षोल्लास)",
+    meaning: "Used to show that you have been successful in discovering something you were trying to do ('I have found it!').",
+    morphology: "Heureka (Greek: 'I have found it!')",
+    examples: ["\"Eureka!\" she shouted as the engine started."],
+    category: "Communication & Observation",
+    mnemonic: "Archimedes' exclamation in bathtub after discovering density principle."
+  },
+
+  // 36. Creed/Cred - Believe
+  {
+    word: "Creed",
+    pos: "n.",
+    root: "Creed / Cred",
+    rootMeaning: "Believe / Faith / Trust (विश्वास / आस्था)",
+    hindi: "धर्म-सिद्धांत / आस्था / मत",
+    meaning: "A system of religious belief, set of principles, or faith.",
+    morphology: "Credo (I believe)",
+    examples: ["People of many creeds and cultures."],
+    category: "Governance & Society",
+    mnemonic: "Creed = Jis par insan vishwas karta ho."
+  },
+  {
+    word: "Credible",
+    pos: "adj.",
+    root: "Creed / Cred",
+    rootMeaning: "Believe / Faith / Trust (विश्वास / आस्था)",
+    hindi: "विश्वसनीय / भरोसेमंद",
+    meaning: "Able to be believed, trusted, or accepted as true.",
+    morphology: "Credere (to believe) + -ible",
+    examples: ["They haven't produced any credible evidence."],
+    category: "Governance & Society",
+    mnemonic: "Credible = Believable witness/source."
+  },
+  {
+    word: "Incredible",
+    pos: "adj.",
+    root: "Creed / Cred",
+    rootMeaning: "Believe / Faith / Trust (विश्वास / आस्था)",
+    hindi: "अविश्वसनीय / अद्भुत / असाधारण",
+    meaning: "Impossible, or very difficult to believe; extraordinary.",
+    morphology: "In- (not) + Credibilis (believable)",
+    examples: ["An incredible story."],
+    category: "Governance & Society",
+    mnemonic: "Incredible India = Itna sundar ki vishwas na ho."
+  },
+  {
+    word: "Credulous",
+    pos: "adj.",
+    root: "Creed / Cred",
+    rootMeaning: "Believe / Faith / Trust (विश्वास / आस्था)",
+    hindi: "सीधा-सादा / सहज विश्वासी (जो आसानी से धोखा खा जाए)",
+    meaning: "Too willing to believe whatever you are told and so easily deceived; gullible.",
+    morphology: "Credulus (trusting/believing)",
+    examples: ["Credulous investors lost their savings in the scam."],
+    category: "Emotions & Personality",
+    mnemonic: "Credulous = Har baat par aasaani se vishwas karne wala."
+  },
+  {
+    word: "Credence",
+    pos: "n.",
+    root: "Creed / Cred",
+    rootMeaning: "Believe / Faith / Trust (विश्वास / आस्था)",
+    hindi: "विश्वास / साख / मान्यता",
+    meaning: "If you give or lend credence to a theory or story, you believe it.",
+    morphology: "Credentia (belief/trust)",
+    examples: ["You're surely not giving any credence to this story."],
+    category: "Governance & Society",
+    mnemonic: "Lend credence = Kisi baat par bharosa karna."
+  }
+];
+
+// STATE
+let activeCategory = 'all';
+let activeRoot = 'ALL';
+let currentSearch = '';
+let bookmarkedWords = JSON.parse(localStorage.getItem('root_bookmarks') || '[]');
+let currentFlashcardIndex = 0;
+let quizQuestions = [];
+let currentQuizIdx = 0;
+let quizScore = 0;
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+  renderRootButtons();
+  renderCards();
+  renderHierarchyTree();
+  renderTable();
+  updateBookmarkCount();
+  setupFlashcards();
+  initQuiz();
+  lucide.createIcons();
+});
+
+// THEME
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  if (newTheme === 'light') {
+    icon.setAttribute('data-lucide', 'sun');
+    text.textContent = 'Light';
+  } else {
+    icon.setAttribute('data-lucide', 'moon');
+    text.textContent = 'Dark';
+  }
+  lucide.createIcons();
+}
+
+// RENDER ROOT BUTTONS
+function renderRootButtons() {
+  const roots = new Set();
+  rootWordsDatabase.forEach(item => roots.add(item.root));
+  const container = document.getElementById('rootsQuickBar');
+
+  roots.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'root-pill-btn';
+    btn.textContent = r;
+    btn.onclick = () => filterByRoot(r, btn);
+    container.appendChild(btn);
+  });
+}
+
+// RENDER CARDS VIEW
+function renderCards() {
+  const grid = document.getElementById('cardsView');
+  grid.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+        <i data-lucide="search-x" style="width: 48px; height: 48px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h3 style="font-family: var(--font-heading); margin-bottom: 6px;">No Words Found</h3>
+        <p style="color: var(--text-muted); font-size: 14px;">Try searching for a different root, meaning in Hindi, or resetting filters.</p>
+        <button class="btn-action" style="margin-top: 16px;" onclick="resetFilters()">Reset All Filters</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  filtered.forEach(item => {
+    const isFav = bookmarkedWords.includes(item.word);
+    const card = document.createElement('article');
+    card.className = 'word-card';
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="root-badge"><i data-lucide="git-branch" style="width: 12px; height: 12px;"></i> Root: ${item.root}</span>
+        <div class="card-actions-quick">
+          <span class="pos-tag">${item.pos}</span>
+          <button class="icon-btn" title="Listen Pronunciation" onclick="speakText('${escapeQuotes(item.word)}')">
+            <i data-lucide="volume-2"></i>
+          </button>
+          <button class="icon-btn" title="Copy Word Notes" onclick="copyWord('${escapeQuotes(item.word)}', '${escapeQuotes(item.hindi)}', '${escapeQuotes(item.meaning)}')">
+            <i data-lucide="copy"></i>
+          </button>
+          <button class="icon-btn ${isFav ? 'active-fav' : ''}" title="Bookmark" onclick="toggleBookmark('${escapeQuotes(item.word)}', this)">
+            <i data-lucide="bookmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="word-title-row">
+        <h2 class="word-title">${item.word}</h2>
+      </div>
+
+      <div class="hindi-meaning-box">
+        <i data-lucide="languages" style="color: var(--accent-primary); width: 18px; height: 18px; flex-shrink: 0;"></i>
+        <span class="hindi-text">${item.hindi}</span>
+      </div>
+
+      <div class="english-meaning">
+        ${item.meaning}
+      </div>
+
+      <div class="morph-box">
+        <i data-lucide="layers" style="width: 13px; height: 13px;"></i> Breakdown: <strong>${item.morphology}</strong>
+      </div>
+
+      <div class="examples-section">
+        <div class="example-title"><i data-lucide="quote" style="width: 13px; height: 13px;"></i> Exam Sentences</div>
+        ${item.examples.map(ex => `<div class="example-item">${ex}</div>`).join('')}
+      </div>
+
+      ${item.mnemonic ? `
+        <div class="extra-fact-box">
+          <div class="fact-detail">
+            <span class="extra-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> Memory Trick</span> 
+            ${item.mnemonic}
+          </div>
+        </div>
+      ` : ''}
+    `;
+    grid.appendChild(card);
+  });
+
+  lucide.createIcons();
+}
+
+// RENDER ROOT TREE HIERARCHY
+function renderHierarchyTree() {
+  const container = document.getElementById('hierarchyView');
+  container.innerHTML = '';
+
+  const rootGroups = {};
+  rootWordsDatabase.forEach(item => {
+    if (!rootGroups[item.root]) {
+      rootGroups[item.root] = {
+        meaning: item.rootMeaning,
+        words: []
+      };
+    }
+    rootGroups[item.root].words.push(item);
+  });
+
+  for (const [rootName, data] of Object.entries(rootGroups)) {
+    const card = document.createElement('section');
+    card.className = 'root-tree-card';
+    card.innerHTML = `
+      <div class="root-tree-header">
+        <div class="root-title-cluster">
+          <span class="root-badge-lg">${rootName}</span>
+          <div>
+            <div class="root-meaning-lg">${data.meaning}</div>
+            <span style="font-size: 12px; color: var(--text-muted);">${data.words.length} derived words</span>
+          </div>
+        </div>
+        <button class="btn-action" onclick="filterByRoot('${rootName}', null)"><i data-lucide="filter"></i> View Only ${rootName}</button>
+      </div>
+
+      <div class="cards-grid">
+        ${data.words.map(w => `
+          <div class="word-card" style="padding: 16px;">
+            <div class="card-top">
+              <span class="pos-tag">${w.pos}</span>
+              <button class="icon-btn" onclick="speakText('${escapeQuotes(w.word)}')"><i data-lucide="volume-2"></i></button>
+            </div>
+            <h3 class="word-title" style="font-size: 17px; color: var(--accent-primary);">${w.word}</h3>
+            <div class="hindi-text" style="font-size: 14px;">${w.hindi}</div>
+            <p style="font-size: 13px; color: var(--text-muted);">${w.meaning}</p>
+            <div style="font-size: 11.5px; font-family: var(--font-mono); color: var(--accent-purple);">⚡ ${w.morphology}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(card);
+  }
+}
+
+// RENDER TABLE
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  const filtered = getFilteredData();
+
+  filtered.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight: 700; color: var(--accent-primary); white-space: nowrap;">${item.word} <span class="pos-tag">${item.pos}</span></td>
+      <td><span class="root-badge">${item.root}</span><br><small style="color: var(--text-muted);">${item.rootMeaning}</small></td>
+      <td style="color: var(--text-hindi); font-weight: 700;">${item.hindi}</td>
+      <td>${item.meaning}</td>
+      <td style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-purple);">${item.morphology}</td>
+      <td>
+        <ul style="padding-left: 14px; margin: 0; font-size: 12.5px;">
+          ${item.examples.map(ex => `<li>${ex}</li>`).join('')}
+        </ul>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// FILTER LOGIC
+function getFilteredData() {
+  return rootWordsDatabase.filter(item => {
+    if (activeCategory === 'favs' && !bookmarkedWords.includes(item.word)) return false;
+    if (activeCategory !== 'all' && activeCategory !== 'favs' && item.category !== activeCategory) return false;
+
+    if (activeRoot !== 'ALL' && item.root !== activeRoot) return false;
+
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      const matchWord = item.word.toLowerCase().includes(q);
+      const matchRoot = item.root.toLowerCase().includes(q) || item.rootMeaning.toLowerCase().includes(q);
+      const matchHindi = item.hindi.toLowerCase().includes(q);
+      const matchMeaning = item.meaning.toLowerCase().includes(q);
+      const matchMorph = item.morphology.toLowerCase().includes(q);
+      const matchEx = item.examples.some(e => e.toLowerCase().includes(q));
+      if (!matchWord && !matchRoot && !matchHindi && !matchMeaning && !matchMorph && !matchEx) return false;
+    }
+
+    return true;
+  });
+}
+
+function handleSearch() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  renderCards();
+  renderTable();
+}
+
+function filterByCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('#categoryChips .filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+  renderTable();
+}
+
+function filterByRoot(root, btn) {
+  activeRoot = root;
+  document.querySelectorAll('#rootsQuickBar .root-pill-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === root);
+  });
+  renderCards();
+  renderTable();
+  if (btn) switchView('cards');
+}
+
+function resetFilters() {
+  activeCategory = 'all';
+  activeRoot = 'ALL';
+  currentSearch = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('#categoryChips .filter-chip').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.querySelectorAll('#rootsQuickBar .root-pill-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  renderCards();
+  renderTable();
+}
+
+// VIEW SWITCHER
+function switchView(viewName) {
+  const views = {
+    cards: document.getElementById('cardsView'),
+    hierarchy: document.getElementById('hierarchyView'),
+    table: document.getElementById('tableView'),
+    flashcard: document.getElementById('flashcardView'),
+    quiz: document.getElementById('quizView')
+  };
+
+  const btns = {
+    cards: document.getElementById('btnViewCards'),
+    hierarchy: document.getElementById('btnViewHierarchy'),
+    table: document.getElementById('btnViewTable'),
+    flashcard: document.getElementById('btnViewFlashcard'),
+    quiz: document.getElementById('btnViewQuiz')
+  };
+
+  Object.keys(views).forEach(key => {
+    views[key].style.display = (key === viewName) ? (key === 'cards' ? 'grid' : (key === 'table' ? 'block' : 'flex')) : 'none';
+    if (btns[key]) btns[key].classList.toggle('active', key === viewName);
+  });
+
+  // Mobile Bottom nav toggle
+  document.querySelectorAll('.fab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(viewName.slice(0, 4)));
+  });
+
+  if (viewName === 'flashcard') {
+    setupFlashcards();
+  } else if (viewName === 'quiz') {
+    initQuiz();
+  }
+
+  lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// BOOKMARKS
+function toggleBookmark(word, btn) {
+  const idx = bookmarkedWords.indexOf(word);
+  if (idx > -1) {
+    bookmarkedWords.splice(idx, 1);
+    btn.classList.remove('active-fav');
+    showToast("Removed from bookmarks");
+  } else {
+    bookmarkedWords.push(word);
+    btn.classList.add('active-fav');
+    showToast("Added to bookmarks ⭐");
+  }
+  localStorage.setItem('root_bookmarks', JSON.stringify(bookmarkedWords));
+  updateBookmarkCount();
+}
+
+function updateBookmarkCount() {
+  document.getElementById('favCount').textContent = bookmarkedWords.length;
+}
+
+// AUDIO
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
+    showToast("🔊 Pronouncing: " + text);
+  } else {
+    showToast("Audio synthesis not supported on your browser.");
+  }
+}
+
+// COPY
+function copyWord(word, hindi, meaning) {
+  const text = `${word}\nअर्थ (Hindi): ${hindi}\nMeaning: ${meaning}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast("📋 Copied notes to clipboard!");
+  }).catch(() => {
+    showToast("Error copying text");
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<i data-lucide="check-circle"></i> ${msg}`;
+  lucide.createIcons();
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function escapeQuotes(str) {
+  return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// FLASHCARDS
+function setupFlashcards() {
+  currentFlashcardIndex = 0;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function loadFlashcard(idx) {
+  const wrapper = document.getElementById('flashcardWrapper');
+  wrapper.classList.remove('flipped');
+  const item = rootWordsDatabase[idx];
+
+  document.getElementById('fcRootTag').textContent = `Root: ${item.root} (${item.rootMeaning})`;
+  document.getElementById('fcWordTitle').textContent = item.word;
+  document.getElementById('fcPos').textContent = item.pos;
+  document.getElementById('fcHindi').textContent = item.hindi;
+  document.getElementById('fcEnglish').textContent = item.meaning;
+  document.getElementById('fcExtra').innerHTML = `
+    <strong>Breakdown:</strong> <code>${item.morphology}</code><br>
+    <strong>Example:</strong> "${item.examples[0]}"
+  `;
+  document.getElementById('fcProgress').textContent = `Card ${idx + 1} of ${rootWordsDatabase.length}`;
+}
+
+function flipFlashcard() {
+  document.getElementById('flashcardWrapper').classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex + 1) % rootWordsDatabase.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function prevFlashcard() {
+  currentFlashcardIndex = (currentFlashcardIndex - 1 + rootWordsDatabase.length) % rootWordsDatabase.length;
+  loadFlashcard(currentFlashcardIndex);
+}
+
+function shuffleFlashcards() {
+  currentFlashcardIndex = Math.floor(Math.random() * rootWordsDatabase.length);
+  loadFlashcard(currentFlashcardIndex);
+  showToast("🔀 Cards shuffled!");
+}
+
+// QUIZ
+function initQuiz() {
+  quizScore = 0;
+  currentQuizIdx = 0;
+  document.getElementById('quizScore').textContent = quizScore;
+  generateQuizQuestions();
+  loadQuizQuestion(currentQuizIdx);
+}
+
+function generateQuizQuestions() {
+  const shuffled = [...rootWordsDatabase].sort(() => 0.5 - Math.random());
+  quizQuestions = shuffled.slice(0, 10);
+}
+
+function loadQuizQuestion(idx) {
+  if (idx >= quizQuestions.length) {
+    document.getElementById('quizContent').innerHTML = `
+      <div style="text-align:center; padding: 30px 10px;">
+        <i data-lucide="trophy" style="width: 56px; height: 56px; color: var(--accent-primary); margin-bottom: 12px;"></i>
+        <h2 style="font-family: var(--font-heading); margin-bottom: 8px;">Quiz Completed!</h2>
+        <p style="font-size: 16px; margin-bottom: 20px;">Your Final Score: <strong>${quizScore} / ${quizQuestions.length}</strong> (${(quizScore/quizQuestions.length)*100}%)</p>
+        <button class="btn-action" style="margin: 0 auto;" onclick="initQuiz()"><i data-lucide="rotate-ccw"></i> Restart Quiz</button>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  const q = quizQuestions[idx];
+  document.getElementById('quizProgressTag').textContent = `Question ${idx + 1} / ${quizQuestions.length}`;
+  document.getElementById('quizQuestion').innerHTML = `${q.word} <span style="font-size: 13px; color: var(--accent-purple);">[Root: ${q.root}]</span>`;
+  
+  const options = [q.hindi];
+  while (options.length < 4) {
+    const rand = rootWordsDatabase[Math.floor(Math.random() * rootWordsDatabase.length)].hindi;
+    if (!options.includes(rand)) options.push(rand);
+  }
+  options.sort(() => 0.5 - Math.random());
+
+  const optionsContainer = document.getElementById('quizOptions');
+  optionsContainer.innerHTML = '';
+
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.innerHTML = `<span>${opt}</span> <i data-lucide="circle" style="width: 16px; height: 16px;"></i>`;
+    btn.onclick = () => selectQuizAnswer(btn, opt, q.hindi);
+    optionsContainer.appendChild(btn);
+  });
+
+  document.getElementById('quizFeedback').style.display = 'none';
+  document.getElementById('quizNextBtn').style.display = 'none';
+  lucide.createIcons();
+}
+
+function selectQuizAnswer(selectedBtn, selectedText, correctText) {
+  const allBtns = document.querySelectorAll('.quiz-option-btn');
+  allBtns.forEach(btn => btn.disabled = true);
+
+  const feedback = document.getElementById('quizFeedback');
+  feedback.style.display = 'block';
+
+  if (selectedText === correctText) {
+    selectedBtn.classList.add('correct');
+    quizScore += 1;
+    document.getElementById('quizScore').textContent = quizScore;
+    feedback.innerHTML = `<span style="color: #34d399;">✅ बिल्कुल सही जवाब! (Correct Answer)</span>`;
+  } else {
+    selectedBtn.classList.add('wrong');
+    allBtns.forEach(btn => {
+      if (btn.textContent.trim().startsWith(correctText)) {
+        btn.classList.add('correct');
+      }
+    });
+    feedback.innerHTML = `<span style="color: #fb7185;">❌ गलत उत्तर! सही उत्तर: <strong>${correctText}</strong></span>`;
+  }
+
+  document.getElementById('quizNextBtn').style.display = 'inline-flex';
+}
+
+function loadNextQuizQuestion() {
+  currentQuizIdx++;
+  loadQuizQuestion(currentQuizIdx);
+}
+</script>
+</body>
+</html>
