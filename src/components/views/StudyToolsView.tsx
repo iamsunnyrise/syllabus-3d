@@ -695,7 +695,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [gaSubject, gaSearch]);
 
   return (
-    <div className="w-full max-w-[1650px] mx-auto space-y-6 pb-28 pt-2 px-2 sm:px-4 animate-view-fade">
+    <div className="w-full max-w-[1650px] mx-auto space-y-6 pb-20 md:pb-10 pt-2 px-2 sm:px-4 animate-view-fade">
       
       {/* 🌟 Top Hero Portal Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-6 sm:p-8 shadow-xs">
@@ -1017,7 +1017,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
               
               {/* Left: Interactive Word Flashcard (Wider: col-span-9 lg, col-span-10 xl) */}
-              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-6 sm:p-8 md:p-9 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[380px]">
+              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-6 sm:p-8 md:p-9 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[480px] lg:min-h-[520px]">
                 <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 font-mono">
@@ -1174,9 +1174,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
 
               {/* Right: Vocabulary Explorer (Compact & Word-Only: col-span-3 lg, col-span-2 xl) */}
-              <div className="lg:col-span-3 xl:col-span-2 p-3 sm:p-3.5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3">
-                <div className="min-w-0">
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-white/10 gap-1">
+              <div className="lg:col-span-3 xl:col-span-2 p-3 sm:p-3.5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3 min-h-[480px] lg:min-h-[520px]">
+                <div className="min-w-0 flex-1 flex flex-col">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-white/10 gap-1 shrink-0">
                     <h3 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 min-w-0">
                       <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                       <span className="truncate">Vocabulary Explorer</span>
@@ -1186,7 +1186,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[440px] no-scrollbar mt-1 space-y-0.5">
+                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[500px] lg:max-h-[520px] flex-1 no-scrollbar mt-1 space-y-0.5">
                     {filteredVocab.map((item, idx) => {
                       const isSelected = activeCardIndex === idx;
                       const isMastered = masteredVocabIds.has(item.id);
@@ -1216,7 +1216,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </div>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded-2xl bg-amber-500/10 text-amber-800 dark:text-amber-300 text-[10px] leading-snug border border-amber-500/20">
+                <div className="p-2 sm:p-2.5 rounded-2xl bg-amber-500/10 text-amber-800 dark:text-amber-300 text-[10px] leading-snug border border-amber-500/20 shrink-0">
                   🎯 <strong>Pro Tip:</strong> Active recall by guessing the meaning before clicking "Flip" increases retention by 300%.
                 </div>
               </div>
