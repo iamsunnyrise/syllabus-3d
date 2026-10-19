@@ -211,14 +211,14 @@
      ═══════════════════════════════════════════════════════════════ */
 
   /* Tier 1: Pure Ivory Parchment Card Surfaces (Cards, Panels, Modals, Topic Rows) */
-  html.warm-cream .bg-white:not(aside):not(aside *),
-  html.warm-cream [class*="bg-white/"]:not(aside):not(aside *):not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
-  html.warm-cream .bg-\[\#121424\]:not(aside):not(aside *),
-  html.warm-cream .bg-\[\#151622\]:not(aside):not(aside *),
-  html.warm-cream .bg-\[\#181A2A\]:not(aside):not(aside *),
-  html.warm-cream .bg-\[\#131522\]:not(aside):not(aside *),
-  html.warm-cream .bg-\[\#0E101B\]:not(aside):not(aside *),
-  html.warm-cream .bg-\[\#11131F\]:not(aside):not(aside *) {
+  html.warm-cream .bg-white:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream [class*="bg-white/"]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
+  html.warm-cream .bg-\[\#121424\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .bg-\[\#151622\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .bg-\[\#181A2A\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .bg-\[\#131522\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .bg-\[\#0E101B\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .bg-\[\#11131F\]:not(aside):not(aside *):not(.study-hub-hero-banner *) {
     background-color: #FFFDF8 !important;
     border-color: #E2D1B3 !important;
     color: #38370D !important;
@@ -294,33 +294,33 @@
   /* ═══════════════════════════════════════════════════════════════
      TEXT & TYPOGRAPHY READABILITY (WCAG AAA Contrast System)
      ═══════════════════════════════════════════════════════════════ */
-  html.warm-cream .text-slate-900:not(aside):not(aside *),
-  html.warm-cream .text-slate-800:not(aside):not(aside *),
-  html.warm-cream .dark\:text-white:not(aside):not(aside *),
-  html.warm-cream .dark\:text-\[\#F5F5F7\]:not(aside):not(aside *),
-  html.warm-cream .dark\:text-\[\#F8FAFC\]:not(aside):not(aside *),
-  html.warm-cream h1:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h2:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h3:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h4:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h5:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h6:not(aside *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
+  html.warm-cream .text-slate-900:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-slate-800:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-white:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-\[\#F5F5F7\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-\[\#F8FAFC\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream h1:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h2:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h3:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h4:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h5:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h6:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
     color: #1C1B05 !important;
   }
 
-  html.warm-cream .text-slate-700:not(aside):not(aside *),
-  html.warm-cream .text-slate-600:not(aside):not(aside *),
-  html.warm-cream .dark\:text-slate-200:not(aside):not(aside *),
-  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *) {
+  html.warm-cream .text-slate-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-slate-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-slate-200:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *):not(.study-hub-hero-banner *) {
     color: #38370D !important;
   }
 
-  html.warm-cream .text-slate-500:not(aside):not(aside *),
-  html.warm-cream .text-slate-400:not(aside):not(aside *),
-  html.warm-cream .dark\:text-slate-400:not(aside):not(aside *),
-  html.warm-cream .dark\:text-slate-500:not(aside):not(aside *),
-  html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *),
-  html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *) {
+  html.warm-cream .text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
+  html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *):not(.study-hub-hero-banner *) {
     color: #5C5716 !important;
   }
 
@@ -2281,24 +2281,92 @@ html:not(.dark):not(.warm-cream) .study-hub-hero-banner {
 .study-hub-hero-banner h1,
 .study-hub-hero-banner .study-hub-banner-title {
   color: #FFFFFF !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
 }
 
 .study-hub-hero-banner p,
-.study-hub-hero-banner .study-hub-banner-subtitle {
-  color: #E2E8F0 !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+.study-hub-hero-banner .study-hub-banner-subtitle,
+html.warm-cream .study-hub-hero-banner p,
+html.warm-cream .study-hub-hero-banner .study-hub-banner-subtitle {
+  color: #F8F1DE !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85) !important;
+  opacity: 1 !important;
 }
 
-.study-hub-hero-banner .study-hub-tile-count {
+/* 4 KPI Bento Tiles: Deep Obsidian Glass with maximum contrast & zero light bleeds */
+.study-hub-hero-banner .study-hub-bento-tile,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile {
+  background: rgba(16, 14, 6, 0.78) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+.study-hub-hero-banner .study-hub-bento-tile:hover,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile:hover {
+  background: rgba(26, 23, 10, 0.90) !important;
+}
+
+/* Selected state for active category tile */
+.study-hub-hero-banner .study-hub-bento-tile.tile-active-course,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile.tile-active-course {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.40) 0%, rgba(88, 28, 135, 0.55) 100%) !important;
+  border-color: #C084FC !important;
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+.study-hub-hero-banner .study-hub-bento-tile.tile-active-test_series,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile.tile-active-test_series {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.40) 0%, rgba(3, 105, 161, 0.55) 100%) !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 8px 30px rgba(14, 165, 233, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+.study-hub-hero-banner .study-hub-bento-tile.tile-active-pinned,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile.tile-active-pinned {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.40) 0%, rgba(180, 83, 9, 0.55) 100%) !important;
+  border-color: #FBBF24 !important;
+  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+.study-hub-hero-banner .study-hub-bento-tile.tile-active-custom,
+html.warm-cream .study-hub-hero-banner .study-hub-bento-tile.tile-active-custom {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.40) 0%, rgba(4, 120, 87, 0.55) 100%) !important;
+  border-color: #34D399 !important;
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Big Crisp Metric Count (Guaranteed 100% white & zero-defect) */
+.study-hub-hero-banner .study-hub-tile-count,
+html.warm-cream .study-hub-hero-banner .study-hub-tile-count {
   color: #FFFFFF !important;
+  font-weight: 900 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85) !important;
   font-feature-settings: 'zero' 0 !important;
   -webkit-font-feature-settings: 'zero' 0 !important;
 }
 
-.study-hub-hero-banner .study-hub-bento-tile {
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+/* Tile Labels: Ultra-vivid, high legibility */
+.study-hub-hero-banner .study-hub-tile-label,
+html.warm-cream .study-hub-hero-banner .study-hub-tile-label {
+  font-weight: 800 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75) !important;
+}
+.study-hub-hero-banner .tile-label-course,
+html.warm-cream .study-hub-hero-banner .tile-label-course { color: #E9D5FF !important; }
+.study-hub-hero-banner .tile-label-test_series,
+html.warm-cream .study-hub-hero-banner .tile-label-test_series { color: #BAE6FD !important; }
+.study-hub-hero-banner .tile-label-pinned,
+html.warm-cream .study-hub-hero-banner .tile-label-pinned { color: #FDE68A !important; }
+.study-hub-hero-banner .tile-label-custom,
+html.warm-cream .study-hub-hero-banner .tile-label-custom { color: #A7F3D0 !important; }
+
+/* Tile Sub-labels */
+.study-hub-hero-banner .study-hub-tile-sublabel,
+html.warm-cream .study-hub-hero-banner .study-hub-tile-sublabel {
+  color: #CBD5E1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  opacity: 0.95 !important;
 }
 
 /* Ensure pill badge text & bg look sharp across all themes */
@@ -2306,9 +2374,14 @@ html:not(.dark):not(.warm-cream) .study-hub-hero-banner {
   text-shadow: none !important;
 }
 html.warm-cream .study-hub-hero-banner .study-hub-pill-badge {
-  background-color: rgba(18, 17, 4, 0.85) !important;
-  border-color: rgba(225, 168, 55, 0.4) !important;
+  background-color: rgba(18, 17, 4, 0.88) !important;
+  border-color: rgba(225, 168, 55, 0.45) !important;
   color: #FAEED9 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+}
+.study-hub-hero-banner .study-hub-pill-badge strong,
+html.warm-cream .study-hub-hero-banner .study-hub-pill-badge strong {
+  color: #FFFFFF !important;
 }
 html:not(.warm-cream) .study-hub-hero-banner .study-hub-pill-badge {
   background-color: rgba(255, 255, 255, 0.08) !important;

@@ -669,12 +669,18 @@ export const PlatformsView: React.FC = () => {
               </div>
               <div>
                 <h1 className="study-hub-banner-title text-xl sm:text-2xl md:text-3xl font-black text-white font-sans tracking-tight leading-tight flex items-center gap-2.5">
-                  <span>Study Station</span>
-                  <span className="text-[10px] sm:text-xs font-bold font-mono px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-white/90 uppercase tracking-wider hidden xs:inline-block">
+                  <span style={{ color: '#FFFFFF', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>Study Station</span>
+                  <span
+                    className="text-[10px] sm:text-xs font-bold font-mono px-2 py-0.5 rounded-md bg-white/10 border border-white/20 uppercase tracking-wider hidden xs:inline-block"
+                    style={{ color: '#FFFFFF' }}
+                  >
                     HUB
                   </span>
                 </h1>
-                <p className="text-xs sm:text-[13px] text-slate-300 dark:text-slate-300 font-normal leading-snug mt-0.5 max-w-md opacity-90">
+                <p
+                  className="study-hub-banner-subtitle text-xs sm:text-[13px] font-medium leading-snug mt-1 max-w-md"
+                  style={{ color: '#F8F1DE', textShadow: '0 1px 4px rgba(0,0,0,0.85)' }}
+                >
                   Your unified cockpit for coaching portals, test series & study tools.
                 </p>
               </div>
@@ -704,31 +710,41 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('course')}
             title="Filter by Courses (Video Batches & Lectures)"
-            className={`study-hub-bento-tile p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border backdrop-blur-xl ${
-              selectedCategory === 'course'
-                ? 'bg-gradient-to-br from-purple-600/35 via-purple-500/25 to-indigo-600/35 border-purple-400 shadow-[0_8px_25px_rgba(168,85,247,0.35)] ring-2 ring-purple-400/40 -translate-y-0.5'
-                : 'bg-white/[0.04] hover:bg-white/[0.08] border-purple-500/25 hover:border-purple-400/50 shadow-sm hover:-translate-y-0.5'
-            }`}
+            className={`study-hub-bento-tile ${selectedCategory === 'course' ? 'tile-active-course ring-2 ring-purple-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-purple-500/30 hover:border-purple-400/60 shadow-md backdrop-blur-xl`}
+            style={{
+              backgroundColor: selectedCategory === 'course' ? 'rgba(88, 28, 135, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+            }}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 text-purple-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-purple-400/30 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-600/35 text-purple-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-purple-400/40 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
               <GraduationCap className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1">
                 <span
-                  className="study-hub-tile-count text-lg sm:text-2xl font-black font-sans tabular-nums text-white block leading-tight"
-                  style={{ fontFeatureSettings: "'zero' 0", fontVariantNumeric: 'normal' }}
+                  className="study-hub-tile-count text-2xl sm:text-3xl font-black font-sans tabular-nums block leading-tight"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.9)',
+                    fontFeatureSettings: "'zero' 0",
+                    fontVariantNumeric: 'normal'
+                  }}
                 >
                   {coursesCount}
                 </span>
                 {selectedCategory === 'course' && (
-                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_8px_#C084FC] animate-pulse" />
                 )}
               </div>
-              <span className="text-xs font-bold text-purple-200 block truncate leading-tight">
+              <span
+                className="study-hub-tile-label tile-label-course text-xs sm:text-sm font-extrabold block truncate leading-tight mt-0.5"
+                style={{ color: '#E9D5FF' }}
+              >
                 Courses
               </span>
-              <span className="text-[10px] text-purple-300/60 block truncate font-medium">
+              <span
+                className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
+                style={{ color: '#CBD5E1' }}
+              >
                 Video Batches
               </span>
             </div>
@@ -738,31 +754,41 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('test_series')}
             title="Filter by Mock Series & Test Portals"
-            className={`study-hub-bento-tile p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border backdrop-blur-xl ${
-              selectedCategory === 'test_series'
-                ? 'bg-gradient-to-br from-sky-600/35 via-sky-500/25 to-blue-600/35 border-sky-400 shadow-[0_8px_25px_rgba(14,165,233,0.35)] ring-2 ring-sky-400/40 -translate-y-0.5'
-                : 'bg-white/[0.04] hover:bg-white/[0.08] border-sky-500/25 hover:border-sky-400/50 shadow-sm hover:-translate-y-0.5'
-            }`}
+            className={`study-hub-bento-tile ${selectedCategory === 'test_series' ? 'tile-active-test_series ring-2 ring-sky-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-sky-500/30 hover:border-sky-400/60 shadow-md backdrop-blur-xl`}
+            style={{
+              backgroundColor: selectedCategory === 'test_series' ? 'rgba(3, 105, 161, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+            }}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-sky-500/30 to-sky-600/20 text-sky-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-sky-400/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-600/35 text-sky-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-sky-400/40 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
               <FileCheck2 className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1">
                 <span
-                  className="study-hub-tile-count text-lg sm:text-2xl font-black font-sans tabular-nums text-white block leading-tight"
-                  style={{ fontFeatureSettings: "'zero' 0", fontVariantNumeric: 'normal' }}
+                  className="study-hub-tile-count text-2xl sm:text-3xl font-black font-sans tabular-nums block leading-tight"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.9)',
+                    fontFeatureSettings: "'zero' 0",
+                    fontVariantNumeric: 'normal'
+                  }}
                 >
                   {testsCount}
                 </span>
                 {selectedCategory === 'test_series' && (
-                  <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38BDF8] animate-pulse" />
                 )}
               </div>
-              <span className="text-xs font-bold text-sky-200 block truncate leading-tight">
+              <span
+                className="study-hub-tile-label tile-label-test_series text-xs sm:text-sm font-extrabold block truncate leading-tight mt-0.5"
+                style={{ color: '#BAE6FD' }}
+              >
                 Mock Series
               </span>
-              <span className="text-[10px] text-sky-300/60 block truncate font-medium">
+              <span
+                className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
+                style={{ color: '#CBD5E1' }}
+              >
                 Test Portals
               </span>
             </div>
@@ -772,31 +798,41 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('pinned')}
             title="Filter by Pinned Platforms (Priority Access)"
-            className={`study-hub-bento-tile p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border backdrop-blur-xl ${
-              selectedCategory === 'pinned'
-                ? 'bg-gradient-to-br from-amber-600/35 via-amber-500/25 to-orange-600/35 border-amber-400 shadow-[0_8px_25px_rgba(245,158,11,0.35)] ring-2 ring-amber-400/40 -translate-y-0.5'
-                : 'bg-white/[0.04] hover:bg-white/[0.08] border-amber-500/25 hover:border-amber-400/50 shadow-sm hover:-translate-y-0.5'
-            }`}
+            className={`study-hub-bento-tile ${selectedCategory === 'pinned' ? 'tile-active-pinned ring-2 ring-amber-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-amber-500/30 hover:border-amber-400/60 shadow-md backdrop-blur-xl`}
+            style={{
+              backgroundColor: selectedCategory === 'pinned' ? 'rgba(180, 83, 9, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+            }}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500/30 to-amber-600/20 text-amber-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-amber-400/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-600/35 text-amber-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
               <Bookmark className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1">
                 <span
-                  className="study-hub-tile-count text-lg sm:text-2xl font-black font-sans tabular-nums text-white block leading-tight"
-                  style={{ fontFeatureSettings: "'zero' 0", fontVariantNumeric: 'normal' }}
+                  className="study-hub-tile-count text-2xl sm:text-3xl font-black font-sans tabular-nums block leading-tight"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.9)',
+                    fontFeatureSettings: "'zero' 0",
+                    fontVariantNumeric: 'normal'
+                  }}
                 >
                   {pinnedCount}
                 </span>
                 {selectedCategory === 'pinned' && (
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#FBBF24] animate-pulse" />
                 )}
               </div>
-              <span className="text-xs font-bold text-amber-200 block truncate leading-tight">
+              <span
+                className="study-hub-tile-label tile-label-pinned text-xs sm:text-sm font-extrabold block truncate leading-tight mt-0.5"
+                style={{ color: '#FDE68A' }}
+              >
                 Pinned
               </span>
-              <span className="text-[10px] text-amber-300/60 block truncate font-medium">
+              <span
+                className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
+                style={{ color: '#CBD5E1' }}
+              >
                 Fast Access
               </span>
             </div>
@@ -806,31 +842,41 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('custom')}
             title="Filter by Custom Added Portals"
-            className={`study-hub-bento-tile p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border backdrop-blur-xl ${
-              selectedCategory === 'custom'
-                ? 'bg-gradient-to-br from-emerald-600/35 via-emerald-500/25 to-teal-600/35 border-emerald-400 shadow-[0_8px_25px_rgba(16,185,129,0.35)] ring-2 ring-emerald-400/40 -translate-y-0.5'
-                : 'bg-white/[0.04] hover:bg-white/[0.08] border-emerald-500/25 hover:border-emerald-400/50 shadow-sm hover:-translate-y-0.5'
-            }`}
+            className={`study-hub-bento-tile ${selectedCategory === 'custom' ? 'tile-active-custom ring-2 ring-emerald-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-emerald-500/30 hover:border-emerald-400/60 shadow-md backdrop-blur-xl`}
+            style={{
+              backgroundColor: selectedCategory === 'custom' ? 'rgba(4, 120, 87, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+            }}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-emerald-500/30 to-emerald-600/20 text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-600/35 text-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
               <PenTool className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1">
                 <span
-                  className="study-hub-tile-count text-lg sm:text-2xl font-black font-sans tabular-nums text-white block leading-tight"
-                  style={{ fontFeatureSettings: "'zero' 0", fontVariantNumeric: 'normal' }}
+                  className="study-hub-tile-count text-2xl sm:text-3xl font-black font-sans tabular-nums block leading-tight"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.9)',
+                    fontFeatureSettings: "'zero' 0",
+                    fontVariantNumeric: 'normal'
+                  }}
                 >
                   {customCount}
                 </span>
                 {selectedCategory === 'custom' && (
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399] animate-pulse" />
                 )}
               </div>
-              <span className="text-xs font-bold text-emerald-200 block truncate leading-tight">
+              <span
+                className="study-hub-tile-label tile-label-custom text-xs sm:text-sm font-extrabold block truncate leading-tight mt-0.5"
+                style={{ color: '#A7F3D0' }}
+              >
                 Custom
               </span>
-              <span className="text-[10px] text-emerald-300/60 block truncate font-medium">
+              <span
+                className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
+                style={{ color: '#CBD5E1' }}
+              >
                 Personal Tools
               </span>
             </div>
