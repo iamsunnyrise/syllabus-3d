@@ -1,10 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Calculator, Save, AlertCircle, HelpCircle, Plus, X, Check, Target, Zap, Clock, ShieldCheck, FileText, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { 
+  Calculator, 
+  Save, 
+  AlertCircle, 
+  HelpCircle, 
+  Plus, 
+  X, 
+  Check, 
+  Target, 
+  Zap, 
+  Clock, 
+  ShieldCheck, 
+  FileText, 
+  Sparkles,
+  Sliders,
+  CheckCircle2,
+  Award,
+  ChevronDown,
+  Layers
+} from 'lucide-react';
 import { Modal } from '../common/Modal';
 import { useMocks } from '../../../context/MockContext';
-import { MockTest, ExamType, ExamTier, MockTestType, SectionPerformance, SectionName } from '../../../types/mockTracker';
+import { MockTest, ExamType, ExamTier, MockTestType, SectionPerformance, SectionName, NegativeMarkingRatio } from '../../../types/mockTracker';
 import { DEFAULT_PLATFORMS } from '../../../data/mockStorageService';
-import { validateMockTestData, calculateSectionMetrics } from '../../../utils/mockCalculations';
+import { validateMockTestData, calculateSectionMetrics, calculateNegativePenalty } from '../../../utils/mockCalculations';
+import { EXAM_PRESETS, findExamPreset, findTierPreset, ExamPreset, ExamTierPreset } from '../../../data/examPresets';
 
 interface SectionDraft {
   sectionName: SectionName;
@@ -16,13 +36,18 @@ interface SectionDraft {
   timeTakenMinutes: number;
   maxMarks: number;
   score: number;
+  marksPerCorrect?: number;
+  negativeMarksPerWrong?: number;
+  timeLimitMinutes?: number;
+  cutoffMarks?: number;
+  isQualifying?: boolean;
 }
 
 const DEFAULT_SSC_SECTIONS: SectionDraft[] = [
-  { sectionName: 'General Intelligence & Reasoning', totalQuestions: 25, attempted: 25, correct: 24, wrong: 1, timeTakenMinutes: 14, maxMarks: 50, score: 47.5 },
-  { sectionName: 'General Awareness', totalQuestions: 25, attempted: 18, correct: 13, wrong: 5, timeTakenMinutes: 7, maxMarks: 50, score: 23.5 },
-  { sectionName: 'Quantitative Aptitude', totalQuestions: 25, attempted: 20, correct: 17, wrong: 3, timeTakenMinutes: 26, maxMarks: 50, score: 32.5 },
-  { sectionName: 'English Comprehension', totalQuestions: 25, attempted: 22, correct: 20, wrong: 2, timeTakenMinutes: 12, maxMarks: 50, score: 39.0 }
+  { sectionName: 'General Intelligence & Reasoning', totalQuestions: 25, attempted: 25, correct: 24, wrong: 1, timeTakenMinutes: 14, maxMarks: 50, score: 47.5, marksPerCorrect: 2, negativeMarksPerWrong: 0.5 },
+  { sectionName: 'General Awareness', totalQuestions: 25, attempted: 18, correct: 13, wrong: 5, timeTakenMinutes: 7, maxMarks: 50, score: 23.5, marksPerCorrect: 2, negativeMarksPerWrong: 0.5 },
+  { sectionName: 'Quantitative Aptitude', totalQuestions: 25, attempted: 20, correct: 17, wrong: 3, timeTakenMinutes: 26, maxMarks: 50, score: 32.5, marksPerCorrect: 2, negativeMarksPerWrong: 0.5 },
+  { sectionName: 'English Comprehension', totalQuestions: 25, attempted: 22, correct: 20, wrong: 2, timeTakenMinutes: 12, maxMarks: 50, score: 39.0, marksPerCorrect: 2, negativeMarksPerWrong: 0.5 }
 ];
 
 export const AddEditMockModal: React.FC = () => {
@@ -42,6 +67,7 @@ export const AddEditMockModal: React.FC = () => {
   const [testName, setTestName] = useState('');
   const [exam, setExam] = useState<ExamType>('SSC CGL');
   const [tier, setTier] = useState<ExamTier>('Tier 1');
+  const [examCategory, setExamCategory] = useState<'All' | 'SSC' | 'Banking' | 'Railways' | 'Defence' | 'Custom'>('All');
   const [mockType, setMockType] = useState<MockTestType>('FULL_LENGTH');
   const [subjectName, setSubjectName] = useState<SectionName>('Quantitative Aptitude');
   const [chapterName, setChapterName] = useState<string>('Percentage & Fractional Values');
@@ -53,6 +79,19 @@ export const AddEditMockModal: React.FC = () => {
   const [isAddingCustomPlatform, setIsAddingCustomPlatform] = useState(false);
   const [customPlatformInput, setCustomPlatformInput] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
+  // Marking Scheme & Multi-Exam State
+  const [marksPerCorrect, setMarksPerCorrect] = useState<number>(2.0);
+  const [negativeRatio, setNegativeRatio] = useState<NegativeMarkingRatio>('1/4');
+  const [customNegativeMarks, setCustomNegativeMarks] = useState<number>(0.50);
+  const [hasSectionalTimers, setHasSectionalTimers] = useState<boolean>(false);
+  const [hasTypingTest, setHasTypingTest] = useState<boolean>(false);
+  const [hasDescriptive, setHasDescriptive] = useState<boolean>(false);
+  const [typingSpeedWpm, setTypingSpeedWpm] = useState<number>(0);
+  const [typingAccuracy, setTypingAccuracy] = useState<number>(100);
+  const [typingKeystrokes, setTypingKeystrokes] = useState<number>(0);
+  const [descriptiveScore, setDescriptiveScore] = useState<number>(0);
+  const [descriptiveMaxMarks, setDescriptiveMaxMarks] = useState<number>(25);
 
   const [totalQuestions, setTotalQuestions] = useState(100);
   const [maxMarks, setMaxMarks] = useState(200);
@@ -119,17 +158,156 @@ export const AddEditMockModal: React.FC = () => {
         setTestName(`${subjectName} Sectional Drill #${Math.floor(Math.random() * 90 + 10)}`);
       }
     } else if (type === 'FULL_LENGTH') {
-      setTotalQuestions(100);
-      setMaxMarks(200);
-      setTotalTimeMinutes(60);
-      setTimeTakenMinutes(58);
-      setAttempted(85);
-      setCorrect(74);
-      setWrong(11);
-      setCutoffMarks(135);
+      setMockType('FULL_LENGTH');
+      // If we have an active preset, re-apply it
+      const preset = findExamPreset(exam) || EXAM_PRESETS[0];
+      const tierPreset = preset.tiers.find(t => t.tier === tier) || preset.tiers[0];
+      setTotalQuestions(tierPreset.totalQuestions);
+      setMaxMarks(tierPreset.maxMarks);
+      setTotalTimeMinutes(tierPreset.totalTimeMinutes);
+      setTimeTakenMinutes(Math.round(tierPreset.totalTimeMinutes * 0.95));
+      setMarksPerCorrect(tierPreset.marksPerCorrect);
+      setNegativeRatio(tierPreset.negativeRatio);
+      setCustomNegativeMarks(tierPreset.customNegativeMarks ?? tierPreset.negativeMarksPerWrong);
+      setHasSectionalTimers(!!tierPreset.hasSectionalTimers);
+      setHasTypingTest(!!tierPreset.hasTypingTest);
+      setHasDescriptive(!!tierPreset.hasDescriptive);
+
+      const defSections: SectionDraft[] = tierPreset.sections.map(s => {
+        const defAtt = Math.round(s.totalQuestions * 0.85);
+        const defCorr = Math.round(defAtt * 0.82);
+        const defWrong = defAtt - defCorr;
+        const score = Math.max(-s.maxMarks, Number((defCorr * s.marksPerCorrect - defWrong * s.negativeMarksPerWrong).toFixed(2)));
+        return {
+          sectionName: s.sectionName,
+          customName: s.customName,
+          totalQuestions: s.totalQuestions,
+          attempted: defAtt,
+          correct: defCorr,
+          wrong: defWrong,
+          timeTakenMinutes: s.timeLimitMinutes || Math.round(tierPreset.totalTimeMinutes / tierPreset.sections.length),
+          maxMarks: s.maxMarks,
+          score,
+          marksPerCorrect: s.marksPerCorrect,
+          negativeMarksPerWrong: s.negativeMarksPerWrong,
+          timeLimitMinutes: s.timeLimitMinutes,
+          cutoffMarks: s.cutoffMarks,
+          isQualifying: s.isQualifying
+        };
+      });
+      setSections(defSections);
+      setAttempted(defSections.reduce((a, s) => a + s.attempted, 0));
+      setCorrect(defSections.reduce((a, s) => a + s.correct, 0));
+      setWrong(defSections.reduce((a, s) => a + s.wrong, 0));
+      setCutoffMarks(Math.round(tierPreset.maxMarks * 0.65));
       setPercentile(92.5);
       if (!editingMock) {
-        setTestName(`SSC CGL Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
+        setTestName(`${exam} ${tierPreset.tierLabel} Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
+      }
+    }
+  };
+
+  const handleSelectExamAndTier = (examName: ExamType, tierName?: ExamTier) => {
+    setExam(examName);
+    const preset = findExamPreset(examName);
+    if (preset) {
+      setExamCategory(preset.category);
+      const tierPreset = tierName 
+        ? (preset.tiers.find(t => t.tier === tierName) || preset.tiers[0])
+        : preset.tiers[0];
+      
+      setTier(tierPreset.tier);
+      setTotalQuestions(tierPreset.totalQuestions);
+      setMaxMarks(tierPreset.maxMarks);
+      setTotalTimeMinutes(tierPreset.totalTimeMinutes);
+      setTimeTakenMinutes(Math.round(tierPreset.totalTimeMinutes * 0.95));
+      setMarksPerCorrect(tierPreset.marksPerCorrect);
+      setNegativeRatio(tierPreset.negativeRatio);
+      setCustomNegativeMarks(tierPreset.customNegativeMarks ?? tierPreset.negativeMarksPerWrong);
+      setHasSectionalTimers(!!tierPreset.hasSectionalTimers);
+      setHasTypingTest(!!tierPreset.hasTypingTest);
+      setHasDescriptive(!!tierPreset.hasDescriptive);
+
+      const defSections: SectionDraft[] = tierPreset.sections.map(s => {
+        const defAtt = Math.round(s.totalQuestions * 0.85);
+        const defCorr = Math.round(defAtt * 0.82);
+        const defWrong = defAtt - defCorr;
+        const score = Math.max(-s.maxMarks, Number((defCorr * s.marksPerCorrect - defWrong * s.negativeMarksPerWrong).toFixed(2)));
+        return {
+          sectionName: s.sectionName,
+          customName: s.customName,
+          totalQuestions: s.totalQuestions,
+          attempted: defAtt,
+          correct: defCorr,
+          wrong: defWrong,
+          timeTakenMinutes: s.timeLimitMinutes || Math.round(tierPreset.totalTimeMinutes / tierPreset.sections.length),
+          maxMarks: s.maxMarks,
+          score,
+          marksPerCorrect: s.marksPerCorrect,
+          negativeMarksPerWrong: s.negativeMarksPerWrong,
+          timeLimitMinutes: s.timeLimitMinutes,
+          cutoffMarks: s.cutoffMarks,
+          isQualifying: s.isQualifying
+        };
+      });
+      setSections(defSections);
+      setAttempted(defSections.reduce((a, s) => a + s.attempted, 0));
+      setCorrect(defSections.reduce((a, s) => a + s.correct, 0));
+      setWrong(defSections.reduce((a, s) => a + s.wrong, 0));
+      setCutoffMarks(Math.round(tierPreset.maxMarks * 0.65));
+
+      if (!editingMock) {
+        setTestName(`${preset.exam} ${tierPreset.tierLabel} Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
+      }
+    }
+  };
+
+  const handleTierSwitch = (newTier: ExamTier) => {
+    setTier(newTier);
+    const preset = findExamPreset(exam);
+    if (preset) {
+      const tierPreset = preset.tiers.find(t => t.tier === newTier) || preset.tiers[0];
+      setTotalQuestions(tierPreset.totalQuestions);
+      setMaxMarks(tierPreset.maxMarks);
+      setTotalTimeMinutes(tierPreset.totalTimeMinutes);
+      setTimeTakenMinutes(Math.round(tierPreset.totalTimeMinutes * 0.95));
+      setMarksPerCorrect(tierPreset.marksPerCorrect);
+      setNegativeRatio(tierPreset.negativeRatio);
+      setCustomNegativeMarks(tierPreset.customNegativeMarks ?? tierPreset.negativeMarksPerWrong);
+      setHasSectionalTimers(!!tierPreset.hasSectionalTimers);
+      setHasTypingTest(!!tierPreset.hasTypingTest);
+      setHasDescriptive(!!tierPreset.hasDescriptive);
+
+      const defSections: SectionDraft[] = tierPreset.sections.map(s => {
+        const defAtt = Math.round(s.totalQuestions * 0.85);
+        const defCorr = Math.round(defAtt * 0.82);
+        const defWrong = defAtt - defCorr;
+        const score = Math.max(-s.maxMarks, Number((defCorr * s.marksPerCorrect - defWrong * s.negativeMarksPerWrong).toFixed(2)));
+        return {
+          sectionName: s.sectionName,
+          customName: s.customName,
+          totalQuestions: s.totalQuestions,
+          attempted: defAtt,
+          correct: defCorr,
+          wrong: defWrong,
+          timeTakenMinutes: s.timeLimitMinutes || Math.round(tierPreset.totalTimeMinutes / tierPreset.sections.length),
+          maxMarks: s.maxMarks,
+          score,
+          marksPerCorrect: s.marksPerCorrect,
+          negativeMarksPerWrong: s.negativeMarksPerWrong,
+          timeLimitMinutes: s.timeLimitMinutes,
+          cutoffMarks: s.cutoffMarks,
+          isQualifying: s.isQualifying
+        };
+      });
+      setSections(defSections);
+      setAttempted(defSections.reduce((a, s) => a + s.attempted, 0));
+      setCorrect(defSections.reduce((a, s) => a + s.correct, 0));
+      setWrong(defSections.reduce((a, s) => a + s.wrong, 0));
+      setCutoffMarks(Math.round(tierPreset.maxMarks * 0.65));
+
+      if (!editingMock) {
+        setTestName(`${exam} ${tierPreset.tierLabel} Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
       }
     }
   };
@@ -159,6 +337,23 @@ export const AddEditMockModal: React.FC = () => {
       setCutoffMarks(editingMock.cutoffMarks);
       setAnalysisNotes(editingMock.analysisNotes || '');
 
+      setMarksPerCorrect(editingMock.marksPerCorrect ?? (editingMock.maxMarks / (editingMock.totalQuestions || 1)));
+      setNegativeRatio(editingMock.negativeRatio || '1/4');
+      setCustomNegativeMarks(editingMock.customNegativeMarks ?? (editingMock.marksPerCorrect ? editingMock.marksPerCorrect * 0.25 : 0.5));
+      setHasSectionalTimers(!!editingMock.hasSectionalTimers);
+      setHasTypingTest(editingMock.typingSpeedWpm !== undefined && editingMock.typingSpeedWpm > 0);
+      setHasDescriptive(editingMock.descriptiveScore !== undefined && editingMock.descriptiveScore > 0);
+      setTypingSpeedWpm(editingMock.typingSpeedWpm || 0);
+      setTypingAccuracy(editingMock.typingAccuracy || 100);
+      setTypingKeystrokes(editingMock.typingKeystrokes || 0);
+      setDescriptiveScore(editingMock.descriptiveScore || 0);
+      setDescriptiveMaxMarks(editingMock.descriptiveMaxMarks || 25);
+
+      const matchedPreset = findExamPreset(editingMock.exam);
+      if (matchedPreset) {
+        setExamCategory(matchedPreset.category);
+      }
+
       if (editingMock.sections && editingMock.sections.length > 0) {
         setSections(editingMock.sections.map(s => ({
           sectionName: s.sectionName,
@@ -169,13 +364,19 @@ export const AddEditMockModal: React.FC = () => {
           wrong: s.wrong,
           timeTakenMinutes: s.timeTakenMinutes,
           maxMarks: s.maxMarks,
-          score: s.score
+          score: s.score,
+          marksPerCorrect: s.marksPerCorrect,
+          negativeMarksPerWrong: s.negativeMarksPerWrong,
+          timeLimitMinutes: s.timeLimitMinutes,
+          cutoffMarks: s.cutoffMarks,
+          isQualifying: s.isQualifying
         })));
       }
     } else {
-      setTestName(`SSC CGL Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
+      setTestName(`SSC CGL Tier 1 Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
       setExam('SSC CGL');
       setTier('Tier 1');
+      setExamCategory('SSC');
       setMockType('FULL_LENGTH');
       setSubjectName('Quantitative Aptitude');
       setChapterName('Percentage & Fractional Values');
@@ -190,6 +391,17 @@ export const AddEditMockModal: React.FC = () => {
       setAttempted(85);
       setCorrect(74);
       setWrong(11);
+      setMarksPerCorrect(2.0);
+      setNegativeRatio('1/4');
+      setCustomNegativeMarks(0.50);
+      setHasSectionalTimers(false);
+      setHasTypingTest(false);
+      setHasDescriptive(false);
+      setTypingSpeedWpm(0);
+      setTypingAccuracy(100);
+      setTypingKeystrokes(0);
+      setDescriptiveScore(0);
+      setDescriptiveMaxMarks(25);
       setPercentile(92.5);
       setRank(1520);
       setTotalStudents(19000);
@@ -204,10 +416,12 @@ export const AddEditMockModal: React.FC = () => {
   const unattempted = Math.max(0, totalQuestions - attempted);
   const accuracy = attempted > 0 ? Number(((correct / attempted) * 100).toFixed(1)) : 0;
   const attemptRate = totalQuestions > 0 ? Number(((attempted / totalQuestions) * 100).toFixed(1)) : 0;
-  const marksPerQuestion = maxMarks / (totalQuestions || 1);
-  const negativeDeductionPerWrong = marksPerQuestion * 0.25;
+  
+  // DYNAMIC MARKING ENGINE
+  const effectiveMarksPerCorrect = marksPerCorrect > 0 ? marksPerCorrect : (maxMarks / (totalQuestions || 1));
+  const negativeDeductionPerWrong = calculateNegativePenalty(effectiveMarksPerCorrect, negativeRatio, customNegativeMarks);
   const calculatedNegativeMarks = Number((wrong * negativeDeductionPerWrong).toFixed(2));
-  const calculatedScore = Number(Math.max(-maxMarks, (correct * marksPerQuestion - calculatedNegativeMarks)).toFixed(2));
+  const calculatedScore = Number(Math.max(-maxMarks, (correct * effectiveMarksPerCorrect - calculatedNegativeMarks)).toFixed(2));
 
   const syncFromSections = () => {
     const sumTotalQ = sections.reduce((a, s) => a + s.totalQuestions, 0);
@@ -229,13 +443,15 @@ export const AddEditMockModal: React.FC = () => {
     const updated = [...sections];
     updated[index] = { ...updated[index], [field]: value };
 
-    const marksPerQ = updated[index].totalQuestions > 0 ? updated[index].maxMarks / updated[index].totalQuestions : 2;
+    const secMarksPerQ = updated[index].marksPerCorrect ?? (updated[index].totalQuestions > 0 ? updated[index].maxMarks / updated[index].totalQuestions : effectiveMarksPerCorrect);
+    const secNegDeduction = updated[index].negativeMarksPerWrong ?? calculateNegativePenalty(secMarksPerQ, negativeRatio, customNegativeMarks);
+    
     const metrics = calculateSectionMetrics(
       updated[index].totalQuestions,
       updated[index].correct,
       updated[index].wrong,
-      marksPerQ,
-      marksPerQ * 0.25,
+      secMarksPerQ,
+      secNegDeduction,
       updated[index].timeTakenMinutes
     );
 
@@ -255,7 +471,9 @@ export const AddEditMockModal: React.FC = () => {
         wrong: 2,
         timeTakenMinutes: 15,
         maxMarks: 50,
-        score: 35.0
+        score: 35.0,
+        marksPerCorrect: effectiveMarksPerCorrect,
+        negativeMarksPerWrong: negativeDeductionPerWrong
       }
     ]);
   };
@@ -265,14 +483,26 @@ export const AddEditMockModal: React.FC = () => {
     setSections(prev => prev.filter((_, i) => i !== index));
   };
 
+  const currentExamPreset = useMemo(() => findExamPreset(exam), [exam]);
+  const currentTierPreset = useMemo(() => {
+    if (!currentExamPreset) return null;
+    return currentExamPreset.tiers.find(t => t.tier === tier) || currentExamPreset.tiers[0];
+  }, [currentExamPreset, tier]);
+
+  const filteredExamPresets = useMemo(() => {
+    if (examCategory === 'All') return EXAM_PRESETS;
+    return EXAM_PRESETS.filter(p => p.category === examCategory);
+  }, [examCategory]);
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     
     let formattedSections: SectionPerformance[] = [];
     if (!isSingleMode) {
       formattedSections = sections.map((s, idx) => {
-        const marksPerQ = s.totalQuestions > 0 ? s.maxMarks / s.totalQuestions : 2;
-        const metrics = calculateSectionMetrics(s.totalQuestions, s.correct, s.wrong, marksPerQ, marksPerQ * 0.25, s.timeTakenMinutes);
+        const secMarksPerQ = s.marksPerCorrect ?? (s.totalQuestions > 0 ? s.maxMarks / s.totalQuestions : effectiveMarksPerCorrect);
+        const secNegDeduction = s.negativeMarksPerWrong ?? calculateNegativePenalty(secMarksPerQ, negativeRatio, customNegativeMarks);
+        const metrics = calculateSectionMetrics(s.totalQuestions, s.correct, s.wrong, secMarksPerQ, secNegDeduction, s.timeTakenMinutes);
         return {
           id: `sec-${Date.now()}-${idx}`,
           mockId: editingMock?.id || 'temp',
@@ -287,6 +517,12 @@ export const AddEditMockModal: React.FC = () => {
           score: metrics.score,
           accuracy: metrics.accuracy,
           timeTakenMinutes: s.timeTakenMinutes,
+          timeLimitMinutes: s.timeLimitMinutes,
+          marksPerCorrect: secMarksPerQ,
+          negativeMarksPerWrong: secNegDeduction,
+          cutoffMarks: s.cutoffMarks,
+          isClearedCutoff: s.cutoffMarks ? metrics.score >= s.cutoffMarks : undefined,
+          isQualifying: s.isQualifying,
           status: metrics.accuracy >= 90 ? 'Mastered' : metrics.accuracy >= 75 ? 'Strong' : metrics.accuracy >= 60 ? 'Average' : 'Needs Improvement'
         };
       });
@@ -305,6 +541,8 @@ export const AddEditMockModal: React.FC = () => {
         score: calculatedScore,
         accuracy,
         timeTakenMinutes,
+        marksPerCorrect: effectiveMarksPerCorrect,
+        negativeMarksPerWrong: negativeDeductionPerWrong,
         status: accuracy >= 90 ? 'Mastered' : accuracy >= 75 ? 'Strong' : accuracy >= 60 ? 'Average' : 'Needs Improvement'
       }];
     }
@@ -342,8 +580,19 @@ export const AddEditMockModal: React.FC = () => {
         ? (topicFocus ? [topicFocus] : (chapterName ? [chapterName] : []))
         : isSectional 
           ? (topicFocus ? [topicFocus] : [])
-          : formattedSections.filter(s => s.accuracy < 75).map(s => `${s.sectionName} Accuracy`),
-      analysisNotes
+          : formattedSections.filter(s => s.accuracy < 75).map(s => `${s.customName || s.sectionName} Accuracy`),
+      analysisNotes,
+
+      // Multi-exam & Marking Schemes
+      negativeRatio,
+      marksPerCorrect: effectiveMarksPerCorrect,
+      customNegativeMarks: negativeRatio === 'CUSTOM' ? customNegativeMarks : undefined,
+      hasSectionalTimers,
+      typingSpeedWpm: hasTypingTest ? typingSpeedWpm : undefined,
+      typingAccuracy: hasTypingTest ? typingAccuracy : undefined,
+      typingKeystrokes: hasTypingTest ? typingKeystrokes : undefined,
+      descriptiveScore: hasDescriptive ? descriptiveScore : undefined,
+      descriptiveMaxMarks: hasDescriptive ? descriptiveMaxMarks : undefined
     };
 
     const validation = validateMockTestData(mockPayload);
@@ -819,23 +1068,29 @@ export const AddEditMockModal: React.FC = () => {
               </div>
             </div>
 
-            {/* Exam, Tier, Date */}
-            <div className="grid grid-cols-3 gap-4">
+            {/* Exam, Tier, Date & Marking Scheme in Single Mode */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-1.5">
-                  Exam
+                  Target Exam
                 </label>
                 <select
                   value={exam}
-                  onChange={(e) => setExam(e.target.value as ExamType)}
+                  onChange={(e) => {
+                    const ex = e.target.value as ExamType;
+                    setExam(ex);
+                    const preset = findExamPreset(ex);
+                    if (preset) {
+                      setTier(preset.tiers[0].tier);
+                      setMarksPerCorrect(preset.tiers[0].marksPerCorrect);
+                      setNegativeRatio(preset.tiers[0].negativeRatio);
+                    }
+                  }}
                   className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white focus:border-blue-600 outline-none"
                 >
-                  <option value="SSC CGL">SSC CGL</option>
-                  <option value="SSC CHSL">SSC CHSL</option>
-                  <option value="SSC MTS">SSC MTS</option>
-                  <option value="RRB NTPC">RRB NTPC</option>
-                  <option value="IBPS PO">IBPS PO</option>
-                  <option value="SBI PO">SBI PO</option>
+                  {EXAM_PRESETS.map(p => (
+                    <option key={p.id} value={p.exam}>{p.icon} {p.title}</option>
+                  ))}
                 </select>
               </div>
 
@@ -848,8 +1103,16 @@ export const AddEditMockModal: React.FC = () => {
                   onChange={(e) => setTier(e.target.value as ExamTier)}
                   className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white focus:border-blue-600 outline-none"
                 >
-                  <option value="Tier 1">Tier 1</option>
-                  <option value="Tier 2">Tier 2</option>
+                  {currentExamPreset ? currentExamPreset.tiers.map(t => (
+                    <option key={t.tier} value={t.tier}>{t.tier}</option>
+                  )) : (
+                    <>
+                      <option value="Tier 1">Tier 1</option>
+                      <option value="Tier 2">Tier 2</option>
+                      <option value="Prelims">Prelims</option>
+                      <option value="Mains">Mains</option>
+                    </>
+                  )}
                 </select>
               </div>
 
@@ -863,6 +1126,32 @@ export const AddEditMockModal: React.FC = () => {
                   onChange={(e) => setDate(e.target.value)}
                   className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white focus:border-blue-600 outline-none"
                 />
+              </div>
+            </div>
+
+            {/* Marking Scheme in Single Mode */}
+            <div className="p-3 rounded-xl bg-slate-100/70 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-700 dark:text-slate-300">Marking:</span>
+                <span className="font-bold text-emerald-700 dark:text-emerald-400">+{effectiveMarksPerCorrect} Correct</span>
+                <span className="text-slate-400">•</span>
+                <span className="font-bold text-rose-600 dark:text-rose-400">-{negativeDeductionPerWrong} Wrong</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {(['1/4', '1/3', 'NONE'] as const).map(ratio => (
+                  <button
+                    key={ratio}
+                    type="button"
+                    onClick={() => setNegativeRatio(ratio)}
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold border transition-all cursor-pointer ${
+                      negativeRatio === ratio
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'bg-white dark:bg-darkSurface border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-400'
+                    }`}
+                  >
+                    {ratio === 'NONE' ? 'No Negative' : `${ratio} Negative`}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -1127,53 +1416,292 @@ export const AddEditMockModal: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-1.5">
-                  Exam
-                </label>
-                <select
-                  value={exam}
-                  onChange={(e) => setExam(e.target.value as ExamType)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-semibold focus:border-blue-600 dark:focus:border-cyan-400 focus:ring-1 focus:ring-blue-500 outline-none"
-                >
-                  <option value="SSC CGL">SSC CGL</option>
-                  <option value="SSC CHSL">SSC CHSL</option>
-                  <option value="SSC MTS">SSC MTS</option>
-                  <option value="RRB NTPC">RRB NTPC</option>
-                  <option value="IBPS PO">IBPS PO</option>
-                  <option value="SBI PO">SBI PO</option>
-                </select>
+            {/* 🌟 EXAM & TIER PRESET CONFIGURATOR */}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/90 dark:border-white/10 space-y-3.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+                    <span>Exam Pattern & Tier Preset Engine</span>
+                  </span>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    Select your competitive exam & stage to auto-load official sections, questions & marking rules.
+                  </p>
+                </div>
+
+                {/* Category Filter Pills */}
+                <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
+                  {(['All', 'SSC', 'Banking', 'Railways', 'Defence', 'Custom'] as const).map(cat => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setExamCategory(cat)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer whitespace-nowrap ${
+                        examCategory === cat
+                          ? 'bg-blue-600 text-white shadow-xs'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-1.5">
-                  Stage / Tier
-                </label>
-                <select
-                  value={tier}
-                  onChange={(e) => setTier(e.target.value as ExamTier)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-semibold focus:border-blue-600 dark:focus:border-cyan-400 focus:ring-1 focus:ring-blue-500 outline-none"
-                >
-                  <option value="Tier 1">Tier 1</option>
-                  <option value="Tier 2">Tier 2</option>
-                  <option value="Prelims">Prelims</option>
-                  <option value="Mains">Mains</option>
-                </select>
+              {/* Exam & Stage Selection Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Select Target Exam Preset *
+                  </label>
+                  <select
+                    value={exam}
+                    onChange={(e) => handleSelectExamAndTier(e.target.value as ExamType)}
+                    className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-darkSurface border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-semibold focus:border-blue-600 dark:focus:border-cyan-400 focus:ring-1 focus:ring-blue-500 outline-none"
+                  >
+                    {filteredExamPresets.map(p => (
+                      <option key={p.id} value={p.exam}>
+                        {p.icon} {p.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Test Date *
+                  </label>
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-darkSurface border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-semibold focus:border-blue-600 dark:focus:border-cyan-400 focus:ring-1 focus:ring-blue-500 outline-none"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-1.5">
-                  Test Date
-                </label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-semibold focus:border-blue-600 dark:focus:border-cyan-400 focus:ring-1 focus:ring-blue-500 outline-none"
-                />
-              </div>
+              {/* Active Preset & Stage Selector Banner */}
+              {currentExamPreset && (
+                <div className="p-3 rounded-xl bg-blue-500/10 dark:bg-cyan-500/10 border border-blue-500/20 dark:border-cyan-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-2xl shrink-0">{currentExamPreset.icon}</span>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-black text-slate-900 dark:text-white">
+                          {currentExamPreset.title}
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-600 text-white font-bold">
+                          {tier}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">
+                        {currentTierPreset?.badge || `${totalQuestions} Qs • ${maxMarks} Marks`} • {currentTierPreset?.description || ''}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Stage Switcher Pills */}
+                  {currentExamPreset.tiers.length > 1 && (
+                    <div className="flex items-center gap-1.5 p-1 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shrink-0">
+                      {currentExamPreset.tiers.map(t => (
+                        <button
+                          key={t.tier}
+                          type="button"
+                          onClick={() => handleTierSwitch(t.tier)}
+                          className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+                            tier === t.tier
+                              ? 'bg-blue-600 text-white shadow-xs'
+                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                          }`}
+                        >
+                          {t.tier}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
+
+            {/* ⚖️ MARKING SCHEME & NEGATIVE DEDUCTION ENGINE */}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/90 dark:border-white/10 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <Sliders className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+                    <span>Marking Scheme & Negative Penalty Engine</span>
+                  </span>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    Customize marks per correct answer & exact negative deduction ratio.
+                  </p>
+                </div>
+
+                {/* Live Formula Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20 text-xs font-bold shrink-0">
+                  <span>Correct: +{effectiveMarksPerCorrect} M</span>
+                  <span className="text-slate-400 dark:text-white/20">•</span>
+                  <span className="text-rose-600 dark:text-rose-400">Penalty: -{negativeDeductionPerWrong} M</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Marks per Correct (+)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0.5"
+                    max="10"
+                    value={marksPerCorrect}
+                    onChange={(e) => setMarksPerCorrect(parseFloat(e.target.value) || 1)}
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-slate-300 dark:border-white/15 text-xs font-black text-slate-900 dark:text-white outline-none focus:border-blue-600"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Negative Marking Ratio (Penalty per Wrong)
+                  </label>
+                  <div className="grid grid-cols-5 gap-1.5">
+                    {[
+                      { label: '1/4th (-25%)', val: '1/4' },
+                      { label: '1/3rd (-33%)', val: '1/3' },
+                      { label: '1/2nd (-50%)', val: '1/2' },
+                      { label: 'None (0)', val: 'NONE' },
+                      { label: 'Custom', val: 'CUSTOM' }
+                    ].map(opt => (
+                      <button
+                        key={opt.val}
+                        type="button"
+                        onClick={() => setNegativeRatio(opt.val as NegativeMarkingRatio)}
+                        className={`py-1.5 px-1 rounded-xl text-[11px] font-bold text-center border transition-all cursor-pointer truncate ${
+                          negativeRatio === opt.val
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                            : 'bg-white dark:bg-darkSurface border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-400'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {negativeRatio === 'CUSTOM' && (
+                <div className="pt-2 animate-fadeIn">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Custom Negative Deduction (Marks subtracted per wrong question)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={customNegativeMarks}
+                    onChange={(e) => setCustomNegativeMarks(parseFloat(e.target.value) || 0)}
+                    placeholder="e.g. 0.833 for NDA Math, 0.277 for CDS"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-darkSurface border border-blue-500 text-xs font-black text-slate-900 dark:text-white outline-none"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* ⌨️ MAINS SPECIAL MODULES (TYPING DEST & DESCRIPTIVE) */}
+            {(hasTypingTest || hasDescriptive || tier === 'Tier 2' || tier === 'Mains') && (
+              <div className="p-4 rounded-2xl bg-purple-500/5 border border-purple-500/20 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                    <span>Mains Special Modules (Typing & Descriptive Paper)</span>
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  {/* Typing DEST */}
+                  <div className="p-3 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white">⌨️ Typing / DEST Test</span>
+                      <label className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold cursor-pointer flex items-center gap-1">
+                        <input
+                          type="checkbox"
+                          checked={hasTypingTest}
+                          onChange={(e) => setHasTypingTest(e.target.checked)}
+                          className="rounded text-purple-600"
+                        />
+                        <span>Included</span>
+                      </label>
+                    </div>
+                    {hasTypingTest && (
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-600 dark:text-slate-400 block mb-1">Speed (Net WPM)</label>
+                          <input
+                            type="number"
+                            value={typingSpeedWpm || ''}
+                            onChange={(e) => setTypingSpeedWpm(Number(e.target.value) || 0)}
+                            placeholder="e.g. 35 WPM"
+                            className="w-full p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 font-black text-slate-900 dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-600 dark:text-slate-400 block mb-1">Accuracy (%)</label>
+                          <input
+                            type="number"
+                            step="0.1"
+                            value={typingAccuracy || ''}
+                            onChange={(e) => setTypingAccuracy(Number(e.target.value) || 0)}
+                            placeholder="e.g. 96.5%"
+                            className="w-full p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 font-black text-slate-900 dark:text-white"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Descriptive Paper */}
+                  <div className="p-3 rounded-xl bg-white dark:bg-darkSurface border border-slate-200 dark:border-white/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white">✍️ Descriptive Test (Letter & Essay)</span>
+                      <label className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold cursor-pointer flex items-center gap-1">
+                        <input
+                          type="checkbox"
+                          checked={hasDescriptive}
+                          onChange={(e) => setHasDescriptive(e.target.checked)}
+                          className="rounded text-purple-600"
+                        />
+                        <span>Included</span>
+                      </label>
+                    </div>
+                    {hasDescriptive && (
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-600 dark:text-slate-400 block mb-1">Score Obtained</label>
+                          <input
+                            type="number"
+                            step="0.5"
+                            value={descriptiveScore || ''}
+                            onChange={(e) => setDescriptiveScore(Number(e.target.value) || 0)}
+                            placeholder="e.g. 18.5"
+                            className="w-full p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 font-black text-slate-900 dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-600 dark:text-slate-400 block mb-1">Max Marks</label>
+                          <input
+                            type="number"
+                            value={descriptiveMaxMarks || ''}
+                            onChange={(e) => setDescriptiveMaxMarks(Number(e.target.value) || 25)}
+                            placeholder="e.g. 25"
+                            className="w-full p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 font-black text-slate-900 dark:text-white"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Overall Summary Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10">
@@ -1329,10 +1857,27 @@ export const AddEditMockModal: React.FC = () => {
                   key={idx}
                   className="p-4 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 space-y-3"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-slate-900 dark:text-white">
-                      {sec.sectionName}
-                    </span>
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-black text-slate-900 dark:text-white">
+                        {sec.customName || sec.sectionName}
+                      </span>
+                      {sec.isQualifying && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                          Qualifying Only
+                        </span>
+                      )}
+                      {sec.timeLimitMinutes && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-700 dark:text-cyan-400">
+                          ⏱️ {sec.timeLimitMinutes}m Limit
+                        </span>
+                      )}
+                      {sec.cutoffMarks && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-700 dark:text-purple-300">
+                          🎯 Cutoff: {sec.cutoffMarks}M
+                        </span>
+                      )}
+                    </div>
                     {sections.length > 1 && (
                       <button
                         type="button"
@@ -1402,8 +1947,13 @@ export const AddEditMockModal: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300 pt-1.5 border-t border-slate-200/80 dark:border-white/10">
-                    <span>Score: <b className="text-blue-700 dark:text-cyan-400 font-black">{sec.score}</b> / {sec.maxMarks} M</span>
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300 pt-1.5 border-t border-slate-200/80 dark:border-white/10 flex-wrap gap-2">
+                    <div className="flex items-center gap-3">
+                      <span>Score: <b className="text-blue-700 dark:text-cyan-400 font-black">{sec.score}</b> / {sec.maxMarks} M</span>
+                      <span className="text-[11px] text-slate-500 font-normal">
+                        (+{sec.marksPerCorrect ?? effectiveMarksPerCorrect} / -{sec.negativeMarksPerWrong ?? negativeDeductionPerWrong} M)
+                      </span>
+                    </div>
                     <span>Acc: <b className="text-emerald-700 dark:text-emerald-400 font-black">{sec.attempted > 0 ? ((sec.correct / sec.attempted) * 100).toFixed(1) : 0}%</b></span>
                   </div>
                 </div>

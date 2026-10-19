@@ -1,4 +1,20 @@
-import { MockTest, SectionPerformance, SectionName } from '../types/mockTracker';
+import { MockTest, SectionPerformance, SectionName, NegativeMarkingRatio } from '../types/mockTracker';
+
+/**
+ * Calculates negative deduction per wrong answer based on ratio
+ */
+export function calculateNegativePenalty(
+  marksPerCorrect: number,
+  negativeRatio: NegativeMarkingRatio = '1/4',
+  customNegativeMarks?: number
+): number {
+  if (negativeRatio === 'NONE') return 0;
+  if (negativeRatio === 'CUSTOM') return customNegativeMarks ?? 0;
+  if (negativeRatio === '1/4') return Number((marksPerCorrect * 0.25).toFixed(3));
+  if (negativeRatio === '1/3') return Number((marksPerCorrect / 3).toFixed(3));
+  if (negativeRatio === '1/2') return Number((marksPerCorrect * 0.5).toFixed(3));
+  return Number((marksPerCorrect * 0.25).toFixed(3));
+}
 
 /**
  * Derives performance status for section or overall test

@@ -1,6 +1,42 @@
-export type ExamType = 'SSC CGL' | 'SSC CHSL' | 'SSC MTS' | 'RRB NTPC' | 'IBPS PO' | 'SBI PO' | 'Custom';
+export type ExamType = 
+  | 'SSC CGL' 
+  | 'SSC CHSL' 
+  | 'SSC CPO' 
+  | 'SSC MTS' 
+  | 'RRB NTPC' 
+  | 'RRB Group D' 
+  | 'IBPS PO' 
+  | 'IBPS Clerk' 
+  | 'SBI PO' 
+  | 'SBI Clerk' 
+  | 'RRB PO/Clerk' 
+  | 'UPSC NDA' 
+  | 'UPSC CDS' 
+  | 'AFCAT' 
+  | 'Custom' 
+  | (string & {});
 
-export type ExamTier = 'Tier 1' | 'Tier 2' | 'Prelims' | 'Mains' | 'General';
+export type ExamTier = 
+  | 'Tier 1' 
+  | 'Tier 2' 
+  | 'Prelims' 
+  | 'Mains' 
+  | 'CBT 1' 
+  | 'CBT 2' 
+  | 'Paper 1' 
+  | 'Paper 2' 
+  | 'Session 1' 
+  | 'Session 2' 
+  | 'General' 
+  | (string & {});
+
+export type NegativeMarkingRatio = '1/4' | '1/3' | '1/2' | 'NONE' | 'CUSTOM';
+
+export interface MarkingSchemeConfig {
+  marksPerCorrect: number;
+  negativeRatio: NegativeMarkingRatio;
+  customNegativeMarks?: number;
+}
 
 export type MockTestType = 'FULL_LENGTH' | 'SECTIONAL' | 'CHAPTER_WISE' | 'SUBJECT' | 'PYQ' | 'CUSTOM';
 
@@ -64,6 +100,12 @@ export interface SectionPerformance {
   score: number;
   accuracy: number; // 0 to 100
   timeTakenMinutes: number;
+  timeLimitMinutes?: number;
+  marksPerCorrect?: number;
+  negativeMarksPerWrong?: number;
+  cutoffMarks?: number;
+  isClearedCutoff?: boolean;
+  isQualifying?: boolean;
   status: 'Mastered' | 'Strong' | 'Average' | 'Needs Improvement' | 'Critical';
 }
 
@@ -102,6 +144,17 @@ export interface MockTest {
   weakAreas: string[];
   analysisNotes?: string;
   isDemo?: boolean;
+
+  // Multi-exam & Marking Extensions
+  negativeRatio?: NegativeMarkingRatio;
+  marksPerCorrect?: number;
+  customNegativeMarks?: number;
+  hasSectionalTimers?: boolean;
+  typingSpeedWpm?: number;
+  typingAccuracy?: number;
+  typingKeystrokes?: number;
+  descriptiveScore?: number;
+  descriptiveMaxMarks?: number;
 }
 
 export interface MockFilters {
