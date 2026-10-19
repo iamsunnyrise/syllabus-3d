@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ArrowRight } from 'lucide-react';
 
 interface PrimaryAuthButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
@@ -17,15 +17,21 @@ export const PrimaryAuthButton: React.FC<PrimaryAuthButtonProps> = ({
     <button
       {...props}
       disabled={isLoading || disabled}
-      className={`w-full h-12 rounded-2xl bg-gradient-to-r from-[#D4AF37] to-[#B89327] hover:from-[#DFC077] hover:to-[#D4AF37] text-[#171717] font-black text-sm shadow-md shadow-[#D4AF37]/25 hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${className}`}
+      className={`relative w-full h-12 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm tracking-wide shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/35 transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer group overflow-hidden ${className}`}
     >
+      {/* Subtle light sweep reflection */}
+      <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out pointer-events-none" />
+
       {isLoading ? (
         <>
-          <Loader2 className="w-4 h-4 animate-spin text-[#171717]" />
+          <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
           <span>Please wait...</span>
         </>
       ) : (
-        children
+        <>
+          <span>{children}</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </>
       )}
     </button>
   );

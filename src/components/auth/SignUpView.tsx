@@ -96,9 +96,31 @@ export const SignUpView: React.FC = () => {
 
   return (
     <div>
+      {/* Top Segmented Navigation Tabs */}
+      <div className="grid grid-cols-2 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900/90 warm-cream:bg-[#EDE3CB] border border-slate-200/80 dark:border-white/10 warm-cream:border-[#DFCFA8] mb-5 select-none">
+        <button
+          type="button"
+          onClick={() => {
+            soundManager.playClick();
+            setAuthView('login');
+          }}
+          className="py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-500 dark:text-slate-400 warm-cream:text-[#655819] hover:text-slate-900 dark:hover:text-white cursor-pointer"
+        >
+          Log In
+        </button>
+        <button
+          type="button"
+          onClick={() => setAuthView('signup')}
+          className="py-2 px-3 rounded-xl text-xs font-black transition-all bg-white dark:bg-[#1E2033] warm-cream:bg-[#FFFDF9] text-slate-950 dark:text-white warm-cream:text-[#232001] shadow-xs"
+        >
+          Create Account
+        </button>
+      </div>
+
       <AuthHeader
         title="Create Account"
         subtitle="Start tracking your preparation smarter"
+        badge="Free Aspirant Access"
       />
 
       <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -135,41 +157,48 @@ export const SignUpView: React.FC = () => {
           required
         />
 
-        <div>
-          <PasswordField
-            label="Password"
-            autoComplete="new-password"
-            placeholder="Create a password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              if (errors.password) setErrors(prev => ({ ...prev, password: undefined }));
-            }}
-            error={errors.password}
-            required
-          />
+        <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <PasswordField
+                label="Password"
+                autoComplete="new-password"
+                placeholder="Create password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errors.password) setErrors(prev => ({ ...prev, password: undefined }));
+                }}
+                error={errors.password}
+                required
+              />
+            </div>
+
+            <div>
+              <PasswordField
+                label="Confirm Password"
+                autoComplete="new-password"
+                placeholder="Confirm password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  if (errors.confirmPassword) setErrors(prev => ({ ...prev, confirmPassword: undefined }));
+                }}
+                error={errors.confirmPassword}
+                required
+              />
+            </div>
+          </div>
+
           <PasswordStrengthIndicator
             strength={passwordStrength}
             passwordLength={password.length}
           />
         </div>
 
-        <PasswordField
-          label="Confirm Password"
-          autoComplete="new-password"
-          placeholder="Confirm your password"
-          value={confirmPassword}
-          onChange={(e) => {
-            setConfirmPassword(e.target.value);
-            if (errors.confirmPassword) setErrors(prev => ({ ...prev, confirmPassword: undefined }));
-          }}
-          error={errors.confirmPassword}
-          required
-        />
-
         {/* Terms Checkbox */}
-        <div className="pt-1 text-left">
-          <label className="flex items-start gap-2 cursor-pointer">
+        <div className="pt-0.5 text-left">
+          <label className="flex items-start gap-2.5 cursor-pointer">
             <input
               type="checkbox"
               checked={agreeToTerms}
@@ -177,14 +206,14 @@ export const SignUpView: React.FC = () => {
                 setAgreeToTerms(e.target.checked);
                 if (errors.terms) setErrors(prev => ({ ...prev, terms: undefined }));
               }}
-              className="mt-0.5 w-4 h-4 rounded text-brand-500 focus:ring-brand-500/30 border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 cursor-pointer"
+              className="mt-0.5 w-4 h-4 rounded text-amber-500 focus:ring-amber-500/30 border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 cursor-pointer accent-amber-500"
             />
-            <span className="text-[11px] text-slate-600 dark:text-slate-400 leading-tight">
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 warm-cream:text-[#5E5211] leading-tight select-none">
               I agree to the{' '}
               <button
                 type="button"
                 onClick={() => setLegalModalType('terms')}
-                className="text-brand-600 dark:text-brand-400 font-bold hover:underline"
+                className="text-amber-700 dark:text-amber-400 warm-cream:text-[#8D7A02] font-bold hover:underline"
               >
                 Terms of Service
               </button>{' '}
@@ -192,7 +221,7 @@ export const SignUpView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setLegalModalType('privacy')}
-                className="text-brand-600 dark:text-brand-400 font-bold hover:underline"
+                className="text-amber-700 dark:text-amber-400 warm-cream:text-[#8D7A02] font-bold hover:underline"
               >
                 Privacy Policy
               </button>
@@ -206,7 +235,7 @@ export const SignUpView: React.FC = () => {
           )}
         </div>
 
-        <div className="pt-2">
+        <div className="pt-1.5">
           <PrimaryAuthButton isLoading={isLoading}>
             Create Account
           </PrimaryAuthButton>
@@ -214,11 +243,11 @@ export const SignUpView: React.FC = () => {
 
         {/* Divider */}
         <div className="relative flex py-1.5 items-center">
-          <div className="flex-grow border-t border-slate-200 dark:border-slate-800" />
-          <span className="flex-shrink mx-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+          <div className="flex-grow border-t border-slate-200 dark:border-white/10 warm-cream:border-[#E5D7B7]" />
+          <span className="flex-shrink mx-3 text-[10px] font-bold text-slate-400 dark:text-slate-500 warm-cream:text-[#8D7A02] uppercase tracking-widest">
             OR CONTINUE WITH
           </span>
-          <div className="flex-grow border-t border-slate-200 dark:border-slate-800" />
+          <div className="flex-grow border-t border-slate-200 dark:border-white/10 warm-cream:border-[#E5D7B7]" />
         </div>
 
         <SocialLoginButton
@@ -227,8 +256,8 @@ export const SignUpView: React.FC = () => {
         />
       </form>
 
-      {/* Switch to Log In */}
-      <div className="mt-5 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
+      {/* Switch to Log In Footnote */}
+      <div className="mt-5 text-center text-xs font-semibold text-slate-500 dark:text-slate-400 warm-cream:text-[#655819]">
         Already have an account?{' '}
         <button
           type="button"
@@ -236,7 +265,7 @@ export const SignUpView: React.FC = () => {
             soundManager.playClick();
             setAuthView('login');
           }}
-          className="font-bold text-brand-600 dark:text-brand-400 hover:underline cursor-pointer"
+          className="font-bold text-amber-600 dark:text-amber-400 warm-cream:text-[#8D7A02] hover:underline cursor-pointer"
         >
           Log In
         </button>

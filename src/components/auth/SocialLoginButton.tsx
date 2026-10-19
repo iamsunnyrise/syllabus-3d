@@ -12,13 +12,13 @@ export const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({ onClick, i
       type="button"
       onClick={onClick}
       disabled={isLoading}
-      className="w-full h-[50px] rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/80 active:scale-[0.99] text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold flex items-center justify-center gap-3 transition-all shadow-sm cursor-pointer disabled:opacity-50"
+      className="w-full h-12 rounded-2xl bg-white dark:bg-slate-900/90 warm-cream:bg-[#FFFDF9] border border-slate-200/90 dark:border-white/10 warm-cream:border-[#E5D7B7] hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-slate-800/80 active:scale-[0.99] text-slate-800 dark:text-slate-100 warm-cream:text-[#38370D] text-xs sm:text-sm font-bold flex items-center justify-center gap-3 transition-all shadow-xs hover:shadow-sm cursor-pointer disabled:opacity-50"
     >
       {isLoading ? (
-        <Loader2 className="w-4 h-4 animate-spin text-brand-500" />
+        <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
       ) : (
         /* Official Google "G" Icon */
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
           <path
             fill="#4285F4"
             d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"

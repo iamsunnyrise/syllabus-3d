@@ -25,7 +25,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(({
       <div className="flex items-center justify-between">
         <label
           htmlFor={inputId}
-          className="block text-xs font-bold text-slate-700 dark:text-slate-300"
+          className="block text-xs font-bold text-slate-700 dark:text-slate-300 warm-cream:text-[#423C13]"
         >
           {label}
         </label>
@@ -34,7 +34,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(({
           <button
             type="button"
             onClick={onForgotPasswordClick}
-            className="text-[11px] font-bold text-brand-600 dark:text-brand-400 hover:underline cursor-pointer"
+            className="text-[11px] font-bold text-amber-700 dark:text-amber-400 warm-cream:text-[#7A6100] hover:underline cursor-pointer"
           >
             Forgot Password?
           </button>
@@ -52,10 +52,10 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(({
           type={showPassword ? 'text' : 'password'}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
-          className={`w-full pl-10 pr-10 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border text-xs sm:text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 transition-all ${
+          className={`w-full pl-10 pr-10 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/60 warm-cream:bg-white/80 border text-xs sm:text-sm font-semibold text-slate-900 dark:text-white warm-cream:text-[#232001] placeholder-slate-400 focus:outline-none focus:ring-4 transition-all ${
             error
-              ? 'border-rose-500 focus:ring-rose-500/30'
-              : 'border-slate-200 dark:border-slate-700/80 focus:border-brand-500 focus:ring-brand-500/20'
+              ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/20'
+              : 'border-slate-200 dark:border-white/10 warm-cream:border-[#E0D0AB] focus:border-amber-500 focus:ring-amber-500/15'
           } ${className}`}
           {...props}
         />
@@ -64,7 +64,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(({
           type="button"
           onClick={() => setShowPassword(p => !p)}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
-          className="absolute right-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-0.5"
+          className="absolute right-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer p-0.5 transition-colors"
         >
           {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
         </button>
