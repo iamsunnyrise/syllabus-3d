@@ -28,7 +28,8 @@ import {
   ArrowRight,
   Hash,
   Boxes,
-  Volume2
+  Volume2,
+  Percent
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
@@ -36,16 +37,19 @@ import { haptics } from '../../utils/haptics';
 import { CalculationBoosterTables } from './CalculationBoosterTables';
 import { CalculationBoosterSquares } from './CalculationBoosterSquares';
 import { CalculationBoosterCubes } from './CalculationBoosterCubes';
+import { CalculationBoosterFractions } from './CalculationBoosterFractions';
 import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
 
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type MathsSubTab = 'overview' | 'calc-booster';
+export type CalcBoosterTool = 'tables' | 'squares' | 'cubes' | 'fractions';
 
 interface StudyToolsViewProps {
   initialTab?: StudyToolTab;
   initialMathsTab?: MathsSubTab;
+  initialCalcBoosterTool?: CalcBoosterTool;
   onNavigate?: (view: AppView) => void;
 }
 
@@ -473,11 +477,12 @@ const speakWord = (text: string) => {
 export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   initialTab = 'vocab',
   initialMathsTab = 'overview',
+  initialCalcBoosterTool = 'tables',
   onNavigate
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
   const [mathsSubTab, setMathsSubTab] = useState<MathsSubTab>(initialMathsTab);
-  const [calcBoosterTool, setCalcBoosterTool] = useState<'tables' | 'squares' | 'cubes'>('tables');
+  const [calcBoosterTool, setCalcBoosterTool] = useState<CalcBoosterTool>(initialCalcBoosterTool);
 
   // Sync when initialTab prop updates
   useEffect(() => {
@@ -492,6 +497,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       setMathsSubTab(initialMathsTab);
     }
   }, [initialMathsTab]);
+
+  // Sync when initialCalcBoosterTool prop updates
+  useEffect(() => {
+    if (initialCalcBoosterTool) {
+      setCalcBoosterTool(initialCalcBoosterTool);
+    }
+  }, [initialCalcBoosterTool]);
 
   // -------------------------------------------------------------
   // VOCAB STATE
@@ -1236,7 +1248,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           {mathsSubTab === 'calc-booster' ? (
             <div className="space-y-6">
               {/* Calculation Booster Tool Sub-Navigation */}
-              <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-fit">
+              <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto scrollbar-none">
                 <button
                   type="button"
                   onClick={() => {
@@ -1244,7 +1256,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     haptics.selection();
                     setCalcBoosterTool('tables');
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                     calcBoosterTool === 'tables'
                       ? 'bg-blue-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
                       : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
@@ -1261,7 +1273,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     haptics.selection();
                     setCalcBoosterTool('squares');
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                     calcBoosterTool === 'squares'
                       ? 'bg-purple-600 text-white shadow-xs font-black ring-1 ring-purple-400/40'
                       : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
@@ -1278,7 +1290,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     haptics.selection();
                     setCalcBoosterTool('cubes');
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                     calcBoosterTool === 'cubes'
                       ? 'bg-cyan-600 text-white shadow-xs font-black ring-1 ring-cyan-400/40'
                       : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
@@ -1287,14 +1299,33 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <Boxes className="w-4 h-4" />
                   <span>Cubes & Roots (1 to 30)</span>
                 </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setCalcBoosterTool('fractions');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    calcBoosterTool === 'fractions'
+                      ? 'bg-emerald-600 text-white shadow-xs font-black ring-1 ring-emerald-400/40'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Percent className="w-4 h-4" />
+                  <span>Percentage to Fraction</span>
+                </button>
               </div>
 
               {calcBoosterTool === 'tables' ? (
                 <CalculationBoosterTables />
               ) : calcBoosterTool === 'squares' ? (
                 <CalculationBoosterSquares />
-              ) : (
+              ) : calcBoosterTool === 'cubes' ? (
                 <CalculationBoosterCubes />
+              ) : (
+                <CalculationBoosterFractions />
               )}
             </div>
           ) : (
@@ -1367,7 +1398,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
           {/* Fraction to Percentage Conversion Chart */}
           <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <Calculator className="w-4 h-4 text-blue-500" />
@@ -1377,6 +1408,21 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   Critical for Arithmetic (Percentage, Profit & Loss, Simple & Compound Interest).
                 </p>
               </div>
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setMathsSubTab('calc-booster');
+                  setCalcBoosterTool('fractions');
+                  onNavigate?.('study-tools-calc-booster');
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all cursor-pointer shadow-xs self-start sm:self-auto shrink-0"
+              >
+                <Percent className="w-3.5 h-3.5" />
+                <span>Open Booster & Speed Drills</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
