@@ -37,6 +37,7 @@ import { EditChapterModal } from '../modals/EditChapterModal';
 import { soundManager } from '../../utils/soundEffects';
 import { calculatePacingForecast } from '../../utils/pacingCalculator';
 import { SyllabusCircularProgressWidget } from '../syllabus/SyllabusCircularProgressWidget';
+import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 
 interface SyllabusViewProps {
   onOpenTopicDrawer: (topic: Topic, subName: string, chName: string) => void;
@@ -1259,38 +1260,98 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
       </div>
 
-      {/* 1. SYLLABUS ACTION BAR (AI Architect & Add Subject) */}
-      <div className="relative overflow-hidden p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#121424]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xs sm:shadow-sm flex items-center justify-end gap-3 flex-wrap print:hidden">
+      {/* 1. SYLLABUS EXECUTIVE ACTION & IDENTITY BAR */}
+      <div className="relative overflow-hidden p-3.5 sm:p-4 md:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 warm-cream:bg-[#FFFDF8] backdrop-blur-xl border border-slate-200/90 dark:border-white/10 warm-cream:border-[#E2D1B3] shadow-xs sm:shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden transition-all duration-200">
         {/* Specular Edge Highlight */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/40 dark:via-white/15 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 dark:via-white/20 warm-cream:via-[#E2D1B3] to-transparent pointer-events-none" />
+        
+        {/* Subtle Ambient Radial Glows */}
+        <div className="absolute -top-14 -right-14 w-44 h-44 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-14 -left-14 w-44 h-44 bg-amber-500/10 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {onOpenAiArchitect && (
+        {/* LEFT: Contextual Identity, Exam Badge & Live Progress Counters */}
+        <div className="relative z-10 flex items-center gap-3 sm:gap-4 min-w-0">
+          <SectionBadgeIcon section="syllabus" size="lg" showGlow className="shrink-0" />
+
+          <div className="min-w-0 space-y-1">
+            <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+              <h1 className="text-base sm:text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white warm-cream:text-[#38370D] leading-tight">
+                {currentExam.name ? `${currentExam.name} Syllabus` : 'Exam Syllabus Hub'}
+              </h1>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-400/15 border border-indigo-400/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
+                <Sparkles className="w-3 h-3 text-indigo-500 shrink-0" />
+                <span>3D Blueprint</span>
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-2.5 text-xs text-slate-500 dark:text-slate-400 warm-cream:text-[#655602] font-medium flex-wrap">
+              <span className="font-bold text-slate-700 dark:text-slate-200 warm-cream:text-[#38370D] font-mono">
+                {currentExam.subjects?.length || 0} {currentExam.subjects?.length === 1 ? 'Subject' : 'Subjects'}
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-mono">{totalTopicsCount} Topics</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="inline-flex items-center gap-1 font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>{completedTopicsCount} Mastered ({overallPercentage}%)</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT: High-Impact Action Buttons */}
+        <div className="relative z-10 flex items-center gap-2 sm:gap-2.5 flex-wrap shrink-0">
+          {/* Quick Cheatsheet Print Button */}
           <button
             type="button"
             onClick={() => {
               soundManager.playClick();
-              onOpenAiArchitect();
+              window.print();
             }}
-            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#8B5CF6] hover:from-[#4F46E5] hover:via-[#6D28D9] hover:to-[#7C3AED] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 select-none"
-            title="Extract complete syllabus from PDF or text using AI"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] warm-cream:bg-[#FAF0DC] warm-cream:hover:bg-[#E2D1B3] text-slate-700 dark:text-slate-200 warm-cream:text-[#38370D] border border-slate-200/80 dark:border-white/10 warm-cream:border-[#E2D1B3] text-xs font-bold transition-all active:scale-95 cursor-pointer select-none shadow-2xs"
+            title="Print Desk Revision Cheatsheet"
           >
-            <Sparkles className="w-4 h-4 stroke-[2.2]" />
-            <span>AI Architect</span>
+            <FileText className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 warm-cream:text-[#8D7A02]" />
+            <span>Cheatsheet</span>
           </button>
-        )}
 
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            setIsAddSubjectOpen(true);
-          }}
-          className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#E5A83B] hover:bg-[#D49520] active:bg-[#C28512] text-neutral-950 text-xs sm:text-sm font-bold shadow-md hover:shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 select-none"
-          title="Add New Subject"
-        >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          <span>Add Subject</span>
-        </button>
+          {/* AI Architect Button */}
+          {onOpenAiArchitect && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenAiArchitect();
+              }}
+              className="group relative inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#4F46E5] hover:from-[#4F46E5] hover:via-[#6D28D9] hover:to-[#4338CA] text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/40 border border-white/20 hover:border-white/30 transition-all duration-200 active:scale-95 cursor-pointer overflow-hidden select-none"
+              title="Extract complete syllabus from PDF, text, or prompt using AI"
+            >
+              {/* Shimmer sweep effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+              <Sparkles className="w-4 h-4 stroke-[2.3] text-indigo-200 group-hover:rotate-12 transition-transform duration-300" />
+              <span>AI Architect</span>
+              <span className="hidden md:inline-block px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider rounded-md bg-white/20 text-white border border-white/25">
+                AI 3.0
+              </span>
+            </button>
+          )}
+
+          {/* Add Subject Button */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              setIsAddSubjectOpen(true);
+            }}
+            className="group relative inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-[#F59E0B] via-[#E5A83B] to-[#D97706] hover:from-[#FBBF24] hover:via-[#F59E0B] hover:to-[#D97706] text-slate-950 text-xs sm:text-sm font-black shadow-md shadow-amber-500/20 hover:shadow-lg hover:shadow-amber-500/35 border border-amber-300/60 dark:border-amber-400/40 transition-all duration-200 active:scale-95 cursor-pointer select-none"
+            title="Add New Subject to Syllabus"
+          >
+            <span className="w-4 h-4 rounded-full bg-black/15 flex items-center justify-center text-slate-950 group-hover:rotate-90 transition-transform duration-300">
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+            </span>
+            <span>Add Subject</span>
+          </button>
+        </div>
       </div>
 
       {/* 2. REFINED EXECUTIVE PACING & TARGET BANNER */}
