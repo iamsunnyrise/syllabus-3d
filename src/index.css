@@ -336,13 +336,128 @@
     color: #5C5716 !important;
   }
 
-  /* Dark Mode Secondary Text Contrast Guarantee (WCAG AA ≥ 4.5:1) */
-  .dark .text-slate-500:not(.study-hub-hero-banner *),
-  .dark .text-gray-500:not(.study-hub-hero-banner *),
-  .dark .text-zinc-500:not(.study-hub-hero-banner *),
-  .dark [class*="text-slate-500"]:not(.study-hub-hero-banner *),
-  .dark [class*="text-gray-500"]:not(.study-hub-hero-banner *) {
+  /* ═══════════════════════════════════════════════════════════════
+     DARK MODE HIGH-CONTRAST READABILITY SUITE (WCAG AAA)
+     Elevates text contrast across the entire website in Dark Mode.
+     Applied ONLY when .dark is active; leaves Light Mode 100% untouched.
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* 1. Muted & Secondary Text in Dark Mode (Lift slate-400 & slate-500 to crisp silver-slate #CBD5E1 / #E2E8F0) */
+  .dark .text-slate-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .text-slate-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .text-gray-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .text-gray-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .text-zinc-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .text-zinc-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-slate-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-slate-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-gray-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-gray-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-zinc-400:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark .dark\:text-zinc-500:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark [class*="text-slate-400"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark [class*="text-slate-500"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark [class*="text-gray-400"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *),
+  .dark [class*="text-gray-500"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *):not([class*="bg-emerald"] *) {
     color: #CBD5E1 !important;
+  }
+
+  /* 2. Medium Body & Content Text (slate-300 / gray-300 / zinc-300 -> bright #E2E8F0) */
+  .dark .text-slate-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark .text-gray-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark .text-zinc-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark .dark\:text-slate-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark .dark\:text-gray-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark .dark\:text-zinc-300:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark [class*="text-slate-300"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark [class*="text-gray-300"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *),
+  .dark [class*="text-zinc-300"]:not(.study-hub-hero-banner *):not([class*="bg-amber"] *) {
+    color: #E2E8F0 !important;
+  }
+
+  /* 3. Primary Headings & Prominent Labels (Bright pure white #FFFFFF for crisp typography) */
+  .dark h1:not([class*="bg-amber"] *),
+  .dark h2:not([class*="bg-amber"] *),
+  .dark h3:not([class*="bg-amber"] *),
+  .dark h4:not([class*="bg-amber"] *),
+  .dark h5:not([class*="bg-amber"] *),
+  .dark h6:not([class*="bg-amber"] *),
+  .dark .dark\:text-white:not([class*="bg-amber"] *),
+  .dark .dark\:text-slate-100:not([class*="bg-amber"] *),
+  .dark .dark\:text-slate-200:not([class*="bg-amber"] *),
+  .dark [class*="text-slate-900"][class*="dark:text-white"] {
+    color: #FFFFFF !important;
+  }
+
+  /* 4. Translucent Text Overrides (Remove opacity haze that causes muddy visibility) */
+  .dark [class*="text-white\/30"],
+  .dark [class*="text-white\/40"],
+  .dark [class*="text-white\/50"],
+  .dark [class*="dark:text-white\/30"],
+  .dark [class*="dark:text-white\/40"],
+  .dark [class*="dark:text-white\/50"] {
+    color: rgba(255, 255, 255, 0.78) !important;
+  }
+
+  .dark [class*="text-white\/60"],
+  .dark [class*="text-white\/70"],
+  .dark [class*="dark:text-white\/60"],
+  .dark [class*="dark:text-white\/70"] {
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  /* 5. Placeholder High-Visibility in Dark Mode */
+  .dark input::placeholder,
+  .dark textarea::placeholder,
+  .dark [class*="placeholder:text-"]::placeholder {
+    color: #94A3B8 !important;
+    opacity: 1 !important;
+  }
+
+  /* 6. Accent Color Contrast Boost in Dark Mode */
+  .dark .dark\:text-amber-400,
+  .dark .dark\:text-amber-300,
+  .dark [class*="text-amber-400"]:not([class*="bg-amber"] *),
+  .dark [class*="text-amber-300"]:not([class*="bg-amber"] *) {
+    color: #FDE68A !important;
+  }
+
+  .dark .dark\:text-emerald-400,
+  .dark .dark\:text-emerald-300,
+  .dark [class*="text-emerald-400"]:not([class*="bg-emerald"] *),
+  .dark [class*="text-emerald-300"]:not([class*="bg-emerald"] *) {
+    color: #86EFAC !important;
+  }
+
+  .dark .dark\:text-purple-400,
+  .dark .dark\:text-purple-300,
+  .dark [class*="text-purple-400"],
+  .dark [class*="text-purple-300"] {
+    color: #E9D5FF !important;
+  }
+
+  .dark .dark\:text-rose-400,
+  .dark .dark\:text-rose-300,
+  .dark [class*="text-rose-400"],
+  .dark [class*="text-rose-300"] {
+    color: #FDA4AF !important;
+  }
+
+  .dark .dark\:text-sky-400,
+  .dark .dark\:text-sky-300,
+  .dark [class*="text-sky-400"],
+  .dark [class*="text-sky-300"] {
+    color: #7DD3FC !important;
+  }
+
+  /* 7. Guaranteed Solid Dark Text on Solid Yellow / Gold Buttons & Badges */
+  .dark button.bg-amber-500 *,
+  .dark button.bg-amber-400 *,
+  .dark [class*="bg-amber-500"] span,
+  .dark [class*="bg-amber-500"] p,
+  .dark [class*="bg-amber-400"] span,
+  .dark [class*="bg-amber-400"] p {
+    color: #020617 !important;
   }
 
   /* Countdown & Stat Labels Contrast Guarantee */
