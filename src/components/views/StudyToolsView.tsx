@@ -329,6 +329,28 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for 4 Chief Commissioner Provinces: "ABCD" (Ajmer-Marwar, Baluchistan, Coorg, Delhi). After Partition, seats reduced from 389 to 299.'
   },
   {
+    id: 'ga-polity-salient-features-constitution',
+    subject: 'Polity',
+    title: 'Salient Features of Constitution',
+    badge: 'Chapter 02 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/salient_features_of_constitution.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Lengthiest Written Constitution', detail: '395 Articles, 22 Parts, 8 Schedules (1950) -> 448 Articles, 25 Parts, 12 Schedules. Part VII deleted (7th CAA); 4 Parts added: IV-A (Duties), IX-A (Municipalities), IX-B (Co-operatives), XIV-A (Tribunals).' },
+      { label: '02. Parliamentary System & Amendment', detail: 'Party winning majority forms government (borrowed from UK). Formal change to law/document = Amendment. Written (India/USA, rigid) vs Unwritten (UK, flexible).' },
+      { label: '03. Federation with Strong Centre', detail: '3 Tiers (Union, State, Local Bodies). States derive authority directly from Constitution, not merely agents of Centre.' },
+      { label: '04. Federal vs Unitary Features', detail: 'Federal: Written/Supreme/Rigid Constitution, Independent Judiciary, Bicameralism, Dual Govt. Unitary: Single Constitution/Citizenship, Integrated Judiciary, All India Services, Emergency, Governor appointment.' },
+      { label: '05. Scholar Quotes on Federalism', detail: 'K.C. Wheare: "Quasi Federal". Ivor Jennings: "Federalism with centralising tendency". Granville Austin: "Cooperative Federalism". Morris Jones: "Bargaining Federalism".' },
+      { label: '06. Separation of Powers', detail: 'Legislative (Makes Laws - Parliament & Assemblies), Executive (Carries Out Laws - President/PM/Ministers/Bureaucracy), Judiciary (Evaluates Laws - Supreme Court & High Courts).' },
+      { label: '07. Master Trick: "TEARS OF OLD PM"', detail: 'T-Territory (1), E-Emoluments (2), A-Affirmation/Oath (3), R-Rajya Sabha seats (4), S-Scheduled Areas 10 States (5), O-Other Tribal 4 States (6), F-Federal 3 Lists (7), O-Official Languages (8), L-Land (9), D-Defection (10), P-Panchayat (11), M-Municipality (12).' },
+      { label: '08. Schedule 5 & 6 (Ladakh Demands)', detail: 'Sch 5: 10 States. Sch 6: 4 NE States (ATM² - Assam, Tripura, Meghalaya, Mizoram) with Autonomous District Councils (ADCs). Ladakh protests demanding 6th Schedule extension & statehood.' },
+      { label: '09. Schedule 7: Three Lists & 42nd CAA', detail: 'Union List (97->100), State List (66->61), Concurrent List (47->52). 42nd CAA 1976 transferred 5 subjects: Education, Forests, Weights/Measures, Wild Animals/Birds, Admin of Justice. Residuary powers with Parliament (Canada).' },
+      { label: '10. Schedule 8 & 11 Classical Languages', detail: '14->22 Languages (21st Sindhi, 71st NAMAK, 92nd BDSM, 96th Odia). 11 Classical Languages: 6 earlier (Tamil, Sanskrit, Telugu, Kannada, Malayalam, Odia) + 5 added in 2024 (Marathi, Pali, Prakrit, Assamese, Bengali).' }
+    ],
+    summaryNote: 'Trick for 12 Schedules: "TEARS OF OLD PM". 42nd CAA 1976 transferred 5 subjects from State to Concurrent List. Classical Languages updated to 11 in 2024.'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

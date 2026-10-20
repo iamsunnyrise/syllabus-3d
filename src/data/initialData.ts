@@ -552,8 +552,25 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
           {
             id: 'chap_polity',
             name: 'Indian Polity & Constitution',
-            description: 'Fundamental Rights, DPSP, Parliament, President, Amendments',
+            description: 'Fundamental Rights, DPSP, Parliament, President, Amendments, Schedules',
             topics: [
+              {
+                id: 'top_salient_features',
+                name: 'Salient Features of Constitution & 12 Schedules',
+                subtopics: ['448 Articles, 25 Parts & 12 Schedules', 'Federal vs Unitary Features', 'TEARS OF OLD PM & 7th/8th Schedule'],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 240,
+                lastStudied: '2026-08-17',
+                nextRevision: '2026-08-27',
+                accuracy: 94,
+                mockAttempts: 45,
+                difficulty: 'Easy',
+                isWeak: false,
+                weightage: 5,
+                notes: 'TEARS OF OLD PM mnemonic for 12 Schedules. 42nd CAA 1976 moved 5 subjects to Concurrent list. 11 Classical Languages.',
+                mistakes: []
+              },
               {
                 id: 'top_fundamental_rights',
                 name: 'Fundamental Rights (Articles 12-35)',

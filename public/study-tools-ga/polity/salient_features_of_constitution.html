@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salient Features of Indian Constitution & Schedules - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.85); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.94);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Self-Test Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.28);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.15) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS, SEARCH, CLICK-TO-NOTE & SELF-TEST -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">Salient Features & 12 Schedules</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search Schedule, Article, Trick..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key facts, numbers & names to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, table row ya heading par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete PDF Coverage • Easy Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        Salient Features of <span class="text-gold underline decoration-olive">Indian Constitution</span>
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Hamare Samvidhan ki sabse badi khaasiyatein: <strong class="text-gold">448 Articles, 25 Parts, 12 Schedules</strong>, Federal vs Unitary Features, Classical Languages (2024 Update), aur <strong class="text-gold">"TEARS OF OLD PM"</strong> trick ke saath poora breakdown bilkul aasan Hinglish mein!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-book text-gold mr-1"></i> Articles: <strong>395 → 448</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-puzzle-piece text-gold mr-1"></i> Parts: <strong>22 → 25 Parts</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-list-ol text-gold mr-1"></i> Schedules: <strong>8 → 12 Schedules</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">INTERACTIVE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Original vs Present Stats Card -->
+                <div class="w-full md:w-80 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-dark text-gold flex items-center justify-center text-2xl border-2 border-olive">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-base text-dark uppercase">Original vs Present Status</h3>
+                    <p class="text-[11px] text-olive font-bold uppercase tracking-wider mt-0.5">Longest Written Constitution of Any Sovereign Country</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2.5 text-left text-xs font-semibold">
+                        <div class="bg-cream p-2.5 rounded-lg border-2 border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Originally (1950)</span>
+                            <span class="text-sm font-extrabold text-dark block mt-0.5">• 395 Articles</span>
+                            <span class="text-sm font-extrabold text-dark block">• 22 Parts</span>
+                            <span class="text-sm font-extrabold text-dark block">• 8 Schedules</span>
+                        </div>
+                        <div class="bg-gold/35 p-2.5 rounded-lg border-2 border-dark">
+                            <span class="block text-dark font-extrabold uppercase text-[10px]">Presently (Now)</span>
+                            <span class="text-sm font-extrabold text-dark block mt-0.5">• 448 Articles</span>
+                            <span class="text-sm font-extrabold text-dark block">• 25 Parts</span>
+                            <span class="text-sm font-extrabold text-dark block">• 12 Schedules</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 9 Comprehensive Modules + PYQ Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 9 Topics + Quiz -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-book-open text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Lengthiest Written & Parliamentary Govt</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">448 Articles, Deleted/Added Parts, Written vs Unwritten</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-scale-unbalanced text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Federation with Strong Centre</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">3 Tiers of Govt, Federal Features vs Unitary Features</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-comments text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Comments on Indian Federalism</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">K.C. Wheare, Ivor Jennings, Granville Austin, Morris Jones</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-sitemap text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Separation of Powers</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Legislative (Make), Executive (Carry Out), Judiciary (Evaluate)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-wand-magic-sparkles text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Trick: "TEARS OF OLD PM"</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Master Mnemonic to remember all 12 Schedules in 10 seconds</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-layer-group text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Schedules 1 to 6 & Ladakh News</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">States, Salary, Oath, RS Seats, 10 States (Sch 5), ATM² & ADCs</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-table-columns text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Schedule 7: Three Lists & Residuary</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Union (100), State (61), Concurrent (52), 42nd CAA & 5 Scenarios</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8 -->
+                <button onclick="jumpToTopic('topic-8')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">08</span>
+                            <i class="fa-solid fa-language text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Schedule 8 & 11 Classical Languages</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">14→22 Languages, 21st/71st/92nd/96th CAA, 2024 New Languages</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 9 -->
+                <button onclick="jumpToTopic('topic-9')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">09</span>
+                            <i class="fa-solid fa-building-columns text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Schedules 9, 10, 11 & 12</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Land Reforms (1st CA), Defection (52nd), Panchayat (73rd), Municipality</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 10: Quiz -->
+                <button onclick="jumpToTopic('quick-quiz')" class="text-left p-3.5 rounded-xl bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-gold text-dark font-extrabold text-xs flex items-center justify-center">⚡</span>
+                            <i class="fa-solid fa-trophy text-gold group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-gold group-hover:text-dark leading-snug">Interactive PYQ Practice Quiz</h3>
+                        <p class="text-xs text-cream/80 group-hover:text-dark/90 mt-1">Test your command on Schedules, Lists & Federalism Quotes</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-gold group-hover:text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Start Quiz <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: LENGTHIEST WRITTEN CONSTITUTION & PARLIAMENTARY GOVT
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Feature #1 & #2</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Lengthiest Written Constitution & Parliamentary Government</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Feature 1: Lengthiest Written Constitution -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="sub-card p-5 rounded-xl">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Salient Feature #1</span>
+                        <h3 class="font-extrabold text-lg text-dark mt-2 mb-2">
+                            1. Indian Constitution is the <span class="underline decoration-gold">Lengthiest Written Constitution</span> in the World
+                        </h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            With <strong class="quiz-item">448 Articles</strong> and <strong class="quiz-item">12 Schedules</strong>, the Indian Constitution is the <strong>Longest Written Constitution of any Sovereign country in the world</strong>.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                            <div class="p-3.5 rounded-lg bg-gold/20 border border-olive">
+                                <span class="font-extrabold text-olive uppercase block text-xs">Original Constitution (1950)</span>
+                                <ul class="mt-1.5 space-y-1 font-bold text-dark">
+                                    <li>• <span class="quiz-item">395 Articles</span></li>
+                                    <li>• <span class="quiz-item">22 Parts</span></li>
+                                    <li>• <span class="quiz-item">8 Schedules</span></li>
+                                </ul>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-dark text-cream border border-gold">
+                                <span class="font-extrabold text-gold uppercase block text-xs">Present Constitution</span>
+                                <ul class="mt-1.5 space-y-1 font-bold text-cream">
+                                    <li>• <span class="text-gold quiz-item">448 Articles</span></li>
+                                    <li>• <span class="text-gold quiz-item">25 Parts</span></li>
+                                    <li>• <span class="text-gold quiz-item">12 Schedules</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Deleted & Added Parts Box -->
+                        <div class="mt-4 p-3.5 rounded-lg bg-cream border-2 border-dark text-xs sm:text-sm">
+                            <h4 class="font-extrabold text-dark flex items-center gap-1.5">
+                                <i class="fa-solid fa-calculator text-olive"></i> 22 Parts se 25 Parts Kaise Hue? (Important Exam Math)
+                            </h4>
+                            <ul class="mt-2 space-y-1.5 text-dark">
+                                <li>❌ <strong>Deleted Part:</strong> <strong class="quiz-item">Part 7 (Part VII)</strong> has been deleted (by 7th Amendment Act, 1956). <span class="text-olive font-semibold">(22 - 1 = 21)</span></li>
+                                <li>✅ <strong>4 New Parts Added:</strong> <strong class="quiz-item">Part IV-A</strong> (Fundamental Duties), <strong class="quiz-item">Part IX-A</strong> (Municipalities), <strong class="quiz-item">Part IX-B</strong> (Co-operative Societies), and <strong class="quiz-item">Part XIV-A</strong> (Tribunals). <span class="text-olive font-semibold">(21 + 4 = 25 Parts!)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Feature 2 (Parliamentary Govt) & Amendment Definition -->
+                <div class="lg:col-span-5 flex flex-col justify-between gap-4">
+                    <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Salient Feature #2</span>
+                        <h3 class="font-extrabold text-lg text-dark mt-2">2. Parliamentary Form of Government</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mt-2">
+                            • A <strong>Parliamentary Form of Government</strong> is a form of democracy in which the <strong>political party that wins the most seats in a national election forms the ruling government</strong>.
+                        </p>
+                        <div class="mt-3 p-2.5 rounded-lg bg-gold/30 border border-olive flex items-center justify-between text-xs sm:text-sm font-bold">
+                            <span>🌍 Borrowed From:</span>
+                            <span class="dark-badge px-3 py-1 rounded quiz-item">UK (United Kingdom)</span>
+                        </div>
+                        <p class="text-xs text-olive mt-2 font-medium">
+                            💡 <strong>Hinglish:</strong> Jahan Lok Sabha chunav mein sabse zyada seats jeetne wali party sarkar banati hai (PM + Council of Ministers), use Parliamentary System kehte hain. Yeh humne <strong>Britain (UK)</strong> se liya hai.
+                        </p>
+                    </div>
+
+                    <!-- Amendment Definition Box -->
+                    <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs uppercase tracking-widest text-gold font-bold">Key Term Definition</span>
+                            <i class="fa-solid fa-pen-fancy text-gold"></i>
+                        </div>
+                        <h4 class="text-base font-serif font-bold text-cream">What is an "Amendment" (Sanshodhan)?</h4>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1.5 leading-relaxed">
+                            "A <strong>formal change</strong> to a law, contract, constitution, or other legal document."
+                        </p>
+                        <p class="text-xs text-gold mt-2">
+                            👉 Samvidhan ya kanoon mein samay ke saath formal badlav ya sudhar karne ko <strong>Amendment</strong> kehte hain.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table: Written vs Unwritten Constitution -->
+            <div class="sub-card p-5 rounded-xl">
+                <h3 class="font-extrabold text-base text-dark mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-code-compare text-olive"></i> Written Constitution vs Unwritten Constitution
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Written Constitution -->
+                    <div class="p-4 rounded-xl bg-gold/20 border-2 border-dark">
+                        <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-3">
+                            <h4 class="font-extrabold text-base text-dark">📖 Written Constitution (Likhit)</h4>
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">Ex: India, USA</span>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark font-medium">
+                            <li>✅ <strong>Compiled and structured</strong> in a systematic form (Ek kitab mein vyavasthit dhang se likha hota hai).</li>
+                            <li>✅ <strong>Formally constituted</strong> (Ek Constituent Assembly dwara banaya gaya).</li>
+                            <li>✅ <strong class="quiz-item">Not easy to Amend</strong> (Ise badalna aasan nahi hota, special process lagta hai).</li>
+                            <li>✅ <strong>Example:</strong> <strong class="quiz-item">India</strong></li>
+                        </ul>
+                    </div>
+
+                    <!-- Unwritten Constitution -->
+                    <div class="p-4 rounded-xl bg-cream border-2 border-olive">
+                        <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-3">
+                            <h4 class="font-extrabold text-base text-dark">📜 Unwritten Constitution (Alikhit)</h4>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Ex: United Kingdom (UK)</span>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark font-medium">
+                            <li>• <strong>Not structured</strong> in a single book (Alag-alag traditions aur court decisions par aadharit).</li>
+                            <li>• <strong>Not formally constituted</strong> at one single time.</li>
+                            <li>• <strong class="quiz-item">Easy to Amend</strong> (Aam kanoon ki tarah aasani se amend ho jata hai).</li>
+                            <li>• <strong>Example:</strong> <strong class="quiz-item">United Kingdom (UK)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: FEDERATION WITH STRONG CENTRE (FEDERAL VS UNITARY)
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 3 • Feature #3</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">3. Federation with a Strong Centre (Federal vs Unitary)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Federalism Meaning & 3 Tiers -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Concept of Federalism</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2">What is Federalism (Sanghvad)?</h3>
+                        <p class="text-sm text-dark leading-relaxed mt-1.5">
+                            • <strong>Federalism:</strong> This refers to the <strong>existence of more than one level of Government</strong> in the country.
+                        </p>
+                        <div class="mt-3 p-3.5 rounded-lg bg-gold/25 border-l-4 border-dark text-xs sm:text-sm font-semibold text-dark">
+                            ⭐ <strong>Golden Principle:</strong> "Under federalism, the states are <strong>NOT merely agents</strong> of the federal government; they <strong>derive their authority from the Constitution itself</strong>."
+                        </div>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30">
+                        💡 <strong>Hinglish:</strong> Federalism ka matlab hai desh mein ek se zyada level par sarkar hona (Centre + State). Rajya sarkarein Kendra ki naukar ya agent nahi hain, unhe apni shakti seedhe Samvidhan se milti hai!
+                    </p>
+                </div>
+
+                <!-- 3 Tiers of Government in India -->
+                <div class="lg:col-span-6 bg-dark text-cream p-5 rounded-xl border-2 border-gold">
+                    <span class="text-xs text-gold font-bold uppercase tracking-wider">Pyramid of Governance</span>
+                    <h3 class="text-lg font-serif font-bold text-cream mt-1 mb-4">Three Tiers of Government Exist in India:</h3>
+                    <div class="space-y-2.5 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg bg-gold text-dark font-extrabold flex items-center justify-between border border-cream">
+                            <span>1. Union / Centre Government</span>
+                            <span class="px-2 py-0.5 rounded bg-dark text-gold text-xs uppercase quiz-item">National Level</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-olive/40 text-cream font-bold flex items-center justify-between border border-gold">
+                            <span>2. State Governments</span>
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark text-xs uppercase font-extrabold quiz-item">State Level</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream text-dark font-extrabold flex items-center justify-between border border-gold">
+                            <span>3. Local Bodies (Panchayats & Municipalities)</span>
+                            <span class="px-2 py-0.5 rounded bg-dark text-cream text-xs uppercase quiz-item">Grassroots Level</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Federal Features vs Unitary Features Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Federal Features -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-extrabold text-base sm:text-lg text-dark flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-olive"></i> Federal Features (Sanghiya Gun)
+                        </h3>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Power Sharing</span>
+                    </div>
+                    <p class="text-xs text-olive mb-3 font-medium">Jo features States ki power aur autonomy ko protect karte hain:</p>
+                    <ul class="space-y-2 text-xs sm:text-sm font-semibold text-dark">
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">1</span>
+                            <span class="quiz-item">Written Constitution</span> (Sab kuch likhit hai taaki Centre states ka haq na chheene)
+                        </li>
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">2</span>
+                            <span class="quiz-item">Supremacy of the Constitution</span> (Samvidhan sabse upar hai)
+                        </li>
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">3</span>
+                            <span class="quiz-item">Rigidity of Constitution</span> (Federal structure badalne ke liye States ki manzoori chahiye)
+                        </li>
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">4</span>
+                            <span class="quiz-item">Independence of Judiciary</span> (Centre-State dispute suljhane ke liye azaad Supreme Court)
+                        </li>
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">5</span>
+                            <span class="quiz-item">Bicameralism</span> (2 Sadan: Lok Sabha + Rajya Sabha jo States ko represent karti hai)
+                        </li>
+                        <li class="p-2.5 rounded bg-gold/20 border border-olive/50 flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-dark text-gold text-xs flex items-center justify-center shrink-0">6</span>
+                            <span class="quiz-item">Dual Government</span> (Centre Govt + State Govt)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Unitary Features -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-extrabold text-base sm:text-lg text-dark flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-olive"></i> Unitary Features (Ekatmak Gun)
+                        </h3>
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">Strong Centre</span>
+                    </div>
+                    <p class="text-xs text-olive mb-3 font-medium">Jo features Centre (Union) ko zyada powerful banate hain:</p>
+                    <ul class="space-y-2 text-xs sm:text-sm font-semibold text-dark">
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">1</span>
+                            <span class="quiz-item">Single Constitution</span> (Centre aur States dono ke liye ek hi Samvidhan)
+                        </li>
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">2</span>
+                            <span class="quiz-item">Single Citizenship</span> (Sirf Bharatiya Nagrikta, state ki alag citizenship nahi)
+                        </li>
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">3</span>
+                            <span class="quiz-item">Integrated Judiciary</span> (Top par Supreme Court, uske neeche High Courts)
+                        </li>
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">4</span>
+                            <span class="quiz-item">All India Services</span> (IAS, IPS, IFoS ko Centre bharti karta hai aur States mein bhejta hai)
+                        </li>
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">5</span>
+                            <span class="quiz-item">Emergency Provisions</span> (Emergency lagte hi saari power Centre ke haath mein aa jati hai)
+                        </li>
+                        <li class="p-2.5 rounded bg-cream border border-olive flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-olive text-cream text-xs flex items-center justify-center shrink-0">6</span>
+                            <span class="quiz-item">Appointment of Governors by Centre</span> (State ke Governor ko President niyukt karte hain)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: FAMOUS COMMENTS ON INDIAN FEDERALISM
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 3 • Scholar Quotes (Super Important for SSC)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Famous Comments on Indian Federalism</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <!-- 1. K.C. Wheare -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between border-t-4 border-t-dark">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Quote #1</span>
+                            <i class="fa-solid fa-quote-right text-olive text-lg"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Quasi Federal"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Ardh-Sanghiya — Aadha Federal, Aadha Unitary)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">K. C. Wheare</strong>
+                        <p class="text-[11px] text-olive mt-1">🧠 <strong>Trick:</strong> "Where (Wheare) is full federalism? It is only <strong>Quasi</strong>!"</p>
+                    </div>
+                </div>
+
+                <!-- 2. Ivor Jennings -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between border-t-4 border-t-dark">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Quote #2</span>
+                            <i class="fa-solid fa-quote-right text-olive text-lg"></i>
+                        </div>
+                        <blockquote class="text-base font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Federalism with centralising tendency"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Mazboot Kendra ki taraf jhuka hua Sanghvad)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">Ivor Jennings</strong>
+                        <p class="text-[11px] text-olive mt-1">🧠 <strong>Trick:</strong> <strong>Jennings</strong> = Centralis<strong>ing</strong> Tendency!</p>
+                    </div>
+                </div>
+
+                <!-- 3. Granville Seward Austin -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between border-t-4 border-t-dark">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Quote #3</span>
+                            <i class="fa-solid fa-quote-right text-olive text-lg"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Cooperative Federalism"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Sahakari Sanghvad — Centre aur State milkar kaam karte hain)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">Granville Seward Austin</strong>
+                        <p class="text-[11px] text-olive mt-1">🧠 <strong>Trick:</strong> <strong>Austin</strong> (Awesome log hamesha <strong>Cooperate</strong> karte hain!)</p>
+                    </div>
+                </div>
+
+                <!-- 4. Morris Jones -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between border-t-4 border-t-dark">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Quote #4</span>
+                            <i class="fa-solid fa-quote-right text-olive text-lg"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Bargaining Federalism"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Saudebazi wala Sanghvad)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">Morris Jones</strong>
+                        <p class="text-[11px] text-olive mt-1">🧠 <strong>Trick:</strong> "More (<strong>Morris</strong>) paisa do" = Market mein <strong>Bargaining</strong> karna!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: SEPARATION OF POWERS
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • Feature #4</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">4. Separation of Powers (Shaktiyon ka Batwara)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- 1. Legislative -->
+                <div class="sub-card p-5 rounded-xl text-center border-b-4 border-b-dark">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-dark text-gold flex items-center justify-center text-2xl mb-3 border-2 border-olive">
+                        <i class="fa-solid fa-landmark-dome"></i>
+                    </div>
+                    <span class="gold-badge text-xs px-2.5 py-0.5 rounded uppercase">Organ #1</span>
+                    <h3 class="text-xl font-extrabold text-dark mt-2">Legislative (Vidhayika)</h3>
+                    <div class="my-3 py-2 px-3 rounded-lg bg-gold/30 border border-olive font-extrabold text-base text-dark quiz-item">
+                        👉 Makes Laws
+                    </div>
+                    <p class="text-xs text-olive font-medium">
+                        (Parliament & State Legislatures — Inka kaam desh ke liye naye <strong>kanoon banana</strong> hai).
+                    </p>
+                </div>
+
+                <!-- 2. Executive -->
+                <div class="sub-card p-5 rounded-xl text-center border-b-4 border-b-dark">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-dark text-gold flex items-center justify-center text-2xl mb-3 border-2 border-olive">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <span class="gold-badge text-xs px-2.5 py-0.5 rounded uppercase">Organ #2</span>
+                    <h3 class="text-xl font-extrabold text-dark mt-2">Executive (Karyapalika)</h3>
+                    <div class="my-3 py-2 px-3 rounded-lg bg-gold/30 border border-olive font-extrabold text-base text-dark quiz-item">
+                        👉 Carries Out Laws
+                    </div>
+                    <p class="text-xs text-olive font-medium">
+                        (President, PM, Ministers & Bureaucracy — Inka kaam bane hue <strong>kanoon ko zameen par laagu karna</strong> hai).
+                    </p>
+                </div>
+
+                <!-- 3. Judiciary -->
+                <div class="sub-card p-5 rounded-xl text-center border-b-4 border-b-dark">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-dark text-gold flex items-center justify-center text-2xl mb-3 border-2 border-olive">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <span class="gold-badge text-xs px-2.5 py-0.5 rounded uppercase">Organ #3</span>
+                    <h3 class="text-xl font-extrabold text-dark mt-2">Judiciary (Nyaypalika)</h3>
+                    <div class="my-3 py-2 px-3 rounded-lg bg-gold/30 border border-olive font-extrabold text-base text-dark quiz-item">
+                        👉 Evaluates Laws
+                    </div>
+                    <p class="text-xs text-olive font-medium">
+                        (Supreme Court, High Courts — Inka kaam <strong>kanoon ki jaanch karna</strong> aur Samvidhan ki raksha karna hai).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: MASTER TRICK — "TEARS OF OLD PM" (ALL 12 SCHEDULES)
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-gold text-dark font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-gold">Page 6 • Golden Mnemonic</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-cream">Master Trick to Learn All 12 Schedules: <span class="text-gold underline">"TEARS OF OLD PM"</span></h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-cream hover:bg-cream transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <p class="text-xs sm:text-sm text-cream/90 mb-5">
+                💡 <strong>Hinglish Trick:</strong> Bas yeh 4 words yaad rakhein — <strong class="text-gold">"TEARS OF OLD PM"</strong> (Tears = 1 to 5, Of = 6 to 7, Old = 8 to 10, PM = 11 to 12). Kisi bhi letter card par click karke us Schedule ki detail par pahuchein!
+            </p>
+
+            <!-- 12 Acronym Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 1</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">T</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Territory</span>
+                    <span class="text-[10px] text-olive">(States & UTs)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 2</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">E</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Emoluments</span>
+                    <span class="text-[10px] text-olive">(Salaries & Bhatte)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 3</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">A</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Affirmation & Oath</span>
+                    <span class="text-[10px] text-olive">(Shapath)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 4</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">R</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Rajya Sabha</span>
+                    <span class="text-[10px] text-olive">(Seat Allocation)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 5</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">S</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Scheduled Area</span>
+                    <span class="text-[10px] text-olive">(10 States Admin)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-6')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 6</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">O</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Other Scheduled Area</span>
+                    <span class="text-[10px] text-olive">(Assam,Megh,Trip,Mizo)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-7')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 7</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">F</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Federal Provision</span>
+                    <span class="text-[10px] text-olive">(3 Lists: U, S, C)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-8')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 8</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">O</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Official Languages</span>
+                    <span class="text-[10px] text-olive">(14 → 22 Bhashayein)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-9')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 9</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">L</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Land Provision</span>
+                    <span class="text-[10px] text-olive">(1st CAA, 1951)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-9')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 10</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">D</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Defection</span>
+                    <span class="text-[10px] text-olive">(52nd CAA, 1985)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-9')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 11</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">P</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Panchayat</span>
+                    <span class="text-[10px] text-olive">(73rd CAA, 29 Items)</span>
+                </div>
+                <div onclick="jumpToTopic('topic-9')" class="cursor-pointer p-3 rounded-xl bg-cream text-dark border-2 border-gold hover:bg-gold transition text-center">
+                    <span class="text-xs font-bold text-olive block">Schedule 12</span>
+                    <strong class="text-3xl font-serif font-extrabold text-dark block my-0.5">M</strong>
+                    <span class="text-xs font-extrabold block quiz-item">Municipality</span>
+                    <span class="text-[10px] text-olive">(74th CAA, 18 Items)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: SCHEDULES 1 TO 6 (WITH LADAKH 6TH SCHEDULE NEWS)
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • Detailed Breakdown</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Schedules 1 to 6 of Indian Constitution (With Ladakh News)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Grid of Schedules 1, 2, 3, 4 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                <!-- Schedule 1 -->
+                <div class="sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 1 (T = Territory)</span>
+                        <i class="fa-solid fa-map-location-dot text-olive text-lg"></i>
+                    </div>
+                    <h3 class="font-extrabold text-base text-dark mb-1">Names of States & Union Territories</h3>
+                    <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                        • <strong class="quiz-item">Names of States and UTs</strong> and their <strong>territorial jurisdiction</strong> (Koun sa rajya kahan tak phaila hai, uski seema aur naam).
+                    </p>
+                </div>
+
+                <!-- Schedule 4 -->
+                <div class="sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 4 (R = Rajya Sabha)</span>
+                        <i class="fa-solid fa-chair text-olive text-lg"></i>
+                    </div>
+                    <h3 class="font-extrabold text-base text-dark mb-1">Allocation of Seats in Rajya Sabha</h3>
+                    <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                        • <strong class="quiz-item">Allocation of Seats in Rajya Sabha</strong> to the States and the Union Territories (Har State/UT ko population ke hisab se kitni Rajya Sabha seats milengi).
+                    </p>
+                </div>
+
+                <!-- Schedule 2 -->
+                <div class="sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded">Schedule 2 (E = Emoluments)</span>
+                        <i class="fa-solid fa-indian-rupee-sign text-olive text-lg"></i>
+                    </div>
+                    <h3 class="font-extrabold text-base text-dark mb-1">Emoluments, Allowances & Privileges (Salary/Bhatte)</h3>
+                    <p class="text-xs text-olive font-semibold mb-2">Provisions relating to emoluments and allowances of 9 dignitaries:</p>
+                    <div class="flex flex-wrap gap-1.5 text-xs font-bold">
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">1. President</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">2. Vice President</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">3. Governor</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">4. Speaker</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">5. Deputy Speaker</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">6. Chairman (RS/LC)</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">7. Deputy Chairman</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">8. Judges (SC & HC)</span>
+                        <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">9. CAG</span>
+                    </div>
+                </div>
+
+                <!-- Schedule 3 -->
+                <div class="sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded">Schedule 3 (A = Affirmation & Oath)</span>
+                        <i class="fa-solid fa-hand-holding-heart text-olive text-lg"></i>
+                    </div>
+                    <h3 class="font-extrabold text-base text-dark mb-1">Oaths and Affirmations (Shapath)</h3>
+                    <p class="text-xs text-olive font-semibold mb-2">Forms of Oaths and Affirmations (Union + State) of:</p>
+                    <div class="flex flex-wrap gap-1.5 text-xs font-bold mb-2">
+                        <span class="px-2.5 py-1 rounded bg-dark text-gold quiz-item">1. Ministers (Union + State)</span>
+                        <span class="px-2.5 py-1 rounded bg-dark text-gold quiz-item">2. MPs (Sansad)</span>
+                        <span class="px-2.5 py-1 rounded bg-dark text-gold quiz-item">3. MLAs / MLCs</span>
+                        <span class="px-2.5 py-1 rounded bg-dark text-gold quiz-item">4. Judges (SC & HC)</span>
+                        <span class="px-2.5 py-1 rounded bg-dark text-gold quiz-item">5. CAG</span>
+                    </div>
+                    <p class="text-[11px] text-olive font-medium">
+                        ⚠️ <strong>Exam Trap Note:</strong> President (Art 60), Vice-President (Art 69) aur Governor (Art 159) ki Oath Schedule 3 mein nahi, balki unke alag Articles mein di gayi hai!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Schedule 5 vs Schedule 6 + Ladakh News -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Schedule 5 (10 States) -->
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl border-l-8 border-l-dark">
+                    <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 5 (S = Scheduled Areas)</span>
+                    <h3 class="font-extrabold text-lg text-dark mt-2">Administration of Scheduled Areas & Scheduled Tribes</h3>
+                    <p class="text-xs sm:text-sm text-dark mt-1 mb-3">
+                        Provisions relating to the administration and control of Scheduled Areas and Scheduled Tribes in <strong class="quiz-item">10 States</strong>:
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold text-dark">
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">1. Andhra Pradesh</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">2. Telangana</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">3. Chhattisgarh</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">4. Madhya Pradesh</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">5. Jharkhand</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">6. Odisha</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">7. Maharashtra</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">8. Gujarat</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">9. Rajasthan</div>
+                        <div class="p-2 rounded bg-gold/25 border border-olive quiz-item">10. Himachal Pradesh</div>
+                    </div>
+                    <p class="text-xs text-olive mt-3 font-semibold">
+                        🧠 <strong>Easy Grouping Trick:</strong><br>
+                        • <strong>Pairs:</strong> (Andhra + Telangana), (MP + Chhattisgarh), (Maharashtra + Gujarat), (Jharkhand + Odisha) = 8 States + <strong>Himachal & Rajasthan</strong> = Total 10 States!
+                    </p>
+                </div>
+
+                <!-- Schedule 6 (4 NE States + Ladakh News) -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded">Schedule 6 (O = Other Tribal Areas)</span>
+                        <h3 class="font-extrabold text-lg text-dark mt-2">Administration of Tribal Areas of 4 States</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-1 mb-3">
+                            Provisions related to administration of tribal areas in <strong>4 North-Eastern States</strong>:
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs sm:text-sm font-extrabold">
+                            <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">Assam</div>
+                            <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">Tripura</div>
+                            <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">Meghalaya</div>
+                            <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">Mizoram</div>
+                        </div>
+                        <p class="text-xs text-olive font-bold mt-2">
+                            🧠 <strong>Trick:</strong> <strong>"ATM Square (AMTM)"</strong> — <strong>A</strong>ssam, <strong>M</strong>eghalaya, <strong>T</strong>ripura, <strong>M</strong>izoram (⚠️ <em>Manipur is NOT in 6th Schedule!</em>)
+                        </p>
+                    </div>
+
+                    <!-- Why Schedule 6 was in News (Ladakh Box) -->
+                    <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🔥 Current Affairs Connection</span>
+                            <span class="text-xs text-gold font-bold">LADAKH DEMANDS</span>
+                        </div>
+                        <h4 class="text-base font-serif font-bold text-gold mt-1">Why Schedule 6 was in News?</h4>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1 leading-relaxed">
+                            The Sixth Schedule has been in the news recently due to <strong>protests in <span class="text-gold font-bold quiz-item">Ladakh</span> demanding its extension to the region</strong> (along with Statehood) to protect its tribal culture, land, and autonomy.
+                        </p>
+                        <div class="mt-3 p-3 rounded-lg bg-olive/30 border border-gold text-xs">
+                            <strong class="text-gold block mb-1">What the Sixth Schedule Entails (Kya milta hai isme?):</strong>
+                            <ul class="space-y-1">
+                                <li>• <strong class="quiz-item">Autonomous District Councils (ADCs)</strong> (Chune hue local tribal councils)</li>
+                                <li>• <strong>Powers of ADCs</strong> (Zameen, jungle, aur local kanoon banane ki shakti)</li>
+                                <li>• <strong>Cultural Preservation</strong> (Tribal sanskriti aur pehchan ki suraksha)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: SCHEDULE 7 — THREE LISTS, RESIDUARY & 5 SCENARIOS
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Division of Legislative Powers</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Schedule 7: Union, State, Concurrent & Residuary Lists</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <p class="text-sm text-dark font-medium mb-6 bg-gold/20 p-3.5 rounded-xl border border-olive">
+                📌 <strong>Schedule 7 (Federal Provision):</strong> Contains <strong>Three Lists</strong> containing subjects on which the Union and States can make laws.
+            </p>
+
+            <!-- 3 Lists Comparison Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+                <!-- 1. Union List -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">List #1 • Centre Makes Laws</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark">1. Union List (Sangh Soochi)</h3>
+                        <div class="grid grid-cols-2 gap-2 my-3 text-center">
+                            <div class="p-2 rounded bg-cream border border-olive">
+                                <span class="text-[11px] font-bold text-olive block uppercase">Initially</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">97 Subjects</strong>
+                            </div>
+                            <div class="p-2 rounded bg-gold/40 border-2 border-dark">
+                                <span class="text-[11px] font-bold text-dark block uppercase">Currently</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">100 Subjects</strong>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-extrabold uppercase text-olive mb-2">Important Subjects in Union List:</h4>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-bold">
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Defence</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Banking</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Foreign Affairs</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Citizenship</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Atomic Energy</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Airways</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Census (Jangana)</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Arms & Ammunition</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Inter-State Trade & Commerce</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Labour & Mines Regulation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. State List -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-olive flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">List #2 • States Make Laws</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark">2. State List (Rajya Soochi)</h3>
+                        <div class="grid grid-cols-2 gap-2 my-3 text-center">
+                            <div class="p-2 rounded bg-cream border border-olive">
+                                <span class="text-[11px] font-bold text-olive block uppercase">Initially</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">66 Subjects</strong>
+                            </div>
+                            <div class="p-2 rounded bg-gold/40 border-2 border-dark">
+                                <span class="text-[11px] font-bold text-dark block uppercase">Currently (-5)</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">61 Subjects</strong>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-extrabold uppercase text-olive mb-2">Important Subjects in State List:</h4>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-bold">
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Public Order (Police)</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Local Government</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Public Health</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Pilgrimage (Teerth)</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Liquor (Sharab)</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Agriculture (Krishi)</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Fisheries</span>
+                            <span class="px-2 py-1 rounded bg-cream border border-olive quiz-item">Betting and Gambling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Concurrent List -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">List #3 • Both Union & State</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark">3. Concurrent List (Samvarti)</h3>
+                        <div class="grid grid-cols-2 gap-2 my-3 text-center">
+                            <div class="p-2 rounded bg-cream border border-olive">
+                                <span class="text-[11px] font-bold text-olive block uppercase">Initially</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">47 Subjects</strong>
+                            </div>
+                            <div class="p-2 rounded bg-gold/40 border-2 border-dark">
+                                <span class="text-[11px] font-bold text-dark block uppercase">Currently (+5)</span>
+                                <strong class="text-lg font-extrabold text-dark quiz-item">52 Subjects</strong>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-extrabold uppercase text-olive mb-2">Important Subjects in Concurrent List:</h4>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-bold">
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Education</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Electricity</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Marriage and Divorce</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Insolvency & Bankruptcy</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Trade & Labour Dispute</span>
+                            <span class="px-2 py-1 rounded bg-gold/25 border border-olive quiz-item">Weights and Measures</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 42nd Amendment Act 1976 Transfer Box -->
+            <div class="trick-box p-5 rounded-xl mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Most Asked SSC Question</span>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-1">
+                            5 Subjects Transferred from State List (66→61) to Concurrent List (47→52)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1">
+                            Transferred by the <strong class="text-gold underline quiz-item">42nd Constitutional Amendment Act, 1976</strong>:
+                        </p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 mt-4 text-xs font-extrabold text-dark">
+                    <div class="p-3 rounded-lg bg-gold border border-cream text-center quiz-item">1. Education (Shiksha)</div>
+                    <div class="p-3 rounded-lg bg-gold border border-cream text-center quiz-item">2. Forests (Jungle)</div>
+                    <div class="p-3 rounded-lg bg-gold border border-cream text-center quiz-item">3. Weights & Measures</div>
+                    <div class="p-3 rounded-lg bg-gold border border-cream text-center quiz-item">4. Protection of Wild Animals & Birds</div>
+                    <div class="p-3 rounded-lg bg-gold border border-cream text-center quiz-item">5. Administration of Justice</div>
+                </div>
+                <p class="text-xs text-gold mt-3">
+                    🧠 <strong>Hinglish Story Trick:</strong> Jungle (<strong>Forest</strong>) mein Jaanwaro/Pakshiyo (<strong>Wild Animals & Birds</strong>) ko <strong>Education</strong> di gayi ki sahi <strong>Weight & Measure</strong> se <strong>Justice</strong> kaise karein!
+                </p>
+            </div>
+
+            <!-- Residuary List & 5 Scenarios Where Parliament Legislates on State List -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Residuary List -->
+                <div class="lg:col-span-5 sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">4th Category of Subjects</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2">Residuary List / Powers (Avshisht Shaktiyan)</h3>
+                        <ul class="space-y-2.5 text-xs sm:text-sm text-dark mt-3">
+                            <li>• <strong>What are they?</strong> Subjects that are <strong>NOT included in Union, State, or Concurrent List</strong> (e.g., Cyber Laws, Space, AI).</li>
+                            <li>• <strong>Who has the power to make laws?</strong> <strong class="quiz-item underline">Parliament</strong> has the exclusive power to legislate on residuary subjects (Article 248).</li>
+                            <li>• <strong>Borrowed From:</strong> <strong class="quiz-item">Canadian Constitution (Canada)</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs">
+                        💡 Jo vishay 1950 mein socha nahi gaya tha aur teeno list mein nahi hai, us par kanoon banane ka haq sirf <strong>Parliament</strong> ke paas hai!
+                    </div>
+                </div>
+
+                <!-- 5 Scenarios -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl bg-gold/15">
+                    <h3 class="font-extrabold text-base sm:text-lg text-dark border-b border-olive pb-2 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-gavel text-olive"></i> 5 Scenarios in Which Parliament / Union Can Legislate on State List Subjects
+                    </h3>
+                    <p class="text-xs text-olive font-semibold mb-3">
+                        Waise toh State List par State Govt kanoon banati hai, lekin in <strong>5 exceptional cases</strong> mein <strong>Parliament</strong> bhi State List par kanoon bana sakti hai:
+                    </p>
+                    <div class="space-y-2 text-xs sm:text-sm font-bold text-dark">
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-dark text-gold flex items-center justify-center text-xs shrink-0">1</span>
+                            <span>During <strong class="quiz-item">National Emergency</strong> (Article 250)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-dark text-gold flex items-center justify-center text-xs shrink-0">2</span>
+                            <span>During <strong class="quiz-item">President's Rule</strong> in a State (Article 356)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-dark text-gold flex items-center justify-center text-xs shrink-0">3</span>
+                            <span><strong class="quiz-item">If two or more States request/ask the Centre</strong> to make a law for them (Article 252)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-dark text-gold flex items-center justify-center text-xs shrink-0">4</span>
+                            <span><strong class="quiz-item">To enforce International Treaties / Agreements</strong> (Article 253)</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border-2 border-dark flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-gold text-dark flex items-center justify-center text-xs shrink-0">5</span>
+                            <span><strong class="quiz-item">If Rajya Sabha gives Parliament this power with Special Majority</strong> in national interest (Article 249)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 8: SCHEDULE 8 (22 LANGUAGES) & 11 CLASSICAL LANGUAGES (2024 UPDATE)
+             ========================================== -->
+        <section id="topic-8" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">08</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Languages & Amendments</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Schedule 8 (Official Languages) & Classical Languages of India</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left 6 cols: Schedule 8 Amendments -->
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 8 (O = Official Languages)</span>
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded">14 → 22 Languages</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark mb-3">Evolution of 22 Scheduled Languages</h3>
+
+                    <div class="grid grid-cols-2 gap-3 mb-4 text-center">
+                        <div class="p-3 rounded-lg bg-cream border border-olive">
+                            <span class="text-xs font-bold text-olive block uppercase">Originally (1950)</span>
+                            <strong class="text-2xl font-extrabold text-dark quiz-item">14 Languages</strong>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/35 border-2 border-dark">
+                            <span class="text-xs font-bold text-dark block uppercase">Presently</span>
+                            <strong class="text-2xl font-extrabold text-dark quiz-item">22 Languages</strong>
+                        </div>
+                    </div>
+
+                    <h4 class="text-xs font-extrabold uppercase text-olive mb-2">4 Key Constitutional Amendments to Remember:</h4>
+                    <div class="space-y-2.5 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                            <div class="flex items-center justify-between font-extrabold text-dark">
+                                <span class="quiz-item">1. 21st CAA, 1967</span>
+                                <span class="dark-badge text-[11px] px-2 py-0.5 rounded">+1 Language (15th)</span>
+                            </div>
+                            <p class="mt-1 font-semibold"><strong class="quiz-item">Sindhi</strong> was added.</p>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                            <div class="flex items-center justify-between font-extrabold text-dark">
+                                <span class="quiz-item">2. 71st CAA, 1992</span>
+                                <span class="dark-badge text-[11px] px-2 py-0.5 rounded">+3 Languages (18)</span>
+                            </div>
+                            <p class="mt-1 font-semibold"><strong class="quiz-item">Konkani, Manipuri, and Nepali</strong> were added.</p>
+                            <span class="text-xs text-olive font-bold block mt-0.5">🧠 Trick: <strong>"NAMAK"</strong> (Nepali, Manipuri, Konkani)</span>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                            <div class="flex items-center justify-between font-extrabold text-dark">
+                                <span class="quiz-item">3. 92nd CAA, 2003</span>
+                                <span class="dark-badge text-[11px] px-2 py-0.5 rounded">+4 Languages (22)</span>
+                            </div>
+                            <p class="mt-1 font-semibold"><strong class="quiz-item">Bodo, Dogri, Santhali, and Maithili</strong> were added.</p>
+                            <span class="text-xs text-olive font-bold block mt-0.5">🧠 Trick: <strong>"BDSM"</strong> (Bodo, Dogri, Santhali, Maithili) &amp; 21 + 71 = 92nd CAA!</span>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-cream border-2 border-dark">
+                            <div class="flex items-center justify-between font-extrabold text-dark">
+                                <span class="quiz-item">4. 96th CAA, 2011</span>
+                                <span class="gold-badge text-[11px] px-2 py-0.5 rounded">Name Change</span>
+                            </div>
+                            <p class="mt-1 font-semibold">It changed the name <strong class="quiz-item">'Oriya' to 'Odia'</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 6 cols: Classical Languages of India (6 + 5 New in 2024 = 11) -->
+                <div class="lg:col-span-6 flex flex-col justify-between gap-4">
+                    <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">6 Earlier + 5 Added in 2024 = 11 Total</span>
+                            <i class="fa-solid fa-scroll text-gold text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-gold mb-3">Classical Languages of India (Shastriya Bhashayein)</h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Original 6 -->
+                            <div class="p-3.5 rounded-xl bg-cream text-dark border-2 border-gold">
+                                <span class="text-xs font-extrabold uppercase text-olive block mb-2">Earlier 6 Classical Languages:</span>
+                                <ul class="space-y-1.5 text-xs sm:text-sm font-extrabold">
+                                    <li>1. <span class="quiz-item">Tamil</span> (2004 - Oldest)</li>
+                                    <li>2. <span class="quiz-item">Sanskrit</span> (2005)</li>
+                                    <li>3. <span class="quiz-item">Telugu</span> (2008)</li>
+                                    <li>4. <span class="quiz-item">Kannada</span> (2008)</li>
+                                    <li>5. <span class="quiz-item">Malayalam</span> (2013)</li>
+                                    <li>6. <span class="quiz-item">Odia</span> (2014)</li>
+                                </ul>
+                            </div>
+
+                            <!-- Newly Added 5 in 2024 -->
+                            <div class="p-3.5 rounded-xl bg-gold text-dark border-2 border-cream">
+                                <span class="text-xs font-extrabold uppercase text-dark/80 block mb-2">🔥 Newly Added in 2024 (5):</span>
+                                <ul class="space-y-1.5 text-xs sm:text-sm font-extrabold">
+                                    <li>7. <span class="quiz-item">Marathi</span></li>
+                                    <li>8. <span class="quiz-item">Pali</span></li>
+                                    <li>9. <span class="quiz-item">Prakrit</span></li>
+                                    <li>10. <span class="quiz-item">Assamese</span></li>
+                                    <li>11. <span class="quiz-item">Bengali</span></li>
+                                </ul>
+                                <span class="mt-2 inline-block px-2 py-0.5 rounded bg-dark text-gold text-[10px] font-bold">Total Now = 11 Languages!</span>
+                            </div>
+                        </div>
+
+                        <!-- Trick Box for Classical Languages -->
+                        <div class="mt-4 p-3.5 rounded-xl bg-olive/30 border-l-4 border-gold text-xs sm:text-sm">
+                            <span class="text-gold font-extrabold uppercase block mb-1">🧠 Trick to Learn First 6 Classical Languages:</span>
+                            <p class="font-serif italic text-base text-cream font-bold quiz-item">
+                                "Tu Shuru To Kar Mai Aariya (Oriya)"
+                            </p>
+                            <p class="text-xs text-cream/90 mt-1">
+                                • <strong>Tu</strong> = Tamil | <strong>Shuru</strong> = Sanskrit | <strong>To</strong> = Telugu | <strong>Kar</strong> = Kannada | <strong>Mai</strong> = Malayalam | <strong>Aariya</strong> = Odia (Oriya)!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 9: SCHEDULES 9, 10, 11 & 12
+             ========================================== -->
+        <section id="topic-9" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">09</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 6 • Schedules Added by Amendments</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Schedules 9, 10, 11 & 12 (Added After 1950)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Schedule 9 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 9 (L = Land Provision)</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">1st CA: 1951</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mt-1">Land Reforms & Abolition of Zamindari System</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            • Provisions related to <strong class="quiz-item">Land Reforms and Zamindari System</strong>.<br>
+                            • Added through the <strong class="quiz-item">1st Constitutional Amendment Act, 1951</strong> (during PM Jawaharlal Nehru's tenure).
+                        </p>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30 font-medium">
+                        💡 <strong>Hinglish:</strong> Original Constitution mein 8 hi Schedules the. Sabse pehla naya Schedule (9th Schedule) 1951 mein Zamindari pratha khatam karne ke liye joda gaya.
+                    </p>
+                </div>
+
+                <!-- Schedule 10 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 10 (D = Defection)</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">52nd CA: 1985</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mt-1">Anti-Defection Law (Dal-Badal Virodhi Kanoon)</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            • Provisions relating to <strong class="quiz-item">disqualification of MPs and MLAs on grounds of defection</strong> (party badalne par sadasyata radd hona).<br>
+                            • Added by the <strong class="quiz-item">52nd Constitutional Amendment Act, 1985</strong>.
+                        </p>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30 font-medium">
+                        💡 <strong>Trick:</strong> <strong>10</strong>th Schedule = <strong>D</strong>as = <strong>D</strong>al-Badal (<strong>D</strong>efection)!
+                    </p>
+                </div>
+
+                <!-- Schedule 11 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 11 (P = Panchayat)</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">73rd CA: 1992</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mt-1">Panchayati Raj Institutions (Rural Local Govt)</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            • Provisions relating to <strong class="quiz-item">Panchayats</strong>.<br>
+                            • Added by the <strong class="quiz-item">73rd Constitutional Amendment Act, 1992</strong>.<br>
+                            • Contains <strong class="underline text-dark quiz-item">29 Functional Matters (Subjects)</strong>.
+                        </p>
+                    </div>
+                    <div class="mt-3 p-2.5 rounded-lg bg-gold/25 border border-olive text-xs font-bold text-dark">
+                        🧠 <strong>Trick for 29 Matters:</strong> 11th Schedule mein <span class="underline">2 + 9 = 11</span> (29 Functional Matters)!
+                    </div>
+                </div>
+
+                <!-- Schedule 12 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Schedule 12 (M = Municipality)</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">74th CA: 1992</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mt-1">Municipalities (Urban Local Govt / Nagar Palika)</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            • Provisions relating to <strong class="quiz-item">Municipalities</strong>.<br>
+                            • Added by the <strong class="quiz-item">74th Constitutional Amendment Act, 1992</strong>.<br>
+                            • Contains <strong class="underline text-dark quiz-item">18 Functional Matters (Subjects)</strong>.
+                        </p>
+                    </div>
+                    <div class="mt-3 p-2.5 rounded-lg bg-gold/25 border border-olive text-xs font-bold text-dark">
+                        ⭐ <strong>Quick Compare:</strong> Panchayat (Sch 11) = <strong>29 Matters</strong> | Municipality (Sch 12) = <strong>18 Matters</strong>.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (6 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz (6 Questions)
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "ADD EXTRA NOTE" & "TOPICS AT A GLANCE" BUTTONS -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or card to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Salient Features & 12 Schedules Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test: ON (Click blurred)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 5. Interactive PYQ Practice Quiz (6 Questions)
+        const quizData = [
+            {
+                q: "1. Who described the Indian Constitution as 'Cooperative Federalism'?",
+                options: ["K. C. Wheare", "Ivor Jennings", "Granville Seward Austin", "Morris Jones"],
+                answer: 2,
+                exp: "Granville Seward Austin ne 'Cooperative Federalism' kaha tha (K.C. Wheare = Quasi Federal, Morris Jones = Bargaining Federalism)."
+            },
+            {
+                q: "2. Which of the following states is NOT covered under the 6th Schedule of the Indian Constitution?",
+                options: ["Assam", "Meghalaya", "Manipur", "Mizoram"],
+                answer: 2,
+                exp: "6th Schedule mein sirf 4 states hain (ATM Square): Assam, Meghalaya, Tripura, aur Mizoram. Manipur isme nahi aata!"
+            },
+            {
+                q: "3. From which country's constitution were the 'Residuary Powers' borrowed?",
+                options: ["United Kingdom", "USA", "Canadian Constitution", "Australia"],
+                answer: 2,
+                exp: "Residuary List par Parliament ko kanoon banane ki shakti Canadian Constitution (Canada) se li gayi hai."
+            },
+            {
+                q: "4. By which Amendment Act were 'Education' and 'Forests' transferred from State List to Concurrent List?",
+                options: ["42nd Amendment Act, 1976", "44th Amendment Act, 1978", "52nd Amendment Act, 1985", "73rd Amendment Act, 1992"],
+                answer: 0,
+                exp: "42nd Amendment Act, 1976 dwara 5 vishay (Education, Forest, Weights & Measures, Wild Animals/Birds, Administration of Justice) Concurrent List mein dale gaye."
+            },
+            {
+                q: "5. Which Constitutional Amendment added Bodo, Dogri, Santhali, and Maithili (BDSM) to the 8th Schedule?",
+                options: ["21st CAA, 1967", "71st CAA, 1992", "92nd CAA, 2003", "96th CAA, 2011"],
+                answer: 2,
+                exp: "92nd CAA, 2003 ne Bodo, Dogri, Santhali aur Maithili ko joda, jisse kul bhashayein 22 ho gayin."
+            },
+            {
+                q: "6. How many functional matters (subjects) are placed under the 11th Schedule (Panchayats)?",
+                options: ["18 Functional Matters", "22 Functional Matters", "29 Functional Matters", "12 Functional Matters"],
+                answer: 2,
+                exp: "11th Schedule (Panchayat, 73rd CA) mein 29 matters hain, jabki 12th Schedule (Municipality, 74th CA) mein 18 matters hain."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 6. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'polity_salient_features_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items & headings
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                const divWrapper = document.createElement('div');
+                divWrapper.className = 'student-custom-note-wrapper';
+                divWrapper.innerHTML = noteHtml;
+                targetEl.appendChild(divWrapper);
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - SALIENT FEATURES & 12 SCHEDULES\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Salient_Features_12_Schedules_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>
