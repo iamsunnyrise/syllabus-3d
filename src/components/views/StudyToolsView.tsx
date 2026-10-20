@@ -608,10 +608,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [gaSubject, gaSearch]);
 
   return (
-    <div className="w-full max-w-[1650px] mx-auto space-y-6 pb-20 md:pb-10 pt-2 px-2 sm:px-4 animate-view-fade">
+    <div className="w-full max-w-[1650px] mx-auto space-y-5 sm:space-y-6 pb-32 sm:pb-16 pt-1 sm:pt-2 px-2.5 sm:px-4 animate-view-fade">
       
       {/* 🌟 Top Hero Portal Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-6 sm:p-8 shadow-xs">
+      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-4 sm:p-8 shadow-xs">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-72 h-72 bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/3 -mb-20 w-80 h-80 bg-gradient-to-tr from-blue-500/10 via-indigo-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -630,7 +630,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {/* 3 Main Tool Selector Tabs */}
-          <div className="flex items-center p-1.5 rounded-2xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start md:self-center shrink-0">
+          <div className="grid grid-cols-3 w-full md:flex md:w-auto p-1 sm:p-1.5 rounded-2xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1 sm:gap-1.5">
             <button
               type="button"
               onClick={() => {
@@ -639,15 +639,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 setActiveTab('vocab');
                 onNavigate?.('study-tools-vocab');
               }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 px-2 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 activeTab === 'vocab'
                   ? 'bg-amber-500 text-slate-950 font-black shadow-sm ring-1 ring-amber-400/50'
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.06]'
               }`}
             >
-              <BookOpen className="w-4 h-4" />
-              <span>Vocabulary</span>
-              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="hidden sm:inline">Vocabulary</span>
+              <span className="sm:hidden">Vocab</span>
+              <span className={`hidden xs:inline-block px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold ${
                 activeTab === 'vocab' ? 'bg-black/15 text-slate-950' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
               }`}>
                 {DEFAULT_VOCAB_DATA.length}
@@ -662,15 +663,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 setActiveTab('maths');
                 onNavigate?.('study-tools-calc-booster');
               }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 px-2 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 activeTab === 'maths'
                   ? 'bg-blue-600 text-white font-black shadow-sm ring-1 ring-blue-400/50'
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.06]'
               }`}
             >
-              <Zap className="w-4 h-4 text-amber-300" />
-              <span>Calculation Booster</span>
-              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
+              <span className="hidden sm:inline">Calculation Booster</span>
+              <span className="sm:hidden">Math Booster</span>
+              <span className={`hidden md:inline-block px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeTab === 'maths' ? 'bg-white/20 text-white' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
               }`}>
                 7 Tools
@@ -685,15 +687,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 setActiveTab('ga');
                 onNavigate?.('study-tools-ga');
               }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 px-2 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 activeTab === 'ga'
                   ? 'bg-purple-600 text-white font-black shadow-sm ring-1 ring-purple-400/50'
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.06]'
               }`}
             >
-              <Compass className="w-4 h-4" />
-              <span>General Awareness</span>
-              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+              <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="hidden sm:inline">General Awareness</span>
+              <span className="sm:hidden">GA Notes</span>
+              <span className={`hidden md:inline-block px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeTab === 'ga' ? 'bg-white/20 text-white' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
               }`}>
                 {GA_TOPICS.length}
@@ -710,7 +713,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
         <div className="space-y-6 animate-fade-in">
           
           {/* Sub Navigation: Core Vocabulary vs SSC Special */}
-          <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+          <div className="grid grid-cols-2 w-full sm:flex sm:w-auto items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
             <button
               type="button"
               onClick={() => {
@@ -718,13 +721,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 haptics.selection();
                 setVocabSubTab('core');
               }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap w-full sm:w-auto ${
                 vocabSubTab === 'core'
                   ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
               }`}
             >
-              <BookOpen className="w-4 h-4" />
+              <BookOpen className="w-4 h-4 shrink-0" />
               <span>Core Vocabulary</span>
             </button>
 
@@ -735,15 +738,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 haptics.selection();
                 setVocabSubTab('ssc-special');
               }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap w-full sm:w-auto ${
                 vocabSubTab === 'ssc-special'
                   ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-xs font-black ring-1 ring-pink-400/40'
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
               }`}
             >
-              <Sparkles className="w-4 h-4 text-pink-400" />
+              <Sparkles className="w-4 h-4 text-pink-400 shrink-0" />
               <span>SSC Special</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
                 vocabSubTab === 'ssc-special'
                   ? 'bg-white/20 text-white'
                   : 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20'
@@ -758,76 +761,80 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           ) : (
             <>
               {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-lg">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={vocabSearch}
-                onChange={e => {
-                  setVocabSearch(e.target.value);
-                  setActiveCardIndex(0);
-                }}
-                placeholder="Search words, hindi meaning, grammar, synonyms..."
-                className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-              />
-              {vocabSearch && (
-                <button
-                  type="button"
-                  onClick={() => setVocabSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
+              <div className="flex flex-col gap-3 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+                {/* Search Input */}
+                <div className="relative w-full">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={vocabSearch}
+                    onChange={e => {
+                      setVocabSearch(e.target.value);
+                      setActiveCardIndex(0);
+                    }}
+                    placeholder="Search words, hindi meaning, roots..."
+                    className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 shadow-2xs"
+                  />
+                  {vocabSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setVocabSearch('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs p-1"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
 
-            {/* Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-              {[
-                { id: 'all', label: 'All Words', count: DEFAULT_VOCAB_DATA.length },
-                { id: 'word', label: 'High-Yield', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
-                { id: 'ows', label: 'OWS (One Word)', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows').length },
-                { id: 'idiom', label: 'Idioms & Phrases', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'idiom').length },
-                { id: 'root', label: 'Root Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
-              ].map(f => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    setVocabTypeFilter(f.id as any);
-                    setActiveCardIndex(0);
-                    if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
-                      setActiveSet('set-01');
-                      if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
-                        setActiveLevel('level-1');
-                      }
-                    }
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                    vocabTypeFilter === f.id
-                      ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                  }`}
-                >
-                  <span>{f.label}</span>
-                  <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                    vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
-                  }`}>
-                    {f.count}
-                  </span>
-                </button>
-              ))}
-            </div>
+                {/* Filter Pills + Mastered Counter Row */}
+                <div className="flex items-center justify-between gap-2 min-w-0">
+                  {/* Filter Pills */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 flex-1 min-w-0">
+                    {[
+                      { id: 'all', label: 'All Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.length },
+                      { id: 'word', label: 'High-Yield', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
+                      { id: 'ows', label: 'OWS (One Word)', shortLabel: 'OWS', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows').length },
+                      { id: 'idiom', label: 'Idioms & Phrases', shortLabel: 'Idioms', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'idiom').length },
+                      { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
+                    ].map(f => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setVocabTypeFilter(f.id as any);
+                          setActiveCardIndex(0);
+                          if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
+                            setActiveSet('set-01');
+                            if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
+                              setActiveLevel('level-1');
+                            }
+                          }
+                        }}
+                        className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                          vocabTypeFilter === f.id
+                            ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
+                        }`}
+                      >
+                        <span className="hidden sm:inline">{f.label}</span>
+                        <span className="sm:hidden">{f.shortLabel}</span>
+                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                          vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                        }`}>
+                          {f.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
 
-            {/* Mastered Counter */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold shrink-0">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>{masteredVocabIds.size} Mastered</span>
-            </div>
-          </div>
+                  {/* Mastered Counter */}
+                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-[11px] sm:text-xs font-bold shrink-0 whitespace-nowrap">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>{masteredVocabIds.size} Mastered</span>
+                  </div>
+                </div>
+              </div>
 
           {/* =========================================================
               LEVEL & SUBPAGE SET NAVIGATION (Words, Idioms, OWS & Root Words)
@@ -873,31 +880,31 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         setActiveSet('set-01');
                         setActiveCardIndex(0);
                       }}
-                      className={`flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                      className={`flex flex-col justify-between p-3 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-amber-500 text-slate-950 font-black shadow-md border-amber-400 ring-2 ring-amber-400/40'
                           : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-1 mb-2">
-                        <span className={`px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      <div className="flex items-center justify-between gap-1 mb-2 min-w-0">
+                        <span className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
                           isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20'
                         }`}>
                           {levelBadgeLabel}
                         </span>
-                        <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-full ${
+                        <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                           isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
                         }`}>
                           {totalLevelWords} {vocabTypeFilter === 'root' ? 'roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'idioms' : 'words'}
                         </span>
                       </div>
-                      <div>
-                        <h4 className={`text-sm sm:text-base font-black tracking-tight leading-snug ${
+                      <div className="min-w-0">
+                        <h4 className={`text-sm sm:text-base font-black tracking-tight leading-snug break-words ${
                           isSelected ? 'text-slate-950' : 'text-slate-900 dark:text-white'
                         }`}>
                           {lvl.label}
                         </h4>
-                        <p className={`text-[11px] line-clamp-1 mt-0.5 font-medium ${
+                        <p className={`text-[10.5px] sm:text-[11px] line-clamp-1 mt-0.5 font-medium ${
                           isSelected ? 'text-slate-800' : 'text-slate-500 dark:text-slate-300'
                         }`}>
                           {levelDesc}
@@ -1450,7 +1457,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'maths' && (
         <div className="space-y-6 animate-fade-in">
               {/* Calculation Booster Tool Sub-Navigation */}
-              <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto scrollbar-none">
+              <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto no-scrollbar scrollbar-none">
                 <button
                   type="button"
                   onClick={() => {
@@ -1596,15 +1603,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
         <div className="space-y-6 animate-fade-in">
           
           {/* Controls: Search + Subject Pills */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
             <div className="relative flex-1 max-w-lg">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={gaSearch}
                 onChange={e => setGaSearch(e.target.value)}
-                placeholder="Search articles, history dates, rivers, science..."
-                className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                placeholder="Search polity, history, geography, science..."
+                className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 shadow-2xs"
               />
             </div>
 
