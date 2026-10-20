@@ -964,78 +964,82 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
               
               {/* Left: Interactive Word Flashcard (Wider: col-span-9 lg, col-span-10 xl) */}
-              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-6 sm:p-8 md:p-9 rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[480px] lg:min-h-[520px]">
+              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-4 sm:p-8 md:p-9 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]">
                 
                 {/* 1. Top Card Meta Bar */}
-                <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/10 pb-4">
-                  <div className="flex items-center gap-2.5">
-                    <span className="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs">
-                      CARD {String(activeCardIndex + 1).padStart(2, '0')} / {String(filteredVocab.length).padStart(2, '0')}
+                <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
+                    <span className="px-2.5 sm:px-3.5 py-1 rounded-xl text-[11px] sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs shrink-0 whitespace-nowrap">
+                      CARD {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1.5 shadow-2xs">
-                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300" />
-                      <span>{currentFlashcard.frequency} Frequency</span>
+                    <span className="text-[11px] sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0 whitespace-nowrap">
+                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300 shrink-0" />
+                      <span>{currentFlashcard.frequency}</span>
+                      <span className="hidden xs:inline">Freq</span>
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => toggleMastered(currentFlashcard.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs ${
+                    className={`flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-sm font-black transition-all cursor-pointer shadow-2xs shrink-0 whitespace-nowrap ${
                       masteredVocabIds.has(currentFlashcard.id)
                         ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs'
                         : 'bg-slate-100 dark:bg-white/[0.10] text-slate-900 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/15'
                     }`}
                   >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-300" />
-                    <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered' : 'Mark Mastered'}</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-300 shrink-0" />
+                    <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered' : 'Master'}</span>
+                    <span className="hidden sm:inline">{!masteredVocabIds.has(currentFlashcard.id) && 'ed'}</span>
                   </button>
                 </div>
 
                 {/* 2. Central Word, Pronunciation & Meaning Area */}
-                <div className="py-5 sm:py-6 space-y-6 flex-1 flex flex-col justify-center">
+                <div className="py-3.5 sm:py-6 space-y-4 sm:space-y-6 flex-1 flex flex-col justify-center">
                   
                   {/* Word Header Block */}
-                  <div className="space-y-3">
+                  <div className="space-y-2.5 sm:space-y-3">
                     {/* Row 1: Word + Part of Speech + Audio Speaker + Phonetic Badge */}
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                      <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-none">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3.5">
+                      <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
                         {currentFlashcard.word}
                       </h2>
                       {/* Part of Speech attached directly to the Word */}
-                      <span className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
+                      <span className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
                         {currentFlashcard.partOfSpeech}
                       </span>
                       <button
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
                         title="Pronounce word"
-                        className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                        className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
                       >
-                        <Volume2 className="w-5 h-5 text-amber-700 dark:text-amber-300" />
+                        <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
                       </button>
-                      <span className="px-3.5 py-1.5 rounded-xl text-sm sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
-                        {currentFlashcard.phonetic}
-                      </span>
+                      {currentFlashcard.phonetic && (
+                        <span className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-xs sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
+                          {currentFlashcard.phonetic}
+                        </span>
+                      )}
                     </div>
 
                     {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
-                    <div className="flex items-center gap-3 pt-1">
-                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 pt-0.5">
+                      <span className="self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
                         हिंदी अर्थ
                       </span>
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-slate-950 dark:text-white tracking-wide">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-sans text-slate-950 dark:text-white tracking-wide break-words leading-snug">
                         {currentFlashcard.hindi}
                       </h3>
                     </div>
                   </div>
 
                   {/* 3. Exam Definition & Synonyms Panel */}
-                  <div className="p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border-2 border-slate-200/90 dark:border-white/10 shadow-xs space-y-4">
-                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-xs sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono">
-                        <BookOpen className="w-4 h-4 text-amber-700 dark:text-amber-300" />
-                        <span>{currentFlashcard.type === 'idiom' ? 'Exam Meaning & Origin' : currentFlashcard.type === 'ows' ? 'One Word Substitution Definition' : currentFlashcard.type === 'root' ? 'Root Meaning & Etymology' : 'Exam Definition & Synonyms'}</span>
+                  <div className="p-3.5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border-2 border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap sm:flex-nowrap">
+                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-[11px] sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono min-w-0">
+                        <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
+                        <span className="truncate">{currentFlashcard.type === 'idiom' ? 'Exam Meaning' : currentFlashcard.type === 'ows' ? 'OWS Definition' : currentFlashcard.type === 'root' ? 'Root Meaning' : 'Exam Meaning & Synonyms'}</span>
                       </div>
                       
                       {/* High-Contrast Interactive Toggle Button */}
@@ -1045,20 +1049,20 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           soundManager.playClick();
                           setIsCardFlipped(prev => !prev);
                         }}
-                        className="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                        className="px-3 sm:px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ml-auto"
                       >
                         <RotateCw className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
-                        <span>{isCardFlipped ? 'Hide Details' : 'Flip to Reveal'}</span>
+                        <span>{isCardFlipped ? 'Hide' : 'Flip to Reveal'}</span>
                       </button>
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       {!isCardFlipped && (
-                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block">
+                        <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block">
                           Primary Exam Meaning
                         </span>
                       )}
-                      <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-950 dark:text-white leading-tight tracking-tight">
+                      <p className="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-950 dark:text-white leading-snug tracking-tight break-words">
                         {currentFlashcard.meaning}
                       </p>
                     </div>
@@ -1268,25 +1272,25 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           soundManager.playClick();
                           setIsCardFlipped(true);
                         }}
-                        className="group mt-4 p-4 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border-2 border-dashed border-amber-500/40 dark:border-amber-400/50 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs hover:shadow-sm"
+                        className="group mt-3 p-3 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border-2 border-dashed border-amber-500/40 dark:border-amber-400/50 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs hover:shadow-sm"
                       >
-                        <div className="flex items-center gap-3.5">
-                          <div className="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
-                            <Sparkles className="w-5 h-5 text-slate-950" />
+                        <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+                          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
                           </div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                              <span className="text-xs sm:text-base font-black text-slate-900 dark:text-white">
                                 Active Recall Drill
                               </span>
-                              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950">
+                              <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shrink-0">
                                 Tap to Reveal
                               </span>
                             </div>
-                            <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 flex-wrap font-medium">
+                            <div className="flex items-center gap-2 text-[10.5px] sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 flex-wrap font-medium">
                               {currentFlashcard.type === 'root' && currentFlashcard.rootFamily ? (
                                 <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                                  🌳 {currentFlashcard.rootFamily.derivatives.length} Derived Exam Words (Word Family Matrix)
+                                  🌳 {currentFlashcard.rootFamily.derivatives.length} Words
                                 </span>
                               ) : (
                                 <span className="font-bold text-emerald-700 dark:text-emerald-300">
@@ -1305,7 +1309,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 <>
                                   <span className="text-slate-400">•</span>
                                   <span className="font-bold text-purple-700 dark:text-purple-300">
-                                    {currentFlashcard.type === 'idiom' ? '🏛️ Origin & Trick' : currentFlashcard.type === 'ows' ? '🎯 OWS Trick' : currentFlashcard.type === 'root' ? '🌳 Root Trick' : '💡 Memory Trick'}
+                                    💡 Trick
                                   </span>
                                 </>
                               )}
@@ -1313,9 +1317,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs group-hover:translate-x-0.5 transition-transform shrink-0 self-stretch sm:self-auto justify-center">
+                        <div className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs transition-transform shrink-0 w-full sm:w-auto text-center">
                           <span>Reveal All</span>
-                          <RotateCw className="w-4 h-4 text-slate-950" />
+                          <RotateCw className="w-3.5 h-3.5 text-slate-950" />
                         </div>
                       </div>
                     )}
@@ -1323,18 +1327,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* 4. Bottom Navigation Bar */}
-                <div className="flex items-center justify-between gap-3 pt-5 border-t border-slate-100 dark:border-white/10">
+                <div className="flex items-center justify-between gap-2 sm:gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15"
+                    className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
                   >
-                    ← Previous
+                    ← Prev
                   </button>
 
-                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+                  <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar px-1 min-w-0 flex-1 justify-center">
                     {currentFlashcard.examTags.map(tag => (
-                      <span key={tag} className="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-100 dark:bg-white/[0.10] border border-slate-200/80 dark:border-white/15 text-slate-800 dark:text-slate-100 whitespace-nowrap shadow-2xs">
+                      <span key={tag} className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-slate-100 dark:bg-white/[0.10] border border-slate-200/80 dark:border-white/15 text-slate-800 dark:text-slate-100 whitespace-nowrap shadow-2xs">
                         {tag}
                       </span>
                     ))}
@@ -1343,15 +1347,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <button
                     type="button"
                     onClick={handleNextCard}
-                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap"
                   >
-                    Next Card →
+                    Next →
                   </button>
                 </div>
               </div>
 
               {/* Right: Vocabulary Explorer (Compact & Word-Only: col-span-3 lg, col-span-2 xl) */}
-              <div className="lg:col-span-3 xl:col-span-2 p-3 sm:p-3.5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3 min-h-[480px] lg:min-h-[520px]">
+              <div className="lg:col-span-3 xl:col-span-2 p-3 sm:p-3.5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3 min-h-[300px] sm:min-h-[480px] lg:min-h-[520px]">
                 <div className="min-w-0 flex-1 flex flex-col">
                   <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-white/10 gap-1 shrink-0">
                     <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 min-w-0">
@@ -1363,7 +1367,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[500px] lg:max-h-[520px] flex-1 no-scrollbar mt-1 space-y-0.5">
+                  <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[320px] sm:max-h-[500px] lg:max-h-[520px] flex-1 no-scrollbar mt-1 space-y-0.5">
                     {filteredVocab.map((item, idx) => {
                       const isSelected = activeCardIndex === idx;
                       const isMastered = masteredVocabIds.has(item.id);
