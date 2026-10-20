@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build:notes": "node ./node_modules/tailwindcss/lib/cli.js -c ./public/study-tools-ga/tailwind.notes.config.cjs -i ./public/study-tools-ga/notes-base.css -o ./public/study-tools-ga/ga-notes.min.css --minify",
+    "build": "npm run build:notes && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"

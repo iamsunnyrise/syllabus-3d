@@ -578,6 +578,22 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   const [gaSubject, setGaSubject] = useState<string>('All');
   const [expandedGaId, setExpandedGaId] = useState<string | null>('ga-polity-making-constitution');
   const [interactiveGaModal, setInteractiveGaModal] = useState<{ url: string; title: string } | null>(null);
+  const [iframeLoading, setIframeLoading] = useState(true);
+
+  // Background prefetch for instant 0.01s opening of current & future GA interactive capsules
+  useEffect(() => {
+    if (activeTab === 'ga') {
+      GA_TOPICS.forEach(topic => {
+        if (topic.htmlFile) {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = topic.htmlFile;
+          prefetchLink.as = 'document';
+          document.head.appendChild(prefetchLink);
+        }
+      });
+    }
+  }, [activeTab]);
 
   const filteredGaTopics = useMemo(() => {
     return GA_TOPICS.filter(item => {
@@ -1671,6 +1687,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           onClick={(e) => {
                             e.stopPropagation();
                             soundManager.playClick();
+                            setIframeLoading(true);
                             setInteractiveGaModal({ url: topic.htmlFile!, title: topic.title });
                           }}
                           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer"
@@ -1707,6 +1724,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                               type="button"
                               onClick={() => {
                                 soundManager.playClick();
+                                setIframeLoading(true);
                                 setInteractiveGaModal({ url: topic.htmlFile!, title: topic.title });
                               }}
                               className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all cursor-pointer shrink-0"
@@ -1803,9 +1821,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
           {/* Iframe Viewport */}
           <div className="flex-1 w-full h-full relative bg-[#FAEED9]">
+            {iframeLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#FAEED9] text-[#38370D] transition-opacity duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#38370D] text-[#E1A837] border-2 border-[#8D7A02] flex items-center justify-center shadow-lg animate-pulse mb-3">
+                  <BookOpen className="w-6 h-6 animate-spin text-[#E1A837]" />
+                </div>
+                <p className="text-sm font-extrabold text-[#38370D]">Loading Master Notes...</p>
+                <span className="text-[11px] text-[#8D7A02] font-semibold mt-1">Instant Pre-cached Engine</span>
+              </div>
+            )}
             <iframe
               src={interactiveGaModal.url}
               title={interactiveGaModal.title}
+              onLoad={() => setIframeLoading(false)}
               className="w-full h-full border-none"
             />
           </div>

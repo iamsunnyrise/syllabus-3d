@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.9.6';
+const VERSION = 'v2.9.7';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
@@ -19,7 +19,8 @@ const PRECACHE_ASSETS = [
   '/pwa-512x512.png',
   '/apple-touch-icon.png',
   '/focus-desk-day.jpg',
-  '/focus-desk-night.png'
+  '/focus-desk-night.png',
+  '/study-tools-ga/ga-notes.min.css'
 ];
 
 // 1. INSTALL EVENT: Pre-cache static assets and skip waiting immediately
@@ -123,6 +124,24 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         });
+      })
+    );
+    return;
+  }
+
+  // Strategy D: GA Master Notes & Assets (/study-tools-ga/*) → Instant Cache-First with Background Revalidation
+  if (url.pathname.startsWith('/study-tools-ga/')) {
+    event.respondWith(
+      caches.match(request).then((cachedResponse) => {
+        const fetchPromise = fetch(request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, copy));
+          }
+          return networkResponse;
+        }).catch(() => null);
+
+        return cachedResponse || fetchPromise;
       })
     );
     return;
