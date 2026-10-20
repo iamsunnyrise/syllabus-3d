@@ -9,8 +9,8 @@ import {
   Tooltip, 
   ReferenceLine 
 } from 'recharts';
-import { Zap, Target, TrendingUp } from 'lucide-react';
-import { MockTest, SectionName } from '../../../types/mockTracker';
+import { Zap } from 'lucide-react';
+import { MockTest } from '../../../types/mockTracker';
 import { useTheme } from '../../../context/ThemeContext';
 import { Card3DTilt } from '../3d/Card3DTilt';
 
@@ -30,12 +30,23 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
       fullName: m.testName,
       date: m.date,
       score: m.score,
-      maxMarks: m.maxMarks,
+      maxMarks: m.maxMarks || 50,
       accuracy: m.accuracy,
       percentile: m.percentile,
-      subject: m.subjectName || m.sections[0]?.sectionName || 'Subject'
+      subject: m.subjectName || m.sections[0]?.sectionName || 'Subject',
+      platform: m.testPlatform
     }));
   }, [mocks]);
+
+  // Dynamic max score benchmark calculation (adapts to Banking 35M, Railways 30M, SSC 50M, NDA 300M, etc.)
+  const maxPossibleScore = useMemo(() => {
+    if (chartData.length === 0) return 50;
+    const maxVal = Math.max(...chartData.map(d => Math.max(d.score, d.maxMarks)));
+    return Math.max(20, maxVal);
+  }, [chartData]);
+
+  const target70 = Math.round(maxPossibleScore * 0.70);
+  const elite90 = Math.round(maxPossibleScore * 0.90);
 
   const isDark = activeTheme === 'dark';
 
@@ -55,7 +66,7 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
             </h3>
           </div>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
-            Score and accuracy progression across {chartData.length} sectional drills (50 Marks benchmark)
+            Score and accuracy progression across {chartData.length} sectional drills ({maxPossibleScore} Marks benchmark)
           </p>
         </div>
       </div>
@@ -67,7 +78,7 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
       ) : (
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <AreaChart data={chartData} margin={{ top: 12, right: 15, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="sectionalScoreGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#BEFFCC" stopOpacity={0.45} />
@@ -89,7 +100,7 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
               />
 
               <YAxis 
-                domain={[10, 50]}
+                domain={[0, Math.ceil(maxPossibleScore * 1.08)]}
                 stroke={isDark ? "#64748B" : "#94A3B8"}
                 fontSize={11}
                 tickLine={false}
@@ -102,19 +113,23 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
                     return (
                       <div className="p-3.5 rounded-xl bg-white/95 dark:bg-darkSurface/95 border border-slate-200/90 dark:border-white/10 shadow-2xl backdrop-blur-md text-xs space-y-1.5">
                         <div className="font-bold text-slate-900 dark:text-white">{data.fullName}</div>
-                        <div className="text-slate-400">Date: {data.date} • {data.subject}</div>
+                        <div className="text-slate-500 dark:text-slate-400 text-[11px]">
+                          {data.platform} • {data.date} • {data.subject}
+                        </div>
                         <div className="pt-1 flex items-center justify-between gap-4 font-bold text-sm">
-                          <span className="text-slate-400">Score:</span>
-                          <span className="text-mint-dark dark:text-mint">{data.score} / {data.maxMarks} M</span>
+                          <span className="text-slate-500 dark:text-slate-400">Score:</span>
+                          <span className="text-emerald-700 dark:text-mint">{data.score} / {data.maxMarks} M</span>
                         </div>
-                        <div className="flex items-center justify-between text-slate-400">
+                        <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
                           <span>Accuracy:</span>
-                          <span className="text-electric-blue font-bold">{data.accuracy}%</span>
+                          <span className="text-sky-700 dark:text-electric-blue font-bold">{data.accuracy}%</span>
                         </div>
-                        <div className="flex items-center justify-between text-slate-400">
-                          <span>Percentile:</span>
-                          <span className="text-lavender font-bold">{data.percentile}%ile</span>
-                        </div>
+                        {data.percentile !== undefined && data.percentile >= 0 && (
+                          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
+                            <span>Percentile:</span>
+                            <span className="text-purple-700 dark:text-lavender font-bold">{data.percentile}%ile</span>
+                          </div>
+                        )}
                       </div>
                     );
                   }
@@ -122,18 +137,30 @@ export const SectionalTrendChart: React.FC<SectionalTrendChartProps> = ({ mocks,
                 }}
               />
 
+              {/* Dynamic 70% Target Benchmark */}
               <ReferenceLine 
-                y={35} 
+                y={target70} 
                 stroke="#6EC2FD" 
                 strokeDasharray="4 4" 
-                label={{ value: 'Target 70% (35 M)', fill: '#6EC2FD', fontSize: 10, position: 'insideTopLeft' }} 
+                label={{ 
+                  value: `Target 70% (${target70} M)`, 
+                  fill: '#6EC2FD', 
+                  fontSize: 10, 
+                  position: 'insideTopLeft' 
+                }} 
               />
 
+              {/* Dynamic 90% Elite Benchmark */}
               <ReferenceLine 
-                y={45} 
+                y={elite90} 
                 stroke="#34D399" 
                 strokeDasharray="3 3" 
-                label={{ value: 'Elite 90% (45 M)', fill: '#34D399', fontSize: 10, position: 'insideTopRight' }} 
+                label={{ 
+                  value: `Elite 90% (${elite90} M)`, 
+                  fill: '#34D399', 
+                  fontSize: 10, 
+                  position: 'insideTopRight' 
+                }} 
               />
 
               <Area

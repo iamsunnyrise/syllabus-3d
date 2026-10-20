@@ -16,6 +16,7 @@ import { useMocks } from '../../../context/MockContext';
 import { useTheme } from '../../../context/ThemeContext';
 import { Card3DTilt } from '../3d/Card3DTilt';
 import { Badge } from '../common/Badge';
+import { getSubjectMeta } from '../../../utils/sectionalSubjectUtils';
 
 interface SectionalMockCardProps {
   mock: MockTest;
@@ -33,22 +34,13 @@ export const SectionalMockCard: React.FC<SectionalMockCardProps> = ({ mock, onOp
     ? ((mock.timeTakenMinutes * 60) / mock.attempted).toFixed(0) 
     : '0';
 
-  const getSubjectColor = (sub: SectionName) => {
-    switch (sub) {
-      case 'Quantitative Aptitude':
-        return { bg: 'bg-sky-100 dark:bg-sky/15', text: 'text-sky-800 dark:text-sky', border: 'border-sky-300 dark:border-sky/30', icon: '📐' };
-      case 'General Intelligence & Reasoning':
-        return { bg: 'bg-emerald-100 dark:bg-mint/15', text: 'text-emerald-800 dark:text-mint', border: 'border-emerald-300 dark:border-mint/30', icon: '🧠' };
-      case 'English Comprehension':
-        return { bg: 'bg-purple-100 dark:bg-lavender/15', text: 'text-purple-800 dark:text-lavender', border: 'border-purple-300 dark:border-lavender/30', icon: '📖' };
-      case 'General Awareness':
-        return { bg: 'bg-amber-100 dark:bg-amberAccent/15', text: 'text-amber-800 dark:text-amberAccent', border: 'border-amber-300 dark:border-amberAccent/30', icon: '🌍' };
-      default:
-        return { bg: 'bg-sky-100 dark:bg-electric-blue/15', text: 'text-sky-800 dark:text-electric-blue', border: 'border-sky-300 dark:border-electric-blue/30', icon: '⚡' };
-    }
+  const meta = getSubjectMeta(subject);
+  const colors = {
+    bg: `${meta.bgLight} ${meta.bgDark}`,
+    text: `${meta.textColorLight} ${meta.textColorDark}`,
+    border: `${meta.borderColorLight} ${meta.borderColorDark}`,
+    icon: meta.icon
   };
-
-  const colors = getSubjectColor(subject);
 
   return (
     <Card3DTilt

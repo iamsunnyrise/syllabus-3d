@@ -16,6 +16,7 @@ import { MockTest } from '../../../types/mockTracker';
 import { useMocks } from '../../../context/MockContext';
 import { Modal } from '../common/Modal';
 import { Badge } from '../common/Badge';
+import { getSubjectMeta } from '../../../utils/sectionalSubjectUtils';
 
 interface SectionalDrillAnalysisModalProps {
   mock: MockTest | null;
@@ -57,12 +58,14 @@ export const SectionalDrillAnalysisModal: React.FC<SectionalDrillAnalysisModalPr
     }
     return {
       title: 'Solid Sectional Foundation 🎯',
-      desc: 'Consistent effort. Focus on converting 2-3 doubtful questions into high-probability answers to cross the 40+ marks threshold.',
+      desc: `Consistent effort. Focus on converting 2-3 doubtful questions into high-probability answers to cross the ${Math.round((mock.maxMarks || 50) * 0.8)}+ marks threshold (80%+ target).`,
       type: 'primary'
     };
   };
 
   const verdict = getPaceAccuracyVerdict();
+
+  const meta = getSubjectMeta(subject);
 
   return (
     <Modal
@@ -70,8 +73,9 @@ export const SectionalDrillAnalysisModal: React.FC<SectionalDrillAnalysisModalPr
       onClose={onClose}
       title={
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 rounded-md text-xs font-black bg-mint/20 text-mint-dark dark:text-mint border border-mint/30">
-            {subject}
+          <span className={`px-2 py-0.5 rounded-md text-xs font-black border flex items-center gap-1 ${meta.bgLight} ${meta.bgDark} ${meta.textColorLight} ${meta.textColorDark} ${meta.borderColorLight} ${meta.borderColorDark}`}>
+            <span>{meta.icon}</span>
+            <span>{subject}</span>
           </span>
           <span className="truncate">{mock.testName} (Drill Analysis)</span>
         </div>
