@@ -57,6 +57,7 @@ import {
   LEVEL_1_SET_05_WORDS,
   LEVEL_1_SET_06_WORDS,
   LEVEL_1_SET_07_WORDS,
+  LEVEL_1_SET_08_WORDS,
   VocabItem, 
   VocabLevel 
 } from '../../data/highYieldVocabData';
@@ -103,7 +104,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-04', label: 'Set 04' },
       { id: 'set-05', label: 'Set 05' },
       { id: 'set-06', label: 'Set 06' },
-      { id: 'set-07', label: 'Set 07' }
+      { id: 'set-07', label: 'Set 07' },
+      { id: 'set-08', label: 'Set 08' }
     ]
   },
   {
@@ -119,7 +121,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-04', label: 'Set 04' },
       { id: 'set-05', label: 'Set 05' },
       { id: 'set-06', label: 'Set 06' },
-      { id: 'set-07', label: 'Set 07' }
+      { id: 'set-07', label: 'Set 07' },
+      { id: 'set-08', label: 'Set 08' }
     ]
   },
   {
@@ -135,7 +138,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-04', label: 'Set 04' },
       { id: 'set-05', label: 'Set 05' },
       { id: 'set-06', label: 'Set 06' },
-      { id: 'set-07', label: 'Set 07' }
+      { id: 'set-07', label: 'Set 07' },
+      { id: 'set-08', label: 'Set 08' }
     ]
   },
   {
@@ -151,7 +155,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-04', label: 'Set 04' },
       { id: 'set-05', label: 'Set 05' },
       { id: 'set-06', label: 'Set 06' },
-      { id: 'set-07', label: 'Set 07' }
+      { id: 'set-07', label: 'Set 07' },
+      { id: 'set-08', label: 'Set 08' }
     ]
   }
 ];
@@ -164,6 +169,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_05_WORDS,
   ...LEVEL_1_SET_06_WORDS,
   ...LEVEL_1_SET_07_WORDS,
+  ...LEVEL_1_SET_08_WORDS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
