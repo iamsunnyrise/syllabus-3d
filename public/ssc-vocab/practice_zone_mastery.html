@@ -70,13 +70,25 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: var(--font-body);
       background-color: var(--bg-primary);
       color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
       padding-bottom: 80px;
+      -webkit-font-smoothing: antialiased;
     }
 
     ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -85,9 +97,11 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
 
     .app-container {
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 16px 20px 40px;
+      box-sizing: border-box;
     }
 
     /* HEADER BANNER */
@@ -181,18 +195,23 @@
       padding: 8px;
       margin-bottom: 24px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       box-shadow: var(--shadow-sm);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .ptab-btn {
       flex: 1;
-      min-width: 200px;
-      padding: 12px 18px;
+      min-width: 160px;
+      padding: 12px 16px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-muted);
       border-radius: var(--radius-md);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -201,6 +220,7 @@
       gap: 8px;
       transition: var(--transition);
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .ptab-btn:hover {
       border-color: var(--accent-primary);
@@ -211,6 +231,15 @@
       color: #ffffff;
       border-color: transparent;
       box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .app-container { padding: 10px 10px 90px; }
+      .brand-text h1 { font-size: 18px; }
+      .ptab-btn { min-width: 130px; padding: 9px 12px; font-size: 12px; }
+      .letter-selector-card { padding: 14px 12px !important; }
+      .quiz-arena { padding: 16px 14px !important; }
+      .letter-grid { grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)) !important; gap: 6px !important; }
     }
 
     /* LETTER SELECTOR SECTION */

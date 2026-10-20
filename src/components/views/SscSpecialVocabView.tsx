@@ -377,7 +377,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
 
   // Render the iframe canvas: contains all cached iframes (active shown, inactive hidden)
   const renderIframeCanvas = (isFs: boolean) => (
-    <div className={`relative w-full h-full bg-[#090D16] overflow-hidden ${isFs ? '' : 'rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-lg'}`}>
+    <div className={`relative w-full max-w-full h-full bg-[#090D16] overflow-hidden ${isFs ? '' : 'rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-lg'}`}>
       {/* Loading Overlay */}
       {isCurrentLoading && (
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-[#090D16]/95 backdrop-blur-xs space-y-3">
@@ -406,10 +406,12 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
             src={`/ssc-vocab/${mod.fileName}`}
             title={mod.title}
             onLoad={() => handleIframeLoaded(mod.id)}
-            className="w-full h-full border-0 bg-[#090D16]"
+            className="w-full max-w-full h-full border-0 bg-[#090D16]"
             style={{
               display: isCurrent ? 'block' : 'none',
               width: '100%',
+              maxWidth: '100%',
+              minWidth: 0,
               height: '100%'
             }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -554,7 +556,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
         </div>
 
         {/* In-Page Embedded Iframe Canvas */}
-        <div className="h-[80vh] min-h-[660px]">
+        <div className="h-[75vh] sm:h-[80vh] min-h-[580px] sm:min-h-[660px] w-full max-w-full overflow-hidden">
           {renderIframeCanvas(false)}
         </div>
       </div>

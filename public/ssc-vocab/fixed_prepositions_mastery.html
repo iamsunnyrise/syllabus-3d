@@ -67,13 +67,25 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: var(--font-body);
       background-color: var(--bg-primary);
       color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
       padding-bottom: 70px;
+      -webkit-font-smoothing: antialiased;
     }
 
     ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -82,9 +94,11 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
 
     .app-container {
+      width: 100%;
       max-width: 1400px;
       margin: 0 auto;
       padding: 16px 20px 40px;
+      box-sizing: border-box;
     }
 
     /* HEADER BANNER */
@@ -219,18 +233,23 @@
       padding: 8px;
       margin-bottom: 20px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       box-shadow: var(--shadow-sm);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .tab-btn {
       flex: 1;
-      min-width: 170px;
-      padding: 12px 16px;
+      min-width: 140px;
+      padding: 10px 14px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-muted);
       border-radius: var(--radius-md);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -239,6 +258,7 @@
       gap: 8px;
       transition: var(--transition);
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .tab-btn:hover {
       border-color: var(--accent-primary);
@@ -262,17 +282,26 @@
       flex-direction: column;
       gap: 14px;
       box-shadow: var(--shadow-sm);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .search-row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
 
     .search-wrapper {
       flex: 1;
-      min-width: 260px;
+      min-width: 220px;
+      max-width: 100%;
       position: relative;
     }
     .search-wrapper i {
@@ -293,6 +322,7 @@
       font-family: var(--font-body);
       outline: none;
       transition: var(--transition);
+      box-sizing: border-box;
     }
     .search-input:focus {
       border-color: var(--accent-primary);
@@ -302,27 +332,41 @@
     /* CARDS GRID */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 20px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     @media (max-width: 768px) {
-      .cards-grid { grid-template-columns: 1fr; }
-      .app-container { padding: 12px 14px 60px; }
-      .brand-text h1 { font-size: 20px; }
+      .cards-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 12px; }
+      .app-container { padding: 10px 10px 90px; }
+      .brand-text h1 { font-size: 18px; }
+      .controls-panel { padding: 12px 10px; margin-bottom: 16px; gap: 10px; }
+      .search-wrapper { min-width: 0; width: 100%; }
+      .prep-card { padding: 14px 12px; gap: 10px; }
     }
 
     .prep-card {
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 18px 16px;
       display: flex;
       flex-direction: column;
       gap: 14px;
       box-shadow: var(--shadow-sm);
       transition: var(--transition);
       position: relative;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .prep-card:hover {
       transform: translateY(-3px);
