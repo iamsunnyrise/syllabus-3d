@@ -848,21 +848,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
                     w => w.type === vocabTypeFilter && w.level === lvl.id
                   ).length;
-                  const levelDesc = vocabTypeFilter === 'root'
-                    ? (lvl.id === 'level-1' ? 'Human Nature, Emotions, Quality & Action Roots (Tier-1 High-Frequency).'
-                       : lvl.id === 'level-2' ? 'Science, Perception, Time, Body & Physical Roots (Cloze & RC).'
-                       : 'Power, Governance, Society, Beliefs & Nature Roots (Mains & Reading).')
-                    : vocabTypeFilter === 'ows'
-                    ? (lvl.id === 'level-1' ? 'High-frequency foundational One Word Substitutions (Tier-1 scoring).'
-                       : lvl.id === 'level-2' ? 'Moderate & contextual OWS for Error Spotting & Fillers.'
-                       : 'Tough, nuanced OWS tested in Mains & high-cutoff shifts.')
-                    : vocabTypeFilter === 'idiom'
-                    ? (lvl.id === 'level-1' ? 'High-frequency idioms & phrases essential for tier-1 & 2.'
-                       : lvl.id === 'level-2' ? 'Nuanced & situational idioms for Cloze tests & RC.'
-                       : lvl.id === 'level-3' ? 'Advanced & rare literary idioms for high-cutoff shifts.'
-                       : 'Mastery-grade proverbial & Latin idioms.')
-                    : lvl.description;
-
                   const levelBadgeLabel = vocabTypeFilter === 'root'
                     ? (lvl.id === 'level-1' ? 'Human Nature & Actions'
                        : lvl.id === 'level-2' ? 'Science, Time & Body'
@@ -904,11 +889,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         }`}>
                           {lvl.label}
                         </h4>
-                        <p className={`text-[10.5px] sm:text-[11px] line-clamp-1 mt-0.5 font-medium ${
-                          isSelected ? 'text-slate-800' : 'text-slate-500 dark:text-slate-300'
-                        }`}>
-                          {levelDesc}
-                        </p>
                       </div>
                     </button>
                   );
