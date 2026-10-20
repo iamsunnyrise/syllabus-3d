@@ -239,6 +239,9 @@
       .ptab-btn { min-width: 130px; padding: 9px 12px; font-size: 12px; }
       .letter-selector-card { padding: 14px 12px !important; }
       .quiz-arena { padding: 16px 14px !important; }
+      .question-prompt { font-size: 18px !important; }
+      .opt-card { padding: 11px 13px !important; font-size: 13.5px !important; gap: 10px !important; }
+      .quiz-opt-letter { width: 24px !important; height: 24px !important; font-size: 11.5px !important; }
       .letter-grid { grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)) !important; gap: 6px !important; }
     }
 
@@ -392,31 +395,63 @@
       background: var(--bg-card);
       border: 1.5px solid var(--border-color);
       color: var(--text-main);
-      padding: 14px 18px;
+      padding: 13px 16px;
       border-radius: var(--radius-md);
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 14.5px;
+      font-weight: 500;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       text-align: left;
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 50px;
+      word-break: break-word;
     }
     .opt-card:hover:not(.disabled) {
       border-color: var(--accent-primary);
       background: var(--bg-card-hover);
-      transform: translateX(4px);
+      transform: translateY(-1px);
+    }
+    .quiz-opt-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
     .opt-card.correct {
-      background: rgba(16, 185, 129, 0.2) !important;
-      border-color: var(--accent-emerald) !important;
-      color: #34d399 !important;
+      background: rgba(16, 185, 129, 0.16) !important;
+      border-color: #10b981 !important;
+      color: #10b981 !important;
+      font-weight: 700;
+    }
+    .opt-card.correct .quiz-opt-letter {
+      background: #10b981;
+      color: #ffffff;
+      border-color: #10b981;
     }
     .opt-card.wrong {
-      background: rgba(244, 63, 94, 0.2) !important;
-      border-color: var(--accent-rose) !important;
-      color: #fb7185 !important;
+      background: rgba(244, 63, 94, 0.16) !important;
+      border-color: #f43f5e !important;
+      color: #f43f5e !important;
+      font-weight: 600;
+    }
+    .opt-card.wrong .quiz-opt-letter {
+      background: #f43f5e;
+      color: #ffffff;
+      border-color: #f43f5e;
     }
     .opt-card.disabled {
       cursor: default;
@@ -912,7 +947,10 @@ function loadQuestion() {
   options.forEach((optText, idx) => {
     const btn = document.createElement('button');
     btn.className = 'opt-card';
-    btn.innerHTML = '<span><strong>(' + String.fromCharCode(65 + idx) + ')</strong> ' + optText + '</span> <i data-lucide="circle" style="width:16px;height:16px;"></i>';
+    btn.innerHTML = 
+      '<span class="quiz-opt-letter">' + String.fromCharCode(65 + idx) + '</span>' +
+      '<span style="flex:1; line-height:1.4;">' + optText + '</span>' +
+      '<i data-lucide="circle" class="opt-status-icon" style="width:18px;height:18px;flex-shrink:0;color:var(--text-muted);"></i>';
     btn.onclick = () => selectOption(btn, optText, correctAnswerText, qObj);
     optContainer.appendChild(btn);
   });
@@ -939,18 +977,21 @@ function selectOption(selectedBtn, chosenText, correctText, qObj) {
   if (isCorrect) {
     userScore++;
     selectedBtn.classList.add('correct');
-    selectedBtn.innerHTML = selectedBtn.innerHTML.replace('circle', 'check-circle-2');
+    const icon = selectedBtn.querySelector('.opt-status-icon');
+    if (icon) icon.setAttribute('data-lucide', 'check-circle-2');
     showToast('🎉 बिल्कुल सही! Correct!');
     triggerSmallConfetti();
   } else {
     wrongCount++;
     selectedBtn.classList.add('wrong');
-    selectedBtn.innerHTML = selectedBtn.innerHTML.replace('circle', 'x-circle');
+    const icon = selectedBtn.querySelector('.opt-status-icon');
+    if (icon) icon.setAttribute('data-lucide', 'x-circle');
     // Highlight correct
     allBtns.forEach(b => {
       if (b.textContent.includes(correctText)) {
         b.classList.add('correct');
-        b.innerHTML = b.innerHTML.replace('circle', 'check-circle-2');
+        const cIcon = b.querySelector('.opt-status-icon');
+        if (cIcon) cIcon.setAttribute('data-lucide', 'check-circle-2');
       }
     });
     showToast('❌ गलत! Check the explanation below.');
