@@ -3053,5 +3053,565 @@ export const LEVEL_1_SET_01_OWS: VocabItem[] = [
     "derivatives": "Brigandage (noun)",
     "level": "level-1",
     "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-87",
+    "word": "Brood",
+    "phonetic": "/bruːd/",
+    "hindi": "चिंता करना / गहराई से विचार करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To think deeply and continuously about something unhappy or worrying.",
+    "synonyms": [
+      "Ruminate",
+      "Ponder",
+      "Meditate",
+      "Dwell on",
+      "Muse",
+      "Contemplate"
+    ],
+    "antonyms": [
+      "Ignore",
+      "Disregard",
+      "Overlook",
+      "Forget"
+    ],
+    "example": "Instead of brooding over past mistakes, analyze where you went wrong and focus on the future.",
+    "mnemonic": "Bro mood बहुत खराब है, कुछ सोचने दो। (Bro mood -> Brood = fpark djuk)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Brood over a problem / brood on failure",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-88",
+    "word": "Brunch",
+    "phonetic": "/brʌntʃ/",
+    "hindi": "नाश्ता और लंच को मिलाकर खाया गया खाना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A late morning meal eaten instead of breakfast and lunch.",
+    "synonyms": [
+      "Late breakfast",
+      "Combination meal"
+    ],
+    "antonyms": [
+      "Fasting",
+      "Starvation"
+    ],
+    "example": "On Sunday mornings, the family gathered to enjoy a lavish brunch with waffles and fresh fruit.",
+    "mnemonic": "ब्रेक लिया लंच किया। (Breakfast + Lunch = Brunch)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Sunday brunch / have brunch",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-89",
+    "word": "Brunette",
+    "phonetic": "/bruːˈnet/",
+    "hindi": "भूरे या काले बालों वाली महिला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A woman or girl with dark brown or black hair.",
+    "synonyms": [
+      "Dark-haired woman",
+      "Brown-haired female"
+    ],
+    "antonyms": [
+      "Blonde"
+    ],
+    "example": "The lead actress was a striking brunette with expressive dark brown eyes.",
+    "mnemonic": "Brown Hair Beauty -> Brunette (Hkwjs ;k dkys ckyksa okyh efgyk)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Striking brunette / attractive brunette",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-90",
+    "word": "Budgeting",
+    "phonetic": "/ˈbʌdʒ.ɪ.tɪŋ/",
+    "hindi": "आर्थिक योजना / आय-व्यय का नियोजन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The process of calculating how much money you must earn or spend for a period of time; financial planning.",
+    "synonyms": [
+      "Financial planning",
+      "Fiscal management",
+      "Cost accounting",
+      "Resource allocation"
+    ],
+    "antonyms": [
+      "Reckless spending",
+      "Squandering",
+      "Dissipation"
+    ],
+    "example": "Careful household budgeting helps families save money for future investments and emergencies.",
+    "mnemonic": "बजट ठीक करो, नहीं तो खर्च बिगड़ जाएगा। (Budgeting = Financial planning)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Household budgeting / disciplined budgeting",
+    "derivatives": "Budget (noun/verb)",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-91",
+    "word": "Bullion",
+    "phonetic": "/ˈbʊl.jən/",
+    "hindi": "सोने-चाँदी की ईंटें / शुद्ध धातु की सिल्ली",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Gold or silver in bulk before coining, or valued by weight, especially in bars or ingots.",
+    "synonyms": [
+      "Ingot",
+      "Gold bars",
+      "Silver bars",
+      "Precious metal"
+    ],
+    "antonyms": [
+      "Scrap metal",
+      "Trinket"
+    ],
+    "example": "The reserve bank keeps vaults filled with gold bullion to guarantee economic stability.",
+    "mnemonic": "Bull इतना अमीर है कि सोने की ईंट पर बैठा है। (Bull + Bullion = lksus&pk¡nh dh b±Vas)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Gold bullion / bullion market",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-92",
+    "word": "Bungle",
+    "phonetic": "/ˈbʌŋ.ɡəl/",
+    "hindi": "गलती करना / काम बिगाड़ना / गड़बड़ करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To do something badly or clumsily without skill; to make a serious mistake.",
+    "synonyms": [
+      "Botch",
+      "Mishandle",
+      "Blunder",
+      "Mess up",
+      "Flub",
+      "Spoil"
+    ],
+    "antonyms": [
+      "Master",
+      "Perfect",
+      "Accomplish",
+      "Succeed"
+    ],
+    "example": "The defense team bungled the case by failing to submit critical evidence in time.",
+    "mnemonic": "बंगले की दीवार गलत बना दी। (Bangla galat bana diya -> Bungle = xyrh djuk)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Bungle an investigation / bungle a task",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-93",
+    "word": "Buoy",
+    "phonetic": "/bɔɪ/",
+    "hindi": "तैरता चिन्ह / जल-चिह्न",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An anchored floating object used in water as a marker, hazard indicator, or navigational aid.",
+    "synonyms": [
+      "Floating marker",
+      "Beacon",
+      "Float",
+      "Navigation marker"
+    ],
+    "antonyms": [
+      "Anchor",
+      "Sinker"
+    ],
+    "example": "Sailors monitored the flashing red buoy to navigate clear of treacherous shallow rocks.",
+    "mnemonic": "Boy पानी में तैरते हुए mark बना रहा है। (Boy in water -> Buoy = rSjrk fpUg)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Navigational buoy / moored buoy",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-94",
+    "word": "Burglar",
+    "phonetic": "/ˈbɜː.ɡlər/",
+    "hindi": "चोर / सेंधमार / घरफोड़ू",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who commits burglary by illegally entering a building with intent to steal.",
+    "synonyms": [
+      "Housebreaker",
+      "Intruder",
+      "Robber",
+      "Cat burglar",
+      "Thief"
+    ],
+    "antonyms": [
+      "Guard",
+      "Protector",
+      "Watchman"
+    ],
+    "example": "The burglar tripped the silent motion sensors when climbing through the terrace doorway.",
+    "mnemonic": "बर्गला कर चोरी करने वाला चोर। (Burglar = pksj / cxZyk dj pksjh djus okyk)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Convicted burglar / burglar alarm",
+    "derivatives": "Burglary (noun), Burgle (verb)",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-95",
+    "word": "Cadence",
+    "phonetic": "/ˈkeɪ.dəns/",
+    "hindi": "लय / स्वर का उतार-चढ़ाव / ताल",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A rhythmic flow or sequence of sounds or words; modulation of the voice.",
+    "synonyms": [
+      "Rhythm",
+      "Tempo",
+      "Flow",
+      "Meter",
+      "Modulation",
+      "Beat"
+    ],
+    "antonyms": [
+      "Discord",
+      "Arrhythmia",
+      "Harshness"
+    ],
+    "example": "The poet recited her verses with an enchanting cadence that held listeners in rapt attention.",
+    "mnemonic": "Dance के लिए लय (Cadence) चाहिए होता है। (Dance -> Cadence = y;)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Rhythmic cadence / soothing cadence",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-96",
+    "word": "Callous",
+    "phonetic": "/ˈkæl.əs/",
+    "hindi": "निर्दयी / कठोर / संवेदनहीन",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Showing or having an insensitive and cruel disregard for others; showing no sympathy for others' pain.",
+    "synonyms": [
+      "Heartless",
+      "Unfeeling",
+      "Insensitive",
+      "Ruthless",
+      "Hard-hearted",
+      "Cold"
+    ],
+    "antonyms": [
+      "Compassionate",
+      "Sensitive",
+      "Empathetic",
+      "Tender-hearted"
+    ],
+    "example": "The landlord showed a callous disregard for the destitute family by evicting them in winter.",
+    "mnemonic": "कलश कलेश करने में callous (निर्दयी) है। (Callous = funZ;h)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Callous indifference / callous attitude",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-97",
+    "word": "Catalogue",
+    "phonetic": "/ˈkæt.əl.ɒɡ/",
+    "hindi": "सूची / विवरण-पुस्तिका / सूचीपत्र",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A complete, systematic list of items (such as books, products, or exhibits) arranged systematically with names and details.",
+    "synonyms": [
+      "Inventory",
+      "Directory",
+      "Index",
+      "Register",
+      "Itemized list"
+    ],
+    "antonyms": [
+      "Disarray",
+      "Jumble",
+      "Disorder"
+    ],
+    "example": "Prospective buyers can browse through the auction catalogue to preview ancient art treasures.",
+    "mnemonic": "Cat ने login करके पूरी list देख ली। (Cat + Log -> Catalogue = lwph)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Exhibition catalogue / library catalogue",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-98",
+    "word": "Catalyst",
+    "phonetic": "/ˈkæt.ə.lɪst/",
+    "hindi": "उत्प्रेरक / परिवर्तन लाने वाला घटक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person or thing that causes, precipitates, or speeds up an event or significant change.",
+    "synonyms": [
+      "Stimulus",
+      "Trigger",
+      "Impetus",
+      "Accelerator",
+      "Spark",
+      "Agent"
+    ],
+    "antonyms": [
+      "Inhibitor",
+      "Deterrent",
+      "Hindrance",
+      "Blockage"
+    ],
+    "example": "His courageous public speech served as a catalyst for widespread political reform.",
+    "mnemonic": "Cat के list पर sign करते ही काम तुरंत हो गया। (Catalyst = mRizsjd / speed up change)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Catalyst for growth / act as a catalyst",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-99",
+    "word": "Camouflage",
+    "phonetic": "/ˈkæm.ə.flɑːʒ/",
+    "hindi": "छिपने या छिपाने की कला / छलावरण",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The method of hiding persons, animals, or military equipment by blending with the surrounding environment.",
+    "synonyms": [
+      "Disguise",
+      "Concealment",
+      "Mask",
+      "Cover",
+      "Mimicry"
+    ],
+    "antonyms": [
+      "Exposure",
+      "Reveal",
+      "Unveiling",
+      "Display"
+    ],
+    "example": "The chameleon's brilliant green skin is natural camouflage among tropical foliage.",
+    "mnemonic": "कैमरा के flash से बचने के लिए खुद को छुपा लिया। (Camouflage = fNius ;k fNikus dh dyk)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Military camouflage / natural camouflage",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-100",
+    "word": "Cardinal",
+    "phonetic": "/ˈkɑː.dɪ.nəl/",
+    "hindi": "मुख्य / मौलिक / आधारभूत",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Extremely important and fundamental in nature or meaning; of the greatest significance.",
+    "synonyms": [
+      "Fundamental",
+      "Primary",
+      "Paramount",
+      "Essential",
+      "Crucial",
+      "Chief"
+    ],
+    "antonyms": [
+      "Minor",
+      "Secondary",
+      "Trivial",
+      "Inconsequential"
+    ],
+    "example": "Never compromising on integrity is the cardinal rule of any reputable judicial system.",
+    "mnemonic": "कार बिना डीज़ल के नहीं चल सकती। (Car bina diesel -> Cardinal = eq[; / Primary)",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Cardinal sin / cardinal rule / cardinal principle",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-101",
+    "word": "Caricature",
+    "phonetic": "/ˈkær.ɪ.kə.tʃʊər/",
+    "hindi": "व्यंग्य-चित्र / हास्य-चित्र",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A picture, description, or imitation of a person in which certain striking characteristics are exaggerated to create a humorous or critical effect.",
+    "synonyms": [
+      "Cartoon",
+      "Parody",
+      "Satire",
+      "Lampoon",
+      "Mockery",
+      "Spoof"
+    ],
+    "antonyms": [
+      "Exact portrait",
+      "Realistic likeness"
+    ],
+    "example": "The newspaper cartoon included a hilarious caricature of the prime minister waving a cracked gavel.",
+    "mnemonic": "Car का structure इतना अजीब बना दिया कि लोग हँसने लगे। (Car structure -> Caricature = O;aX; fp=k)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Draw a caricature / cruel caricature",
+    "level": "level-1",
+    "set": "set-01"
+  },
+  {
+    "id": "v-ows-l1-s1-102",
+    "word": "Carol",
+    "phonetic": "/ˈkær.əl/",
+    "hindi": "भजन / क्रिसमस का धार्मिक गीत / आनंद गीत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A joyful religious song, especially one sung during the celebration of Christmas.",
+    "synonyms": [
+      "Hymn",
+      "Chant",
+      "Christmas song",
+      "Anthem",
+      "Canticle"
+    ],
+    "antonyms": [
+      "Dirge",
+      "Lament",
+      "Elegy"
+    ],
+    "example": "Choir singers gathered around the village square to sing traditional carols in the snow.",
+    "mnemonic": "काजोल बहुत अच्छा भजन गाती है। (Kajol -> Carol = Hktu)",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 01",
+      "OWS"
+    ],
+    "collocation": "Christmas carol / carol singing / carol singer",
+    "level": "level-1",
+    "set": "set-01"
   }
 ];
