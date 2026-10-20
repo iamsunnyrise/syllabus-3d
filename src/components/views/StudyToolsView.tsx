@@ -49,7 +49,16 @@ import { CalculationBoosterTriplets } from './CalculationBoosterTriplets';
 import { CalculationBoosterPowers } from './CalculationBoosterPowers';
 import { CalculationBoosterPrimes } from './CalculationBoosterPrimes';
 import { SscSpecialVocabView } from './SscSpecialVocabView';
-import { LEVEL_1_SET_01_WORDS, LEVEL_1_SET_02_WORDS, LEVEL_1_SET_03_WORDS, LEVEL_1_SET_04_WORDS, VocabItem, VocabLevel } from '../../data/highYieldVocabData';
+import { 
+  LEVEL_1_SET_01_WORDS, 
+  LEVEL_1_SET_02_WORDS, 
+  LEVEL_1_SET_03_WORDS, 
+  LEVEL_1_SET_04_WORDS, 
+  LEVEL_1_SET_05_WORDS,
+  LEVEL_1_SET_06_WORDS,
+  VocabItem, 
+  VocabLevel 
+} from '../../data/highYieldVocabData';
 
 export type { VocabItem, VocabLevel };
 
@@ -91,7 +100,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-02', label: 'Set 02' },
       { id: 'set-03', label: 'Set 03' },
       { id: 'set-04', label: 'Set 04' },
-      { id: 'set-05', label: 'Set 05' }
+      { id: 'set-05', label: 'Set 05' },
+      { id: 'set-06', label: 'Set 06' }
     ]
   },
   {
@@ -105,7 +115,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-02', label: 'Set 02' },
       { id: 'set-03', label: 'Set 03' },
       { id: 'set-04', label: 'Set 04' },
-      { id: 'set-05', label: 'Set 05' }
+      { id: 'set-05', label: 'Set 05' },
+      { id: 'set-06', label: 'Set 06' }
     ]
   },
   {
@@ -119,7 +130,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-02', label: 'Set 02' },
       { id: 'set-03', label: 'Set 03' },
       { id: 'set-04', label: 'Set 04' },
-      { id: 'set-05', label: 'Set 05' }
+      { id: 'set-05', label: 'Set 05' },
+      { id: 'set-06', label: 'Set 06' }
     ]
   },
   {
@@ -133,7 +145,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-02', label: 'Set 02' },
       { id: 'set-03', label: 'Set 03' },
       { id: 'set-04', label: 'Set 04' },
-      { id: 'set-05', label: 'Set 05' }
+      { id: 'set-05', label: 'Set 05' },
+      { id: 'set-06', label: 'Set 06' }
     ]
   }
 ];
@@ -143,6 +156,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_02_WORDS,
   ...LEVEL_1_SET_03_WORDS,
   ...LEVEL_1_SET_04_WORDS,
+  ...LEVEL_1_SET_05_WORDS,
+  ...LEVEL_1_SET_06_WORDS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
