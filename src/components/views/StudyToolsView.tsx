@@ -63,7 +63,10 @@ import {
   VocabItem, 
   VocabLevel 
 } from '../../data/highYieldVocabData';
-import { LEVEL_1_SET_01_IDIOMS } from '../../data/highYieldIdiomsData';
+import { 
+  LEVEL_1_SET_01_IDIOMS, 
+  LEVEL_1_SET_02_IDIOMS 
+} from '../../data/highYieldIdiomsData';
 
 export type { VocabItem, VocabLevel };
 
@@ -184,6 +187,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_09_WORDS,
   ...LEVEL_1_SET_10_WORDS,
   ...LEVEL_1_SET_01_IDIOMS,
+  ...LEVEL_1_SET_02_IDIOMS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
@@ -215,10 +219,10 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Trust him with your surprise party plan and he is sure to spill the beans.',
     mnemonic: 'Imagine dropping a jar of beans -> All hidden beans scatter in the open!',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'MTS', 'Level 1', 'Set 02', 'Idioms & Phrases'],
+    examTags: ['SSC CGL', 'CHSL', 'MTS', 'Level 1', 'Set 03', 'Idioms & Phrases'],
     collocation: 'Spill the beans to the press / police',
     level: 'level-1',
-    set: 'set-02'
+    set: 'set-03'
   },
   {
     id: 'v-root-1',
@@ -266,10 +270,10 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     example: 'Aspirants often burn the midnight oil during the final revision month.',
     mnemonic: 'Before electricity, studying late required keeping the oil lamp burning until midnight.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'Railway', 'Level 1', 'Set 02', 'Idioms & Phrases'],
+    examTags: ['SSC CGL', 'CHSL', 'Railway', 'Level 1', 'Set 03', 'Idioms & Phrases'],
     collocation: 'Burn the midnight oil to crack exam',
     level: 'level-1',
-    set: 'set-02'
+    set: 'set-03'
   },
   {
     id: 'v-root-2',

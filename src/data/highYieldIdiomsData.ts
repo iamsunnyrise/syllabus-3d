@@ -2105,3 +2105,2161 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "set": "set-01"
   }
 ];
+
+export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
+  {
+    "id": "v-idiom-l1-s2-1",
+    "word": "A dry run",
+    "phonetic": "/ə draɪ rʌn/",
+    "hindi": "अभ्यास / पूर्वाभ्यास",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A rehearsal or practice session of a performance or procedure before the actual event.",
+    "synonyms": [
+      "Rehearsal",
+      "Trial run",
+      "Practice session",
+      "Walk-through"
+    ],
+    "antonyms": [
+      "Live performance",
+      "Real execution",
+      "Actual event"
+    ],
+    "example": "Before launching the live product demo to investors, the engineering team conducted a thorough dry run.",
+    "mnemonic": "Origin: Firefighters do tarah ki drills karte the: Wet Run (jisme asli paani use hota tha) aur Dry Run (jisme sirf seedhi aur hose pipe lagane ki tezi se practice karte the par paani use nahi karte the). Bina asli result ke sirf practice karna \"Dry Run\" kehlaaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Conduct / do a dry run",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-2",
+    "word": "A face like thunder",
+    "phonetic": "/ə feɪs laɪk ˈθʌn.dər/",
+    "hindi": "बहुत गुस्से में होना / क्रोधित मुखमुद्रा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Having a very angry, fierce, and stormy facial expression.",
+    "synonyms": [
+      "Furious look",
+      "Enraged expression",
+      "Scowling face",
+      "Stormy countenance"
+    ],
+    "antonyms": [
+      "Beaming smile",
+      "Serene face",
+      "Cheerful countenance"
+    ],
+    "example": "When he discovered his car had been dented in the parking lot, he stormed into the office with a face like thunder.",
+    "mnemonic": "Origin: Toofan aane se pehle aasmaan kaala ho jata hai aur bijli kadakne ki daraoni awaaz aati hai. Purane samay se stormy weather ko gusse aur aakrosh se joda jata hai. Chehra garajte badal jaisa hona matlab andar gusse ka toofan blast hone wala hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Walk in with a face like thunder",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-3",
+    "word": "A far cry",
+    "phonetic": "/ə fɑː kraɪ/",
+    "hindi": "बिल्कुल अलग होना / ज़मीन-आसमान का फर्क होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To be very distant from or completely different from something; a vast difference.",
+    "synonyms": [
+      "Completely different",
+      "Poles apart",
+      "Worlds apart",
+      "Vastly dissimilar"
+    ],
+    "antonyms": [
+      "Spitting image",
+      "Dead ringer",
+      "Close resemblance",
+      "Identical"
+    ],
+    "example": "The modest initial prototype was a far cry from the sophisticated AI application they eventually deployed.",
+    "mnemonic": "Origin: Purane waqt mein bina phone ke log pukaar (Cry) ka use karte the. \"A cry\" utni doori maani jaati thi jahan tak pukaar sunayi de sake. Agar koi cheez \"a far cry\" thi, toh wahan pukaar bhi nahi pahunch sakti thi. Baad mein yeh kisi cheez ke antar (difference) ke liye use hone laga.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A far cry from what was expected",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-4",
+    "word": "A fat cat",
+    "phonetic": "/ə fæt kæt/",
+    "hindi": "एक अमीर और प्रभावशाली व्यक्ति / मलाईदार पद वाला पूंजीपति",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An opulent, wealthy, and powerful person, especially in business or politics, who enjoys unfair privileges.",
+    "synonyms": [
+      "Tycoon",
+      "Magnate",
+      "Plutocrat",
+      "Fatcat",
+      "Moneybags"
+    ],
+    "antonyms": [
+      "Pauper",
+      "Proletariat",
+      "Underprivileged worker"
+    ],
+    "example": "The government faced stiff criticism for offering lavish tax exemptions to corporate fat cats while cutting social welfare.",
+    "mnemonic": "Origin: Ek aisi moti billi (fat cat) jo khud shikaar nahi karti, balki doosron dwara laye maze ka khana aaram se baith kar khati hai. Yeh un ameer aur prabhavshali logon ke liye metaphor hai jo system ka fayda uthakar maze karte hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Corporate / political fat cats",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-5",
+    "word": "A feather in one's cap",
+    "phonetic": "/ə ˈfeð.ər ɪn wʌnz kæp/",
+    "hindi": "गर्व की बात / एक बड़ी उपलब्धि / सम्मान की वृद्धि",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An achievement, honor, or triumph that someone can be very proud of.",
+    "synonyms": [
+      "Proud achievement",
+      "Badge of honor",
+      "Accomplishment",
+      "Laurel"
+    ],
+    "antonyms": [
+      "Mark of disgrace",
+      "Black mark",
+      "Ignominy",
+      "Blemish"
+    ],
+    "example": "Publishing research in a prestigious international medical journal was another feather in her cap.",
+    "mnemonic": "Origin: Purani sadiyon mein yoddha jab dushman ko harata tha, toh apni topi (cap) mein ek par (feather) laga leta tha. Jiske paas jitne par hote the, woh utna bahadur maana jata tha. Har naya feather ek nayi jeet ka nishaan tha.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Another feather in one's cap",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-6",
+    "word": "A fine state of affairs",
+    "phonetic": "/ə faɪn steɪt əv əˈfeəz/",
+    "hindi": "एक बुरी या विकट स्थिति / दुर्दशा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An unpleasant, awkward, or deplorable situation (frequently used ironically or sarcastically).",
+    "synonyms": [
+      "Deplorable mess",
+      "Awkward predicament",
+      "Sorry plight",
+      "Shambles"
+    ],
+    "antonyms": [
+      "Ideal condition",
+      "Smooth state",
+      "Harmonious situation"
+    ],
+    "example": "When both servers crashed simultaneously right during the exam registration deadline, the director sighed, \"This is a fine state of affairs.\"",
+    "mnemonic": "Origin: \"State of affairs\" ka matlab halaat hota hai. 18th-19th century mein log taana (irony) maarte hue bolte the \"This is a fine state of affairs!\" yani halaat bohot gande aur bigde hue hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "This is a fine state of affairs!",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-7",
+    "word": "A finger in every pie",
+    "phonetic": "/ə ˈfɪŋ.ɡər ɪn ˈev.ri paɪ/",
+    "hindi": "एक साथ कई काम करना / हर मामले में दखल देना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To be involved in a large and varied number of activities, enterprises, or decisions, often meddlesomely.",
+    "synonyms": [
+      "Multifaceted involvement",
+      "Busybody",
+      "Ubiquitous participant"
+    ],
+    "antonyms": [
+      "Single-minded focus",
+      "Hands-off approach",
+      "Detached observer"
+    ],
+    "example": "From real estate and fintech to film production, the ambitious industrialist has a finger in every pie.",
+    "mnemonic": "Origin (Shakespeare's Henry VIII): Daawat mein bohot saari pies (mithai/kachori) rakhi hain. Agar koi har pie mein apni ungli daal kar chakhta rahe, toh woh har cheez mein ghusna chahta hai. Aisa vyakti jo an-ginat businesses ya mamlon mein active rehta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Railway",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Have a finger in every pie",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-8",
+    "word": "A fire in someone's belly",
+    "phonetic": "/ə ˈfaɪər ɪn ˈsʌm.wʌnz ˈbel.i/",
+    "hindi": "कुछ कर दिखाने का जुनून / दृढ़ संकल्प / अंदर की आग",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A powerful sense of ambition, relentless energy, and fierce determination to succeed.",
+    "synonyms": [
+      "Inner drive",
+      "Burning ambition",
+      "Guts",
+      "Fierce determination"
+    ],
+    "antonyms": [
+      "Apathy",
+      "Lethargy",
+      "Indifference",
+      "Complacency"
+    ],
+    "example": "Despite multiple rejections, the fire in his belly kept him studying ten hours daily until he cleared the civil service exam.",
+    "mnemonic": "Origin: Sanskritiyon mein pet (belly) ko urja aur bhavnaon ka kendra maana gaya hai. Josh aur aage badhne ki tivr ichha ko pet mein jalti \"Aag\" (fire) maante hain jo aage badhne ka fuel deti hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Have a fire in one's belly",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-9",
+    "word": "A flash in the pan",
+    "phonetic": "/ə flæʃ ɪn ðə pæn/",
+    "hindi": "क्षणिक सफलता / चार दिन का तमाशा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Something or someone that achieves sudden but very brief success that cannot be sustained or repeated.",
+    "synonyms": [
+      "One-hit wonder",
+      "Passing fad",
+      "Nine days' wonder",
+      "Temporary sensation"
+    ],
+    "antonyms": [
+      "Enduring success",
+      "Lasting triumph",
+      "Perennial classic"
+    ],
+    "example": "Critics doubted the young singer, claiming his debut viral hit was merely a flash in the pan.",
+    "mnemonic": "Origin (Flintlock muskets): Purani bandookon mein barood ek chote bartan (pan) mein rakhte the. Trigger dabane par kabhi sirf pan ka barood chamakta (flash) tha par asli goli nahi chalti thi. Bahar se dhamaka dikha par parinaam zero.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Prove to be a flash in the pan",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-10",
+    "word": "A fly on the wall",
+    "phonetic": "/ə flaɪ ɒn ðə wɔːl/",
+    "hindi": "किसी घटना को चुपचाप / गुप्त रूप से देखने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An unnoticed or secret observer who watches or overhears what happens without participating.",
+    "synonyms": [
+      "Secret observer",
+      "Silent spectator",
+      "Eavesdropper",
+      "Unseen watcher"
+    ],
+    "antonyms": [
+      "Active participant",
+      "Conspicuous presenter",
+      "Center of attention"
+    ],
+    "example": "I would love to be a fly on the wall during that top-secret cabinet reshuffle meeting.",
+    "mnemonic": "Origin: Secret meeting mein deewar par baithi choti makkhi (fly) ko koi notice nahi karta. Woh wahan reh kar sab kuch sun aur dekh sakti hai. Kisi confidential baat ko bina dikhe dekhne/sunne ki ichha.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Wish to be a fly on the wall",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-11",
+    "word": "A flying visit",
+    "phonetic": "/ə ˈflaɪ.ɪŋ ˈvɪz.ɪt/",
+    "hindi": "थोड़ी देर के लिए मिलना / संक्षिप्त मुलाकात",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A very short, brief visit that lasts for only a few minutes.",
+    "synonyms": [
+      "Brief visit",
+      "Fleeting call",
+      "Quick stopover",
+      "Whistle-stop visit"
+    ],
+    "antonyms": [
+      "Extended stay",
+      "Prolonged residency",
+      "Sojourn"
+    ],
+    "example": "She paid her grandparents a flying visit over the weekend before rushing back to the capital for her training.",
+    "mnemonic": "Origin: \"Flying\" ka matlab tezi se aana aur jana hai (jaise parinda udkar aaye aur foran udd jaye). Kisi se itna kam waqt milna ki baith kar chai peene ka bhi samay na mile.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Pay someone a flying visit",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-12",
+    "word": "A fool and his money are easily parted",
+    "phonetic": "/ə fuːl ænd hɪz ˈmʌn.i ɑː ˈiː.zəl.i ˈpɑː.tɪd/",
+    "hindi": "मूर्ख अपने पैसे को बहुत जल्दी गंवा देता है",
+    "type": "idiom",
+    "partOfSpeech": "Proverb / Idiom",
+    "meaning": "Stupid, naive, or reckless individuals spend or squander their wealth foolishly without thinking.",
+    "synonyms": [
+      "Spendthrift folly",
+      "Financial recklessness",
+      "Easy dupe"
+    ],
+    "antonyms": [
+      "Frugal wisdom",
+      "Prudent investor",
+      "Penny-wise saver"
+    ],
+    "example": "Investing his life savings into that unverified crypto pyramid scheme proved that a fool and his money are easily parted.",
+    "mnemonic": "Origin (Thomas Tusser 1573): Kavi Thomas Tusser ne likha tha \"A foole and his money be soone at debate\" (murkh aur paise ke beech ladai rehti hai aur wo alag ho jate hain). Duniyabhar ki sabse sachhi financial advice.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Remember that a fool and his money are easily parted",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-13",
+    "word": "A foul play",
+    "phonetic": "/ə faʊl pleɪ/",
+    "hindi": "बेईमानी / कपटपूर्ण आचरण / संदिग्ध अपराध",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Unfair, treacherous, or dishonest behavior, especially involving criminal violence or deceit.",
+    "synonyms": [
+      "Treachery",
+      "Underhand dealings",
+      "Crime",
+      "Dishonesty",
+      "Foul deed"
+    ],
+    "antonyms": [
+      "Fair play",
+      "Honesty",
+      "Legitimate conduct",
+      "Transparency"
+    ],
+    "example": "The detectives suspected foul play after discovering multiple anomalies in the victim's autopsy report.",
+    "mnemonic": "Origin: Sports mein niyam todne ko \"Foul\" kehte hain. 16th century se kisi business deal mein dhokha ya apradhik ghatna mein niyam tode jane par ise \"Foul Play\" kaha gaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Suspect / rule out foul play",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-14",
+    "word": "A French leave",
+    "phonetic": "/ə frentʃ liːv/",
+    "hindi": "बिना सूचना के चले जाना / बिना बताए गायब होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An unauthorized, abrupt departure or absence from work or a social gathering without permission or saying goodbye.",
+    "synonyms": [
+      "AWOL",
+      "Unauthorized absence",
+      "Stealthy departure",
+      "Playing truant"
+    ],
+    "antonyms": [
+      "Gracious farewell",
+      "Formal leave-taking",
+      "Authorized exit"
+    ],
+    "example": "The junior engineer took French leave on Monday to attend a wedding, landing himself a strict disciplinary notice.",
+    "mnemonic": "Origin (18th Century): France mein rivaj tha ki mehman party se jaldi nikalte waqt mezbaan ko disturb nahi karta tha aur chupchap chala jata tha. Angrezon ko yeh badtameezi lagi aur unhone ise \"French leave\" keh diya. (French log ise \"partir à l'anglaise\" yani Angrezon ki tarah bhagna kehte hain!).",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Take French leave",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-15",
+    "word": "A gentleman at large",
+    "phonetic": "/ə ˈdʒen.təl.mən æt lɑːdʒ/",
+    "hindi": "जिसके पास कोई निश्चित काम न हो / निठल्ला या फुर्सत में रहने वाला व्यक्ति",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A man without a steady job, fixed employment, or formal occupation.",
+    "synonyms": [
+      "Man of leisure",
+      "Idler",
+      "Unemployed gentleman",
+      "Loiterer"
+    ],
+    "antonyms": [
+      "Busy professional",
+      "Breadwinner",
+      "Toiler",
+      "Workaholic"
+    ],
+    "example": "Since selling his software firm three years ago, he has been living comfortably as a gentleman at large.",
+    "mnemonic": "Origin: \"At large\" ka matlab azaad ya bandhan-mukt hota hai. Jab \"Gentleman\" ke saath lagaya gaya, toh yeh un logon ke liye use hua jinki subah daftar ya dukan jaane ki koi jaldi nahi hoti thi, jo acche kapde pehen kar bas waqt bitate the.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Live as a gentleman at large",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-16",
+    "word": "A glass ceiling",
+    "phonetic": "/ə ɡlɑːs ˈsiː.lɪŋ/",
+    "hindi": "एक अदृश्य बाधा जो महिलाओं या वंचितों की पदोन्नति रोकती है",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An invisible, unacknowledged barrier that prevents women and minorities from advancing to upper-level managerial positions.",
+    "synonyms": [
+      "Invisible barrier",
+      "Promotional roadblock",
+      "Discriminatory ceiling"
+    ],
+    "antonyms": [
+      "Open pathway",
+      "Equal opportunity",
+      "Level playing field"
+    ],
+    "example": "She broke through the corporate glass ceiling by becoming the first female managing director of the bank.",
+    "mnemonic": "Origin: Ground floor se upar dekhne par chhat kaanch (glass) ki hone ke kaaran upar ki manzilein saaf dikhti hain, par upar jane par sar invisible kaanch se takra jata hai. Yeh samaj aur companiyon ke bhedbhav wali neetiyon ka prateek hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Break / shatter the glass ceiling",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-17",
+    "word": "A go getter",
+    "phonetic": "/ə ˈɡəʊ ˈɡet.ər/",
+    "hindi": "ऊर्जावान और महत्वाकांक्षी व्यक्ति / कर्मठ व लगनशील",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An energetic, driven, and ambitious person who actively pursues goals and consistently achieves them.",
+    "synonyms": [
+      "High achiever",
+      "Dynamo",
+      "Self-starter",
+      "Hustler",
+      "Ball of fire"
+    ],
+    "antonyms": [
+      "Sluggard",
+      "Underachiever",
+      "Laggard",
+      "Couch potato"
+    ],
+    "example": "As a natural go-getter, she expanded the firm’s clientele threefold within her very first year.",
+    "mnemonic": "Origin (1920s American commerce): \"Go\" (jana) + \"Get\" (laana). Aisa salesman jo bahar jakar deal lekar aaye aur kabhi sust na ho. Har energetic aur goal-oriented vyakti ke liye yeh term ban gaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A dynamic go-getter",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-18",
+    "word": "A god's ape",
+    "phonetic": "/ə ɡɒdz eɪp/",
+    "hindi": "जन्मजात मूर्ख / नकलची बंदर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A born fool or simpleton; someone who imitates others mindlessly without original intelligence.",
+    "synonyms": [
+      "Born fool",
+      "Simpleton",
+      "Blockhead",
+      "Dunce",
+      "Natural"
+    ],
+    "antonyms": [
+      "Genius",
+      "Wise counselor",
+      "Intellectual",
+      "Polymath"
+    ],
+    "example": "Stop arguing logic with that stubborn fellow; he is an incorrigible god's ape who will never comprehend statistics.",
+    "mnemonic": "Origin: Maana jata tha ki Ape (bandar/langoor) insaan ki nakal karta hai par samajhta kuch nahi. Jo vyakti bilkul akal se paidal ho aur sirf doosron ki andhi nakal kare, use \"God's ape\" kaha gaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Act like a god's ape",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-19",
+    "word": "A golden mean",
+    "phonetic": "/ə ˈɡəʊl.dən miːn/",
+    "hindi": "बीच का रास्ता / मध्यम मार्ग / संतुलित नीति",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "The ideal, balanced moderate course between two extremes of excess and deficiency.",
+    "synonyms": [
+      "Middle ground",
+      "Balance",
+      "Via media",
+      "Happy medium",
+      "Moderation"
+    ],
+    "antonyms": [
+      "Extremism",
+      "Radicalism",
+      "Polarized stance",
+      "Overreaction"
+    ],
+    "example": "In economic policymaking, governments strive for a golden mean between curbing inflation and boosting growth.",
+    "mnemonic": "Origin (Aristotle): Aristotle ke anusaar har achha kaam do buraiyon ke beech hota hai. Jyada darpok hona bura hai aur bina soche khatra mol lena bhi bura hai; beech ka rasta Bahaduri hai. Sona (gold) ki tarah beech ka rasta sabse keemti aur sahi hota hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Find / strike a golden mean",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-20",
+    "word": "A good turn",
+    "phonetic": "/ə ɡʊd tɜːn/",
+    "hindi": "किसी की भलाई करना / उपकार का कार्य",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A helpful, kind, and accommodating action that aids someone.",
+    "synonyms": [
+      "Act of kindness",
+      "Favor",
+      "Helpful service",
+      "Good deed"
+    ],
+    "antonyms": [
+      "Disservice",
+      "Ill turn",
+      "Malicious act",
+      "Betrayal"
+    ],
+    "example": "Rahul really did me a good turn by lending me his comprehensive handwritten notes when I fell sick before exams.",
+    "mnemonic": "Origin: Mashhoor purani kahawat \"One good turn deserves another\" (ek bhalai ke badle doosri bhalai honi chahiye). Kisi ki madad karna good turn kehlaata hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Do someone a good turn",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-21",
+    "word": "A good grief",
+    "phonetic": "/ə ɡʊd ɡriːf/",
+    "hindi": "आश्चर्य या झुंझलाहट व्यक्त करने वाला उद्गार",
+    "type": "idiom",
+    "partOfSpeech": "Exclamation / Idiom",
+    "meaning": "An exclamation expressing surprise, shock, alarm, frustration, or dismay.",
+    "synonyms": [
+      "Heavens above!",
+      "My goodness!",
+      "Good gracious!",
+      "Holy smoke!"
+    ],
+    "antonyms": [
+      "Calm composure",
+      "Unfazed reaction",
+      "Quiet indifference"
+    ],
+    "example": "Good grief! You spent five thousand rupees on a single designer t-shirt?",
+    "mnemonic": "Origin: Purane samay mein log \"God\" ka naam bina wajah lena paap maante the (Taking God's name in vain). Isliye \"Good God!\" kehne ke bajaye \"God\" ki jagah milta-julta shabd \"Grief\" bolne lage taaki paap na lage.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Good grief, what happened?",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-22",
+    "word": "A good samaritan",
+    "phonetic": "/ə ɡʊd səˈmær.ɪ.tən/",
+    "hindi": "नेक इंसान / परोपकारी / संकट में निस्वार्थ मदद करने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A charitable, compassionate person who unselfishly assists others in need or distress, especially strangers.",
+    "synonyms": [
+      "Altruist",
+      "Benevolent helper",
+      "Humanitarian",
+      "Lifesaver"
+    ],
+    "antonyms": [
+      "Callous bystander",
+      "Exploiter",
+      "Marauder"
+    ],
+    "example": "I lost my wallet at the station, but a good samaritan found it and mailed it back to my house.",
+    "mnemonic": "Origin (The Bible - Parable of the Good Samaritan): Ek ghaayal vyakti sadak kinare pada tha jise sabne ignore kar diya, lekin Samaria ke ek vyakti ne aage aakar bina kisi swarth ke uski madad ki aur ilaaj karaya. Wahin se selfless helper ko Good Samaritan kaha jane laga.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Act like a good samaritan",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-23",
+    "word": "A grass widow",
+    "phonetic": "/ə ɡrɑːs ˈwɪd.əʊ/",
+    "hindi": "वह महिला जिसका पति लंबे समय के लिए काम से बाहर हो",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A woman whose husband is frequently or prolonged away from home on business or military deployment.",
+    "synonyms": [
+      "Solitary wife",
+      "Temporarily separated spouse"
+    ],
+    "antonyms": [
+      "Constant companion",
+      "Cohabiting couple"
+    ],
+    "example": "Ever since he took that oil rig job in Dubai, his wife has lived as a grass widow in Delhi.",
+    "mnemonic": "Origin (British Raj in India): Garmiyon mein British officers patniyon ko pahadi hill stations (Shimla/Mussoorie) bhejte the jahan hari ghaas (grass) thi, jabki pati neeche maidanon mein kaam karte the. Ghaas wale pahadon par akele rehne wali mahila ko \"Grass Widow\" kaha gaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Live as a grass widow",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-24",
+    "word": "A green horn",
+    "phonetic": "/ə ɡriːn hɔːn/",
+    "hindi": "अनुभवहीन व्यक्ति / नौसिखिया / कच्चा खिलाड़ी",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An inexperienced, gullible, or newly inducted person in a particular trade or endeavor.",
+    "synonyms": [
+      "Novice",
+      "Tyro",
+      "Neophyte",
+      "Greenhorn",
+      "Tenderfoot"
+    ],
+    "antonyms": [
+      "Veteran",
+      "Old hand",
+      "Seasoned campaigner",
+      "Maestro"
+    ],
+    "example": "The team lost because they had too many greenhorns on the field who couldn't handle the championship pressure.",
+    "mnemonic": "Origin: Purane zamane mein, jab kisi young bail (ox) ya hiran (deer) ke naye-naye seeng (Horns) nikalte the, toh unhe \"Green\" kaha jata tha. Yahan \"Green\" ka matlab rang nahi, balki \"Kacha\" ya \"Naya\" hota hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Regarded as a green horn",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-25",
+    "word": "A grey area",
+    "phonetic": "/ə ɡreɪ ˈeə.ri.ə/",
+    "hindi": "अस्पष्ट स्थिति / अनिश्चित दायरा / दोराहा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A situation or matter that is unclear, ambiguous, or not easily categorized into right or wrong.",
+    "synonyms": [
+      "Ambiguity",
+      "Vague territory",
+      "Ill-defined zone",
+      "Twilight zone"
+    ],
+    "antonyms": [
+      "Black-and-white matter",
+      "Clear-cut distinction",
+      "Unambiguous rule"
+    ],
+    "example": "The referee's decision was a grey area because the foul happened exactly on the penalty boundary line.",
+    "mnemonic": "Origin: Black matlab galat ya bura, White matlab sahi ya saccha. Lekin jab Black aur White ko milate hain, toh banta hai Grey jo beech ka rang hai. Isliye 20th century mein aisi situations ke liye use hone laga jahan koi saaf jawab nahi milta.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Fall into a grey area",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-26",
+    "word": "A Herculean task",
+    "phonetic": "/ə hɜː.kjʊˈliː.ən tɑːsk/",
+    "hindi": "अत्यंत कठिन कार्य / भागीरथ प्रयास / अति दुष्कर कार्य",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A task requiring immense, superhuman strength, endurance, or supreme effort.",
+    "synonyms": [
+      "Colossal endeavor",
+      "Monumental challenge",
+      "Uphill battle",
+      "Labor of Hercules"
+    ],
+    "antonyms": [
+      "Child's play",
+      "Cakewalk",
+      "Walkover",
+      "Breeze"
+    ],
+    "example": "Cracking the SSC CGL exam with a top-ten rank is a Herculean task, but with consistency, it is possible.",
+    "mnemonic": "Origin (Hercules in Greek Mythology): Hercules ko 12 aise kaam diye gaye jo kisi insaan ke liye namumkin the (Nemean lion ko maarna, Augean stables ko ek din mein saaf karna). Hercules ne apni takat aur dimaag se unhe poora kiya. Badi mushkil chunauti ko \"Herculean Task\" kehte hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Prove to be a Herculean task",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-27",
+    "word": "A Hobson's choice",
+    "phonetic": "/ə ˈhɒb.sənz tʃɔɪs/",
+    "hindi": "विकल्प न होना / मजबूरी का चुनाव / विवशता",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An apparently free choice where in reality there is no alternative; take what is offered or get nothing.",
+    "synonyms": [
+      "No-choice choice",
+      "Take-it-or-leave-it option",
+      "Compulsion"
+    ],
+    "antonyms": [
+      "Multitude of options",
+      "Open choice",
+      "Plentiful alternatives"
+    ],
+    "example": "At the small roadside dhaba, it was a Hobson's choice: either eat the dal-roti or go hungry.",
+    "mnemonic": "Origin (Thomas Hobson Cambridge): Hobson astabal mein ghode kiraye par deta tha. Log tez ghode maang kar thaka dete the, toh usne niyam banaya: \"Jo ghoda gate ke sabse kareeb hai wahi lo... ya fir koi mat lo!\" Customers ko lagta tha choice hai, par asal mein choice zero thi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Faced with a Hobson's choice",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-28",
+    "word": "A hornet's nest",
+    "phonetic": "/ə ˈhɔː.nɪts nest/",
+    "hindi": "विवादास्पद स्थिति / ततैये का छत्ता / उपद्रव का कारण",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A highly contentious, dangerous, or hostile situation provoked by interference.",
+    "synonyms": [
+      "Can of worms",
+      "Hotbed of trouble",
+      "Hornets' nest",
+      "Powder keg"
+    ],
+    "antonyms": [
+      "Calm waters",
+      "Peaceful consensus",
+      "Tranquility"
+    ],
+    "example": "His controversial tweet about the education system poked a hornet's nest, leading to a massive debate online.",
+    "mnemonic": "Origin: Hornet (bada aur gussewala tattaiya) ka chhatta upar se shant dikhta hai, par agar koi use chhed de toh saari hornets ek saath nikal kar hamla kar deti hain. Aise mudde jinko chhedte hi bhishan vivaad khada ho jaye.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Stir up / poke a hornet's nest",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-29",
+    "word": "A hot potato",
+    "phonetic": "/ə hɒt pəˈteɪ.təʊ/",
+    "hindi": "विवादास्पद मुद्दा जिसे कोई हाथ न लगाना चाहे / ज्वलंत समस्या",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A controversial, risky, or awkward problem that no one wants to take responsibility for.",
+    "synonyms": [
+      "Thorny issue",
+      "Burning question",
+      "Delicate matter",
+      "Ticklish subject"
+    ],
+    "antonyms": [
+      "Safe topic",
+      "Non-controversial issue",
+      "Settled matter"
+    ],
+    "example": "The decision to ban the star player was a hot potato for the national football association.",
+    "mnemonic": "Origin: Aag se nikla garama-garam aloo (Hot Potato) itna garam hota hai ki aap pakad nahi sakte, turant doosre ki taraf phenk dete hain. Theek usi tarah politics mein badnami wale mudde ko log ek-dusre par uchhalte rehte hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Drop / handle like a hot potato",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-30",
+    "word": "A house of cards",
+    "phonetic": "/ə haʊs əv kɑːdz/",
+    "hindi": "ताश का घर / कमज़ोर बुनियाद वाली योजना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An insecure situation, scheme, or organization that can easily collapse or fail at the slightest disturbance.",
+    "synonyms": [
+      "Fragile setup",
+      "Shaky foundation",
+      "Bubble",
+      "Castle in the air"
+    ],
+    "antonyms": [
+      "Solid fortress",
+      "Rock-solid institution",
+      "Sturdy foundation"
+    ],
+    "example": "Trying to learn advanced math without knowing the basics is like building a house of cards.",
+    "mnemonic": "Origin: Bachpan mein playing cards se ghar banate waqt patte ek-dusre ke sahare tikte hain. Sundar lagta hai par halki si hawa ya hilaane par 1 second mein gir jata hai. Sirf dikhawe wali kacchi planning ko kehte hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Collapse like a house of cards",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-31",
+    "word": "A jaundiced eye",
+    "phonetic": "/ə ˈdʒɔːn.dɪst aɪ/",
+    "hindi": "पक्षपातपूर्ण नज़रिया / ईर्ष्या या पूर्वाग्रह से देखना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A negative, skeptical, or prejudiced attitude towards something, heavily biased by past grievances.",
+    "synonyms": [
+      "Biased view",
+      "Prejudiced outlook",
+      "Skeptical perception",
+      "Cynical gaze"
+    ],
+    "antonyms": [
+      "Impartial judgment",
+      "Fair assessment",
+      "Objective view"
+    ],
+    "example": "The investors viewed the startup's high profit claims with a jaundiced eye due to the recent market crash.",
+    "mnemonic": "Origin: Jaundice (Piliya) mein aankhon ka safed hissa peela ho jata hai. Purane zamane mein log maante the ki mareez ko poori duniya hi peeli dikhti hai. Dimag bimar ya biased ho toh har acchi cheez bhi kharab nazar aayegi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "View / look at with a jaundiced eye",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-32",
+    "word": "A lame excuse",
+    "phonetic": "/ə leɪm ɪkˈskjuːs/",
+    "hindi": "कमज़ोर बहाना / लचर दलील",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An inadequate, unconvincing, and implausible excuse that is clearly fabricated.",
+    "synonyms": [
+      "Weak justification",
+      "Flimsy pretext",
+      "Poor excuse",
+      "Thin argument"
+    ],
+    "antonyms": [
+      "Valid explanation",
+      "Compelling justification",
+      "Water-tight alibi"
+    ],
+    "example": "Blaming the wet outfield grass for losing the match was a lame excuse by the captain.",
+    "mnemonic": "Origin: \"Lame\" ka asli matlab langda hota hai. Aisa bahana jiski taangein itni kamzor hain ki reality ki thodi si dhakkel bhi nahi jhel payega aur turant gir jayega.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Offer a lame excuse",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-33",
+    "word": "A lean patch",
+    "phonetic": "/ə liːn pætʃ/",
+    "hindi": "असफलता का दौर / मंदी का समय / सूखे का दौर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A prolonged period of poor performance, low scores, or lack of achievement.",
+    "synonyms": [
+      "Slump",
+      "Drought",
+      "Dry spell",
+      "Period of poor form"
+    ],
+    "antonyms": [
+      "Purple patch",
+      "Hot streak",
+      "Golden run",
+      "Winning spree"
+    ],
+    "example": "Samson is trying to find his rhythm after a long lean patch in T20 Internationals.",
+    "mnemonic": "Origin: \"Lean\" = dubla-patla ya kamzor. Purane zamane mein jis khet ke tukde (patch) par fasal kam hoti thi use \"Lean patch\" kehte the. Sports aur business mein jab batsman run na banaye ya company profit na kamaye, use lean patch kehte hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Go through / recover from a lean patch",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-34",
+    "word": "A left handed compliment",
+    "phonetic": "/ə left ˈhæn.dɪd ˈkɒm.plɪ.mənt/",
+    "hindi": "प्रशंसा के रूप में किया गया अपमान / व्यंग्यबाण",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A compliment that contains a subtle insult, taunt, or condescending remark.",
+    "synonyms": [
+      "Backhanded compliment",
+      "Double-edged remark",
+      "Insulting praise"
+    ],
+    "antonyms": [
+      "Sincere tribute",
+      "Wholehearted compliment",
+      "Genuine praise"
+    ],
+    "example": "The boss gave me a left-handed compliment when he said my report was actually readable this time.",
+    "mnemonic": "Origin: \"Seedha Haath\" imaandari aur taqat ka nishaan tha, jabki \"Ulta Haath\" ko manhoos (Latin: Sinister) maana jata tha. Ulte haath se di gayi taarif asli taarif nahi, balki chupa hua taana (taunt) hoti hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Pay someone a left-handed compliment",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-35",
+    "word": "A leopard can't change its spots",
+    "phonetic": "/ə ˈlep.əd kɑːnt tʃeɪndʒ ɪts spɒts/",
+    "hindi": "मनुष्य का मूल स्वभाव नहीं बदलता",
+    "type": "idiom",
+    "partOfSpeech": "Proverb / Idiom",
+    "meaning": "People cannot change their innate, deeply ingrained character or personality traits.",
+    "synonyms": [
+      "Incurable nature",
+      "Deep-seated habits",
+      "Innate traits"
+    ],
+    "antonyms": [
+      "Complete metamorphosis",
+      "Reformed character",
+      "Total transformation"
+    ],
+    "example": "She told me her ex-boyfriend has changed his aggressive behavior, but a leopard can’t change its spots.",
+    "mnemonic": "Origin (The Bible - Jeremiah 13:23): Sawal pucha gaya tha— \"Kya ek African apni skin ka rang badal sakta hai? Ya kya ek leopard apne dhabbe mita sakta hai?\" Jawab tha— Nahi! Kyunki yeh unki natural pehchan hai. Jo log kitni bhi kasam khayein par badalte nahi, unpar yeh lagu hota hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Remember that a leopard cannot change its spots",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-36",
+    "word": "A level head",
+    "phonetic": "/ə ˈlev.əl hed/",
+    "hindi": "शांत और समझदार / संतुलित दिमाग / धैर्यवान",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "The ability to remain cool, calm, sensible, and collected under intense pressure or crisis.",
+    "synonyms": [
+      "Calm composure",
+      "Equanimity",
+      "Presence of mind",
+      "Balance"
+    ],
+    "antonyms": [
+      "Hot-headedness",
+      "Panic",
+      "Volatility",
+      "Agitation"
+    ],
+    "example": "You need to keep a level head during the exam; if you panic, you’ll forget everything you studied.",
+    "mnemonic": "Origin: Carpenter tool use karta hai jise \"Level\" kehte hain jo batata hai surface seedhi (flat) hai ya nahi. Dimaag \"level\" hona matlab dimaag kisi ek taraf (gussa ya darr) nahi jhukta, bilkul stable rehta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Keep / maintain a level head",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-37",
+    "word": "A little bird told me",
+    "phonetic": "/ə ˈlɪt.əl bɜːd təʊld miː/",
+    "hindi": "उड़ती-उड़ती खबर मिलना / गुप्त सूत्र से ज्ञात होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A humorous idiom used to say that one heard information from an undisclosed, private source.",
+    "synonyms": [
+      "Secret informant",
+      "Grapevine",
+      "Confidential source",
+      "Whispering wind"
+    ],
+    "antonyms": [
+      "Official press release",
+      "Public announcement",
+      "Direct admission"
+    ],
+    "example": "A little bird told me that the manager is planning to resign next month.",
+    "mnemonic": "Origin (The Bible - Ecclesiastes 10:20): \"Raja ke khilaaf bura mat bolo, kyunki aasman mein udne wala pakshi tumhari baat raja tak pahuncha dega.\" Kabootar se chithi bhejne ke kaaran log sochte the panchi saare raaz jaante hain.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A little bird told me that...",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-38",
+    "word": "A little gush of gratitude",
+    "phonetic": "/ə ˈlɪt.əl ɡʌʃ əv ˈɡræt.ɪ.tjuːd/",
+    "hindi": "अचानक उमड़ा हुआ आभार / दिली शुक्रिया का अहसास",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A sudden, genuine, and warm emotional surge of deep thankfulness and appreciation.",
+    "synonyms": [
+      "Surge of thankfulness",
+      "Warm appreciation",
+      "Overwhelming thanks"
+    ],
+    "antonyms": [
+      "Cold ingratitude",
+      "Unfeeling response",
+      "Indifference"
+    ],
+    "example": "I felt a little gush of gratitude reading all the congratulatory messages on reaching 3 Lakh subscribers.",
+    "mnemonic": "Origin: \"Gush\" = paani ka tezi se nikalna (jaise fountain se nikalta hai) aur \"Gratitude\" = Aabhar/Shukrana. Dono ko milane par matlab hai ehsaas itna saccha hai ki dil se phoot kar bahar aa raha hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Feel a little gush of gratitude",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-39",
+    "word": "A long shot",
+    "phonetic": "/ə lɒŋ ʃɒt/",
+    "hindi": "सफल होने की उम्मीद बहुत कम होना / दूर की कौड़ी",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An attempt, venture, or bet that has only a very small probability of success.",
+    "synonyms": [
+      "Unlikely prospect",
+      "Slim chance",
+      "Outside bet",
+      "Shot in the dark"
+    ],
+    "antonyms": [
+      "Sure bet",
+      "Certainty",
+      "Foregone conclusion",
+      "Safe gamble"
+    ],
+    "example": "Cracking the exam without coaching is a long shot for many, but with the right resources, it's possible.",
+    "mnemonic": "Origin: Shooting ya archery mein door se nishana lagana (long shot) bahut mushkil hota tha aur nishana lagne ki sambhavna bahut kam hoti thi. Wahan se yeh kam chance wale prayas ke liye mashhoor hua.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Admittedly a long shot",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-40",
+    "word": "A man of letters",
+    "phonetic": "/ə mæn əv ˈlet.əz/",
+    "hindi": "विद्वान / प्रख्यात साहित्यकार / सुशिक्षित पुरुष",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A well-educated, scholarly person who is devoted to literature, writing, and intellectual pursuits.",
+    "synonyms": [
+      "Scholar",
+      "Literatus",
+      "Savant",
+      "Man of culture",
+      "Intellectual"
+    ],
+    "antonyms": [
+      "Illiterate person",
+      "Philistine",
+      "Ignoramus",
+      "Boor"
+    ],
+    "example": "Rabindranath Tagore was a great man of letters who won the Nobel Prize for his poetry.",
+    "mnemonic": "Origin: \"Letters\" ka matlab sirf chithiyan nahi, balki \"Literature\" (Sahitya) aur \"Learning\" (Gyaan) hota tha (jaise French mein Belles-lettres). Jo insaan kitabein likhta tha, use \"Letters\" ka maalik maana jata tha.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Celebrated as a man of letters",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-41",
+    "word": "A man of means",
+    "phonetic": "/ə mæn əv miːnz/",
+    "hindi": "अमीर व्यक्ति / साधन-संपन्न इंसान / धनी पुरुष",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A wealthy man with substantial financial resources, assets, and prosperity.",
+    "synonyms": [
+      "Wealthy person",
+      "Man of substance",
+      "Plutocrat",
+      "Magnate"
+    ],
+    "antonyms": [
+      "Pauper",
+      "Beggar",
+      "Man of straw",
+      "Indigent"
+    ],
+    "example": "The court will decide the fine based on whether the defendant is a man of means.",
+    "mnemonic": "Origin (16th Century): \"Means\" ka matlab sirf zariya nahi, balki \"Income\" ya \"Wealth\" hota tha. Aisa aadmi jiske paas duniya ki sukh-suvidhayein khareedne ka zariya (paisa) maujood hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "Banking",
+      "Railway",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A prominent man of means",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-42",
+    "word": "A man of spirit",
+    "phonetic": "/ə mæn əv ˈspɪr.ɪt/",
+    "hindi": "साहसी व्यक्ति / दिलेर इंसान / ऊँचे हौसले वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A courageous, high-spirited, energetic, and resolute individual of great moral and physical bravery.",
+    "synonyms": [
+      "Courageous soul",
+      "Valiant person",
+      "Lionheart",
+      "Intrepid man"
+    ],
+    "antonyms": [
+      "Coward",
+      "Poltroon",
+      "Craven",
+      "Timid person"
+    ],
+    "example": "Bhagat Singh was a true man of spirit who never bowed down to the British authorities.",
+    "mnemonic": "Origin: \"Spirit\" ka matlab aatma ke alawa insaan ki andaruni taqat ya aag (fire) maana jata tha. Jo sipahi bina dare jung ladte the aur mushkilon mein haste the, unhe \"A man of spirit\" kaha gaya.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A true man of spirit",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-43",
+    "word": "A man of straw",
+    "phonetic": "/ə mæn əv strɔː/",
+    "hindi": "कमजोर चरित्र का व्यक्ति / नाममात्र का व्यक्ति / तिनके जैसा इंसान",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person of weak character, no substance, or someone easily manipulated; or a nominal figurehead.",
+    "synonyms": [
+      "Figurehead",
+      "Puppet",
+      "Man of no substance",
+      "Nullity"
+    ],
+    "antonyms": [
+      "Man of principle",
+      "Pillar of strength",
+      "Man of character"
+    ],
+    "example": "Critics argued that the Prime Minister was a man of straw, controlled entirely by his party's advisors.",
+    "mnemonic": "Origin (Old London Courts): Adalat ke bahar log joote mein puaal (straw) phasa kar rakhte the, jo ishara tha ki paise lekar jhooti gawahi dene ko taiyar hain. Tinke ki tarah unki baaton aur deen-imaan ki koi value nahi hoti thi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Regarded as a man of straw",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-44",
+    "word": "A mare's nest",
+    "phonetic": "/ə meəz nest/",
+    "hindi": "भारी गड़बड़ी / व्यर्थ का भ्रम / झूठी खोज",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An illusory discovery that appears wonderful but proves worthless; a tangled muddle or hoax.",
+    "synonyms": [
+      "Hoax",
+      "Illusion",
+      "Mare's-nest",
+      "Wild-goose chase",
+      "Complete muddle"
+    ],
+    "antonyms": [
+      "Genuine discovery",
+      "Verifiable fact",
+      "Authentic breakthrough"
+    ],
+    "example": "The police investigation led to a mare's nest; there was no evidence of a crime at all.",
+    "mnemonic": "Origin: \"Mare\" = Ghodi. Ghodi kabhi ghosla (nest) nahi banati! Gaon mein ghaas dekhkar agar koi bole \"Maine ghodi ka ghosla dhundh liya!\" toh sab uska mazaak udate the. Aisi khoj jo asliyat mein jhoot ya bewakoofi ho.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Turn out to be a mare's nest",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-45",
+    "word": "A method to/in my madness",
+    "phonetic": "/ə ˈmeθ.əd tuː maɪ ˈmæd.nəs/",
+    "hindi": "बाहर से अव्यवस्थित दिखने वाले काम के पीछे भी कोई गहरी योजना होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A clear, rational, and sensible plan or underlying method behind actions that appear completely irrational.",
+    "synonyms": [
+      "Hidden logic",
+      "Underlying rationale",
+      "Systematic chaos"
+    ],
+    "antonyms": [
+      "Pure lunacy",
+      "Senseless blunder",
+      "Random chaos"
+    ],
+    "example": "I know my teaching style seems unconventional, but there is a method to my madness that helps students score higher.",
+    "mnemonic": "Origin (Shakespeare's Hamlet): Raja Hamlet pagal hone ka natak karta hai toh Polonius kehta hai— \"Though this be madness, yet there is method in 't.\" Bahar se pagalpan dikhne par bhi andar gehri planning hona.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "There is a method to one's madness",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-46",
+    "word": "A milestone",
+    "phonetic": "/ə ˈmaɪl.stəʊn/",
+    "hindi": "एक महत्वपूर्ण उपलब्धि / मील का पत्थर / युगांतरकारी मोड़",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An important and pivotal event, stage, or turning point in a person's career or life journey.",
+    "synonyms": [
+      "Landmark",
+      "Turning point",
+      "Critical event",
+      "Breakthrough"
+    ],
+    "antonyms": [
+      "Trivial occurrence",
+      "Minor detail",
+      "Non-event"
+    ],
+    "example": "Buying a house is a significant milestone for any young professional.",
+    "mnemonic": "Origin: Sadak par har mile par laga patthar (milestone) batata hai kitni doori tay ho gayi. Jab aap koi bada goal poora karte hain toh woh batata hai ki aap manzil ke kitne kareeb pahunch gaye.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Achieve / mark a major milestone",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-47",
+    "word": "A month of Sundays",
+    "phonetic": "/ə mʌnθ əv ˈsʌn.deɪz/",
+    "hindi": "बहुत लंबा समय / अनंत काल / जो कभी खत्म न हो",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A very long, tedious, and seemingly endless period of time.",
+    "synonyms": [
+      "Eternity",
+      "Ages",
+      "An eternity",
+      "Blue moon"
+    ],
+    "antonyms": [
+      "Flash of a second",
+      "Jiffy",
+      "Trice",
+      "Moment"
+    ],
+    "example": "It has been a month of Sundays since this city saw such a heavy rainstorm.",
+    "mnemonic": "Origin (Old England): Sundays bahut shant aur gambhir hote the jisme khel-kood mana tha. Sunday ka din bada lamba aur bhaari lagta tha. 30 Sundays ek saath aa jayein toh aisa waqt ban jata hai jo kabhi khatam hi nahi hota.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Not seen in a month of Sundays",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-48",
+    "word": "A moot point",
+    "phonetic": "/ə muːt pɔɪnt/",
+    "hindi": "विवादास्पद मुद्दा / वाद-विवाद का विषय / अप्रासंगिक बात",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A debatable matter with no practical relevance because prior circumstances have made it obsolete.",
+    "synonyms": [
+      "Debatable question",
+      "Open issue",
+      "Academic point",
+      "Irrelevant matter"
+    ],
+    "antonyms": [
+      "Settled issue",
+      "Proven fact",
+      "Foregone reality"
+    ],
+    "example": "Arguing about the budget is a moot point since the project has been cancelled.",
+    "mnemonic": "Origin: Anglo-Saxon \"Moot\" meeting hoti thi jahan charcha hoti thi. Law students ke liye \"Moot Courts\" banaye gaye jahan nakli cases par behas hoti thi, jiska asli faisla kisi ko jail nahi bhejta tha (sirf behas ke liye acchi, real life mein bekar).",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Remain a moot point",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-49",
+    "word": "A nine days' wonder",
+    "phonetic": "/ə naɪn deɪz ˈwʌn.dər/",
+    "hindi": "चार दिन की चाँदनी / अल्पकालिक आकर्षण",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A short-lived sensation or person/event that attracts great interest for only a brief period before being forgotten.",
+    "synonyms": [
+      "Flash in the pan",
+      "Passing fad",
+      "Ephemera",
+      "Seven days' wonder"
+    ],
+    "antonyms": [
+      "Enduring legacy",
+      "Evergreen trend",
+      "Perennial icon"
+    ],
+    "example": "That new viral dance video was a seven days' wonder—now, nobody even remembers the song.",
+    "mnemonic": "Origin: Kutte ke bacche (puppies) 9 din baad apni aankhein kholte hain. Jab tak aankhein band hoti hain sab ajuba (wonder) lagta hai, par jaise hi dekhne lagte hain sab normal ho jata hai. Kuch din ka aakarshan jo foran gayab ho jaye.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Prove to be a nine days' wonder",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-50",
+    "word": "A pain in the neck",
+    "phonetic": "/ə peɪn ɪn ðə nek/",
+    "hindi": "बहुत परेशान करने वाला व्यक्ति या बात / सिरदर्द",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Someone or something that is exceptionally annoying, troublesome, and irritating.",
+    "synonyms": [
+      "Nuisance",
+      "Annoyance",
+      "Pest",
+      "Constant irritant",
+      "Thorn in the flesh"
+    ],
+    "antonyms": [
+      "Source of joy",
+      "Delight",
+      "Blessing",
+      "Comfort"
+    ],
+    "example": "Commuting two hours each way in heavy traffic is a huge pain in the neck.",
+    "mnemonic": "Origin: Pehle \"pain in the ass\" bolte the, baad mein sabhyata ke liye \"neck\" bolne lage. Jaise gardan ka dard lagatar hota rehta hai aur chain se rehne nahi deta, waise hi ek annoying insaan aapka sukoon cheen leta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A real pain in the neck",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-51",
+    "word": "A part and parcel",
+    "phonetic": "/ə pɑːt ænd ˈpɑː.səl/",
+    "hindi": "अभिन्न अंग / अनिवार्य हिस्सा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An essential and inseparable component or feature of a situation or job.",
+    "synonyms": [
+      "Integral part",
+      "Indispensable element",
+      "Core feature",
+      "Package deal"
+    ],
+    "antonyms": [
+      "Extraneous matter",
+      "Irrelevant add-on",
+      "Detachable piece"
+    ],
+    "example": "Criticism is part and parcel of being a public figure or a famous YouTuber.",
+    "mnemonic": "Origin: Zameen ke kaghazat mein \"Part\" = zameen ka hissa aur \"Parcel\" = usse juda ped ya kuwaan. Kanoon mein likhte the \"Part and Parcel\" yani dono ek hi sampatti hain aur inhe alag nahi kiya ja sakta.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Be part and parcel of something",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-52",
+    "word": "A Parthian shot",
+    "phonetic": "/ə ˈpɑː.θi.ən ʃɒt/",
+    "hindi": "जाते-जाते कही गई कड़वी बात / विदाई प्रहार",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A hostile, cutting, or biting remark made when leaving, making a response impossible.",
+    "synonyms": [
+      "Parting shot",
+      "Parting salvo",
+      "Final blow",
+      "Retort on departure"
+    ],
+    "antonyms": [
+      "Parting blessing",
+      "Cordial farewell",
+      "Warm handshake"
+    ],
+    "example": "In his resignation letter, he fired a Parthian shot at the company’s unfair bonus policy.",
+    "mnemonic": "Origin: Ancient Parthia ke ghudsawaar peechhe hatne ka naatak karte the aur achanak ghode par mudkar peeche aate dushman par teekhe teer (shot) chala dete the. Jaate-jaate achanak kisi ko chot pahunchane wala teekha remark.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Fire / deliver a Parthian shot",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-53",
+    "word": "A Penelope's web",
+    "phonetic": "/ə pəˈnel.ə.piz web/",
+    "hindi": "ऐसा काम जो कभी समाप्त न हो / कभी न खत्म होने वाला कार्य",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An endless, interminable job or project that is perpetually undone as fast as it is completed.",
+    "synonyms": [
+      "Endless task",
+      "Sisyphean labor",
+      "Interminable chore"
+    ],
+    "antonyms": [
+      "Finished task",
+      "Concluded assignment",
+      "Completed feat"
+    ],
+    "example": "Trying to keep the office files organized is a Penelope's web when coworkers keep misplacing folders every hour.",
+    "mnemonic": "Origin (Homer's Odyssey): Penelope apne sasur ke liye kafan (web) bunti thi. Shaadi se bachne ke liye din bhar bunti thi aur raat ko chupchap uded deti thi. Yeh kaam saalon tak kabhi khatam nahi hua.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A never-ending Penelope's web",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-54",
+    "word": "A penny for your thoughts",
+    "phonetic": "/ə ˈpen.i fɔː jɔː θɔːts/",
+    "hindi": "आप किस सोच में डूबे हैं? / क्या सोच रहे हैं?",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A friendly and polite inquiry into what someone is quietly pondering.",
+    "synonyms": [
+      "What are you thinking?",
+      "Share your thoughts",
+      "Tell me your mind"
+    ],
+    "antonyms": [
+      "Keep your counsel",
+      "Mind your own business"
+    ],
+    "example": "You look so focused on that painting. A penny for your thoughts on the color choice?",
+    "mnemonic": "Origin (John Heywood 1546): Purane jamane mein penny ki keemat zyada thi. \"Aapki soch itni keemti hai ki main use khareedne ke liye 1 penny de sakta hoon.\" Kisi ko khayalon se bahar laane ka pyara tarika.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A penny for your thoughts, friend?",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-55",
+    "word": "A perfect storm",
+    "phonetic": "/ə ˈpɜː.fɪkt stɔːm/",
+    "hindi": "अत्यंत विषम परिस्थिति / सभी विपत्तियों का एक साथ आना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "The worst possible situation caused by a rare, catastrophic combination of unfortunate circumstances.",
+    "synonyms": [
+      "Ultimate catastrophe",
+      "Confluence of disasters",
+      "Worst-case scenario"
+    ],
+    "antonyms": [
+      "Harmonious alignment",
+      "Serene calm",
+      "Favorable conditions"
+    ],
+    "example": "A server failure during the year's biggest sale was a perfect storm for the e-commerce company.",
+    "mnemonic": "Origin (Meteorology): Alag-alag dishaon se aane wale garam aur thande toofan jab ek jagah milte hain toh aisi tabahi banti hai jo akela toofan nahi kar sakta. Zindagi mein jab har taraf se bad-kismati ek saath hamla kare.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Face a perfect storm of crises",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-56",
+    "word": "A picture paints a thousand words",
+    "phonetic": "/ə ˈpɪk.tʃər peɪnts ə ˈθaʊ.zənd wɜːdz/",
+    "hindi": "एक चित्र हज़ार शब्दों के बराबर होता है / दृश्य प्रस्तुति का महत्व",
+    "type": "idiom",
+    "partOfSpeech": "Proverb / Idiom",
+    "meaning": "An image or graphic illustration can convey meaning far more powerfully and swiftly than a long verbal explanation.",
+    "synonyms": [
+      "Visual eloquence",
+      "Graphic clarity",
+      "Pictorial evidence"
+    ],
+    "antonyms": [
+      "Verbose exposition",
+      "Dry text",
+      "Abstract monologue"
+    ],
+    "example": "I use diagrams in my English classes because a picture paints a thousand words for my students.",
+    "mnemonic": "Origin (Frederick R. Barnard 1920s): Advertising manager ne likha tha ki lambe-lambe ads ke bajaye log photos dekhna pasand karte hain. Humara dimaag visual cheezon ko jaldi samajhta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Prove that a picture paints a thousand words",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-57",
+    "word": "A pie in the sky",
+    "phonetic": "/ə paɪ ɪn ðə skaɪ/",
+    "hindi": "ख्याली पुलाव / असंभव आशा / झूठा वादा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Something pleasant that is promised or hoped for but is completely unrealistic and unlikely to happen.",
+    "synonyms": [
+      "Castle in the air",
+      "Pipe dream",
+      "Mirage",
+      "Chimerical scheme"
+    ],
+    "antonyms": [
+      "Tangible reality",
+      "Pragmatic goal",
+      "Feasible plan"
+    ],
+    "example": "Hoping to top the exam without touching a single book is a total pie in the sky.",
+    "mnemonic": "Origin (Joe Hill 1911): Mazdooron se log kehte the abhi takleef saho, marne ke baad swarg (heaven) mein pie milegi. Joe Hill ne gaane mein likha: \"You'll get pie in the sky when you die.\" Un vaadon ke liye jo sirf behlane ke liye kiye jayein par kabhi pure na hon.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Regard as pie in the sky",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-58",
+    "word": "A piece of the pie",
+    "phonetic": "/ə piːs əv ðə paɪ/",
+    "hindi": "लाभ या मुनाफ़े में हिस्सा / साझेदारी",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A share in money, financial profits, or commercial opportunities.",
+    "synonyms": [
+      "Share of profits",
+      "Slice of the cake",
+      "Cut",
+      "Dividends"
+    ],
+    "antonyms": [
+      "Forfeiture",
+      "Total exclusion",
+      "Left with nothing"
+    ],
+    "example": "Local politicians are all fighting to get a piece of the pie from the new infrastructure budget.",
+    "mnemonic": "Origin: Badi pie banne ke baad har koi chahta hai ki use kam se kam ek tukda (piece) zaroor mile. Agar koi company bahut paisa kama rahi hai toh har investor us kamyabi ka ek \"piece\" chahta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Fight for a piece of the pie",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-59",
+    "word": "A pig in a poke",
+    "phonetic": "/ə pɪɡ ɪn ə pəʊk/",
+    "hindi": "बिना जांचे-परखे ली गई वस्तु / धोखे का सौदा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Something bought or accepted without looking at it or verifying its quality beforehand.",
+    "synonyms": [
+      "Blind bargain",
+      "Sight-unseen purchase",
+      "Risky deal"
+    ],
+    "antonyms": [
+      "Verified purchase",
+      "Tested product",
+      "Guaranteed deal"
+    ],
+    "example": "Never buy a laptop from an unverified seller; you might end up with a pig in a poke.",
+    "mnemonic": "Origin: \"Poke\" = chhota thaila (bag). Bazar mein chalak dukaandar sooar (piglet) ki jagah thaili mein billi (cat) band karke bech dete the. Bina khole lene par dhokha hota tha. Thaili kholte hi billi nikalne se \"Let the cat out of the bag\" idiom bana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Buy a pig in a poke",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-60",
+    "word": "A pipe dream",
+    "phonetic": "/ə paɪp driːm/",
+    "hindi": "एक असंभव आशा या योजना / हवाई महल / अफीमचियों जैसा सपना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An illusory, completely unattainable hope, plan, or fantasy that will never be achieved in reality.",
+    "synonyms": [
+      "Chimera",
+      "Daydream",
+      "Wishful thinking",
+      "Fantasy"
+    ],
+    "antonyms": [
+      "Realistic ambition",
+      "Achievable target",
+      "Concrete plan"
+    ],
+    "example": "Eliminating all plastic waste by the end of the year is, unfortunately, a pipe dream.",
+    "mnemonic": "Origin (19th Century): Log lambi pipe ke zariye Afeem (Opium) peete the jisse ajeeb-o-gareeb khoobsurat hallucinations hote the. Nasha utarte hi sab gayab ho jata tha. Aisa sapna jo sirf pipe se aaye aur kabhi sach na ho sake.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Dismiss as a mere pipe dream",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-61",
+    "word": "A plum job",
+    "phonetic": "/ə plʌm dʒɒb/",
+    "hindi": "एक बहुत ही अच्छी, आकर्षक और मलाईदार नौकरी",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An enviable, pleasant, prestigious, and highly lucrative employment position.",
+    "synonyms": [
+      "Cushy job",
+      "Lucrative post",
+      "Sinecurist post",
+      "Fine appointment"
+    ],
+    "antonyms": [
+      "Thankless task",
+      "Drudgery",
+      "Grunt work",
+      "Slave labor"
+    ],
+    "example": "Landing a plum job in Silicon Valley is the dream of almost every software engineer.",
+    "mnemonic": "Origin: \"Plum\" (aloo bukhara) bahut keemti aur swadisht phal maana jata tha. 18th century mein £1,00,000 ko \"Plum\" kehte the. Fayde wali aur aaramdayak rasili naukri ko \"A Plum Job\" kaha jaane laga.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Banking",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Land / secure a plum job",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-62",
+    "word": "A queer fish",
+    "phonetic": "/ə kwɪər fɪʃ/",
+    "hindi": "सनकी या अजीब स्वभाव का व्यक्ति / विचित्र इंसान",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An eccentric, unusual, odd, or unconventional person whose habits are idiosyncratic.",
+    "synonyms": [
+      "Oddball",
+      "Eccentric",
+      "Strange character",
+      "Crank",
+      "Nonconformist"
+    ],
+    "antonyms": [
+      "Conventional person",
+      "Conformist",
+      "Average Joe"
+    ],
+    "example": "My uncle is a bit of a queer fish, but he has a heart of gold.",
+    "mnemonic": "Origin: \"Fish\" ka istemal kisi insaan ke liye hota tha aur \"Queer\" ka matlab ajeeb (strange). Jo machli baki machliyon ki tarah seedhi na taire, waisa alag aur anokha insaan.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "A bit of a queer fish",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-idiom-l1-s2-63",
+    "word": "A quick buck",
+    "phonetic": "/ə kwɪk bʌk/",
+    "hindi": "जल्दबाज़ी में या आसान तरीक़े से कमाया गया पैसा / त्वरित कमाई",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Money earned easily, rapidly, and sometimes through unethical or sharp shortcuts.",
+    "synonyms": [
+      "Easy money",
+      "Fast cash",
+      "Lucrative windfall",
+      "Sharp profit"
+    ],
+    "antonyms": [
+      "Hard-earned money",
+      "Honest living",
+      "Slow toil"
+    ],
+    "example": "Many companies sacrifice quality just to make a quick buck, but they lose customers in the long run.",
+    "mnemonic": "Origin (18th Century America): Hiran ki khaal (Buckskin) ka istemal dollar ki tarah karte the sauda karne ke liye. Mehnat se shikaar karne ke bajaye kisi short-cut se turant paisa (buck) haasil karna \"Quick Buck\" kehlaata hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "Idioms & Phrases"
+    ],
+    "collocation": "Make a quick buck",
+    "level": "level-1",
+    "set": "set-02"
+  }
+];
