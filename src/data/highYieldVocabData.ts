@@ -1,5 +1,25 @@
 export type VocabLevel = 'level-1' | 'level-2' | 'level-3' | 'advanced';
 
+export interface RootDerivative {
+  word: string;
+  partOfSpeech: string;
+  breakdown: string;
+  hindi: string;
+  meaning: string;
+  example: string;
+  examTag?: string;
+}
+
+export interface RootWordFamily {
+  origin?: 'Latin' | 'Greek' | 'Latin / Greek' | 'French' | 'Anglo-Saxon';
+  coreMeaning: string;
+  counterRoot?: {
+    root: string;
+    meaning: string;
+  };
+  derivatives: RootDerivative[];
+}
+
 export interface VocabItem {
   id: string;
   word: string;
@@ -18,6 +38,7 @@ export interface VocabItem {
   derivatives?: string;
   level?: VocabLevel;
   set?: string;
+  rootFamily?: RootWordFamily;
 }
 
 export const LEVEL_1_SET_01_WORDS: VocabItem[] = [

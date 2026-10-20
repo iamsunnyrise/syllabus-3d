@@ -68,6 +68,7 @@ import {
   LEVEL_1_SET_02_IDIOMS 
 } from '../../data/highYieldIdiomsData';
 import { LEVEL_1_SET_01_OWS } from '../../data/highYieldOwsData';
+import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 
 export type { VocabItem, VocabLevel };
 
@@ -190,6 +191,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_01_IDIOMS,
   ...LEVEL_1_SET_02_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
+  ...HIGH_YIELD_ROOT_WORDS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
@@ -228,22 +230,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     level: 'level-1',
     set: 'set-03'
   },
-  {
-    id: 'v-root-1',
-    word: 'Bene- / Ben-',
-    phonetic: '/bɛn/',
-    hindi: 'अच्छा / शुभ / लाभकारी (Root Word)',
-    type: 'root',
-    partOfSpeech: 'Prefix / Root',
-    meaning: 'Root meaning "Good" or "Well". Forms words related to kindness and benefits.',
-    synonyms: ['Benevolent (Kind)', 'Benefactor (Helper)', 'Beneficial (Favorable)', 'Benediction (Blessing)'],
-    antonyms: ['Mal- (Bad)', 'Malevolent (Spiteful)'],
-    example: 'Benevolent leaders always consider the welfare of their poorest citizens.',
-    mnemonic: 'Bene is opposite of Mal (Malnutrition, Malpractice).',
-    frequency: 'High',
-    examTags: ['SSC CGL', 'CDS', 'CAT'],
-    collocation: 'Root in Benevolence, Beneficial, Benediction'
-  },
+
   {
     id: 'v-ows-2',
     word: 'Omniscient',
@@ -281,22 +268,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     level: 'level-1',
     set: 'set-03'
   },
-  {
-    id: 'v-root-2',
-    word: 'Chron-',
-    phonetic: '/krɒn/',
-    hindi: 'समय (Time) संबंधित Root',
-    type: 'root',
-    partOfSpeech: 'Root Word',
-    meaning: 'Greek root meaning "Time". Forms words related to sequence and duration.',
-    synonyms: ['Chronology (Time sequence)', 'Synchronize (Match time)', 'Chronic (Long duration)', 'Chronicle (Historical record)'],
-    antonyms: ['Anachronism (Out of time order)'],
-    example: 'Arrange the historical events in strict chronological order.',
-    mnemonic: 'Chronometer is an instrument designed to measure precise time.',
-    frequency: 'High',
-    examTags: ['SSC CGL', 'NDA', 'CDS'],
-    collocation: 'Root in Chronic illness, Synchronize clocks'
-  },
+
   {
     id: 'v-ows-3',
     word: 'Somnambulist',
@@ -1192,7 +1164,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-xs sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono">
                         <BookOpen className="w-4 h-4 text-amber-700 dark:text-amber-300" />
-                        <span>{currentFlashcard.type === 'idiom' ? 'Exam Meaning & Origin' : currentFlashcard.type === 'ows' ? 'One Word Substitution Definition' : 'Exam Definition & Synonyms'}</span>
+                        <span>{currentFlashcard.type === 'idiom' ? 'Exam Meaning & Origin' : currentFlashcard.type === 'ows' ? 'One Word Substitution Definition' : currentFlashcard.type === 'root' ? 'Root Meaning & Etymology' : 'Exam Definition & Synonyms'}</span>
                       </div>
                       
                       {/* High-Contrast Interactive Toggle Button */}
@@ -1220,8 +1192,138 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </p>
                     </div>
 
+                    {/* Root Word Quick Badges (Origin & Counter Root) */}
+                    {currentFlashcard.type === 'root' && currentFlashcard.rootFamily && (
+                      <div className="flex items-center gap-2 flex-wrap pt-1">
+                        {currentFlashcard.rootFamily.origin && (
+                          <span className="px-3 py-1 rounded-xl text-xs font-mono font-black uppercase bg-amber-500/20 text-amber-950 dark:text-amber-200 border border-amber-500/35 shadow-2xs">
+                            🏛️ {currentFlashcard.rootFamily.origin} Origin
+                          </span>
+                        )}
+                        <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 border border-emerald-500/30">
+                          🌳 Root Stem: <strong className="font-black">{currentFlashcard.rootFamily.coreMeaning}</strong>
+                        </span>
+                        {currentFlashcard.rootFamily.counterRoot && (
+                          <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-rose-500/15 text-rose-900 dark:text-rose-200 border border-rose-500/30">
+                            ⚔️ Antonym Stem: <strong className="font-black">{currentFlashcard.rootFamily.counterRoot.root}</strong> ({currentFlashcard.rootFamily.counterRoot.meaning})
+                          </span>
+                        )}
+                      </div>
+                    )}
+
                     {isCardFlipped ? (
                       <div className="space-y-4 pt-4 border-t border-slate-200/80 dark:border-white/10 animate-fade-in text-sm sm:text-base">
+                        {/* 🌳 Interactive Word Family Tree (एक रूट, अनेक शब्द Matrix) */}
+                        {currentFlashcard.rootFamily && (
+                          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-emerald-500/[0.08] dark:bg-emerald-950/25 border-2 border-emerald-500/30 dark:border-emerald-500/30 shadow-xs space-y-4">
+                            {/* Family Header */}
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-emerald-500/20">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-lg shadow-xs shrink-0">
+                                  🌳
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <h4 className="text-base sm:text-lg font-black text-slate-950 dark:text-white">
+                                      Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold">(एक रूट, अनेक शब्द Matrix)</span>
+                                    </h4>
+                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-black bg-emerald-500 text-slate-950 shadow-xs">
+                                      {currentFlashcard.rootFamily.derivatives.length} Exam Words
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+                                    Iss ek root stem se derived sabhi high-frequency exam words aur unka morphology formula
+                                  </p>
+                                </div>
+                              </div>
+
+                              {/* Origin & Counter Root Badges */}
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {currentFlashcard.rootFamily.origin && (
+                                  <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-white dark:bg-[#121528] text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-white/10 shadow-2xs">
+                                    🏛️ {currentFlashcard.rootFamily.origin} Origin
+                                  </span>
+                                )}
+                                {currentFlashcard.rootFamily.counterRoot && (
+                                  <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-rose-500/15 text-rose-800 dark:text-rose-300 border border-rose-500/30 shadow-2xs">
+                                    ⚔️ Antonym Stem: <strong className="font-black">{currentFlashcard.rootFamily.counterRoot.root}</strong>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Interactive Derivative Cards Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                              {currentFlashcard.rootFamily.derivatives.map((deriv, dIdx) => (
+                                <div
+                                  key={deriv.word}
+                                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#0E101B] border-2 border-emerald-500/20 hover:border-emerald-500/60 dark:border-white/10 dark:hover:border-emerald-500/50 shadow-2xs hover:shadow-md transition-all space-y-2.5 group"
+                                >
+                                  {/* Top Row: Word Name + Speaker Button + Grammar Tag + Exam Tag */}
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div className="flex items-center gap-2">
+                                      <span className="w-6 h-6 rounded-lg bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-black flex items-center justify-center shrink-0">
+                                        {dIdx + 1}
+                                      </span>
+                                      <h5 className="text-base sm:text-lg font-black text-slate-950 dark:text-white tracking-tight group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                                        {deriv.word}
+                                      </h5>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          soundManager.playClick();
+                                          speakWord(deriv.word);
+                                        }}
+                                        title={`Pronounce ${deriv.word}`}
+                                        className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-emerald-500/20 text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 transition-all cursor-pointer hover:scale-110 active:scale-95"
+                                      >
+                                        <Volume2 className="w-3.5 h-3.5" />
+                                      </button>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black uppercase bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+                                        {deriv.partOfSpeech}
+                                      </span>
+                                      {deriv.examTag && (
+                                        <span className="px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold uppercase bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30">
+                                          {deriv.examTag}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  {/* Morphology Formula Breakdown */}
+                                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 text-xs font-mono font-bold border border-emerald-500/25 flex-wrap">
+                                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-sans uppercase tracking-wider font-black">Formula:</span>
+                                    <span>{deriv.breakdown}</span>
+                                  </div>
+
+                                  {/* Hindi Translation */}
+                                  <div className="flex items-center gap-2 pt-0.5">
+                                    <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-black uppercase bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 shrink-0">
+                                      हिंदी अर्थ
+                                    </span>
+                                    <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
+                                      {deriv.hindi}
+                                    </span>
+                                  </div>
+
+                                  {/* Meaning */}
+                                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                                    {deriv.meaning}
+                                  </p>
+
+                                  {/* Real Exam Example Sentence */}
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border-l-4 border-emerald-500 text-xs sm:text-sm text-slate-800 dark:text-slate-200 italic leading-relaxed">
+                                    "{deriv.example}"
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                         {/* Synonyms & Antonyms */}
                         <div className="space-y-3">
                           <div className="flex flex-wrap items-center gap-2">
@@ -1281,7 +1383,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             <span className="text-xl shrink-0">{currentFlashcard.type === 'idiom' ? '🏛️' : currentFlashcard.type === 'ows' ? '🎯' : '💡'}</span>
                             <div className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
                               <strong className="font-bold text-purple-900 dark:text-purple-300">
-                                {currentFlashcard.type === 'idiom' ? 'Origin & Memory Trick:' : currentFlashcard.type === 'ows' ? 'OWS Memory Trick:' : 'Memory Trick:'}
+                                {currentFlashcard.type === 'idiom' ? 'Origin & Memory Trick:' : currentFlashcard.type === 'ows' ? 'OWS Memory Trick:' : currentFlashcard.type === 'root' ? 'Root Origin & Trick:' : 'Memory Trick:'}
                               </strong>{' '}
                               {currentFlashcard.mnemonic}
                             </div>
@@ -1311,9 +1413,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                               </span>
                             </div>
                             <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 flex-wrap font-medium">
-                              <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                                ✓ {currentFlashcard.synonyms.length} Synonyms
-                              </span>
+                              {currentFlashcard.type === 'root' && currentFlashcard.rootFamily ? (
+                                <span className="font-bold text-emerald-700 dark:text-emerald-300">
+                                  🌳 {currentFlashcard.rootFamily.derivatives.length} Derived Exam Words (Word Family Matrix)
+                                </span>
+                              ) : (
+                                <span className="font-bold text-emerald-700 dark:text-emerald-300">
+                                  ✓ {currentFlashcard.synonyms.length} Synonyms
+                                </span>
+                              )}
                               {currentFlashcard.antonyms.length > 0 && (
                                 <>
                                   <span className="text-slate-400">•</span>
@@ -1326,7 +1434,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 <>
                                   <span className="text-slate-400">•</span>
                                   <span className="font-bold text-purple-700 dark:text-purple-300">
-                                    {currentFlashcard.type === 'idiom' ? '🏛️ Origin & Trick' : currentFlashcard.type === 'ows' ? '🎯 OWS Trick' : '💡 Memory Trick'}
+                                    {currentFlashcard.type === 'idiom' ? '🏛️ Origin & Trick' : currentFlashcard.type === 'ows' ? '🎯 OWS Trick' : currentFlashcard.type === 'root' ? '🌳 Root Trick' : '💡 Memory Trick'}
                                   </span>
                                 </>
                               )}
@@ -1402,12 +1510,20 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                               : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/[0.04]'
                           }`}
                         >
-                          <span className={`text-xs sm:text-sm truncate ${isSelected ? 'font-black' : 'font-semibold'}`}>
-                            {item.word}
+                          <span className={`text-xs sm:text-sm truncate flex items-center gap-1.5 ${isSelected ? 'font-black' : 'font-semibold'}`}>
+                            {item.type === 'root' && <span className="text-[11px] shrink-0">🌳</span>}
+                            <span className="truncate">{item.word}</span>
                           </span>
-                          {isMastered && (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                          )}
+                          <div className="flex items-center gap-1 shrink-0">
+                            {item.type === 'root' && item.rootFamily && (
+                              <span className="px-1.5 py-0.2 rounded-md text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-800 dark:text-emerald-300">
+                                {item.rootFamily.derivatives.length}w
+                              </span>
+                            )}
+                            {isMastered && (
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                            )}
+                          </div>
                         </div>
                       );
                     })}
