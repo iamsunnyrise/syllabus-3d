@@ -1307,29 +1307,21 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* 4. Bottom Navigation Bar */}
-                <div className="flex items-center justify-between gap-2 sm:gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
+                <div className="flex items-center justify-between gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
+                    className="px-4 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
                   >
-                    ← Prev
+                    ← Previous
                   </button>
-
-                  <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar px-1 min-w-0 flex-1 justify-center">
-                    {currentFlashcard.examTags.map(tag => (
-                      <span key={tag} className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-slate-100 dark:bg-white/[0.10] border border-slate-200/80 dark:border-white/15 text-slate-800 dark:text-slate-100 whitespace-nowrap shadow-2xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
 
                   <button
                     type="button"
                     onClick={handleNextCard}
-                    className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap"
+                    className="px-5 sm:px-7 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap ml-auto"
                   >
-                    Next →
+                    Next Card →
                   </button>
                 </div>
               </div>
