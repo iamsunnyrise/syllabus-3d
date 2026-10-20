@@ -74,25 +74,25 @@ export const SyllabusCircularProgressWidget: React.FC<SyllabusCircularProgressWi
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#12131C] border border-slate-200/90 dark:border-white/10 shadow-xs print:hidden select-none transition-colors ${className}`}
+      className={`rounded-2xl sm:rounded-3xl p-4 sm:p-7 bg-white dark:bg-[#12131C] border border-slate-200/90 dark:border-white/10 shadow-xs print:hidden select-none transition-colors ${className}`}
     >
       {/* Top Header: Title & Completion Fraction */}
-      <div className="flex items-center justify-between pb-5 sm:pb-7">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs sm:text-[13px] font-black tracking-widest text-slate-500 dark:text-slate-400 uppercase font-sans">
+      <div className="flex items-center justify-between gap-2 pb-4 sm:pb-7">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span className="text-[11px] sm:text-[13px] font-black tracking-wider text-slate-500 dark:text-slate-400 uppercase font-sans truncate">
             {title}
           </span>
         </div>
         {completionText && (
-          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white font-sans tabular-nums bg-slate-100 dark:bg-white/[0.04] px-3 py-1 rounded-full border border-slate-200/70 dark:border-white/10">
+          <span className="text-[11px] sm:text-sm font-black text-slate-900 dark:text-white font-sans tabular-nums bg-slate-100 dark:bg-white/[0.04] px-2.5 sm:px-3 py-1 rounded-full border border-slate-200/70 dark:border-white/10 shrink-0 whitespace-nowrap">
             {completionText}
           </span>
         )}
       </div>
 
       {/* Circular Ring Gauges */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 py-2 sm:py-3 items-start justify-items-center">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-8 py-1 sm:py-3 items-start justify-items-center">
         {items.map((item) => {
           const theme = getThemeClasses(item.colorTheme);
           return (

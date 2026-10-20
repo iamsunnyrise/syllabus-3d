@@ -492,7 +492,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     const ChapterBadgeIcon = chapterBadge.icon;
 
     return (
-      <div className="space-y-3.5 sm:space-y-5 pb-8 sm:pb-12 animate-fade-in max-w-full overflow-x-hidden font-sans">
+      <div className="space-y-3.5 sm:space-y-5 pb-32 sm:pb-16 animate-fade-in max-w-full overflow-x-hidden font-sans">
         
         {/* 🖨️ PRINT-ONLY CHAPTER REVISION CHEATSHEET HEADER */}
         <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -929,7 +929,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
     const SubjectBadgeIcon = subjectBadge.icon;
 
     return (
-      <div className="space-y-3.5 sm:space-y-5 pb-8 sm:pb-12 animate-fade-in max-w-full overflow-x-hidden font-sans">
+      <div className="space-y-3.5 sm:space-y-5 pb-32 sm:pb-16 animate-fade-in max-w-full overflow-x-hidden font-sans">
         
         {/* 🖨️ PRINT-ONLY SUBJECT REVISION CHEATSHEET HEADER */}
         <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -1234,7 +1234,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   // LEVEL 1: COURSE / BATCH PORTAL & SUBJECTS LIST (Mobile-First Polish)
   // ═══════════════════════════════════════════════════════════════════
   return (
-    <div className="space-y-3.5 sm:space-y-5 pb-8 sm:pb-12 animate-fade-in max-w-full overflow-x-hidden font-sans">
+    <div className="space-y-3.5 sm:space-y-5 pb-32 sm:pb-16 animate-fade-in max-w-full overflow-x-hidden font-sans">
       
       {/* 🖨️ PRINT-ONLY CLEAN DESK REVISION CHEATSHEET HEADER */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
@@ -1261,7 +1261,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       </div>
 
       {/* 1. SYLLABUS EXECUTIVE ACTION & IDENTITY BAR */}
-      <div className="relative overflow-hidden p-3.5 sm:p-4 md:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 warm-cream:bg-[#FFFDF8] backdrop-blur-xl border border-slate-200/90 dark:border-white/10 warm-cream:border-[#E2D1B3] shadow-xs sm:shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden transition-all duration-200">
+      <div className="relative overflow-hidden p-3.5 sm:p-4 md:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424]/95 warm-cream:bg-[#FFFDF8] backdrop-blur-xl border border-slate-200/90 dark:border-white/10 warm-cream:border-[#E2D1B3] shadow-xs sm:shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4 print:hidden transition-all duration-200">
         {/* Specular Edge Highlight */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 dark:via-white/20 warm-cream:via-[#E2D1B3] to-transparent pointer-events-none" />
         
@@ -1270,15 +1270,15 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         <div className="absolute -bottom-14 -left-14 w-44 h-44 bg-amber-500/10 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* LEFT: Contextual Identity, Exam Badge & Live Progress Counters */}
-        <div className="relative z-10 flex items-center gap-3 sm:gap-4 min-w-0">
-          <SectionBadgeIcon section="syllabus" size="lg" showGlow className="shrink-0" />
+        <div className="relative z-10 flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+          <SectionBadgeIcon section="syllabus" size="lg" showGlow className="shrink-0 mt-0.5 sm:mt-0" />
 
           <div className="min-w-0 space-y-1">
             <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
               <h1 className="text-base sm:text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white warm-cream:text-[#38370D] leading-tight">
                 {currentExam.name ? `${currentExam.name} Syllabus` : 'Exam Syllabus Hub'}
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-400/15 border border-indigo-400/30 text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-400/15 border border-indigo-400/30 text-[10px] sm:text-[11px] font-mono font-bold text-indigo-700 dark:text-indigo-300 shrink-0">
                 <Sparkles className="w-3 h-3 text-indigo-500 shrink-0" />
                 <span>3D Blueprint</span>
               </span>
@@ -1300,7 +1300,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* RIGHT: High-Impact Action Buttons */}
-        <div className="relative z-10 flex items-center gap-2 sm:gap-2.5 flex-wrap shrink-0">
+        <div className="relative z-10 grid grid-cols-2 md:flex items-center gap-2 sm:gap-2.5 w-full md:w-auto shrink-0 pt-1 sm:pt-0">
           {/* AI Architect Button */}
           {onOpenAiArchitect && (
             <button
@@ -1309,7 +1309,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                 soundManager.playClick();
                 onOpenAiArchitect();
               }}
-              className="group relative inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#4F46E5] hover:from-[#4F46E5] hover:via-[#6D28D9] hover:to-[#4338CA] text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/40 border border-white/20 hover:border-white/30 transition-all duration-200 active:scale-95 cursor-pointer overflow-hidden select-none"
+              className="group relative inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#4F46E5] hover:from-[#4F46E5] hover:via-[#6D28D9] hover:to-[#4338CA] text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/40 border border-white/20 hover:border-white/30 transition-all duration-200 active:scale-95 cursor-pointer overflow-hidden select-none w-full md:w-auto"
               title="Extract complete syllabus from PDF, text, or prompt using AI"
             >
               {/* Shimmer sweep effect */}
@@ -1329,7 +1329,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
               soundManager.playClick();
               setIsAddSubjectOpen(true);
             }}
-            className="group relative inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-[#F59E0B] via-[#E5A83B] to-[#D97706] hover:from-[#FBBF24] hover:via-[#F59E0B] hover:to-[#D97706] text-slate-950 text-xs sm:text-sm font-black shadow-md shadow-amber-500/20 hover:shadow-lg hover:shadow-amber-500/35 border border-amber-300/60 dark:border-amber-400/40 transition-all duration-200 active:scale-95 cursor-pointer select-none"
+            className="group relative inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full bg-gradient-to-r from-[#F59E0B] via-[#E5A83B] to-[#D97706] hover:from-[#FBBF24] hover:via-[#F59E0B] hover:to-[#D97706] text-slate-950 text-xs sm:text-sm font-black shadow-md shadow-amber-500/20 hover:shadow-lg hover:shadow-amber-500/35 border border-amber-300/60 dark:border-amber-400/40 transition-all duration-200 active:scale-95 cursor-pointer select-none w-full md:w-auto"
             title="Add New Subject to Syllabus"
           >
             <span className="w-4 h-4 rounded-full bg-black/15 flex items-center justify-center text-slate-950 group-hover:rotate-90 transition-transform duration-300">
@@ -1341,7 +1341,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       </div>
 
       {/* 2. REFINED EXECUTIVE PACING & TARGET BANNER */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.06] to-amber-500/[0.03] dark:from-amber-950/40 dark:via-orange-950/25 dark:to-[#121424]/80 backdrop-blur-xl border border-amber-300/80 dark:border-amber-500/30 shadow-xs sm:shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-gradient-to-r from-amber-500/[0.08] via-orange-500/[0.06] to-amber-500/[0.03] dark:from-amber-950/40 dark:via-orange-950/25 dark:to-[#121424]/80 backdrop-blur-xl border border-amber-300/80 dark:border-amber-500/30 shadow-xs sm:shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4 print:hidden">
         {/* Specular Top Line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 dark:via-amber-400/30 to-transparent pointer-events-none" />
         {/* Ambient Warm Glow */}
@@ -1382,9 +1382,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
         </div>
 
         {/* Right Side Status Badge */}
-        <div className="relative z-10 flex items-center gap-2 self-start sm:self-auto shrink-0">
-          <div className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-400/40 dark:border-amber-400/30 text-amber-900 dark:text-amber-200 text-xs sm:text-[13px] font-bold font-mono shadow-2xs">
-            <Zap className="w-4 h-4 fill-amber-500 text-amber-500" />
+        <div className="relative z-10 flex items-center justify-between sm:justify-end gap-2 pt-2.5 sm:pt-0 border-t border-amber-500/15 sm:border-t-0 shrink-0 w-full sm:w-auto">
+          <span className="text-[11px] font-bold text-amber-700/80 dark:text-amber-400/80 sm:hidden">
+            Exam Runway
+          </span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-400/40 dark:border-amber-400/30 text-amber-900 dark:text-amber-200 text-xs sm:text-[13px] font-bold font-mono shadow-2xs shrink-0">
+            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-500 text-amber-500 shrink-0" />
             <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}</span>
           </div>
         </div>
