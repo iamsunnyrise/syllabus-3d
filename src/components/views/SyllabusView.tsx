@@ -548,7 +548,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
               {/* Title & Micro Summary */}
               <div>
-                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight break-words leading-tight">
                   {formatTitleCase(activeChapter.name)}
                 </h1>
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
@@ -792,10 +792,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name)}
-                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-2.5 sm:gap-6"
                   >
                     {/* Left & Middle: Emblem + Title & Meta */}
-                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                    <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
                       {/* Reference Style Pale Yellow Circular Emblem */}
                       <button
                         type="button"
@@ -837,12 +837,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Title & Metadata */}
                       <div className="min-w-0 flex-1 py-0.5">
-                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
+                        <h3 className="text-[13px] sm:text-base font-bold text-slate-900 dark:text-white leading-snug break-words group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
                           {topic.name}
                         </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 sm:mt-1 flex-wrap">
                           <span className={topic.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400 font-bold' : topic.status === 'in_progress' ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500'}>
                             {topic.status === 'completed' ? 'Mastered' : topic.status === 'in_progress' ? 'In Progress' : 'Not Started'}
                           </span>
@@ -893,7 +893,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         e.stopPropagation();
                         onOpenTopicDrawer(topic, activeSubject.name, activeChapter.name);
                       }}
-                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                      className="shrink-0 px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-[11px] sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans whitespace-nowrap self-center"
                     >
                       Start Now
                     </button>
@@ -984,7 +984,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
               {/* Title & Micro Summary */}
               <div>
-                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                <h1 className="text-xl sm:text-2xl font-black font-grotesk text-slate-900 dark:text-white tracking-tight break-words leading-tight">
                   {formatTitleCase(activeSubject.name)}
                 </h1>
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
@@ -1151,10 +1151,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter.id)}
-                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-2.5 sm:gap-6"
                   >
                     {/* Left: Emblem + Title & Meta */}
-                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                    <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
                       {/* Reference Style Pale Yellow Circular Emblem */}
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
                         <FileText className="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-[2.2]" />
@@ -1167,12 +1167,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Title & Metadata */}
                       <div className="min-w-0 flex-1 py-0.5">
-                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
+                        <h3 className="text-[13px] sm:text-base font-bold text-slate-900 dark:text-white leading-snug break-words group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
                           {chapter.name}
                         </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 sm:mt-1 flex-wrap">
                           <span>{totalInChapter} {totalInChapter === 1 ? 'Topic' : 'Topics'}</span>
                           <span>•</span>
                           <span className={isChapterMastered ? 'text-emerald-600 dark:text-emerald-400 font-bold' : hasChapterStarted ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500'}>
@@ -1195,7 +1195,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         e.stopPropagation();
                         handleSelectChapter(chapter.id);
                       }}
-                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                      className="shrink-0 px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-[11px] sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans whitespace-nowrap self-center"
                     >
                       Start Now
                     </button>
@@ -1570,10 +1570,10 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                   <div
                     key={subject.id}
                     onClick={() => handleSelectSubject(subject.id)}
-                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3.5 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 sm:gap-6"
+                    className="group relative rounded-2xl sm:rounded-[22px] bg-white dark:bg-[#121424] border border-amber-200/50 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-400/50 px-3 py-3 sm:px-6 sm:py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-2.5 sm:gap-6"
                   >
                     {/* Left: Emblem + Title & Meta */}
-                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                    <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
                       {/* Reference Style Pale Yellow Circular Emblem */}
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FFF9E6] dark:bg-amber-500/15 border border-[#FDE68A] dark:border-amber-400/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
                         <BookOpen className="w-5 h-5 text-amber-600 dark:text-amber-400 stroke-[2.2]" />
@@ -1586,12 +1586,12 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
 
                       {/* Title & Metadata */}
                       <div className="min-w-0 flex-1 py-0.5">
-                        <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white uppercase leading-snug truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
+                        <h3 className="text-[13px] sm:text-base font-bold text-slate-900 dark:text-white uppercase leading-snug break-words group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors font-sans">
                           {subject.name}
                         </h3>
 
                         {/* Meta Tags Row */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 flex-wrap">
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 sm:mt-1 flex-wrap">
                           <span>{totalChapters} {totalChapters === 1 ? 'Chapter' : 'Chapters'}</span>
                           <span>•</span>
                           <span>{subjectTotalTopics} Topics</span>
@@ -1610,7 +1610,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
                         e.stopPropagation();
                         handleSelectSubject(subject.id);
                       }}
-                      className="shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-xs sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans"
+                      className="shrink-0 px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#E5A800] hover:bg-[#D99B00] active:scale-95 text-black font-extrabold text-[11px] sm:text-sm shadow-xs group-hover:scale-105 transition-all cursor-pointer font-sans whitespace-nowrap self-center"
                     >
                       Start Now
                     </button>

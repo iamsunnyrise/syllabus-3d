@@ -591,7 +591,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
               {/* Title and Status Badge */}
               <div className="flex items-center gap-2 mt-1 min-w-0">
-                <h2 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight truncate leading-tight">
+                <h2 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight break-words leading-tight">
                   {liveTopic.name}
                 </h2>
                 <div className="shrink-0">
