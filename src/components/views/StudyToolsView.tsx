@@ -288,111 +288,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   }
 ];
 
-// -------------------------------------------------------------
-// MATHS SPEED DATA & FORMULA VAULT
-// -------------------------------------------------------------
-interface FractionCard {
-  fraction: string;
-  percentage: string;
-  decimal: string;
-  note?: string;
-}
 
-const FRACTION_CHART: FractionCard[] = [
-  { fraction: '1/2', percentage: '50%', decimal: '0.50' },
-  { fraction: '1/3', percentage: '33.33% (33⅓%)', decimal: '0.333' },
-  { fraction: '1/4', percentage: '25%', decimal: '0.25' },
-  { fraction: '1/5', percentage: '20%', decimal: '0.20' },
-  { fraction: '1/6', percentage: '16.66% (16⅔%)', decimal: '0.166' },
-  { fraction: '1/7', percentage: '14.28% (14²⁄₇%)', decimal: '0.1428', note: '2/7 = 28.56%' },
-  { fraction: '1/8', percentage: '12.5% (12½%)', decimal: '0.125', note: '3/8 = 37.5%, 5/8 = 62.5%' },
-  { fraction: '1/9', percentage: '11.11% (11¹⁄₉%)', decimal: '0.111' },
-  { fraction: '1/10', percentage: '10%', decimal: '0.10' },
-  { fraction: '1/11', percentage: '9.09% (9¹⁄₁₁%)', decimal: '0.0909' },
-  { fraction: '1/12', percentage: '8.33% (8⅓%)', decimal: '0.0833' },
-  { fraction: '1/13', percentage: '7.69% (7⁹⁄₁₃%)', decimal: '0.0769' },
-  { fraction: '1/14', percentage: '7.14% (7¹⁄₇%)', decimal: '0.0714' },
-  { fraction: '1/15', percentage: '6.66% (6⅔%)', decimal: '0.0666' },
-  { fraction: '1/16', percentage: '6.25% (6¼%)', decimal: '0.0625' },
-  { fraction: '1/20', percentage: '5%', decimal: '0.05' },
-  { fraction: '1/25', percentage: '4%', decimal: '0.04' }
-];
-
-interface MathFormula {
-  id: string;
-  category: 'Arithmetic' | 'Algebra' | 'Geometry' | 'Trigonometry' | 'Mensuration';
-  title: string;
-  formula: string;
-  explanation: string;
-  shortTrick: string;
-}
-
-const MATH_FORMULAS: MathFormula[] = [
-  {
-    id: 'm1',
-    category: 'Arithmetic',
-    title: 'Successive Percentage Change',
-    formula: 'Net % Change = a + b + (a × b) / 100',
-    explanation: 'Used for two consecutive percentage changes a% and b%. If decrease, use negative sign.',
-    shortTrick: 'For +20% and +30% -> 20 + 30 + (20×30)/100 = 56% net increase.'
-  },
-  {
-    id: 'm2',
-    category: 'Arithmetic',
-    title: 'Difference between CI and SI (2 Years & 3 Years)',
-    formula: '2 Yrs: D = P(R/100)²  |  3 Yrs: D = P(R/100)² × (300 + R)/100',
-    explanation: 'Directly gives the difference between Compound Interest and Simple Interest on Principal P at rate R%.',
-    shortTrick: 'For 2 years: D/P = (R/100)². Extreme high-frequency formula in SSC CGL Tier-1.'
-  },
-  {
-    id: 'm3',
-    category: 'Arithmetic',
-    title: 'Time & Work (Efficiency Method)',
-    formula: 'Total Work = LCM(Days)  |  Efficiency = Total Work / Days  |  Time = Total Work / Total Efficiency',
-    explanation: 'Instead of reciprocal fractions (1/a + 1/b), assume Total Work as LCM of days.',
-    shortTrick: 'A in 10d, B in 15d -> LCM = 30. Eff_A = 3, Eff_B = 2. Together time = 30/(3+2) = 6 days.'
-  },
-  {
-    id: 'm4',
-    category: 'Algebra',
-    title: 'Special Algebraic Identity: a³ + b³ + c³ - 3abc',
-    formula: 'a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca) = ½(a + b + c)[(a - b)² + (b - c)² + (c - a)²]',
-    explanation: 'If a + b + c = 0, then a³ + b³ + c³ = 3abc.',
-    shortTrick: 'If x + y + z = 0, always check if expression reduces directly to 3xyz.'
-  },
-  {
-    id: 'm5',
-    category: 'Geometry',
-    title: 'Tangent-Secant Theorem (Circle)',
-    formula: 'PT² = PA × PB',
-    explanation: 'From external point P, PT is tangent touching circle at T, and PAB is secant intersecting circle at A and B.',
-    shortTrick: 'Tangent square always equals product of full secant (PB) and outer segment (PA).'
-  },
-  {
-    id: 'm6',
-    category: 'Geometry',
-    title: 'Direct Common Tangent (DCT) vs Transverse (TCT)',
-    formula: 'DCT = √(d² - (r₁ - r₂)²)   |   TCT = √(d² - (r₁ + r₂)²)',
-    explanation: 'Where d is distance between centres, r₁ and r₂ are radii of the two circles.',
-    shortTrick: 'DCT has minus between radii (r₁ - r₂); TCT has plus between radii (r₁ + r₂).'
-  },
-  {
-    id: 'm7',
-    category: 'Trigonometry',
-    title: 'Maximum & Minimum of a·sin(θ) + b·cos(θ)',
-    formula: 'Max Value = +√(a² + b²)   |   Min Value = -√(a² + b²)',
-    explanation: 'For any linear combination of sin and cos with identical angles.',
-    shortTrick: 'For 3sinθ + 4cosθ -> Max = +√(9+16) = +5, Min = -5.'
-  },
-  {
-    id: 'm8',
-    category: 'Mensuration',
-    title: 'Frustum of Cone (Volume & Slant Height)',
-    formula: 'Volume = ⅓πh (R² + r² + R·r)   |   Slant Height l = √(h² + (R - r)²)',
-    explanation: 'Formed by slicing a right cone parallel to its base. R is base radius, r is top radius.',
-    shortTrick: 'Curved Surface Area = π(R + r)·l. Total Surface Area = π[(R + r)l + R² + r²].'
-  }
-];
 
 // -------------------------------------------------------------
 // GENERAL AWARENESS (GA) DATA
@@ -651,87 +547,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
     });
   };
 
-  // -------------------------------------------------------------
-  // MATHS STATE
-  // -------------------------------------------------------------
-  const [mathSearch, setMathSearch] = useState('');
-  const [mathCategory, setMathCategory] = useState<string>('All');
-  const [copiedFormulaId, setCopiedFormulaId] = useState<string | null>(null);
 
-  // Speed drill state
-  const [drillScore, setDrillScore] = useState(0);
-  const [drillQuestion, setDrillQuestion] = useState<{ q: string; a: number; opts: number[] }>({
-    q: '37 × 11 = ?',
-    a: 407,
-    opts: [397, 407, 417, 307]
-  });
-  const [drillFeedback, setDrillFeedback] = useState<'correct' | 'wrong' | null>(null);
-
-  const generateNewDrill = () => {
-    const types = ['mult', 'square', 'cube'];
-    const chosen = types[Math.floor(Math.random() * types.length)];
-    let q = '';
-    let a = 0;
-
-    if (chosen === 'mult') {
-      const n1 = Math.floor(Math.random() * 40) + 11;
-      const n2 = Math.random() > 0.5 ? 11 : Math.floor(Math.random() * 9) + 2;
-      q = `${n1} × ${n2} = ?`;
-      a = n1 * n2;
-    } else if (chosen === 'square') {
-      const n = Math.floor(Math.random() * 35) + 12;
-      q = `${n}² = ?`;
-      a = n * n;
-    } else {
-      const n = Math.floor(Math.random() * 20) + 5;
-      q = `${n}³ = ?`;
-      a = n * n * n;
-    }
-
-    const wrongOpts = new Set<number>();
-    while (wrongOpts.size < 3) {
-      const offset = (Math.floor(Math.random() * 5) + 1) * (Math.random() > 0.5 ? 10 : -10);
-      const val = a + offset;
-      if (val > 0 && val !== a) wrongOpts.add(val);
-    }
-    const allOpts = [...wrongOpts, a].sort(() => Math.random() - 0.5);
-
-    setDrillQuestion({ q, a, opts: allOpts });
-    setDrillFeedback(null);
-  };
-
-  const handleAnswerDrill = (selected: number) => {
-    if (selected === drillQuestion.a) {
-      soundManager.playSuccess();
-      haptics.success();
-      setDrillScore(s => s + 1);
-      setDrillFeedback('correct');
-      setTimeout(generateNewDrill, 900);
-    } else {
-      soundManager.playError();
-      haptics.error();
-      setDrillFeedback('wrong');
-    }
-  };
-
-  const filteredFormulas = useMemo(() => {
-    return MATH_FORMULAS.filter(item => {
-      const matchesCat = mathCategory === 'All' || item.category === mathCategory;
-      const q = mathSearch.toLowerCase().trim();
-      const matchesQ = !q ||
-        item.title.toLowerCase().includes(q) ||
-        item.formula.toLowerCase().includes(q) ||
-        item.explanation.toLowerCase().includes(q);
-      return matchesCat && matchesQ;
-    });
-  }, [mathCategory, mathSearch]);
-
-  const copyFormula = (formula: MathFormula) => {
-    navigator.clipboard?.writeText(`${formula.title}\n${formula.formula}\nShortcut: ${formula.shortTrick}`);
-    setCopiedFormulaId(formula.id);
-    soundManager.playClick();
-    setTimeout(() => setCopiedFormulaId(null), 1800);
-  };
 
   // -------------------------------------------------------------
   // GA STATE
@@ -806,7 +622,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 soundManager.playClick();
                 haptics.selection();
                 setActiveTab('maths');
-                onNavigate?.(mathsSubTab === 'calc-booster' ? 'study-tools-calc-booster' : 'study-tools-maths');
+                onNavigate?.('study-tools-calc-booster');
               }}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'maths'
@@ -814,12 +630,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.06]'
               }`}
             >
-              <Calculator className="w-4 h-4" />
-              <span>Maths</span>
+              <Zap className="w-4 h-4 text-amber-300" />
+              <span>Calculation Booster</span>
               <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeTab === 'maths' ? 'bg-white/20 text-white' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
               }`}>
-                {MATH_FORMULAS.length}
+                7 Tools
               </span>
             </button>
 
@@ -1591,51 +1407,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       )}
 
       {/* =========================================================
-          MODULE 2: MATHS QUANT & FORMULA VAULT
+          MODULE 2: CALCULATION BOOSTER (7 SPEED MATHS TOOLS)
           ========================================================= */}
       {activeTab === 'maths' && (
         <div className="space-y-6 animate-fade-in">
-          
-          {/* Sub Navigation: Formulas & Speed Drills vs Calculation Booster */}
-          <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setMathsSubTab('overview');
-                onNavigate?.('study-tools-maths');
-              }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                mathsSubTab === 'overview'
-                  ? 'bg-blue-600 text-white shadow-xs font-black'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
-            >
-              <Calculator className="w-4 h-4" />
-              <span>Formulas & Speed Drills</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setMathsSubTab('calc-booster');
-                onNavigate?.('study-tools-calc-booster');
-              }}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                mathsSubTab === 'calc-booster'
-                  ? 'bg-blue-600 text-white shadow-xs font-black'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
-            >
-              <Zap className="w-4 h-4" />
-              <span>Calculation Booster</span>
-            </button>
-          </div>
-
-          {mathsSubTab === 'calc-booster' ? (
-            <div className="space-y-6">
               {/* Calculation Booster Tool Sub-Navigation */}
               <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto scrollbar-none">
                 <button
@@ -1773,218 +1548,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               ) : (
                 <CalculationBoosterPrimes />
               )}
-            </div>
-          ) : (
-            <>
-              {/* Mental Calculation Speed Drill Card */}
-              <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-blue-500/30 dark:border-blue-500/20 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-500/20 pb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
-                  <Zap className="w-5 h-5 text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    Speed Maths Sprint Drill
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">
-                    Instantly calculate in mind without using pen and paper.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                  Score: {drillScore}
-                </span>
-                <button
-                  type="button"
-                  onClick={generateNewDrill}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Next Question</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Drill Interactive Question */}
-            <div className="py-5 flex flex-col items-center justify-center space-y-4">
-              <div className="text-3xl sm:text-4xl font-mono font-black text-slate-900 dark:text-white tracking-wide">
-                {drillQuestion.q}
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-lg">
-                {drillQuestion.opts.map(opt => (
-                  <button
-                    key={opt}
-                    type="button"
-                    onClick={() => handleAnswerDrill(opt)}
-                    className="p-3 rounded-2xl bg-white dark:bg-[#151726] hover:border-blue-500 dark:hover:border-blue-400 border border-slate-200/90 dark:border-white/10 text-base font-mono font-bold text-slate-900 dark:text-white hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-
-              {drillFeedback === 'correct' && (
-                <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 animate-scale-in">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Excellent! Correct Answer.</span>
-                </div>
-              )}
-              {drillFeedback === 'wrong' && (
-                <div className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1 animate-scale-in">
-                  <XCircle className="w-4 h-4" />
-                  <span>Incorrect. Try calculating again!</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Fraction to Percentage Conversion Chart */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Calculator className="w-4 h-4 text-blue-500" />
-                  <span>Percentage to Fraction Master Chart</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Critical for Arithmetic (Percentage, Profit & Loss, Simple & Compound Interest).
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.selection();
-                  setMathsSubTab('calc-booster');
-                  setCalcBoosterTool('fractions');
-                  onNavigate?.('study-tools-calc-booster');
-                }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all cursor-pointer shadow-xs self-start sm:self-auto shrink-0"
-              >
-                <Percent className="w-3.5 h-3.5" />
-                <span>Open Booster & Speed Drills</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
-              {FRACTION_CHART.map(fc => (
-                <div
-                  key={fc.fraction}
-                  className="p-3 rounded-2xl bg-slate-50 dark:bg-[#141624] border border-slate-200/80 dark:border-white/[0.06] hover:border-blue-500/40 transition-all flex flex-col justify-between space-y-1 shadow-2xs"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-mono font-black text-blue-600 dark:text-blue-400">
-                      {fc.fraction}
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400">
-                      = {fc.decimal}
-                    </span>
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                    {fc.percentage}
-                  </span>
-                  {fc.note && (
-                    <span className="text-[9px] text-amber-600 dark:text-amber-400 font-mono">
-                      {fc.note}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Formula Vault Search & Filters */}
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-              <div className="relative flex-1 max-w-lg">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={mathSearch}
-                  onChange={e => setMathSearch(e.target.value)}
-                  placeholder="Search formulas, theorems, shortcuts..."
-                  className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                />
-              </div>
-
-              {/* Category Pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-                {['All', 'Arithmetic', 'Algebra', 'Geometry', 'Trigonometry', 'Mensuration'].map(cat => (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => {
-                      soundManager.playClick();
-                      setMathCategory(cat);
-                    }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                      mathCategory === cat
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Formula Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredFormulas.map(formula => {
-                const isCopied = copiedFormulaId === formula.id;
-                return (
-                  <div
-                    key={formula.id}
-                    className="p-5 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 hover:border-blue-500/40 transition-all shadow-xs flex flex-col justify-between space-y-4"
-                  >
-                    <div className="space-y-2.5">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-700 dark:text-blue-300 font-mono">
-                          {formula.category}
-                        </span>
-
-                        <button
-                          type="button"
-                          onClick={() => copyFormula(formula)}
-                          className="flex items-center gap-1 text-xs text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
-                          title="Copy Formula"
-                        >
-                          {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                          <span className="text-[11px]">{isCopied ? 'Copied' : 'Copy'}</span>
-                        </button>
-                      </div>
-
-                      <h4 className="text-base font-bold text-slate-900 dark:text-white">
-                        {formula.title}
-                      </h4>
-
-                      {/* Formula Container */}
-                      <div className="p-3 rounded-2xl bg-blue-50/60 dark:bg-[#131628] border border-blue-200/80 dark:border-blue-500/20 font-mono text-xs sm:text-sm font-bold text-blue-900 dark:text-blue-300 leading-relaxed overflow-x-auto">
-                        {formula.formula}
-                      </div>
-
-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {formula.explanation}
-                      </p>
-                    </div>
-
-                    {/* Short Trick */}
-                    <div className="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/[0.06] border-l-2 border-amber-500 text-xs text-slate-800 dark:text-slate-300">
-                      ⚡ <strong>Exam Shortcut:</strong> {formula.shortTrick}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-            </>
-          )}
         </div>
       )}
 
