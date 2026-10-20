@@ -786,53 +786,44 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   )}
                 </div>
 
-                {/* Filter Pills + Mastered Counter Row */}
-                <div className="flex items-center justify-between gap-2 min-w-0">
-                  {/* Filter Pills */}
-                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 flex-1 min-w-0">
-                    {[
-                      { id: 'all', label: 'All Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.length },
-                      { id: 'word', label: 'High-Yield', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
-                      { id: 'ows', label: 'OWS (One Word)', shortLabel: 'OWS', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows').length },
-                      { id: 'idiom', label: 'Idioms & Phrases', shortLabel: 'Idioms', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'idiom').length },
-                      { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
-                    ].map(f => (
-                      <button
-                        key={f.id}
-                        type="button"
-                        onClick={() => {
-                          soundManager.playClick();
-                          setVocabTypeFilter(f.id as any);
-                          setActiveCardIndex(0);
-                          if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
-                            setActiveSet('set-01');
-                            if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
-                              setActiveLevel('level-1');
-                            }
+                {/* Filter Pills Row */}
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 min-w-0">
+                  {[
+                    { id: 'all', label: 'All Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.length },
+                    { id: 'word', label: 'High-Yield', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
+                    { id: 'ows', label: 'OWS (One Word)', shortLabel: 'OWS', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows').length },
+                    { id: 'idiom', label: 'Idioms & Phrases', shortLabel: 'Idioms', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'idiom').length },
+                    { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
+                  ].map(f => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setVocabTypeFilter(f.id as any);
+                        setActiveCardIndex(0);
+                        if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
+                          setActiveSet('set-01');
+                          if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
+                            setActiveLevel('level-1');
                           }
-                        }}
-                        className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                          vocabTypeFilter === f.id
-                            ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                        }`}
-                      >
-                        <span className="hidden sm:inline">{f.label}</span>
-                        <span className="sm:hidden">{f.shortLabel}</span>
-                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                          vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
-                        }`}>
-                          {f.count}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Mastered Counter */}
-                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-[11px] sm:text-xs font-bold shrink-0 whitespace-nowrap">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>{masteredVocabIds.size} Mastered</span>
-                  </div>
+                        }
+                      }}
+                      className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                        vocabTypeFilter === f.id
+                          ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
+                      }`}
+                    >
+                      <span className="hidden sm:inline">{f.label}</span>
+                      <span className="sm:hidden">{f.shortLabel}</span>
+                      <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                        vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {f.count}
+                      </span>
+                    </button>
+                  ))}
                 </div>
               </div>
 
