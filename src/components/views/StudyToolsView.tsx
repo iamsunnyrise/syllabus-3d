@@ -63,6 +63,7 @@ import {
   VocabItem, 
   VocabLevel 
 } from '../../data/highYieldVocabData';
+import { LEVEL_1_SET_01_IDIOMS } from '../../data/highYieldIdiomsData';
 
 export type { VocabItem, VocabLevel };
 
@@ -182,6 +183,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_08_WORDS,
   ...LEVEL_1_SET_09_WORDS,
   ...LEVEL_1_SET_10_WORDS,
+  ...LEVEL_1_SET_01_IDIOMS,
   // OWS, Idioms & Roots
   {
     id: 'v-ows-1',
@@ -206,15 +208,17 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     phonetic: '/spɪl ðə biːnz/',
     hindi: 'भेद खोलना / रहस्य उजागर करना',
     type: 'idiom',
-    partOfSpeech: 'Idiom',
+    partOfSpeech: 'Idiom / Phrase',
     meaning: 'To disclose a secret prematurely or indiscreetly.',
     synonyms: ['Let the cat out of the bag', 'Divulge', 'Disclose', 'Reveal'],
     antonyms: ['Keep under wraps', 'Clam up', 'Conceal'],
     example: 'Trust him with your surprise party plan and he is sure to spill the beans.',
     mnemonic: 'Imagine dropping a jar of beans -> All hidden beans scatter in the open!',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'MTS'],
-    collocation: 'Spill the beans to the press / police'
+    examTags: ['SSC CGL', 'CHSL', 'MTS', 'Level 1', 'Set 02', 'Idioms & Phrases'],
+    collocation: 'Spill the beans to the press / police',
+    level: 'level-1',
+    set: 'set-02'
   },
   {
     id: 'v-root-1',
@@ -255,15 +259,17 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     phonetic: '/bɜːn ðə ˈmɪd.naɪt ɔɪl/',
     hindi: 'देर रात तक कड़ी मेहनत / पढ़ाई करना',
     type: 'idiom',
-    partOfSpeech: 'Idiom',
+    partOfSpeech: 'Idiom / Phrase',
     meaning: 'To work or study late into the night.',
     synonyms: ['Work overtime', 'Burn the candle at both ends', 'Toil'],
     antonyms: ['Slack off', 'Idleness', 'Procrastinate'],
     example: 'Aspirants often burn the midnight oil during the final revision month.',
     mnemonic: 'Before electricity, studying late required keeping the oil lamp burning until midnight.',
     frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'Railway'],
-    collocation: 'Burn the midnight oil to crack exam'
+    examTags: ['SSC CGL', 'CHSL', 'Railway', 'Level 1', 'Set 02', 'Idioms & Phrases'],
+    collocation: 'Burn the midnight oil to crack exam',
+    level: 'level-1',
+    set: 'set-02'
   },
   {
     id: 'v-root-2',
@@ -617,8 +623,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
   const filteredVocab = useMemo(() => {
     return DEFAULT_VOCAB_DATA.filter(item => {
-      if (vocabTypeFilter === 'word') {
-        if (item.type !== 'word') return false;
+      if (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom') {
+        if (item.type !== vocabTypeFilter) return false;
         if (item.level !== activeLevel || item.set !== activeSet) return false;
       } else if (vocabTypeFilter !== 'all') {
         if (item.type !== vocabTypeFilter) return false;
@@ -957,6 +963,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     soundManager.playClick();
                     setVocabTypeFilter(f.id as any);
                     setActiveCardIndex(0);
+                    if (f.id === 'idiom' || f.id === 'word') {
+                      setActiveSet('set-01');
+                    }
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                     vocabTypeFilter === f.id
@@ -982,17 +991,24 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {/* =========================================================
-              LEVEL & SUBPAGE SET NAVIGATION (High-Yield Vocabulary)
+              LEVEL & SUBPAGE SET NAVIGATION (High-Yield Vocabulary & Idioms)
               ========================================================= */}
-          {vocabTypeFilter === 'word' && (
+          {(vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom') && (
             <div className="space-y-3 animate-fade-in">
               {/* 4 Levels Navigation Bar */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
                 {HIGH_YIELD_LEVELS.map(lvl => {
                   const isSelected = activeLevel === lvl.id;
                   const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
-                    w => w.type === 'word' && w.level === lvl.id
+                    w => w.type === vocabTypeFilter && w.level === lvl.id
                   ).length;
+                  const levelDesc = vocabTypeFilter === 'idiom'
+                    ? (lvl.id === 'level-1' ? 'High-frequency idioms & phrases essential for tier-1 & 2.'
+                       : lvl.id === 'level-2' ? 'Nuanced & situational idioms for Cloze tests & RC.'
+                       : lvl.id === 'level-3' ? 'Advanced & rare literary idioms for high-cutoff shifts.'
+                       : 'Mastery-grade proverbial & Latin idioms.')
+                    : lvl.description;
+
                   return (
                     <button
                       key={lvl.id}
@@ -1019,7 +1035,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-full ${
                           isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
                         }`}>
-                          {totalLevelWords} words
+                          {totalLevelWords} {vocabTypeFilter === 'idiom' ? 'idioms' : 'words'}
                         </span>
                       </div>
                       <div>
@@ -1031,7 +1047,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         <p className={`text-[11px] line-clamp-1 mt-0.5 font-medium ${
                           isSelected ? 'text-slate-800' : 'text-slate-500 dark:text-slate-300'
                         }`}>
-                          {lvl.description}
+                          {levelDesc}
                         </p>
                       </div>
                     </button>
@@ -1049,7 +1065,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   {currentLevelConfig.sets.map(s => {
                     const isSetSelected = activeSet === s.id;
                     const countInSet = DEFAULT_VOCAB_DATA.filter(
-                      w => w.type === 'word' && w.level === activeLevel && w.set === s.id
+                      w => w.type === vocabTypeFilter && w.level === activeLevel && w.set === s.id
                     ).length;
                     return (
                       <button
@@ -1159,7 +1175,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-xs sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono">
                         <BookOpen className="w-4 h-4 text-amber-700 dark:text-amber-300" />
-                        <span>Exam Definition & Synonyms</span>
+                        <span>{currentFlashcard.type === 'idiom' ? 'Exam Meaning & Origin' : 'Exam Definition & Synonyms'}</span>
                       </div>
                       
                       {/* High-Contrast Interactive Toggle Button */}
@@ -1242,12 +1258,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </p>
                         </div>
 
-                        {/* Mnemonic Trick */}
+                        {/* Mnemonic Trick / Origin Story */}
                         {currentFlashcard.mnemonic && (
                           <div className="p-4 sm:p-5 rounded-2xl bg-purple-500/15 dark:bg-purple-500/20 border border-purple-500/30 shadow-2xs flex items-start gap-3.5">
-                            <span className="text-xl shrink-0">💡</span>
+                            <span className="text-xl shrink-0">{currentFlashcard.type === 'idiom' ? '🏛️' : '💡'}</span>
                             <div className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
-                              <strong className="font-bold text-purple-900 dark:text-purple-300">Memory Trick:</strong> {currentFlashcard.mnemonic}
+                              <strong className="font-bold text-purple-900 dark:text-purple-300">
+                                {currentFlashcard.type === 'idiom' ? 'Origin & Memory Trick:' : 'Memory Trick:'}
+                              </strong>{' '}
+                              {currentFlashcard.mnemonic}
                             </div>
                           </div>
                         )}
@@ -1290,7 +1309,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 <>
                                   <span className="text-slate-400">•</span>
                                   <span className="font-bold text-purple-700 dark:text-purple-300">
-                                    💡 Memory Trick
+                                    {currentFlashcard.type === 'idiom' ? '🏛️ Origin & Trick' : '💡 Memory Trick'}
                                   </span>
                                 </>
                               )}
@@ -1384,7 +1403,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
             </div>
           ) : (
-            vocabTypeFilter === 'word' ? (
+            (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom') ? (
               <div className="p-10 sm:p-14 text-center rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-dashed border-amber-500/30 dark:border-amber-500/20 shadow-xs space-y-4">
                 <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
                   <BookOpen className="w-8 h-8 text-amber-600 dark:text-amber-400" />
@@ -1396,10 +1415,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <span>{currentLevelConfig.sets.find(s => s.id === activeSet)?.label || activeSet}</span>
                   </div>
                   <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-                    Ready for Words Integration
+                    {vocabTypeFilter === 'idiom' ? 'Ready for Idioms Integration' : 'Ready for Words Integration'}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Is Set me abhi koi word nahi hai. Aap apne words provide karein, hum unhe turant is Set me live add kar denge!
+                    {vocabTypeFilter === 'idiom'
+                      ? 'Is Set me abhi koi idiom nahi hai. Aap apne idioms provide karein, hum unhe turant is Set me live add kar denge!'
+                      : 'Is Set me abhi koi word nahi hai. Aap apne words provide karein, hum unhe turant is Set me live add kar denge!'}
                   </p>
                 </div>
               </div>
