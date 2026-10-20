@@ -442,9 +442,6 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
                     EXCLUSIVE NOTES
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xl">
-                  All 7 interactive HTML modules: Vocab 457, Phrasal Verbs, Idioms, Root Words, Confused Words, Prepositions & Quiz Zone.
-                </p>
               </div>
             </div>
 
@@ -519,9 +516,6 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
                   {activeModule.badge}
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                <span className="font-semibold text-slate-700 dark:text-slate-300">{activeModule.hindiTitle}</span> • {activeModule.description}
-              </p>
             </div>
           </div>
 
