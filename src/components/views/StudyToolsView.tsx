@@ -7,6 +7,8 @@ import {
   Search,
   Sparkles,
   RotateCw,
+  Eye,
+  EyeOff,
   CheckCircle2,
   XCircle,
   Copy,
@@ -935,7 +937,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
               
               {/* Left: Interactive Word Flashcard (Wider: col-span-9 lg, col-span-10 xl) */}
-              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-4 sm:p-8 md:p-9 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-amber-500/30 dark:border-amber-500/20 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]">
+              <div className="lg:col-span-9 xl:col-span-10 flex flex-col justify-between p-3 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 dark:border-amber-500/20 sm:border-2 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]">
                 
                 {/* 1. Top Card Meta Bar */}
                 <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
@@ -1006,9 +1008,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </div>
 
                   {/* 3. Exam Definition & Synonyms Panel */}
-                  <div className="p-3.5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border-2 border-slate-200/90 dark:border-white/10 shadow-xs space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap sm:flex-nowrap">
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-[11px] sm:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono min-w-0">
+                  <div className="p-3 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border border-slate-200/90 dark:border-white/10 sm:border-2 shadow-xs space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
+                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono min-w-0">
                         <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
                         <span className="truncate">{currentFlashcard.type === 'idiom' ? 'Exam Meaning' : currentFlashcard.type === 'ows' ? 'OWS Definition' : currentFlashcard.type === 'root' ? 'Root Meaning' : 'Exam Meaning & Synonyms'}</span>
                       </div>
@@ -1020,10 +1022,23 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           soundManager.playClick();
                           setIsCardFlipped(prev => !prev);
                         }}
-                        className="px-3 sm:px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ml-auto"
+                        className={`px-3 sm:px-3.5 py-1.5 rounded-xl font-bold text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ml-auto ${
+                          isCardFlipped
+                            ? 'bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-white/15'
+                            : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-amber-500/20'
+                        }`}
                       >
-                        <RotateCw className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
-                        <span>{isCardFlipped ? 'Hide' : 'Flip to Reveal'}</span>
+                        {isCardFlipped ? (
+                          <>
+                            <EyeOff className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" />
+                            <span>Hide</span>
+                          </>
+                        ) : (
+                          <>
+                            <Eye className="w-3.5 h-3.5 text-slate-950" />
+                            <span>Flip to Reveal</span>
+                          </>
+                        )}
                       </button>
                     </div>
 
@@ -1040,17 +1055,17 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
                     {/* Root Word Quick Badges (Origin & Counter Root) */}
                     {currentFlashcard.type === 'root' && currentFlashcard.rootFamily && (
-                      <div className="flex items-center gap-2 flex-wrap pt-1">
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap pt-1">
                         {currentFlashcard.rootFamily.origin && (
-                          <span className="px-3 py-1 rounded-xl text-xs font-mono font-black uppercase bg-amber-500/20 text-amber-950 dark:text-amber-200 border border-amber-500/35 shadow-2xs">
+                          <span className="px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-black uppercase bg-amber-500/15 dark:bg-amber-400/15 text-amber-950 dark:text-amber-200 border border-amber-500/30 shadow-2xs">
                             🏛️ {currentFlashcard.rootFamily.origin} Origin
                           </span>
                         )}
-                        <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 border border-emerald-500/30">
+                        <span className="px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-bold bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 border border-emerald-500/30">
                           🌳 Root Stem: <strong className="font-black">{currentFlashcard.rootFamily.coreMeaning}</strong>
                         </span>
                         {currentFlashcard.rootFamily.counterRoot && (
-                          <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-rose-500/15 text-rose-900 dark:text-rose-200 border border-rose-500/30">
+                          <span className="px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-bold bg-rose-500/15 text-rose-900 dark:text-rose-200 border border-rose-500/30">
                             ⚔️ Antonym Stem: <strong className="font-black">{currentFlashcard.rootFamily.counterRoot.root}</strong> ({currentFlashcard.rootFamily.counterRoot.meaning})
                           </span>
                         )}
@@ -1058,60 +1073,46 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     )}
 
                     {isCardFlipped ? (
-                      <div className="space-y-4 pt-4 border-t border-slate-200/80 dark:border-white/10 animate-fade-in text-sm sm:text-base">
+                      <div className="space-y-4 pt-3 sm:pt-4 border-t border-slate-200/80 dark:border-white/10 animate-fade-in text-sm sm:text-base">
                         {/* 🌳 Interactive Word Family Tree (एक रूट, अनेक शब्द Matrix) */}
                         {currentFlashcard.rootFamily && (
-                          <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-emerald-500/[0.08] dark:bg-emerald-950/25 border-2 border-emerald-500/30 dark:border-emerald-500/30 shadow-xs space-y-4">
+                          <div className="p-3 sm:p-5 rounded-2xl sm:rounded-3xl bg-emerald-500/[0.05] dark:bg-emerald-950/20 border border-emerald-500/30 sm:border-2 shadow-xs space-y-3 sm:space-y-4">
                             {/* Family Header */}
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-emerald-500/20">
-                              <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-lg shadow-xs shrink-0">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2.5 sm:pb-3 border-b border-emerald-500/20">
+                              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-base sm:text-lg shadow-xs shrink-0">
                                   🌳
                                 </div>
-                                <div>
+                                <div className="min-w-0 flex-1">
                                   <div className="flex items-center gap-2 flex-wrap">
-                                    <h4 className="text-base sm:text-lg font-black text-slate-950 dark:text-white">
-                                      Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold">(एक रूट, अनेक शब्द Matrix)</span>
+                                    <h4 className="text-sm sm:text-lg font-black text-slate-950 dark:text-white leading-tight">
+                                      Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-base">(एक रूट, अनेक शब्द Matrix)</span>
                                     </h4>
-                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-black bg-emerald-500 text-slate-950 shadow-xs">
+                                    <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-black bg-emerald-500 text-slate-950 shadow-xs shrink-0">
                                       {currentFlashcard.rootFamily.derivatives.length} Exam Words
                                     </span>
                                   </div>
-                                  <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+                                  <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium leading-normal mt-0.5">
                                     Iss ek root stem se derived sabhi high-frequency exam words aur unka morphology formula
                                   </p>
                                 </div>
                               </div>
-
-                              {/* Origin & Counter Root Badges */}
-                              <div className="flex items-center gap-2 flex-wrap">
-                                {currentFlashcard.rootFamily.origin && (
-                                  <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-white dark:bg-[#121528] text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-white/10 shadow-2xs">
-                                    🏛️ {currentFlashcard.rootFamily.origin} Origin
-                                  </span>
-                                )}
-                                {currentFlashcard.rootFamily.counterRoot && (
-                                  <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-rose-500/15 text-rose-800 dark:text-rose-300 border border-rose-500/30 shadow-2xs">
-                                    ⚔️ Antonym Stem: <strong className="font-black">{currentFlashcard.rootFamily.counterRoot.root}</strong>
-                                  </span>
-                                )}
-                              </div>
                             </div>
 
                             {/* Interactive Derivative Cards Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pt-1">
                               {currentFlashcard.rootFamily.derivatives.map((deriv, dIdx) => (
                                 <div
                                   key={deriv.word}
-                                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#0E101B] border-2 border-emerald-500/20 hover:border-emerald-500/60 dark:border-white/10 dark:hover:border-emerald-500/50 shadow-2xs hover:shadow-md transition-all space-y-2.5 group"
+                                  className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white dark:bg-[#0E101B] border border-emerald-500/25 dark:border-white/10 hover:border-emerald-500/60 dark:hover:border-emerald-500/50 shadow-2xs hover:shadow-md transition-all space-y-2 group"
                                 >
                                   {/* Top Row: Word Name + Speaker Button + Grammar Tag + Exam Tag */}
-                                  <div className="flex items-center justify-between gap-2">
-                                    <div className="flex items-center gap-2">
-                                      <span className="w-6 h-6 rounded-lg bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-black flex items-center justify-center shrink-0">
+                                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-md sm:rounded-lg bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 text-[11px] sm:text-xs font-mono font-black flex items-center justify-center shrink-0">
                                         {dIdx + 1}
                                       </span>
-                                      <h5 className="text-base sm:text-lg font-black text-slate-950 dark:text-white tracking-tight group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                                      <h5 className="text-base sm:text-lg font-black text-slate-950 dark:text-white tracking-tight group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors truncate">
                                         {deriv.word}
                                       </h5>
                                       <button
@@ -1122,18 +1123,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                           speakWord(deriv.word);
                                         }}
                                         title={`Pronounce ${deriv.word}`}
-                                        className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-emerald-500/20 text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 transition-all cursor-pointer hover:scale-110 active:scale-95"
+                                        className="p-1 sm:p-1.5 rounded-lg bg-slate-100 dark:bg-white/10 hover:bg-emerald-500/20 text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 transition-all cursor-pointer shrink-0"
                                       >
                                         <Volume2 className="w-3.5 h-3.5" />
                                       </button>
                                     </div>
                                     
-                                    <div className="flex items-center gap-1.5 shrink-0">
-                                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-black uppercase bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+                                    <div className="flex items-center gap-1 shrink-0 ml-auto">
+                                      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-black uppercase bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10">
                                         {deriv.partOfSpeech}
                                       </span>
                                       {deriv.examTag && (
-                                        <span className="px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold uppercase bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30">
+                                        <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold uppercase bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 whitespace-nowrap">
                                           {deriv.examTag}
                                         </span>
                                       )}
@@ -1141,28 +1142,30 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                   </div>
 
                                   {/* Morphology Formula Breakdown */}
-                                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 text-xs font-mono font-bold border border-emerald-500/25 flex-wrap">
-                                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-sans uppercase tracking-wider font-black">Formula:</span>
-                                    <span>{deriv.breakdown}</span>
+                                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 text-xs font-mono font-bold border border-emerald-500/20 flex-wrap">
+                                    <span className="px-1.5 py-0.2 rounded-md bg-emerald-500/20 text-[9.5px] text-emerald-800 dark:text-emerald-300 font-mono uppercase tracking-wider font-black shrink-0">
+                                      FORMULA
+                                    </span>
+                                    <span className="break-words leading-relaxed text-[11px] sm:text-xs">{deriv.breakdown}</span>
                                   </div>
 
                                   {/* Hindi Translation */}
-                                  <div className="flex items-center gap-2 pt-0.5">
+                                  <div className="flex items-center gap-2 pt-0.5 flex-wrap">
                                     <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-black uppercase bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 shrink-0">
                                       हिंदी अर्थ
                                     </span>
-                                    <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
+                                    <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white break-words">
                                       {deriv.hindi}
                                     </span>
                                   </div>
 
                                   {/* Meaning */}
-                                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium break-words">
                                     {deriv.meaning}
                                   </p>
 
                                   {/* Real Exam Example Sentence */}
-                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border-l-4 border-emerald-500 text-xs sm:text-sm text-slate-800 dark:text-slate-200 italic leading-relaxed">
+                                  <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border-l-4 border-emerald-500 text-xs sm:text-sm text-slate-800 dark:text-slate-200 italic leading-relaxed break-words">
                                     "{deriv.example}"
                                   </div>
                                 </div>
