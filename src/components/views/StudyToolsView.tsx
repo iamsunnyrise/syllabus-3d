@@ -605,7 +605,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
   const filteredVocab = useMemo(() => {
     return DEFAULT_VOCAB_DATA.filter(item => {
-      if (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows') {
+      if (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') {
         if (item.type !== vocabTypeFilter) return false;
         if (item.level !== activeLevel || item.set !== activeSet) return false;
       } else if (vocabTypeFilter !== 'all') {
@@ -945,9 +945,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     soundManager.playClick();
                     setVocabTypeFilter(f.id as any);
                     setActiveCardIndex(0);
-                    if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows') {
+                    if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
                       setActiveSet('set-01');
-                      if (f.id === 'ows' && activeLevel === 'advanced') {
+                      if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
                         setActiveLevel('level-1');
                       }
                     }
@@ -976,18 +976,22 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {/* =========================================================
-              LEVEL & SUBPAGE SET NAVIGATION (Words, Idioms & OWS)
+              LEVEL & SUBPAGE SET NAVIGATION (Words, Idioms, OWS & Root Words)
               ========================================================= */}
-          {(vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows') && (
+          {(vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') && (
             <div className="space-y-3 animate-fade-in">
-              {/* Levels Navigation Bar: 3 Levels for OWS as requested, 4 Levels for Word/Idiom */}
-              <div className={`grid gap-2.5 sm:gap-3 ${vocabTypeFilter === 'ows' ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'}`}>
-                {(vocabTypeFilter === 'ows' ? HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced') : HIGH_YIELD_LEVELS).map(lvl => {
+              {/* Levels Navigation Bar: 3 Levels for OWS & Root Words, 4 Levels for Word/Idiom */}
+              <div className={`grid gap-2.5 sm:gap-3 ${(vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'}`}>
+                {((vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced') : HIGH_YIELD_LEVELS).map(lvl => {
                   const isSelected = activeLevel === lvl.id;
                   const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
                     w => w.type === vocabTypeFilter && w.level === lvl.id
                   ).length;
-                  const levelDesc = vocabTypeFilter === 'ows'
+                  const levelDesc = vocabTypeFilter === 'root'
+                    ? (lvl.id === 'level-1' ? 'Human Nature, Emotions, Quality & Action Roots (Tier-1 High-Frequency).'
+                       : lvl.id === 'level-2' ? 'Science, Perception, Time, Body & Physical Roots (Cloze & RC).'
+                       : 'Power, Governance, Society, Beliefs & Nature Roots (Mains & Reading).')
+                    : vocabTypeFilter === 'ows'
                     ? (lvl.id === 'level-1' ? 'High-frequency foundational One Word Substitutions (Tier-1 scoring).'
                        : lvl.id === 'level-2' ? 'Moderate & contextual OWS for Error Spotting & Fillers.'
                        : 'Tough, nuanced OWS tested in Mains & high-cutoff shifts.')
@@ -997,6 +1001,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                        : lvl.id === 'level-3' ? 'Advanced & rare literary idioms for high-cutoff shifts.'
                        : 'Mastery-grade proverbial & Latin idioms.')
                     : lvl.description;
+
+                  const levelBadgeLabel = vocabTypeFilter === 'root'
+                    ? (lvl.id === 'level-1' ? 'Human Nature & Actions'
+                       : lvl.id === 'level-2' ? 'Science, Time & Body'
+                       : 'Power, Society & Beliefs')
+                    : lvl.badge;
 
                   return (
                     <button
@@ -1019,12 +1029,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         <span className={`px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold uppercase tracking-wider ${
                           isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20'
                         }`}>
-                          {lvl.badge}
+                          {levelBadgeLabel}
                         </span>
                         <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-full ${
                           isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
                         }`}>
-                          {totalLevelWords} {vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'idioms' : 'words'}
+                          {totalLevelWords} {vocabTypeFilter === 'root' ? 'roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'idioms' : 'words'}
                         </span>
                       </div>
                       <div>
@@ -1536,7 +1546,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
             </div>
           ) : (
-            (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows') ? (
+            (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? (
               <div className="p-10 sm:p-14 text-center rounded-3xl bg-white dark:bg-[#0E101B] border-2 border-dashed border-amber-500/30 dark:border-amber-500/20 shadow-xs space-y-4">
                 <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
                   <BookOpen className="w-8 h-8 text-amber-600 dark:text-amber-400" />
@@ -1548,13 +1558,15 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <span>{currentLevelConfig.sets.find(s => s.id === activeSet)?.label || activeSet}</span>
                   </div>
                   <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-                    {vocabTypeFilter === 'idiom' ? 'Ready for Idioms Integration' : vocabTypeFilter === 'ows' ? 'Ready for OWS Integration' : 'Ready for Words Integration'}
+                    {vocabTypeFilter === 'idiom' ? 'Ready for Idioms Integration' : vocabTypeFilter === 'ows' ? 'Ready for OWS Integration' : vocabTypeFilter === 'root' ? 'Ready for Root Words Integration' : 'Ready for Words Integration'}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {vocabTypeFilter === 'idiom'
                       ? 'Is Set me abhi koi idiom nahi hai. Aap apne idioms provide karein, hum unhe turant is Set me live add kar denge!'
                       : vocabTypeFilter === 'ows'
                       ? 'Is Set me abhi koi OWS nahi hai. Aap apne one word substitutions provide karein, hum unhe turant is Set me live add kar denge!'
+                      : vocabTypeFilter === 'root'
+                      ? 'Is Set me abhi koi root word nahi hai. Agle sets ke root words jald hi live integrate kiye jayenge!'
                       : 'Is Set me abhi koi word nahi hai. Aap apne words provide karein, hum unhe turant is Set me live add kar denge!'}
                   </p>
                 </div>
