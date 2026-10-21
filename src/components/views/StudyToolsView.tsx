@@ -53,6 +53,7 @@ const CalculationBoosterTriplets = lazy(() => import('./CalculationBoosterTriple
 const CalculationBoosterPowers = lazy(() => import('./CalculationBoosterPowers').then(m => ({ default: m.CalculationBoosterPowers })));
 const CalculationBoosterPrimes = lazy(() => import('./CalculationBoosterPrimes').then(m => ({ default: m.CalculationBoosterPrimes })));
 const SscSpecialVocabView = lazy(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
+const ThemeBasedIdiomsView = lazy(() => import('./ThemeBasedIdiomsView').then(m => ({ default: m.ThemeBasedIdiomsView })));
 import { 
   LEVEL_1_SET_01_WORDS, 
   LEVEL_1_SET_02_WORDS, 
@@ -597,6 +598,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   // -------------------------------------------------------------
   const [vocabSearch, setVocabSearch] = useState('');
   const [vocabTypeFilter, setVocabTypeFilter] = useState<'all' | 'word' | 'ows' | 'idiom' | 'root'>('word');
+  const [idiomSubMode, setIdiomSubMode] = useState<'themes' | 'sets'>('themes');
   const [activeLevel, setActiveLevel] = useState<VocabLevel>('level-1');
   const [activeSet, setActiveSet] = useState<string>('set-01');
   const [activeCardIndex, setActiveCardIndex] = useState(0);
@@ -902,7 +904,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         soundManager.playClick();
                         setVocabTypeFilter(f.id as any);
                         setActiveCardIndex(0);
-                        if (f.id === 'idiom' || f.id === 'word' || f.id === 'ows' || f.id === 'root') {
+                        if (f.id === 'idiom') {
+                          setIdiomSubMode('themes');
+                          setActiveSet('set-01');
+                        } else if (f.id === 'word' || f.id === 'ows' || f.id === 'root') {
                           setActiveSet('set-01');
                           if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
                             setActiveLevel('level-1');
@@ -926,6 +931,71 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   ))}
                 </div>
               </div>
+
+              {/* Idioms Curriculum Mode Toggle (Themes vs Standard Sets) */}
+              {vocabTypeFilter === 'idiom' && (
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 animate-fade-in">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-sm shrink-0">
+                      🌟
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                        Idioms & Phrases Curriculum Mode
+                      </h4>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                        Choose between the 89 Exam-Thematic Topics or standard Level Sets
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shrink-0 self-start sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setIdiomSubMode('themes');
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        idiomSubMode === 'themes'
+                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>89 Theme-Based Topics</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-black/15 font-mono">89</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setIdiomSubMode('sets');
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        idiomSubMode === 'sets'
+                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>Standard Levels & Sets</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Conditional Display: 89 Themes Hub vs Standard Levels & Sets */}
+              {vocabTypeFilter === 'idiom' && idiomSubMode === 'themes' ? (
+                <Suspense fallback={
+                  <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                    <BookOpen className="w-8 h-8 text-amber-500 animate-spin mb-3" />
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading 89 Theme-Based Idioms Curriculum...</span>
+                  </div>
+                }>
+                  <ThemeBasedIdiomsView onBackToSets={() => setIdiomSubMode('sets')} />
+                </Suspense>
+              ) : (
+                <>
 
           {/* =========================================================
               LEVEL & SUBPAGE SET NAVIGATION (Words, Idioms, OWS & Root Words)
@@ -1514,6 +1584,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
             )
           )}
+                </>
+              )}
             </>
           )}
         </div>
