@@ -73,7 +73,10 @@ import {
   LEVEL_1_SET_01_IDIOMS, 
   LEVEL_1_SET_02_IDIOMS 
 } from '../../data/highYieldIdiomsData';
-import { LEVEL_1_SET_01_OWS } from '../../data/highYieldOwsData';
+import { 
+  LEVEL_1_SET_01_OWS,
+  LEVEL_1_SET_02_OWS
+} from '../../data/highYieldOwsData';
 import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 
 export type { VocabItem, VocabLevel };
@@ -199,27 +202,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_01_IDIOMS,
   ...LEVEL_1_SET_02_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
+  ...LEVEL_1_SET_02_OWS,
   ...HIGH_YIELD_ROOT_WORDS,
-  // OWS, Idioms & Roots
-  {
-    id: 'v-ows-1',
-    word: 'Philanthropist',
-    phonetic: '/fɪˈlæn.θrə.pɪst/',
-    hindi: 'परोपकारी / जनहितैषी',
-    type: 'ows',
-    partOfSpeech: 'Noun (OWS)',
-    meaning: 'A person who seeks to promote the welfare of others, especially by generous donation of money to good causes.',
-    synonyms: ['Altruist', 'Benefactor', 'Humanitarian', 'Patron'],
-    antonyms: ['Misanthrope', 'Egoist', 'Miser', 'Malevolent'],
-    example: 'The billionaire retired early to dedicate his life as a philanthropist.',
-    mnemonic: 'Phil (Love) + Anthro (Human) -> One who loves humanity.',
-    frequency: 'Very High',
-    examTags: ['SSC CGL', 'CPO', 'Banking', 'Level 1', 'Set 02', 'OWS'],
-    collocation: 'Generous / Renowned philanthropist',
-    derivatives: 'Philanthropy (noun), Philanthropic (adjective)',
-    level: 'level-1',
-    set: 'set-02'
-  },
+  // Idioms & Roots Mock Examples
   {
     id: 'v-idiom-1',
     word: 'Spill the beans',
@@ -238,26 +223,6 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     level: 'level-1',
     set: 'set-03'
   },
-
-  {
-    id: 'v-ows-2',
-    word: 'Omniscient',
-    phonetic: '/ɑːmˈnɪʃ.ənt/',
-    hindi: 'सर्वज्ञानी / सब कुछ जानने वाला',
-    type: 'ows',
-    partOfSpeech: 'Noun / Adj (OWS)',
-    meaning: 'One who knows everything; having infinite knowledge.',
-    synonyms: ['All-knowing', 'All-wise', 'Pansophic'],
-    antonyms: ['Ignorant', 'Unknowing', 'Uninformed'],
-    example: 'In traditional theology, the Supreme Creator is believed to be omniscient.',
-    mnemonic: 'Omni (All) + Scient (Science/Knowing) -> Knowing everything.',
-    frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CPO', 'Steno', 'Level 1', 'Set 02', 'OWS'],
-    collocation: 'Omniscient narrator / deity',
-    derivatives: 'Omniscience (noun), Omnisciently (adverb)',
-    level: 'level-1',
-    set: 'set-02'
-  },
   {
     id: 'v-idiom-2',
     word: 'Burn the midnight oil',
@@ -275,24 +240,6 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
     collocation: 'Burn the midnight oil to crack exam',
     level: 'level-1',
     set: 'set-03'
-  },
-
-  {
-    id: 'v-ows-3',
-    word: 'Somnambulist',
-    phonetic: '/sɑːmˈnæm.bjə.lɪst/',
-    hindi: 'नींद में चलने वाला व्यक्ति',
-    type: 'ows',
-    partOfSpeech: 'Noun (OWS)',
-    meaning: 'A person who walks in their sleep.',
-    synonyms: ['Sleepwalker', 'Noctambulist'],
-    antonyms: ['Waker', 'Alert person'],
-    example: 'The doctor diagnosed the child as a chronic somnambulist.',
-    mnemonic: 'Somn (Sleep) + Ambul (Walk as in Ambulance) -> Walks while asleep.',
-    frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'CPO'],
-    collocation: 'Chronic somnambulist',
-    derivatives: 'Somnambulism (noun)'
   }
 ];
 

@@ -3615,3 +3615,2605 @@ export const LEVEL_1_SET_01_OWS: VocabItem[] = [
     "set": "set-01"
   }
 ];
+
+
+// ============================================================================
+// HIGH YIELD ONE WORD SUBSTITUTIONS (OWS) - LEVEL 1 SET 02
+// Extracted and curated from Toppers' Vocab / Prashant Solanki English
+// Exactly 72 High-Frequency Unique OWS (Pages 27-44) with Hindi Meaning, Mnemonics & Exam Usages
+// ============================================================================
+
+export const LEVEL_1_SET_02_OWS: VocabItem[] = [
+  {
+    "id": "v-ows-l1-s2-1",
+    "word": "Casserole",
+    "phonetic": "/ˈkæs.ə.roʊl/",
+    "hindi": "ढक्कनदार बर्तन / खाना पकाने और परोसने का गहरा बर्तन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A deep dish or covered container used for both cooking and serving food.",
+    "synonyms": [
+      "Baking dish",
+      "Pot",
+      "Stewing pan",
+      "Terrine"
+    ],
+    "antonyms": [
+      "Plate",
+      "Platter",
+      "Saucer"
+    ],
+    "example": "She prepared a rich vegetable casserole in a deep ceramic dish for the family dinner.",
+    "mnemonic": "सब चीजें कसकर डालो, ढक दो, और पकाओ - Casserole.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Vegetable casserole / bake in a casserole",
+    "derivatives": "Casserole (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-2",
+    "word": "Catastrophe",
+    "phonetic": "/kəˈtæs.trə.fi/",
+    "hindi": "आपदा / महाविपत्ति / घोर तबाही",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A sudden disaster causing widespread damage, destruction, or monumental loss.",
+    "synonyms": [
+      "Disaster",
+      "Calamity",
+      "Cataclysm",
+      "Devastation",
+      "Tragedy"
+    ],
+    "antonyms": [
+      "Blessing",
+      "Fortune",
+      "Miracle",
+      "Godsend"
+    ],
+    "example": "The massive earthquake along the fault line turned into an unprecedented humanitarian catastrophe.",
+    "mnemonic": "Cut us trophy - जब जीती हुई ट्रॉफी कट कर गिर गई तो आपदा आ गई।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Humanitarian catastrophe / ecological catastrophe",
+    "derivatives": "Catastrophic (adjective), Catastrophically (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-3",
+    "word": "Caucus",
+    "phonetic": "/ˈkɔː.kəs/",
+    "hindi": "बैठक / सभा / राजनीतिक दल की गुप्त बैठक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A closed meeting of party members to discuss political policies or select candidates.",
+    "synonyms": [
+      "Assembly",
+      "Party conference",
+      "Conclave",
+      "Gathering",
+      "Faction meeting"
+    ],
+    "antonyms": [
+      "Dispersal",
+      "Individual action"
+    ],
+    "example": "Senior party members convened an emergency caucus to decide their legislative strategy.",
+    "mnemonic": "'कॉक्स-फोकस' - लोग caucus में बैठकर focus करके बड़ा राजनीतिक फैसला लेते हैं।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Political caucus / party caucus",
+    "derivatives": "Caucus (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-4",
+    "word": "Cavalry",
+    "phonetic": "/ˈkæv.əl.ri/",
+    "hindi": "घुड़सवार सेना / अश्वारोही दल",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Soldiers trained, equipped, and deployed to fight on horseback in wars.",
+    "synonyms": [
+      "Horse soldiers",
+      "Mounted troops",
+      "Equestrian unit",
+      "Cavaliers"
+    ],
+    "antonyms": [
+      "Infantry",
+      "Foot soldiers"
+    ],
+    "example": "The commander ordered the heavy cavalry to charge into the enemy's exposed flank.",
+    "mnemonic": "केवल घोड़े वाली आर्मी war में जाएगी -> Cavalry.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Cavalry charge / mounted cavalry",
+    "derivatives": "Cavalryman (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-5",
+    "word": "Celibacy",
+    "phonetic": "/ˈsel.ə.bə.si/",
+    "hindi": "ब्रह्मचर्य / अविवाहित अवस्था",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The state of remaining unmarried, especially for religious reasons; abstinence from sexual relations.",
+    "synonyms": [
+      "Chastity",
+      "Abstinence",
+      "Continence",
+      "Purity",
+      "Maidenhood"
+    ],
+    "antonyms": [
+      "Marriage",
+      "Matrimony",
+      "Wedlock",
+      "Promiscuity"
+    ],
+    "example": "Priests and monks take solemn vows of lifelong poverty and celibacy.",
+    "mnemonic": "Celibacy - single base policy (अकेले रहने की नीति)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Vow of celibacy / practice celibacy",
+    "derivatives": "Celibate (noun/adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-6",
+    "word": "Centrifugal",
+    "phonetic": "/senˈtrɪf.jə.ɡəl/",
+    "hindi": "केन्द्र से बाहर जाने वाला / अपकेन्द्री",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Moving, tending to move, or directed away from a central axis during circular rotation.",
+    "synonyms": [
+      "Outward-moving",
+      "Divergent",
+      "Radiating outward"
+    ],
+    "antonyms": [
+      "Centripetal",
+      "Inward-moving"
+    ],
+    "example": "Centrifugal force pushes the water outward against the spinning drum of the washing machine.",
+    "mnemonic": "जो centre से बाहर फेंक दे -> Centrifugal.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Centrifugal force / centrifugal pump",
+    "derivatives": "Centrifugally (adverb), Centrifuge (noun/verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-7",
+    "word": "Cerebral",
+    "phonetic": "/səˈriː.brəl/",
+    "hindi": "बौद्धिक / मस्तिष्क संबंधी / दिमागी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Related to thinking, the intellect, or mental activities rather than physical emotion.",
+    "synonyms": [
+      "Intellectual",
+      "Analytical",
+      "Cognitive",
+      "Mental",
+      "Erudite"
+    ],
+    "antonyms": [
+      "Emotional",
+      "Physical",
+      "Visceral",
+      "Instinctive"
+    ],
+    "example": "Chess is an intensely cerebral competition demanding acute concentration and strategic vision.",
+    "mnemonic": "सिर में Brain है, भूसा नहीं -> Cerebral (मस्तिष्क सम्बन्धी)।",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Cerebral approach / cerebral cortex",
+    "derivatives": "Cerebrum (noun), Cerebrally (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-8",
+    "word": "Chafe",
+    "phonetic": "/tʃeɪf/",
+    "hindi": "चिढ़ना / रगड़ कर छिलना / तंग आ जाना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To feel irritated or annoyed due to pressure or restriction; or to make sore by rubbing.",
+    "synonyms": [
+      "Irritate",
+      "Fret",
+      "Abrade",
+      "Grumble",
+      "Rub sore"
+    ],
+    "antonyms": [
+      "Soothe",
+      "Comfort",
+      "Mollify",
+      "Calm"
+    ],
+    "example": "The restless students began to chafe under the principal's overly strict uniform rules.",
+    "mnemonic": "Chai face पर गिर गई, जिससे irritation और जलन हो रही है -> Chafe.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Chafe against restrictions / collar chafes",
+    "derivatives": "Chafed (adjective), Chafing (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-9",
+    "word": "Chagrin",
+    "phonetic": "/ʃəˈɡrɪn/",
+    "hindi": "झुँझलाहट / खीझ / घोर निराशा व लज्जा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A feeling of acute disappointment, humiliation, or annoyance caused by failure.",
+    "synonyms": [
+      "Mortification",
+      "Disappointment",
+      "Vexation",
+      "Embarrassment",
+      "Dismay"
+    ],
+    "antonyms": [
+      "Delight",
+      "Triumph",
+      "Satisfaction",
+      "Exultation"
+    ],
+    "example": "Much to his chagrin, his younger brother scored higher marks in the competitive entrance exam.",
+    "mnemonic": "शक ने grin (चेहरे की मुस्कान) छीन ली -> Chagrin (निराशा व झुँझलाहट)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Much to one's chagrin / deep chagrin",
+    "derivatives": "Chagrined (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-10",
+    "word": "Changeling",
+    "phonetic": "/ˈtʃeɪndʒ.lɪŋ/",
+    "hindi": "बदला हुआ बच्चा / धोखे से बदला गया बालक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A child believed to have been secretly substituted for another, especially by fairies in folklore.",
+    "synonyms": [
+      "Substitute child",
+      "Foundling",
+      "Fairy child"
+    ],
+    "antonyms": [
+      "Biological offspring",
+      "True child"
+    ],
+    "example": "In Irish folklore, villagers suspected that the sickly baby was a changeling left by spirits.",
+    "mnemonic": "Hospital में बच्चा (लिंग) change हो गया है -> Changeling.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Mythical changeling / sickly changeling",
+    "derivatives": "Change (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-11",
+    "word": "Charisma",
+    "phonetic": "/kəˈrɪz.mə/",
+    "hindi": "आकर्षण / सम्मोहन / प्रभावशाली व्यक्तित्व",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A compelling attractiveness or personal charm that inspires devotion and enthusiasm in others.",
+    "synonyms": [
+      "Magnetism",
+      "Charm",
+      "Presence",
+      "Allure",
+      "Appeal"
+    ],
+    "antonyms": [
+      "Repulsiveness",
+      "Dullness",
+      "Unattractiveness"
+    ],
+    "example": "The political orator captivated millions across the nation through sheer personal charisma.",
+    "mnemonic": "Karishma Kapoor, attraction और आकर्षण का दूसरा रूप है -> Charisma.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Natural charisma / exceptional charisma",
+    "derivatives": "Charismatic (adjective), Charismatically (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-12",
+    "word": "Charlatan",
+    "phonetic": "/ˈʃɑːr.lə.tən/",
+    "hindi": "ढोंगी व्यक्ति / नीम-हकीम / झूठा दावा करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person falsely claiming to have special knowledge, medical skill, or secret power.",
+    "synonyms": [
+      "Quack",
+      "Impostor",
+      "Fraud",
+      "Sham",
+      "Mountebank"
+    ],
+    "antonyms": [
+      "Expert",
+      "Specialist",
+      "Master",
+      "Authority"
+    ],
+    "example": "The police arrested the fraudulent healer, exposing him as an unscrupulous charlatan.",
+    "mnemonic": "चार लाठी वाला झूठा ढोंगी बाबा -> Charlatan.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Medical charlatan / exposed as a charlatan",
+    "derivatives": "Charlatanism (noun), Charlatanry (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-13",
+    "word": "Chasm",
+    "phonetic": "/ˈkæz.əm/",
+    "hindi": "गहरी खाई / दरार / गहरा मतभेद",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A deep, gaping fissure in earth or rock; or a profound difference of opinion between people.",
+    "synonyms": [
+      "Abyss",
+      "Gorge",
+      "Rift",
+      "Canyon",
+      "Gulf"
+    ],
+    "antonyms": [
+      "Bridge",
+      "Union",
+      "Continuity"
+    ],
+    "example": "A treacherous chasm cut straight across the snowy glacier path.",
+    "mnemonic": "कसम खाने और निभाने में बहुत बड़ा Gap (खाई) होता है -> Chasm.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Deep chasm / widening chasm between opinions",
+    "derivatives": "Chasmic (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-14",
+    "word": "Chastise",
+    "phonetic": "/tʃæsˈtaɪz/",
+    "hindi": "दंड देना / कड़ी फटकार लगाना / सज़ा देना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To punish or severely criticize someone for bad conduct or wrongdoing.",
+    "synonyms": [
+      "Rebuke",
+      "Reprimand",
+      "Scold",
+      "Castigate",
+      "Berate"
+    ],
+    "antonyms": [
+      "Praise",
+      "Commend",
+      "Applaud",
+      "Reward"
+    ],
+    "example": "The officer severely chastised the recruits for showing negligence on parade duty.",
+    "mnemonic": "चाचा ने स्टेज से ही सबके सामने डाँट और सज़ा दे दी -> Chastise.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Severely chastise / publicly chastise",
+    "derivatives": "Chastisement (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-15",
+    "word": "Chauffeur",
+    "phonetic": "/ʃoʊˈfɝː/",
+    "hindi": "निजी चालक / मोटर चालक (कार ड्राइवर)",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person employed to drive a private automobile or luxury limousine.",
+    "synonyms": [
+      "Driver",
+      "Motorist",
+      "Cabman"
+    ],
+    "antonyms": [
+      "Passenger",
+      "Pedestrian"
+    ],
+    "example": "The corporate director arrived in a sleek black sedan driven by his liveried chauffeur.",
+    "mnemonic": "चौधरी की फेरारी चलाने वाला निजी Driver -> Chauffeur.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Private chauffeur / chauffeur-driven car",
+    "derivatives": "Chauffeur (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-16",
+    "word": "Choir",
+    "phonetic": "/kwaɪər/",
+    "hindi": "गायक मंडली / भजन मंडली",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An organized group of singers who perform together, especially in a church service or concert.",
+    "synonyms": [
+      "Chorus",
+      "Choral ensemble",
+      "Singing group",
+      "Vocal choir"
+    ],
+    "antonyms": [
+      "Soloist",
+      "Individual performer"
+    ],
+    "example": "The church choir performed sacred Christmas carols that left the audience spellbound.",
+    "mnemonic": "कायर अकेले नहीं गा सकता, group बनाकर गाता है -> Choir.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Church choir / choir rehearsal / join a choir",
+    "derivatives": "Choral (adjective), Chorister (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-17",
+    "word": "Chore",
+    "phonetic": "/tʃɔːr/",
+    "hindi": "दैनिक काम / उबाऊ नियमित काम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A routine, repetitive, and often boring task that needs to be done regularly.",
+    "synonyms": [
+      "Errand",
+      "Task",
+      "Drudgery",
+      "Routine duty",
+      "Burden"
+    ],
+    "antonyms": [
+      "Pleasure",
+      "Leisure",
+      "Entertainment",
+      "Recreation"
+    ],
+    "example": "Cleaning the attic turned out to be an exhausting, day-long household chore.",
+    "mnemonic": "छोड़ यार! रोज़ वही काम -> Chore (दैनिक उबाऊ काम)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Household chore / daily chores / tedious chore",
+    "derivatives": "Chore-free (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-18",
+    "word": "Christen",
+    "phonetic": "/ˈkrɪs.ən/",
+    "hindi": "नामकरण करना / नाम रखना / बपतिस्मा देना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To officially give a name to someone (often in baptism) or to inaugurate something.",
+    "synonyms": [
+      "Baptize",
+      "Name",
+      "Dub",
+      "Designate",
+      "Title"
+    ],
+    "antonyms": [
+      "Anonymize",
+      "Strip name"
+    ],
+    "example": "The navy held a ceremonial ceremony to christen the new aircraft carrier before launching.",
+    "mnemonic": "Chris ने ten नई चीजों का नाम दिया -> Christen (नामकरण करना)।",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Christen a baby / christen a new vessel",
+    "derivatives": "Christening (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-19",
+    "word": "Chronic",
+    "phonetic": "/ˈkrɑː.nɪk/",
+    "hindi": "दीर्घकालीन / चिरकालिक / पुराना (रोग)",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Continuing or recurring over a long period of time, especially of a disease or stubborn condition.",
+    "synonyms": [
+      "Long-lasting",
+      "Persistent",
+      "Inveterate",
+      "Incurable",
+      "Habitual"
+    ],
+    "antonyms": [
+      "Acute",
+      "Temporary",
+      "Fleeting",
+      "Short-lived"
+    ],
+    "example": "He required medical therapy to cope with chronic lower back pain.",
+    "mnemonic": "Corona बीमारी लंबे समय (time) तक रही -> Chronic (दीर्घकालीन)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Chronic illness / chronic shortage / chronic fatigue",
+    "derivatives": "Chronically (adverb), Chronicity (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-20",
+    "word": "Chronicle",
+    "phonetic": "/ˈkrɑː.nɪ.kəl/",
+    "hindi": "इतिहास / कालक्रमिक वृत्तांत / इतिवृत्त",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A detailed factual written account of historical events presented in chronological order.",
+    "synonyms": [
+      "History",
+      "Annals",
+      "Record",
+      "Chronology",
+      "Archive"
+    ],
+    "antonyms": [
+      "Fiction",
+      "Legend",
+      "Myth"
+    ],
+    "example": "The scholar published an exhaustive chronicle of the Mughal empire's military campaigns.",
+    "mnemonic": "Corona के हर दिन की लिखी गई इतिहास की कहानी -> Chronicle.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Historical chronicle / chronicle of events",
+    "derivatives": "Chronicler (noun), Chronicle (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-21",
+    "word": "Churlish",
+    "phonetic": "/ˈtʃɝː.lɪʃ/",
+    "hindi": "असभ्य / अक्खड़ / गंवारू / रूखा",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Rude, bad-tempered, ill-mannered, and lacking courteous social behavior.",
+    "synonyms": [
+      "Boorish",
+      "Rude",
+      "Ill-mannered",
+      "Surly",
+      "Crude"
+    ],
+    "antonyms": [
+      "Polite",
+      "Courteous",
+      "Gracious",
+      "Civil",
+      "Refined"
+    ],
+    "example": "It was remarkably churlish of the guest to scoff at the homemade feast provided by the host.",
+    "mnemonic": "Churlish sounds like Girlish behaving badly and rude -> Churlish (असभ्य)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Churlish behavior / churlish reply",
+    "derivatives": "Churlishness (noun), Churlishly (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-22",
+    "word": "Circumlocution",
+    "phonetic": "/ˌsɝː.kəm.loʊˈkjuː.ʃən/",
+    "hindi": "घुमा-फिराकर कहना / कपटपूर्ण या लंबा-चौड़ा कथन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Using many unnecessary words instead of speaking directly; roundabout way of speaking.",
+    "synonyms": [
+      "Periphrasis",
+      "Roundabout speech",
+      "Prolixity",
+      "Verbosity",
+      "Tautology"
+    ],
+    "antonyms": [
+      "Directness",
+      "Brevity",
+      "Conciseness",
+      "Succinctness"
+    ],
+    "example": "His speeches were filled with pompous circumlocution designed to hide the bitter truth.",
+    "mnemonic": "Sir, हम लोग से questions घुमा-फिरा के क्यों पूछते हो? -> Circumlocution.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Speak in circumlocutions / master of circumlocution",
+    "derivatives": "Circumlocutory (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-23",
+    "word": "Citadel",
+    "phonetic": "/ˈsɪt̬.ə.del/",
+    "hindi": "गढ़ / दुर्ग / शहर की रक्षा हेतु मजबूत किला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A strong fortress situated on high ground, built to protect and dominate a city.",
+    "synonyms": [
+      "Fortress",
+      "Bastion",
+      "Stronghold",
+      "Fort",
+      "Castle"
+    ],
+    "antonyms": [
+      "Open settlement",
+      "Unfortified zone"
+    ],
+    "example": "The invincible citadel perched atop the mountain withstood a brutal three-year siege.",
+    "mnemonic": "City का दिल = किला / दुर्ग (जैसे राजस्थान के दुर्ग) -> Citadel.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Ancient citadel / hill citadel / mountain citadel",
+    "derivatives": "Citadeled (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-24",
+    "word": "Clamber",
+    "phonetic": "/ˈklæm.bɚ/",
+    "hindi": "कठिनाई से चढ़ना / हाथ-पैर के बल चढ़ना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To climb or scramble with difficulty, especially using both hands and feet awkwardly.",
+    "synonyms": [
+      "Scramble",
+      "Scale",
+      "Shinny",
+      "Struggle upward"
+    ],
+    "antonyms": [
+      "Descend easily",
+      "Plummet",
+      "Slide down"
+    ],
+    "example": "We had to clamber over jagged rocks and muddy roots to reach the hidden waterfall.",
+    "mnemonic": "कल अम्बर Hill पर हाथ-पैर मारकर चढ़ गया -> Clamber.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Clamber up the bank / clamber over rocks",
+    "derivatives": "Clamber (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-25",
+    "word": "Clamour",
+    "phonetic": "/ˈklæm.ɚ/",
+    "hindi": "हंगामा / कोलाहल / जोरदार माँग या शोरगुल",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A loud, confused, and persistent shouting or vehement outcry made by a crowd.",
+    "synonyms": [
+      "Uproar",
+      "Tumult",
+      "Din",
+      "Hubbub",
+      "Racket"
+    ],
+    "antonyms": [
+      "Silence",
+      "Quiet",
+      "Tranquility",
+      "Calmness"
+    ],
+    "example": "The minister could barely be heard over the deafening clamour of angry protestors outside.",
+    "mnemonic": "जहाँ होगा glamour, वहाँ होगा Clamour (हंगामा व शोर) -> Clamour.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Public clamour / clamour for justice / loud clamour",
+    "derivatives": "Clamorous (adjective), Clamour (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-26",
+    "word": "Clientele",
+    "phonetic": "/ˌkliː.ɑːnˈtel/",
+    "hindi": "ग्राहक वर्ग / मुवक्किल / नियमित ग्राहकों का समूह",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The collective body of regular customers, clients, or patrons of a business or profession.",
+    "synonyms": [
+      "Customers",
+      "Patrons",
+      "Client base",
+      "Buyers",
+      "Regulars"
+    ],
+    "antonyms": [
+      "Vendors",
+      "Suppliers",
+      "Competitors"
+    ],
+    "example": "The 5-star heritage hotel caters exclusively to a wealthy international clientele.",
+    "mnemonic": "Client ले ले भाई... Client ले ले! मेरे पास बहुत ग्राहक हैं -> Clientele.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Elite clientele / loyal clientele / international clientele",
+    "derivatives": "Client (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-27",
+    "word": "Clique",
+    "phonetic": "/kliːk/",
+    "hindi": "गुट / विशिष्ट मंडली / स्वार्थी गिरोह",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A small, exclusive circle or group of people who share interests and exclude outsiders.",
+    "synonyms": [
+      "Coterie",
+      "Faction",
+      "Circle",
+      "Inner ring",
+      "Cabale"
+    ],
+    "antonyms": [
+      "Inclusive group",
+      "General community"
+    ],
+    "example": "An arrogant clique of senior students controlled all leading roles in the theater society.",
+    "mnemonic": "एक click होते ही सारे करीबी दोस्त एक साथ हो गए -> Clique (विशिष्ट गुट)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Exclusive clique / ruling clique / school clique",
+    "derivatives": "Cliquish (adjective), Cliquey (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-28",
+    "word": "Coerce",
+    "phonetic": "/koʊˈɝːs/",
+    "hindi": "ज़बरदस्ती करना / मजबूर करना / दबाव डालकर काम कराना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To force someone to act against their will using threats, intimidation, or physical force.",
+    "synonyms": [
+      "Compel",
+      "Force",
+      "Pressurize",
+      "Intimidate",
+      "Bully"
+    ],
+    "antonyms": [
+      "Persuade",
+      "Cajole",
+      "Allow willingly",
+      "Entreat"
+    ],
+    "example": "The extortionist attempted to coerce the merchant into paying a hefty monthly protection fee.",
+    "mnemonic": "Course ज़बरदस्ती complete कराया गया -> Coerce (ज़बरदस्ती करना)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Coerce into doing / coerce by threat",
+    "derivatives": "Coercion (noun), Coercive (adjective), Coercively (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-29",
+    "word": "Colloquy",
+    "phonetic": "/ˈkɑː.lə.kwi/",
+    "hindi": "बातचीत / औपचारिक वार्तालाप / संभाषण",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A formal or serious conversation, discussion, or conference between two or more people.",
+    "synonyms": [
+      "Dialogue",
+      "Conference",
+      "Discussion",
+      "Parley",
+      "Consultation"
+    ],
+    "antonyms": [
+      "Monologue",
+      "Silence"
+    ],
+    "example": "The leaders engaged in an earnest diplomatic colloquy to defuse border tensions.",
+    "mnemonic": "Satyam kallo ki se bahut formal baten krta hai -> Colloquy (गंभीर बातचीत)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Diplomatic colloquy / brief colloquy",
+    "derivatives": "Colloquial (adjective), Colloquialism (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-30",
+    "word": "Collusion",
+    "phonetic": "/kəˈluː.ʒən/",
+    "hindi": "गठजोड़ / मिलीभगत / कपट संधि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Secret cooperation or agreement between parties in order to deceive or cheat others.",
+    "synonyms": [
+      "Conspiracy",
+      "Connivance",
+      "Complicity",
+      "Intrigue",
+      "Cahoots"
+    ],
+    "antonyms": [
+      "Fair play",
+      "Honesty",
+      "Independence",
+      "Openness"
+    ],
+    "example": "The audit revealed clear collusion between the corrupt contractors and store officers.",
+    "mnemonic": "कोई illusion नहीं है, सब मिले हुए हैं -> Collusion (मिलीभगत)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "In collusion with / act in collusion",
+    "derivatives": "Collude (verb), Collusive (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-31",
+    "word": "Colony",
+    "phonetic": "/ˈkɑː.lə.ni/",
+    "hindi": "चींटियों का झुंड / बस्ती / संघ",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A community of animals, plants, or insects (such as ants or bees) living closely together.",
+    "synonyms": [
+      "Settlement",
+      "Community",
+      "Swarm",
+      "Nest",
+      "Cluster"
+    ],
+    "antonyms": [
+      "Solitary creature"
+    ],
+    "example": "The garden was overrun by an underground colony of aggressive red fire ants.",
+    "mnemonic": "कॉलोनी में चींटियों की पूरी बस्ती रहती है -> Colony (चींटियों का झुंड)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Ant colony / breeding colony / bird colony",
+    "derivatives": "Colonial (adjective), Colonize (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-32",
+    "word": "Commemorate",
+    "phonetic": "/kəˈmem.ə.reɪt/",
+    "hindi": "स्मरण करना / उत्सव मनाना / सम्मान में आयोजन करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To honour, remember, and celebrate an important person or event with a ceremony or monument.",
+    "synonyms": [
+      "Memorialize",
+      "Celebrate",
+      "Honour",
+      "Pay tribute to",
+      "Remember"
+    ],
+    "antonyms": [
+      "Forget",
+      "Ignore",
+      "Overlook",
+      "Disregard"
+    ],
+    "example": "A grand statue was erected at the square to commemorate the fallen national martyrs.",
+    "mnemonic": "कम memory में भी विशेष रूप से याद करना -> Commemorate (स्मरण करना)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Commemorate the centenary / commemorate the sacrifice",
+    "derivatives": "Commemoration (noun), Commemorative (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-33",
+    "word": "Commensurate",
+    "phonetic": "/kəˈmen.sjɚ.ət/",
+    "hindi": "आनुपातिक / समानुपातिक / के अनुरूप",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Corresponding in amount, magnitude, or degree; in proper proportion.",
+    "synonyms": [
+      "Proportionate",
+      "Equivalent",
+      "Corresponding",
+      "Equal",
+      "Consistent"
+    ],
+    "antonyms": [
+      "Disproportionate",
+      "Incommensurate",
+      "Mismatched"
+    ],
+    "example": "The salary offered by the firm will be fully commensurate with the candidate's qualifications.",
+    "mnemonic": "Mensuration में size और अनुपात match करते हैं -> Commensurate.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Commensurate with experience / commensurate salary",
+    "derivatives": "Commensurately (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-34",
+    "word": "Compassion",
+    "phonetic": "/kəmˈpæʃ.ən/",
+    "hindi": "करुणा / दया / हमदर्दी / परदुःखकातरता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A deep sympathetic pity and concern for the sufferings or misfortunes of others, accompanied by a desire to relieve it.",
+    "synonyms": [
+      "Empathy",
+      "Sympathy",
+      "Kindness",
+      "Mercy",
+      "Tenderness"
+    ],
+    "antonyms": [
+      "Cruelty",
+      "Callousness",
+      "Indifference",
+      "Brutality"
+    ],
+    "example": "Mother Teresa dedicated her entire existence to serving the destitute with boundless compassion.",
+    "mnemonic": "कम पैसे में भी जरूरतमंद की मदद कर दी -> Compassion (करुणा व दया)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Deep compassion / act with compassion / feel compassion",
+    "derivatives": "Compassionate (adjective), Compassionately (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-35",
+    "word": "Compere",
+    "phonetic": "/ˈkɑːm.per/",
+    "hindi": "संचालक / उद्घोषक / कार्यक्रम प्रस्तुतकर्ता (एंकर)",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who introduces performers and acts as the host of a stage, radio, or television show.",
+    "synonyms": [
+      "Master of ceremonies (MC)",
+      "Host",
+      "Presenter",
+      "Announcer"
+    ],
+    "antonyms": [
+      "Audience",
+      "Performer"
+    ],
+    "example": "The witty compere kept the television gala audience thoroughly entertained between music acts.",
+    "mnemonic": "Compare to others वो बहुत बेहतरीन stage performance करता है -> Compere (संचालक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Talented compere / stage compere",
+    "derivatives": "Compere (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-36",
+    "word": "Complacent",
+    "phonetic": "/kəmˈpleɪ.sənt/",
+    "hindi": "आत्मसंतुष्ट / बेपरवाह / लापरवाह रूप से संतुष्ट",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Too satisfied with oneself or one's achievements, showing uncritical complacency and little concern for improvement.",
+    "synonyms": [
+      "Self-satisfied",
+      "Smug",
+      "Contented",
+      "Unconcerned",
+      "Relaxed"
+    ],
+    "antonyms": [
+      "Dissatisfied",
+      "Vigilant",
+      "Ambitious",
+      "Concerned"
+    ],
+    "example": "Top students must never become complacent after a preliminary win; consistent revision is crucial.",
+    "mnemonic": "कम place में भी वो संतुष्ट होकर बैठ गया -> Complacent (आत्मसंतुष्ट)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Grow complacent / complacent attitude / dangerously complacent",
+    "derivatives": "Complacency (noun), Complacently (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-37",
+    "word": "Compositor",
+    "phonetic": "/kəmˈpɑː.zə.t̬ɚ/",
+    "hindi": "मुद्रक / अक्षर-योजक / टाइप बैठाने वाला व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who sets written material into type or arranges text for printing.",
+    "synonyms": [
+      "Typesetter",
+      "Typographer",
+      "Printer",
+      "Font arranger"
+    ],
+    "antonyms": [
+      "Author",
+      "Reader"
+    ],
+    "example": "The skilled compositor set every lead type letter by hand on the press plate.",
+    "mnemonic": "Computer पर seat-तोड़ काम करने वाला ही print चीजों को arrange करता है -> Compositor.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Master compositor / print shop compositor",
+    "derivatives": "Composite (verb/adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-38",
+    "word": "Compunction",
+    "phonetic": "/kəmˈpʌŋk.ʃən/",
+    "hindi": "पश्चाताप / ग्लानि / अंतःकरण का संकोच",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A feeling of guilt, moral hesitation, or remorse that prevents or follows wrongdoing.",
+    "synonyms": [
+      "Qualm",
+      "Remorse",
+      "Scruple",
+      "Regret",
+      "Contrition"
+    ],
+    "antonyms": [
+      "Shamelessness",
+      "Remorselessness",
+      "Callousness"
+    ],
+    "example": "The ruthless pirate looted the helpless merchant vessel without the slightest compunction.",
+    "mnemonic": "कम खाया Function में, अब पछतावा और ग्लानि हो रही है -> Compunction.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Without compunction / feel compunction",
+    "derivatives": "Compunctious (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-39",
+    "word": "Conceited",
+    "phonetic": "/kənˈsiː.t̬ɪd/",
+    "hindi": "अहंकारी / घमंडी / आत्मश्लाघी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Excessively proud of oneself, one's abilities, appearance, or status; boastfully vain.",
+    "synonyms": [
+      "Arrogant",
+      "Vain",
+      "Egotistical",
+      "Pompous",
+      "Overbearing"
+    ],
+    "antonyms": [
+      "Modest",
+      "Humble",
+      "Self-effacing",
+      "Diffident"
+    ],
+    "example": "He was so conceited that he believed nobody in the entire company possessed his intellect.",
+    "mnemonic": "कौन-सी गाड़ी है तेरी, जो इतना ऐंठ और घमंड दिखा रहा है? -> Conceited.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Conceited fellow / vain and conceited",
+    "derivatives": "Conceit (noun), Conceitedly (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-40",
+    "word": "Conceivable",
+    "phonetic": "/kənˈsiː.və.bəl/",
+    "hindi": "कल्पनीय / विचारणीय / बोधगम्य (जो संभव हो)",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Capable of being imagined, conceived, or believed; logically possible.",
+    "synonyms": [
+      "Imaginable",
+      "Plausible",
+      "Feasible",
+      "Credible",
+      "Possible"
+    ],
+    "antonyms": [
+      "Inconceivable",
+      "Unthinkable",
+      "Impossible",
+      "Unimaginable"
+    ],
+    "example": "Investigators explored every conceivable theory to explain the mysterious disappearance of the aircraft.",
+    "mnemonic": "कौन-सी वाली बात? वही, जो सच हो सकती है और समझ में आए -> Conceivable.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Every conceivable means / easily conceivable",
+    "derivatives": "Conceivably (adverb), Conceive (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-41",
+    "word": "Concentric",
+    "phonetic": "/kənˈsen.trɪk/",
+    "hindi": "एक ही केंद्र वाला / समकेंद्रीय (गोल घेरे)",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Having a common center point, especially of circles, spheres, or rings of different sizes.",
+    "synonyms": [
+      "Coaxial",
+      "Nested circular",
+      "Common-centered"
+    ],
+    "antonyms": [
+      "Eccentric",
+      "Off-center"
+    ],
+    "example": "The archery target consists of colorful concentric circles around the central yellow bullseye.",
+    "mnemonic": "कौन-सा centre? भाई, सबका एक ही centre है -> Concentric.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CDS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Concentric circles / concentric rings",
+    "derivatives": "Concentrically (adverb), Concentricity (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-42",
+    "word": "Condone",
+    "phonetic": "/kənˈdoʊn/",
+    "hindi": "क्षमा करना / अनदेखा करना / अपराध को नजरअंदाज करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To accept, overlook, or forgive behavior that is considered morally wrong or illegal without punishment.",
+    "synonyms": [
+      "Overlook",
+      "Pardon",
+      "Excuse",
+      "Tolerate",
+      "Disregard"
+    ],
+    "antonyms": [
+      "Condemn",
+      "Punish",
+      "Censure",
+      "Denounce"
+    ],
+    "example": "The university code clearly states that the administration will never condone academic plagiarism.",
+    "mnemonic": "कौन don? वही डॉन जिसने तुम्हें माफ़ कर दिया -> Condone (क्षमा या अनदेखा करना)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Refuse to condone / condone violence",
+    "derivatives": "Condonation (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-43",
+    "word": "Confluence",
+    "phonetic": "/ˈkɑːn.fluː.əns/",
+    "hindi": "संगम / नदियों का मिलन-स्थल",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place where two or more rivers, streams, or waterways flow together and meet.",
+    "synonyms": [
+      "Junction",
+      "Convergence",
+      "Meeting point",
+      "Union",
+      "Merging"
+    ],
+    "antonyms": [
+      "Divergence",
+      "Fork",
+      "Separation"
+    ],
+    "example": "Prayagraj is famous for the sacred Triveni Confluence of the Ganga, Yamuna, and mythical Saraswati.",
+    "mnemonic": "Cone में रखी सारी चॉकलेट flow होकर नीचे संगम पर एक साथ मिल गई -> Confluence.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Sacred confluence / confluence of rivers",
+    "derivatives": "Confluent (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-44",
+    "word": "Conformist",
+    "phonetic": "/kənˈfɔːr.mɪst/",
+    "hindi": "अनुयायी / परंपरावादी / स्थापित नियमों का पालन करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who unquestioningly adopts the behavior, established customs, and rules of the majority.",
+    "synonyms": [
+      "Traditionalist",
+      "Follower",
+      "Conventionalist",
+      "Orthodox adherent"
+    ],
+    "antonyms": [
+      "Rebel",
+      "Non-conformist",
+      "Maverick",
+      "Dissident"
+    ],
+    "example": "As a strict conformist, he never questioned company protocols or proposed experimental changes.",
+    "mnemonic": "हर काम को confirm करके नियमों के साथ चलने वाला -> Conformist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Strict conformist / conformist attitude",
+    "derivatives": "Conformity (noun), Conform (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-45",
+    "word": "Congenital",
+    "phonetic": "/kənˈdʒen.ə.t̬əl/",
+    "hindi": "जन्मजात / पैदाइशी / जन्म से विद्यमान",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Present at and existing from the time of birth, especially of a disease or physical defect.",
+    "synonyms": [
+      "Inborn",
+      "Innate",
+      "Hereditary",
+      "Native",
+      "Constitutional"
+    ],
+    "antonyms": [
+      "Acquired",
+      "Contracted later",
+      "Developed"
+    ],
+    "example": "The infant underwent surgery to correct a congenital anomaly in the heart valve.",
+    "mnemonic": "भाई, कौन से genes लेकर जन्म से आए हो -> Congenital (जन्मजात)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Congenital defect / congenital disorder / congenital disease",
+    "derivatives": "Congenitally (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-46",
+    "word": "Conglomerate",
+    "phonetic": "/kənˈɡlɑː.mɚ.ət/",
+    "hindi": "समूह / बहु-उद्योग निगम / विशाल व्यापारिक संगठन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A large corporation made up of several different companies that operate in diverse industries.",
+    "synonyms": [
+      "Corporation",
+      "Multinational",
+      "Consortium",
+      "Syndicate",
+      "Holding company"
+    ],
+    "antonyms": [
+      "Sole proprietorship",
+      "Single-business unit"
+    ],
+    "example": "The media conglomerate owns newspaper chains, television studios, and music streaming platforms.",
+    "mnemonic": "कंगालों ने मिलकर एक बड़ा व्यापारिक समूह बना लिया -> Conglomerate.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Industrial conglomerate / giant conglomerate",
+    "derivatives": "Conglomeration (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-47",
+    "word": "Congregation",
+    "phonetic": "/ˌkɑːŋ.ɡrəˈɡeɪ.ʃən/",
+    "hindi": "जनसमूह / धार्मिक सभा / भक्त मंडली",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A gathering or crowd of people assembled together, especially for religious worship.",
+    "synonyms": [
+      "Flock",
+      "Worshippers",
+      "Parishioners",
+      "Assembly",
+      "Fellowship"
+    ],
+    "antonyms": [
+      "Dispersal",
+      "Solitude"
+    ],
+    "example": "The bishop delivered a moving Christmas sermon to an overflowing church congregation.",
+    "mnemonic": "Congress की रैली में nation की बहुत बड़ी धार्मिक जैसी भीड़ इकट्ठा हुई -> Congregation.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Church congregation / address the congregation",
+    "derivatives": "Congregate (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-48",
+    "word": "Connoisseur",
+    "phonetic": "/ˌkɑː.nəˈsɝː/",
+    "hindi": "पारखी / विशेषज्ञ / कला व स्वाद का मर्मज्ञ",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An expert judge in matters of fine art, cuisine, music, or matters of taste.",
+    "synonyms": [
+      "Expert",
+      "Specialist",
+      "Aficionado",
+      "Virtuoso",
+      "Gourmet"
+    ],
+    "antonyms": [
+      "Novice",
+      "Amateur",
+      "Philistine",
+      "Ignoramus"
+    ],
+    "example": "Being a noted connoisseur of classical painting, he was consulted to authenticate the antique canvas.",
+    "mnemonic": "कौन हो सर! इतना deep knowledge और पारखी नजर कैसे? -> Connoisseur.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Art connoisseur / wine connoisseur / true connoisseur",
+    "derivatives": "Connoisseurship (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-49",
+    "word": "Conscientious",
+    "phonetic": "/ˌkɑːn.ʃiˈen.ʃəs/",
+    "hindi": "कर्तव्यनिष्ठ / ईमानदार / सतर्क व परिश्रमी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Wishing to do one's work or duty thoroughly, honestly, and with moral care.",
+    "synonyms": [
+      "Diligent",
+      "Meticulous",
+      "Scrupulous",
+      "Dedicated",
+      "Painstaking"
+    ],
+    "antonyms": [
+      "Careless",
+      "Negligent",
+      "Irresponsible",
+      "Slack"
+    ],
+    "example": "She was such a conscientious auditor that not a single discrepancy escaped her attention.",
+    "mnemonic": "Conscious होकर Science पढ़ने वाला कर्तव्यनिष्ठ छात्र -> Conscientious.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Conscientious student / conscientious worker / scrupulous and conscientious",
+    "derivatives": "Conscientiously (adverb), Conscientiousness (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-50",
+    "word": "Console",
+    "phonetic": "/kənˈsoʊl/",
+    "hindi": "सांत्वना देना / ढाढ़स बंधाना / दिलासा देना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To comfort someone at a time of grief, sorrow, disappointment, or distress.",
+    "synonyms": [
+      "Comfort",
+      "Solace",
+      "Soothe",
+      "Cheer up",
+      "Assuage"
+    ],
+    "antonyms": [
+      "Distress",
+      "Torment",
+      "Agitate",
+      "Depress"
+    ],
+    "example": "The teacher gently put an arm around the crying boy to console him after his exam defeat.",
+    "mnemonic": "कौन उसकी soul को शांति और दिलासा देगा -> Console (सांत्वना देना)।",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Console a grieving friend / impossible to console",
+    "derivatives": "Consolation (noun), Consolable (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-51",
+    "word": "Consort",
+    "phonetic": "/ˈkɑːn.sɔːrt/",
+    "hindi": "सहचर / संगी / राजा या रानी का जीवनसाथी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A companion, associate, or especially the spouse of a reigning monarch.",
+    "synonyms": [
+      "Spouse",
+      "Partner",
+      "Companion",
+      "Mate",
+      "Associate"
+    ],
+    "antonyms": [
+      "Rival",
+      "Enemy",
+      "Foe"
+    ],
+    "example": "Prince Albert served with distinction as Prince Consort to Queen Victoria during the industrial boom.",
+    "mnemonic": "कौन-सी शर्त पर दोनों की शादी और साथ हुआ -> Consort (सहचर/जीवनसाथी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Queen consort / prince consort",
+    "derivatives": "Consort (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-52",
+    "word": "Consternation",
+    "phonetic": "/ˌkɑːn.stɚˈneɪ.ʃən/",
+    "hindi": "घबराहट / विस्मय / हड़कंप / भारी व्याकुलता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A sudden feeling of shock, anxiety, and confusion mixed with dismay at something unexpected.",
+    "synonyms": [
+      "Dismay",
+      "Perturbation",
+      "Alarm",
+      "Panic",
+      "Bewilderment"
+    ],
+    "antonyms": [
+      "Composure",
+      "Calmness",
+      "Serenity",
+      "Equanimity"
+    ],
+    "example": "The sudden overnight devaluation of the currency triggered widespread consternation in financial markets.",
+    "mnemonic": "Cancer की खबर से पूरे nation में हड़कंप और घबराहट मच गई -> Consternation.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Cause consternation / widespread consternation",
+    "derivatives": "Consternate (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-53",
+    "word": "Constrained",
+    "phonetic": "/kənˈstreɪnd/",
+    "hindi": "बाध्य / विवश / खिंचा हुआ व संकुचित",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Restricted or forced by limitations, rules, or unnatural tension.",
+    "synonyms": [
+      "Forced",
+      "Restrained",
+      "Restricted",
+      "Stiff",
+      "Awkward"
+    ],
+    "antonyms": [
+      "Spontaneous",
+      "Free",
+      "Natural",
+      "Uninhibited"
+    ],
+    "example": "She offered only a strained, constrained smile when confronted with the awkward question.",
+    "mnemonic": "कौन-सी ट्रेन ज़बरदस्ती रोक कर बाध्य कर दी गई? -> Constrained (बाध्य)।",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Constrained atmosphere / financially constrained",
+    "derivatives": "Constrain (verb), Constraint (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-54",
+    "word": "Consummate",
+    "phonetic": "/ˈkɑːn.sə.mət/",
+    "hindi": "निपुण / परम / सिद्धहस्त / सर्वोच्च कला वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Showing complete mastery, supreme skill, flair, or superlative perfection.",
+    "synonyms": [
+      "Masterly",
+      "Flawless",
+      "Exemplary",
+      "Peerless",
+      "Supreme"
+    ],
+    "antonyms": [
+      "Inept",
+      "Clumsy",
+      "Amateurish",
+      "Deficient"
+    ],
+    "example": "The maestro played the violin concerto with consummate grace and extraordinary precision.",
+    "mnemonic": "नई चीजों को consume करने और सीखने में teammate निपुण है -> Consummate.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Consummate skill / consummate professional / consummate ease",
+    "derivatives": "Consummately (adverb), Consummation (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-55",
+    "word": "Contemporary",
+    "phonetic": "/kənˈtem.pə.rer.i/",
+    "hindi": "समकालीन / उसी समय का व्यक्ति या घटना",
+    "type": "ows",
+    "partOfSpeech": "Noun / Adj (OWS)",
+    "meaning": "Belonging to the same historical period; or a person living at the same time as another.",
+    "synonyms": [
+      "Coexistent",
+      "Modern",
+      "Current",
+      "Peer",
+      "Synchronous"
+    ],
+    "antonyms": [
+      "Ancient",
+      "Antecedent",
+      "Preceding",
+      "Antiquated"
+    ],
+    "example": "Leo Tolstoy and Fyodor Dostoevsky were celebrated contemporaries in Russian literature.",
+    "mnemonic": "आज के समय के connection temporary हो गए हैं -> Contemporary (समकालीन)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Contemporary literature / contemporary art / literary contemporaries",
+    "derivatives": "Contemporaneously (adverb), Contemporaneity (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-56",
+    "word": "Contented",
+    "phonetic": "/kənˈten.t̬ɪd/",
+    "hindi": "संतुष्ट / तृप्त / आत्मप्रसन्न",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Feeling peaceful, happy, and satisfied with what one has or one's present condition.",
+    "synonyms": [
+      "Satisfied",
+      "Gratified",
+      "Pleased",
+      "Serene",
+      "Untroubled"
+    ],
+    "antonyms": [
+      "Discontented",
+      "Dissatisfied",
+      "Restless",
+      "Frustrated"
+    ],
+    "example": "With a warm cup of tea and a good book by the fireplace, she felt completely contented.",
+    "mnemonic": "VOD batch के content से दिल बहुत satisfied और तृप्त है -> Contented.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Contented smile / contented life",
+    "derivatives": "Contentedness (noun), Contentedly (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-57",
+    "word": "Contentious",
+    "phonetic": "/kənˈten.ʃəs/",
+    "hindi": "विवादास्पद / झगड़ालू / विवादप्रिय",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Likely to cause fierce arguments, public dispute, or disagreement; controversial.",
+    "synonyms": [
+      "Controversial",
+      "Debatable",
+      "Disputed",
+      "Quarrelsome",
+      "Pugnacious"
+    ],
+    "antonyms": [
+      "Uncontroversial",
+      "Peaceable",
+      "Harmonious",
+      "Agreeable"
+    ],
+    "example": "Water-sharing agreements remain one of the most contentious topics between neighboring states.",
+    "mnemonic": "Contest में tension की वजह से भारी विवाद हो गया -> Contentious (विवादास्पद)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Contentious issue / contentious debate / contentious topic",
+    "derivatives": "Contentiously (adverb), Contentiousness (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-58",
+    "word": "Contiguous",
+    "phonetic": "/kənˈtɪɡ.ju.əs/",
+    "hindi": "संनिकट / सटा हुआ / साझा सीमा वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Sharing a common border, touching together in an unbroken sequence; adjacent.",
+    "synonyms": [
+      "Adjacent",
+      "Adjoining",
+      "Neighbouring",
+      "Abutting",
+      "Touching"
+    ],
+    "antonyms": [
+      "Distant",
+      "Separate",
+      "Detached",
+      "Isolated"
+    ],
+    "example": "The United States comprises forty-eight contiguous states alongside Alaska and Hawaii.",
+    "mnemonic": "कॉलोनी की सारी Aunties की बालकनियाँ बिल्कुल पास-पास और सटी हैं -> Contiguous.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Contiguous borders / contiguous states / contiguous lands",
+    "derivatives": "Contiguity (noun), Contiguously (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-59",
+    "word": "Contour",
+    "phonetic": "/ˈkɑːn.tʊr/",
+    "hindi": "रूपरेखा / परिरेखा / समोच्च रेखा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An outline representing the shape or external boundary of a surface, landscape, or body.",
+    "synonyms": [
+      "Outline",
+      "Profile",
+      "Silhouette",
+      "Boundary",
+      "Delineation"
+    ],
+    "antonyms": [
+      "Center",
+      "Core",
+      "Interior"
+    ],
+    "example": "The sculptor carefully chiseled the elegant contours of the marble bust.",
+    "mnemonic": "Conductor ने पूरे tour का route और outline बना दिया -> Contour (रूपरेखा)।",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "NDA",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Contour map / facial contours / sharp contour",
+    "derivatives": "Contoured (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-60",
+    "word": "Convalescent",
+    "phonetic": "/ˌkɑːn.vəˈles.ənt/",
+    "hindi": "स्वास्थ्यलाभ करने वाला व्यक्ति / रोगमुक्ति पा रहा मरीज",
+    "type": "ows",
+    "partOfSpeech": "Noun / Adj (OWS)",
+    "meaning": "A person recovering gradually from an illness, medical surgery, or physical injury.",
+    "synonyms": [
+      "Recovering patient",
+      "Recuperating",
+      "Convalescing"
+    ],
+    "antonyms": [
+      "Critical patient",
+      "Incurable",
+      "Deteriorating"
+    ],
+    "example": "The peaceful hill station provided clean mountain air for the convalescent to regain vitality.",
+    "mnemonic": "जिस constable का valley में accident हुआ था, अब वो धीरे-धीरे recover कर रहा है -> Convalescent.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Convalescent home / convalescent patient / convalescent stage",
+    "derivatives": "Convalesce (verb), Convalescence (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-61",
+    "word": "Coronation",
+    "phonetic": "/ˌkɔːr.əˈneɪ.ʃən/",
+    "hindi": "राज्याभिषेक / ताजपोशी / सम्राट का पदग्रहण",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The ceremony of crowning a sovereign king or queen upon their formal accession.",
+    "synonyms": [
+      "Crowning",
+      "Investiture",
+      "Enthronement",
+      "Accession ceremony"
+    ],
+    "antonyms": [
+      "Abdication",
+      "Dethronement",
+      "Deposition"
+    ],
+    "example": "Millions tuned in across the globe to watch the historic royal coronation ceremony.",
+    "mnemonic": "Corona के बाद nation ने नए राजा का भव्य राज्याभिषेक किया -> Coronation.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Coronation ceremony / royal coronation",
+    "derivatives": "Coronate (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-62",
+    "word": "Corpus",
+    "phonetic": "/ˈkɔːr.pəs/",
+    "hindi": "संग्रह / ग्रंथावली / भाषा या साहित्य का विशाल संकलन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A large collection of written or spoken texts used for linguistic analysis or scholarly research.",
+    "synonyms": [
+      "Compilation",
+      "Collection",
+      "Body of writings",
+      "Anthology",
+      "Archive"
+    ],
+    "antonyms": [
+      "Fragment",
+      "Single excerpt"
+    ],
+    "example": "Lexicographers combed through an electronic corpus of millions of English words to build the dictionary.",
+    "mnemonic": "Car को महान लेखकों की पुस्तकों से भर दिया है -> Corpus (रचना-संग्रह)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CPO",
+      "Steno",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Linguistic corpus / text corpus / entire corpus",
+    "derivatives": "Corpora (plural)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-63",
+    "word": "Corroborate",
+    "phonetic": "/kəˈrɑː.bə.reɪt/",
+    "hindi": "पुष्टि करना / समर्थन करना / साक्ष्य से सिद्ध करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To confirm, support, or authenticate a statement or finding with fresh additional evidence.",
+    "synonyms": [
+      "Confirm",
+      "Verify",
+      "Substantiate",
+      "Authenticate",
+      "Validate"
+    ],
+    "antonyms": [
+      "Contradict",
+      "Refute",
+      "Disprove",
+      "Discredit"
+    ],
+    "example": "Forensic ballistic reports arrived just in time to corroborate the witness's testimony.",
+    "mnemonic": "Court में Robot ने वैज्ञानिक सबूत देकर सब कुछ सही साबित और पुष्ट कर दिया -> Corroborate.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Corroborate evidence / corroborate the story / corroborate findings",
+    "derivatives": "Corroboration (noun), Corroborative (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-64",
+    "word": "Cosmopolitan",
+    "phonetic": "/ˌkɑːz.məˈpɑː.lɪ.tən/",
+    "hindi": "विश्वनागरिक / सर्वदेशीय / पूरे विश्व को अपना मानने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun / Adj (OWS)",
+    "meaning": "A person familiar with and at ease in many different countries and cultures; world citizen.",
+    "synonyms": [
+      "Universal",
+      "Global citizen",
+      "Multicultural",
+      "Worldly",
+      "Broad-minded"
+    ],
+    "antonyms": [
+      "Provincial",
+      "Insular",
+      "Parochial",
+      "Narrow-minded"
+    ],
+    "example": "London and New York are renowned for their vibrant, cosmopolitan populations.",
+    "mnemonic": "काश मनुष्य politics न करके पूरे ब्रह्मांड को अपना घर मानता -> Cosmopolitan.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Cosmopolitan city / cosmopolitan atmosphere / cosmopolitan lifestyle",
+    "derivatives": "Cosmopolitanism (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-65",
+    "word": "Creed",
+    "phonetic": "/kriːd/",
+    "hindi": "आस्था / पंथ / धार्मिक या नैतिक विश्वास",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A set of formal beliefs, doctrines, or principles that guide a person's life or religion.",
+    "synonyms": [
+      "Faith",
+      "Belief",
+      "Doctrine",
+      "Tenet",
+      "Credo"
+    ],
+    "antonyms": [
+      "Atheism",
+      "Skepticism",
+      "Disbelief"
+    ],
+    "example": "The nation's preamble guarantees freedom of thought, expression, faith, and religious creed.",
+    "mnemonic": "बचपन से धर्मग्रंथों में जो Read किया है, उसी में ही सच्ची आस्था और विश्वास है -> Creed.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Irrespective of caste or creed / religious creed / political creed",
+    "derivatives": "Credo (noun)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-66",
+    "word": "Crusade",
+    "phonetic": "/kruːˈseɪd/",
+    "hindi": "अभियान / धर्मयुद्ध / सामाजिक या राजनीतिक सुधार आंदोलन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A vigorous, impassioned campaign organized for a religious, political, or social cause.",
+    "synonyms": [
+      "Campaign",
+      "Movement",
+      "Holy war",
+      "Drive",
+      "Struggle"
+    ],
+    "antonyms": [
+      "Passivity",
+      "Apathy",
+      "Inertia"
+    ],
+    "example": "The fearless whistleblower led an unyielding crusade against high-level corporate corruption.",
+    "mnemonic": "सारे Crew के साथ मिलकर सामाजिक सुधार के लिए parade और अभियान किया -> Crusade.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Crusade against corruption / environmental crusade / lead a crusade",
+    "derivatives": "Crusader (noun), Crusade (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-67",
+    "word": "Crusted",
+    "phonetic": "/ˈkrʌs.tɪd/",
+    "hindi": "परतदार / पपड़ीदार / कठोर बाहरी परत से ढका हुआ",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Covered with or possessing a hard, dry outer layer, rind, or crust.",
+    "synonyms": [
+      "Coated",
+      "Encased",
+      "Hardened",
+      "Caked",
+      "Scabbed"
+    ],
+    "antonyms": [
+      "Smooth",
+      "Soft",
+      "Uncoated",
+      "Pliable"
+    ],
+    "example": "The ancient terracotta amphora recovered from the seafloor was heavily crusted with salt and shells.",
+    "mnemonic": "Bread की crispy crust जैसी सख्त परतदार सतह -> Crusted.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Salt-crusted / snow-crusted / crusted surface",
+    "derivatives": "Crust (noun/verb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-68",
+    "word": "Cuisine",
+    "phonetic": "/kwɪˈziːn/",
+    "hindi": "खानपान शैली / व्यंजन / विशिष्ट पाक-कला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A distinctive style or manner of cooking food, especially characteristic of a region or country.",
+    "synonyms": [
+      "Cookery",
+      "Gastronomy",
+      "Culinary art",
+      "Fare",
+      "Dishes"
+    ],
+    "antonyms": [
+      "Inedible food",
+      "Raw nourishment"
+    ],
+    "example": "The restaurant serves a delectable fusion of Mediterranean and traditional Mughlai cuisine.",
+    "mnemonic": "Cousin के घर शादी में नए-नए स्वादिष्ट पकवान और व्यंजन खाने को मिलते हैं -> Cuisine.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Indian cuisine / fine cuisine / local cuisine",
+    "derivatives": "Culinary (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-69",
+    "word": "Culpable",
+    "phonetic": "/ˈkʌl.pə.bəl/",
+    "hindi": "दोषी / दंडनीय / कसूरवार / निंदनीय",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Deserving blame, censure, or punishment for a mistake, negligence, or crime.",
+    "synonyms": [
+      "Blameworthy",
+      "Guilty",
+      "Liable",
+      "Answerable",
+      "Reprehensible"
+    ],
+    "antonyms": [
+      "Innocent",
+      "Blameless",
+      "Exonerated",
+      "Faultless"
+    ],
+    "example": "The truck driver was found culpable of reckless driving leading to the highway accident.",
+    "mnemonic": "कल के किए हुए पाप और गुनाह के लिए तुम ही दोषी हो -> Culpable.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Culpable homicide / hold someone culpable / morally culpable",
+    "derivatives": "Culpability (noun), Culpably (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-70",
+    "word": "Curse",
+    "phonetic": "/kɝːs/",
+    "hindi": "श्राप / अभिशाप / बददुआ / अनिष्ट की कामना",
+    "type": "ows",
+    "partOfSpeech": "Noun / Verb (OWS)",
+    "meaning": "A spoken appeal or invocation wishing that evil, severe harm, or misfortune befall someone.",
+    "synonyms": [
+      "Malediction",
+      "Imprecation",
+      "Bane",
+      "Hex",
+      "Jinx"
+    ],
+    "antonyms": [
+      "Blessing",
+      "Benediction",
+      "Boon"
+    ],
+    "example": "In mythical legends, anyone who disturbed the sacred tomb would succumb to an ancient pharaoh's curse.",
+    "mnemonic": "महिला का purse छीना, महिला ने गुस्से में उसे curse (श्राप व बददुआ) दिया -> Curse.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Under a curse / utter a curse / lift a curse",
+    "derivatives": "Cursed (adjective)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-71",
+    "word": "Cynic",
+    "phonetic": "/ˈsɪn.ɪk/",
+    "hindi": "निंदक / दोषदर्शी / मानवद्वेषी / हर बात में स्वार्थ देखने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who distrusts human sincerity and believes that people are motivated purely by self-interest.",
+    "synonyms": [
+      "Skeptic",
+      "Pessimist",
+      "Doubter",
+      "Misanthrope",
+      "Fault-finder"
+    ],
+    "antonyms": [
+      "Idealist",
+      "Optimist",
+      "Believer",
+      "Trusting person"
+    ],
+    "example": "Only a hardened cynic would question the pure motives of the volunteers helping disaster victims.",
+    "mnemonic": "सनकी आदमी हर नेक काम में भी खोट और बुराई ढूँढ लेता है -> Cynic (निंदक)।",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Hardened cynic / confirmed cynic",
+    "derivatives": "Cynical (adjective), Cynicism (noun), Cynically (adverb)",
+    "level": "level-1",
+    "set": "set-02"
+  },
+  {
+    "id": "v-ows-l1-s2-72",
+    "word": "Cypher",
+    "phonetic": "/ˈsaɪ.fɚ/",
+    "hindi": "गुप्त लिखावट / कूटलेख / सांकेतिक भाषा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A secret or disguised way of writing; an encoded message, algorithm, or cryptographic key.",
+    "synonyms": [
+      "Code",
+      "Cryptogram",
+      "Cipher",
+      "Secret script",
+      "Encrypted key"
+    ],
+    "antonyms": [
+      "Plaintext",
+      "Cleartext",
+      "Decoded message"
+    ],
+    "example": "The secret intelligence operative encrypted the mission report using a five-rotor cypher.",
+    "mnemonic": "Cyber की दुनिया में सुरक्षा के लिए पासवर्ड गुप्त कोड में लिखा जाता है -> Cypher.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 02",
+      "OWS"
+    ],
+    "collocation": "Crack a cypher / secret cypher / decrypt the cypher",
+    "derivatives": "Decypher / Decipher (verb)",
+    "level": "level-1",
+    "set": "set-02"
+  }
+];
