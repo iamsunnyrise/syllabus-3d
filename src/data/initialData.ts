@@ -660,6 +660,31 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
                 mistakes: []
               },
               {
+                id: 'top_president_vice_president',
+                name: 'President & Vice-President of India (Articles 52-72)',
+                subtopics: [
+                  'Part V Chapter I: Union Executive Structure & Art 52-53 Executive Power',
+                  'Electoral College (Art 54-55): MLA & MP Vote Value Formulas & Electoral Quota',
+                  'Term, Re-election & Qualifications (Arts 56-60): Oath by CJI & Mnemonic PrEEM TReQing',
+                  'Impeachment (Art 61: 1/4th notice, 2/3rd TOTAL membership) & Vacancy (Art 62)',
+                  'Vice-President (Arts 63-70): RS Chairman, Election, Removal by Effective Majority',
+                  'Article 71 (Election Disputes by SC) & Article 72 (5 Pardoning Powers vs Art 161)',
+                  '15 Chronological Presidents & Vice-Presidents & High-Yield PYQs'
+                ],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 240,
+                lastStudied: '2026-08-21',
+                nextRevision: '2026-08-31',
+                accuracy: 96,
+                mockAttempts: 45,
+                difficulty: 'Medium',
+                isWeak: false,
+                weightage: 6,
+                notes: 'Articles 52-62 Mnemonic: "PrEEM TReQing pe chalna hai, so Come In Time". Art 61: Impeachment needs 2/3rd of TOTAL membership of each House. Art 71: President/VP election disputes decided solely by Supreme Court. Art 72: President can pardon court martial & death sentence (Governor Art 161 cannot).',
+                mistakes: []
+              },
+              {
                 id: 'top_parliament',
                 name: 'Indian Parliament & Union Executive',
                 subtopics: ['Lok Sabha vs Rajya Sabha Powers', 'Money Bill Article 110', 'President Veto Powers Article 111'],
@@ -876,6 +901,30 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 7,
             notes: 'Harmonious construction between Part III and Part IV. Minerva Mills: Constitution is founded on balance between FR and DPSP. FDs have statutory backing through RPA, Wildlife Act, National Honour Act.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_president_vp',
+            name: 'President & Vice-President: Union Executive & Constitutional Powers',
+            subtopics: [
+              'Constitutional Status: De Jure Head vs De Facto Head, Aid & Advice (Art 74, 42nd/44th CAA)',
+              'Electoral College & Federal Balance: Proportional Representation & Single Transferable Vote',
+              'Impeachment under Article 61: Quasi-Judicial Nature, Absolute Threshold & Federal Asymmetry',
+              'Pardoning Power (Art 72 vs Art 161): Kehar Singh & Maru Ram Cases, Scope of Judicial Review',
+              'Office of Vice-President: Bicameral Representation, Removal Dynamics & Dual Functions (Arts 63-70)',
+              'Discretionary Powers, Ordinance Making (Art 123) & Assent to Bills (Art 111)'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 270,
+            lastStudied: '2026-08-21',
+            nextRevision: '2026-08-31',
+            accuracy: 95,
+            mockAttempts: 36,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 8,
+            notes: 'President acts on aid and advice of CoM (Art 74); 44th CAA gave power to send back once for reconsideration. Pardoning under Art 72 is executive power subject to limited judicial review against arbitrariness (Kehar Singh, Epuru Sudhakar). VP removal requires effective majority in RS and simple agreement in LS.',
             mistakes: []
           },
           {

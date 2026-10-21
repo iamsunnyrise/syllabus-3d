@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PARMAR SSC — President and Vice-President Master Interactive Notes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAEED9',
+            gold: '#E1A837',
+            olive: '#8D7A02',
+            dark: '#38370D',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAEED9;
+      background-image: radial-gradient(#8D7A02 0.65px, transparent 0.65px);
+      background-size: 22px 22px;
+      color: #38370D;
+    }
+
+    .note-card {
+      background: rgba(250, 238, 217, 0.95);
+      border: 2px solid #8D7A02;
+      box-shadow: 6px 6px 0px #38370D;
+      transition: all 0.2s ease;
+    }
+    .note-card:hover {
+      box-shadow: 8px 8px 0px #38370D;
+      transform: translateY(-2px);
+    }
+
+    .sub-card {
+      background: #FAEED9;
+      border: 1.5px solid #8D7A02;
+      border-radius: 0.75rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .gold-badge {
+      background: #E1A837;
+      color: #38370D;
+      font-weight: 700;
+      border: 1px solid #38370D;
+    }
+
+    .dark-badge {
+      background: #38370D;
+      color: #FAEED9;
+      font-weight: 600;
+    }
+
+    .trick-box {
+      background: #38370D;
+      color: #FAEED9;
+      border-left: 6px solid #E1A837;
+    }
+
+    /* Self-Test Quiz Blur Mode */
+    .quiz-item {
+      transition: all 0.25s ease;
+      padding: 0 4px;
+      border-radius: 4px;
+      border-bottom: 1.5px dashed #8D7A02;
+      font-weight: 700;
+    }
+    body.self-test-active .quiz-item {
+      filter: blur(6px);
+      background-color: #E1A837;
+      color: #38370D;
+      cursor: pointer;
+      user-select: none;
+    }
+    body.self-test-active .quiz-item:hover,
+    body.self-test-active .quiz-item.revealed {
+      filter: blur(0px);
+      background-color: rgba(225, 168, 55, 0.25);
+    }
+
+    /* Section Active Pulse */
+    @keyframes pulseGold {
+      0%, 100% { box-shadow: 6px 6px 0px #38370D; }
+      50% { box-shadow: 0 0 0 8px rgba(225, 168, 55, 0.7), 6px 6px 0px #38370D; }
+    }
+    .section-active-pulse {
+      animation: pulseGold 1.4s ease-in-out 2;
+    }
+
+    /* Click-to-Note Hover Triggers */
+    [data-note-anchor] {
+      position: relative;
+    }
+    .note-trigger-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    [data-note-anchor]:hover > .note-trigger-btn,
+    body.click-note-mode [data-note-anchor] > .note-trigger-btn {
+      opacity: 1;
+    }
+    body.click-note-mode [data-note-anchor]:hover {
+      outline: 2px dashed #E1A837;
+      outline-offset: 2px;
+      cursor: copy;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .note-card { box-shadow: none !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold selection:text-dark min-h-screen pb-24">
+
+  <!-- Floating Cursor Follower for Click-to-Note Mode -->
+  <div id="cursorBadge" class="fixed pointer-events-none z-50 hidden bg-dark text-cream text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gold shadow-lg">
+    ➕ Click here to add your extra note
+  </div>
+
+  <!-- 1. STICKY TOP HEADER BAR -->
+  <header class="sticky top-0 z-40 bg-dark text-cream border-b-4 border-gold shadow-md no-print">
+    <!-- Scroll Progress Bar -->
+    <div class="w-full h-1.5 bg-olive/30">
+      <div id="scrollProgress" class="h-full bg-gold w-0 transition-all duration-100"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-black text-xl border-2 border-cream">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div>
+          <span class="text-[11px] uppercase tracking-widest text-gold font-bold block">PARMAR SSC • Polity Master Series</span>
+          <h1 class="font-serif text-lg md:text-xl font-bold leading-tight">President & Vice-President</h1>
+        </div>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="relative flex-1 max-w-md min-w-[220px]">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-dark/70 text-sm"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Articles (52-72, 161), Impeachment, Pardons, Lists..."
+          class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-cream text-dark placeholder-dark/60 text-sm font-medium border-2 border-gold focus:outline-none"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-dark/70 hover:text-dark text-sm">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Interactive Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="toggleClickNoteBtn" onclick="toggleClickToNoteMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-dark text-cream hover:bg-gold hover:text-dark transition flex items-center gap-1.5">
+          <span>📝 Click-to-Note:</span>
+          <span id="clickNoteStatus" class="underline">OFF</span>
+        </button>
+
+        <button onclick="toggleDrawer(true)" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-gold text-dark hover:brightness-105 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>My Notes</span>
+          <span id="savedNotesCountBadge" class="bg-dark text-cream px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+        </button>
+
+        <button id="selfTestBtn" onclick="toggleSelfTestMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/50 bg-olive/40 text-cream hover:bg-gold hover:text-dark hover:border-gold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-eye-slash"></i>
+          <span>Self-Test: <strong id="selfTestStatus">OFF</strong></span>
+        </button>
+
+        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/40 hover:bg-cream hover:text-dark transition" title="Print Master Notes">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 pt-6 space-y-8">
+
+    <!-- 2. HERO BANNER SECTION -->
+    <section class="note-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full gold-badge text-xs">
+            <i class="fa-solid fa-star"></i> 100% Zero-Omission Master Notes • Part V (Union)
+          </div>
+          <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-dark leading-tight">
+            President & Vice-President of India (Articles 52–72)
+          </h2>
+          <p class="text-sm md:text-base text-dark/90 leading-relaxed font-medium">
+            <strong>💡 Hinglish Mein Samjho:</strong> Is PDF mein hum Constitution ke <strong>Part V (5 Chapters)</strong> ka sabse important hissa padhenge—India ke <strong>President (Art 52–62)</strong> aur <strong>Vice-President (Art 63–71)</strong>, unka Electoral College, Vote Value Formula, Impeachment (<span class="font-bold">Art 61</span>), 5 Pardoning Powers (<span class="font-bold">Art 72</span>), aur 1st se 15th tak saare Presidents aur Vice-Presidents ki complete timeline!
+          </p>
+          <!-- Highlight Pills -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-book-journal-whills text-gold mr-1"></i> Part V: 5 Chapters</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-user-shield text-gold mr-1"></i> President: Art 52–62</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-gavel text-gold mr-1"></i> Vice-President: Art 63–71</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-scale-balanced text-gold mr-1"></i> Pardoning Power: Art 72</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Fast Facts / Summary Graphic Card -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-1">
+            <span class="text-xs text-gold font-bold uppercase">Minimum Age (Art 58 & 66)</span>
+            <div class="text-2xl font-black mt-1 text-gold"><span class="quiz-item">35 Years</span></div>
+            <p class="text-xs text-cream/80 mt-1">For both President (<span class="quiz-item">LS qualified</span>) & VP (<span class="quiz-item">RS qualified</span>).</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-2">
+            <span class="text-xs text-olive font-bold uppercase">Impeachment (Art 61)</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">2/3rd Total</span></div>
+            <p class="text-xs text-dark/80 mt-1"><span class="quiz-item">1/4th</span> sign charges + <span class="quiz-item">14 days</span> notice; borrowed from <span class="quiz-item">USA</span>.</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-3">
+            <span class="text-xs text-olive font-bold uppercase">VP Election Rule (Art 66)</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">₹15,000/-</span></div>
+            <p class="text-xs text-dark/80 mt-1">Security deposit + <span class="quiz-item">20 proposers & 20 seconders</span>.</p>
+          </div>
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-4">
+            <span class="text-xs text-gold font-bold uppercase">15th President & VP</span>
+            <div class="text-xl font-black mt-1 text-gold"><span class="quiz-item">D. Murmu & C.P.R.</span></div>
+            <p class="text-xs text-cream/80 mt-1">15th Pres: <span class="quiz-item">Droupadi Murmu</span> | 15th VP: <span class="quiz-item">C.P Radhakrishnan</span>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE "TOPICS AT A GLANCE" (QUICK NAVIGATION HUB) -->
+    <section id="topics-hub" class="note-card rounded-2xl p-6 no-print">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h3 class="font-serif text-xl md:text-2xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-compass text-gold bg-dark p-2 rounded-lg text-base"></i>
+          Topics at a Glance (Quick Navigation Hub)
+        </h3>
+        <span class="text-xs font-semibold text-olive">Click any module card to jump directly & highlight</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <button onclick="jumpToTopic('topic-1')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">01</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Part V Chapters & President's Election (Art 52–55)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">5 Chapters of Part V, Electoral College, Vote Value & Quota Formulas</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-2')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">02</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Term, Qualification, Oath & Impeachment (Art 56–62)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Office of Profit, Immunity, Art 61 Impeachment & PrEEM TReQing Trick</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-3')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">03</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Vice-President of India (Art 63–70)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Ex-Officio Chairman, Election (20+20, ₹15k), Effective Majority Removal</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-4')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">04</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Election Disputes & Pardoning Powers (Art 71–72, 161)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">SC Final Decision, 5 Pardons, Kehar Singh Case 1988 & Judicial Powers</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-5')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">05</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">High-Yield One-Liners & Special Facts</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Died in Harness, Elected Unopposed, First Dalit/Sikh/Women/Tribal Heads</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-6')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">06</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Complete Chronological Lists (1st to 15th)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">All 15 Presidents (1950–Present) & All 15 Vice-Presidents (1952–Till Date)</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 01: PART V CHAPTERS & PRESIDENT ARTICLES 52-55 (PAGE 2)         -->
+    <!-- ===================================================================== -->
+    <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 01 • PDF Page 2</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Part V of the Constitution & President of India (Art 52–55)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Part V: 5 Chapters Breakdown -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="part-v-chapters">
+        <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-sitemap text-gold bg-dark p-2 rounded-lg text-sm"></i>
+          Part V of the Constitution is Divided into 5 Chapters
+        </h4>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs md:text-sm">
+          <div class="p-3.5 rounded-xl bg-dark text-cream border-2 border-gold" data-note-anchor="ch-1">
+            <span class="text-gold font-bold uppercase text-xs block">Chapter 1</span>
+            <strong class="text-sm block mt-0.5">Union Executive</strong>
+            <p class="text-xs text-cream/85 mt-1">
+              (<span class="quiz-item">President + Vice President + Prime Minister + Council of Ministers + Attorney General</span>)
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-gold/15 border border-olive" data-note-anchor="ch-2">
+            <span class="text-olive font-bold uppercase text-xs block">Chapter 2</span>
+            <strong class="text-sm block mt-0.5">Parliament</strong>
+            <p class="text-xs font-bold mt-1">(<span class="quiz-item">Art 79–122</span>)</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-gold/15 border border-olive" data-note-anchor="ch-3">
+            <span class="text-olive font-bold uppercase text-xs block">Chapter 3</span>
+            <strong class="text-sm block mt-0.5">Legislative Powers of the President</strong>
+            <p class="text-xs font-bold mt-1">(<span class="quiz-item">Art 123</span>)</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-gold/15 border border-olive" data-note-anchor="ch-4">
+            <span class="text-olive font-bold uppercase text-xs block">Chapter 4</span>
+            <strong class="text-sm block mt-0.5">Union Judiciary</strong>
+            <p class="text-xs font-bold mt-1">(<span class="quiz-item">Art 124–147</span>)</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-gold/15 border border-olive" data-note-anchor="ch-5">
+            <span class="text-olive font-bold uppercase text-xs block">Chapter 5</span>
+            <strong class="text-sm block mt-0.5">Comptroller and Auditor General of India (CAG)</strong>
+            <p class="text-xs font-bold mt-1">(<span class="quiz-item">Art 148–151</span>)</p>
+          </div>
+        </div>
+
+        <div class="trick-box p-3 rounded-lg text-xs">
+          <strong>💡 Hinglish Mein Samjho:</strong> Exam mein aksar poochha jata hai ki <strong>Union Executive</strong> mein kaun-kaun shamil hai—yaad rakho: <strong>President, Vice-President, PM, Council of Ministers, aur Attorney General of India (Art 76)</strong>!
+        </div>
+      </div>
+
+      <!-- Articles 52, 53, 54, 55 Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Left Column: Art 52 & Art 53 + Titles -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="sub-card p-5 space-y-3" data-note-anchor="art-52-53">
+            <div class="flex items-center justify-between">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs">President of India: <span class="quiz-item">Article (52–62)</span></span>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-gold/20 border border-dark" data-note-anchor="art-52">
+              <span class="dark-badge px-2 py-0.5 rounded text-xs"><span class="quiz-item">Article 52</span></span>
+              <p class="text-xs md:text-sm font-semibold mt-1.5">
+                There shall be a <span class="quiz-item">President of India</span>, who shall be the <span class="quiz-item">Head of the Union Executive</span>.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-gold/20 border border-dark" data-note-anchor="art-53">
+              <span class="dark-badge px-2 py-0.5 rounded text-xs"><span class="quiz-item">Article 53</span></span>
+              <ul class="list-disc pl-4 text-xs md:text-sm font-semibold mt-1.5 space-y-1">
+                <li><span class="quiz-item">Executive Power of Union</span> shall vest in President.</li>
+                <li>He is the <span class="quiz-item">Supreme Commander of all the Defence forces</span> (Army, Navy, Airforce).</li>
+              </ul>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-dark text-cream border-l-4 border-gold" data-note-anchor="pres-titles">
+              <strong class="text-gold text-xs uppercase block mb-1">The President is:</strong>
+              <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+                <li><span class="quiz-item">Head of the Country</span></li>
+                <li><span class="quiz-item">First Citizen of India</span></li>
+                <li><span class="quiz-item">Nominal Head / Titular Head / De jure head</span> of the Country</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Art 54 (Electoral College) & Art 55 (Manner of Election) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="sub-card p-5 space-y-3" data-note-anchor="art-54-card">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 54</span></span>
+              Election of President (Electoral College)
+            </h4>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+              <div class="p-3.5 rounded-xl bg-gold/20 border-2 border-dark" data-note-anchor="art-54-who-votes">
+                <strong class="text-dark block mb-1">✅ WHO PARTICIPATES (Electoral College):</strong>
+                <ul class="list-disc pl-4 space-y-1 font-medium">
+                  <li><span class="quiz-item">Elected members</span> of both Houses of Parliament (<span class="quiz-item">Lok Sabha + Rajya Sabha</span>)</li>
+                  <li><span class="quiz-item">Elected Members</span> of the Legislative Assemblies (MLAs) of <span class="quiz-item">States + Union Territories of Delhi and Puducherry</span></li>
+                </ul>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-dark text-cream border-2 border-gold" data-note-anchor="art-54-who-not">
+                <strong class="text-gold block mb-1">❌ WHO DOES NOT PARTICIPATE:</strong>
+                <ul class="list-disc pl-4 space-y-1">
+                  <li><span class="quiz-item">Nominated Members of Parliament</span> (LS & RS)</li>
+                  <li><span class="quiz-item">Members of Legislative Council (MLCs)</span> (both Elected & Nominated)</li>
+                  <li>Nominated MLAs of States/UTs</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-card p-5 space-y-3" data-note-anchor="art-55-card">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 55</span></span>
+              Manner of Election & Vote Value Calculations
+            </h4>
+
+            <div class="flex flex-wrap gap-2 text-xs font-bold">
+              <span class="px-3 py-1.5 rounded bg-gold/25 border border-dark">• <span class="quiz-item">Indirect Election</span> (not directly by the people)</span>
+              <span class="px-3 py-1.5 rounded bg-gold/25 border border-dark">• <span class="quiz-item">Proportional Representation + Single Transferable Vote (STV)</span></span>
+              <span class="px-3 py-1.5 rounded bg-gold/25 border border-dark">• Voting done by <span class="quiz-item">Secret Ballot</span></span>
+            </div>
+
+            <!-- 3 Exact Formulas from PDF Page 2 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 text-xs">
+              <div class="p-3 rounded-lg bg-cream border-2 border-dark text-center" data-note-anchor="formula-mla">
+                <strong class="block text-olive uppercase mb-1">1. Value of Vote of an MLA</strong>
+                <div class="font-bold text-dark bg-gold/20 p-2 rounded">
+                  <span class="quiz-item">(Total Population of the State / Total Number of Elected MLAs) × (1 / 1000)</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-cream border-2 border-dark text-center" data-note-anchor="formula-mp">
+                <strong class="block text-olive uppercase mb-1">2. Value of Vote of an MP</strong>
+                <div class="font-bold text-dark bg-gold/20 p-2 rounded">
+                  <span class="quiz-item">Total Value of Votes of all MLAs / Total Number of Elected MPs</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-cream border-2 border-dark text-center" data-note-anchor="formula-quota">
+                <strong class="block text-olive uppercase mb-1">3. Electoral Quota</strong>
+                <div class="font-bold text-dark bg-gold/20 p-2 rounded">
+                  <span class="quiz-item">[ Total Number of Valid Votes Polled / (Vacancies + 1) ] + 1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 02: ARTICLES 56 TO 62 — TERM, OATH, IMPEACHMENT (PAGES 3 & 4)   -->
+    <!-- ===================================================================== -->
+    <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 02 • PDF Pages 3 & 4</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">President: Term, Qualification, Oath, Impeachment & Vacancy (Art 56–62)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Mnemonic Trick Banner from Page 4 -->
+      <div class="trick-box p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-note-anchor="preem-trick">
+        <div>
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs uppercase">🧠 Master Mnemonic Trick (Art 52 to 62 in Sequence)</span>
+          <h4 class="font-serif text-lg md:text-xl font-bold text-gold mt-1">
+            "PrEEM TReQing pe chalna hai, so Come In Time."
+          </h4>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-1.5 text-[11px] w-full md:w-auto">
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>52 Pr:</strong> President</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>53 E:</strong> Executive</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>54 E:</strong> Election</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>55 M:</strong> Manner</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>56 T:</strong> Term</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>57 Re:</strong> Re-election</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>58 Q:</strong> Qualification</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>59 C:</strong> Conditions</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>60 O:</strong> Oath</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40"><strong>61 In:</strong> Impeachment</span>
+          <span class="bg-cream/10 px-2 py-1 rounded border border-gold/40 sm:col-span-2"><strong>62 Time:</strong> Time to fill Vacancy</span>
+        </div>
+      </div>
+
+      <!-- Articles 56, 57, 58, 59, 60 Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Article 56 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-56-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 56</span></span>
+          <h4 class="font-bold text-base">Term of Office of President</h4>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li>Term of Office of President is <span class="quiz-item">5 Years</span>.</li>
+            <li>He can resign by addressing the resignation letter to <span class="quiz-item">Vice-President</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Article 57 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-57-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 57</span></span>
+          <h4 class="font-bold text-base">Eligibility for Re-election of President</h4>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li><span class="quiz-item">Naturalised citizen</span> can become President (citizen by birth NOT required, unlike USA).</li>
+            <li>Eligible for re-election <span class="quiz-item">any number of times</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Article 60 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-60-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 60</span></span>
+          <h4 class="font-bold text-base">Oath or Affirmation by the President</h4>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li>Administered in the presence of <span class="quiz-item">Chief Justice of India (CJI)</span>.</li>
+            <li>If CJI is unavailable, then <span class="quiz-item">Senior-Most Judge of the Supreme Court</span> will take this charge.</li>
+          </ul>
+        </div>
+
+        <!-- Article 58 + Office of Profit -->
+        <div class="sub-card p-4 space-y-2 lg:col-span-2" data-note-anchor="art-58-card">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 58</span></span>
+            <span class="text-xs font-bold text-olive">Qualification for Election as President</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <ul class="list-disc pl-4 text-xs md:text-sm space-y-1 font-medium">
+              <li>Must be a <span class="quiz-item">citizen of India</span>.</li>
+              <li>Minimum <span class="quiz-item">35 years of age</span>.</li>
+              <li>Qualified for election as a <span class="quiz-item">member of Lok Sabha</span>.</li>
+              <li>Must not hold any <span class="quiz-item">office of profit</span>. (<em>Office of profit is not defined in the Constitution</em>).</li>
+            </ul>
+            <div class="p-3 rounded-lg bg-gold/20 border border-dark text-xs" data-note-anchor="office-of-profit-box">
+              <strong>📌 What is Office of Profit?</strong><br/>
+              Offices in which people are appointed and removed by the government; however, offices of <span class="quiz-item">President, Vice President, PM, Governor</span> (and Union/State Ministers) are <strong>NOT considered as office of profit</strong>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 59 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-59-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 59</span></span>
+          <h4 class="font-bold text-base">Conditions of Office of President</h4>
+          <ol class="list-decimal pl-4 text-xs md:text-sm space-y-1">
+            <li>Shall <span class="quiz-item">not be a member of either House of Parliament or State Legislature</span>. If he is a member, he/she should vacate the seat before the appointment.</li>
+            <li>Entitled to emoluments and allowances as determined by <span class="quiz-item">Parliament</span> (shall <span class="quiz-item">not be diminished</span> during his term).</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- "DID YOU KNOW?" Box from Page 3 -->
+      <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="dyk-page3">
+        <h5 class="font-bold text-gold text-xs uppercase tracking-wider mb-2"><i class="fa-solid fa-lightbulb mr-1"></i> Did You Know? (Privileges & Records — Page 3)</h5>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-2.5 rounded bg-cream/10 border border-gold/30" data-note-anchor="dyk-p3-1">
+            • President is <span class="quiz-item">immune from any criminal proceedings</span> during his term of office.
+          </div>
+          <div class="p-2.5 rounded bg-cream/10 border border-gold/30" data-note-anchor="dyk-p3-2">
+            • After giving <span class="quiz-item">2 months notice</span>, <span class="quiz-item">civil proceedings</span> can be carried against him.
+          </div>
+          <div class="p-2.5 rounded bg-cream/10 border border-gold/30" data-note-anchor="dyk-p3-3">
+            • <span class="quiz-item">Dr. Rajendra Prasad</span>: Longest serving and the 1st President of India (<span class="quiz-item">1950–62</span>).
+          </div>
+          <div class="p-2.5 rounded bg-cream/10 border border-gold/30" data-note-anchor="dyk-p3-4">
+            • <span class="quiz-item">Dr. Sarvepalli Radhakrishnan</span>: Served <span class="quiz-item">twice as Vice President</span> (1952–62).
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 61 (Impeachment) & Article 62 (Vacancy) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Article 61 Impeachment -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-3" data-note-anchor="art-61-card">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 61</span></span>
+              Procedure for Impeachment of the President
+            </h4>
+            <span class="gold-badge px-2.5 py-0.5 rounded text-xs">Borrowed from: <span class="quiz-item">USA</span></span>
+          </div>
+
+          <p class="text-xs md:text-sm font-semibold bg-gold/20 p-2.5 rounded border border-dark">
+            <strong>Grounds of Removal:</strong> <span class="quiz-item">Violation of the Constitution</span>. (<em>Note: This phrase is <span class="quiz-item">NOT defined in Constitution</span></em>).
+          </p>
+
+          <ol class="list-decimal pl-5 space-y-1.5 text-xs md:text-sm font-medium">
+            <li data-note-anchor="imp-step-1">Impeachment charges can be initiated by <span class="quiz-item">either house of Parliament</span> (LS or RS).</li>
+            <li data-note-anchor="imp-step-2">Charges should be signed by <span class="quiz-item">1/4 members</span> of that House (which initiated the charges).</li>
+            <li data-note-anchor="imp-step-3">A <span class="quiz-item">14 days notice</span> should be given to the President.</li>
+            <li data-note-anchor="imp-step-4">After this, the Resolution should be passed by <span class="quiz-item">Special Majority by both the Houses</span> (<span class="quiz-item">Majority of two-thirds of the Total Membership of that House</span>).</li>
+            <li data-note-anchor="imp-step-5">President has the <span class="quiz-item">right to appear & to be represented</span> at such investigation.</li>
+          </ol>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs">
+            <div class="p-2.5 rounded bg-dark text-cream">
+              • <span class="quiz-item">All Members of Parliament (elected + nominated)</span> take part in the Impeachment process.<br/>
+              • <span class="quiz-item">MLAs participate in President's election, but NOT in impeachment.</span>
+            </div>
+            <div class="p-2.5 rounded bg-gold/25 border border-dark font-semibold">
+              • Impeachment is a <span class="quiz-item">Quasi-judicial process</span>.<br/>
+              • <span class="quiz-item">No President</span> has been impeached till date.
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 62 Vacancy -->
+        <div class="lg:col-span-5 sub-card p-5 space-y-3 flex flex-col justify-between" data-note-anchor="art-62-card">
+          <div class="space-y-3">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 62</span></span>
+              Time of Holding Election to Fill Vacancy
+            </h4>
+
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive text-xs md:text-sm" data-note-anchor="art-62-normal">
+              <strong>Case A — If term ends normally:</strong><br/>
+              Election should be held <span class="quiz-item">before the expiration of President's term</span>.
+            </div>
+
+            <div class="p-3 rounded-lg bg-gold/20 border border-dark text-xs md:text-sm space-y-1.5" data-note-anchor="art-62-sudden">
+              <strong>Case B — If vacancy is created due to death, resignation, removal:</strong><br/>
+              Election must be held <span class="quiz-item">within 6 months</span>. Till then, who acts as Acting President?
+              <ol class="list-decimal pl-4 font-semibold space-y-1 mt-1">
+                <li>The <span class="quiz-item">Vice President</span> acts as Acting President.</li>
+                <li>If Vice President is not available, then <span class="quiz-item">Chief Justice of India (CJI)</span> acts as Acting President.</li>
+                <li>If CJI is also unavailable, then <span class="quiz-item">Senior-most Judge of the Supreme Court</span> acts.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="trick-box p-3 rounded-lg text-xs" data-note-anchor="art-62-example">
+            <strong>📌 Historical Example (1969):</strong> President <span class="quiz-item">Dr. Zakir Hussain</span> died in office → VP <span class="quiz-item">V.V. Giri</span> became Acting President (later resigned to contest election) → CJI <span class="quiz-item">M. Hidayatullah</span> served as Acting President!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 03: VICE-PRESIDENT OF INDIA — ARTICLES 63 TO 70 (PAGES 5 & 6)   -->
+    <!-- ===================================================================== -->
+    <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 03 • PDF Pages 5 & 6</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Vice-President (VP) of India: Articles 63 to 70</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Articles 63, 64, 65 Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-63-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 63</span></span>
+          <h4 class="font-bold text-base">Office of Vice-President</h4>
+          <p class="text-xs md:text-sm">There shall be a <span class="quiz-item">Vice-President of India</span>. [Covered under <span class="quiz-item">Articles 63–71</span>].</p>
+        </div>
+
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-64-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 64</span></span>
+          <h4 class="font-bold text-base">Ex-Officio Chairman of Rajya Sabha</h4>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li>Vice President shall be the <span class="quiz-item">ex-officio Chairman of the Council of States (Rajya Sabha)</span>.</li>
+            <li>VP holds <span class="quiz-item">second highest constitutional post</span>.</li>
+            <li>VP can act as President only for a <span class="quiz-item">maximum period of 6 months</span>.</li>
+          </ul>
+        </div>
+
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-65-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 65</span></span>
+          <h4 class="font-bold text-base">Vice-President to Act as President</h4>
+          <p class="text-xs md:text-sm">In the absence of the President, the <span class="quiz-item">Vice President performs functions as an Acting President</span>.</p>
+        </div>
+      </div>
+
+      <!-- Article 66 (Election of VP) & Article 67 (Term & Removal of VP) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Article 66 -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-3" data-note-anchor="art-66-card">
+          <h4 class="font-bold text-lg flex items-center gap-2">
+            <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 66</span></span>
+            Election & Qualifications of Vice-President
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="art-66-college">
+              <strong>1) Elected by Electoral College:</strong>
+              <ul class="list-disc pl-4 mt-1 space-y-1">
+                <li><span class="quiz-item">All members of both Houses of Parliament</span> (Lok Sabha + Rajya Sabha).</li>
+                <li><span class="quiz-item">Includes nominated members also</span> (No MLAs participate).</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="art-66-method">
+              <strong>2) Method of Election:</strong>
+              <ul class="list-disc pl-4 mt-1 space-y-1">
+                <li><span class="quiz-item">Proportional Representation + Single Transferable Vote (STV)</span> & Secret ballot voting.</li>
+                <li><span class="quiz-item">20 proposers + 20 electors as seconders</span>.</li>
+                <li>Required Security deposit: <span class="quiz-item">₹15,000/-</span>.</li>
+                <li>Each voter has multiple preferences of voting.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="art-66-elig">
+              <strong>3) Eligibility Criteria:</strong>
+              <ul class="list-disc pl-4 mt-1 space-y-1">
+                <li>Must be a <span class="quiz-item">citizen of India</span>.</li>
+                <li>Must be of <span class="quiz-item">35 years or more</span>.</li>
+                <li>Qualified for election as a <span class="quiz-item">member of the Rajya Sabha</span>.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-dark text-cream border border-gold" data-note-anchor="art-66-cond">
+              <strong class="text-gold">4) Condition of Office:</strong>
+              <p class="mt-1">He shall <span class="quiz-item">not be a member of either house of the parliament and/or State Legislature</span> (Same as President).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 67 -->
+        <div class="lg:col-span-5 sub-card p-5 space-y-3" data-note-anchor="art-67-card">
+          <h4 class="font-bold text-lg flex items-center gap-2">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 67</span></span>
+            Term of Office & Removal of Vice-President
+          </h4>
+
+          <ul class="list-disc pl-5 text-xs md:text-sm space-y-1">
+            <li>Can hold office up to <span class="quiz-item">5 years</span>.</li>
+            <li>Can resign to the <span class="quiz-item">President</span> (and vice-versa: President resigns to VP).</li>
+            <li>Will continue in office <span class="quiz-item">until successor takes charge</span>.</li>
+          </ul>
+
+          <div class="p-3.5 rounded-xl bg-dark text-cream border-l-4 border-gold space-y-1.5 text-xs md:text-sm" data-note-anchor="vp-removal-box">
+            <strong class="text-gold uppercase block">🔥 Removal Procedure of VP:</strong>
+            <ul class="list-disc pl-4 space-y-1">
+              <li>Resolution initiated <span class="quiz-item">ONLY in Rajya Sabha</span>.</li>
+              <li>Passed by <span class="quiz-item">Effective Majority in RS</span> (majority of all the then members) and <span class="quiz-item">Simple Majority in LS</span> (agreed to by LS).</li>
+              <li><span class="quiz-item">14 days prior notice</span> required.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 68, 69, 70 + Hamid Ansari Fact -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs md:text-sm">
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-68-card">
+          <span class="gold-badge px-2 py-0.5 rounded text-xs"><span class="quiz-item">Article 68</span></span>
+          <h5 class="font-bold text-sm">Time of Election to Fill Vacancy</h5>
+          <p>• Normal expiration: completed <span class="quiz-item">before expiration of term</span>.<br/>• Resignation, removal, or death: Election held <span class="quiz-item">as soon as possible</span> (no 6-month limit for VP).</p>
+        </div>
+
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-69-card">
+          <span class="gold-badge px-2 py-0.5 rounded text-xs"><span class="quiz-item">Article 69</span></span>
+          <h5 class="font-bold text-sm">Oath or Affirmation by VP</h5>
+          <p>Administered by the <span class="quiz-item">President</span> or any person appointed on behalf of him.</p>
+        </div>
+
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-70-card">
+          <span class="gold-badge px-2 py-0.5 rounded text-xs"><span class="quiz-item">Article 70</span></span>
+          <h5 class="font-bold text-sm">Other Contingencies</h5>
+          <p><span class="quiz-item">Parliament</span> may make provisions for the discharge of the President's functions in any other contingency.</p>
+        </div>
+
+        <div class="sub-card p-4 bg-dark text-cream border-2 border-gold space-y-1.5" data-note-anchor="hamid-ansari-fact">
+          <span class="bg-gold text-dark font-bold px-2 py-0.5 rounded text-xs">⭐ Special VP Record</span>
+          <h5 class="font-bold text-sm text-gold">Longest Serving VP</h5>
+          <p><span class="quiz-item">M. Hamid Ansari (2007–2017)</span> (along with Dr. S. Radhakrishnan, 10 years). He is the <span class="quiz-item">only VP to serve under 3 Presidents</span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 04: ELECTION DISPUTES & PARDONING POWERS (PAGES 6 & 7)          -->
+    <!-- ===================================================================== -->
+    <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 04 • PDF Pages 6 & 7</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Election Disputes (Art 71), Pardoning Power (Art 72) & Judicial Powers</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Article 71 + Judicial Powers -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="sub-card p-5 space-y-3" data-note-anchor="art-71-card">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 71</span></span>
+              Matters Relating to Election of President & VP
+            </h4>
+            <ol class="list-decimal pl-5 text-xs md:text-sm space-y-2">
+              <li data-note-anchor="art-71-1">All doubts and disputes related to elections of President & VP are handled by the <span class="quiz-item">Supreme Court</span>, whose decision is <span class="quiz-item">final</span>.</li>
+              <li data-note-anchor="art-71-2">If election is declared void by the SC, then the <span class="quiz-item">acts done by VP/President before the date of declaration are considered valid</span> (not invalidated).</li>
+              <li data-note-anchor="art-71-3"><span class="quiz-item">Parliament</span> may regulate matters related to election of P/VP.</li>
+              <li data-note-anchor="art-71-4">Election <span class="quiz-item">cannot be challenged</span> on the ground that the <span class="quiz-item">electoral college electing that person was incomplete</span> (e.g., if a State Assembly was dissolved).</li>
+            </ol>
+          </div>
+
+          <div class="sub-card p-5 space-y-2.5" data-note-anchor="judicial-powers-card">
+            <h4 class="font-bold text-base border-b border-olive/40 pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-scale-unbalanced text-olive"></i> Judicial Powers of the President (Page 7)
+            </h4>
+            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5">
+              <li>Appoints <span class="quiz-item">Chief Justice and judges of the Supreme Court and High Courts</span>.</li>
+              <li>Can <span class="quiz-item">seek advice from Supreme Court</span> on any question of law or fact (Art 143). However, the advice tendered by the SC is <span class="quiz-item">NOT binding on him</span>.</li>
+              <li>Exercises <span class="quiz-item">pardoning powers</span> under Article 72.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Article 72: 5 Types of Pardoning Power + Governor Comparison + Kehar Singh Case -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-4" data-note-anchor="art-72-card">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 72</span></span>
+              Pardoning Power of the President (5 Types)
+            </h4>
+            <span class="dark-badge px-2.5 py-1 rounded text-xs">Governor's Pardoning Power: <span class="quiz-item">Article 161</span></span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs md:text-sm">
+            <div class="p-3 rounded-lg bg-gold/20 border border-dark" data-note-anchor="pardon-1">
+              <strong>1. <span class="quiz-item">Pardon</span> (क्षमा):</strong><br/>
+              <span class="quiz-item">Completely removes punishment and conviction</span> (absolves offender from all sentences).
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="pardon-2">
+              <strong>2. <span class="quiz-item">Commutation</span> (लघुकरण):</strong><br/>
+              <span class="quiz-item">Changes the form of punishment</span> (substitutes one form for a lighter form, e.g., death to life imprisonment).
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="pardon-3">
+              <strong>3. <span class="quiz-item">Remission</span> (परिहार):</strong><br/>
+              <span class="quiz-item">Reduce the punishment period</span> (without changing its character, e.g., 5 yrs rigorous to 2 yrs rigorous).
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="pardon-4">
+              <strong>4. <span class="quiz-item">Respite</span> (विराम):</strong><br/>
+              <span class="quiz-item">Lessen the punishment due to special conditions</span> (e.g., <span class="quiz-item">pregnancy</span> or physical disability).
+            </div>
+            <div class="sm:col-span-2 p-3 rounded-lg bg-gold/15 border border-olive" data-note-anchor="pardon-5">
+              <strong>5. <span class="quiz-item">Reprieve</span> (प्रविलंबन):</strong>
+              <span class="quiz-item">Stay on execution for a temporary duration</span> (especially of a death sentence, to allow convict time to seek pardon).
+            </div>
+          </div>
+
+          <!-- President vs Governor & Kehar Singh Case -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-dark text-cream border-l-4 border-gold" data-note-anchor="pres-vs-gov-pardon">
+              <strong class="text-gold block mb-1">⚖️ President (Art 72) vs Governor (Art 161):</strong>
+              The <span class="quiz-item">President can pardon death sentences and court-martial punishments</span> while the <span class="quiz-item">Governor CANNOT</span>.
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-gold/25 border-2 border-dark" data-note-anchor="kehar-singh-case">
+              <strong class="text-dark block mb-1">🏛️ <span class="quiz-item">Kehar Singh vs Union of India Case (1988)</span>:</strong>
+              Pardoning power of the President is <span class="quiz-item">not subject to judicial review</span>, unless the decision is <span class="quiz-item">arbitrary, mala fide, irrational, or discriminatory</span>.
+            </div>
+          </div>
+
+          <div class="trick-box p-3 rounded-lg text-xs">
+            <strong>🧠 Trick to Remember 5 Pardons:</strong> <strong>Pardon</strong> = Poora Maaf; <strong>Commutation</strong> = Character/Form Change; <strong>Remission</strong> = Reduce Time/Period (M=Minutes/Months kam); <strong>Respite</strong> = Special Condition (Pregnancy); <strong>Reprieve</strong> = Temporary Stay (Roko fansi)!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 05: SOME IMPORTANT FACTS ON PRESIDENTS & VPs (PAGE 7)           -->
+    <!-- ===================================================================== -->
+    <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-5">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 05 • PDF Page 7</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Some Important Exam Facts (High-Yield One-Liners)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs md:text-sm">
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-1">
+          • <span class="quiz-item">Dr. Rajendra Prasad</span> was the longest serving President of India (<span class="quiz-item">12 Years</span>, 1950–1962).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-2">
+          • <span class="quiz-item">Dr. Zakir Hussain</span> was the <span class="quiz-item">first Muslim President</span>. He <span class="quiz-item">died in Harness</span> (died in office).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-3">
+          • <span class="quiz-item">V.V Giri</span> was the <span class="quiz-item">first acting President to be later elected</span> as full-term President.
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-4">
+          • <span class="quiz-item">Fakhruddin Ali Ahmed</span> <span class="quiz-item">died in Office</span> (2nd to die in harness) and <span class="quiz-item">B.D Jatti</span> was appointed as acting President.
+        </div>
+        <div class="sub-card p-3.5 bg-gold/25 border-2 border-dark font-semibold" data-note-anchor="fact-5">
+          • <span class="quiz-item">Neelam Sanjiva Reddy</span> was the <span class="quiz-item">only President who was elected unopposed</span> (1977–1982).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-6">
+          • <span class="quiz-item">Giani Zail Singh</span> was the <span class="quiz-item">first Sikh President</span> of India (1982–1987).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-7">
+          • <span class="quiz-item">R. Venkataraman</span> had served during the <span class="quiz-item">Coalition era</span> (worked with 4 PMs: Rajiv Gandhi, V.P. Singh, Chandra Shekhar, P.V. Narasimha Rao).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-8">
+          • <span class="quiz-item">K.R Narayanan</span> was the <span class="quiz-item">first Dalit President</span> of India (1997–2002).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-9">
+          • <span class="quiz-item">Dr. A.P.J Abdul Kalam</span> was also known as <span class="quiz-item">'Missile Man'</span> and <span class="quiz-item">'People's President'</span> (2002–2007).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-10">
+          • <span class="quiz-item">Pratibha Patil</span> was the <span class="quiz-item">first Woman President</span> of India (2007–2012).
+        </div>
+        <div class="sub-card p-3.5 bg-dark text-cream border-2 border-gold" data-note-anchor="fact-11">
+          • <span class="quiz-item">Droupadi Murmu</span> is the <span class="quiz-item">First Tribal and Second Woman President</span> of India (2022–Present).
+        </div>
+        <div class="sub-card p-3.5 border-l-4 border-l-dark" data-note-anchor="fact-12">
+          • <span class="quiz-item">Dr. Zakir Hussain</span> was also the <span class="quiz-item">first Muslim Vice President</span> of India (1962–1967).
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 06: CHRONOLOGICAL LISTS OF PRESIDENTS & VICE-PRESIDENTS (P.8-9) -->
+    <!-- ===================================================================== -->
+    <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 06 • PDF Pages 8 & 9</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Complete Chronological Lists: All 15 Presidents & 15 Vice-Presidents</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Table 1: Presidents of India (Page 8) -->
+        <div class="sub-card p-4 md:p-5 space-y-3" data-note-anchor="presidents-table-card">
+          <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+            <span class="dark-badge px-2.5 py-1 rounded text-xs">Page 8</span>
+            Presidents of India (1 to 15)
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs md:text-sm">
+              <thead>
+                <tr class="bg-dark text-cream">
+                  <th class="p-2.5 border border-olive w-12">No.</th>
+                  <th class="p-2.5 border border-olive">President of India</th>
+                  <th class="p-2.5 border border-olive">Term</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-1">
+                  <td class="p-2 border border-olive font-bold">1.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Rajendra Prasad</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1950–1962</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-2">
+                  <td class="p-2 border border-olive font-bold">2.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Sarvepalli Radhakrishnan</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1962–1967</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-3">
+                  <td class="p-2 border border-olive font-bold">3.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Zakir Hussain</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1967–1969</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-4">
+                  <td class="p-2 border border-olive font-bold">4.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">V.V Giri</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1969–1974</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-5">
+                  <td class="p-2 border border-olive font-bold">5.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Fakhruddin Ali Ahmed</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1974–1977</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-6">
+                  <td class="p-2 border border-olive font-bold">6.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Neelam Sanjiva Reddy</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1977–1982</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-7">
+                  <td class="p-2 border border-olive font-bold">7.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Giani Zail Singh</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1982–1987</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-8">
+                  <td class="p-2 border border-olive font-bold">8.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">R. Venkataraman</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1987–1992</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-9">
+                  <td class="p-2 border border-olive font-bold">9.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Shankar Dayal Sharma</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1992–1997</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-10">
+                  <td class="p-2 border border-olive font-bold">10.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">K.R Narayanan</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1997–2002</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-11">
+                  <td class="p-2 border border-olive font-bold">11.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. A.P.J Abdul Kalam</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2002–2007</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-12">
+                  <td class="p-2 border border-olive font-bold">12.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Pratibha Patil</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2007–2012</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="pres-row-13">
+                  <td class="p-2 border border-olive font-bold">13.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Pranab Mukherjee</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2012–2017</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="pres-row-14">
+                  <td class="p-2 border border-olive font-bold">14.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Ram Nath Kovind</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2017–2022</span></td>
+                </tr>
+                <tr class="bg-gold/30 font-bold" data-note-anchor="pres-row-15">
+                  <td class="p-2 border border-olive">15.</td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">Droupadi Murmu</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2022–Present</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Table 2: Vice Presidents of India (Page 9) -->
+        <div class="sub-card p-4 md:p-5 space-y-3" data-note-anchor="vps-table-card">
+          <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs">Page 9</span>
+            Vice Presidents of India (1 to 15)
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs md:text-sm">
+              <thead>
+                <tr class="bg-dark text-cream">
+                  <th class="p-2.5 border border-olive w-12">No.</th>
+                  <th class="p-2.5 border border-olive">Vice President of India</th>
+                  <th class="p-2.5 border border-olive">Term</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-1">
+                  <td class="p-2 border border-olive font-bold">1.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Sarvepalli Radhakrishnan</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1952–1962</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-2">
+                  <td class="p-2 border border-olive font-bold">2.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Dr. Zakir Hussain</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1962–1967</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-3">
+                  <td class="p-2 border border-olive font-bold">3.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">V.V Giri</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1967–1969</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-4">
+                  <td class="p-2 border border-olive font-bold">4.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Gopal Swarup Pathak</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1969–1974</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-5">
+                  <td class="p-2 border border-olive font-bold">5.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">B.D Jatti</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1974–1979</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-6">
+                  <td class="p-2 border border-olive font-bold">6.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Mohammad Hidayatullah</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1979–1984</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-7">
+                  <td class="p-2 border border-olive font-bold">7.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">R. Venkataraman</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1984–1987</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-8">
+                  <td class="p-2 border border-olive font-bold">8.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Shankar Dayal Sharma</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1987–1992</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-9">
+                  <td class="p-2 border border-olive font-bold">9.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">K.R Narayanan</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1992–1997</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-10">
+                  <td class="p-2 border border-olive font-bold">10.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Krishan Kant</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">1997–2002</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-11">
+                  <td class="p-2 border border-olive font-bold">11.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Bhairon Singh Shekhawat</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2002–2007</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-12">
+                  <td class="p-2 border border-olive font-bold">12.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Mohammad Hamid Ansari</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2007–2017</span></td>
+                </tr>
+                <tr class="bg-cream hover:bg-gold/15" data-note-anchor="vp-row-13">
+                  <td class="p-2 border border-olive font-bold">13.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">M. Venkaiah Naidu</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2017–2022</span></td>
+                </tr>
+                <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="vp-row-14">
+                  <td class="p-2 border border-olive font-bold">14.</td>
+                  <td class="p-2 border border-olive font-semibold"><span class="quiz-item">Jagdeep Dhankhar</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2022–2025</span></td>
+                </tr>
+                <tr class="bg-gold/30 font-bold" data-note-anchor="vp-row-15">
+                  <td class="p-2 border border-olive">15.</td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">C.P Radhakrishnan</span></td>
+                  <td class="p-2 border border-olive"><span class="quiz-item">2025–Till Date</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. INTERACTIVE PYQ / PRACTICE QUIZ SECTION (AT BOTTOM)                -->
+    <!-- ===================================================================== -->
+    <section id="quiz-section" class="note-card rounded-2xl p-6 md:p-8 space-y-6 no-print">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div>
+          <span class="gold-badge px-3 py-1 rounded-lg text-xs uppercase">SSC Exam Simulation</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold mt-1">Interactive PYQ & Practice Quiz (6 Questions)</h3>
+        </div>
+        <button onclick="resetQuiz()" class="px-4 py-2 rounded-lg bg-dark text-cream text-xs font-bold border-2 border-gold hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+        </button>
+      </div>
+
+      <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+  </main>
+
+  <!-- 6. FLOATING BOTTOM-RIGHT ACTION BUTTONS -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5 no-print">
+    <button onclick="openModalForGeneralNote()" class="px-4 py-2.5 rounded-full bg-dark text-cream font-bold text-xs border-2 border-gold shadow-lg hover:bg-gold hover:text-dark transition flex items-center gap-2">
+      <i class="fa-solid fa-plus-circle text-gold"></i> Add Extra Note
+    </button>
+    <button onclick="jumpToTopic('topics-hub')" class="px-4 py-2.5 rounded-full bg-gold text-dark font-bold text-xs border-2 border-dark shadow-lg hover:brightness-105 transition flex items-center gap-2">
+      <i class="fa-solid fa-compass"></i> Topics at a Glance
+    </button>
+  </div>
+
+  <!-- ADD/EDIT NOTE MODAL -->
+  <div id="noteModal" class="fixed inset-0 z-50 hidden bg-dark/70 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+    <div class="note-card rounded-2xl w-full max-w-lg p-6 space-y-4 bg-cream">
+      <div class="flex items-center justify-between border-b border-olive/40 pb-3">
+        <h4 id="modalHeading" class="font-serif text-xl font-bold">➕ Add Custom Study Note</h4>
+        <button onclick="closeNoteModal()" class="text-dark/70 hover:text-dark text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Quick Tag Chips:</label>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" onclick="setQuickTag('⭐ Exam Point')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">⭐ Exam Point</button>
+            <button type="button" onclick="setQuickTag('🧠 Memory Trick')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">🧠 Memory Trick</button>
+            <button type="button" onclick="setQuickTag('🔥 PYQ Fact')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">🔥 PYQ Fact</button>
+            <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">📌 Extra Detail</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Note Title / Tag:</label>
+          <input id="noteTitleInput" type="text" placeholder="e.g., ⭐ Exam Point — President vs VP Electoral College" class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream focus:outline-none focus:border-dark font-semibold" />
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Your Note (Hinglish or English):</label>
+          <textarea id="noteBodyInput" rows="4" placeholder="Write your extra points, teacher's remarks, or revision mnemonics here..." class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream focus:outline-none focus:border-dark"></textarea>
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Highlight Style Theme:</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="golden" checked class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-gold/40 text-center text-xs font-bold">Golden Card</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="dark" class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-gold bg-dark text-cream text-center text-xs font-bold">Dark Royal</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="cream" class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-cream text-center text-xs font-bold">Warm Cream</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeNoteModal()" class="px-4 py-2 rounded-lg border border-dark text-xs font-bold">Cancel</button>
+        <button onclick="saveNoteFromModal()" class="px-5 py-2 rounded-lg bg-dark text-cream border-2 border-gold text-xs font-bold hover:bg-gold hover:text-dark transition">Save Note</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY SAVED NOTES SLIDE-OVER DRAWER -->
+  <div id="notesDrawerBackdrop" onclick="toggleDrawer(false)" class="fixed inset-0 z-50 hidden bg-dark/60 backdrop-blur-sm no-print"></div>
+  <aside id="notesDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-cream border-l-4 border-dark shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col no-print">
+    <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <h4 class="font-serif text-lg font-bold">My Saved Notes</h4>
+      </div>
+      <button onclick="toggleDrawer(false)" class="text-cream/80 hover:text-cream text-lg"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="p-3 bg-gold/20 border-b border-olive/40 flex flex-wrap gap-2 justify-between items-center">
+      <button onclick="openModalForGeneralNote()" class="px-3 py-1.5 rounded bg-dark text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+        <i class="fa-solid fa-plus mr-1"></i> Add General Note
+      </button>
+      <div class="flex gap-1.5">
+        <button onclick="exportNotesToTxt()" class="px-2.5 py-1.5 rounded border border-dark text-xs font-bold hover:bg-dark hover:text-cream transition">
+          <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+        </button>
+        <button onclick="clearAllNotes()" class="px-2.5 py-1.5 rounded border border-red-800 text-red-900 text-xs font-bold hover:bg-red-800 hover:text-cream transition">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <div id="drawerNotesList" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm"></div>
+  </aside>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    const STORAGE_KEY = 'parmar_ssc_president_vp_notes_v1';
+    let savedNotes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let clickToNoteMode = false;
+    let selfTestMode = false;
+    let activeAnchorId = null;
+    let editingNoteId = null;
+
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // 2. Smooth Jump to Topic with Pulse
+    function jumpToTopic(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.remove('section-active-pulse');
+      void el.offsetWidth;
+      el.classList.add('section-active-pulse');
+    }
+
+    // 3. Live Search Filter
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      clearSearchBtn.classList.toggle('hidden', !query);
+      document.querySelectorAll('.searchable-section').forEach(sec => {
+        const match = sec.innerText.toLowerCase().includes(query);
+        sec.style.display = match ? '' : 'none';
+      });
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+    });
+
+    // 4. Self-Test (Revision Blur) Mode
+    function toggleSelfTestMode() {
+      selfTestMode = !selfTestMode;
+      document.body.classList.toggle('self-test-active', selfTestMode);
+      document.getElementById('selfTestStatus').innerText = selfTestMode ? 'ON' : 'OFF';
+      if (!selfTestMode) {
+        document.querySelectorAll('.quiz-item.revealed').forEach(el => el.classList.remove('revealed'));
+      }
+    }
+    document.addEventListener('click', (e) => {
+      if (selfTestMode && e.target.classList.contains('quiz-item')) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    // 5. Click-to-Note System
+    const cursorBadge = document.getElementById('cursorBadge');
+    window.addEventListener('mousemove', (e) => {
+      if (clickToNoteMode) {
+        cursorBadge.style.left = (e.clientX + 14) + 'px';
+        cursorBadge.style.top = (e.clientY + 14) + 'px';
+      }
+    });
+
+    function toggleClickToNoteMode() {
+      clickToNoteMode = !clickToNoteMode;
+      document.body.classList.toggle('click-note-mode', clickToNoteMode);
+      document.getElementById('clickNoteStatus').innerText = clickToNoteMode ? 'ON' : 'OFF';
+      cursorBadge.classList.toggle('hidden', !clickToNoteMode);
+    }
+
+    function initNoteAnchors() {
+      document.querySelectorAll('[data-note-anchor]').forEach(el => {
+        const anchorId = el.getAttribute('data-note-anchor');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'note-trigger-btn no-print absolute top-1.5 right-1.5 z-10 px-2 py-0.5 rounded bg-gold text-dark text-[10px] font-extrabold border border-dark shadow hover:scale-105';
+        btn.innerHTML = '+ Note';
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          openNoteModal(anchorId);
+        };
+        el.appendChild(btn);
+
+        el.addEventListener('click', (ev) => {
+          if (!clickToNoteMode) return;
+          if (ev.target.closest('.rendered-custom-note') || ev.target.closest('button')) return;
+          ev.stopPropagation();
+          openNoteModal(anchorId);
+        });
+      });
+    }
+
+    function setQuickTag(tag) {
+      const input = document.getElementById('noteTitleInput');
+      if (!input.value.includes(tag)) {
+        input.value = tag + (input.value ? ' — ' + input.value : '');
+      }
+      input.focus();
+    }
+
+    function openNoteModal(anchorId, noteId = null) {
+      activeAnchorId = anchorId;
+      editingNoteId = noteId;
+      const modal = document.getElementById('noteModal');
+      const titleInput = document.getElementById('noteTitleInput');
+      const bodyInput = document.getElementById('noteBodyInput');
+      const heading = document.getElementById('modalHeading');
+
+      if (noteId) {
+        const existing = savedNotes.find(n => n.id === noteId);
+        if (existing) {
+          heading.innerText = '✏️ Edit Custom Study Note';
+          titleInput.value = existing.title;
+          bodyInput.value = existing.body;
+          document.querySelectorAll('input[name="noteTheme"]').forEach(r => r.checked = (r.value === existing.theme));
+        }
+      } else {
+        heading.innerText = '➕ Add Custom Study Note';
+        titleInput.value = '';
+        bodyInput.value = '';
+        document.querySelector('input[name="noteTheme"][value="golden"]').checked = true;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function openModalForGeneralNote() {
+      openNoteModal('general-note');
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.add('hidden');
+      activeAnchorId = null;
+      editingNoteId = null;
+    }
+
+    function saveNoteFromModal() {
+      const title = document.getElementById('noteTitleInput').value.trim() || '📌 Personal Note';
+      const body = document.getElementById('noteBodyInput').value.trim();
+      const theme = document.querySelector('input[name="noteTheme"]:checked').value;
+      if (!body) {
+        alert('Please write something in your note!');
+        return;
+      }
+
+      if (editingNoteId) {
+        const idx = savedNotes.findIndex(n => n.id === editingNoteId);
+        if (idx > -1) {
+          savedNotes[idx].title = title;
+          savedNotes[idx].body = body;
+          savedNotes[idx].theme = theme;
+        }
+      } else {
+        savedNotes.push({
+          id: 'note_' + Date.now(),
+          anchorId: activeAnchorId || 'general-note',
+          title,
+          body,
+          theme,
+          createdAt: new Date().toLocaleString()
+        });
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      closeNoteModal();
+      renderAllSavedNotes();
+    }
+
+    function deleteNote(id) {
+      savedNotes = savedNotes.filter(n => n.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderAllSavedNotes();
+    }
+
+    function clearAllNotes() {
+      if (!savedNotes.length) return;
+      if (confirm('Are you sure you want to delete all saved custom notes?')) {
+        savedNotes = [];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+        renderAllSavedNotes();
+      }
+    }
+
+    function getThemeClasses(theme) {
+      if (theme === 'dark') return 'bg-dark text-cream border-2 border-gold';
+      if (theme === 'cream') return 'bg-cream text-dark border-2 border-dark';
+      return 'bg-gold/30 text-dark border-2 border-dark';
+    }
+
+    function renderAllSavedNotes() {
+      document.querySelectorAll('.rendered-custom-note').forEach(el => el.remove());
+      document.getElementById('savedNotesCountBadge').innerText = savedNotes.length;
+
+      // Render inline under anchors
+      savedNotes.forEach(note => {
+        const anchorEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`);
+        if (anchorEl) {
+          const box = document.createElement('div');
+          box.id = 'inline_' + note.id;
+          box.className = `rendered-custom-note mt-2.5 p-3 rounded-lg text-xs shadow-sm ${getThemeClasses(note.theme)}`;
+          box.innerHTML = `
+            <div class="flex items-center justify-between gap-2 font-bold border-b border-current/20 pb-1 mb-1">
+              <span>${escapeHtml(note.title)}</span>
+              <div class="flex items-center gap-1.5 no-print">
+                <button onclick="openNoteModal('${note.anchorId}', '${note.id}')" class="underline hover:opacity-80">Edit</button>
+                <span>•</span>
+                <button onclick="deleteNote('${note.id}')" class="underline text-red-600 hover:opacity-80">Delete</button>
+              </div>
+            </div>
+            <p class="whitespace-pre-line leading-relaxed">${escapeHtml(note.body)}</p>
+          `;
+          anchorEl.appendChild(box);
+        }
+      });
+
+      // Render inside Drawer
+      const listEl = document.getElementById('drawerNotesList');
+      if (!savedNotes.length) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 text-dark/60">
+            <i class="fa-solid fa-note-sticky text-3xl mb-2"></i>
+            <p class="font-semibold">No custom notes saved yet.</p>
+            <p class="text-xs mt-1">Turn ON "Click-to-Note" or click "+ Note" on any card to add your extra points.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = savedNotes.map(note => `
+        <div class="p-3.5 rounded-xl ${getThemeClasses(note.theme)} space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs">${escapeHtml(note.title)}</span>
+            <span class="text-[10px] opacity-70">${note.createdAt}</span>
+          </div>
+          <p class="text-xs whitespace-pre-line">${escapeHtml(note.body)}</p>
+          <div class="flex items-center gap-3 pt-1 text-[11px] font-bold">
+            ${note.anchorId !== 'general-note' ? `<button onclick="jumpToNoteFromDrawer('${note.anchorId}')" class="underline"><i class="fa-solid fa-location-crosshairs mr-1"></i>Jump to Section</button>` : ''}
+            <button onclick="openNoteModal('${note.anchorId}', '${note.id}')" class="underline">Edit</button>
+            <button onclick="deleteNote('${note.id}')" class="underline text-red-600">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function jumpToNoteFromDrawer(anchorId) {
+      toggleDrawer(false);
+      const el = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('section-active-pulse');
+        setTimeout(() => el.classList.remove('section-active-pulse'), 2800);
+      }
+    }
+
+    function toggleDrawer(open) {
+      const drawer = document.getElementById('notesDrawer');
+      const backdrop = document.getElementById('notesDrawerBackdrop');
+      drawer.classList.toggle('translate-x-full', !open);
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function exportNotesToTxt() {
+      if (!savedNotes.length) {
+        alert('No saved notes to export!');
+        return;
+      }
+      let txt = '=== PARMAR SSC: PRESIDENT & VICE-PRESIDENT — MY CUSTOM STUDY NOTES ===\n\n';
+      savedNotes.forEach((n, i) => {
+        txt += `[${i + 1}] ${n.title} (${n.createdAt})\nAnchor: ${n.anchorId}\n${n.body}\n--------------------------------------------------\n\n`;
+      });
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'President_VP_My_Notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    // 6. Interactive Quiz Engine
+    const quizData = [
+      {
+        q: "Q1. Who among the following participates in the Impeachment of the President (Article 61), but does NOT participate in the Election of the President (Article 54)?",
+        options: [
+          "Elected MLAs of States",
+          "Elected MLAs of Delhi and Puducherry",
+          "Nominated Members of either House of Parliament",
+          "Members of State Legislative Councils (MLCs)"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: President ke Election (Art 54) mein sirf Elected MPs aur Elected MLAs hissa lete hain. Lekin Impeachment (Art 61) mein Parliament ke ALL Members (Elected + Nominated) vote karte hain, jabki MLAs impeachment mein hissa nahi lete!"
+      },
+      {
+        q: "Q2. Under Article 61, what is the required majority to pass an Impeachment resolution against the President of India?",
+        options: [
+          "Majority of 2/3rd of members present and voting",
+          "Majority of 2/3rd of the Total Membership of that House",
+          "Effective Majority of Rajya Sabha and Simple Majority of Lok Sabha",
+          "Simple Majority in a Joint Sitting"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: President ke Impeachment ke liye sabse kathin Special Majority chahiye hoti hai — 'Majority of two-thirds (2/3rd) of the TOTAL Membership of that House' (dono Houses mein alag-alag), plus shuruat mein 1/4th members ke signature aur 14 days ka notice!"
+      },
+      {
+        q: "Q3. A resolution for the removal of the Vice-President of India under Article 67 can be initiated in:",
+        options: [
+          "Lok Sabha only",
+          "Rajya Sabha only",
+          "Either House of Parliament",
+          "Supreme Court of India"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Vice-President ko hatane ka resolution SIRF Rajya Sabha mein shuru ho sakta hai (14 din ke notice ke baad). Rajya Sabha mein Effective Majority aur Lok Sabha mein Simple Majority chahiye hoti hai."
+      },
+      {
+        q: "Q4. Under Article 72, which type of Pardoning Power lessens the punishment due to a special condition such as pregnancy or physical disability?",
+        options: [
+          "Commutation",
+          "Remission",
+          "Respite",
+          "Reprieve"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: 'Respite' (विराम) ka matlab hai kisi special condition (jaise pregnancy) ki wajah se saza ko kam karna. 'Commutation' saza ka nature/form badalta hai, 'Remission' duration kam karta hai, aur 'Reprieve' execution par temporary stay lagata hai."
+      },
+      {
+        q: "Q5. Who was the ONLY President of India to be elected unopposed (1977–1982)?",
+        options: [
+          "V.V. Giri",
+          "Neelam Sanjiva Reddy",
+          "Giani Zail Singh",
+          "K.R. Narayanan"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: 6th President Neelam Sanjiva Reddy (1977–1982) Bharat ke iklaute aise President the jo nirvirodh (unopposed) chune gaye the!"
+      },
+      {
+        q: "Q6. In 1969, when President Dr. Zakir Hussain died in office and Vice-President V.V. Giri resigned from acting presidency, who served as the Acting President of India?",
+        options: [
+          "B.D. Jatti",
+          "Gopal Swarup Pathak",
+          "Justice M. Hidayatullah (CJI)",
+          "Fakhruddin Ali Ahmed"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Art 62 ke mutabik jab President aur VP dono ki seat khali ho, toh Chief Justice of India (CJI) Acting President bante hain. 1969 mein CJI M. Hidayatullah Acting President bane the (baad mein wo 1979–84 tak 6th full-time Vice-President bhi rahe)."
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizData.map((item, qIdx) => `
+        <div class="sub-card p-5 space-y-3" data-note-anchor="quiz-q-${qIdx}">
+          <p class="font-bold text-sm md:text-base">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map((opt, oIdx) => `
+              <button
+                type="button"
+                id="q${qIdx}_opt${oIdx}"
+                onclick="answerQuiz(${qIdx}, ${oIdx})"
+                class="w-full text-left px-3.5 py-2 rounded-lg border border-olive bg-cream hover:bg-gold/25 text-xs md:text-sm font-medium transition flex items-center justify-between"
+              >
+                <span>${opt}</span>
+                <span class="status-icon"></span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="q${qIdx}_exp" class="hidden trick-box p-3 rounded-lg text-xs leading-relaxed">
+            ${item.explanation}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function answerQuiz(qIdx, selectedIdx) {
+      const item = quizData[qIdx];
+      item.options.forEach((_, oIdx) => {
+        const btn = document.getElementById(`q${qIdx}_opt${oIdx}`);
+        btn.disabled = true;
+        const iconSpan = btn.querySelector('.status-icon');
+        if (oIdx === item.correct) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-dark bg-gold text-dark text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '✅';
+        } else if (oIdx === selectedIdx) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-red-800 bg-red-100 text-red-950 text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '❌';
+        }
+      });
+      document.getElementById(`q${qIdx}_exp`).classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+    }
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+      initNoteAnchors();
+      renderAllSavedNotes();
+    });
+  </script>
+</body>
+</html>

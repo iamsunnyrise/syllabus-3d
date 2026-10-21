@@ -388,6 +388,26 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for 11 Duties: A-to-K Mnemonic. DPSP is from Ireland (Instrument of Instructions 1935); Duties are from USSR (Swaran Singh Comm 1976). Minerva Mills 1980: Bedrock balance.'
   },
   {
+    id: 'ga-polity-president-vice-president',
+    subject: 'Polity',
+    title: 'President & Vice-President',
+    badge: 'Chapter 07 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/president_and_vice_president.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Part V Chapters & Art 52-53', detail: 'Part V has 5 chapters (Executive, Parliament, Pres. Legislative Art 123, Judiciary, CAG). President is Head of Union Executive, First Citizen, De jure head & Supreme Commander.' },
+      { label: '02. Election & Vote Value (Art 54-55)', detail: 'Electoral College: Elected MPs (LS+RS) + Elected MLAs (States, Delhi, Puducherry). Nominated MPs & MLCs do NOT vote. Formulas for MLA vote value, MP vote value, and Electoral Quota.' },
+      { label: '03. Term, Oath & Qualifications (Art 56-60)', detail: 'Term 5 yrs (resigns to VP). Eligible for re-election any number of times (naturalised citizen eligible). Min 35 yrs, LS qualified, no office of profit. Oath administered by CJI / Senior-most SC judge.' },
+      { label: '04. Art 61 Impeachment & Vacancy (Art 62)', detail: 'Ground: Violation of Constitution. Initiated in either House by 1/4th members with 14 days notice; passed by 2/3rd of TOTAL membership of each House. Vacancy filled in 6 mos; Acting Pres: VP -> CJI -> Senior-most judge.' },
+      { label: '05. Mnemonic Trick: "PrEEM TReQing..."', detail: '52-President, 53-Executive, 54-Election, 55-Manner, 56-Term, 57-Re-election, 58-Qualification, 59-Conditions, 60-Oath, 61-Impeachment, 62-Time to fill vacancy.' },
+      { label: '06. Vice-President (Art 63-70)', detail: 'Ex-officio Chairman of Rajya Sabha (Art 64), acting Pres max 6 mos. Election: All MPs (elected+nominated), 20+20 electors, ₹15k deposit. Removal: Initiated ONLY in RS (Effective Majority in RS + Simple Majority in LS).' },
+      { label: '07. Disputes (Art 71) & Pardoning (Art 72)', detail: 'Election disputes decided solely by Supreme Court. 5 Pardons: Pardon, Commutation, Remission, Respite (special condition/pregnancy), Reprieve. Pres pardons death sentences and court-martial (Governor Art 161 cannot). Kehar Singh Case 1988.' },
+      { label: '08. High-Yield Facts & 15 Presidents/VPs', detail: 'Rajendra Prasad longest (12 yrs), Zakir Hussain & Fakhruddin Ali Ahmed died in harness, Neelam Sanjiva Reddy elected unopposed, Pratibha Patil 1st woman, Droupadi Murmu 1st tribal & 15th President. 15th VP: C.P. Radhakrishnan.' }
+    ],
+    summaryNote: 'Trick for Articles 52-62: "PrEEM TReQing pe chalna hai, so Come In Time". Pardons: Art 72 (President) vs Art 161 (Governor).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',
