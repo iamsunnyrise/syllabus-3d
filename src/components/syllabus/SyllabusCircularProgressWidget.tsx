@@ -28,64 +28,64 @@ export const SyllabusCircularProgressWidget: React.FC<SyllabusCircularProgressWi
     switch (theme) {
       case 'rose':
         return {
-          border: 'border-[#EF4444]',
-          bg: 'bg-red-500/5 dark:bg-red-500/[0.03]',
-          text: 'text-[#EF4444] dark:text-[#F87171]',
-          divider: 'bg-red-200 dark:bg-red-900/60',
+          border: 'border-rose-500 dark:border-rose-400',
+          bg: 'bg-rose-500/10 dark:bg-rose-500/10',
+          text: 'text-rose-600 dark:text-rose-300 font-black',
+          divider: 'bg-rose-300 dark:bg-rose-500/50',
         };
       case 'sky':
         return {
-          border: 'border-[#00B4D8] dark:border-[#38BDF8]',
-          bg: 'bg-sky-500/5 dark:bg-sky-500/[0.03]',
-          text: 'text-[#00B4D8] dark:text-[#38BDF8]',
-          divider: 'bg-cyan-200 dark:bg-cyan-900/60',
+          border: 'border-sky-500 dark:border-sky-400',
+          bg: 'bg-sky-500/10 dark:bg-sky-500/10',
+          text: 'text-sky-600 dark:text-sky-300 font-black',
+          divider: 'bg-sky-300 dark:bg-sky-500/50',
         };
       case 'emerald':
         return {
-          border: 'border-[#10B981] dark:border-[#34D399]',
-          bg: 'bg-emerald-500/5 dark:bg-emerald-500/[0.03]',
-          text: 'text-[#10B981] dark:text-[#34D399]',
-          divider: 'bg-emerald-200 dark:bg-emerald-900/60',
+          border: 'border-emerald-500 dark:border-emerald-400',
+          bg: 'bg-emerald-500/10 dark:bg-emerald-500/10',
+          text: 'text-emerald-600 dark:text-emerald-300 font-black',
+          divider: 'bg-emerald-300 dark:bg-emerald-500/50',
         };
       case 'amber':
         return {
-          border: 'border-[#F59E0B] dark:border-[#FBBF24]',
-          bg: 'bg-amber-500/5 dark:bg-amber-500/[0.03]',
-          text: 'text-amber-600 dark:text-amber-400',
-          divider: 'bg-amber-200 dark:bg-amber-900/60',
+          border: 'border-amber-500 dark:border-amber-400',
+          bg: 'bg-amber-500/10 dark:bg-amber-500/10',
+          text: 'text-amber-600 dark:text-amber-300 font-black',
+          divider: 'bg-amber-300 dark:bg-amber-500/50',
         };
       case 'indigo':
         return {
-          border: 'border-[#6366F1] dark:border-[#818CF8]',
-          bg: 'bg-indigo-500/5 dark:bg-indigo-500/[0.03]',
-          text: 'text-[#6366F1] dark:text-[#818CF8]',
-          divider: 'bg-indigo-200 dark:bg-indigo-900/60',
+          border: 'border-indigo-500 dark:border-indigo-400',
+          bg: 'bg-indigo-500/10 dark:bg-indigo-500/10',
+          text: 'text-indigo-600 dark:text-indigo-300 font-black',
+          divider: 'bg-indigo-300 dark:bg-indigo-500/50',
         };
       case 'slate':
       default:
         return {
-          border: 'border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700',
-          bg: 'bg-slate-50 dark:bg-white/[0.02]',
-          text: 'text-slate-800 dark:text-white',
-          divider: 'bg-slate-300 dark:bg-slate-700/80',
+          border: 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500',
+          bg: 'bg-slate-100/50 dark:bg-white/[0.05]',
+          text: 'text-slate-900 dark:text-white font-black',
+          divider: 'bg-slate-300 dark:bg-slate-600',
         };
     }
   };
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl p-4 sm:p-7 bg-white dark:bg-[#12131C] border border-slate-200/90 dark:border-white/10 shadow-xs print:hidden select-none transition-colors ${className}`}
+      className={`rounded-2xl sm:rounded-3xl p-4 sm:p-7 bg-white dark:bg-[#151728] border border-slate-200/90 dark:border-white/15 shadow-sm print:hidden select-none transition-colors ${className}`}
     >
       {/* Top Header: Title & Completion Fraction */}
       <div className="flex items-center justify-between gap-2 pb-4 sm:pb-7">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          <span className="text-[11px] sm:text-[13px] font-black tracking-wider text-slate-500 dark:text-slate-400 uppercase font-sans truncate">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span className="text-[12px] sm:text-[13px] font-black tracking-wider text-slate-700 dark:text-slate-200 uppercase font-sans truncate">
             {title}
           </span>
         </div>
         {completionText && (
-          <span className="text-[11px] sm:text-sm font-black text-slate-900 dark:text-white font-sans tabular-nums bg-slate-100 dark:bg-white/[0.04] px-2.5 sm:px-3 py-1 rounded-full border border-slate-200/70 dark:border-white/10 shrink-0 whitespace-nowrap">
+          <span className="text-[11px] sm:text-sm font-black text-slate-900 dark:text-white font-sans tabular-nums bg-slate-100 dark:bg-white/10 px-3 py-1 rounded-full border border-slate-300 dark:border-white/20 shadow-xs shrink-0 whitespace-nowrap">
             {completionText}
           </span>
         )}
@@ -113,19 +113,19 @@ export const SyllabusCircularProgressWidget: React.FC<SyllabusCircularProgressWi
                   {item.topValue}
                 </span>
                 <div className={`w-7 sm:w-8 h-[1px] ${theme.divider} my-1 sm:my-1.5`} />
-                <span className="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400 tabular-nums leading-none">
+                <span className="text-xs sm:text-sm font-extrabold text-slate-700 dark:text-slate-200 tabular-nums leading-none">
                   {item.bottomValue}
                 </span>
               </div>
 
               {/* Title below circle */}
-              <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white mt-2.5 sm:mt-3 font-sans text-center">
+              <span className="text-xs sm:text-[13.5px] font-black text-slate-900 dark:text-white mt-2.5 sm:mt-3 font-sans text-center tracking-tight">
                 {item.label}
               </span>
 
               {/* Subtitle / Context below title */}
               {item.subtext && (
-                <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium font-sans text-center truncate max-w-full mt-0.5">
+                <span className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-bold font-sans text-center truncate max-w-full mt-0.5">
                   {item.subtext}
                 </span>
               )}

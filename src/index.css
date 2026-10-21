@@ -457,9 +457,13 @@
   .dark button.bg-amber-400:not([class*="/"]) *,
   .dark button[class*="from-amber-500"]:not([class*="/"]) *,
   .dark button[class*="from-amber-400"]:not([class*="/"]) *,
+  .dark button[class*="from-[#F59E0B]"] *,
+  .dark button.bg-\[\#E5A800\] *,
+  .dark .syllabus-start-btn,
+  .dark .syllabus-start-btn *,
   .dark a.bg-amber-500:not([class*="/"]) *,
   .dark a.bg-amber-400:not([class*="/"]) * {
-    color: #020617 !important;
+    color: #090A12 !important;
   }
 
   /* Countdown & Stat Labels Contrast Guarantee */
