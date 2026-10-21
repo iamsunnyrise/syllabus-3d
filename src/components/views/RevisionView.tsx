@@ -22,7 +22,8 @@ import {
   ChevronRight,
   Flame,
   FileText,
-  AlertTriangle
+  AlertTriangle,
+  Target
 } from 'lucide-react';
 import { getTodayDateString, formatDateReadable, isDatePastOrToday } from '../../utils/dateUtils';
 import { RevisionRecord, Topic } from '../../types/syllabus';
@@ -227,121 +228,128 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
     const accuracy = topicObj?.topic.accuracy;
     const isOverdue = rev.scheduledDate < today;
 
+    // High-contrast difficulty pill styling
+    const diffLower = difficulty.toLowerCase();
+    const diffBadgeClass = diffLower === 'hard'
+      ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25'
+      : diffLower === 'easy'
+      ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25'
+      : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25';
+
     return (
       <div
         key={rev.id}
-        className="p-3.5 sm:p-4 rounded-2xl bg-white/95 dark:bg-[#121424]/95 border border-slate-200/90 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 shadow-xs hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-between gap-3"
+        className="group relative rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/[0.08] hover:border-indigo-500/50 dark:hover:border-indigo-400/40 p-4 sm:px-5 sm:py-4 transition-all duration-200 hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 w-full"
       >
         {/* Subtle Left Accent Line showing stage/status */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-1 opacity-80 group-hover:opacity-100 transition-opacity"
+          className="absolute left-0 top-0 bottom-0 w-1.5 transition-all group-hover:w-2"
           style={{ backgroundColor: type === 'history' ? '#10B981' : stageMeta.accent }}
         />
 
-        {/* Top Section: Subject Icon + Topic Details */}
+        {/* Left Section: Subject Icon + Topic Details + Full Breadcrumb Path */}
         <div
           onClick={() => {
             if (onOpenTopicDrawer && topicObj) {
               onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
             }
           }}
-          className={`flex items-start gap-3 min-w-0 pl-1 ${onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''}`}
+          className={`flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1 pl-1 ${
+            onOpenTopicDrawer && topicObj ? 'cursor-pointer' : ''
+          }`}
         >
-          {/* Subject Icon */}
+          {/* Subject Icon Badge */}
           <div
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${meta.bg} border ${meta.border} ${meta.text} flex items-center justify-center shrink-0 mt-0.5 shadow-2xs`}
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${meta.bg} border ${meta.border} ${meta.text} flex items-center justify-center shrink-0 shadow-2xs mt-0.5 sm:mt-0`}
           >
-            <SubjIcon className="w-5 h-5 stroke-[2.2]" />
+            <SubjIcon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2]" />
           </div>
 
-          {/* Content Block */}
+          {/* Topic Title & Breadcrumbs */}
           <div className="min-w-0 flex-1 space-y-1">
-            {/* Row 1: Topic Title + Stage/Mastered Badge */}
-            <div className="flex items-start justify-between gap-2">
-              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug line-clamp-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
                 {toNaturalCase(rev.topicName)}
               </h2>
-              {type === 'history' ? (
-                <span className="px-2 py-0.5 text-[10px] sm:text-[11px] font-sans font-bold rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 whitespace-nowrap">
-                  ✓ Mastered
-                </span>
-              ) : (
-                <span className={`px-2 py-0.5 text-[10px] sm:text-[11px] font-sans font-bold rounded-lg border shrink-0 whitespace-nowrap ${stageMeta.badgeClass}`}>
-                  {stageMeta.label}
+              {isWeak && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] sm:text-[11px] font-black rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 whitespace-nowrap">
+                  <AlertTriangle className="w-3 h-3 stroke-[2.5]" />
+                  <span>Weak Focus</span>
                 </span>
               )}
             </div>
 
-            {/* Row 2: Breadcrumb (Subject › Chapter) */}
-            <div className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 min-w-0">
-              <span className="font-bold text-slate-700 dark:text-slate-200 shrink-0">
+            {/* Full Breadcrumb Path: Subject › Chapter (no truncation on wide row!) */}
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 flex-wrap font-medium">
+              <span className="font-bold text-slate-800 dark:text-slate-200">
                 {toNaturalCase(rev.subjectName)}
               </span>
-              <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-600 shrink-0" />
-              <span className="truncate font-medium">
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 shrink-0" />
+              <span className="text-slate-600 dark:text-slate-300 font-semibold">
                 {toNaturalCase(rev.chapterName)}
               </span>
             </div>
-
-            {/* Row 3: Metadata Badges (Weak, Overdue, Difficulty, Accuracy) */}
-            {type !== 'history' && (
-              <div className="flex items-center gap-1.5 flex-wrap pt-0.5 text-[11px]">
-                {isOverdue && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-sans font-bold rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 whitespace-nowrap flex items-center gap-1">
-                    <Clock className="w-2.5 h-2.5" />
-                    <span>Overdue</span>
-                  </span>
-                )}
-
-                {isWeak && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-sans font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 whitespace-nowrap">
-                    <AlertTriangle className="w-2.5 h-2.5" />
-                    <span>Weak</span>
-                  </span>
-                )}
-
-                <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
-                  difficulty.toLowerCase() === 'hard'
-                    ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
-                    : difficulty.toLowerCase() === 'easy'
-                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
-                    : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-                }`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                  <span className="capitalize">{difficulty}</span>
-                </span>
-
-                {accuracy !== undefined && accuracy > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-[10px] font-sans font-bold tabular-nums text-slate-600 dark:text-slate-300">
-                    {accuracy}% acc
-                  </span>
-                )}
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Row 4 (Footer): Schedule Info on Left + Action Buttons on Right */}
-        <div className="flex items-center justify-between gap-2 w-full pt-2.5 pl-1 border-t border-slate-100 dark:border-white/10">
-          {/* Left: Schedule Date / Status */}
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 min-w-0">
-            <Calendar className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 shrink-0" />
+        {/* Center / Right Section: Badges Cluster & Action Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between lg:justify-end gap-3 sm:gap-4 shrink-0 pl-1 lg:pl-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100 dark:border-white/[0.06]">
+          
+          {/* Metadata Badges Cluster */}
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap shrink-0">
+            {/* Stage Pill */}
             {type === 'history' ? (
-              <span className="font-semibold text-slate-700 dark:text-slate-300 truncate">
-                {rev.completedDate ? `Mastered ${formatDateReadable(rev.completedDate)}` : 'Retained in Vault'}
+              <span className="px-2.5 py-1 text-xs font-sans font-black rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>Mastered</span>
               </span>
             ) : (
-              <span className="font-semibold text-slate-700 dark:text-slate-300 truncate">
-                {formatDateReadable(rev.scheduledDate)}
-                <span className="ml-1.5 text-[11px] font-medium text-slate-400 dark:text-slate-500">
+              <span className={`px-2.5 py-1 text-xs font-sans font-bold rounded-xl border flex items-center gap-1.5 shrink-0 whitespace-nowrap ${stageMeta.badgeClass}`}>
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: stageMeta.accent }} />
+                <span>{stageMeta.label}</span>
+              </span>
+            )}
+
+            {/* Schedule / Overdue Badge */}
+            {type === 'history' ? (
+              <span className="px-2.5 py-1 text-xs font-medium rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                <Calendar className="w-3.5 h-3.5 text-emerald-500" />
+                <span>{rev.completedDate ? `Mastered ${formatDateReadable(rev.completedDate)}` : 'Retained in Vault'}</span>
+              </span>
+            ) : isOverdue ? (
+              <span className="px-2.5 py-1 text-xs font-bold rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-pulse">
+                <Clock className="w-3.5 h-3.5 stroke-[2.4]" />
+                <span>Overdue ({getRelativeScheduleText(rev.scheduledDate, today)})</span>
+              </span>
+            ) : (
+              <span className="px-2.5 py-1 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                <Clock className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
+                <span>{formatDateReadable(rev.scheduledDate)}</span>
+                <span className="text-[11px] text-slate-400 dark:text-slate-500">
                   ({getRelativeScheduleText(rev.scheduledDate, today)})
                 </span>
               </span>
             )}
+
+            {/* Difficulty Badge */}
+            {type !== 'history' && (
+              <span className={`px-2.5 py-1 text-xs font-bold rounded-xl border flex items-center gap-1.5 shrink-0 whitespace-nowrap ${diffBadgeClass}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                <span className="capitalize">{difficulty}</span>
+              </span>
+            )}
+
+            {/* Accuracy Badge */}
+            {accuracy !== undefined && accuracy > 0 && (
+              <span className="px-2.5 py-1 text-xs font-sans font-bold tabular-nums rounded-xl bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20 flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                <Target className="w-3.5 h-3.5 text-indigo-500" />
+                <span>{accuracy}% acc</span>
+              </span>
+            )}
           </div>
 
-          {/* Right: Actions */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0 sm:pl-2 sm:border-l sm:border-slate-200/80 sm:dark:border-white/10">
             {onOpenTopicDrawer && topicObj && (
               <button
                 type="button"
@@ -350,7 +358,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   soundManager.playClick?.();
                   onOpenTopicDrawer(topicObj.topic, rev.subjectName, rev.chapterName);
                 }}
-                className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.08] text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0"
+                className="px-3.5 py-2 rounded-xl border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 bg-slate-100/80 dark:bg-white/[0.05] hover:bg-slate-200/80 dark:hover:bg-white/[0.09] text-slate-700 dark:text-slate-200 text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
                 title="View Topic Details"
                 aria-label={`Inspect ${rev.topicName}`}
               >
@@ -366,7 +374,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
                   soundManager.playClick?.();
                   onOpenRevisionSession();
                 }}
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#4F46E5] hover:bg-[#4338CA] text-white flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 shadow-xs"
+                className="px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-indigo-600 via-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 shadow-sm shadow-indigo-500/30 border border-indigo-400/30"
                 aria-label={`Review card for ${rev.topicName}`}
               >
                 <RotateCw className="w-3.5 h-3.5 stroke-[2.4]" />
@@ -374,11 +382,11 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
               </button>
             )}
           </div>
+
         </div>
       </div>
     );
   };
-
   return (
     <div className="space-y-4 sm:space-y-6 pb-40 sm:pb-28 w-full max-w-7xl mx-auto font-sans animate-fade-in px-1 sm:px-2">
       
@@ -715,7 +723,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* DUE TODAY LIST */}
         {activeTab === 'today' && (
           displayedDue.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+            <div className="flex flex-col gap-3 w-full">
               {displayedDue.map(rev => renderRevisionCard(rev, 'today'))}
             </div>
           ) : (
@@ -782,7 +790,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* UPCOMING LIST */}
         {activeTab === 'upcoming' && (
           displayedUpcoming.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+            <div className="flex flex-col gap-3 w-full">
               {displayedUpcoming.map(rev => renderRevisionCard(rev, 'upcoming'))}
             </div>
           ) : (
@@ -819,7 +827,7 @@ export const RevisionView: React.FC<RevisionViewProps> = ({
         {/* MASTERED VAULT LIST */}
         {activeTab === 'history' && (
           displayedHistory.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+            <div className="flex flex-col gap-3 w-full">
               {displayedHistory.map(rev => renderRevisionCard(rev, 'history'))}
             </div>
           ) : (

@@ -39,7 +39,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const examName = currentExam?.name || 'SSC CGL 2026';
 
   return (
-    <div className="space-y-3.5 sm:space-y-4 lg:space-y-4.5 pb-28 sm:pb-24 md:pb-20">
+    <div className="space-y-5 sm:space-y-6 pb-24 sm:pb-28">
       
       {/* 🖨️ PRINT-ONLY DESK REVISION SUMMARY HEADER */}
       <div className="hidden print:block mb-6 pb-4 border-b-2 border-black">
