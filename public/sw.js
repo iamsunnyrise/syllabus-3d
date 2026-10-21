@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.9.8';
+const VERSION = 'v3.0.0';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
@@ -21,6 +21,14 @@ const PRECACHE_ASSETS = [
   'focus-desk-day.jpg',
   'focus-desk-night.png',
   'study-tools-ga/ga-notes.min.css',
+  'study-tools-ga/polity/making_of_indian_constitution.html',
+  'study-tools-ga/polity/salient_features_of_constitution.html',
+  'study-tools-ga/polity/preamble.html',
+  'study-tools-ga/polity/part1_part2_union_citizenship.html',
+  'study-tools-ga/polity/fundamental_rights.html',
+  'study-tools-ga/polity/dpsp.html',
+  'study-tools-ga/polity/president_and_vice_president.html',
+  'study-tools-ga/polity/parliament_part_1.html',
   'ssc-vocab/vocabulary_mastery_457.html',
   'ssc-vocab/phrasal_verbs_mastery.html',
   'ssc-vocab/idioms_mastery_notes.html',
