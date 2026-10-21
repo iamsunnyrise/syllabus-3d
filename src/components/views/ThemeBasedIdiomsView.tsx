@@ -32,105 +32,13 @@ import {
   IdiomTheme
 } from '../../data/idiomThemesData';
 import { VocabItem } from '../../data/highYieldVocabData';
-import { LEVEL_1_SET_01_IDIOMS } from '../../data/highYieldIdiomsData';
+import { MASTER_THEME_IDIOMS } from '../../data/themeIdiomsData';
 
 interface ThemeBasedIdiomsViewProps {
   onBackToSets?: () => void;
 }
 
-const LOCAL_STORAGE_THEME_IDIOMS_KEY = 'custom_theme_idioms_store_v1';
-
-// Seed some initial mappings from existing idioms to themes
-const INITIAL_THEME_IDIOM_MAPPINGS: Record<number, Partial<VocabItem>[]> = {
-  1: [
-    {
-      id: 'theme-1-1',
-      word: 'Burn the midnight oil',
-      phonetic: '/bɜːn ðə ˈmɪd.naɪt ɔɪl/',
-      hindi: 'देर रात तक कड़ी मेहनत / पढ़ाई करना',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'To work or study late into the night with intense dedication.',
-      example: 'Aspirants often burn the midnight oil during the final revision month.',
-      mnemonic: 'Before electricity, late night study required keeping oil lamps burning past midnight.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'CPO', 'Theme 01']
-    },
-    {
-      id: 'theme-1-2',
-      word: 'A Ball of Fire',
-      phonetic: '/ə bɔːl əv ˈfaɪər/',
-      hindi: 'अत्यंत ऊर्जावान और कर्मठ व्यक्ति',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'A person who has a huge amount of energy, drive, and relentless work ethic.',
-      example: 'The new manager is a ball of fire; she revamped the entire production within a week.',
-      mnemonic: 'Imagine a sphere of raging fire—uncontainable energy that drives everything forward.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'Theme 01']
-    }
-  ],
-  4: [
-    {
-      id: 'theme-4-1',
-      word: 'A Bad Egg',
-      phonetic: '/ə bæd eɡ/',
-      hindi: 'परिवार या समूह का बदनाम / धोखेबाज़ सदस्य',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Someone who is dishonest, unreliable, or brings disgrace to their group.',
-      example: 'The entire family consists of respected academics, but the youngest son turned out to be a bad egg.',
-      mnemonic: 'Anda bahar se safed dikhta hai par todne par sada hua nikalta hai—theek waise hi dhokhebaaz log.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'Theme 04']
-    }
-  ],
-  10: [
-    {
-      id: 'theme-10-1',
-      word: 'Through thick and thin',
-      phonetic: '/θruː θɪk ænd θɪn/',
-      hindi: 'हर अच्छे और बुरे समय में साथ निभाना',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Under all conditions, no matter how difficult or challenging the circumstances are.',
-      example: 'True friends stand by each other through thick and thin.',
-      mnemonic: 'Chahe jangal ghana (thick) ho ya patla (thin), raste par sath chalna.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'Theme 10']
-    }
-  ],
-  17: [
-    {
-      id: 'theme-17-1',
-      word: 'A blessing in disguise',
-      phonetic: '/ə ˈbles.ɪŋ ɪn dɪsˈɡaɪz/',
-      hindi: 'शुरुआत में बुरा लगने वाला पर अंततः लाभकारी साबित होने वाला अवसर',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Something that seems bad or unlucky at first, but results in something good later.',
-      example: 'Losing that job was a blessing in disguise as it forced him to prepare and clear SSC CGL.',
-      mnemonic: 'Ek vardan (blessing) jo bhes badalkar (disguise) mushkil roop me aaye.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'MTS', 'Theme 17']
-    }
-  ],
-  53: [
-    {
-      id: 'theme-53-1',
-      word: 'A Backseat Driver',
-      phonetic: '/ə ˈbæk.siːt ˈdraɪ.vər/',
-      hindi: 'बेवजह निर्देश देने वाला व्यक्ति',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Someone who gives unwanted advice and tries to control things without having real responsibility.',
-      example: 'I have been managing this project for five years, so please do not be a backseat driver.',
-      mnemonic: 'Pichli seat par baithkar driver ko tokna—koyi asal zimmedari na hona.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'Theme 53']
-    }
-  ]
-};
+const LOCAL_STORAGE_USER_IDIOMS_KEY = 'custom_user_theme_idioms_v1';
 
 export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
   onBackToSets
@@ -144,13 +52,13 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
   const [isCopied, setIsCopied] = useState(false);
   const [masteredIds, setMasteredIds] = useState<Set<string>>(() => new Set());
 
-  // Custom User Idioms Storage for all 89 themes
-  const [customThemeIdioms, setCustomThemeIdioms] = useState<Record<number, Partial<VocabItem>[]>>(() => {
+  // Custom User Idioms Storage for all 89 themes (User additions on top of built-in master curriculum)
+  const [userCustomIdioms, setUserCustomIdioms] = useState<Record<number, Partial<VocabItem>[]>>(() => {
     try {
-      const raw = localStorage.getItem(LOCAL_STORAGE_THEME_IDIOMS_KEY);
-      return raw ? JSON.parse(raw) : INITIAL_THEME_IDIOM_MAPPINGS;
+      const raw = localStorage.getItem(LOCAL_STORAGE_USER_IDIOMS_KEY);
+      return raw ? JSON.parse(raw) : {};
     } catch {
-      return INITIAL_THEME_IDIOM_MAPPINGS;
+      return {};
     }
   });
 
@@ -163,14 +71,14 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
   const [newIdiomMnemonic, setNewIdiomMnemonic] = useState('');
   const [newIdiomFrequency, setNewIdiomFrequency] = useState<'Repeated' | 'High' | 'Very High'>('Repeated');
 
-  // Save to LocalStorage whenever customThemeIdioms changes
+  // Save user-added idioms to LocalStorage
   useEffect(() => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_THEME_IDIOMS_KEY, JSON.stringify(customThemeIdioms));
+      localStorage.setItem(LOCAL_STORAGE_USER_IDIOMS_KEY, JSON.stringify(userCustomIdioms));
     } catch (e) {
-      console.warn('Failed to save custom theme idioms', e);
+      console.warn('Failed to save user custom theme idioms', e);
     }
-  }, [customThemeIdioms]);
+  }, [userCustomIdioms]);
 
   // Current Theme Object
   const currentTheme = useMemo(() => {
@@ -192,10 +100,12 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
     });
   }, [searchQuery, selectedCategory]);
 
-  // Idioms list in current theme
+  // Combined Idioms list in current theme (Built-in Master Curriculum + User Additions)
   const currentThemeIdioms = useMemo(() => {
-    return customThemeIdioms[selectedThemeId] || [];
-  }, [customThemeIdioms, selectedThemeId]);
+    const builtIn = MASTER_THEME_IDIOMS[selectedThemeId] || [];
+    const userAdded = userCustomIdioms[selectedThemeId] || [];
+    return [...builtIn, ...userAdded];
+  }, [userCustomIdioms, selectedThemeId]);
 
   const currentIdiom = currentThemeIdioms[activeCardIndex] || currentThemeIdioms[0];
 
@@ -256,7 +166,7 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
       examTags: ['SSC CGL', `Theme ${String(selectedThemeId).padStart(2, '0')}`, currentTheme.title]
     };
 
-    setCustomThemeIdioms(prev => {
+    setUserCustomIdioms(prev => {
       const existing = prev[selectedThemeId] || [];
       return {
         ...prev,
@@ -407,7 +317,7 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {filteredThemes.map(theme => {
               const isSelected = selectedThemeId === theme.id;
-              const count = (customThemeIdioms[theme.id] || []).length;
+              const count = (MASTER_THEME_IDIOMS[theme.id]?.length || 0) + (userCustomIdioms[theme.id]?.length || 0);
               return (
                 <div
                   key={theme.id}
@@ -582,13 +492,18 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                   <div>
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase">
-                        Idiom / Phrase
+                        {currentIdiom?.partOfSpeech || 'Idiom / Phrase'}
                       </span>
                       {currentIdiom?.phonetic && (
                         <span className="text-xs font-mono text-slate-400">
                           {currentIdiom.phonetic}
                         </span>
                       )}
+                      {currentIdiom?.examTags && currentIdiom.examTags.map((t, idx) => (
+                        <span key={idx} className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+                          {t}
+                        </span>
+                      ))}
                     </div>
                     <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                       {currentIdiom?.word}
@@ -620,17 +535,41 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                     </p>
 
                     {isFlipped && (
-                      <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-2.5 animate-fade-in text-xs sm:text-sm">
+                      <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-3 animate-fade-in text-xs sm:text-sm">
                         {currentIdiom?.example && (
-                          <div className="p-3 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200 dark:border-white/10">
-                            <strong className="text-amber-700 dark:text-amber-300 block mb-1">📖 Exam Sentence:</strong>
+                          <div className="p-3.5 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200 dark:border-white/10 shadow-2xs">
+                            <strong className="text-amber-700 dark:text-amber-300 block mb-1">📖 SSC Exam Sentence:</strong>
                             <p className="text-slate-700 dark:text-slate-300 italic">"{currentIdiom.example}"</p>
                           </div>
                         )}
                         {currentIdiom?.mnemonic && (
-                          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-800 dark:text-amber-100">
-                            <strong className="text-amber-800 dark:text-amber-300 block mb-1">🧠 Desi Trick / Mnemonic:</strong>
+                          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-800 dark:text-amber-100 shadow-2xs">
+                            <strong className="text-amber-800 dark:text-amber-300 block mb-1">🧠 Desi Trick & Origin Mnemonic:</strong>
                             <p className="leading-relaxed">{currentIdiom.mnemonic}</p>
+                          </div>
+                        )}
+                        {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
+                          <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 flex items-center gap-2 flex-wrap">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 shrink-0">
+                              ⚡ Equivalent Idioms:
+                            </span>
+                            {currentIdiom.synonyms.map((s, idx) => (
+                              <span key={idx} className="px-2 py-0.5 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20">
+                                {s}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
+                          <div className="p-3 rounded-xl bg-rose-500/5 border border-rose-500/20 flex items-center gap-2 flex-wrap">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400 shrink-0">
+                              ⚡ Opposite / Contrast:
+                            </span>
+                            {currentIdiom.antonyms.map((a, idx) => (
+                              <span key={idx} className="px-2 py-0.5 rounded-md text-xs font-semibold bg-rose-500/15 text-rose-800 dark:text-rose-300 border border-rose-500/20">
+                                {a}
+                              </span>
+                            ))}
                           </div>
                         )}
                       </div>
