@@ -408,6 +408,24 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for Articles 52-62: "PrEEM TReQing pe chalna hai, so Come In Time". Pardons: Art 72 (President) vs Art 161 (Governor).'
   },
   {
+    id: 'ga-polity-parliament-part1',
+    subject: 'Polity',
+    title: 'Parliament (Part-1)',
+    badge: 'Chapter 08 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/parliament_part_1.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Art 79 & 80: Parliament & RS', detail: 'Westminster model (UK). Parliament = President + LS + RS. 1st sitting both: 13 May 1952. RS max 250 (238 elected via PR+STV from S. Africa + 12 nominated LISAS from Ireland). Complete 31 States/UTs seats.' },
+      { label: '02. 2014 Elections (FPTP) & Art 81 (LS)', detail: 'FPTP example: BSP ~4.2% vote share = 0 seats, AIADMK 3.27% = 37 seats. LS max 550 (530 states + 20 UTs); Anglo-Indians (Art 331) removed by 104th CAA 2019. Carpet symbolism: Green (LS - Agriculture/Grassroots), Red (RS - Royalty/Freedom Sacrifices). All 36 States/UTs seats.' },
+      { label: '03. Art 82, 83 & 84: Delimitation & Terms', detail: '4 Delimitation Acts (1952, 1962, 1972, 2002); 84th CA 2001 froze seats till 2026. RS permanent, 1/3rd retire every 2 yrs, 6 yr term (RPA 1951, 2003 state elector rule removed). LS 5 yrs (max 6 mo gap). Min age: RS 30 yrs, LS 25 yrs.' },
+      { label: '04. Art 85: Sessions, Motions & Questions', detail: '3 Sessions: Budget (longest), Monsoon, Winter (shortest). 11 AM-12 PM: Question Hour (Starred=Oral+Suppl, Unstarred=Written, Short Notice 10 days). 12-1 PM: Zero Hour. Adjournment Motion (50 members). Censure vs No-Confidence Motion.' },
+      { label: '05. Art 86-99: Address & Presiding Officers', detail: 'Art 87 Motion of Thanks. Art 88 AG speaks without vote. RS: Chairman (VP, not member) & Dy Chairman (Art 89-92, Effective majority removal, PT Usha in panel). LS: Speaker (G.V. Mavalankar) & Dy Speaker (M.A. Ayyangar). Protem Speaker: Bhartruhari Mehtab (2024).' },
+      { label: '06. Art 100-106 & Art 73: Quorum & Privileges', detail: 'Art 100: Quorum 1/10th, Casting vote only. Art 101: 60 days absence vacancy. Art 102: Disqualifications (10th Schedule Defection, 2/3rd merger exception 91st CA, Kihoto Hollohan 1992). Art 104: ₹500/day penalty. Art 105: 40 days civil arrest immunity. Art 73: Union Executive power.' }
+    ],
+    summaryNote: 'Trick for Ages: LS 25, RS 30, Pres 35. Quorum: 1/10th. Penalty: ₹500/day. Top LS Seats: UP (80) > MH (48) > WB (42) > BR (40) > TN (39). Defection review: Kihoto Hollohan (1992).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

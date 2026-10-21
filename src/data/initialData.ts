@@ -685,20 +685,28 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
                 mistakes: []
               },
               {
-                id: 'top_parliament',
-                name: 'Indian Parliament & Union Executive',
-                subtopics: ['Lok Sabha vs Rajya Sabha Powers', 'Money Bill Article 110', 'President Veto Powers Article 111'],
-                status: 'revision_due',
+                id: 'top_parliament_part1',
+                name: 'Parliament (Part-1): Structure, Composition, Sessions & Articles 79-106',
+                subtopics: [
+                  'Constitution of Parliament (Art 79): President, Lok Sabha (550 max) & Rajya Sabha (250 max)',
+                  'State-Wise Representation: 31 States/UTs in RS (UP 31) & 36 States/UTs in LS (UP 80, MH 48)',
+                  'Delimitation (Art 82 & 84th CA freeze till 2026) & Qualifications (Art 84: RS 30 yrs, LS 25 yrs)',
+                  'Sessions & Routine (Art 85): Budget, Monsoon, Winter; Question Hour & Zero Hour',
+                  'Parliamentary Motions: Adjournment (50 MPs), Censure vs No-Confidence, Starred/Unstarred Questions',
+                  'Presiding Officers (Arts 89-96): Chairman, Dy Chairman (P.T. Usha), Speaker & Dy Speaker, Protem Speaker (B. Mehtab 2024)',
+                  'Articles 100-106: Quorum (1/10th), Vacation (60 days), Defection (10th Sched & Kihoto Hollohan), ₹500 Penalty & Privileges'
+                ],
+                status: 'completed',
                 completionPercentage: 100,
-                studyTimeMinutes: 210,
-                lastStudied: '2026-08-15',
-                nextRevision: '2026-08-23',
-                accuracy: 74,
-                mockAttempts: 34,
+                studyTimeMinutes: 250,
+                lastStudied: '2026-08-22',
+                nextRevision: '2026-09-01',
+                accuracy: 96,
+                mockAttempts: 48,
                 difficulty: 'Medium',
                 isWeak: false,
-                weightage: 4,
-                notes: 'Money Bill can only be introduced in Lok Sabha with prior recommendation of the President.',
+                weightage: 7,
+                notes: 'Parliament = President + LS + RS (Art 79). 1st sitting both: 13 May 1952. Quorum is 1/10th (Art 100). 104th CAA 2019 removed 2 Anglo-Indian nominations (Art 331). 91st CAA 2003 allowed 2/3rd merger exception. Defection subject to judicial review (Kihoto Hollohan 1992). Penalty for sitting without qualification is ₹500/day (Art 104).',
                 mistakes: []
               }
             ]
@@ -925,6 +933,30 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 8,
             notes: 'President acts on aid and advice of CoM (Art 74); 44th CAA gave power to send back once for reconsideration. Pardoning under Art 72 is executive power subject to limited judicial review against arbitrariness (Kehar Singh, Epuru Sudhakar). VP removal requires effective majority in RS and simple agreement in LS.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_parliament_part1',
+            name: 'Parliament of India (Part-1): Structure, Representation & Legislative Procedures',
+            subtopics: [
+              'Bicameral Federalism & Representation: Westminster Heritage, Unequal RS Seats & Delimitation Freezes (42nd/84th CA)',
+              'First Past The Post (FPTP) System Dynamics: 2014 Empirical Analysis & Disproportionality',
+              'Presiding Officers & Constitutional Autonomy: Speaker/Dy Speaker Election & Removal, Role of RS Chairman & Panel',
+              'Parliamentary Privileges (Art 105 vs Art 361): Civil Immunity, Freedom of Speech & Parliamentary Conventions',
+              'Anti-Defection Law (10th Schedule & Art 102(2)): 91st CAA Merger Exception, Kihoto Hollohan (1992) Judicial Review',
+              'Parliamentary Oversight: Question Hour, Zero Hour, Adjournment Motions, Censure vs No-Confidence Motions'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 280,
+            lastStudied: '2026-08-22',
+            nextRevision: '2026-09-01',
+            accuracy: 96,
+            mockAttempts: 42,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 8,
+            notes: 'Parliament consists of President, Lok Sabha and Rajya Sabha (Art 79). RS members indirectly elected via PR+STV (S. Africa); 12 nominated (Ireland). Delimitation freeze till 2026 (84th CA 2001). Speaker decision under 10th Schedule is subject to judicial review (Kihoto Hollohan 1992). Art 105 grants civil immunity (40 days before/after session), not criminal.',
             mistakes: []
           },
           {

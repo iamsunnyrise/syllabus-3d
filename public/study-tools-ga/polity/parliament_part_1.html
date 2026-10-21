@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PARMAR SSC - Parliament (Part-1) | Interactive Master Notes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAEED9',
+            gold: '#E1A837',
+            olive: '#8D7A02',
+            dark: '#38370D'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAEED9;
+      color: #38370D;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      background-image: radial-gradient(rgba(141, 122, 2, 0.14) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    .note-card {
+      background: rgba(250, 238, 217, 0.94);
+      border: 2px solid #8D7A02;
+      box-shadow: 6px 6px 0px #38370D;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+    .note-card:hover {
+      box-shadow: 8px 8px 0px #38370D;
+      transform: translateY(-2px);
+    }
+
+    .sub-card {
+      background: #FAEED9;
+      border: 1.5px solid #8D7A02;
+      border-radius: 10px;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .gold-badge {
+      background: #E1A837;
+      color: #38370D;
+      font-weight: 700;
+      border: 1px solid #38370D;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .dark-badge {
+      background: #38370D;
+      color: #FAEED9;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .trick-box {
+      background: #38370D;
+      color: #FAEED9;
+      border-left: 6px solid #E1A837;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    /* Self-Test Revision Blur Mode */
+    .quiz-item {
+      transition: all 0.25s ease;
+      border-bottom: 1.5px dashed #8D7A02;
+      padding: 0 3px;
+      border-radius: 4px;
+    }
+    body.self-test-active .quiz-item:not(.revealed) {
+      filter: blur(6px);
+      background-color: #E1A837;
+      color: transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+    body.self-test-active .quiz-item.revealed {
+      background-color: rgba(225, 168, 55, 0.35);
+      filter: blur(0);
+    }
+
+    /* Section Active Pulse */
+    @keyframes pulseGold {
+      0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.9), 6px 6px 0px #38370D; }
+      70% { box-shadow: 0 0 0 18px rgba(225, 168, 55, 0), 6px 6px 0px #38370D; }
+      100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0), 6px 6px 0px #38370D; }
+    }
+    .section-active-pulse {
+      animation: pulseGold 1.6s ease-out 2;
+      border-color: #E1A837 !important;
+    }
+
+    /* Click-to-Note System */
+    [data-note-anchor] {
+      position: relative;
+    }
+    .anchor-add-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      background: #E1A837;
+      color: #38370D;
+      border: 1px solid #38370D;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 20;
+    }
+    [data-note-anchor]:hover > .anchor-add-btn {
+      opacity: 1;
+    }
+    body.click-note-mode [data-note-anchor] {
+      cursor: copy !important;
+    }
+    body.click-note-mode [data-note-anchor]:hover {
+      outline: 2px dashed #E1A837;
+      outline-offset: 3px;
+    }
+
+    /* Print Adjustments */
+    @media print {
+      .no-print { display: none !important; }
+      .note-card { box-shadow: none !important; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE -->
+  <div id="cursorNoteBadge" class="fixed pointer-events-none z-50 hidden bg-gold text-dark border-2 border-dark px-3 py-1 rounded-full text-xs font-extrabold shadow-lg">
+    ➕ Click here to add your extra note
+  </div>
+
+  <!-- 1. STICKY TOP HEADER BAR -->
+  <header class="sticky top-0 z-40 bg-dark text-cream border-b-2 border-gold shadow-lg no-print">
+    <!-- Scroll Progress Bar -->
+    <div class="w-full h-1.5 bg-dark overflow-hidden">
+      <div id="scrollProgress" class="h-full bg-gold transition-all duration-100" style="width: 0%;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <!-- Subject / Topic Title -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg border border-cream">
+          <i class="fa-solid fa-landmark-dome"></i>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-gold font-bold block leading-none">PARMAR SSC • Polity Master Notes</span>
+          <h1 class="font-serif text-base md:text-lg font-bold tracking-wide text-cream">Part V: Parliament - Part 1 (Art 79–106 & 73)</h1>
+        </div>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="relative flex-1 max-w-xs">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-dark/70 text-xs"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Articles, States, Motions, Terms..."
+          class="w-full pl-8 pr-7 py-1.5 rounded-lg bg-cream text-dark placeholder-dark/60 text-xs font-medium border border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-dark/70 hover:text-dark text-xs">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <button id="toggleClickNoteBtn" onclick="toggleClickToNoteMode()" class="px-3 py-1.5 rounded-lg border border-gold bg-dark hover:bg-gold hover:text-dark font-bold transition flex items-center gap-1.5">
+          <span>📝 Click-to-Note:</span>
+          <span id="clickNoteStatus" class="underline">OFF</span>
+        </button>
+
+        <button onclick="toggleDrawer(true)" class="px-3 py-1.5 rounded-lg bg-gold text-dark border border-cream font-bold hover:opacity-90 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>My Notes</span>
+          <span id="savedNotesBadge" class="bg-dark text-cream px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        </button>
+
+        <button id="selfTestBtn" onclick="toggleSelfTestMode()" class="px-3 py-1.5 rounded-lg border border-gold bg-dark hover:bg-gold hover:text-dark font-bold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-eye-slash"></i>
+          <span>Self-Test: <span id="selfTestStatus">OFF</span></span>
+        </button>
+
+        <button onclick="window.print()" class="px-2.5 py-1.5 rounded-lg border border-cream/40 hover:border-gold text-cream hover:text-gold transition" title="Print Notes">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 pt-6 space-y-8">
+
+    <!-- 2. HERO BANNER SECTION -->
+    <section class="note-card p-6 md:p-8 relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2">
+            <span class="gold-badge uppercase tracking-wider">PARMAR SSC</span>
+            <span class="dark-badge">Part V - Parliament (Article 79–122)</span>
+          </div>
+          <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-dark leading-tight" data-note-anchor="hero-title">
+            Parliament of India <span class="text-olive italic">(Part - 1)</span>
+          </h2>
+          <p class="text-sm md:text-base text-dark/90 leading-relaxed font-medium" data-note-anchor="hero-intro">
+            <strong>💡 Hinglish Mein Samjho:</strong> Indian Constitution ke <strong>Part V (Article 79 se 122)</strong> mein Parliament ki baat ki gayi hai. Is Part-1 lecture PDF mein hum <strong>Article 79 se Article 106</strong> tak ke saare provisions, Rajya Sabha aur Lok Sabha ki state-wise seats, 2014 General Elections ka First Past the Post example, Parliamentary Motions, Presiding Officers, Disqualifications, Privileges aur Previous Lecture ka <strong>Article 73</strong> 100% detail mein cover karenge!
+          </p>
+          <!-- Highlight Pills -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1 rounded-full bg-dark text-cream text-xs font-bold border border-gold">
+              🏛️ Westminister Model: <span class="quiz-item text-gold">UK</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-dark text-cream text-xs font-bold border border-gold">
+              📅 1st Sitting (LS & RS): <span class="quiz-item text-gold">13 May 1952</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-dark text-cream text-xs font-bold border border-gold">
+              🪑 RS Strength: <span class="quiz-item text-gold">245 / 250</span>
+            </span>
+            <span class="px-3 py-1 rounded-full bg-dark text-cream text-xs font-bold border border-gold">
+              🗳️ LS Strength: <span class="quiz-item text-gold">543 / 550</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Fast Facts / Summary Graphic Card -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="fast-fact-1">
+            <span class="text-[11px] uppercase text-gold font-bold block">Part V Coverage</span>
+            <div class="text-2xl font-extrabold font-serif mt-1 quiz-item">Art 79–122</div>
+            <p class="text-xs text-cream/80 mt-1">President + Lok Sabha + Rajya Sabha</p>
+          </div>
+          <div class="sub-card p-4" data-note-anchor="fast-fact-2">
+            <span class="text-[11px] uppercase text-olive font-bold block">Max Strength (RS vs LS)</span>
+            <div class="text-2xl font-extrabold font-serif mt-1 text-dark"><span class="quiz-item">250</span> & <span class="quiz-item">550</span></div>
+            <p class="text-xs text-dark/80 mt-1">Present: <span class="quiz-item">245</span> (RS) & <span class="quiz-item">543</span> (LS)</p>
+          </div>
+          <div class="sub-card p-4" data-note-anchor="fast-fact-3">
+            <span class="text-[11px] uppercase text-olive font-bold block">Minimum Age (Art 84)</span>
+            <div class="text-2xl font-extrabold font-serif mt-1 text-dark"><span class="quiz-item">30 Yrs</span> / <span class="quiz-item">25 Yrs</span></div>
+            <p class="text-xs text-dark/80 mt-1">30 Yrs (RS) • 25 Yrs (LS)</p>
+          </div>
+          <div class="sub-card p-4 bg-gold/30" data-note-anchor="fast-fact-4">
+            <span class="text-[11px] uppercase text-dark font-bold block">Quorum & Penalty</span>
+            <div class="text-2xl font-extrabold font-serif mt-1 text-dark"><span class="quiz-item">1/10th</span> • <span class="quiz-item">₹500</span></div>
+            <p class="text-xs text-dark/80 mt-1">Art 100(3) Quorum • Art 104 Penalty/day</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE "TOPICS AT A GLANCE" (QUICK NAVIGATION HUB) -->
+    <section id="topics-at-a-glance" class="note-card p-6 no-print">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div>
+          <span class="gold-badge uppercase">Quick Navigation Hub</span>
+          <h3 class="font-serif text-2xl font-bold mt-1">Topics at a Glance (Click to Jump)</h3>
+        </div>
+        <span class="text-xs text-olive font-semibold"><i class="fa-solid fa-bolt mr-1"></i>100% Zero-Omission • Page 1 to 9 Covered</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <button onclick="jumpToTopic('topic-1')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">01</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Art 79 & 80: Constitution of Parliament & Rajya Sabha</h4>
+            <p class="text-xs text-dark/75 mt-0.5">President + LS + RS, LISAS, STV, All 31 States/UTs RS Seats</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-2')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">02</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">2014 General Elections (FPTP) & Art 81: Lok Sabha</h4>
+            <p class="text-xs text-dark/75 mt-0.5">2014 Vote Share vs Seats Won, Art 81 Composition, All 36 States/UTs LS Seats</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-3')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">03</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Art 82, 83 & 84: Delimitation, Duration & Qualifications</h4>
+            <p class="text-xs text-dark/75 mt-0.5">4 Delimitation Acts, 42nd/84th/87th CA, RS/LS Tenure & Age</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-4')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">04</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Art 85: Sessions, Motions, Questions & Daily Routine</h4>
+            <p class="text-xs text-dark/75 mt-0.5">3 Sessions, Prorogation, Censure vs No-Confidence, Question & Zero Hour</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-5')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">05</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Art 86 to 99: President's Address & Presiding Officers</h4>
+            <p class="text-xs text-dark/75 mt-0.5">Chairman, Dy Chairman, P.T. Usha, Speaker, Dy Speaker, Protem Speaker</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-6')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge text-sm px-2.5 py-1">06</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Art 100 to 106 & Art 73: Quorum, Defection & Privileges</h4>
+            <p class="text-xs text-dark/75 mt-0.5">10th Schedule, RPA 1951, Kihoto Hollohan, Art 104 ₹500 Penalty, Art 73</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 01: ARTICLE 79 & ARTICLE 80 (PAGE 2) -->
+    <!-- ===================================================================== -->
+    <section id="topic-1" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 01 • PDF Page 1 & 2</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t1-heading">Part V: Parliament (Art 79–122) — Article 79 & Article 80</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 79: Constitution of Parliament -->
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="text-lg font-extrabold flex items-center gap-2" data-note-anchor="art79-title">
+            <span class="dark-badge">Article 79</span> Constitution of Parliament
+          </h4>
+          <span class="gold-badge" data-note-anchor="westminster-badge">
+            🇬🇧 Parliamentary System is Borrowed from <span class="quiz-item">UK (Westminster Model)</span>
+          </span>
+        </div>
+
+        <div class="sub-card p-4 bg-gold/15" data-note-anchor="art79-formula">
+          <p class="font-bold text-sm md:text-base">
+            There shall be a Parliament of India that consists of:
+            <span class="quiz-item font-extrabold underline">The President + Two Houses (LS + RS)</span>
+          </p>
+        </div>
+
+        <!-- 3 Pillar Cards: Lok Sabha, President, Rajya Sabha -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Pillar 1: Lok Sabha -->
+          <div class="sub-card p-4 space-y-2" data-note-anchor="art79-ls">
+            <div class="flex items-center justify-between">
+              <span class="gold-badge">1st Pillar</span>
+              <span class="text-xs font-bold text-olive">Non-Permanent House</span>
+            </div>
+            <h5 class="font-serif text-xl font-bold">Lok Sabha</h5>
+            <ul class="text-xs space-y-1.5 list-disc pl-4">
+              <li data-note-anchor="art79-ls-1">It is a <strong class="quiz-item">Non-Permanent House</strong>.</li>
+              <li data-note-anchor="art79-ls-2">Also known as <strong class="quiz-item">1st Chamber</strong> or <strong class="quiz-item">Lower House</strong> or <strong class="quiz-item">House of People</strong> (Hindi name adopted in <strong class="quiz-item">1954</strong>).</li>
+              <li data-note-anchor="art79-ls-3"><strong>First sitting:</strong> <span class="quiz-item font-bold">13 May 1952</span></li>
+              <li data-note-anchor="art79-ls-4"><strong>Constituted on:</strong> <span class="quiz-item font-bold">17 April, 1952</span></li>
+              <li data-note-anchor="art79-ls-5">Members <strong class="quiz-item">elected directly by the people</strong>.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 2: President -->
+          <div class="sub-card p-4 space-y-2 border-2 border-dark bg-gold/20" data-note-anchor="art79-pres">
+            <div class="flex items-center justify-between">
+              <span class="dark-badge">2nd Pillar</span>
+              <span class="text-xs font-bold text-dark">Integral Part</span>
+            </div>
+            <h5 class="font-serif text-xl font-bold">President</h5>
+            <ul class="text-xs space-y-1.5 list-disc pl-4">
+              <li data-note-anchor="art79-pres-1"><strong>President is an <span class="quiz-item">integral part of Parliament</span>.</strong></li>
+              <li data-note-anchor="art79-pres-2"><strong>No Bill becomes law without <span class="quiz-item">his assent</span>.</strong></li>
+            </ul>
+            <div class="p-2.5 rounded bg-cream border border-olive text-[11px] mt-2">
+              <strong>💡 Hinglish Note:</strong> Bhale hi President kisi bhi House (LS ya RS) mein baithte nahi hain, phir bhi bina unke signature (assent) ke koi Bill Act/Law nahi banta—isliye wo Parliament ka abhinn ang (integral part) hain!
+            </div>
+          </div>
+
+          <!-- Pillar 3: Rajya Sabha -->
+          <div class="sub-card p-4 space-y-2" data-note-anchor="art79-rs">
+            <div class="flex items-center justify-between">
+              <span class="gold-badge">3rd Pillar</span>
+              <span class="text-xs font-bold text-olive">Permanent House</span>
+            </div>
+            <h5 class="font-serif text-xl font-bold">Rajya Sabha</h5>
+            <ul class="text-xs space-y-1.5 list-disc pl-4">
+              <li data-note-anchor="art79-rs-1">It is a <strong class="quiz-item">Permanent House</strong>.</li>
+              <li data-note-anchor="art79-rs-2">Also known as <strong class="quiz-item">2nd Chamber</strong> or <strong class="quiz-item">House of Elders</strong> or <strong class="quiz-item">Upper House</strong> or <strong class="quiz-item">Council of States</strong> (Hindi name adopted in <strong class="quiz-item">1954</strong>).</li>
+              <li data-note-anchor="art79-rs-3"><strong>First sitting:</strong> <span class="quiz-item font-bold">13 May 1952</span></li>
+              <li data-note-anchor="art79-rs-4"><strong>Constituted on:</strong> <span class="quiz-item font-bold">3 April, 1952</span></li>
+              <li data-note-anchor="art79-rs-5"><strong>Represents <span class="quiz-item">States</span>.</strong></li>
+              <li data-note-anchor="art79-rs-6">Also known as the <strong class="quiz-item">'House of Elders'</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trick-box text-xs md:text-sm" data-note-anchor="art79-trick">
+          <strong>🧠 Trick to Remember (Constituted Dates vs First Sitting):</strong> Dono Houses ki <strong>First Sitting same date (13 May 1952)</strong> ko hui thi! Lekin gathan (constituted) pehle <strong>Rajya Sabha (3 April 1952)</strong> ka hua aur phir <strong>Lok Sabha (17 April 1952)</strong> ka. Aur dono ke Hindi naam (Lok Sabha & Rajya Sabha) <strong>1954</strong> mein adopt kiye gaye!
+        </div>
+      </div>
+
+      <!-- Article 80: Composition of Council of States (Rajya Sabha) -->
+      <div class="space-y-4 pt-4 border-t border-olive/50">
+        <h4 class="text-lg font-extrabold flex items-center gap-2" data-note-anchor="art80-title">
+          <span class="dark-badge">Article 80</span> Composition of Council of States (Rajya Sabha)
+        </h4>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- Left Tree Breakdown -->
+          <div class="lg:col-span-7 sub-card p-4 space-y-3" data-note-anchor="art80-tree">
+            <div class="text-center p-2.5 bg-dark text-cream rounded-lg font-bold text-sm">
+              Total Members (Maximum Strength): <span class="quiz-item text-gold text-base">250</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                <div class="text-lg font-extrabold"><span class="quiz-item">238</span> Elected Members</div>
+                <p class="text-xs mt-1">Representatives of States & Union Territories (indirectly elected).</p>
+              </div>
+              <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                <div class="text-lg font-extrabold"><span class="quiz-item">12</span> Nominated Members</div>
+                <p class="text-xs mt-1">Nominated by the <strong>President</strong> from the field of <strong class="quiz-item">Literature, Science, Arts, Social Service (LISAS)</strong>.</p>
+              </div>
+            </div>
+            <div class="p-3 rounded-lg bg-cream border-2 border-dark text-xs space-y-1">
+              <div>• <strong>Present strength of RS:</strong> <span class="quiz-item font-extrabold">245 (233 elected, 12 nominated)</span></div>
+              <div>• <strong class="quiz-item">5 seats are vacant</strong> for <span class="quiz-item font-semibold">PoK, Aksai Chin, etc.</span></div>
+            </div>
+          </div>
+
+          <!-- Right Representation & Borrowed Features -->
+          <div class="lg:col-span-5 space-y-3">
+            <div class="sub-card p-4" data-note-anchor="art80-rep">
+              <span class="gold-badge mb-1.5">Representation in RS</span>
+              <p class="text-xs leading-relaxed">
+                Members are <strong>indirectly elected</strong> by means of <strong class="quiz-item">Proportional Representation</strong> and <strong class="quiz-item">Single Transferable Vote (STV)</strong>.
+              </p>
+            </div>
+            <div class="sub-card p-4 bg-dark text-cream" data-note-anchor="art80-note">
+              <span class="gold-badge mb-1.5">📌 Exam Note: Borrowed Sources</span>
+              <ul class="text-xs space-y-1.5 list-disc pl-4">
+                <li><strong>Election of RS members</strong> is borrowed from <span class="quiz-item text-gold font-bold">South Africa</span>.</li>
+                <li><strong>Nomination of RS members</strong> is taken from <span class="quiz-item text-gold font-bold">Ireland</span>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- State-wise Representation in Rajya Sabha (Complete List of 31 States/UTs from Page 2) -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art80-states-table">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="dark-badge">4th Schedule / Art 80</span>
+              <h5 class="font-bold text-sm md:text-base mt-1">There is Unequal representation in RS (based on <span class="quiz-item">population</span>) — Complete 31 States/UTs List</h5>
+            </div>
+            <input
+              type="text"
+              placeholder="Filter State/UT in RS..."
+              onkeyup="filterMiniGrid(this, 'rsStatesGrid')"
+              class="px-3 py-1 rounded border border-olive bg-cream text-xs focus:outline-none focus:ring-1 focus:ring-dark no-print"
+            />
+          </div>
+
+          <div id="rsStatesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 text-xs">
+            <div class="p-2 rounded bg-gold/30 border border-dark font-bold flex justify-between" data-note-anchor="rs-up"><span>Uttar Pradesh</span><span class="quiz-item">31</span></div>
+            <div class="p-2 rounded bg-gold/20 border border-olive font-semibold flex justify-between" data-note-anchor="rs-mh"><span>Maharashtra</span><span class="quiz-item">19</span></div>
+            <div class="p-2 rounded bg-gold/20 border border-olive font-semibold flex justify-between" data-note-anchor="rs-tn"><span>Tamil Nadu</span><span class="quiz-item">18</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-wb"><span>West Bengal</span><span class="quiz-item font-bold">16</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-br"><span>Bihar</span><span class="quiz-item font-bold">16</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-ka"><span>Karnataka</span><span class="quiz-item font-bold">12</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-ap"><span>Andhra Pradesh</span><span class="quiz-item font-bold">11</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-gj"><span>Gujarat</span><span class="quiz-item font-bold">11</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-mp"><span>Madhya Pradesh</span><span class="quiz-item font-bold">11</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-od"><span>Odisha</span><span class="quiz-item font-bold">10</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-rj"><span>Rajasthan</span><span class="quiz-item font-bold">10</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-kl"><span>Kerala</span><span class="quiz-item font-bold">9</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-as"><span>Assam</span><span class="quiz-item font-bold">7</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-pb"><span>Punjab</span><span class="quiz-item font-bold">7</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-tg"><span>Telangana</span><span class="quiz-item font-bold">7</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-jh"><span>Jharkhand</span><span class="quiz-item font-bold">6</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-cg"><span>Chhatisgarh</span><span class="quiz-item font-bold">5</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-hr"><span>Haryana</span><span class="quiz-item font-bold">5</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-jk"><span>Jammu & Kashmir</span><span class="quiz-item font-bold">4</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-uk"><span>Uttrakhand</span><span class="quiz-item font-bold">3</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-hp"><span>Himachal Pradesh</span><span class="quiz-item font-bold">3</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-dl"><span>Delhi</span><span class="quiz-item font-bold">3</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-mn"><span>Manipur</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-mz"><span>Mizoram</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-py"><span>Puducherry</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-tr"><span>Tripura</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-ar"><span>Arunachal Pradesh</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-ml"><span>Meghalaya</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-nl"><span>Nagaland</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-sk"><span>Sikkim</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="rs-ga"><span>Goa</span><span class="quiz-item font-bold">1</span></div>
+          </div>
+
+          <div class="trick-box text-xs" data-note-anchor="rs-seats-trick">
+            <strong>🧠 Trick to Remember RS Seats:</strong>
+            <ul class="list-disc pl-4 mt-1 space-y-0.5">
+              <li><strong>Top 4 States:</strong> UP (<strong>31</strong>) &gt; Maharashtra (<strong>19</strong>) &gt; Tamil Nadu (<strong>18</strong>) &gt; West Bengal & Bihar (<strong>16 each</strong>).</li>
+              <li><strong>11 Seats:</strong> Andhra Pradesh, Gujarat, Madhya Pradesh (A-G-M = 11).</li>
+              <li><strong>10 Seats:</strong> Odisha, Rajasthan (O-R = 10).</li>
+              <li><strong>7 Seats:</strong> Assam, Punjab, Telangana (A-P-T = 7).</li>
+              <li><strong>3 Seats:</strong> Uttrakhand, Himachal Pradesh, Delhi (Pahadi भाई UK-HP + Capital Delhi = 3).</li>
+              <li><strong>1 Seat (9 States/UTs):</strong> North-East ke 7 states (Assam chhodkar: Arunachal, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura) + Goa + Puducherry = <strong>1 seat each</strong>!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 02: 2014 GENERAL ELECTIONS (FPTP) & ARTICLE 81 (PAGES 3 & 4) -->
+    <!-- ===================================================================== -->
+    <section id="topic-2" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 02 • PDF Page 3 & 4</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t2-heading">2014 General Elections (FPTP Example) & Article 81 (Lok Sabha)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- 2014 General Elections Tables (FPTP Example) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Table 1: Vote Share of 2014 General Elections -->
+        <div class="lg:col-span-7 sub-card p-4 overflow-x-auto" data-note-anchor="fptp-table-1">
+          <span class="gold-badge mb-1">An Example of First Past the Post System</span>
+          <h4 class="font-bold text-sm md:text-base mb-2">Vote Share of 2014 General Elections</h4>
+          <table class="w-full text-xs border-collapse">
+            <thead>
+              <tr class="bg-dark text-cream">
+                <th class="p-2 text-left border border-olive">Rank</th>
+                <th class="p-2 text-left border border-olive">Party</th>
+                <th class="p-2 text-right border border-olive">Vote-share (%) in 2014 (approx)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-olive/40 bg-gold/15" data-note-anchor="fptp-r1">
+                <td class="p-2 font-bold">1</td>
+                <td class="p-2 font-bold">Bharatiya Janata Party (BJP)</td>
+                <td class="p-2 text-right font-bold quiz-item">31.0%</td>
+              </tr>
+              <tr class="border-b border-olive/40" data-note-anchor="fptp-r2">
+                <td class="p-2 font-bold">2</td>
+                <td class="p-2">Indian National Congress (INC)</td>
+                <td class="p-2 text-right font-bold quiz-item">19.3%</td>
+              </tr>
+              <tr class="border-b border-olive/40 bg-gold/10" data-note-anchor="fptp-r3">
+                <td class="p-2 font-bold">3</td>
+                <td class="p-2 font-semibold">Bahujan Samaj Party (BSP)</td>
+                <td class="p-2 text-right font-bold quiz-item">~4.2%</td>
+              </tr>
+              <tr class="border-b border-olive/40" data-note-anchor="fptp-r4">
+                <td class="p-2 font-bold">4</td>
+                <td class="p-2">All India Anna Dravida Munnetra Kazhagam (AIADMK)</td>
+                <td class="p-2 text-right font-bold quiz-item">3.27%</td>
+              </tr>
+              <tr class="border-b border-olive/40" data-note-anchor="fptp-r5">
+                <td class="p-2 font-bold">5</td>
+                <td class="p-2">All India Trinamool Congress (AITC / TMC)</td>
+                <td class="p-2 text-right font-bold quiz-item">3.84%</td>
+              </tr>
+              <tr class="border-b border-olive/40" data-note-anchor="fptp-r6">
+                <td class="p-2 font-bold">6</td>
+                <td class="p-2">Communist Party of India (Marxist) (CPI-M)</td>
+                <td class="p-2 text-right font-bold quiz-item">~ 3.25%</td>
+              </tr>
+              <tr class="border-b border-olive/40" data-note-anchor="fptp-r7">
+                <td class="p-2 font-bold">7</td>
+                <td class="p-2">Biju Janata Dal (BJD)</td>
+                <td class="p-2 text-right font-bold quiz-item">~ 1.71%</td>
+              </tr>
+              <tr data-note-anchor="fptp-r8">
+                <td class="p-2 font-bold">8</td>
+                <td class="p-2">Nationalist Congress Party (NCP)</td>
+                <td class="p-2 text-right font-bold quiz-item">1.56%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table 2: Seats Won in 2014 General Election -->
+        <div class="lg:col-span-5 sub-card p-4 flex flex-col justify-between" data-note-anchor="fptp-table-2">
+          <div>
+            <span class="dark-badge mb-1">Seats Comparison</span>
+            <h4 class="font-bold text-sm md:text-base mb-2">Seats Won by Political Parties in 2014 General Election</h4>
+            <table class="w-full text-xs border-collapse">
+              <thead>
+                <tr class="bg-dark text-cream">
+                  <th class="p-2 text-left border border-olive">Party / Party-alliance</th>
+                  <th class="p-2 text-right border border-olive">Seats won in 2014</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-olive/40 bg-gold/15" data-note-anchor="seats2014-1">
+                  <td class="p-2 font-bold">• Bharatiya Janata Party (BJP)</td>
+                  <td class="p-2 text-right font-bold quiz-item">282</td>
+                </tr>
+                <tr class="border-b border-olive/40" data-note-anchor="seats2014-2">
+                  <td class="p-2">• Indian National Congress (INC)</td>
+                  <td class="p-2 text-right font-bold quiz-item">44</td>
+                </tr>
+                <tr class="border-b border-olive/40" data-note-anchor="seats2014-3">
+                  <td class="p-2">• All India Anna Dravida Munnetra Kazhagam (AIADMK)</td>
+                  <td class="p-2 text-right font-bold quiz-item">37</td>
+                </tr>
+                <tr class="border-b border-olive/40" data-note-anchor="seats2014-4">
+                  <td class="p-2">• Biju Janata Dal (BJD)</td>
+                  <td class="p-2 text-right font-bold quiz-item">20</td>
+                </tr>
+                <tr data-note-anchor="seats2014-5">
+                  <td class="p-2">• Telugu Desam Party (TDP)</td>
+                  <td class="p-2 text-right font-bold quiz-item">16</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="trick-box text-xs mt-3" data-note-anchor="fptp-explanation">
+            <strong>💡 Hinglish Mein Samjho (FPTP System):</strong> Dekho! 2014 mein <strong>BSP</strong> ka vote share <strong>~4.2%</strong> (Rank 3) tha, lekin unhe <strong>0 seats</strong> mili kyunki unke votes poore desh mein bikhre hue the. Jabki <strong>AIADMK</strong> ko sirf <strong>3.27%</strong> vote share par <strong>37 seats</strong> mil gayi! Yahi <strong>First Past the Post (FPTP)</strong> system hai—jismein constituency mein sabse zyada vote paane wala candidate jeet jata hai, chahe overall vote percentage kuch bhi ho.
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 81: Composition of House of the People (Lok Sabha) -->
+      <div class="space-y-4 pt-4 border-t border-olive/50">
+        <h4 class="text-lg font-extrabold flex items-center gap-2" data-note-anchor="art81-title">
+          <span class="dark-badge">Article 81</span> Composition of House of the People (Lok Sabha)
+        </h4>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-6 sub-card p-4 space-y-3" data-note-anchor="art81-comp">
+            <div class="text-center p-2.5 bg-dark text-cream rounded-lg font-bold text-sm">
+              Total Seats (Maximum Strength): <span class="quiz-item text-gold text-base">550</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                <div class="text-xl font-extrabold quiz-item">530</div>
+                <div class="text-xs font-semibold">from States</div>
+              </div>
+              <div class="p-3 rounded-lg bg-gold/20 border border-olive">
+                <div class="text-xl font-extrabold quiz-item">20</div>
+                <div class="text-xs font-semibold">from Union Territories</div>
+              </div>
+            </div>
+            <ul class="text-xs space-y-1.5 list-disc pl-4 pt-1">
+              <li data-note-anchor="art81-pres-str"><strong>Present strength:</strong> <span class="quiz-item font-extrabold">543 elected members</span>.</li>
+              <li data-note-anchor="art81-anglo"><strong>2 Anglo Indians</strong> were nominated by President under <strong class="quiz-item">Article 331</strong>, however this provision was removed later through <strong class="quiz-item">104th CAA, 2019</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="lg:col-span-6 space-y-3">
+            <div class="sub-card p-4" data-note-anchor="art81-rep">
+              <span class="gold-badge mb-1">Representation in LS</span>
+              <ul class="text-xs space-y-1 list-disc pl-4">
+                <li><strong>Direct elected by citizens.</strong></li>
+                <li><strong>Parity maintained among <span class="quiz-item">Inter and Intra States</span>.</strong> (Har state ko population ke hisaab se barabar ratio mein seats aur state ke andar bhi barabar population wale constituencies).</li>
+              </ul>
+            </div>
+
+            <!-- Carpet Colour Symbolism (Page 4) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="sub-card p-3.5 border-l-4 border-l-green-700 bg-green-900/10" data-note-anchor="ls-green-color">
+                <span class="px-2 py-0.5 rounded bg-green-800 text-cream text-[10px] font-bold uppercase">🟢 Green Colour in Lok Sabha</span>
+                <p class="text-xs mt-1.5 leading-relaxed">
+                  Represents that <strong class="quiz-item">India is an agricultural land</strong> and people here are <strong class="quiz-item">elected from grassroots level</strong>.
+                </p>
+              </div>
+              <div class="sub-card p-3.5 border-l-4 border-l-red-700 bg-red-900/10" data-note-anchor="rs-red-color">
+                <span class="px-2 py-0.5 rounded bg-red-800 text-cream text-[10px] font-bold uppercase">🔴 Red Colour in Rajya Sabha</span>
+                <p class="text-xs mt-1.5 leading-relaxed">
+                  Represents <strong class="quiz-item">royalty</strong> and symbolises the <strong class="quiz-item">sacrifices done by the freedom fighters and the blood they shed</strong> to gain independence for India.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lok Sabha Seats of States & UTs (Complete 36 Entries from Page 4 Table) -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="ls-seats-table">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="dark-badge">Page 4 Complete Table</span>
+              <h5 class="font-bold text-sm md:text-base mt-1">Lok Sabha Seats of All States & Union Territories (36 Entries)</h5>
+            </div>
+            <input
+              type="text"
+              placeholder="Filter State/UT in LS..."
+              onkeyup="filterMiniGrid(this, 'lsStatesGrid')"
+              class="px-3 py-1 rounded border border-olive bg-cream text-xs focus:outline-none focus:ring-1 focus:ring-dark no-print"
+            />
+          </div>
+
+          <div id="lsStatesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 text-xs">
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ap"><span>Andhra Pradesh</span><span class="quiz-item font-bold">25</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ar"><span>Arunachal Pradesh</span><span class="quiz-item font-bold">2</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-as"><span>Assam</span><span class="quiz-item font-bold">14</span></div>
+            <div class="p-2 rounded bg-gold/20 border border-olive font-semibold flex justify-between" data-note-anchor="ls-br"><span>Bihar</span><span class="quiz-item font-bold">40</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-cg"><span>Chhattisgarh</span><span class="quiz-item font-bold">11</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ga"><span>Goa</span><span class="quiz-item font-bold">2</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-gj"><span>Gujarat</span><span class="quiz-item font-bold">26</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-hr"><span>Haryana</span><span class="quiz-item font-bold">10</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-hp"><span>Himachal Pradesh</span><span class="quiz-item font-bold">4</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-jk"><span>Jammu and Kashmir</span><span class="quiz-item font-bold">5</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-la"><span>Ladakh</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-jh"><span>Jharkhand</span><span class="quiz-item font-bold">14</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ka"><span>Karnataka</span><span class="quiz-item font-bold">28</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-kl"><span>Kerala</span><span class="quiz-item font-bold">20</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-mp"><span>Madhya Pradesh</span><span class="quiz-item font-bold">29</span></div>
+            <div class="p-2 rounded bg-gold/25 border border-dark font-bold flex justify-between" data-note-anchor="ls-mh"><span>Maharashtra</span><span class="quiz-item">48</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-mn"><span>Manipur</span><span class="quiz-item font-bold">2</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ml"><span>Meghalaya</span><span class="quiz-item font-bold">2</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-mz"><span>Mizoram</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-nl"><span>Nagaland</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-od"><span>Odisha</span><span class="quiz-item font-bold">21</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-pb"><span>Punjab</span><span class="quiz-item font-bold">13</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-rj"><span>Rajasthan</span><span class="quiz-item font-bold">25</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-sk"><span>Sikkim</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-gold/20 border border-olive font-semibold flex justify-between" data-note-anchor="ls-tn"><span>Tamil Nadu</span><span class="quiz-item font-bold">39</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-tg"><span>Telangana</span><span class="quiz-item font-bold">17</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-tr"><span>Tripura</span><span class="quiz-item font-bold">2</span></div>
+            <div class="p-2 rounded bg-gold/30 border border-dark font-bold flex justify-between" data-note-anchor="ls-up"><span>Uttar Pradesh</span><span class="quiz-item">80</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-uk"><span>Uttarakhand</span><span class="quiz-item font-bold">5</span></div>
+            <div class="p-2 rounded bg-gold/20 border border-olive font-semibold flex justify-between" data-note-anchor="ls-wb"><span>West Bengal</span><span class="quiz-item font-bold">42</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-an"><span>Andaman and Nicobar</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ch"><span>Chandigarh</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-dnh"><span>Dadra and Nagar Haveli</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-dd"><span>Daman and Diu</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-dl"><span>NCR, Delhi</span><span class="quiz-item font-bold">7</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-ld"><span>Lakshadweep</span><span class="quiz-item font-bold">1</span></div>
+            <div class="p-2 rounded bg-cream border border-olive flex justify-between" data-note-anchor="ls-py"><span>Puducherry</span><span class="quiz-item font-bold">1</span></div>
+          </div>
+
+          <div class="trick-box text-xs" data-note-anchor="ls-seats-trick">
+            <strong>🧠 Trick to Remember Top 5 Lok Sabha States:</strong> <strong>UP (80) &gt; Maharashtra (48) &gt; West Bengal (42) &gt; Bihar (40) &gt; Tamil Nadu (39)</strong>. Aur Union Territories mein sabse zyada <strong>NCR, Delhi (7)</strong> aur <strong>Jammu & Kashmir (5)</strong> ke paas hain!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 03: ARTICLE 82, 83 & 84 (PAGES 4 & 5) -->
+    <!-- ===================================================================== -->
+    <section id="topic-3" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 03 • PDF Page 4 & 5</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t3-heading">Articles 82, 83 & 84: Delimitation, Duration & Qualifications</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 82: Readjustment after Each Census -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-6 sub-card p-4 space-y-3" data-note-anchor="art82-card">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 82</span> Readjustment after Each Census
+          </h4>
+          <p class="text-xs leading-relaxed">
+            <strong>Delimitation Commission</strong> established after every Census (in <strong class="quiz-item">10 years</strong>) to divide constituencies based on population.
+          </p>
+          <div class="p-3 rounded bg-gold/20 border border-olive text-xs" data-note-anchor="delimitation-def">
+            <strong>📖 Definition:</strong> <em>"Delimitation"</em> means the <strong class="quiz-item">act or process of fixing limits or boundaries of territorial constituencies</strong>.
+          </div>
+          <div>
+            <span class="gold-badge mb-1.5">Important Delimitation Acts (Total 4)</span>
+            <div class="grid grid-cols-4 gap-2 text-center text-xs font-bold mt-1">
+              <div class="p-2 rounded bg-dark text-cream">1st: <span class="quiz-item text-gold">1952</span></div>
+              <div class="p-2 rounded bg-dark text-cream">2nd: <span class="quiz-item text-gold">1962</span></div>
+              <div class="p-2 rounded bg-dark text-cream">3rd: <span class="quiz-item text-gold">1972</span></div>
+              <div class="p-2 rounded bg-dark text-cream">4th: <span class="quiz-item text-gold">2002</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 sub-card p-4 space-y-3" data-note-anchor="art82-amendments">
+          <span class="gold-badge">Key Constitutional Amendments (Art 82)</span>
+          <ul class="text-xs space-y-2.5">
+            <li class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="ca-42">
+              <strong class="quiz-item">42th CA (1976):</strong> Seats were fixed based on <strong class="quiz-item">1971 Census</strong> until <strong class="quiz-item">2000</strong>.
+            </li>
+            <li class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="ca-84">
+              <strong class="quiz-item">84th CA (2001):</strong> Freeze on Delimitation Commission extended till <strong class="quiz-item">2026</strong>.
+            </li>
+            <li class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="ca-87">
+              <strong class="quiz-item">87th CA (2003):</strong> Minor adjustments, Delimitation according to <strong class="quiz-item">2001 Census</strong>.
+            </li>
+          </ul>
+          <div class="trick-box text-xs" data-note-anchor="art82-trick">
+            <strong>💡 Hinglish Mein Samjho:</strong> 1981 aur 1991 ke Census ke baad koi Delimitation Commission nahi bana kyunki 42nd CA (1976) ne seats 2000 tak freeze kar di thi, aur 84th CA (2001) ne ise <strong>2026</strong> tak aage badha diya!
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 83 & Article 84 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Article 83: Duration of Houses -->
+        <div class="lg:col-span-8 sub-card p-4 space-y-3" data-note-anchor="art83-card">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 83</span> Duration of Houses
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <!-- RS Duration -->
+            <div class="p-3 rounded bg-gold/15 border border-olive space-y-1.5">
+              <span class="gold-badge">Rajya Sabha</span>
+              <ul class="text-xs space-y-1 list-disc pl-4">
+                <li data-note-anchor="art83-rs1"><strong>Permanent body;</strong> not subject to dissolution.</li>
+                <li data-note-anchor="art83-rs2"><strong class="quiz-item">1/3rd members retire every 2 years</strong>.</li>
+                <li data-note-anchor="art83-rs3"><strong>Term of members of RS is <span class="quiz-item">6 years</span>.</strong> (Constitution mein fix nahi tha, RPA 1951 se 6 years rakha gaya).</li>
+              </ul>
+              <div class="p-2 rounded bg-dark text-cream text-[11px] mt-2" data-note-anchor="art83-rs-2003">
+                <strong>📌 2003 Rule Change:</strong> Requirement for a candidate contesting election to RS from a particular state should be an <strong class="quiz-item">elector in that particular state was dispensed with in 2003</strong>.
+              </div>
+            </div>
+
+            <!-- LS Duration -->
+            <div class="p-3 rounded bg-gold/15 border border-olive space-y-1.5">
+              <span class="gold-badge">Lok Sabha</span>
+              <ul class="text-xs space-y-1 list-disc pl-4">
+                <li data-note-anchor="art83-ls1"><strong>Tenure:</strong> <span class="quiz-item font-bold">5 years</span>.</li>
+                <li data-note-anchor="art83-ls2"><strong>Note:</strong> Maximum gap between sessions cannot exceed <strong class="quiz-item">6 months</strong>.</li>
+                <li data-note-anchor="art83-ls3">Can be extended during <strong>national emergency</strong> (<strong class="quiz-item">one year at a time</strong>).</li>
+                <li data-note-anchor="art83-ls4">Elections must be held within <strong class="quiz-item">6 months</strong> after the end of emergency.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 84: Qualifications for Membership of Parliament -->
+        <div class="lg:col-span-4 sub-card p-4 flex flex-col justify-between" data-note-anchor="art84-card">
+          <div class="space-y-2.5">
+            <h4 class="text-base font-extrabold flex items-center gap-2">
+              <span class="dark-badge">Article 84</span> Qualifications for Membership
+            </h4>
+            <ul class="text-xs space-y-2 list-disc pl-4">
+              <li data-note-anchor="art84-1">Must be a <strong class="quiz-item">citizen of India</strong>.</li>
+              <li data-note-anchor="art84-2">
+                <strong>Minimum required age:</strong>
+                <div class="mt-1 flex gap-2">
+                  <span class="gold-badge"><span class="quiz-item">30 years</span> (Rajya Sabha)</span>
+                  <span class="gold-badge"><span class="quiz-item">25 years</span> (Lok Sabha)</span>
+                </div>
+              </li>
+              <li data-note-anchor="art84-3">Other qualifications as <strong class="quiz-item">prescribed by Parliament</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="trick-box text-xs mt-3">
+            <strong>🧠 Age Trick:</strong> Panchayat/Municipality = <strong>21 yrs</strong>, Lok Sabha/MLA = <strong>25 yrs</strong>, Rajya Sabha/MLC = <strong>30 yrs</strong>, President/VP/Governor = <strong>35 yrs</strong>!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 04: ARTICLE 85, SESSIONS, MOTIONS, QUESTIONS & ROUTINE (PAGE 5) -->
+    <!-- ===================================================================== -->
+    <section id="topic-4" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 04 • PDF Page 5</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t4-heading">Article 85: Sessions, Motions, Questions & Session Routine</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 85: Sessions & Termination Terms -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-5 sub-card p-4 space-y-3" data-note-anchor="art85-sessions">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 85</span> Sessions of Parliament
+          </h4>
+          <p class="text-xs">
+            <strong>Sessions of Parliament, Prorogation, and Dissolution</strong> on the advice of <strong class="quiz-item">Council of Ministers</strong>.
+          </p>
+          <div class="p-3 rounded bg-gold/20 border border-olive space-y-2">
+            <div class="text-xs font-extrabold uppercase">Parliamentary Sessions (Summoned by the <span class="quiz-item">President</span>):</div>
+            <ul class="text-xs space-y-1.5">
+              <li data-note-anchor="sess-budget">🌱 <strong>Budget Session:</strong> <span class="quiz-item font-bold">February to April</span> (Longest)</li>
+              <li data-note-anchor="sess-monsoon">🌧️ <strong>Monsoon Session:</strong> <span class="quiz-item font-bold">July–August</span></li>
+              <li data-note-anchor="sess-winter">❄️ <strong>Winter Session:</strong> <span class="quiz-item font-bold">December</span> (Shortest)</li>
+            </ul>
+          </div>
+          <!-- Daily Routine of a Session -->
+          <div class="p-3 rounded bg-dark text-cream space-y-1.5 text-xs" data-note-anchor="session-routine">
+            <span class="gold-badge">⏰ Routine of a Session</span>
+            <div>• <strong>11 AM:</strong> Start</div>
+            <div>• <strong>11 AM – 12 PM:</strong> <span class="quiz-item text-gold font-bold">Question Hour</span></div>
+            <div>• <strong>12 – 1 PM:</strong> <span class="quiz-item text-gold font-bold">Zero Hour</span> (Agenda of the day is decided)</div>
+          </div>
+        </div>
+
+        <!-- Prorogation vs Dissolution vs Adjournment vs Adjournment Sine Die -->
+        <div class="lg:col-span-7 sub-card p-4 space-y-2.5" data-note-anchor="art85-terms">
+          <span class="gold-badge">Key Parliamentary Termination Terms</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+            <div class="p-3 rounded bg-cream border border-olive" data-note-anchor="term-prorogation">
+              <div class="font-extrabold text-sm">1. Prorogation</div>
+              <p class="mt-1">Ends a <strong class="quiz-item">session</strong> (by <strong class="quiz-item">President</strong>).</p>
+            </div>
+            <div class="p-3 rounded bg-cream border border-olive" data-note-anchor="term-dissolution">
+              <div class="font-extrabold text-sm">2. Dissolution</div>
+              <p class="mt-1">Formal termination of the current <strong class="quiz-item">Lok Sabha session/house</strong> (by <strong class="quiz-item">President</strong>).</p>
+            </div>
+            <div class="p-3 rounded bg-cream border border-olive" data-note-anchor="term-adjournment">
+              <div class="font-extrabold text-sm">3. Adjournment</div>
+              <p class="mt-1">Temporary break within a session where a <strong class="quiz-item">sitting is terminated</strong> (by <strong class="quiz-item">Presiding Officer</strong>).</p>
+            </div>
+            <div class="p-3 rounded bg-cream border border-olive" data-note-anchor="term-sine-die">
+              <div class="font-extrabold text-sm">4. Adjournment Sine Die</div>
+              <p class="mt-1">By <strong class="quiz-item">Presiding Officer</strong> who ends the session meeting <strong class="quiz-item">without fixing a date for next session</strong>, happens just before prorogation.</p>
+            </div>
+          </div>
+          <div class="p-3 rounded bg-gold/25 border-2 border-dark text-xs" data-note-anchor="term-adj-motion">
+            <strong>🔥 Adjournment Motion:</strong> The adjournment motion is introduced in the Parliament to draw the attention of the house to a <strong class="quiz-item">definite matter of urgent public importance</strong> and needs the support of <strong class="quiz-item">50 members</strong> to be admitted.
+          </div>
+        </div>
+      </div>
+
+      <!-- Parliamentary Motions, Types of Questions & Censure vs No-Confidence -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Other Parliamentary Motions & Questions -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="sub-card p-4 space-y-2" data-note-anchor="other-motions">
+            <span class="dark-badge">Some other Parliamentary Motion / Procedures</span>
+            <ul class="text-xs space-y-2 list-disc pl-4">
+              <li data-note-anchor="motion-closure">
+                <strong>Closure Motion:</strong> A motion moved by a member to <strong class="quiz-item">cut short the debate</strong> on a matter before the house.
+              </li>
+              <li data-note-anchor="motion-call-attention">
+                <strong>Call Attention Motion:</strong> It is introduced in Parliament by a member to <strong class="quiz-item">call the attention of a minister on a matter of public importance</strong>.
+              </li>
+              <li data-note-anchor="motion-point-order">
+                <strong>Point of Order:</strong> It is raised when the proceedings of the house <strong class="quiz-item">do not follow the normal rules of procedure</strong>. <strong class="quiz-item">No debate is allowed</strong> on Point of Order.
+              </li>
+            </ul>
+          </div>
+
+          <div class="sub-card p-4 space-y-2" data-note-anchor="types-of-questions">
+            <span class="gold-badge">Types of Questions in Question Hour</span>
+            <ul class="text-xs space-y-2 list-disc pl-4">
+              <li data-note-anchor="q-starred">
+                <strong>Starred (*):</strong> <strong class="quiz-item">Oral question-answers</strong>, <strong class="quiz-item">can have supplementary questions</strong>.
+              </li>
+              <li data-note-anchor="q-unstarred">
+                <strong>Unstarred:</strong> Required <strong class="quiz-item">written answers</strong>, <strong class="quiz-item">No Supplementary questions</strong> could follow.
+              </li>
+              <li data-note-anchor="q-short-notice">
+                <strong>Short Notice:</strong> <strong class="quiz-item">10 days prior notice</strong> should be given.
+              </li>
+              <li data-note-anchor="q-private-member">
+                <strong>Note on Private Members:</strong> Question could also be asked to <strong class="quiz-item">private members</strong>. <em>(A private member is the one who is <strong class="quiz-item">not a minister</strong>.)</em>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Censure Motion vs No-Confidence Motion Table -->
+        <div class="lg:col-span-6 sub-card p-4 flex flex-col justify-between" data-note-anchor="censure-vs-noconf">
+          <div>
+            <span class="gold-badge mb-1">High-Yield Comparison</span>
+            <h4 class="font-bold text-base mb-2">Censure Motion vs No-Confidence Motion</h4>
+            <table class="w-full text-xs border-collapse">
+              <thead>
+                <tr class="bg-dark text-cream">
+                  <th class="p-2.5 text-left border border-olive">Censure Motion</th>
+                  <th class="p-2.5 text-left border border-olive">No-Confidence Motion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-olive/40" data-note-anchor="cm-ncm-1">
+                  <td class="p-2.5 border-r border-olive/40">• <strong class="quiz-item">Reason must be stated</strong></td>
+                  <td class="p-2.5">• <strong class="quiz-item">No reason required</strong></td>
+                </tr>
+                <tr class="border-b border-olive/40 bg-gold/10" data-note-anchor="cm-ncm-2">
+                  <td class="p-2.5 border-r border-olive/40">• Can be moved against <strong class="quiz-item">an individual, group, or entire council</strong></td>
+                  <td class="p-2.5">• Can be moved against <strong class="quiz-item">entire council only</strong>.</td>
+                </tr>
+                <tr class="border-b border-olive/40" data-note-anchor="cm-ncm-3">
+                  <td class="p-2.5 border-r border-olive/40">• To target for <strong class="quiz-item">some specific policies/actions</strong></td>
+                  <td class="p-2.5">• To <strong class="quiz-item">test majority support (confidence) of LS in CoM</strong>.</td>
+                </tr>
+                <tr class="bg-gold/20 font-bold" data-note-anchor="cm-ncm-4">
+                  <td class="p-2.5 border-r border-olive/40">• If passed, <strong class="quiz-item">no resignation required</strong></td>
+                  <td class="p-2.5">• If passed, <strong class="quiz-item">resignation is mandatory</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="trick-box text-xs mt-3" data-note-anchor="censure-trick">
+            <strong>💡 Hinglish Mein Samjho:</strong> <strong>Censure Motion</strong> ka matlab hai sarkar ya kisi ek mantri ko kisi galti par daant lagana (reason batana zaroori hai, par pass hone par sarkar girti nahi hai). Jabki <strong>No-Confidence Motion</strong> poori Council of Ministers ke khilaf aata hai aur pass hote hi poori sarkar ko resign karna padta hai!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 05: ARTICLES 86 TO 99 — ADDRESS & PRESIDING OFFICERS (PAGES 6 & 7) -->
+    <!-- ===================================================================== -->
+    <section id="topic-5" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 05 • PDF Page 6 & 7</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t5-heading">Articles 86 to 99: President's Address & Officers of Parliament</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Articles 86, 87, 88 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art86-card">
+          <span class="dark-badge">Article 86</span>
+          <h4 class="font-bold text-sm">Right of President to Address and Send Messages</h4>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li>President can address <strong class="quiz-item">either House or both Houses jointly</strong>.</li>
+            <li>President can send messages regarding <strong class="quiz-item">pending Bills or other matters</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="sub-card p-4 space-y-2 bg-gold/15" data-note-anchor="art87-card">
+          <span class="dark-badge">Article 87</span>
+          <h4 class="font-bold text-sm">Special Address by the President</h4>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li>President addresses both Houses: At the <strong class="quiz-item">first session after each general elections</strong> and the <strong class="quiz-item">first session of each fiscal year</strong>.</li>
+            <li><strong class="quiz-item">Motion of Thanks</strong> follows the address.</li>
+          </ul>
+        </div>
+
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art88-card">
+          <span class="dark-badge">Article 88</span>
+          <h4 class="font-bold text-sm">Rights of Ministers and Attorney General</h4>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li><strong>Ministers:</strong> Right to speak in either House but <strong class="quiz-item">can vote only in that house of which they are a member</strong>.</li>
+            <li><strong>Attorney General:</strong> Not a member of either house but has the <strong class="quiz-item">right to speak in LS/RS, without having Right to Vote</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Rajya Sabha Officers (Art 89 to 92) vs Lok Sabha Officers (Art 93 to 96) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Left Column: Rajya Sabha Presiding Officers (Art 89–92) -->
+        <div class="sub-card p-4 space-y-3 border-2 border-dark" data-note-anchor="rs-officers-box">
+          <div class="flex items-center justify-between border-b border-olive pb-2">
+            <span class="gold-badge text-xs">Rajya Sabha Officers (Art 89–92)</span>
+            <span class="text-xs font-bold text-olive">Chairman & Deputy Chairman</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art89-card">
+              <strong class="dark-badge mb-1">Article 89: Chairman and Deputy Chairman of RS</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li><strong>Chairman:</strong> <span class="quiz-item font-bold">Vice President of India (Ex-officio)</span>. He is <strong class="quiz-item">not a member of RS</strong>.</li>
+                <li><strong>Deputy Chairman:</strong> Elected by <strong class="quiz-item">Rajya Sabha</strong>. Fulfills duties as the Acting Chairman in absence of the Chairman. He <strong class="quiz-item">is a member of RS</strong>.</li>
+                <li>While the Chairman is presiding the house, Deputy Chairman is <strong class="quiz-item">like any other member of the house</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art90-card">
+              <strong class="dark-badge mb-1">Article 90: Vacation, Resignation, Removal of Dy Chairman</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li><strong>Resignation:</strong> By writing to the <strong class="quiz-item">Chairman</strong>.</li>
+                <li><strong>Removal:</strong> By <strong class="quiz-item">Effective majority</strong> of the total membership of the Rajya Sabha.</li>
+                <li class="font-bold text-olive">📐 Formula: <span class="quiz-item">Effective Majority = Majority of the (total membership of house − Vacancies)</span></li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art91-card">
+              <strong class="dark-badge mb-1">Article 91: Power/Duty of Deputy Chairman</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li>Presides in absence of Chairman.</li>
+                <li><strong>When Seats of Chairman and Deputy Chairman are vacant:</strong> Then <strong class="quiz-item">President can choose any member from the house</strong> to discharge duties of RS.</li>
+                <li><strong>If the Chairman and DC, both are absent, then:</strong> One member of the <strong class="quiz-item">Panel of Vice-Chairpersons</strong>, appointed by the Chairman, presides. <em>(This is not explicitly mentioned in Constitution).</em></li>
+                <li class="p-1.5 rounded bg-gold/30 border border-dark font-bold mt-1">
+                  🏅 <span class="quiz-item">P.T. Usha</span>: First woman to be appointed in the RS panel of Vice-Chairpersons.
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art92-card">
+              <strong class="dark-badge mb-1">Article 92: Not to Preside During Their Removal</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li>They can participate in proceedings but <strong class="quiz-item">cannot preside during their own removal resolution</strong>.</li>
+                <li>Can vote in first instance (Deputy Chairman) but not in the case of tie (casting vote exercised by Presiding Officer).</li>
+                <li><strong>Chairman does not have the casting vote rights in this case, as he is <span class="quiz-item">not a member of RS</span></strong> (in fact, he cannot vote at all during his removal resolution).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Lok Sabha Presiding Officers (Art 93–96) -->
+        <div class="sub-card p-4 space-y-3 border-2 border-dark" data-note-anchor="ls-officers-box">
+          <div class="flex items-center justify-between border-b border-olive pb-2">
+            <span class="gold-badge text-xs">Lok Sabha Officers (Art 93–96)</span>
+            <span class="text-xs font-bold text-olive">Speaker & Deputy Speaker</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art93-card">
+              <strong class="dark-badge mb-1">Article 93: Speaker and Deputy Speaker of Lok Sabha</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li>Elected by Lok Sabha members by <strong class="quiz-item">Simple Majority</strong>.</li>
+                <li><strong>First Speaker:</strong> <span class="quiz-item font-bold">Ganesh Vasudev Mavalankar</span>.</li>
+                <li><strong>First Deputy Speaker:</strong> <span class="quiz-item font-bold">M. A. Ayyangar</span>.</li>
+                <li><strong>Note:</strong> <span class="quiz-item font-bold">No Deputy Speaker appointed since 2019</span>.</li>
+                <li class="p-1.5 rounded bg-gold/30 border border-dark font-bold mt-1">
+                  📅 Date of election of <strong>Speaker</strong> is fixed by the <span class="quiz-item">President</span>, and that of <strong>Deputy Speaker</strong> is fixed by <span class="quiz-item">Speaker</span>.
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art94-card">
+              <strong class="dark-badge mb-1">Article 94: Vacation, Resignation, Removal of Speaker & Dy Speaker</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li><strong>Resignation:</strong> <span class="quiz-item font-bold">Speaker resigns to Deputy Speaker and vice-versa</span>.</li>
+                <li><strong>Removal:</strong> By <strong class="quiz-item">Effective majority</strong>.</li>
+                <li>Speaker continues till a new Speaker is elected; <strong class="quiz-item">he does not immediately resign after the dissolution of LS</strong> and continues till the newly elected LS meets.</li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art95-card">
+              <strong class="dark-badge mb-1">Article 95: Powers to Perform Duties</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li>Deputy Speaker presides when Speaker is absent.</li>
+                <li><strong>If the Seat is vacant:</strong> Then <strong class="quiz-item">President can choose any member</strong> to discharge the duties.</li>
+                <li><strong>If the Speaker and Deputy Speaker, both are absent:</strong> Then one member of the <strong class="quiz-item">Panel of Chairpersons</strong>, appointed by the Speaker presides.</li>
+              </ul>
+            </div>
+
+            <div class="p-2.5 rounded bg-cream border border-olive" data-note-anchor="art96-card">
+              <strong class="dark-badge mb-1">Article 96: Speaker & Dy Speaker Not to Preside During Removal</strong>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li>They can participate in proceedings but <strong class="quiz-item">cannot preside while a motion for their removal is under discussion</strong>.</li>
+                <li>The Speaker's <strong class="quiz-item">right to vote in the first instance is retained</strong>, but has <strong class="quiz-item">no right to casting vote in the case of tie</strong>.</li>
+                <li><strong>Note:</strong> <span class="quiz-item font-bold">Deputy speaker is not subordinate to the Speaker</span> (he is directly responsible to the Lok Sabha).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 97, 98, 99 & Protem Speaker -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art97-card">
+          <span class="dark-badge">Article 97</span>
+          <h5 class="font-bold text-sm">Salaries and Allowances</h5>
+          <p class="text-xs">
+            Salaries of Chairman and Deputy Chairman of Rajya Sabha and Speaker and Deputy Speaker of Lok Sabha are <strong class="quiz-item">decided by Parliament</strong>.
+          </p>
+        </div>
+
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art98-card">
+          <span class="dark-badge">Article 98</span>
+          <h5 class="font-bold text-sm">Secretariat of Parliament</h5>
+          <p class="text-xs">
+            • Each House has its <strong class="quiz-item">separate secretarial staff</strong>.<br/>
+            • Secretariat appointed by <strong class="quiz-item">President</strong> on advice of the <strong class="quiz-item">Speaker of the LS and Chairman of RS</strong>.
+          </p>
+        </div>
+
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art99-card">
+          <span class="dark-badge">Article 99</span>
+          <h5 class="font-bold text-sm">Oath or Affirmations by Members</h5>
+          <p class="text-xs">
+            Every member of either House must take oath before taking his seat as administered by the <strong class="quiz-item">President or a person appointed by him</strong>.
+          </p>
+        </div>
+
+        <div class="sub-card p-4 space-y-1.5 bg-gold/25 border-2 border-dark" data-note-anchor="protem-speaker-card">
+          <span class="gold-badge">Protem Speaker</span>
+          <h5 class="font-bold text-sm">Temporary Presiding Officer</h5>
+          <p class="text-xs">
+            • <strong class="quiz-item">Senior-most member</strong> appointed temporarily by <strong class="quiz-item">President</strong> to administer oath to members.<br/>
+            • <strong class="quiz-item">Bhartruhari Mehtab</strong> has served as Protem Speaker from <strong class="quiz-item">24th June 2024 to 26th June 2024</strong> after 2024 General Elections.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 06: ARTICLES 100 TO 106 & ARTICLE 73 (PAGES 8 & 9) -->
+    <!-- ===================================================================== -->
+    <section id="topic-6" class="note-card p-6 space-y-6 searchable-section">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="gold-badge">Topic 06 • PDF Page 8 & 9</span>
+          <h3 class="font-serif text-2xl font-extrabold" data-note-anchor="t6-heading">Articles 100 to 106 (Quorum, Defection, Privileges) & Article 73</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="text-xs font-bold text-olive hover:text-dark flex items-center gap-1 no-print">
+          <i class="fa-solid fa-arrow-up"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 100 & Article 101 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Article 100 -->
+        <div class="sub-card p-4 space-y-2.5" data-note-anchor="art100-card">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 100</span> Voting in Houses and Quorum
+          </h4>
+          <ul class="text-xs space-y-2 list-disc pl-4">
+            <li data-note-anchor="art100-1"><strong>100(1):</strong> The Chairman or Speaker <strong class="quiz-item">shall not vote in the 1st instance</strong> but shall exercise a <strong class="quiz-item">casting vote in case of a tie</strong>.</li>
+            <li data-note-anchor="art100-3"><strong>100(3) Quorum:</strong> Minimum <strong class="quiz-item">1/10th of total strength of House</strong> is required to carry on the proceedings (i.e., 55 in LS, 25 in RS).</li>
+            <li data-note-anchor="art100-4"><strong>100(4):</strong> If quorum is not met, house is <strong class="quiz-item">adjourned by the presiding officer</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Article 101 -->
+        <div class="sub-card p-4 space-y-2.5" data-note-anchor="art101-card">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 101</span> Vacation of Seats
+          </h4>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li data-note-anchor="art101-1"><strong>101(1):</strong> No person shall be a <strong class="quiz-item">member of both Houses of Parliament</strong>.</li>
+            <li data-note-anchor="art101-2"><strong>101(2):</strong> No person can be a <strong class="quiz-item">member of State Legislature and a member of Parliament</strong>.</li>
+            <li data-note-anchor="art101-3"><strong>101(3):</strong> Members can be disqualified as mentioned in <strong class="quiz-item">Article 102</strong>.</li>
+            <li data-note-anchor="art101-3a"><strong>(101 3A):</strong> A member can <strong class="quiz-item">resign his seat to the Chairman or Speaker</strong>.</li>
+            <li data-note-anchor="art101-4"><strong>101(4):</strong> If a member of either of the Houses of Parliament is <strong class="quiz-item">absent without permission for a period of 60 days</strong>, the house may declare the seat vacant.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Article 102: Disqualifications (102(1) vs 102(2) 10th Schedule Defection) -->
+      <div class="sub-card p-4 space-y-4 border-2 border-dark" data-note-anchor="art102-card">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="text-base font-extrabold flex items-center gap-2">
+            <span class="dark-badge">Article 102</span> Disqualifications for Membership
+          </h4>
+          <span class="gold-badge">Constitutional + RPA 1951 + 10th Schedule</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+          <!-- 102(1) -->
+          <div class="p-3.5 rounded bg-cream border border-olive space-y-2" data-note-anchor="art102-1">
+            <div class="font-extrabold text-sm text-dark border-b border-olive pb-1">102(1): A person shall be disqualified for membership if:</div>
+            <ul class="space-y-1.5 list-disc pl-4">
+              <li><strong>(a)</strong> He holds any <strong class="quiz-item">office of profit</strong> under the Union or State Government.</li>
+              <li><strong>(b)</strong> He is of <strong class="quiz-item">unsound mind</strong>, as declared by a competent court.</li>
+              <li><strong>(c)</strong> He is an <strong class="quiz-item">undischarged insolvent</strong>.</li>
+              <li><strong>(d)</strong> He is <strong class="quiz-item">not a citizen of India</strong>.</li>
+            </ul>
+            <div class="p-2.5 rounded bg-gold/25 border border-dark mt-2" data-note-anchor="rpa-1951-note">
+              <strong>⚖️ RPA: Representation of People Act, 1951:</strong> <strong class="quiz-item">Jail for more than two years</strong> leads to disqualification.
+            </div>
+          </div>
+
+          <!-- 102(2) Defection -->
+          <div class="p-3.5 rounded bg-cream border border-olive space-y-2" data-note-anchor="art102-2">
+            <div class="font-extrabold text-sm text-dark border-b border-olive pb-1">102(2): Disqualification under 10th Schedule — Defection on the grounds of:</div>
+            <ul class="space-y-1.5 list-disc pl-4">
+              <li><strong class="quiz-item">Independent members</strong> join any political party.</li>
+              <li><strong class="quiz-item">Nominated members</strong> join a political party <strong class="quiz-item">after 6 months</strong> from the date of his nomination.</li>
+              <li>If he <strong class="quiz-item">votes contrary to the direction of his party</strong> (whip).</li>
+              <li>If the member <strong class="quiz-item">voluntarily gives up the membership</strong> of the party on whose ticket he has been elected.</li>
+            </ul>
+            <div class="p-2 rounded bg-dark text-cream mt-2" data-note-anchor="defection-exception">
+              <strong>✅ Exception:</strong> Merger when <strong class="quiz-item text-gold">2/3rd members</strong> leave and join other political party (<strong class="quiz-item text-gold">91st CA, 2003</strong>).
+            </div>
+          </div>
+        </div>
+
+        <!-- Kihoto Hollohan Case -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 rounded bg-gold/20 border border-olive" data-note-anchor="speaker-final-defection">
+            <strong>📌 Authority on Defection:</strong> Decision of the <strong class="quiz-item">Speaker / Chairman is final</strong> with regard to disqualification under defection.
+          </div>
+          <div class="p-3 rounded bg-gold/20 border border-olive" data-note-anchor="kihoto-case">
+            <strong>⚖️ <span class="quiz-item">Kihoto Hollohan vs Zachilhu Case</span> (1992):</strong> <strong class="quiz-item">Judiciary can review</strong> the Final decision of the Speaker in case of disqualification under Defection.
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 103, 104, 105, 106 & Article 73 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Article 103 & Article 104 -->
+        <div class="space-y-4">
+          <div class="sub-card p-4 space-y-2" data-note-anchor="art103-card">
+            <h4 class="text-base font-extrabold flex items-center gap-2">
+              <span class="dark-badge">Article 103</span> Decision on Questions of Disqualification
+            </h4>
+            <ul class="text-xs space-y-1.5 list-disc pl-4">
+              <li><strong>103(1):</strong> Decision of the <strong class="quiz-item">President shall be deemed final</strong> if question arises over disqualification of any member of either house (under Art 102(1)).</li>
+              <li><strong>103(2):</strong> President must obtain the <strong class="quiz-item">opinion of the Election Commission</strong> before giving his final decision.</li>
+            </ul>
+          </div>
+
+          <div class="sub-card p-4 space-y-2 bg-gold/20 border-2 border-dark" data-note-anchor="art104-card">
+            <h4 class="text-base font-extrabold flex items-center gap-2">
+              <span class="dark-badge">Article 104</span> Penalty for Sitting and Voting
+            </h4>
+            <p class="text-xs font-semibold">
+              Penalty for Sitting and Voting When Disqualified or before making an oath or affirmation under Article 99:
+            </p>
+            <p class="text-xs">
+              • If any person sits or votes knowing they are disqualified, a penalty of <strong class="quiz-item text-sm">Rs. 500 per day</strong> is charged for the period he/she sat or voted.
+            </p>
+          </div>
+
+          <div class="sub-card p-4 space-y-1.5" data-note-anchor="art106-card">
+            <h4 class="text-base font-extrabold flex items-center gap-2">
+              <span class="dark-badge">Article 106</span> Salaries and Allowances of Members
+            </h4>
+            <p class="text-xs">
+              <strong class="quiz-item">Parliament may by law</strong> fix salaries and allowances of members of both the Houses.
+            </p>
+          </div>
+        </div>
+
+        <!-- Article 105 & Article 73 (From Previous Lecture) -->
+        <div class="space-y-4">
+          <div class="sub-card p-4 space-y-2" data-note-anchor="art105-card">
+            <h4 class="text-base font-extrabold flex items-center gap-2">
+              <span class="dark-badge">Article 105</span> Powers, Privileges, and Immunities of MPs
+            </h4>
+            <ul class="text-xs space-y-1.5 list-disc pl-4">
+              <li><strong>105(1):</strong> <strong class="quiz-item">Freedom of speech</strong> in Parliament.</li>
+              <li><strong>105(2):</strong> No proceedings in Parliament can be questioned in any court of law. No MP liable for anything said or any vote given in Parliament.</li>
+              <li><strong>105(3):</strong> MPs enjoy protection from <strong class="quiz-item">civil arrest during a session and 40 days before and after the session</strong> (by parliamentary convention).</li>
+            </ul>
+            <div class="p-2.5 rounded bg-dark text-cream text-xs space-y-1 mt-2" data-note-anchor="art105-notes">
+              <div>⚠️ <strong>Note 1:</strong> This protection <strong class="quiz-item text-gold">does not apply to criminal arrest or preventive detention</strong>.</div>
+              <div>⚠️ <strong>Note 2:</strong> Protection of the President from criminal proceedings is under <strong class="quiz-item text-gold">Article 361</strong>, not Article 105.</div>
+            </div>
+          </div>
+
+          <!-- From the Previous Lecture: Article 73 -->
+          <div class="sub-card p-4 space-y-2 border-2 border-olive bg-gold/15" data-note-anchor="art73-card">
+            <div class="flex items-center justify-between">
+              <span class="gold-badge">From the Previous Lecture (PM & CoM)</span>
+              <span class="dark-badge">Article 73</span>
+            </div>
+            <h4 class="font-bold text-sm">Article 73: Extent of Executive Power of the Union</h4>
+            <p class="text-xs">Subject to the provisions of this Constitution, the executive power of the Union shall extend:</p>
+            <ul class="text-xs space-y-1 list-disc pl-4">
+              <li><strong>(a)</strong> to the matters with respect to which <strong class="quiz-item">Parliament has power to make laws</strong>; and</li>
+              <li><strong>(b)</strong> to the exercise of such <strong class="quiz-item">rights, authority and jurisdiction as are exercisable by the Government of India by virtue of any treaty or agreement</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. INTERACTIVE PYQ / PRACTICE QUIZ SECTION (AT BOTTOM) -->
+    <!-- ===================================================================== -->
+    <section id="quiz-section" class="note-card p-6 space-y-5 no-print">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-3">
+        <div>
+          <span class="gold-badge uppercase">Test Your Mastery</span>
+          <h3 class="font-serif text-2xl font-extrabold mt-1">Interactive SSC PYQ & Practice Quiz (Based on PDF)</h3>
+        </div>
+        <button onclick="resetQuiz()" class="px-3.5 py-1.5 rounded-lg bg-dark text-cream hover:bg-gold hover:text-dark font-bold text-xs transition flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate-right"></i> Reset Quiz
+        </button>
+      </div>
+
+      <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+  </main>
+
+  <!-- 6. FLOATING BOTTOM-RIGHT ACTION BUTTONS -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5 no-print">
+    <button onclick="toggleClickToNoteMode()" id="floatingAddNoteBtn" class="px-4 py-2.5 rounded-full bg-gold text-dark border-2 border-dark font-extrabold text-xs shadow-lg hover:scale-105 transition flex items-center gap-2">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <span>Add Extra Note</span>
+    </button>
+    <button onclick="jumpToTopic('topics-at-a-glance')" class="px-4 py-2.5 rounded-full bg-dark text-cream border-2 border-gold font-extrabold text-xs shadow-lg hover:scale-105 transition flex items-center gap-2">
+      <i class="fa-solid fa-compass"></i>
+      <span>Topics at a Glance</span>
+    </button>
+  </div>
+
+  <!-- ADD / EDIT NOTE MODAL -->
+  <div id="noteModal" class="fixed inset-0 z-50 hidden bg-dark/70 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+    <div class="note-card w-full max-w-lg p-6 space-y-4 bg-cream">
+      <div class="flex items-center justify-between border-b border-olive pb-2">
+        <h3 id="noteModalHeading" class="font-serif text-xl font-bold">➕ Add Custom Study Note</h3>
+        <button onclick="closeNoteModal()" class="text-dark hover:text-olive text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="noteAnchorInput" />
+      <input type="hidden" id="noteEditIdInput" />
+
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase text-olive block">Note Title / Tag</label>
+        <input id="noteTitleInput" type="text" placeholder="e.g., Important SSC CGL PYQ Point..." class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream text-xs font-semibold focus:outline-none focus:border-dark" />
+        <!-- Quick Tag Chips -->
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" onclick="setQuickTag('⭐ Exam Point')" class="px-2 py-1 rounded bg-gold/30 hover:bg-gold text-dark text-[11px] font-bold border border-olive">⭐ Exam Point</button>
+          <button type="button" onclick="setQuickTag('🧠 Memory Trick')" class="px-2 py-1 rounded bg-gold/30 hover:bg-gold text-dark text-[11px] font-bold border border-olive">🧠 Memory Trick</button>
+          <button type="button" onclick="setQuickTag('🔥 PYQ Fact')" class="px-2 py-1 rounded bg-gold/30 hover:bg-gold text-dark text-[11px] font-bold border border-olive">🔥 PYQ Fact</button>
+          <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="px-2 py-1 rounded bg-gold/30 hover:bg-gold text-dark text-[11px] font-bold border border-olive">📌 Extra Detail</button>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="text-xs font-bold uppercase text-olive block">Your Note (Hinglish / English)</label>
+        <textarea id="noteBodyInput" rows="4" placeholder="Write your extra point, mnemonic or revision note here..." class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream text-xs font-medium focus:outline-none focus:border-dark"></textarea>
+      </div>
+
+      <div class="space-y-1">
+        <label class="text-xs font-bold uppercase text-olive block">Highlight Style Theme</label>
+        <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="golden" checked class="peer hidden" />
+            <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-gold text-dark text-center">Golden Card</div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="dark" class="peer hidden" />
+            <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-gold bg-dark text-cream text-center">Dark Royal</div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="cream" class="peer hidden" />
+            <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-cream text-dark text-center">Warm Cream</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeNoteModal()" class="px-4 py-2 rounded-lg border border-olive text-xs font-bold">Cancel</button>
+        <button onclick="saveCustomNote()" class="px-4 py-2 rounded-lg bg-dark text-cream hover:bg-gold hover:text-dark text-xs font-extrabold transition">💾 Save Note</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY SAVED NOTES SLIDE-OVER DRAWER -->
+  <div id="notesDrawerBackdrop" class="fixed inset-0 z-50 hidden bg-dark/60 backdrop-blur-xs no-print" onclick="toggleDrawer(false)"></div>
+  <aside id="notesDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-cream border-l-4 border-dark shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col no-print">
+    <div class="p-4 bg-dark text-cream flex items-center justify-between border-b-2 border-gold">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <h3 class="font-serif text-lg font-bold">My Saved Notes</h3>
+      </div>
+      <button onclick="toggleDrawer(false)" class="text-cream hover:text-gold text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="p-3 bg-gold/20 border-b border-olive flex flex-wrap gap-2 justify-between">
+      <button onclick="openNoteModal('general')" class="px-3 py-1.5 rounded bg-dark text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+        ➕ Add General Note
+      </button>
+      <div class="flex gap-1.5">
+        <button onclick="exportNotesToTxt()" class="px-3 py-1.5 rounded bg-gold text-dark border border-dark text-xs font-bold hover:opacity-90">
+          <i class="fa-solid fa-download mr-1"></i>Export (.txt)
+        </button>
+        <button onclick="clearAllCustomNotes()" class="px-3 py-1.5 rounded border border-red-800 text-red-900 text-xs font-bold hover:bg-red-800 hover:text-cream transition">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <div id="drawerNotesList" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  </aside>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    const STORAGE_KEY = 'parmar_ssc_parliament_part1_notes_v1';
+    let clickToNoteActive = false;
+    let selfTestActive = false;
+    let customNotes = [];
+
+    // 6 High-Yield PYQs / Practice MCQs from the PDF
+    const quizData = [
+      {
+        q: "Q1. Under which Constitutional Amendment Act was the provision for nominating 2 Anglo-Indians to the Lok Sabha (Article 331) removed, and until which year is the Delimitation freeze extended?",
+        options: [
+          "102nd CAA, 2018 & Freeze till 2026 (84th CA)",
+          "104th CAA, 2019 & Freeze till 2026 (84th CA)",
+          "104th CAA, 2019 & Freeze till 2031 (87th CA)",
+          "91st CAA, 2003 & Freeze till 2026 (42nd CA)"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Article 331 ke tahat President dwara 2 Anglo-Indians ko nominate karne ka provision 104th CAA, 2019 se hata diya gaya. Aur 84th CA (2001) ne Delimitation Commission par freeze ko 2026 tak badha diya!"
+      },
+      {
+        q: "Q2. Match the borrowed parliamentary features with their correct source countries as given in Article 79 & 80 notes:",
+        options: [
+          "Westminster Model: UK | Election of RS members: Ireland | Nomination of RS members: South Africa",
+          "Westminster Model: UK | Election of RS members: South Africa | Nomination of RS members: Ireland",
+          "Westminster Model: USA | Election of RS members: South Africa | Nomination of RS members: UK",
+          "Westminster Model: Ireland | Election of RS members: UK | Nomination of RS members: South Africa"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Parliamentary System (Westminster Model) UK se liya gaya hai, Rajya Sabha members ka Election (PR + STV) South Africa se, aur 12 members ka Nomination (LISAS) Ireland se liya gaya hai."
+      },
+      {
+        q: "Q3. Which of the following statements correctly distinguishes a Censure Motion from a No-Confidence Motion?",
+        options: [
+          "Censure Motion requires no reason, whereas No-Confidence Motion requires specific reasons.",
+          "Censure Motion can only be moved against the entire Council of Ministers.",
+          "If a Censure Motion is passed in Lok Sabha, resignation of the Council of Ministers is NOT required.",
+          "If a No-Confidence Motion is passed, resignation is optional."
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Censure Motion mein reason batana zaroori hai, yeh ek minister ya group ya poore CoM ke khilaf aa sakta hai, aur pass hone par resignation zaroori NAHI hota. Jabki No-Confidence Motion mein resignation mandatory hai!"
+      },
+      {
+        q: "Q4. Who was the first woman to be appointed to the Rajya Sabha Panel of Vice-Chairpersons, and who served as Protem Speaker of Lok Sabha from 24th to 26th June 2024?",
+        options: [
+          "P.T. Usha & Ganesh Vasudev Mavalankar",
+          "P.T. Usha & Bhartruhari Mehtab",
+          "Sumitra Mahajan & Bhartruhari Mehtab",
+          "P.T. Usha & M. A. Ayyangar"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: P.T. Usha Rajya Sabha ke Panel of Vice-Chairpersons mein appoint hone wali pehli mahila bani. Aur 2024 General Elections ke baad 24 se 26 June 2024 tak Bhartruhari Mehtab ne Protem Speaker ke roop mein shapath dilayi."
+      },
+      {
+        q: "Q5. According to Articles 101, 102 and 104, what is the period of absence without permission that can vacate an MP's seat, the daily penalty for sitting/voting when disqualified, and the exception ratio for party merger under 91st CA, 2003?",
+        options: [
+          "60 days absence | Rs. 500 per day penalty | 2/3rd members for merger",
+          "90 days absence | Rs. 1000 per day penalty | 1/3rd members for merger",
+          "60 days absence | Rs. 500 per day penalty | 1/2 members for merger",
+          "40 days absence | Rs. 500 per day penalty | 2/3rd members for merger"
+        ],
+        correct: 0,
+        explanation: "💡 Hinglish Explanation: Art 101(4) ke tahat bina permission 60 days absent rehne par seat vacant ho sakti hai. Art 104 mein Rs. 500 per day ki penalty hai. Aur 91st CA, 2003 ke tahat 2/3rd members ke merger par Anti-Defection law nahi lagta."
+      },
+      {
+        q: "Q6. Under Article 105, MPs enjoy freedom from civil arrest for how many days before and after a session, and under which Article is the President protected from criminal proceedings?",
+        options: [
+          "30 days before and after session (civil & criminal) | Article 105",
+          "40 days before and after session (civil arrest only) | Article 361",
+          "60 days before and after session (civil arrest only) | Article 361",
+          "40 days before and after session (criminal arrest only) | Article 103"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Article 105(3) ke tahat MPs ko session ke dauran aur session se 40 din pehle aur 40 din baad tak sirf CIVIL arrest se chhoot milti hai (criminal arrest ya preventive detention par nahi). President ko criminal proceedings se protection Article 361 mein milta hai!"
+      }
+    ];
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      initScrollProgress();
+      initLiveSearch();
+      initAnchors();
+      loadCustomNotes();
+      renderQuiz();
+
+      // Self-test individual click reveal
+      document.body.addEventListener('click', (e) => {
+        if (selfTestActive && e.target.classList.contains('quiz-item')) {
+          e.target.classList.toggle('revealed');
+        }
+      });
+
+      // Floating badge follow mouse in Click-to-Note Mode
+      document.addEventListener('mousemove', (e) => {
+        const badge = document.getElementById('cursorNoteBadge');
+        if (clickToNoteActive) {
+          badge.style.left = (e.clientX + 14) + 'px';
+          badge.style.top = (e.clientY + 14) + 'px';
+        }
+      });
+    });
+
+    // Scroll Progress Bar
+    function initScrollProgress() {
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById('scrollProgress').style.width = pct + '%';
+      });
+    }
+
+    // Smooth Jump + Pulse
+    function jumpToTopic(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.remove('section-active-pulse');
+      void el.offsetWidth;
+      el.classList.add('section-active-pulse');
+    }
+
+    // Filter Mini Grids (RS & LS State Tables)
+    function filterMiniGrid(inputEl, gridId) {
+      const q = inputEl.value.toLowerCase().trim();
+      const cards = document.querySelectorAll(`#${gridId} > div`);
+      cards.forEach(c => {
+        c.style.display = c.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    // Live Search Filter across Searchable Sections
+    function initLiveSearch() {
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const sections = document.querySelectorAll('.searchable-section');
+
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        clearBtn.classList.toggle('hidden', q.length === 0);
+        sections.forEach(sec => {
+          const match = sec.textContent.toLowerCase().includes(q);
+          sec.style.display = match ? '' : 'none';
+        });
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.classList.add('hidden');
+        sections.forEach(sec => sec.style.display = '');
+      });
+    }
+
+    // Self-Test Mode Toggle
+    function toggleSelfTestMode() {
+      selfTestActive = !selfTestActive;
+      document.body.classList.toggle('self-test-active', selfTestActive);
+      document.getElementById('selfTestStatus').textContent = selfTestActive ? 'ON' : 'OFF';
+      if (!selfTestActive) {
+        document.querySelectorAll('.quiz-item.revealed').forEach(el => el.classList.remove('revealed'));
+      }
+    }
+
+    // Click-to-Note System Initialization
+    function initAnchors() {
+      const anchors = document.querySelectorAll('[data-note-anchor]');
+      anchors.forEach(el => {
+        const key = el.getAttribute('data-note-anchor');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'anchor-add-btn no-print';
+        btn.innerHTML = '+ Note';
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          openNoteModal(key);
+        };
+        el.appendChild(btn);
+
+        el.addEventListener('click', (ev) => {
+          if (clickToNoteActive) {
+            ev.stopPropagation();
+            openNoteModal(key);
+          }
+        });
+      });
+    }
+
+    function toggleClickToNoteMode() {
+      clickToNoteActive = !clickToNoteActive;
+      document.body.classList.toggle('click-note-mode', clickToNoteActive);
+      document.getElementById('clickNoteStatus').textContent = clickToNoteActive ? 'ON' : 'OFF';
+      document.getElementById('cursorNoteBadge').classList.toggle('hidden', !clickToNoteActive);
+    }
+
+    function setQuickTag(tag) {
+      const input = document.getElementById('noteTitleInput');
+      input.value = tag + (input.value ? ' - ' + input.value : '');
+      input.focus();
+    }
+
+    function openNoteModal(anchorKey, editId = null) {
+      document.getElementById('noteAnchorInput').value = anchorKey;
+      document.getElementById('noteEditIdInput').value = editId || '';
+      const heading = document.getElementById('noteModalHeading');
+
+      if (editId) {
+        const existing = customNotes.find(n => n.id === editId);
+        if (existing) {
+          heading.textContent = '✏️ Edit Custom Study Note';
+          document.getElementById('noteTitleInput').value = existing.title;
+          document.getElementById('noteBodyInput').value = existing.body;
+          const radio = document.querySelector(`input[name="noteTheme"][value="${existing.theme}"]`);
+          if (radio) radio.checked = true;
+        }
+      } else {
+        heading.textContent = '➕ Add Custom Study Note';
+        document.getElementById('noteTitleInput').value = '';
+        document.getElementById('noteBodyInput').value = '';
+      }
+
+      document.getElementById('noteModal').classList.remove('hidden');
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.add('hidden');
+    }
+
+    function saveCustomNote() {
+      const anchor = document.getElementById('noteAnchorInput').value || 'general';
+      const editId = document.getElementById('noteEditIdInput').value;
+      const title = document.getElementById('noteTitleInput').value.trim() || '📌 Custom Note';
+      const body = document.getElementById('noteBodyInput').value.trim();
+      const themeEl = document.querySelector('input[name="noteTheme"]:checked');
+      const theme = themeEl ? themeEl.value : 'golden';
+
+      if (!body) {
+        alert('Please write your note before saving!');
+        return;
+      }
+
+      if (editId) {
+        const idx = customNotes.findIndex(n => n.id === editId);
+        if (idx > -1) {
+          customNotes[idx].title = title;
+          customNotes[idx].body = body;
+          customNotes[idx].theme = theme;
+        }
+      } else {
+        customNotes.push({
+          id: 'note_' + Date.now(),
+          anchor,
+          title,
+          body,
+          theme,
+          createdAt: new Date().toLocaleString()
+        });
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(customNotes));
+      closeNoteModal();
+      if (clickToNoteActive) toggleClickToNoteMode();
+      renderCustomNotes();
+    }
+
+    function loadCustomNotes() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        customNotes = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        customNotes = [];
+      }
+      renderCustomNotes();
+    }
+
+    function getThemeClasses(theme) {
+      if (theme === 'dark') return 'bg-dark text-cream border-2 border-gold';
+      if (theme === 'cream') return 'bg-cream text-dark border-2 border-dark';
+      return 'bg-gold/35 text-dark border-2 border-dark';
+    }
+
+    function renderCustomNotes() {
+      // Remove previously rendered inline notes
+      document.querySelectorAll('.rendered-custom-note').forEach(el => el.remove());
+
+      // Update count badge
+      document.getElementById('savedNotesBadge').textContent = customNotes.length;
+
+      // Render inline notes below anchors
+      customNotes.forEach(note => {
+        if (note.anchor && note.anchor !== 'general') {
+          const target = document.querySelector(`[data-note-anchor="${note.anchor}"]`);
+          if (target) {
+            const box = document.createElement('div');
+            box.id = `inline_${note.id}`;
+            box.className = `rendered-custom-note mt-2 p-2.5 rounded-lg text-xs shadow-sm ${getThemeClasses(note.theme)}`;
+            box.innerHTML = `
+              <div class="flex items-center justify-between gap-2 font-bold border-b border-current/20 pb-1 mb-1">
+                <span>${escapeHtml(note.title)}</span>
+                <div class="flex items-center gap-2 no-print">
+                  <button onclick="openNoteModal('${note.anchor}', '${note.id}')" class="hover:underline text-[11px]"><i class="fa-solid fa-pen"></i> Edit</button>
+                  <button onclick="deleteCustomNote('${note.id}')" class="hover:underline text-[11px]"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </div>
+              <p class="whitespace-pre-line leading-relaxed">${escapeHtml(note.body)}</p>
+            `;
+            target.insertAdjacentElement('afterend', box);
+          }
+        }
+      });
+
+      // Render inside Slide-Over Drawer
+      const listEl = document.getElementById('drawerNotesList');
+      if (customNotes.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 text-xs text-olive space-y-2">
+            <i class="fa-solid fa-note-sticky text-3xl"></i>
+            <p class="font-bold">No custom notes saved yet!</p>
+            <p>Turn ON "Click-to-Note" or click "+ Note" on any card to add your personal revision points.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = customNotes.map(note => `
+        <div class="p-3 rounded-lg ${getThemeClasses(note.theme)} text-xs space-y-1.5">
+          <div class="flex items-center justify-between font-bold">
+            <span>${escapeHtml(note.title)}</span>
+            <span class="text-[10px] opacity-75">${escapeHtml(note.createdAt)}</span>
+          </div>
+          <p class="whitespace-pre-line leading-relaxed">${escapeHtml(note.body)}</p>
+          <div class="flex items-center justify-end gap-3 pt-1 border-t border-current/20 text-[11px] font-bold">
+            ${note.anchor !== 'general' ? `<button onclick="jumpToCustomNote('${note.anchor}')" class="hover:underline"><i class="fa-solid fa-location-crosshairs"></i> Jump</button>` : ''}
+            <button onclick="openNoteModal('${note.anchor}', '${note.id}')" class="hover:underline"><i class="fa-solid fa-pen"></i> Edit</button>
+            <button onclick="deleteCustomNote('${note.id}')" class="hover:underline"><i class="fa-solid fa-trash"></i> Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function jumpToCustomNote(anchor) {
+      toggleDrawer(false);
+      const target = document.querySelector(`[data-note-anchor="${anchor}"]`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.add('section-active-pulse');
+        setTimeout(() => target.classList.remove('section-active-pulse'), 2500);
+      }
+    }
+
+    function deleteCustomNote(id) {
+      customNotes = customNotes.filter(n => n.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(customNotes));
+      renderCustomNotes();
+    }
+
+    function clearAllCustomNotes() {
+      if (!customNotes.length) return;
+      if (confirm('Are you sure you want to delete all saved custom notes?')) {
+        customNotes = [];
+        localStorage.removeItem(STORAGE_KEY);
+        renderCustomNotes();
+      }
+    }
+
+    function toggleDrawer(open) {
+      const drawer = document.getElementById('notesDrawer');
+      const backdrop = document.getElementById('notesDrawerBackdrop');
+      drawer.classList.toggle('translate-x-full', !open);
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function exportNotesToTxt() {
+      if (!customNotes.length) {
+        alert('No custom notes to export!');
+        return;
+      }
+      let txt = "=== PARMAR SSC: PARLIAMENT (PART-1) - MY CUSTOM NOTES ===\n\n";
+      customNotes.forEach((n, i) => {
+        txt += `${i + 1}. [${n.title}] (${n.createdAt})\n${n.body}\n----------------------------------------\n`;
+      });
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Parliament_Part1_My_Notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Interactive Quiz Rendering & Logic
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizData.map((item, qIdx) => `
+        <div class="sub-card p-4 flex flex-col justify-between space-y-3">
+          <div class="space-y-2.5">
+            <p class="font-bold text-xs md:text-sm leading-snug">${item.q}</p>
+            <div class="space-y-1.5" id="q-options-${qIdx}">
+              ${item.options.map((opt, oIdx) => `
+                <button
+                  type="button"
+                  onclick="selectQuizOption(${qIdx}, ${oIdx})"
+                  class="w-full text-left p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/25 text-xs font-medium transition flex items-center justify-between gap-2"
+                >
+                  <span>${opt}</span>
+                  <span class="quiz-icon font-bold"></span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div id="q-exp-${qIdx}" class="hidden trick-box text-xs">
+            ${item.explanation}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectQuizOption(qIdx, selectedIdx) {
+      const item = quizData[qIdx];
+      const optionsWrap = document.getElementById(`q-options-${qIdx}`);
+      const buttons = optionsWrap.querySelectorAll('button');
+      const expBox = document.getElementById(`q-exp-${qIdx}`);
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        const iconSpan = btn.querySelector('.quiz-icon');
+        if (idx === item.correct) {
+          btn.className = 'w-full text-left p-2.5 rounded-lg border-2 border-dark bg-gold text-dark text-xs font-extrabold flex items-center justify-between gap-2';
+          iconSpan.textContent = '✅';
+        } else if (idx === selectedIdx && selectedIdx !== item.correct) {
+          btn.className = 'w-full text-left p-2.5 rounded-lg border-2 border-red-800 bg-red-900/20 text-dark text-xs font-bold flex items-center justify-between gap-2';
+          iconSpan.textContent = '❌';
+        } else {
+          btn.classList.add('opacity-60');
+        }
+      });
+
+      expBox.classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
