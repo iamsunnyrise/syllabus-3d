@@ -935,7 +935,7 @@ export const App: React.FC = () => {
           onTouchStart={handleMainTouchStart}
           onTouchMove={handleMainTouchMove}
           onTouchEnd={handleMainTouchEnd}
-          className="flex-1 p-3 sm:p-4 md:px-6 md:py-5 w-full pb-24 md:pb-6 touch-pan-y overscroll-contain focus:outline-none"
+          className="flex-1 p-3 sm:p-4 md:px-6 md:pt-4 md:pb-12 w-full pb-24 md:pb-12 touch-pan-y overscroll-contain focus:outline-none"
         >
           <div className="w-full relative">
             {/* Initial Dashboard View (Instant, Non-Lazy, Preserved in DOM) */}
