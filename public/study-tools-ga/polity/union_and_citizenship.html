@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part I & Part II of Indian Constitution - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.85); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.94);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Self-Test Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.28);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.15) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS, SEARCH, CLICK-TO-NOTE & SELF-TEST -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">Part I (Union) & Part II (Citizenship)</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search Art 1-11, 371, Sikkim, CAA..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key dates, articles & names to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, table row ya article card par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete 8-Page PDF Coverage • Easy Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        Part I <span class="text-gold">(Union & Territory)</span> & Part II <span class="text-gold">(Citizenship)</span>
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Bharat ke Rajyo ka gathan aur Nagrikta ka poora kanoon: <strong class="text-gold">Articles 1 to 4</strong>, 565 Princely States ka Integration, Linguistic Commissions (<strong class="text-gold">Dhar, JVP, Fazl Ali</strong>), Chronological State Formation Trick, <strong class="text-gold">Articles 371 to 371-J</strong>, aur <strong class="text-gold">Part II Citizenship (Articles 5–11, Act 1955 & CAA 2019)</strong> bilkul aasan Hinglish mein!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-landmark text-gold mr-1"></i> Part I: <strong>Articles 1 to 4</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-shield-heart text-gold mr-1"></i> Special States: <strong>Art 371 to 371-J</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-id-card text-gold mr-1"></i> Part II: <strong>Articles 5 to 11 (UK Single Citizenship)</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">INTERACTIVE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Summary Snapshot Card -->
+                <div class="w-full md:w-80 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-dark text-gold flex items-center justify-center text-2xl border-2 border-olive">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-base text-dark uppercase">Part I & Part II At A Glance</h3>
+                    <p class="text-[11px] text-olive font-bold uppercase tracking-wider mt-0.5">"India, that is Bharat, shall be a Union of States"</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2 text-left text-xs font-semibold">
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Part I (Union)</span>
+                            <span class="text-sm font-extrabold text-dark">Articles 1 – 4</span>
+                            <span class="block text-[10px] text-dark/80">Simple Majority (Art 4)</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Princely States</span>
+                            <span class="text-sm font-extrabold text-dark">562 / 565</span>
+                            <span class="block text-[10px] text-dark/80">J&K, Junagarh, Hyd</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Part II (Citizens)</span>
+                            <span class="text-sm font-extrabold text-dark">Articles 5 – 11</span>
+                            <span class="block text-[10px] text-dark/80">Act 1955 (5 Acquire, 3 Lose)</span>
+                        </div>
+                        <div class="bg-dark text-cream p-2.5 rounded-lg border border-gold">
+                            <span class="block text-gold font-bold uppercase text-[10px]">CAA 2019 Cutoff</span>
+                            <span class="text-sm font-extrabold text-gold">31 Dec 2014</span>
+                            <span class="block text-[10px] text-cream/90">6 Communities • 3 Countries</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 9 Comprehensive Modules + PYQ Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 10 Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-flag text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Part I: Article 1 & Type of Polity</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">India that is Bharat, 3 Categories of Territory, Federation vs Union</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-file-signature text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Articles 2, 3 & 4 + 100th CAA</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Art 2 vs Art 3, 5th CAA, Simple Majority, Berubari & 111/51 Enclaves</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-chess-rook text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Integration of 565 Princely States</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">562 Joined, J&K (Instrument), Junagarh (Referendum), Hyd (Op Polo)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-users-rectangle text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Linguistic Committees & 1956 Act</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Part A/B/C/D (1950), Dhar, JVP, Potti Sriramulu, Fazl Ali (14 States + 6 UTs)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-timeline text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Chronology of State Formation</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Trick: "AAM GUNAH HAI...", Sikkim (35th/36th CA), Goa (Op Vijay), 2000 & 2014</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-star-half-stroke text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Special Provisions: Art 371 to 371-J</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">All 11 Articles (371 to 371-J) with Master Trick: "MaG NAM AASMA GK"</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-id-card-clip text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Part II: Citizenship (Articles 5 to 11)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">UK Single Citizenship, Domicile (Art 5), Pak Migrants (Art 6-7), PIO, Art 9-11</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8 -->
+                <button onclick="jumpToTopic('topic-8')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">08</span>
+                            <i class="fa-solid fa-scale-balanced text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Citizenship Act, 1955 (5 Acquire, 3 Lose)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Jus Soli vs Jus Sanguinis, Birth, Descent, Registration (7 yrs), Naturalisation (12 yrs)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 9 -->
+                <button onclick="jumpToTopic('topic-9')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">09</span>
+                            <i class="fa-solid fa-file-shield text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Citizenship Amendment Act (CAA), 2019</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">6 Communities, 3 Countries (BAP), 31 Dec 2014 Cutoff, 6 Years Residency</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 10: Quiz -->
+                <button onclick="jumpToTopic('quick-quiz')" class="text-left p-3.5 rounded-xl bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-gold text-dark font-extrabold text-xs flex items-center justify-center">⚡</span>
+                            <i class="fa-solid fa-trophy text-gold group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-gold group-hover:text-dark leading-snug">Interactive PYQ Practice Quiz</h3>
+                        <p class="text-xs text-cream/80 group-hover:text-dark/90 mt-1">Test your command on Part I, State Formation, Art 371 & Citizenship</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-gold group-hover:text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Start Quiz <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: PART I — ARTICLE 1 & TYPE OF POLITY
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Part I: Union and Its Territory (Articles 1 – 4)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 1: Name and Territory of the Union & Type of Polity</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 1 Three Clauses Breakdown -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-olive pb-2">
+                        <span class="gold-badge text-xs px-3 py-1 rounded uppercase">Article 1</span>
+                        <span class="text-xs font-bold text-olive">Name & Territory of the Union</span>
+                    </div>
+
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="p-3.5 rounded-xl bg-dark text-cream border-2 border-gold">
+                            <span class="text-xs font-bold text-gold uppercase block">Clause (1) • Two Official Names of Our Country</span>
+                            <p class="text-base font-serif font-extrabold text-cream mt-0.5">
+                                "<span class="text-gold underline quiz-item">India, that is Bharat</span>, shall be a <span class="text-gold underline quiz-item">Union of States</span>."
+                            </p>
+                            <p class="text-xs text-cream/80 mt-1">
+                                💡 <strong>Hinglish:</strong> Samvidhan mein desh ke sirf 2 official naam hain — <strong>India</strong> aur <strong>Bharat</strong>. Aur hamara desh Federation nahi balki <strong>"Union of States" (राज्यों का संघ)</strong> hai.
+                            </p>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-gold/20 border border-olive font-medium">
+                            <strong>Clause (2):</strong> The States and the territories thereof shall be as specified in the <strong class="quiz-item">First Schedule</strong>.
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-cream border-2 border-dark">
+                            <strong class="text-dark block mb-2">Clause (3): The "Territory of India" (भारत का राज्यक्षेत्र) shall comprise of 3 things:</strong>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold">
+                                <div class="p-2.5 rounded bg-gold/30 border border-olive text-center">
+                                    <span class="block text-olive uppercase text-[10px]">(a) States</span>
+                                    <span class="quiz-item">Territories of the States (28)</span>
+                                </div>
+                                <div class="p-2.5 rounded bg-gold/30 border border-olive text-center">
+                                    <span class="block text-olive uppercase text-[10px]">(b) Union Territories</span>
+                                    <span class="quiz-item">UTs specified in First Schedule (8)</span>
+                                </div>
+                                <div class="p-2.5 rounded bg-gold/30 border border-olive text-center">
+                                    <span class="block text-olive uppercase text-[10px]">(c) Acquired</span>
+                                    <span class="quiz-item">Such other territories as may be acquired</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: Union of States vs Territory of India + Indestructible Quote -->
+                <div class="lg:col-span-5 flex flex-col justify-between gap-4">
+                    <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Super Important Concept</span>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-2">India vs USA: Destructible or Indestructible?</h3>
+                        <div class="space-y-3 mt-3 text-xs sm:text-sm">
+                            <div class="p-3 rounded-lg bg-olive/30 border-l-4 border-gold">
+                                <span class="text-gold font-extrabold block">🇮🇳 INDIA:</span>
+                                <strong class="text-sm sm:text-base font-extrabold text-cream block mt-0.5 quiz-item">
+                                    "An Indestructible Union of Destructible States"
+                                </strong>
+                                <span class="text-xs text-cream/85 block mt-1">
+                                    👉 Union (Desh) kabhi toot nahi sakta, lekin Parliament kisi bhi State ka naam, area ya boundary badal/tod sakti hai!
+                                </span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-cream text-dark border-l-4 border-olive">
+                                <span class="text-olive font-extrabold block">🇺🇸 USA (America):</span>
+                                <strong class="text-sm sm:text-base font-extrabold text-dark block mt-0.5 quiz-item">
+                                    "An Indestructible Union of Indestructible States"
+                                </strong>
+                                <span class="text-xs text-olive block mt-1">
+                                    👉 USA mein bina us State ki manzoori ke uski boundary nahi badli ja sakti.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-card p-4 rounded-xl text-xs">
+                        <strong class="text-dark block mb-1">💡 "Territory of India" vs "Union of India":</strong>
+                        <span class="text-olive font-medium">
+                            <strong>Union of India</strong> mein sirf <strong>States (28)</strong> aate hain, jabki <strong>Territory of India</strong> ek bada term hai jisme <strong>States + UTs + Future Acquired Territories</strong> teeno aate hain!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Type of Polity: Federation of States vs Union of States -->
+            <div class="sub-card p-5 rounded-xl">
+                <h3 class="font-extrabold text-base text-dark mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-unbalanced text-olive"></i> Type of Polity: Why India is called a "Union of States" and NOT a "Federation of States"?
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-cream border-2 border-olive">
+                        <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-2">
+                            <h4 class="font-extrabold text-sm sm:text-base text-dark">1. Federation of States (Ex: USA)</h4>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">By Treaty/Agreement</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            • A new state/country that is <strong class="quiz-item">formed through a treaty or an agreement</strong> between various independent federating units (states).
+                        </p>
+                        <p class="text-xs text-olive mt-2 font-medium">
+                            (Jaise America mein 13 azaad colonies ne aapas mein samjhauta/agreement karke USA banaya).
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-gold/25 border-2 border-dark">
+                        <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-2">
+                            <h4 class="font-extrabold text-sm sm:text-base text-dark">2. Union of States (Ex: INDIA)</h4>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">No Right to Secede</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            • <strong class="quiz-item">No agreement between the federating units</strong>; that means <strong class="underline quiz-item">States do NOT have the right to secede</strong> (alag hone ka adhikar nahi) from the Union.
+                        </p>
+                        <p class="text-xs text-olive mt-2 font-bold">
+                            (Dr. B.R. Ambedkar ne bataya ki Indian Federation kisi agreement ka natija nahi hai, isliye koi bhi rajya Bharat se alag nahi ho sakta!)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: ARTICLES 2, 3 & 4 + BERUBARI & 100TH AMENDMENT
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 2 & 3 • Powers of Parliament Over States</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Articles 2, 3 & 4, Berubari Case (1960) & 100th CAA (2015)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 2 vs Article 3 Comparison -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                <!-- Article 2 -->
+                <div class="lg:col-span-5 sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 2</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">External / Foreign Territory</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">Admission or Establishment of New States</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed bg-gold/20 p-3 rounded-lg border border-olive">
+                            "<strong>Parliament may by law admit into the Union, or establish, new states</strong> on such terms and conditions as it thinks fit."
+                        </p>
+                        <p class="text-xs text-olive mt-3 leading-relaxed">
+                            💡 <strong>Hinglish Explanation:</strong> Jab Bharat kisi <strong>bahari kshetra (Foreign Territory)</strong> ko Bharat mein shamil karta hai jo pehle India ka hissa nahi tha (Jaise <strong>Sikkim</strong> ko 1975 mein shamil kiya gaya), toh wo <strong>Article 2</strong> ke tahat hota hai.
+                        </p>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs font-bold">
+                        🔍 <strong>Difference Between Article 2 and Article 3:</strong><br>
+                        • <span class="text-gold">Article 2:</span> Incorporating <strong>foreign territory</strong> into India.<br>
+                        • <span class="text-gold">Article 3:</span> Internal changes in the <strong>existing States</strong> of India.
+                    </div>
+                </div>
+
+                <!-- Article 3 (5 Powers - FIDA) -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl border-t-4 border-t-gold">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 3</span>
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">Internal Re-adjustment of Existing States</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark mb-2">
+                        Formation of New States and Alteration of Areas, Boundaries, or Names of Existing States
+                    </h3>
+                    <p class="text-xs text-olive font-semibold mb-3">Parliament may by law do 5 things (🧠 Trick: <strong>"F - I - D - A - A"</strong>):</p>
+                    <div class="space-y-2 text-xs sm:text-sm font-medium text-dark">
+                        <div class="p-2.5 rounded-lg bg-gold/20 border border-olive flex items-start gap-2.5">
+                            <span class="w-6 h-6 rounded bg-dark text-gold font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">a</span>
+                            <span><strong class="quiz-item">Form a new State</strong> by separation of territory from any State OR by uniting two or more States/parts of States OR by uniting any territory to a part of any State (Jaise Bihar se Jharkhand alag karna).</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-dark text-gold font-extrabold text-xs flex items-center justify-center shrink-0">b</span>
+                                <span><strong class="quiz-item">Increase the area</strong> of any State (Kisi rajya ka kshetrafal badhana)</span>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-dark text-gold font-extrabold text-xs flex items-center justify-center shrink-0">c</span>
+                                <span><strong class="quiz-item">Diminish the area</strong> of any State (Kisi rajya ka kshetrafal ghatana)</span>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-dark text-gold font-extrabold text-xs flex items-center justify-center shrink-0">d</span>
+                                <span><strong class="quiz-item">Alter the boundaries</strong> of any State (Seema badalna)</span>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-cream border border-olive flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-dark text-gold font-extrabold text-xs flex items-center justify-center shrink-0">e</span>
+                                <span><strong class="quiz-item">Alter the name</strong> of any State (Jaise Orissa se Odisha)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Note on Article 3 Procedure & 5th CAA -->
+                    <div class="mt-4 p-3.5 rounded-xl bg-dark text-cream border border-gold text-xs sm:text-sm">
+                        <span class="text-gold font-extrabold uppercase block mb-1">⚠️ Important Note on Article 3 Bill Procedure (Page 3):</span>
+                        <ul class="space-y-1.5 list-disc pl-4 text-cream/95">
+                            <li>Bill related to Article 3 shall be introduced in Parliament ONLY with the <strong class="text-gold underline quiz-item">prior recommendation of the President</strong>.</li>
+                            <li>Before recommending, the President shall refer the bill to the <strong class="text-gold quiz-item">Legislature of the State concerned</strong> for expressing its views.</li>
+                            <li><strong class="text-gold underline quiz-item">5th Constitutional Amendment Act (1955):</strong> Empowered the <strong>President to set a time limit</strong> for the State Legislature to express its views (Aur State jo bhi salah de, President ya Parliament use maanne ke liye badhya/bound NAHI hai!).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 4, Simple Majority, Berubari Case & 100th CAA -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Article 4 & 4(2) -->
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl border-l-8 border-l-dark">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 4 & Article 4(2)</span>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Simple Majority (&gt;50%)</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark mb-2">Laws Made Under Articles 2 & 3</h3>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-dark">
+                        <li>• <strong>Article 4(1):</strong> Laws made under Article 2 and Article 3 automatically provide for the amendment of the <strong class="quiz-item">First Schedule</strong> (names of States/UTs) and <strong class="quiz-item">Fourth Schedule</strong> (allocation of Rajya Sabha seats).</li>
+                        <li class="p-3 rounded-lg bg-gold/25 border border-olive font-semibold">
+                            • <strong>Article 4(2) — Exam Favourite:</strong> Any law made under Article 2 or Article 3 that amends the 1st or 4th Schedule <strong class="underline quiz-item">shall NOT be considered a Constitutional Amendment under Article 368</strong>!<br>
+                            👉 Therefore, such a law (creating a new state or changing state name/boundary) can be passed by a <strong class="quiz-item">Simple Majority (More than 50% present & voting)</strong> in Parliament.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Berubari Exception & 100th CA (2015) -->
+                <div class="lg:col-span-6 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⚠️ Exception to Article 3 & 4</span>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-2">What if Indian Territory is Ceded (Given) to a Foreign Country?</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1.5 leading-relaxed">
+                            • <strong class="text-gold quiz-item">Berubari Union Case (1960):</strong> Supreme Court held that Parliament's power to diminish the area of a state (under Art 3) does NOT cover ceding Indian territory to a foreign country. If Indian territory is to be ceded (diya jana hai), then a <strong class="text-gold underline quiz-item">Constitutional Amendment under Article 368 (Special Majority) is needed!</strong>
+                        </p>
+
+                        <!-- 100th CA Box -->
+                        <div class="mt-4 p-3.5 rounded-xl bg-olive/30 border-2 border-gold text-xs sm:text-sm">
+                            <div class="flex items-center justify-between font-extrabold text-gold mb-1">
+                                <span class="quiz-item">🇮🇳🇧🇩 100th Constitutional Amendment (2014/2015)</span>
+                                <span class="px-2 py-0.5 rounded bg-gold text-dark text-[10px]">Land Boundary Agreement</span>
+                            </div>
+                            <p class="text-cream/95">
+                                • Signed for the <strong>India-Bangladesh boundary agreement</strong>:<br>
+                                👉 India transferred <strong class="text-gold underline quiz-item">111 Enclaves</strong> to Bangladesh.<br>
+                                👉 Bangladesh transferred <strong class="text-gold underline quiz-item">51 Enclaves</strong> to India.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: INTEGRATION OF 565 PRINCELY STATES (1947)
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 3 • Unification of India</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Integration of the Princely States (562 + 3 States)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- 562 out of 565 Intro Banner -->
+            <div class="sub-card p-4 rounded-xl bg-gold/20 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-dark text-gold flex items-center justify-center font-extrabold text-xl shrink-0">
+                        565
+                    </div>
+                    <p class="text-xs sm:text-sm text-dark font-medium">
+                        In <strong>1947</strong>, <strong class="quiz-item">562 out of 565 Princely States</strong> (Deshi Riyasatein) peacefully agreed to accede to the Indian Union by signing the <strong class="quiz-item">Instrument of Accession (विलय पत्र)</strong> (thanks to Sardar Vallabhbhai Patel & V.P. Menon).<br>
+                        <span class="text-olive font-bold">The following 3 Major Princely States initially refused to join India, but were integrated later:</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3 Refusing Princely States Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- 1. Jammu & Kashmir -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded">State #1</span>
+                            <span class="text-xs font-bold text-olive">Oct 1947</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">1. Jammu & Kashmir</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Acceded to India through signing an <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark/40 quiz-item">Instrument of Accession</strong> (signed by Maharaja Hari Singh on 26 Oct 1947 after Pakistani tribal invasion).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-olive/30 text-xs font-bold text-olive">
+                        🔑 Mode: <span class="text-dark">Instrument of Accession</span>
+                    </div>
+                </div>
+
+                <!-- 2. Junagarh -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">State #2</span>
+                            <span class="text-xs font-bold text-olive">Feb 1948</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">2. Junagarh (Gujarat)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Became part of India after conducting a <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark/40 quiz-item">Referendum (जनमत संग्रह)</strong> (jahan janta ne vote daal kar Bharat mein shamil hone ka faisla kiya).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-olive/30 text-xs font-bold text-olive">
+                        🗳️ Mode: <span class="text-dark">Referendum (Plebiscite)</span>
+                    </div>
+                </div>
+
+                <!-- 3. Hyderabad -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded">State #3</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">September 1948</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">3. Hyderabad</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Integrated into India through a military / police action called <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark/40 quiz-item">Operation POLO</strong> in <strong class="quiz-item">September 1948</strong> (against the Nizam's Razakars).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-olive/30 text-xs font-bold text-olive">
+                        ⚔️ Mode: <span class="text-dark">Operation POLO (Sept 1948)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: 1950 CLASSIFICATION & LINGUISTIC REORGANISATION COMMITTEES
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • Reorganisation of States</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">1950 Four-Fold Classification & Linguistic Reorganisation Committees</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- 1950 Four-Fold Classification (Part A, B, C, D) -->
+            <div class="sub-card p-5 rounded-xl mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="font-extrabold text-base text-dark flex items-center gap-2">
+                        <i class="fa-solid fa-table-cells-large text-olive"></i> In 1950: Four-Fold Classification of States (Part A, Part B, Part C, Part D)
+                    </h3>
+                    <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Abolished in 1956</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+                    <div class="p-3.5 rounded-xl bg-gold/20 border border-olive">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">Part A States</span>
+                        <p class="mt-2 font-semibold text-dark">
+                            Included the <strong class="quiz-item">9 former Governor's Provinces</strong> of British India.
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-cream border border-olive">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">Part B States</span>
+                        <p class="mt-2 font-semibold text-dark">
+                            Consisted of <strong class="quiz-item">9 former Princely States</strong> with legislatures (e.g., Hyderabad, Mysore, J&K).
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-gold/20 border border-olive">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">Part C States</span>
+                        <p class="mt-2 font-semibold text-dark">
+                            Made up of <strong class="quiz-item">former Chief Commissioner's Provinces</strong> of British India and some former Princely States (Total 10).
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-dark text-cream border border-gold">
+                        <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold text-xs">Part D Territory (Sole)</span>
+                        <p class="mt-2 font-semibold text-cream">
+                            The <strong class="text-gold underline quiz-item">Andaman and Nicobar Islands</strong> were the sole Part D territory!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline of Linguistic Commissions & 1956 Act -->
+            <h3 class="font-extrabold text-base text-dark mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-language text-olive"></i> Committees on Linguistic Reorganisation of States (Bhasha ke Aadhar par Rajya)
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+                <!-- 1. Dhar Committee (1948) -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">June 1948</span>
+                            <span class="text-xs font-extrabold text-olive">❌ Rejected Language</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1">1. Dhar Committee (1948)</h4>
+                        <p class="text-xs font-bold text-olive mb-2">Chairman: <strong class="text-dark quiz-item">S. K. Dhar</strong></p>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            • Recommended that states should be reorganized based on <strong class="quiz-item">administrative convenience</strong> (prashasnik suvidha), <strong>NOT linguistic factors</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. JVP Committee (1948) -->
+                <div class="sub-card p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">Dec 1948</span>
+                            <span class="text-xs font-extrabold text-olive">❌ Rejected Language</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1">2. JVP Committee (1948)</h4>
+                        <p class="text-xs font-bold text-olive mb-2">
+                            Members: <strong class="text-dark quiz-item">Jawaharlal Nehru, Vallabhbhai Patel, & Pattabhi Sitaramayya</strong>
+                        </p>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            • It <strong>rejected the idea of forming states on a linguistic basis</strong> as well (desh ki ekta aur suraksha ko prathamikta di).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. 1952 Potti Sriramulu & Andhra Pradesh (1953) -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs">🔥 1952 – 1953 Turning Point</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-gold mb-1">1st Linguistic State: Andhra (1953)</h4>
+                        <p class="text-xs sm:text-sm text-cream/90 leading-relaxed">
+                            • <strong>1952:</strong> Death of Congress leader <strong class="text-gold underline quiz-item">Potti Sriramulu</strong> after a 56-day hunger strike for a separate Telugu-speaking state.<br>
+                            • Led to the formation of <strong class="text-gold underline quiz-item">Andhra Pradesh (1953)</strong> (carved out of Madras) — became the <strong>1st Linguistic State of India</strong>!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fazl Ali Commission (1953) & State Reorganisation Act (1956) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Fazl Ali Commission -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Dec 1953</span>
+                        <span class="text-xs font-extrabold text-dark">✅ Accepted Linguistic Basis</span>
+                    </div>
+                    <h4 class="font-extrabold text-lg text-dark">3. Fazl Ali Commission / State Reorganisation Commission (1953)</h4>
+                    <div class="my-2.5 p-2.5 rounded-lg bg-gold/25 border border-olive text-xs font-bold text-dark">
+                        👥 <strong>3 Members (Exam Favourite):</strong><br>
+                        1. <span class="quiz-item">Justice Fazl Ali</span> (Chairman)<br>
+                        2. <span class="quiz-item">K. M. Panikkar</span><br>
+                        3. <span class="quiz-item">H. N. Kunzru</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                        • <strong>Key Verdict:</strong> It <strong class="underline">rejected the theory of "One Language, One State"</strong>, BUT <strong class="quiz-item">supported reorganising states on a linguistic basis</strong>!
+                    </p>
+                </div>
+
+                <!-- State Reorganisation Act, 1956 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">1st November 1956</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">7th Amendment, 1956</span>
+                        </div>
+                        <h4 class="font-extrabold text-lg text-dark">State Reorganisation Act, 1956</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark mt-2">
+                            <li>• Passed based on the recommendations of the <strong>Fazl Ali Commission</strong>.</li>
+                            <li>• It <strong>removed the four-fold classification of states</strong> (Part A, B, C, D).</li>
+                            <li>• Created <strong class="bg-gold px-2 py-0.5 rounded border border-dark quiz-item">14 States + 6 Union Territories</strong> on <strong class="quiz-item">1st November 1956</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: CHRONOLOGICAL ORDER OF STATE FORMATION & SPECIAL FACTS
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Timeline & Tricks</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Chronological Order of State Formation & Special Facts</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Golden Memory Trick Banner -->
+            <div class="trick-box p-5 rounded-xl mb-6">
+                <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🧠 Master Trick for Chronological Order of States</span>
+                <h3 class="text-lg sm:text-2xl font-serif font-extrabold text-gold mt-1.5 tracking-wide quiz-item">
+                    "AAM GUNAH HAI MAIM TUSSI GAO AUR MOJ LO"
+                </h3>
+                <p class="text-xs text-cream/90 mt-1">
+                    • <strong>AA</strong> (Andhra, 1956) → <strong>M</strong> (Maharashtra, 1960) → <strong>GU</strong> (Gujarat, 1960) → <strong>NA</strong> (Nagaland, 1963) → <strong>H</strong> (Haryana, 1966) → <strong>HAI</strong> (Himachal, 1971) → <strong>MAI</strong> (Meghalaya, 1972) → <strong>M</strong> (Manipur, 1972) → <strong>TU</strong> (Tripura, 1972) → <strong>SSI</strong> (Sikkim, 1975) → <strong>GAO</strong> (Goa, 1987) → <strong>AUR</strong> (Arunachal, 1987) → <strong>MOJ LO</strong> (Mizoram, 1987)!
+                </p>
+            </div>
+
+            <!-- 13 Chronological States Grid + 2000 & 2014 States -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8 text-xs sm:text-sm">
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>1. Andhra Pradesh</strong><br><span class="text-[11px] text-olive">Full-fledged State</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1 Nov 1956</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>2. Maharashtra</strong><br><span class="text-[11px] text-olive">Bombay Reorg. Act</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1 May 1960</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>3. Gujarat</strong><br><span class="text-[11px] text-olive">15th State of India</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1 May 1960</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>4. Nagaland</strong><br><span class="text-[11px] text-olive">Carved from Assam</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1963</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>5. Haryana</strong><br><span class="text-[11px] text-olive">Carved from Punjab</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1 Nov 1966</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>6. Himachal Pradesh</strong><br><span class="text-[11px] text-olive">UT to Full State</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1971</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>7. Meghalaya</strong><br><span class="text-[11px] text-olive">With Manipur & Tripura</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1972</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>8. Manipur</strong><br><span class="text-[11px] text-olive">Full Statehood</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1972</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>9. Tripura</strong><br><span class="text-[11px] text-olive">Full Statehood</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1972</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between border-2 border-dark bg-gold/20">
+                    <span><strong>10. Sikkim</strong><br><span class="text-[11px] text-dark font-bold">22nd State (36th CA)</span></span>
+                    <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1975</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between border-2 border-dark bg-gold/20">
+                    <span><strong>11. Goa</strong><br><span class="text-[11px] text-dark font-bold">25th State (56th CA)</span></span>
+                    <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1987</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>12. Arunachal Pradesh</strong><br><span class="text-[11px] text-olive">Earlier part of NEFA</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1987</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>13. Mizoram</strong><br><span class="text-[11px] text-olive">Earlier part of NEFA</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">1987</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between">
+                    <span><strong>14. Chhattisgarh, UK, JH</strong><br><span class="text-[11px] text-olive">From MP, UP & Bihar</span></span>
+                    <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Nov 2000</span>
+                </div>
+                <div class="sub-card p-3 rounded-xl flex items-center justify-between sm:col-span-2 bg-dark text-cream border-gold">
+                    <span><strong class="text-gold">15. Telangana (29th State formed)</strong><br><span class="text-[11px] text-cream/80">Carved out of Andhra Pradesh</span></span>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs quiz-item">2 June 2014</span>
+                </div>
+            </div>
+
+            <!-- Sikkim Special Case + Additional Points + Statehood Days -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Sikkim Special Case -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Sikkim (Special Case)</span>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-2">How Sikkim Joined India (35th vs 36th CA)</h3>
+                        <ul class="space-y-2.5 text-xs sm:text-sm mt-3">
+                            <li>• Sikkim was earlier an independent kingdom ruled by the <strong class="text-gold underline quiz-item">Chogyal Dynasty</strong>.</li>
+                            <li>• <strong class="text-gold quiz-item">35th Amendment Act, 1974:</strong> Sikkim became an <strong>"Associate State"</strong> of India under <strong class="text-gold quiz-item">Article 2A</strong> (and 10th Schedule was added briefly).</li>
+                            <li>• <strong class="text-gold quiz-item">36th Amendment Act, 1975:</strong> Gained <strong>complete statehood in 1975</strong> (Article 2A repealed) and became the <strong class="text-gold underline quiz-item">22nd State of India</strong>!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Additional Points to Remember & Statehood Days -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="sub-card p-5 rounded-xl">
+                        <h4 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-3">
+                            <i class="fa-solid fa-thumbtack text-olive mr-1"></i> Additional Points & Constitutional Amendments (Page 5)
+                        </h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark">
+                            <li>• <strong>10th CA, 1961:</strong> <strong class="quiz-item">Dadra & Nagar Haveli</strong> integrated as a UT → <em>Now merged with Daman and Diu (2020)</em>.</li>
+                            <li>• <strong>Operation Vijay, 1961:</strong> Launched by Indian Armed Forces to liberate <strong class="quiz-item">Goa, Daman & Diu from Portuguese rule</strong>.</li>
+                            <li>• <strong>12th CA, 1962:</strong> <strong class="quiz-item">Goa (UT) + Daman + Diu</strong> incorporated as a Union Territory (Goa later became 25th full state in 1987 by <strong>56th CA</strong> after being a UT since 1961).</li>
+                            <li>• <strong>22nd CA, 1969:</strong> <strong class="quiz-item">Meghalaya</strong> was created as an autonomous state within Assam (before becoming full state in 1972).</li>
+                            <li>• <strong>NEFA Connection:</strong> <strong class="quiz-item">Mizoram and Arunachal Pradesh</strong> were created as UTs initially — once part of <strong>NEFA (North-East Frontier Agency)</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Statehood Celebration Dates -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div class="sub-card p-3.5 rounded-xl bg-gold/20">
+                            <span class="font-extrabold text-dark block">🎉 1st May (Bombay Reorg. Act, 1960):</span>
+                            <p class="mt-1 text-dark">Bifurcated Bombay into <strong class="quiz-item">Maharashtra and Gujarat</strong>. Both celebrate statehood on <strong>1st May</strong>.</p>
+                        </div>
+                        <div class="sub-card p-3.5 rounded-xl bg-gold/20">
+                            <span class="font-extrabold text-dark block">🎉 1st November Statehood Day:</span>
+                            <p class="mt-1 text-dark"><strong class="quiz-item">Karnataka, Kerala, Andhra Pradesh, Chhattisgarh, Haryana, and Madhya Pradesh</strong> celebrate statehood on <strong>1st November</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: ARTICLES 371 TO 371-J (SPECIAL PROVISIONS FOR SOME STATES)
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 6 • Part XXI of Constitution</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Articles Related to Special Provisions for Some States (371 to 371-J)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Trick Banner -->
+            <div class="trick-box p-4 rounded-xl mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🧠 Super Memory Trick (371 to 371-J)</span>
+                    <h3 class="text-xl font-serif font-extrabold text-gold mt-1 quiz-item">
+                        "MaG NAM AASMA GK"
+                    </h3>
+                    <p class="text-xs text-cream/90 mt-1">
+                        • <strong>MaG</strong> (Maharashtra-Gujarat: <strong>371</strong>) | <strong>N</strong> (Nagaland: <strong>371-A</strong>) | <strong>A</strong> (Assam: <strong>371-B</strong>) | <strong>M</strong> (Manipur: <strong>371-C</strong>) | <strong>A</strong> (Andhra/Telangana: <strong>371-D</strong>) | <strong>A</strong> (Andhra Central Univ: <strong>371-E</strong>) | <strong>S</strong> (Sikkim: <strong>371-F</strong>) | <strong>M</strong> (Mizoram: <strong>371-G</strong>) | <strong>A</strong> (Arunachal: <strong>371-H</strong>) | <strong>G</strong> (Goa: <strong>371-I</strong>) | <strong>K</strong> (Karnataka: <strong>371-J</strong>)!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Table / Grid of 371 to 371-J -->
+            <div class="overflow-x-auto rounded-xl border-2 border-dark">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-dark text-gold text-xs uppercase tracking-wider">
+                            <th class="p-3 border-b border-olive">Article</th>
+                            <th class="p-3 border-b border-olive">Trick Letter</th>
+                            <th class="p-3 border-b border-olive">State / Special Provision</th>
+                            <th class="p-3 border-b border-olive hidden sm:table-cell">Easy Memory Cue (Hinglish)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-olive/40 text-xs sm:text-sm bg-cream">
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">MaG</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the states of <strong class="quiz-item">Maharashtra and Gujarat</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">Shuruat Mumbai-Gujarat (MaG) se hoti hai</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-A</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">N</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Nagaland</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">NAM ka 'N' = Nagaland (13th CA, 1962)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-B</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">A</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Assam</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">NAM ka 'A' = Assam (22nd CA, 1969)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-C</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">M</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Manipur</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">NAM ka 'M' = Manipur (27th CA, 1971)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-D</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">A</span></td>
+                            <td class="p-3 font-bold text-dark">Special provisions with respect to the state of <strong class="quiz-item">Andhra Pradesh or Telangana</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">AASMA ka pehla 'A' = Andhra & Telangana</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-E</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">A</span></td>
+                            <td class="p-3 font-bold text-dark">Establishment of <strong class="quiz-item">Central University in Andhra Pradesh</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell"><strong>E</strong> = <strong>E</strong>ducation / University in Andhra</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-F</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">S</span></td>
+                            <td class="p-3 font-bold text-dark">Special provisions with respect to the state of <strong class="quiz-item">Sikkim</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">AASMA ka 'S' = Sikkim (36th CA, 1975)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-G</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">M</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Mizoram</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">AASMA ka 'M' = Mizoram (53rd CA, 1986)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-H</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">A</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Arunachal Pradesh</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">AASMA ka aakhri 'A' = Arunachal (55th CA, 1986)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-I</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">G</span></td>
+                            <td class="p-3 font-bold text-dark">Special provision with respect to the state of <strong class="quiz-item">Goa</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">GK ka 'G' = Goa (56th CA, 1987)</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">Article 371-J</td>
+                            <td class="p-3"><span class="gold-badge px-2 py-0.5 rounded text-xs">K</span></td>
+                            <td class="p-3 font-bold text-dark">Special provisions with respect to the state of <strong class="quiz-item">Karnataka</strong></td>
+                            <td class="p-3 text-xs text-olive hidden sm:table-cell">GK ka 'K' = Karnataka (Hyderabad-Karnataka, 98th CA, 2012)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: PART II — CITIZENSHIP (ARTICLES 5 TO 11)
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 6, 7 & 8 • Part II of Constitution</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Part II: Citizenship (Articles 5 to 11)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Single Citizenship & Before/After 26 Jan 1950 Division -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold flex flex-col justify-center">
+                    <span class="text-xs font-bold text-gold uppercase">Borrowed Feature</span>
+                    <h3 class="text-base font-extrabold text-cream mt-1">
+                        Concept of <span class="text-gold underline quiz-item">Single Citizenship</span>
+                    </h3>
+                    <p class="text-xs text-cream/90 mt-1">
+                        Taken from <strong class="text-gold quiz-item">UK (Britain)</strong>. (USA mein Dual Citizenship hoti hai, par India mein sirf ek — Bharatiya Nagrikta).
+                    </p>
+                </div>
+
+                <div class="sub-card p-4 rounded-xl bg-gold/20">
+                    <span class="dark-badge text-xs px-2 py-0.5 rounded">Timeline #1 (Page 8)</span>
+                    <h4 class="font-extrabold text-sm text-dark mt-1.5">Before / At Commencement of Constitution (26 Jan 1950)</h4>
+                    <p class="text-xs text-olive font-bold mt-1">👉 Governed by <strong class="text-dark underline quiz-item">Articles 5 to 8</strong></p>
+                </div>
+
+                <div class="sub-card p-4 rounded-xl bg-gold/20">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded">Timeline #2 (Page 8)</span>
+                    <h4 class="font-extrabold text-sm text-dark mt-1.5">After 26th January 1950</h4>
+                    <p class="text-xs text-olive font-bold mt-1">👉 Governed by <strong class="text-dark underline quiz-item">Citizenship Act, 1955</strong> (passed under Art 11)</p>
+                </div>
+            </div>
+
+            <!-- Article 5 Featured Card -->
+            <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 5</span>
+                    <span class="text-xs font-bold text-olive">Citizenship at the Commencement of the Constitution</span>
+                </div>
+                <h3 class="text-lg font-extrabold text-dark mb-2">Who became a Citizen of India on 26th January 1950?</h3>
+                <p class="text-xs sm:text-sm text-dark mb-3">
+                    A person (having domicile in India) shall be deemed to be a citizen of India on <strong>26 January 1950</strong>, if they fulfill <strong>ANY ONE</strong> of the following 3 conditions:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm font-bold text-dark">
+                    <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                        1. <span class="quiz-item">Born in India</span> (Uska janm Bharat mein hua ho); <strong>OR</strong>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                        2. <span class="quiz-item">Either of the parents was born in India</span> (Mata-Pita mein se kisi ek ka janm Bharat mein hua ho); <strong>OR</strong>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                        3. Has been an <span class="quiz-item">ordinary resident of India for at least 5 years</span> immediately before 26 January 1950.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles 6, 7, 8, 9, 10, 11 Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Article 6 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Article 6</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Migrants from Pakistan to India</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            Provided rights of citizenship of certain persons who have <strong class="quiz-item">migrated to India from Pakistan</strong> (Partition ke waqt Pakistan se Bharat aane wale log).
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 6 = Pak ➡️ India (Aaye)</p>
+                </div>
+
+                <!-- Article 7 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Article 7</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Migrants to Pakistan (Returned)</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            Rights of citizenship of certain migrants to Pakistan (<strong class="quiz-item">India to Pakistan, then came BACK to India</strong> for permanent resettlement).
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 7 = India ➡️ Pak ➡️ Back to India</p>
+                </div>
+
+                <!-- Article 8 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Article 8</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Persons of Indian Origin Outside India</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            Rights of citizenship of certain <strong class="quiz-item">persons of Indian origin residing outside India</strong> (Videsh mein rehne wale Bharatiya mool ke log).
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 8 = Abroad / NRI / PIO</p>
+                </div>
+
+                <!-- Article 9 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between border-2 border-dark bg-gold/15">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Article 9</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Voluntary Acquisition of Foreign Citizenship</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            Provided that if any person <strong class="underline quiz-item">voluntarily acquired the citizenship of a foreign State</strong>, they will <strong>no longer be a citizen of India</strong>.
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-dark font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 9 = "NO" Dual Citizenship!</p>
+                </div>
+
+                <!-- Article 10 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Article 10</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Continuance of Rights</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            <strong class="quiz-item">Continuance of the rights of citizenship</strong> (Ek baar nagrik ban gaye toh nagrikta bani rahegi, sivaye Parliament ke kanoon ke).
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 10 = Continue Citizenship</p>
+                </div>
+
+                <!-- Article 11 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between border-2 border-dark bg-gold/15">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Article 11</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2">Power of Parliament</h4>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            <strong class="underline quiz-item">Parliament to regulate the right of citizenship by law</strong> (Isi shakti ka upyog karke Sansad ne Citizenship Act, 1955 banaya).
+                        </p>
+                    </div>
+                    <p class="text-[11px] text-dark font-bold mt-2 pt-2 border-t border-olive/30">🧠 Trick: Art 11 = Supreme Power of Parliament</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 8: CITIZENSHIP ACT, 1955 (5 WAYS TO ACQUIRE & 3 WAYS TO LOSE)
+             ========================================== -->
+        <section id="topic-8" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">08</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 7 • Post-26 Jan 1950 Law</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Citizenship Act, 1955: Acquisition (5 Ways) & Loss (3 Ways)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Jus Soli vs Jus Sanguinis Banner -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-gold font-bold uppercase">Latin Legal Term #1</span>
+                        <h4 class="text-lg font-serif font-extrabold text-cream mt-0.5">1. Jus Soli</h4>
+                        <p class="text-xs sm:text-sm text-gold font-bold mt-0.5 quiz-item">👉 Citizenship "By Place of Birth" (Zameen/Mitti ke aadhar par)</p>
+                    </div>
+                    <i class="fa-solid fa-earth-asia text-3xl text-gold"></i>
+                </div>
+                <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-gold font-bold uppercase">Latin Legal Term #2</span>
+                        <h4 class="text-lg font-serif font-extrabold text-cream mt-0.5">2. Jus Sanguinis ("By Sanguine")</h4>
+                        <p class="text-xs sm:text-sm text-gold font-bold mt-0.5 quiz-item">👉 Citizenship "By Blood / Descent" (Khoon/Vansh ke aadhar par)</p>
+                    </div>
+                    <i class="fa-solid fa-droplet text-3xl text-gold"></i>
+                </div>
+            </div>
+
+            <!-- 5 Ways to Acquire Citizenship (Trick: BRAND) -->
+            <div class="mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="font-extrabold text-base sm:text-lg text-dark flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus text-olive"></i> 5 Ways to Acquire Indian Citizenship (Citizenship Act, 1955)
+                    </h3>
+                    <span class="gold-badge text-xs px-3 py-1 rounded">🧠 Trick: "B - R - A - N - D"</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- 1. By Birth -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">1. By Birth (जन्म से)</span>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            Born within the territory of India (currently requires at least one parent to be an Indian citizen and the other not an illegal migrant).
+                        </p>
+                    </div>
+
+                    <!-- 2. By Descent -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">2. By Descent (वंश के आधार पर)</span>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            <strong class="quiz-item">Indian origin, but born/currently living in another country</strong> (Parents Indian citizen hain aur bacche ka birth videsh mein hua hai — registered at Indian consulate).
+                        </p>
+                    </div>
+
+                    <!-- 3. By Registration -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15">
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">3. By Registration (पंजीकरण द्वारा)</span>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            Granted to <strong>Indian-origin individuals, spouses of Indian citizens</strong>, or minor children who have <strong class="underline text-dark quiz-item">resided in India for 7 years</strong> before applying.
+                        </p>
+                    </div>
+
+                    <!-- 4. By Naturalisation -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15 md:col-span-2">
+                        <div class="flex items-center justify-between">
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">4. By Naturalisation (देशीकरण द्वारा)</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">Total 12 Years (11 + 1)</span>
+                        </div>
+                        <ul class="space-y-1.5 text-xs sm:text-sm text-dark mt-2 list-disc pl-4 font-medium">
+                            <li>Residing in India for <strong class="underline quiz-item">12 years</strong> (<strong class="quiz-item">11 years</strong> in the preceding 14 years + <strong class="quiz-item">1 year</strong> continuously immediately before application).</li>
+                            <li>They must know at least <strong class="underline quiz-item">one Indian Language mentioned in the 8th Schedule</strong> (22 bhashaon mein se koi ek bhasha aani chahiye).</li>
+                        </ul>
+                    </div>
+
+                    <!-- 5. By Incorporating a Territory -->
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded">5. By Incorporating a Territory</span>
+                        <p class="text-xs sm:text-sm text-dark mt-2 leading-relaxed">
+                            When India <strong>extends its sovereignty over a new area</strong> (e.g., Pondicherry in 1962), the Government declares the people of that territory to be citizens.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Ways to Lose Citizenship -->
+            <div class="sub-card p-5 rounded-xl bg-cream border-2 border-dark">
+                <h3 class="font-extrabold text-base sm:text-lg text-dark mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-user-xmark text-olive"></i> 3 Ways One Can Lose Indian Citizenship (Nagrikta Kaise Jaati Hai?)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- 1. Renunciation -->
+                    <div class="p-4 rounded-xl bg-gold/20 border border-olive">
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded">1. Renunciation (स्वैच्छिक त्याग)</span>
+                        <p class="text-xs sm:text-sm font-semibold text-dark mt-2">
+                            When a person <strong class="quiz-item">voluntarily gives up</strong> Indian citizenship by making a declaration.
+                        </p>
+                        <p class="text-xs text-olive mt-1">
+                            (Jab koi khud apni marzi se likh kar de de ki mujhe ab Bharat ka nagrik nahi rehna).
+                        </p>
+                    </div>
+
+                    <!-- 2. Termination -->
+                    <div class="p-4 rounded-xl bg-gold/20 border border-olive">
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded">2. Termination (बर्खास्तगी / स्वतः समाप्ति)</span>
+                        <p class="text-xs sm:text-sm font-semibold text-dark mt-2">
+                            When an Indian citizen <strong class="quiz-item">voluntarily acquires the citizenship of another country</strong>, their Indian citizenship automatically terminates.
+                        </p>
+                        <p class="text-xs text-olive mt-1">
+                            (Dusre desh ka passport lete hi Indian citizenship apne aap khatam).
+                        </p>
+                    </div>
+
+                    <!-- 3. Deprivation -->
+                    <div class="p-4 rounded-xl bg-dark text-cream border border-gold">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs">3. Deprivation (वंचित किया जाना)</span>
+                        <p class="text-xs sm:text-sm font-semibold text-cream mt-2">
+                            Compulsory termination by Govt if citizenship was <strong class="text-gold quiz-item">acquired by fraud, false documents, or during war helped an enemy country</strong>.
+                        </p>
+                        <p class="text-xs text-cream/80 mt-1">
+                            (Farzi kagaz ya dushman desh ki madad karne par sarkar zabardasti nagrikta chheen leti hai).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 9: CITIZENSHIP AMENDMENT ACT (CAA), 2019
+             ========================================== -->
+        <section id="topic-9" class="note-card rounded-2xl p-6 md:p-8 searchable-section bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-gold text-dark font-extrabold text-lg flex items-center justify-center">09</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-gold">Page 8 • Recent Amendment in Citizenship Act, 1955</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-cream">Citizenship Amendment Act (CAA), 2019 — Complete Breakdown</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-cream hover:bg-cream transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- 6 Communities & 3 Countries -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="p-5 rounded-xl bg-cream text-dark border-2 border-gold sub-card">
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded uppercase">Who is Eligible under CAA, 2019?</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2">
+                            Persecuted Minorities from <span class="underline">6 Communities</span> of <span class="underline">3 Countries</span>:
+                        </h3>
+
+                        <!-- 6 Communities -->
+                        <div class="mt-3">
+                            <span class="text-xs font-extrabold uppercase text-olive block mb-1.5">1. Six Religious Communities:</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm font-extrabold text-center">
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">1. Hindu</div>
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">2. Sikh</div>
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">3. Buddhist</div>
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">4. Jain</div>
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">5. Parsi</div>
+                                <div class="p-2 rounded bg-gold/35 border border-dark quiz-item">6. Christian</div>
+                            </div>
+                        </div>
+
+                        <!-- 3 Countries -->
+                        <div class="mt-4">
+                            <span class="text-xs font-extrabold uppercase text-olive block mb-1.5">2. Three Neighbouring Countries (🧠 Trick: "B - A - P"):</span>
+                            <div class="grid grid-cols-3 gap-2 text-xs sm:text-sm font-extrabold text-center">
+                                <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">🇧🇩 Bangladesh</div>
+                                <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">🇦🇫 Afghanistan</div>
+                                <div class="p-2.5 rounded-lg bg-dark text-gold border border-olive quiz-item">🇵🇰 Pakistan</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cutoff Date & Reduced Residency Period -->
+                <div class="lg:col-span-5 flex flex-col justify-between gap-4">
+                    <div class="p-5 rounded-xl bg-olive/30 border-2 border-gold sub-card text-cream">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">📅 Cutoff Date Condition</span>
+                        <h4 class="text-xl font-serif font-extrabold text-gold mt-2 quiz-item">
+                            On or Before 31st December 2014
+                        </h4>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1">
+                            Jo log <strong>31 December 2014</strong> ya usse pehle Bharat mein pravesh kar chuke hain, sirf wahi CAA 2019 ke tahat patra (eligible) honge.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-gold text-dark border-2 border-cream sub-card">
+                        <span class="px-2.5 py-0.5 rounded bg-dark text-gold font-extrabold text-xs uppercase">⏱️ Relaxation in Naturalisation</span>
+                        <h4 class="text-lg font-extrabold text-dark mt-2">
+                            Residency Period Reduced to <span class="underline quiz-item">At Least 6 Years</span>!
+                        </h4>
+                        <p class="text-xs sm:text-sm text-dark/90 mt-1 font-medium">
+                            • They can acquire citizenship through <strong>Naturalisation</strong> by living in India for <strong class="quiz-item">at least 6 years</strong> (5+1 years), <strong class="quiz-item">instead of 12 years</strong> (11+1 years) required earlier!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (8 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz (8 Questions)
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "ADD EXTRA NOTE" & "TOPICS AT A GLANCE" BUTTONS -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or table row to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Part I (Union) & Part II (Citizenship) Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test: ON (Click blurred)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 5. Interactive PYQ Practice Quiz (8 Questions)
+        const quizData = [
+            {
+                q: "1. Which Article deals with the formation of new States and alteration of areas, boundaries, or names of existing States?",
+                options: ["Article 1", "Article 2", "Article 3", "Article 4"],
+                answer: 2,
+                exp: "Article 2 foreign territory ko India mein shamil karne ke liye hai, jabki Article 3 existing States ke naam, boundary ya area badalne ke liye hai."
+            },
+            {
+                q: "2. Under the 100th Constitutional Amendment Act, how many enclaves were transferred by India to Bangladesh and by Bangladesh to India?",
+                options: [
+                    "India gave 51, Bangladesh gave 111",
+                    "India gave 111, Bangladesh gave 51",
+                    "India gave 100, Bangladesh gave 50",
+                    "India gave 115, Bangladesh gave 55"
+                ],
+                answer: 1,
+                exp: "100th CA (India-Bangladesh Land Boundary Agreement) ke tahat India ne 111 enclaves Bangladesh ko diye aur Bangladesh ne 51 enclaves India ko diye."
+            },
+            {
+                q: "3. Which of the following was NOT a member of the Fazl Ali Commission (State Reorganisation Commission, 1953)?",
+                options: ["Justice Fazl Ali", "K. M. Panikkar", "H. N. Kunzru", "Pattabhi Sitaramayya"],
+                answer: 3,
+                exp: "Fazl Ali Commission (1953) mein 3 members the: Fazl Ali, K.M. Panikkar aur H.N. Kunzru. Pattabhi Sitaramayya 1948 ki JVP Committee mein the."
+            },
+            {
+                q: "4. By which Constitutional Amendment did Sikkim become a full-fledged 22nd State of India in 1975?",
+                options: ["35th Amendment, 1974", "36th Amendment, 1975", "56th Amendment, 1987", "22nd Amendment, 1969"],
+                answer: 1,
+                exp: "35th Amendment (1974) se Sikkim Associate State (Art 2A) bana tha, aur 36th Amendment (1975) se full-fledged 22nd State bana."
+            },
+            {
+                q: "5. Which Article of the Constitution provides special provisions with respect to the State of Mizoram?",
+                options: ["Article 371-F", "Article 371-G", "Article 371-H", "Article 371-I"],
+                answer: 1,
+                exp: "Trick 'MaG NAM AASMA GK': 371-F = Sikkim, 371-G = Mizoram, 371-H = Arunachal Pradesh, 371-I = Goa."
+            },
+            {
+                q: "6. Which Article states that a person who voluntarily acquires the citizenship of a foreign State shall no longer be a citizen of India?",
+                options: ["Article 7", "Article 8", "Article 9", "Article 10"],
+                answer: 2,
+                exp: "Article 9 kehta hai ki videshi nagrikta swiccha se lete hi Bharat ki nagrikta samapt ho jayegi."
+            },
+            {
+                q: "7. What does the Latin legal term 'Jus Sanguinis' (By Sanguine) mean in citizenship law?",
+                options: [
+                    "Citizenship by Place of Birth",
+                    "Citizenship by Blood / Descent",
+                    "Citizenship by Registration",
+                    "Citizenship by Incorporation of Territory"
+                ],
+                answer: 1,
+                exp: "Jus Soli = By Place of Birth (Mitti se), jabki Jus Sanguinis (By Sanguine) = By Blood / Descent (Khoon/Vansh se)."
+            },
+            {
+                q: "8. Under the Citizenship Amendment Act (CAA), 2019, what is the cutoff date of entry into India and the reduced residency requirement for Naturalisation?",
+                options: [
+                    "31 Dec 2014 & 6 Years",
+                    "26 Jan 2015 & 7 Years",
+                    "31 Dec 2019 & 5 Years",
+                    "15 Aug 2014 & 11 Years"
+                ],
+                answer: 0,
+                exp: "CAA 2019 ke tahat 31st December 2014 ya usse pehle aaye 6 communities (from Bangladesh, Afghanistan, Pakistan) ke liye residency period 12 saal se ghata kar 6 years kar diya gaya hai."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 6. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'polity_part1_and_part2_custom_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items, table rows & headings
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main table tbody tr',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                if (targetEl.tagName === 'TR') {
+                    const trWrapper = document.createElement('tr');
+                    trWrapper.className = 'student-custom-note-wrapper bg-gold/10';
+                    const td = document.createElement('td');
+                    td.colSpan = targetEl.children.length || 4;
+                    td.className = 'px-4 py-1';
+                    td.innerHTML = noteHtml;
+                    trWrapper.appendChild(td);
+                    targetEl.insertAdjacentElement('afterend', trWrapper);
+                } else {
+                    const divWrapper = document.createElement('div');
+                    divWrapper.className = 'student-custom-note-wrapper';
+                    divWrapper.innerHTML = noteHtml;
+                    targetEl.appendChild(divWrapper);
+                }
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - PART I & PART II OF CONSTITUTION\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Part_1_and_2_Constitution_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>

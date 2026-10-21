@@ -328,6 +328,26 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for 42nd CAA words: "SIS" (Socialist, Integrity, Secular). Borrowed: Justice from Russia (USSR); Liberty, Equality, Fraternity, Republic from France.'
   },
   {
+    id: 'ga-polity-part1-part2-citizenship',
+    subject: 'Polity',
+    title: 'Part I (Union) & Part II (Citizenship)',
+    badge: 'Chapter 04 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/part1_part2_union_citizenship.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Article 1 & Type of Polity', detail: '"India, that is Bharat, shall be a Union of States". Indestructible Union of Destructible States (vs USA). 3 Categories: States (28), UTs (8), Acquired territories. States have no right to secede.' },
+      { label: '02. Articles 2, 3 & 4 + 100th CAA', detail: 'Art 2 (External / foreign territory) vs Art 3 (Internal re-adjustment - FIDA: Form, Increase, Diminish, Alter boundary/name). Art 4(2): Passed by Simple Majority (>50%), NOT Art 368 amendment. 100th CAA (111 enclaves to Bangladesh, 51 from Bangladesh).' },
+      { label: '03. Princely States Integration (1947)', detail: '562 out of 565 joined peacefully (Patel & Menon). 3 Refused: J&K (Instrument of Accession, Oct 1947), Junagarh (Referendum, Feb 1948), Hyderabad (Operation POLO, Sept 1948).' },
+      { label: '04. Linguistic Committees & 1956 Act', detail: 'Dhar (June 1948) & JVP (Dec 1948) rejected language. Potti Sriramulu hunger strike (1952) led to 1st linguistic state: Andhra (1953). Fazl Ali Commission (Fazl Ali, Panikkar, Kunzru) accepted language. 7th CAA 1956 created 14 States + 6 UTs.' },
+      { label: '05. Chronology Trick: "AAM GUNAH HAI..."', detail: 'Andhra (1956), Maha/Guj (1960), Nagaland (1963), Haryana (1966), HP (1971), Meghalaya/Manipur/Tripura (1972), Sikkim (1975, 36th CAA - 22nd state), Goa/Arunachal/Mizoram (1987), CG/UK/JH (2000), Telangana (2014).' },
+      { label: '06. Special Provisions: Art 371 to 371-J', detail: 'Trick: "MaG NAM AASMA GK". 371 (Maha/Guj), 371-A (Nagaland), 371-B (Assam), 371-C (Manipur), 371-D/E (Andhra/Telangana & Central Univ), 371-F (Sikkim), 371-G (Mizoram), 371-H (Arunachal), 371-I (Goa), 371-J (Karnataka).' },
+      { label: '07. Part II: Citizenship (Articles 5 to 11)', detail: 'Single Citizenship from UK. Art 5 (Domicile on 26 Jan 1950), Art 6 (Pak to India), Art 7 (Migrants returned), Art 8 (PIO/Abroad), Art 9 (No dual citizenship - voluntary foreign gives up Indian), Art 10 (Continuance), Art 11 (Parliament power).' },
+      { label: '08. Citizenship Act 1955 & CAA 2019', detail: '5 Ways to Acquire (BRAND: Birth, Descent, Registration [7 yrs], Naturalisation [12 yrs], Territory). 3 Ways to Lose (Renunciation, Termination, Deprivation). CAA 2019: 6 communities from 3 countries (BAP), cutoff 31 Dec 2014, residency reduced to 6 years.' }
+    ],
+    summaryNote: 'Trick for States: "AAM GUNAH HAI MAIM TUSSI GAO AUR MOJ LO". Trick for Art 371-371J: "MaG NAM AASMA GK". Citizenship: BRAND (5 Ways to Acquire).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

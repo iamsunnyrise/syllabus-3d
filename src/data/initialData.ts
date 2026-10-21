@@ -589,6 +589,29 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
                 mistakes: []
               },
               {
+                id: 'top_part1_part2_union_citizenship',
+                name: 'Part I & Part II: Union, States & Citizenship (Articles 1-11)',
+                subtopics: [
+                  'Articles 1-4: Union of States & Simple Majority (Art 4)',
+                  'Integration of 565 Princely States & Operation POLO',
+                  'Linguistic Reorganisation: Dhar, JVP, Fazl Ali & 1956 Act',
+                  'State Formation Chronology & Articles 371 to 371-J',
+                  'Part II Citizenship (Arts 5-11), Act 1955 (BRAND) & CAA 2019'
+                ],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 210,
+                lastStudied: '2026-08-18',
+                nextRevision: '2026-08-28',
+                accuracy: 95,
+                mockAttempts: 40,
+                difficulty: 'Medium',
+                isWeak: false,
+                weightage: 5,
+                notes: 'Part I (Arts 1-4): Indestructible Union of Destructible States. Part II (Arts 5-11): Single Citizenship (UK). 5 Ways to acquire (BRAND). CAA 2019 cutoff 31 Dec 2014.',
+                mistakes: []
+              },
+              {
                 id: 'top_fundamental_rights',
                 name: 'Fundamental Rights (Articles 12-35)',
                 subtopics: ['Article 19 6 Freedoms', 'Article 21 & 21A', 'Writs under Article 32 & 226 (Habeas Corpus, Mandamus)'],
@@ -754,6 +777,28 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 6,
             notes: 'Preamble based on Objective Resolution. 42nd CAA added Socialist, Secular, Integrity. Key to minds of makers. Basic structure core.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_union_citizenship',
+            name: 'Union & its Territory (Part I) and Citizenship (Part II)',
+            subtopics: [
+              'Article 1-4: Indestructible Union, Reorganization Powers & Cession (Berubari / 100th CAA)',
+              'Evolution of States: Linguistic Reorganization (Fazl Ali) & Asymmetrical Federalism (Art 371)',
+              'Constitutional Provisions on Citizenship (Arts 5-11) & Citizenship Act 1955',
+              'CAA 2019 & Single Citizenship Philosophy vs Dual Citizenship'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 240,
+            lastStudied: '2026-08-18',
+            nextRevision: '2026-08-28',
+            accuracy: 94,
+            mockAttempts: 36,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 6,
+            notes: 'Art 2 vs Art 3. 5th CAA time limit. Berubari (1960) requires Art 368 amendment for ceding territory. Asymmetrical federalism in 371A-J. Citizenship by jus soli vs jus sanguinis.',
             mistakes: []
           },
           {
