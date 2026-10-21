@@ -308,6 +308,26 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for 12 Schedules: "TEARS OF OLD PM". 42nd CAA 1976 transferred 5 subjects from State to Concurrent List. Classical Languages updated to 11 in 2024.'
   },
   {
+    id: 'ga-polity-preamble',
+    subject: 'Polity',
+    title: 'Preamble',
+    badge: 'Chapter 03 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/preamble.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Official Text & Adoption Date', detail: 'Adopted 26 Nov 1949 (Miti Margashirsha Shukla Saptami, Samvat 2006). Enacted AFTER the entire Constitution was compiled.' },
+      { label: '02. Origins & Philosophy', detail: 'Concept from USA, Language from Australia. Modified version of Jawaharlal Nehru\'s Objective Resolution (13 Dec 1946 / 22 Jan 1947). Decorated by Beohar Rammanohar Sinha.' },
+      { label: '03. 42nd Amendment Act 1976', detail: 'Amended ONLY ONCE. 3 words added: Socialist, Secular, Integrity (Trick: "SIS") during Emergency by PM Indira Gandhi.' },
+      { label: '04. Famous Scholar Comments', detail: 'N.A. Palkhivala: "ID Card of Constitution". Pt. Thakur Das Bhargava: "Jewel Set / Soul". K.M. Munshi: "Political Horoscope".' },
+      { label: '05. 5 Nature Keywords (S³DR)', detail: 'Sovereign (Supreme power), Socialist (Democratic socialism, Mixed economy), Secular (Positive concept, no state religion), Democratic (Of/By/For people), Republic (Elected head of state, not hereditary monarch).' },
+      { label: '06. 4 Objectives (J-L-E-F)', detail: '3 Justice (Social, Economic, Political - Russia). 5 Liberty (Thought, Expression, Belief, Faith, Worship - France). 2 Equality (Status & Opportunity - France). Fraternity (Dignity & Unity/Integrity - France).' },
+      { label: '07. Supreme Court Judgments', detail: 'Berubari Union (1960): Not a part, cannot be amended. Kesavananda Bharati (1973, 13 Judges): IS a part, CAN be amended without destroying Basic Structure. LIC of India (1995): Reaffirmed.' },
+      { label: '08. Legal Enforceability', detail: 'Non-justiciable (not enforceable in court of law). Neither a source of power nor a restriction, but an essential aid to legal interpretation.' }
+    ],
+    summaryNote: 'Trick for 42nd CAA words: "SIS" (Socialist, Integrity, Secular). Borrowed: Justice from Russia (USSR); Liberty, Equality, Fraternity, Republic from France.'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

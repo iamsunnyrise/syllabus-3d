@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preamble of Indian Constitution - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        hindi: ['Tiro Devanagari Hindi', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.85); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.94);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Ornamental Preamble Frame */
+        .preamble-frame {
+            background-color: #FAEED9;
+            border: 4px double #38370D;
+            outline: 3px solid #E1A837;
+            outline-offset: -8px;
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Self-Test Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.28);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.15) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS, SEARCH, CLICK-TO-NOTE & SELF-TEST -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-scroll"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">Preamble of the Constitution</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search Case, Quote, 42nd CAA..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key facts, countries & names to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, quote ya case card par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete PDF Coverage • Easy Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        The <span class="text-gold underline decoration-olive">Preamble</span> of Indian Constitution
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Samvidhan ki Aatma aur Pehchan Patra (ID Card): <strong class="text-gold">WE, THE PEOPLE OF INDIA</strong> se lekar <strong class="text-gold">42nd Amendment (1976)</strong>, 5 Nature Keywords (<strong class="text-gold">S³DR</strong>), 4 Objectives (<strong class="text-gold">J-L-E-F</strong>), aur Supreme Court ke landmark cases (<strong class="text-gold">Berubari, Kesavananda Bharati & LIC</strong>) bilkul aasan Hinglish mein!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-globe text-gold mr-1"></i> Concept: <strong>USA</strong> | Language: <strong>Australia</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-paintbrush text-gold mr-1"></i> Artist: <strong>Beohar Rammanohar Sinha</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-file-pen text-gold mr-1"></i> Amended Only Once: <strong>42nd CAA, 1976</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">INTERACTIVE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Summary Snapshot Card -->
+                <div class="w-full md:w-80 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-dark text-gold flex items-center justify-center text-2xl border-2 border-olive">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-base text-dark uppercase">Preamble Blueprint</h3>
+                    <p class="text-[11px] text-olive font-bold uppercase tracking-wider mt-0.5">Soul & Philosophy of Constitution</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2 text-left text-xs font-semibold">
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Justice (Russia)</span>
+                            <span class="text-sm font-extrabold text-dark">3 Types</span>
+                            <span class="block text-[10px] text-dark/80">Social, Econ, Political</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Liberty (France)</span>
+                            <span class="text-sm font-extrabold text-dark">5 Forms</span>
+                            <span class="block text-[10px] text-dark/80">Thought, Exp, Belief...</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Equality (France)</span>
+                            <span class="text-sm font-extrabold text-dark">2 Types</span>
+                            <span class="block text-[10px] text-dark/80">Status & Opportunity</span>
+                        </div>
+                        <div class="bg-dark text-cream p-2.5 rounded-lg border border-gold">
+                            <span class="block text-gold font-bold uppercase text-[10px]">42nd CAA (1976)</span>
+                            <span class="text-sm font-extrabold text-gold">3 Words Added</span>
+                            <span class="block text-[10px] text-cream/90">Socialist, Secular, Integrity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 7 Comprehensive Modules + PYQ Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 8 Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-scroll text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Official Text (English & हिंदी)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Exact Preamble text in English & Hindi + 26 Nov 1949 (Vikram Samvat 2006)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-compass-drafting text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Origins, Artist & 42nd CAA</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">USA vs Australia, Beohar Rammanohar Sinha, Objective Resolution, 1976 Emergency</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-quote-left text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Comments on Preamble</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">ID Card (Palkhivala), Jewel Set (Thakur Das), Political Horoscope (K.M. Munshi)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-fist-raised text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Source & Nature (Part 1: S³)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">"We The People", Sovereign, Socialist (Mixed Economy), Secular (Positive Concept)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-crown text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Nature (Part 2): Democratic & Republic</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Of/By/For the People, Elected Head vs Hereditary Monarch (India vs UK)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-scale-balanced text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">4 Objectives: Justice, Liberty, Equality, Fraternity</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">3 Justice (Russia), 5 Liberty, 2 Equality & Fraternity (France)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-gavel text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">SC Cases, Amendability & Enforceability</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Berubari (1960), Kesavananda Bharati (1973 - 13 Judges), LIC Case (1995)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8: Quiz -->
+                <button onclick="jumpToTopic('quick-quiz')" class="text-left p-3.5 rounded-xl bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-gold text-dark font-extrabold text-xs flex items-center justify-center">⚡</span>
+                            <i class="fa-solid fa-trophy text-gold group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-gold group-hover:text-dark leading-snug">Interactive PYQ Practice Quiz</h3>
+                        <p class="text-xs text-cream/80 group-hover:text-dark/90 mt-1">Test your command on Preamble facts, Cases & Borrowed Ideals</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-gold group-hover:text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Start Quiz <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: OFFICIAL TEXT OF THE PREAMBLE (ENGLISH & HINDI)
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 1 & 2 • Sacred Text</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Official Text of the Preamble (English & हिंदी प्रस्तावना)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <p class="text-xs sm:text-sm text-olive font-semibold mb-5">
+                💡 <strong>Exam Tip:</strong> SSC aur PCS exams mein Preamble ke exact words ka sequence (Sovereign → Socialist → Secular → Democratic → Republic) aur Hindi/English ke exact terms puche jaate hain. Dono ko dhyan se padhein:
+            </p>
+
+            <!-- Side-by-Side Ornamental Preamble Frames -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- English Preamble Frame -->
+                <div class="preamble-frame p-6 md:p-8 rounded-2xl sub-card">
+                    <div class="text-center border-b-2 border-olive pb-3 mb-4">
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-olive block">The Constitution of India</span>
+                        <h3 class="text-2xl font-serif font-extrabold text-dark tracking-wide mt-0.5">PREAMBLE</h3>
+                    </div>
+                    <div class="space-y-3 text-xs sm:text-sm leading-relaxed text-dark font-medium">
+                        <p>
+                            "<strong class="text-base font-extrabold text-dark">WE, THE PEOPLE OF INDIA,</strong> having solemnly resolved to constitute India into a <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark/40 quiz-item">SOVEREIGN SOCIALIST SECULAR DEMOCRATIC REPUBLIC</strong> and to secure to all its citizens:
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-extrabold">JUSTICE,</strong> <span class="quiz-item font-bold">social, economic and political</span>;
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-extrabold">LIBERTY</strong> of <span class="quiz-item font-bold">thought, expression, belief, faith and worship</span>;
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-extrabold">EQUALITY</strong> of <span class="quiz-item font-bold">status and of opportunity</span>; and to promote among them all
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-extrabold">FRATERNITY</strong> assuring the dignity of the individual and the <span class="quiz-item font-bold">unity and integrity of the Nation</span>;
+                        </p>
+                        <p class="pt-2">
+                            IN OUR CONSTITUENT ASSEMBLY this <strong class="bg-gold/50 px-1.5 py-0.5 rounded quiz-item">twenty-sixth day of November, 1949</strong>, do <strong>HEREBY ADOPT, ENACT AND GIVE TO OURSELVES THIS CONSTITUTION.</strong>"
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40 text-[11px] text-olive font-bold flex items-center justify-between">
+                        <span>📌 Original 1949 Image Text: "SOVEREIGN DEMOCRATIC REPUBLIC"</span>
+                        <span>✨ 1976 Added: Socialist, Secular, Integrity</span>
+                    </div>
+                </div>
+
+                <!-- Hindi Preamble Frame -->
+                <div class="preamble-frame p-6 md:p-8 rounded-2xl sub-card">
+                    <div class="text-center border-b-2 border-olive pb-3 mb-4">
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-olive block">भारत का संविधान</span>
+                        <h3 class="text-2xl font-hindi font-extrabold text-dark tracking-wide mt-0.5">उद्देशिका (प्रस्तावना)</h3>
+                    </div>
+                    <div class="space-y-3 text-sm sm:text-base leading-relaxed text-dark font-hindi">
+                        <p>
+                            "<strong>हम, भारत के लोग,</strong> भारत को एक <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark/40 quiz-item">सम्पूर्ण प्रभुत्व-संपन्न समाजवादी पंथनिरपेक्ष लोकतंत्रात्मक गणराज्य</strong> बनाने के लिए, तथा उसके समस्त नागरिकों को:
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-bold">सामाजिक, आर्थिक, और राजनैतिक <span class="underline">न्याय</span>;</strong>
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-bold">विचार, अभिव्यक्ति, विश्वास, धर्म, और उपासना की <span class="underline">स्वतंत्रता</span>;</strong>
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            <strong class="font-bold">प्रतिष्ठा और अवसर की <span class="underline">समता</span></strong> प्राप्त कराने के लिए,
+                        </p>
+                        <p class="pl-3 border-l-4 border-gold">
+                            तथा उन सब में <strong>व्यक्ति की गरिमा</strong> और <strong>राष्ट्र की एकता और अखंडता</strong> सुनिश्चित करने वाली <strong class="underline">बंधुता</strong> बढ़ाने के लिए
+                        </p>
+                        <p class="pt-1">
+                            दृढ़संकल्प होकर <strong>अपनी इस संविधान सभा में आज तारीख २६ नवंबर, १९४९ ई० (<span class="bg-gold/50 px-1 rounded quiz-item">मिति मार्गशीर्ष शुक्ल सप्तमी, सम्वत दो हजार छह विक्रमी</span>)</strong> को एतद्द्वारा <strong>इस संविधान को अंगीकृत, अधिनियमित, और आत्मार्पित करते हैं।</strong>"
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40 text-xs text-olive font-bold">
+                        ⭐ <strong>Hindi Calendar Date (Exam Fact):</strong> मिति मार्गशीर्ष शुक्ल सप्तमी, सम्वत २००६ विक्रमी (26 November 1949).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: ORIGINS, ARTIST, PHILOSOPHY & 42ND AMENDMENT (1976)
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Key Facts & Origins</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Introduction, Borrowed Sources, Artist & 42nd CAA (1976)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left 7 Cols: Origins & Essence -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sub-card p-4 rounded-xl text-center">
+                            <span class="text-xs font-bold text-olive uppercase block">Concept Taken From</span>
+                            <strong class="text-xl font-extrabold text-dark block mt-1 quiz-item">🇺🇸 USA</strong>
+                            <span class="text-[11px] text-olive block mt-1">(American Constitution was the 1st to begin with a Preamble)</span>
+                        </div>
+                        <div class="sub-card p-4 rounded-xl text-center">
+                            <span class="text-xs font-bold text-olive uppercase block">Language Taken From</span>
+                            <strong class="text-xl font-extrabold text-dark block mt-1 quiz-item">🇦🇺 Australia</strong>
+                            <span class="text-[11px] text-olive block mt-1">(Preamble ki bhasha aur tone Australia se li gayi hai)</span>
+                        </div>
+                        <div class="sub-card p-4 rounded-xl text-center border-2 border-dark bg-gold/25">
+                            <span class="text-xs font-extrabold text-dark uppercase block">Designed & Decorated By</span>
+                            <strong class="text-sm sm:text-base font-extrabold text-dark block mt-1 quiz-item">Beohar Rammanohar Sinha</strong>
+                            <span class="text-[11px] text-dark/80 block mt-1">(Original Preamble page ka border design aur kalakari)</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-card p-5 rounded-xl space-y-2.5 text-xs sm:text-sm">
+                        <h3 class="font-extrabold text-base text-dark border-b border-olive pb-2 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-olive"></i> Nature & Compilation of the Preamble
+                        </h3>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Philosophy of Constitution:</strong> It tells us about the <strong class="quiz-item">philosophy of the Constitution</strong> (Samvidhan ka darshan aur soch kya hai).</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Summary / Essence:</strong> It contains the <strong class="quiz-item">summary or the essence</strong> of the Constitution (Poore Samvidhan ka nichod/saar).</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>When was it enacted?</strong> <strong class="underline text-dark quiz-item">It was made (enacted) AFTER the entire Constitution was compiled</strong> (Taaki yeh poore Samvidhan ke bilkul anuroop ho).</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Based on Objective Resolution:</strong> It is a modified version of the <strong class="quiz-item">Objective Resolution (उद्देश्य प्रस्ताव)</strong> presented by <strong class="quiz-item">Jawaharlal Nehru</strong> before the Constituent Assembly (on 13 Dec 1946, accepted on 22 Jan 1947).</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: 42nd Amendment Act 1976 Box -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Most Repeated Exam Question</span>
+                            <span class="text-xs font-bold text-gold">ONLY 1 AMENDMENT</span>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-1">42nd Constitutional Amendment Act, 1976</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-2 leading-relaxed">
+                            Preamble ko aaj tak <strong>sirf ek baar (Only Once)</strong> amend kiya gaya hai — <strong class="text-gold quiz-item">1976 mein 42nd CAA</strong> ke dwara, jab desh mein <strong>Emergency</strong> lagi hui thi aur Prime Minister <strong class="text-gold quiz-item">Smt. Indira Gandhi</strong> thi.
+                        </p>
+
+                        <div class="my-4 p-4 rounded-xl bg-olive/30 border-2 border-gold">
+                            <span class="text-xs font-extrabold uppercase text-gold block mb-2">3 New Words Added to Preamble in 1976:</span>
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm font-extrabold">
+                                <div class="p-2.5 rounded-lg bg-gold text-dark border border-cream quiz-item">
+                                    1. Socialist<br><span class="text-[10px] font-semibold">(समाजवादी)</span>
+                                </div>
+                                <div class="p-2.5 rounded-lg bg-gold text-dark border border-cream quiz-item">
+                                    2. Secular<br><span class="text-[10px] font-semibold">(पंथनिरपेक्ष)</span>
+                                </div>
+                                <div class="p-2.5 rounded-lg bg-gold text-dark border border-cream quiz-item">
+                                    3. Integrity<br><span class="text-[10px] font-semibold">(अखंडता)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-cream text-dark text-xs font-bold border border-gold">
+                        🧠 <strong>Memory Trick:</strong> 1976 mein Indira Gandhi ji ne <strong>"SIS"</strong> (Sister) joda — <strong>S</strong>ocialist, <strong>I</strong>ntegrity, <strong>S</strong>ecular!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: FAMOUS COMMENTS ON PREAMBLE
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Thinkers & Quotes</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Famous Comments on the Preamble</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Quote 1: N.A. Palkhivala -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Comment #1</span>
+                            <i class="fa-solid fa-id-card text-olive text-xl"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "ID Card of the Constitution"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Samvidhan ka Parichay Patra / Identity Card)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">N. A. Palkhivala</strong>
+                        <p class="text-xs text-olive mt-1">
+                            🧠 <strong>Trick:</strong> Palkhi (पालकी) mein baithne ke liye pehle <strong>ID Card</strong> dikhana padta hai = <strong>Palkhivala</strong>!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quote 2: Pt. Thakur Das Bhargava -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Comment #2</span>
+                            <i class="fa-solid fa-gem text-olive text-xl"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Jewel Set of the Constitution"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Samvidhan ka Abhushan / Soul of the Constitution)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">Pt. Thakur Das Bhargava</strong>
+                        <p class="text-xs text-olive mt-1">
+                            🧠 <strong>Trick:</strong> Mandir mein <strong>Thakur Ji</strong> (Bhagwan) ko sone ka <strong>Jewel Set</strong> (Abhushan) pehnaya jata hai!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quote 3: K.M. Munshi -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Comment #3</span>
+                            <i class="fa-solid fa-star-of-david text-olive text-xl"></i>
+                        </div>
+                        <blockquote class="text-lg font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Political Horoscope of the Constitution"
+                        </blockquote>
+                        <p class="text-xs text-olive font-semibold">(Samvidhan ki Rajneetik Janmapatri / Kundli)</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40">
+                        <span class="text-[11px] uppercase text-olive font-bold block">Said By:</span>
+                        <strong class="text-base font-extrabold text-dark quiz-item">K. M. Munshi</strong>
+                        <p class="text-xs text-olive mt-1">
+                            🧠 <strong>Trick:</strong> <strong>K</strong>undli (Horoscope) = <strong>K</strong>. M. <strong>M</strong>unshi!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: SOURCE OF POWER & NATURE OF CONSTITUTION (PART 1: SOVEREIGN, SOCIALIST, SECULAR)
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 3 • Understanding the Preamble</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Source of Power & Nature of State: Sovereign, Socialist, Secular</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Source of Power Banner -->
+            <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">Source of Authority</span>
+                        <h3 class="text-xl sm:text-2xl font-serif font-extrabold text-gold mt-1">
+                            "WE, THE PEOPLE OF INDIA..." (हम, भारत के लोग...)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1.5 leading-relaxed">
+                            • This shows that the Constitution has been <strong>drawn up and enacted by the people through their representatives</strong>, and <strong>NOT handed down to them by a king or any outside powers</strong>.
+                        </p>
+                    </div>
+                    <div class="bg-cream text-dark p-3.5 rounded-xl border-2 border-gold text-center shrink-0">
+                        <span class="text-xs font-bold text-olive uppercase block">Ultimate Authority in India</span>
+                        <strong class="text-base sm:text-lg font-extrabold text-dark quiz-item">People of India (भारत की जनता)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Nature Pillars: Sovereign, Socialist, Secular -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 1. Sovereign -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Nature #1</span>
+                            <span class="text-xs font-bold text-olive">सम्पूर्ण प्रभुत्व-संपन्न</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">1. Sovereign (संप्रभु)</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li><strong>People have the supreme right to make decisions</strong> on internal as well as external matters.</li>
+                            <li><strong>No external power can dictate</strong> the Government of India.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-olive/40 text-xs text-olive font-medium">
+                        💡 <strong>Simple Hinglish:</strong> Bharat kisi bhi videshi desh (jaise Britain ya USA) ka ghulam ya Dominion nahi hai. Apne desh ke andar aur bahar ke saare faisle lene ke liye hum 100% azaad hain!
+                    </div>
+                </div>
+
+                <!-- 2. Socialist -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded">Nature #2 (Added 1976)</span>
+                            <span class="text-xs font-bold text-olive">समाजवादी</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">2. Socialist (समाजवादी)</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li><strong>Wealth is generated socially</strong> and should be shared equally by society.</li>
+                            <li>Government should <strong>regulate the ownership of land and industry</strong> to reduce socio-economic inequalities.</li>
+                        </ul>
+
+                        <!-- Economy Comparison Box from PDF -->
+                        <div class="mt-3 p-3 rounded-lg bg-gold/25 border border-olive space-y-1 text-xs font-bold text-dark">
+                            <div>• <strong>Socialist Example:</strong> <span class="quiz-item">Russia</span></div>
+                            <div>• <strong>USA is a:</strong> <span class="quiz-item">Capitalist Country (पूंजीवादी)</span></div>
+                            <div>• <strong>India has:</strong> <span class="underline text-dark quiz-item">Mixed Economy (मिश्रित अर्थव्यवस्था)</span></div>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-olive/40 text-xs text-olive font-medium">
+                        💡 <strong>Hinglish:</strong> India ka समाजवाद (Democratic Socialism) <strong>Mixed Economy</strong> par chalta hai jahan सरकारी (Public) aur प्राइवेट (Private) dono sectors milkar kaam karte hain.
+                    </div>
+                </div>
+
+                <!-- 3. Secular -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded">Nature #3 (Added 1976)</span>
+                            <span class="text-xs font-bold text-olive">पंथनिरपेक्ष</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">3. Secular (पंथनिरपेक्ष)</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li>Citizens have <strong>complete freedom to follow any religion, or no religion at all</strong>.</li>
+                            <li><strong>There is NO official state religion</strong> of India.</li>
+                            <li>Government treats all religious beliefs and practices (Hinduism, Islam, Christianity, Sikhism, Buddhism, Jainism) <strong>equally and impartially</strong>.</li>
+                        </ul>
+
+                        <div class="mt-3 p-3 rounded-lg bg-dark text-cream border border-gold text-xs">
+                            <strong class="text-gold block">⭐ Positive Concept of Secularism:</strong>
+                            In India, secularism follows a <strong class="text-gold underline quiz-item">Positive Concept</strong> (Involvement of State in religious matters for social reform & equal protection of all religions).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: NATURE OF CONSTITUTION (PART 2: DEMOCRATIC & REPUBLIC)
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • Nature of State (Continued)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Democratic & Republic (India vs UK Comparison)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 4. Democratic -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Nature #4</span>
+                            <span class="text-xs font-bold text-olive">लोकतंत्रात्मक</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">4. Democratic (लोकतांत्रिक)</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4">
+                            <li>The government functions according to a set of <strong>constitutional rules and principles</strong>.</li>
+                            <li> People enjoy equal political rights, elect their rulers, and hold them accountable.</li>
+                        </ul>
+                        <div class="mt-4 p-3.5 rounded-xl bg-gold/30 border border-olive text-center">
+                            <span class="text-xs font-bold text-olive uppercase block">Abraham Lincoln's Famous Definition</span>
+                            <strong class="text-sm sm:text-base font-serif italic text-dark block mt-1 quiz-item">
+                                "A Government Of the People, By the People, For the People"
+                            </strong>
+                        </div>
+                    </div>
+                    <p class="text-xs text-olive mt-3 pt-2 border-t border-olive/30 font-medium">
+                        💡 <strong>Ultimate Authority:</strong> <strong class="text-dark">People of India</strong> (Satta ki asli chabi janta ke haath mein hai).
+                    </p>
+                </div>
+
+                <!-- 5. Republic -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded">Nature #5 (Borrowed: France)</span>
+                            <span class="text-xs font-bold text-olive">गणराज्य</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">5. Republic (गणतंत्र / गणराज्य)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            • A system of government in which the <strong class="underline quiz-item">Head of the State is elected by the people</strong> (directly or indirectly) and <strong>NOT based on a hereditary succession</strong> (Vanshanugat/Raja-Rani nahi).
+                        </p>
+
+                        <!-- India vs UK Comparison Box -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-xs">
+                            <div class="p-3 rounded-lg bg-gold/25 border-2 border-dark">
+                                <span class="font-extrabold text-dark block">🇮🇳 INDIA:</span>
+                                <strong class="text-sm font-extrabold text-dark block mt-0.5 quiz-item">Democratic Republic</strong>
+                                <span class="text-olive block mt-0.5">Head of State (President) chunav ke zariye aata hai, koi bhi aam nagrik ban sakta hai!</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-dark text-cream border border-gold">
+                                <span class="font-extrabold text-gold block">🇬🇧 UK (Britain):</span>
+                                <strong class="text-sm font-extrabold text-gold block mt-0.5 quiz-item">NOT a Republic State!</strong>
+                                <span class="text-cream/80 block mt-0.5">UK Democratic toh hai, par Republic nahi kyunki wahan Head of State <strong>Hereditary Monarch (King Charles)</strong> hai!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: OBJECTIVES OF THE CONSTITUTION (JUSTICE, LIBERTY, EQUALITY, FRATERNITY)
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • 4 Pillars of Objectives</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Objectives of the Constitution: Justice, Liberty, Equality & Fraternity</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- 4 Objectives Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- 1. Justice (3 Types) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Objective #1 • 3 Types</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Taken from: Russia (USSR)</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">1. Justice (न्याय — 3 प्रकार)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • Citizens cannot be discriminated on the grounds of <strong>caste, religion, and gender</strong>. Social inequalities have to be reduced.
+                        </p>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs font-extrabold uppercase text-olive block mb-1.5">Three Types of Justice in Preamble:</span>
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs font-extrabold text-dark">
+                                <div class="p-2 rounded bg-cream border border-dark quiz-item">1. Social<br><span class="text-[10px] text-olive">(सामाजिक)</span></div>
+                                <div class="p-2 rounded bg-cream border border-dark quiz-item">2. Economic<br><span class="text-[10px] text-olive">(आर्थिक)</span></div>
+                                <div class="p-2 rounded bg-cream border border-dark quiz-item">3. Political<br><span class="text-[10px] text-olive">(राजनैतिक)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-olive font-bold mt-3 pt-2 border-t border-olive/30">
+                        ⚠️ <strong>Exam Trap:</strong> "Religious Justice" Preamble mein NAHI hai! Sirf <strong>S-E-P</strong> (Social, Economic, Political) hai.
+                    </p>
+                </div>
+
+                <!-- 2. Liberty (5 Forms) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Objective #2 • 5 Forms</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Taken from: France</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">2. Liberty (स्वतंत्रता — 5 प्रकार)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • There are <strong>no unreasonable restrictions</strong> on a citizen in what they think, how they wish to express their thoughts, and the way they wish to follow up their thoughts in action.
+                        </p>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs font-extrabold uppercase text-olive block mb-1.5">Five Forms of Liberty in Preamble:</span>
+                            <div class="flex flex-wrap gap-1.5 text-xs font-extrabold text-dark">
+                                <span class="px-2.5 py-1 rounded bg-cream border border-dark quiz-item">1. Thought (विचार)</span>
+                                <span class="px-2.5 py-1 rounded bg-cream border border-dark quiz-item">2. Expression (अभिव्यक्ति)</span>
+                                <span class="px-2.5 py-1 rounded bg-cream border border-dark quiz-item">3. Belief (विश्वास)</span>
+                                <span class="px-2.5 py-1 rounded bg-cream border border-dark quiz-item">4. Faith (धर्म)</span>
+                                <span class="px-2.5 py-1 rounded bg-cream border border-dark quiz-item">5. Worship (उपासना)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-olive font-bold mt-3 pt-2 border-t border-olive/30">
+                        🧠 <strong>Order Trick:</strong> <strong>T - E - B - F - W</strong> (Pehle <strong>T</strong>hought aayega → phir <strong>E</strong>xpress karoge → <strong>B</strong>elief → <strong>F</strong>aith → <strong>W</strong>orship).
+                    </p>
+                </div>
+
+                <!-- 3. Equality (2 Types) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Objective #3 • 2 Types</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Taken from: France</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">3. Equality (समता — 2 प्रकार)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • <strong>All are equal before the law.</strong> The traditional social inequalities must end. The government should ensure equal opportunities for all.
+                        </p>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                            <span class="text-xs font-extrabold uppercase text-olive block mb-1.5">Two Types of Equality in Preamble:</span>
+                            <div class="grid grid-cols-2 gap-2 text-center text-xs font-extrabold text-dark">
+                                <div class="p-2 rounded bg-cream border border-dark quiz-item">1. Equality of Status<br><span class="text-[10px] text-olive">(प्रतिष्ठा की समता)</span></div>
+                                <div class="p-2 rounded bg-cream border border-dark quiz-item">2. Equality of Opportunity<br><span class="text-[10px] text-olive">(अवसर की समता)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Fraternity -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Objective #4 • Brotherhood</span>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">Taken from: France</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-dark mb-2">4. Fraternity (बंधुता / भाईचारा)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • <strong>"All of us should behave as if we are members of the same family. No one should treat a fellow citizen as inferior."</strong>
+                        </p>
+                        <div class="p-3 rounded-lg bg-dark text-cream text-xs space-y-1">
+                            <span class="text-gold font-bold uppercase block">Fraternity Assures Two Things:</span>
+                            <div>1. <strong>Dignity of the Individual</strong> (व्यक्ति की गरिमा)</div>
+                            <div>2. <strong>Unity and Integrity of the Nation</strong> (राष्ट्र की एकता और अखंडता — <em>Integrity added in 1976</em>)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Borrowed Ideals Master Summary Box -->
+            <div class="trick-box p-5 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🌍 Golden Borrowed Ideals Rule (Page 4)</span>
+                    <p class="text-sm sm:text-base font-bold text-cream pt-1">
+                        • The terms <strong class="text-gold underline quiz-item">"Liberty, Equality, Fraternity and Republic"</strong> are taken from <strong class="text-gold quiz-item">FRANCE</strong> (French Revolution, 1789).<br>
+                        • The <strong class="text-gold underline quiz-item">Ideals of Justice (Social, Economic & Political)</strong> are taken from <strong class="text-gold quiz-item">RUSSIA (USSR)</strong> (Russian Revolution, 1917).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: SUPREME COURT CASES, AMENDABILITY & ENFORCEABILITY
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Landmark Judgments & Legal Status</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Is Preamble a Part of Constitution & Is It Amendable?</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- 3 Landmark Supreme Court Cases -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+                <!-- Case 1: Berubari Union Case (1960) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-olive flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Case #1 • Year: <span class="quiz-item">1960</span></span>
+                            <span class="text-xs font-extrabold text-olive">❌ NOT a Part</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2 quiz-item">1. Berubari Union Case: 1960</h3>
+                        <p class="text-xs text-olive font-semibold mb-2">(Indo-Pak transfer of Berubari Union territory near West Bengal / East Pakistan):</p>
+                        <p class="text-xs font-bold text-dark uppercase mb-1">Supreme Court held that:</p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-decimal pl-4 font-medium">
+                            <li>The Preamble is <strong class="underline quiz-item">NOT a part of the Constitution</strong> & hence <strong class="quiz-item">cannot be amended</strong>.</li>
+                            <li>It is just a <strong>key to understanding the Constitution</strong> (mind of the constitution makers).</li>
+                            <li>It is <strong>not legally enforceable</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-olive/30 text-[11px] text-olive font-semibold">
+                        💡 1960 mein Supreme Court ne kaha ki Preamble Samvidhan ka hissa nahi hai, isliye isme sanshodhan (amendment) nahi ho sakta.
+                    </div>
+                </div>
+
+                <!-- Case 2: Kesavananda Bharati Case (1973) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold bg-gold/15 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded">Case #2 • Year: <span class="quiz-item">1973</span></span>
+                            <span class="text-xs font-extrabold text-dark">✅ IS a Part & Amendable</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2 quiz-item">2. Kesavananda Bharati Case: 1973</h3>
+                        <p class="text-xs text-olive font-semibold mb-2">(Largest Constitutional Bench in Indian History):</p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-decimal pl-4 font-medium">
+                            <li>A historic bench of <strong class="bg-gold px-1.5 rounded border border-dark quiz-item">13 Judges</strong> overruled the Berubari judgment and gave the verdict that the <strong class="underline quiz-item">Preamble IS a part of the Constitution and hence it CAN be amended</strong>.</li>
+                            <li>It reflects the <strong class="quiz-item">Basic Structure (मूल ढांचा)</strong> of the Constitution (Amendment cannot destroy the Basic Structure).</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-olive/40 text-[11px] text-dark font-bold">
+                        ⭐ 1973 ke is faisle ke baad hi 1976 mein 42nd Amendment dwara Preamble ko amend kiya gaya!
+                    </div>
+                </div>
+
+                <!-- Case 3: LIC of India Case (1995) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded">Case #3 • Year: <span class="quiz-item">1995</span></span>
+                            <span class="text-xs font-extrabold text-olive">✅ Reaffirmed</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2 quiz-item">3. LIC of India Case: 1995</h3>
+                        <p class="text-xs text-olive font-semibold mb-2">(Supreme Court Final Confirmation):</p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-decimal pl-4 font-medium">
+                            <li><strong class="quiz-item">Reaffirmed the Kesavananda Bharati case ruling</strong> (Supreme Court ne dobara pukhta kiya ki Preamble Constitution ka ek abhinn ang / integral part hai).</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs">
+                        🧠 <strong>Chronology Trick:</strong><br>
+                        • <strong>1960 (Berubari):</strong> No (Not a Part)<br>
+                        • <strong>1973 (Kesavananda - 13 Judges):</strong> Yes (Part & Amendable)<br>
+                        • <strong>1995 (LIC Case):</strong> Yes Reaffirmed!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enforceability of Preamble Box -->
+            <div class="bg-dark text-cream p-5 md:p-6 rounded-xl border-2 border-gold">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-2 max-w-3xl">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⚖️ Enforceability of Preamble (Page 5)</span>
+                        <h3 class="text-lg sm:text-xl font-serif font-bold text-gold">Kya Preamble ko Court mein लागू (Enforce) karwaya ja sakta hai?</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-cream/95 pt-1">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-xmark text-gold mt-1"></i>
+                                <span><strong>Not Enforceable in Court:</strong> It is <strong class="text-gold underline quiz-item">NOT enforceable in a Court of Law</strong> (Yaani agar Preamble mein likhi kisi baat ka ullanghan ho, toh aap seedhe Preamble ke aadhar par Supreme Court/High Court mein writ jari nahi karwa sakte — it is <em>Non-Justiciable</em>).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-scale-unbalanced text-gold mt-1"></i>
+                                <span><strong>Neither Power Nor Restriction:</strong> It is <strong class="text-gold quiz-item">neither a source of Power nor a source of Restriction</strong> to the legislature (Sansad ko na toh isse koi extra power milti hai, na hi isse Sansad ki power rukti hai).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-magnifying-glass text-gold mt-1"></i>
+                                <span><strong>Aid to Legal Interpretation:</strong> However, it can be considered as an <strong class="text-gold quiz-item">aid to the legal interpretation of the Constitution</strong> (Jab kisi Article ki bhasha unclear ho, toh Judges Preamble ki madad se uska sahi arth nikalte hain).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Summary Box -->
+                    <div class="bg-cream text-dark p-4 rounded-xl border-2 border-gold text-xs font-bold shrink-0 md:w-64 space-y-2">
+                        <div class="text-center border-b border-olive pb-1.5 font-extrabold text-sm text-dark">Preamble Quick Check</div>
+                        <div class="flex justify-between"><span>Part of Constitution?</span> <span class="text-olive font-extrabold">✅ YES (1973)</span></div>
+                        <div class="flex justify-between"><span>Amendable?</span> <span class="text-olive font-extrabold">✅ YES (Art 368)</span></div>
+                        <div class="flex justify-between"><span>Times Amended?</span> <span class="text-dark font-extrabold">1 Time (1976)</span></div>
+                        <div class="flex justify-between"><span>Enforceable in Court?</span> <span class="text-dark font-extrabold">❌ NO</span></div>
+                        <div class="flex justify-between"><span>Source of Power?</span> <span class="text-dark font-extrabold">❌ NO</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (6 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz (6 Questions)
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "ADD EXTRA NOTE" & "TOPICS AT A GLANCE" BUTTONS -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or card to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-2.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Preamble of the Constitution Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test: ON (Click blurred)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 5. Interactive PYQ Practice Quiz (6 Questions)
+        const quizData = [
+            {
+                q: "1. The 'Concept' of the Preamble is borrowed from which country, and its 'Language' is borrowed from which country?",
+                options: [
+                    "Concept: Australia | Language: USA",
+                    "Concept: USA | Language: Australia",
+                    "Concept: France | Language: Russia",
+                    "Concept: UK | Language: Canada"
+                ],
+                answer: 1,
+                exp: "Preamble ka Concept USA se liya gaya hai, jabki Preamble ki Language (Bhasha) Australia se li gayi hai."
+            },
+            {
+                q: "2. Who called the Preamble the 'Political Horoscope of the Constitution'?",
+                options: [
+                    "N. A. Palkhivala",
+                    "Pt. Thakur Das Bhargava",
+                    "K. M. Munshi",
+                    "Beohar Rammanohar Sinha"
+                ],
+                answer: 2,
+                exp: "K. M. Munshi ne Preamble ko 'Political Horoscope' kaha. N.A. Palkhivala ne 'ID Card' aur Pt. Thakur Das Bhargava ne 'Jewel Set' kaha."
+            },
+            {
+                q: "3. Which three words were added to the Preamble by the 42nd Constitutional Amendment Act, 1976?",
+                options: [
+                    "Sovereign, Democratic, Republic",
+                    "Liberty, Equality, Fraternity",
+                    "Socialist, Secular, Integrity",
+                    "Social, Economic, Political"
+                ],
+                answer: 2,
+                exp: "42nd CAA, 1976 (Emergency ke dauran PM Indira Gandhi ke samay) ne 3 shabd jode: Socialist, Secular aur Integrity (Trick: SIS)."
+            },
+            {
+                q: "4. The ideals of 'Justice (Social, Economic, and Political)' in the Preamble are borrowed from which country?",
+                options: ["France", "Russia (USSR)", "USA", "Australia"],
+                answer: 1,
+                exp: "Justice (Social, Economic, Political) Russia se liya gaya hai, jabki Liberty, Equality, Fraternity aur Republic France se liye gaye hain."
+            },
+            {
+                q: "5. In which case did a 13-Judge bench of the Supreme Court rule that the Preamble IS a part of the Constitution and can be amended?",
+                options: [
+                    "Berubari Union Case (1960)",
+                    "Kesavananda Bharati Case (1973)",
+                    "Golaknath Case (1967)",
+                    "Minerva Mills Case (1980)"
+                ],
+                answer: 1,
+                exp: "Berubari Case (1960) mein SC ne Preamble ko part nahi mana tha, lekin Kesavananda Bharati Case (1973) mein 13 Judges ki bench ne ise Constitution ka part aur amendable mana."
+            },
+            {
+                q: "6. Who designed and decorated the original Preamble page of the Indian Constitution?",
+                options: [
+                    "Prem Behari Narain Raizada",
+                    "Beohar Rammanohar Sinha",
+                    "Vasant Krishna Vaidya",
+                    "B. N. Rau"
+                ],
+                answer: 1,
+                exp: "Preamble page ko Beohar Rammanohar Sinha ne design aur decorate kiya tha."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 6. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'polity_preamble_custom_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items & headings
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                const divWrapper = document.createElement('div');
+                divWrapper.className = 'student-custom-note-wrapper';
+                divWrapper.innerHTML = noteHtml;
+                targetEl.appendChild(divWrapper);
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - PREAMBLE OF INDIAN CONSTITUTION\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Preamble_of_Constitution_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>

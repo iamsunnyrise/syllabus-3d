@@ -555,6 +555,23 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
             description: 'Fundamental Rights, DPSP, Parliament, President, Amendments, Schedules',
             topics: [
               {
+                id: 'top_preamble',
+                name: 'Preamble',
+                subtopics: ['S³DR: Sovereign, Socialist, Secular, Democratic, Republic', 'Objectives: Justice, Liberty, Equality, Fraternity', '42nd Amendment Act 1976 (SIS)', 'Berubari (1960) & Kesavananda Bharati (1973) Cases'],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 180,
+                lastStudied: '2026-08-18',
+                nextRevision: '2026-08-28',
+                accuracy: 96,
+                mockAttempts: 42,
+                difficulty: 'Easy',
+                isWeak: false,
+                weightage: 5,
+                notes: 'Preamble: ID Card (Palkhivala), Political Horoscope (K.M. Munshi), Jewel Set (Thakur Das). 42nd CAA added Socialist, Secular, Integrity. Kesavananda Bharati 1973 held it is part of Constitution.',
+                mistakes: []
+              },
+              {
                 id: 'top_salient_features',
                 name: 'Salient Features of Constitution & 12 Schedules',
                 subtopics: ['448 Articles, 25 Parts & 12 Schedules', 'Federal vs Unitary Features', 'TEARS OF OLD PM & 7th/8th Schedule'],
@@ -722,6 +739,23 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
         name: 'Indian Constitution & Federal Framework',
         description: 'Preamble, Fundamental Rights, Separation of Powers, Centre-State Relations',
         topics: [
+          {
+            id: 'top_upsc_preamble',
+            name: 'Preamble',
+            subtopics: ['Nature: Sovereign, Socialist, Secular, Democratic, Republic', 'Objectives: Justice, Liberty, Equality, Fraternity', '42nd Amendment Act 1976 (SIS)', 'Berubari (1960), Kesavananda Bharati (1973) & LIC (1995) Cases'],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 200,
+            lastStudied: '2026-08-18',
+            nextRevision: '2026-08-28',
+            accuracy: 96,
+            mockAttempts: 38,
+            difficulty: 'Easy',
+            isWeak: false,
+            weightage: 6,
+            notes: 'Preamble based on Objective Resolution. 42nd CAA added Socialist, Secular, Integrity. Key to minds of makers. Basic structure core.',
+            mistakes: []
+          },
           {
             id: 'top_upsc_basic_structure',
             name: 'Basic Structure Doctrine & Judicial Review',
