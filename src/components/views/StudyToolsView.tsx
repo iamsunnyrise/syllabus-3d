@@ -75,7 +75,8 @@ import {
 } from '../../data/highYieldIdiomsData';
 import { 
   LEVEL_1_SET_01_OWS,
-  LEVEL_1_SET_02_OWS
+  LEVEL_1_SET_02_OWS,
+  LEVEL_1_SET_03_OWS
 } from '../../data/highYieldOwsData';
 import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 
@@ -203,6 +204,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_02_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
   ...LEVEL_1_SET_02_OWS,
+  ...LEVEL_1_SET_03_OWS,
   ...HIGH_YIELD_ROOT_WORDS,
   // Idioms & Roots Mock Examples
   {
