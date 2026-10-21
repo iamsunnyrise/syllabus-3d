@@ -64,6 +64,8 @@ import {
   LEVEL_1_SET_08_WORDS,
   LEVEL_1_SET_09_WORDS,
   LEVEL_1_SET_10_WORDS,
+  LEVEL_2_SET_01_WORDS,
+  LEVEL_2_SET_02_WORDS,
   VocabItem, 
   VocabLevel 
 } from '../../data/highYieldVocabData';
@@ -192,6 +194,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_08_WORDS,
   ...LEVEL_1_SET_09_WORDS,
   ...LEVEL_1_SET_10_WORDS,
+  ...LEVEL_2_SET_01_WORDS,
+  ...LEVEL_2_SET_02_WORDS,
   ...LEVEL_1_SET_01_IDIOMS,
   ...LEVEL_1_SET_02_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
