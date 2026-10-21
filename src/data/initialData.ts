@@ -613,19 +613,27 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
               },
               {
                 id: 'top_fundamental_rights',
-                name: 'Fundamental Rights (Articles 12-35)',
-                subtopics: ['Article 19 6 Freedoms', 'Article 21 & 21A', 'Writs under Article 32 & 226 (Habeas Corpus, Mandamus)'],
+                name: 'Fundamentals: Fundamental Rights (Articles 12-35)',
+                subtopics: [
+                  'Articles 12-13: Definition of State & Judicial Review Shield',
+                  'Right to Equality (Arts 14-18): Rule of Law, Champakam & Indra Sawhney Cases',
+                  'Right to Freedom (Art 19: SAAMRP, Romesh Thappar & Shreya Singhal)',
+                  'Articles 20 & 21 (Non-Suspendable) & 7 Landmark Cases (Maneka, Puttaswamy)',
+                  'Article 21A RTE (86th CAA), Article 22 Detention & Exploitation (Arts 23-24)',
+                  'Freedom of Religion (Arts 25-28) & Cultural/Educational Rights (Arts 29-30)',
+                  'Article 32: Heart & Soul, All 5 Writs & SC vs HC (Art 226) Jurisdiction'
+                ],
                 status: 'completed',
                 completionPercentage: 100,
-                studyTimeMinutes: 260,
-                lastStudied: '2026-08-16',
-                nextRevision: '2026-08-26',
-                accuracy: 90,
-                mockAttempts: 55,
+                studyTimeMinutes: 280,
+                lastStudied: '2026-08-19',
+                nextRevision: '2026-08-29',
+                accuracy: 96,
+                mockAttempts: 60,
                 difficulty: 'Medium',
                 isWeak: false,
-                weightage: 5,
-                notes: 'Heart & Soul of Constitution = Article 32 (Dr. B.R. Ambedkar). Article 20 & 21 cannot be suspended during National Emergency.',
+                weightage: 6,
+                notes: 'Magna Carta of India. Borrowed from USA. Non-suspendable in Emergency: Arts 20 & 21. Citizens only: Arts 15, 16, 19, 29, 30. Art 32: Heart and Soul (Dr. Ambedkar). HC Art 226 is wider than SC Art 32.',
                 mistakes: []
               },
               {
@@ -799,6 +807,29 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 6,
             notes: 'Art 2 vs Art 3. 5th CAA time limit. Berubari (1960) requires Art 368 amendment for ceding territory. Asymmetrical federalism in 371A-J. Citizenship by jus soli vs jus sanguinis.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_fundamentals',
+            name: 'Fundamentals: Fundamental Rights & Judicial Enforcement (Part III)',
+            subtopics: [
+              'Evolution of FRs: Magna Carta, State Action (Art 12) & Pre/Post-Constitutional Laws (Art 13)',
+              'Equality Jurisprudence: Rule of Law vs Affirmative Action (Arts 14-16, Indra Sawhney)',
+              'Golden Triangle (Arts 14, 19, 21): Maneka Gandhi Case & Due Process Doctrine',
+              'Substantive Due Process, Right to Privacy (Puttaswamy) & Autonomy',
+              'Prerogative Writs (Arts 32 & 226): Scope, Locus Standi & PIL Jurisprudence'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 280,
+            lastStudied: '2026-08-19',
+            nextRevision: '2026-08-29',
+            accuracy: 95,
+            mockAttempts: 44,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 8,
+            notes: 'Golden Triangle: Arts 14, 19, 21 are mutually inclusive. Maneka Gandhi introduced substantive due process. Art 32 cannot be refused while Art 226 is wider.',
             mistakes: []
           },
           {

@@ -348,6 +348,26 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for States: "AAM GUNAH HAI MAIM TUSSI GAO AUR MOJ LO". Trick for Art 371-371J: "MaG NAM AASMA GK". Citizenship: BRAND (5 Ways to Acquire).'
   },
   {
+    id: 'ga-polity-fundamentals',
+    subject: 'Polity',
+    title: 'Fundamentals',
+    badge: 'Chapter 05 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/fundamentals.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Basics & Features (Art 12-13)', detail: 'Magna Carta of India & Conscience of Constitution. Borrowed from USA. 7 to 6 FRs (Right to Property made Legal Right under Art 300-A Part XII by 44th CAA 1978). Art 12: Definition of State. Art 13: Judicial review shield (null & void).' },
+      { label: '02. Right to Equality (Art 14-15)', detail: 'Art 14: Equality before law (UK, Negative, Dicey Rule of Law) vs Equal protection of laws (USA, Positive). Art 15: 5 grounds (R-R-C-S-P). Champakam Dorairajan (1951) led to 1st CAA 1951 adding Art 15(4).' },
+      { label: '03. Equality (Art 16, 17 & 18)', detail: 'Art 16: Public employment (7 grounds: R-R-C-S-P + Descent & Residence). Kalelkar (1953), Mandal Commission (1979 - 27% OBC), Indra Sawhney Case (1992 - 50% cap & Creamy Layer). Art 17: Abolition of Untouchability. Art 18: Abolition of titles.' },
+      { label: '04. Right to Freedom (Art 19)', detail: 'Trick: "SAAMRP" (Speech, Assemble, Association, Move, Reside, [Property omitted], Profession). 97th CAA 2011 added Co-op Societies. Romesh Thappar (Press), Shreya Singhal (Section 66A struck down), Anuradha Bhasin (Internet), RTI (Raj Narain).' },
+      { label: '05. Articles 20 & 21 (Never Suspended)', detail: 'Art 20: No ex-post-facto law, no double jeopardy, no self-incrimination. Art 21: Procedure established by law (Japan) vs Due process of law (USA). 7 Cases: Gopalan 1950, Maneka Gandhi 1978, Hussainara Khatoon 1979, Bachan Singh (Rarest of Rare), Olga Tellis 1985, Aruna Shanbaug 2011 (Passive Euthanasia), K.S. Puttaswamy 2017 (Privacy).' },
+      { label: '06. Art 21A, 22 & Exploitation (23-24)', detail: 'Art 21A: RTE (6-14 yrs, 86th CAA 2002). Art 22: Punitive (24 hrs Magistrate) vs Preventive detention (max 3 mos). Art 23: Human trafficking & Begar prohibited. Art 24: Children below 14 in factories/mines prohibited.' },
+      { label: '07. Religion (25-28) & Minorities (29-30)', detail: 'Art 25: Conscience & propagation (no forced conversion). Art 26: Religious affairs. Art 27: Taxes prohibited, fees allowed. Art 28: 4 school types. Art 29: Any section language/script/culture. Art 30: Minority educational institutions.' },
+      { label: '08. Art 32 (5 Writs) & SC vs HC (Art 226)', detail: 'Heart & Soul (Dr. Ambedkar). 5 Writs: Habeas Corpus ("To have the body", ADM Jabalpur), Mandamus ("We Command"), Prohibition ("To forbid" - preventive), Certiorari ("To be certified" - curative), Quo-Warranto ("By what authority"). HC Art 226 is wider (FR + Legal rights). Citizens-only FRs: 15, 16, 19, 29, 30.' }
+    ],
+    summaryNote: 'Trick for Art 19: "SAAMRP". Non-suspendable in Emergency: Art 20 & 21. Citizens Only: Art 15, 16, 19, 29, 30. Heart & Soul: Art 32 (5 Writs).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

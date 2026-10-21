@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part III: Fundamental Rights (Articles 12–35) - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.85); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.94);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Self-Test Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.28);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.15) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS, SEARCH, CLICK-TO-NOTE & SELF-TEST -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">Part III: Fundamental Rights (Art 12–35)</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search Art 12-35, Writs, Cases..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key dates, articles & cases to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, table row ya article card par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete 11-Page PDF Coverage • Easy Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        Part III: <span class="text-gold underline decoration-olive">Fundamental Rights</span> (Articles 12–35)
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Bharat ka <strong class="text-gold">"Magna Carta"</strong> aur <strong class="text-gold">"Conscience of the Constitution"</strong>: <strong class="text-gold">Articles 12 se 35</strong> tak ka har ek clause, Supreme Court ke saare landmark cases (<strong class="text-gold">Champakam, Indra Sawhney, Maneka Gandhi, Puttaswamy</strong>), 5 Writs, aur <strong class="text-gold">SC vs HC Writ Jurisdiction</strong> bilkul aasan Hinglish aur memory tricks ke saath!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-flag-usa text-gold mr-1"></i> Borrowed From: <strong>USA (Bill of Rights)</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-shield-halved text-gold mr-1"></i> Never Suspended: <strong>Articles 20 & 21</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-user-check text-gold mr-1"></i> Citizens Only: <strong>Art 15, 16, 19, 29, 30</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">INTERACTIVE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Summary Snapshot Card -->
+                <div class="w-full md:w-80 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-dark text-gold flex items-center justify-center text-2xl border-2 border-olive">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-base text-dark uppercase">6 Fundamental Rights</h3>
+                    <p class="text-[11px] text-olive font-bold uppercase tracking-wider mt-0.5">Originally 7 • Right to Property Removed (44th CA, 1978)</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2 text-left text-xs font-semibold">
+                        <div class="bg-gold/30 p-2 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">1. Equality</span>
+                            <span class="text-xs font-extrabold text-dark">Articles 14 – 18</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">2. Freedom</span>
+                            <span class="text-xs font-extrabold text-dark">Articles 19 – 22</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">3. Exploitation</span>
+                            <span class="text-xs font-extrabold text-dark">Articles 23 – 24</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">4. Religion</span>
+                            <span class="text-xs font-extrabold text-dark">Articles 25 – 28</span>
+                        </div>
+                        <div class="bg-gold/30 p-2 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">5. Cultural & Edu</span>
+                            <span class="text-xs font-extrabold text-dark">Articles 29 – 30</span>
+                        </div>
+                        <div class="bg-dark text-cream p-2 rounded-lg border border-gold">
+                            <span class="block text-gold font-bold uppercase text-[10px]">6. Remedies (Soul)</span>
+                            <span class="text-xs font-extrabold text-gold">Article 32 (5 Writs)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 9 Comprehensive Modules + PYQ Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 10 Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-book-open text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Basics, Salient Features & Art 12–13</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Magna Carta, 44th CA (300-A), State (Art 12), Judicial Review (Art 13)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-scale-balanced text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Right to Equality: Articles 14 & 15</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">UK vs USA Concept, Rule of Law (Dicey), Art 15(1)–(4), Champakam Case</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-briefcase text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Right to Equality: Articles 16, 17 & 18</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Kalelkar, Mandal (27%), Indra Sawhney (50% Cap), Untouchability, Titles</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-bullhorn text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Right to Freedom: Article 19 (SAAMRP)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">6 Freedoms, 97th CA, Press, Sec 66A, Internet, RTI & Restrictions Table</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-heart-pulse text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Articles 20 & 21 + 7 Landmark Cases</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Ex-Post-Facto, Double Jeopardy, Gopalan vs Maneka, Privacy, Euthanasia</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-handcuffs text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Art 21A (RTE), Art 22 & Exploitation (23–24)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">86th CA (2002), Punitive vs Preventive (3 Mos), Begar (23), Child Labour (24)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-hands-praying text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Religion (25–28) & Cultural Rights (29–30)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Tax vs Fee (Art 27), 4 Types of Schools (Art 28), Minorities (Art 29 vs 30)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8 -->
+                <button onclick="jumpToTopic('topic-8')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">08</span>
+                            <i class="fa-solid fa-gavel text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Article 32: Heart & Soul + All 5 Writs</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Habeas Corpus (ADM Jabalpur), Mandamus, Prohibition, Certiorari, Quo-Warranto</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 9 -->
+                <button onclick="jumpToTopic('topic-9')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">09</span>
+                            <i class="fa-solid fa-person-military-rifle text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">SC vs HC Writs & Articles 33, 34, 35</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Art 32 vs Art 226, Armed Forces (50th CA), Martial Law (UK), Citizens-Only FRs</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 10: Quiz -->
+                <button onclick="jumpToTopic('quick-quiz')" class="text-left p-3.5 rounded-xl bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-gold text-dark font-extrabold text-xs flex items-center justify-center">⚡</span>
+                            <i class="fa-solid fa-trophy text-gold group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-gold group-hover:text-dark leading-snug">Interactive PYQ Practice Quiz</h3>
+                        <p class="text-xs text-cream/80 group-hover:text-dark/90 mt-1">Test your command on Fundamental Rights, Cases & Writs (8 MCQs)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-gold group-hover:text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Start Quiz <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: BASICS, SALIENT FEATURES & ARTICLES 12 & 13
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 2, 3 & 4 • Foundation of Part III</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Introduction, Salient Features & Articles 12 – 13</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Salient Features & Basic Pointers -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <!-- Left 6 Cols: Basic Pointers -->
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between border-b border-olive pb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Basic Pointers (Page 2)</span>
+                        <span class="text-xs font-bold text-olive">Part III: Articles 12 to 35</span>
+                    </div>
+                    <p class="text-xs sm:text-sm font-bold text-dark bg-gold/25 p-2.5 rounded-lg border border-olive">
+                        📌 <strong>Definition:</strong> Fundamental Rights are a set of <strong class="quiz-item">legally enforceable rights</strong> guaranteed by the Constitution.
+                    </p>
+                    <ul class="space-y-2 text-xs sm:text-sm text-dark">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Borrowed From:</strong> Constitution of <strong class="quiz-item">USA (Bill of Rights)</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Nicknames in Exam:</strong> Termed as <strong class="quiz-item">"Conscience of the Constitution"</strong> and referred to as the <strong class="quiz-item">"Magna Carta of India"</strong> (Part III).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Main Aim:</strong> They seek to implement <strong class="quiz-item">Political Democracy</strong> in India (while DPSPs implement Social & Economic Democracy).</span>
+                        </li>
+                        <li class="p-3 rounded-xl bg-dark text-cream border border-gold mt-2">
+                            <span class="text-gold font-extrabold uppercase block text-xs mb-1">⭐ 7 to 6 Fundamental Rights (Right to Property Removed):</span>
+                            Originally there were <strong>7 Fundamental Rights</strong>, currently there are <strong class="text-gold quiz-item">6 Fundamental Rights</strong>.<br>
+                            • <strong class="text-gold underline quiz-item">Right to Property (Art 31 & Art 19(1)(f))</strong> was removed from Part III in <strong class="text-gold quiz-item">1978 by 44th Constitutional Amendment Act</strong>.<br>
+                            • It is now a <strong>Legal / Constitutional Right</strong> under <strong class="text-gold underline quiz-item">Article 300-A in Part XII</strong> (Part XII relates to Finance, Property, Contracts and Suits).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right 6 Cols: Salient Features & 6 FRs List -->
+                <div class="lg:col-span-6 flex flex-col justify-between gap-4">
+                    <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Salient Features of Fundamental Rights</span>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark mt-3 font-medium">
+                            <li>• <strong>Not Absolute:</strong> They are <strong class="quiz-item">NOT absolute</strong>, but qualified (State can impose reasonable restrictions).</li>
+                            <li>• <strong>Not Sacrosanct or Permanent:</strong> Parliament can curtail or repeal them ONLY by a Constitutional Amendment Act (without destroying the Basic Structure).</li>
+                            <li>• <strong>Suspension During Emergency:</strong> They can be curtailed/suspended during National Emergency — <strong class="bg-gold px-1.5 py-0.5 rounded border border-dark quiz-item">EXCEPT Articles 20 and 21, which can NEVER be suspended!</strong></li>
+                            <li>• <strong>Justiciable in Nature:</strong> Agar inka violation ho toh vyakti seedhe Supreme Court (Art 32) ya High Court (Art 226) ja sakta hai.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 6 Fundamental Rights Overview Grid -->
+                    <div class="sub-card p-4 rounded-xl bg-gold/15">
+                        <h4 class="font-extrabold text-xs uppercase tracking-wider text-olive mb-2.5">Six Fundamental Rights in the Constitution:</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold text-dark">
+                            <div class="p-2 rounded bg-cream border border-olive flex justify-between">
+                                <span>1. Right to Equality</span> <strong class="quiz-item">Art 14–18</strong>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive flex justify-between">
+                                <span>2. Right to Freedom</span> <strong class="quiz-item">Art 19–22</strong>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive flex justify-between">
+                                <span>3. Against Exploitation</span> <strong class="quiz-item">Art 23–24</strong>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive flex justify-between">
+                                <span>4. Freedom of Religion</span> <strong class="quiz-item">Art 25–28</strong>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive flex justify-between">
+                                <span>5. Cultural & Educational</span> <strong class="quiz-item">Art 29–30</strong>
+                            </div>
+                            <div class="p-2 rounded bg-dark text-gold border border-dark flex justify-between">
+                                <span>6. Constitutional Remedies</span> <strong class="quiz-item">Art 32</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 12 & Article 13 Detailed Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Article 12 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 12</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Who is "State"?</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">Definition of "State" (राज्य की परिभाषा)</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            It defines the term <strong>"State"</strong> for Part III, which includes:
+                        </p>
+                        <ul class="space-y-1.5 text-xs sm:text-sm text-dark list-disc pl-4 mt-2 font-medium">
+                            <li>The <strong>Government and Parliament of India</strong> (Union Executive & Legislative organs).</li>
+                            <li>The <strong>Government and Legislature of each of the States</strong>.</li>
+                            <li>All <strong>local authorities</strong> (Municipalities, Panchayats, District Boards).</li>
+                            <li>All <strong>other authorities</strong> (statutory or non-statutory) within the territory of India or under control of Govt of India.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-gold/25 border border-olive text-xs font-bold text-dark">
+                        🏢 <strong>Examples of "State" under Art 12:</strong> <span class="quiz-item">PSUs, Municipalities, Legislative bodies, LIC, ONGC, SAIL, BHEL</span>, etc.
+                    </div>
+                </div>
+
+                <!-- Article 13 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 13</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Judicial Review Shield</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">Laws Inconsistent with or in Derogation of Fundamental Rights</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li><strong>Null & Void (Judicial Review):</strong> Any law made before or after the commencement of the Constitution <strong class="underline quiz-item">shall be declared null and void by the Judiciary if it violates Fundamental Rights</strong>!</li>
+                            <li><strong>What does "Law" include?</strong> Any <strong class="quiz-item">ordinance, order, bye-law, rule, regulation, notification, custom or usage</strong> having the force of law in the territory of India.</li>
+                            <li><strong>Important Exception — Art 13(4) (24th CA, 1971):</strong> <strong class="quiz-item">This article shall NOT apply to any Constitutional Amendment made under Article 368</strong> (However, in Kesavananda Bharati Case 1973, SC held that even an Art 368 Amendment can be struck down if it violates the <em>Basic Structure</em>).</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs">
+                        🥊 <strong>Hinglish Visual:</strong> Article 13 Fundamental Rights ka <strong>Bodyguard</strong> hai — koi bhi kanoon agar FRs ko chot pahuchayega toh Supreme Court/High Court use turant radd (null & void) kar dega!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: RIGHT TO EQUALITY — ARTICLES 14 & 15 + CHAMPAKAM CASE
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 3, 4 & 5 • Right to Equality (Articles 14 – 18)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Articles 14 & 15 and Champakam Dorairajan Case (1951)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 14: Equality before Law vs Equal Protection of Laws -->
+            <div class="sub-card p-5 rounded-xl mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-3 mb-4">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 14</span>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-dark mt-1">Equality Before Law & Equal Protection of Laws</h3>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-gold/30 border border-dark text-xs font-bold text-dark">
+                        ⚠️ <strong>Exceptions to Art 14:</strong> <span class="quiz-item">President, Governors, MPs/MLAs, Foreign Dignitaries/Ambassadors</span> enjoy immunity from certain civil/criminal arrests.
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- 1. Equality Before Law -->
+                    <div class="p-4 rounded-xl bg-cream border-2 border-olive">
+                        <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-2.5">
+                            <h4 class="font-extrabold text-base text-dark">1. Equality Before Law (कानून के समक्ष समता)</h4>
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">🇬🇧 British Concept</span>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark font-medium">
+                            <li>• <strong>Nature:</strong> It is <strong class="quiz-item">Negative in nature</strong> (kyunki yeh State ko kisi ko special privilege dene se rokta hai).</li>
+                            <li>• <strong>Core Meaning:</strong> <strong>No one is above the law</strong> & absence of any special privilege in favour of any person.</li>
+                            <li>• <strong>Rule of Law:</strong> This concept is an element of the <strong>"Rule of Law"</strong> given by <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">A. V. Dicey</strong> (famous British Jurist).</li>
+                        </ul>
+                    </div>
+
+                    <!-- 2. Equal Protection of Laws -->
+                    <div class="p-4 rounded-xl bg-gold/20 border-2 border-dark">
+                        <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-2.5">
+                            <h4 class="font-extrabold text-base text-dark">2. Equal Protection of Laws (कानूनों का समान संरक्षण)</h4>
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">🇺🇸 American Concept</span>
+                        </div>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark font-medium">
+                            <li>• <strong>Nature:</strong> It is <strong class="quiz-item">Positive in nature</strong> (Equity based).</li>
+                            <li>• <strong>Core Meaning:</strong> <strong class="quiz-item">Equal treatment under equal circumstances</strong> ("Likes should be treated alike" — Saman paristhiti mein saman vyavahar).</li>
+                            <li>• <strong>Hinglish Example:</strong> Ek ameer vyakti aur ek gareeb vyakti par barabar tax nahi lagaya ja sakta; alag-alag halat walo ke liye alag niyam banana hi <em>Equity / Equal Protection</em> hai!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 15 (Clauses 1 to 4) + Champakam Dorairajan Case -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left 7 Cols: Article 15 -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl">
+                    <div class="flex items-center justify-between border-b border-olive pb-2 mb-3">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 15 (Citizens Only)</span>
+                        <span class="text-xs font-extrabold text-olive">5 Grounds Only: R-R-C-S-P</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark mb-3">
+                        Prohibition of Discrimination on Grounds of <span class="underline">Religion, Race, Caste, Sex or Place of Birth</span>
+                    </h3>
+
+                    <div class="space-y-2.5 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg bg-cream border border-olive">
+                            <strong class="text-dark">Article 15(1):</strong> The State shall not discriminate against any citizen on grounds <strong>ONLY</strong> of <strong class="quiz-item">religion, race, caste, sex, or place of birth</strong> (5 grounds).
+                        </div>
+                        <div class="p-3 rounded-lg bg-cream border border-olive">
+                            <strong class="text-dark">Article 15(2) [Applies to State + Private Individuals]:</strong> No citizen shall, on these 5 grounds, be subject to any restriction with regard to:<br>
+                            • <strong>(a)</strong> Access to <strong class="quiz-item">shops, public restaurants, hotels and places of public entertainment</strong>; OR<br>
+                            • <strong>(b)</strong> Use of <strong class="quiz-item">wells, tanks, bathing ghats, roads and places of public resort</strong> maintained wholly or partly out of State funds.
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-dark">
+                            <strong class="text-dark">Article 15(3) [Exception 1]:</strong> The State can make special provisions for <strong class="underline quiz-item">Women and Children</strong> (e.g., Metro/Bus seats reserved for women).
+                        </div>
+                        <div class="p-3 rounded-lg bg-gold/25 border border-dark">
+                            <strong class="text-dark">Article 15(4) [Exception 2 — Added by 1st CA, 1951]:</strong> The State can make special provision for the advancement of socially & educationally backward classes, <strong class="underline quiz-item">Scheduled Castes (SCs) and Scheduled Tribes (STs)</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: Champakam Dorairajan Case (1951) -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⚖️ Landmark Case (Page 5)</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-2 quiz-item">Champakam Dorairajan Case (1951)</h3>
+                        <p class="text-xs text-cream/85 mt-1">
+                            (Led to the very <strong>1st Constitutional Amendment Act, 1951</strong>!)
+                        </p>
+                        <ul class="space-y-2.5 text-xs sm:text-sm text-cream/95 mt-3 list-disc pl-4">
+                            <li><strong>Background:</strong> Champakam Dorairajan, a woman from Madras, challenged the Madras government's <em>Communal General Order</em> (which gave caste-based reservation in medical/engineering colleges) in Madras High Court citing violation of her Right to Equality.</li>
+                            <li><strong>Supreme Court Verdict (1951):</strong> A 5-judge SC bench upheld the Madras HC ruling, declaring the Communal G.O. unconstitutional because it violated <strong class="text-gold quiz-item">Article 14 and Article 15(1)</strong> (and Art 29(2)).</li>
+                            <li><strong>Historic Principle Established:</strong> The SC ruled that <strong class="text-gold underline quiz-item">Fundamental Rights prevail over DPSPs</strong> (Directive Principles) in case of conflict, and established that Parliament can amend FRs through Constitutional Amendments (hence Nehru Govt passed <strong>1st CA 1951</strong> to add <strong>Article 15(4)</strong>!).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: RIGHT TO EQUALITY — ARTICLES 16, 17 & 18 + MANDAL CASE
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 5 & 6 • Right to Equality (Continued)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Articles 16 (Public Employment & Mandal Case), 17 (Untouchability) & 18 (Titles)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 16 & Backward Classes Commissions -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <!-- Left 6 Cols: Article 16 Clauses -->
+                <div class="lg:col-span-6 sub-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between border-b border-olive pb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 16 (Citizens Only)</span>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">7 Grounds</span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-dark">Equality of Opportunity in Matters of Public Employment</h3>
+
+                    <div class="space-y-2.5 text-xs sm:text-sm text-dark">
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive">
+                            <strong>Art 16(1):</strong> Equality of opportunity for all citizens in matters relating to employment or appointment to any office under the State.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive">
+                            <strong>Art 16(2) [7 Grounds]:</strong> No citizen shall be discriminated against in State employment on grounds only of: <em>Religion, Race, Caste, Sex, Place of Birth</em> + <strong class="bg-gold/50 px-1 rounded quiz-item">Descent (वंश) and Residence (निवास)</strong>.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-gold/25 border border-olive">
+                            <strong>Art 16(3) [Residence Exception]:</strong> Parliament/State can set rules giving preference to people who are <strong class="quiz-item">residents of that area/State</strong> for local employment or appointments.
+                        </div>
+                        <div class="p-3 rounded-lg bg-dark text-cream border border-gold">
+                            <strong class="text-gold">Art 16(4) [Reservation in Jobs]:</strong> State can make rules to reserve jobs or positions for any <strong class="text-gold underline quiz-item">"backward class of citizens"</strong> who are not adequately represented in the State services.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 6 Cols: Kalelkar, Mandal & Indra Sawhney Case -->
+                <div class="lg:col-span-6 space-y-3.5">
+                    <h4 class="font-extrabold text-sm uppercase tracking-wider text-olive">
+                        <i class="fa-solid fa-landmark text-dark mr-1"></i> Commissions & Cases Related to Article 16(4):
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                        <!-- Kalelkar Commission -->
+                        <div class="sub-card p-3.5 rounded-xl border-t-4 border-t-dark">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded quiz-item">Year: 1953</span>
+                            <h5 class="font-extrabold text-dark mt-1.5">1. Kalelkar Commission (1953)</h5>
+                            <ul class="mt-1 space-y-1 text-xs text-dark font-medium">
+                                <li>• <strong class="quiz-item">1st Backward Classes Commission</strong> (appointed under Art 340).</li>
+                                <li>• Chairman: <strong class="quiz-item">Kaka Kalelkar</strong>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Mandal Commission -->
+                        <div class="sub-card p-3.5 rounded-xl border-t-4 border-t-gold">
+                            <span class="dark-badge text-[11px] px-2 py-0.5 rounded quiz-item">Year: 1979</span>
+                            <h5 class="font-extrabold text-dark mt-1.5">2. Mandal Commission (1979)</h5>
+                            <ul class="mt-1 space-y-1 text-xs text-dark font-medium">
+                                <li>• <strong class="quiz-item">2nd Backward Classes Commission</strong> (Chairman: <strong class="quiz-item">B. P. Mandal</strong>).</li>
+                                <li>• Recommended <strong class="quiz-item">27% reservation for OBCs</strong>.</li>
+                                <li>• Implemented by PM <strong class="quiz-item">V. P. Singh in 1990</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Indra Sawhney Case (1992) -->
+                    <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold text-xs sm:text-sm">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase quiz-item">Indra Sawhney Case (1992)</span>
+                            <span class="text-xs text-gold font-bold">Also known as "Mandal Case"</span>
+                        </div>
+                        <ul class="space-y-1.5 mt-2 list-disc pl-4 text-cream/95">
+                            <li>Public Interest Litigation (PIL) filed by Advocate <strong>Indra Sawhney</strong>.</li>
+                            <li>Supreme Court <strong>upheld the 27% reservation for OBCs</strong> in government jobs, BUT set a <strong class="text-gold underline quiz-item">50% cap (ceiling limit) on total reservations</strong>.</li>
+                            <li>Directed that <strong class="text-gold underline quiz-item">"Creamy Layer"</strong> (socially/economically advanced section) in OBCs must be identified and is <strong>NOT entitled to reservation</strong>.</li>
+                        </ul>
+                        <div class="mt-2.5 pt-2 border-t border-olive text-xs text-gold font-bold flex items-center justify-between">
+                            <span>💡 <strong>DID YOU KNOW?</strong> Public Interest Litigation (PIL) is taken from:</span>
+                            <span class="px-2 py-0.5 rounded bg-cream text-dark font-extrabold quiz-item">🇺🇸 USA's Constitution</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 17 & Article 18 Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Article 17 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 17</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Absolute Right</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">Abolition of Untouchability (अस्पृश्यता का अंत)</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li>Both the <strong>State and any private individual</strong> are strictly prohibited from practicing untouchability in any form.</li>
+                            <li>⭐ <strong>Exam Trap Fact:</strong> The term <strong class="underline quiz-item">'Untouchability' has NOWHERE been defined in the Constitution</strong> (nor in the Protection of Civil Rights Act, 1955).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Article 18 -->
+                <div class="sub-card p-5 rounded-xl border-l-8 border-l-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 18</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">No Maharaja / Rai Bahadur</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-2">Abolition of Titles (उपाधियों का अंत)</h3>
+                        <ul class="space-y-1.5 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li>No title, other than a <strong class="quiz-item">military or academic distinction</strong> (e.g., Param Vir Chakra, Doctor, Professor), shall be conferred by the State (Abolished colonial titles like <em>Maharaja, Rai Bahadur, Dewan Bahadur</em>).</li>
+                            <li><strong>No citizen of India</strong> shall accept any title from any foreign State.</li>
+                            <li>No person holding any office of profit under the State shall receive any "Title" from any foreign State without the <strong class="quiz-item">consent of the President</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: RIGHT TO FREEDOM — ARTICLE 19 (6 FREEDOMS, CASES & RESTRICTIONS)
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 6 • Right to Freedom (Articles 19 – 22)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 19: Six Democratic Freedoms ("SAAMRP"), Cases & Restrictions</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Trick Banner for 6 Freedoms of Article 19(1) -->
+            <div class="trick-box p-4 rounded-xl mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🧠 Memory Trick for 6 Freedoms under Article 19(1)</span>
+                    <h3 class="text-xl font-serif font-extrabold text-gold mt-1 quiz-item">
+                        "S - A - A - M - R - P"
+                    </h3>
+                    <p class="text-xs text-cream/90 mt-0.5">
+                        1. <strong>S</strong>peech (19a) → 2. <strong>A</strong>ssemble (19b) → 3. <strong>A</strong>ssociation/Co-op (19c) → 4. <strong>M</strong>ovement (19d) → 5. <strong>R</strong>eside (19e) → <em>[19f Property Omitted]</em> → 6. <strong>P</strong>rofession (19g)!
+                    </p>
+                </div>
+                <div class="flex gap-2 shrink-0 text-xs font-bold">
+                    <span class="px-3 py-1.5 rounded-lg bg-gold text-dark border border-cream quiz-item">97th CA (2011): Added Co-op Societies in 19(1)(c)</span>
+                </div>
+            </div>
+
+            <!-- 6 Freedoms Cards + Landmark Cases -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <!-- Left 7 Cols: 6 Sub-clauses of 19(1) -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(a)</span> <span class="gold-badge px-2 rounded text-xs">S = Speech</span>
+                        </div>
+                        <p class="font-medium text-dark">To freedom of <strong class="quiz-item">speech and expression</strong>.</p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(b)</span> <span class="gold-badge px-2 rounded text-xs">A = Assemble</span>
+                        </div>
+                        <p class="font-medium text-dark">To <strong class="quiz-item">assemble peaceably and without arms</strong> (Bina hathiyar shantipurna sabha).</p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-gold bg-gold/15 sm:col-span-2">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(c)</span> <span class="dark-badge px-2 rounded text-xs">A = Association + Co-op (97th CA)</span>
+                        </div>
+                        <p class="font-medium text-dark">
+                            To form <strong class="quiz-item">associations or unions or cooperative societies</strong>. (Note: <strong class="underline quiz-item">97th Amendment, 2011</strong> added Right to form Cooperative Societies under Art 19(1)(c)).
+                        </p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(d)</span> <span class="gold-badge px-2 rounded text-xs">M = Move</span>
+                        </div>
+                        <p class="font-medium text-dark">To <strong class="quiz-item">move freely throughout the territory of India</strong>.</p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(e)</span> <span class="gold-badge px-2 rounded text-xs">R = Reside</span>
+                        </div>
+                        <p class="font-medium text-dark">To <strong class="quiz-item">reside and settle</strong> in any part of the territory of India.</p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-olive opacity-80">
+                        <div class="flex justify-between font-extrabold text-olive mb-1">
+                            <span class="line-through">19(1)(f)</span> <span class="px-2 rounded bg-olive text-cream text-xs">❌ Omitted</span>
+                        </div>
+                        <p class="font-semibold text-olive"><strong class="quiz-item">Right to Property</strong> — Omitted by <strong class="quiz-item">44th CA, 1978</strong> (now Art 300-A).</p>
+                    </div>
+
+                    <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark">
+                        <div class="flex justify-between font-extrabold text-dark mb-1">
+                            <span>19(1)(g)</span> <span class="gold-badge px-2 rounded text-xs">P = Profession</span>
+                        </div>
+                        <p class="font-medium text-dark">To practise any <strong class="quiz-item">profession, or to carry on any occupation, trade or business</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: Cases & Hidden Rights under Article 19 -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⚖️ Landmark Cases & Hidden Rights (Art 19)</span>
+                        <div class="space-y-3 mt-3 text-xs sm:text-sm">
+                            <div class="p-3 rounded-lg bg-olive/30 border-l-4 border-gold">
+                                <strong class="text-gold block quiz-item">1. Romesh Thappar vs. State of Madras (1950):</strong>
+                                Held that <strong class="underline quiz-item">Freedom of Press</strong> is an integral part of Right to Speech and Expression under Art 19(1)(a).
+                            </div>
+                            <div class="p-3 rounded-lg bg-olive/30 border-l-4 border-gold">
+                                <strong class="text-gold block quiz-item">2. Shreya Singhal vs. Union of India (2015):</strong>
+                                Supreme Court struck down / repealed <strong class="underline quiz-item">Section 66-A of the IT Act</strong> (which criminalized 'offensive' online messages) as violative of Art 19(1)(a).
+                            </div>
+                            <div class="p-3 rounded-lg bg-cream text-dark border border-gold">
+                                <span class="font-extrabold text-olive uppercase block text-xs mb-1">🔍 Hidden / Implied Rights under Article 19:</span>
+                                <ul class="space-y-1 font-bold">
+                                    <li>• <strong class="quiz-item">Right to Internet:</strong> <em>Anuradha Bhasin vs. Union of India Case, 2020</em> (J&K internet shutdown case).</li>
+                                    <li>• <strong class="quiz-item">Right to Information (RTI):</strong> <em>State of UP vs. Raj Narain Case, 1975</em>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reasonable Restrictions Table (Art 19(2) to 19(6)) -->
+            <div class="overflow-x-auto rounded-xl border-2 border-dark">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-dark text-gold text-xs uppercase tracking-wider">
+                            <th class="p-3 border-b border-olive">Fundamental Right under Art 19(1)</th>
+                            <th class="p-3 border-b border-olive">Restriction Clause</th>
+                            <th class="p-3 border-b border-olive">Permissible Grounds of Reasonable Restrictions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-olive/40 text-xs sm:text-sm bg-cream">
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">1. Speech & Expression [19(1)(a)]</td>
+                            <td class="p-3"><span class="dark-badge px-2.5 py-0.5 rounded text-xs quiz-item">Article 19(2)</span></td>
+                            <td class="p-3 font-medium text-dark">Sovereignty & integrity of India, security of the State, friendly relations with foreign States, public order, decency or morality, contempt of court, defamation, incitement to an offence.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">2. Peaceful Assembly [19(1)(b)]</td>
+                            <td class="p-3"><span class="gold-badge px-2.5 py-0.5 rounded text-xs quiz-item">Article 19(3)</span></td>
+                            <td class="p-3 font-medium text-dark">Sovereignty and integrity of India, public order.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">3. Association / Unions [19(1)(c)]</td>
+                            <td class="p-3"><span class="gold-badge px-2.5 py-0.5 rounded text-xs quiz-item">Article 19(4)</span></td>
+                            <td class="p-3 font-medium text-dark">Sovereignty and integrity of India, public order, morality.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">4. Movement & Residence [19(1)(d) & (e)]</td>
+                            <td class="p-3"><span class="gold-badge px-2.5 py-0.5 rounded text-xs quiz-item">Article 19(5)</span></td>
+                            <td class="p-3 font-medium text-dark">In the interests of the general public, or for the <strong class="quiz-item">protection of the interests of any Scheduled Tribe (ST)</strong>.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 font-extrabold text-dark">5. Profession / Trade [19(1)(g)]</td>
+                            <td class="p-3"><span class="gold-badge px-2.5 py-0.5 rounded text-xs quiz-item">Article 19(6)</span></td>
+                            <td class="p-3 font-medium text-dark">In the interests of the general public, prescribing professional/technical qualifications, or <strong class="quiz-item">State monopoly</strong> over any trade/business.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: ARTICLES 20 & 21 + 7 LANDMARK SUPREME COURT CASES
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 7 • Non-Suspendable Rights (Never Suspended in Emergency)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 20 (Conviction Shields) & Article 21 (Life, Liberty & 7 Landmark Cases)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 20: 3 Protections -->
+            <div class="sub-card p-5 rounded-xl mb-8 border-t-4 border-t-dark">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 20</span>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-dark mt-1">Protection in Respect of Conviction for Offences (अपराधों के लिए दोषसिद्धि के संबंध में संरक्षण)</h3>
+                    </div>
+                    <span class="gold-badge text-xs px-3 py-1 rounded-full">🛡️ Never Suspended During Emergency</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+                    <!-- 20(1) -->
+                    <div class="p-4 rounded-xl bg-gold/20 border border-olive flex flex-col justify-between">
+                        <div>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Clause (1)</span>
+                            <h4 class="font-extrabold text-base text-dark mt-2 quiz-item">1. No Ex-Post-Facto Law</h4>
+                            <p class="mt-1.5 text-dark leading-relaxed">
+                                No person shall be convicted of any offence except for violation of a law in force at the time of the crime, nor subjected to a <strong>penalty greater than that prescribed by law when the crime was committed</strong>.
+                            </p>
+                        </div>
+                        <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">
+                            💡 Aaj banaya gaya criminal kanoon pichhle saal ke jurm par laagu nahi hoga! (Applies only to Criminal laws, not Civil/Tax laws).
+                        </p>
+                    </div>
+
+                    <!-- 20(2) -->
+                    <div class="p-4 rounded-xl bg-gold/20 border border-olive flex flex-col justify-between">
+                        <div>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Clause (2)</span>
+                            <h4 class="font-extrabold text-base text-dark mt-2 quiz-item">2. No Double Jeopardy</h4>
+                            <p class="mt-1.5 text-dark leading-relaxed">
+                                <strong>A person must NOT be prosecuted and punished twice for the same offence</strong> (Ek hi jurm ke liye do baar saza nahi di ja sakti).
+                            </p>
+                        </div>
+                        <p class="text-[11px] text-olive font-bold mt-2 pt-2 border-t border-olive/30">
+                            💡 Hindi mein: <em>दोहरे दंड से सुरक्षा</em>.
+                        </p>
+                    </div>
+
+                    <!-- 20(3) -->
+                    <div class="p-4 rounded-xl bg-gold/20 border border-olive flex flex-col justify-between">
+                        <div>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Clause (3)</span>
+                            <h4 class="font-extrabold text-base text-dark mt-2 quiz-item">3. No Self-Incrimination</h4>
+                            <p class="mt-1.5 text-dark leading-relaxed">
+                                A person accused of an offence <strong>cannot be compelled to provide information or testify against oneself</strong> (Apne hi khilaf gawahi dene ke liye majboor nahi kiya ja sakta).
+                            </p>
+                        </div>
+                        <div class="mt-2 p-2 rounded bg-cream border border-dark text-[11px] font-bold text-dark">
+                            ⚠️ <strong>Exception:</strong> Accused HAS to submit <strong class="quiz-item">blood specimens, thumb impressions, signatures</strong> if asked!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 21 Overview: Japan vs USA Concept -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                <div class="lg:col-span-6 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">Article 21 • Foremost Right</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-2">Protection of Life and Personal Liberty (प्राण और दैहिक स्वतंत्रता)</h3>
+                        <p class="text-xs sm:text-sm text-cream/95 mt-2 italic bg-olive/30 p-3 rounded-lg border-l-4 border-gold">
+                            "No person shall be deprived of his life or personal liberty except according to <strong class="text-gold underline quiz-item">procedure established by law</strong>."
+                        </p>
+                    </div>
+                    <p class="text-xs text-gold font-bold mt-3">
+                        ⭐ The foremost right among Right to Freedom is <strong>Right to Life and Personal Liberty (Art 21)</strong>.
+                    </p>
+                </div>
+
+                <!-- Procedure Established by Law (Japan) vs Due Process of Law (USA) -->
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                        <div>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">🇯🇵 Japanese Constitution</span>
+                            <h4 class="font-extrabold text-base text-dark mt-2">1. Procedure Established by Law</h4>
+                            <p class="text-xs text-dark mt-1 leading-relaxed">
+                                Explicitly written in Article 21. Checks only whether the law was passed by following the correct legislative procedure.
+                            </p>
+                        </div>
+                        <span class="text-[11px] font-bold text-olive mt-2">Upheld in A.K. Gopalan Case (1950)</span>
+                    </div>
+
+                    <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15 flex flex-col justify-between">
+                        <div>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">🇺🇸 American Concept (USA)</span>
+                            <h4 class="font-extrabold text-base text-dark mt-2">2. Due Process of Law</h4>
+                            <p class="text-xs text-dark mt-1 leading-relaxed">
+                                Ensures <strong>fair, just, and reasonable legal proceedings</strong> (not explicitly mentioned in the Constitution text, but introduced by SC in 1978!).
+                            </p>
+                        </div>
+                        <span class="text-[11px] font-bold text-dark mt-2">Introduced in Maneka Gandhi Case (1978)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7 Landmark Cases under Article 21 -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-scale-balanced text-olive"></i> All 7 Landmark Cases & Interpretations under Article 21 (Page 7)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- 1. A.K. Gopalan Case (1950) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-olive">
+                    <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">1950 • Narrow View</span>
+                    <h4 class="font-extrabold text-base text-dark mt-1.5 quiz-item">1. A. K. Gopalan Case (1950)</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        The Supreme Court took a <strong>narrow view of Article 21</strong> and ruled that it does <strong>NOT guarantee American "Due Process of Law"</strong> (protection only against arbitrary executive action, not legislative action).
+                    </p>
+                </div>
+
+                <!-- 2. Maneka Gandhi Case (1978) -->
+                <div class="sub-card p-4 rounded-xl border-2 border-dark bg-gold/25 lg:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded quiz-item">1978 • Wide View (Turning Point)</span>
+                        <span class="text-xs font-extrabold text-dark">Passport Impounding Case</span>
+                    </div>
+                    <h4 class="font-extrabold text-base sm:text-lg text-dark mt-1 quiz-item">2. Maneka Gandhi vs. Union of India Case (1978)</h4>
+                    <ul class="space-y-1 text-xs sm:text-sm text-dark mt-1.5 list-disc pl-4 font-medium">
+                        <li><strong>Overturned the Gopalan case ruling</strong>, took a wide stance on Article 21, and introduced <strong class="underline quiz-item">"Due Process of Law"</strong>.</li>
+                        <li>Made <strong class="underline quiz-item">Right to Travel Abroad</strong> a Fundamental Right under Personal Liberty (Art 21).</li>
+                        <li>Included implied rights under Art 21: <strong class="quiz-item">Right to Health, Shelter, Speedy Trial, Information, Sleep, Electricity, Privacy</strong>, etc.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Hussainara Khatoon Case (1979) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">1979 • Bihar Undertrials</span>
+                    <h4 class="font-extrabold text-base text-dark mt-1.5 quiz-item">3. Hussainara Khatoon vs. State of Bihar (1979)</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        Established the need for a 'reasonable, fair and just' procedure, including <strong class="quiz-item">Free Legal Services for the poor</strong> and the <strong class="underline quiz-item">Right to Speedy Trial</strong>.
+                    </p>
+                </div>
+
+                <!-- 4. Bachan Singh Case (1980) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">Death Penalty Doctrine</span>
+                    <h4 class="font-extrabold text-base text-dark mt-1.5 quiz-item">4. Bachan Singh vs. State of Punjab Case</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        Introduced the famous principle that the <strong>Death Penalty (Capital Punishment)</strong> should be applied only in the <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">"Rarest of Rare" (जघन्यतम) cases</strong>.
+                    </p>
+                </div>
+
+                <!-- 5. Olga Tellis Case (1985) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">1985 • Right to Livelihood</span>
+                    <h4 class="font-extrabold text-base text-dark mt-1.5 quiz-item">5. Olga Tellis vs. Bombay Municipal Corp. (1985)</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        Eviction of <strong>pavement dwellers</strong> using unreasonable force without giving them a chance to explain is unconstitutional and a violation of the <strong class="underline quiz-item">Right to Livelihood (आजीविका का अधिकार)</strong> under Art 21.
+                    </p>
+                </div>
+
+                <!-- 6. Aruna Shanbaug Case (2011) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark md:col-span-1 lg:col-span-2">
+                    <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">2011 Judgment • Right to Die with Dignity</span>
+                    <h4 class="font-extrabold text-base text-dark mt-1.5 quiz-item">6. Aruna Shanbaug vs. Union of India (2011)</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1">
+                        The Supreme Court in a 2011 judgment <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">legalized Passive Euthanasia (निष्क्रिय इच्छामृत्यु)</strong> under strict conditions (withholding or withdrawing life support in specific circumstances), while rejecting Active Euthanasia.
+                    </p>
+                </div>
+
+                <!-- 7. K.S. Puttaswamy Case (2017) -->
+                <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold">
+                    <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase quiz-item">2017 • Right to Privacy</span>
+                    <h4 class="font-extrabold text-base text-gold mt-1.5 quiz-item">7. Justice K. S. Puttaswamy Case</h4>
+                    <p class="text-xs sm:text-sm text-cream/95 mt-1">
+                        Affirmed that the <strong class="text-gold underline quiz-item">Right to Privacy (निजता का अधिकार)</strong> is an intrinsic part of the Right to Life and Personal Liberty under Article 21.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: ARTICLE 21(A), ARTICLE 22 & RIGHT AGAINST EXPLOITATION (ART 23–24)
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 8 • Education, Arrest Safeguards & Exploitation</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 21(A) (RTE), Article 22 (Detention) & Articles 23–24 (Exploitation)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 21(A): Right to Education Banner -->
+            <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Super Important Amendment</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-1">Article 21(A): Right to Education (शिक्षा का अधिकार)</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-1">
+                            • Added by the <strong class="text-gold underline quiz-item">86th Constitutional Amendment Act, 2002</strong>.<br>
+                            • Guarantees the right to <strong>free and compulsory education</strong> for all children between the ages of <strong class="text-gold underline quiz-item">6 and 14 years</strong>.
+                        </p>
+                    </div>
+                    <div class="bg-cream text-dark p-3.5 rounded-xl border-2 border-gold text-center shrink-0">
+                        <span class="text-xs font-bold text-olive uppercase block">Age Group Covered</span>
+                        <strong class="text-2xl font-extrabold text-dark quiz-item">6 to 14 Years</strong>
+                        <span class="text-[11px] block font-bold text-olive">86th CAA, 2002</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 22: Protection against Arrest & Detention -->
+            <div class="sub-card p-5 rounded-xl mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-3 mb-4">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 22</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-1">Protection Against Arrest and Detention in Certain Cases</h3>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Ordinary Law Arrest Safeguards (Punitive) -->
+                    <div class="p-4 rounded-xl bg-cream border-2 border-olive">
+                        <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-2.5">
+                            <h4 class="font-extrabold text-base text-dark">1. Punitive Detention & Ordinary Arrest</h4>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">After Crime</span>
+                        </div>
+                        <p class="text-xs text-olive font-bold mb-2">
+                            • <strong>Punitive Detention:</strong> Occurs <em>after</em> a crime has been committed.
+                        </p>
+                        <p class="text-xs font-extrabold text-dark mb-1.5">A person arrested under Ordinary Law has 4 Rights:</p>
+                        <ul class="space-y-1.5 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li>Right to be <strong class="quiz-item">informed of the grounds of arrest</strong>.</li>
+                            <li>Right to consult and be <strong class="quiz-item">defended by a legal practitioner</strong> (lawyer).</li>
+                            <li>Right to be <strong class="underline quiz-item">produced before a Magistrate within 24 hours</strong> (excluding journey time).</li>
+                            <li>Right to be <strong>released after 24 hours</strong> unless the Magistrate authorises further detention.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Preventive Detention Safeguards -->
+                    <div class="p-4 rounded-xl bg-gold/20 border-2 border-dark">
+                        <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-2.5">
+                            <h4 class="font-extrabold text-base text-dark">2. Preventive Detention (निवारक निरोध)</h4>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">Max 3 Months</span>
+                        </div>
+                        <p class="text-xs text-olive font-bold mb-2">
+                            • <strong>Preventive Detention:</strong> Detention without trial to <em>prevent a possible future offence</em> (Shaq ke aadhar par pehle hi rokna).
+                        </p>
+                        <ul class="space-y-1.5 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li>This detention <strong class="underline quiz-item">cannot exceed 3 months</strong>, unless an <strong class="quiz-item">Advisory Board of High Court Judges</strong> approves an extension!</li>
+                            <li>Detenu must be <strong>informed of the grounds of detention</strong> (except facts against public interest).</li>
+                            <li>Should be given the earliest <strong>opportunity to make a representation</strong> against the detention order.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles 23 & 24: Right against Exploitation -->
+            <div>
+                <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-ban text-olive"></i> 3. Right Against Exploitation (शोषण के विरुद्ध अधिकार — Articles 23 & 24)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Article 23 -->
+                    <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 23</span>
+                                <span class="gold-badge text-xs px-2 py-0.5 rounded">Human Trafficking & Begar</span>
+                            </div>
+                            <h4 class="text-lg font-extrabold text-dark mb-2">Prohibition of Traffic in Human Beings and Forced Labour</h4>
+                            <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                                • Prohibits <strong class="quiz-item">trafficking in human beings</strong> (insano ki kharid-bikri) and <strong class="quiz-item">Forced Labour (Begar / बेगार — bina paisa diye zabardasti kaam karwana)</strong>.
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 rounded-lg bg-gold/25 border border-olive text-xs font-bold text-dark">
+                            ⚠️ <strong>Exception [Art 23(2)]:</strong> The State can force people to do <strong class="quiz-item">compulsory service for public purposes</strong> (for e.g., military conscription during a <strong>War</strong>), without discriminating on religion, race, caste, or class.
+                        </div>
+                    </div>
+
+                    <!-- Article 24 -->
+                    <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 24</span>
+                                <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">Below 14 Years</span>
+                            </div>
+                            <h4 class="text-lg font-extrabold text-dark mb-2">Prohibition of Employment of Children in Factories, etc.</h4>
+                            <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                                <li>No child <strong class="underline quiz-item">below the age of 14 years</strong> shall be employed to work in any <strong class="quiz-item">Factory, Mine, or engaged in any other hazardous occupations</strong>.</li>
+                                <li>They can, however, work at safe/non-hazardous places (family enterprises) during non-school hours.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 p-3 rounded-lg bg-dark text-cream text-xs">
+                            🧠 <strong>Quick Confusion Buster:</strong><br>
+                            • <strong>Article 23</strong> = Bado/Sabhi ka शोषण (Human Trafficking & Begar)<br>
+                            • <strong>Article 24</strong> = <strong>14</strong> saal se chhote Baccho ka शोषण (2<strong>4</strong> = 1<strong>4</strong> years)!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: FREEDOM OF RELIGION (ART 25–28) & CULTURAL/EDUCATIONAL RIGHTS (ART 29–30)
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 8 & 9 • Religion & Minority Rights</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Right to Freedom of Religion (Art 25–28) & Cultural Rights (Art 29–30)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Articles 25 to 28 Grid -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-om text-olive"></i> 4. Right to Freedom of Religion (धार्मिक स्वतंत्रता का अधिकार — Articles 25 to 28)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                <!-- Article 25 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 25</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Individual Freedom</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">
+                            Freedom of Conscience and Free Profession, Practice and Propagation of Religion
+                        </h4>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Har vyakti ko apne dharm ko maanne (Profession), uske riti-riwaz nibhane (Practice), aur uska prachar-prasar karne (Propagation) ki azaadi hai.
+                        </p>
+                    </div>
+                    <div class="mt-3 p-2.5 rounded-lg bg-gold/25 border border-dark text-xs font-extrabold text-dark">
+                        ⚠️ <strong>Important Point:</strong> Right to propagate religion <strong class="underline quiz-item">prohibits forcible conversion</strong> (Zabardasti dharm parivartan karwana allowed NAHI hai)!
+                    </div>
+                </div>
+
+                <!-- Article 26 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 26</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Collective / Group Right</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">Freedom to Manage Religious Affairs</h4>
+                        <p class="text-xs text-olive font-bold mb-1.5">Every religious denomination / institution or section shall have the right to:</p>
+                        <ul class="space-y-1 text-xs sm:text-sm text-dark font-medium">
+                            <li><strong>(a)</strong> Establish and maintain religious & charitable institutions.</li>
+                            <li><strong>(b)</strong> Manage their own religious affairs.</li>
+                            <li><strong>(c)</strong> Own and acquire movable and immovable property.</li>
+                            <li><strong>(d)</strong> Administer such property in accordance with law.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Article 27 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 27</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">Tax ❌ vs Fee ✅</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">
+                            Freedom as to Payment of Taxes for Promotion of Any Particular Religion
+                        </h4>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Kisi bhi vyakti ko kisi ek vishesh dharm ke prachar ya rakh-rakhav ke liye tax dene par majboor nahi kiya jayega.
+                        </p>
+                    </div>
+                    <div class="mt-3 p-3 rounded-lg bg-dark text-cream text-xs font-bold">
+                        ⭐ <strong>SSC Favourite Trap:</strong> This provision <strong class="text-gold underline quiz-item">prohibits ONLY the levy of TAXES and NOT a FEE</strong>! (Sarkar teerth-yatriyo ki suvidha/safety ke liye 'Fee' le sakti hai, par 'Tax' nahi).
+                    </div>
+                </div>
+
+                <!-- Article 28 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 28</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">4 Types of Institutions</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">Freedom from Attending Religious Instruction in Schools</h4>
+                        <p class="text-xs text-olive font-bold mb-2">No religious instruction shall be provided in any educational institution wholly funded by the State:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <div class="p-2 rounded bg-dark text-cream">
+                                <strong>(a) Completely maintained by State:</strong><br>
+                                <span class="text-gold font-extrabold quiz-item">❌ Completely Prohibited</span>
+                            </div>
+                            <div class="p-2 rounded bg-gold/30 border border-dark text-dark">
+                                <strong>(b) Administered by State but established under Trust:</strong><br>
+                                <span class="font-extrabold quiz-item">✅ Permitted</span>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive text-dark">
+                                <strong>(c) Recognised by State:</strong><br>
+                                <span class="font-extrabold text-olive quiz-item">⚠️ Permitted on Voluntary Basis</span>
+                            </div>
+                            <div class="p-2 rounded bg-cream border border-olive text-dark">
+                                <strong>(d) Receiving Aid from State:</strong><br>
+                                <span class="font-extrabold text-olive quiz-item">⚠️ Permitted on Voluntary Basis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles 29 & 30: Cultural and Educational Rights -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-olive"></i> 5. Cultural and Educational Rights (संस्कृति और शिक्षा संबंधी अधिकार — Articles 29 & 30)
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+                <div class="lg:col-span-4 sub-card p-5 rounded-xl border-l-8 border-l-dark">
+                    <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 29</span>
+                    <h4 class="text-base font-extrabold text-dark mt-2">Protection of Interests of Minorities</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1.5 leading-relaxed">
+                        • Any section of citizens residing in India having a <strong class="quiz-item">distinct language, script, or culture (भाषा, लिपि या संस्कृति)</strong> of its own has the right to conserve it.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 sub-card p-5 rounded-xl border-l-8 border-l-gold">
+                    <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 30</span>
+                    <h4 class="text-base font-extrabold text-dark mt-2">Right of Minorities to Establish & Administer Educational Institutions</h4>
+                    <p class="text-xs sm:text-sm text-dark mt-1.5 leading-relaxed">
+                        • All minorities (religious or linguistic) have the right to establish and administer educational institutions, and the State cannot discriminate based on religion or language while providing aid.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-center">
+                    <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase w-fit">💡 DID YOU KNOW? (Page 9)</span>
+                    <ul class="space-y-2 text-xs sm:text-sm text-cream/95 mt-2.5 list-disc pl-4">
+                        <li><strong class="text-gold quiz-item">Article 29 is NOT solely specific to minorities</strong> (applies to "any section of citizens", i.e., both majority & minorities), whereas <strong class="text-gold underline quiz-item">Article 30 is specifically for minorities</strong>!</li>
+                        <li>The term <strong class="text-gold underline quiz-item">'Minority' is NOWHERE defined in the Constitution</strong>!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 8: ARTICLE 32 — RIGHT TO CONSTITUTIONAL REMEDIES & ALL 5 WRITS
+             ========================================== -->
+        <section id="topic-8" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">08</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 10 • Heart and Soul of Constitution</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 32: Right to Constitutional Remedies & All 5 Writs</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Article 32 Banner -->
+            <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-2 max-w-3xl">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">6th Fundamental Right • Article 32</span>
+                        <h3 class="text-xl sm:text-2xl font-serif font-extrabold text-gold">
+                            Known as the <span class="underline quiz-item">"Heart and Soul of the Constitution"</span> — Dr. B. R. Ambedkar
+                        </h3>
+                        <ul class="space-y-1 text-xs sm:text-sm text-cream/90">
+                            <li><strong>1. Right to Approach SC:</strong> Guarantees the right to move the <strong>Supreme Court</strong> directly for the enforcement of Fundamental Rights.</li>
+                            <li><strong>2. Supreme Court's Power:</strong> The SC can issue orders, directions, or <strong>5 types of Writs</strong> to enforce Fundamental Rights.</li>
+                            <li><strong>3. Power of Parliament [Art 32(3)]:</strong> <strong class="text-gold quiz-item">Parliament can authorise any other court</strong> (other than SC & HC) to issue writs within its local limits.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Writs Detailed Cards Grid -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-scroll text-olive"></i> The 5 Prerogative Writs Issued Under Article 32 (SC) & Article 226 (HC)
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- 1. Habeas Corpus -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Writ #1</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">"To have the body of"</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mb-2">1. Habeas Corpus (बंदी प्रत्यक्षीकरण)</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li><strong>Literal Meaning:</strong> <strong class="quiz-item">"To have the body of"</strong> (Bandi ko sashareer pesh kiya jaye).</li>
+                            <li><strong>Purpose:</strong> It ensures <strong>individual liberty against unlawful detention</strong> (Issued against both Public Authorities AND Private Individuals).</li>
+                            <li><strong>Famous Case:</strong> <strong class="underline quiz-item">ADM Jabalpur Case (1976)</strong> is also known as the <strong>Habeas Corpus Case</strong>, related to <em>'Personal Liberty'</em> during Emergency.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Mandamus -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Writ #2</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">"We Command"</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mb-2">2. Mandamus (परमादेश)</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li><strong>Literal Meaning:</strong> <strong class="quiz-item">"We Command"</strong> (Hum aadesh dete hain).</li>
+                            <li><strong>Purpose:</strong> Orders a <strong>public official or public authority to perform a mandatory public duty</strong> that they failed or refused to do.</li>
+                            <li><strong>❌ Cannot be issued against:</strong> A <strong class="quiz-item">private individual, President, Governor</strong>, or when the duty is discretionary (not mandatory).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Prohibition -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Writ #3 • Preventive</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">"To Forbid"</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mb-2">3. Prohibition (प्रतिषेध)</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li><strong>Literal Meaning:</strong> <strong class="quiz-item">"To Forbid"</strong> (Rokna / Mana karna).</li>
+                            <li><strong>Nature:</strong> It is <strong class="underline quiz-item">Preventive in nature</strong> (Faisla aane se pehle hi rokna).</li>
+                            <li><strong>Purpose:</strong> Issued by a <strong>superior court to a lower court/tribunal</strong> to prevent the latter from <strong>exceeding its jurisdiction</strong>.</li>
+                            <li><strong>❌ Not available against:</strong> Administrative bodies, legislative bodies, and private individuals.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Certiorari -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold md:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Writ #4 • Curative</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">"To be Certified"</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mb-2">4. Certiorari (उत्प्रेषण)</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-dark font-medium">
+                            <ul class="space-y-1.5 list-disc pl-4">
+                                <li><strong>Literal Meaning:</strong> <strong class="quiz-item">"To be certified"</strong> (or to be informed).</li>
+                                <li><strong>Nature:</strong> It is <strong class="underline quiz-item">Curative in nature</strong> (Faisla aane ke baad use quash/radd karna).</li>
+                            </ul>
+                            <ul class="space-y-1.5 list-disc pl-4">
+                                <li><strong>Purpose:</strong> Issued by a higher court to <strong>transfer a case pending in a lower court to itself OR nullify/quash the lower court's order</strong> if it acted beyond jurisdiction.</li>
+                                <li><strong>❌ Exceptions:</strong> Cannot be issued against Legislative Bodies and Private Individuals.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Quo Warranto -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Writ #5</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">"By what authority"</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-dark mb-2">5. Quo-Warranto (अधिकार-पृच्छा)</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-dark list-disc pl-4 font-medium">
+                            <li><strong>Literal Meaning:</strong> <strong class="quiz-item">"By what authority or warrant"</strong> (Aap kis adhikar se is kursi par baithe hain?).</li>
+                            <li><strong>Purpose:</strong> <strong class="quiz-item">Challenges a person's legal right to hold a public office</strong> (prevents illegal usurpation of a public post).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 9: SC (ART 32) VS HC (ART 226) WRITS & ARTICLES 33, 34, 35
+             ========================================== -->
+        <section id="topic-9" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">09</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 11 • Final Comparison & Exceptions</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">SC (Art 32) vs HC (Art 226) Writs, Articles 33–35 & Citizens-Only Rights</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Supreme Court (Art 32) vs High Court (Art 226) Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Supreme Court (Article 32) -->
+                <div class="sub-card p-5 rounded-xl border-2 border-dark">
+                    <div class="flex items-center justify-between border-b border-dark/30 pb-2 mb-3">
+                        <h3 class="font-extrabold text-lg text-dark">🏛️ Supreme Court (<span class="quiz-item">Article 32</span>)</h3>
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded">Mandatory Duty</span>
+                    </div>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-dark font-medium">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Cannot Refuse:</strong> The SC <strong class="underline quiz-item">cannot refuse to issue a writ</strong> (because Article 32 is itself a Fundamental Right!).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Scope of Writs (Narrower):</strong> It can issue writs <strong class="quiz-item">ONLY when there is a violation of Fundamental Rights</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Territorial Jurisdiction (Wider):</strong> <strong class="quiz-item">Throughout the territory of India</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- High Court (Article 226) -->
+                <div class="sub-card p-5 rounded-xl border-2 border-gold bg-gold/15">
+                    <div class="flex items-center justify-between border-b border-olive/40 pb-2 mb-3">
+                        <h3 class="font-extrabold text-lg text-dark">⚖️ High Court (<span class="quiz-item">Article 226</span>)</h3>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded">Wider Writ Scope!</span>
+                    </div>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-dark font-medium">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Can Refuse (Discretionary):</strong> The HC <strong class="underline quiz-item">can refuse to issue a writ</strong> (Art 226 is a constitutional right, not a Fundamental Right).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Scope of Writs (Wider):</strong> It can issue writs for violation of <strong class="underline quiz-item">Fundamental Rights + Ordinary Legal Rights</strong> (hence, <strong>writ jurisdiction of HC is WIDER than SC</strong>!).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Territorial Jurisdiction:</strong> <strong class="quiz-item">Throughout the State</strong> (within its territorial limits).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Articles 33, 34, 35 Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                <!-- Article 33 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded uppercase">Article 33</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">50th CA, 1984</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">Armed Forces, Police & Intelligence</h4>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Empowers <strong>Parliament</strong> to restrict or abrogate the Fundamental Rights of the members of <strong class="quiz-item">Armed Forces, Police, and Intelligence Agencies</strong> to ensure proper discipline and discharge of duty. (<em>50th Amendment, 1984</em>).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 34 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-0.5 rounded uppercase">Article 34</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">Borrowed: UK</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">Martial Law (सैन्य शासन)</h4>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Provides for restrictions on Fundamental Rights while <strong class="quiz-item">Martial Law</strong> (Military Rule) is enforced in any area within India.<br>
+                            • Concept of Martial Law is borrowed from: <strong class="underline quiz-item">UK (Britain)</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 35 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-0.5 rounded uppercase">Article 35</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Only Parliament</span>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark mb-1.5">Exclusive Power of Parliament</h4>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                            Vests <strong class="quiz-item">exclusive powers in Parliament</strong> (and NOT in State Legislatures) to make laws relating to enforcement of certain Fundamental Rights (Art 16(3), 32(3), 33, 34, and punishments under Art 17 & 23).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Golden Box: Rights Available ONLY to Citizens of India -->
+            <div class="trick-box p-5 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Super High-Yield Exam Question (Page 11)</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-extrabold text-gold pt-1">
+                        Fundamental Rights Available ONLY to Citizens of India (and NOT to Foreigners):
+                    </h3>
+                    <p class="text-xs sm:text-sm text-cream/90">
+                        Baaki saare Fundamental Rights (14, 20, 21, 21A, 22, 23, 24, 25–28) Bharatiya nagriko aur Videshiyo dono ko milte hain, lekin yeh <strong>5 Articles SIRF Indian Citizens</strong> ke liye hain:
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2 shrink-0">
+                    <span class="px-3.5 py-2 rounded-xl bg-gold text-dark font-extrabold text-base border-2 border-cream quiz-item">Art 15</span>
+                    <span class="px-3.5 py-2 rounded-xl bg-gold text-dark font-extrabold text-base border-2 border-cream quiz-item">Art 16</span>
+                    <span class="px-3.5 py-2 rounded-xl bg-gold text-dark font-extrabold text-base border-2 border-cream quiz-item">Art 19</span>
+                    <span class="px-3.5 py-2 rounded-xl bg-gold text-dark font-extrabold text-base border-2 border-cream quiz-item">Art 29</span>
+                    <span class="px-3.5 py-2 rounded-xl bg-gold text-dark font-extrabold text-base border-2 border-cream quiz-item">Art 30</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (8 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz (8 Questions)
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "ADD EXTRA NOTE" & "TOPICS AT A GLANCE" BUTTONS -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or table row to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Part III: Fundamental Rights (Articles 12–35) Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test: ON (Click blurred)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 5. Interactive PYQ Practice Quiz (8 Questions)
+        const quizData = [
+            {
+                q: "1. By which Constitutional Amendment Act was the 'Right to Property' removed from Fundamental Rights and made a Legal Right under Article 300-A?",
+                options: [
+                    "42nd Amendment Act, 1976",
+                    "44th Amendment Act, 1978",
+                    "86th Amendment Act, 2002",
+                    "97th Amendment Act, 2011"
+                ],
+                answer: 1,
+                exp: "44th Constitutional Amendment Act, 1978 dwara Right to Property (Art 31 & Art 19(1)(f)) ko Part III se hata kar Part XII ke Article 300-A mein Legal Right bana diya gaya."
+            },
+            {
+                q: "2. In Article 14, 'Equality Before Law' and 'Equal Protection of Law' are borrowed from which countries respectively?",
+                options: [
+                    "USA and UK",
+                    "UK (British) and USA (American)",
+                    "France and Japan",
+                    "Ireland and Australia"
+                ],
+                answer: 1,
+                exp: "Equality Before Law (Negative concept, A.V. Dicey's Rule of Law) British (UK) se liya gaya hai, jabki Equal Protection of Law (Positive concept) American (USA) Constitution se liya gaya hai."
+            },
+            {
+                q: "3. Which Landmark Case upheld the 27% OBC reservation, introduced the 'Creamy Layer' concept, and put a 50% cap on total reservations?",
+                options: [
+                    "Champakam Dorairajan Case (1951)",
+                    "Indra Sawhney Case (1992)",
+                    "Romesh Thappar Case (1950)",
+                    "Shreya Singhal Case (2015)"
+                ],
+                answer: 1,
+                exp: "Indra Sawhney Case (1992), jise Mandal Case bhi kehte hain, mein SC ne 27% OBC quota ko valid maana par 50% cap aur Creamy Layer exclusion lagaya."
+            },
+            {
+                q: "4. In which landmark case did the Supreme Court strike down Section 66-A of the Information Technology (IT) Act as violative of Article 19(1)(a)?",
+                options: [
+                    "Anuradha Bhasin vs. Union of India (2020)",
+                    "Shreya Singhal vs. Union of India (2015)",
+                    "Raj Narain vs. State of UP (1975)",
+                    "Romesh Thappar vs. State of Madras (1950)"
+                ],
+                answer: 1,
+                exp: "Shreya Singhal vs. Union of India (2015) mein Supreme Court ne IT Act ke Section 66-A ko Freedom of Speech & Expression ke khilaf maante hue radd kar diya."
+            },
+            {
+                q: "5. Which two Fundamental Rights can NEVER be suspended even during a National Emergency?",
+                options: [
+                    "Articles 14 and 19",
+                    "Articles 19 and 21",
+                    "Articles 20 and 21",
+                    "Articles 21 and 32"
+                ],
+                answer: 2,
+                exp: "Articles 20 (Protection in respect of conviction for offences) aur Article 21 (Protection of Life and Personal Liberty) National Emergency mein bhi kabhi suspend nahi hote."
+            },
+            {
+                q: "6. Which landmark judgment of the Supreme Court legalized 'Passive Euthanasia' in India in 2011?",
+                options: [
+                    "Bachan Singh vs. State of Punjab",
+                    "Olga Tellis vs. Bombay Municipal Corporation",
+                    "Aruna Shanbaug vs. Union of India",
+                    "K. S. Puttaswamy vs. Union of India"
+                ],
+                answer: 2,
+                exp: "Aruna Shanbaug vs. Union of India (2011) mein Supreme Court ne strict guidelines ke saath Passive Euthanasia ko legalize kiya."
+            },
+            {
+                q: "7. Which Writ literally means 'We Command' and is issued to a public official to perform a mandatory public duty?",
+                options: [
+                    "Habeas Corpus",
+                    "Mandamus",
+                    "Prohibition",
+                    "Quo-Warranto"
+                ],
+                answer: 1,
+                exp: "Mandamus ka arth hai 'We Command'. Habeas Corpus = 'To have the body of', Prohibition = 'To forbid', Certiorari = 'To be certified', Quo-Warranto = 'By what authority'."
+            },
+            {
+                q: "8. Which of the following sets of Fundamental Rights is available ONLY to the Citizens of India and NOT to Foreigners?",
+                options: [
+                    "Articles 14, 15, 16, 20, 21",
+                    "Articles 15, 16, 19, 29, 30",
+                    "Articles 15, 17, 18, 25, 32",
+                    "Articles 19, 20, 21, 23, 24"
+                ],
+                answer: 1,
+                exp: "Articles 15, 16, 19, 29 aur 30 sirf Indian Citizens ko prapt hain, videshiyo (foreigners) ko nahi!"
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 6. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'polity_fundamental_rights_extra_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items, table rows & headings
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main table tbody tr',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                if (targetEl.tagName === 'TR') {
+                    const trWrapper = document.createElement('tr');
+                    trWrapper.className = 'student-custom-note-wrapper bg-gold/10';
+                    const td = document.createElement('td');
+                    td.colSpan = targetEl.children.length || 3;
+                    td.className = 'px-4 py-1';
+                    td.innerHTML = noteHtml;
+                    trWrapper.appendChild(td);
+                    targetEl.insertAdjacentElement('afterend', trWrapper);
+                } else {
+                    const divWrapper = document.createElement('div');
+                    divWrapper.className = 'student-custom-note-wrapper';
+                    divWrapper.innerHTML = noteHtml;
+                    targetEl.appendChild(divWrapper);
+                }
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - PART III: FUNDAMENTAL RIGHTS (12-35)\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Fundamental_Rights_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>
