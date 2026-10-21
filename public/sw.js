@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v3.0.0';
+const VERSION = 'v3.0.1';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
@@ -29,6 +29,7 @@ const PRECACHE_ASSETS = [
   'study-tools-ga/polity/dpsp.html',
   'study-tools-ga/polity/president_and_vice_president.html',
   'study-tools-ga/polity/parliament_part_1.html',
+  'study-tools-ga/polity/parliament_part_2.html',
   'ssc-vocab/vocabulary_mastery_457.html',
   'ssc-vocab/phrasal_verbs_mastery.html',
   'ssc-vocab/idioms_mastery_notes.html',

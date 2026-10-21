@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PARMAR SSC — Parliament (Part 2) Master Interactive Notes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAEED9',
+            gold: '#E1A837',
+            olive: '#8D7A02',
+            dark: '#38370D',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAEED9;
+      background-image: radial-gradient(#8D7A02 0.65px, transparent 0.65px);
+      background-size: 22px 22px;
+      color: #38370D;
+    }
+
+    .note-card {
+      background: rgba(250, 238, 217, 0.95);
+      border: 2px solid #8D7A02;
+      box-shadow: 6px 6px 0px #38370D;
+      transition: all 0.2s ease;
+    }
+    .note-card:hover {
+      box-shadow: 8px 8px 0px #38370D;
+      transform: translateY(-2px);
+    }
+
+    .sub-card {
+      background: #FAEED9;
+      border: 1.5px solid #8D7A02;
+      border-radius: 0.75rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .gold-badge {
+      background: #E1A837;
+      color: #38370D;
+      font-weight: 700;
+      border: 1px solid #38370D;
+    }
+
+    .dark-badge {
+      background: #38370D;
+      color: #FAEED9;
+      font-weight: 600;
+    }
+
+    .trick-box {
+      background: #38370D;
+      color: #FAEED9;
+      border-left: 6px solid #E1A837;
+    }
+
+    /* Self-Test Quiz Blur Mode */
+    .quiz-item {
+      transition: all 0.25s ease;
+      padding: 0 4px;
+      border-radius: 4px;
+      border-bottom: 1.5px dashed #8D7A02;
+      font-weight: 700;
+    }
+    body.self-test-active .quiz-item {
+      filter: blur(6px);
+      background-color: #E1A837;
+      color: #38370D;
+      cursor: pointer;
+      user-select: none;
+    }
+    body.self-test-active .quiz-item:hover,
+    body.self-test-active .quiz-item.revealed {
+      filter: blur(0px);
+      background-color: rgba(225, 168, 55, 0.25);
+    }
+
+    /* Section Active Pulse */
+    @keyframes pulseGold {
+      0%, 100% { box-shadow: 6px 6px 0px #38370D; }
+      50% { box-shadow: 0 0 0 8px rgba(225, 168, 55, 0.7), 6px 6px 0px #38370D; }
+    }
+    .section-active-pulse {
+      animation: pulseGold 1.4s ease-in-out 2;
+    }
+
+    /* Click-to-Note Hover Triggers */
+    [data-note-anchor] {
+      position: relative;
+    }
+    .note-trigger-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    [data-note-anchor]:hover > .note-trigger-btn,
+    body.click-note-mode [data-note-anchor] > .note-trigger-btn {
+      opacity: 1;
+    }
+    body.click-note-mode [data-note-anchor]:hover {
+      outline: 2px dashed #E1A837;
+      outline-offset: 2px;
+      cursor: copy;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .note-card { box-shadow: none !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold selection:text-dark min-h-screen pb-24">
+
+  <!-- Floating Cursor Follower for Click-to-Note Mode -->
+  <div id="cursorBadge" class="fixed pointer-events-none z-50 hidden bg-dark text-cream text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gold shadow-lg">
+    ➕ Click any card/row to add your extra note
+  </div>
+
+  <!-- 1. STICKY TOP HEADER BAR -->
+  <header class="sticky top-0 z-40 bg-dark text-cream border-b-4 border-gold shadow-md no-print">
+    <!-- Scroll Progress Bar -->
+    <div class="w-full h-1.5 bg-olive/30">
+      <div id="scrollProgress" class="h-full bg-gold w-0 transition-all duration-100"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-black text-xl border-2 border-cream">
+          <i class="fa-solid fa-landmark-dome"></i>
+        </div>
+        <div>
+          <span class="text-[11px] uppercase tracking-widest text-gold font-bold block">PARMAR SSC • Polity Series</span>
+          <h1 class="font-serif text-lg md:text-xl font-bold leading-tight">Parliament — Part 2</h1>
+        </div>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="relative flex-1 max-w-md min-w-[220px]">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-dark/70 text-sm"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Articles (107-123, 249, 266, 312), Bills, Veto, PAC..."
+          class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-cream text-dark placeholder-dark/60 text-sm font-medium border-2 border-gold focus:outline-none"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-dark/70 hover:text-dark text-sm">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Interactive Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="toggleClickNoteBtn" onclick="toggleClickToNoteMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-dark text-cream hover:bg-gold hover:text-dark transition flex items-center gap-1.5">
+          <span>📝 Click-to-Note:</span>
+          <span id="clickNoteStatus" class="underline">OFF</span>
+        </button>
+
+        <button onclick="toggleDrawer(true)" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-gold text-dark hover:brightness-105 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>My Notes</span>
+          <span id="savedNotesCountBadge" class="bg-dark text-cream px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+        </button>
+
+        <button id="selfTestBtn" onclick="toggleSelfTestMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/50 bg-olive/40 text-cream hover:bg-gold hover:text-dark hover:border-gold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-eye-slash"></i>
+          <span>Self-Test: <strong id="selfTestStatus">OFF</strong></span>
+        </button>
+
+        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/40 hover:bg-cream hover:text-dark transition" title="Print Master Notes">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 pt-6 space-y-8">
+
+    <!-- 2. HERO BANNER SECTION -->
+    <section class="note-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full gold-badge text-xs">
+            <i class="fa-solid fa-star"></i> 100% Zero-Omission Master Notes • Parmar SSC
+          </div>
+          <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-dark leading-tight">
+            Parliament (Part 2): Legislative, Financial & Committee System
+          </h2>
+          <p class="text-sm md:text-base text-dark/90 leading-relaxed font-medium">
+            <strong>💡 Hinglish Mein Samjho:</strong> Is part mein hum Parliament ka asli kaam samjhenge—kaise ek <strong>Bill</strong> law banta hai (<span class="font-bold">Art 107–111</span>), desh ka <strong>Budget (Annual Financial Statement)</strong> aur <strong>Grants/Cut Motions</strong> kaise pass hote hain (<span class="font-bold">Art 112–117</span>), President ka <strong>Ordinance Power</strong> (<span class="font-bold">Art 123</span>), aur kaise <strong>Parliamentary Committees (PAC, Estimates, COPU)</strong> sarkar ke kharche ka hisaab rakhti hain!
+          </p>
+          <!-- Highlight Pills -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-scale-balanced text-gold mr-1"></i> Art 107–123 Covered</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-handshake text-gold mr-1"></i> 3 Joint Sittings (1960, 1977, 2002)</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-vault text-gold mr-1"></i> 3 Funds (Art 266 & 267)</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-users-gear text-gold mr-1"></i> PAC (22), COPU (22), Estimates (30)</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Fast Facts / Summary Graphic Card -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-1">
+            <span class="text-xs text-gold font-bold uppercase">Joint Sitting (Art 108)</span>
+            <div class="text-2xl font-black mt-1 text-gold"><span class="quiz-item">3 Times</span></div>
+            <p class="text-xs text-cream/80 mt-1">Taken from <span class="quiz-item">Australia</span>; passed by <span class="quiz-item">Simple Majority</span>.</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-2">
+            <span class="text-xs text-olive font-bold uppercase">Money Bill Time Limit</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">14 Days</span></div>
+            <p class="text-xs text-dark/80 mt-1">Max time for Rajya Sabha under <span class="quiz-item">Art 109(2)</span>; Speaker certifies.</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-3">
+            <span class="text-xs text-olive font-bold uppercase">Ordinance Max Life</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">6M + 6W</span></div>
+            <p class="text-xs text-dark/80 mt-1">6 months session gap + <span class="quiz-item">6 weeks</span> post reassembly (Art 123).</p>
+          </div>
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-4">
+            <span class="text-xs text-gold font-bold uppercase">Dept. Standing Comm.</span>
+            <div class="text-2xl font-black mt-1 text-gold"><span class="quiz-item">24 Total</span></div>
+            <p class="text-xs text-cream/80 mt-1"><span class="quiz-item">16 LS + 8 RS</span>; each has <span class="quiz-item">31 members</span> (21 LS + 10 RS).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE "TOPICS AT A GLANCE" (QUICK NAVIGATION HUB) -->
+    <section id="topics-hub" class="note-card rounded-2xl p-6 no-print">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h3 class="font-serif text-xl md:text-2xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-compass text-gold bg-dark p-2 rounded-lg text-base"></i>
+          Topics at a Glance (Quick Navigation Hub)
+        </h3>
+        <span class="text-xs font-semibold text-olive">Click any module card to jump directly & highlight</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <button onclick="jumpToTopic('topic-1')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">01</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Legislative Procedures & Bills (Art 107–108)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Origin, Lapsing of Bills, Public vs Private Bills & Joint Sitting</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-2')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">02</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Money Bill & President's Veto (Art 109–111)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Money Bill Definition, 14-Day Rule, Suspensive, Pocket & Absolute Veto</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-3')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">03</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Budget, Cut Motions & Grants (Art 112–116)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Annual Financial Statement, 3 Cut Motions, 5 Grants & 6 Budget Stages</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-4')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">04</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Funds of India & Procedure Rules (Art 117–122, 266–267)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">Consolidated, Public, Contingency Funds, Financial Bills & Language</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-5')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">05</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Ordinances & Special Powers of RS (Art 123, 249, 312)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">President vs Governor Ordinance, Max Life (6m + 6w) & RS Powers</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-6')" class="sub-card p-3.5 text-left hover:bg-gold/20 flex items-start gap-3 group">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs">06</span>
+          <div>
+            <h4 class="font-bold text-sm group-hover:underline">Parliamentary Committees (PAC, COPU, Estimates, DSC)</h4>
+            <p class="text-xs text-dark/70 mt-0.5">22 & 30 Member Committees, Common Features & Speaker/Dy Speaker Rule</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 01: LEGISLATIVE PROCEDURES, BILLS & JOINT SITTING (PAGE 2)      -->
+    <!-- ===================================================================== -->
+    <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 01 • PDF Page 2</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Legislative Procedures: Article 107 & Article 108</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 107 & Types of Bills Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Article 107 Clauses -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-4" data-note-anchor="art-107-card">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 107</span></span>
+              Introduction and Passing of Bills
+            </h4>
+          </div>
+
+          <ul class="space-y-3 text-sm">
+            <li class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-107-1">
+              <strong>107(1):</strong> A Bill can originate in <span class="quiz-item">either House (LS or RS)</span> except the <span class="quiz-item">Money bill</span>.
+            </li>
+            <li class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-107-2">
+              <strong>107(2):</strong> A Bill passes if <span class="quiz-item">both Houses agree</span>, with or without amendments.
+            </li>
+            <li class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-107-3">
+              <strong>107(3):</strong> Bill pending in Parliament <span class="quiz-item">does not lapses</span> due to <span class="quiz-item">adjournment or prorogation</span> of the session.
+            </li>
+            <li class="p-3 rounded-lg bg-dark text-cream border-l-4 border-gold" data-note-anchor="art-107-4">
+              <strong class="text-gold">107(4): Bills lapsing after dissolution:</strong>
+              <ul class="list-disc pl-5 mt-1.5 space-y-1 text-xs md:text-sm">
+                <li data-note-anchor="art-107-4a">A Bill pending in <span class="quiz-item">Lok Sabha</span> and not passed at the time of its dissolution <span class="quiz-item">lapses</span>.</li>
+                <li data-note-anchor="art-107-4b">A Bill pending in the <span class="quiz-item">RS</span>, which has <span class="quiz-item">not been passed by the LS</span> shall <span class="quiz-item">not lapse</span> on the dissolution of the LS.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="trick-box p-3.5 rounded-lg text-xs md:text-sm">
+            <strong>💡 Hinglish Mein Samjho (Lapsing Trick):</strong> Session ke <em>Adjournment</em> ya <em>Prorogation</em> se bill kabhi khatam (lapse) nahi hota! Bill tabhi lapse hota hai jab <strong>Lok Sabha Dissolve</strong> ho aur bill kisi bhi tarah LS mein atka ho (ya LS se pass hoke RS gaya ho). Agar bill <strong>Rajya Sabha mein pending hai aur LS ne abhi chhua tak nahi hai</strong>, toh wo SAFE hai (No Lapse)!
+          </div>
+        </div>
+
+        <!-- Classification of Bills & Public vs Private -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="sub-card p-5" data-note-anchor="types-of-bills">
+            <h4 class="font-bold text-base border-b border-olive/40 pb-2 mb-3">
+              <i class="fa-solid fa-file-contract text-olive mr-1.5"></i> Classification of Bills
+            </h4>
+            <ol class="list-decimal pl-5 space-y-2 text-sm font-semibold">
+              <li data-note-anchor="bill-type-1"><span class="quiz-item">Constitutional Amendment Bill</span></li>
+              <li data-note-anchor="bill-type-2"><span class="quiz-item">Ordinary Bill</span></li>
+              <li data-note-anchor="bill-type-3"><span class="quiz-item">Financial Bill</span> <span class="font-normal text-xs bg-gold/30 px-2 py-0.5 rounded">(Some financial bills are also Money Bill)</span></li>
+            </ol>
+          </div>
+
+          <div class="sub-card p-5" data-note-anchor="ordinary-bill-types">
+            <h4 class="font-bold text-base border-b border-olive/40 pb-2 mb-3">
+              <i class="fa-solid fa-code-compare text-olive mr-1.5"></i> Ordinary Bills are of Two Types
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div class="p-3 rounded-lg bg-gold/20 border border-dark" data-note-anchor="public-member-bill">
+                <span class="gold-badge px-2 py-0.5 rounded text-xs">1. Public Member Bill</span>
+                <p class="mt-2 text-xs md:text-sm font-medium">
+                  • <span class="quiz-item">1 week</span> prior notice should be given.<br/>
+                  <span class="text-xs text-dark/70">(Introduced by a Minister)</span>
+                </p>
+              </div>
+              <div class="p-3 rounded-lg bg-dark text-cream border border-gold" data-note-anchor="private-member-bill">
+                <span class="bg-gold text-dark font-bold px-2 py-0.5 rounded text-xs">2. Private Bill</span>
+                <ul class="mt-2 text-xs space-y-1">
+                  <li>• <span class="quiz-item">1 Month</span> Prior notice should be given</li>
+                  <li>• Brought by a <span class="quiz-item">MP who is not a minister</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="trick-box p-2.5 rounded-lg text-xs mt-3">
+              <strong>🧠 Trick to Remember:</strong> Mantri ji (Public Bill) busy hote hain toh sirf <strong>1 Week notice</strong>; Non-Minister MP (Private Bill) ko poore <strong>1 Month ka notice</strong> dena padta hai!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passage of Ordinary Bill & Article 108 Joint Sitting -->
+      <div class="sub-card p-5 md:p-6 space-y-5" data-note-anchor="art-108-joint-sitting">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive/40 pb-3">
+          <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+            <span class="gold-badge px-3 py-1 rounded text-sm"><span class="quiz-item">Article 108</span></span>
+            Passage of Ordinary Bill & Joint Sitting of Both Houses
+          </h4>
+          <span class="dark-badge px-3 py-1 rounded-full text-xs">Source Country: <span class="quiz-item">Australia</span></span>
+        </div>
+
+        <!-- Flow of Ordinary Bill -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+          <div class="p-3.5 rounded-lg bg-gold/15 border border-olive" data-note-anchor="ord-flow-1">
+            <span class="font-bold text-xs uppercase text-olive">Step 1: Origin</span>
+            <p class="font-semibold mt-1">Can originate in <span class="quiz-item">either house</span> (LS or RS).</p>
+          </div>
+          <div class="p-3.5 rounded-lg bg-gold/15 border border-olive" data-note-anchor="ord-flow-2">
+            <span class="font-bold text-xs uppercase text-olive">Step 2: Agreement</span>
+            <p class="font-semibold mt-1">If both the houses pass the bill, it goes to <span class="quiz-item">President for his Assent</span>.</p>
+          </div>
+          <div class="p-3.5 rounded-lg bg-dark text-cream border border-gold" data-note-anchor="ord-flow-3">
+            <span class="font-bold text-xs uppercase text-gold">Step 3: Deadlock</span>
+            <p class="font-semibold mt-1">When Deadlock created, <span class="quiz-item">President calls Joint Sitting</span> → Bill passed by <span class="quiz-item">Simple Majority</span>.</p>
+          </div>
+        </div>
+
+        <!-- 3 Columns: Deadlock Conditions, Presiding Hierarchy, Rules & Exceptions -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm">
+          <!-- Column 1: 3 Conditions of Deadlock -->
+          <div class="p-4 rounded-xl border-2 border-dark bg-cream" data-note-anchor="deadlock-3-cases">
+            <h5 class="font-bold text-base mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-triangle-exclamation text-olive"></i> Deadlock in 3 Cases:
+            </h5>
+            <ol class="list-decimal pl-5 space-y-2 text-xs md:text-sm">
+              <li data-note-anchor="deadlock-case-1">The bill is <span class="quiz-item">rejected by the other house</span>; or</li>
+              <li data-note-anchor="deadlock-case-2">The houses have <span class="quiz-item">finally disagreed as to the amendments</span> to be made in the bill; or</li>
+              <li data-note-anchor="deadlock-case-3">More than <span class="quiz-item">six months</span> elapse from the date of the reception of the bill by the other house without the bill being passed by it.</li>
+            </ol>
+            <p class="mt-3 text-xs font-semibold bg-gold/25 p-2 rounded">
+              • <strong>108(1):</strong> In case of a deadlock (disagreement between both Houses), the <span class="quiz-item">President may summon</span> a Joint Sitting.
+            </p>
+          </div>
+
+          <!-- Column 2: 108(2) Presiding Officer Hierarchy -->
+          <div class="p-4 rounded-xl border-2 border-dark bg-cream" data-note-anchor="joint-sitting-presiding">
+            <h5 class="font-bold text-base mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-gavel text-olive"></i> 108(2): Who Presides?
+            </h5>
+            <div class="space-y-2 text-xs md:text-sm">
+              <div class="p-2 rounded bg-gold/30 font-bold border border-dark">
+                1st Choice: <span class="quiz-item">Speaker of Lok Sabha</span> presides over the Joint Sitting.
+              </div>
+              <div class="p-2 rounded bg-gold/15 font-semibold border border-olive">
+                2nd Choice (In his absence): <span class="quiz-item">Deputy Speaker of Lok Sabha</span> presides.
+              </div>
+              <div class="p-2 rounded bg-gold/15 font-semibold border border-olive">
+                3rd Choice (In absence of both): <span class="quiz-item">Deputy Chairman of Rajya Sabha</span>.
+              </div>
+              <div class="p-2.5 rounded bg-dark text-cream text-xs border-l-4 border-gold">
+                ⚠️ <strong>Crucial Exam Trap:</strong> <span class="quiz-item">Chairman of Rajya Sabha (Vice-President)</span> <strong>CANNOT preside</strong> over the Joint sitting as <span class="quiz-item">he is not the member of either house</span>.
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Rules, Exceptions & 3 Historical Joint Sittings -->
+          <div class="p-4 rounded-xl border-2 border-dark bg-cream space-y-3" data-note-anchor="joint-sitting-history">
+            <div>
+              <h5 class="font-bold text-base mb-1.5 flex items-center gap-1.5">
+                <i class="fa-solid fa-book-open text-olive"></i> Majority, Rules & Exceptions
+              </h5>
+              <ul class="list-disc pl-5 text-xs md:text-sm space-y-1">
+                <li><strong>Majority Needed:</strong> <span class="quiz-item">Simple majority</span> (majority of members present and voting).</li>
+                <li><strong>Rules Followed:</strong> Joint Sitting follows the <span class="quiz-item">Rules of Lok Sabha</span>.</li>
+                <li><strong>Exceptions (NO Joint Sitting allowed):</strong> <span class="quiz-item">Money Bill</span> and <span class="quiz-item">Constitutional Amendment Bill</span>.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-dark text-cream">
+              <span class="text-xs font-bold text-gold uppercase block mb-1">Joint Sittings Have Happened 3 Times:</span>
+              <ol class="list-decimal pl-4 text-xs space-y-1 font-semibold">
+                <li data-note-anchor="js-1960"><span class="quiz-item">Dowry Prohibition Bill, 1960</span></li>
+                <li data-note-anchor="js-1977"><span class="quiz-item">Banking Services Commission Bill, 1977</span></li>
+                <li data-note-anchor="js-2002"><span class="quiz-item">Prevention of Terrorism Bill (POTA), 2002</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick-box p-3.5 rounded-lg text-xs md:text-sm">
+          <strong>🧠 Trick to Remember 3 Joint Sittings (DBP - 60, 77, 02):</strong> <strong>D</strong>owry (<span class="font-bold">1960</span>), <strong>B</strong>anking (<span class="font-bold">1977</span>), <strong>P</strong>OTA/Terrorism (<span class="font-bold">2002</span>). Yaad rakho: Summon karta hai <strong>President</strong>, Rules lagte hain <strong>Lok Sabha</strong> ke, aur Preside karta hai <strong>Speaker</strong>!
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 02: MONEY BILLS & PRESIDENT'S VETO POWERS (PAGE 3)              -->
+    <!-- ===================================================================== -->
+    <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 02 • PDF Page 3</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Money Bills (Art 109–110) & Assent / Veto Powers (Art 111)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Article 109 & Article 110 Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Article 109 + Facts about Money Bill -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="sub-card p-5 space-y-3" data-note-anchor="art-109-card">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 109</span></span>
+              Special Procedure for Money Bills
+            </h4>
+            <ul class="space-y-2.5 text-xs md:text-sm">
+              <li class="p-2.5 rounded bg-gold/15 border border-olive/40" data-note-anchor="art-109-1">
+                <strong>109(1):</strong> A Money Bill can <span class="quiz-item">only be introduced in Lok Sabha</span>, on the <span class="quiz-item">recommendation of the President</span>.
+              </li>
+              <li class="p-2.5 rounded bg-gold/15 border border-olive/40" data-note-anchor="art-109-2">
+                <strong>109(2):</strong> After a bill is passed to RS, it can: <span class="quiz-item">approve, suggest amendments or take no action</span> on the bill, but it must give its response within <span class="quiz-item">14 days</span>.
+              </li>
+              <li class="p-2.5 rounded bg-gold/15 border border-olive/40" data-note-anchor="art-109-3">
+                <strong>109(3):</strong> <span class="quiz-item">Lok Sabha may accept or reject</span> Rajya Sabha's suggestions. If RS does not pass the bill within <span class="quiz-item">14 days</span>, it shall be <span class="quiz-item">deemed passed by both houses</span>.
+              </li>
+            </ul>
+          </div>
+
+          <div class="sub-card p-5 bg-dark text-cream border-2 border-gold space-y-2.5" data-note-anchor="money-bill-facts">
+            <h4 class="font-bold text-base text-gold flex items-center gap-2">
+              <i class="fa-solid fa-circle-check"></i> Some Facts About Money Bill
+            </h4>
+            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5">
+              <li data-note-anchor="mb-fact-1">The <span class="quiz-item">Speaker of Lok Sabha</span> certifies whether a Bill is a Money Bill.</li>
+              <li data-note-anchor="mb-fact-2">A Bill is <strong>NOT considered as a money bill</strong> if it provides: For the <span class="quiz-item">imposition of fine</span> OR <span class="quiz-item">imposition or abolition of any tax by local Authority</span>.</li>
+              <li data-note-anchor="mb-fact-3">The Speaker's decision is <span class="quiz-item">final</span>, and normally cannot be challenged in any court. However, <span class="quiz-item">Judicial review is allowed</span>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Article 110 Definition of Money Bill (7 Provisions) -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-4" data-note-anchor="art-110-card">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 110</span></span>
+              Definition of Money Bill (7 Provisions)
+            </h4>
+            <span class="text-xs font-semibold text-olive">A Bill is a Money Bill if it contains ONLY provisions related to:</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs md:text-sm">
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p1">
+              <strong>1. Tax Changes:</strong> <span class="quiz-item">Imposition, abolition, remission, alteration, regulation</span> of any tax.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p2">
+              <strong>2. Borrowings:</strong> Regulation of <span class="quiz-item">borrowings</span> (by Govt of India).
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p3">
+              <strong>3. Custody & Audit:</strong> Custody and audit of <span class="quiz-item">Consolidated Fund or Contingency Fund</span>.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p4">
+              <strong>4. Appropriation:</strong> <span class="quiz-item">Appropriation of money</span> out of Consolidated Fund.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p5">
+              <strong>5. Charged Expenditure:</strong> Declaring any expenditure as <span class="quiz-item">charged on Consolidated Fund</span>.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="art-110-p6">
+              <strong>6. Receipt/Issue of Money:</strong> Receipt of money into <span class="quiz-item">Consolidated Fund of India or Public Account of India</span>, or custody/issue of such money.
+            </div>
+            <div class="sm:col-span-2 p-3 rounded-lg bg-gold/25 border border-dark font-semibold" data-note-anchor="art-110-p7">
+              <strong>7. Incidental Matters:</strong> Any matter <span class="quiz-item">incidental to any of the above matters</span>.
+            </div>
+          </div>
+
+          <div class="trick-box p-3.5 rounded-lg text-xs md:text-sm">
+            <strong>💡 Hinglish Mein Samjho (Art 109 vs 110):</strong> <strong>Art 109</strong> mein Money Bill ka <em>Procedure</em> hai (Sirf LS mein aayega, RS ke paas sirf 14 din), aur <strong>Art 110</strong> mein Money Bill ki <em>Definition</em> hai! Dhyan rahe: Traffic chalan/Fine ya Municipal/Local body tax Money Bill NAHI hota!
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 111: Assent to Bills & Veto Powers of President -->
+      <div class="sub-card p-5 md:p-6 space-y-5" data-note-anchor="art-111-veto">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive/40 pb-3">
+          <div>
+            <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+              <span class="gold-badge px-3 py-1 rounded text-sm"><span class="quiz-item">Article 111</span></span>
+              Assent to Bills & Veto Powers of the President
+            </h4>
+            <p class="text-xs md:text-sm text-dark/80 mt-1">
+              After a bill is passed by both the Houses, the bill is then presented to the President. President may: <strong>(a) Give assent</strong> (Bill becomes a law) or <strong>(b) Use its Veto power</strong>.
+            </p>
+          </div>
+          <span class="dark-badge px-3 py-1.5 rounded-lg text-xs">Nature of Veto Power: <span class="quiz-item">Negative in Nature</span></span>
+        </div>
+
+        <!-- 3 Veto Powers Comparison Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <!-- 1. Suspensive Veto -->
+          <div class="p-4 rounded-xl border-2 border-dark bg-cream space-y-2" data-note-anchor="veto-suspensive">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs">1. <span class="quiz-item">Suspensive Veto</span></span>
+            <ul class="list-disc pl-4 text-xs md:text-sm space-y-1.5 pt-1">
+              <li>President <span class="quiz-item">returns the Bill for reconsideration</span>. If Parliament passes it again, <span class="quiz-item">assent is mandatory</span>.</li>
+              <li class="font-semibold text-olive"><strong>Exception:</strong> <span class="quiz-item">Not available in case of Money bill</span> because it is already brought into the Parliament after the prior recommendation of the President.</li>
+            </ul>
+          </div>
+
+          <!-- 2. Pocket Veto -->
+          <div class="p-4 rounded-xl border-2 border-gold bg-dark text-cream space-y-2" data-note-anchor="veto-pocket">
+            <span class="bg-gold text-dark font-bold px-2.5 py-1 rounded text-xs">2. <span class="quiz-item">Pocket Veto</span></span>
+            <ul class="list-disc pl-4 text-xs md:text-sm space-y-1.5 pt-1">
+              <li><span class="quiz-item">No action taken</span> by President. (<span class="quiz-item">No time limit</span> to act.)</li>
+              <li>First used by <span class="quiz-item">Gyani Zail Singh</span> for <span class="quiz-item">Indian Post Office (Amendment) Bill 1986</span>.</li>
+            </ul>
+          </div>
+
+          <!-- 3. Absolute Veto -->
+          <div class="p-4 rounded-xl border-2 border-dark bg-cream space-y-2" data-note-anchor="veto-absolute">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs">3. <span class="quiz-item">Absolute Veto</span></span>
+            <ul class="list-disc pl-4 text-xs md:text-sm space-y-1.5 pt-1">
+              <li>President <span class="quiz-item">rejects the Bill completely</span>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- "Do You Know?" High-Yield Box from Page 3 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+          <div class="p-4 rounded-xl bg-gold/25 border-2 border-dark flex items-start gap-3" data-note-anchor="dyk-24ca">
+            <i class="fa-solid fa-bolt text-xl text-dark mt-0.5"></i>
+            <div class="text-xs md:text-sm">
+              <strong class="uppercase text-xs block text-olive">Do You Know? (Constitutional Bill Rule)</strong>
+              <span class="quiz-item">No Veto can be used</span> in case of a <strong>Constitutional Amendment Bill</strong>: Made mandatory by <span class="quiz-item">24th Constitutional Amendment (Article 368)</span>.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-gold/25 border-2 border-dark flex items-start gap-3" data-note-anchor="dyk-pocket">
+            <i class="fa-solid fa-globe text-xl text-dark mt-0.5"></i>
+            <div class="text-xs md:text-sm">
+              <strong class="uppercase text-xs block text-olive">Do You Know? (India vs USA Pocket Veto)</strong>
+              <strong>Pocket of Indian President is deeper than the USA's president</strong> because <span class="quiz-item">no time limit is mentioned in constitution</span> for Indian president to act on the bill (USA President has 10 days).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 03: BUDGET, CUT MOTIONS & GRANTS (PAGE 4)                       -->
+    <!-- ===================================================================== -->
+    <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 03 • PDF Page 4</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Annual Financial Statement (Budget), Cut Motions & Grants (Art 112–116)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Art 112, 113, 114 Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 text-sm">
+        <!-- Article 112 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-112-card">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 112</span></span>
+          <h4 class="font-bold text-base">Annual Financial Statement (Budget)</h4>
+          <ul class="list-disc pl-5 space-y-1.5 text-xs md:text-sm">
+            <li><span class="quiz-item">President</span> shall cause to be laid before <span class="quiz-item">both the Houses</span>, a statement of <span class="quiz-item">estimated receipts and expenditures</span>.</li>
+            <li class="font-bold text-olive">The term <span class="quiz-item">'Budget' is NOT mentioned</span> in the Constitution.</li>
+          </ul>
+        </div>
+
+        <!-- Article 113 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-113-card">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 113</span></span>
+          <h4 class="font-bold text-base">Procedure in Parliament with Respect to Estimates</h4>
+          <p class="text-xs">No expenditure from Consolidated Fund of India be done except with the <span class="quiz-item">authorization by Parliament</span>.</p>
+          <div class="space-y-1.5 text-xs">
+            <div class="p-2 rounded bg-gold/15 border border-olive/40">
+              <strong>1. Charged on Consolidated Fund of India:</strong> <span class="quiz-item">Not votable</span> (due to salaries of President, SC judges, etc.).
+            </div>
+            <div class="p-2 rounded bg-gold/15 border border-olive/40">
+              <strong>2. Made from Consolidated Fund of India:</strong> <span class="quiz-item">Subject to vote in Lok Sabha</span> through Demands for Grants.
+            </div>
+          </div>
+          <p class="text-xs font-semibold text-olive">
+            • <span class="quiz-item">Only Lok Sabha</span> has the right to vote on Demands for Grants. <span class="quiz-item">RS can only discuss it</span>.<br/>
+            • Demands for Grants are presented on behalf of the <span class="quiz-item">President</span>.
+          </p>
+        </div>
+
+        <!-- Article 114 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-114-card">
+          <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 114</span></span>
+          <h4 class="font-bold text-base">Appropriation Bill</h4>
+          <ul class="list-disc pl-5 space-y-1.5 text-xs md:text-sm">
+            <li>The <span class="quiz-item">Appropriation Bill</span> is introduced to authorize the <span class="quiz-item">withdrawal of money from the Consolidated Fund of India</span>.</li>
+            <li><span class="quiz-item">No amendments or voting</span> on the Appropriation Bill amounts; it is passed as a formality after Demands for Grants are voted.</li>
+            <li><span class="quiz-item">Cut motions</span> are moved during the voting on <span class="quiz-item">Demands for Grants</span>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 Types of Cut Motions -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="cut-motions-card">
+        <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-scissors text-gold bg-dark p-2 rounded-lg text-sm"></i>
+          3 Types of Cut Motions (Moved during Voting on Demands for Grants)
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="p-4 rounded-xl bg-dark text-cream border-2 border-gold" data-note-anchor="cut-policy">
+            <span class="text-xs uppercase font-bold text-gold">1. Policy Cut</span>
+            <div class="text-xl font-black mt-1">Reduce to <span class="quiz-item">Rs. 1</span></div>
+            <p class="text-xs text-cream/90 mt-1">Moved to <span class="quiz-item">criticize government policy</span> (disapproval of policy underlying the demand).</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-cream border-2 border-dark" data-note-anchor="cut-economy">
+            <span class="text-xs uppercase font-bold text-olive">2. Economy Cut</span>
+            <div class="text-xl font-black mt-1">Reduce by <span class="quiz-item">Specified Amount</span></div>
+            <p class="text-xs text-dark/90 mt-1">Moved to <span class="quiz-item">suggest savings</span> in the proposed expenditure.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-dark text-cream border-2 border-gold" data-note-anchor="cut-token">
+            <span class="text-xs uppercase font-bold text-gold">3. Token Cut</span>
+            <div class="text-xl font-black mt-1">Reduce by <span class="quiz-item">Rs. 100</span></div>
+            <p class="text-xs text-cream/90 mt-1">Moved to <span class="quiz-item">raise a specific grievance</span> within the sphere of responsibility of Govt.</p>
+          </div>
+        </div>
+        <div class="trick-box p-3 rounded-lg text-xs">
+          <strong>🧠 Trick to Remember (PET — 1, Spec, 100):</strong> <strong>P</strong>olicy pasand nahi aayi toh keh do "Sirf <strong>Rs. 1</strong> denge!"; <strong>E</strong>conomy (Bachat) karni hai toh <strong>Specified Amount</strong> kam karo; <strong>T</strong>oken shikayat (grievance) darj karani hai toh <strong>Rs. 100</strong> ka shagun kaat lo!
+        </div>
+      </div>
+
+      <!-- Article 115, Article 116 & 6 Stages of Budget -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Art 115 & Art 116 Grants -->
+        <div class="lg:col-span-7 sub-card p-5 space-y-4" data-note-anchor="art-115-116-grants">
+          <h4 class="font-bold text-lg flex items-center gap-2">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 115 & 116</span></span>
+            All Types of Parliamentary Grants
+          </h4>
+
+          <div class="space-y-2.5 text-xs md:text-sm">
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="grant-supplementary">
+              <strong>1. Supplementary Grant (Art 115):</strong> Granted when the <span class="quiz-item">amount authorised by Parliament is found insufficient</span> for the current financial year.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="grant-additional">
+              <strong>2. Additional Grant (Art 115):</strong> Granted for <span class="quiz-item">additional expenditure upon some new service</span> not contemplated in the budget of that year.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="grant-excess">
+              <strong>3. Excess Grant (Art 115):</strong> Granted when <span class="quiz-item">money has been spent on any service in excess</span> of the amount granted to that service in the budget.
+            </div>
+            <div class="p-3 rounded-lg bg-dark text-cream border-l-4 border-gold" data-note-anchor="grant-vote-of-credit">
+              <strong class="text-gold">4. Votes of Credit (Art 116):</strong>
+              <ul class="list-disc pl-4 mt-1 space-y-0.5">
+                <li>Financial grant given to the Executive from India's resources to <span class="quiz-item">meet urgent financial needs</span>.</li>
+                <li>Details cannot be shared ordinarily in a budget.</li>
+                <li>It acts like a <span class="quiz-item">blank cheque given to the Executive by the Lok Sabha (LS)</span>.</li>
+              </ul>
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="grant-exceptional">
+              <strong>5. Exceptional Grants (Art 116):</strong> Special provisions made by Parliament, used to <span class="quiz-item">meet specific expenses not covered under the regular budgetary allocation</span> (Also Art 116 includes <em>Vote on Account</em>).
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Stages in Enactment of Budget -->
+        <div class="lg:col-span-5 sub-card p-5 flex flex-col justify-between" data-note-anchor="budget-6-stages">
+          <div>
+            <h4 class="font-bold text-lg border-b border-olive/40 pb-2 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-ol text-olive"></i> 6 Stages in Enactment of Budget
+            </h4>
+            <ol class="space-y-2.5 text-xs md:text-sm font-semibold">
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-1">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                <span class="quiz-item">Presentation</span> (of Budget)
+              </li>
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-2">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                <span class="quiz-item">Discussion</span> (General Discussion)
+              </li>
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-3">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                <span class="quiz-item">Scrutiny by departmental committees</span>
+              </li>
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-4">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
+                <span class="quiz-item">Voting on demands for grants</span>
+              </li>
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-5">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">5</span>
+                <span class="quiz-item">Passing of Appropriation bill</span>
+              </li>
+              <li class="p-2.5 rounded bg-gold/20 border border-dark flex items-center gap-3" data-note-anchor="b-stage-6">
+                <span class="dark-badge w-6 h-6 rounded-full flex items-center justify-center text-xs">6</span>
+                <span class="quiz-item">Passing of Finance bill</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="trick-box p-3 rounded-lg text-xs mt-4">
+            <strong>💡 Exam Sequence Tip:</strong> Hamesha yaad rakho pehle <strong>Appropriation Bill (Stage 5)</strong> pass hota hai (kharcha nikalne ke liye), aur sabse aakhir mein <strong>Finance Bill (Stage 6)</strong> pass hota hai (tax collection ke liye)!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 04: FUNDS OF INDIA & PARLIAMENTARY RULES (PAGE 5)               -->
+    <!-- ===================================================================== -->
+    <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 04 • PDF Page 5</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Different Types of Funds (Art 266–267) & Procedure Articles (Art 117–122)</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- 3 Types of Funds Comparison Table -->
+      <div class="sub-card p-5 space-y-3" data-note-anchor="three-funds-card">
+        <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-piggy-bank text-gold bg-dark p-2 rounded-lg text-sm"></i>
+          3 Different Types of Funds under Indian Constitution
+        </h4>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-dark text-cream">
+                <th class="p-3 border border-olive">Fund Name</th>
+                <th class="p-3 border border-olive">Article</th>
+                <th class="p-3 border border-olive">Consists Of / Nature</th>
+                <th class="p-3 border border-olive">Control / Managed By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-cream hover:bg-gold/15" data-note-anchor="fund-consolidated">
+                <td class="p-3 border border-olive font-bold">1. Consolidated Fund of India</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">Article 266 (1)</span></td>
+                <td class="p-3 border border-olive">Consists of: <span class="quiz-item">Tax & Revenue</span></td>
+                <td class="p-3 border border-olive">Parliamentary Authorization required (Art 113/114)</td>
+              </tr>
+              <tr class="bg-gold/10 hover:bg-gold/20" data-note-anchor="fund-public-account">
+                <td class="p-3 border border-olive font-bold">2. Public Account of India</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">Article 266 (2)</span></td>
+                <td class="p-3 border border-olive">Consists of: <span class="quiz-item">Remittance (public fund deposits) and Judicial deposits</span></td>
+                <td class="p-3 border border-olive">Managed by: <span class="quiz-item">Executive</span> (<span class="quiz-item">not under Parliament's direct control</span>)</td>
+              </tr>
+              <tr class="bg-cream hover:bg-gold/15" data-note-anchor="fund-contingency">
+                <td class="p-3 border border-olive font-bold">3. Contingency Fund of India</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">Article 267</span></td>
+                <td class="p-3 border border-olive">Unforeseen / Emergency expenditure</td>
+                <td class="p-3 border border-olive">In hands of <span class="quiz-item">President</span>, but run by <span class="quiz-item">President and Finance Secretary</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Articles 117 to 122 Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Article 117 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-117-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 117</span></span>
+          <h5 class="font-bold text-base">Special Provisions for Financial Bills</h5>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li class="font-bold text-olive"><span class="quiz-item">All Money Bills are Financial Bills, but vice versa is not true.</span></li>
+            <li>Procedure of financial bill is <span class="quiz-item">same as ordinary bill</span>, except that financial bill (<span class="quiz-item">Category A</span>) can be introduced <span class="quiz-item">only in Lok Sabha</span> and with <span class="quiz-item">prior recommendation of President</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Article 118 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-118-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 118</span></span>
+          <h5 class="font-bold text-base">Rules of Procedure</h5>
+          <p class="text-xs md:text-sm">Each House of Parliament may <span class="quiz-item">make rules for regulating its procedure and conduct of business</span>.</p>
+        </div>
+
+        <!-- Article 119 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-119-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 119</span></span>
+          <h5 class="font-bold text-base">Regulation of Procedure for Financial Business</h5>
+          <p class="text-xs md:text-sm">Parliament can <span class="quiz-item">regulate laws related to financial procedures</span>.</p>
+        </div>
+
+        <!-- Article 120 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-120-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 120</span></span>
+          <h5 class="font-bold text-base">Language to be Used in Parliament</h5>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li>Business of Parliament shall be transacted in <span class="quiz-item">Hindi or in English</span>.</li>
+            <li>Unless Parliament by law provides, Use of <span class="quiz-item">'English' to be removed after 15 years</span>.</li>
+            <li><span class="quiz-item">Presiding officer</span> may allow any member to express themselves in their <span class="quiz-item">mother tongue</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Article 121 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-121-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 121</span></span>
+          <h5 class="font-bold text-base">Restriction on Discussion in Parliament</h5>
+          <p class="text-xs md:text-sm">No discussions shall take place in Parliament with respect to the <span class="quiz-item">conduct of any judge of the Supreme Court or of a High Court</span> (except upon a motion for removal).</p>
+        </div>
+
+        <!-- Article 122 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-122-card">
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs"><span class="quiz-item">Article 122</span></span>
+          <h5 class="font-bold text-base">Court not to Inquire into Proceedings of Parliament</h5>
+          <ul class="list-disc pl-4 text-xs md:text-sm space-y-1">
+            <li><span class="quiz-item">No court shall inquire</span> into Parliament proceedings.</li>
+            <li>Conduct of MPs or officers <span class="quiz-item">not subject to court jurisdiction</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 05: ORDINANCES & SPECIAL POWERS OF RAJYA SABHA (PAGES 5 & 6)    -->
+    <!-- ===================================================================== -->
+    <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 05 • PDF Pages 5 & 6</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Ordinance Making Power (Art 123) & Special Powers of Rajya Sabha</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Article 123 Ordinance Details -->
+        <div class="lg:col-span-8 sub-card p-5 space-y-4" data-note-anchor="art-123-ordinance">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="font-bold text-lg flex items-center gap-2">
+              <span class="dark-badge px-2.5 py-1 rounded text-xs"><span class="quiz-item">Article 123</span></span>
+              Power of President to Promulgate Ordinances during Recess
+            </h4>
+            <span class="gold-badge px-2.5 py-1 rounded text-xs">Governor (State): <span class="quiz-item">Article 213</span></span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm">
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="ord-cond-1">
+              <strong>When Issued:</strong> President can issue ordinances when <span class="quiz-item">both Houses are OR even one House is not in session</span>.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="ord-cond-2">
+              <strong>Force of Law:</strong> Ordinance has the <span class="quiz-item">same force as an Act of Parliament</span>.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="ord-cond-3">
+              <strong>Reassembly Rule (a):</strong> Must be laid before both Houses; shall cease to operate after <span class="quiz-item">6 weeks from reassembly</span> unless approved.
+            </div>
+            <div class="p-3 rounded-lg bg-gold/15 border border-olive/40" data-note-anchor="ord-cond-4">
+              <strong>Withdrawal & Competence (b):</strong> Can be <span class="quiz-item">withdrawn anytime by the President</span>. Should not contain provisions beyond Parliament's legislative competence (i.e. on the subjects of <span class="quiz-item">Union List</span>).
+            </div>
+          </div>
+
+          <!-- Max Life of an Ordinance Box -->
+          <div class="p-4 rounded-xl bg-dark text-cream border-2 border-gold space-y-2" data-note-anchor="ordinance-max-life">
+            <h5 class="font-bold text-gold text-sm uppercase">⏳ Max Life of an Ordinance (Page 6):</h5>
+            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1">
+              <li><strong>If Approved:</strong> Continues as law.</li>
+              <li><strong>If Disapproved:</strong> Ordinance lapses.</li>
+              <li><strong>In case Parliament takes no action:</strong> Max life is <span class="quiz-item">6 months and 6 weeks</span> — that is, Max gap between sessions is <span class="quiz-item">6 months</span>, and when no action is taken <span class="quiz-item">6 weeks post reassembly</span>, the Ordinance lapses.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Special Powers of Rajya Sabha -->
+        <div class="lg:col-span-4 sub-card p-5 flex flex-col justify-between space-y-4" data-note-anchor="rs-special-powers">
+          <div class="space-y-3">
+            <h4 class="font-serif text-xl font-bold border-b border-olive/40 pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-crown text-gold bg-dark p-2 rounded-lg text-xs"></i>
+              Special Powers of Rajya Sabha
+            </h4>
+
+            <div class="p-4 rounded-xl bg-gold/20 border-2 border-dark space-y-1" data-note-anchor="rs-power-312">
+              <span class="dark-badge px-2 py-0.5 rounded text-xs">1. <span class="quiz-item">Article 312</span></span>
+              <p class="font-bold text-sm pt-1">Can authorise Parliament to create a new <span class="quiz-item">All India Service</span> (IAS, IPS, IFoS).</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-gold/20 border-2 border-dark space-y-1" data-note-anchor="rs-power-249">
+              <span class="dark-badge px-2 py-0.5 rounded text-xs">2. <span class="quiz-item">Article 249</span></span>
+              <p class="font-bold text-sm pt-1">Can authorise the Parliament to make a law on a <span class="quiz-item">Subject of State List</span>.</p>
+            </div>
+          </div>
+
+          <div class="trick-box p-3 rounded-lg text-xs">
+            <strong>🧠 Trick to Remember:</strong> President ka Ordinance = <strong>1-2-3 (Art 123)</strong>; Governor ka Ordinance = 1 aur 2 ko ulta kar do = <strong>2-1-3 (Art 213)</strong>!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TOPIC 06: PARLIAMENTARY COMMITTEES (PAGES 6 & 7)                      -->
+    <!-- ===================================================================== -->
+    <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="gold-badge px-3 py-1 rounded-lg text-sm">Topic 06 • PDF Pages 6 & 7</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold">Parliamentary Committees: Financial & Departmental Standing Committees</h3>
+        </div>
+        <button onclick="jumpToTopic('topics-hub')" class="text-xs font-bold px-3 py-1.5 rounded-lg border border-dark hover:bg-dark hover:text-cream transition no-print">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Intro & Classification of Parliamentary Committees -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-7 sub-card p-5 space-y-2.5 text-xs md:text-sm" data-note-anchor="comm-intro">
+          <h4 class="font-bold text-base flex items-center gap-2">
+            <i class="fa-solid fa-sitemap text-olive"></i> Constitutional Status & Appointment
+          </h4>
+          <ul class="list-disc pl-5 space-y-1.5">
+            <li>Constitution mentions these committees at different places <span class="quiz-item">without any specific provision</span> regarding their tenure, functions, etc.</li>
+            <li>All these matters are dealt by <span class="quiz-item">rules of two houses</span>.</li>
+            <li>A Parliamentary committee is <span class="quiz-item">appointed by Speaker/Chairman</span> and works on his directions.</li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-5 sub-card p-5 space-y-2.5 text-xs md:text-sm" data-note-anchor="comm-classification">
+          <h4 class="font-bold text-base flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-olive"></i> Classification of Parliamentary Committees
+          </h4>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 rounded-lg bg-gold/20 border border-dark">
+              <strong class="block text-xs uppercase text-olive">Permanent Committee</strong>
+              <ol class="list-decimal pl-4 mt-1 font-semibold space-y-0.5">
+                <li>Standing Committee</li>
+                <li>Financial Committees (PAC, COPU, Estimates)</li>
+              </ol>
+            </div>
+            <div class="p-3 rounded-lg bg-dark text-cream border border-gold">
+              <strong class="block text-xs uppercase text-gold">Temporary Committee</strong>
+              <ol class="list-decimal pl-4 mt-1 font-semibold space-y-0.5">
+                <li><span class="quiz-item">Ad Hoc Committee</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Financial Committees Master Comparison Table -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="fin-comm-table">
+        <h4 class="font-serif text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-magnifying-glass-dollar text-gold bg-dark p-2 rounded-lg text-sm"></i>
+          The 3 Financial Committees of Parliament (100% Exam Favorite)
+        </h4>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-dark text-cream">
+                <th class="p-3 border border-olive">Feature</th>
+                <th class="p-3 border border-olive">1. Public Accounts Committee (PAC)</th>
+                <th class="p-3 border border-olive">2. Committee on Public Undertakings (COPU)</th>
+                <th class="p-3 border border-olive">3. Estimates Committee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-cream" data-note-anchor="fc-row-est">
+                <td class="p-3 border border-olive font-bold">Established In</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">1921</span> through <span class="quiz-item">GOI Act 1919</span></td>
+                <td class="p-3 border border-olive"><span class="quiz-item">1964</span> on recommendation of <span class="quiz-item">Krishna Menon Committee</span></td>
+                <td class="p-3 border border-olive">Established in <span class="quiz-item">1921</span>.<br/>Re-established post-Independence in <span class="quiz-item">1950</span> on recommendation of <span class="quiz-item">John Mathai Committee</span></td>
+              </tr>
+              <tr class="bg-gold/10" data-note-anchor="fc-row-members">
+                <td class="p-3 border border-olive font-bold">Total Members</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">22 members</span> (<span class="quiz-item">15 from LS + 7 from RS</span>)</td>
+                <td class="p-3 border border-olive"><span class="quiz-item">22 Members</span> (<span class="quiz-item">15 from LS + 7 from RS</span>)<br/><span class="text-xs">(Increased from <span class="quiz-item">15 to 22 in 1974</span>)</span></td>
+                <td class="p-3 border border-olive"><span class="quiz-item">30 members</span> (<span class="quiz-item">All from LS</span>)<br/><span class="text-xs">(Increased from <span class="quiz-item">25 to 30 in 1956</span>)</span></td>
+              </tr>
+              <tr class="bg-cream" data-note-anchor="fc-row-special">
+                <td class="p-3 border border-olive font-bold">Special Note / Guide</td>
+                <td class="p-3 border border-olive"><strong>Guide and Philosopher:</strong> <span class="quiz-item">CAG</span> (submits reports which are analysed by PAC)</td>
+                <td class="p-3 border border-olive">Chairman is from <span class="quiz-item">Lok Sabha</span></td>
+                <td class="p-3 border border-olive">Largest committee; <strong>Zero representation from Rajya Sabha</strong></td>
+              </tr>
+              <tr class="bg-gold/10" data-note-anchor="fc-row-func">
+                <td class="p-3 border border-olive font-bold">Main Function</td>
+                <td class="p-3 border border-olive">To <span class="quiz-item">examine the audit reports of CAG</span></td>
+                <td class="p-3 border border-olive">To <span class="quiz-item">examine reports and accounts of Public Undertakings</span></td>
+                <td class="p-3 border border-olive">To <span class="quiz-item">examine estimates included in budget</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Similar Features, Departmental Standing Committees & Speaker/Deputy Speaker Note (Page 7) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 text-sm">
+        <!-- Similar Features of All Financial Committees -->
+        <div class="sub-card p-5 space-y-2.5" data-note-anchor="fin-comm-common">
+          <h5 class="font-bold text-base border-b border-olive/40 pb-2 flex items-center gap-2">
+            <i class="fa-solid fa-check-double text-olive"></i> Similar Features of All Financial Committees
+          </h5>
+          <ul class="list-disc pl-5 space-y-1.5 text-xs md:text-sm">
+            <li data-note-anchor="fcc-1"><strong>Election Method:</strong> <span class="quiz-item">Proportional representation + STV (Single transferable vote)</span></li>
+            <li data-note-anchor="fcc-2">Appointed/elected by the House or nominated by <span class="quiz-item">Speaker/Chairman</span>.</li>
+            <li data-note-anchor="fcc-3"><strong>Term of members:</strong> <span class="quiz-item">1 year</span></li>
+            <li data-note-anchor="fcc-4"><strong>Minister Restriction:</strong> <span class="quiz-item">No Minister can be a member</span>. (Only private member)</li>
+          </ul>
+        </div>
+
+        <!-- Departmental Standing Committees -->
+        <div class="sub-card p-5 space-y-2.5" data-note-anchor="dept-standing-comm">
+          <h5 class="font-bold text-base border-b border-olive/40 pb-2 flex items-center gap-2">
+            <i class="fa-solid fa-building-columns text-olive"></i> Departmental Standing Committees
+          </h5>
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <div class="p-3 rounded-lg bg-dark text-cream text-center">
+              <span class="text-xs text-gold font-bold block">Total Committees</span>
+              <span class="text-2xl font-black"><span class="quiz-item">24</span></span>
+              <span class="text-[11px] block text-cream/80 mt-0.5">(<span class="quiz-item">16 from LS + 8 from RS</span>)</span>
+            </div>
+            <div class="p-3 rounded-lg bg-gold/25 border border-dark text-center">
+              <span class="text-xs text-olive font-bold block">Each Strength</span>
+              <span class="text-2xl font-black"><span class="quiz-item">31</span></span>
+              <span class="text-[11px] block text-dark/80 mt-0.5">(<span class="quiz-item">21 from LS + 10 from RS</span>)</span>
+            </div>
+          </div>
+          <p class="text-xs text-dark/80 pt-1">
+            <strong>💡 Hinglish Mein Samjho:</strong> Budget ke <strong>Stage 3</strong> mein yahi 24 Departmental Standing Committees (har ek mein 31 members) ministries ki Demands for Grants ki jaanch (scrutiny) karti hain!
+          </p>
+        </div>
+
+        <!-- Special Note on Speaker & Deputy Speaker -->
+        <div class="sub-card p-5 bg-dark text-cream border-2 border-gold space-y-2.5" data-note-anchor="speaker-dy-speaker-note">
+          <h5 class="font-bold text-base text-gold border-b border-gold/40 pb-2 flex items-center gap-2">
+            <i class="fa-solid fa-star"></i> Special Note: Speaker vs Deputy Speaker
+          </h5>
+          <ul class="list-disc pl-5 space-y-2 text-xs md:text-sm">
+            <li data-note-anchor="sp-note-1">
+              <strong>Speaker of Lok Sabha</strong> is the ex-officio Chairman of:
+              <span class="quiz-item">Business Advisory Committee, Rules Committee, General Purpose Committee</span>.
+            </li>
+            <li data-note-anchor="sp-note-2">
+              <strong>Deputy Speaker</strong> has a special distinction where he <span class="quiz-item">automatically becomes the chairman of a committee</span> of which he is a member of (e.g., <span class="quiz-item">Committee on Private Members Bill</span>).
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. INTERACTIVE PYQ / PRACTICE QUIZ SECTION (AT BOTTOM)                -->
+    <!-- ===================================================================== -->
+    <section id="quiz-section" class="note-card rounded-2xl p-6 md:p-8 space-y-6 no-print">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-4 flex-wrap gap-2">
+        <div>
+          <span class="gold-badge px-3 py-1 rounded-lg text-xs uppercase">SSC Exam Simulation</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold mt-1">Interactive PYQ & Practice Quiz (6 Questions)</h3>
+        </div>
+        <button onclick="resetQuiz()" class="px-4 py-2 rounded-lg bg-dark text-cream text-xs font-bold border-2 border-gold hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+        </button>
+      </div>
+
+      <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+  </main>
+
+  <!-- 6. FLOATING BOTTOM-RIGHT ACTION BUTTONS -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5 no-print">
+    <button onclick="openModalForGeneralNote()" class="px-4 py-2.5 rounded-full bg-dark text-cream font-bold text-xs border-2 border-gold shadow-lg hover:bg-gold hover:text-dark transition flex items-center gap-2">
+      <i class="fa-solid fa-plus-circle text-gold"></i> Add Extra Note
+    </button>
+    <button onclick="jumpToTopic('topics-hub')" class="px-4 py-2.5 rounded-full bg-gold text-dark font-bold text-xs border-2 border-dark shadow-lg hover:brightness-105 transition flex items-center gap-2">
+      <i class="fa-solid fa-compass"></i> Topics at a Glance
+    </button>
+  </div>
+
+  <!-- ADD/EDIT NOTE MODAL -->
+  <div id="noteModal" class="fixed inset-0 z-50 hidden bg-dark/70 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+    <div class="note-card rounded-2xl w-full max-w-lg p-6 space-y-4 bg-cream">
+      <div class="flex items-center justify-between border-b border-olive/40 pb-3">
+        <h4 id="modalHeading" class="font-serif text-xl font-bold">➕ Add Custom Study Note</h4>
+        <button onclick="closeNoteModal()" class="text-dark/70 hover:text-dark text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Quick Tag Chips:</label>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" onclick="setQuickTag('⭐ Exam Point')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">⭐ Exam Point</button>
+            <button type="button" onclick="setQuickTag('🧠 Memory Trick')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">🧠 Memory Trick</button>
+            <button type="button" onclick="setQuickTag('🔥 PYQ Fact')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">🔥 PYQ Fact</button>
+            <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="px-2.5 py-1 rounded bg-gold/30 hover:bg-gold text-xs font-bold border border-dark">📌 Extra Detail</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Note Title / Tag:</label>
+          <input id="noteTitleInput" type="text" placeholder="e.g., ⭐ Exam Point — Joint Sitting Quorum" class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream focus:outline-none focus:border-dark font-semibold" />
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Your Note (Hinglish or English):</label>
+          <textarea id="noteBodyInput" rows="4" placeholder="Write your extra points, teacher's remarks, or revision mnemonics here..." class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream focus:outline-none focus:border-dark"></textarea>
+        </div>
+
+        <div>
+          <label class="font-bold text-xs uppercase text-olive block mb-1">Highlight Style Theme:</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="golden" checked class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-gold/40 text-center text-xs font-bold">Golden Card</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="dark" class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-gold bg-dark text-cream text-center text-xs font-bold">Dark Royal</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="noteTheme" value="cream" class="peer hidden" />
+              <div class="p-2 rounded-lg border-2 border-olive peer-checked:border-dark bg-cream text-center text-xs font-bold">Warm Cream</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeNoteModal()" class="px-4 py-2 rounded-lg border border-dark text-xs font-bold">Cancel</button>
+        <button onclick="saveNoteFromModal()" class="px-5 py-2 rounded-lg bg-dark text-cream border-2 border-gold text-xs font-bold hover:bg-gold hover:text-dark transition">Save Note</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY SAVED NOTES SLIDE-OVER DRAWER -->
+  <div id="notesDrawerBackdrop" onclick="toggleDrawer(false)" class="fixed inset-0 z-50 hidden bg-dark/60 backdrop-blur-sm no-print"></div>
+  <aside id="notesDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-cream border-l-4 border-dark shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col no-print">
+    <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <h4 class="font-serif text-lg font-bold">My Saved Notes</h4>
+      </div>
+      <button onclick="toggleDrawer(false)" class="text-cream/80 hover:text-cream text-lg"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="p-3 bg-gold/20 border-b border-olive/40 flex flex-wrap gap-2 justify-between items-center">
+      <button onclick="openModalForGeneralNote()" class="px-3 py-1.5 rounded bg-dark text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+        <i class="fa-solid fa-plus mr-1"></i> Add General Note
+      </button>
+      <div class="flex gap-1.5">
+        <button onclick="exportNotesToTxt()" class="px-2.5 py-1.5 rounded border border-dark text-xs font-bold hover:bg-dark hover:text-cream transition">
+          <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+        </button>
+        <button onclick="clearAllNotes()" class="px-2.5 py-1.5 rounded border border-red-800 text-red-900 text-xs font-bold hover:bg-red-800 hover:text-cream transition">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <div id="drawerNotesList" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm"></div>
+  </aside>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    const STORAGE_KEY = 'parmar_ssc_parliament_part2_notes_v1';
+    let savedNotes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let clickToNoteMode = false;
+    let selfTestMode = false;
+    let activeAnchorId = null;
+    let editingNoteId = null;
+
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // 2. Smooth Jump to Topic with Pulse
+    function jumpToTopic(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.remove('section-active-pulse');
+      void el.offsetWidth;
+      el.classList.add('section-active-pulse');
+    }
+
+    // 3. Live Search Filter
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      clearSearchBtn.classList.toggle('hidden', !query);
+      document.querySelectorAll('.searchable-section').forEach(sec => {
+        const match = sec.innerText.toLowerCase().includes(query);
+        sec.style.display = match ? '' : 'none';
+      });
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+    });
+
+    // 4. Self-Test (Revision Blur) Mode
+    function toggleSelfTestMode() {
+      selfTestMode = !selfTestMode;
+      document.body.classList.toggle('self-test-active', selfTestMode);
+      document.getElementById('selfTestStatus').innerText = selfTestMode ? 'ON' : 'OFF';
+      if (!selfTestMode) {
+        document.querySelectorAll('.quiz-item.revealed').forEach(el => el.classList.remove('revealed'));
+      }
+    }
+    document.addEventListener('click', (e) => {
+      if (selfTestMode && e.target.classList.contains('quiz-item')) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    // 5. Click-to-Note System
+    const cursorBadge = document.getElementById('cursorBadge');
+    window.addEventListener('mousemove', (e) => {
+      if (clickToNoteMode) {
+        cursorBadge.style.left = (e.clientX + 14) + 'px';
+        cursorBadge.style.top = (e.clientY + 14) + 'px';
+      }
+    });
+
+    function toggleClickToNoteMode() {
+      clickToNoteMode = !clickToNoteMode;
+      document.body.classList.toggle('click-note-mode', clickToNoteMode);
+      document.getElementById('clickNoteStatus').innerText = clickToNoteMode ? 'ON' : 'OFF';
+      cursorBadge.classList.toggle('hidden', !clickToNoteMode);
+    }
+
+    function initNoteAnchors() {
+      document.querySelectorAll('[data-note-anchor]').forEach(el => {
+        const anchorId = el.getAttribute('data-note-anchor');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'note-trigger-btn no-print absolute top-1.5 right-1.5 z-10 px-2 py-0.5 rounded bg-gold text-dark text-[10px] font-extrabold border border-dark shadow hover:scale-105';
+        btn.innerHTML = '+ Note';
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          openNoteModal(anchorId);
+        };
+        el.appendChild(btn);
+
+        el.addEventListener('click', (ev) => {
+          if (!clickToNoteMode) return;
+          if (ev.target.closest('.rendered-custom-note') || ev.target.closest('button')) return;
+          ev.stopPropagation();
+          openNoteModal(anchorId);
+        });
+      });
+    }
+
+    function setQuickTag(tag) {
+      const input = document.getElementById('noteTitleInput');
+      if (!input.value.includes(tag)) {
+        input.value = tag + (input.value ? ' — ' + input.value : '');
+      }
+      input.focus();
+    }
+
+    function openNoteModal(anchorId, noteId = null) {
+      activeAnchorId = anchorId;
+      editingNoteId = noteId;
+      const modal = document.getElementById('noteModal');
+      const titleInput = document.getElementById('noteTitleInput');
+      const bodyInput = document.getElementById('noteBodyInput');
+      const heading = document.getElementById('modalHeading');
+
+      if (noteId) {
+        const existing = savedNotes.find(n => n.id === noteId);
+        if (existing) {
+          heading.innerText = '✏️ Edit Custom Study Note';
+          titleInput.value = existing.title;
+          bodyInput.value = existing.body;
+          document.querySelectorAll('input[name="noteTheme"]').forEach(r => r.checked = (r.value === existing.theme));
+        }
+      } else {
+        heading.innerText = '➕ Add Custom Study Note';
+        titleInput.value = '';
+        bodyInput.value = '';
+        document.querySelector('input[name="noteTheme"][value="golden"]').checked = true;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function openModalForGeneralNote() {
+      openNoteModal('general-note');
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.add('hidden');
+      activeAnchorId = null;
+      editingNoteId = null;
+    }
+
+    function saveNoteFromModal() {
+      const title = document.getElementById('noteTitleInput').value.trim() || '📌 Personal Note';
+      const body = document.getElementById('noteBodyInput').value.trim();
+      const theme = document.querySelector('input[name="noteTheme"]:checked').value;
+      if (!body) {
+        alert('Please write something in your note!');
+        return;
+      }
+
+      if (editingNoteId) {
+        const idx = savedNotes.findIndex(n => n.id === editingNoteId);
+        if (idx > -1) {
+          savedNotes[idx].title = title;
+          savedNotes[idx].body = body;
+          savedNotes[idx].theme = theme;
+        }
+      } else {
+        savedNotes.push({
+          id: 'note_' + Date.now(),
+          anchorId: activeAnchorId || 'general-note',
+          title,
+          body,
+          theme,
+          createdAt: new Date().toLocaleString()
+        });
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      closeNoteModal();
+      renderAllSavedNotes();
+    }
+
+    function deleteNote(id) {
+      savedNotes = savedNotes.filter(n => n.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderAllSavedNotes();
+    }
+
+    function clearAllNotes() {
+      if (!savedNotes.length) return;
+      if (confirm('Are you sure you want to delete all saved custom notes?')) {
+        savedNotes = [];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+        renderAllSavedNotes();
+      }
+    }
+
+    function getThemeClasses(theme) {
+      if (theme === 'dark') return 'bg-dark text-cream border-2 border-gold';
+      if (theme === 'cream') return 'bg-cream text-dark border-2 border-dark';
+      return 'bg-gold/30 text-dark border-2 border-dark';
+    }
+
+    function renderAllSavedNotes() {
+      document.querySelectorAll('.rendered-custom-note').forEach(el => el.remove());
+      document.getElementById('savedNotesCountBadge').innerText = savedNotes.length;
+
+      // Render inline under anchors
+      savedNotes.forEach(note => {
+        const anchorEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`);
+        if (anchorEl) {
+          const box = document.createElement('div');
+          box.id = 'inline_' + note.id;
+          box.className = `rendered-custom-note mt-2.5 p-3 rounded-lg text-xs shadow-sm ${getThemeClasses(note.theme)}`;
+          box.innerHTML = `
+            <div class="flex items-center justify-between gap-2 font-bold border-b border-current/20 pb-1 mb-1">
+              <span>${escapeHtml(note.title)}</span>
+              <div class="flex items-center gap-1.5 no-print">
+                <button onclick="openNoteModal('${note.anchorId}', '${note.id}')" class="underline hover:opacity-80">Edit</button>
+                <span>•</span>
+                <button onclick="deleteNote('${note.id}')" class="underline text-red-600 hover:opacity-80">Delete</button>
+              </div>
+            </div>
+            <p class="whitespace-pre-line leading-relaxed">${escapeHtml(note.body)}</p>
+          `;
+          anchorEl.appendChild(box);
+        }
+      });
+
+      // Render inside Drawer
+      const listEl = document.getElementById('drawerNotesList');
+      if (!savedNotes.length) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 text-dark/60">
+            <i class="fa-solid fa-note-sticky text-3xl mb-2"></i>
+            <p class="font-semibold">No custom notes saved yet.</p>
+            <p class="text-xs mt-1">Turn ON "Click-to-Note" or click "+ Note" on any card to add your extra points.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = savedNotes.map(note => `
+        <div class="p-3.5 rounded-xl ${getThemeClasses(note.theme)} space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs">${escapeHtml(note.title)}</span>
+            <span class="text-[10px] opacity-70">${note.createdAt}</span>
+          </div>
+          <p class="text-xs whitespace-pre-line">${escapeHtml(note.body)}</p>
+          <div class="flex items-center gap-3 pt-1 text-[11px] font-bold">
+            ${note.anchorId !== 'general-note' ? `<button onclick="jumpToNoteFromDrawer('${note.anchorId}')" class="underline"><i class="fa-solid fa-location-crosshairs mr-1"></i>Jump to Section</button>` : ''}
+            <button onclick="openNoteModal('${note.anchorId}', '${note.id}')" class="underline">Edit</button>
+            <button onclick="deleteNote('${note.id}')" class="underline text-red-600">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function jumpToNoteFromDrawer(anchorId) {
+      toggleDrawer(false);
+      const el = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('section-active-pulse');
+        setTimeout(() => el.classList.remove('section-active-pulse'), 2800);
+      }
+    }
+
+    function toggleDrawer(open) {
+      const drawer = document.getElementById('notesDrawer');
+      const backdrop = document.getElementById('notesDrawerBackdrop');
+      drawer.classList.toggle('translate-x-full', !open);
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function exportNotesToTxt() {
+      if (!savedNotes.length) {
+        alert('No saved notes to export!');
+        return;
+      }
+      let txt = '=== PARMAR SSC: PARLIAMENT (PART 2) — MY CUSTOM STUDY NOTES ===\n\n';
+      savedNotes.forEach((n, i) => {
+        txt += `[${i + 1}] ${n.title} (${n.createdAt})\nAnchor: ${n.anchorId}\n${n.body}\n--------------------------------------------------\n\n`;
+      });
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Parliament_Part2_My_Notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    // 6. Interactive Quiz Engine
+    const quizData = [
+      {
+        q: "Q1. Under Article 108(2), if both the Speaker and Deputy Speaker of Lok Sabha are absent during a Joint Sitting, who presides over the sitting?",
+        options: [
+          "Chairman of Rajya Sabha (Vice-President)",
+          "Deputy Chairman of Rajya Sabha",
+          "Prime Minister of India",
+          "Senior-most Member of Rajya Sabha"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Art 108(2) ke mutabik Speaker aur Deputy Speaker dono ke absent hone par Deputy Chairman of Rajya Sabha preside karte hain. Chairman of RS kabhi preside nahi kar sakte kyunki wo kisi bhi House ke member nahi hote!"
+      },
+      {
+        q: "Q2. Which of the following bills was NOT passed in a Joint Sitting of Parliament?",
+        options: [
+          "Dowry Prohibition Bill, 1960",
+          "Banking Services Commission Bill, 1977",
+          "Indian Post Office (Amendment) Bill, 1986",
+          "Prevention of Terrorism Bill, 2002"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Joint Sitting ab tak sirf 3 baar hui hai: Dowry Prohibition Bill (1960), Banking Services Commission Bill (1977), aur Prevention of Terrorism Bill (2002). Indian Post Office (Amendment) Bill 1986 par President Gyani Zail Singh ne Pocket Veto use kiya tha!"
+      },
+      {
+        q: "Q3. During the voting on Demands for Grants, which Cut Motion reduces the demand amount to 'Rs. 1' to criticize government policy?",
+        options: [
+          "Token Cut Motion",
+          "Economy Cut Motion",
+          "Policy Cut Motion",
+          "Vote of Credit Motion"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Policy Cut mein amount ko ghatakar Rs. 1 kar diya jata hai (to criticize government policy). Economy Cut mein specified amount kam hota hai, aur Token Cut mein Rs. 100 kam kiya jata hai."
+      },
+      {
+        q: "Q4. Which Parliamentary grant acts like a 'blank cheque' given to the Executive by the Lok Sabha under Article 116?",
+        options: [
+          "Supplementary Grant",
+          "Vote of Credit",
+          "Excess Grant",
+          "Exceptional Grant"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Article 116 ke tahat 'Votes of Credit' urgent financial needs ke liye diya jata hai jiske details budget mein share nahi kiye ja sakte—isliye ise Lok Sabha dwara Executive ko diya gaya 'Blank Cheque' kaha jata hai!"
+      },
+      {
+        q: "Q5. What is the maximum possible life of an Ordinance promulgated by the President under Article 123 if Parliament takes no action?",
+        options: [
+          "6 months only",
+          "6 weeks only",
+          "6 months and 6 weeks",
+          "1 year and 6 weeks"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Parliament ke do sessions ke beech maximum gap 6 months ho sakta hai, aur reassembly ke baad Ordinance 6 weeks tak bina approval ke zinda reh sakta hai. Isliye Max Life = 6 months + 6 weeks!"
+      },
+      {
+        q: "Q6. Which Committee was established in 1964 on the recommendation of the Krishna Menon Committee and consists of 22 members (15 LS + 7 RS)?",
+        options: [
+          "Public Accounts Committee (PAC)",
+          "Estimates Committee",
+          "Committee on Public Undertakings (COPU)",
+          "Business Advisory Committee"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Committee on Public Undertakings (COPU) 1964 mein Krishna Menon Committee ki sifarish par bani thi (1974 mein members 15 se badhakar 22 kiye gaye: 15 LS + 7 RS). Estimates Committee 1950 mein John Mathai Committee ki sifarish par bani thi (30 members, all from LS)."
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizData.map((item, qIdx) => `
+        <div class="sub-card p-5 space-y-3" data-note-anchor="quiz-q-${qIdx}">
+          <p class="font-bold text-sm md:text-base">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map((opt, oIdx) => `
+              <button
+                type="button"
+                id="q${qIdx}_opt${oIdx}"
+                onclick="answerQuiz(${qIdx}, ${oIdx})"
+                class="w-full text-left px-3.5 py-2 rounded-lg border border-olive bg-cream hover:bg-gold/25 text-xs md:text-sm font-medium transition flex items-center justify-between"
+              >
+                <span>${opt}</span>
+                <span class="status-icon"></span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="q${qIdx}_exp" class="hidden trick-box p-3 rounded-lg text-xs leading-relaxed">
+            ${item.explanation}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function answerQuiz(qIdx, selectedIdx) {
+      const item = quizData[qIdx];
+      item.options.forEach((_, oIdx) => {
+        const btn = document.getElementById(`q${qIdx}_opt${oIdx}`);
+        btn.disabled = true;
+        const iconSpan = btn.querySelector('.status-icon');
+        if (oIdx === item.correct) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-dark bg-gold text-dark text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '✅';
+        } else if (oIdx === selectedIdx) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-red-800 bg-red-100 text-red-950 text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '❌';
+        }
+      });
+      document.getElementById(`q${qIdx}_exp`).classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+    }
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+      initNoteAnchors();
+      renderAllSavedNotes();
+    });
+  </script>
+</body>
+</html>

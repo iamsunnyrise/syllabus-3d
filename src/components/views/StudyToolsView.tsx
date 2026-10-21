@@ -426,6 +426,24 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for Ages: LS 25, RS 30, Pres 35. Quorum: 1/10th. Penalty: ₹500/day. Top LS Seats: UP (80) > MH (48) > WB (42) > BR (40) > TN (39). Defection review: Kihoto Hollohan (1992).'
   },
   {
+    id: 'ga-polity-parliament-part2',
+    subject: 'Polity',
+    title: 'Parliament Part 02',
+    badge: 'Chapter 09 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/parliament_part_2.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Art 107-108: Bills & Joint Sitting', detail: 'Ordinary Bills originate in either House. Lapsing: Pending in RS without LS passing does NOT lapse. Public Bill (1 wk notice) vs Private Bill (1 mo notice). Joint Sitting (Art 108, from Australia): Simple majority, Speaker presides (VP cannot). 3 historical instances: Dowry (1960), Banking (1977), POTA (2002).' },
+      { label: '02. Art 109-110: Money Bill & Speaker', detail: 'Money Bill introduced only in LS on President recommendation; RS gets max 14 days (deemed passed if idle). Speaker certifies (judicial review allowed). Art 110: 7 provisions (taxes, borrowings, Consolidated/Contingency funds, appropriation). Fines & local taxes excluded.' },
+      { label: '03. Art 111: Veto Powers of President', detail: 'Suspensive Veto (reconsideration, not on Money Bill). Pocket Veto (no time limit in India vs 10 days in USA; used by Gyani Zail Singh on 1986 Post Office Bill). Absolute Veto (rejection). 24th CAA: No veto on Constitutional Amendment Bills.' },
+      { label: '04. Art 112-116: Budget, Cut Motions & Grants', detail: 'Art 112 Annual Financial Statement (word Budget not in Constitution). Charged (non-votable) vs Made from (voted in LS only). Appropriation Bill (Art 114). 3 Cut Motions: Policy (Rs 1), Economy (Specified amount), Token (Rs 100). Vote of Credit = Blank Cheque. 6 Budget stages.' },
+      { label: '05. Art 266-267 & Art 117-122: 3 Funds & Rules', detail: 'Consolidated Fund Art 266(1), Public Account Art 266(2), Contingency Fund Art 267 (run by President & Finance Secretary). Financial Bill Cat A in LS only (Art 117). Language Art 120 (Hindi/English/Mother tongue). Courts cannot inquire (Art 122).' },
+      { label: '06. Art 123, 249, 312 & Committees', detail: 'Ordinance Art 123 (Governor Art 213; max life 6 months + 6 weeks). RS special powers: Art 312 (All India Services), Art 249 (State list). Financial Committees: PAC (22: 15 LS + 7 RS, 1921, CAG guide), COPU (22: 15 LS + 7 RS, 1964), Estimates (30 all LS, 1950). 24 Dept Standing Committees (31 members each).' }
+    ],
+    summaryNote: 'Trick for Joint Sittings: DBP (Dowry 1960, Banking 1977, POTA 2002). Trick for Cut Motions: PET (Policy Rs 1, Economy Specified, Token Rs 100). Ordinance: Art 123 (Pres) vs Art 213 (Gov). PAC: 22 members (CAG guide).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

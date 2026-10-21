@@ -708,6 +708,32 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
                 weightage: 7,
                 notes: 'Parliament = President + LS + RS (Art 79). 1st sitting both: 13 May 1952. Quorum is 1/10th (Art 100). 104th CAA 2019 removed 2 Anglo-Indian nominations (Art 331). 91st CAA 2003 allowed 2/3rd merger exception. Defection subject to judicial review (Kihoto Hollohan 1992). Penalty for sitting without qualification is ₹500/day (Art 104).',
                 mistakes: []
+              },
+              {
+                id: 'top_parliament_part2',
+                name: 'Parliament Part 02: Legislative Procedures, Budget, Funds & Committees',
+                subtopics: [
+                  'Passing of Ordinary Bills (Art 107) & Joint Sitting (Art 108: Australia, Simple Majority, DBP 1960/1977/2002)',
+                  'Money Bills (Art 109-110): Exclusive LS Power, 14-Day Limit, 7 Criteria, Speaker Certification',
+                  'President Assent & Veto Powers (Art 111): Suspensive, Pocket (1986 Post Office Bill) & Absolute Veto',
+                  'Annual Financial Statement (Art 112): Charged vs Voted, Appropriation Bill (114), 3 Cut Motions (PET)',
+                  'Grants (Arts 115-116): Supplementary, Additional, Excess, Vote on Account & Votes of Credit (Blank Cheque)',
+                  '3 Constitutional Funds: Consolidated Fund (266(1)), Public Account (266(2)), Contingency Fund (267)',
+                  'Ordinance (Art 123 vs 213, 6m+6w life) & Special RS Powers (Art 249 State List, Art 312 All India Services)',
+                  'Parliamentary Committees: PAC (22, CAG guide), COPU (22, Krishna Menon), Estimates (30 all LS), 24 DSCs'
+                ],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 260,
+                lastStudied: '2026-08-23',
+                nextRevision: '2026-09-02',
+                accuracy: 96,
+                mockAttempts: 50,
+                difficulty: 'Medium',
+                isWeak: false,
+                weightage: 7,
+                notes: 'Money Bill cannot be rejected or amended by RS (14 days max). Joint Sitting (Art 108) presided by Speaker (Chairman of RS cannot preside). 3 Cut Motions: Policy (Rs 1), Economy (Specified Amount), Token (Rs 100). Max life of Ordinance is 6 months + 6 weeks. PAC has 22 members (15 LS + 7 RS) guided by CAG.',
+                mistakes: []
               }
             ]
           },
@@ -957,6 +983,31 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 8,
             notes: 'Parliament consists of President, Lok Sabha and Rajya Sabha (Art 79). RS members indirectly elected via PR+STV (S. Africa); 12 nominated (Ireland). Delimitation freeze till 2026 (84th CA 2001). Speaker decision under 10th Schedule is subject to judicial review (Kihoto Hollohan 1992). Art 105 grants civil immunity (40 days before/after session), not criminal.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_parliament_part2',
+            name: 'Parliament of India (Part-2): Budgetary Control, Funds & Financial Committees',
+            subtopics: [
+              'Legislative Deadlock & Bicameral Balance: Joint Sitting (Art 108) Mechanics, Exclusions & Majority Dynamics',
+              'Financial Hegemony of Lok Sabha: Money Bill vs Financial Bill, Speaker Certification & Limits of Judicial Review',
+              'Presidential Assent (Art 111): Absolute, Suspensive and Pocket Veto Dynamics in Westminster Parliamentary System',
+              'Budgetary Process & Parliamentary Control of Purse: Charged vs Voted, Cut Motions & Guillotine Mechanism',
+              'Constitutional Funds Architecture: Consolidated (266(1)), Public Account (266(2)) and Contingency Fund (267)',
+              'Executive Legislation: Scope & Judicial Oversight of Ordinance-Making Power (Art 123, DC Wadhwa & Krishna Kumar Cases)',
+              'Committee System & Executive Accountability: PAC, Estimates, COPU, Standing Committees & Role of CAG'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 290,
+            lastStudied: '2026-08-23',
+            nextRevision: '2026-09-02',
+            accuracy: 95,
+            mockAttempts: 44,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 8,
+            notes: 'Lok Sabha exercises exclusive financial supremacy over Money Bills and Demands for Grants. Joint sitting cannot be summoned for Money Bills or CAA. Ordinance power is an emergency power co-extensive with legislative power and cannot replace normal parliamentary process (DC Wadhwa case). PAC and CAG form the bedrock of post-facto financial scrutiny.',
             mistakes: []
           },
           {
