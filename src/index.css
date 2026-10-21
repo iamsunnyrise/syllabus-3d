@@ -4377,3 +4377,21 @@ html:not(.dark) .auth-screen-root .auth-close-btn:hover {
 
 
 
+
+
+/* ================================================================= */
+/* 🔒 HOME SCREEN STABILITY & ZERO SCROLLBAR                           */
+/* ================================================================= */
+html.overview-screen,
+body.overview-screen {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html.overview-screen::-webkit-scrollbar,
+body.overview-screen::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

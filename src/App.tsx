@@ -263,6 +263,21 @@ export const App: React.FC = () => {
     storageManager.checkStorageHealthAndAutoHeal();
   }, []);
 
+  // 🔒 Lock Home/Overview Screen to Viewport without scrollbar
+  useEffect(() => {
+    if (currentView === 'overview') {
+      document.documentElement.classList.add('overview-screen');
+      document.body.classList.add('overview-screen');
+    } else {
+      document.documentElement.classList.remove('overview-screen');
+      document.body.classList.remove('overview-screen');
+    }
+    return () => {
+      document.documentElement.classList.remove('overview-screen');
+      document.body.classList.remove('overview-screen');
+    };
+  }, [currentView]);
+
   // Navigate with History Push
   const handleNavigate = useCallback((newView: AppView) => {
     const targetView: AppView = newView && VALID_VIEWS.has(newView) ? newView : 'overview';
@@ -828,7 +843,9 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] warm-cream:bg-[#FAEED9] text-slate-900 dark:text-[#F8FAFC] warm-cream:text-[#38370D]">
+    <div className={`min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] warm-cream:bg-[#FAEED9] text-slate-900 dark:text-[#F8FAFC] warm-cream:text-[#38370D] ${
+      currentView === 'overview' ? 'h-screen overflow-hidden' : ''
+    }`}>
       {/* 🌑 Clean Obsidian Ambient Canvas (Dark Mode, GPU-Accelerated) */}
       <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#090A12]">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent rounded-full blur-[140px]" />
@@ -935,7 +952,11 @@ export const App: React.FC = () => {
           onTouchStart={handleMainTouchStart}
           onTouchMove={handleMainTouchMove}
           onTouchEnd={handleMainTouchEnd}
-          className="flex-1 p-3 sm:p-4 md:px-6 md:py-5 w-full pb-24 md:pb-10 touch-pan-y overscroll-contain focus:outline-none"
+          className={`flex-1 w-full touch-pan-y overscroll-contain focus:outline-none ${
+            currentView === 'overview'
+              ? 'p-3 sm:p-4 md:px-6 md:pt-4 md:pb-2 overflow-y-auto no-scrollbar'
+              : 'p-3 sm:p-4 md:px-6 md:py-5 pb-24 md:pb-10'
+          }`}
         >
           <div className="w-full relative">
             {/* Initial Dashboard View (Instant, Non-Lazy, Preserved in DOM) */}
