@@ -31,6 +31,7 @@ import { useAuth } from '../../context/AuthContext';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
+import { preloadView } from '../../utils/viewPreloader';
 
 export type AppView =
   | 'overview'
@@ -398,6 +399,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     type="button"
                     data-sidebar-item="true"
                     data-sidebar-active={isActive ? 'true' : 'false'}
+                    onMouseEnter={() => preloadView(item.id)}
+                    onTouchStart={() => preloadView(item.id)}
+                    onFocus={() => preloadView(item.id)}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
@@ -433,6 +437,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     type="button"
                     data-sidebar-item="true"
                     data-sidebar-active={isActive ? 'true' : 'false'}
+                    onMouseEnter={() => preloadView(item.id)}
+                    onTouchStart={() => preloadView(item.id)}
+                    onFocus={() => preloadView(item.id)}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
@@ -476,6 +483,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     type="button"
                     data-sidebar-item="true"
                     data-sidebar-active={isActive ? 'true' : 'false'}
+                    onMouseEnter={() => preloadView(item.id)}
+                    onTouchStart={() => preloadView(item.id)}
+                    onFocus={() => preloadView(item.id)}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView(item.id);
@@ -507,6 +517,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 type="button"
                 data-sidebar-item="true"
                 data-sidebar-active={activeView === 'settings' ? 'true' : 'false'}
+                onMouseEnter={() => preloadView('settings')}
+                onTouchStart={() => preloadView('settings')}
+                onFocus={() => preloadView('settings')}
                 onClick={() => {
                   soundManager.playClick();
                   onSelectView('settings');
@@ -703,6 +716,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     type="button"
                                     data-sidebar-item="true"
                                     data-sidebar-active={isDirectActive ? 'true' : 'false'}
+                                    onMouseEnter={() => preloadView(item.id)}
+                                    onTouchStart={() => preloadView(item.id)}
+                                    onFocus={() => preloadView(item.id)}
                                     onClick={() => {
                                       soundManager.playClick();
                                       if (hasSubItems && !isSubExpanded) {
@@ -769,6 +785,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                           type="button"
                                           data-sidebar-item="true"
                                           data-sidebar-active={isSubActive ? 'true' : 'false'}
+                                          onMouseEnter={() => preloadView(sub.id)}
+                                          onTouchStart={() => preloadView(sub.id)}
+                                          onFocus={() => preloadView(sub.id)}
                                           onClick={() => {
                                             soundManager.playClick();
                                             haptics.selection();
@@ -822,6 +841,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     type="button"
                     data-sidebar-item="true"
                     data-sidebar-active={activeView === 'settings' ? 'true' : 'false'}
+                    onMouseEnter={() => preloadView('settings')}
+                    onTouchStart={() => preloadView('settings')}
+                    onFocus={() => preloadView('settings')}
                     onClick={() => {
                       soundManager.playClick();
                       onSelectView('settings');

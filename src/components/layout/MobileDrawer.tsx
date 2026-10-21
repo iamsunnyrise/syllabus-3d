@@ -34,6 +34,7 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { BrandEmblemLogo } from '../common/BrandEmblemLogo';
+import { preloadView } from '../../utils/viewPreloader';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -288,6 +289,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <div className="space-y-1">
             <button
               type="button"
+              onMouseEnter={() => preloadView('overview')}
+              onTouchStart={() => preloadView('overview')}
               onClick={() => {
                 soundManager.playClick();
                 onSelectView('overview');
@@ -306,6 +309,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             {/* Top 3 Daily Targets Link */}
             <button
               type="button"
+              onMouseEnter={() => preloadView('targets')}
+              onTouchStart={() => preloadView('targets')}
               onClick={() => {
                 soundManager.playClick();
                 onSelectView('targets');
@@ -390,6 +395,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                     return (
                       <button
                         key={item.id}
+                        onMouseEnter={() => preloadView(item.id)}
+                        onTouchStart={() => preloadView(item.id)}
                         onClick={() => {
                           soundManager.playClick();
                           haptics.light();
@@ -465,6 +472,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <div className="px-3 py-2 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-[#131522]/60">
             <button
               type="button"
+              onMouseEnter={() => preloadView('settings')}
+              onTouchStart={() => preloadView('settings')}
               onClick={async () => {
                 soundManager.playClick();
                 haptics.medium();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { 
   LayoutDashboard, 
   Target, 
@@ -19,25 +19,30 @@ import { MockProvider, useMocks, NavView } from '../../context/MockContext';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { audioFX } from '../../utils/mockAudioFX';
 
-// Sub-views
+// Fast synchronous core views
 import { HomeView } from '../mock-tracker/views/HomeView';
 import { MocksView } from '../mock-tracker/views/MocksView';
-import { FullLengthView } from '../mock-tracker/views/FullLengthView';
-import { SectionalView } from '../mock-tracker/views/SectionalView';
-import { ChapterWiseView } from '../mock-tracker/views/ChapterWiseView';
-import { AnalyticsView } from '../mock-tracker/views/AnalyticsView';
-import { PercentileView } from '../mock-tracker/views/PercentileView';
-import { SettingsView } from '../mock-tracker/views/SettingsView';
-
-// Modals
-import { AddEditMockModal } from '../mock-tracker/forms/AddEditMockModal';
-import { GlobalSearchModal } from '../mock-tracker/common/GlobalSearchModal';
 import { ToastContainer } from '../mock-tracker/common/ToastContainer';
+
+// Lazy-loaded heavy sub-views (charts & analytics)
+const FullLengthView = lazy(() => import('../mock-tracker/views/FullLengthView').then(m => ({ default: m.FullLengthView })));
+const SectionalView = lazy(() => import('../mock-tracker/views/SectionalView').then(m => ({ default: m.SectionalView })));
+const ChapterWiseView = lazy(() => import('../mock-tracker/views/ChapterWiseView').then(m => ({ default: m.ChapterWiseView })));
+const AnalyticsView = lazy(() => import('../mock-tracker/views/AnalyticsView').then(m => ({ default: m.AnalyticsView })));
+const PercentileView = lazy(() => import('../mock-tracker/views/PercentileView').then(m => ({ default: m.PercentileView })));
+const SettingsView = lazy(() => import('../mock-tracker/views/SettingsView').then(m => ({ default: m.SettingsView })));
+
+// Lazy-loaded modals (100KB+ deferred until user clicks)
+const AddEditMockModal = lazy(() => import('../mock-tracker/forms/AddEditMockModal').then(m => ({ default: m.AddEditMockModal })));
+const GlobalSearchModal = lazy(() => import('../mock-tracker/common/GlobalSearchModal').then(m => ({ default: m.GlobalSearchModal })));
 
 const MockTrackerContent: React.FC = () => {
   const { 
     activeView, 
     setActiveView, 
+    isAddModalOpen,
+    editingMock,
+    isSearchModalOpen,
     setIsAddModalOpen, 
     setEditingMock,
     setIsSearchModalOpen,
@@ -204,18 +209,27 @@ const MockTrackerContent: React.FC = () => {
       {/* 2. DYNAMIC SUB-VIEW CONTENT */}
       <div className="w-full">
         {activeView === 'home' && <HomeView />}
-        {activeView === 'full-length' && <FullLengthView />}
-        {activeView === 'sectional' && <SectionalView />}
-        {activeView === 'chapter-wise' && <ChapterWiseView />}
         {activeView === 'mocks' && <MocksView />}
-        {activeView === 'percentile' && <PercentileView />}
-        {activeView === 'analytics' && <AnalyticsView />}
-        {activeView === 'settings' && <SettingsView />}
+        <Suspense fallback={
+          <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+            <BarChart2 className="w-8 h-8 text-blue-500 animate-spin mb-3" />
+            <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Analytics...</span>
+          </div>
+        }>
+          {activeView === 'full-length' && <FullLengthView />}
+          {activeView === 'sectional' && <SectionalView />}
+          {activeView === 'chapter-wise' && <ChapterWiseView />}
+          {activeView === 'percentile' && <PercentileView />}
+          {activeView === 'analytics' && <AnalyticsView />}
+          {activeView === 'settings' && <SettingsView />}
+        </Suspense>
       </div>
 
       {/* 4. MODALS & NOTIFICATIONS */}
-      <AddEditMockModal />
-      <GlobalSearchModal />
+      <Suspense fallback={null}>
+        {(isAddModalOpen || editingMock) && <AddEditMockModal />}
+        {isSearchModalOpen && <GlobalSearchModal />}
+      </Suspense>
       <ToastContainer />
 
     </div>

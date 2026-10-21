@@ -2,25 +2,32 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v2.9.7';
+const VERSION = 'v2.9.8';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
 // Pre-cache essential shell assets for instant boot even completely offline
 const PRECACHE_ASSETS = [
   '/',
-  '/index.html',
-  '/manifest.json',
-  '/favicon.png',
-  '/logo.png',
-  '/auth-crest.jpg',
-  '/dashboard_icon_3d.png',
-  '/pwa-192x192.png',
-  '/pwa-512x512.png',
-  '/apple-touch-icon.png',
-  '/focus-desk-day.jpg',
-  '/focus-desk-night.png',
-  '/study-tools-ga/ga-notes.min.css'
+  'index.html',
+  'manifest.json',
+  'favicon.png',
+  'logo.png',
+  'auth-crest.jpg',
+  'dashboard_icon_3d.png',
+  'pwa-192x192.png',
+  'pwa-512x512.png',
+  'apple-touch-icon.png',
+  'focus-desk-day.jpg',
+  'focus-desk-night.png',
+  'study-tools-ga/ga-notes.min.css',
+  'ssc-vocab/vocabulary_mastery_457.html',
+  'ssc-vocab/phrasal_verbs_mastery.html',
+  'ssc-vocab/idioms_mastery_notes.html',
+  'ssc-vocab/root_words_mastery_notes.html',
+  'ssc-vocab/commonly_confused_words_mastery.html',
+  'ssc-vocab/practice_zone_mastery.html',
+  'ssc-vocab/fixed_prepositions_mastery.html'
 ];
 
 // 1. INSTALL EVENT: Pre-cache static assets and skip waiting immediately
@@ -130,7 +137,25 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Strategy D: GA Master Notes & Assets (/study-tools-ga/*) → Instant Cache-First with Background Revalidation
-  if (url.pathname.startsWith('/study-tools-ga/')) {
+  if (url.pathname.includes('/study-tools-ga/')) {
+    event.respondWith(
+      caches.match(request).then((cachedResponse) => {
+        const fetchPromise = fetch(request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, copy));
+          }
+          return networkResponse;
+        }).catch(() => null);
+
+        return cachedResponse || fetchPromise;
+      })
+    );
+    return;
+  }
+
+  // Strategy E: SSC Special Vocab Modules (/ssc-vocab/*) → Instant Cache-First with Background Revalidation
+  if (url.pathname.includes('/ssc-vocab/')) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         const fetchPromise = fetch(request).then((networkResponse) => {

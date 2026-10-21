@@ -24,6 +24,7 @@ import { useTheme } from './context/ThemeContext';
 import { PinLockScreen } from './components/security/PinLockScreen';
 import { useInactivityLock } from './hooks/useInactivityLock';
 import { Sparkles } from 'lucide-react';
+import { preloadHighPriorityViews, preloadRemainingViews } from './utils/viewPreloader';
 
 // ⚡ Lazy Loaded Secondary Views (Code Splitting for Lightning-Fast Initial Load)
 const SyllabusView = lazy(() => import('./components/views/SyllabusView').then(m => ({ default: m.SyllabusView })));
@@ -116,6 +117,32 @@ export const App: React.FC = () => {
   });
   const [viewHistory, setViewHistory] = useState<AppView[]>([]);
   const [targetSubjectId, setTargetSubjectId] = useState<string>('');
+
+  // 🚀 Keep-Alive Visited Views Tracking for Instant 0ms Page Switching
+  const [visitedViews, setVisitedViews] = useState<Set<AppView>>(() => new Set([currentView]));
+
+  useEffect(() => {
+    setVisitedViews(prev => {
+      if (prev.has(currentView)) return prev;
+      const next = new Set(prev);
+      next.add(currentView);
+      return next;
+    });
+  }, [currentView]);
+
+  // 🚀 Intelligent Non-Blocking Background Preloader
+  useEffect(() => {
+    const idleCallback = window.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 600));
+    const handle = idleCallback(() => {
+      preloadHighPriorityViews();
+      preloadRemainingViews();
+    });
+    return () => {
+      if (window.cancelIdleCallback && typeof handle === 'number') {
+        window.cancelIdleCallback(handle);
+      }
+    };
+  }, []);
 
   // 3D Animated Startup Logo Experience (Shown only once on first visit, never blocks return visits)
   const [showIntro, setShowIntro] = useState<boolean>(() => {
@@ -910,9 +937,9 @@ export const App: React.FC = () => {
           onTouchEnd={handleMainTouchEnd}
           className="flex-1 p-3 sm:p-4 md:px-6 md:py-5 w-full pb-24 md:pb-6 touch-pan-y overscroll-contain focus:outline-none"
         >
-          <div key={currentView} className="animate-view-fade">
-            {/* Initial Dashboard View (Instant, Non-Lazy) */}
-            {currentView === 'overview' && (
+          <div className="w-full relative">
+            {/* Initial Dashboard View (Instant, Non-Lazy, Preserved in DOM) */}
+            <div className={currentView === 'overview' ? 'block animate-view-fade' : 'hidden'}>
               <ViewErrorBoundary sectionName="Overview Dashboard" onNavigateHome={() => handleNavigate('overview')}>
                 <OverviewView
                   onNavigate={handleNavigate}
@@ -929,168 +956,209 @@ export const App: React.FC = () => {
                   onOpenPricing={() => setIsPricingOpen(true)}
                 />
               </ViewErrorBoundary>
-            )}
+            </div>
 
             {/* Lazy-Loaded Secondary Views with Suspense Fallback & Per-View Crash Protection */}
             <Suspense fallback={<ViewLoadingFallback />}>
-              {currentView === 'targets' && (
-                <ViewErrorBoundary sectionName="Top 3 Daily Targets" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <DailyTargetsView
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onOpenFocus={handleLaunchFocus}
-                    onNavigate={handleNavigate}
-                    onOpenNightJournal={() => setIsNightJournalOpen(true)}
-                    onOpenHistory={() => setIsReflectionHistoryOpen(true)}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('targets') && (
+                <div className={currentView === 'targets' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Top 3 Daily Targets" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <DailyTargetsView
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onOpenFocus={handleLaunchFocus}
+                      onNavigate={handleNavigate}
+                      onOpenNightJournal={() => setIsNightJournalOpen(true)}
+                      onOpenHistory={() => setIsReflectionHistoryOpen(true)}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {(currentView === 'planner' || currentView === 'routine') && (
-                <ViewErrorBoundary sectionName={currentView === 'routine' ? "Daily Routine" : "Study Planner"} showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <PlannerView
-                    initialTab={currentView === 'routine' ? 'routine' : 'kanban'}
-                    onOpenFocusChamber={handleLaunchFocus}
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onOpenBacklogRescue={handleOpenBacklogRescue}
-                  />
-                </ViewErrorBoundary>
+              {(visitedViews.has('planner') || visitedViews.has('routine')) && (
+                <div className={(currentView === 'planner' || currentView === 'routine') ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName={currentView === 'routine' ? "Daily Routine" : "Study Planner"} showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <PlannerView
+                      initialTab={currentView === 'routine' ? 'routine' : 'kanban'}
+                      onOpenFocusChamber={handleLaunchFocus}
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onOpenBacklogRescue={handleOpenBacklogRescue}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'mindmap' && (
-                <ViewErrorBoundary sectionName="Syllabus Mindmap" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <MindMapView onOpenTopicDrawer={handleOpenTopicDrawer} />
-                </ViewErrorBoundary>
+              {visitedViews.has('mindmap') && (
+                <div className={currentView === 'mindmap' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Syllabus Mindmap" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <MindMapView onOpenTopicDrawer={handleOpenTopicDrawer} />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'syllabus' && (
-                <ViewErrorBoundary sectionName="Syllabus Browser" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <SyllabusView
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onOpenAddTopic={handleOpenAddTopic}
-                    onOpenAiArchitect={handleOpenAiArchitect}
-                    initialSubjectId={targetSubjectId}
-                    onSelectSubjectId={setTargetSubjectId}
-                    onBackToDashboard={() => handleNavigate('overview')}
-                    onRegisterBackHandler={(handler) => {
-                      syllabusBackHandlerRef.current = handler;
-                    }}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('syllabus') && (
+                <div className={currentView === 'syllabus' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Syllabus Browser" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <SyllabusView
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onOpenAddTopic={handleOpenAddTopic}
+                      onOpenAiArchitect={handleOpenAiArchitect}
+                      initialSubjectId={targetSubjectId}
+                      onSelectSubjectId={setTargetSubjectId}
+                      onBackToDashboard={() => handleNavigate('overview')}
+                      onRegisterBackHandler={(handler) => {
+                        syllabusBackHandlerRef.current = handler;
+                      }}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'subjects' && (
-                <ViewErrorBoundary sectionName="Subjects Directory" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <SubjectsView
-                    onNavigate={handleNavigate}
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onNavigateToSubject={handleNavigateToSubject}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('subjects') && (
+                <div className={currentView === 'subjects' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Subjects Directory" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <SubjectsView
+                      onNavigate={handleNavigate}
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onNavigateToSubject={handleNavigateToSubject}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'revision' && (
-                <ViewErrorBoundary sectionName="Revision Hub" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <RevisionView
-                    onOpenRevisionSession={() => {
-                      setIsRevisionSessionOpen(true);
-                      window.history.pushState({ modal: 'revision' }, '');
-                    }}
-                    onOpenWalkAndRevise={handleOpenWalkAndRevise}
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onOpenFocus={handleLaunchFocus}
-                    onNavigate={handleNavigate}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('revision') && (
+                <div className={currentView === 'revision' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Revision Hub" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <RevisionView
+                      onOpenRevisionSession={() => {
+                        setIsRevisionSessionOpen(true);
+                        window.history.pushState({ modal: 'revision' }, '');
+                      }}
+                      onOpenWalkAndRevise={handleOpenWalkAndRevise}
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onOpenFocus={handleLaunchFocus}
+                      onNavigate={handleNavigate}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'weak' && (
-                <ViewErrorBoundary sectionName="Weak Traps Diagnostic" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <WeakTopicsView
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                    onOpenFocus={handleLaunchFocus}
-                    onNavigate={handleNavigate}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('weak') && (
+                <div className={currentView === 'weak' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Weak Traps Diagnostic" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <WeakTopicsView
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                      onOpenFocus={handleLaunchFocus}
+                      onNavigate={handleNavigate}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'analytics' && (
-                <ViewErrorBoundary sectionName="Study Analytics" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <AnalyticsView />
-                </ViewErrorBoundary>
+              {visitedViews.has('analytics') && (
+                <div className={currentView === 'analytics' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Study Analytics" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <AnalyticsView />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'heatmap' && (
-                <ViewErrorBoundary sectionName="Consistency Heatmap" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <HeatmapView />
-                </ViewErrorBoundary>
+              {visitedViews.has('heatmap') && (
+                <div className={currentView === 'heatmap' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Consistency Heatmap" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <HeatmapView />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'platforms' && (
-                <ViewErrorBoundary sectionName="Learning Resources" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <PlatformsView />
-                </ViewErrorBoundary>
+              {visitedViews.has('platforms') && (
+                <div className={currentView === 'platforms' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Learning Resources" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <PlatformsView />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'pacing' && (
-                <ViewErrorBoundary sectionName="Target Pacing & Forecast" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <PacingView
-                    onNavigate={handleNavigate}
-                    onNavigateToSubject={handleNavigateToSubject}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('pacing') && (
+                <div className={currentView === 'pacing' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Target Pacing & Forecast" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <PacingView
+                      onNavigate={handleNavigate}
+                      onNavigateToSubject={handleNavigateToSubject}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'youtube-notes' && (
-                <ViewErrorBoundary sectionName="AI YouTube Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <YouTubeNotesView
-                    onNavigateToSubject={handleNavigateToSubject}
-                    onOpenTopicDrawer={handleOpenTopicDrawer}
-                  />
-                </ViewErrorBoundary>
+              {visitedViews.has('youtube-notes') && (
+                <div className={currentView === 'youtube-notes' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="AI YouTube Notes" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <YouTubeNotesView
+                      onNavigateToSubject={handleNavigateToSubject}
+                      onOpenTopicDrawer={handleOpenTopicDrawer}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'mock-tracker' && (
-                <ViewErrorBoundary sectionName="Mock Test Tracker" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <MockTrackerView />
-                </ViewErrorBoundary>
+              {visitedViews.has('mock-tracker') && (
+                <div className={currentView === 'mock-tracker' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="Mock Test Tracker" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <MockTrackerView />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {(currentView === 'study-tools' ||
-                currentView === 'study-tools-vocab' ||
-                currentView === 'study-tools-vocab-ssc' ||
-                currentView === 'study-tools-maths' ||
-                currentView === 'study-tools-calc-booster' ||
-                currentView === 'study-tools-ga') && (
-                <ViewErrorBoundary sectionName="Study Tools" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <StudyToolsView
-                    initialTab={
-                      currentView === 'study-tools-vocab' || currentView === 'study-tools-vocab-ssc'
-                        ? 'vocab'
-                        : currentView === 'study-tools-maths' || currentView === 'study-tools-calc-booster'
-                        ? 'maths'
-                        : currentView === 'study-tools-ga'
-                        ? 'ga'
-                        : 'vocab'
-                    }
-                    initialVocabTab={
-                      currentView === 'study-tools-vocab-ssc'
-                        ? 'ssc-special'
-                        : 'core'
-                    }
-                    initialMathsTab={
-                      currentView === 'study-tools-calc-booster'
-                        ? 'calc-booster'
-                        : 'overview'
-                    }
-                    onNavigate={handleNavigate}
-                  />
-                </ViewErrorBoundary>
+              {Boolean(
+                visitedViews.has('study-tools') ||
+                visitedViews.has('study-tools-vocab') ||
+                visitedViews.has('study-tools-vocab-ssc') ||
+                visitedViews.has('study-tools-maths') ||
+                visitedViews.has('study-tools-calc-booster') ||
+                visitedViews.has('study-tools-ga')
+              ) && (
+                <div className={
+                  (currentView === 'study-tools' ||
+                   currentView === 'study-tools-vocab' ||
+                   currentView === 'study-tools-vocab-ssc' ||
+                   currentView === 'study-tools-maths' ||
+                   currentView === 'study-tools-calc-booster' ||
+                   currentView === 'study-tools-ga')
+                    ? 'block animate-view-fade'
+                    : 'hidden'
+                }>
+                  <ViewErrorBoundary sectionName="Study Tools" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <StudyToolsView
+                      initialTab={
+                        currentView === 'study-tools-vocab' || currentView === 'study-tools-vocab-ssc'
+                          ? 'vocab'
+                          : currentView === 'study-tools-maths' || currentView === 'study-tools-calc-booster'
+                          ? 'maths'
+                          : currentView === 'study-tools-ga'
+                          ? 'ga'
+                          : 'vocab'
+                      }
+                      initialVocabTab={
+                        currentView === 'study-tools-vocab-ssc'
+                          ? 'ssc-special'
+                          : 'core'
+                      }
+                      initialMathsTab={
+                        currentView === 'study-tools-calc-booster'
+                          ? 'calc-booster'
+                          : 'overview'
+                      }
+                      onNavigate={handleNavigate}
+                    />
+                  </ViewErrorBoundary>
+                </div>
               )}
 
-              {currentView === 'settings' && (
-                <ViewErrorBoundary sectionName="App Settings" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                  <SettingsView onOpenPricing={() => setIsPricingOpen(true)} />
-                </ViewErrorBoundary>
+              {visitedViews.has('settings') && (
+                <div className={currentView === 'settings' ? 'block animate-view-fade' : 'hidden'}>
+                  <ViewErrorBoundary sectionName="App Settings" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
+                    <SettingsView onOpenPricing={() => setIsPricingOpen(true)} />
+                  </ViewErrorBoundary>
+                </div>
               )}
             </Suspense>
           </div>

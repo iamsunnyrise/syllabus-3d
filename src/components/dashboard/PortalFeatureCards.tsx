@@ -2,6 +2,7 @@ import React from 'react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
+import { preloadView } from '../../utils/viewPreloader';
 
 interface PortalFeatureCardsProps {
   onNavigate: (view: AppView) => void;
@@ -17,6 +18,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
       
       {/* 🖥️ Card 1: Syllabus Explorer */}
       <div
+        onMouseEnter={() => preloadView('syllabus')}
+        onTouchStart={() => preloadView('syllabus')}
         onClick={() => {
           soundManager.playClick();
           haptics.medium();
@@ -121,6 +124,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
       {/* 🖥️ Card 2: Mock Test Tracker */}
       <div
+        onMouseEnter={() => preloadView('mock-tracker')}
+        onTouchStart={() => preloadView('mock-tracker')}
         onClick={() => {
           soundManager.playClick();
           haptics.medium();
@@ -228,6 +233,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
       {/* 🖥️ Card 3: Mock & Study Portals */}
       <div
+        onMouseEnter={() => preloadView('platforms')}
+        onTouchStart={() => preloadView('platforms')}
         onClick={() => {
           soundManager.playClick();
           haptics.medium();

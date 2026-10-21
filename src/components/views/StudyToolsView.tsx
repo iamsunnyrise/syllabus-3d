@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import {
   BookOpen,
@@ -43,14 +43,16 @@ import {
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
-import { CalculationBoosterTables } from './CalculationBoosterTables';
-import { CalculationBoosterSquares } from './CalculationBoosterSquares';
-import { CalculationBoosterCubes } from './CalculationBoosterCubes';
-import { CalculationBoosterFractions } from './CalculationBoosterFractions';
-import { CalculationBoosterTriplets } from './CalculationBoosterTriplets';
-import { CalculationBoosterPowers } from './CalculationBoosterPowers';
-import { CalculationBoosterPrimes } from './CalculationBoosterPrimes';
-import { SscSpecialVocabView } from './SscSpecialVocabView';
+
+// ⚡ Fast Dynamic Code Splitting for Study Tools sub-views & calculators
+const CalculationBoosterTables = lazy(() => import('./CalculationBoosterTables').then(m => ({ default: m.CalculationBoosterTables })));
+const CalculationBoosterSquares = lazy(() => import('./CalculationBoosterSquares').then(m => ({ default: m.CalculationBoosterSquares })));
+const CalculationBoosterCubes = lazy(() => import('./CalculationBoosterCubes').then(m => ({ default: m.CalculationBoosterCubes })));
+const CalculationBoosterFractions = lazy(() => import('./CalculationBoosterFractions').then(m => ({ default: m.CalculationBoosterFractions })));
+const CalculationBoosterTriplets = lazy(() => import('./CalculationBoosterTriplets').then(m => ({ default: m.CalculationBoosterTriplets })));
+const CalculationBoosterPowers = lazy(() => import('./CalculationBoosterPowers').then(m => ({ default: m.CalculationBoosterPowers })));
+const CalculationBoosterPrimes = lazy(() => import('./CalculationBoosterPrimes').then(m => ({ default: m.CalculationBoosterPrimes })));
+const SscSpecialVocabView = lazy(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
 import { 
   LEVEL_1_SET_01_WORDS, 
   LEVEL_1_SET_02_WORDS, 
@@ -759,7 +761,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {vocabSubTab === 'ssc-special' ? (
-            <SscSpecialVocabView />
+            <Suspense fallback={
+              <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                <BookOpen className="w-8 h-8 text-amber-500 animate-spin mb-3" />
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading SSC Modules...</span>
+              </div>
+            }>
+              <SscSpecialVocabView />
+            </Suspense>
           ) : (
             <>
               {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
@@ -1548,21 +1557,28 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </button>
               </div>
 
-              {calcBoosterTool === 'tables' ? (
-                <CalculationBoosterTables />
-              ) : calcBoosterTool === 'squares' ? (
-                <CalculationBoosterSquares />
-              ) : calcBoosterTool === 'cubes' ? (
-                <CalculationBoosterCubes />
-              ) : calcBoosterTool === 'fractions' ? (
-                <CalculationBoosterFractions />
-              ) : calcBoosterTool === 'triplets' ? (
-                <CalculationBoosterTriplets />
-              ) : calcBoosterTool === 'powers' ? (
-                <CalculationBoosterPowers />
-              ) : (
-                <CalculationBoosterPrimes />
-              )}
+              <Suspense fallback={
+                <div className="w-full h-64 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                  <Calculator className="w-8 h-8 text-blue-500 animate-spin mb-3" />
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Calculation Tool...</span>
+                </div>
+              }>
+                {calcBoosterTool === 'tables' ? (
+                  <CalculationBoosterTables />
+                ) : calcBoosterTool === 'squares' ? (
+                  <CalculationBoosterSquares />
+                ) : calcBoosterTool === 'cubes' ? (
+                  <CalculationBoosterCubes />
+                ) : calcBoosterTool === 'fractions' ? (
+                  <CalculationBoosterFractions />
+                ) : calcBoosterTool === 'triplets' ? (
+                  <CalculationBoosterTriplets />
+                ) : calcBoosterTool === 'powers' ? (
+                  <CalculationBoosterPowers />
+                ) : (
+                  <CalculationBoosterPrimes />
+                )}
+              </Suspense>
         </div>
       )}
 

@@ -11,6 +11,7 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { useTheme } from '../../context/ThemeContext';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { preloadView } from '../../utils/viewPreloader';
 
 interface MobileNavProps {
   activeView: AppView;
@@ -160,6 +161,9 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               <li key={item.id} className="flex-1 h-full relative">
                 <button
                   type="button"
+                  onMouseEnter={() => preloadView(item.id)}
+                  onTouchStart={() => preloadView(item.id)}
+                  onFocus={() => preloadView(item.id)}
                   onClick={() => {
                     soundManager.playClick();
                     haptics.light();

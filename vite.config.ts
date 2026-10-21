@@ -14,6 +14,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
+          if (id.includes('highYieldVocabData')) {
+            return 'data-vocab';
+          }
+          if (id.includes('highYieldIdiomsData') || id.includes('highYieldOwsData') || id.includes('highYieldRootData')) {
+            return 'data-idioms-ows-root';
+          }
+          if (id.includes('CalculationBooster')) {
+            return 'calc-booster-tools';
+          }
           if (id.includes('node_modules')) {
             if (id.includes('pdfjs-dist')) {
               return 'vendor-pdf';
