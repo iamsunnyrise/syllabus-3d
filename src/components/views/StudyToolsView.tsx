@@ -368,6 +368,26 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for Art 19: "SAAMRP". Non-suspendable in Emergency: Art 20 & 21. Citizens Only: Art 15, 16, 19, 29, 30. Heart & Soul: Art 32 (5 Writs).'
   },
   {
+    id: 'ga-polity-dpsp',
+    subject: 'Polity',
+    title: 'DPSP',
+    badge: 'Chapter 06 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/dpsp.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Features & Quotes (Art 36-37)', detail: 'Borrowed from Ireland. Non-justiciable Welfare State blueprint. Resembles GoI Act 1935 Instrument of Instructions (Dr. Ambedkar: "Novel Features"). B.N. Rau: "Moral Percepts", K.T. Shah: "Cheque payable by bank at convenience", Austin: "Conscience of Constitution".' },
+      { label: '02. Articles 38 to 43B', detail: 'Art 38: Social order & reduce inequalities (44th CA). Art 39: Livelihood, resources distribution (b), avoid wealth concentration (c), equal pay for equal work (d), child health (f). Art 39A: Free Legal Aid (42nd CA). Art 40: Village Panchayats. Art 41-43: Work/Maternity/Living wage. Art 43A: Workers in management. Art 43B: Co-operatives (97th CA).' },
+      { label: '03. Articles 44 to 51', detail: 'Art 44: Uniform Civil Code (UCC). Art 45: Early childhood care below 6 yrs (86th CA 2002). Art 46: SC/ST & weaker sections. Art 47: Nutrition, public health & liquor prohibition. Art 48: Agriculture & animal husbandry (cow slaughter ban). Art 48A: Environment & wildlife (42nd CA). Art 49: Monuments. Art 50: Separate Judiciary from Executive (50-50). Art 51: International peace.' },
+      { label: '04. 3 Classifications & Amendments', detail: 'Socialist (38, 39, 39A, 41, 42, 43, 43A, 47), Gandhian (40, 43, 43B, 46, 47, 48), Liberal-Intellectual (44, 45, 48, 48A, 49, 50, 51). Amendments: 42nd CA (39f, 39A, 43A, 48A), 44th CA (38(2)), 86th CA (45), 97th CA (43B).' },
+      { label: '05. FR vs DPSP Conflict Cases', detail: 'Champakam Dorairajan (1951): FRs prevail. Golaknath (1967): FRs cannot be amended. 25th CA 1971: Inserted Art 31C (39b & 39c prevail over 14 & 19). Kesavananda (1973): Basic structure doctrine. Minerva Mills (1980): Constitution is founded on bedrock of balance between FR & DPSP.' },
+      { label: '06. Part IVA: Fundamental Duties Basics', detail: 'Borrowed from USSR. Sardar Swaran Singh Committee (1976) recommended 8 duties; 42nd CA 1976 added 10 duties. 86th CA 2002 added 11th duty [51A(k)]. Non-justiciable & applicable ONLY to Indian Citizens (not foreigners).' },
+      { label: '07. All 11 Duties (51A a to k)', detail: 'a-Anthem/Flag, b-Bapu/Bhagat ideals, c-3 words (Sovereignty, Unity, Integrity), d-Defend country, e-Equality/Brotherhood/Dignity of women, f-Fort/Heritage, g-Greenery/Environment, h-Humanism/Science, i-Eye (No violence & public property), j-Jadeja/Excellence, k-Kids education 6-14 yrs.' },
+      { label: '08. Justice Verma Committee & 6 Acts', detail: '1999 Committee identified legal provisions for FDs: UAPA 1967 (Duty c), National Honour Act 1971 (Duty a), Wildlife Act 1972 (Duty g), RPA 1951, IPC, Civil Rights Act 1955.' }
+    ],
+    summaryNote: 'Trick for 11 Duties: A-to-K Mnemonic. DPSP is from Ireland (Instrument of Instructions 1935); Duties are from USSR (Swaran Singh Comm 1976). Minerva Mills 1980: Bedrock balance.'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

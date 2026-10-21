@@ -637,6 +637,29 @@ const INITIAL_SSC_SUBJECTS: Subject[] = [
                 mistakes: []
               },
               {
+                id: 'top_dpsp_fundamental_duties',
+                name: 'DPSP: Directive Principles & Fundamental Duties (Part IV & IVA)',
+                subtopics: [
+                  'DPSP Features: Irish Origin, Welfare State & Instrument of Instructions (1935 Act)',
+                  'Articles 36-51: Social Order (38), Equal Pay (39d), Free Legal Aid (39A), Panchayats (40)',
+                  'UCC (Art 44), Early Childhood (45), Environment (48A), Judiciary Separation (50) & Peace (51)',
+                  'FR vs DPSP Jurisprudence: Champakam, Golaknath, 25th CA (31C), Kesavananda, Minerva Mills',
+                  'Part IVA Fundamental Duties: USSR Origin, Swaran Singh Committee (1976), 11 Duties (Art 51A a-k)'
+                ],
+                status: 'completed',
+                completionPercentage: 100,
+                studyTimeMinutes: 240,
+                lastStudied: '2026-08-20',
+                nextRevision: '2026-08-30',
+                accuracy: 95,
+                mockAttempts: 48,
+                difficulty: 'Medium',
+                isWeak: false,
+                weightage: 6,
+                notes: 'DPSP (Part IV Art 36-51): Non-justiciable, Novel feature (Dr. Ambedkar). Minerva Mills 1980 established balance. Part IVA Art 51A: 11 Duties (42nd CAA added 10, 86th CAA added 11th - 51A(k) for 6-14 yrs education).',
+                mistakes: []
+              },
+              {
                 id: 'top_parliament',
                 name: 'Indian Parliament & Union Executive',
                 subtopics: ['Lok Sabha vs Rajya Sabha Powers', 'Money Bill Article 110', 'President Veto Powers Article 111'],
@@ -830,6 +853,29 @@ export const INITIAL_UPSC_SUBJECTS: Subject[] = [
             isWeak: false,
             weightage: 8,
             notes: 'Golden Triangle: Arts 14, 19, 21 are mutually inclusive. Maneka Gandhi introduced substantive due process. Art 32 cannot be refused while Art 226 is wider.',
+            mistakes: []
+          },
+          {
+            id: 'top_upsc_dpsp_duties',
+            name: 'DPSP & Fundamental Duties (Part IV & Part IVA)',
+            subtopics: [
+              'Constitutional Philosophy of DPSP: Welfare State, Instrument of Instructions & Non-Justiciability',
+              'FR vs DPSP Conflict & Harmonious Construction (Champakam to Minerva Mills Bedrock Doctrine)',
+              'Article 31C Immunity & Socio-Economic Transformation (Arts 38, 39b, 39c)',
+              'Uniform Civil Code (Art 44): Pluralism, Gender Justice & Secularism',
+              'Fundamental Duties (Part IVA): Civic vs Moral Obligations, Verma Committee & Statutory Enforceability'
+            ],
+            status: 'completed',
+            completionPercentage: 100,
+            studyTimeMinutes: 260,
+            lastStudied: '2026-08-20',
+            nextRevision: '2026-08-30',
+            accuracy: 94,
+            mockAttempts: 40,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 7,
+            notes: 'Harmonious construction between Part III and Part IV. Minerva Mills: Constitution is founded on balance between FR and DPSP. FDs have statutory backing through RPA, Wildlife Act, National Honour Act.',
             mistakes: []
           },
           {

@@ -1,0 +1,2580 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part IV (DPSP) & Part IVA (Fundamental Duties) - Complete Hinglish Master Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAEED9',
+                        gold: '#E1A837',
+                        olive: '#8D7A02',
+                        dark: '#38370D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAEED9;
+            color: #38370D;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8D7A02;
+            border-radius: 5px;
+            border: 2px solid #FAEED9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38370D;
+        }
+
+        /* Smooth Anchor Offset for Sticky Header */
+        section[id] {
+            scroll-margin-top: 95px;
+            transition: all 0.4s ease;
+        }
+
+        /* Section Highlight Pulse on Click */
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.85); transform: scale(1); }
+            50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0); transform: scale(1.008); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0); transform: scale(1); }
+        }
+        .section-active-pulse {
+            animation: pulseHighlight 1.3s ease-out;
+            border-color: #E1A837 !important;
+        }
+
+        /* Card Aesthetics */
+        .note-card {
+            background: rgba(250, 238, 217, 0.94);
+            border: 2px solid #8D7A02;
+            box-shadow: 6px 6px 0px #38370D;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px #38370D;
+        }
+
+        .sub-card {
+            background-color: #FAEED9;
+            border: 1.5px solid #8D7A02;
+        }
+
+        .gold-badge {
+            background-color: #E1A837;
+            color: #38370D;
+            font-weight: 700;
+            border: 1px solid #38370D;
+        }
+
+        .dark-badge {
+            background-color: #38370D;
+            color: #FAEED9;
+            font-weight: 600;
+        }
+
+        /* Memory Trick Box */
+        .trick-box {
+            background-color: #38370D;
+            color: #FAEED9;
+            border-left: 6px solid #E1A837;
+        }
+
+        /* Hide answer in Self-Test Mode */
+        .quiz-blur {
+            filter: blur(6px);
+            user-select: none;
+            cursor: pointer;
+            transition: filter 0.25s ease;
+            background: rgba(225, 168, 55, 0.28);
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .quiz-blur:hover, .quiz-blur.revealed {
+            filter: blur(0);
+        }
+
+        /* ==========================================
+           INTERACTIVE 'ADD NOTES ANYWHERE' STYLES
+           ========================================== */
+        .note-target-element {
+            position: relative;
+            transition: outline 0.15s ease, background-color 0.15s ease;
+        }
+
+        /* Quick + Note hover button when mode is OFF */
+        .quick-add-note-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #38370D;
+            color: #E1A837;
+            border: 1.5px solid #E1A837;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            z-index: 20;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            box-shadow: 2px 2px 0px #8D7A02;
+            cursor: pointer;
+        }
+        .note-target-element:hover > .quick-add-note-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .quick-add-note-btn:hover {
+            background-color: #E1A837;
+            color: #38370D;
+            border-color: #38370D;
+            transform: scale(1.05);
+        }
+
+        /* Active Click-to-Note Mode Hover State */
+        body.click-note-mode-active .note-target-element {
+            cursor: cell !important;
+        }
+        body.click-note-mode-active .note-target-element:hover {
+            outline: 2.5px dashed #E1A837 !important;
+            outline-offset: 3px;
+            background-color: rgba(225, 168, 55, 0.15) !important;
+        }
+
+        /* Floating Cursor Tooltip in Click-to-Note Mode */
+        #noteModeCursorBadge {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(56, 55, 13, 0.45);
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Custom Student Note Display Themes */
+        .student-custom-note {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: all 0.2s ease;
+            animation: fadeInNote 0.25s ease-out;
+        }
+        @keyframes fadeInNote {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .student-note-gold {
+            background-color: #E1A837;
+            color: #38370D;
+            border: 2px solid #38370D;
+            box-shadow: 4px 4px 0px #38370D;
+        }
+        .student-note-dark {
+            background-color: #38370D;
+            color: #FAEED9;
+            border: 2px solid #E1A837;
+            box-shadow: 4px 4px 0px #8D7A02;
+        }
+        .student-note-cream {
+            background-color: #FAEED9;
+            color: #38370D;
+            border: 2px dashed #8D7A02;
+            border-left: 6px solid #E1A837;
+            box-shadow: 3px 3px 0px #8D7A02;
+        }
+
+        @media print {
+            .no-print, .quick-add-note-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-dark">
+
+    <!-- FLOATING CURSOR BADGE FOR CLICK-TO-NOTE MODE -->
+    <div id="noteModeCursorBadge">
+        <i class="fa-solid fa-thumbtack text-gold mr-1"></i> ➕ Click here to add your extra note
+    </div>
+
+    <!-- STICKY TOP BAR WITH PROGRESS, SEARCH, CLICK-TO-NOTE & SELF-TEST -->
+    <header class="sticky top-0 z-50 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+        <!-- Scroll Progress Bar -->
+        <div class="w-full h-1.5 bg-dark">
+            <div id="scrollProgress" class="h-full bg-gold transition-all duration-150" style="width: 0%;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-xl border-2 border-cream group-hover:scale-105 transition">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gold font-bold block">Indian Polity • Complete Master Notes</span>
+                    <h1 class="text-lg md:text-xl font-bold font-serif text-cream leading-none">DPSP (Part IV) & Fundamental Duties (Part IVA)</h1>
+                </div>
+            </a>
+
+            <!-- Quick Search, Note Mode, My Notes Drawer & Self-Test Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 flex-1 sm:flex-initial justify-end">
+                <div class="relative w-full sm:w-52 md:w-60">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search Art 36-51A, Trick, Cases..." 
+                        class="w-full bg-cream text-dark placeholder-olive/80 text-xs sm:text-sm font-medium rounded-lg pl-8 pr-7 py-2 border-2 border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-olive text-xs"></i>
+                    <button id="clearSearch" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-dark hover:text-olive text-xs">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Click-to-Note Mode Toggle Button -->
+                <button 
+                    id="clickNoteModeBtn" 
+                    onclick="toggleClickNoteMode()"
+                    class="px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Turn ON and click anywhere on the notes to add your own extra study points!"
+                >
+                    <i class="fa-solid fa-pen-to-square text-olive" id="clickNoteModeIcon"></i>
+                    <span id="clickNoteModeText">📝 Click-to-Note: OFF</span>
+                </button>
+
+                <!-- My Saved Notes Drawer Button -->
+                <button 
+                    onclick="toggleNotesDrawer(true)"
+                    class="px-3 py-2 rounded-lg bg-olive text-cream font-bold text-xs sm:text-sm border-2 border-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="View, jump to, or export all your custom notes"
+                >
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>My Notes</span>
+                    <span id="myNotesCountBadge" class="px-1.5 py-0.5 rounded-full bg-gold text-dark font-extrabold text-[11px] leading-none">0</span>
+                </button>
+
+                <!-- Revision Blur Mode Button -->
+                <button 
+                    id="revisionModeBtn" 
+                    onclick="toggleRevisionMode()"
+                    class="px-3 py-2 rounded-lg bg-gold text-dark font-bold text-xs sm:text-sm border-2 border-cream hover:bg-cream transition flex items-center gap-1.5 shrink-0 shadow"
+                    title="Hide key Articles, Amendments & Quotes to test your memory!"
+                >
+                    <i class="fa-solid fa-eye-slash" id="revisionIcon"></i>
+                    <span id="revisionText" class="hidden xl:inline">Self-Test: OFF</span>
+                </button>
+
+                <!-- Print Button -->
+                <button 
+                    onclick="window.print()"
+                    class="px-2.5 py-2 rounded-lg bg-dark text-gold font-bold text-xs sm:text-sm border-2 border-olive hover:border-gold transition hidden md:flex items-center gap-1 shrink-0"
+                    title="Print Notes with your custom notes"
+                >
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Click-to-Note Instructional Banner -->
+        <div id="clickNoteBanner" class="hidden bg-gold text-dark px-4 py-1.5 text-xs sm:text-sm font-extrabold border-t-2 border-dark">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-dark text-gold text-[11px] uppercase tracking-wider animate-pulse">Active</span>
+                    <span><strong>Click-to-Note Mode ON:</strong> Ab aap page ke kisi bhi box, point, table row ya article card par click karke apna Extra Note jod sakte hain!</span>
+                </div>
+                <button onclick="toggleClickNoteMode()" class="px-2.5 py-0.5 rounded bg-dark text-cream text-xs font-bold hover:opacity-90">
+                    Exit Mode ✕
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div id="top" class="bg-dark text-cream border-b-4 border-olive relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-dark font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-star"></i> 100% Complete 7-Page PDF Coverage • Easy Hinglish Notes
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-cream leading-tight">
+                        <span class="text-gold underline decoration-olive">DPSP</span> (Part IV) & <span class="text-gold underline decoration-olive">Fundamental Duties</span> (Part IVA)
+                    </h2>
+                    <p class="text-cream/90 text-sm sm:text-base leading-relaxed">
+                        Welfare State ka blueprint aur Nagriko ke 11 Kartavya: <strong class="text-gold">Articles 36 se 51</strong> tak ka poora breakdown, Socialist-Gandhian-Liberal Classification, <strong class="text-gold">FR vs DPSP Landmark Cases</strong> (Champakam, Golaknath, 24th/25th CA, Kesavananda, Minerva Mills), aur <strong class="text-gold">Article 51A ke 11 Fundamental Duties (A-to-K Trick)</strong> bilkul aasan Hinglish mein!
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-clover text-gold mr-1"></i> DPSP Borrowed: <strong>Ireland (Art 36–51)</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-globe text-gold mr-1"></i> Duties Borrowed: <strong>USSR (Art 51A)</strong>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-olive/30 border border-gold text-xs sm:text-sm">
+                            <i class="fa-solid fa-users-gear text-gold mr-1"></i> Committee: <strong>Sardar Swaran Singh (1976)</strong>
+                        </div>
+                    </div>
+
+                    <!-- Student Note Feature Callout Pill -->
+                    <div class="pt-2 no-print">
+                        <div class="inline-flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-cream/10 border border-gold/60 text-xs text-cream">
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-extrabold">INTERACTIVE</span>
+                            <span>Kahin bhi apna extra point jodne ke liye upar <strong>"📝 Click-to-Note"</strong> button dabayein ya kisi bhi card par hover karke <strong>"+ Note"</strong> par click karein!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Summary Snapshot Card -->
+                <div class="w-full md:w-80 bg-cream text-dark p-5 rounded-2xl border-4 border-gold shadow-xl text-center shrink-0">
+                    <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-dark text-gold flex items-center justify-center text-2xl border-2 border-olive">
+                        <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                    </div>
+                    <h3 class="font-serif font-extrabold text-base text-dark uppercase">Part IV & Part IVA Snapshot</h3>
+                    <p class="text-[11px] text-olive font-bold uppercase tracking-wider mt-0.5">Both are Non-Justiciable (Not Enforceable by Writ)</p>
+                    <hr class="border-olive/40 my-3">
+                    <div class="grid grid-cols-2 gap-2 text-left text-xs font-semibold">
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">Part IV: DPSP</span>
+                            <span class="text-sm font-extrabold text-dark">Art 36 – 51</span>
+                            <span class="block text-[10px] text-dark/80">Welfare State (Ireland)</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">GoI Act 1935</span>
+                            <span class="text-sm font-extrabold text-dark">Instructions</span>
+                            <span class="block text-[10px] text-dark/80">Ambedkar: Novel Feature</span>
+                        </div>
+                        <div class="bg-gold/30 p-2.5 rounded-lg border border-olive">
+                            <span class="block text-olive font-bold uppercase text-[10px]">42nd CA (1976)</span>
+                            <span class="text-sm font-extrabold text-dark">10 Duties Added</span>
+                            <span class="block text-[10px] text-dark/80">Swaran Singh Comm.</span>
+                        </div>
+                        <div class="bg-dark text-cream p-2.5 rounded-lg border border-gold">
+                            <span class="block text-gold font-bold uppercase text-[10px]">86th CA (2002)</span>
+                            <span class="text-sm font-extrabold text-gold">11th Duty: 51A(k)</span>
+                            <span class="block text-[10px] text-cream/90">6–14 Yrs Child Edu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10 flex-1">
+
+        <!-- ==========================================
+             INTERACTIVE TOPICS AT A GLANCE (TOC)
+             ========================================== -->
+        <section id="topics-at-a-glance" class="note-card rounded-2xl p-6 md:p-8 bg-cream">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-dark text-gold text-xs font-bold uppercase tracking-wider">Quick Navigation Hub</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-dark mt-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-olive"></i> Topics at a Glance (Click to Jump)
+                    </h2>
+                    <p class="text-sm text-olive font-medium mt-1">
+                        Kisi bhi topic card par click karein, aap seedhe us topic ke detailed explanation par pahuch jayenge!
+                    </p>
+                </div>
+                <div class="text-xs font-bold bg-gold/40 border border-olive px-3 py-2 rounded-lg text-dark shrink-0">
+                    <i class="fa-solid fa-hand-pointer text-olive mr-1"></i> Total 9 Comprehensive Modules + PYQ Quiz
+                </div>
+            </div>
+
+            <!-- Interactive Grid of 10 Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                <!-- Topic 1 -->
+                <button onclick="jumpToTopic('topic-1')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-book-open text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Salient Features & Quotes on DPSP</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Irish Origin, Welfare State, GoI Act 1935, B.N. Rau, K.T. Shah, Austin</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 2 -->
+                <button onclick="jumpToTopic('topic-2')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">02</span>
+                            <i class="fa-solid fa-scale-balanced text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">DPSP Articles 36 to 43B</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">State (36), Art 39(a–f), Free Legal Aid (39A), Panchayat (40), 43A & 43B</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 3 -->
+                <button onclick="jumpToTopic('topic-3')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-leaf text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">DPSP Articles 44 to 51</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">UCC (44), Below 6 Edu (45), Cow/Agri (48), Env (48A), Judiciary (50), Peace (51)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 4 -->
+                <button onclick="jumpToTopic('topic-4')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-sitemap text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">3 Classifications & Amendments</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Socio-Economic, Gandhian & Liberal Principles + 42nd, 44th, 86th, 97th CA</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 5 -->
+                <button onclick="jumpToTopic('topic-5')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-gavel text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Cases: DPSP vs FR & Difference Table</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Champakam, Golaknath, 25th CA (31C), Kesavananda, Minerva Mills & Table</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 6 -->
+                <button onclick="jumpToTopic('topic-6')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">06</span>
+                            <i class="fa-solid fa-shield-heart text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Part IVA: Fundamental Duties Basics</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">USSR Origin, Sardar Swaran Singh Comm., 42nd CA (10) & 86th CA (11th Duty)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 7 -->
+                <button onclick="jumpToTopic('topic-7')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">07</span>
+                            <i class="fa-solid fa-list-ol text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">All 11 Duties: Article 51A (a to k)</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">Complete clause-by-clause list from 51A(a) to 51A(k) in simple Hinglish</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 8 -->
+                <button onclick="jumpToTopic('topic-8')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">08</span>
+                            <i class="fa-solid fa-wand-magic-sparkles text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Master Trick (a to k) & Verma Committee</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">A-to-K Alphabet Mnemonic + Justice Verma Comm. & 6 Enforcing Acts</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 9 -->
+                <button onclick="jumpToTopic('topic-9')" class="text-left p-3.5 rounded-xl bg-cream border-2 border-olive hover:bg-gold hover:border-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-dark text-gold font-extrabold text-xs flex items-center justify-center">09</span>
+                            <i class="fa-solid fa-bolt text-olive group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-dark leading-snug">Rapid-Fire Revision Cheat Sheet</h3>
+                        <p class="text-xs text-olive group-hover:text-dark/90 mt-1">10-Second Revision of All DPSP Articles (36–51) & Duties (51A a–k)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Jump to Topic <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+                <!-- Topic 10: Quiz -->
+                <button onclick="jumpToTopic('quick-quiz')" class="text-left p-3.5 rounded-xl bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition-all group shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-gold text-dark font-extrabold text-xs flex items-center justify-center">⚡</span>
+                            <i class="fa-solid fa-trophy text-gold group-hover:text-dark"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-gold group-hover:text-dark leading-snug">Interactive PYQ Practice Quiz</h3>
+                        <p class="text-xs text-cream/80 group-hover:text-dark/90 mt-1">Test your command on DPSP Articles, Quotes & Fundamental Duties (8 MCQs)</p>
+                    </div>
+                    <span class="text-[11px] font-extrabold text-gold group-hover:text-dark mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition">
+                        Start Quiz <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 1: SALIENT FEATURES OF DPSP & FAMOUS COMMENTS
+             ========================================== -->
+        <section id="topic-1" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">01</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 2 • Part IV of Indian Constitution (Articles 36 – 51)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Salient Features of DPSP & Famous Scholar Comments</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Salient Features & Dr. Ambedkar's View -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <!-- Left 7 Cols: Salient Features -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between border-b border-olive pb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Salient Features of DPSP</span>
+                        <span class="text-xs font-bold text-olive">Part IV: Articles 36 to 51</span>
+                    </div>
+
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-dark font-medium">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Non-Justiciable in Nature:</strong> DPSPs are <strong class="underline quiz-item">non-justiciable</strong>, which means that they are <strong>NOT legally enforceable by the courts</strong> for their violation (Aap DPSP lagu karwane ke liye court mein writ nahi daal sakte).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Borrowed From:</strong> The concept is borrowed from the <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">Irish Constitution (Ireland)</strong> (which had copied it from the Spanish Constitution).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Core Objective:</strong> Their objective is to help establish <strong class="underline quiz-item">Social and Economic Democracy</strong> in the country (jabki Fundamental Rights <em>Political Democracy</em> sthapit karte hain).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Vision of Welfare State:</strong> DPSPs reflect the vision of a <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">Welfare State (कल्याणकारी राज्य)</strong> (and not a mere Police State) as outlined in the Constitution.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Benchmark for Courts:</strong> They serve as a measure/yardstick to assess and examine the constitutional validity of laws based on their alignment with constitutional ideals.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Sanction Behind DPSP:</strong> DPSPs have <strong class="quiz-item">Moral and Political sanctions</strong> (kyunki sarkar ko agle chunav mein janta ko jawab dena padta hai), not legal sanctions.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right 5 Cols: Dr. B.R. Ambedkar's Famous Observation -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Most Asked SSC Question</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-2">Dr. B. R. Ambedkar on DPSP</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-2 leading-relaxed">
+                            Dr. B. R. Ambedkar described the Directive Principles as <strong class="text-gold underline quiz-item">"Novel Features" (अनोखी विशेषता)</strong> of the Indian Constitution.
+                        </p>
+                        <div class="my-4 p-3.5 rounded-xl bg-olive/30 border-l-4 border-gold text-xs sm:text-sm">
+                            <span class="text-gold font-extrabold uppercase block mb-1">Resemblance with GoI Act, 1935:</span>
+                            <p class="text-cream">
+                                According to Dr. Ambedkar, the DPSPs resemble the <strong class="text-gold underline quiz-item">"Instrument of Instructions" (अनुदेश प्रपत्र)</strong> as contained in the <strong class="text-gold quiz-item">Government of India Act, 1935</strong>!
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-cream/80 border-t border-olive pt-2">
+                        💡 <strong>Hinglish:</strong> 1935 ke Act mein British सरकार Governor-General aur Governors ko jo <em>Instrument of Instructions</em> deti thi, DPSP bilkul waisa hi hai—bas farq yeh hai ki ab yeh instructions <strong>Legislature aur Executive</strong> ko diye gaye hain!
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4 Famous Comments on DPSP -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-quote-left text-olive"></i> Famous Scholar Comments on DPSP (Page 2 — Direct Match Questions)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- 1. B. N. Rau -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Comment #1</span>
+                        <blockquote class="text-sm sm:text-base font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Moral Percepts for the authorities of the State"
+                        </blockquote>
+                        <p class="text-xs text-olive">(राज्य के अधिकारियों के लिए नैतिक उपदेश)</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-olive/40">
+                        <span class="text-[10px] uppercase font-bold text-olive block">Said By:</span>
+                        <strong class="text-sm font-extrabold text-dark quiz-item">B. N. Rau</strong>
+                        <p class="text-[11px] text-olive mt-0.5">🧠 Constitutional Advisor ne ise Moral सलाह maana.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Granville Austin -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Comment #2</span>
+                        <blockquote class="text-sm sm:text-base font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Conscience of the Constitution"
+                        </blockquote>
+                        <p class="text-xs text-olive">(संविधान की अंतरात्मा — DPSP + FRs together)</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-olive/40">
+                        <span class="text-[10px] uppercase font-bold text-olive block">Said By:</span>
+                        <strong class="text-sm font-extrabold text-dark quiz-item">Granville Austin</strong>
+                        <p class="text-[11px] text-olive mt-0.5">🧠 Trick: <strong>Austin</strong> = Antaratma (<strong>Conscience</strong>).</p>
+                    </div>
+                </div>
+
+                <!-- 3. K. T. Shah -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Comment #3 (Most Famous)</span>
+                        <blockquote class="text-sm sm:text-base font-serif font-extrabold text-dark my-2 quiz-item">
+                            "A cheque payable by the bank at its own convenience"
+                        </blockquote>
+                        <p class="text-xs text-olive">(ऐसा चेक जिसका भुगतान बैंक अपनी मर्जी से करे)</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-olive/40">
+                        <span class="text-[10px] uppercase font-bold text-olive block">Said By:</span>
+                        <strong class="text-sm font-extrabold text-dark quiz-item">K. T. Shah</strong>
+                        <p class="text-[11px] text-olive mt-0.5">🧠 Trick: <strong>Shah</strong> (अमीर सेठ) = <strong>Bank Cheque</strong>!</p>
+                    </div>
+                </div>
+
+                <!-- 4. K. C. Wheare -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Comment #4</span>
+                        <blockquote class="text-sm sm:text-base font-serif font-extrabold text-dark my-2 quiz-item">
+                            "Manifesto of aims and aspirations"
+                        </blockquote>
+                        <p class="text-xs text-olive">(उद्देश्यों और आकांक्षाओं का घोषणापत्र)</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-olive/40">
+                        <span class="text-[10px] uppercase font-bold text-olive block">Said By:</span>
+                        <strong class="text-sm font-extrabold text-dark quiz-item">K. C. Wheare</strong>
+                        <p class="text-[11px] text-olive mt-0.5">🧠 Trick: Where are your <strong>Aims & Aspirations</strong>?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 2: DETAILED DPSP ARTICLES 36 TO 43B
+             ========================================== -->
+        <section id="topic-2" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">02</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 2 & 3 • Article-by-Article Breakdown (Part 1)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">DPSP Articles 36 to 43B (Welfare, Panchayats, Workers & Co-operatives)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Articles 36, 37, 38 Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                <!-- Article 36 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 36</span>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Same as Art 12</span>
+                    </div>
+                    <h3 class="text-base font-extrabold text-dark mb-1.5">Definition of "State"</h3>
+                    <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                        • Defines the term <strong>"State"</strong> as used in Part IV.<br>
+                        • The meaning of "State" here is the <strong class="underline quiz-item">exact same as in Article 12</strong> under Fundamental Rights (Part III).
+                    </p>
+                </div>
+
+                <!-- Article 37 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 37</span>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Non-Justiciable</span>
+                    </div>
+                    <h3 class="text-base font-extrabold text-dark mb-1.5">Application of the Principles</h3>
+                    <p class="text-xs sm:text-sm text-dark leading-relaxed">
+                        • Declares that DPSPs are <strong class="quiz-item">non-justiciable in nature</strong> (not enforceable by any court).<br>
+                        • Yet, it is the <strong>duty of the State to apply these principles when making laws and policies</strong>.
+                    </p>
+                </div>
+
+                <!-- Article 38 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold bg-gold/15">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 38</span>
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">44th CA, 1978</span>
+                    </div>
+                    <h3 class="text-base font-extrabold text-dark mb-1.5">Social Order for Promotion of Welfare</h3>
+                    <ul class="space-y-1.5 text-xs sm:text-sm text-dark font-medium">
+                        <li><strong>(a) Art 38(1):</strong> Promote people's welfare by ensuring <strong class="quiz-item">Justice — Social, Economic, and Political</strong>.</li>
+                        <li><strong>(b) Art 38(2):</strong> Minimize/reduce <strong class="underline quiz-item">inequalities in income, status, facilities, and opportunities</strong> (Added by <strong class="quiz-item">44th Amendment, 1978</strong>).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Article 39 (Clauses a to f) + Article 39A -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                <div class="lg:col-span-8 sub-card p-5 rounded-xl border-l-8 border-l-dark">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-2 mb-3">
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 39 (6 Clauses: a to f)</span>
+                        <span class="text-xs font-extrabold text-olive">Certain Principles of Policy to be Followed by the State</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-dark">
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive">
+                            <strong>39(a):</strong> Right to adequate means of <strong class="quiz-item">Livelihood for all citizens</strong> (men and women equally).
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-gold/25 border border-dark">
+                            <strong>39(b):</strong> <strong class="quiz-item">Fair / equitable distribution of material resources</strong> of the community for the common good.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-gold/25 border border-dark">
+                            <strong>39(c):</strong> <strong class="quiz-item">Avoiding concentration of wealth</strong> and means of production to the common detriment.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive">
+                            <strong>39(d) [Exam Favourite]:</strong> <strong class="underline quiz-item">Equal pay for equal work</strong> for both men and women (समान कार्य के लिए समान वेतन).
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-cream border border-olive">
+                            <strong>39(e):</strong> Protection of <strong class="quiz-item">workers' health and strength</strong> and protecting children from forcible abuse/exploitation.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-dark text-cream border border-gold">
+                            <strong class="text-gold">39(f) [42nd CA, 1976]:</strong> Opportunities for <strong class="text-gold underline quiz-item">proper / healthy development of Children</strong> in conditions of freedom & dignity.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 39A -->
+                <div class="lg:col-span-4 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">Article 39A</span>
+                            <span class="text-xs font-bold text-gold quiz-item">42nd CA, 1976</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-gold mt-1">Equal Justice and Free Legal Aid</h3>
+                        <p class="text-xs sm:text-sm text-cream/95 mt-2 leading-relaxed">
+                            Promotes <strong class="text-gold underline quiz-item">equal justice and provides free legal aid</strong> (निःशुल्क कानूनी सहायता — e.g., NALSA / Lok Adalats) to the poor and weaker sections of society.
+                        </p>
+                    </div>
+                    <div class="mt-3 p-2.5 rounded bg-olive/30 border border-gold text-xs text-gold font-bold">
+                        ⭐ Added by <strong>42nd Amendment Act, 1976</strong>!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles 40, 41, 42, 43, 43A, 43B Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs sm:text-sm">
+                <!-- Article 40 -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="gold-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 40</span>
+                        <span class="text-[11px] font-bold text-dark">Gandhian Principle</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Organisation of Village Panchayats</h4>
+                    <p class="text-dark mt-1">
+                        The State shall take steps to organise <strong>Village Panchayats</strong> and endow them with powers to function as units of self-government (Gram Swaraj).
+                    </p>
+                </div>
+
+                <!-- Article 41 -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 41</span>
+                        <span class="text-[11px] font-bold text-olive">Welfare Assistance</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Right to Work, Education & Public Assistance</h4>
+                    <p class="text-dark mt-1">
+                        Securing the right to work, education, and public assistance in cases of <strong>unemployment, old age, sickness, and disablement</strong> (e.g., MGNREGA, Old Age Pension).
+                    </p>
+                </div>
+
+                <!-- Article 42 -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 42</span>
+                        <span class="text-[11px] font-bold text-olive">Maternity Relief</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Just & Humane Working Conditions & Maternity Relief</h4>
+                    <p class="text-dark mt-1">
+                        Provision for securing just and humane conditions of work and for <strong class="underline quiz-item">Maternity Relief (प्रसूति सहायता)</strong> for women workers.
+                    </p>
+                </div>
+
+                <!-- Article 43 -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 43</span>
+                        <span class="text-[11px] font-bold text-olive">Living Wages</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Living Wages & Decent Working Conditions</h4>
+                    <p class="text-dark mt-1">
+                        Securing a <strong>living wage (निर्वाह मजदूरी)</strong>, decent standard of life for all workers, and promoting <strong>cottage industries</strong> in rural areas.
+                    </p>
+                </div>
+
+                <!-- Article 43A -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="gold-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 43A</span>
+                        <span class="dark-badge px-2 py-0.5 rounded text-[11px] quiz-item">42nd CA, 1976</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Workers' Participation in Management of Industries</h4>
+                    <p class="text-dark mt-1">
+                        The State shall take steps by suitable legislation to secure the <strong>participation of workers in the management of industries</strong>.
+                    </p>
+                </div>
+
+                <!-- Article 43B -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="gold-badge px-2.5 py-0.5 rounded text-xs uppercase">Article 43B</span>
+                        <span class="dark-badge px-2 py-0.5 rounded text-[11px] quiz-item">97th CA, 2011</span>
+                    </div>
+                    <h4 class="font-extrabold text-base text-dark quiz-item">Promotion of Cooperative Societies</h4>
+                    <p class="text-dark mt-1">
+                        The State shall promote voluntary formation, autonomous functioning, democratic control, and professional management of <strong>Cooperative Societies</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 3: DETAILED DPSP ARTICLES 44 TO 51
+             ========================================== -->
+        <section id="topic-3" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">03</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 3 & 4 • Article-by-Article Breakdown (Part 2)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">DPSP Articles 44 to 51 (UCC, Early Childhood, Environment, Judiciary & Peace)</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-xs sm:text-sm">
+                <!-- Article 44 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold bg-gold/15 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 44</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">4 = 4 (Equal)</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Uniform Civil Code (UCC / समान नागरिक संहिता)</h3>
+                        <p class="text-dark leading-relaxed">
+                            "The State shall endeavour to secure for the citizens a <strong>Uniform Civil Code throughout the territory of India</strong>."
+                        </p>
+                    </div>
+                    <p class="text-xs text-olive font-bold mt-3 pt-2 border-t border-olive/30">
+                        🧠 <strong>Trick:</strong> <strong>4</strong> aur <strong>4</strong> barabar hote hain = Sabke liye ek barabar civil law (<strong>Art 44</strong>)!
+                    </p>
+                </div>
+
+                <!-- Article 45 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 45</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">86th CA, 2002</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Early Childhood Care & Education (Below 6 Yrs)</h3>
+                        <p class="text-dark leading-relaxed">
+                            <strong class="underline quiz-item">86th Amendment Act, 2002</strong> changed the subject matter of this article and shifted focus to <strong>early childhood care and education for all children until they complete the age of six years (below 6 years)</strong>.
+                        </p>
+                    </div>
+                    <p class="text-xs text-olive font-bold mt-3 pt-2 border-t border-olive/30">
+                        💡 0–6 yrs = Art 45 (DPSP) | 6–14 yrs = Art 21A (FR) & Art 51A(k) (FD)!
+                    </p>
+                </div>
+
+                <!-- Article 46 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 46</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Gandhian</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Educational & Economic Interests of SCs, STs & Weaker Sections</h3>
+                        <p class="text-dark leading-relaxed">
+                            Promotion of educational and economic interests of <strong>Scheduled Castes (SCs), Scheduled Tribes (STs), and other weaker sections</strong>, and protecting them from social injustice.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 47 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 47</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Liquor Ban</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Nutrition, Standard of Living, Public Health & Prohibition of Intoxicants</h3>
+                        <p class="text-dark leading-relaxed">
+                            Duty of the State to <strong>raise the level of nutrition and standard of living</strong>, improve public health, and <strong class="underline quiz-item">prohibit the consumption of intoxicating drinks and drugs</strong> injurious to health.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 48 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 48</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Cow Protection</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Organisation of Agriculture & Animal Husbandry</h3>
+                        <p class="text-dark leading-relaxed">
+                            Organise agriculture and animal husbandry on modern/scientific lines, and <strong class="underline quiz-item">prohibit the slaughter of cows, calves, and other milch and draught cattle</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 48A -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Article 48-A</span>
+                            <span class="text-xs font-bold text-gold quiz-item">42nd CA, 1976</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-gold mb-1.5 quiz-item">Protection of Environment, Forests & Wildlife</h3>
+                        <p class="text-cream/95 leading-relaxed">
+                            "The State shall endeavour to <strong>protect and improve the environment and to safeguard the forests and wildlife</strong> of the country." (Added by <strong class="text-gold quiz-item">42nd Amendment, 1976</strong>).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 49 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 49</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Monuments</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Protection of Monuments & National Heritage</h3>
+                        <p class="text-dark leading-relaxed">
+                            Obligation of the State to protect every <strong>monument or place or object of artistic or historic interest</strong> (declared to be of national importance) from spoliation or destruction.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article 50 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold bg-gold/15 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Article 50</span>
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded">50–50 Split!</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Separation of Judiciary from Executive</h3>
+                        <p class="text-dark leading-relaxed">
+                            The State shall take steps to <strong class="underline quiz-item">separate the Judiciary from the Executive</strong> in the public services of the State.
+                        </p>
+                    </div>
+                    <p class="text-xs text-olive font-bold mt-3 pt-2 border-t border-olive/30">
+                        🧠 <strong>Trick:</strong> <strong>Article 50</strong> = <strong>50-50</strong> batwara between Judiciary and Executive!
+                    </p>
+                </div>
+
+                <!-- Article 51 -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Article 51</span>
+                            <span class="gold-badge text-xs px-2 py-0.5 rounded">Foreign Policy</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-dark mb-1.5 quiz-item">Promotion of International Peace and Security</h3>
+                        <p class="text-dark leading-relaxed">
+                            Promote <strong>international peace and security</strong>, maintain <strong>just and honourable relations</strong> with nations/neighbours, foster respect for international law, and encourage arbitration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 4: CLASSIFICATION OF DPSPs & AMENDMENTS SUMMARY
+             ========================================== -->
+        <section id="topic-4" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">04</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 4 • Ideological Grouping & Amendments</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Classification of DPSPs & DPSPs Added Through Amendments</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Important Note Banner -->
+            <div class="trick-box p-4 rounded-xl mb-6 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gold text-dark font-extrabold text-lg flex items-center justify-center shrink-0">!</div>
+                <p class="text-xs sm:text-sm font-medium">
+                    <strong class="text-gold uppercase">📌 Note Kar Lo (Important Exam Fact):</strong><br>
+                    This classification of DPSP into <strong>Socialist (Socio-Economic), Gandhian, and Liberal-Intellectual</strong> is <strong class="text-gold underline quiz-item">NOT mentioned in the Constitution</strong>! (Samvidhan mein inhe bina kisi category ke Art 36–51 mein rakha gaya hai).
+                </p>
+            </div>
+
+            <!-- 3 Ideological Classifications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                <!-- 1. Socio-Economic (Socialist) -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Category #1</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2 mb-2">1. Socio-Economic (Socialist) Principles</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • Aim for <strong>social and economic welfare</strong>, focusing on equality, democratic socialism, and building a <strong>Welfare State</strong>.
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                        <span class="text-xs font-extrabold uppercase text-olive block mb-1">Articles Included:</span>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-extrabold text-dark">
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 38</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 39</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 39A</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 41</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 42</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 43</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 43A</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 47</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Gandhian Principles -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-gold bg-gold/15 flex flex-col justify-between">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Category #2 • Most Asked</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2 mb-2">2. Gandhian Principles</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • Emphasize <strong>decentralized governance (Panchayats), village self-sufficiency (Cottage industries)</strong>, upliftment of SCs/STs, prohibition of liquor, and cow protection.
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-lg bg-cream border-2 border-dark">
+                        <span class="text-xs font-extrabold uppercase text-olive block mb-1">Articles Included:</span>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-extrabold text-dark">
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 40</span>
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 43</span>
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 43B</span>
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 46</span>
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 47</span>
+                            <span class="px-2 py-0.5 rounded bg-gold border border-dark quiz-item">Art 48</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Liberal-Intellectual Principles -->
+                <div class="sub-card p-5 rounded-xl border-t-4 border-t-dark flex flex-col justify-between">
+                    <div>
+                        <span class="dark-badge text-xs px-2.5 py-1 rounded uppercase">Category #3</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-2 mb-2">3. Liberal-Intellectual Principles</h3>
+                        <p class="text-xs sm:text-sm text-dark leading-relaxed mb-3">
+                            • Prioritize <strong>individual freedoms and rights</strong>, along with promoting a <strong>strong, rational, modern state</strong> (UCC, childhood care, environment, judiciary separation, world peace).
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gold/25 border border-olive">
+                        <span class="text-xs font-extrabold uppercase text-olive block mb-1">Articles Included:</span>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-extrabold text-dark">
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 44</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 45</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 48</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 48A</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 49</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 50</span>
+                            <span class="px-2 py-0.5 rounded bg-cream border border-dark quiz-item">Art 51</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DPSPs Added Through Amendments Summary -->
+            <div class="sub-card p-5 rounded-xl bg-cream border-2 border-dark">
+                <h3 class="font-extrabold text-base sm:text-lg text-dark mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-file-pen text-olive"></i> DPSPs Added / Modified Through Constitutional Amendments (Page 4)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm">
+                    <!-- 42nd CAA 1976 -->
+                    <div class="p-4 rounded-xl bg-dark text-cream border border-gold lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-olive pb-1.5 mb-2">
+                            <span class="font-extrabold text-gold text-sm quiz-item">1. 42nd CAA, 1976 (Added 4 DPSPs)</span>
+                            <span class="px-2 py-0.5 rounded bg-gold text-dark font-bold text-[10px]">Mini Constitution</span>
+                        </div>
+                        <ul class="space-y-1.5 text-xs sm:text-sm">
+                            <li>• <strong class="text-gold quiz-item">Article 39(f):</strong> Children's healthy development opportunities.</li>
+                            <li>• <strong class="text-gold quiz-item">Article 39A:</strong> Poor — Equal justice & free legal aid.</li>
+                            <li>• <strong class="text-gold quiz-item">Article 43A:</strong> Participation of workers in management of industries.</li>
+                            <li>• <strong class="text-gold quiz-item">Article 48A:</strong> To protect environment & safeguard forests and wildlife.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 44th & 86th & 97th -->
+                    <div class="space-y-3">
+                        <div class="p-3.5 rounded-xl bg-gold/25 border border-olive">
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">2. 44th CA, 1978</span>
+                            <p class="mt-1.5 font-bold text-dark">
+                                <strong class="quiz-item">Article 38(2):</strong> Directs State to minimize/reduce inequalities in income, status, facilities, and opportunities.
+                            </p>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-gold/25 border border-olive">
+                            <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">3. 86th CA, 2002</span>
+                            <p class="mt-1.5 font-bold text-dark">
+                                <strong class="quiz-item">Article 45:</strong> Changed subject matter to Early Childhood Care & education (below 6 yrs).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-gold/35 border-2 border-dark flex flex-col justify-center">
+                        <span class="dark-badge text-xs px-2 py-0.5 rounded w-fit quiz-item">4. 97th CA, 2011</span>
+                        <h4 class="font-extrabold text-base text-dark mt-2 quiz-item">Article 43B</h4>
+                        <p class="text-xs sm:text-sm font-semibold text-dark mt-1">
+                            Added a new DPSP relating to <strong class="underline quiz-item">Cooperative Societies</strong> (voluntary formation, democratic control, professional management).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 5: CASES RELATED TO DPSP VS FR & DIFFERENCE TABLE
+             ========================================== -->
+        <section id="topic-5" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">05</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Judicial Evolution & Comparison</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Cases Related to DPSPs vs Fundamental Rights & Comparison Table</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- 5 Step Judicial Evolution Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 text-xs sm:text-sm">
+                <!-- 1. Champakam Dorairajan (1951) -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-dark">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">Step 1 • 1951</span>
+                    <h3 class="font-extrabold text-base text-dark mt-2 quiz-item">1. Champakam Dorairajan Case (1951)</h3>
+                    <ul class="mt-2 space-y-1.5 list-disc pl-4 text-dark font-medium">
+                        <li>Supreme Court ruled that in case of conflict, <strong class="underline quiz-item">Fundamental Rights (FRs) would prevail over DPSPs</strong>.</li>
+                        <li>However, <strong>FRs are amendable</strong> by Parliament through Constitutional Amendments.</li>
+                    </ul>
+                </div>
+
+                <!-- 2. Golaknath Case (1967) -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-olive">
+                    <span class="dark-badge text-xs px-2 py-0.5 rounded quiz-item">Step 2 • 1967</span>
+                    <h3 class="font-extrabold text-base text-dark mt-2 quiz-item">2. Golaknath Case (1967)</h3>
+                    <ul class="mt-2 space-y-1.5 list-disc pl-4 text-dark font-medium">
+                        <li>Supreme Court took a U-turn and ruled that <strong class="underline quiz-item">Parliament CANNOT revoke, abridge, or amend Fundamental Rights</strong> even to implement DPSPs!</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Aftermath of Golaknath (24th & 25th CA, 1971) -->
+                <div class="sub-card p-4 rounded-xl border-t-4 border-t-gold bg-gold/15">
+                    <span class="gold-badge text-xs px-2 py-0.5 rounded quiz-item">Step 3 • 1971 Reactions</span>
+                    <h3 class="font-extrabold text-base text-dark mt-2">3. Aftermath of Golaknath (24th & 25th CA)</h3>
+                    <ul class="mt-2 space-y-1.5 list-disc pl-4 text-dark font-medium">
+                        <li><strong>24th Amendment (1971):</strong> Empowered Parliament to amend any part of the Constitution including FRs.</li>
+                        <li><strong>25th Amendment (1971) — Inserted <span class="underline quiz-item">Article 31C</span>:</strong><br>
+                            <strong>(i)</strong> Laws implementing Socialist DPSPs under <strong class="quiz-item">Articles 39(b) and 39(c)</strong> cannot be declared void on the ground of violating <strong>Article 14 or Article 19</strong>.<br>
+                            <strong>(ii)</strong> No such law can be questioned in any court.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 4. Kesavananda Bharati Case (1973) -->
+                <div class="sub-card p-5 rounded-xl border-2 border-dark lg:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <span class="dark-badge text-xs px-2.5 py-0.5 rounded quiz-item">Step 4 • 1973 (13-Judges Bench)</span>
+                        <span class="gold-badge text-xs px-2 py-0.5 rounded">Basic Structure Doctrine</span>
+                    </div>
+                    <h3 class="font-extrabold text-base sm:text-lg text-dark mt-2 quiz-item">4. Kesavananda Bharati Case (1973)</h3>
+                    <ul class="mt-2 space-y-1.5 list-disc pl-4 text-dark font-medium">
+                        <li>A historic <strong>13-Judges Bench</strong> ruled that <strong>Parliament CAN amend Fundamental Rights, BUT cannot disturb the <span class="underline quiz-item">"Basic Structure"</span> of the Constitution</strong>.</li>
+                        <li>Declared the <strong>2nd provision (clause ii) of the 25th Amendment (Art 31C)</strong> — which restricted Judicial Review of laws — as <strong class="underline quiz-item">unconstitutional and void</strong> (while upholding clause (i) giving primacy to Art 39(b) & 39(c) over Art 14 & 19!).</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Minerva Mills Case (1980) -->
+                <div class="bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase quiz-item">Step 5 • 1980 Final Balance</span>
+                        <h3 class="font-serif font-bold text-lg text-gold mt-2 quiz-item">5. Minerva Mills Case (1980)</h3>
+                        <p class="text-xs sm:text-sm text-cream/95 mt-2 leading-relaxed">
+                            Supreme Court ruled that the <strong class="text-gold underline quiz-item">"Indian Constitution is founded on the bedrock of the balance between Fundamental Rights and DPSPs."</strong>
+                        </p>
+                    </div>
+                    <p class="text-xs text-gold font-bold mt-2">
+                        👉 FRs aur DPSPs ek rath ke do pahiye hain — dono ke beech santulan (harmony) Basic Structure ka hissa hai!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Difference Between Fundamental Rights and DPSPs Table -->
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-code-compare text-olive"></i> Difference Between Fundamental Rights (Part III) & DPSPs (Part IV)
+            </h3>
+            <div class="overflow-x-auto rounded-xl border-2 border-dark">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-dark text-gold text-xs uppercase tracking-wider">
+                            <th class="p-3.5 border-b border-olive w-1/2">⚖️ Fundamental Rights (Part III: Art 12–35)</th>
+                            <th class="p-3.5 border-b border-olive w-1/2">🌾 Directive Principles / DPSP (Part IV: Art 36–51)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-olive/40 text-xs sm:text-sm bg-cream font-medium">
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">1. <strong class="quiz-item">Negative obligations</strong> (Prohibits the State from doing certain things).</td>
+                            <td class="p-3">1. <strong class="quiz-item">Positive obligations</strong> (Directs the State to do certain things for citizens).</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">2. <strong class="quiz-item">Justiciable rights</strong> (Legally enforceable by Supreme Court & High Courts).</td>
+                            <td class="p-3">2. <strong class="quiz-item">Non-justiciable</strong> (Not legally enforceable by the courts).</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">3. Focused on establishing <strong class="quiz-item">Political Democracy</strong>.</td>
+                            <td class="p-3">3. Promotes <strong class="quiz-item">Social and Economic Democracy / Welfare</strong>.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">4. Protected by <strong class="quiz-item">Legal Sanctions</strong>.</td>
+                            <td class="p-3">4. Backed by <strong class="quiz-item">Moral and Political Sanctions</strong>.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">5. Oriented towards <strong class="quiz-item">Individual Welfare</strong>.</td>
+                            <td class="p-3">5. Focused on <strong class="quiz-item">Societal / Community Welfare</strong>.</td>
+                        </tr>
+                        <tr class="hover:bg-gold/20">
+                            <td class="p-3 border-r border-olive/40">6. <strong class="quiz-item">Automatically enforceable</strong> (do not require legislation) & Courts can declare a law violating FRs as invalid/void.</td>
+                            <td class="p-3">6. <strong class="quiz-item">Require legislative enactment</strong> for implementation & Courts cannot invalidate a law merely for violating DPSP.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 6: PART IVA — FUNDAMENTAL DUTIES (BASICS, ORIGIN & COMMITTEES)
+             ========================================== -->
+        <section id="topic-6" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">06</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 5 • Part IVA of Constitution (Article 51A)</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Part IVA: Fundamental Duties — Origin, Committee & Amendments</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left 7 Cols: Key Features of Fundamental Duties -->
+                <div class="lg:col-span-7 sub-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between border-b border-olive pb-2">
+                        <span class="gold-badge text-xs px-2.5 py-1 rounded uppercase">Part IVA • Article 51A</span>
+                        <span class="text-xs font-extrabold text-olive">Added in 1976</span>
+                    </div>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-dark font-medium">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Borrowed From:</strong> Fundamental Duties are borrowed from the <strong class="bg-gold/50 px-1.5 py-0.5 rounded border border-dark quiz-item">USSR (Erstwhile Soviet Union / Russia)</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Not in Original Constitution:</strong> They were <strong class="underline quiz-item">NOT originally part of the Constitution</strong> in 1950!</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Nature:</strong> Statutory / Non-justiciable and <strong class="quiz-item">non-enforceable</strong> directly by court writs (though Parliament can enforce them through specific laws).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>Citizens Only (Exam Trap!):</strong> Fundamental Duties are applicable <strong class="underline quiz-item">ONLY to Indian Citizens, and NOT to Foreigners</strong>!</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>42nd Amendment (1976):</strong> Introduced through the <strong class="quiz-item">42nd Constitutional Amendment Act, 1976</strong> (during Emergency). Initially <strong class="quiz-item">10 Fundamental Duties</strong> [51A(a) to 51A(j)] were added.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-olive mt-1"></i>
+                            <span><strong>86th Amendment (2002):</strong> Currently, there are <strong class="quiz-item">11 Fundamental Duties</strong>. The 11th Fundamental Duty [<strong class="underline quiz-item">Article 51A(k)</strong>] was added via the <strong class="quiz-item">86th Constitutional Amendment Act, 2002</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right 5 Cols: Sardar Swaran Singh Committee Box -->
+                <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold flex flex-col justify-between">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">⭐ Committee Recommendation</span>
+                        <h3 class="text-xl font-serif font-bold text-gold mt-2 quiz-item">Sardar Swaran Singh Committee (1976)</h3>
+                        <p class="text-xs sm:text-sm text-cream/90 mt-2 leading-relaxed">
+                            Set up by the Congress Party (Indira Gandhi Govt) in <strong>1976</strong> to make recommendations about Fundamental Duties during the National Emergency.
+                        </p>
+
+                        <div class="my-4 grid grid-cols-3 gap-2 text-center text-xs">
+                            <div class="p-2.5 rounded-lg bg-olive/30 border border-gold">
+                                <span class="text-gold font-bold block text-[10px]">Recommended</span>
+                                <strong class="text-lg font-extrabold text-cream">8 Duties</strong>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-gold text-dark border border-cream">
+                                <span class="font-bold block text-[10px]">42nd CA (1976)</span>
+                                <strong class="text-lg font-extrabold quiz-item">10 Duties</strong>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-cream text-dark border border-gold">
+                                <span class="font-bold block text-[10px] text-olive">86th CA (2002)</span>
+                                <strong class="text-lg font-extrabold quiz-item">11 Duties</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-cream/80 border-t border-olive pt-2">
+                        💡 <strong>Yaad Rakhein:</strong> Sardar Swaran Singh Committee ki sifarish par Part IVA (Article 51A) joda gaya: 1976 mein <strong>10 Duties</strong> aur 2002 mein <strong>11th Duty</strong>!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 7: ALL 11 FUNDAMENTAL DUTIES — ARTICLE 51A (a to k)
+             ========================================== -->
+        <section id="topic-7" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">07</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Page 6 • Complete Clause-by-Clause List</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Article 51(A): All 11 Fundamental Duties [Clauses (a) to (k)]</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <!-- Duty (a) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (a) • 1st Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">a = Anthem & Flag</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To abide by the <strong class="quiz-item">Constitution</strong> and respect its ideals and institutions, the <strong class="quiz-item">National Flag</strong> and the <strong class="quiz-item">National Anthem</strong>.
+                    </p>
+                    <span class="text-[11px] text-olive font-bold block mt-1">⚠️ Exam Trap: <em>National Song (Vande Mataram)</em> is NOT mentioned in 51A(a)!</span>
+                </div>
+
+                <!-- Duty (b) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (b) • 2nd Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">b = Bhagat Singh / Bapu</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To cherish and follow the <strong class="quiz-item">noble ideals that inspired the national struggle for freedom</strong> (Azadi ki ladai ke aadarsho ko dil mein sanjona).
+                    </p>
+                </div>
+
+                <!-- Duty (c) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (c) • 3rd Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">c = 3 Words (S-U-I)</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To uphold and protect the <strong class="underline quiz-item">Sovereignty, Unity and Integrity of India</strong> (भारत की संप्रभुता, एकता और अखंडता की रक्षा करना).
+                    </p>
+                </div>
+
+                <!-- Duty (d) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (d) • 4th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">d = Defend Country</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To <strong class="quiz-item">defend the country and render national service</strong> when called upon to do so (Desh ki raksha karna aur bulaye jaane par rashtriya seva karna).
+                    </p>
+                </div>
+
+                <!-- Duty (e) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-gold bg-gold/15 md:col-span-2">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="gold-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (e) • 5th Duty</span>
+                        <span class="dark-badge px-2 py-0.5 rounded text-[11px]">e = Equality, Brotherhood & Women's Dignity</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To promote <strong class="quiz-item">harmony and the spirit of common brotherhood</strong> amongst all the people of India transcending religious, linguistic and regional or sectional diversities; and to <strong class="underline quiz-item">renounce practices derogatory to the dignity of women</strong> (महिलाओं के सम्मान के विरुद्ध प्रथाओं का त्याग).
+                    </p>
+                </div>
+
+                <!-- Duty (f) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (f) • 6th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">f = Fort / Heritage</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To value and preserve the <strong class="quiz-item">rich heritage of our composite culture</strong> (हमारी सामासिक संस्कृति की गौरवशाली परंपरा का महत्व समझना और परिरक्षण करना).
+                    </p>
+                </div>
+
+                <!-- Duty (g) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (g) • 7th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">g = Greenery / Environment</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To protect and improve the <strong class="quiz-item">natural environment including forests, lakes, rivers and wildlife</strong>, and to have <strong class="quiz-item">compassion for living creatures</strong> (प्राणी मात्र के प्रति दया भाव).
+                    </p>
+                </div>
+
+                <!-- Duty (h) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (h) • 8th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">h = Humanism & Science</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To develop the <strong class="quiz-item">scientific temper, humanism and the spirit of inquiry and reform</strong> (वैज्ञानिक दृष्टिकोण, मानववाद और ज्ञानार्जन तथा सुधार की भावना).
+                    </p>
+                </div>
+
+                <!-- Duty (i) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (i) • 9th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">i = Eye (No Violence)</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To <strong class="quiz-item">safeguard public property and to abjure violence</strong> (सार्वजनिक संपत्ति को सुरक्षित रखना और हिंसा से दूर रहना).
+                    </p>
+                </div>
+
+                <!-- Duty (j) -->
+                <div class="sub-card p-4 rounded-xl border-l-4 border-l-dark">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-extrabold">51A (j) • 10th Duty</span>
+                        <span class="gold-badge px-2 py-0.5 rounded text-[11px]">j = Jadeja (Excellence)</span>
+                    </div>
+                    <p class="text-dark font-medium leading-relaxed">
+                        To <strong class="quiz-item">strive towards excellence in all spheres</strong> of individual and collective activity so that the nation constantly rises to higher levels of endeavour and achievement.
+                    </p>
+                </div>
+
+                <!-- Duty (k) -->
+                <div class="bg-dark text-cream p-4 rounded-xl border-2 border-gold">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark text-xs font-extrabold">51A (k) • 11th Duty (86th CA, 2002)</span>
+                        <span class="text-xs font-bold text-gold">k = Kids' Education</span>
+                    </div>
+                    <p class="text-cream/95 font-medium leading-relaxed">
+                        <strong class="text-gold">Duty of a parent or guardian:</strong> To provide opportunities for <strong class="text-gold underline quiz-item">education to his child or ward between the age of six and fourteen (6–14) years</strong>. (Added through <strong class="text-gold quiz-item">86th CA, 2002</strong>).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 8: A-TO-K MEMORY TRICK, JUSTICE VERMA COMMITTEE & 6 ENFORCING LAWS
+             ========================================== -->
+        <section id="topic-8" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">08</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Pages 6 & 7 • Mnemonic & Legal Implementation</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">Trick to Learn All 11 Duties (a to k), Justice Verma Committee & 6 Enforcing Acts</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <!-- Page 7 A-to-K Memory Trick Grid -->
+            <div class="trick-box p-5 rounded-2xl mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-3 mb-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs uppercase">🧠 Page 7 Master Mnemonic</span>
+                        <h3 class="text-xl font-serif font-extrabold text-gold mt-1">Trick to Learn All 11 Fundamental Duties by Sub-Clause Letter (a to k)</h3>
+                    </div>
+                    <span class="text-xs text-cream/80 font-semibold">Exam mein pucha jata hai ki 51A(g) ya 51A(i) mein kya hai!</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs sm:text-sm">
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">a —</strong> <span class="font-bold quiz-item">Anthem aur Flag ki respect</span> (Constitution, Flag, Anthem)
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">b —</strong> <span class="font-bold quiz-item">Bhagat Singh / Bapu ke ideals</span> ko follow karna (Freedom Struggle)
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">c —</strong> <span class="font-bold quiz-item">C means 3</span> = 3 Words: <strong>Sovereignty, Unity, Integrity</strong>
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">d —</strong> <span class="font-bold quiz-item">Defend the country</span> & National Service
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">e —</strong> <span class="font-bold quiz-item">E means 5 & Equality</span>, Brotherhood, No derogatory practices to Women
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">f —</strong> <span class="font-bold quiz-item">Fort matlab Heritage</span> ki value & care karna (Composite Culture)
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">g —</strong> <span class="font-bold quiz-item">Greenery — Environment</span>, Forests, Lakes, Rivers & Wildlife protection
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">h —</strong> <span class="font-bold quiz-item">Humanism</span> & Scientific Temper, Spirit of Inquiry
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold">
+                        <strong class="text-base font-extrabold text-dark">i —</strong> <span class="font-bold quiz-item">Eye ("Eye for an eye...")</span> matlab <strong>Violence nahi karna</strong> & Public Property
+                    </div>
+                    <div class="p-3 rounded-xl bg-cream text-dark border-2 border-gold sm:col-span-2">
+                        <strong class="text-base font-extrabold text-dark">j —</strong> <span class="font-bold quiz-item">Jadeja ki tarah Excellent performer</span> in all spheres bano aur achievements karo
+                    </div>
+                    <div class="p-3 rounded-xl bg-gold text-dark border-2 border-cream font-extrabold">
+                        <strong class="text-base">k —</strong> <span class="quiz-item">Kids' School Education (6–14 years)</span> (86th CA, 2002)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Justice Verma Committee & 6 Enforcing Laws -->
+            <div class="sub-card p-5 rounded-xl mb-6 border-l-8 border-l-dark">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="gold-badge text-xs px-2.5 py-0.5 rounded uppercase">Committee on Operationalization of FDs</span>
+                        <h3 class="text-lg font-extrabold text-dark mt-1 quiz-item">Justice Verma Committee (1999)</h3>
+                        <p class="text-xs sm:text-sm text-dark mt-1">
+                            • It <strong>identified the existence of legal provisions for the implementation of Fundamental Duties</strong> and recommended teaching school kids about their duties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="font-extrabold text-base sm:text-lg text-dark mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-gavel text-olive"></i> 6 Laws Reflecting and Enforcing Fundamental Duties (Page 6)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs sm:text-sm">
+                <!-- 1. UAPA 1967 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1967</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duty (c)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">1. The Unlawful Activities (Prevention) Act (UAPA), 1967</h4>
+                        <p class="text-dark mt-1">Prevents unlawful activities that threaten the <strong>sovereignty, unity, and integrity of India</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Prevention of Insults to National Honour Act 1971 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1971</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duty (a)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">2. Prevention of Insults to National Honour Act, 1971</h4>
+                        <p class="text-dark mt-1">Prohibits disrespect/insult to the <strong>Constitution, National Flag, and National Anthem</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Wildlife Protection Act 1972 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1972</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duty (g)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">3. Wildlife Protection Act, 1972</h4>
+                        <p class="text-dark mt-1">Provides legal protection to <strong>wild animals, birds, and natural environment</strong> (along with Forest Conservation Act, 1980).</p>
+                    </div>
+                </div>
+
+                <!-- 4. Representation of the People Act 1951 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1951</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duty (a)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">4. Representation of the People Act (RPA), 1951</h4>
+                        <p class="text-dark mt-1">Regulates elections and upholds democratic processes (disqualifies members indulging in corrupt practices or religious enmity).</p>
+                    </div>
+                </div>
+
+                <!-- 5. Indian Penal Code (IPC) -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs">Penal Law</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duties (i) & (e)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">5. Indian Penal Code (IPC)</h4>
+                        <p class="text-dark mt-1">Defines crimes and prescribes punishments, protecting public order, public property, and morality (renouncing derogatory practices against women).</p>
+                    </div>
+                </div>
+
+                <!-- 6. Protection of Civil Rights Act 1955 -->
+                <div class="sub-card p-4 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="dark-badge px-2 py-0.5 rounded text-xs quiz-item">1955</span>
+                            <span class="gold-badge px-2 py-0.5 rounded text-xs quiz-item">Enforces Duty (e)</span>
+                        </div>
+                        <h4 class="font-extrabold text-dark text-base">6. Protection of Civil Rights Act, 1955</h4>
+                        <p class="text-dark mt-1">Eliminates untouchability and promotes social harmony, brotherhood, and equality.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TOPIC 9: RAPID-FIRE REVISION CHEAT SHEET
+             ========================================== -->
+        <section id="topic-9" class="note-card rounded-2xl p-6 md:p-8 searchable-section">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-olive pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-dark text-gold font-extrabold text-lg flex items-center justify-center">09</span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-olive">Last-Minute Exam Booster</span>
+                        <h2 class="text-xl md:text-2xl font-serif font-extrabold text-dark">One-Glance Revision Table: Articles 36 to 51A</h2>
+                    </div>
+                </div>
+                <a href="#topics-at-a-glance" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark hover:bg-dark hover:text-gold transition">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 text-xs">
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 36:</strong> <span class="quiz-item">Definition of State (= Art 12)</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 37:</strong> <span class="quiz-item">Non-justiciable nature</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 38:</strong> <span class="quiz-item">Social order & reduce inequality (44th CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 39(d):</strong> <span class="quiz-item">Equal Pay for Equal Work</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 39A:</strong> <span class="quiz-item">Free Legal Aid (42nd CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 40:</strong> <span class="quiz-item">Village Panchayats</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 41:</strong> <span class="quiz-item">Right to Work, Education, Assistance</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 42:</strong> <span class="quiz-item">Humane Work & Maternity Relief</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 43:</strong> <span class="quiz-item">Living Wage & Cottage Industry</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 43A:</strong> <span class="quiz-item">Workers in Management (42nd CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 43B:</strong> <span class="quiz-item">Co-operative Societies (97th CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 44:</strong> <span class="quiz-item">Uniform Civil Code (UCC)</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 45:</strong> <span class="quiz-item">Early Childhood Care &lt; 6 yrs (86th CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 46:</strong> <span class="quiz-item">SC, ST & Weaker Sections</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 47:</strong> <span class="quiz-item">Nutrition, Health & Liquor Ban</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 48:</strong> <span class="quiz-item">Agriculture, Animal Husbandry, Cow</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 48A:</strong> <span class="quiz-item">Environment & Wildlife (42nd CA)</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 49:</strong> <span class="quiz-item">Monuments & National Heritage</span></div>
+                <div class="sub-card p-2.5 rounded-lg bg-gold/25"><strong>Art 50:</strong> <span class="quiz-item">Separate Judiciary from Executive</span></div>
+                <div class="sub-card p-2.5 rounded-lg"><strong>Art 51:</strong> <span class="quiz-item">International Peace & Security</span></div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE QUICK REVISION QUIZ (8 MCQs)
+             ========================================== -->
+        <section id="quick-quiz" class="note-card rounded-2xl p-6 md:p-8 bg-dark text-cream border-2 border-gold">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-olive pb-4 mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-gold text-dark font-extrabold text-xs uppercase">Test Your Knowledge</span>
+                    <h2 class="text-xl md:text-2xl font-serif font-extrabold text-gold mt-1">
+                        <i class="fa-solid fa-bolt-lightning mr-1"></i> Interactive SSC PYQ Practice Quiz (8 Questions)
+                    </h2>
+                </div>
+                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg bg-olive text-cream text-xs font-bold hover:bg-gold hover:text-dark transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+                </button>
+            </div>
+
+            <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING "ADD EXTRA NOTE" & "TOPICS AT A GLANCE" BUTTONS -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5 no-print">
+        <button 
+            onclick="toggleClickNoteMode()"
+            id="floatingNoteModeBtn"
+            class="px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2"
+            title="Click anywhere to add extra notes"
+        >
+            <i class="fa-solid fa-plus-circle text-base"></i>
+            <span id="floatingNoteBtnText">Add Extra Note</span>
+        </button>
+
+        <a 
+            href="#topics-at-a-glance" 
+            class="px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl hover:bg-gold hover:text-dark transition-all flex items-center gap-2"
+            title="Jump back to Topics at a Glance"
+        >
+            <i class="fa-solid fa-compass text-base"></i>
+            <span>Topics at a Glance</span>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         SLIDE-OVER DRAWER: MY SAVED NOTES
+         ========================================== -->
+    <div id="myNotesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden no-print"></div>
+    <aside id="myNotesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream text-dark border-l-4 border-gold z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-dark text-cream border-b-2 border-gold flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-gold text-dark flex items-center justify-center font-extrabold text-lg">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-extrabold text-lg text-gold leading-none">My Extra Study Notes</h3>
+                    <span class="text-xs text-cream/80">Saved automatically in your browser</span>
+                </div>
+            </div>
+            <button onclick="toggleNotesDrawer(false)" class="w-8 h-8 rounded-lg bg-olive/40 text-cream hover:bg-gold hover:text-dark font-bold transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Action Bar -->
+        <div class="p-3 bg-gold/25 border-b border-olive flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+            <button onclick="openStandaloneNoteModal()" class="px-3 py-1.5 rounded-lg bg-dark text-gold border border-dark hover:bg-olive hover:text-cream transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add General Note
+            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="exportStudentNotes()" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-gold transition" title="Download all notes as .txt file">
+                    <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+                </button>
+                <button onclick="clearAllStudentNotes()" id="clearAllNotesBtn" class="px-2.5 py-1.5 rounded-lg bg-cream text-dark border border-olive hover:bg-dark hover:text-gold transition" title="Delete all saved notes">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawer Notes List -->
+        <div id="drawerNotesList" class="p-4 space-y-3 overflow-y-auto flex-1">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 bg-dark text-cream text-xs text-center border-t border-olive">
+            💡 Tip: Turn on <strong>"📝 Click-to-Note"</strong> and click any paragraph or table row to attach a note right there!
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL: ADD / EDIT STUDENT NOTE
+         ========================================== -->
+    <div id="noteEditorModal" class="fixed inset-0 bg-dark/75 backdrop-blur-xs z-50 hidden items-center justify-center p-4 no-print">
+        <div class="w-full max-w-lg bg-cream text-dark rounded-2xl border-4 border-gold shadow-2xl overflow-hidden animate-[fadeInNote_0.2s_ease-out]">
+            <!-- Modal Header -->
+            <div class="bg-dark text-cream px-5 py-4 border-b-2 border-gold flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-thumbtack text-gold text-lg"></i>
+                    <h3 id="noteModalTitle" class="font-serif font-extrabold text-lg text-gold">Add Your Extra Note</h3>
+                </div>
+                <button onclick="closeNoteEditorModal()" class="text-cream hover:text-gold text-lg">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-4">
+                <!-- Context Preview Box -->
+                <div class="p-3 rounded-xl bg-gold/20 border border-olive text-xs">
+                    <span class="font-extrabold text-olive uppercase block mb-0.5">📍 Attaching Note Below:</span>
+                    <p id="noteTargetPreviewText" class="font-semibold text-dark line-clamp-2 italic">"Selected Section"</p>
+                </div>
+
+                <!-- Tag / Category Input & Quick Chips -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Note Title / Tag (Optional):
+                    </label>
+                    <input 
+                        type="text" 
+                        id="noteTagInput" 
+                        placeholder="e.g., ⭐ Exam Point, 🧠 Memory Trick, ❓ Doubt, 🔥 PYQ Fact"
+                        class="w-full px-3 py-2 rounded-lg bg-cream text-dark border-2 border-olive font-bold text-xs sm:text-sm focus:outline-none focus:border-dark"
+                    >
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <button type="button" onclick="setQuickTag('⭐ Important Exam Point')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">⭐ Exam Point</button>
+                        <button type="button" onclick="setQuickTag('🧠 My Memory Trick')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🧠 Memory Trick</button>
+                        <button type="button" onclick="setQuickTag('🔥 SSC PYQ Fact')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">🔥 PYQ Fact</button>
+                        <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="text-[11px] font-bold px-2 py-0.5 rounded bg-gold/40 border border-olive hover:bg-gold">📌 Extra Detail</button>
+                    </div>
+                </div>
+
+                <!-- Main Note Content Textarea -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1">
+                        Your Note (Hinglish / Hindi / English): <span class="text-dark">*</span>
+                    </label>
+                    <textarea 
+                        id="noteContentInput" 
+                        rows="4" 
+                        placeholder="Yahan apna extra note, trick, ya revision point likhein..."
+                        class="w-full p-3 rounded-lg bg-cream text-dark border-2 border-dark font-medium text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                    ></textarea>
+                    <p id="noteValidationError" class="hidden text-xs font-extrabold text-dark bg-gold px-2 py-1 rounded mt-1">
+                        ⚠️ Kripya note box mein kuch text zaroor likhein!
+                    </p>
+                </div>
+
+                <!-- Card Colour Style Selector -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-olive mb-1.5">
+                        Choose Note Highlight Style:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 text-xs font-bold">
+                        <button type="button" onclick="selectNoteTheme('gold')" id="themeBtn-gold" class="p-2.5 rounded-lg bg-gold text-dark border-2 border-dark flex items-center justify-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-star"></i> Golden Card
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('dark')" id="themeBtn-dark" class="p-2.5 rounded-lg bg-dark text-cream border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-bolt text-gold"></i> Dark Royal
+                        </button>
+                        <button type="button" onclick="selectNoteTheme('cream')" id="themeBtn-cream" class="p-2.5 rounded-lg bg-cream text-dark border-2 border-olive flex items-center justify-center gap-1.5 opacity-70">
+                            <i class="fa-solid fa-note-sticky text-olive"></i> Warm Cream
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gold/30 px-5 py-3 border-t-2 border-olive flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeNoteEditorModal()" class="px-4 py-2 rounded-lg bg-cream text-dark font-bold text-xs sm:text-sm border border-olive hover:bg-olive hover:text-cream transition">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveStudentNote()" class="px-5 py-2 rounded-lg bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-dark hover:bg-gold hover:text-dark transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-check"></i> Save Note Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-cream border-t-4 border-gold py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cream border border-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-gold inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-olive inline-block"></span>
+                <span class="font-bold text-gold ml-1">Indian Polity • Part IV (DPSP) & Part IVA (Fundamental Duties) Complete Hinglish Master Notes</span>
+            </div>
+            <div class="text-cream/70">
+                100% Zero-Omission Study Guide • Crafted for Fast Revision
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Jump to Topic with Smooth Scroll + Highlight Pulse
+        function jumpToTopic(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Trigger visual highlight pulse
+            target.classList.remove('section-active-pulse');
+            void target.offsetWidth; // trigger reflow
+            target.classList.add('section-active-pulse');
+        }
+
+        // 2. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // 3. Self-Test / Revision Blur Mode Toggle
+        let revisionMode = false;
+        function toggleRevisionMode() {
+            revisionMode = !revisionMode;
+            const items = document.querySelectorAll('.quiz-item');
+            const btnText = document.getElementById('revisionText');
+            const btnIcon = document.getElementById('revisionIcon');
+
+            items.forEach(item => {
+                if (revisionMode) {
+                    item.classList.add('quiz-blur');
+                    item.classList.remove('revealed');
+                    item.onclick = function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('revealed');
+                    };
+                } else {
+                    item.classList.remove('quiz-blur', 'revealed');
+                    item.onclick = null;
+                }
+            });
+
+            if (revisionMode) {
+                btnText.textContent = 'Self-Test: ON (Click blurred)';
+                btnIcon.className = 'fa-solid fa-eye';
+            } else {
+                btnText.textContent = 'Self-Test: OFF';
+                btnIcon.className = 'fa-solid fa-eye-slash';
+            }
+        }
+
+        // 4. Live Search Filter Across Notes
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearSearch.classList.remove('hidden');
+            } else {
+                clearSearch.classList.add('hidden');
+            }
+
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    sec.style.display = '';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.add('hidden');
+            document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+        });
+
+        // 5. Interactive PYQ Practice Quiz (8 Questions)
+        const quizData = [
+            {
+                q: "1. Who described the Directive Principles of State Policy (DPSP) as 'a cheque payable by the bank at its own convenience'?",
+                options: [
+                    "Dr. B. R. Ambedkar",
+                    "K. T. Shah",
+                    "Granville Austin",
+                    "B. N. Rau"
+                ],
+                answer: 1,
+                exp: "K. T. Shah ne DPSP ko 'Cheque payable by the bank at its own convenience' kaha. Dr. Ambedkar ne 'Novel Features', Granville Austin ne 'Conscience of Constitution', aur B.N. Rau ne 'Moral Percepts' kaha."
+            },
+            {
+                q: "2. Which of the following DPSP Articles was NOT added by the 42nd Constitutional Amendment Act, 1976?",
+                options: [
+                    "Article 39A (Equal Justice & Free Legal Aid)",
+                    "Article 43A (Workers' Participation in Management)",
+                    "Article 43B (Promotion of Cooperative Societies)",
+                    "Article 48A (Protection of Environment & Wildlife)"
+                ],
+                answer: 2,
+                exp: "42nd CAA (1976) ne 4 DPSPs jode: 39(f), 39A, 43A, aur 48A. Jabki Article 43B (Cooperative Societies) 97th Constitutional Amendment Act, 2011 dwara joda gaya!"
+            },
+            {
+                q: "3. Which Article of the Indian Constitution directs the State to separate the Judiciary from the Executive in the public services of the State?",
+                options: [
+                    "Article 44",
+                    "Article 48",
+                    "Article 50",
+                    "Article 51"
+                ],
+                answer: 2,
+                exp: "Trick: 50-50 batwara! Article 50 Judiciary ko Executive se alag (separate) karne ka nirdesh deta hai. Art 44 = UCC, Art 51 = International Peace."
+            },
+            {
+                q: "4. In which landmark case did the Supreme Court rule that the 'Indian Constitution is founded on the bedrock of the balance between Fundamental Rights and DPSPs'?",
+                options: [
+                    "Champakam Dorairajan Case (1951)",
+                    "Golaknath Case (1967)",
+                    "Minerva Mills Case (1980)",
+                    "Indra Sawhney Case (1992)"
+                ],
+                answer: 2,
+                exp: "Minerva Mills Case (1980) mein SC ne kaha ki Indian Constitution FRs aur DPSPs ke beech santulan (balance) ki chattan par tika hai."
+            },
+            {
+                q: "5. Fundamental Duties (Part IVA, Article 51A) were added on the recommendation of which Committee and borrowed from which country?",
+                options: [
+                    "Sardar Swaran Singh Committee | USSR",
+                    "Justice Verma Committee | Ireland",
+                    "Fazl Ali Commission | USA",
+                    "Sarkaria Commission | Australia"
+                ],
+                answer: 0,
+                exp: "Fundamental Duties USSR (Soviet Union) se li gayi hain aur Sardar Swaran Singh Committee ki sifarish par 42nd Amendment (1976) dwara jodi gayi."
+            },
+            {
+                q: "6. Under Article 51A, which sub-clause states the duty 'to safeguard public property and to abjure violence'?",
+                options: [
+                    "Article 51A (f)",
+                    "Article 51A (g)",
+                    "Article 51A (h)",
+                    "Article 51A (i)"
+                ],
+                answer: 3,
+                exp: "Trick: i = Eye ('An eye for an eye makes the whole world blind') -> Violence nahi karna aur Public Property ki raksha karna = Article 51A(i)!"
+            },
+            {
+                q: "7. Which Constitutional Amendment Act added the 11th Fundamental Duty [Article 51A(k)] regarding education for children aged 6 to 14 years?",
+                options: [
+                    "42nd Amendment Act, 1976",
+                    "44th Amendment Act, 1978",
+                    "86th Amendment Act, 2002",
+                    "97th Amendment Act, 2011"
+                ],
+                answer: 2,
+                exp: "86th Constitutional Amendment Act, 2002 ne 3 badlav kiye: Art 21A (FR) joda, Art 45 (DPSP) badla, aur 11th Fundamental Duty Art 51A(k) jodi."
+            },
+            {
+                q: "8. Which Committee was set up in 1999 to identify the existence of legal provisions for the implementation of Fundamental Duties?",
+                options: [
+                    "Sardar Swaran Singh Committee",
+                    "Justice Verma Committee",
+                    "Kaka Kalelkar Committee",
+                    "S. K. Dhar Committee"
+                ],
+                answer: 1,
+                exp: "Justice Verma Committee (1999) ne Fundamental Duties ko lagu karne wale kanoono (jaise UAPA 1967, Wildlife Act 1972, National Honour Act 1971) ki pehchan ki."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((item, idx) => `
+                <div class="bg-cream text-dark p-4 rounded-xl border-2 border-olive flex flex-col justify-between">
+                    <div>
+                        <p class="font-extrabold text-sm mb-3">${item.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${item.options.map((opt, oIdx) => `
+                                <button 
+                                    onclick="checkAnswer(${idx}, ${oIdx})" 
+                                    id="q-${idx}-opt-${oIdx}"
+                                    class="text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-cream hover:bg-gold/40 transition"
+                                >
+                                    ${String.fromCharCode(65 + oIdx)}. ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="q-exp-${idx}" class="hidden mt-3 p-2.5 rounded-lg bg-dark text-gold text-xs font-semibold">
+                        💡 ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].answer;
+            quizData[qIdx].options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+                btn.disabled = true;
+                if (oIdx === correctIdx) {
+                    btn.className = "text-left text-xs font-extrabold p-2.5 rounded-lg border-2 border-dark bg-gold text-dark";
+                    btn.innerHTML += " ✅";
+                } else if (oIdx === selectedIdx) {
+                    btn.className = "text-left text-xs font-bold p-2.5 rounded-lg border border-olive bg-dark/20 text-dark line-through";
+                    btn.innerHTML += " ❌";
+                }
+            });
+            document.getElementById(`q-exp-${qIdx}`).classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // ==========================================================
+        // 6. INTERACTIVE "CLICK ANYWHERE TO ADD NOTES" SYSTEM
+        // ==========================================================
+        const STORAGE_KEY = 'polity_dpsp_fd_notes_v1';
+        let studentNotes = [];
+        let clickNoteMode = false;
+        let currentTargetAnchorId = null;
+        let editingNoteId = null;
+        let selectedTheme = 'gold';
+        let confirmClearTimeout = null;
+
+        // Assign deterministic data-note-anchor IDs to all blocks, cards, list items, table rows & headings
+        function initializeAnnotatableTargets() {
+            const selectors = [
+                'main .sub-card',
+                'main .trick-box',
+                'main table tbody tr',
+                'main section > div.bg-dark',
+                'main section ul > li',
+                'main section h2'
+            ];
+            const elements = document.querySelectorAll(selectors.join(', '));
+
+            elements.forEach((el, index) => {
+                if (el.closest('#quick-quiz') || el.closest('#topics-at-a-glance')) return;
+
+                const anchorId = 'note-anchor-' + index;
+                el.setAttribute('data-note-anchor', anchorId);
+                el.classList.add('note-target-element');
+
+                // Add subtle "+ Note" button on hover for major cards
+                if (el.tagName !== 'TR' && el.tagName !== 'H2') {
+                    const quickBtn = document.createElement('button');
+                    quickBtn.type = 'button';
+                    quickBtn.className = 'quick-add-note-btn no-print';
+                    quickBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Note';
+                    quickBtn.title = 'Add your own extra note right below this point';
+                    quickBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openNoteEditorForTarget(anchorId);
+                    });
+                    el.appendChild(quickBtn);
+                }
+
+                // Click listener when Click-to-Note Mode is ON
+                el.addEventListener('click', function(e) {
+                    if (!clickNoteMode) return;
+                    if (e.target.closest('.student-custom-note') || e.target.closest('button') || e.target.closest('a')) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openNoteEditorForTarget(anchorId);
+                });
+            });
+        }
+
+        // Toggle Click-to-Note Mode ON / OFF
+        function toggleClickNoteMode() {
+            clickNoteMode = !clickNoteMode;
+            const body = document.body;
+            const btn = document.getElementById('clickNoteModeBtn');
+            const btnText = document.getElementById('clickNoteModeText');
+            const banner = document.getElementById('clickNoteBanner');
+            const floatingBtn = document.getElementById('floatingNoteModeBtn');
+            const floatingText = document.getElementById('floatingNoteBtnText');
+            const cursorBadge = document.getElementById('noteModeCursorBadge');
+
+            if (clickNoteMode) {
+                body.classList.add('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-cream shadow-lg flex items-center gap-1.5 shrink-0 ring-2 ring-gold';
+                btnText.textContent = '📝 Click-to-Note: ON';
+                banner.classList.remove('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-dark text-gold font-extrabold text-xs sm:text-sm border-2 border-gold shadow-2xl flex items-center gap-2 ring-4 ring-gold/50';
+                floatingText.textContent = 'Click Any Point Now (Exit)';
+                cursorBadge.style.display = 'block';
+            } else {
+                body.classList.remove('click-note-mode-active');
+                btn.className = 'px-3 py-2 rounded-lg bg-cream text-dark font-extrabold text-xs sm:text-sm border-2 border-gold hover:bg-gold transition flex items-center gap-1.5 shrink-0 shadow';
+                btnText.textContent = '📝 Click-to-Note: OFF';
+                banner.classList.add('hidden');
+                floatingBtn.className = 'px-4 py-3 rounded-full bg-gold text-dark font-extrabold text-xs sm:text-sm border-2 border-dark shadow-2xl hover:bg-dark hover:text-gold transition-all flex items-center gap-2';
+                floatingText.textContent = 'Add Extra Note';
+                cursorBadge.style.display = 'none';
+            }
+        }
+
+        // Follow mouse cursor with tooltip when Click-to-Note Mode is active
+        document.addEventListener('mousemove', function(e) {
+            if (!clickNoteMode) return;
+            const badge = document.getElementById('noteModeCursorBadge');
+            badge.style.left = (e.clientX + 14) + 'px';
+            badge.style.top = (e.clientY + 14) + 'px';
+        });
+
+        // Open Note Editor Modal for a specific target element
+        function openNoteEditorForTarget(anchorId, noteIdToEdit = null) {
+            currentTargetAnchorId = anchorId;
+            editingNoteId = noteIdToEdit;
+
+            const targetEl = document.querySelector(`[data-note-anchor="${anchorId}"]`);
+            let contextSnippet = 'General Study Note (Top of Notes)';
+            if (targetEl) {
+                const clone = targetEl.cloneNode(true);
+                clone.querySelectorAll('.student-custom-note, .quick-add-note-btn').forEach(n => n.remove());
+                contextSnippet = clone.innerText.replace(/\s+/g, ' ').trim().slice(0, 110) + '...';
+            }
+
+            document.getElementById('noteTargetPreviewText').textContent = `"${contextSnippet}"`;
+            document.getElementById('noteValidationError').classList.add('hidden');
+
+            if (noteIdToEdit) {
+                const existing = studentNotes.find(n => n.id === noteIdToEdit);
+                if (existing) {
+                    document.getElementById('noteModalTitle').textContent = 'Edit Your Custom Note';
+                    document.getElementById('noteTagInput').value = existing.tag || '';
+                    document.getElementById('noteContentInput').value = existing.content || '';
+                    selectNoteTheme(existing.theme || 'gold');
+                }
+            } else {
+                document.getElementById('noteModalTitle').textContent = 'Add Your Extra Note';
+                document.getElementById('noteTagInput').value = '⭐ Important Exam Point';
+                document.getElementById('noteContentInput').value = '';
+                selectNoteTheme('gold');
+            }
+
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('noteContentInput').focus(), 60);
+        }
+
+        function openStandaloneNoteModal() {
+            toggleNotesDrawer(false);
+            openNoteEditorForTarget('note-anchor-0');
+        }
+
+        function closeNoteEditorModal() {
+            const modal = document.getElementById('noteEditorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            currentTargetAnchorId = null;
+            editingNoteId = null;
+        }
+
+        function setQuickTag(tagText) {
+            document.getElementById('noteTagInput').value = tagText;
+        }
+
+        function selectNoteTheme(theme) {
+            selectedTheme = theme;
+            ['gold', 'dark', 'cream'].forEach(t => {
+                const btn = document.getElementById('themeBtn-' + t);
+                if (t === theme) {
+                    btn.classList.remove('opacity-70');
+                    btn.classList.add('ring-2', 'ring-dark', 'scale-105');
+                } else {
+                    btn.classList.add('opacity-70');
+                    btn.classList.remove('ring-2', 'ring-dark', 'scale-105');
+                }
+            });
+        }
+
+        // Save or Update Note
+        function saveStudentNote() {
+            const tag = document.getElementById('noteTagInput').value.trim() || '📌 Extra Study Note';
+            const content = document.getElementById('noteContentInput').value.trim();
+
+            if (!content) {
+                document.getElementById('noteValidationError').classList.remove('hidden');
+                return;
+            }
+
+            const targetEl = document.querySelector(`[data-note-anchor="${currentTargetAnchorId}"]`);
+            let sectionTitle = 'General Note';
+            if (targetEl) {
+                const sec = targetEl.closest('section');
+                if (sec && sec.querySelector('h2')) {
+                    sectionTitle = sec.querySelector('h2').innerText.trim();
+                }
+            }
+
+            const nowStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            if (editingNoteId) {
+                const idx = studentNotes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) {
+                    studentNotes[idx].tag = tag;
+                    studentNotes[idx].content = content;
+                    studentNotes[idx].theme = selectedTheme;
+                    studentNotes[idx].timestamp = nowStr + ' (Edited)';
+                }
+            } else {
+                studentNotes.push({
+                    id: 'snote-' + Date.now(),
+                    anchorId: currentTargetAnchorId || 'note-anchor-0',
+                    sectionTitle: sectionTitle,
+                    tag: tag,
+                    content: content,
+                    theme: selectedTheme,
+                    timestamp: nowStr
+                });
+            }
+
+            persistAndRenderStudentNotes();
+            closeNoteEditorModal();
+
+            if (clickNoteMode) {
+                toggleClickNoteMode();
+            }
+        }
+
+        function deleteStudentNote(noteId) {
+            studentNotes = studentNotes.filter(n => n.id !== noteId);
+            persistAndRenderStudentNotes();
+        }
+
+        function loadStudentNotes() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                studentNotes = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                studentNotes = [];
+            }
+            renderAllStudentNotes();
+        }
+
+        function persistAndRenderStudentNotes() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studentNotes));
+            } catch (e) {}
+            renderAllStudentNotes();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+            });
+        }
+
+        // Render all saved notes directly at their clicked positions + inside the Drawer
+        function renderAllStudentNotes() {
+            document.querySelectorAll('.student-custom-note-wrapper').forEach(el => el.remove());
+            document.getElementById('myNotesCountBadge').textContent = studentNotes.length;
+
+            studentNotes.forEach(note => {
+                const targetEl = document.querySelector(`[data-note-anchor="${note.anchorId}"]`) || document.querySelector('[data-note-anchor="note-anchor-0"]');
+                if (!targetEl) return;
+
+                const themeClass = note.theme === 'dark' ? 'student-note-dark' : (note.theme === 'cream' ? 'student-note-cream' : 'student-note-gold');
+                const badgeClass = note.theme === 'dark' ? 'bg-gold text-dark' : 'bg-dark text-gold';
+
+                const noteHtml = `
+                    <div id="${note.id}" class="student-custom-note ${themeClass}" onclick="event.stopPropagation()">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-2">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-thumbtack text-xs"></i>
+                                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wide ${badgeClass}">
+                                    ${escapeHtml(note.tag)}
+                                </span>
+                                <span class="text-[10px] opacity-75 font-semibold ml-1">${escapeHtml(note.timestamp)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 no-print">
+                                <button type="button" onclick="openNoteEditorForTarget('${note.anchorId}', '${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-cream text-dark border border-dark hover:bg-olive hover:text-cream transition" title="Edit Note">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button type="button" onclick="deleteStudentNote('${note.id}')" class="px-2 py-0.5 rounded text-xs font-bold bg-dark text-cream border border-cream/40 hover:bg-olive transition" title="Delete Note">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-xs sm:text-sm font-semibold whitespace-pre-line leading-relaxed">${escapeHtml(note.content)}</div>
+                    </div>
+                `;
+
+                if (targetEl.tagName === 'TR') {
+                    const trWrapper = document.createElement('tr');
+                    trWrapper.className = 'student-custom-note-wrapper bg-gold/10';
+                    const td = document.createElement('td');
+                    td.colSpan = targetEl.children.length || 2;
+                    td.className = 'px-4 py-1';
+                    td.innerHTML = noteHtml;
+                    trWrapper.appendChild(td);
+                    targetEl.insertAdjacentElement('afterend', trWrapper);
+                } else {
+                    const divWrapper = document.createElement('div');
+                    divWrapper.className = 'student-custom-note-wrapper';
+                    divWrapper.innerHTML = noteHtml;
+                    targetEl.appendChild(divWrapper);
+                }
+            });
+
+            renderDrawerNotesList();
+        }
+
+        // Render list inside My Notes Slide-Over Drawer
+        function renderDrawerNotesList() {
+            const listEl = document.getElementById('drawerNotesList');
+            if (studentNotes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 px-4 sub-card rounded-xl">
+                        <div class="w-12 h-12 rounded-full bg-gold/40 text-dark flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-extrabold text-base text-dark">Abhi Koi Extra Note Nahi Hai!</h4>
+                        <p class="text-xs text-olive mt-1 leading-relaxed">
+                            Upar <strong>"📝 Click-to-Note"</strong> button ON karein aur notes mein jahan bhi aapko kuch extra likhna ho wahan click karein!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = studentNotes.map((n) => `
+                <div class="sub-card p-3.5 rounded-xl border-l-4 border-l-dark flex flex-col justify-between gap-2">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="gold-badge text-[11px] px-2 py-0.5 rounded">${escapeHtml(n.tag)}</span>
+                            <span class="text-[10px] font-bold text-olive">${escapeHtml(n.timestamp)}</span>
+                        </div>
+                        <p class="text-[11px] font-bold text-olive mb-1 truncate">
+                            <i class="fa-solid fa-folder-open mr-1"></i> ${escapeHtml(n.sectionTitle)}
+                        </p>
+                        <p class="text-xs sm:text-sm font-semibold text-dark whitespace-pre-line">${escapeHtml(n.content)}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-olive/30 text-xs font-bold">
+                        <button onclick="jumpToSavedNote('${n.id}')" class="text-dark hover:text-olive flex items-center gap-1">
+                            <i class="fa-solid fa-location-arrow"></i> Jump to Note
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleNotesDrawer(false); openNoteEditorForTarget('${n.anchorId}', '${n.id}')" class="text-olive hover:text-dark">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button onclick="deleteStudentNote('${n.id}')" class="text-dark hover:text-olive">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNotesDrawer(open) {
+            const drawer = document.getElementById('myNotesDrawer');
+            const backdrop = document.getElementById('myNotesDrawerBackdrop');
+            if (open) {
+                renderDrawerNotesList();
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToSavedNote(noteId) {
+            toggleNotesDrawer(false);
+            const noteEl = document.getElementById(noteId);
+            if (noteEl) {
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                noteEl.classList.remove('section-active-pulse');
+                void noteEl.offsetWidth;
+                noteEl.classList.add('section-active-pulse');
+            }
+        }
+
+        // Export all custom notes as a clean .txt file
+        function exportStudentNotes() {
+            if (studentNotes.length === 0) return;
+            let textContent = "====================================================\n";
+            textContent += "MY EXTRA NOTES - DPSP (PART IV) & FUNDAMENTAL DUTIES (PART IVA)\n";
+            textContent += "====================================================\n\n";
+
+            studentNotes.forEach((n, idx) => {
+                textContent += `${idx + 1}. [${n.tag}] (${n.sectionTitle}) - ${n.timestamp}\n`;
+                textContent += `${n.content}\n`;
+                textContent += "----------------------------------------------------\n\n";
+            });
+
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DPSP_and_Fundamental_Duties_My_Extra_Notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Safe non-alert two-click Clear All Notes
+        function clearAllStudentNotes() {
+            if (studentNotes.length === 0) return;
+            const btn = document.getElementById('clearAllNotesBtn');
+            if (btn.getAttribute('data-confirming') === 'true') {
+                studentNotes = [];
+                persistAndRenderStudentNotes();
+                btn.removeAttribute('data-confirming');
+                btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            } else {
+                btn.setAttribute('data-confirming', 'true');
+                btn.innerHTML = 'Confirm Clear?';
+                clearTimeout(confirmClearTimeout);
+                confirmClearTimeout = setTimeout(() => {
+                    btn.removeAttribute('data-confirming');
+                    btn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                }, 3000);
+            }
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            initializeAnnotatableTargets();
+            loadStudentNotes();
+        };
+    </script>
+</body>
+</html>
