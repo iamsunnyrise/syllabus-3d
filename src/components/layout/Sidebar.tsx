@@ -9,7 +9,6 @@ import {
   Globe,
   Keyboard,
   PanelLeftClose,
-  PanelLeftOpen,
   Sparkles,
   Video,
   ChevronDown,
@@ -347,22 +346,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
-      {/* 🌟 Iconic Floating Sidebar Toggle Handle (Overlapping Right Border Only When Collapsed) */}
-      {onToggleCollapse && isCollapsed && (
-        <button
-          type="button"
-          onClick={() => {
-            soundManager.playClick();
-            haptics.light();
-            onToggleCollapse();
-          }}
-          className="absolute -right-3.5 top-7 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-[#FFFDF8] dark:bg-black border border-[#E2D1B3] dark:border-white/20 text-[#38370D] dark:text-zinc-300 hover:text-[#8D7A02] dark:hover:text-amber-400 hover:border-[#8D7A02]/50 dark:hover:border-amber-500/50 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all"
-          title="Expand sidebar (Ctrl+B)"
-          aria-label="Expand sidebar"
-        >
-          <PanelLeftOpen className="w-4 h-4 stroke-[2.2]" />
-        </button>
-      )}
 
       {/* =========================================================================
           STATE A: COLLAPSED SLIM ICON-ONLY SIDEBAR (70px Width)

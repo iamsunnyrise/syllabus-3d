@@ -9,6 +9,7 @@ import {
   Moon,
   ChevronDown,
   Menu,
+  PanelLeftOpen,
   GraduationCap,
   WifiOff,
   Download,
@@ -176,6 +177,23 @@ export const Header: React.FC<HeaderProps> = ({
             <Menu className="w-4 h-4" />
           </button>
 
+
+          {/* Desktop Sidebar Toggle (>= md): Cleanly placed just to the right of the Home logo, before Exam Selector */}
+          {isSidebarCollapsed && onToggleDesktopSidebar && (
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.light();
+                onToggleDesktopSidebar();
+              }}
+              className="hidden md:flex items-center justify-center h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400/50 dark:hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 animate-fade-in"
+              title="Expand sidebar (Ctrl+B)"
+              aria-label="Expand sidebar"
+            >
+              <PanelLeftOpen className="w-4 h-4 stroke-[2.2]" />
+            </button>
+          )}
 
           {/* Responsive Exam Selector (Mobile & Desktop) with Target Year & Live Countdown */}
           <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
