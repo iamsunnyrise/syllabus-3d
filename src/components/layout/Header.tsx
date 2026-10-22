@@ -5,7 +5,6 @@ import { useTheme } from '../../context/ThemeContext';
 import { usePWA } from '../../hooks/usePWA';
 import { haptics } from '../../utils/haptics';
 import {
-  Search,
   Sun,
   Moon,
   ChevronDown,
@@ -30,7 +29,7 @@ import { PWAInstallModal } from '../modals/PWAInstallModal';
 import type { AppView } from './Sidebar';
 
 export interface HeaderProps {
-  onOpenSearch: () => void;
+  onOpenSearch?: () => void;
   onOpenSettings: () => void;
   onOpenMobileMenu?: () => void;
   isSidebarCollapsed?: boolean;
@@ -42,7 +41,7 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  onOpenSearch,
+  onOpenSearch: _onOpenSearch,
   onOpenSettings,
   onOpenMobileMenu,
   isSidebarCollapsed = false,
@@ -367,19 +366,6 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="hidden sm:inline">Offline</span>
             </div>
           )}
-
-          {/* Quick Search */}
-          <button
-            type="button"
-            onClick={onOpenSearch}
-            className="group h-9 w-9 md:w-auto p-0 md:px-3.5 rounded-full bg-slate-100/70 hover:bg-slate-200/60 dark:bg-white/[0.04] dark:hover:bg-white/[0.07] border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/15 transition-all flex items-center justify-center md:justify-start gap-2.5 cursor-pointer text-xs shrink-0 active:scale-95"
-            title="Search Topics (Cmd + K)"
-            aria-label="Search topics"
-          >
-            <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors shrink-0" strokeWidth={2} />
-            <span className="hidden md:inline text-xs text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors font-medium">Search...</span>
-            <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-400/80 dark:text-white/40 bg-slate-200/50 dark:bg-white/[0.04] rounded-md border border-slate-300/30 dark:border-white/[0.06] leading-none select-none tracking-tight">⌘K</kbd>
-          </button>
 
           {/* Quick Safety PIN Lock Trigger */}
           {isConfigured && (
