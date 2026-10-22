@@ -4873,6 +4873,1197 @@ export const THEME_07_POVERTY_SCARCITY_IDIOMS: VocabItem[] = [
   }
 ];
 
+
+export const THEME_08_TIME_TIMING_IDIOMS: VocabItem[] = [
+  {
+    "id": "theme-08-01",
+    "word": "A month of Sundays",
+    "phonetic": "/ə mʌnθ əv ˈsʌn.deɪz/",
+    "hindi": "बहुत लंबा समय / अत्यधिक लंबा अरसा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "An exceptionally long, seemingly indefinite period of time.",
+    "example": "I haven't met my school friends in a month of Sundays, so our reunion this weekend will be memorable.",
+    "synonyms": [
+      "Donkey's years",
+      "An eternity",
+      "A blue moon",
+      "Ages and ages"
+    ],
+    "antonyms": [
+      "A fleeting moment",
+      "In the blink of an eye",
+      "In a jiffy"
+    ],
+    "mnemonic": "Purane jamane me Sunday ko sab dukan band hoti thi aur intezaar lamba lagta tha—mahine bhar sirf Sunday aane jaisa lamba waqt.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-02",
+    "word": "A stitch in time saves nine",
+    "phonetic": "/ə stɪtʃ ɪn taɪm seɪvz naɪn/",
+    "hindi": "समय पर की गई थोड़ी सी सावधानी बाद के बड़े संकट से बचाती है",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Proverb",
+    "meaning": "Dealing with a minor issue immediately prevents it from escalating into a catastrophic problem later.",
+    "example": "Fix that small water leakage on the terrace immediately; remember, a stitch in time saves nine.",
+    "synonyms": [
+      "Prevention is better than cure",
+      "Timely intervention",
+      "Nip it in the bud"
+    ],
+    "antonyms": [
+      "Procrastination",
+      "Neglect until disaster",
+      "Too little, too late"
+    ],
+    "mnemonic": "Kapde me chhota ched hote hi 1 taanka laga lene se baad me 9 taanke lagane ki naubat nahi aati.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-03",
+    "word": "All along",
+    "phonetic": "/ɔːl əˈlɒŋ/",
+    "hindi": "शुरू से ही / आरंभ से लेकर अब तक लगातार",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "From the very beginning of an event or situation; throughout the entire duration.",
+    "example": "The auditor suspected all along that the treasury records were being manipulated by senior management.",
+    "synonyms": [
+      "From the outset",
+      "From the word go",
+      "The entire time",
+      "All the while"
+    ],
+    "antonyms": [
+      "At the last minute",
+      "Belatedly",
+      "Lately"
+    ],
+    "mnemonic": "Raste ke dauran poora sath chalna (all along the way)—shuruat se hi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-04",
+    "word": "Around the clock",
+    "phonetic": "/əˈraʊnd ðə klɒk/",
+    "hindi": "चौबीसों घंटे / रात-दिन बिना रुके लगातार",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Continuously 24 hours a day and night without any cessation or pause.",
+    "example": "Medical teams and disaster responders worked around the clock to treat survivors following the earthquake.",
+    "synonyms": [
+      "Twenty-four seven (24/7)",
+      "Day and night",
+      "Non-stop",
+      "Ceaselessly"
+    ],
+    "antonyms": [
+      "Intermittently",
+      "Fitfully",
+      "Sporadically",
+      "Occasionally"
+    ],
+    "mnemonic": "Ghadi ki sui 24 ghante gol-gol ghoomti rehti hai—bina ruke nirantar chalna.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-05",
+    "word": "Around the corner",
+    "phonetic": "/əˈraʊnd ðə ˈkɔː.nər/",
+    "hindi": "बिल्कुल नजदीक / बहुत जल्द होने या आने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Imminent; extremely close in time or very nearby in physical proximity.",
+    "example": "With the Tier-1 examination just around the corner, candidates must channel all energy into mock revisions.",
+    "synonyms": [
+      "Imminent",
+      "At hand",
+      "On the horizon",
+      "In the offing"
+    ],
+    "antonyms": [
+      "Far in the future",
+      "Distant",
+      "Remote"
+    ],
+    "mnemonic": "Gali ke mod (corner) ke theek paar hona—mudte hi samne dikhai dena.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-06",
+    "word": "At a stretch",
+    "phonetic": "/æt ə stretʃ/",
+    "hindi": "बिना रुके / एक सांस में लगातार",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Continuously over a period without taking any break, pause, or intermission.",
+    "example": "During the final preparation lap, he maintained deep focus and solved reasoning mocks for six hours at a stretch.",
+    "synonyms": [
+      "Uninterruptedly",
+      "In one sitting",
+      "At a go",
+      "Continuously"
+    ],
+    "antonyms": [
+      "In fits and starts",
+      "Intermittently",
+      "Sporadically"
+    ],
+    "mnemonic": "Rubber band ko bina chhode ek lambi doori tak khenchna (stretch)—bina toote continuous chalna.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-07",
+    "word": "At short notice",
+    "phonetic": "/æt ʃɔːt ˈnəʊ.tɪs/",
+    "hindi": "बहुत कम पूर्व सूचना पर / ऐन वक्त पर सूचित किए जाने पर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "With very little advance warning, preparation time, or prior notice.",
+    "example": "The senior advocate agreed to argue the urgent bail petition at short notice before the Supreme Court bench.",
+    "synonyms": [
+      "On the spur of the moment",
+      "With little forewarning",
+      "Without prior notice"
+    ],
+    "antonyms": [
+      "Well in advance",
+      "With ample warning",
+      "Scheduled ahead"
+    ],
+    "mnemonic": "Notice ka time period behad chhota hona—sochne ya plan karne ka waqt na milna.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-08",
+    "word": "At the eleventh hour",
+    "phonetic": "/æt ði ɪˈlev.ənθ aʊər/",
+    "hindi": "अंतिम क्षण में / बिल्कुल ऐन वक्त पर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "At the last possible moment right before a deadline, closure, or conclusion.",
+    "example": "Never delay your exam fee payment to the eleventh hour, as banking servers frequently experience peak traffic crashes.",
+    "synonyms": [
+      "In the nick of time",
+      "At the last minute",
+      "Just in time",
+      "At zero hour"
+    ],
+    "antonyms": [
+      "Well beforehand",
+      "Prematurely",
+      "Far in advance"
+    ],
+    "mnemonic": "12 ghante ki ghadi me 12 bajne se theek 1 ghanta pehle (11th hour) aakhiri mauka hota hai.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-09",
+    "word": "Beat the clock",
+    "phonetic": "/biːt ðə klɒk/",
+    "hindi": "समय सीमा समाप्त होने से पहले काम पूरा कर लेना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To complete a task, quiz, or reach a goal before the allotted deadline expires.",
+    "example": "By mastering calculation booster tricks, she managed to beat the clock and attempted all 100 questions within 60 minutes.",
+    "synonyms": [
+      "Beat the deadline",
+      "Finish ahead of time",
+      "Race against time"
+    ],
+    "antonyms": [
+      "Run out of time",
+      "Lag behind",
+      "Miss the deadline"
+    ],
+    "mnemonic": "Ghadi ke timer ko hara dena (beat the clock)—samay se aage chalna.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-10",
+    "word": "Behind the times",
+    "phonetic": "/bɪˈhaɪnd ðə taɪmz/",
+    "hindi": "समय से पीछे / पुरानी सोच या पुरातनपंथी विचारों वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adjective Phrase",
+    "meaning": "Old-fashioned; lagging behind modern ideas, trends, habits, or technological innovations.",
+    "example": "The college administration is hopelessly behind the times by refusing to adopt digital online assignment submissions.",
+    "synonyms": [
+      "Outmoded",
+      "Antiquated",
+      "Passé",
+      "Old-school"
+    ],
+    "antonyms": [
+      "Ahead of the times",
+      "Modern",
+      "Cutting-edge",
+      "Up to date"
+    ],
+    "mnemonic": "Vartamaan jamane ke piche chhut jana—samay ke sath kadam na mila pana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-11",
+    "word": "Better late than never",
+    "phonetic": "/ˈbet.ər leɪt ðæn ˈnev.ər/",
+    "hindi": "देर आए दुरुस्त आए / न करने से देर से करना बेहतर है",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Proverb",
+    "meaning": "It is preferable to accomplish something late or arrive tardily than never to do it at all.",
+    "example": "He finally adopted structured revision at age twenty-six; his mentors reminded him that it is better late than never.",
+    "synonyms": [
+      "Belated but welcome",
+      "Better tardy than absent"
+    ],
+    "antonyms": [
+      "Too late to matter",
+      "Missed the boat permanently"
+    ],
+    "mnemonic": "Kabhi na aane se thoda der se aana hamesha behtar hota hai—'der aaye durust aaye'.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-12",
+    "word": "By and by",
+    "phonetic": "/baɪ ænd baɪ/",
+    "hindi": "धीरे-धीरे / कुछ समय बाद / आगे चलकर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Gradually over the course of time; eventually; in due course.",
+    "example": "Do not get disheartened by early mock test setbacks; by and by, your conceptual clarity will boost your scores.",
+    "synonyms": [
+      "Eventually",
+      "In due course",
+      "Sooner or later",
+      "Gradually"
+    ],
+    "antonyms": [
+      "Immediately",
+      "Instantly",
+      "Promptly"
+    ],
+    "mnemonic": "Waqt guzarte-guzarte aage chalkar cheezein theek ho jana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-13",
+    "word": "Call it a day",
+    "phonetic": "/kɔːl ɪt ə deɪ/",
+    "hindi": "आज का काम समाप्त घोषित करना / दिनभर के काम से छुट्टी लेना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To stop working on an activity for the rest of the day because one has achieved enough or is exhausted.",
+    "example": "Having revised four subject modules and practiced seventy MCQs, the student decided to call it a day and rest.",
+    "synonyms": [
+      "Pack up",
+      "Wrap up",
+      "Knock off",
+      "Call it quits"
+    ],
+    "antonyms": [
+      "Burn the midnight oil",
+      "Keep plugging away",
+      "Work overtime"
+    ],
+    "mnemonic": "Ye bol kar din samapt kar dena ki 'aaj ka din ho gaya, ab baki kaam kal'.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-14",
+    "word": "Catch time by the forelock",
+    "phonetic": "/kætʃ taɪm baɪ ðə ˈfɔː.lɒk/",
+    "hindi": "अवसर का फौरन पूरा लाभ उठाना / मौका हाथ से न जाने देना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To seize an opportunity promptly, aggressively, and decisively before it passes.",
+    "example": "Recognizing the sudden surge in demand for data analytics, the young coder caught time by the forelock and launched his portal.",
+    "synonyms": [
+      "Seize the day",
+      "Carpe diem",
+      "Make hay while the sun shines",
+      "Strike while the iron is hot"
+    ],
+    "antonyms": [
+      "Dilly-dally",
+      "Let the opportunity slip",
+      "Drag one's feet"
+    ],
+    "mnemonic": "Greek devta 'Chronos' ke aage baal (forelock) the aur piche ganja tha—aate hi aage ke baal pakad lo warna nikal jayega.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-15",
+    "word": "Day and night",
+    "phonetic": "/deɪ ænd naɪt/",
+    "hindi": "रात-दिन / अहोरात्र / निरंतर बिना थके",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Continuously and incessantly without taking any rest; all the time.",
+    "example": "The dedicated civil engineer worked day and night to guarantee that the highway overpass opened before the festival.",
+    "synonyms": [
+      "Round the clock",
+      "Ceaselessly",
+      "Incessantly",
+      "Untiringly"
+    ],
+    "antonyms": [
+      "Sporadically",
+      "Occasionally",
+      "At intervals"
+    ],
+    "mnemonic": "Din ho ya raat, lakshya ke liye nirantar paseena bahate rehna.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-16",
+    "word": "Donkey's years",
+    "phonetic": "/ˈdɒŋ.kiz jɪəz/",
+    "hindi": "बहुत लंबा समय / बरसों का अरसा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "An extraordinarily long period of time; ages.",
+    "example": "We had not organized a family gathering in donkey's years until my grandfather's ninetieth birthday.",
+    "synonyms": [
+      "A month of Sundays",
+      "An eternity",
+      "Ages and ages",
+      "Long period"
+    ],
+    "antonyms": [
+      "A fleeting second",
+      "In a flash",
+      "Promptly"
+    ],
+    "mnemonic": "Rhyming pun on 'donkey's ears' (gadhe ke kaan bohot lambe hote hain), jisse bana 'behad lamba waqt'.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-17",
+    "word": "High time",
+    "phonetic": "/haɪ taɪm/",
+    "hindi": "उचित समय (जो पहले ही हो जाना चाहिए था) / सख्त आवश्यकता का समय",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "Past the ideal time; the urgent moment when something should be done immediately without any further delay.",
+    "example": "It is high time that local authorities overhauled the municipal drainage network before the monsoon season begins.",
+    "synonyms": [
+      "About time",
+      "Past due",
+      "Critical juncture",
+      "Urgent moment"
+    ],
+    "antonyms": [
+      "Premature",
+      "Unripe time",
+      "Too early"
+    ],
+    "mnemonic": "Sooraj sar par (high) aa chuka hai—matlab der ho chuki hai, ab aur bilamb bilkul nahi chalega.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-18",
+    "word": "In a jiffy",
+    "phonetic": "/ɪn ə ˈdʒɪf.i/",
+    "hindi": "पलक झपकते ही / चुटकियों में / बहुत तेजी से",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "In a very brief moment; almost instantaneously and without delay.",
+    "example": "Please wait in the reception lounge; the consultant will review your verified dossier in a jiffy.",
+    "synonyms": [
+      "In the blink of an eye",
+      "In a trice",
+      "In no time",
+      "Double-quick"
+    ],
+    "antonyms": [
+      "At a snail's pace",
+      "For donkey's years",
+      "Leisurely"
+    ],
+    "mnemonic": "Jiffy ka matlab palak jhapkaane jitna chhota samay—chutki bajate hi kaam hona.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-19",
+    "word": "In the long run",
+    "phonetic": "/ɪn ðə lɒŋ rʌn/",
+    "hindi": "अंततः / दीर्घकाल में / लंबे समय के बाद",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Over an extended period of time in the future; ultimately.",
+    "example": "Daily consistent practice of vocab roots may seem tedious today, but it yields outstanding returns in the long run.",
+    "synonyms": [
+      "Ultimately",
+      "In the fullness of time",
+      "Over time",
+      "Eventually"
+    ],
+    "antonyms": [
+      "In the short term",
+      "Immediately",
+      "Temporarily"
+    ],
+    "mnemonic": "Marathon race (long run) me vahi jeetta hai jo aakhir tak tika rehta hai—long term benefit.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-20",
+    "word": "In the nick of time",
+    "phonetic": "/ɪn ðə nɪk əv taɪm/",
+    "hindi": "ऐन वक्त पर / ठीक समय पर (संकट से ऐन पहले)",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Just at the critical last moment, right before it is too late or before disaster strikes.",
+    "example": "The alert locomotive pilot applied emergency brakes in the nick of time, preventing a catastrophic collision.",
+    "synonyms": [
+      "At the eleventh hour",
+      "Just in time",
+      "In the very nick",
+      "Barely in time"
+    ],
+    "antonyms": [
+      "A day late and a dollar short",
+      "Too late",
+      "Belatedly"
+    ],
+    "mnemonic": "Nick lakdi par khuda hua nishan hota tha jahan ghadi ki sui theek second par aati hai—aakhiri pal me bachat.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-21",
+    "word": "In the offing",
+    "phonetic": "/ɪn ði ˈɒf.ɪŋ/",
+    "hindi": "निकट भविष्य में होने की प्रबल संभावना / जल्द ही घटित होने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Likely to occur or appear very soon; visible on the immediate horizon.",
+    "example": "With successful bilateral summit talks concluding in New Delhi, a historic trade agreement is definitely in the offing.",
+    "synonyms": [
+      "On the horizon",
+      "Imminent",
+      "Approaching",
+      "In the pipeline"
+    ],
+    "antonyms": [
+      "Distant",
+      "Remote",
+      "Unlikely",
+      "Far off"
+    ],
+    "mnemonic": "Samundri kinare se dekhne par jahaz ka 'offing' (samundar ki seema) me dikhai dena—jald hi kinare aane wala.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-22",
+    "word": "Just in time",
+    "phonetic": "/dʒʌst ɪn taɪm/",
+    "hindi": "ठीक समय पर / अंतिम क्षण में बिना देर किए",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "At the exact required instant; immediately before a cutoff or impending danger.",
+    "example": "The backup power generator kicked in just in time to prevent the critical servers from crashing during the blackout.",
+    "synonyms": [
+      "In the nick of time",
+      "At the eleventh hour",
+      "On schedule"
+    ],
+    "antonyms": [
+      "Belated",
+      "Late",
+      "Tardy"
+    ],
+    "mnemonic": "Bina ek pal gawaye theek nirdharit samay par upasthit hona.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-23",
+    "word": "Kill time",
+    "phonetic": "/kɪl taɪm/",
+    "hindi": "समय काटना / फालतू समय बिताना (किसी गतिविधि में उलझकर)",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To pass spare time doing something of little significance while waiting for an event to begin.",
+    "example": "While waiting for the boarding announcement at the departure gate, he browsed online articles to kill time.",
+    "synonyms": [
+      "Pass the time",
+      "While away the time",
+      "Mark time"
+    ],
+    "antonyms": [
+      "Make good use of time",
+      "Seize the moment",
+      "Value every second"
+    ],
+    "mnemonic": "Khali samay ko kisi tarah beeta kar khatam (kill) karna taaki agla karyakram shuru ho sake.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-24",
+    "word": "Late in the day",
+    "phonetic": "/leɪt ɪn ðə deɪ/",
+    "hindi": "बहुत देर हो जाना / उस समय कदम उठाना जब स्थिति हाथ से निकल चुकी हो",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Too late in the progression of events for an intervention, apology, or adjustment to have any meaningful impact.",
+    "example": "Apologizing to the interview panel after the final rejection list was published is far too late in the day.",
+    "synonyms": [
+      "Too late",
+      "Past the point of no return",
+      "Belated"
+    ],
+    "antonyms": [
+      "Early in the game",
+      "Timely",
+      "In advance"
+    ],
+    "mnemonic": "Din dhal jane ke baad khet me buaai karna—fasal ugne ka waqt hi khatam ho jana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-25",
+    "word": "Months on end",
+    "phonetic": "/mʌnθs ɒn end/",
+    "hindi": "कई महीने लगातार बिना रुके",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "For several continuous months without any break or intermission.",
+    "example": "Soldiers stationed at high-altitude Himalayan forward posts brave sub-zero temperatures for months on end.",
+    "synonyms": [
+      "Consecutively",
+      "Continuously for months",
+      "Uninterruptedly"
+    ],
+    "antonyms": [
+      "Sporadically",
+      "Intermittently",
+      "Briefly"
+    ],
+    "mnemonic": "Ek mahine ke ant (end) ke baad agla mahina judte jana—lagatar maheeno tak.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-26",
+    "word": "Now and again",
+    "phonetic": "/naʊ ænd əˈɡen/",
+    "hindi": "कभी-कभार / समय-समय पर",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "From time to time; occasionally; at infrequent intervals.",
+    "example": "Even while maintaining an unyielding study timetable, treating yourself to light music now and again prevents burnout.",
+    "synonyms": [
+      "Now and then",
+      "Once in a while",
+      "Occasionally",
+      "At intervals"
+    ],
+    "antonyms": [
+      "Constantly",
+      "Continuously",
+      "Invariably",
+      "Always"
+    ],
+    "mnemonic": "Abhi thoda sa, fir kabhi thoda sa—kabhi-kabaar hona.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-27",
+    "word": "On the cards",
+    "phonetic": "/ɒn ðə kɑːdz/",
+    "hindi": "संभावित / घटित होने के प्रबल आसार होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Very likely or probable to take place in the near future.",
+    "example": "Following his outstanding performance appraisal, a promotion to Senior Audit Officer is distinctly on the cards.",
+    "synonyms": [
+      "Probable",
+      "Likely",
+      "Anticipated",
+      "Expected"
+    ],
+    "antonyms": [
+      "Out of the question",
+      "Unlikely",
+      "Improbable"
+    ],
+    "mnemonic": "Bhavishyavani ke patton (tarot cards) me aana—hona lagbhag nishchit dikhna.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-28",
+    "word": "On the dot",
+    "phonetic": "/ɒn ðə dɒt/",
+    "hindi": "बिल्कुल सही समय पर / एक मिनट की भी देरी किए बिना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Precisely at the exact time appointed; punctual to the minute.",
+    "example": "The Tier-2 computer-based examination commenced at 9:00 AM on the dot across all nationwide test centers.",
+    "synonyms": [
+      "Punctually",
+      "To the minute",
+      "Promptly",
+      "Sharp"
+    ],
+    "antonyms": [
+      "Tardy",
+      "Belatedly",
+      "Late"
+    ],
+    "mnemonic": "Ghadi ke theek bindu (dot) par sui pahunchna—minute bhar ka bhi antar na hona.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-29",
+    "word": "On the horizon",
+    "phonetic": "/ɒn ðə həˈraɪ.zən/",
+    "hindi": "निकट भविष्य में संभावित / क्षितिज पर दिखाई देने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Likely to happen or emerge soon; imminent in the foreseeable future.",
+    "example": "With continuous advances in artificial intelligence, fundamental transformations in data governance are on the horizon.",
+    "synonyms": [
+      "In the offing",
+      "Imminent",
+      "Approaching",
+      "Looming"
+    ],
+    "antonyms": [
+      "Distant",
+      "Remote",
+      "Historical"
+    ],
+    "mnemonic": "Kshitij (horizon) par door se ubharte dekhna—jald hi samne aane wala.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-30",
+    "word": "On the wane",
+    "phonetic": "/ɒn ðə weɪn/",
+    "hindi": "घटती हुई / ढलान पर / प्रभाव या शक्ति में निरंतर ह्रास होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Becoming gradually weaker, dimmer, less popular, or less influential over time.",
+    "example": "With consumers rapidly switching to digital OTT platforms, traditional cable television viewership is clearly on the wane.",
+    "synonyms": [
+      "Declining",
+      "Dwindling",
+      "Fading",
+      "Ebbtide",
+      "Diminishing"
+    ],
+    "antonyms": [
+      "On the rise",
+      "Waxing",
+      "Flourishing",
+      "Surging"
+    ],
+    "mnemonic": "Chandra-kalaon ka ghatan (waning moon)—aakar aur chamak me lagatar kami aana.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-31",
+    "word": "Once in a blue moon",
+    "phonetic": "/wʌns ɪn ə bluː muːn/",
+    "hindi": "ईद का चांद / बहुत ही दुर्लभ / शायद ही कभी घटित होने वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Extremely rarely; happening only on exceedingly infrequent occasions.",
+    "example": "Living abroad for his master's degree, he manages to visit his ancestral village only once in a blue moon.",
+    "synonyms": [
+      "Rarely",
+      "Seldom",
+      "Infrequently",
+      "Hardly ever"
+    ],
+    "antonyms": [
+      "Frequently",
+      "Routinely",
+      "Regularly",
+      "Often"
+    ],
+    "mnemonic": "Ek calendar maheene me 2 poornima ka hona atyant durlabh hota hai, doosri poornima ko 'blue moon' kehte hain.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-32",
+    "word": "Out of date",
+    "phonetic": "/aʊt əv deɪt/",
+    "hindi": "पुराना / अप्रचलित / समय सीमा समाप्त हो चुका",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adjective Phrase",
+    "meaning": "No longer valid, modern, fashionable, or applicable; obsolete.",
+    "example": "Using outdated general knowledge guidebooks from 2018 will misguide you because taxation laws are completely out of date.",
+    "synonyms": [
+      "Obsolete",
+      "Antiquated",
+      "Expired",
+      "Passé"
+    ],
+    "antonyms": [
+      "Up to date",
+      "Contemporary",
+      "Current",
+      "Modern"
+    ],
+    "mnemonic": "Expiry date nikal jana—ab kisi kaam ka na rehna.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-33",
+    "word": "Out of print",
+    "phonetic": "/aʊt əv prɪnt/",
+    "hindi": "जिसकी छपाई बंद हो चुकी हो / बाज़ार में नई प्रतियों में अनुपलब्ध",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adjective Phrase",
+    "meaning": "(Of published works) no longer being printed or published by the press; out of stock at publishers.",
+    "example": "That master collection of historic vocabulary etymology is out of print, making secondhand copies highly prized.",
+    "synonyms": [
+      "Unavailable",
+      "No longer published",
+      "Defunct print run"
+    ],
+    "antonyms": [
+      "In print",
+      "In circulation",
+      "Available in stores"
+    ],
+    "mnemonic": "Chhapakhane (press) me chhapna band ho jana—print se bahar ho jana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-34",
+    "word": "Play for time",
+    "phonetic": "/pleɪ fɔːr taɪm/",
+    "hindi": "समय खींचना / जानबूझकर देरी करना ताकि कोई फायदा उठाया जा सके",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To delay an outcome, decision, or action deliberately to gain an advantage or await better conditions.",
+    "example": "Facing tough interrogation by the parliamentary committee, the spokesman played for time by requesting repeated clarifications.",
+    "synonyms": [
+      "Stall",
+      "Buy time",
+      "Filibuster",
+      "Temporize",
+      "Delay deliberately"
+    ],
+    "antonyms": [
+      "Hurry",
+      "Expedite",
+      "Act swiftly"
+    ],
+    "mnemonic": "Khel me aakhiri waqt me khiladi samay kharab karte hain taaki match bacha sakein.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-35",
+    "word": "Take your time",
+    "phonetic": "/teɪk jɔːr taɪm/",
+    "hindi": "जल्दबाजी न करना / तसल्ली से और ध्यानपूर्वक काम करना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To proceed calmly, carefully, and without haste; to avoid unnecessary hurry.",
+    "example": "There is no penalty for taking a moment to think; take your time and read the reading comprehension passage thoroughly.",
+    "synonyms": [
+      "Proceed with care",
+      "Do not rush",
+      "Take it easy",
+      "Unrushed"
+    ],
+    "antonyms": [
+      "Hurry up",
+      "Rush headlong",
+      "Act hastily"
+    ],
+    "mnemonic": "Apna poora waqt lena, ghabrahat me jaldbazi me galat nirnay na lena.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-36",
+    "word": "Till the cows come home",
+    "phonetic": "/tɪl ðə kaʊz kʌm həʊm/",
+    "hindi": "बहुत लंबे समय तक / अंतहीन समय तक",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "For an indefinitely long duration of time; endlessly or till eternity.",
+    "example": "You can debate with dogmatic people till the cows come home, but they will never acknowledge empirical facts.",
+    "synonyms": [
+      "Indefinitely",
+      "For donkey's years",
+      "Endlessly",
+      "Forever"
+    ],
+    "antonyms": [
+      "Briefly",
+      "In a flash",
+      "Promptly"
+    ],
+    "mnemonic": "Gaayein charne ke baad shyam ko bohot dheeme kadmon se lautati hain—anant lamba intezaar.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-37",
+    "word": "Time flies",
+    "phonetic": "/taɪm flaɪz/",
+    "hindi": "समय बहुत तेजी से बीतता है / वक्त पंख लगाकर उड़ जाता है",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Proverb",
+    "meaning": "Time seems to pass with astonishing quickness, especially when one is thoroughly engaged or enjoying oneself.",
+    "example": "How time flies! It feels like we just started the foundation batch, and now final exams are already upon us.",
+    "synonyms": [
+      "Time slips away",
+      "Tempus fugit",
+      "Hours rush past"
+    ],
+    "antonyms": [
+      "Time drags",
+      "Time crawls"
+    ],
+    "mnemonic": "Samay ke pankh lage hona (flies)—dekhte hi dekhte phurr ho jana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-38",
+    "word": "Time is money",
+    "phonetic": "/taɪm ɪz ˈmʌn.i/",
+    "hindi": "समय ही धन है / समय अमूल्य है और इसे व्यर्थ नहीं गंवाना चाहिए",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Proverb",
+    "meaning": "Time is an invaluable asset that produces value and should never be wasted carelessly.",
+    "example": "Eliminate idle distractions during your daily study hours; always remember that in competitive exams, time is money.",
+    "synonyms": [
+      "Time is precious",
+      "Every second counts",
+      "Value your hours"
+    ],
+    "antonyms": [
+      "Kill time",
+      "Waste hours",
+      "Squander time"
+    ],
+    "mnemonic": "Benjamin Franklin ka mashhoor quote—gawara samay dharatal par dhan ke barabar kshati karta hai.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-39",
+    "word": "To keep in abeyance",
+    "phonetic": "/tuː kiːp ɪn əˈbeɪ.əns/",
+    "hindi": "अस्थायी रूप से स्थगित या निलंबित रखना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To hold something in temporary suspension; to pause implementation until a subsequent resolution.",
+    "example": "The implementation of the amended civil services service rules was kept in abeyance pending constitutional review.",
+    "synonyms": [
+      "Put on hold",
+      "Suspend temporarily",
+      "Shelve",
+      "Defer",
+      "Hold in limbo"
+    ],
+    "antonyms": [
+      "Implement immediately",
+      "Enforce directly",
+      "Execute swiftly"
+    ],
+    "mnemonic": "Abeyance legal term hai jiska arth 'thande baste me latka kar rakhna' hota hai.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-40",
+    "word": "To put something on hold",
+    "phonetic": "/tuː pʊt ˈsʌm.θɪŋ ɒn həʊld/",
+    "hindi": "किसी कार्य या योजना को कुछ समय के लिए रोक देना / टालना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To postpone, pause, or suspend the execution or progression of an endeavor.",
+    "example": "The expansion of the regional branch was put on hold due to sudden liquidity crunches in the corporate sector.",
+    "synonyms": [
+      "Postpone",
+      "Shelve",
+      "Defer",
+      "Keep in abeyance",
+      "Mothball"
+    ],
+    "antonyms": [
+      "Press ahead",
+      "Accelerate",
+      "Proceed immediately"
+    ],
+    "mnemonic": "Call ko 'hold' par dalna—baat ko beech me rok kar aage ke liye taang dena.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-41",
+    "word": "Turn up",
+    "phonetic": "/tɜːn ʌp/",
+    "hindi": "अचानक आ पहुंचना / उपस्थित होना / बिना पूर्व सूचना के प्रकट होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrasal Verb",
+    "meaning": "To arrive, attend, or show up, especially unexpectedly or after an unexplained absence.",
+    "example": "Over three hundred enthusiastic candidates turned up at the seminar hall to attend the free mentorship session.",
+    "synonyms": [
+      "Show up",
+      "Arrive",
+      "Materialize",
+      "Make an appearance"
+    ],
+    "antonyms": [
+      "Fail to appear",
+      "Stay away",
+      "Disappear"
+    ],
+    "mnemonic": "Kahi se mud kar achanak samne hazir ho jana (turn up).",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 08"
+    ]
+  },
+  {
+    "id": "theme-08-42",
+    "word": "Wear and tear",
+    "phonetic": "/weər ænd teər/",
+    "hindi": "सामान्य उपयोग से होने वाली घिसावट / टूट-फूट",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "The normal, inevitable damage, erosion, or depreciation resulting from regular everyday usage over time.",
+    "example": "The rental lease agreement stipulates that the tenant is not financially liable for ordinary wear and tear of fixtures.",
+    "synonyms": [
+      "Depreciation",
+      "Deterioration",
+      "Erosion",
+      "Natural attrition"
+    ],
+    "antonyms": [
+      "Mint condition",
+      "Pristine state",
+      "Brand new"
+    ],
+    "mnemonic": "Roz pehanne (wear) aur khinchne (tear) se kapde ya cheez ka samay ke sath ghisna.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 08"
+    ]
+  }
+];
+
 export const MASTER_THEME_IDIOMS: Record<number, VocabItem[]> = {
   1: THEME_01_HARD_WORK_IDIOMS,
   2: THEME_02_SUCCESS_ACHIEVEMENT_IDIOMS,
@@ -4881,6 +6072,7 @@ export const MASTER_THEME_IDIOMS: Record<number, VocabItem[]> = {
   5: THEME_05_TRUTH_HONESTY_IDIOMS,
   6: THEME_06_MONEY_WEALTH_IDIOMS,
   7: THEME_07_POVERTY_SCARCITY_IDIOMS,
+  8: THEME_08_TIME_TIMING_IDIOMS,
   10: [
     {
       id: 'theme-10-1',
