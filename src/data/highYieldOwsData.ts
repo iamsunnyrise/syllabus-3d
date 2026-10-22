@@ -1,6 +1,14 @@
-// HIGH YIELD ONE WORD SUBSTITUTIONS (OWS) - LEVEL 1 SET 01
-// Extracted and curated from Toppers' Vocab / Prashant Solanki English
-// Exactly 86 High-Frequency OWS with Hindi Meaning, Mnemonics & Exam Usages
+// ============================================================================
+// HIGH YIELD ONE WORD SUBSTITUTIONS (OWS) - LEVEL 1
+// Curated from Toppers' Vocab / Prashant Solanki English
+// STRICT CAPACITY RULE: Exactly 100 OWS per set.
+// When adding new OWS, fill current set to 100; any excess spills into the next set.
+// Current distribution:
+//   - Set 01: 100 OWS (Full)
+//   - Set 02: 100 OWS (Full)
+//   - Set 03: 57 OWS (43 slots available until 100)
+//   - Set 04 - 10: Available for future sets
+// ============================================================================
 
 import { VocabItem } from './highYieldVocabData';
 
@@ -3543,9 +3551,12 @@ export const LEVEL_1_SET_01_OWS: VocabItem[] = [
     "collocation": "Cardinal sin / cardinal rule / cardinal principle",
     "level": "level-1",
     "set": "set-01"
-  },
+  }
+];
+
+export const LEVEL_1_SET_02_OWS: VocabItem[] = [
   {
-    "id": "v-ows-l1-s1-101",
+    "id": "v-ows-l1-s2-1",
     "word": "Caricature",
     "phonetic": "/ˈkær.ɪ.kə.tʃʊər/",
     "hindi": "व्यंग्य-चित्र / हास्य-चित्र",
@@ -3572,15 +3583,15 @@ export const LEVEL_1_SET_01_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Draw a caricature / cruel caricature",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s1-102",
+    "id": "v-ows-l1-s2-2",
     "word": "Carol",
     "phonetic": "/ˈkær.əl/",
     "hindi": "भजन / क्रिसमस का धार्मिक गीत / आनंद गीत",
@@ -3607,25 +3618,15 @@ export const LEVEL_1_SET_01_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Christmas carol / carol singing / carol singer",
     "level": "level-1",
-    "set": "set-01"
-  }
-];
-
-
-// ============================================================================
-// HIGH YIELD ONE WORD SUBSTITUTIONS (OWS) - LEVEL 1 SET 02
-// Extracted and curated from Toppers' Vocab / Prashant Solanki English
-// Exactly 72 High-Frequency Unique OWS (Pages 27-44) with Hindi Meaning, Mnemonics & Exam Usages
-// ============================================================================
-
-export const LEVEL_1_SET_02_OWS: VocabItem[] = [
+    "set": "set-02"
+  },
   {
-    "id": "v-ows-l1-s2-1",
+    "id": "v-ows-l1-s2-3",
     "word": "Casserole",
     "phonetic": "/ˈkæs.ə.roʊl/",
     "hindi": "ढक्कनदार बर्तन / खाना पकाने और परोसने का गहरा बर्तन",
@@ -3660,7 +3661,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-2",
+    "id": "v-ows-l1-s2-4",
     "word": "Catastrophe",
     "phonetic": "/kəˈtæs.trə.fi/",
     "hindi": "आपदा / महाविपत्ति / घोर तबाही",
@@ -3697,7 +3698,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-3",
+    "id": "v-ows-l1-s2-5",
     "word": "Caucus",
     "phonetic": "/ˈkɔː.kəs/",
     "hindi": "बैठक / सभा / राजनीतिक दल की गुप्त बैठक",
@@ -3732,7 +3733,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-4",
+    "id": "v-ows-l1-s2-6",
     "word": "Cavalry",
     "phonetic": "/ˈkæv.əl.ri/",
     "hindi": "घुड़सवार सेना / अश्वारोही दल",
@@ -3766,7 +3767,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-5",
+    "id": "v-ows-l1-s2-7",
     "word": "Celibacy",
     "phonetic": "/ˈsel.ə.bə.si/",
     "hindi": "ब्रह्मचर्य / अविवाहित अवस्था",
@@ -3803,7 +3804,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-6",
+    "id": "v-ows-l1-s2-8",
     "word": "Centrifugal",
     "phonetic": "/senˈtrɪf.jə.ɡəl/",
     "hindi": "केन्द्र से बाहर जाने वाला / अपकेन्द्री",
@@ -3836,7 +3837,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-7",
+    "id": "v-ows-l1-s2-9",
     "word": "Cerebral",
     "phonetic": "/səˈriː.brəl/",
     "hindi": "बौद्धिक / मस्तिष्क संबंधी / दिमागी",
@@ -3873,7 +3874,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-8",
+    "id": "v-ows-l1-s2-10",
     "word": "Chafe",
     "phonetic": "/tʃeɪf/",
     "hindi": "चिढ़ना / रगड़ कर छिलना / तंग आ जाना",
@@ -3910,7 +3911,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-9",
+    "id": "v-ows-l1-s2-11",
     "word": "Chagrin",
     "phonetic": "/ʃəˈɡrɪn/",
     "hindi": "झुँझलाहट / खीझ / घोर निराशा व लज्जा",
@@ -3947,7 +3948,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-10",
+    "id": "v-ows-l1-s2-12",
     "word": "Changeling",
     "phonetic": "/ˈtʃeɪndʒ.lɪŋ/",
     "hindi": "बदला हुआ बच्चा / धोखे से बदला गया बालक",
@@ -3980,7 +3981,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-11",
+    "id": "v-ows-l1-s2-13",
     "word": "Charisma",
     "phonetic": "/kəˈrɪz.mə/",
     "hindi": "आकर्षण / सम्मोहन / प्रभावशाली व्यक्तित्व",
@@ -4016,7 +4017,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-12",
+    "id": "v-ows-l1-s2-14",
     "word": "Charlatan",
     "phonetic": "/ˈʃɑːr.lə.tən/",
     "hindi": "ढोंगी व्यक्ति / नीम-हकीम / झूठा दावा करने वाला",
@@ -4053,7 +4054,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-13",
+    "id": "v-ows-l1-s2-15",
     "word": "Chasm",
     "phonetic": "/ˈkæz.əm/",
     "hindi": "गहरी खाई / दरार / गहरा मतभेद",
@@ -4089,7 +4090,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-14",
+    "id": "v-ows-l1-s2-16",
     "word": "Chastise",
     "phonetic": "/tʃæsˈtaɪz/",
     "hindi": "दंड देना / कड़ी फटकार लगाना / सज़ा देना",
@@ -4126,7 +4127,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-15",
+    "id": "v-ows-l1-s2-17",
     "word": "Chauffeur",
     "phonetic": "/ʃoʊˈfɝː/",
     "hindi": "निजी चालक / मोटर चालक (कार ड्राइवर)",
@@ -4159,7 +4160,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-16",
+    "id": "v-ows-l1-s2-18",
     "word": "Choir",
     "phonetic": "/kwaɪər/",
     "hindi": "गायक मंडली / भजन मंडली",
@@ -4193,7 +4194,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-17",
+    "id": "v-ows-l1-s2-19",
     "word": "Chore",
     "phonetic": "/tʃɔːr/",
     "hindi": "दैनिक काम / उबाऊ नियमित काम",
@@ -4230,7 +4231,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-18",
+    "id": "v-ows-l1-s2-20",
     "word": "Christen",
     "phonetic": "/ˈkrɪs.ən/",
     "hindi": "नामकरण करना / नाम रखना / बपतिस्मा देना",
@@ -4265,7 +4266,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-19",
+    "id": "v-ows-l1-s2-21",
     "word": "Chronic",
     "phonetic": "/ˈkrɑː.nɪk/",
     "hindi": "दीर्घकालीन / चिरकालिक / पुराना (रोग)",
@@ -4302,7 +4303,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-20",
+    "id": "v-ows-l1-s2-22",
     "word": "Chronicle",
     "phonetic": "/ˈkrɑː.nɪ.kəl/",
     "hindi": "इतिहास / कालक्रमिक वृत्तांत / इतिवृत्त",
@@ -4338,7 +4339,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-21",
+    "id": "v-ows-l1-s2-23",
     "word": "Churlish",
     "phonetic": "/ˈtʃɝː.lɪʃ/",
     "hindi": "असभ्य / अक्खड़ / गंवारू / रूखा",
@@ -4376,7 +4377,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-22",
+    "id": "v-ows-l1-s2-24",
     "word": "Circumlocution",
     "phonetic": "/ˌsɝː.kəm.loʊˈkjuː.ʃən/",
     "hindi": "घुमा-फिराकर कहना / कपटपूर्ण या लंबा-चौड़ा कथन",
@@ -4413,7 +4414,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-23",
+    "id": "v-ows-l1-s2-25",
     "word": "Citadel",
     "phonetic": "/ˈsɪt̬.ə.del/",
     "hindi": "गढ़ / दुर्ग / शहर की रक्षा हेतु मजबूत किला",
@@ -4448,7 +4449,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-24",
+    "id": "v-ows-l1-s2-26",
     "word": "Clamber",
     "phonetic": "/ˈklæm.bɚ/",
     "hindi": "कठिनाई से चढ़ना / हाथ-पैर के बल चढ़ना",
@@ -4483,7 +4484,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-25",
+    "id": "v-ows-l1-s2-27",
     "word": "Clamour",
     "phonetic": "/ˈklæm.ɚ/",
     "hindi": "हंगामा / कोलाहल / जोरदार माँग या शोरगुल",
@@ -4520,7 +4521,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-26",
+    "id": "v-ows-l1-s2-28",
     "word": "Clientele",
     "phonetic": "/ˌkliː.ɑːnˈtel/",
     "hindi": "ग्राहक वर्ग / मुवक्किल / नियमित ग्राहकों का समूह",
@@ -4556,7 +4557,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-27",
+    "id": "v-ows-l1-s2-29",
     "word": "Clique",
     "phonetic": "/kliːk/",
     "hindi": "गुट / विशिष्ट मंडली / स्वार्थी गिरोह",
@@ -4591,7 +4592,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-28",
+    "id": "v-ows-l1-s2-30",
     "word": "Coerce",
     "phonetic": "/koʊˈɝːs/",
     "hindi": "ज़बरदस्ती करना / मजबूर करना / दबाव डालकर काम कराना",
@@ -4628,7 +4629,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-29",
+    "id": "v-ows-l1-s2-31",
     "word": "Colloquy",
     "phonetic": "/ˈkɑː.lə.kwi/",
     "hindi": "बातचीत / औपचारिक वार्तालाप / संभाषण",
@@ -4663,7 +4664,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-30",
+    "id": "v-ows-l1-s2-32",
     "word": "Collusion",
     "phonetic": "/kəˈluː.ʒən/",
     "hindi": "गठजोड़ / मिलीभगत / कपट संधि",
@@ -4700,7 +4701,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-31",
+    "id": "v-ows-l1-s2-33",
     "word": "Colony",
     "phonetic": "/ˈkɑː.lə.ni/",
     "hindi": "चींटियों का झुंड / बस्ती / संघ",
@@ -4734,7 +4735,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-32",
+    "id": "v-ows-l1-s2-34",
     "word": "Commemorate",
     "phonetic": "/kəˈmem.ə.reɪt/",
     "hindi": "स्मरण करना / उत्सव मनाना / सम्मान में आयोजन करना",
@@ -4771,7 +4772,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-33",
+    "id": "v-ows-l1-s2-35",
     "word": "Commensurate",
     "phonetic": "/kəˈmen.sjɚ.ət/",
     "hindi": "आनुपातिक / समानुपातिक / के अनुरूप",
@@ -4807,7 +4808,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-34",
+    "id": "v-ows-l1-s2-36",
     "word": "Compassion",
     "phonetic": "/kəmˈpæʃ.ən/",
     "hindi": "करुणा / दया / हमदर्दी / परदुःखकातरता",
@@ -4844,7 +4845,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-35",
+    "id": "v-ows-l1-s2-37",
     "word": "Compere",
     "phonetic": "/ˈkɑːm.per/",
     "hindi": "संचालक / उद्घोषक / कार्यक्रम प्रस्तुतकर्ता (एंकर)",
@@ -4878,7 +4879,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-36",
+    "id": "v-ows-l1-s2-38",
     "word": "Complacent",
     "phonetic": "/kəmˈpleɪ.sənt/",
     "hindi": "आत्मसंतुष्ट / बेपरवाह / लापरवाह रूप से संतुष्ट",
@@ -4915,7 +4916,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-37",
+    "id": "v-ows-l1-s2-39",
     "word": "Compositor",
     "phonetic": "/kəmˈpɑː.zə.t̬ɚ/",
     "hindi": "मुद्रक / अक्षर-योजक / टाइप बैठाने वाला व्यक्ति",
@@ -4949,7 +4950,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-38",
+    "id": "v-ows-l1-s2-40",
     "word": "Compunction",
     "phonetic": "/kəmˈpʌŋk.ʃən/",
     "hindi": "पश्चाताप / ग्लानि / अंतःकरण का संकोच",
@@ -4985,7 +4986,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-39",
+    "id": "v-ows-l1-s2-41",
     "word": "Conceited",
     "phonetic": "/kənˈsiː.t̬ɪd/",
     "hindi": "अहंकारी / घमंडी / आत्मश्लाघी",
@@ -5022,7 +5023,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-40",
+    "id": "v-ows-l1-s2-42",
     "word": "Conceivable",
     "phonetic": "/kənˈsiː.və.bəl/",
     "hindi": "कल्पनीय / विचारणीय / बोधगम्य (जो संभव हो)",
@@ -5059,7 +5060,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-41",
+    "id": "v-ows-l1-s2-43",
     "word": "Concentric",
     "phonetic": "/kənˈsen.trɪk/",
     "hindi": "एक ही केंद्र वाला / समकेंद्रीय (गोल घेरे)",
@@ -5092,7 +5093,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-42",
+    "id": "v-ows-l1-s2-44",
     "word": "Condone",
     "phonetic": "/kənˈdoʊn/",
     "hindi": "क्षमा करना / अनदेखा करना / अपराध को नजरअंदाज करना",
@@ -5129,7 +5130,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-43",
+    "id": "v-ows-l1-s2-45",
     "word": "Confluence",
     "phonetic": "/ˈkɑːn.fluː.əns/",
     "hindi": "संगम / नदियों का मिलन-स्थल",
@@ -5165,7 +5166,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-44",
+    "id": "v-ows-l1-s2-46",
     "word": "Conformist",
     "phonetic": "/kənˈfɔːr.mɪst/",
     "hindi": "अनुयायी / परंपरावादी / स्थापित नियमों का पालन करने वाला",
@@ -5201,7 +5202,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-45",
+    "id": "v-ows-l1-s2-47",
     "word": "Congenital",
     "phonetic": "/kənˈdʒen.ə.t̬əl/",
     "hindi": "जन्मजात / पैदाइशी / जन्म से विद्यमान",
@@ -5237,7 +5238,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-46",
+    "id": "v-ows-l1-s2-48",
     "word": "Conglomerate",
     "phonetic": "/kənˈɡlɑː.mɚ.ət/",
     "hindi": "समूह / बहु-उद्योग निगम / विशाल व्यापारिक संगठन",
@@ -5272,7 +5273,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-47",
+    "id": "v-ows-l1-s2-49",
     "word": "Congregation",
     "phonetic": "/ˌkɑːŋ.ɡrəˈɡeɪ.ʃən/",
     "hindi": "जनसमूह / धार्मिक सभा / भक्त मंडली",
@@ -5307,7 +5308,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-48",
+    "id": "v-ows-l1-s2-50",
     "word": "Connoisseur",
     "phonetic": "/ˌkɑː.nəˈsɝː/",
     "hindi": "पारखी / विशेषज्ञ / कला व स्वाद का मर्मज्ञ",
@@ -5344,7 +5345,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-49",
+    "id": "v-ows-l1-s2-51",
     "word": "Conscientious",
     "phonetic": "/ˌkɑːn.ʃiˈen.ʃəs/",
     "hindi": "कर्तव्यनिष्ठ / ईमानदार / सतर्क व परिश्रमी",
@@ -5381,7 +5382,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-50",
+    "id": "v-ows-l1-s2-52",
     "word": "Console",
     "phonetic": "/kənˈsoʊl/",
     "hindi": "सांत्वना देना / ढाढ़स बंधाना / दिलासा देना",
@@ -5418,7 +5419,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-51",
+    "id": "v-ows-l1-s2-53",
     "word": "Consort",
     "phonetic": "/ˈkɑːn.sɔːrt/",
     "hindi": "सहचर / संगी / राजा या रानी का जीवनसाथी",
@@ -5454,7 +5455,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-52",
+    "id": "v-ows-l1-s2-54",
     "word": "Consternation",
     "phonetic": "/ˌkɑːn.stɚˈneɪ.ʃən/",
     "hindi": "घबराहट / विस्मय / हड़कंप / भारी व्याकुलता",
@@ -5491,7 +5492,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-53",
+    "id": "v-ows-l1-s2-55",
     "word": "Constrained",
     "phonetic": "/kənˈstreɪnd/",
     "hindi": "बाध्य / विवश / खिंचा हुआ व संकुचित",
@@ -5528,7 +5529,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-54",
+    "id": "v-ows-l1-s2-56",
     "word": "Consummate",
     "phonetic": "/ˈkɑːn.sə.mət/",
     "hindi": "निपुण / परम / सिद्धहस्त / सर्वोच्च कला वाला",
@@ -5565,7 +5566,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-55",
+    "id": "v-ows-l1-s2-57",
     "word": "Contemporary",
     "phonetic": "/kənˈtem.pə.rer.i/",
     "hindi": "समकालीन / उसी समय का व्यक्ति या घटना",
@@ -5602,7 +5603,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-56",
+    "id": "v-ows-l1-s2-58",
     "word": "Contented",
     "phonetic": "/kənˈten.t̬ɪd/",
     "hindi": "संतुष्ट / तृप्त / आत्मप्रसन्न",
@@ -5639,7 +5640,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-57",
+    "id": "v-ows-l1-s2-59",
     "word": "Contentious",
     "phonetic": "/kənˈten.ʃəs/",
     "hindi": "विवादास्पद / झगड़ालू / विवादप्रिय",
@@ -5676,7 +5677,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-58",
+    "id": "v-ows-l1-s2-60",
     "word": "Contiguous",
     "phonetic": "/kənˈtɪɡ.ju.əs/",
     "hindi": "संनिकट / सटा हुआ / साझा सीमा वाला",
@@ -5713,7 +5714,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-59",
+    "id": "v-ows-l1-s2-61",
     "word": "Contour",
     "phonetic": "/ˈkɑːn.tʊr/",
     "hindi": "रूपरेखा / परिरेखा / समोच्च रेखा",
@@ -5749,7 +5750,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-60",
+    "id": "v-ows-l1-s2-62",
     "word": "Convalescent",
     "phonetic": "/ˌkɑːn.vəˈles.ənt/",
     "hindi": "स्वास्थ्यलाभ करने वाला व्यक्ति / रोगमुक्ति पा रहा मरीज",
@@ -5783,7 +5784,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-61",
+    "id": "v-ows-l1-s2-63",
     "word": "Coronation",
     "phonetic": "/ˌkɔːr.əˈneɪ.ʃən/",
     "hindi": "राज्याभिषेक / ताजपोशी / सम्राट का पदग्रहण",
@@ -5818,7 +5819,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-62",
+    "id": "v-ows-l1-s2-64",
     "word": "Corpus",
     "phonetic": "/ˈkɔːr.pəs/",
     "hindi": "संग्रह / ग्रंथावली / भाषा या साहित्य का विशाल संकलन",
@@ -5853,7 +5854,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-63",
+    "id": "v-ows-l1-s2-65",
     "word": "Corroborate",
     "phonetic": "/kəˈrɑː.bə.reɪt/",
     "hindi": "पुष्टि करना / समर्थन करना / साक्ष्य से सिद्ध करना",
@@ -5890,7 +5891,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-64",
+    "id": "v-ows-l1-s2-66",
     "word": "Cosmopolitan",
     "phonetic": "/ˌkɑːz.məˈpɑː.lɪ.tən/",
     "hindi": "विश्वनागरिक / सर्वदेशीय / पूरे विश्व को अपना मानने वाला",
@@ -5927,7 +5928,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-65",
+    "id": "v-ows-l1-s2-67",
     "word": "Creed",
     "phonetic": "/kriːd/",
     "hindi": "आस्था / पंथ / धार्मिक या नैतिक विश्वास",
@@ -5963,7 +5964,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-66",
+    "id": "v-ows-l1-s2-68",
     "word": "Crusade",
     "phonetic": "/kruːˈseɪd/",
     "hindi": "अभियान / धर्मयुद्ध / सामाजिक या राजनीतिक सुधार आंदोलन",
@@ -5999,7 +6000,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-67",
+    "id": "v-ows-l1-s2-69",
     "word": "Crusted",
     "phonetic": "/ˈkrʌs.tɪd/",
     "hindi": "परतदार / पपड़ीदार / कठोर बाहरी परत से ढका हुआ",
@@ -6036,7 +6037,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-68",
+    "id": "v-ows-l1-s2-70",
     "word": "Cuisine",
     "phonetic": "/kwɪˈziːn/",
     "hindi": "खानपान शैली / व्यंजन / विशिष्ट पाक-कला",
@@ -6071,7 +6072,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-69",
+    "id": "v-ows-l1-s2-71",
     "word": "Culpable",
     "phonetic": "/ˈkʌl.pə.bəl/",
     "hindi": "दोषी / दंडनीय / कसूरवार / निंदनीय",
@@ -6108,7 +6109,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-70",
+    "id": "v-ows-l1-s2-72",
     "word": "Curse",
     "phonetic": "/kɝːs/",
     "hindi": "श्राप / अभिशाप / बददुआ / अनिष्ट की कामना",
@@ -6144,7 +6145,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-71",
+    "id": "v-ows-l1-s2-73",
     "word": "Cynic",
     "phonetic": "/ˈsɪn.ɪk/",
     "hindi": "निंदक / दोषदर्शी / मानवद्वेषी / हर बात में स्वार्थ देखने वाला",
@@ -6181,7 +6182,7 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s2-72",
+    "id": "v-ows-l1-s2-74",
     "word": "Cypher",
     "phonetic": "/ˈsaɪ.fɚ/",
     "hindi": "गुप्त लिखावट / कूटलेख / सांकेतिक भाषा",
@@ -6215,19 +6216,9 @@ export const LEVEL_1_SET_02_OWS: VocabItem[] = [
     "derivatives": "Decypher / Decipher (verb)",
     "level": "level-1",
     "set": "set-02"
-  }
-];
-
-
-// ============================================================================
-// HIGH YIELD ONE WORD SUBSTITUTIONS (OWS) - LEVEL 1 SET 03
-// Extracted and curated from Toppers' Vocab / Prashant Solanki English
-// Exactly 83 High-Frequency Unique OWS (Pages 45-66) with Hindi Meaning, Mnemonics & Exam Usages
-// ============================================================================
-
-export const LEVEL_1_SET_03_OWS: VocabItem[] = [
+  },
   {
-    "id": "v-ows-l1-s3-1",
+    "id": "v-ows-l1-s2-75",
     "word": "Contraband",
     "phonetic": "/ˈkɑːn.trə.bænd/",
     "hindi": "अवैध सामान / तस्करी का माल / प्रतिबंधित वस्तुएं",
@@ -6253,16 +6244,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Seize contraband / contraband goods / contraband smuggling",
     "derivatives": "Contrabandist (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-2",
+    "id": "v-ows-l1-s2-76",
     "word": "Daredevil",
     "phonetic": "/ˈderˌdev.əl/",
     "hindi": "साहसी / दुस्साहसी / जान जोखिम में डालने वाला",
@@ -6289,16 +6280,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Daredevil stunt / reckless daredevil",
     "derivatives": "Daredevilry (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-3",
+    "id": "v-ows-l1-s2-77",
     "word": "Daze",
     "phonetic": "/deɪz/",
     "hindi": "भ्रमित अवस्था / अचेत / भौंचक्कापन",
@@ -6326,16 +6317,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "In a daze / wander in a daze / state of daze",
     "derivatives": "Dazed (adjective), Dazedly (adverb)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-4",
+    "id": "v-ows-l1-s2-78",
     "word": "Deadlock",
     "phonetic": "/ˈded.lɑːk/",
     "hindi": "अड़चन / गतिरोध / ठहराव (जहाँ प्रगति न हो)",
@@ -6363,16 +6354,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Break the deadlock / reach a deadlock / political deadlock",
     "derivatives": "Deadlocked (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-5",
+    "id": "v-ows-l1-s2-79",
     "word": "Desert",
     "phonetic": "/dɪˈzɝːt/",
     "hindi": "छोड़ देना / त्यागना / साथ छोड़ देना",
@@ -6400,16 +6391,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Desert one's post / desert a friend in need",
     "derivatives": "Deserter (noun), Desertion (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-6",
+    "id": "v-ows-l1-s2-80",
     "word": "Decamp",
     "phonetic": "/dɪˈkæmp/",
     "hindi": "चुपचाप भाग जाना / रफूचक्कर होना / डेरा उठाना",
@@ -6437,16 +6428,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Decamp overnight / decamp with funds",
     "derivatives": "Decampment (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-7",
+    "id": "v-ows-l1-s2-81",
     "word": "Deficiency",
     "phonetic": "/dɪˈfɪʃ.ən.si/",
     "hindi": "कमी / अपर्याप्तता / अभाव",
@@ -6474,16 +6465,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Vitamin deficiency / iron deficiency / immune deficiency",
     "derivatives": "Deficient (adjective), Deficiently (adverb)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-8",
+    "id": "v-ows-l1-s2-82",
     "word": "Deja-vu",
     "phonetic": "/ˌdeɪ.ʒɑː ˈvuː/",
     "hindi": "पहले से देखा हुआ / पूर्व-अनुभूति का भ्रम",
@@ -6508,16 +6499,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Sense of deja-vu / feeling of deja-vu / experiencing deja-vu",
     "derivatives": "French loan phrase",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-9",
+    "id": "v-ows-l1-s2-83",
     "word": "Delegate",
     "phonetic": "/ˈdel.ə.ɡeɪt/",
     "hindi": "किसी काम या अधिकार को सौंपना / प्रतिनिधि बनाना",
@@ -6545,16 +6536,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Delegate authority / delegate duties / delegate power",
     "derivatives": "Delegation (noun), Delegate (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-10",
+    "id": "v-ows-l1-s2-84",
     "word": "Delinquent",
     "phonetic": "/dɪˈlɪŋ.kwənt/",
     "hindi": "युवा अपराधी / कर्तव्यच्युत व्यक्ति",
@@ -6581,16 +6572,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Juvenile delinquent / delinquent behavior / delinquent child",
     "derivatives": "Delinquency (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-11",
+    "id": "v-ows-l1-s2-85",
     "word": "Delirium",
     "phonetic": "/dɪˈlɪr.i.əm/",
     "hindi": "उन्माद / मतिभ्रम / बुखार में बेहोशी की बड़बड़ाहट",
@@ -6618,16 +6609,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "State of delirium / fever-induced delirium",
     "derivatives": "Delirious (adjective), Deliriously (adverb)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-12",
+    "id": "v-ows-l1-s2-86",
     "word": "Demagogue",
     "phonetic": "/ˈdem.ə.ɡɑːɡ/",
     "hindi": "जनता को उकसाने वाला नेता / जनोत्तेजक नेता",
@@ -6654,16 +6645,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Political demagogue / populist demagogue",
     "derivatives": "Demagogy (noun), Demagogic (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-13",
+    "id": "v-ows-l1-s2-87",
     "word": "Depict",
     "phonetic": "/dɪˈpɪkt/",
     "hindi": "दर्शाना / चित्रित करना / वर्णन करना",
@@ -6691,16 +6682,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Accurately depict / depict a scene / vivid depiction",
     "derivatives": "Depiction (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-14",
+    "id": "v-ows-l1-s2-88",
     "word": "Deponent",
     "phonetic": "/dɪˈpoʊ.nənt/",
     "hindi": "गवाह / शपथपूर्वक लिखित बयान देने वाला",
@@ -6725,16 +6716,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Sworn deponent / testimony of deponent",
     "derivatives": "Depose (verb), Deposition (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-15",
+    "id": "v-ows-l1-s2-89",
     "word": "Depreciate",
     "phonetic": "/dɪˈpriː.ʃi.eɪt/",
     "hindi": "मूल्य कम होना / अवमूल्यन होना / कीमत घटना",
@@ -6762,16 +6753,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Depreciate in value / depreciate over time",
     "derivatives": "Depreciation (noun), Depreciatory (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-16",
+    "id": "v-ows-l1-s2-90",
     "word": "Deranged",
     "phonetic": "/dɪˈreɪndʒd/",
     "hindi": "पागल / विक्षिप्त / मानसिक रूप से असंतुलित",
@@ -6799,16 +6790,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Deranged mind / deranged behavior / utterly deranged",
     "derivatives": "Derangement (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-17",
+    "id": "v-ows-l1-s2-91",
     "word": "Derelict",
     "phonetic": "/ˈder.ə.lɪkt/",
     "hindi": "आवारा व्यक्ति / परित्यक्त / बेसहारा व छोड़ा हुआ",
@@ -6836,16 +6827,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Derelict building / derelict property / homeless derelict",
     "derivatives": "Dereliction (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-18",
+    "id": "v-ows-l1-s2-92",
     "word": "Deride",
     "phonetic": "/dɪˈraɪd/",
     "hindi": "उपहास उड़ाना / खिल्ली उड़ाना / चिढ़ाना",
@@ -6873,16 +6864,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Deride someone's efforts / openly deride",
     "derivatives": "Derision (noun), Derisive (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-19",
+    "id": "v-ows-l1-s2-93",
     "word": "Desist",
     "phonetic": "/dɪˈzɪst/",
     "hindi": "रोकना / बाज़ आना / समाप्त करना",
@@ -6910,16 +6901,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Cease and desist / desist from doing",
     "derivatives": "Desistance (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-20",
+    "id": "v-ows-l1-s2-94",
     "word": "Devious",
     "phonetic": "/ˈdiː.vi.əs/",
     "hindi": "धोखेबाज़ / कुटिल / चालबाज़ / कपटी",
@@ -6947,16 +6938,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Devious plot / devious scheme / devious mind",
     "derivatives": "Deviously (adverb), Deviousness (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-21",
+    "id": "v-ows-l1-s2-95",
     "word": "Dexterous",
     "phonetic": "/ˈdek.strəs/",
     "hindi": "निपुण / चतुर / कुशल (विशेषकर हाथ के कार्य में)",
@@ -6984,16 +6975,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Dexterous fingers / dexterous moves / dexterous handling",
     "derivatives": "Dexterity (noun), Dexterously (adverb)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-22",
+    "id": "v-ows-l1-s2-96",
     "word": "Dialect",
     "phonetic": "/ˈdaɪ.ə.lekt/",
     "hindi": "लोकभाषा / बोली / प्रांतीय उपभाषा",
@@ -7019,16 +7010,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Local dialect / regional dialect / broad dialect",
     "derivatives": "Dialectal (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-23",
+    "id": "v-ows-l1-s2-97",
     "word": "Diffident",
     "phonetic": "/ˈdɪf.ə.dənt/",
     "hindi": "संकोची / झेंपू / आत्मविश्वासहीन",
@@ -7056,16 +7047,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Diffident manner / diffident smile / shy and diffident",
     "derivatives": "Diffidence (noun), Diffidently (adverb)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-24",
+    "id": "v-ows-l1-s2-98",
     "word": "Diffuse",
     "phonetic": "/dɪˈfjuːz/",
     "hindi": "फैलाना / विस्तृत / बिखेरना (बड़े क्षेत्र में)",
@@ -7093,16 +7084,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Diffuse light / diffuse knowledge / diffuse style",
     "derivatives": "Diffusion (noun), Diffusive (adjective)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-25",
+    "id": "v-ows-l1-s2-99",
     "word": "Dilettante",
     "phonetic": "/ˌdɪl.əˈtɑːn.ti/",
     "hindi": "शौकिया / सतही ज्ञान रखने वाला / नौसिखिया",
@@ -7129,16 +7120,16 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Wealthy dilettante / artistic dilettante",
     "derivatives": "Dilettantish (adjective), Dilettantism (noun)",
     "level": "level-1",
-    "set": "set-03"
+    "set": "set-02"
   },
   {
-    "id": "v-ows-l1-s3-26",
+    "id": "v-ows-l1-s2-100",
     "word": "Diligent",
     "phonetic": "/ˈdɪl.ə.dʒənt/",
     "hindi": "मेहनती / परिश्रमी / कर्तव्यपरायण",
@@ -7166,16 +7157,19 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
       "CHSL",
       "MTS",
       "Level 1",
-      "Set 03",
+      "Set 02",
       "OWS"
     ],
     "collocation": "Diligent student / diligent research / diligent effort",
     "derivatives": "Diligence (noun), Diligently (adverb)",
     "level": "level-1",
-    "set": "set-03"
-  },
+    "set": "set-02"
+  }
+];
+
+export const LEVEL_1_SET_03_OWS: VocabItem[] = [
   {
-    "id": "v-ows-l1-s3-27",
+    "id": "v-ows-l1-s3-1",
     "word": "Directory",
     "phonetic": "/dəˈrek.tɚ.i/",
     "hindi": "निर्देशिका / नाम और पते की पुस्तक",
@@ -7209,7 +7203,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-28",
+    "id": "v-ows-l1-s3-2",
     "word": "Dirge",
     "phonetic": "/dɝːdʒ/",
     "hindi": "शोक गीत / मर्सिया / समाधि पर गाया जाने वाला गीत",
@@ -7246,7 +7240,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-29",
+    "id": "v-ows-l1-s3-3",
     "word": "Disarray",
     "phonetic": "/ˌdɪs.əˈreɪ/",
     "hindi": "अव्यवस्था / अस्त-व्यस्त स्थिति / बिखराव",
@@ -7283,7 +7277,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-30",
+    "id": "v-ows-l1-s3-4",
     "word": "Disgruntled",
     "phonetic": "/dɪsˈɡrʌn.t̬əld/",
     "hindi": "नाराज़ / असंतुष्ट / खिन्न",
@@ -7320,7 +7314,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-31",
+    "id": "v-ows-l1-s3-5",
     "word": "Disintegrate",
     "phonetic": "/dɪˈsɪn.t̬ə.ɡreɪt/",
     "hindi": "टुकड़े-टुकड़े हो जाना / विघटित होना / बिखरना",
@@ -7357,7 +7351,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-32",
+    "id": "v-ows-l1-s3-6",
     "word": "Dismal",
     "phonetic": "/ˈdɪz.məl/",
     "hindi": "निराशाजनक / उदास / भयावह / अंधकारमय",
@@ -7394,7 +7388,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-33",
+    "id": "v-ows-l1-s3-7",
     "word": "Disrupt",
     "phonetic": "/dɪsˈrʌpt/",
     "hindi": "खलल डालना / बाधित करना / अस्त-व्यस्त करना",
@@ -7431,7 +7425,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-34",
+    "id": "v-ows-l1-s3-8",
     "word": "Dither",
     "phonetic": "/ˈdɪð.ɚ/",
     "hindi": "हिचकिचाना / दुविधा में पड़ना / फैसला न कर पाना",
@@ -7467,7 +7461,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-35",
+    "id": "v-ows-l1-s3-9",
     "word": "Divulge",
     "phonetic": "/daɪˈvʌldʒ/",
     "hindi": "प्रकाशित करना / रहस्य खोलना / भेद उजागर करना",
@@ -7504,7 +7498,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-36",
+    "id": "v-ows-l1-s3-10",
     "word": "Dominion",
     "phonetic": "/dəˈmɪn.jən/",
     "hindi": "प्रभुत्व / अधिराज्य / शासन-क्षेत्र",
@@ -7540,7 +7534,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-37",
+    "id": "v-ows-l1-s3-11",
     "word": "Double down",
     "phonetic": "/ˈdʌb.əl daʊn/",
     "hindi": "ज्यादा प्रयास करना / दोगुनी ताकत लगाना / अडिग रहना",
@@ -7577,7 +7571,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-38",
+    "id": "v-ows-l1-s3-12",
     "word": "Ductile",
     "phonetic": "/ˈdʌk.taɪl/",
     "hindi": "लचीला / तन्य (जिससे पतले तार खींचे जा सकें)",
@@ -7614,7 +7608,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-39",
+    "id": "v-ows-l1-s3-13",
     "word": "Duel",
     "phonetic": "/ˈduː.əl/",
     "hindi": "द्वंद्व युद्ध / दो व्यक्तियों की सशस्त्र लड़ाई",
@@ -7650,7 +7644,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-40",
+    "id": "v-ows-l1-s3-14",
     "word": "Easel",
     "phonetic": "/ˈiː.zəl/",
     "hindi": "चित्रफलक / चित्र बनाने का स्टैंड",
@@ -7683,7 +7677,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-41",
+    "id": "v-ows-l1-s3-15",
     "word": "Eavesdropper",
     "phonetic": "/ˈiːvzˌdrɑː.pɚ/",
     "hindi": "चुपके से बातें सुनने वाला / छिपकर कान लगाने वाला",
@@ -7718,7 +7712,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-42",
+    "id": "v-ows-l1-s3-16",
     "word": "Eccentric",
     "phonetic": "/ekˈsen.trɪk/",
     "hindi": "विचित्र / सनकी / असामान्य आचरण वाला व्यक्ति",
@@ -7755,7 +7749,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-43",
+    "id": "v-ows-l1-s3-17",
     "word": "Edify",
     "phonetic": "/ˈed.ə.faɪ/",
     "hindi": "बेहतर बनाना / नैतिक व आत्मिक शिक्षा देना",
@@ -7792,7 +7786,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-44",
+    "id": "v-ows-l1-s3-18",
     "word": "Efface",
     "phonetic": "/ɪˈfeɪs/",
     "hindi": "मिटा देना / पोछ देना / विलोप करना",
@@ -7829,7 +7823,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-45",
+    "id": "v-ows-l1-s3-19",
     "word": "Effeminate",
     "phonetic": "/ɪˈfem.ə.nət/",
     "hindi": "नारी-सदृश / स्त्रैण / औरताना स्वभाव वाला पुरुष",
@@ -7866,7 +7860,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-46",
+    "id": "v-ows-l1-s3-20",
     "word": "Effervescent",
     "phonetic": "/ˌef.ɚˈves.ənt/",
     "hindi": "उत्साहपूर्ण / बुलबुलेदार / उमंग व ताजगी से भरपूर",
@@ -7903,7 +7897,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-47",
+    "id": "v-ows-l1-s3-21",
     "word": "Efficient",
     "phonetic": "/ɪˈfɪʃ.ənt/",
     "hindi": "कुशल / कार्यक्षम / दक्षतापूर्ण",
@@ -7940,7 +7934,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-48",
+    "id": "v-ows-l1-s3-22",
     "word": "Elf",
     "phonetic": "/elf/",
     "hindi": "बौना देवदूत / परी-जैसा छोटा प्राणी",
@@ -7975,7 +7969,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-49",
+    "id": "v-ows-l1-s3-23",
     "word": "Elixir",
     "phonetic": "/ɪˈlɪk.sɚ/",
     "hindi": "जादुई औषधि / अमृत / सर्व-रोग निवारक अर्क",
@@ -8011,7 +8005,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-50",
+    "id": "v-ows-l1-s3-24",
     "word": "Egregious",
     "phonetic": "/ɪˈɡriː.dʒəs/",
     "hindi": "घिनौना / अत्यंत बुरा / निंदनीय / भयावह",
@@ -8048,7 +8042,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-51",
+    "id": "v-ows-l1-s3-25",
     "word": "Eloquent",
     "phonetic": "/ˈel.ə.kwənt/",
     "hindi": "सुवक्ता / वाक्पटु / ओजस्वी वक्ता",
@@ -8085,7 +8079,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-52",
+    "id": "v-ows-l1-s3-26",
     "word": "Elocution",
     "phonetic": "/ˌel.əˈkjuː.ʃən/",
     "hindi": "बोलने में कुशल / वक्तृत्व-कला / भाषण शैली",
@@ -8121,7 +8115,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-53",
+    "id": "v-ows-l1-s3-27",
     "word": "Elope",
     "phonetic": "/ɪˈloʊp/",
     "hindi": "भाग जाना (प्रेमी के साथ विवाह हेतु)",
@@ -8155,7 +8149,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-54",
+    "id": "v-ows-l1-s3-28",
     "word": "Emancipate",
     "phonetic": "/ɪˈmæn.sə.peɪt/",
     "hindi": "मुक्त करना / स्वतंत्र करना / दासों को छुड़ाना",
@@ -8192,7 +8186,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-55",
+    "id": "v-ows-l1-s3-29",
     "word": "Ecstasy",
     "phonetic": "/ˈek.stə.si/",
     "hindi": "परमानंद / अत्यानंद / हर्षोल्लास",
@@ -8229,7 +8223,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-56",
+    "id": "v-ows-l1-s3-30",
     "word": "Embed",
     "phonetic": "/ɪmˈbed/",
     "hindi": "धँसाना / जड़ना / अंतःस्थापित करना",
@@ -8266,7 +8260,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-57",
+    "id": "v-ows-l1-s3-31",
     "word": "Ember",
     "phonetic": "/ˈem.bɚ/",
     "hindi": "अंगारा / सुलगता हुआ कोयला या लकड़ी",
@@ -8300,7 +8294,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-58",
+    "id": "v-ows-l1-s3-32",
     "word": "Embezzle",
     "phonetic": "/ɪmˈbez.əl/",
     "hindi": "गबन करना / धन हड़पना / अमानत में खयानत",
@@ -8336,7 +8330,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-59",
+    "id": "v-ows-l1-s3-33",
     "word": "Embody",
     "phonetic": "/ɪmˈbɑː.di/",
     "hindi": "साकार करना / मूर्त रूप देना / समाविष्ट करना",
@@ -8372,7 +8366,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-60",
+    "id": "v-ows-l1-s3-34",
     "word": "Empathy",
     "phonetic": "/ˈem.pə.θi/",
     "hindi": "समानुभूति / परानुभूति / दूसरों की भावनाओं को खुद महसूस करना",
@@ -8409,7 +8403,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-61",
+    "id": "v-ows-l1-s3-35",
     "word": "Endeavour",
     "phonetic": "/enˈdev.ɚ/",
     "hindi": "प्रयास / प्रयत्न / उद्यम / भरसक चेष्टा करना",
@@ -8445,7 +8439,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-62",
+    "id": "v-ows-l1-s3-36",
     "word": "Enfeebled",
     "phonetic": "/ɪnˈfiː.bəld/",
     "hindi": "दुर्बल / कमज़ोर / अशक्त",
@@ -8482,7 +8476,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-63",
+    "id": "v-ows-l1-s3-37",
     "word": "Engulf",
     "phonetic": "/ɪnˈɡʌlf/",
     "hindi": "निगल जाना / घेर लेना / पूरी तरह ढक लेना",
@@ -8518,7 +8512,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-64",
+    "id": "v-ows-l1-s3-38",
     "word": "Enigma",
     "phonetic": "/əˈnɪɡ.mə/",
     "hindi": "पहेली / रहस्यमय व्यक्ति या बात / गूढ़ प्रश्न",
@@ -8554,7 +8548,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-65",
+    "id": "v-ows-l1-s3-39",
     "word": "Ennui",
     "phonetic": "/ɑːnˈwiː/",
     "hindi": "मानसिक थकान / ऊब / काम न होने से अरुचि",
@@ -8591,7 +8585,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-66",
+    "id": "v-ows-l1-s3-40",
     "word": "Ensemble",
     "phonetic": "/ɑːnˈsɑːm.bəl/",
     "hindi": "समूह / कलाकारों का दल / संपूर्ण वस्त्र-विन्यास",
@@ -8626,7 +8620,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-67",
+    "id": "v-ows-l1-s3-41",
     "word": "Ephemeral",
     "phonetic": "/ɪˈfem.ər.əl/",
     "hindi": "अल्पकालिक / क्षणभंगुर / नाशवान",
@@ -8663,7 +8657,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-68",
+    "id": "v-ows-l1-s3-42",
     "word": "Epic",
     "phonetic": "/ˈep.ɪk/",
     "hindi": "महाकाव्य / वीरगाथा / भव्य कृति",
@@ -8698,7 +8692,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-69",
+    "id": "v-ows-l1-s3-43",
     "word": "Epicurean",
     "phonetic": "/ˌep.ə.kjʊˈriː.ən/",
     "hindi": "सुखप्रिय / विलासी / भोगवादी (स्वाद व आराम का प्रेमी)",
@@ -8735,7 +8729,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-70",
+    "id": "v-ows-l1-s3-44",
     "word": "Epilogue",
     "phonetic": "/ˈep.ə.lɑːɡ/",
     "hindi": "उपसंहार / नाटक या ग्रंथ के अंत का भाषण",
@@ -8772,7 +8766,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-71",
+    "id": "v-ows-l1-s3-45",
     "word": "Epitaph",
     "phonetic": "/ˈep.ə.tæf/",
     "hindi": "समाधि-लेख / समाधि-स्तंभ पर खुदा हुआ लेख",
@@ -8806,7 +8800,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-72",
+    "id": "v-ows-l1-s3-46",
     "word": "Epitome",
     "phonetic": "/ɪˈpɪt.ə.mi/",
     "hindi": "सटीक उदाहरण / प्रतीक / आदर्श नमूना",
@@ -8842,7 +8836,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-73",
+    "id": "v-ows-l1-s3-47",
     "word": "Equestrian",
     "phonetic": "/ɪˈkwes.tri.ən/",
     "hindi": "घुड़सवारी से संबंधित / अश्वारोही",
@@ -8875,7 +8869,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-74",
+    "id": "v-ows-l1-s3-48",
     "word": "Equinox",
     "phonetic": "/ˈiː.kwə.nɑːks/",
     "hindi": "विषुव (जब दिन और रात की अवधि बराबर होती है)",
@@ -8907,7 +8901,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-75",
+    "id": "v-ows-l1-s3-49",
     "word": "Erratum",
     "phonetic": "/eˈrɑː.təm/",
     "hindi": "लिखने या छपने में अशुद्धि / भूल-सुधार",
@@ -8942,7 +8936,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-76",
+    "id": "v-ows-l1-s3-50",
     "word": "Erudite",
     "phonetic": "/ˈer.jʊ.daɪt/",
     "hindi": "विद्वत्तापूर्ण / ज्ञानी / सुशिक्षित / पंडित",
@@ -8979,7 +8973,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-77",
+    "id": "v-ows-l1-s3-51",
     "word": "Esteem",
     "phonetic": "/ɪˈstiːm/",
     "hindi": "आदर / सम्मान / प्रतिष्ठा / समादर करना",
@@ -9016,7 +9010,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-78",
+    "id": "v-ows-l1-s3-52",
     "word": "Escort",
     "phonetic": "/ˈes.kɔːrt/",
     "hindi": "अंगरक्षक / पहरा देने वाला / अनुरक्षक दल",
@@ -9051,7 +9045,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-79",
+    "id": "v-ows-l1-s3-53",
     "word": "Eternal",
     "phonetic": "/ɪˈtɝː.nəl/",
     "hindi": "अनंत / अविनाशी / शाश्वत / अमर",
@@ -9088,7 +9082,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-80",
+    "id": "v-ows-l1-s3-54",
     "word": "Etiquette",
     "phonetic": "/ˈet̬.ə.kət/",
     "hindi": "शिष्टाचार / तहज़ीब / सभ्य आचार-संहिता",
@@ -9125,7 +9119,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-81",
+    "id": "v-ows-l1-s3-55",
     "word": "Eulogise",
     "phonetic": "/ˈjuː.lə.dʒaɪz/",
     "hindi": "प्रशंसा करना / गुणगान करना / स्तुति करना",
@@ -9162,7 +9156,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-82",
+    "id": "v-ows-l1-s3-56",
     "word": "Evacuated",
     "phonetic": "/ɪˈvæk.ju.eɪ.t̬ɪd/",
     "hindi": "सुरक्षित स्थान पर पहुँचाया गया / खाली कराया गया / निष्कासित",
@@ -9198,7 +9192,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   },
   {
-    "id": "v-ows-l1-s3-83",
+    "id": "v-ows-l1-s3-57",
     "word": "Evolution",
     "phonetic": "/ˌev.əˈluː.ʃən/",
     "hindi": "क्रमिक विकास / विकास क्रम / उद्भव",
@@ -9234,3 +9228,11 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     "set": "set-03"
   }
 ];
+
+export const LEVEL_1_SET_04_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_05_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_06_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_07_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_08_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_09_OWS: VocabItem[] = [];
+export const LEVEL_1_SET_10_OWS: VocabItem[] = [];

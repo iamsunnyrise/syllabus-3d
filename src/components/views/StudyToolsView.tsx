@@ -77,7 +77,14 @@ import {
 import { 
   LEVEL_1_SET_01_OWS,
   LEVEL_1_SET_02_OWS,
-  LEVEL_1_SET_03_OWS
+  LEVEL_1_SET_03_OWS,
+  LEVEL_1_SET_04_OWS,
+  LEVEL_1_SET_05_OWS,
+  LEVEL_1_SET_06_OWS,
+  LEVEL_1_SET_07_OWS,
+  LEVEL_1_SET_08_OWS,
+  LEVEL_1_SET_09_OWS,
+  LEVEL_1_SET_10_OWS
 } from '../../data/highYieldOwsData';
 import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 
@@ -206,6 +213,13 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_01_OWS,
   ...LEVEL_1_SET_02_OWS,
   ...LEVEL_1_SET_03_OWS,
+  ...LEVEL_1_SET_04_OWS,
+  ...LEVEL_1_SET_05_OWS,
+  ...LEVEL_1_SET_06_OWS,
+  ...LEVEL_1_SET_07_OWS,
+  ...LEVEL_1_SET_08_OWS,
+  ...LEVEL_1_SET_09_OWS,
+  ...LEVEL_1_SET_10_OWS,
   ...HIGH_YIELD_ROOT_WORDS,
   // Idioms & Roots Mock Examples
   {
