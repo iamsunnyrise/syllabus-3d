@@ -2,6 +2,15 @@
 // Professionally curated with high-yield exam semantics, authentic Hindi nuances, IPA phonetics, and contextual mnemonics.
 
 import { VocabItem } from './highYieldVocabData';
+import { THEMES_10_TO_19 } from './themeBatches/themes_10_to_19';
+import { THEMES_20_TO_29 } from './themeBatches/themes_20_to_29';
+import { THEMES_30_TO_39 } from './themeBatches/themes_30_to_39';
+import { THEMES_40_TO_49 } from './themeBatches/themes_40_to_49';
+import { THEMES_50_TO_59 } from './themeBatches/themes_50_to_59';
+import { THEMES_60_TO_69 } from './themeBatches/themes_60_to_69';
+import { THEMES_70_TO_79 } from './themeBatches/themes_70_to_79';
+import { THEMES_80_TO_88 } from './themeBatches/themes_80_to_88';
+
 
 export const THEME_01_HARD_WORK_IDIOMS: VocabItem[] = [
   {
@@ -6668,55 +6677,12 @@ export const MASTER_THEME_IDIOMS: Record<number, VocabItem[]> = {
   7: THEME_07_POVERTY_SCARCITY_IDIOMS,
   8: THEME_08_TIME_TIMING_IDIOMS,
   9: THEME_09_LOVE_RELATIONSHIPS_IDIOMS,
-  10: [
-    {
-      id: 'theme-10-1',
-      word: 'Through thick and thin',
-      phonetic: '/θruː θɪk ænd θɪn/',
-      hindi: 'हर अच्छे और बुरे समय में साथ निभाना',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Under all conditions, no matter how difficult or challenging the circumstances are.',
-      example: 'True friends stand by each other through thick and thin.',
-      synonyms: ['In all weathers', 'Faithfully', 'Unwaveringly'],
-      antonyms: ['Fair-weather friend'],
-      mnemonic: 'Chahe jangal ghana (thick) ho ya patla (thin), raste par sath chalna.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'Theme 10']
-    }
-  ],
-  17: [
-    {
-      id: 'theme-17-1',
-      word: 'A blessing in disguise',
-      phonetic: '/ə ˈbles.ɪŋ ɪn dɪsˈɡaɪz/',
-      hindi: 'शुरुआत में बुरा लगने वाला पर अंततः लाभकारी साबित होने वाला अवसर',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Something that seems bad or unlucky at first, but results in something good later.',
-      example: 'Losing that job was a blessing in disguise as it forced him to prepare and clear SSC CGL.',
-      synonyms: ['Hidden advantage', 'Silver lining', 'Fortunate turn'],
-      antonyms: ['Curse in disguise', 'Misfortune'],
-      mnemonic: 'Ek vardan (blessing) jo bhes badalkar (disguise) mushkil roop me aaye.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'MTS', 'Theme 17']
-    }
-  ],
-  53: [
-    {
-      id: 'theme-53-1',
-      word: 'A Backseat Driver',
-      phonetic: '/ə ˈbæk.siːt ˈdraɪ.vər/',
-      hindi: 'बेवजह निर्देश देने वाला व्यक्ति',
-      type: 'idiom',
-      partOfSpeech: 'Idiom / Phrase',
-      meaning: 'Someone who gives unwanted advice and tries to control things without having real responsibility.',
-      example: 'I have been managing this project for five years, so please do not be a backseat driver.',
-      synonyms: ['Armchair critic', 'Meddler', 'Kibitzer'],
-      antonyms: ['Silent supporter', 'Doer'],
-      mnemonic: 'Pichli seat par baithkar driver ko tokna—koyi asal zimmedari na hona.',
-      frequency: 'Repeated',
-      examTags: ['SSC CGL', 'CHSL', 'Theme 53']
-    }
-  ]
+  ...THEMES_10_TO_19,
+  ...THEMES_20_TO_29,
+  ...THEMES_30_TO_39,
+  ...THEMES_40_TO_49,
+  ...THEMES_50_TO_59,
+  ...THEMES_60_TO_69,
+  ...THEMES_70_TO_79,
+  ...THEMES_80_TO_88,
 };
