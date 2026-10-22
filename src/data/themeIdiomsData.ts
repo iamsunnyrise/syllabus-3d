@@ -6064,6 +6064,600 @@ export const THEME_08_TIME_TIMING_IDIOMS: VocabItem[] = [
   }
 ];
 
+
+export const THEME_09_LOVE_RELATIONSHIPS_IDIOMS: VocabItem[] = [
+  {
+    "id": "theme-09-01",
+    "word": "After one's own heart",
+    "phonetic": "/ˈɑːf.tər wʌnz əʊn hɑːt/",
+    "hindi": "अपने जैसे मिज़ाज या पसंद वाला / मनपसंद विचारों वाला",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Having tastes, opinions, inclinations, or principles strikingly similar to one's own.",
+    "example": "He loves discussing geopolitical history and solving mathematical puzzles; he is truly a man after my own heart.",
+    "synonyms": [
+      "Like-minded",
+      "Kindred spirit",
+      "Of the same mind",
+      "Compatible"
+    ],
+    "antonyms": [
+      "Polar opposite",
+      "At loggerheads",
+      "Incompatible"
+    ],
+    "mnemonic": "Jo theek aapke apne dil (own heart) jaisi pasand aur vichar rakhta ho.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-02",
+    "word": "All's fair in love and war",
+    "phonetic": "/ɔːlz feər ɪn lʌv ænd wɔːr/",
+    "hindi": "प्यार और जंग में सब कुछ जायज़ है / कठिन परिस्थितियों में किसी भी उपाय का उचित माना जाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Proverb",
+    "meaning": "In intense romantic pursuit or ruthless competition, any tactic, deception, or measure is perceived as justifiable.",
+    "example": "The rival firm poached our lead software architect, justifying their aggressive poaching with 'all's fair in love and war.'",
+    "synonyms": [
+      "No rules apply",
+      "The end justifies the means",
+      "Anything goes"
+    ],
+    "antonyms": [
+      "Play by the rules",
+      "Fair play",
+      "Strict sportsmanship"
+    ],
+    "mnemonic": "Prem aur yuddh dono aisi sthitiyan hain jahan log jeetne ke liye saare niyam taaq par rakh dete hain.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-03",
+    "word": "Body and soul",
+    "phonetic": "/ˈbɒd.i ænd səʊl/",
+    "hindi": "तन-मन से / पूरी निष्ठा व समर्पण के साथ",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Entirely and completely; dedicating one's physical energy and heartfelt emotional devotion unreservedly.",
+    "example": "The dedicated mentor threw himself body and soul into training underprivileged rural students for competitive examinations.",
+    "synonyms": [
+      "Heart and soul",
+      "Wholeheartedly",
+      "With utmost devotion",
+      "Utterly"
+    ],
+    "antonyms": [
+      "Half-heartedly",
+      "Apathetically",
+      "Perfunctorily"
+    ],
+    "mnemonic": "Sharir (body) aur aatma (soul) dono ko kisi lakshya ya prem me poori tarah jhonk dena.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-04",
+    "word": "Break someone's heart",
+    "phonetic": "/breɪk ˈsʌm.wʌnz hɑːt/",
+    "hindi": "किसी का दिल तोड़ना / किसी को गहरा भावनात्मक आघात पहुंचाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To cause someone immense grief, acute emotional sorrow, or deep disappointment, especially in love.",
+    "example": "It completely broke his parents' heart when he abandoned his promising academic career to pursue reckless gambling.",
+    "synonyms": [
+      "Crush emotionally",
+      "Devastate",
+      "Grieve deeply",
+      "Shatter someone's hopes"
+    ],
+    "antonyms": [
+      "Warm someone's heart",
+      "Gladden",
+      "Comfort"
+    ],
+    "mnemonic": "Kisi ke dil (heart) ko tod kar tukde-tukde kar dena—gehri chot pahunchana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-05",
+    "word": "Close to one's heart",
+    "phonetic": "/kləʊz tuː wʌnz hɑːt/",
+    "hindi": "दिल के बहुत करीब / अत्यधिक प्रिय एवं भावनात्मक रूप से महत्वपूर्ण",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Of profound personal significance, deep affection, or emotional importance to an individual.",
+    "example": "The cause of universal primary education has always remained remarkably close to the president's heart.",
+    "synonyms": [
+      "Dear to someone",
+      "Cherished",
+      "Deeply valued",
+      "Precious"
+    ],
+    "antonyms": [
+      "Of no consequence",
+      "Indifferent to",
+      "Trivial"
+    ],
+    "mnemonic": "Jise insaan seene se laga kar rakhe—dil ke sabse kareeb aur pyara.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-06",
+    "word": "Drift apart",
+    "phonetic": "/drɪft əˈpɑːt/",
+    "hindi": "धीरे-धीरे दूर हो जाना / संबंधों में फासला या अलगाव आ जाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrasal Verb",
+    "meaning": "To gradually become less intimate, affectionate, or close in a relationship over the passage of time.",
+    "example": "After graduating from university and relocating to different metropolises, the two childhood best friends slowly drifted apart.",
+    "synonyms": [
+      "Grow estranged",
+      "Distance oneself",
+      "Grow alienated",
+      "Fall out of touch"
+    ],
+    "antonyms": [
+      "Draw closer",
+      "Bond tightly",
+      "Reconcile"
+    ],
+    "mnemonic": "Pani par tairti do naav jaise hawa ke sath dhere-dheere door chali jaati hain.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-07",
+    "word": "Fall for someone",
+    "phonetic": "/fɔːl fɔːr ˈsʌm.wʌn/",
+    "hindi": "किसी के प्यार में पड़ जाना / किसी पर मोहित हो जाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Phrasal Verb",
+    "meaning": "To develop strong romantic affection, infatuation, or genuine love for another individual.",
+    "example": "He was captivated by her intellect and compassion, and soon fell for her completely during their joint research project.",
+    "synonyms": [
+      "Fall in love with",
+      "Be smitten by",
+      "Become enamored with",
+      "Lose one's heart"
+    ],
+    "antonyms": [
+      "Fall out of love",
+      "Become disillusioned",
+      "Lose interest"
+    ],
+    "mnemonic": "Prem me khud ko sambhal na pana aur uske aakarshan me gir jana (fall for).",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-08",
+    "word": "Go through a rough patch",
+    "phonetic": "/ɡəʊ θruː ə rʌf pætʃ/",
+    "hindi": "रिश्ते में कठिन दौर या आपसी तनाव के समय से गुज़रना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To experience a prolonged phase of discord, emotional turmoil, or severe hardship in a relationship.",
+    "example": "Every marriage goes through a rough patch occasionally, but mutual empathy and honest dialogue help resolve differences.",
+    "synonyms": [
+      "Hit a rocky road",
+      "Encounter headwinds",
+      "Endure turbulence",
+      "Face difficult times"
+    ],
+    "antonyms": [
+      "Smooth sailing",
+      "Plain sailing",
+      "Honeymoon phase"
+    ],
+    "mnemonic": "Gadi ka khaddedaar, pathreele raste (rough patch) se guzarna jahan jhatke lagte hain.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-09",
+    "word": "Have a crush on someone",
+    "phonetic": "/hæv ə krʌʃ ɒn ˈsʌm.wʌn/",
+    "hindi": "किसी पर दिल आ जाना / किसी के प्रति तीव्र आकर्षण या चाहत होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To harbor a strong, enthusiastic, and often temporary romantic infatuation with someone.",
+    "example": "Throughout his early college semesters, he harbored a silent crush on the captain of the debate team.",
+    "synonyms": [
+      "Be infatuated with",
+      "Fancy someone",
+      "Be smitten with"
+    ],
+    "antonyms": [
+      "Be indifferent to",
+      "Feel repulsed by"
+    ],
+    "mnemonic": "Dil ka kisi ke aakarshan ke aage dab/jhuk jana—crush hona.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CHSL",
+      "MTS",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-10",
+    "word": "Head over heels",
+    "phonetic": "/hed ˈəʊ.vər hiːlz/",
+    "hindi": "सिर से पैर तक गहरे प्यार में डूबा हुआ / अत्यधिक आशिक मिजाज",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Adverbial Phrase",
+    "meaning": "Deeply, passionately, and overwhelmingly in love with someone.",
+    "example": "Ever since they met at the youth leadership forum, he has been head over heels in love with Ananya.",
+    "synonyms": [
+      "Madly in love",
+      "Infatuated",
+      "Smitten",
+      "Swept off one's feet"
+    ],
+    "antonyms": [
+      "Heartless",
+      "Unmoved",
+      "Indifferent"
+    ],
+    "mnemonic": "Jaise qalaabaazi (cartwheel) me sar pairon ke niche chala jata hai—prem me sudh-budh kho dena.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-11",
+    "word": "Love at first sight",
+    "phonetic": "/lʌv æt fɜːst saɪt/",
+    "hindi": "पहली ही नज़र में हुआ प्यार / पहली मुलाकात में ही गहरा लगाव",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "The immediate instantaneous experience of profound romantic attraction upon seeing someone for the first time.",
+    "example": "While many consider it a mere romantic cliché, for Vikram and Priya, it was truly love at first sight in the library.",
+    "synonyms": [
+      "Instant attraction",
+      "Immediate chemistry",
+      "Love on first encounter"
+    ],
+    "antonyms": [
+      "Slow-burning romance",
+      "Gradual fondness",
+      "Mutual disdain"
+    ],
+    "mnemonic": "Pehli baar aankhein milte hi dil haar baithna.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-12",
+    "word": "Love-hate relationship",
+    "phonetic": "/ˌlʌvˈheɪt rɪˈleɪ.ʃən.ʃɪp/",
+    "hindi": "खट्टा-मीठा रिश्ता / प्यार और तकरार का मिला-जुला संबंध",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "A complex relationship characterized by a volatile mixture of intense affection and recurring resentment or hostility.",
+    "example": "The two rival tennis prodigies share a classic love-hate relationship, fiercely fighting on court yet respecting each other deeply.",
+    "synonyms": [
+      "Ambivalent bond",
+      "Complicated association",
+      "Volatile tie"
+    ],
+    "antonyms": [
+      "Harmonious relationship",
+      "Unconditional devotion"
+    ],
+    "mnemonic": "Kabhi dosti toh agle hi pal takraav—khatta-meetha bandhan.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-13",
+    "word": "Match made in heaven",
+    "phonetic": "/mætʃ meɪd ɪn ˈhev.ən/",
+    "hindi": "स्वर्ग में बनी आदर्श जोड़ी / एक-दूजे के लिए बने साथी",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "A pair of individuals or complementary entities extraordinarily well-suited to each other in temperament and values.",
+    "example": "With their shared passion for environmental preservation and public service, they are truly a match made in heaven.",
+    "synonyms": [
+      "Ideal pair",
+      "Soulmates",
+      "Perfect union",
+      "Complementary duo"
+    ],
+    "antonyms": [
+      "Mismatched pair",
+      "Ill-assorted couple",
+      "Oil and water"
+    ],
+    "mnemonic": "Aisa joda jise dekh kar lage ki kudrat ne khas inke liye banaya hai.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-14",
+    "word": "On the rocks",
+    "phonetic": "/ɒn ðə rɒks/",
+    "hindi": "टूटने की कगार पर / भारी संकट या विफलता के कगार पर (रिश्ता या व्यापार)",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Prepositional Phrase",
+    "meaning": "Experiencing severe difficulties, breakdown, and near total collapse (especially of a marriage or partnership).",
+    "example": "Rumors are rife in the media that the celebrity couple's high-profile marriage is currently on the rocks.",
+    "synonyms": [
+      "In jeopardy",
+      "Heading for disaster",
+      "Floundering",
+      "In trouble"
+    ],
+    "antonyms": [
+      "On solid ground",
+      "Flourishing",
+      "Thriving"
+    ],
+    "mnemonic": "Samundar me jahaz ka chattano (rocks) se takra kar tutne ki sthiti me hona.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-15",
+    "word": "Pop the question",
+    "phonetic": "/pɒp ðə ˈkwes.tʃən/",
+    "hindi": "शादी का प्रस्ताव रखना / विवाह हेतु प्रपोज़ करना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To ask someone to marry you; to propose marriage.",
+    "example": "After dating for five memorable years, Rohan finally decided to pop the question atop the scenic mountain peak.",
+    "synonyms": [
+      "Propose marriage",
+      "Ask for someone's hand",
+      "Bend the knee"
+    ],
+    "antonyms": [
+      "Break off engagement",
+      "Call off wedding"
+    ],
+    "mnemonic": "Shadi ka ahem prashn (the question) achanak samne lana (pop out karna).",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-16",
+    "word": "Puppy love",
+    "phonetic": "/ˈpʌp.i lʌv/",
+    "hindi": "किशोरावस्था का क्षणिक या चंचल प्यार / नादानी का आकर्षण",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "Intense but typically shallow and short-lived romantic infatuation experienced during adolescence or childhood.",
+    "example": "Do not worry about their school romance; it is merely puppy love and will pass as they mature.",
+    "synonyms": [
+      "Calf love",
+      "Infatuation",
+      "Adolescent romance",
+      "Crush"
+    ],
+    "antonyms": [
+      "Mature love",
+      "Lifelong commitment",
+      "Enduring devotion"
+    ],
+    "mnemonic": "Chhote puppy ka chanchal aur masoom aakarshan jo paripakva nahi hota.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-17",
+    "word": "Take a fancy to",
+    "phonetic": "/teɪk ə ˈfæn.si tuː/",
+    "hindi": "अचानक पसंद आ जाना / किसी चीज़ या व्यक्ति पर रीझ जाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To develop an unexpected liking, affection, or fondness for someone or something.",
+    "example": "The little boy has taken a huge fancy to classical chess after watching his grandfather play.",
+    "synonyms": [
+      "Take a liking to",
+      "Become fond of",
+      "Warm up to",
+      "Be attracted to"
+    ],
+    "antonyms": [
+      "Develop a dislike for",
+      "Take an aversion to",
+      "Shun"
+    ],
+    "mnemonic": "Kisi cheez me dil (fancy) lag jana—dekhte hi pasand aa jana.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-18",
+    "word": "The apple of someone's eye",
+    "phonetic": "/ði ˈæp.əl əv ˈsʌm.wʌnz aɪ/",
+    "hindi": "आंखों का तारा / अत्यधिक दुलारा और प्यारा",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Noun Phrase",
+    "meaning": "A person or thing that is deeply cherished, favored, and loved above all others.",
+    "example": "Being the youngest daughter in the household, little Sneha is undeniably the apple of her father's eye.",
+    "synonyms": [
+      "Darling",
+      "Pet",
+      "Blue-eyed boy/girl",
+      "Pride and joy",
+      "Cherished one"
+    ],
+    "antonyms": [
+      "Black sheep",
+      "Eyesore",
+      "Anathema"
+    ],
+    "mnemonic": "Aankh ki putli (pupil) ko pehle apple bolte the—jo sabse keemti aur naazuk hoti hai.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "MTS",
+      "CPO",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-19",
+    "word": "Tie the knot",
+    "phonetic": "/taɪ ðə nɒt/",
+    "hindi": "विवाह बंधन में बंधना / शादी करना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To get married; to enter into the holy bond of wedlock.",
+    "example": "After receiving their appointment letters as Assistant Section Officers, the couple decided to tie the knot in December.",
+    "synonyms": [
+      "Get married",
+      "Walk down the aisle",
+      "Take wedding vows",
+      "Wed"
+    ],
+    "antonyms": [
+      "Divorce",
+      "Part ways",
+      "Break off marriage"
+    ],
+    "mnemonic": "Vivah ke samay gatbandhan (knot) baandhna—shadi karna.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-20",
+    "word": "To catch someone's fancy",
+    "phonetic": "/tuː kætʃ ˈsʌm.wʌnz ˈfæn.si/",
+    "hindi": "किसी का ध्यान व रुचि आकर्षित करना / किसी को बहुत भा जाना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To capture someone's interest, imagination, admiration, or favorable attention.",
+    "example": "Among dozens of paintings displayed at the art exhibition, the vivid oil landscape caught the collector's fancy.",
+    "synonyms": [
+      "Catch someone's eye",
+      "Appeal to",
+      "Pique one's interest",
+      "Attract attention"
+    ],
+    "antonyms": [
+      "Bore",
+      "Fail to impress",
+      "Leave cold"
+    ],
+    "mnemonic": "Kisi ki kalpana aur ichha (fancy) ko jhat se aakarshit kar lena.",
+    "frequency": "High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "Theme 09"
+    ]
+  },
+  {
+    "id": "theme-09-21",
+    "word": "Wear your heart on your sleeve",
+    "phonetic": "/weər jɔːr hɑːt ɒn jɔːr sliːv/",
+    "hindi": "अपने जज़्बात खुले तौर पर ज़ाहिर करना / दिल की बात छुपाने में असमर्थ होना",
+    "type": "idiom",
+    "partOfSpeech": "Idiom / Verb Phrase",
+    "meaning": "To make one's deepest emotions, feelings, and vulnerability obvious and completely apparent to everyone.",
+    "example": "Raman is transparent and honest; he always wears his heart on his sleeve, so you never have to guess his true feelings.",
+    "synonyms": [
+      "Be emotionally open",
+      "Express openly",
+      "Show vulnerability",
+      "Unreserved"
+    ],
+    "antonyms": [
+      "Keep one's cards close to one's chest",
+      "Poker-faced",
+      "Guarded",
+      "Stoic"
+    ],
+    "mnemonic": "Purane zamane me yoddha apni aasteen (sleeve) par premika ka nishan baandh kar prem khule aam jahir karte the.",
+    "frequency": "Very High",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Theme 09"
+    ]
+  }
+];
+
 export const MASTER_THEME_IDIOMS: Record<number, VocabItem[]> = {
   1: THEME_01_HARD_WORK_IDIOMS,
   2: THEME_02_SUCCESS_ACHIEVEMENT_IDIOMS,
@@ -6073,6 +6667,7 @@ export const MASTER_THEME_IDIOMS: Record<number, VocabItem[]> = {
   6: THEME_06_MONEY_WEALTH_IDIOMS,
   7: THEME_07_POVERTY_SCARCITY_IDIOMS,
   8: THEME_08_TIME_TIMING_IDIOMS,
+  9: THEME_09_LOVE_RELATIONSHIPS_IDIOMS,
   10: [
     {
       id: 'theme-10-1',
