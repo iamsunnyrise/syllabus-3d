@@ -4395,3 +4395,37 @@ body.overview-screen::-webkit-scrollbar {
   width: 0 !important;
   height: 0 !important;
 }
+
+/* ========================================================================= */
+/* 🌟 Modern Cinematic Circular Theme Switch View Transition                 */
+/* Expanding radial circular clip-path reveal from the toggle button         */
+/* ========================================================================= */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Light to Dark: New theme (dark) expands over old theme */
+html[data-theme-anim="light-to-dark"]::view-transition-old(root) {
+  z-index: 1;
+}
+html[data-theme-anim="light-to-dark"]::view-transition-new(root) {
+  z-index: 99999;
+}
+
+/* Dark to Light: Old theme (dark) collapses / reveals light */
+html[data-theme-anim="dark-to-light"]::view-transition-old(root) {
+  z-index: 99999;
+}
+html[data-theme-anim="dark-to-light"]::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

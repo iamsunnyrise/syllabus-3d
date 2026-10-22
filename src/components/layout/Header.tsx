@@ -123,10 +123,10 @@ export const Header: React.FC<HeaderProps> = ({
     };
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e?: React.MouseEvent) => {
     soundManager.playClick();
     haptics.light();
-    handleThemeToggle();
+    handleThemeToggle(e);
   };
 
   const getExamDaysRemaining = (examDateStr?: string, targetYr?: number) => {
@@ -422,12 +422,12 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Theme Toggle (Light <-> Dark) - Styled matching Reference Screenshot */}
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
               soundManager.playClick();
               haptics.light();
-              handleThemeToggle();
+              handleThemeToggle(e);
             }}
-            className="h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-amber-400"
+            className="group relative h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-amber-400 overflow-hidden"
             title={
               theme === 'dark'
                 ? "Switch to Pure Pro Light"
@@ -438,11 +438,11 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-[#FF6105]" />
+              <Sun className="w-4 h-4 text-[#FF6105] transition-transform duration-500 group-hover:rotate-45" />
             ) : theme === 'warm-cream' ? (
-              <Sparkles className="w-4 h-4 text-[#E1A837]" />
+              <Sparkles className="w-4 h-4 text-[#E1A837] transition-transform duration-500 group-hover:rotate-45" />
             ) : (
-              <Sun className="w-4 h-4 text-[#E5A800]" />
+              <Sun className="w-4 h-4 text-[#E5A800] transition-transform duration-500 group-hover:rotate-45" />
             )}
           </button>
 
