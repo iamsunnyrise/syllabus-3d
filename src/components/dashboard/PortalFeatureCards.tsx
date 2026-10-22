@@ -10,6 +10,91 @@ interface PortalFeatureCardsProps {
   onOpenPricing?: () => void;
 }
 
+/**
+ * 🖥️ Modern White All-in-One PC Frame Component
+ * Precision vector model inspired by modern high-end desktop AIO PCs:
+ * - Sleek ultra-thin white chassis with top camera notch & lens
+ * - Edge-to-edge display with brushed white chin bar & center silver emblem
+ * - Vertical fluted/ribbed architectural column stand (from reference image)
+ * - Flat rectangular white pedestal base with rubber pad & ambient drop shadow
+ */
+const ModernAioPcFrame: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => (
+  <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
+    <defs>
+      {/* Subtle screen shadow */}
+      <filter id="aioScreenShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+        <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#0F172A" floodOpacity="0.12" />
+      </filter>
+      {/* Stand ambient shadow */}
+      <filter id="aioStandShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
+        <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor="#0F172A" floodOpacity="0.18" />
+      </filter>
+      {/* Chin gradient */}
+      <linearGradient id="aioChinGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="100%" stopColor="#E2E8F0" />
+      </linearGradient>
+      {/* Base gradient */}
+      <linearGradient id="aioBaseGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="100%" stopColor="#F1F5F9" />
+      </linearGradient>
+    </defs>
+
+    {/* Ambient desk contact shadow */}
+    <ellipse cx="120" cy="155" rx="44" ry="2.5" fill="#000000" opacity="0.18" />
+
+    {/* Stand: Modern Vertical Ribbed Column (From Reference PC) */}
+    <g filter="url(#aioStandShadow)">
+      {/* Pedestal Base (Flat Rectangular Foot) */}
+      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke="#CBD5E1" strokeWidth="1" />
+      {/* Dark rubber foot pad */}
+      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill="#475569" opacity="0.7" />
+
+      {/* Vertical Column with Ribbed Fluting */}
+      <rect x="103" y="123" width="34" height="26" rx="1.5" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="1" />
+      {/* Vertical ribbed groove lines - Architectural Fluting */}
+      <line x1="107" y1="123" x2="107" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="108" y1="123" x2="108" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="111" y1="123" x2="111" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="112" y1="123" x2="112" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="115" y1="123" x2="115" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="116" y1="123" x2="116" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="119" y1="123" x2="119" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="120" y1="123" x2="120" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="123" y1="123" x2="123" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="124" y1="123" x2="124" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="127" y1="123" x2="127" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="128" y1="123" x2="128" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+      <line x1="131" y1="123" x2="131" y2="148" stroke="#FFFFFF" strokeWidth="1" />
+      <line x1="132" y1="123" x2="132" y2="148" stroke="#CBD5E1" strokeWidth="0.7" />
+    </g>
+
+    {/* Top Center Raised Webcam Module (Signature of Reference PC) */}
+    <path d="M 108 8 C 108 5.8 110 4.2 113 4.2 L 127 4.2 C 130 4.2 132 5.8 132 8 L 132 10.5 L 108 10.5 Z" fill="#1E293B" stroke="#0F172A" strokeWidth="0.8" />
+    <circle cx="120" cy="7.5" r="1.3" fill="#0EA5E9" />
+    <circle cx="120" cy="7.5" r="0.5" fill="#38BDF8" />
+    <circle cx="124" cy="7.5" r="0.6" fill="#10B981" />
+
+    {/* Monitor Chassis (White Slim All-In-One Bezel) */}
+    <g filter="url(#aioScreenShadow)">
+      <rect x="18" y="10" width="204" height="115" rx="7" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.5" />
+      {/* Active Screen Display Area */}
+      <rect x="22" y="14" width="196" height="101" rx="3" fill="#F8FAFC" />
+      <rect x="22" y="14" width="196" height="101" rx="3" fill="none" stroke="#E2E8F0" strokeWidth="0.8" />
+
+      {/* Screen Content Rendered Inside Display */}
+      {children}
+
+      {/* Bottom White Chin Bar with subtle branding badge */}
+      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke="#E2E8F0" strokeWidth="0.8" />
+      <rect x="114" y="119" width="12" height="2" rx="1" fill="#94A3B8" opacity="0.7" />
+    </g>
+  </svg>
+);
+
 export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
   onNavigate,
   onOpenPricing: _onOpenPricing
@@ -41,58 +126,54 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
-            {/* Monitor Bezel */}
-            <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
-            <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
-
+          <ModernAioPcFrame>
             {/* Top Bar with SYLLABUS Badge */}
-            <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
-            <circle cx="42" cy="31" r="3" fill="#EF4444" />
-            <circle cx="50" cy="31" r="3" fill="#F59E0B" />
-            <circle cx="58" cy="31" r="3" fill="#10B981" />
+            <rect x="22" y="14" width="196" height="20" fill="#EEF2F6" />
+            <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
+            <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
+            <circle cx="46" cy="24" r="2.5" fill="#10B981" />
 
             {/* SYLLABUS Badge in Header */}
-            <rect x="75" y="24" width="90" height="14" rx="7" fill="#2563EB" />
-            <circle cx="85" cy="31" r="2.5" fill="#10B981" className="animate-pulse" />
-            <text x="123" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
+            <rect x="75" y="18" width="90" height="12" rx="6" fill="#2563EB" />
+            <circle cx="84" cy="24" r="2" fill="#10B981" className="animate-pulse" />
+            <text x="120" y="27" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
               SYLLABUS 3D
             </text>
 
             {/* Syllabus Screen Content (Curriculum Tree + Mastery Ring) */}
-            <g transform="translate(40, 48)">
+            <g transform="translate(32, 40)">
               {/* Subject 1: Quant */}
-              <rect x="0" y="0" width="84" height="18" rx="5" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
+              <rect x="0" y="0" width="86" height="18" rx="5" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
               <rect x="4" y="4" width="10" height="10" rx="3" fill="#3B82F6" />
               <text x="9" y="11.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">∑</text>
               <rect x="18" y="5" width="46" height="3" rx="1.5" fill="#1E40AF" />
               <rect x="18" y="10" width="30" height="2" rx="1" fill="#93C5FD" />
-              <circle cx="76" cy="9" r="3" fill="#DBEAFE" />
-              <polyline points="74.5,9 75.5,10 77.5,8" stroke="#1E40AF" strokeWidth="0.8" fill="none" />
+              <circle cx="78" cy="9" r="3" fill="#DBEAFE" />
+              <polyline points="76.5,9 77.5,10 79.5,8" stroke="#1E40AF" strokeWidth="0.8" fill="none" />
 
               {/* Subject 2: Reasoning */}
-              <rect x="0" y="22" width="84" height="18" rx="5" fill="#F5F3FF" stroke="#DDD6FE" strokeWidth="1" />
+              <rect x="0" y="22" width="86" height="18" rx="5" fill="#F5F3FF" stroke="#DDD6FE" strokeWidth="1" />
               <rect x="4" y="26" width="10" height="10" rx="3" fill="#8B5CF6" />
               <text x="9" y="33.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">⚡</text>
               <rect x="18" y="27" width="42" height="3" rx="1.5" fill="#5B21B6" />
               <rect x="18" y="32" width="28" height="2" rx="1" fill="#C4B5FD" />
-              <circle cx="76" cy="31" r="3" fill="#EDE9FE" />
-              <polyline points="74.5,31 75.5,32 77.5,30" stroke="#5B21B6" strokeWidth="0.8" fill="none" />
+              <circle cx="78" cy="31" r="3" fill="#EDE9FE" />
+              <polyline points="76.5,31 77.5,32 79.5,30" stroke="#5B21B6" strokeWidth="0.8" fill="none" />
 
               {/* Subject 3: General Studies */}
-              <rect x="0" y="44" width="84" height="18" rx="5" fill="#ECFDF5" stroke="#A7F3D0" strokeWidth="1" />
+              <rect x="0" y="44" width="86" height="18" rx="5" fill="#ECFDF5" stroke="#A7F3D0" strokeWidth="1" />
               <rect x="4" y="48" width="10" height="10" rx="3" fill="#10B981" />
               <text x="9" y="55.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">✓</text>
               <rect x="18" y="49" width="40" height="3" rx="1.5" fill="#047857" />
               <rect x="18" y="54" width="25" height="2" rx="1" fill="#6EE7B7" />
-              <circle cx="76" cy="53" r="3" fill="#D1FAE5" />
-              <polyline points="74.5,53 75.5,54 77.5,52" stroke="#047857" strokeWidth="0.8" fill="none" />
+              <circle cx="78" cy="53" r="3" fill="#D1FAE5" />
+              <polyline points="76.5,53 77.5,54 79.5,52" stroke="#047857" strokeWidth="0.8" fill="none" />
             </g>
 
             {/* Right: Circular Mastery Gauge */}
-            <g transform="translate(165, 80)">
-              <circle cx="0" cy="0" r="23" fill="#EFF6FF" stroke="#DBEAFE" strokeWidth="3" />
-              <circle cx="0" cy="0" r="23" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="144" strokeDashoffset="42" strokeLinecap="round" transform="rotate(-90)" />
+            <g transform="translate(165, 72)">
+              <circle cx="0" cy="0" r="22" fill="#EFF6FF" stroke="#DBEAFE" strokeWidth="3" />
+              <circle cx="0" cy="0" r="22" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="138" strokeDashoffset="40" strokeLinecap="round" transform="rotate(-90)" />
               
               {/* Inner Book Icon */}
               <g transform="translate(-8.5, -9) scale(0.75)">
@@ -107,14 +188,10 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
               </text>
 
               {/* Sparkle badge */}
-              <circle cx="16" cy="-16" r="3.5" fill="#F59E0B" className="animate-pulse" />
-              <polygon points="16,-19 17,-17 19,-16 17,-15 16,-13 15,-15 13,-16 15,-17" fill="#FFFFFF" />
+              <circle cx="15" cy="-15" r="3.5" fill="#F59E0B" className="animate-pulse" />
+              <polygon points="15,-18 16,-16 18,-15 16,-14 15,-12 14,-14 12,-15 14,-16" fill="#FFFFFF" />
             </g>
-
-            {/* Monitor Stand Base */}
-            <path d="M 110 130 L 130 130 L 135 146 L 105 146 Z" fill="#475569" />
-            <rect x="90" y="146" width="60" height="5" rx="2.5" fill="#334155" />
-          </svg>
+          </ModernAioPcFrame>
         </div>
 
         {/* Title & Description */}
@@ -158,47 +235,43 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
-            {/* Monitor Bezel */}
-            <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
-            <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
-
+          <ModernAioPcFrame>
             {/* Top Bar with MOCK TESTS Badge */}
-            <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
-            <circle cx="42" cy="31" r="3" fill="#EF4444" />
-            <circle cx="50" cy="31" r="3" fill="#F59E0B" />
-            <circle cx="58" cy="31" r="3" fill="#10B981" />
+            <rect x="22" y="14" width="196" height="20" fill="#EEF2F6" />
+            <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
+            <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
+            <circle cx="46" cy="24" r="2.5" fill="#10B981" />
 
             {/* MOCK TESTS Badge in Header */}
-            <rect x="125" y="24" width="75" height="14" rx="7" fill="#F59E0B" />
-            <circle cx="135" cy="31" r="2.5" fill="#FFFFFF" className="animate-pulse" />
-            <text x="165" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
+            <rect x="124" y="18" width="80" height="12" rx="6" fill="#F59E0B" />
+            <circle cx="134" cy="24" r="2" fill="#FFFFFF" className="animate-pulse" />
+            <text x="164" y="27" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">
               MOCK TESTS
             </text>
 
             {/* Golden 3D Trophy in Screen Center */}
-            <g transform="translate(120, 75)">
+            <g transform="translate(120, 68)">
               {/* Radial Sparkles / Rays */}
-              <circle cx="0" cy="-2" r="28" fill="#FEF3C7" opacity="0.6" />
+              <circle cx="0" cy="-2" r="26" fill="#FEF3C7" opacity="0.6" />
               <g stroke="#F59E0B" strokeWidth="1" opacity="0.4">
-                <line x1="0" y1="-26" x2="0" y2="-30" />
-                <line x1="20" y1="-20" x2="24" y2="-24" />
-                <line x1="-20" y1="-20" x2="-24" y2="-24" />
-                <line x1="25" y1="0" x2="29" y2="0" />
-                <line x1="-25" y1="0" x2="-29" y2="0" />
+                <line x1="0" y1="-24" x2="0" y2="-28" />
+                <line x1="18" y1="-18" x2="22" y2="-22" />
+                <line x1="-18" y1="-18" x2="-22" y2="-22" />
+                <line x1="23" y1="0" x2="27" y2="0" />
+                <line x1="-23" y1="0" x2="-27" y2="0" />
               </g>
 
               {/* Laurel Wreath Leaves (Left & Right) */}
-              <path d="M -22 10 C -26 -5 -18 -18 -8 -22 C -12 -12 -14 0 -8 10 Z" fill="#10B981" opacity="0.8" />
-              <path d="M 22 10 C 26 -5 18 -18 8 -22 C 12 -12 14 0 8 10 Z" fill="#10B981" opacity="0.8" />
+              <path d="M -20 9 C -24 -4 -17 -16 -7 -20 C -11 -11 -13 0 -7 9 Z" fill="#10B981" opacity="0.8" />
+              <path d="M 20 9 C 24 -4 17 -16 7 -20 C 11 -11 13 0 7 9 Z" fill="#10B981" opacity="0.8" />
 
               {/* Trophy Cup */}
               <path
-                d="M -16 -18 L 16 -18 C 16 0 10 12 0 14 C -10 12 -16 0 -16 -18 Z"
-                fill="url(#trophyGold)"
+                d="M -15 -16 L 15 -16 C 15 0 9 11 0 13 C -9 11 -15 0 -15 -16 Z"
+                fill="url(#aioTrophyGold)"
               />
               <defs>
-                <linearGradient id="trophyGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient id="aioTrophyGold" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#F59E0B" />
                   <stop offset="50%" stopColor="#FDE047" />
                   <stop offset="100%" stopColor="#D97706" />
@@ -207,34 +280,30 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
               {/* Trophy Handles */}
               <path
-                d="M -16 -12 C -24 -12 -24 0 -15 2"
+                d="M -15 -11 C -22 -11 -22 0 -14 2"
                 stroke="#D97706"
-                strokeWidth="2.5"
+                strokeWidth="2.2"
                 fill="none"
               />
               <path
-                d="M 16 -12 C 24 -12 24 0 15 2"
+                d="M 15 -11 C 22 -11 22 0 14 2"
                 stroke="#D97706"
-                strokeWidth="2.5"
+                strokeWidth="2.2"
                 fill="none"
               />
 
               {/* Trophy Stem & Base */}
-              <rect x="-3" y="14" width="6" height="8" fill="#D97706" />
-              <rect x="-12" y="22" width="24" height="6" rx="2" fill="#B45309" />
-              <rect x="-10" y="24" width="20" height="2" fill="#FDE047" />
+              <rect x="-3" y="13" width="6" height="7" fill="#D97706" />
+              <rect x="-11" y="20" width="22" height="5" rx="2" fill="#B45309" />
+              <rect x="-9" y="22" width="18" height="1.5" fill="#FDE047" />
 
               {/* Center Star on Cup */}
               <polygon
-                points="0,-8 2,-2 8,-2 3,2 5,8 0,4 -5,8 -3,2 -8,-2 -2,-2"
+                points="0,-7 2,-2 7,-2 3,2 5,7 0,4 -5,7 -3,2 -7,-2 -2,-2"
                 fill="#FFFBEB"
               />
             </g>
-
-            {/* Monitor Stand Base */}
-            <path d="M 110 130 L 130 130 L 135 146 L 105 146 Z" fill="#475569" />
-            <rect x="90" y="146" width="60" height="5" rx="2.5" fill="#334155" />
-          </svg>
+          </ModernAioPcFrame>
         </div>
 
         {/* Title & Description */}
@@ -278,67 +347,59 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
-            {/* Monitor Bezel */}
-            <rect x="25" y="15" width="190" height="115" rx="10" fill="#1E293B" stroke="#334155" strokeWidth="2.5" />
-            <rect x="30" y="20" width="180" height="100" rx="6" fill="#F8FAFC" />
-
+          <ModernAioPcFrame>
             {/* Top Bar with STUDY PORTALS Badge */}
-            <rect x="30" y="20" width="180" height="22" fill="#EEF2F6" />
-            <circle cx="42" cy="31" r="3" fill="#EF4444" />
-            <circle cx="50" cy="31" r="3" fill="#F59E0B" />
-            <circle cx="58" cy="31" r="3" fill="#10B981" />
+            <rect x="22" y="14" width="196" height="20" fill="#EEF2F6" />
+            <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
+            <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
+            <circle cx="46" cy="24" r="2.5" fill="#10B981" />
 
             {/* URL address pill in header */}
-            <rect x="70" y="24" width="100" height="14" rx="7" fill="#0D9488" />
-            <circle cx="80" cy="31" r="2.5" fill="#5EEAD4" className="animate-pulse" />
-            <text x="122" y="34.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
+            <rect x="70" y="18" width="100" height="12" rx="6" fill="#0D9488" />
+            <circle cx="79" cy="24" r="2" fill="#5EEAD4" className="animate-pulse" />
+            <text x="120" y="27" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
               STUDY PORTALS
             </text>
 
             {/* Portal Cards Inside Screen */}
-            <g transform="translate(40, 50)">
+            <g transform="translate(29, 39)">
               {/* Portal 1: Testbook */}
-              <rect x="0" y="0" width="75" height="24" rx="6" fill="#F0FDFA" stroke="#99F6E4" strokeWidth="1" />
-              <rect x="5" y="5" width="14" height="14" rx="3" fill="#0D9488" />
-              <text x="12" y="15" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">TB</text>
-              <text x="24" y="12" fill="#134E4A" fontSize="6.5" fontWeight="bold">Testbook</text>
-              <text x="24" y="18" fill="#0D9488" fontSize="5" fontWeight="bold">Live Mocks</text>
-              <polyline points="65,10 68,10 68,13" stroke="#0D9488" strokeWidth="0.8" fill="none" />
-              <line x1="68" y1="10" x2="63" y2="15" stroke="#0D9488" strokeWidth="0.8" />
+              <rect x="0" y="0" width="86" height="25" rx="5" fill="#F0FDFA" stroke="#99F6E4" strokeWidth="1" />
+              <rect x="5" y="5" width="15" height="15" rx="3" fill="#0D9488" />
+              <text x="12.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">TB</text>
+              <text x="25" y="12.5" fill="#134E4A" fontSize="6.5" fontWeight="bold">Testbook</text>
+              <text x="25" y="19" fill="#0D9488" fontSize="5" fontWeight="bold">Live Mocks</text>
+              <polyline points="76,10 79,10 79,13" stroke="#0D9488" strokeWidth="0.8" fill="none" />
+              <line x1="79" y1="10" x2="74" y2="15" stroke="#0D9488" strokeWidth="0.8" />
 
               {/* Portal 2: Oliveboard */}
-              <rect x="85" y="0" width="75" height="24" rx="6" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
-              <rect x="90" y="5" width="14" height="14" rx="3" fill="#2563EB" />
-              <text x="97" y="15" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">OB</text>
-              <text x="109" y="12" fill="#1E3A8A" fontSize="6.5" fontWeight="bold">Oliveboard</text>
-              <text x="109" y="18" fill="#2563EB" fontSize="5" fontWeight="bold">All-India Rank</text>
-              <polyline points="150,10 153,10 153,13" stroke="#2563EB" strokeWidth="0.8" fill="none" />
-              <line x1="153" y1="10" x2="148" y2="15" stroke="#2563EB" strokeWidth="0.8" />
+              <rect x="94" y="0" width="86" height="25" rx="5" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
+              <rect x="99" y="5" width="15" height="15" rx="3" fill="#2563EB" />
+              <text x="106.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">OB</text>
+              <text x="119" y="12.5" fill="#1E3A8A" fontSize="6.5" fontWeight="bold">Oliveboard</text>
+              <text x="119" y="19" fill="#2563EB" fontSize="5" fontWeight="bold">All-India Rank</text>
+              <polyline points="170,10 173,10 173,13" stroke="#2563EB" strokeWidth="0.8" fill="none" />
+              <line x1="173" y1="10" x2="168" y2="15" stroke="#2563EB" strokeWidth="0.8" />
 
               {/* Portal 3: Practice Mock */}
-              <rect x="0" y="30" width="75" height="24" rx="6" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1" />
-              <rect x="5" y="35" width="14" height="14" rx="3" fill="#D97706" />
-              <text x="12" y="45" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">PM</text>
-              <text x="24" y="42" fill="#78350F" fontSize="6.5" fontWeight="bold">PracticeMock</text>
-              <text x="24" y="48" fill="#D97706" fontSize="5" fontWeight="bold">Quizzes & Tests</text>
-              <polyline points="65,40 68,40 68,43" stroke="#D97706" strokeWidth="0.8" fill="none" />
-              <line x1="68" y1="40" x2="63" y2="45" stroke="#D97706" strokeWidth="0.8" />
+              <rect x="0" y="31" width="86" height="25" rx="5" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1" />
+              <rect x="5" y="36" width="15" height="15" rx="3" fill="#D97706" />
+              <text x="12.5" y="46.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">PM</text>
+              <text x="25" y="43.5" fill="#78350F" fontSize="6.5" fontWeight="bold">PracticeMock</text>
+              <text x="25" y="50" fill="#D97706" fontSize="5" fontWeight="bold">Quizzes & Tests</text>
+              <polyline points="76,41 79,41 79,44" stroke="#D97706" strokeWidth="0.8" fill="none" />
+              <line x1="79" y1="41" x2="74" y2="46" stroke="#D97706" strokeWidth="0.8" />
 
               {/* Portal 4: Official Portal */}
-              <rect x="85" y="30" width="75" height="24" rx="6" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
-              <rect x="90" y="35" width="14" height="14" rx="3" fill="#DB2777" />
-              <text x="97" y="45" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle">SSC</text>
-              <text x="109" y="42" fill="#831843" fontSize="6.5" fontWeight="bold">Official Portal</text>
-              <text x="109" y="48" fill="#DB2777" fontSize="5" fontWeight="bold">Updates & PYQ</text>
-              <polyline points="150,40 153,40 153,43" stroke="#DB2777" strokeWidth="0.8" fill="none" />
-              <line x1="153" y1="40" x2="148" y2="45" stroke="#DB2777" strokeWidth="0.8" />
+              <rect x="94" y="31" width="86" height="25" rx="5" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
+              <rect x="99" y="36" width="15" height="15" rx="3" fill="#DB2777" />
+              <text x="106.5" y="46.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle">SSC</text>
+              <text x="119" y="43.5" fill="#831843" fontSize="6.5" fontWeight="bold">Official Portal</text>
+              <text x="119" y="50" fill="#DB2777" fontSize="5" fontWeight="bold">Updates & PYQ</text>
+              <polyline points="170,41 173,41 173,44" stroke="#DB2777" strokeWidth="0.8" fill="none" />
+              <line x1="173" y1="41" x2="168" y2="46" stroke="#DB2777" strokeWidth="0.8" />
             </g>
-
-            {/* Monitor Stand Base */}
-            <path d="M 110 130 L 130 130 L 135 146 L 105 146 Z" fill="#475569" />
-            <rect x="90" y="146" width="60" height="5" rx="2.5" fill="#334155" />
-          </svg>
+          </ModernAioPcFrame>
         </div>
 
         {/* Title & Description */}
