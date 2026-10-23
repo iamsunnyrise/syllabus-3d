@@ -627,6 +627,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
     }
   });
 
+  // Auto-scroll horizontal vocabulary pill into view
+  useEffect(() => {
+    const activeEl = document.getElementById(`vocab-pill-${activeCardIndex}`);
+    if (activeEl) {
+      activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeCardIndex, vocabTypeFilter, activeSet, activeLevel]);
+
   const currentLevelConfig = useMemo(() => {
     return HIGH_YIELD_LEVELS.find(lvl => lvl.id === activeLevel) || HIGH_YIELD_LEVELS[0];
   }, [activeLevel]);
@@ -678,6 +686,27 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       return next;
     });
   };
+
+  // Keyboard navigation for Vocabulary flashcards (Space to Flip, Arrow keys to navigate)
+  useEffect(() => {
+    if (activeTab !== 'vocab' || (idiomSubMode === 'themes' && vocabTypeFilter === 'idiom')) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        soundManager.playClick();
+        setIsCardFlipped(prev => !prev);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNextCard();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrevCard();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTab, idiomSubMode, vocabTypeFilter, filteredVocab.length]);
 
 
 
@@ -1148,12 +1177,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             </div>
           )}
 
-          {/* Horizontal Root Words Explorer Strip (One-Tap Navigation for Root Words) */}
-          {vocabTypeFilter === 'root' && filteredVocab.length > 0 && (
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-emerald-500/30 dark:border-white/10 shadow-xs">
+          {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories) */}
+          {filteredVocab.length > 0 && (
+            <div className={`flex items-center gap-2 overflow-x-auto no-scrollbar p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] ${
+              vocabTypeFilter === 'root' ? 'border-emerald-500/30' : 'border-amber-500/30'
+            } border dark:border-white/10 shadow-xs`}>
               <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
-                <span className="text-base">🌳</span>
-                <span className="font-mono">Roots ({filteredVocab.length}):</span>
+                <span className="text-base">
+                  {vocabTypeFilter === 'root' ? '🌳' : vocabTypeFilter === 'ows' ? '🎯' : vocabTypeFilter === 'idiom' ? '🏛️' : '📚'}
+                </span>
+                <span className="font-mono">
+                  {vocabTypeFilter === 'root' ? 'Roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idioms' : 'Words'} ({filteredVocab.length}):
+                </span>
               </span>
               <div className="flex items-center gap-1.5 shrink-0">
                 {filteredVocab.map((item, idx) => {
@@ -1163,6 +1198,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <button
                       key={item.id}
                       type="button"
+                      id={`vocab-pill-${idx}`}
                       onClick={() => {
                         soundManager.playClick();
                         haptics.selection();
@@ -1171,12 +1207,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       }}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                         isSelected
-                          ? 'bg-emerald-500 text-slate-950 font-black shadow-md ring-2 ring-emerald-400/40 scale-[1.02]'
+                          ? vocabTypeFilter === 'root'
+                            ? 'bg-emerald-500 text-slate-950 font-black shadow-md ring-2 ring-emerald-400/40 scale-[1.02]'
+                            : 'bg-amber-500 text-slate-950 font-black shadow-md ring-2 ring-amber-400/40 scale-[1.02]'
                           : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15 border border-slate-200/60 dark:border-white/5'
                       }`}
                     >
                       <span className="text-[11px] opacity-75">{idx + 1}.</span>
-                      <span className="font-mono tracking-tight">{item.word}</span>
+                      <span className="font-mono tracking-tight truncate max-w-[130px] sm:max-w-[180px]">{item.word}</span>
                       {item.rootFamily && (
                         <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
                           isSelected ? 'bg-black/20 text-slate-950 font-black' : 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 font-bold'
@@ -1184,7 +1222,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           {item.rootFamily.derivatives.length}w
                         </span>
                       )}
-                      {isMastered && <CheckCircle2 className={`w-3.5 h-3.5 ${isSelected ? 'text-slate-950' : 'text-emerald-500'} shrink-0`} />}
+                      {isMastered && (
+                        <CheckCircle2 className={`w-3.5 h-3.5 ${isSelected ? 'text-slate-950' : 'text-emerald-500'} shrink-0`} />
+                      )}
                     </button>
                   );
                 })}
@@ -1194,10 +1234,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
           {/* Flashcard Active Recall Spotlight */}
           {currentFlashcard ? (
-            <div className={`grid gap-4 sm:gap-5 items-stretch ${vocabTypeFilter === 'root' ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-12'}`}>
+            <div className="w-full">
               
-              {/* Left: Interactive Word Flashcard (Wider: col-span-9 lg, col-span-10 xl, or Full-Width for Root Words) */}
-              <div className={`${vocabTypeFilter === 'root' ? 'w-full' : 'lg:col-span-9 xl:col-span-10'} flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] ${vocabTypeFilter === 'root' ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-emerald-500/5' : 'border-amber-500/30 dark:border-amber-500/20'} sm:border-2 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]`}>
+              {/* Full-Width Interactive Word Flashcard */}
+              <div className={`w-full flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] ${vocabTypeFilter === 'root' ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-emerald-500/5' : 'border-amber-500/30 dark:border-amber-500/20'} sm:border-2 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]`}>
                 
                 {/* 1. Top Card Meta Bar */}
                 <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
@@ -1628,11 +1668,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     onClick={handlePrevCard}
                     className="px-4 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
                   >
-                    ← Previous {vocabTypeFilter === 'root' ? 'Root' : 'Card'}
+                    ← Previous {vocabTypeFilter === 'root' ? 'Root' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idiom' : 'Card'}
                   </button>
 
                   <div className="hidden sm:flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300">
-                    <span>{vocabTypeFilter === 'root' ? 'Root' : 'Card'} {activeCardIndex + 1} of {filteredVocab.length}</span>
+                    <span>{vocabTypeFilter === 'root' ? 'Root' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idiom' : 'Card'} {activeCardIndex + 1} of {filteredVocab.length}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
                     <span className="text-emerald-700 dark:text-emerald-400">
                       {filteredVocab.filter(v => masteredVocabIds.has(v.id)).length} Mastered
@@ -1648,68 +1688,26 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950'
                     } text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap ml-auto sm:ml-0`}
                   >
-                    {vocabTypeFilter === 'root' ? 'Next Root →' : 'Next Card →'}
+                    {vocabTypeFilter === 'root' ? 'Next Root →' : vocabTypeFilter === 'ows' ? 'Next OWS →' : vocabTypeFilter === 'idiom' ? 'Next Idiom →' : 'Next Card →'}
                   </button>
                 </div>
-              </div>
 
-              {/* Right: Vocabulary Explorer (Compact & Word-Only: col-span-3 lg, col-span-2 xl) - Hidden in Root Word view */}
-              {vocabTypeFilter !== 'root' && (
-                <div className="lg:col-span-3 xl:col-span-2 p-3 sm:p-3.5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3 min-h-[300px] sm:min-h-[480px] lg:min-h-[520px]">
-                  <div className="min-w-0 flex-1 flex flex-col">
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-white/10 gap-1 shrink-0">
-                      <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-1.5 min-w-0">
-                        <Layers className="w-4 h-4 text-amber-500 shrink-0" />
-                        <span className="truncate">Vocabulary Explorer</span>
-                      </h3>
-                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 shrink-0">
-                        {filteredVocab.length}
-                      </span>
-                    </div>
-
-                    <div className="divide-y divide-slate-100 dark:divide-white/[0.06] overflow-y-auto max-h-[320px] sm:max-h-[500px] lg:max-h-[520px] flex-1 no-scrollbar mt-1 space-y-0.5">
-                      {filteredVocab.map((item, idx) => {
-                        const isSelected = activeCardIndex === idx;
-                        const isMastered = masteredVocabIds.has(item.id);
-                        return (
-                          <div
-                            key={item.id}
-                            onClick={() => {
-                              soundManager.playClick();
-                              setActiveCardIndex(idx);
-                              setIsCardFlipped(false);
-                            }}
-                            className={`px-3 py-2 rounded-xl transition-all cursor-pointer flex items-center justify-between gap-1.5 ${
-                              isSelected
-                                ? 'bg-amber-500/15 text-amber-800 dark:text-amber-300 font-black border-l-4 border-amber-500 shadow-2xs'
-                                : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/[0.04]'
-                            }`}
-                          >
-                            <span className={`text-xs sm:text-sm truncate flex items-center gap-1.5 ${isSelected ? 'font-black' : 'font-semibold'}`}>
-                              {item.type === 'root' && <span className="text-[11px] shrink-0">🌳</span>}
-                              <span className="truncate">{item.word}</span>
-                            </span>
-                            <div className="flex items-center gap-1 shrink-0">
-                              {item.type === 'root' && item.rootFamily && (
-                                <span className="px-1.5 py-0.2 rounded-md text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-800 dark:text-emerald-300">
-                                  {item.rootFamily.derivatives.length}w
-                                </span>
-                              )}
-                              {isMastered && (
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                {/* 5. Pro Tip Footer & Learning Accelerator */}
+                <div className="mt-3.5 pt-3 border-t border-dashed border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-amber-900 dark:text-amber-300 font-medium bg-amber-500/[0.07] dark:bg-amber-500/[0.05] p-3 rounded-2xl border border-amber-500/20">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base shrink-0">🎯</span>
+                    <span className="leading-relaxed"><strong>Active Recall Pro Tip:</strong> Guess the Hindi meaning & exam synonyms in your head before clicking "Flip" to increase memory retention by 300%.</span>
                   </div>
-
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 text-amber-900 dark:text-amber-300 text-xs leading-relaxed border border-amber-500/20 shrink-0 font-medium">
-                    🎯 <strong>Pro Tip:</strong> Active recall by guessing the meaning before clicking "Flip" increases retention by 300%.
+                  <div className="hidden lg:flex items-center gap-2 shrink-0 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">Space</kbd>
+                    <span>Flip</span>
+                    <span>•</span>
+                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">←</kbd>
+                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">→</kbd>
+                    <span>Navigate</span>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           ) : (
             (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? (
