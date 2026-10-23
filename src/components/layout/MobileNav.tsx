@@ -3,7 +3,7 @@ import {
   Home,
   BookOpen,
   Trophy,
-  Video,
+  Sparkles,
   CalendarCheck
 } from 'lucide-react';
 import { AppView } from './Sidebar';
@@ -76,17 +76,17 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       hasPing: true
     },
     {
-      id: 'youtube-notes' as AppView,
-      label: 'Notes',
-      icon: Video,
-      isActive: activeView === 'youtube-notes',
-      accentColor: '#FF3B4B', // Coral Red
-      darkAccentColor: '#FF9CA3',
-      glowColor: 'rgba(255, 59, 75, 0.45)',
+      id: 'study-prompts' as AppView,
+      label: 'Prompts',
+      icon: Sparkles,
+      isActive: activeView === 'study-prompts',
+      accentColor: '#9333EA', // Vibrant AI Purple
+      darkAccentColor: '#C084FC',
+      glowColor: 'rgba(147, 51, 234, 0.45)',
       lightCircleBg: '#FFFFFF',
-      darkCircleBg: '#2C1722',
-      lightRing: '#FF3B4B',
-      darkRing: '#FF9CA3',
+      darkCircleBg: '#2E1065',
+      lightRing: '#9333EA',
+      darkRing: '#C084FC',
       badgeText: 'AI'
     },
     {

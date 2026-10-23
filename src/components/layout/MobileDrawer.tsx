@@ -186,12 +186,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           iconBg: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30'
         },
         {
-          id: 'youtube-notes' as AppView,
-          label: 'YouTube Notes',
-          icon: Video,
-          badge: null,
-          badgeStyle: '',
-          iconBg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
+          id: 'study-prompts' as AppView,
+          label: 'Study Prompts',
+          icon: Sparkles,
+          badge: 'AI',
+          badgeStyle: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30 font-bold',
+          iconBg: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30'
         },
         {
           id: 'mindmap' as AppView,

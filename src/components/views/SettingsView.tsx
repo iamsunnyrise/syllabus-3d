@@ -1053,7 +1053,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                       ₹499 <span className="text-xs font-normal text-slate-500">/ 1 Year Pass</span>
                     </div>
                     <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-200">
-                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>AI YouTube Lecture Notes Instant Generation</span></li>
+                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>AI Study Prompts Studio & AI Architect</span></li>
                       <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Multi-Device Google Drive Cloud Sync</span></li>
                       <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Voice &amp; Audio Study Memos Studio</span></li>
                       <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Futuristic Timer HUD (JetBrains, Orbitron)</span></li>
@@ -1233,11 +1233,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-2">
                   <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400 font-bold text-xs uppercase tracking-wider">
-                    <Video className="w-4 h-4" />
-                    <span>AI YouTube Notes</span>
+                    <Sparkles className="w-4 h-4" />
+                    <span>AI Study Prompts Library</span>
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Paste any educational YouTube URL to generate structured notes with headings, KaTeX math equations, timestamps, and exam-focused questions.
+                    Battle-tested prompt engineering library for Google Gemini & ChatGPT. One-click copy & launch for deep concepts, speed shortcuts, and mock autopsies.
                   </p>
                 </div>
 

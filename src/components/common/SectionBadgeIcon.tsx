@@ -102,7 +102,14 @@ export const SectionBadgeIcon: React.FC<SectionBadgeIconProps> = ({
             <stop offset="100%" stopColor="#058A3B" />
           </linearGradient>
 
-          {/* 5. AI YouTube Notes: Coral Crimson Red */}
+          {/* 5. AI Study Prompts: Deep Violet & Royal Purple */}
+          <linearGradient id={`bg-prompts-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#C084FC" />
+            <stop offset="55%" stopColor="#9333EA" />
+            <stop offset="100%" stopColor="#6B21A8" />
+          </linearGradient>
+
+          {/* 5b. AI YouTube Notes: Coral Crimson Red */}
           <linearGradient id={`bg-youtube-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FF6D77" />
             <stop offset="55%" stopColor="#FF3B4B" />
@@ -213,6 +220,8 @@ function getSectionTheme(section: string, uid: string): { gradientId: string; gl
       return { gradientId: `bg-planner-${uid}`, glowColor: '#138EFF' };
     case 'pacing':
       return { gradientId: `bg-pacing-${uid}`, glowColor: '#0BA84A' };
+    case 'study-prompts':
+      return { gradientId: `bg-prompts-${uid}`, glowColor: '#9333EA' };
     case 'youtube-notes':
       return { gradientId: `bg-youtube-${uid}`, glowColor: '#FF3B4B' };
     case 'mock-tracker':
@@ -380,7 +389,28 @@ function renderSectionGlyph(section: string): React.ReactNode {
       );
 
     // ═════════════════════════════════════════════════════════════════════════
-    // 5. AI YOUTUBE NOTES: Video Player Screen + Golden AI Sparkles
+    // 5. AI STUDY PROMPTS: Sparkle Matrix + Terminal / Prompt Card
+    // ═════════════════════════════════════════════════════════════════════════
+    case 'study-prompts':
+      return (
+        <g>
+          {/* Terminal / Prompt Card */}
+          <rect x="22" y="26" width="56" height="48" rx="10" fill="#FFFFFF" opacity="0.95" />
+          <rect x="25" y="29" width="50" height="42" rx="7" fill="#F3E8FF" />
+          {/* Prompt CLI symbols (> _) */}
+          <path d="M 32 40 L 40 47 L 32 54" stroke="#9333EA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <line x1="44" y1="54" x2="54" y2="54" stroke="#9333EA" strokeWidth="3" strokeLinecap="round" />
+          {/* AI Sparkle Star (Top Right) */}
+          <path
+            d="M 68 20 L 70 26 L 76 28 L 70 30 L 68 36 L 66 30 L 60 28 L 66 26 Z"
+            fill="#FBBF24"
+          />
+          <circle cx="76" cy="38" r="2.5" fill="#FDE047" />
+        </g>
+      );
+
+    // ═════════════════════════════════════════════════════════════════════════
+    // 5b. AI YOUTUBE NOTES: Video Player Screen + Golden AI Sparkles
     // ═════════════════════════════════════════════════════════════════════════
     case 'youtube-notes':
       return (

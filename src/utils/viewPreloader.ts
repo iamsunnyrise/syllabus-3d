@@ -25,6 +25,7 @@ const viewLoaders: Record<string, () => Promise<unknown>> = {
   platforms: () => import('../components/views/PlatformsView'),
   pacing: () => import('../components/views/PacingView'),
   settings: () => import('../components/views/SettingsView'),
+  'study-prompts': () => import('../components/views/StudyPromptsView'),
   'youtube-notes': () => import('../components/views/YouTubeNotesView'),
   'mock-tracker': () => import('../components/views/MockTrackerView'),
   'study-tools': () => import('../components/views/StudyToolsView'),
@@ -88,6 +89,7 @@ export function preloadRemainingViews(): void {
     'settings',
     'platforms',
     'pacing',
+    'study-prompts',
     'youtube-notes'
   ];
 

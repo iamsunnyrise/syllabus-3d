@@ -55,10 +55,10 @@
       ]
     },
     {
-      "name": "YouTube Notes",
-      "short_name": "Notes",
-      "description": "Generate AI lecture notes and revise attachments",
-      "url": "/?view=youtube-notes",
+      "name": "Study Prompts",
+      "short_name": "Prompts",
+      "description": "Professional AI study prompt library for exams",
+      "url": "/?view=study-prompts",
       "icons": [
         {
           "src": "/logo.png",
