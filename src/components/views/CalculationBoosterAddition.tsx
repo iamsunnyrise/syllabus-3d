@@ -793,7 +793,7 @@ export const CalculationBoosterAddition: React.FC = () => {
 
               {/* 4 Interactive MCQ Options */}
               {stageQuestions[currentStageQIdx] && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
                   {stageQuestions[currentStageQIdx].options.map((opt, idx) => {
                     const isCorrectAnswer = opt === stageQuestions[currentStageQIdx].answer;
                     return (
@@ -1008,35 +1008,35 @@ export const CalculationBoosterAddition: React.FC = () => {
           MODE 2: 60-SECOND SPEED BLITZ
           ========================================================= */}
       {activeMode === 'blitz' && (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in w-full">
           {!blitzActive && !blitzSummary && (
-            <div className="p-8 sm:p-12 text-center rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg space-y-6 max-w-xl mx-auto">
+            <div className="p-8 sm:p-12 text-center rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg space-y-7 w-full">
               <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
                 <Zap className="w-8 h-8 fill-amber-500" />
               </div>
 
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+              <div className="space-y-2 max-w-2xl mx-auto">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
                   60-Second Speed Blitz (टाइम अटैक)
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Race against the clock! Solve as many mental additions as possible in 60 seconds. Push your Additions Per Minute (APM) to exam topper levels.
                 </p>
               </div>
 
               {/* Difficulty selector */}
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-2xl mx-auto">
                 <div className="text-xs uppercase font-bold text-slate-400 tracking-wider">Select Difficulty</div>
-                <div className="flex justify-center gap-2 flex-wrap">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {(['easy', 'medium', 'hard', 'mixed'] as const).map(d => (
                     <button
                       key={d}
                       type="button"
                       onClick={() => setBlitzDifficulty(d)}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                      className={`p-3 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer border ${
                         blitzDifficulty === d
-                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                          : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400'
+                          ? 'bg-amber-500 text-slate-950 font-black shadow-md border-amber-400 ring-2 ring-amber-400/30'
+                          : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/5 hover:border-amber-500/30'
                       }`}
                     >
                       {d === 'easy' ? 'Easy (1-2 Digits)' : d === 'medium' ? 'Medium (Split Carry)' : d === 'hard' ? 'Hard (Chains & DI)' : 'Mixed Rush'}
@@ -1046,30 +1046,32 @@ export const CalculationBoosterAddition: React.FC = () => {
               </div>
 
               {/* Personal High Score */}
-              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 max-w-xs mx-auto">
-                <div className="text-[10px] uppercase font-bold text-amber-900 dark:text-amber-300">Personal Best Record</div>
-                <div className="text-3xl font-black text-amber-500 font-mono">{stats.blitzHighScore} Solved</div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 max-w-md mx-auto">
+                <div className="text-[11px] uppercase font-bold text-amber-900 dark:text-amber-300">Personal Best Record</div>
+                <div className="text-3xl sm:text-4xl font-black text-amber-500 font-mono mt-1">{stats.blitzHighScore} Solved</div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleStartBlitz}
-                className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-base transition-all cursor-pointer shadow-lg hover:scale-105 active:scale-95"
-              >
-                Start 60s Blitz Rush 🔥
-              </button>
+              <div>
+                <button
+                  type="button"
+                  onClick={handleStartBlitz}
+                  className="px-10 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-base sm:text-lg transition-all cursor-pointer shadow-lg hover:scale-105 active:scale-95"
+                >
+                  Start 60s Blitz Rush 🔥
+                </button>
+              </div>
             </div>
           )}
 
           {/* Active Blitz Play Board */}
           {blitzActive && blitzQuestion && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 shadow-xl space-y-6 max-w-3xl mx-auto">
+            <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 shadow-xl space-y-6 w-full">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="text-2xl font-black text-amber-500 font-mono">
                     Score: {blitzScore}
                   </div>
-                  <span className="text-xs px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold capitalize">
+                  <span className="text-xs px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold capitalize">
                     {blitzDifficulty}
                   </span>
                 </div>
@@ -1081,20 +1083,20 @@ export const CalculationBoosterAddition: React.FC = () => {
               </div>
 
               {/* Big Math Display */}
-              <div className="py-10 text-center rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5">
-                <div className="text-4xl sm:text-6xl font-black font-mono text-slate-900 dark:text-white">
+              <div className="py-12 sm:py-16 text-center rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 w-full">
+                <div className="text-4xl sm:text-6xl md:text-7xl font-black font-mono text-slate-900 dark:text-white">
                   {blitzQuestion.displayExpression}
                 </div>
               </div>
 
               {/* Options */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
                 {blitzQuestion.options.map((opt, i) => (
                   <button
                     key={i}
                     type="button"
                     onClick={() => handleAnswerBlitz(opt)}
-                    className="p-5 rounded-2xl bg-white dark:bg-[#121422] text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 hover:border-amber-500 hover:bg-amber-500/5 font-mono text-2xl font-black transition-all cursor-pointer shadow-xs active:scale-95"
+                    className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#121422] text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 hover:border-amber-500 hover:bg-amber-500/5 font-mono text-2xl sm:text-3xl font-black transition-all cursor-pointer shadow-xs active:scale-95"
                   >
                     {opt}
                   </button>
@@ -1215,29 +1217,29 @@ export const CalculationBoosterAddition: React.FC = () => {
           </div>
 
           {/* Active Question Box */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg text-center space-y-6 max-w-3xl mx-auto">
+          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg text-center space-y-6 w-full">
             <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-100 dark:border-white/5">
-              <span>Zen Flow Practice</span>
+              <span className="font-bold uppercase tracking-wider text-slate-500">Zen Flow Practice</span>
               <button
                 type="button"
                 onClick={generateZenQ}
-                className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 text-emerald-600 dark:text-emerald-400 font-bold hover:bg-emerald-500/10 transition-all cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Skip / Next</span>
               </button>
             </div>
 
-            <div className="py-6 sm:py-8 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5">
-              <div className="text-3xl sm:text-5xl font-black font-mono text-slate-900 dark:text-white">
+            <div className="py-10 sm:py-16 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 w-full">
+              <div className="text-4xl sm:text-6xl md:text-7xl font-black font-mono text-slate-900 dark:text-white tracking-tight">
                 {zenQuestion.displayExpression}
               </div>
             </div>
 
             {/* Hint Box (if triggered) */}
             {zenShowHint && (
-              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 text-xs text-left animate-fade-in flex items-start gap-2.5">
-                <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 text-xs sm:text-sm text-left animate-fade-in flex items-start gap-3 max-w-2xl mx-auto">
+                <Lightbulb className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                 <div>
                   <strong>Mental Breakdown: </strong>
                   <span>{zenQuestion.mentalBreakdown}</span>
@@ -1247,15 +1249,15 @@ export const CalculationBoosterAddition: React.FC = () => {
 
             {/* Input Style A: 4 Big Options */}
             {zenInputType === 'mcq' && (
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
                 {zenQuestion.options.map((opt, i) => (
                   <button
                     key={i}
                     type="button"
                     onClick={() => handleAnswerZen(opt)}
-                    className={`p-4 sm:p-5 rounded-2xl font-mono text-xl sm:text-2xl font-black transition-all cursor-pointer border ${
+                    className={`p-5 sm:p-6 rounded-2xl font-mono text-2xl sm:text-3xl font-black transition-all cursor-pointer border ${
                       zenFeedback === 'correct' && opt === zenQuestion.answer
-                        ? 'bg-emerald-600 text-white border-emerald-500 scale-105'
+                        ? 'bg-emerald-600 text-white border-emerald-500 scale-105 shadow-lg shadow-emerald-500/20'
                         : zenFeedback === 'wrong' && opt !== zenQuestion.answer
                         ? 'bg-red-500/10 text-red-500 border-red-500/30'
                         : 'bg-white dark:bg-[#121422] text-slate-900 dark:text-white border-slate-200 dark:border-white/10 hover:border-emerald-500 hover:scale-[1.02] active:scale-[0.98]'
@@ -1269,23 +1271,23 @@ export const CalculationBoosterAddition: React.FC = () => {
 
             {/* Input Style B: Smart NumPad */}
             {zenInputType === 'numpad' && (
-              <div className="space-y-4 max-w-xs mx-auto">
+              <div className="space-y-4 max-w-md mx-auto w-full">
                 {/* Typed Value Display */}
-                <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-mono text-2xl font-black text-slate-900 dark:text-white min-h-[56px] flex items-center justify-center">
-                  {numpadValue || <span className="text-slate-400 font-normal text-sm">Type answer...</span>}
+                <div className="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 border-2 border-slate-200 dark:border-white/10 font-mono text-3xl font-black text-slate-900 dark:text-white min-h-[64px] flex items-center justify-center shadow-inner">
+                  {numpadValue || <span className="text-slate-400 font-normal text-sm">Type answer on numpad or keyboard...</span>}
                 </div>
 
                 {/* 0-9 NumPad Grid */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
                   {['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'del'].map(btn => (
                     <button
                       key={btn}
                       type="button"
                       onClick={() => handleNumpadPress(btn)}
-                      className={`p-3.5 rounded-xl font-mono text-lg font-black transition-all cursor-pointer border ${
+                      className={`p-4 sm:p-5 rounded-2xl font-mono text-xl sm:text-2xl font-black transition-all cursor-pointer border shadow-xs ${
                         btn === 'del'
-                          ? 'bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-500/20'
-                          : 'bg-white dark:bg-[#121422] text-slate-900 dark:text-white border-slate-200 dark:border-white/10 hover:border-emerald-500'
+                          ? 'bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-500/20 active:scale-95'
+                          : 'bg-white dark:bg-[#121422] text-slate-900 dark:text-white border-slate-200 dark:border-white/10 hover:border-emerald-500 hover:bg-emerald-500/5 active:scale-95'
                       }`}
                     >
                       {btn === 'del' ? '⌫' : btn}
@@ -1298,7 +1300,7 @@ export const CalculationBoosterAddition: React.FC = () => {
                   type="button"
                   onClick={() => handleNumpadPress('submit')}
                   disabled={!numpadValue}
-                  className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-black text-sm transition-all cursor-pointer shadow-md"
+                  className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-black text-base transition-all cursor-pointer shadow-lg hover:scale-[1.01] active:scale-[0.99]"
                 >
                   Submit Answer ↵
                 </button>
