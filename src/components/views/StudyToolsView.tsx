@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import {
   BookOpen,
@@ -13,6 +13,7 @@ import {
   XCircle,
   Copy,
   Check,
+  ChevronLeft,
   ChevronRight,
   ChevronDown,
   Brain,
@@ -635,6 +636,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
     }
   }, [activeCardIndex, vocabTypeFilter, activeSet, activeLevel]);
 
+  const pillsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollPills = (direction: 'left' | 'right') => {
+    soundManager.playClick();
+    if (pillsScrollRef.current) {
+      const offset = direction === 'left' ? -280 : 280;
+      pillsScrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
+
   const currentLevelConfig = useMemo(() => {
     return HIGH_YIELD_LEVELS.find(lvl => lvl.id === activeLevel) || HIGH_YIELD_LEVELS[0];
   }, [activeLevel]);
@@ -1134,7 +1145,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
 
               {/* Subpage Sets Selector */}
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+              <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
                 <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
                   <Layers className="w-3.5 h-3.5 text-amber-500" />
                   <span>Subpages:</span>
@@ -1177,20 +1188,42 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             </div>
           )}
 
-          {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories) */}
+          {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories with Visible Scrollbar & Arrow Buttons) */}
           {filteredVocab.length > 0 && (
-            <div className={`flex items-center gap-2 overflow-x-auto no-scrollbar p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] ${
+            <div className={`p-2 sm:p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] ${
               vocabTypeFilter === 'root' ? 'border-emerald-500/30' : 'border-amber-500/30'
-            } border dark:border-white/10 shadow-xs`}>
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+            } border dark:border-white/10 shadow-xs flex items-center gap-1.5 sm:gap-2`}>
+              
+              {/* Category Pill Indicator */}
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-1.5 sm:px-2 shrink-0 flex items-center gap-1.5">
                 <span className="text-base">
                   {vocabTypeFilter === 'root' ? '🌳' : vocabTypeFilter === 'ows' ? '🎯' : vocabTypeFilter === 'idiom' ? '🏛️' : '📚'}
                 </span>
-                <span className="font-mono">
+                <span className="font-mono whitespace-nowrap">
                   {vocabTypeFilter === 'root' ? 'Roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idioms' : 'Words'} ({filteredVocab.length}):
                 </span>
               </span>
-              <div className="flex items-center gap-1.5 shrink-0">
+
+              {/* Scroll Left Button */}
+              <button
+                type="button"
+                onClick={() => scrollPills('left')}
+                title="Scroll Left"
+                aria-label="Scroll left in word list"
+                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {/* Scrollable Pills Container with Visible Native Horizontal Scrollbar */}
+              <div
+                ref={pillsScrollRef}
+                tabIndex={0}
+                aria-label="Horizontal list of vocabulary words"
+                className={`flex-1 flex items-center gap-1.5 overflow-x-auto pb-1.5 pt-0.5 px-0.5 ${
+                  vocabTypeFilter === 'root' ? 'visible-pill-scrollbar-emerald' : 'visible-pill-scrollbar'
+                }`}
+              >
                 {filteredVocab.map((item, idx) => {
                   const isSelected = activeCardIndex === idx;
                   const isMastered = masteredVocabIds.has(item.id);
@@ -1229,6 +1262,17 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   );
                 })}
               </div>
+
+              {/* Scroll Right Button */}
+              <button
+                type="button"
+                onClick={() => scrollPills('right')}
+                title="Scroll Right"
+                aria-label="Scroll right in word list"
+                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           )}
 

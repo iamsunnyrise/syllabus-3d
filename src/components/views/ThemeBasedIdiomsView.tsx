@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   BookOpen,
   Search,
@@ -111,6 +111,16 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
       activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
   }, [activeCardIndex, selectedThemeId]);
+
+  const pillsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollPills = (direction: 'left' | 'right') => {
+    soundManager.playClick();
+    if (pillsScrollRef.current) {
+      const offset = direction === 'left' ? -280 : 280;
+      pillsScrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
 
   // Current Theme Object
   const currentTheme = useMemo(() => {
@@ -606,14 +616,32 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
             </div>
           </div>
 
-          {/* Horizontal Idioms Strip (One-Tap Navigation for Current Theme) */}
+          {/* Horizontal Idioms Strip (One-Tap Navigation for Current Theme with Visible Scrollbar & Arrow Buttons) */}
           {currentThemeIdioms.length > 0 && (
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-amber-500/30 dark:border-white/10 shadow-xs">
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+            <div className="p-2 sm:p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-amber-500/30 dark:border-white/10 shadow-xs flex items-center gap-1.5 sm:gap-2">
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-1.5 sm:px-2 shrink-0 flex items-center gap-1.5">
                 <span className="text-base">🏛️</span>
-                <span className="font-mono">Idioms ({currentThemeIdioms.length}):</span>
+                <span className="font-mono whitespace-nowrap">Idioms ({currentThemeIdioms.length}):</span>
               </span>
-              <div className="flex items-center gap-1.5 shrink-0">
+
+              {/* Scroll Left Button */}
+              <button
+                type="button"
+                onClick={() => scrollPills('left')}
+                title="Scroll Left"
+                aria-label="Scroll left in idioms list"
+                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {/* Scrollable Pills Container with Visible Scrollbar */}
+              <div
+                ref={pillsScrollRef}
+                tabIndex={0}
+                aria-label="Horizontal list of idioms"
+                className="flex-1 flex items-center gap-1.5 overflow-x-auto pb-1.5 pt-0.5 px-0.5 visible-pill-scrollbar"
+              >
                 {currentThemeIdioms.map((item, idx) => {
                   const isSelected = activeCardIndex === idx;
                   const isMastered = item.id && masteredIds.has(item.id);
@@ -643,6 +671,17 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                   );
                 })}
               </div>
+
+              {/* Scroll Right Button */}
+              <button
+                type="button"
+                onClick={() => scrollPills('right')}
+                title="Scroll Right"
+                aria-label="Scroll right in idioms list"
+                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           )}
 

@@ -2769,6 +2769,59 @@ html:not(.warm-cream) .study-hub-hero-banner .study-hub-pill-badge {
   scrollbar-width: none;
 }
 
+/* Visible Horizontal Strip Scrollbar for Card Navigators */
+.visible-pill-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.6) rgba(0, 0, 0, 0.06);
+}
+.dark .visible-pill-scrollbar {
+  scrollbar-color: rgba(245, 158, 11, 0.7) rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar::-webkit-scrollbar {
+  height: 6px !important;
+  display: block !important;
+}
+.visible-pill-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 9999px;
+}
+.dark .visible-pill-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.7);
+  border-radius: 9999px;
+}
+.visible-pill-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 1);
+}
+
+.visible-pill-scrollbar-emerald {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.6) rgba(0, 0, 0, 0.06);
+}
+.dark .visible-pill-scrollbar-emerald {
+  scrollbar-color: rgba(16, 185, 129, 0.7) rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar-emerald::-webkit-scrollbar {
+  height: 6px !important;
+  display: block !important;
+}
+.visible-pill-scrollbar-emerald::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 9999px;
+}
+.dark .visible-pill-scrollbar-emerald::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar-emerald::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.7);
+  border-radius: 9999px;
+}
+.visible-pill-scrollbar-emerald::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 1);
+}
+
 .pb-safe {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
