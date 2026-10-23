@@ -117,7 +117,7 @@ export const TopHeader: React.FC = () => {
             className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:text-[#00d2ff] hover:border-[#00d2ff]/30 transition-colors text-xs font-bold shrink-0 group"
           >
             <img 
-              src="/syllabus-logo.png" 
+              src="/logo.png" 
               alt="Syllabus 3D" 
               className="w-4 h-4 rounded-md object-contain shrink-0 group-hover:scale-110 transition-transform" 
             />

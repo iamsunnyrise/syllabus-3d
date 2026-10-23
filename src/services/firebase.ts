@@ -8,9 +8,9 @@
  * ═══════════════════════════════════════════════════════════════
  */
 
-import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, Auth } from 'firebase/auth';
-import { getFirestore, Firestore } from 'firebase/firestore';
+import type { FirebaseApp } from 'firebase/app';
+import type { Auth, GoogleAuthProvider } from 'firebase/auth';
+import type { Firestore } from 'firebase/firestore';
 
 export interface FirebaseConfig {
   apiKey: string;
@@ -81,13 +81,13 @@ let firebaseAuth: Auth | null = null;
 let firestoreDb: Firestore | null = null;
 let googleAuthProvider: GoogleAuthProvider | null = null;
 
-export function initFirebase(): {
+export async function initFirebase(): Promise<{
   app: FirebaseApp | null;
   auth: Auth | null;
   db: Firestore | null;
   provider: GoogleAuthProvider | null;
   isConfigured: boolean;
-} {
+}> {
   const config = getFirebaseConfig();
 
   if (!config || !config.apiKey || !config.projectId) {
@@ -102,14 +102,17 @@ export function initFirebase(): {
 
   try {
     if (!firebaseApp) {
+      const { initializeApp, getApps, getApp } = await import('firebase/app');
       if (getApps().length > 0) {
         firebaseApp = getApp();
       } else {
         firebaseApp = initializeApp(config);
       }
+    }
+    if (!firebaseAuth) {
+      const { getAuth, GoogleAuthProvider: GProvider } = await import('firebase/auth');
       firebaseAuth = getAuth(firebaseApp);
-      firestoreDb = getFirestore(firebaseApp);
-      googleAuthProvider = new GoogleAuthProvider();
+      googleAuthProvider = new GProvider();
       googleAuthProvider.setCustomParameters({
         prompt: 'select_account'
       });
@@ -131,6 +134,27 @@ export function initFirebase(): {
       provider: null,
       isConfigured: false
     };
+  }
+}
+
+/**
+ * Lazy loads Google Cloud Firestore DB instance on demand.
+ * Firestore (~550 KB) is never loaded during initial app boot.
+ */
+export async function getFirestoreDb(): Promise<Firestore | null> {
+  const config = getFirebaseConfig();
+  if (!config || !config.apiKey || !config.projectId) return null;
+  if (firestoreDb) return firestoreDb;
+
+  try {
+    const { app } = await initFirebase();
+    if (!app) return null;
+    const { getFirestore } = await import('firebase/firestore');
+    firestoreDb = getFirestore(app);
+    return firestoreDb;
+  } catch (err) {
+    console.error('Failed to initialize Firestore:', err);
+    return null;
   }
 }
 

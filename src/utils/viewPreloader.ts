@@ -55,7 +55,8 @@ export function preloadView(view: AppView | string): void {
 }
 
 /**
- * Preloads high-priority core views during early idle phase after app mount.
+ * Preloads high-priority core views gently during idle phase after app mount.
+ * Delayed to 2.5s so initial dashboard render and critical assets have 100% bandwidth.
  */
 export function preloadHighPriorityViews(): void {
   const priorityList: AppView[] = [
@@ -63,14 +64,13 @@ export function preloadHighPriorityViews(): void {
     'planner',
     'targets',
     'revision',
-    'study-tools',
     'mock-tracker'
   ];
 
   priorityList.forEach((view, index) => {
     setTimeout(() => {
       preloadView(view);
-    }, 300 + index * 250);
+    }, 2500 + index * 600);
   });
 }
 
@@ -79,6 +79,7 @@ export function preloadHighPriorityViews(): void {
  */
 export function preloadRemainingViews(): void {
   const secondaryList: AppView[] = [
+    'study-tools',
     'subjects',
     'weak',
     'mindmap',
@@ -93,6 +94,6 @@ export function preloadRemainingViews(): void {
   secondaryList.forEach((view, index) => {
     setTimeout(() => {
       preloadView(view);
-    }, 2200 + index * 200);
+    }, 6500 + index * 800);
   });
 }

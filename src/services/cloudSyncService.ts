@@ -31,26 +31,28 @@ export async function fetchUserCloudData(uid: string): Promise<FullAppSnapshot |
   if (!uid) return null;
 
   try {
-    const { initFirebase } = await import('./firebase');
-    const { db, isConfigured } = initFirebase();
+    const { getFirestoreDb, isFirebaseConfigured } = await import('./firebase');
 
     // 1. If Firebase Cloud Firestore is configured, fetch from the real server
-    if (isConfigured && db) {
-      try {
-        const { doc, getDoc } = await import('firebase/firestore');
-        const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
-        const docSnap = await getDoc(docRef);
+    if (isFirebaseConfigured()) {
+      const db = await getFirestoreDb();
+      if (db) {
+        try {
+          const { doc, getDoc } = await import('firebase/firestore');
+          const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
+          const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          if (data?.snapshot) {
-            return data.snapshot as FullAppSnapshot;
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data?.snapshot) {
+              return data.snapshot as FullAppSnapshot;
+            }
+            return data as FullAppSnapshot;
           }
-          return data as FullAppSnapshot;
+          return null;
+        } catch (err: any) {
+          console.warn('Error fetching from Firestore, falling back to local vault:', err?.message);
         }
-        return null;
-      } catch (err: any) {
-        console.warn('Error fetching from Firestore, falling back to local vault:', err?.message);
       }
     }
   } catch (err) {
@@ -91,39 +93,41 @@ export async function saveUserCloudData(
   }
 
   try {
-    const { initFirebase } = await import('./firebase');
-    const { db, isConfigured } = initFirebase();
+    const { getFirestoreDb, isFirebaseConfigured } = await import('./firebase');
 
     // 1. If Firebase is configured, persist to Google Cloud Firestore server
-    if (isConfigured && db) {
-      try {
-        const { doc, setDoc } = await import('firebase/firestore');
-        const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
-        await setDoc(
-          docRef,
-          {
-            snapshot,
-            version: snapshot.version || '3.0.0',
-            updatedAt: now,
-            examsCount: snapshot.exams?.length || 0,
-            notesTimestamp: now
-          },
-          { merge: true }
-        );
+    if (isFirebaseConfigured()) {
+      const db = await getFirestoreDb();
+      if (db) {
+        try {
+          const { doc, setDoc } = await import('firebase/firestore');
+          const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
+          await setDoc(
+            docRef,
+            {
+              snapshot,
+              version: snapshot.version || '3.0.0',
+              updatedAt: now,
+              examsCount: snapshot.exams?.length || 0,
+              notesTimestamp: now
+            },
+            { merge: true }
+          );
 
-        return {
-          success: true,
-          timestamp: now,
-          source: 'firestore'
-        };
-      } catch (err: any) {
-        console.error('Firestore save failed:', err);
-        return {
-          success: false,
-          error: err?.message || 'Failed to save to Firestore server.',
-          timestamp: now,
-          source: 'vault'
-        };
+          return {
+            success: true,
+            timestamp: now,
+            source: 'firestore'
+          };
+        } catch (err: any) {
+          console.error('Firestore save failed:', err);
+          return {
+            success: false,
+            error: err?.message || 'Failed to save to Firestore server.',
+            timestamp: now,
+            source: 'vault'
+          };
+        }
       }
     }
   } catch (err) {
@@ -150,39 +154,39 @@ export function subscribeUserCloudData(
   let isCancelled = false;
   let unsubscribeFirestore: (() => void) | null = null;
 
-  import('./firebase').then(({ initFirebase }) => {
-    if (isCancelled) return;
-    const { db, isConfigured } = initFirebase();
-    if (isConfigured && db) {
-      import('firebase/firestore').then(({ doc, onSnapshot }) => {
-        if (isCancelled) return;
-        try {
-          const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
-          const unsub = onSnapshot(
-            docRef,
-            snapshot => {
-              if (isCancelled) return;
-              if (snapshot.exists()) {
-                const data = snapshot.data();
-                const fullData = (data?.snapshot || data) as FullAppSnapshot;
-                onUpdate(fullData);
-              }
-            },
-            error => {
-              console.warn('Firestore real-time subscription error:', error);
-            }
-          );
+  import('./firebase').then(async ({ getFirestoreDb, isFirebaseConfigured }) => {
+    if (isCancelled || !isFirebaseConfigured()) return;
+    const db = await getFirestoreDb();
+    if (isCancelled || !db) return;
 
-          if (isCancelled) {
-            unsub();
-          } else {
-            unsubscribeFirestore = unsub;
+    import('firebase/firestore').then(({ doc, onSnapshot }) => {
+      if (isCancelled) return;
+      try {
+        const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
+        const unsub = onSnapshot(
+          docRef,
+          snapshot => {
+            if (isCancelled) return;
+            if (snapshot.exists()) {
+              const data = snapshot.data();
+              const fullData = (data?.snapshot || data) as FullAppSnapshot;
+              onUpdate(fullData);
+            }
+          },
+          error => {
+            console.warn('Firestore real-time subscription error:', error);
           }
-        } catch (err) {
-          console.warn('Could not establish real-time subscription:', err);
+        );
+
+        if (isCancelled) {
+          unsub();
+        } else {
+          unsubscribeFirestore = unsub;
         }
-      });
-    }
+      } catch (err) {
+        console.warn('Could not establish real-time subscription:', err);
+      }
+    });
   }).catch(() => {});
 
   // Multi-tab storage listener for local vault
@@ -222,16 +226,18 @@ export async function deleteUserCloudData(uid: string): Promise<CloudSyncResult>
   if (!uid) return { success: false, error: 'User ID is required.' };
 
   try {
-    const { initFirebase } = await import('./firebase');
-    const { db, isConfigured } = initFirebase();
+    const { getFirestoreDb, isFirebaseConfigured } = await import('./firebase');
 
-    if (isConfigured && db) {
-      try {
-        const { doc, deleteDoc } = await import('firebase/firestore');
-        const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
-        await deleteDoc(docRef);
-      } catch (err: any) {
-        return { success: false, error: err?.message };
+    if (isFirebaseConfigured()) {
+      const db = await getFirestoreDb();
+      if (db) {
+        try {
+          const { doc, deleteDoc } = await import('firebase/firestore');
+          const docRef = doc(db, 'users', uid, 'data', 'syllabusData');
+          await deleteDoc(docRef);
+        } catch (err: any) {
+          return { success: false, error: err?.message };
+        }
       }
     }
   } catch (err) {

@@ -42,12 +42,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    // 2. Listen to Firebase Auth state if configured
+    // 2. Listen to Firebase Auth state if configured (non-blocking idle background task)
     let unsubscribeFirebase: (() => void) | undefined;
-    import('../services/firebase').then(({ initFirebase }) => {
-      const { auth, isConfigured } = initFirebase();
-      if (isConfigured && auth) {
-        import('firebase/auth').then(({ onAuthStateChanged }) => {
+    const initAuthListener = () => {
+      if (!isMounted) return;
+      import('../services/firebase').then(async ({ initFirebase }) => {
+        if (!isMounted) return;
+        const { auth, isConfigured } = await initFirebase();
+        if (isConfigured && auth && isMounted) {
+          const { onAuthStateChanged } = await import('firebase/auth');
+          if (!isMounted) return;
           unsubscribeFirebase = onAuthStateChanged(auth, (firebaseUser) => {
             if (!isMounted) return;
             if (firebaseUser) {
@@ -69,9 +73,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               } catch {}
             }
           });
-        });
-      }
-    }).catch(() => {});
+        }
+      }).catch(() => {});
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(() => initAuthListener(), { timeout: 2000 });
+    } else {
+      setTimeout(initAuthListener, 1200);
+    }
 
     return () => {
       isMounted = false;

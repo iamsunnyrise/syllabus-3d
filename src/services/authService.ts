@@ -190,7 +190,7 @@ export const authService: AuthAdapter & {
 
   async loginWithGoogle(): Promise<AuthUser> {
     // 1. Check if Firebase Google Auth is configured
-    const { auth, provider, isConfigured } = (await import('./firebase')).initFirebase();
+    const { auth, provider, isConfigured } = await (await import('./firebase')).initFirebase();
 
     if (isConfigured && auth && provider) {
       try {
@@ -253,7 +253,7 @@ export const authService: AuthAdapter & {
   },
 
   async sendPhoneOtp(phoneNumber: string, containerId: string = 'recaptcha-container'): Promise<boolean> {
-    const { auth, isConfigured } = (await import('./firebase')).initFirebase();
+    const { auth, isConfigured } = await (await import('./firebase')).initFirebase();
     const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber.replace(/\D/g, '')}`;
 
     if (isConfigured && auth) {
@@ -290,7 +290,7 @@ export const authService: AuthAdapter & {
   },
 
   async verifyPhoneOtp(otp: string, fallbackPhone?: string): Promise<AuthUser> {
-    const { auth, isConfigured } = (await import('./firebase')).initFirebase();
+    const { auth, isConfigured } = await (await import('./firebase')).initFirebase();
     const phoneDisplay = fallbackPhone || '+91 9876543210';
 
     if (isConfigured && auth && (window as any).confirmationResult) {
@@ -348,7 +348,7 @@ export const authService: AuthAdapter & {
   async logout(): Promise<void> {
     await new Promise(r => setTimeout(r, 50));
     try {
-      const { auth, isConfigured } = (await import('./firebase')).initFirebase();
+      const { auth, isConfigured } = await (await import('./firebase')).initFirebase();
       if (isConfigured && auth) {
         const { signOut } = await import('firebase/auth');
         await signOut(auth);

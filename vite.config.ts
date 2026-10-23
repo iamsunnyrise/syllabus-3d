@@ -33,8 +33,19 @@ export default defineConfig({
             if (id.includes('canvas-confetti')) {
               return 'vendor-confetti';
             }
-            if (id.includes('firebase')) {
-              return 'vendor-firebase';
+            if (
+              id.includes('firestore') ||
+              id.includes('re2js') ||
+              id.includes('@grpc') ||
+              id.includes('webchannel-wrapper')
+            ) {
+              return 'vendor-firestore';
+            }
+            if (id.includes('firebase/auth') || id.includes('@firebase/auth')) {
+              return 'vendor-firebase-auth';
+            }
+            if (id.includes('firebase') || id.includes('@firebase')) {
+              return 'vendor-firebase-core';
             }
             if (id.includes('katex')) {
               return 'vendor-katex';

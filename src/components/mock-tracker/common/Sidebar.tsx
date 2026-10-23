@@ -136,7 +136,7 @@ export const Sidebar: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img 
-                src="/syllabus-logo.png" 
+                src="/logo.png" 
                 alt="Syllabus 3D Logo" 
                 className="w-6 h-6 rounded-lg object-contain shadow-sm shrink-0 group-hover:scale-105 transition-transform" 
               />

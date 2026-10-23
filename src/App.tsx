@@ -6,13 +6,8 @@ import { MobileDrawer } from './components/layout/MobileDrawer';
 import { OverviewView } from './components/views/OverviewView';
 import { FloatingTimerOverlay } from './components/focus/FloatingTimerOverlay';
 import { useTimer } from './context/TimerContext';
-import { AnimatedLogoIntro } from './components/intro/AnimatedLogoIntro';
 import { Topic } from './types/syllabus';
 import { useAuth } from './context/AuthContext';
-import { AuthLayout } from './components/auth/AuthLayout';
-import { LoginView } from './components/auth/LoginView';
-import { SignUpView } from './components/auth/SignUpView';
-import { ForgotPasswordView } from './components/auth/ForgotPasswordView';
 import { InitialAuthLoading } from './components/auth/InitialAuthLoading';
 import { soundManager } from './utils/soundEffects';
 import { haptics } from './utils/haptics';
@@ -21,10 +16,17 @@ import { OfflineStatusIndicator } from './components/common/OfflineStatusIndicat
 import { ViewErrorBoundary } from './components/common/ViewErrorBoundary';
 import { storageManager } from './services/storageManager';
 import { useTheme } from './context/ThemeContext';
-import { PinLockScreen } from './components/security/PinLockScreen';
 import { useInactivityLock } from './hooks/useInactivityLock';
 import { Sparkles } from 'lucide-react';
 import { preloadHighPriorityViews, preloadRemainingViews } from './utils/viewPreloader';
+
+// ⚡ Lazy Loaded Auth & Auxiliary Components (Keeps Critical Path Ultra-Lean)
+const AuthLayout = lazy(() => import('./components/auth/AuthLayout').then(m => ({ default: m.AuthLayout })));
+const LoginView = lazy(() => import('./components/auth/LoginView').then(m => ({ default: m.LoginView })));
+const SignUpView = lazy(() => import('./components/auth/SignUpView').then(m => ({ default: m.SignUpView })));
+const ForgotPasswordView = lazy(() => import('./components/auth/ForgotPasswordView').then(m => ({ default: m.ForgotPasswordView })));
+const AnimatedLogoIntro = lazy(() => import('./components/intro/AnimatedLogoIntro').then(m => ({ default: m.AnimatedLogoIntro })));
+const PinLockScreen = lazy(() => import('./components/security/PinLockScreen').then(m => ({ default: m.PinLockScreen })));
 
 // ⚡ Lazy Loaded Secondary Views (Code Splitting for Lightning-Fast Initial Load)
 const SyllabusView = lazy(() => import('./components/views/SyllabusView').then(m => ({ default: m.SyllabusView })));
@@ -834,11 +836,13 @@ export const App: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <AuthLayout onBackToLanding={() => setCurrentView('landing')} authView={authView}>
-        {authView === 'login' && <LoginView />}
-        {authView === 'signup' && <SignUpView />}
-        {authView === 'forgot_password' && <ForgotPasswordView />}
-      </AuthLayout>
+      <Suspense fallback={<InitialAuthLoading />}>
+        <AuthLayout onBackToLanding={() => setCurrentView('landing')} authView={authView}>
+          {authView === 'login' && <LoginView />}
+          {authView === 'signup' && <SignUpView />}
+          {authView === 'forgot_password' && <ForgotPasswordView />}
+        </AuthLayout>
+      </Suspense>
     );
   }
 
@@ -871,12 +875,14 @@ export const App: React.FC = () => {
 
       {/* 3D Animated Startup Intro */}
       {showIntro && (
-        <AnimatedLogoIntro onComplete={() => {
-          try {
-            localStorage.setItem('syllabus3d_intro_seen', '1');
-          } catch {}
-          setShowIntro(false);
-        }} />
+        <Suspense fallback={null}>
+          <AnimatedLogoIntro onComplete={() => {
+            try {
+              localStorage.setItem('syllabus3d_intro_seen', '1');
+            } catch {}
+            setShowIntro(false);
+          }} />
+        </Suspense>
       )}
 
       {/* Desktop Sidebar Navigation */}
@@ -1369,7 +1375,9 @@ export const App: React.FC = () => {
       )}
 
       {/* 🔒 Safety PIN Lock Screen Fullscreen Guard */}
-      <PinLockScreen />
+      <Suspense fallback={null}>
+        <PinLockScreen />
+      </Suspense>
     </div>
   );
 };

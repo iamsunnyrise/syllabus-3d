@@ -367,9 +367,9 @@ export default {
         'dm-mono': ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
         'roboto-mono': ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
         orbitron: ['"Orbitron"', 'sans-serif'],
-        pricing: ['"Sora"', '"Manrope"', 'sans-serif'],
-        handwritten: ['"Kalam"', '"Caveat"', '"Patrick Hand"', 'cursive', 'sans-serif'],
-        editorial: ['"Merriweather"', 'Georgia', 'serif'],
+        pricing: ['"Space Grotesk"', '"Inter"', 'sans-serif'],
+        handwritten: ['"Kalam"', '"Caveat"', 'cursive', 'sans-serif'],
+        editorial: ['"Inter"', 'Georgia', 'serif'],
         notes: ['"Kalam"', '"Caveat"', 'cursive', 'sans-serif']
       },
       boxShadow: {
