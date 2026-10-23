@@ -53,6 +53,68 @@ import {
 export type AdditionMode = 'stages' | 'blitz' | 'zen' | 'tricks' | 'stats';
 export type ZenDifficulty = 'all' | '1-digit' | '2-digit-simple' | '2-digit-carry' | 'chain' | 'decimal';
 export type InputType = 'mcq' | 'numpad';
+export type StageCategoryFilter = 'all' | 'Foundation' | 'Core Speed' | 'Vedic Split' | 'DI Master';
+
+export interface StageCategoryTab {
+  id: StageCategoryFilter;
+  label: string;
+  icon: string;
+  count: number;
+  range: string;
+}
+
+const STAGE_CATEGORIES: StageCategoryTab[] = [
+  { id: 'all', label: 'All Levels', icon: '🌟', count: 10, range: 'Stages 1-10' },
+  { id: 'Foundation', label: 'Foundation', icon: '🧱', count: 2, range: 'Stages 1-2' },
+  { id: 'Core Speed', label: 'Core Speed', icon: '🚀', count: 2, range: 'Stages 3-4' },
+  { id: 'Vedic Split', label: 'Vedic Split', icon: '🔥', count: 3, range: 'Stages 5-7' },
+  { id: 'DI Master', label: 'DI Master', icon: '📊', count: 3, range: 'Stages 8-10' }
+];
+
+const getCategoryTheme = (category: string) => {
+  switch (category) {
+    case 'Foundation':
+      return {
+        badgeBg: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20',
+        accentBar: 'from-blue-500 via-cyan-400 to-teal-400',
+        borderHover: 'hover:border-cyan-500/50',
+        tagText: 'text-cyan-600 dark:text-cyan-400',
+        dotBg: 'bg-cyan-500'
+      };
+    case 'Core Speed':
+      return {
+        badgeBg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+        accentBar: 'from-emerald-500 via-teal-400 to-green-400',
+        borderHover: 'hover:border-emerald-500/50',
+        tagText: 'text-emerald-600 dark:text-emerald-400',
+        dotBg: 'bg-emerald-500'
+      };
+    case 'Vedic Split':
+      return {
+        badgeBg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+        accentBar: 'from-amber-500 via-orange-400 to-rose-400',
+        borderHover: 'hover:border-amber-500/50',
+        tagText: 'text-amber-600 dark:text-amber-400',
+        dotBg: 'bg-amber-500'
+      };
+    case 'DI Master':
+      return {
+        badgeBg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+        accentBar: 'from-purple-500 via-indigo-400 to-pink-400',
+        borderHover: 'hover:border-purple-500/50',
+        tagText: 'text-purple-600 dark:text-purple-400',
+        dotBg: 'bg-purple-500'
+      };
+    default:
+      return {
+        badgeBg: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20',
+        accentBar: 'from-indigo-500 to-purple-500',
+        borderHover: 'hover:border-indigo-500/50',
+        tagText: 'text-indigo-600 dark:text-indigo-400',
+        dotBg: 'bg-indigo-500'
+      };
+  }
+};
 
 export const CalculationBoosterAddition: React.FC = () => {
   // Navigation Mode
@@ -151,6 +213,20 @@ export const CalculationBoosterAddition: React.FC = () => {
   const [stageFeedback, setStageFeedback] = useState<'correct' | 'wrong' | null>(null);
   const [showMentalHint, setShowMentalHint] = useState<boolean>(false);
   const stageStartTimeRef = useRef<number>(0);
+  const [stageCategoryFilter, setStageCategoryFilter] = useState<StageCategoryFilter>('all');
+
+  const totalStarsEarned = useMemo(() => {
+    return Object.values(stats.stageStars || {}).reduce((acc: number, curr: number) => acc + (curr || 0), 0);
+  }, [stats.stageStars]);
+
+  const masteredStagesCount = useMemo(() => {
+    return Object.values(stats.stageStars || {}).filter(s => s === 3).length;
+  }, [stats.stageStars]);
+
+  const filteredStages = useMemo(() => {
+    if (stageCategoryFilter === 'all') return ADDITION_STAGES;
+    return ADDITION_STAGES.filter(s => s.category === stageCategoryFilter);
+  }, [stageCategoryFilter]);
 
   // Stage Timer Countdown
   useEffect(() => {
@@ -897,103 +973,262 @@ export const CalculationBoosterAddition: React.FC = () => {
 
           {/* 10-Stages Grid (If not currently playing) */}
           {!stageActive && !stageSummary && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-black text-slate-900 dark:text-white">
-                    Progression Campaign (10 Progressive Stages)
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Earn at least 1 Star to unlock the next level. Aim for 3 Stars on all stages!
-                  </p>
+            <div className="space-y-6">
+              {/* Campaign Control & Progress Banner */}
+              <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-5">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs">
+                        SSC & Bank Calculation Quest
+                      </span>
+                      <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
+                        10 Progressive Stages (Basic → Advanced)
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                      Addition Mastery Progression Campaign
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 max-w-2xl">
+                      Next stage unlock karne ke liye har level me kam se kam 1 Star earn karein. Full mastery ke liye 3 Stars target karein!
+                    </p>
+                  </div>
+
+                  {/* Campaign KPI Stat Pills */}
+                  <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <div className="px-3.5 py-2 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-center min-w-[90px]">
+                      <div className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400">Campaign Stars</div>
+                      <div className="text-base sm:text-lg font-black text-amber-600 dark:text-amber-300 font-mono flex items-center justify-center gap-1">
+                        <Star className="w-4 h-4 fill-amber-400 text-amber-400 inline" />
+                        <span>{totalStarsEarned} / 30</span>
+                      </div>
+                    </div>
+
+                    <div className="px-3.5 py-2 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center min-w-[90px]">
+                      <div className="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400">Mastered (3★)</div>
+                      <div className="text-base sm:text-lg font-black text-indigo-600 dark:text-indigo-300 font-mono">
+                        {masteredStagesCount} / 10
+                      </div>
+                    </div>
+
+                    <div className="px-3.5 py-2 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center min-w-[90px]">
+                      <div className="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400">Frontier</div>
+                      <div className="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-300 font-mono">
+                        Stage {stats.unlockedStage || 1} / 10
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-xs font-bold px-3 py-1.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono">
-                  {Object.values(stats.stageStars).filter(s => s === 3).length} / 10 Mastered ⭐️
+
+                {/* Overall Campaign Mastery Progress Bar */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-600 dark:text-slate-400 font-bold flex items-center gap-1.5">
+                      <Trophy className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Campaign Completion Progress</span>
+                    </span>
+                    <span className="font-mono font-black text-indigo-600 dark:text-indigo-400">
+                      {Math.round((totalStarsEarned / 30) * 100)}% ({totalStarsEarned}/30 Stars Earned)
+                    </span>
+                  </div>
+                  <div className="w-full h-2.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden p-0.5">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-amber-400 transition-all duration-700 shadow-sm"
+                      style={{ width: `${Math.max(4, Math.round((totalStarsEarned / 30) * 100))}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Category Filter Pills */}
+                <div className="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                  {STAGE_CATEGORIES.map(cat => {
+                    const isSelected = stageCategoryFilter === cat.id;
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => {
+                          if (soundEnabled) soundManager.playClick();
+                          setStageCategoryFilter(cat.id);
+                        }}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+                          isSelected
+                            ? 'bg-indigo-600 text-white shadow-xs font-black ring-1 ring-indigo-400/40'
+                            : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
+                        }`}
+                      >
+                        <span>{cat.icon}</span>
+                        <span>{cat.label}</span>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                          isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-white/10 text-slate-500 dark:text-slate-400 font-mono'
+                        }`}>
+                          {cat.count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
-                {ADDITION_STAGES.map(stage => {
+              {/* 10-Stages Responsive Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {filteredStages.map(stage => {
                   const isUnlocked = stage.id <= (stats.unlockedStage || 1);
                   const stars = stats.stageStars[stage.id] || 0;
+                  const isMastered = stars === 3;
+                  const isCleared = stars > 0 && stars < 3;
+                  const isCurrentChallenge = isUnlocked && stars === 0 && (stage.id === (stats.unlockedStage || 1) || (stage.id === 1 && !stats.unlockedStage));
+                  const theme = getCategoryTheme(stage.category);
+                  const cleanTitle = stage.name.replace(/^Stage\s+\d+:\s*/i, '');
 
                   return (
                     <div
                       key={stage.id}
-                      className={`p-5 rounded-3xl border transition-all relative overflow-hidden ${
-                        isUnlocked
-                          ? 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 shadow-xs hover:border-indigo-500 hover:shadow-md'
-                          : 'bg-slate-50/60 dark:bg-white/[0.02] border-dashed border-slate-200 dark:border-white/5 opacity-70'
+                      className={`group rounded-3xl border transition-all duration-300 relative flex flex-col justify-between overflow-hidden ${
+                        !isUnlocked
+                          ? 'bg-slate-50/50 dark:bg-white/[0.02] border-dashed border-slate-200 dark:border-white/5 opacity-75 backdrop-blur-[2px]'
+                          : isCurrentChallenge
+                          ? 'bg-white dark:bg-[#0E101B] border-indigo-500/70 dark:border-indigo-400/60 ring-2 ring-indigo-500/40 shadow-lg shadow-indigo-500/10 dark:shadow-[0_0_30px_rgba(99,102,241,0.22)] hover:-translate-y-1'
+                          : isMastered
+                          ? 'bg-white dark:bg-[#0E101B] border-amber-400/40 dark:border-amber-400/25 shadow-xs hover:border-amber-400 hover:shadow-md hover:-translate-y-1'
+                          : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 shadow-xs hover:border-indigo-500/70 hover:shadow-md hover:-translate-y-1'
                       }`}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono">
-                              {stage.badge}
-                            </span>
-                            <span className="text-[11px] font-mono text-slate-400">
-                              {stage.targetTimeSec}s Time Trial
-                            </span>
+                      {/* Top Gradient Accent Bar */}
+                      <div className={`h-1.5 w-full bg-gradient-to-r ${isUnlocked ? theme.accentBar : 'from-slate-300 to-slate-200 dark:from-white/10 dark:to-white/5'}`} />
+
+                      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                          {/* Header: Stage Number, Category, Objective Badge & Stars/Lock */}
+                          <div className="flex items-center justify-between gap-3 mb-3">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="font-mono text-[11px] font-black px-2.5 py-1 rounded-xl bg-slate-900/5 dark:bg-white/10 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 tracking-wider">
+                                STAGE {stage.id < 10 ? `0${stage.id}` : stage.id}
+                              </span>
+
+                              <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-lg border ${theme.badgeBg}`}>
+                                {stage.category}
+                              </span>
+
+                              {isCurrentChallenge && (
+                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-white animate-pulse shadow-xs">
+                                  🔥 Next Goal
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Stars / Lock */}
+                            <div className="shrink-0">
+                              {isUnlocked ? (
+                                <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100/80 dark:bg-white/5 border border-slate-200/60 dark:border-white/10">
+                                  {[1, 2, 3].map(s => (
+                                    <Star
+                                      key={s}
+                                      className={`w-4 h-4 transition-all ${
+                                        s <= stars
+                                          ? 'text-amber-400 fill-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)] scale-110'
+                                          : 'text-slate-300 dark:text-white/15'
+                                      }`}
+                                    />
+                                  ))}
+                                </div>
+                              ) : (
+                                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400 text-xs font-bold">
+                                  <Lock className="w-3.5 h-3.5 text-slate-400" />
+                                  <span>Locked</span>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                          <h4 className="font-black text-slate-900 dark:text-white text-base">
-                            {stage.name}
-                          </h4>
-                          <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
-                            {stage.hindiName}
+
+                          {/* Badge & Title */}
+                          <div className="space-y-1">
+                            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                              {stage.badge}
+                            </div>
+                            <h4 className="font-black text-slate-900 dark:text-white text-base sm:text-lg leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                              {cleanTitle}
+                            </h4>
+                            <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5 pt-0.5">
+                              <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg} shrink-0`} />
+                              <span>{stage.hindiName}</span>
+                            </p>
+                          </div>
+
+                          {/* Description */}
+                          <p className="mt-3 text-xs text-slate-600 dark:text-slate-300/90 leading-relaxed">
+                            {stage.description}
                           </p>
                         </div>
 
-                        {/* Lock / Stars */}
-                        <div className="flex items-center gap-1 shrink-0">
-                          {isUnlocked ? (
-                            <div className="flex items-center gap-0.5">
-                              {[1, 2, 3].map(s => (
-                                <Star
-                                  key={s}
-                                  className={`w-4 h-4 ${
-                                    s <= stars ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300 dark:text-white/15'
-                                  }`}
-                                />
-                              ))}
+                        {/* Technique Box */}
+                        <div className="p-3 rounded-2xl bg-amber-500/[0.08] dark:bg-amber-500/[0.04] border border-amber-500/20 dark:border-amber-400/15 space-y-1">
+                          <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                            <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                            <span>Vedic & Mental Hack</span>
+                          </div>
+                          <p className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
+                            {stage.techniqueTip}
+                          </p>
+                        </div>
+
+                        {/* Bottom Area: Specs + Full-width CTA */}
+                        <div className="pt-3 border-t border-slate-100 dark:border-white/5 space-y-3">
+                          <div className="flex items-center justify-between text-xs gap-2">
+                            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-medium">
+                              <Timer className="w-3.5 h-3.5 text-indigo-500" />
+                              <span className="font-bold text-slate-700 dark:text-slate-300">{stage.targetTimeSec}s</span>
+                              <span className="text-slate-300 dark:text-slate-600">•</span>
+                              <span>{stage.questionCount} Questions</span>
                             </div>
+
+                            <div className="font-mono text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                              <span className="text-slate-400 text-[11px]">Sample:</span>
+                              <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/10 text-indigo-600 dark:text-indigo-300 font-black">
+                                {stage.sampleProblem}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Action CTA Button */}
+                          {isUnlocked ? (
+                            <button
+                              type="button"
+                              onClick={() => handleStartStage(stage)}
+                              className={`w-full py-2.5 px-4 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                                isMastered
+                                  ? 'bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-900 dark:text-white border border-slate-200/80 dark:border-white/10 shadow-xs'
+                                  : isCleared
+                                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs hover:shadow-emerald-500/20'
+                                  : 'bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md shadow-indigo-500/25 active:scale-[0.99]'
+                              }`}
+                            >
+                              {isMastered ? (
+                                <>
+                                  <RotateCcw className="w-3.5 h-3.5 text-amber-500" />
+                                  <span>Mastered (3★) · Replay Stage</span>
+                                </>
+                              ) : isCleared ? (
+                                <>
+                                  <Star className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+                                  <span>Improve Score ({stars}★) · Replay</span>
+                                  <ChevronRight className="w-3.5 h-3.5" />
+                                </>
+                              ) : (
+                                <>
+                                  <Play className="w-3.5 h-3.5 fill-current" />
+                                  <span>Start Stage Challenge</span>
+                                  <ChevronRight className="w-3.5 h-3.5" />
+                                </>
+                              )}
+                            </button>
                           ) : (
-                            <div className="p-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-400">
-                              <Lock className="w-4 h-4" />
+                            <div className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 text-slate-400 text-[11px] font-bold flex items-center justify-center gap-1.5 cursor-not-allowed">
+                              <Lock className="w-3.5 h-3.5" />
+                              <span>Complete Stage {stage.id - 1} with ≥ 1★ to Unlock</span>
                             </div>
                           )}
                         </div>
-                      </div>
-
-                      <p className="mt-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {stage.description}
-                      </p>
-
-                      {/* Technique Tip Box */}
-                      <div className="mt-3 p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/50 dark:border-white/5 text-[11px] text-slate-600 dark:text-slate-400 flex items-start gap-2">
-                        <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
-                        <span><strong>Technique:</strong> {stage.techniqueTip}</span>
-                      </div>
-
-                      {/* Action Button */}
-                      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-slate-500">
-                          Sample: <strong className="text-slate-800 dark:text-slate-200">{stage.sampleProblem}</strong>
-                        </span>
-
-                        <button
-                          type="button"
-                          disabled={!isUnlocked}
-                          onClick={() => handleStartStage(stage)}
-                          className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                            isUnlocked
-                              ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs hover:scale-105 active:scale-95'
-                              : 'bg-slate-200 dark:bg-white/10 text-slate-400 cursor-not-allowed'
-                          }`}
-                        >
-                          <span>{stars > 0 ? 'Replay' : 'Start Stage'}</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
                       </div>
                     </div>
                   );
