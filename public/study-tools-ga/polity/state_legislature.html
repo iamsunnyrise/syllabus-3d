@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PARMAR SSC — State Legislature & State Executive Master Interactive Notes</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAEED9',
+            gold: '#E1A837',
+            olive: '#8D7A02',
+            dark: '#38370D',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAEED9;
+      background-image: radial-gradient(#8D7A02 0.65px, transparent 0.65px);
+      background-size: 22px 22px;
+      color: #38370D;
+    }
+
+    .note-card {
+      background: rgba(250, 238, 217, 0.96);
+      border: 2px solid #8D7A02;
+      box-shadow: 6px 6px 0px #38370D;
+      transition: all 0.2s ease;
+    }
+    .note-card:hover {
+      box-shadow: 8px 8px 0px #38370D;
+      transform: translateY(-2px);
+    }
+
+    .sub-card {
+      background: #FAEED9;
+      border: 1.5px solid #8D7A02;
+      border-radius: 0.75rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .gold-badge {
+      background: #E1A837;
+      color: #38370D;
+      font-weight: 700;
+      border: 1px solid #38370D;
+    }
+
+    .dark-badge {
+      background: #38370D;
+      color: #FAEED9;
+      font-weight: 600;
+    }
+
+    .trick-box {
+      background: #38370D;
+      color: #FAEED9;
+      border-left: 6px solid #E1A837;
+    }
+
+    /* Self-Test Quiz Blur Mode */
+    .quiz-item {
+      transition: all 0.25s ease;
+      padding: 0 4px;
+      border-radius: 4px;
+      border-bottom: 1.5px dashed #8D7A02;
+      font-weight: 700;
+    }
+    body.self-test-active .quiz-item {
+      filter: blur(6px);
+      background-color: #E1A837;
+      color: #38370D;
+      cursor: pointer;
+      user-select: none;
+    }
+    body.self-test-active .quiz-item:hover,
+    body.self-test-active .quiz-item.revealed {
+      filter: blur(0px);
+      background-color: rgba(225, 168, 55, 0.25);
+    }
+
+    /* Section Active Pulse */
+    @keyframes pulseGold {
+      0%, 100% { box-shadow: 6px 6px 0px #38370D; }
+      50% { box-shadow: 0 0 0 8px rgba(225, 168, 55, 0.7), 6px 6px 0px #38370D; }
+    }
+    .section-active-pulse {
+      animation: pulseGold 1.4s ease-in-out 2;
+    }
+
+    /* Click-to-Note Hover Triggers */
+    [data-note-anchor] {
+      position: relative;
+    }
+    .note-trigger-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    [data-note-anchor]:hover > .note-trigger-btn,
+    body.click-note-mode [data-note-anchor] > .note-trigger-btn {
+      opacity: 1;
+    }
+    body.click-note-mode [data-note-anchor]:hover {
+      outline: 2px dashed #E1A837;
+      outline-offset: 2px;
+      cursor: copy;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .note-card { box-shadow: none !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold selection:text-dark min-h-screen pb-24">
+
+  <!-- Floating Cursor Follower for Click-to-Note Mode -->
+  <div id="cursorBadge" class="fixed pointer-events-none z-50 hidden bg-dark text-cream text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gold shadow-lg">
+    ➕ Click here to add your extra note
+  </div>
+
+  <!-- 1. STICKY TOP HEADER BAR -->
+  <header class="sticky top-0 z-40 bg-dark text-cream border-b-4 border-gold shadow-md no-print">
+    <!-- Scroll Progress Bar -->
+    <div class="w-full h-1.5 bg-olive/30">
+      <div id="scrollProgress" class="h-full bg-gold w-0 transition-all duration-100"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-black text-xl border-2 border-cream">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <div>
+          <span class="text-[11px] uppercase tracking-widest text-gold font-bold block">PARMAR SSC • Polity Series</span>
+          <h1 class="font-serif text-lg md:text-xl font-bold leading-tight">State Legislature & Executive (Part VI)</h1>
+        </div>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="relative flex-1 max-w-md min-w-[220px]">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-dark/70 text-sm"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Articles (152-237), Governor, Vidhan Parishad, 6 States..."
+          class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-cream text-dark placeholder-dark/60 text-sm font-medium border-2 border-gold focus:outline-none"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-dark/70 hover:text-dark text-sm">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Interactive Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="toggleClickNoteBtn" onclick="toggleClickToNoteMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-dark text-cream hover:bg-gold hover:text-dark transition flex items-center gap-1.5">
+          <span>📝 Click-to-Note:</span>
+          <span id="clickNoteStatus" class="underline">OFF</span>
+        </button>
+
+        <button onclick="toggleDrawer(true)" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-gold text-dark hover:brightness-105 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>My Notes</span>
+          <span id="savedNotesCountBadge" class="bg-dark text-cream px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+        </button>
+
+        <button id="selfTestBtn" onclick="toggleSelfTestMode()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/50 bg-olive/40 text-cream hover:bg-gold hover:text-dark hover:border-gold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-eye-slash"></i>
+          <span>Self-Test: <strong id="selfTestStatus">OFF</strong></span>
+        </button>
+
+        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/40 hover:bg-cream hover:text-dark transition" title="Print Master Notes">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 pt-6 space-y-8">
+
+    <!-- 2. HERO BANNER SECTION -->
+    <section class="note-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full gold-badge text-xs">
+            <i class="fa-solid fa-star"></i> 100% Parmar SSC Notes • Zero-Omission Master Series
+          </div>
+          <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-dark leading-tight">
+            PART VI: The States (Articles 152–237)
+          </h2>
+          <p class="text-sm md:text-base text-dark/90 leading-relaxed font-medium">
+            <strong>💡 Hinglish Mein Samjho:</strong> Jaise Centre mein President + Parliament + PM + CoM + Attorney General hote hain, waise hi State level par <strong>Governor + State Legislature + CM + CoM + Advocate General</strong> hote hain! Is masterclass mein Parmar Sir ki <strong>+89 aur +90 Magic Article Mapping Trick</strong>, Governor ke powers, 6 Bicameral States (Vidhan Parishad), Legislative Council ka composition (1/3, 1/12, 1/12, 1/3, 1/6), aur sabse bada exam trap: <strong>State mein Joint Sitting KYUN NAHI HOTI</strong> — sab cover kiya gaya hai!
+          </p>
+          <!-- Highlight Pills -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-wand-magic-sparkles text-gold mr-1"></i> +89 & +90 Article Trick</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-shield-halved text-gold mr-1"></i> Governor (Art 153-162)</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-landmark text-gold mr-1"></i> 6 Bicameral States (KUMBAT)</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-ban text-gold mr-1"></i> No Joint Sitting in State!</span>
+            <span class="px-3 py-1 rounded-lg dark-badge text-xs"><i class="fa-solid fa-scroll text-gold mr-1"></i> Ordinance (Art 213)</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Fast Facts Graphic Cards -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-1">
+            <span class="text-xs text-gold font-bold uppercase">Governor Min Age</span>
+            <div class="text-2xl font-black mt-1 text-gold"><span class="quiz-item">35 Years</span></div>
+            <p class="text-xs text-cream/80 mt-1">Appointed by <span class="quiz-item">President</span> (Art 155); holds office during President's pleasure.</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-2">
+            <span class="text-xs text-olive font-bold uppercase">Bicameral States</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">6 States</span></div>
+            <p class="text-xs text-dark/80 mt-1">Trick: <span class="quiz-item">KUMBAT</span> (Karnataka, UP, MH, Bihar, AP, Telangana).</p>
+          </div>
+          <div class="sub-card p-4 bg-cream border-2 border-dark" data-note-anchor="hero-fact-3">
+            <span class="text-xs text-olive font-bold uppercase">Legislative Council Delay</span>
+            <div class="text-2xl font-black mt-1 text-dark"><span class="quiz-item">Max 4 Months</span></div>
+            <p class="text-xs text-dark/80 mt-1"><span class="quiz-item">3 months</span> in 1st instance + <span class="quiz-item">1 month</span> in 2nd instance (Art 197).</p>
+          </div>
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold" data-note-anchor="hero-fact-4">
+            <span class="text-xs text-gold font-bold uppercase">Quorum for Sitting</span>
+            <div class="text-2xl font-black mt-1 text-gold"><span class="quiz-item">10 or 10%</span></div>
+            <p class="text-xs text-cream/80 mt-1">Whichever is greater under <span class="quiz-item">Art 189(4)</span>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE "TOPICS AT A GLANCE" (QUICK NAVIGATION HUB) -->
+    <nav class="sub-card p-4 shadow-sm no-print">
+      <div class="flex items-center gap-2 mb-2 font-bold text-xs uppercase tracking-wider text-olive">
+        <i class="fa-solid fa-compass"></i> Fast Section Jump:
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button onclick="scrollToSection('sec-mapping')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">⚡ Magic Article Mapping (+89 & +90)</button>
+        <button onclick="scrollToSection('sec-executive')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">👑 Governor (Articles 153-162)</button>
+        <button onclick="scrollToSection('sec-ministers')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">🏛️ CM, Ministers & Advocate General</button>
+        <button onclick="scrollToSection('sec-legislature')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">🏢 State Legislature (Assemblies & Councils)</button>
+        <button onclick="scrollToSection('sec-council-comp')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">📊 Vidhan Parishad 5-Way Composition</button>
+        <button onclick="scrollToSection('sec-officers')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">🎙️ Speaker, Chairman & Quorum</button>
+        <button onclick="scrollToSection('sec-bills')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">📜 Passing of Bills (Ordinary & Money)</button>
+        <button onclick="scrollToSection('sec-budget-ord')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">💰 State Budget & Ordinance (Art 213)</button>
+        <button onclick="scrollToSection('sec-traps')" class="px-2.5 py-1 rounded-md bg-dark text-cream hover:bg-gold hover:text-dark font-medium transition">⚠️ Exam Traps & Comparisons</button>
+        <button onclick="scrollToSection('sec-quiz')" class="px-2.5 py-1 rounded-md bg-gold text-dark font-bold hover:brightness-105 transition">🎯 Interactive Exam Quiz</button>
+      </div>
+    </nav>
+
+    <!-- SECTION 01: MAGIC ARTICLE MAPPING FORMULA (+89 & +90 RULE) -->
+    <section id="sec-mapping" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-mapping">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">01</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Parmar SSC Super Weapon</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Article Mapping: Union to State Level (+89 & +90 Rule)</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Remember 1 Article = Get Both!</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- The +89 Rule -->
+        <div class="sub-card p-5 space-y-3 bg-cream/70 border-2 border-dark" data-note-anchor="map-rule-89">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-base text-dark">🎯 The "+89 Rule"</span>
+            <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-mono">Articles 72 to 111</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Centre ke <span class="font-bold">Articles 72 se 111</span> mein agar aap <strong>89 add (+)</strong> kar do, toh aapko State level ka corresponding Article mil jata hai!
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-olive/40 rounded-lg">
+              <thead class="bg-dark text-cream font-bold">
+                <tr>
+                  <th class="p-2 text-left">Union Article (Centre)</th>
+                  <th class="p-2 text-center">+ 89</th>
+                  <th class="p-2 text-left">State Article</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-olive/20 font-medium">
+                <tr>
+                  <td class="p-2 font-bold">Art 72 (Pardoning Power of President)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 161</span> (Governor Pardoning Power)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 74 (Union Council of Ministers)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 163</span> (State Council of Ministers)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 75 (PM & Ministers Appointment)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 164</span> (CM & Ministers Appointment)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 76 (Attorney General of India)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 165</span> (Advocate General of State)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 77 (Conduct of Govt Business)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 166</span> (Conduct of State Govt Business)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 78 (Duties of Prime Minister)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 167</span> (Duties of Chief Minister)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 79 (Constitution of Parliament)</td>
+                  <td class="p-2 text-center font-bold text-olive">+89 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 168</span> (Constitution of State Legislature)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- The +90 Rule -->
+        <div class="sub-card p-5 space-y-3 bg-cream/70 border-2 border-dark" data-note-anchor="map-rule-90">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-base text-dark">🎯 The "+90 Rule"</span>
+            <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-mono">Articles 112 to 124</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Centre ke <span class="font-bold">Articles 112 se 124</span> mein agar aap <strong>90 add (+)</strong> kar do, toh aapko State level ka corresponding Article mil jata hai!
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-olive/40 rounded-lg">
+              <thead class="bg-dark text-cream font-bold">
+                <tr>
+                  <th class="p-2 text-left">Union Article (Centre)</th>
+                  <th class="p-2 text-center">+ 90</th>
+                  <th class="p-2 text-left">State Article</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-olive/20 font-medium">
+                <tr>
+                  <td class="p-2 font-bold">Art 112 (Union Budget / AFS)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 202</span> (State Annual Financial Statement)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 113 (Estimates Procedure)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 203</span> (State Estimates Procedure)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 114 (Appropriation Bill)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 204</span> (State Appropriation Bill)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 116 (Vote on Account / Credit)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 206</span> (State Vote on Account / Credit)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 117 (Financial Bills)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 207</span> (State Financial Bills)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 120 (Language in Parliament)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 210</span> (Language in State Legislature)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Art 123 (President Ordinance Power)</td>
+                  <td class="p-2 text-center font-bold text-olive">+90 =</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Art 213</span> (Governor Ordinance Power)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Replacements Capsule -->
+      <div class="trick-box p-4 rounded-xl text-xs md:text-sm space-y-2">
+        <div class="font-bold text-gold flex items-center gap-2">
+          <i class="fa-solid fa-arrows-rotate"></i> Golden Replacement Table (Centre ➔ State):
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 pt-1 font-medium text-cream/90">
+          <div>• President ➔ <strong>Governor</strong></div>
+          <div>• Parliament ➔ <strong>State Legislature</strong></div>
+          <div>• Prime Minister ➔ <strong>Chief Minister</strong></div>
+          <div>• Union CoM ➔ <strong>State CoM</strong></div>
+          <div>• Attorney General ➔ <strong>Advocate General</strong></div>
+          <div>• Cons. Fund of India ➔ <strong>Cons. Fund of State</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: THE STATE EXECUTIVE & GOVERNOR (ARTICLES 153-162) -->
+    <section id="sec-executive" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-executive">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">02</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 153 to 162</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">The State Executive & Governor of States</h3>
+          </div>
+        </div>
+        <span class="dark-badge px-3 py-1 rounded-full text-xs">Nominal Head of State</span>
+      </div>
+
+      <!-- Who is in State Executive? -->
+      <div class="p-4 rounded-xl bg-gold/15 border-2 border-gold flex flex-wrap items-center justify-between gap-3 text-xs md:text-sm">
+        <div>
+          <span class="font-bold text-dark">State Executive consists of 4 pillars:</span>
+          <span class="font-semibold text-olive"> 1. Governor + 2. Chief Minister + 3. Council of Ministers + 4. Advocate General</span>
+        </div>
+        <span class="px-2.5 py-1 rounded-md bg-dark text-gold font-bold text-xs">⚠️ Note: No Vice-Governor in India!</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Article 153 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-153">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 153</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-[11px]">Governor of States</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            There shall be a Governor for each State.
+          </p>
+          <div class="trick-box p-2.5 rounded-lg text-[11px] leading-relaxed">
+            <strong>⭐ 7th Constitutional Amendment Act, 1956:</strong> Allowed the appointment of the <span class="quiz-item">same person as Governor</span> of two or more states!
+          </div>
+        </div>
+
+        <!-- Article 154 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-154">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 154</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[11px]">Executive Power</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            The executive power of the State is vested in the <span class="quiz-item">Governor</span>. It is exercised directly or through officers subordinate to him in accordance with the Constitution.
+          </p>
+        </div>
+
+        <!-- Article 155 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-155">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 155</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-[11px]">Appointment</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Governor is appointed by the <span class="quiz-item">President of India</span> by warrant under his hand and seal (Canadian model of appointed Governor, NOT US elected model).
+          </p>
+        </div>
+
+        <!-- Article 156 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-156">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 156</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[11px]">Term of Office</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1 list-disc list-inside leading-relaxed">
+            <li>Holds office during the <span class="quiz-item">pleasure of the President</span> (no security of tenure).</li>
+            <li>Resignation addressed to the <span class="quiz-item">President</span>.</li>
+            <li>Normal term: <span class="quiz-item">5 years</span> from assuming office.</li>
+          </ul>
+        </div>
+
+        <!-- Article 157 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-157">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 157</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-[11px]">Qualifications</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Constitution mein sirf <strong>2 qualifications</strong> hain:
+          </p>
+          <ol class="text-xs text-dark/90 space-y-1 list-decimal list-inside font-bold">
+            <li>Must be a <span class="quiz-item">Citizen of India</span>.</li>
+            <li>Must have completed <span class="quiz-item">35 years of age</span>.</li>
+          </ol>
+          <p class="text-[11px] text-olive font-medium mt-1">Conventions: Bahar ka resident ho (outsider) + CM consulted.</p>
+        </div>
+
+        <!-- Article 158 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-158">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 158</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[11px]">Conditions of Office</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1 list-disc list-inside leading-relaxed">
+            <li>Cannot be an MP or MLA/MLC.</li>
+            <li>Cannot hold office of profit.</li>
+            <li>Rent-free official residence (Raj Bhavan).</li>
+            <li>Emoluments fixed by Parliament; <strong>cannot be reduced</strong> during tenure.</li>
+            <li>If serving 2+ states, salary shared as ordered by President.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Article 159, 160 & 161 (High-Yield Oath & Pardons) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div class="sub-card p-4 space-y-2 border-2 border-olive" data-note-anchor="art-159">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 159: Oath</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[10px]">CJI of High Court</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Oath is administered by the <span class="quiz-item">Chief Justice of the High Court</span> of that state, or in his absence, the senior-most judge of the High Court.
+          </p>
+          <div class="text-[11px] bg-red-100 border border-red-300 text-red-950 p-2 rounded">
+            <strong>⚠️ Trap:</strong> Governor ko oath President nahi dilwate! High Court ke CJ dilwate hain!
+          </div>
+        </div>
+
+        <div class="sub-card p-4 space-y-2 border-2 border-olive" data-note-anchor="art-160">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 160: Contingencies</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-[10px]">President Appoints</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            President can make provisions as he thinks fit for the discharge of Governor's functions in unforeseen contingencies.
+          </p>
+        </div>
+
+        <div class="sub-card p-4 space-y-2 border-2 border-dark bg-gold/15" data-note-anchor="art-161">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 161: Pardoning Power</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[10px]">Pardons & Commutes</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Governor can grant pardons, reprieves, respites, remissions, or commute sentences for offenses against state laws.
+          </p>
+          <div class="trick-box p-2.5 rounded text-[11px] space-y-1">
+            <div class="text-gold font-bold">🚨 2 Differences vs President (Art 72):</div>
+            <div>1. Governor <span class="quiz-item">CANNOT pardon death sentence</span> (Only President can).</div>
+            <div>2. Governor has <span class="quiz-item">NO power over Court Martial</span> (Military court) sentences.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 03: CM, MINISTERS & ADVOCATE GENERAL (ARTICLES 163-167) -->
+    <section id="sec-ministers" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-ministers">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">03</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 163 to 167</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Chief Minister, Council of Ministers & Advocate General</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Real Executive Authority</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Article 163 -->
+        <div class="sub-card p-5 space-y-2" data-note-anchor="art-163">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 163: Council of Ministers to Aid & Advise</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-xs">Head: Chief Minister</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            There shall be a Council of Ministers with the Chief Minister at the head to aid and advise the Governor.
+          </p>
+          <div class="trick-box p-3 rounded-lg text-xs space-y-1.5">
+            <div class="font-bold text-gold">⭐ Huge Difference between Art 74 & Art 163:</div>
+            <p>
+              President ke liye Cabinet ki advice binding hoti hai (42nd/44th Amendment). Par Governor ke paas <strong>Constitutional Discretion</strong> hoti hai! Jahan Governor apne discretion se act karta hai, wahan CoM ki advice binding nahi hoti, aur Governor ka decision final hota hai!
+            </p>
+          </div>
+        </div>
+
+        <!-- Article 164 -->
+        <div class="sub-card p-5 space-y-2" data-note-anchor="art-164">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 164: Provisions as to Ministers</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-xs">Collective Responsibility</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1.5 list-disc list-inside leading-relaxed">
+            <li>CM appointed by Governor; other Ministers appointed by Governor on advice of CM.</li>
+            <li><strong>Collective Responsibility:</strong> Council of Ministers is collectively responsible to the <span class="quiz-item">Legislative Assembly</span> (Vidhan Sabha) of the state.</li>
+            <li><strong>6-Month Rule:</strong> Non-member can become Minister/CM, but must become MLA/MLC within <span class="quiz-item">6 consecutive months</span>, otherwise ceases to be a Minister.</li>
+            <li>Oaths of office and secrecy administered by <span class="quiz-item">Governor</span>.</li>
+            <li>Salaries determined by the State Legislature.</li>
+          </ul>
+        </div>
+
+        <!-- Article 165 -->
+        <div class="sub-card p-5 space-y-2" data-note-anchor="art-165">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 165: Advocate General for the State</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-xs">Highest Law Officer of State</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Corresponds to Attorney General of India (Art 76).
+          </p>
+          <ul class="text-xs text-dark/90 space-y-1 list-disc list-inside leading-relaxed">
+            <li>Appointed by: <span class="quiz-item">Governor</span>.</li>
+            <li>Qualification: Must be qualified to be appointed as a <span class="quiz-item">High Court Judge</span> (Citizen, 10 yrs judicial office or 10 yrs advocate in HC).</li>
+            <li>Tenure: Not fixed by Constitution. Holds office during the <span class="quiz-item">pleasure of the Governor</span>.</li>
+            <li>Remuneration: Determined by Governor.</li>
+          </ul>
+        </div>
+
+        <!-- Article 166 & 167 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-166-167">
+          <div class="border-b border-olive/30 pb-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-dark">Article 166: Conduct of Business</span>
+              <span class="gold-badge px-2 py-0.5 rounded text-[10px]">In Name of Governor</span>
+            </div>
+            <p class="text-xs text-dark/90 mt-1">
+              All executive actions of the Government of a State shall be expressed to be taken in the name of the <span class="quiz-item">Governor</span>.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-dark">Article 167: Duties of Chief Minister</span>
+              <span class="dark-badge px-2 py-0.5 rounded text-[10px]">Channel of Communication</span>
+            </div>
+            <p class="text-xs text-dark/90 mt-1">
+              CM acts as the chief bridge between CoM and Governor: communicates all decisions of administration and proposals for legislation to the Governor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: STATE LEGISLATURE STRUCTURE & BICAMERAL STATES (ARTICLES 168-170) -->
+    <section id="sec-legislature" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-legislature">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">04</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 168 to 170</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">State Legislature Structure & The 6 Bicameral States</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Vidhan Sabha & Parishad</span>
+      </div>
+
+      <!-- Article 168 Breakdown -->
+      <div class="sub-card p-5 space-y-3 bg-cream/70" data-note-anchor="art-168">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-base text-dark">Article 168: Constitution of Legislatures in States</span>
+          <span class="dark-badge px-2.5 py-0.5 rounded text-xs">Unicameral vs Bicameral</span>
+        </div>
+        <p class="text-xs md:text-sm text-dark/90 leading-relaxed">
+          Har state mein ek Legislature hoga jisme <strong>Governor + Legislative Assembly (Vidhan Sabha)</strong> honge, aur jahan do houses hain wahan <strong>Legislative Council (Vidhan Parishad)</strong> bhi hoga.
+        </p>
+
+        <!-- The 6 Bicameral States Mnemonic Box -->
+        <div class="trick-box p-4 rounded-xl space-y-2">
+          <div class="font-bold text-gold text-sm flex items-center gap-2">
+            <i class="fa-solid fa-key"></i> Parmar Sir's Mnemonic Trick for 6 Bicameral States: "KUMBAT" (or "AT BUMK")
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-2 text-center">
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">K</span>
+              <span class="text-xs font-bold text-cream">Karnataka</span>
+            </div>
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">U</span>
+              <span class="text-xs font-bold text-cream">Uttar Pradesh</span>
+            </div>
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">M</span>
+              <span class="text-xs font-bold text-cream">Maharashtra</span>
+            </div>
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">B</span>
+              <span class="text-xs font-bold text-cream">Bihar</span>
+            </div>
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">A</span>
+              <span class="text-xs font-bold text-cream">Andhra Pradesh</span>
+            </div>
+            <div class="bg-dark/80 p-2 rounded-lg border border-gold">
+              <span class="text-gold font-black text-lg block">T</span>
+              <span class="text-xs font-bold text-cream">Telangana</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-cream/70 pt-1">
+            *Notice: Jammu & Kashmir had LC before 2019 Reorganisation Act. Currently only these 6 states have Vidhan Parishad.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-gold/20 border border-gold text-xs font-semibold text-dark flex items-center justify-between">
+          <span>🏛️ <strong>3 UTs with Legislative Assemblies:</strong> Delhi, Puducherry, and Jammu & Kashmir.</span>
+          <span class="text-olive">Total UTs: 8 (Remaining 5 have no Assembly)</span>
+        </div>
+      </div>
+
+      <!-- Article 169 & Article 170 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Article 169 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-169">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 169: Creation or Abolition of Legislative Council</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-xs">Very High-Yield</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Agar kisi state mein Vidhan Parishad banana ya hatana ho, toh process kya hai?
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 rounded bg-cream border border-olive">
+              <strong>Step 1 (State Assembly):</strong> State Assembly passes resolution by <span class="quiz-item">Special Majority</span> (Majority of total membership + 2/3rd present & voting).
+            </div>
+            <div class="p-2.5 rounded bg-cream border border-olive">
+              <strong>Step 2 (Parliament):</strong> Parliament passes law creating/abolishing it by <span class="quiz-item">Simple Majority</span>!
+            </div>
+            <div class="trick-box p-2.5 rounded text-[11px]">
+              <strong>⚠️ Exam Favorite Fact:</strong> Under Art 169(3), this law is <span class="quiz-item">NOT considered an amendment under Article 368</span>!
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 170 -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-170">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 170: Composition of Legislative Assemblies (Vidhan Sabha)</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-xs">Directly Elected</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1.5 list-disc list-inside leading-relaxed">
+            <li>Members directly elected from territorial constituencies.</li>
+            <li><strong>Strength Limits:</strong> Minimum <span class="quiz-item">60 members</span>, Maximum <span class="quiz-item">500 members</span>.</li>
+            <li>Constituencies based on equal population-to-seat ratio.</li>
+          </ul>
+
+          <!-- Special Exceptions Box -->
+          <div class="p-3 rounded-lg bg-dark text-cream space-y-1.5 text-xs">
+            <span class="text-gold font-bold uppercase block text-[11px]"><i class="fa-solid fa-triangle-exclamation"></i> Special Exception States (Less than 60):</span>
+            <div class="grid grid-cols-2 gap-2 text-[11px] font-medium">
+              <div>• <strong>Sikkim:</strong> <span class="quiz-item">32 members</span> (min 30)</div>
+              <div>• <strong>Goa:</strong> <span class="quiz-item">40 members</span></div>
+              <div>• <strong>Mizoram:</strong> <span class="quiz-item">40 members</span></div>
+              <div>• <strong>Nagaland:</strong> <span class="quiz-item">46 members</span></div>
+              <div>• <strong>Arunachal Pradesh:</strong> <span class="quiz-item">60 (min 30 in law)</span></div>
+              <div>• <strong>Puducherry (UT):</strong> <span class="quiz-item">30 elected + 3 nom</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 05: LEGISLATIVE COUNCIL COMPOSITION & TERMS (ARTICLES 171-177) -->
+    <section id="sec-council-comp" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-council-comp">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">05</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 171 to 177</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Composition of Legislative Council (Article 171) & Terms</h3>
+          </div>
+        </div>
+        <span class="dark-badge px-3 py-1 rounded-full text-xs">5-Way Proportional Breakdown</span>
+      </div>
+
+      <!-- Size of LC -->
+      <div class="p-4 rounded-xl bg-gold/15 border-2 border-gold text-xs md:text-sm font-medium leading-relaxed">
+        <strong>Strength Rules of Legislative Council (Vidhan Parishad):</strong>
+        <ul class="list-disc list-inside mt-1 space-y-0.5">
+          <li><strong>Maximum strength:</strong> Shall not exceed <span class="quiz-item">1/3rd of total strength</span> of Legislative Assembly of that state.</li>
+          <li><strong>Minimum strength:</strong> Cannot be less than <span class="quiz-item">40 members</span>.</li>
+        </ul>
+      </div>
+
+      <!-- The 5-Way Electoral Composition of LC -->
+      <div class="space-y-3">
+        <h4 class="font-serif text-lg font-bold text-dark flex items-center gap-2">
+          <i class="fa-solid fa-chart-pie text-olive"></i> Article 171(3): How Members of Legislative Council are Chosen:
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <!-- 1/3 Local Bodies -->
+          <div class="sub-card p-4 space-y-2 border-2 border-dark bg-cream" data-note-anchor="lc-local">
+            <span class="dark-badge px-2 py-0.5 rounded text-xs font-black block text-center">1/3rd Elected</span>
+            <p class="font-bold text-dark text-center">Local Authorities</p>
+            <p class="text-[11px] text-dark/80 text-center leading-relaxed">
+              Elected by electorates consisting of members of Municipalities, District Boards, and other local authorities.
+            </p>
+          </div>
+
+          <!-- 1/12 Graduates -->
+          <div class="sub-card p-4 space-y-2 border-2 border-olive bg-cream" data-note-anchor="lc-grad">
+            <span class="gold-badge px-2 py-0.5 rounded text-xs font-black block text-center">1/12th Elected</span>
+            <p class="font-bold text-dark text-center">Graduates</p>
+            <p class="text-[11px] text-dark/80 text-center leading-relaxed">
+              Elected by persons residing in the state who have been <span class="quiz-item">Graduates for at least 3 years</span>.
+            </p>
+          </div>
+
+          <!-- 1/12 Teachers -->
+          <div class="sub-card p-4 space-y-2 border-2 border-olive bg-cream" data-note-anchor="lc-teach">
+            <span class="gold-badge px-2 py-0.5 rounded text-xs font-black block text-center">1/12th Elected</span>
+            <p class="font-bold text-dark text-center">Teachers</p>
+            <p class="text-[11px] text-dark/80 text-center leading-relaxed">
+              Elected by persons engaged for at least <span class="quiz-item">3 years in teaching</span> in educational institutions not lower than secondary school.
+            </p>
+          </div>
+
+          <!-- 1/3 MLAs -->
+          <div class="sub-card p-4 space-y-2 border-2 border-dark bg-cream" data-note-anchor="lc-mla">
+            <span class="dark-badge px-2 py-0.5 rounded text-xs font-black block text-center">1/3rd Elected</span>
+            <p class="font-bold text-dark text-center">By MLAs</p>
+            <p class="text-[11px] text-dark/80 text-center leading-relaxed">
+              Elected by members of Legislative Assembly (MLAs) from amongst persons who are <span class="quiz-item">NOT members</span> of the Assembly.
+            </p>
+          </div>
+
+          <!-- 1/6 Governor Nominated -->
+          <div class="sub-card p-4 space-y-2 border-2 border-gold bg-dark text-cream" data-note-anchor="lc-gov-nom">
+            <span class="bg-gold text-dark px-2 py-0.5 rounded text-xs font-black block text-center">1/6th Nominated</span>
+            <p class="font-bold text-gold text-center">By Governor</p>
+            <p class="text-[11px] text-cream/90 text-center leading-relaxed">
+              Nominated by Governor from 5 fields: <strong>Literature, Science, Art, Cooperative Movement, Social Service</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="trick-box p-3 rounded-lg text-xs flex items-center justify-between">
+          <span>⭐ <strong>Parmar Trick for Governor's 5 Fields:</strong> "LiSAS + Cooperative" (President nominates in RS for 4 fields: LISAS. Governor has 1 extra field: <strong>Cooperative Societies</strong>!)</span>
+        </div>
+      </div>
+
+      <!-- Articles 172 to 177 Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <!-- Article 172 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-172">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 172: Duration</span>
+            <span class="dark-badge px-1.5 py-0.5 rounded text-[10px]">Assembly vs Council</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            • <strong>Legislative Assembly:</strong> <span class="quiz-item">5 years</span> from date of first meeting unless dissolved earlier.<br>
+            • <strong>Legislative Council:</strong> <span class="quiz-item">Permanent body</span>, not subject to dissolution. <span class="quiz-item">1/3rd members retire every 2nd year</span>. Individual member term = <span class="quiz-item">6 years</span>.
+          </p>
+        </div>
+
+        <!-- Article 173 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-173">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 173: Qualifications</span>
+            <span class="gold-badge px-1.5 py-0.5 rounded text-[10px]">Ages: 25 vs 30</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            • Citizen of India.<br>
+            • <strong>MLA (Vidhan Sabha):</strong> Minimum <span class="quiz-item">25 years of age</span>.<br>
+            • <strong>MLC (Vidhan Parishad):</strong> Minimum <span class="quiz-item">30 years of age</span>.<br>
+            • Other qualifications as prescribed by Parliament (RPA 1951).
+          </p>
+        </div>
+
+        <!-- Article 174 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-174">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 174: Sessions</span>
+            <span class="dark-badge px-1.5 py-0.5 rounded text-[10px]">Max Gap: 6 Months</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            • Governor summons houses.<br>
+            • Maximum gap between two sessions: <span class="quiz-item">6 months</span>.<br>
+            • Governor can <strong>prorogue</strong> houses or <strong>dissolve</strong> the Legislative Assembly.
+          </p>
+        </div>
+
+        <!-- Article 175 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-175">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 175: Address/Messages</span>
+            <span class="gold-badge px-1.5 py-0.5 rounded text-[10px]">Governor's Right</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Governor has the right to address either House or both houses assembled together, and to send messages regarding pending bills.
+          </p>
+        </div>
+
+        <!-- Article 176 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-176">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 176: Special Address</span>
+            <span class="dark-badge px-1.5 py-0.5 rounded text-[10px]">2 Occasions</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Governor addresses Legislature at: (1) commencement of first session after general election, and (2) first session of each calendar year (Budget session).
+          </p>
+        </div>
+
+        <!-- Article 177 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-177">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">Article 177: Ministers & AG Rights</span>
+            <span class="gold-badge px-1.5 py-0.5 rounded text-[10px]">Speak vs Vote</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Ministers and Advocate General can speak & take part in proceedings of either House or any committee, but <span class="quiz-item">CANNOT vote</span> unless they are members of that House.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06: PRESIDING OFFICERS, QUORUM & DISQUALIFICATIONS (ARTICLES 178-195) -->
+    <section id="sec-officers" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-officers">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">06</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 178 to 195</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Presiding Officers, Voting, Quorum & Disqualifications</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Legislative Machinery</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Legislative Assembly Officers (Art 178-181) -->
+        <div class="sub-card p-5 space-y-3 bg-cream/70" data-note-anchor="la-officers">
+          <div class="flex items-center justify-between border-b border-olive/30 pb-2">
+            <span class="font-bold text-sm text-dark">Legislative Assembly Officers</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-xs">Speaker & Deputy Speaker</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1.5 leading-relaxed">
+            <li><strong>Article 178:</strong> Assembly chooses Speaker and Deputy Speaker from among its members.</li>
+            <li><strong>Article 179:</strong> Resignation: Speaker gives resignation to Deputy Speaker, and Deputy Speaker to Speaker. Removed by resolution passed by <span class="quiz-item">majority of all the then members</span> with 14 days' prior notice.</li>
+            <li><strong>Article 180:</strong> Deputy Speaker acts as Speaker when office vacant or absent.</li>
+            <li><strong>Article 181:</strong> Speaker/Deputy Speaker <span class="quiz-item">cannot preside</span> when resolution for their own removal is under consideration (though they can speak and vote in first instance).</li>
+          </ul>
+        </div>
+
+        <!-- Legislative Council Officers (Art 182-185) -->
+        <div class="sub-card p-5 space-y-3 bg-cream/70" data-note-anchor="lc-officers">
+          <div class="flex items-center justify-between border-b border-olive/30 pb-2">
+            <span class="font-bold text-sm text-dark">Legislative Council Officers</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-xs">Chairman & Deputy Chairman</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1.5 leading-relaxed">
+            <li><strong>Article 182:</strong> Council chooses Chairman and Deputy Chairman from among its members. *(Note: Unlike Rajya Sabha where Vice President is ex-officio Chairman, Vidhan Parishad Chairman is chosen from its OWN members!)*</li>
+            <li><strong>Article 183:</strong> Vacation/Removal similar to Speaker (resign to each other; 14 days notice).</li>
+            <li><strong>Article 184:</strong> Deputy Chairman acts as Chairman when vacant/absent.</li>
+            <li><strong>Article 185:</strong> Chairman/Deputy Chairman cannot preside when resolution for their removal is being considered.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Articles 186 to 195 Fast Reference Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border border-olive/40 rounded-xl overflow-hidden">
+          <thead class="bg-dark text-cream font-bold">
+            <tr>
+              <th class="p-3 text-left w-24">Article</th>
+              <th class="p-3 text-left w-48">Key Provision</th>
+              <th class="p-3 text-left">Detailed Concept & Exam Points</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-olive/20 font-medium">
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 186</td>
+              <td class="p-3 font-bold">Salaries of Presiding Officers</td>
+              <td class="p-3">Fixed by State Legislature, charged upon Consolidated Fund of the State (non-votable).</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 187</td>
+              <td class="p-3 font-bold">Secretariat of Legislature</td>
+              <td class="p-3">Each House has its separate secretarial staff; regulated by State Legislature.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 188</td>
+              <td class="p-3 font-bold">Oath by Members</td>
+              <td class="p-3">Administered by the <span class="quiz-item">Governor</span> or person appointed by him before taking seat.</td>
+            </tr>
+            <tr class="bg-gold/15">
+              <td class="p-3 font-bold text-dark">Article 189</td>
+              <td class="p-3 font-bold text-dark">Voting & Quorum ⭐</td>
+              <td class="p-3 text-dark">
+                (1) Majority of members present and voting.<br>
+                (2) Presiding officer votes only in case of a tie (<span class="quiz-item">Casting Vote</span>).<br>
+                (4) <strong>Quorum:</strong> <span class="quiz-item">10 members or 1/10th</span> (10%) of total membership, whichever is greater!
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 190</td>
+              <td class="p-3 font-bold">Vacation of Seats</td>
+              <td class="p-3">Seat becomes vacant if member is elected to both Houses, resigns, or is absent for <span class="quiz-item">60 consecutive days</span> without permission.</td>
+            </tr>
+            <tr class="bg-cream">
+              <td class="p-3 font-bold text-olive">Article 191</td>
+              <td class="p-3 font-bold">Disqualifications</td>
+              <td class="p-3">Office of profit, unsound mind, undischarged insolvent, non-citizen, or disqualified under 10th Schedule (Anti-defection law).</td>
+            </tr>
+            <tr class="bg-gold/15">
+              <td class="p-3 font-bold text-dark">Article 192</td>
+              <td class="p-3 font-bold text-dark">Decision on Disqualification ⭐</td>
+              <td class="p-3 text-dark">
+                Decided by the <span class="quiz-item">Governor</span> whose decision is final, but Governor MUST obtain opinion of <span class="quiz-item">Election Commission of India (ECI)</span> and act according to such opinion! *(Note: 10th Schedule defection is decided by Speaker/Chairman, not Governor!)*
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 193</td>
+              <td class="p-3 font-bold">Penalty for Illegal Sitting</td>
+              <td class="p-3">Penalty of <span class="quiz-item">₹500 per day</span> if person sits or votes without taking oath or when disqualified.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-olive">Article 194</td>
+              <td class="p-3 font-bold">Powers & Privileges</td>
+              <td class="p-3">Freedom of speech in Legislature; immunity from court proceedings for anything said or vote given.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 07: HOW BILLS PASS & THE GOLDEN EXAM TRAP (ARTICLES 196-199) -->
+    <section id="sec-bills" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-bills">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">07</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 196 to 199</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Legislative Procedure: Passing of Bills & The "No Joint Sitting" Rule</h3>
+          </div>
+        </div>
+        <span class="dark-badge px-3 py-1 rounded-full text-xs">#1 Most Asked SSC Topic</span>
+      </div>
+
+      <!-- Critical Alert: NO Joint Sitting -->
+      <div class="trick-box p-4 rounded-xl space-y-2 border-l-8 border-gold">
+        <div class="text-gold font-black text-sm md:text-base flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-xl"></i> THE ULTIMATE EXAM TRAP: NO JOINT SITTING IN STATE LEGISLATURE!
+        </div>
+        <p class="text-xs md:text-sm text-cream/95 leading-relaxed font-medium">
+          Parliament mein Article 108 ke tahat President deadlock solve karne ke liye <strong>Joint Sitting</strong> bula sakta hai. Lekin Constitution ke Part VI mein <strong>State Legislature ke liye Joint Sitting ka KOI PROVISION NAHI HAI!</strong> State mein Legislative Assembly (Vidhan Sabha) supreme hoti hai!
+        </p>
+      </div>
+
+      <!-- Article 196 & 197 Flowchart -->
+      <div class="space-y-4">
+        <h4 class="font-serif text-lg font-bold text-dark">Article 196 & 197: Life Cycle of an Ordinary Bill in Bicameral State</h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- When Bill Originates in Assembly -->
+          <div class="sub-card p-5 space-y-3 border-2 border-dark bg-cream" data-note-anchor="bill-la">
+            <span class="dark-badge px-2.5 py-1 rounded text-xs font-bold block w-fit">Case 1: Bill Originates in Legislative Assembly</span>
+            <p class="text-xs text-dark/90 leading-relaxed font-medium">
+              Vidhan Sabha bill pass karke Vidhan Parishad (LC) ko bhejti hai. Ab LC ke paas kya powers hain?
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded bg-dark text-cream">
+                <strong>1st Instance (Pehli Baar):</strong> LC bill ko reject kar de, ya amend kare jo LA ko manjoor na ho, ya <strong>3 Months</strong> tak koi action na le ➔ LA bill ko dobara pass karti hai!
+              </div>
+              <div class="p-2.5 rounded bg-dark text-cream">
+                <strong>2nd Instance (Doosri Baar):</strong> Dobara pass hokar aane par LC use sirf <strong>1 Month</strong> tak delay kar sakti hai! 1 month baad bill dono houses se pass maan liya jata hai!
+              </div>
+              <div class="p-2.5 rounded bg-gold text-dark font-bold border border-dark">
+                🎯 Total Delay by Legislative Council = 3 Months + 1 Month = <span class="quiz-item">MAX 4 MONTHS</span>! LC bill ko cancel nahi kar sakti!
+              </div>
+            </div>
+          </div>
+
+          <!-- When Bill Originates in Council -->
+          <div class="sub-card p-5 space-y-3 border-2 border-olive bg-cream" data-note-anchor="bill-lc">
+            <span class="gold-badge px-2.5 py-1 rounded text-xs font-bold block w-fit">Case 2: Bill Originates in Legislative Council</span>
+            <p class="text-xs text-dark/90 leading-relaxed font-medium">
+              Agar bill pehle Vidhan Parishad (LC) mein originate hota hai aur pass hokar Vidhan Sabha (LA) mein jata hai:
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded bg-red-100 border border-red-300 text-red-950 font-medium">
+                <strong>If Assembly Rejects the Bill:</strong> Bill immediately <span class="quiz-item font-bold">LAPSES</span> (khatam ho jata hai)!
+              </div>
+              <p class="text-[11px] text-dark/80 leading-relaxed">
+                Vidhan Parishad ke paas Legislative Assembly ko force karne ki ZERO power hai. Assembly agar reject karegi toh bill wahi dead ho jayega!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Money Bills: Article 198 & 199 -->
+      <div class="sub-card p-5 space-y-3 border-2 border-gold bg-gold/10" data-note-anchor="money-bill-state">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-base text-dark">Articles 198 & 199: Money Bills in State Legislature</span>
+          <span class="dark-badge px-2.5 py-0.5 rounded text-xs">Exactly like Lok Sabha</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <ul class="space-y-1.5 list-disc list-inside leading-relaxed text-dark/90 font-medium">
+            <li>Money Bill can be introduced <strong>ONLY in the Legislative Assembly</strong>, never in Legislative Council.</li>
+            <li>Requires <strong>prior recommendation of the Governor</strong>.</li>
+            <li>Speaker of Legislative Assembly decides whether a bill is a Money Bill (Art 199).</li>
+          </ul>
+          <ul class="space-y-1.5 list-disc list-inside leading-relaxed text-dark/90 font-medium">
+            <li>Legislative Council cannot reject or amend; can only recommend.</li>
+            <li>LC must return the bill within <span class="quiz-item font-bold">14 days</span>!</li>
+            <li>If LC does not return within 14 days, bill is deemed passed in original form.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 08: GOVERNOR'S ASSENT & STATE BUDGET (ARTICLES 200-207) -->
+    <section id="sec-budget-ord" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-budget-ord">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">08</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Articles 200 to 213</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Governor's Assent, Reservation for President, Budget & Ordinance</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Veto & Financial System</span>
+      </div>
+
+      <!-- Article 200: 4 Options of Governor on Bills -->
+      <div class="sub-card p-5 space-y-3" data-note-anchor="art-200">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-base text-dark">Article 200: Governor's Assent to Bills (4 Options)</span>
+          <span class="dark-badge px-2.5 py-0.5 rounded text-xs font-mono">Art 200</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3 rounded-lg bg-cream border border-olive">
+            <span class="font-bold text-dark block mb-1">1. Give Assent</span>
+            <p class="text-dark/80">Bill becomes an Act immediately.</p>
+          </div>
+          <div class="p-3 rounded-lg bg-cream border border-olive">
+            <span class="font-bold text-dark block mb-1">2. Withhold Assent</span>
+            <p class="text-dark/80">Bill ends and does not become an Act.</p>
+          </div>
+          <div class="p-3 rounded-lg bg-cream border border-olive">
+            <span class="font-bold text-dark block mb-1">3. Return for Reconsideration</span>
+            <p class="text-dark/80">If not Money Bill. If passed again by Assembly, Governor <strong>must give assent</strong>!</p>
+          </div>
+          <div class="p-3 rounded-lg bg-dark text-cream border border-gold">
+            <span class="font-bold text-gold block mb-1">4. Reserve for President ⭐</span>
+            <p class="text-cream/80">Mandatory if bill endangers constitutional position of State High Court!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 201: President's Action on Reserved State Bill -->
+      <div class="sub-card p-5 space-y-2 bg-cream/80" data-note-anchor="art-201">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-sm text-dark">Article 201: Bills Reserved for President's Consideration</span>
+          <span class="gold-badge px-2 py-0.5 rounded text-xs font-mono">Art 201</span>
+        </div>
+        <p class="text-xs text-dark/90 leading-relaxed font-medium">
+          Jab Governor bill President ke liye reserve kar deta hai, toh President kya kar sakta hai?
+        </p>
+        <div class="trick-box p-3 rounded-lg text-xs space-y-1">
+          <div>• President assent de sakta hai ya withhold kar sakta hai.</div>
+          <div>• President Governor ko bill lautaane ka nirdesh de sakta hai (state legislature ko 6 months mein reconsider karna hoga).</div>
+          <div>• <strong>⭐ HUGE TRAP:</strong> Agar State Legislature bill ko dobara pass kar de, tab bhi <strong>President assent dene ke liye BOUND NAHI HAI!</strong> (Governor bound hota hai, par President bound nahi hota!).</div>
+        </div>
+      </div>
+
+      <!-- Financial Provisions: Articles 202 to 207 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Budget -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-202">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Article 202: Annual Financial Statement</span>
+            <span class="dark-badge px-2 py-0.5 rounded text-[11px]">State Budget (112 + 90)</span>
+          </div>
+          <p class="text-xs text-dark/90 leading-relaxed">
+            Governor causes to be laid before the Legislature the Annual Financial Statement of the state. Word "Budget" is not mentioned in Constitution.
+          </p>
+        </div>
+
+        <!-- Grants & Appropriation -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-203-207">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-dark">Articles 203-207: Grants & Financial Bills</span>
+            <span class="gold-badge px-2 py-0.5 rounded text-[11px]">Governor Recommendation</span>
+          </div>
+          <ul class="text-xs text-dark/90 space-y-1 list-disc list-inside leading-relaxed font-medium">
+            <li><strong>Art 203:</strong> Demands for Grants made only on recommendation of Governor.</li>
+            <li><strong>Art 204:</strong> Appropriation Bill (no money withdrawn from Cons. Fund without it).</li>
+            <li><strong>Art 205:</strong> Supplementary, Additional & Excess Grants.</li>
+            <li><strong>Art 206:</strong> Vote on Account & Vote of Credit.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Article 213: Ordinance Power of Governor -->
+      <div class="sub-card p-5 space-y-3 bg-dark text-cream border-2 border-gold" data-note-anchor="art-213">
+        <div class="flex items-center justify-between border-b border-gold/40 pb-2">
+          <span class="font-bold text-base text-gold">Article 213: Governor's Ordinance Making Power (123 + 90)</span>
+          <span class="gold-badge px-2.5 py-0.5 rounded text-xs font-mono">Recess of Legislature</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed text-cream/90">
+          <div>
+            • Promulgated only when <strong>both houses (or single house) are not in session</strong>.<br>
+            • Must be satisfied that circumstances require immediate action.<br>
+            • Same force and effect as an Act of State Legislature.
+          </div>
+          <div>
+            • <strong>Life of Ordinance:</strong> Must be approved within <span class="quiz-item font-bold text-gold">6 weeks</span> from reassembly of Legislature!<br>
+            • <strong>Maximum Life:</strong> <span class="quiz-item font-bold text-gold">6 months + 6 weeks</span>.<br>
+            • Cannot make ordinance on matters requiring President's prior sanction without President's instructions.
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 208-212 & Courts Preview -->
+      <div class="p-3 rounded-xl bg-cream border border-olive text-xs space-y-1 font-medium">
+        <div class="font-bold text-dark">Remaining Key Articles in Chapter III & IV of Part VI:</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
+          <div>• <strong>Art 210:</strong> Language (Hindi, English, or Mother Tongue allowed by Speaker).</div>
+          <div>• <strong>Art 211:</strong> No discussion on conduct of HC/SC judges.</div>
+          <div>• <strong>Art 212:</strong> Courts not to inquire into proceedings of Legislature.</div>
+        </div>
+        <div class="pt-2 text-[11px] text-olive font-bold">
+          • Articles 214-231: High Courts in the States | Articles 233-237: Subordinate Courts
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 09: EXAM TRAPS & SIDE-BY-SIDE COMPARISONS -->
+    <section id="sec-traps" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-traps">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">09</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Confusions & Traps</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Side-by-Side Exam Comparisons (President vs Governor)</h3>
+          </div>
+        </div>
+        <span class="gold-badge px-3 py-1 rounded-full text-xs">Direct Marks Booster</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border border-olive/40 rounded-xl overflow-hidden">
+          <thead class="bg-dark text-cream font-bold">
+            <tr>
+              <th class="p-3 text-left">Parameter</th>
+              <th class="p-3 text-left bg-dark/90 text-gold">President (Union)</th>
+              <th class="p-3 text-left">Governor (State)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-olive/20 font-medium">
+            <tr>
+              <td class="p-3 font-bold">Election / Selection</td>
+              <td class="p-3 bg-gold/5">Elected by Electoral College (MPs + MLAs via PR+STV)</td>
+              <td class="p-3">Appointed directly by President (warrant under hand and seal)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Oath Administered By</td>
+              <td class="p-3 bg-gold/5">Chief Justice of India (CJI)</td>
+              <td class="p-3 font-bold text-dark"><span class="quiz-item">Chief Justice of High Court</span> (Not President!)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Death Penalty Pardon</td>
+              <td class="p-3 bg-gold/5 font-bold text-emerald-800">Can completely Pardon (Art 72)</td>
+              <td class="p-3 font-bold text-rose-800"><span class="quiz-item">CANNOT pardon death sentence</span> (Art 161)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Court Martial (Military)</td>
+              <td class="p-3 bg-gold/5">Has power to pardon/commute</td>
+              <td class="p-3 font-bold text-rose-800"><span class="quiz-item">NO power</span> over military courts</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Cabinet Advice Binding?</td>
+              <td class="p-3 bg-gold/5">Binding (42nd & 44th Amendments)</td>
+              <td class="p-3"><strong>NOT binding</strong> in discretionary matters (Art 163)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Joint Sitting Power</td>
+              <td class="p-3 bg-gold/5 font-bold text-emerald-800">Can summon Joint Sitting (Art 108)</td>
+              <td class="p-3 font-bold text-rose-800"><span class="quiz-item">NO Joint Sitting exists</span> in States!</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Nomination to Upper House</td>
+              <td class="p-3 bg-gold/5">12 members in Rajya Sabha (4 fields: LISAS)</td>
+              <td class="p-3"><strong>1/6th</strong> in Legislative Council (5 fields: LISAS + <strong>Cooperative</strong>)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Ordinance Power</td>
+              <td class="p-3 bg-gold/5 font-mono">Article 123</td>
+              <td class="p-3 font-mono font-bold"><span class="quiz-item">Article 213</span> (123 + 90)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 10: INTERACTIVE EXAM PRACTICE DRILL (MCQ ENGINE) -->
+    <section id="sec-quiz" class="note-card rounded-2xl p-6 md:p-8 space-y-6" data-note-anchor="sec-quiz">
+      <div class="border-b-2 border-olive/30 pb-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-dark text-gold font-black flex items-center justify-center text-sm">10</span>
+          <div>
+            <span class="text-xs font-bold text-olive uppercase tracking-widest block">Self-Assessment Engine</span>
+            <h3 class="font-serif text-2xl font-bold text-dark">Real Exam PYQ Drill: State Legislature</h3>
+          </div>
+        </div>
+        <button onclick="resetQuiz()" class="px-3 py-1 rounded-lg text-xs font-bold border-2 border-dark bg-cream hover:bg-gold transition">
+          <i class="fa-solid fa-arrow-rotate-right mr-1"></i> Reset Quiz
+        </button>
+      </div>
+
+      <p class="text-xs text-dark/80 font-medium">
+        Test your mastery of Articles 152–237 with these real SSC CGL, CHSL, CPO and State PCS exam questions. Click an option for immediate feedback and deep explanations!
+      </p>
+
+      <div id="quizContainer" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 3. NOTES DRAWER BACKDROP & DRAWER -->
+  <div id="notesDrawerBackdrop" onclick="toggleDrawer(false)" class="fixed inset-0 bg-dark/60 backdrop-blur-xs z-50 hidden no-print transition-opacity"></div>
+
+  <div id="notesDrawer" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-cream border-l-4 border-gold z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col no-print">
+    <div class="p-4 bg-dark text-cream flex items-center justify-between border-b-2 border-gold">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <h3 class="font-serif font-bold text-base">My Custom Study Notes</h3>
+      </div>
+      <button onclick="toggleDrawer(false)" class="w-8 h-8 rounded-lg bg-cream/10 hover:bg-gold hover:text-dark text-cream transition flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Notes List Container -->
+    <div id="savedNotesList" class="flex-1 overflow-y-auto p-4 space-y-3">
+      <!-- Populated via JS -->
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="p-3 bg-dark/10 border-t border-olive/30 flex items-center justify-between gap-2">
+      <button onclick="exportNotesToTxt()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition flex items-center gap-1.5">
+        <i class="fa-solid fa-download"></i> Export .TXT
+      </button>
+      <button onclick="clearAllNotes()" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-red-700 text-red-800 hover:bg-red-800 hover:text-cream transition">
+        Clear All
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. NOTE ENTRY MODAL (CLICK-TO-NOTE) -->
+  <div id="noteModalBackdrop" class="fixed inset-0 bg-dark/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4 no-print">
+    <div class="note-card rounded-2xl max-w-lg w-full p-6 space-y-4 bg-cream">
+      <div class="flex items-center justify-between border-b border-olive/30 pb-2">
+        <h4 class="font-serif font-bold text-lg text-dark flex items-center gap-2">
+          <i class="fa-solid fa-pen-nib text-olive"></i> Add Custom Study Note
+        </h4>
+        <button onclick="closeNoteModal()" class="text-dark/60 hover:text-dark text-lg font-bold">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p id="modalTargetContext" class="text-xs text-dark/70 font-mono bg-gold/15 p-2 rounded truncate"></p>
+      <input
+        id="noteTitleInput"
+        type="text"
+        placeholder="Note Title / Key Memory Anchor (e.g. Governor vs President Trap)"
+        class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream text-dark text-sm font-semibold focus:outline-none"
+      />
+      <textarea
+        id="noteBodyInput"
+        rows="4"
+        placeholder="Write your personal mnemonics, teacher notes, or revision points here..."
+        class="w-full px-3 py-2 rounded-lg border-2 border-olive bg-cream text-dark text-sm font-medium focus:outline-none"
+      ></textarea>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeNoteModal()" class="px-4 py-1.5 rounded-lg text-xs font-bold border border-dark hover:bg-dark/10 transition">
+          Cancel
+        </button>
+        <button onclick="saveCurrentNote()" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-dark text-gold hover:bg-gold hover:text-dark transition flex items-center gap-1.5">
+          <i class="fa-solid fa-check"></i> Save Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    const STORAGE_KEY = 'parmar_polity_notes_state_legislature';
+    let savedNotes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let activeAnchorId = null;
+    let isClickNoteMode = false;
+    let isSelfTestActive = false;
+
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // 2. Section Jump
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        el.classList.add('section-active-pulse');
+        setTimeout(() => el.classList.remove('section-active-pulse'), 2800);
+      }
+    }
+
+    // 3. Self-Test Blur Toggle
+    function toggleSelfTestMode() {
+      isSelfTestActive = !isSelfTestActive;
+      document.body.classList.toggle('self-test-active', isSelfTestActive);
+      document.getElementById('selfTestStatus').innerText = isSelfTestActive ? 'ON' : 'OFF';
+      const btn = document.getElementById('selfTestBtn');
+      if (isSelfTestActive) {
+        btn.classList.add('bg-gold', 'text-dark');
+        btn.classList.remove('bg-olive/40', 'text-cream');
+      } else {
+        btn.classList.remove('bg-gold', 'text-dark');
+        btn.classList.add('bg-olive/40', 'text-cream');
+      }
+    }
+
+    // Click to reveal quiz blur item
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('quiz-item')) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    // 4. Live Search Engine
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearchBtn');
+
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      clearBtn.classList.toggle('hidden', !val);
+      document.querySelectorAll('[data-note-anchor]').forEach(el => {
+        if (!val) {
+          el.style.display = '';
+          return;
+        }
+        const text = el.innerText.toLowerCase();
+        el.style.display = text.includes(val) ? '' : 'none';
+      });
+    });
+
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearBtn.classList.add('hidden');
+      document.querySelectorAll('[data-note-anchor]').forEach(el => el.style.display = '');
+    });
+
+    // 5. Interactive Notes System
+    function initNoteAnchors() {
+      document.querySelectorAll('[data-note-anchor]').forEach(el => {
+        if (!el.querySelector('.note-trigger-btn')) {
+          const btn = document.createElement('button');
+          btn.className = 'note-trigger-btn absolute top-2 right-2 bg-dark text-gold hover:bg-gold hover:text-dark px-2 py-1 rounded text-[10px] font-bold border border-gold shadow transition z-20 no-print flex items-center gap-1';
+          btn.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Note';
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            openNoteModal(el.getAttribute('data-note-anchor'), el.innerText.slice(0, 50) + '...');
+          };
+          el.appendChild(btn);
+        }
+      });
+    }
+
+    function toggleClickToNoteMode() {
+      isClickNoteMode = !isClickNoteMode;
+      document.body.classList.toggle('click-note-mode', isClickNoteMode);
+      document.getElementById('clickNoteStatus').innerText = isClickNoteMode ? 'ON' : 'OFF';
+      const badge = document.getElementById('cursorBadge');
+      badge.classList.toggle('hidden', !isClickNoteMode);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isClickNoteMode) return;
+      const badge = document.getElementById('cursorBadge');
+      badge.style.left = (e.clientX + 16) + 'px';
+      badge.style.top = (e.clientY + 16) + 'px';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!isClickNoteMode) return;
+      const target = e.target.closest('[data-note-anchor]');
+      if (target) {
+        openNoteModal(target.getAttribute('data-note-anchor'), target.innerText.slice(0, 50) + '...');
+      }
+    });
+
+    function openNoteModal(anchorId, preview) {
+      activeAnchorId = anchorId;
+      document.getElementById('modalTargetContext').innerText = `Target: ${anchorId} (${preview})`;
+      document.getElementById('noteTitleInput').value = '';
+      document.getElementById('noteBodyInput').value = '';
+      document.getElementById('noteModalBackdrop').classList.remove('hidden');
+      document.getElementById('noteTitleInput').focus();
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModalBackdrop').classList.add('hidden');
+      activeAnchorId = null;
+    }
+
+    function saveCurrentNote() {
+      const title = document.getElementById('noteTitleInput').value.trim() || 'Untitled Note';
+      const body = document.getElementById('noteBodyInput').value.trim();
+      if (!body) return;
+
+      const note = {
+        id: 'note_' + Date.now(),
+        anchorId: activeAnchorId,
+        title,
+        body,
+        createdAt: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+
+      savedNotes.push(note);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderAllSavedNotes();
+      closeNoteModal();
+      toggleDrawer(true);
+    }
+
+    function renderAllSavedNotes() {
+      const container = document.getElementById('savedNotesList');
+      const badge = document.getElementById('savedNotesCountBadge');
+      badge.innerText = savedNotes.length;
+
+      if (!savedNotes.length) {
+        container.innerHTML = `
+          <div class="text-center py-12 text-dark/60 space-y-2">
+            <i class="fa-solid fa-pen-to-square text-3xl"></i>
+            <p class="text-xs font-bold">No custom notes saved yet.</p>
+            <p class="text-[11px]">Hover over any card or enable Click-to-Note to add notes!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = savedNotes.map(n => `
+        <div class="sub-card p-3 space-y-1.5 border-2 border-olive bg-cream">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-dark">${escapeHtml(n.title)}</span>
+            <button onclick="deleteNote('${n.id}')" class="text-red-700 hover:text-red-900 text-xs">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <p class="text-xs text-dark/90 font-medium whitespace-pre-wrap">${escapeHtml(n.body)}</p>
+          <div class="flex items-center justify-between text-[10px] text-dark/60 font-mono pt-1 border-t border-olive/20">
+            <span>Anchor: ${n.anchorId}</span>
+            <span>${n.createdAt}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function deleteNote(id) {
+      savedNotes = savedNotes.filter(n => n.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderAllSavedNotes();
+    }
+
+    function clearAllNotes() {
+      if (!confirm('Clear all your saved notes for this chapter?')) return;
+      savedNotes = [];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderAllSavedNotes();
+    }
+
+    function toggleDrawer(open) {
+      const drawer = document.getElementById('notesDrawer');
+      const backdrop = document.getElementById('notesDrawerBackdrop');
+      drawer.style.transform = open ? 'translateX(0)' : 'translateX(100%)';
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function exportNotesToTxt() {
+      if (!savedNotes.length) {
+        alert('No saved notes to export!');
+        return;
+      }
+      let txt = '=== PARMAR SSC: STATE LEGISLATURE & EXECUTIVE — MY STUDY NOTES ===\n\n';
+      savedNotes.forEach((n, i) => {
+        txt += `[${i + 1}] ${n.title} (${n.createdAt})\nAnchor: ${n.anchorId}\n${n.body}\n--------------------------------------------------\n\n`;
+      });
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'State_Legislature_Parmar_Notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    // 6. Interactive Quiz Engine
+    const quizData = [
+      {
+        q: "Q1. Under the Constitution of India, which Constitutional Amendment Act allowed the appointment of the same person as Governor of two or more states?",
+        options: [
+          "1st Constitutional Amendment Act, 1951",
+          "7th Constitutional Amendment Act, 1956",
+          "42nd Constitutional Amendment Act, 1976",
+          "44th Constitutional Amendment Act, 1978"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: 7th Constitutional Amendment Act, 1956 ne Article 153 mein provision joda ki ek hi person ko do ya do se zyada states ka common Governor banaya ja sakta hai!"
+      },
+      {
+        q: "Q2. Who administers the Oath of office to the Governor of a State under Article 159?",
+        options: [
+          "President of India",
+          "Chief Justice of India (CJI)",
+          "Chief Justice of the concerned High Court",
+          "Chief Minister of the State"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Article 159 ke mutabik Governor ko oath Chief Justice of the High Court of that state dilwate hain (ya unke absence mein senior-most judge of HC). President sirf appoint karte hain, oath nahi dilwate!"
+      },
+      {
+        q: "Q3. Which of the following powers is NOT possessed by the Governor under Article 161 as compared to the President under Article 72?",
+        options: [
+          "Power to commute a sentence of rigorous imprisonment",
+          "Power to grant pardons in case of death sentence",
+          "Power to remit punishment for offense against state law",
+          "Power to grant reprieve"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Governor death sentence ko PARDON (poori tarah maaf) nahi kar sakta—death sentence ko pardon karne ki power sirf aur sirf President of India (Art 72) ke paas hoti hai! Governor use suspend, remit ya commute kar sakta hai par pardon nahi!"
+      },
+      {
+        q: "Q4. Currently, how many States in India have a Bicameral Legislature (having both Legislative Assembly and Legislative Council)?",
+        options: [
+          "5 States",
+          "6 States",
+          "7 States",
+          "8 States"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Bharat mein currently sirf 6 states mein Legislative Council (Vidhan Parishad) hai: Karnataka, Uttar Pradesh, Maharashtra, Bihar, Andhra Pradesh, Telangana (Mnemonic: KUMBAT)! J&K 2019 ke baad UT ban gaya."
+      },
+      {
+        q: "Q5. What is the MAXIMUM period for which an Ordinary Bill can be delayed by the Legislative Council (Vidhan Parishad) under Article 197?",
+        options: [
+          "14 Days",
+          "3 Months",
+          "4 Months",
+          "6 Months"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Jab Legislative Assembly bill pass karke bhejti hai, toh pehli baar mein Legislative Council max 3 months rok sakti hai, aur doosri baar mein max 1 month rok sakti hai. Total Maximum Delay = 3 + 1 = 4 Months! Iske baad bill dono houses se pass maan liya jata hai."
+      },
+      {
+        q: "Q6. In the composition of the Legislative Council under Article 171, what fraction of members are nominated by the Governor from literature, science, art, cooperative movement, and social service?",
+        options: [
+          "1/3rd of total members",
+          "1/6th of total members",
+          "1/10th of total members",
+          "1/12th of total members"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Article 171(3)(e) ke mutabik 1/6th members Governor dwara nominate kiye jaate hain. (1/3rd Local bodies, 1/12th Graduates, 1/12th Teachers, 1/3rd MLAs, aur 1/6th Governor nominated: LISAS + Cooperative)."
+      },
+      {
+        q: "Q7. If there is a deadlock between the Legislative Assembly and Legislative Council on an Ordinary Bill, what is the provision for resolving it under Part VI?",
+        options: [
+          "Governor summons a Joint Sitting under Article 108",
+          "President refers the bill to the Supreme Court",
+          "There is NO provision for a Joint Sitting in State Legislature; the Assembly's will prevails",
+          "The bill is sent to a joint committee of both houses"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Constitution mein State Legislature ke liye Joint Sitting ka KOI PROVISION NAHI HAI! Article 108 sirf Parliament ke liye hai. State mein Vidhan Sabha (Legislative Assembly) hi supreme hoti hai aur uska decision final hota hai."
+      },
+      {
+        q: "Q8. What is the maximum life of an Ordinance promulgated by the Governor under Article 213?",
+        options: [
+          "6 Months only",
+          "6 Weeks only",
+          "6 Months and 6 Weeks",
+          "1 Year"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Legislature ke do sessions ke beech maximum gap 6 months ho sakta hai, aur reassembly ke baad ordinance 6 weeks tak rehta hai bina approval ke. Hence, Maximum Life = 6 Months + 6 Weeks!"
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizData.map((item, qIdx) => `
+        <div class="sub-card p-5 space-y-3" data-note-anchor="quiz-q-${qIdx}">
+          <p class="font-bold text-sm md:text-base">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map((opt, oIdx) => `
+              <button
+                type="button"
+                id="q${qIdx}_opt${oIdx}"
+                onclick="answerQuiz(${qIdx}, ${oIdx})"
+                class="w-full text-left px-3.5 py-2 rounded-lg border border-olive bg-cream hover:bg-gold/25 text-xs md:text-sm font-medium transition flex items-center justify-between"
+              >
+                <span>${opt}</span>
+                <span class="status-icon"></span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="q${qIdx}_exp" class="hidden trick-box p-3 rounded-lg text-xs leading-relaxed">
+            ${item.explanation}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function answerQuiz(qIdx, selectedIdx) {
+      const item = quizData[qIdx];
+      item.options.forEach((_, oIdx) => {
+        const btn = document.getElementById(`q${qIdx}_opt${oIdx}`);
+        btn.disabled = true;
+        const iconSpan = btn.querySelector('.status-icon');
+        if (oIdx === item.correct) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-dark bg-gold text-dark text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '✅';
+        } else if (oIdx === selectedIdx) {
+          btn.className = 'w-full text-left px-3.5 py-2 rounded-lg border-2 border-red-800 bg-red-100 text-red-950 text-xs md:text-sm font-bold flex items-center justify-between';
+          iconSpan.innerHTML = '❌';
+        }
+      });
+      document.getElementById(`q${qIdx}_exp`).classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+    }
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+      initNoteAnchors();
+      renderAllSavedNotes();
+    });
+  </script>
+</body>
+</html>

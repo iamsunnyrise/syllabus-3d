@@ -461,6 +461,24 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for Joint Sittings: DBP (Dowry 1960, Banking 1977, POTA 2002). Trick for Cut Motions: PET (Policy Rs 1, Economy Specified, Token Rs 100). Ordinance: Art 123 (Pres) vs Art 213 (Gov). PAC: 22 members (CAG guide).'
   },
   {
+    id: 'ga-polity-state-legislature',
+    subject: 'Polity',
+    title: 'State Legislature & Executive',
+    badge: 'Chapter 10 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/state_legislature.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. Art 152-162: State Executive & Governor', detail: 'Part VI (Art 152-237). 4 Pillars: Governor + CM + CoM + Advocate General (No Vice-Gov!). Art 153: Common Gov for 2+ states (7th CA 1956). Art 155: Appointed by President (Pleasure Art 156, 5 yrs). Art 157: Min 35 yrs, Citizen. Art 159: Oath by CJ of High Court. Art 161: Cannot pardon death sentence or court martial.' },
+      { label: '02. Magic Mapping Formula (+89 & +90)', detail: 'Art 72-111 + 89 = State Legislature (74+89=163 CoM, 75+89=164 CM, 76+89=165 Adv Gen, 79+89=168 State Leg). Art 112-124 + 90 = State Legislature (112+90=202 Budget, 123+90=213 Ordinance). Replacements: Pres->Gov, PM->CM, Attorney Gen->Advocate Gen.' },
+      { label: '03. Art 163-167: CM & Advocate General', detail: 'Art 163: CoM to aid/advise; Governor discretionary advice not binding. Art 164: CoM collectively responsible to Legislative Assembly; 6-month non-member rule. Art 165: Advocate General (1st law officer, qualified to be HC Judge, pleasure of Gov). Art 167: CM duties.' },
+      { label: '04. Art 168-170: 6 Bicameral States (KUMBAT)', detail: 'Art 168: 6 States with Legislative Council: KUMBAT (Karnataka, UP, Maharashtra, Bihar, Andhra Pradesh, Telangana). 3 UTs with Assembly: Delhi, Puducherry, J&K. Art 169: Abolish/Create LC (Assembly Special Majority + Parliament Simple Majority; NOT Art 368 amendment!). Art 170: Assembly 60-500 members (Sikkim 32, Goa 40, Mizoram 40, Nagaland 46).' },
+      { label: '05. Art 171-177: Vidhan Parishad 5-Way Split', detail: 'Art 171: Max 1/3 of Assembly, Min 40. Electoral split: 1/3 Local bodies, 1/12 Graduates (3 yrs), 1/12 Teachers (3 yrs), 1/3 MLAs, 1/6 Governor Nominated (LiSAS + Cooperative movement). Art 172: Assembly 5 yrs, Council permanent (1/3 retire every 2 yrs, 6 yr term). Age: MLA 25, MLC 30. Quorum: 10 or 10% (Art 189).' },
+      { label: '06. Art 196-213: No Joint Sitting & Ordinance', detail: 'GOLDEN TRAP: NO Joint Sitting in State Legislature! Ordinary Bill: LC can only delay for MAX 4 MONTHS (3 mo 1st + 1 mo 2nd instance); if bill starts in LC and Assembly rejects, it LAPSES. Money Bill: Only in Assembly, Gov recommendation, LC gets max 14 days. Art 200/201: Reservation for President. Art 213: Governor Ordinance (6 mo + 6 wks).' }
+    ],
+    summaryNote: 'Trick for 6 Bicameral States: KUMBAT (KA, UP, MH, BR, AP, TS). Trick for Articles: +89 (72-111) & +90 (112-124). LC Delay: Max 4 months (3+1). NO Joint Sitting in States! Governor Age: 35 yrs (Oath: CJ of High Court).'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',
