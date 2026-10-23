@@ -357,3 +357,20 @@ html.warm-cream .example-section {
   border-color: var(--accent-primary) !important;
   color: var(--accent-primary) !important;
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PERMANENT REMOVAL: LIGHT/DARK BUTTON & PRINT / PDF BUTTONS
+   ────────────────────────────────────────────────────────────────────────── */
+.theme-toggle,
+#themeToggleBtn,
+#themeToggle,
+#themeIconDesktop,
+#themeIconMobile,
+button[onclick*="toggleTheme"],
+button[onclick*="print"],
+.btn-action[onclick*="print"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
