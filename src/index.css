@@ -2431,15 +2431,25 @@ html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .hom
 /* ══════════════════════════════════════════════════════════════════
    STUDY HUB & PLATFORMS HERO BANNER (Luxury Bento Cockpit)
    ══════════════════════════════════════════════════════════════════ */
-.study-hub-hero-banner {
+.study-hub-hero-banner,
+.homographs-hero-banner {
   color: #FFFFFF !important;
 }
 
-html.warm-cream .study-hub-hero-banner {
+html.warm-cream .study-hub-hero-banner:not(.homographs-hero-banner) {
   background: linear-gradient(135deg, #1A1806 0%, #2A230C 50%, #121104 100%) !important;
   border-color: rgba(141, 122, 2, 0.45) !important;
   box-shadow: 0 16px 45px rgba(30, 25, 8, 0.45) !important;
   color: #FAEED9 !important;
+}
+
+html.warm-cream .homographs-hero-banner,
+html.dark .homographs-hero-banner,
+html:not(.dark):not(.warm-cream) .homographs-hero-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #030712 100%) !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.3) !important;
+  color: #FFFFFF !important;
 }
 
 html.dark .study-hub-hero-banner {
@@ -2457,17 +2467,38 @@ html:not(.dark):not(.warm-cream) .study-hub-hero-banner {
 }
 
 .study-hub-hero-banner h1,
-.study-hub-hero-banner .study-hub-banner-title {
+.study-hub-hero-banner h2,
+.study-hub-hero-banner .study-hub-banner-title,
+.homographs-hero-banner h1,
+.homographs-hero-banner h2,
+.homographs-hero-banner .study-hub-banner-title {
   color: #FFFFFF !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75) !important;
 }
 
 .study-hub-hero-banner p,
 .study-hub-hero-banner .study-hub-banner-subtitle,
+.homographs-hero-banner p,
+.homographs-hero-banner .study-hub-banner-subtitle,
 html.warm-cream .study-hub-hero-banner p,
-html.warm-cream .study-hub-hero-banner .study-hub-banner-subtitle {
-  color: #F8F1DE !important;
+html.warm-cream .study-hub-hero-banner .study-hub-banner-subtitle,
+html.warm-cream .homographs-hero-banner p,
+html.warm-cream .homographs-hero-banner .study-hub-banner-subtitle {
+  color: #F1F5F9 !important;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85) !important;
+  opacity: 1 !important;
+}
+
+.homographs-hero-banner .homographs-metric-tile {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+}
+
+.homographs-hero-banner .homographs-metric-label {
+  color: #F1F5F9 !important;
   opacity: 1 !important;
 }
 

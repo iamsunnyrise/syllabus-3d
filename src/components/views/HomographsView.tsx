@@ -241,54 +241,94 @@ export const HomographsView: React.FC = () => {
     <div className="space-y-6 animate-fade-in pb-12">
       
       {/* 1. Header Hero Card */}
-      <div className="p-5 sm:p-7 rounded-3xl bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 text-white shadow-xl border border-indigo-500/20 relative overflow-hidden">
+      <div className="study-hub-hero-banner homographs-hero-banner preserve-color p-5 sm:p-7 rounded-3xl bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 text-white shadow-xl border border-indigo-500/30 relative overflow-hidden">
         {/* Glow Effects */}
-        <div className="absolute -top-16 -right-16 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-16 -right-16 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>SSC CGL • CHSL • CPO • CDS High-Yield Homographs</span>
+          <div className="space-y-2.5">
+            {/* Top Pill Badge */}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-amber-500/20 !text-amber-300 border border-amber-400/40 shadow-xs backdrop-blur-md preserve-color"
+              style={{ color: '#FCD34D' }}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span className="font-bold tracking-wide" style={{ color: '#FCD34D' }}>
+                SSC CGL • CHSL • CPO • CDS High-Yield Homographs
+              </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight flex items-center gap-2.5">
-              <span>Homographs Mastery</span>
-              <span className="text-xs sm:text-sm font-normal px-2.5 py-0.5 rounded-lg bg-white/10 text-slate-300 font-hindi border border-white/10">
+
+            {/* Title with Hindi Pill Tag */}
+            <h2
+              className="study-hub-banner-title text-2xl sm:text-3xl md:text-4xl font-black tracking-tight flex items-center flex-wrap gap-2.5 !text-white preserve-color"
+              style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.75)' }}
+            >
+              <span style={{ color: '#FFFFFF' }}>Homographs Mastery</span>
+              <span
+                className="text-xs sm:text-sm font-bold px-2.5 py-0.5 rounded-lg bg-white/15 !text-amber-200 font-hindi border border-white/25 shadow-xs preserve-color"
+                style={{ color: '#FDE68A' }}
+              >
                 समान वर्तनी, भिन्न अर्थ
               </span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              एक ही स्पेलिंग वाले शब्द जिनके <strong className="text-amber-300">अलग-अलग अर्थ व Part of Speech</strong> होते हैं। 
-              छात्रों के भ्रम को हमेशा के लिए दूर करने के लिए प्रत्येक समूह के सभी अर्थ आमने-सामने (side-by-side) व्यवस्थित हैं।
+
+            {/* Subtitle / Description */}
+            <p
+              className="study-hub-banner-subtitle text-xs sm:text-sm !text-slate-100 max-w-2xl leading-relaxed font-normal preserve-color"
+              style={{ color: '#F1F5F9', textShadow: '0 1px 4px rgba(0, 0, 0, 0.85)' }}
+            >
+              एक ही स्पेलिंग वाले शब्द जिनके{' '}
+              <strong className="!text-amber-300 font-bold" style={{ color: '#FCD34D' }}>
+                अलग-अलग अर्थ व Part of Speech
+              </strong>{' '}
+              होते हैं। छात्रों के भ्रम को हमेशा के लिए दूर करने के लिए प्रत्येक समूह के सभी अर्थ आमने-सामने (side-by-side) व्यवस्थित हैं।
             </p>
           </div>
 
-          {/* Quick Metrics Badge */}
+          {/* Quick Metrics Bento Badges */}
           <div className="flex items-center gap-3 shrink-0 self-stretch sm:self-auto">
-            <div className="flex-1 sm:flex-initial p-3.5 sm:px-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-              <div className="text-2xl sm:text-3xl font-mono font-black text-amber-400">
+            <div className="homographs-metric-tile flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/20 text-center shadow-lg transition-all hover:border-amber-400/40 preserve-color">
+              <div
+                className="text-2xl sm:text-3xl font-mono font-black !text-amber-400 drop-shadow-sm tabular-nums"
+                style={{ color: '#FBBF24' }}
+              >
                 {HOMOGRAPHS_DATA.length}
               </div>
-              <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">
+              <div
+                className="homographs-metric-label text-[11px] font-bold !text-slate-100 uppercase tracking-wider mt-0.5 preserve-color"
+                style={{ color: '#F1F5F9' }}
+              >
                 Word Groups
               </div>
             </div>
 
-            <div className="flex-1 sm:flex-initial p-3.5 sm:px-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-              <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">
+            <div className="homographs-metric-tile flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/20 text-center shadow-lg transition-all hover:border-emerald-400/40 preserve-color">
+              <div
+                className="text-2xl sm:text-3xl font-mono font-black !text-emerald-400 drop-shadow-sm tabular-nums"
+                style={{ color: '#34D399' }}
+              >
                 {totalAllSenses}
               </div>
-              <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">
+              <div
+                className="homographs-metric-label text-[11px] font-bold !text-slate-100 uppercase tracking-wider mt-0.5 preserve-color"
+                style={{ color: '#F1F5F9' }}
+              >
                 Meanings / Senses
               </div>
             </div>
 
-            <div className="flex-1 sm:flex-initial p-3.5 sm:px-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-              <div className="text-2xl sm:text-3xl font-mono font-black text-pink-400">
+            <div className="homographs-metric-tile flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/20 text-center shadow-lg transition-all hover:border-pink-400/40 preserve-color">
+              <div
+                className="text-2xl sm:text-3xl font-mono font-black !text-pink-400 drop-shadow-sm tabular-nums"
+                style={{ color: '#F472B6' }}
+              >
                 {starredWords.size}
               </div>
-              <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">
+              <div
+                className="homographs-metric-label text-[11px] font-bold !text-slate-100 uppercase tracking-wider mt-0.5 preserve-color"
+                style={{ color: '#F1F5F9' }}
+              >
                 Starred
               </div>
             </div>
