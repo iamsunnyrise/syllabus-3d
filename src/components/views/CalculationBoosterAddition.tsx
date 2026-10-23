@@ -1314,9 +1314,9 @@ export const CalculationBoosterAddition: React.FC = () => {
           MODE 4: VEDIC & MIND TRICKS (LESSONS HUB)
           ========================================================= */}
       {activeMode === 'tricks' && (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6 animate-fade-in w-full">
           <div className="space-y-1">
-            <h3 className="text-xl font-black text-slate-900 dark:text-white">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
               Vedic & Speed Mental Addition Techniques
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
@@ -1324,60 +1324,81 @@ export const CalculationBoosterAddition: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 gap-6 w-full">
             {ADDITION_TECHNIQUES.map(tech => (
               <div
                 key={tech.id}
-                className="p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-4 hover:border-purple-500 transition-all"
+                className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-5 hover:border-purple-500/50 transition-all w-full"
               >
-                <div className="flex items-start justify-between gap-3">
+                {/* Header info */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono">
-                      {tech.badge}
-                    </span>
-                    <h4 className="text-base font-black text-slate-900 dark:text-white">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono">
+                        {tech.badge}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 text-slate-500 font-mono">
+                        {tech.category}
+                      </span>
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
                       {tech.title}
                     </h4>
-                    <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                    <p className="text-xs sm:text-sm text-purple-600 dark:text-purple-400 font-medium">
                       {tech.hindiTitle}
                     </p>
                   </div>
+
+                  <div className="p-3 sm:px-4 sm:py-2.5 rounded-2xl bg-purple-500/10 border border-purple-500/20 font-mono text-xs sm:text-sm font-bold text-purple-700 dark:text-purple-300 self-start sm:self-auto shrink-0">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block sm:inline mr-2">Formula:</span>
+                    <span>{tech.formula}</span>
+                  </div>
                 </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   {tech.summary}
                 </p>
 
-                {/* Formula box */}
-                <div className="p-3 rounded-2xl bg-purple-500/5 border border-purple-500/20 font-mono text-xs font-bold text-purple-700 dark:text-purple-300">
-                  Formula: {tech.formula}
-                </div>
-
-                {/* Steps */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                    How it works:
+                {/* 2-column internal split for spacious presentation */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-1">
+                  {/* Left: How it works steps */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/5 space-y-2.5">
+                    <div className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
+                      How It Works (कार्यविधि):
+                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                      {tech.steps.map((st, i) => (
+                        <li key={i} className="flex items-start gap-2.5">
+                          <span className="w-5 h-5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                            {i + 1}
+                          </span>
+                          <span className="leading-relaxed">{st}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-400">
-                    {tech.steps.map((st, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="w-4 h-4 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                          {i + 1}
+
+                  {/* Right: Live Example box */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/25 space-y-3 flex flex-col justify-between">
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider font-mono">
+                          Live Exam Example
                         </span>
-                        <span>{st}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Example box */}
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/50 dark:border-white/5 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-500">Live Example: {tech.example.problem}</div>
-                  <div className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                    💡 <em>&quot;{tech.example.thoughtProcess}&quot;</em>
-                  </div>
-                  <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                    Answer = {tech.example.answer}
+                        <span className="text-base sm:text-lg font-mono font-black text-slate-900 dark:text-white">
+                          {tech.example.problem}
+                        </span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed bg-white/50 dark:bg-black/30 p-3 rounded-xl border border-amber-500/15">
+                        💡 <em>&quot;{tech.example.thoughtProcess}&quot;</em>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-amber-500/20 text-xs sm:text-sm font-bold">
+                      <span className="text-slate-500">Instant Final Sum:</span>
+                      <span className="text-base sm:text-lg font-mono font-black text-emerald-600 dark:text-emerald-400">
+                        = {tech.example.answer}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
