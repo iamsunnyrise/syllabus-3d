@@ -538,7 +538,7 @@ export const CalculationBoosterAddition: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto pb-12">
+    <div className="w-full space-y-6 animate-fade-in pb-12">
       {/* =========================================================
           TOP GAMIFIED HERO & XP PROGRESS BAR
           ========================================================= */}
@@ -641,7 +641,7 @@ export const CalculationBoosterAddition: React.FC = () => {
       {/* =========================================================
           MODE SELECTOR TABS
           ========================================================= */}
-      <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 max-w-full overflow-x-auto no-scrollbar">
+      <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 w-full overflow-x-auto no-scrollbar">
         <button
           type="button"
           onClick={() => {
@@ -793,7 +793,7 @@ export const CalculationBoosterAddition: React.FC = () => {
 
               {/* 4 Interactive MCQ Options */}
               {stageQuestions[currentStageQIdx] && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
                   {stageQuestions[currentStageQIdx].options.map((opt, idx) => {
                     const isCorrectAnswer = opt === stageQuestions[currentStageQIdx].answer;
                     return (
@@ -912,7 +912,7 @@ export const CalculationBoosterAddition: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
                 {ADDITION_STAGES.map(stage => {
                   const isUnlocked = stage.id <= (stats.unlockedStage || 1);
                   const stars = stats.stageStars[stage.id] || 0;
@@ -1063,7 +1063,7 @@ export const CalculationBoosterAddition: React.FC = () => {
 
           {/* Active Blitz Play Board */}
           {blitzActive && blitzQuestion && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 shadow-xl space-y-6 max-w-2xl mx-auto">
+            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 shadow-xl space-y-6 max-w-3xl mx-auto">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="text-2xl font-black text-amber-500 font-mono">
@@ -1215,7 +1215,7 @@ export const CalculationBoosterAddition: React.FC = () => {
           </div>
 
           {/* Active Question Box */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg text-center space-y-6 max-w-xl mx-auto">
+          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-lg text-center space-y-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-100 dark:border-white/5">
               <span>Zen Flow Practice</span>
               <button
@@ -1322,7 +1322,7 @@ export const CalculationBoosterAddition: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {ADDITION_TECHNIQUES.map(tech => (
               <div
                 key={tech.id}
