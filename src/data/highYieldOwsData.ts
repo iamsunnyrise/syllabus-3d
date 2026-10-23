@@ -30677,6 +30677,1363 @@ export const LEVEL_1_SET_09_OWS: VocabItem[] = [
   "derivatives": "Voraciously (adverb), Voracity (noun)",
   "level": "level-1",
   "set": "set-09"
+  },
+{
+  "id": "v-ows-l1-s9-59",
+  "word": "Voyager",
+  "phonetic": "/ˈvɔɪ.ɪ.dʒər/",
+  "hindi": "समुद्री यात्री / लंबी जलयात्रा करने वाला",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person who goes on a long journey, especially by sea or into space.",
+  "synonyms": [
+    "Traveler",
+    "Seafarer",
+    "Navigator",
+    "Explorer"
+  ],
+  "antonyms": [
+    "Inhabitant",
+    "Stay-at-home",
+    "Resident"
+  ],
+  "example": "The ancient Polynesian voyagers sailed across the uncharted Pacific using star navigation.",
+  "mnemonic": "Voyage (समुद्री यात्रा) पर निकलने वाला व्यक्ति = Voyager.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Space voyager / intrepid voyager",
+  "derivatives": "Voyage (noun/verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-60",
+  "word": "Vulnerable",
+  "phonetic": "/ˈvʌl.nər.ə.bəl/",
+  "hindi": "नाज़ुक / असुरक्षित / आघात-योग्य / सुभेद्य",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Exposed to the possibility of being attacked or harmed, either physically or emotionally.",
+  "synonyms": [
+    "Defenseless",
+    "Susceptible",
+    "Fragile",
+    "Exposed",
+    "Perilous"
+  ],
+  "antonyms": [
+    "Invulnerable",
+    "Resilient",
+    "Protected",
+    "Impenetrable"
+  ],
+  "example": "Elderly citizens and young infants are particularly vulnerable during intense heatwaves.",
+  "mnemonic": "घाव (Vulner) आसानी से खा सकने वाला नाज़ुक इंसान = Vulnerable.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Vulnerable to attack / emotionally vulnerable",
+  "derivatives": "Vulnerability (noun), Vulnerably (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-61",
+  "word": "Wag",
+  "phonetic": "/wæɡ/",
+  "hindi": "मसखरा / मजाकिया इंसान / विदूषक",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A jocular person who is full of amusing anecdotes, witty remarks, and jokes.",
+  "synonyms": [
+    "Joker",
+    "Wit",
+    "Comedian",
+    "Droll",
+    "Humorist"
+  ],
+  "antonyms": [
+    "Killjoy",
+    "Solemn person",
+    "Bore"
+  ],
+  "example": "The office wag kept everyone laughing with hilarious impressions during lunch break.",
+  "mnemonic": "Wag in Swag -> जो हमेशा मजाकिया अंदाज और Swag में चुटकुले सुनाए = Wag.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Local wag / witty wag",
+  "derivatives": "Waggish (adjective), Waggishly (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-62",
+  "word": "Walkway",
+  "phonetic": "/ˈwɔːk.weɪ/",
+  "hindi": "पैदल रास्ता / गलियारा / पदमार्ग",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A raised passageway in a building, or a path designated for pedestrians.",
+  "synonyms": [
+    "Footpath",
+    "Pedestrian bridge",
+    "Passageway",
+    "Skywalk",
+    "Boardwalk"
+  ],
+  "antonyms": [
+    "Highway",
+    "Roadway"
+  ],
+  "example": "A covered glass walkway connects the hospital's central building to the diagnostic wing.",
+  "mnemonic": "Walk this way -> पैदल चलने के लिए बना सुरक्षित उठाया हुआ मार्ग = Walkway.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Elevated walkway / covered walkway",
+  "derivatives": "Walk (root verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-63",
+  "word": "Wander",
+  "phonetic": "/ˈwɒn.dər/",
+  "hindi": "आवारा घूमना / भटकना / उद्देश्यहीन चलना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To walk or move in a leisurely, casual, or aimless way without a fixed destination.",
+  "synonyms": [
+    "Roam",
+    "Rove",
+    "Meander",
+    "Ramble",
+    "Stroll"
+  ],
+  "antonyms": [
+    "Head directly",
+    "Stay put",
+    "Settle"
+  ],
+  "example": "On weekends, he loved to wander through antique bookshops in the old quarter.",
+  "mnemonic": "Wonder vs Wander -> Wonder मतलब सोचना/अचंभित होना, Wander मतलब इधर-उधर घूमना।",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Wander aimlessly / wander the streets",
+  "derivatives": "Wanderer (noun), Wandering (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-64",
+  "word": "Warden",
+  "phonetic": "/ˈwɔː.dən/",
+  "hindi": "निरीक्षक / अधीक्षक / संरक्षक",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person in charge of an old people’s home, hostel, prison, or other institution.",
+  "synonyms": [
+    "Superintendent",
+    "Custodian",
+    "Governor",
+    "Caretaker",
+    "Overseer"
+  ],
+  "antonyms": [
+    "Inmate",
+    "Resident"
+  ],
+  "example": "The hostel warden conducted a nightly attendance check at ten o'clock.",
+  "mnemonic": "Warder vs Guardian -> हॉस्टल या संस्थान की निगरानी व संरक्षण करने वाला = Warden.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Hostel warden / prison warden",
+  "derivatives": "Wardenship (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-65",
+  "word": "Waybill",
+  "phonetic": "/ˈweɪ.bɪl/",
+  "hindi": "यात्री व माल की सूची / लदान-पत्र",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A list of passengers and luggage or cargo issued by a carrier declaring details of route and charges.",
+  "synonyms": [
+    "Manifest",
+    "Bill of lading",
+    "Cargo list",
+    "Consignment note"
+  ],
+  "antonyms": [
+    "Receipt of delivery"
+  ],
+  "example": "The freight inspector checked each shipping crate against the official customs waybill.",
+  "mnemonic": "Weight + Bill -> रास्ते (Way) में ले जाने वाले सामान का वजन और विवरण = Waybill.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Check the waybill / electronic waybill",
+  "derivatives": "Waybills (plural noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-66",
+  "word": "Weary",
+  "phonetic": "/ˈwɪə.ri/",
+  "hindi": "थका हुआ / क्लांत / पस्त",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Feeling or showing extreme physical or mental tiredness.",
+  "synonyms": [
+    "Fatigued",
+    "Exhausted",
+    "Tired out",
+    "Worn out",
+    "Drained"
+  ],
+  "antonyms": [
+    "Refreshed",
+    "Energetic",
+    "Invigorated",
+    "Lively"
+  ],
+  "example": "After climbing twenty kilometers uphill, the weary mountaineers collapsed inside their tents.",
+  "mnemonic": "Worry, Weary, Vary, Very -> चिंता और भारी मेहनत के बाद इंसान Weary (थका हुआ) हो जाता है।",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Weary traveler / grow weary",
+  "derivatives": "Weariness (noun), Wearily (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-67",
+  "word": "Whisk",
+  "phonetic": "/wɪsk/",
+  "hindi": "तेजी से ले जाना / अचानक झपटकर ले जाना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To take or move someone or something somewhere suddenly and quickly.",
+  "synonyms": [
+    "Speed away",
+    "Hurry",
+    "Rush",
+    "Sweep",
+    "Snatch away"
+  ],
+  "antonyms": [
+    "Delay",
+    "Dawdle",
+    "Linger"
+  ],
+  "example": "Bodyguards whisked the prime minister into an armored limousine as soon as shots were heard.",
+  "mnemonic": "इश्क में Risk लेकर प्रेमी को अचानक कहीं दूर Whisk (तेजी से ले जाना).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Whisk away / whisk off",
+  "derivatives": "Whisked (past verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-68",
+  "word": "Widow",
+  "phonetic": "/ˈwɪd.əʊ/",
+  "hindi": "विधवा (पति की मृत्यु के बाद पुनर्विवाह न करने वाली स्त्री)",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A woman whose husband is dead, especially one who has not remarried.",
+  "synonyms": [
+    "Relict",
+    "Dowager",
+    "Bereaved wife"
+  ],
+  "antonyms": [
+    "Widower (male)",
+    "Married woman"
+  ],
+  "example": "The war widow dedicated her life to educating underprivileged children in her village.",
+  "mnemonic": "जिस स्त्री के पति का देहांत हो चुका हो = Widow; और जिस पुरुष की पत्नी का देहांत हुआ हो = Widower.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "War widow / elderly widow",
+  "derivatives": "Widowhood (noun), Widower (male noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-69",
+  "word": "Willfully",
+  "phonetic": "/ˈwɪl.fəl.i/",
+  "hindi": "जान-बूझकर / हठपूर्वक / स्वेच्छाचारी ढंग से",
+  "type": "ows",
+  "partOfSpeech": "Adverb (OWS)",
+  "meaning": "Done deliberately and intentionally, although the person doing it knows that it is wrong or unreasonable.",
+  "synonyms": [
+    "Deliberately",
+    "Intentionally",
+    "Stubbornly",
+    "Knowingly",
+    "Perversely"
+  ],
+  "antonyms": [
+    "Accidentally",
+    "Inadvertently",
+    "Unwittingly"
+  ],
+  "example": "The company was heavily fined for willfully ignoring mandatory industrial safety guidelines.",
+  "mnemonic": "Will (इच्छा) + Full -> पूरी मर्जी और जान-बूझकर गलत काम करना = Willfully.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Willfully neglect / act willfully",
+  "derivatives": "Willful (adjective), Willfulness (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-70",
+  "word": "Wilt",
+  "phonetic": "/wɪlt/",
+  "hindi": "मुरझाना / कुम्हलाना / शिथिल पड़ना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "A plant, leaf, or flower becoming limp and drooping through heat or lack of water.",
+  "synonyms": [
+    "Droop",
+    "Wither",
+    "Flag",
+    "Sag",
+    "Fade"
+  ],
+  "antonyms": [
+    "Flourish",
+    "Thrive",
+    "Bloom",
+    "Revive"
+  ],
+  "example": "Without fresh water during the blazing weekend, the potted roses began to wilt.",
+  "mnemonic": "Water little -> पानी की कमी होने से फूल और पत्ते Wilt (मुरझा) जाते हैं।",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Wilt in the heat / flowers wilt",
+  "derivatives": "Wilting (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-71",
+  "word": "Windfall",
+  "phonetic": "/ˈwɪnd.fɔːl/",
+  "hindi": "अप्रत्याशित लाभ / अचानक मिला भारी धन",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An unexpected piece of good fortune or sudden financial gain.",
+  "synonyms": [
+    "Bonanza",
+    "Jackpot",
+    "Stroke of luck",
+    "Godsend",
+    "Boon"
+  ],
+  "antonyms": [
+    "Loss",
+    "Disaster",
+    "Catastrophe"
+  ],
+  "example": "Winning the lottery was a life-changing windfall that allowed them to clear all debts.",
+  "mnemonic": "जीत (Win) सीधे आपकी झोली में आकर Fall (गिरना) = Windfall (अप्रत्याशित धन लाभ).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Windfall profits / windfall tax",
+  "derivatives": "Windfalls (plural noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-72",
+  "word": "Wiry",
+  "phonetic": "/ˈwaɪə.ri/",
+  "hindi": "पतला लेकिन मजबूत / छरहरा व सुगठित",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Looking lean, tough, and sinewy; resembling wire in strength and stiffness.",
+  "synonyms": [
+    "Sinewy",
+    "Lean",
+    "Tough",
+    "Stringy",
+    "Athletic"
+  ],
+  "antonyms": [
+    "Flabby",
+    "Fleshy",
+    "Plump",
+    "Frail"
+  ],
+  "example": "Despite his slender build, the gymnast had a wiry frame capable of incredible power.",
+  "mnemonic": "Wiry like a wire -> तार की तरह पतला लेकिन बहुत मजबूत और लचीला = Wiry.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Wiry frame / wiry hair",
+  "derivatives": "Wiriness (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-73",
+  "word": "Witchery",
+  "phonetic": "/ˈwɪtʃ.ər.i/",
+  "hindi": "जादू-टोना / तंत्र-विद्या / सम्मोहन",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The practice of magic or witchcraft; fascinating attraction or charm.",
+  "synonyms": [
+    "Sorcery",
+    "Witchcraft",
+    "Necromancy",
+    "Enchantment",
+    "Glamour"
+  ],
+  "antonyms": [
+    "Disillusionment",
+    "Science",
+    "Naturalism"
+  ],
+  "example": "Ancient folklore tells of isolated mountain villages shrouded in eerie witchery.",
+  "mnemonic": "Witch (डायन) द्वारा की जाने वाली जादूगरी और सम्मोहन = Witchery.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Dark witchery / subtle witchery",
+  "derivatives": "Witch (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-74",
+  "word": "Woe",
+  "phonetic": "/wəʊ/",
+  "hindi": "दुःख / संताप / घोर संकट / विपत्ति",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Great sorrow, grief, misery, or distress.",
+  "synonyms": [
+    "Misery",
+    "Anguish",
+    "Distress",
+    "Affliction",
+    "Sorrow"
+  ],
+  "antonyms": [
+    "Joy",
+    "Happiness",
+    "Bliss",
+    "Jubilation"
+  ],
+  "example": "The war-weary refugees recounted endless tales of woe, hunger, and displacement.",
+  "mnemonic": "Woe (दुख) vs Wow (खुशी) -> विलाप और भारी दुख का रोना = Woe.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Tale of woe / economic woes",
+  "derivatives": "Woeful (adjective), Woefully (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-75",
+  "word": "Wonderment",
+  "phonetic": "/ˈwʌn.dər.mənt/",
+  "hindi": "हैरत / विस्मय / आदरयुक्त आश्चर्य",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A state of awed admiration, astonishment, and respect.",
+  "synonyms": [
+    "Awe",
+    "Astonishment",
+    "Marvel",
+    "Amazement",
+    "Wonder"
+  ],
+  "antonyms": [
+    "Apathy",
+    "Indifference",
+    "Disregard"
+  ],
+  "example": "The children gazed in wide-eyed wonderment at the glittering planetarium dome.",
+  "mnemonic": "Wonder + Moment -> विस्मय और आश्चर्य से भरा क्षण = Wonderment.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Filled with wonderment / look of wonderment",
+  "derivatives": "Wonder (root verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-76",
+  "word": "Wrangle",
+  "phonetic": "/ˈræŋ.ɡəl/",
+  "hindi": "विवाद में पड़ना / तकरार करना / गरमागरम बहस करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To dispute or argue angrily, noisily, and at length.",
+  "synonyms": [
+    "Bicker",
+    "Quarrel",
+    "Squabble",
+    "Spar",
+    "Altercate"
+  ],
+  "antonyms": [
+    "Agree",
+    "Harmonize",
+    "Concur"
+  ],
+  "example": "Coalition partners continued to wrangle for weeks over the distribution of cabinet ministries.",
+  "mnemonic": "Wrong Angle (गलत नजरिए) से सोचकर आपस में तकरार और विवाद करना = Wrangle.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Legal wrangle / political wrangle",
+  "derivatives": "Wrangler (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-77",
+  "word": "Wreath",
+  "phonetic": "/riːθ/",
+  "hindi": "फूलों की माला / पुष्पांजलि चक्र (कब्र या शव पर रखने हेतु)",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Flowers or leaves woven together in a circle for placing on a coffin or a grave.",
+  "synonyms": [
+    "Garland",
+    "Coronet",
+    "Chaplet",
+    "Floral tribute"
+  ],
+  "antonyms": [
+    "Scattered petals"
+  ],
+  "example": "The soldiers laid a laurel wreath at the tomb of the Unknown Warrior.",
+  "mnemonic": "फूलों से सजा चक्र जो श्रद्धांजलि के लिए अर्पित किया जाए = Wreath (पुष्पांजलि चक्र).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Lay a wreath / floral wreath",
+  "derivatives": "Wreathe (verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-78",
+  "word": "Wreckage",
+  "phonetic": "/ˈrek.ɪdʒ/",
+  "hindi": "मलवा / टूटा-फूटा अवशेष / तबाही का ढांचा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The remains of something that has been badly damaged, destroyed, or smashed.",
+  "synonyms": [
+    "Debris",
+    "Rubble",
+    "Ruins",
+    "Wreck",
+    "Detritus"
+  ],
+  "antonyms": [
+    "Intact structure",
+    "Original construction"
+  ],
+  "example": "Investigators combed through the smoking wreckage of the aircraft to locate the black box.",
+  "mnemonic": "Break (wreck) by age or crash -> दुर्घटना या तबाही के बाद बचा मलवा = Wreckage.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Plane wreckage / sift through wreckage",
+  "derivatives": "Wreck (verb/noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-79",
+  "word": "Wriggle",
+  "phonetic": "/ˈrɪɡ.əl/",
+  "hindi": "छटपटाना / बिलबिलाना / मटकना / कसमसाना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To move along with quick, short twistings of the body.",
+  "synonyms": [
+    "Squirm",
+    "Worm",
+    "Twist",
+    "Wiggle",
+    "Fidget"
+  ],
+  "antonyms": [
+    "Remain still",
+    "Freeze"
+  ],
+  "example": "The playful puppy managed to wriggle out of its harness and sprinted across the lawn.",
+  "mnemonic": "Wiggle vs Wriggle -> सांप या कीड़े की तरह शरीर को मरोड़ते हुए छटपटाना = Wriggle.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Wriggle out of / wriggle free",
+  "derivatives": "Wriggler (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-80",
+  "word": "Yearning",
+  "phonetic": "/ˈjɜː.nɪŋ/",
+  "hindi": "चाहत / तीव्र अभिलाषा / दृढ़ इच्छा / लालसा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A feeling of intense longing, craving, or desire for something or someone.",
+  "synonyms": [
+    "Longing",
+    "Craving",
+    "Hankering",
+    "Pining",
+    "Urge"
+  ],
+  "antonyms": [
+    "Apathy",
+    "Revulsion",
+    "Distaste",
+    "Indifference"
+  ],
+  "example": "Living in a crowded metropolis, he felt a constant yearning for the serene mountains.",
+  "mnemonic": "Earn (कमाने) या पाने की दिल से उठने वाली तीव्र चाहत = Yearning.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Deep yearning / yearning for freedom",
+  "derivatives": "Yearn (verb), Yearningly (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-81",
+  "word": "Zealot",
+  "phonetic": "/ˈzel.ət/",
+  "hindi": "कट्टरपंथी / धर्मांध / अत्यधिक उत्साही व्यक्ति",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "One who is an excessively enthusiastic and fanatical person in pursuit of ideals.",
+  "synonyms": [
+    "Fanatic",
+    "Extremist",
+    "Radical",
+    "Militant",
+    "Bigot"
+  ],
+  "antonyms": [
+    "Moderate",
+    "Liberal",
+    "Tolerant person"
+  ],
+  "example": "Religious zealots destroyed ancient art sculptures that conflicted with their dogma.",
+  "mnemonic": "Zeal (अति-उत्साह) में अंधा होकर दूसरों को जिल्लत देने वाला कट्टरपंथी = Zealot.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Religious zealot / political zealot",
+  "derivatives": "Zealotry (noun), Zealous (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-82",
+  "word": "Zenith",
+  "phonetic": "/ˈzen.ɪθ/",
+  "hindi": "उच्चतम बिंदु / शीर्षबिंदु / पराकाष्ठा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The highest point reached by a celestial body, or the pinnacle of success.",
+  "synonyms": [
+    "Pinnacle",
+    "Apex",
+    "Peak",
+    "Acme",
+    "Culmination"
+  ],
+  "antonyms": [
+    "Nadir",
+    "Lowest point",
+    "Bottom"
+  ],
+  "example": "At the zenith of his military career, Napoleon commanded the most formidable army in Europe.",
+  "mnemonic": "Zenith - जन्नत (स्वर्ग) की ऊँचाई जैसा शीर्ष बिंदु (Zenith vs Nadir).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Reach the zenith / zenith of power",
+  "derivatives": "Zenithal (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-83",
+  "word": "Accelerate",
+  "phonetic": "/əkˈsel.ə.reɪt/",
+  "hindi": "गति बढ़ाना / तेजी लाना / चाल में वृद्धि करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To increase speed; cause to happen sooner or move more quickly.",
+  "synonyms": [
+    "Speed up",
+    "Quicken",
+    "Hasten",
+    "Expedite",
+    "Spur"
+  ],
+  "antonyms": [
+    "Decelerate",
+    "Slow down",
+    "Brake",
+    "Retard"
+  ],
+  "example": "The driver stepped on the gas to accelerate past the slow-moving truck.",
+  "mnemonic": "Accelerator दबाकर गाड़ी की speed बढ़ाना = Accelerate.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Accelerate growth / accelerate speed",
+  "derivatives": "Acceleration (noun), Accelerator (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-84",
+  "word": "Actionable",
+  "phonetic": "/ˈæk.ʃən.ə.bəl/",
+  "hindi": "कानूनी कार्रवाई योग्य / अभियोज्य",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Legally acceptable for action; giving sufficient reason to take legal action.",
+  "synonyms": [
+    "Prosecutable",
+    "Litigable",
+    "Suable",
+    "Justiciable"
+  ],
+  "antonyms": [
+    "Non-actionable",
+    "Immune",
+    "Exempt"
+  ],
+  "example": "Publishing false and defamatory accusations in the newspaper constitutes actionable libel.",
+  "mnemonic": "जिस बात पर कोर्ट में कानूनी Action लिया जा सके = Actionable.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Actionable intelligence / actionable offense",
+  "derivatives": "Action (root noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-85",
+  "word": "Activate",
+  "phonetic": "/ˈæk.tɪ.veɪt/",
+  "hindi": "चालू करना / सक्रिय करना / गतिमान करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To make active or start working; trigger a mechanism or process.",
+  "synonyms": [
+    "Trigger",
+    "Set in motion",
+    "Energize",
+    "Initiate",
+    "Switch on"
+  ],
+  "antonyms": [
+    "Deactivate",
+    "Disable",
+    "Halt",
+    "Shutdown"
+  ],
+  "example": "Inserting the smart security card will automatically activate the laboratory doors.",
+  "mnemonic": "Active बनाना = Activate (सक्रिय करना).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Activate the alarm / activate account",
+  "derivatives": "Activation (noun), Activated (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-86",
+  "word": "Altitude",
+  "phonetic": "/ˈæl.tɪ.tʃuːd/",
+  "hindi": "ऊँचाई / समुद्र तल से ऊँचाई",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Height above sea level or ground level.",
+  "synonyms": [
+    "Elevation",
+    "Height",
+    "Stature",
+    "Loftiness"
+  ],
+  "antonyms": [
+    "Depth",
+    "Sea level",
+    "Nadir"
+  ],
+  "example": "The passenger jet was cruising comfortably at an altitude of thirty-five thousand feet.",
+  "mnemonic": "Alt (ऊँचा) -> समुद्र तल से ऊँचाई नापना = Altitude.",
+  "frequency": "High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "High altitude / cruising altitude",
+  "derivatives": "Altimeter (measuring instrument)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-87",
+  "word": "Ambiguous",
+  "phonetic": "/æmˈbɪɡ.ju.əs/",
+  "hindi": "अस्पष्ट / अनेकार्थी / दो अर्थ वाला / संदिग्ध",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Having more than one meaning; unclear or open to multiple interpretations.",
+  "synonyms": [
+    "Equivocal",
+    "Obscure",
+    "Vague",
+    "Enigmatic",
+    "Cryptic"
+  ],
+  "antonyms": [
+    "Clear",
+    "Unambiguous",
+    "Explicit",
+    "Lucid"
+  ],
+  "example": "The clause in the treaty was worded in an ambiguous way, leading to disputes.",
+  "mnemonic": "Ambi (दोनों ओर) -> दोहरे अर्थ वाली बात जो स्पष्ट न हो = Ambiguous.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Ambiguous statement / ambiguous wording",
+  "derivatives": "Ambiguity (noun), Ambiguously (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-88",
+  "word": "Addict",
+  "phonetic": "/ˈæd.ɪkt/",
+  "hindi": "लती व्यक्ति / आदी / व्यसनी",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person dependent on something (such as a drug or activity).",
+  "synonyms": [
+    "Habitual user",
+    "Dependant",
+    "Enthusiast",
+    "Fiend"
+  ],
+  "antonyms": [
+    "Abstainer",
+    "Non-user"
+  ],
+  "example": "The clinic runs an intensive support group for former gambling addicts.",
+  "mnemonic": "Addicted होना -> किसी आदत का गुलाम = Addict.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Drug addict / internet addict",
+  "derivatives": "Addiction (noun), Addictive (adjective)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-89",
+  "word": "Adorable",
+  "phonetic": "/əˈdɔː.rə.bəl/",
+  "hindi": "प्यारा / मनमोहक / आकर्षक",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Very cute and lovable; inspiring great affection.",
+  "synonyms": [
+    "Lovable",
+    "Cute",
+    "Charming",
+    "Dear",
+    "Endearing"
+  ],
+  "antonyms": [
+    "Despicable",
+    "Repulsive",
+    "Hateful",
+    "Obnoxious"
+  ],
+  "example": "The adoption shelter had a litter of adorable golden retriever puppies.",
+  "mnemonic": "Adore (प्रेम/आदर करना) के योग्य = Adorable (प्यारा).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Adorable child / adorable kitten",
+  "derivatives": "Adorably (adverb), Adoration (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-90",
+  "word": "Advocate",
+  "phonetic": "/ˈæd.və.kət/",
+  "hindi": "समर्थक / पक्षधर / वकील",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "One who supports or speaks for someone; publicly champions a cause.",
+  "synonyms": [
+    "Proponent",
+    "Champion",
+    "Supporter",
+    "Counsel",
+    "Lawyer"
+  ],
+  "antonyms": [
+    "Opponent",
+    "Critic",
+    "Detractor"
+  ],
+  "example": "She has been a tireless advocate for girls' free secondary education across rural districts.",
+  "mnemonic": "कोर्ट में या समाज में किसी के हक में आवाज़ उठाना = Advocate.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Stanch advocate / consumer advocate",
+  "derivatives": "Advocacy (noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-91",
+  "word": "Affidavit",
+  "phonetic": "/ˌæf.ɪˈdeɪ.vɪt/",
+  "hindi": "शपथपत्र / हलफनामा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A written statement sworn by oath, for use as evidence in court.",
+  "synonyms": [
+    "Sworn statement",
+    "Attestation",
+    "Deposition",
+    "Oath"
+  ],
+  "antonyms": [
+    "Unsworn denial",
+    "Oral hearsay"
+  ],
+  "example": "The witness submitted a signed affidavit confirming her exact location on the night of the crime.",
+  "mnemonic": "Affirm (स्वीकार करना) करके दिया गया लिखित शपथपत्र = Affidavit.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Sign an affidavit / sworn affidavit",
+  "derivatives": "Affidavits (plural noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-92",
+  "word": "Agenda",
+  "phonetic": "/əˈdʒen.də/",
+  "hindi": "कार्यसूची / बैठक में विचारणीय विषयों की सूची",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A list of matters to be discussed or acted upon at a formal meeting.",
+  "synonyms": [
+    "Schedule",
+    "Program",
+    "Itinerary",
+    "Timetable",
+    "Order of business"
+  ],
+  "antonyms": [
+    "Impromptu discussion"
+  ],
+  "example": "The board chairman moved that climate risk disclosures be placed first on the meeting agenda.",
+  "mnemonic": "काम का Agent या प्लान = Agenda (कार्यसूची).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Top of the agenda / hidden agenda",
+  "derivatives": "Agendas (plural noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-93",
+  "word": "Aggressive",
+  "phonetic": "/əˈɡres.ɪv/",
+  "hindi": "आक्रामक / झगड़ालू / हमलावर",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Ready to attack or forceful; pursuing aims forcefully.",
+  "synonyms": [
+    "Belligerent",
+    "Hostile",
+    "Pugnacious",
+    "Combative",
+    "Forceful"
+  ],
+  "antonyms": [
+    "Peaceful",
+    "Timid",
+    "Passive",
+    "Gentle"
+  ],
+  "example": "The stray dog became aggressive whenever strangers approached its litter of pups.",
+  "mnemonic": "Aggression (क्रोध व आक्रमण) से भरा हुआ = Aggressive.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Aggressive marketing / aggressive behavior",
+  "derivatives": "Aggression (noun), Aggressively (adverb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-94",
+  "word": "Agony",
+  "phonetic": "/ˈæɡ.ə.ni/",
+  "hindi": "अत्यधिक पीड़ा / तीव्र कष्ट / वेदना",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Extreme physical or mental pain or distress.",
+  "synonyms": [
+    "Torment",
+    "Anguish",
+    "Torture",
+    "Suffering",
+    "Affliction"
+  ],
+  "antonyms": [
+    "Ecstasy",
+    "Bliss",
+    "Pleasure",
+    "Relief"
+  ],
+  "example": "The injured soccer player clutched his knee in visible agony until paramedics arrived.",
+  "mnemonic": "आग में जलने जैसी असहनीय वेदना और कष्ट = Agony.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Scream in agony / agony of defeat",
+  "derivatives": "Agonizing (adjective), Agonize (verb)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-95",
+  "word": "Album",
+  "phonetic": "/ˈæl.bəm/",
+  "hindi": "तस्वीरों या अभिलेखों का संग्रह / फोटो एलबम",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A book for storing photos, records, stamps, or memorabilia.",
+  "synonyms": [
+    "Scrapbook",
+    "Photo book",
+    "Anthology",
+    "Record"
+  ],
+  "antonyms": [
+    "Loose sheets"
+  ],
+  "example": "Grandmother flipped through the old family photo album, pointing out ancestors.",
+  "mnemonic": "तस्वीरों और यादों को सहेजने वाली किताब = Album.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Family album / photo album",
+  "derivatives": "Albums (plural noun)",
+  "level": "level-1",
+  "set": "set-09"
+},
+{
+  "id": "v-ows-l1-s9-96",
+  "word": "Alien",
+  "phonetic": "/ˈeɪ.li.ən/",
+  "hindi": "विदेशी / अपरिचित / पराया / अन्य देश या ग्रह का",
+  "type": "ows",
+  "partOfSpeech": "Noun / Adjective (OWS)",
+  "meaning": "Foreign or unfamiliar; belonging to another country or world.",
+  "synonyms": [
+    "Foreigner",
+    "Outsider",
+    "Stranger",
+    "Extraterrestrial",
+    "Exotic"
+  ],
+  "antonyms": [
+    "Native",
+    "Citizen",
+    "Local",
+    "Familiar"
+  ],
+  "example": "The concept of working on Sundays was completely alien to their religious tradition.",
+  "mnemonic": "दूसरे देश या ग्रह से आया हुआ अपरिचित प्राणी = Alien.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 09",
+    "OWS"
+  ],
+  "collocation": "Alien culture / resident alien",
+  "derivatives": "Alienate (verb), Alienation (noun)",
+  "level": "level-1",
+  "set": "set-09"
 }
 ];
 export const LEVEL_1_SET_10_OWS: VocabItem[] = [];
+
