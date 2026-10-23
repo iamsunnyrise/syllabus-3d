@@ -446,30 +446,27 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
-          {/* User Profile Pill Capsule - Matching Reference Screenshot */}
+          {/* User Profile Avatar Button - Picture Only (No Name) */}
           <button
             type="button"
             onClick={onOpenSettings}
-            className="h-9 px-2.5 sm:px-3 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center gap-2 cursor-pointer transition-all active:scale-95 shadow-2xs"
+            className="group relative h-9 w-9 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center justify-center cursor-pointer transition-all active:scale-90 shadow-2xs overflow-hidden hover:border-amber-400 shrink-0"
             title={`Profile: ${user?.name || profileSafe.name || 'Guest User'}`}
             aria-label="Open profile settings"
           >
-            <div className="w-5 h-5 rounded-full bg-slate-300 dark:bg-slate-600 flex items-center justify-center overflow-hidden shrink-0">
-              {profileSafe.avatarUrl ? (
+            <div className="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden shrink-0 border border-black/5 dark:border-white/10">
+              {profileSafe.avatarUrl || user?.avatarUrl ? (
                 <img
-                  src={profileSafe.avatarUrl}
-                  alt={profileSafe.name || 'User'}
+                  src={profileSafe.avatarUrl || user?.avatarUrl}
+                  alt={profileSafe.name || user?.name || 'User'}
                   className="w-full h-full object-cover"
                 />
               ) : profileSafe.avatarEmoji ? (
-                <span className="text-[11px] leading-none">{profileSafe.avatarEmoji}</span>
+                <span className="text-sm leading-none">{profileSafe.avatarEmoji}</span>
               ) : (
-                <User className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+                <User className="w-4 h-4 text-slate-600 dark:text-slate-300" />
               )}
             </div>
-            <span className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[85px] sm:max-w-[120px]">
-              {user?.name || profileSafe.name || 'Guest User'}
-            </span>
           </button>
         </div>
       </div>
