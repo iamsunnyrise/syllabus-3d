@@ -147,6 +147,14 @@ export const HomographsView: React.FC = () => {
     return Array.from(letters).sort();
   }, []);
 
+  // Total senses count across all homographs
+  const totalAllSenses = useMemo(() => {
+    return HOMOGRAPHS_DATA.reduce((acc, g) => acc + g.sensesCount, 0);
+  }, []);
+
+  const twoSensesCount = useMemo(() => HOMOGRAPHS_DATA.filter(g => g.sensesCount === 2).length, []);
+  const threePlusSensesCount = useMemo(() => HOMOGRAPHS_DATA.filter(g => g.sensesCount >= 3).length, []);
+
   // Filtered Homograph Groups
   const filteredGroups = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -269,7 +277,7 @@ export const HomographsView: React.FC = () => {
 
             <div className="flex-1 sm:flex-initial p-3.5 sm:px-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
               <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">
-                169
+                {totalAllSenses}
               </div>
               <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider">
                 Meanings / Senses
@@ -441,7 +449,7 @@ export const HomographsView: React.FC = () => {
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
-                2 Senses (44)
+                2 Senses ({twoSensesCount})
               </button>
               <button
                 type="button"
@@ -452,7 +460,7 @@ export const HomographsView: React.FC = () => {
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
-                3+ Senses (25)
+                3+ Senses ({threePlusSensesCount})
               </button>
             </div>
 
