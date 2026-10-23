@@ -46,6 +46,7 @@ import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 
 // ⚡ Fast Dynamic Code Splitting for Study Tools sub-views & calculators
+const CalculationBoosterAddition = lazy(() => import('./CalculationBoosterAddition').then(m => ({ default: m.CalculationBoosterAddition })));
 const CalculationBoosterTables = lazy(() => import('./CalculationBoosterTables').then(m => ({ default: m.CalculationBoosterTables })));
 const CalculationBoosterSquares = lazy(() => import('./CalculationBoosterSquares').then(m => ({ default: m.CalculationBoosterSquares })));
 const CalculationBoosterCubes = lazy(() => import('./CalculationBoosterCubes').then(m => ({ default: m.CalculationBoosterCubes })));
@@ -95,7 +96,7 @@ export type { VocabItem, VocabLevel };
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
 export type VocabSubTab = 'core' | 'homographs' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
-export type CalcBoosterTool = 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
+export type CalcBoosterTool = 'addition' | 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
 interface StudyToolsViewProps {
   initialTab?: StudyToolTab;
@@ -591,7 +592,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   initialTab = 'vocab',
   initialVocabTab = 'core',
   initialMathsTab = 'overview',
-  initialCalcBoosterTool = 'tables',
+  initialCalcBoosterTool = 'addition',
   onNavigate
 }) => {
   const [activeTab, setActiveTab] = useState<StudyToolTab>(initialTab);
@@ -1815,6 +1816,23 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   onClick={() => {
                     soundManager.playClick();
                     haptics.selection();
+                    setCalcBoosterTool('addition');
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    calcBoosterTool === 'addition'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs font-black ring-1 ring-indigo-400/40'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Addition Mastery ⚡</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
                     setCalcBoosterTool('tables');
                   }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
@@ -1936,7 +1954,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Calculation Tool...</span>
                 </div>
               }>
-                {calcBoosterTool === 'tables' ? (
+                {calcBoosterTool === 'addition' ? (
+                  <CalculationBoosterAddition />
+                ) : calcBoosterTool === 'tables' ? (
                   <CalculationBoosterTables />
                 ) : calcBoosterTool === 'squares' ? (
                   <CalculationBoosterSquares />
