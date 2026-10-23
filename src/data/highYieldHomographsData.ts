@@ -1,9 +1,9 @@
 // ============================================================================
 // HIGH-YIELD HOMOGRAPHS (समान वर्तनी, भिन्न अर्थ)
 // Curated for SSC CGL, CHSL, CPO, CDS, NDA & Banking Exams
-// Source: RBE Officer Batch (Shubham Jain) - Complete Parts 1, 2 & 3 (1 to 600)
-// Total Groups: 251
-// Total Entries: 601
+// Source: RBE Officer Batch (Shubham Jain) - Complete Parts 1, 2, 3 & 4 (1 to 807)
+// Total Groups: 342
+// Total Entries: 809
 // ============================================================================
 
 export interface HomographSense {
@@ -4747,7 +4747,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-162",
+    "id": "hg-group-151",
     "word": "Gall",
     "sensesCount": 3,
     "senses": [
@@ -4784,7 +4784,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-161",
+    "id": "hg-group-152",
     "word": "Gang",
     "sensesCount": 2,
     "senses": [
@@ -4811,7 +4811,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-165",
+    "id": "hg-group-153",
     "word": "Gift",
     "sensesCount": 2,
     "senses": [
@@ -4838,7 +4838,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-151",
+    "id": "hg-group-154",
     "word": "Glare",
     "sensesCount": 2,
     "senses": [
@@ -4865,7 +4865,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-152",
+    "id": "hg-group-155",
     "word": "Glaze",
     "sensesCount": 2,
     "senses": [
@@ -4892,7 +4892,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-163",
+    "id": "hg-group-156",
     "word": "Gloss",
     "sensesCount": 2,
     "senses": [
@@ -4919,7 +4919,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-172",
+    "id": "hg-group-157",
     "word": "Glow",
     "sensesCount": 2,
     "senses": [
@@ -4946,7 +4946,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-169",
+    "id": "hg-group-158",
     "word": "Go",
     "sensesCount": 2,
     "senses": [
@@ -4973,7 +4973,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-153",
+    "id": "hg-group-159",
     "word": "Grade",
     "sensesCount": 4,
     "senses": [
@@ -5020,7 +5020,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-167",
+    "id": "hg-group-160",
     "word": "Grant",
     "sensesCount": 3,
     "senses": [
@@ -5057,7 +5057,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-170",
+    "id": "hg-group-161",
     "word": "Grapple",
     "sensesCount": 2,
     "senses": [
@@ -5084,7 +5084,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-154",
+    "id": "hg-group-162",
     "word": "Grave",
     "sensesCount": 2,
     "senses": [
@@ -5111,7 +5111,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-160",
+    "id": "hg-group-163",
     "word": "Grind",
     "sensesCount": 2,
     "senses": [
@@ -5138,7 +5138,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-155",
+    "id": "hg-group-164",
     "word": "Grip",
     "sensesCount": 3,
     "senses": [
@@ -5175,7 +5175,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-156",
+    "id": "hg-group-165",
     "word": "Groom",
     "sensesCount": 2,
     "senses": [
@@ -5202,7 +5202,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-171",
+    "id": "hg-group-166",
     "word": "Groove",
     "sensesCount": 3,
     "senses": [
@@ -5239,7 +5239,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-164",
+    "id": "hg-group-167",
     "word": "Gross",
     "sensesCount": 2,
     "senses": [
@@ -5266,7 +5266,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-157",
+    "id": "hg-group-168",
     "word": "Ground",
     "sensesCount": 2,
     "senses": [
@@ -5293,7 +5293,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-158",
+    "id": "hg-group-169",
     "word": "Guard",
     "sensesCount": 2,
     "senses": [
@@ -5320,7 +5320,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-159",
+    "id": "hg-group-170",
     "word": "Gum",
     "sensesCount": 2,
     "senses": [
@@ -5347,7 +5347,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-166",
+    "id": "hg-group-171",
     "word": "Gush",
     "sensesCount": 2,
     "senses": [
@@ -5374,7 +5374,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-168",
+    "id": "hg-group-172",
     "word": "Gut",
     "sensesCount": 2,
     "senses": [
@@ -5401,7 +5401,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-189",
+    "id": "hg-group-173",
     "word": "Hack",
     "sensesCount": 3,
     "senses": [
@@ -5438,7 +5438,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-188",
+    "id": "hg-group-174",
     "word": "Hail",
     "sensesCount": 3,
     "senses": [
@@ -5475,7 +5475,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-178",
+    "id": "hg-group-175",
     "word": "Hammer",
     "sensesCount": 2,
     "senses": [
@@ -5502,7 +5502,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-173",
+    "id": "hg-group-176",
     "word": "Hand",
     "sensesCount": 3,
     "senses": [
@@ -5539,7 +5539,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-181",
+    "id": "hg-group-177",
     "word": "Handle",
     "sensesCount": 2,
     "senses": [
@@ -5566,7 +5566,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-179",
+    "id": "hg-group-178",
     "word": "Hang",
     "sensesCount": 2,
     "senses": [
@@ -5593,7 +5593,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-182",
+    "id": "hg-group-179",
     "word": "Hatch",
     "sensesCount": 3,
     "senses": [
@@ -5630,7 +5630,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-183",
+    "id": "hg-group-180",
     "word": "Haul",
     "sensesCount": 2,
     "senses": [
@@ -5657,7 +5657,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-174",
+    "id": "hg-group-181",
     "word": "Head",
     "sensesCount": 3,
     "senses": [
@@ -5694,7 +5694,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-191",
+    "id": "hg-group-182",
     "word": "Heap",
     "sensesCount": 3,
     "senses": [
@@ -5731,7 +5731,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-195",
+    "id": "hg-group-183",
     "word": "Heel",
     "sensesCount": 2,
     "senses": [
@@ -5758,7 +5758,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-185",
+    "id": "hg-group-184",
     "word": "Hike",
     "sensesCount": 3,
     "senses": [
@@ -5795,7 +5795,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-192",
+    "id": "hg-group-185",
     "word": "Hiss",
     "sensesCount": 3,
     "senses": [
@@ -5832,7 +5832,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-175",
+    "id": "hg-group-186",
     "word": "Hit",
     "sensesCount": 5,
     "senses": [
@@ -5889,7 +5889,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-190",
+    "id": "hg-group-187",
     "word": "Hitch",
     "sensesCount": 2,
     "senses": [
@@ -5916,7 +5916,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-186",
+    "id": "hg-group-188",
     "word": "Hoist",
     "sensesCount": 2,
     "senses": [
@@ -5943,7 +5943,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-176",
+    "id": "hg-group-189",
     "word": "Hold",
     "sensesCount": 2,
     "senses": [
@@ -5970,7 +5970,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-177",
+    "id": "hg-group-190",
     "word": "Hook",
     "sensesCount": 3,
     "senses": [
@@ -6007,7 +6007,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-184",
+    "id": "hg-group-191",
     "word": "Hound",
     "sensesCount": 2,
     "senses": [
@@ -6034,7 +6034,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-180",
+    "id": "hg-group-192",
     "word": "House",
     "sensesCount": 3,
     "senses": [
@@ -6071,7 +6071,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-187",
+    "id": "hg-group-193",
     "word": "Hover",
     "sensesCount": 2,
     "senses": [
@@ -6098,7 +6098,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-193",
+    "id": "hg-group-194",
     "word": "Hunch",
     "sensesCount": 3,
     "senses": [
@@ -6135,7 +6135,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-194",
+    "id": "hg-group-195",
     "word": "Hustle",
     "sensesCount": 2,
     "senses": [
@@ -6162,7 +6162,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-200",
+    "id": "hg-group-196",
     "word": "Impact",
     "sensesCount": 2,
     "senses": [
@@ -6189,7 +6189,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-201",
+    "id": "hg-group-197",
     "word": "Import",
     "sensesCount": 2,
     "senses": [
@@ -6216,7 +6216,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-202",
+    "id": "hg-group-198",
     "word": "Impress",
     "sensesCount": 2,
     "senses": [
@@ -6243,7 +6243,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-203",
+    "id": "hg-group-199",
     "word": "Incline",
     "sensesCount": 3,
     "senses": [
@@ -6280,7 +6280,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-210",
+    "id": "hg-group-200",
     "word": "Induce",
     "sensesCount": 2,
     "senses": [
@@ -6307,7 +6307,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-207",
+    "id": "hg-group-201",
     "word": "Inhabit",
     "sensesCount": 2,
     "senses": [
@@ -6334,7 +6334,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-204",
+    "id": "hg-group-202",
     "word": "Initiate",
     "sensesCount": 2,
     "senses": [
@@ -6361,7 +6361,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-213",
+    "id": "hg-group-203",
     "word": "Institute",
     "sensesCount": 2,
     "senses": [
@@ -6388,7 +6388,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-208",
+    "id": "hg-group-204",
     "word": "Instruct",
     "sensesCount": 2,
     "senses": [
@@ -6442,7 +6442,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-214",
+    "id": "hg-group-206",
     "word": "Intake",
     "sensesCount": 2,
     "senses": [
@@ -6469,7 +6469,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-211",
+    "id": "hg-group-207",
     "word": "Intend",
     "sensesCount": 2,
     "senses": [
@@ -6496,7 +6496,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-212",
+    "id": "hg-group-208",
     "word": "Interact",
     "sensesCount": 2,
     "senses": [
@@ -6523,7 +6523,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-206",
+    "id": "hg-group-209",
     "word": "Intercept",
     "sensesCount": 2,
     "senses": [
@@ -6550,7 +6550,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-198",
+    "id": "hg-group-210",
     "word": "Interest",
     "sensesCount": 3,
     "senses": [
@@ -6587,7 +6587,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-215",
+    "id": "hg-group-211",
     "word": "Intrigue",
     "sensesCount": 2,
     "senses": [
@@ -6614,7 +6614,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-216",
+    "id": "hg-group-212",
     "word": "Invalid",
     "sensesCount": 2,
     "senses": [
@@ -6641,7 +6641,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-209",
+    "id": "hg-group-213",
     "word": "Invest",
     "sensesCount": 2,
     "senses": [
@@ -6668,7 +6668,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-199",
+    "id": "hg-group-214",
     "word": "Involve",
     "sensesCount": 2,
     "senses": [
@@ -6695,7 +6695,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-197",
+    "id": "hg-group-215",
     "word": "Iron",
     "sensesCount": 2,
     "senses": [
@@ -6722,7 +6722,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-217",
+    "id": "hg-group-216",
     "word": "Irony",
     "sensesCount": 2,
     "senses": [
@@ -6749,7 +6749,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-196",
+    "id": "hg-group-217",
     "word": "Issue",
     "sensesCount": 3,
     "senses": [
@@ -6786,7 +6786,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-221",
+    "id": "hg-group-218",
     "word": "Jack",
     "sensesCount": 2,
     "senses": [
@@ -6813,7 +6813,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-224",
+    "id": "hg-group-219",
     "word": "Jerk",
     "sensesCount": 2,
     "senses": [
@@ -6840,7 +6840,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-228",
+    "id": "hg-group-220",
     "word": "Jockey",
     "sensesCount": 3,
     "senses": [
@@ -6877,7 +6877,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-225",
+    "id": "hg-group-221",
     "word": "Jog",
     "sensesCount": 2,
     "senses": [
@@ -6904,7 +6904,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-231",
+    "id": "hg-group-222",
     "word": "Join",
     "sensesCount": 2,
     "senses": [
@@ -6931,7 +6931,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-218",
+    "id": "hg-group-223",
     "word": "Joint",
     "sensesCount": 2,
     "senses": [
@@ -6958,7 +6958,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-227",
+    "id": "hg-group-224",
     "word": "Jolt",
     "sensesCount": 2,
     "senses": [
@@ -6985,7 +6985,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-230",
+    "id": "hg-group-225",
     "word": "Jot",
     "sensesCount": 2,
     "senses": [
@@ -7012,7 +7012,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-222",
+    "id": "hg-group-226",
     "word": "Judge",
     "sensesCount": 3,
     "senses": [
@@ -7049,7 +7049,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-226",
+    "id": "hg-group-227",
     "word": "Juggle",
     "sensesCount": 2,
     "senses": [
@@ -7076,7 +7076,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-223",
+    "id": "hg-group-228",
     "word": "Jump",
     "sensesCount": 2,
     "senses": [
@@ -7103,7 +7103,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-220",
+    "id": "hg-group-229",
     "word": "Junk",
     "sensesCount": 3,
     "senses": [
@@ -7140,7 +7140,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-219",
+    "id": "hg-group-230",
     "word": "Just",
     "sensesCount": 3,
     "senses": [
@@ -7177,7 +7177,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-229",
+    "id": "hg-group-231",
     "word": "Justify",
     "sensesCount": 2,
     "senses": [
@@ -7204,7 +7204,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-241",
+    "id": "hg-group-232",
     "word": "Keen",
     "sensesCount": 2,
     "senses": [
@@ -7231,7 +7231,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-232",
+    "id": "hg-group-233",
     "word": "Keep",
     "sensesCount": 3,
     "senses": [
@@ -7268,7 +7268,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-239",
+    "id": "hg-group-234",
     "word": "Key",
     "sensesCount": 2,
     "senses": [
@@ -7295,7 +7295,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-233",
+    "id": "hg-group-235",
     "word": "Kick",
     "sensesCount": 3,
     "senses": [
@@ -7332,7 +7332,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-234",
+    "id": "hg-group-236",
     "word": "Kid",
     "sensesCount": 2,
     "senses": [
@@ -7359,7 +7359,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-235",
+    "id": "hg-group-237",
     "word": "Kill",
     "sensesCount": 3,
     "senses": [
@@ -7396,7 +7396,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-242",
+    "id": "hg-group-238",
     "word": "Kin",
     "sensesCount": 2,
     "senses": [
@@ -7423,7 +7423,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-236",
+    "id": "hg-group-239",
     "word": "Kind",
     "sensesCount": 2,
     "senses": [
@@ -7450,7 +7450,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-245",
+    "id": "hg-group-240",
     "word": "Kink",
     "sensesCount": 3,
     "senses": [
@@ -7487,7 +7487,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-243",
+    "id": "hg-group-241",
     "word": "Kip",
     "sensesCount": 2,
     "senses": [
@@ -7514,7 +7514,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-244",
+    "id": "hg-group-242",
     "word": "Kit",
     "sensesCount": 2,
     "senses": [
@@ -7541,7 +7541,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-240",
+    "id": "hg-group-243",
     "word": "Kite",
     "sensesCount": 2,
     "senses": [
@@ -7568,7 +7568,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-246",
+    "id": "hg-group-244",
     "word": "Knight",
     "sensesCount": 2,
     "senses": [
@@ -7595,7 +7595,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-237",
+    "id": "hg-group-245",
     "word": "Knock",
     "sensesCount": 2,
     "senses": [
@@ -7622,7 +7622,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-238",
+    "id": "hg-group-246",
     "word": "Knot",
     "sensesCount": 2,
     "senses": [
@@ -7650,6 +7650,33 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
   },
   {
     "id": "hg-group-247",
+    "word": "Lace",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lace-1",
+        "sno": 667,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A fine ornamental openwork fabric",
+        "hindiMeaning": "फ़ीता / लेस",
+        "englishSentence": "Her dress was trimmed with lace.",
+        "hindiSentence": "उसकी पोशाक फीते से सजाई गई थी।"
+      },
+      {
+        "id": "hg-lace-2",
+        "sno": 668,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To add alcohol or another substance in small quantities to (a drink or dish)",
+        "hindiMeaning": "मिलाना / मिश्रण करना",
+        "englishSentence": "He laced his coffee with brandy.",
+        "hindiSentence": "उसने अपनी कॉफ़ी में ब्रांडी मिलाई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-248",
     "word": "Lag",
     "sensesCount": 2,
     "senses": [
@@ -7676,7 +7703,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-248",
+    "id": "hg-group-249",
     "word": "Lamb",
     "sensesCount": 2,
     "senses": [
@@ -7703,7 +7730,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-249",
+    "id": "hg-group-250",
     "word": "Land",
     "sensesCount": 2,
     "senses": [
@@ -7730,7 +7757,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-250",
+    "id": "hg-group-251",
     "word": "Lap",
     "sensesCount": 3,
     "senses": [
@@ -7767,9 +7794,36 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-251",
-    "word": "Last",
+    "id": "hg-group-252",
+    "word": "Lark",
     "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lark-1",
+        "sno": 694,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A carefree or spirited adventure",
+        "hindiMeaning": "मस्तीभरी हरकत / मज़ाक",
+        "englishSentence": "We went out for a lark.",
+        "hindiSentence": "हम मस्ती करने गए।"
+      },
+      {
+        "id": "hg-lark-2",
+        "sno": 695,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small songbird",
+        "hindiMeaning": "लार्क पक्षी / भारद्वाज पक्षी",
+        "englishSentence": "The lark sang at dawn.",
+        "hindiSentence": "लार्क पक्षी ने सुबह गाना गाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-253",
+    "word": "Last",
+    "sensesCount": 3,
     "senses": [
       {
         "id": "hg-last-1",
@@ -7790,6 +7844,2669 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
         "hindiMeaning": "चलना / टिकना",
         "englishSentence": "The battery will last for ten hours.",
         "hindiSentence": "बैटरी दस घंटे तक चलेगी।"
+      },
+      {
+        "id": "hg-last-3",
+        "sno": 600,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To continue for a specified period",
+        "hindiMeaning": "चलना / टिके रहना",
+        "englishSentence": "This meeting should last an hour.",
+        "hindiSentence": "यह बैठक एक घंटे तक चलेगी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-254",
+    "word": "Late",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-late-1",
+        "sno": 601,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "After the expected or usual time",
+        "hindiMeaning": "विलंबित / देर से",
+        "englishSentence": "She was late for the appointment.",
+        "hindiSentence": "वह अपॉइंटमेंट के लिए देर से आई।"
+      },
+      {
+        "id": "hg-late-2",
+        "sno": 602,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Not long ago",
+        "hindiMeaning": "अभी-अभी / देर से",
+        "englishSentence": "He left late last night.",
+        "hindiSentence": "वह अभी-अभी रात को देर से गया था।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-255",
+    "word": "Lavish",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lavish-1",
+        "sno": 661,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Sumptuously rich or elaborate",
+        "hindiMeaning": "भव्य / शानदार",
+        "englishSentence": "They hosted a lavish banquet.",
+        "hindiSentence": "उन्होंने एक भव्य भोज आयोजित किया।"
+      },
+      {
+        "id": "hg-lavish-2",
+        "sno": 662,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To bestow in generous or extravagant quantities",
+        "hindiMeaning": "बहुतायत से देना / लुटाना",
+        "englishSentence": "He lavished praise on the team.",
+        "hindiSentence": "उसने टीम पर बहुतायत से प्रशंसा की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-256",
+    "word": "Lawn",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lawn-1",
+        "sno": 663,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An area of short, mown grass",
+        "hindiMeaning": "लॉन / घास का मैदान",
+        "englishSentence": "The children played on the lawn.",
+        "hindiSentence": "बच्चे लॉन पर खेल रहे थे।"
+      },
+      {
+        "id": "hg-lawn-2",
+        "sno": 664,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A fine translucent fabric",
+        "hindiMeaning": "महीन कपड़ा (लॉन कपड़ा)",
+        "englishSentence": "Her summer dress was made of lawn.",
+        "hindiSentence": "उसकी गर्मियों की पोशाक महीन कपड़े की बनी थी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-257",
+    "word": "Lay",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lay-1",
+        "sno": 603,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To put or place in a flat position",
+        "hindiMeaning": "रखना",
+        "englishSentence": "Lay the book on the table.",
+        "hindiSentence": "किताब को मेज़ पर रखो।"
+      },
+      {
+        "id": "hg-lay-2",
+        "sno": 604,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A short ballad or narrative poem",
+        "hindiMeaning": "लोकगीत",
+        "englishSentence": "He sang a lay of ancient heroes.",
+        "hindiSentence": "उसने प्राचीन नायकों का एक लोकगीत गाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-258",
+    "word": "Lead",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-lead-1",
+        "sno": 605,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A heavy, soft, malleable metal (/led/)",
+        "hindiMeaning": "सीसा (धातु)",
+        "englishSentence": "Pipes used to be made of lead.",
+        "hindiSentence": "पहले पाइप सीसे के बने होते थे।"
+      },
+      {
+        "id": "hg-lead-2",
+        "sno": 606,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To guide or direct (/liːd/)",
+        "hindiMeaning": "नेतृत्व करना / राह दिखाना",
+        "englishSentence": "She will lead the expedition team.",
+        "hindiSentence": "वह खोज दल का नेतृत्व करेगी।"
+      },
+      {
+        "id": "hg-lead-3",
+        "sno": 607,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The initiative or advantage (/liːd/)",
+        "hindiMeaning": "बढ़त / बढ़त हासिल करना",
+        "englishSentence": "He took the lead in the negotiations.",
+        "hindiSentence": "उसने बातचीत में बढ़त ली।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-259",
+    "word": "Leaf",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-leaf-1",
+        "sno": 692,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A flattened structure of a plant",
+        "hindiMeaning": "पत्ता / पर्ण",
+        "englishSentence": "The leaf fell from the tree.",
+        "hindiSentence": "पत्ता पेड़ से गिरा।"
+      },
+      {
+        "id": "hg-leaf-2",
+        "sno": 693,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To turn over pages",
+        "hindiMeaning": "पन्ना पलटना",
+        "englishSentence": "Leaf through the magazine.",
+        "hindiSentence": "पत्रिका में पन्ना पलटें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-260",
+    "word": "Lean",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lean-1",
+        "sno": 608,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To incline or bend from a vertical position",
+        "hindiMeaning": "झुकना",
+        "englishSentence": "She leaned out of the window to look down.",
+        "hindiSentence": "उसने झुककर नीचे देखने के लिए खिड़की से बाहर देखा।"
+      },
+      {
+        "id": "hg-lean-2",
+        "sno": 609,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Thin or without much fat",
+        "hindiMeaning": "दुबला-पतला",
+        "englishSentence": "He has a lean build suited for running.",
+        "hindiSentence": "उसकी शारीरिक बनावट दुबली-पतली है, जो दौड़ने के लिए उपयुक्त है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-261",
+    "word": "Leave",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-leave-1",
+        "sno": 610,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To go away from",
+        "hindiMeaning": "छोड़कर जाना / विदा होना",
+        "englishSentence": "They will leave the city at dawn.",
+        "hindiSentence": "वे सुबह शहर छोड़कर जाएंगे।"
+      },
+      {
+        "id": "hg-leave-2",
+        "sno": 611,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Time off from work or duty (Permission)",
+        "hindiMeaning": "अवकाश / छुट्टी",
+        "englishSentence": "She requested a leave of absence.",
+        "hindiSentence": "उसने अवकाश का अनुरोध किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-262",
+    "word": "Leech",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-leech-1",
+        "sno": 688,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A bloodsucking worm-like parasite",
+        "hindiMeaning": "जोंक / पिच्छू",
+        "englishSentence": "They removed a leech from his leg.",
+        "hindiSentence": "उन्होंने उसके पैर से जोंक निकाल दिया।"
+      },
+      {
+        "id": "hg-leech-2",
+        "sno": 689,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cling to and drain resources from someone",
+        "hindiMeaning": "चिपटना / शोषण करना",
+        "englishSentence": "He leeches off his relatives.",
+        "hindiSentence": "वह अपने संबंधियों का शोषण करता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-263",
+    "word": "Legend",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-legend-1",
+        "sno": 665,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A key explaining symbols on a map or chart",
+        "hindiMeaning": "(मैप) कुंजी / संकेत सूची",
+        "englishSentence": "Refer to the legend for the map symbols.",
+        "hindiSentence": "मानचित्र के प्रतीकों के लिए कुंजी देखें।"
+      },
+      {
+        "id": "hg-legend-2",
+        "sno": 666,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A very famous or notorious person",
+        "hindiMeaning": "दंतकथा व्यक्ति / किंवदंती",
+        "englishSentence": "He’s a legend in the world of music.",
+        "hindiSentence": "वह संगीत जगत का एक दंतकथा व्यक्ति है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-264",
+    "word": "Letter",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-letter-1",
+        "sno": 690,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A character representing one or more sounds used in speech",
+        "hindiMeaning": "अक्षर / वर्ण",
+        "englishSentence": "The word begins with the letter ‘L’.",
+        "hindiSentence": "यह शब्द ‘L’ अक्षर से शुरू होता है।"
+      },
+      {
+        "id": "hg-letter-2",
+        "sno": 691,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A written or printed message addressed to a person",
+        "hindiMeaning": "पत्र / चिट्ठी",
+        "englishSentence": "I received a letter yesterday.",
+        "hindiSentence": "मुझे कल एक पत्र मिला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-265",
+    "word": "Level",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-level-1",
+        "sno": 612,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A horizontal plane or line",
+        "hindiMeaning": "स्तर / सतह",
+        "englishSentence": "Water reached the level of the deck.",
+        "hindiSentence": "पानी डेक के स्तर तक पहुँच गया।"
+      },
+      {
+        "id": "hg-level-2",
+        "sno": 613,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To make something flat or even",
+        "hindiMeaning": "समतल करना",
+        "englishSentence": "They levelled the ground for planting.",
+        "hindiSentence": "उन्होंने रोपण के लिए जमीन समतल की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-266",
+    "word": "Leverage",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-leverage-1",
+        "sno": 669,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The power to influence people or situations",
+        "hindiMeaning": "प्रभाव / ताकत",
+        "englishSentence": "He used his connections as leverage.",
+        "hindiSentence": "उसने अपने संबंधों को प्रभाव के लिए इस्तेमाल किया।"
+      },
+      {
+        "id": "hg-leverage-2",
+        "sno": 670,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To use (something) to maximum advantage",
+        "hindiMeaning": "लाभ उठाना / भरपूर उपयोग करना",
+        "englishSentence": "She leveraged her experience to get the job.",
+        "hindiSentence": "उसने नौकरी पाने के लिए अपने अनुभव का लाभ उठाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-267",
+    "word": "License",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-license-1",
+        "sno": 614,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An official permit or document",
+        "hindiMeaning": "लाइसेंस / अनुज्ञा-पत्र",
+        "englishSentence": "He renewed his driver’s license.",
+        "hindiSentence": "उसने अपना ड्राइविंग लाइसेंस नवीनीकृत किया।"
+      },
+      {
+        "id": "hg-license-2",
+        "sno": 615,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To grant permission legally",
+        "hindiMeaning": "लाइसेंस देना / अनुमति देना",
+        "englishSentence": "The authority licensed the broadcaster.",
+        "hindiSentence": "प्राधिकरण ने प्रसारक को लाइसेंस दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-268",
+    "word": "Lick",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-lick-1",
+        "sno": 629,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To pass the tongue over; to lap",
+        "hindiMeaning": "चाटना",
+        "englishSentence": "The dog licked my hand.",
+        "hindiSentence": "कुत्ते ने मेरा हाथ चाटा।"
+      },
+      {
+        "id": "hg-lick-2",
+        "sno": 630,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A defeat (informal/slang)",
+        "hindiMeaning": "पराजय / शिकस्त",
+        "englishSentence": "They took a lick in last night’s game.",
+        "hindiSentence": "उन्होंने कल रात के खेल में पराजय झेली।"
+      },
+      {
+        "id": "hg-lick-3",
+        "sno": 631,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small amount",
+        "hindiMeaning": "थोड़ा सा / हल्की परत",
+        "englishSentence": "Add a lick of paint here.",
+        "hindiSentence": "यहाँ थोड़ा सा पेंट लगाओ।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-269",
+    "word": "Lie",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lie-1",
+        "sno": 616,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To rest in a horizontal position (Recline)",
+        "hindiMeaning": "लेटना",
+        "englishSentence": "I like to lie in bed and read on Sundays.",
+        "hindiSentence": "मुझे रविवार को बिस्तर पर लेटकर पढ़ना पसंद है।"
+      },
+      {
+        "id": "hg-lie-2",
+        "sno": 617,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To tell a falsehood",
+        "hindiMeaning": "झूठ बोलना",
+        "englishSentence": "He lied about his age.",
+        "hindiSentence": "उसने अपनी उम्र के बारे में झूठ बोला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-270",
+    "word": "Lift",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-lift-1",
+        "sno": 632,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To raise to a higher position",
+        "hindiMeaning": "उठाना",
+        "englishSentence": "She lifted the box easily.",
+        "hindiSentence": "उसने डिब्बा आसानी से उठाया।"
+      },
+      {
+        "id": "hg-lift-2",
+        "sno": 633,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An elevator",
+        "hindiMeaning": "लिफ्ट",
+        "englishSentence": "Take the lift to the fifth floor.",
+        "hindiSentence": "पाँचवीं मंज़िल पर जाने के लिए लिफ्ट लें।"
+      },
+      {
+        "id": "hg-lift-3",
+        "sno": 634,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A free ride in a vehicle (Slang)",
+        "hindiMeaning": "सवारी / लिफ्ट",
+        "englishSentence": "Can you give me a lift?",
+        "hindiSentence": "क्या तुम मुझे सवारी दे सकते हो?"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-271",
+    "word": "Light",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-light-1",
+        "sno": 618,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The natural agent that stimulates sight and makes things visible",
+        "hindiMeaning": "प्रकाश / रोशनी",
+        "englishSentence": "The room was filled with light.",
+        "hindiSentence": "कमरा प्रकाश से भरा हुआ था।"
+      },
+      {
+        "id": "hg-light-2",
+        "sno": 619,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To make something start to burn",
+        "hindiMeaning": "जलाना / प्रज्वलित करना",
+        "englishSentence": "She lit the candle at dusk.",
+        "hindiSentence": "उसने सांझ होते ही मोमबत्ती जलाई।"
+      },
+      {
+        "id": "hg-light-3",
+        "sno": 620,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Having little weight; not heavy",
+        "hindiMeaning": "हल्का",
+        "englishSentence": "This fabric is very light.",
+        "hindiSentence": "यह कपड़ा बहुत हल्का है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-272",
+    "word": "Like",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-like-1",
+        "sno": 621,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To find something pleasant or enjoyable",
+        "hindiMeaning": "पसंद करना",
+        "englishSentence": "I like chocolate ice cream.",
+        "hindiSentence": "मुझे चॉकलेट आइसक्रीम पसंद है।"
+      },
+      {
+        "id": "hg-like-2",
+        "sno": 622,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "Similar to or in the manner of",
+        "hindiMeaning": "जैसा / की तरह",
+        "englishSentence": "She sings like an angel.",
+        "hindiSentence": "वह एक देवदूत की तरह गाती है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-273",
+    "word": "Limb",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-limb-1",
+        "sno": 671,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An arm or leg of a person or animal",
+        "hindiMeaning": "अंग / सदस्य",
+        "englishSentence": "He injured his left limb.",
+        "hindiSentence": "उसने अपने बाएं अंग को घायल किया।"
+      },
+      {
+        "id": "hg-limb-2",
+        "sno": 672,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large branch of a tree",
+        "hindiMeaning": "शाखा / बड़ी डाली",
+        "englishSentence": "A bird perched on a high limb.",
+        "hindiSentence": "एक पक्षी ऊँची शाखा पर बैठा था।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-274",
+    "word": "Lime",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lime-1",
+        "sno": 635,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A green citrus fruit",
+        "hindiMeaning": "नींबू",
+        "englishSentence": "She added a slice of lime to her drink.",
+        "hindiSentence": "उसने अपनी ड्रिंक में नींबू का एक टुकड़ा डाला।"
+      },
+      {
+        "id": "hg-lime-2",
+        "sno": 636,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A calcium-containing chemical used in soil treatment",
+        "hindiMeaning": "चूना",
+        "englishSentence": "They applied lime to the fields.",
+        "hindiSentence": "उन्होंने खेतों में चूना डाला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-275",
+    "word": "Limp",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-limp-1",
+        "sno": 637,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Lacking firmness or stiffness",
+        "hindiMeaning": "ढीला / बेजान",
+        "englishSentence": "The ribbon hung limp in the wind.",
+        "hindiSentence": "फीता हवा में ढीला लटक रहा था।"
+      },
+      {
+        "id": "hg-limp-2",
+        "sno": 638,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To walk with difficulty, typically because of a damaged leg",
+        "hindiMeaning": "लंगड़ाना",
+        "englishSentence": "He limped after twisting his ankle.",
+        "hindiSentence": "उसने टखना मुड़ने के बाद लंगड़ाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-276",
+    "word": "Line",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-line-1",
+        "sno": 673,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A long, narrow mark or band",
+        "hindiMeaning": "रेखा / लाइन",
+        "englishSentence": "Draw a straight line here.",
+        "hindiSentence": "यहाँ एक सीधी रेखा खींचो।"
+      },
+      {
+        "id": "hg-line-2",
+        "sno": 674,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A row or series of things",
+        "hindiMeaning": "पंक्ति / कतार",
+        "englishSentence": "Stand in a line, please.",
+        "hindiSentence": "कृपया कतार में खड़े हों।"
+      },
+      {
+        "id": "hg-line-3",
+        "sno": 675,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cover the inside surface",
+        "hindiMeaning": "अस्तर लगाना",
+        "englishSentence": "They lined the drawer with fabric.",
+        "hindiSentence": "उन्होंने दराज के अंदर कपड़े की अस्तर लगाई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-277",
+    "word": "Lip",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-lip-1",
+        "sno": 696,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The fleshy edge of the mouth",
+        "hindiMeaning": "होंठ / अधर",
+        "englishSentence": "He kissed her gently on the upper lip.",
+        "hindiSentence": "उसने हल्के से उसके ऊपरी होंठ पर चूमा।"
+      },
+      {
+        "id": "hg-lip-2",
+        "sno": 697,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A cheeky or impudent remark",
+        "hindiMeaning": "चिढ़ाने वाली बात / गुस्ताखी",
+        "englishSentence": "Don’t give me any lip!",
+        "hindiSentence": "मुझे चिढ़ाने वाली कोई बात मत कहना!"
+      },
+      {
+        "id": "hg-lip-3",
+        "sno": 698,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To speak back or reply insolently",
+        "hindiMeaning": "चालाकी से जवाब देना / गुस्ताखी करना",
+        "englishSentence": "She lipped back when he insulted her.",
+        "hindiSentence": "उसने अपमान सुनकर चालाकी से जवाब दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-278",
+    "word": "Litter",
+    "sensesCount": 4,
+    "senses": [
+      {
+        "id": "hg-litter-1",
+        "sno": 639,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Trash scattered about",
+        "hindiMeaning": "कचरा (बिखरा हुआ)",
+        "englishSentence": "The park was covered in litter.",
+        "hindiSentence": "पार्क कचरे से भरा हुआ था।"
+      },
+      {
+        "id": "hg-litter-2",
+        "sno": 640,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A group of young animals born at one time",
+        "hindiMeaning": "संतान / बच्चे (एक झोल)",
+        "englishSentence": "A litter of kittens was born yesterday.",
+        "hindiSentence": "कल एक बिल्लियों का लिटर हुआ।"
+      },
+      {
+        "id": "hg-litter-3",
+        "sno": 641,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To scatter untidily",
+        "hindiMeaning": "फैलाना / कूड़ा फैलाना",
+        "englishSentence": "Please don’t litter the street.",
+        "hindiSentence": "कृपया सड़क पर कूड़ा न फैलाएं।"
+      },
+      {
+        "id": "hg-litter-4",
+        "sno": 642,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A stretcher for carrying the injured",
+        "hindiMeaning": "पालना / स्ट्रेचर / डोली",
+        "englishSentence": "The injured hiker was carried out on a litter.",
+        "hindiSentence": "घायल पर्वतारोही को पालने पर बाहर निकाला गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-279",
+    "word": "Live",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-live-1",
+        "sno": 643,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To reside or have one’s home in a place",
+        "hindiMeaning": "रहना",
+        "englishSentence": "They live in Mumbai.",
+        "hindiSentence": "वे मुंबई में रहते हैं।"
+      },
+      {
+        "id": "hg-live-2",
+        "sno": 644,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Alive",
+        "hindiMeaning": "जीवित / सजीव",
+        "englishSentence": "The fish is still live.",
+        "hindiSentence": "मछली अभी भी जीवित है।"
+      },
+      {
+        "id": "hg-live-3",
+        "sno": 645,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Broadcast in real time",
+        "hindiMeaning": "प्रत्यक्ष रूप से / सीधा प्रसारण",
+        "englishSentence": "The concert is live on TV.",
+        "hindiSentence": "कॉन्सर्ट टीवी पर प्रत्यक्ष रूप से है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-280",
+    "word": "Load",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-load-1",
+        "sno": 623,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A quantity of something carried or borne",
+        "hindiMeaning": "भार / बोझ",
+        "englishSentence": "The truck carried a heavy load.",
+        "hindiSentence": "ट्रक भारी भार लेकर चल रहा था।"
+      },
+      {
+        "id": "hg-load-2",
+        "sno": 624,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To put a load onto or into something",
+        "hindiMeaning": "लोड करना / लादना",
+        "englishSentence": "They loaded the cargo onto the ship.",
+        "hindiSentence": "उन्होंने माल को जहाज पर लोड किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-281",
+    "word": "Loaf",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-loaf-1",
+        "sno": 676,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A shaped mass of baked bread",
+        "hindiMeaning": "रोटी का पाव / लोफ",
+        "englishSentence": "She bought a loaf of wholewheat.",
+        "hindiSentence": "उसने साबुत गेहूँ की एक रोटी (पाव) खरीदी।"
+      },
+      {
+        "id": "hg-loaf-2",
+        "sno": 677,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To spend time lazily",
+        "hindiMeaning": "आलस्य करना / मटरगश्ती करना",
+        "englishSentence": "He loafed around all weekend.",
+        "hindiSentence": "वह पूरा सप्ताहांत आलस्य करता रहा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-282",
+    "word": "Loan",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-loan-1",
+        "sno": 646,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Money lent that must be repaid",
+        "hindiMeaning": "ऋण / कर्ज़",
+        "englishSentence": "They took out a loan to buy the car.",
+        "hindiSentence": "उन्होंने कार खरीदने के लिए ऋण लिया।"
+      },
+      {
+        "id": "hg-loan-2",
+        "sno": 647,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To lend something",
+        "hindiMeaning": "उधार देना",
+        "englishSentence": "Can you loan me some money?",
+        "hindiSentence": "क्या आप मुझे कुछ पैसे उधार दे सकते हो?"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-283",
+    "word": "Lobby",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lobby-1",
+        "sno": 678,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large entrance hall or reception area",
+        "hindiMeaning": "प्रवेश कक्ष / लॉबी",
+        "englishSentence": "We waited in the hotel lobby.",
+        "hindiSentence": "हम होटल के प्रवेश कक्ष में इंतज़ार कर रहे थे।"
+      },
+      {
+        "id": "hg-lobby-2",
+        "sno": 679,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To try to influence (politicians or public officials)",
+        "hindiMeaning": "लॉबी करना / दबाव बनाना",
+        "englishSentence": "They lobbied the council for changes.",
+        "hindiSentence": "उन्होंने बदलावों के लिए परिषद पर दबाव डाला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-284",
+    "word": "Lock",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lock-1",
+        "sno": 625,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A mechanism for keeping a door, lid, etc., fastened",
+        "hindiMeaning": "ताला",
+        "englishSentence": "Don’t forget to close the lock.",
+        "hindiSentence": "ताला बंद करना न भूलें।"
+      },
+      {
+        "id": "hg-lock-2",
+        "sno": 626,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To secure with a lock",
+        "hindiMeaning": "बंद करना / ताला लगाना",
+        "englishSentence": "She locked the diary before going out.",
+        "hindiSentence": "वह बाहर जाने से पहले डायरी बंद कर गई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-285",
+    "word": "Lodge",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lodge-1",
+        "sno": 680,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A holiday cottage or club house",
+        "hindiMeaning": "लॉज / कॉटेज",
+        "englishSentence": "They rented a mountain lodge.",
+        "hindiSentence": "उन्होंने पहाड़ में एक लॉज किराए पर ली।"
+      },
+      {
+        "id": "hg-lodge-2",
+        "sno": 681,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To formally present (e.g., a complaint or claim)",
+        "hindiMeaning": "औपचारिक रूप से दर्ज कराना",
+        "englishSentence": "She lodged a complaint with HR.",
+        "hindiSentence": "उसने मानव संसाधन विभाग में शिकायत दर्ज कराई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-286",
+    "word": "Log",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-log-1",
+        "sno": 627,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large piece of a cut or fallen tree",
+        "hindiMeaning": "लट्ठ / लकड़ी का कुंदा",
+        "englishSentence": "He chopped the log into firewood.",
+        "hindiSentence": "उसने लट्ठ को ईंधन के लिए काटा।"
+      },
+      {
+        "id": "hg-log-2",
+        "sno": 628,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To record events, measurements, or observations",
+        "hindiMeaning": "रिकॉर्ड करना / दर्ज करना",
+        "englishSentence": "Pilots log flight hours daily.",
+        "hindiSentence": "पायलट रोज़ उड़ान के घंटे रिकॉर्ड करते हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-287",
+    "word": "Look",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-look-1",
+        "sno": 682,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To direct one’s gaze in a specified direction",
+        "hindiMeaning": "देखना",
+        "englishSentence": "Look at the painting carefully.",
+        "hindiSentence": "चित्र को ध्यान से देखिए।"
+      },
+      {
+        "id": "hg-look-2",
+        "sno": 683,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A fashion style or appearance",
+        "hindiMeaning": "रूप-रंग / लुक",
+        "englishSentence": "That’s quite a glamorous look!",
+        "hindiSentence": "यह एक बहुत ही ग्लैमरस लुक है!"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-288",
+    "word": "Loom",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-loom-1",
+        "sno": 648,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A device for weaving yarn into cloth",
+        "hindiMeaning": "बुनाई चक्का / करघा",
+        "englishSentence": "The weaver sat at the loom.",
+        "hindiSentence": "बुनकर बुनाई चक्के पर बैठा था।"
+      },
+      {
+        "id": "hg-loom-2",
+        "sno": 649,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To appear as a large, often threatening shape",
+        "hindiMeaning": "प्रकट होना / मंडराना",
+        "englishSentence": "Dark clouds loomed on the horizon.",
+        "hindiSentence": "क्षितिज पर काले बादल प्रकट हुए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-289",
+    "word": "Loose",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-loose-1",
+        "sno": 650,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Not firmly or tightly fixed in place",
+        "hindiMeaning": "ढीला / खुले में",
+        "englishSentence": "The screw is loose.",
+        "hindiSentence": "पेचकस ढीला है।"
+      },
+      {
+        "id": "hg-loose-2",
+        "sno": 651,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To release or set free",
+        "hindiMeaning": "खोलना / मुक्त करना",
+        "englishSentence": "They loosed the sails.",
+        "hindiSentence": "उन्होंने पाल खोल दी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-290",
+    "word": "Lot",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lot-1",
+        "sno": 684,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large number or amount",
+        "hindiMeaning": "बहुतायत / बहुत सारे",
+        "englishSentence": "He has a lot of good friends.",
+        "hindiSentence": "उसके बहुत सारे अच्छे दोस्त हैं।"
+      },
+      {
+        "id": "hg-lot-2",
+        "sno": 685,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A plot of land",
+        "hindiMeaning": "जमीन का टुकड़ा / भूखंड",
+        "englishSentence": "They purchased a lot next to the park.",
+        "hindiSentence": "उन्होंने पार्क के बगल में जमीन का टुकड़ा खरीदा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-291",
+    "word": "Love",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-love-1",
+        "sno": 701,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To feel deep affection for someone or something",
+        "hindiMeaning": "प्रेम करना / प्यार करना",
+        "englishSentence": "I love spending time at the beach.",
+        "hindiSentence": "मुझे समंदर किनारे समय बिताना पसंद है।"
+      },
+      {
+        "id": "hg-love-2",
+        "sno": 702,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A score of zero in tennis",
+        "hindiMeaning": "(टेनिस में) शून्य अंक",
+        "englishSentence": "She lost the game “love to 15.”",
+        "hindiSentence": "वह “लव टू 15” पर हार गई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-292",
+    "word": "Low",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-low-1",
+        "sno": 658,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Of little height or depth",
+        "hindiMeaning": "नीचा / कम",
+        "englishSentence": "The ceiling is too low.",
+        "hindiSentence": "छत बहुत नीची है।"
+      },
+      {
+        "id": "hg-low-2",
+        "sno": 659,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A mooing sound made by a cow",
+        "hindiMeaning": "रंभाने की ध्वनि / मिमिया ध्वनि",
+        "englishSentence": "The cow let out a low in the field.",
+        "hindiSentence": "खेत में गाय ने रंभाने की ध्वनि निकाली।"
+      },
+      {
+        "id": "hg-low-3",
+        "sno": 660,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "At a reduced level, amount, or intensity",
+        "hindiMeaning": "कम / धीमे",
+        "englishSentence": "Keep the volume low.",
+        "hindiSentence": "वॉल्यूम कम रखें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-293",
+    "word": "Lower",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lower-1",
+        "sno": 699,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To let or make something descend",
+        "hindiMeaning": "नीचे करना / घटाना",
+        "englishSentence": "Lower the blinds to block the sun.",
+        "hindiSentence": "सूरज को रोकने के लिए ब्लाइंड्स नीचे करें।"
+      },
+      {
+        "id": "hg-lower-2",
+        "sno": 700,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Situated below another part",
+        "hindiMeaning": "निचला",
+        "englishSentence": "The lower shelf holds the heavy boxes.",
+        "hindiSentence": "निचली शेल्फ पर भारी डिब्बे रखे हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-294",
+    "word": "Lump",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lump-1",
+        "sno": 652,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small shapeless mass",
+        "hindiMeaning": "गांठ / उभार / ढेला",
+        "englishSentence": "She felt a lump in her throat.",
+        "hindiSentence": "उसने अपने गले में गांठ महसूस की।"
+      },
+      {
+        "id": "hg-lump-2",
+        "sno": 653,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To group together indiscriminately",
+        "hindiMeaning": "एक साथ मिलाना / एकत्र करना",
+        "englishSentence": "They lumped all complaints into one file.",
+        "hindiSentence": "उन्होंने सभी शिकायतों को एक ही फाइल में एकत्र किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-295",
+    "word": "Lurch",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lurch-1",
+        "sno": 686,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To make an abrupt, unsteady movement",
+        "hindiMeaning": "अचानक लड़खड़ाना / अस्थिर होकर हिलना",
+        "englishSentence": "The car lurched forward unexpectedly.",
+        "hindiSentence": "कार अचानक अस्थिर होकर आगे बढ़ी।"
+      },
+      {
+        "id": "hg-lurch-2",
+        "sno": 687,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An act of swaying or staggering",
+        "hindiMeaning": "अचानक झटका / लड़खड़ाहट",
+        "englishSentence": "He felt a lurch as the train started.",
+        "hindiSentence": "ट्रेन के चलने पर उसे अचानक झटका लगा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-296",
+    "word": "Lure",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lure-1",
+        "sno": 656,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Something that tempts or entices",
+        "hindiMeaning": "प्रलोभन / लोभ",
+        "englishSentence": "The lure of easy money proved irresistible.",
+        "hindiSentence": "आसान पैसे का लोभ असहनीय था।"
+      },
+      {
+        "id": "hg-lure-2",
+        "sno": 657,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To tempt or attract someone",
+        "hindiMeaning": "आकर्षित करना / लुभाना",
+        "englishSentence": "The promise of fame lured many participants.",
+        "hindiSentence": "शोहरत का वादा कई प्रतिभागियों को आकर्षित कर गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-297",
+    "word": "Lust",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-lust-1",
+        "sno": 654,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Strong sexual desire",
+        "hindiMeaning": "कामवासना / तीव्र लालसा",
+        "englishSentence": "His lust for power was evident.",
+        "hindiSentence": "सत्ता के लिए उसकी कामवासना स्पष्ट थी।"
+      },
+      {
+        "id": "hg-lust-2",
+        "sno": 655,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To have strong desire for something",
+        "hindiMeaning": "लालसा करना",
+        "englishSentence": "She lusted after adventure.",
+        "hindiSentence": "वह रोमांच की लालसा रखती थी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-298",
+    "word": "Mail",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mail-1",
+        "sno": 703,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Armour made of interlinked metal rings (chain-mail)",
+        "hindiMeaning": "जालीदार कवच / बख्तर",
+        "englishSentence": "The knight wore a mail shirt into battle.",
+        "hindiSentence": "योद्धा ने युद्ध में जालीदार कवच पहन रखा था।"
+      },
+      {
+        "id": "hg-mail-2",
+        "sno": 704,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To send something by post",
+        "hindiMeaning": "डाक से भेजना",
+        "englishSentence": "Please mail the documents today.",
+        "hindiSentence": "कृपया आज ही दस्तावेज़ डाक से भेज दें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-299",
+    "word": "Main",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-main-1",
+        "sno": 774,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Most important; principal",
+        "hindiMeaning": "मुख्य / प्रधान",
+        "englishSentence": "The main road runs through town.",
+        "hindiSentence": "मुख्य मार्ग शहर से होकर गुज़रता है।"
+      },
+      {
+        "id": "hg-main-2",
+        "sno": 775,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The open sea; the ocean",
+        "hindiMeaning": "महासागर / खुला समुद्र",
+        "englishSentence": "The sailors ventured far out on the main.",
+        "hindiSentence": "नाविक महासागर पर दूर तक गए थे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-300",
+    "word": "Man",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-man-1",
+        "sno": 730,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An adult male human",
+        "hindiMeaning": "पुरुष / आदमी",
+        "englishSentence": "He is a tall man.",
+        "hindiSentence": "वह एक लंबा पुरुष है।"
+      },
+      {
+        "id": "hg-man-2",
+        "sno": 731,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To staff or operate (e.g., a station)",
+        "hindiMeaning": "संचालित करना / तैनात होना",
+        "englishSentence": "Please man the reception desk.",
+        "hindiSentence": "कृपया रिसेप्शन डेस्क संचालित करें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-301",
+    "word": "Mantle",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mantle-1",
+        "sno": 776,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A cloak or loose outer garment",
+        "hindiMeaning": "आवरण / चादर / लबादा",
+        "englishSentence": "He draped a mantle over his shoulders.",
+        "hindiSentence": "उसने अपने कंधों पर एक आवरण ओढ़ा।"
+      },
+      {
+        "id": "hg-mantle-2",
+        "sno": 777,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The layer of the Earth between the crust and core",
+        "hindiMeaning": "पृथ्वी का आवरण (मेंटल)",
+        "englishSentence": "Heat from the mantle causes volcanic activity.",
+        "hindiSentence": "आवरण से निकली गर्मी ज्वालामुखी गतिविधि का कारण बनती है।"
+      },
+      {
+        "id": "hg-mantle-3",
+        "sno": 778,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cover or envelop",
+        "hindiMeaning": "आवरण से ढकना",
+        "englishSentence": "Lava mantles the ocean floor after eruptions.",
+        "hindiSentence": "ज्वालामुखी विस्फोटों के बाद महासागर का तल लावा से ढक जाता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-302",
+    "word": "Mark",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mark-1",
+        "sno": 712,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A sign, symbol, or trace",
+        "hindiMeaning": "निशान / चिह्न",
+        "englishSentence": "There was a mark on the wall.",
+        "hindiSentence": "दीवार पर एक निशान था।"
+      },
+      {
+        "id": "hg-mark-2",
+        "sno": 713,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To note or indicate",
+        "hindiMeaning": "चिह्नित करना / निशान लगाना",
+        "englishSentence": "Please mark the errors in red.",
+        "hindiSentence": "कृपया गलतियों को लाल रंग से चिह्नित करें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-303",
+    "word": "Mask",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mask-1",
+        "sno": 732,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A covering worn over the face",
+        "hindiMeaning": "मुखावरण / मास्क",
+        "englishSentence": "She put on a protective mask.",
+        "hindiSentence": "उसने एक सुरक्षात्मक मुखावरण पहना।"
+      },
+      {
+        "id": "hg-mask-2",
+        "sno": 733,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To conceal or disguise",
+        "hindiMeaning": "छुपाना",
+        "englishSentence": "He masked his disappointment with a smile.",
+        "hindiSentence": "उसने एक मुस्कान से अपनी निराशा छुपा ली।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-304",
+    "word": "Mass",
+    "sensesCount": 4,
+    "senses": [
+      {
+        "id": "hg-mass-1",
+        "sno": 705,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large religious service",
+        "hindiMeaning": "मिस्सा / धार्मिक प्रार्थना (यज्ञ)",
+        "englishSentence": "We attended Sunday Mass at the cathedral.",
+        "hindiSentence": "हम कैथेड्रल में रविवार की मिस्सा में गए।"
+      },
+      {
+        "id": "hg-mass-2",
+        "sno": 706,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large quantity or amount",
+        "hindiMeaning": "बड़ी मात्रा / ढेर",
+        "englishSentence": "A mass of data needs analysis.",
+        "hindiSentence": "बड़ी मात्रा में डेटा का विश्लेषण करना है।"
+      },
+      {
+        "id": "hg-mass-3",
+        "sno": 707,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Relating to or affecting a large number",
+        "hindiMeaning": "व्यापक / सामूहिक",
+        "englishSentence": "A mass movement swept the nation.",
+        "hindiSentence": "एक व्यापक आंदोलन ने राष्ट्र को झकझोरा।"
+      },
+      {
+        "id": "hg-mass-4",
+        "sno": 708,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To gather into a large group",
+        "hindiMeaning": "इकट्ठा करना / एकत्र होना",
+        "englishSentence": "The troops massed at the border.",
+        "hindiSentence": "सैनिक सीमा पर इकट्ठे हुए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-305",
+    "word": "Master",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-master-1",
+        "sno": 734,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An expert or teacher",
+        "hindiMeaning": "गुरु / विशेषज्ञ",
+        "englishSentence": "He is a master of chess.",
+        "hindiSentence": "वह शतरंज का विशेषज्ञ है।"
+      },
+      {
+        "id": "hg-master-2",
+        "sno": 735,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Main or principal (e.g., master copy)",
+        "hindiMeaning": "मुख्य / प्रधान",
+        "englishSentence": "Keep the master document safe.",
+        "hindiSentence": "मुख्य दस्तावेज़ सुरक्षित रखें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-306",
+    "word": "Mat",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mat-1",
+        "sno": 779,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A piece of fabric or material placed on a floor or other surface",
+        "hindiMeaning": "चटाई / पायदान",
+        "englishSentence": "She wiped her boots on the mat.",
+        "hindiSentence": "उसने अपने बूट चटाई पर पोंछे।"
+      },
+      {
+        "id": "hg-mat-2",
+        "sno": 780,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A padded platform for gymnastics, wrestling, etc. (Sports)",
+        "hindiMeaning": "मैट (अखाड़ा / गद्दा)",
+        "englishSentence": "The wrestlers prepared on the mat.",
+        "hindiSentence": "पहलवान मैट पर तैयार हुए।"
+      },
+      {
+        "id": "hg-mat-3",
+        "sno": 781,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To tangle or clump hair or fibers",
+        "hindiMeaning": "उलझाना / जटा बनना",
+        "englishSentence": "If you don’t brush it, your hair will mat.",
+        "hindiSentence": "अगर आप इसे कंघा नहीं करेंगे तो आपके बाल उलझ जाएंगे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-307",
+    "word": "Match",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-match-1",
+        "sno": 709,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A contest between opponents",
+        "hindiMeaning": "मैच / मुकाबला",
+        "englishSentence": "They watched the football match on TV.",
+        "hindiSentence": "उन्होंने टीवी पर फुटबॉल मैच देखा।"
+      },
+      {
+        "id": "hg-match-2",
+        "sno": 710,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A stick that produces flame when struck",
+        "hindiMeaning": "दियासलाई / तीली",
+        "englishSentence": "He struck a match to light the candle.",
+        "hindiSentence": "उसने मोमबत्ती जलाने के लिए तीली जलाई।"
+      },
+      {
+        "id": "hg-match-3",
+        "sno": 711,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To be equal or similar",
+        "hindiMeaning": "मेल खाना / मिलना",
+        "englishSentence": "Their skills match perfectly.",
+        "hindiSentence": "उनकी क्षमताएं एकदम मेल खाती हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-308",
+    "word": "Matter",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-matter-1",
+        "sno": 736,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Physical substance",
+        "hindiMeaning": "पदार्थ / द्रव्य",
+        "englishSentence": "Dark matter remains a mystery.",
+        "hindiSentence": "डार्क मैटर एक रहस्य बनी हुई है।"
+      },
+      {
+        "id": "hg-matter-2",
+        "sno": 737,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To be of importance",
+        "hindiMeaning": "महत्व रखना",
+        "englishSentence": "It doesn’t matter to me.",
+        "hindiSentence": "मेरे लिए इसका कोई महत्व नहीं है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-309",
+    "word": "Mean",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mean-1",
+        "sno": 714,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To signify or intend",
+        "hindiMeaning": "अर्थ होना / आशय होना",
+        "englishSentence": "What does this word mean?",
+        "hindiSentence": "इस शब्द का क्या अर्थ है?"
+      },
+      {
+        "id": "hg-mean-2",
+        "sno": 715,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Unkind or spiteful",
+        "hindiMeaning": "कठोर / दुष्ट / दुर्भावी",
+        "englishSentence": "That was a mean remark.",
+        "hindiSentence": "वह एक कठोर टिप्पणी थी।"
+      },
+      {
+        "id": "hg-mean-3",
+        "sno": 716,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The average value",
+        "hindiMeaning": "औसत / माध्य",
+        "englishSentence": "Calculate the mean of these numbers.",
+        "hindiSentence": "इन संख्याओं का औसत निकालिए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-310",
+    "word": "Mess",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mess-1",
+        "sno": 767,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A dirty or untidy state",
+        "hindiMeaning": "गंदगी / अव्यवस्था",
+        "englishSentence": "Her room was in a mess.",
+        "hindiSentence": "उसका कमरा अव्यवस्था में था।"
+      },
+      {
+        "id": "hg-mess-2",
+        "sno": 768,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A dining hall, especially in military context",
+        "hindiMeaning": "खाने का हॉल / मेस",
+        "englishSentence": "The soldiers ate in the mess.",
+        "hindiSentence": "सैनिकों ने खाने के हॉल में खाना खाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-311",
+    "word": "Meter",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-meter-1",
+        "sno": 717,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A device that measures and records quantities (e.g., gas meter)",
+        "hindiMeaning": "मीटर यंत्र / मापक",
+        "englishSentence": "The gas meter showed high consumption.",
+        "hindiSentence": "गैस मीटर ने अधिक उपभोग दिखाया।"
+      },
+      {
+        "id": "hg-meter-2",
+        "sno": 718,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The basic rhythmic unit in poetry or music",
+        "hindiMeaning": "मीटर (कविता/संगीत का छंद)",
+        "englishSentence": "The poem’s meter is iambic pentameter.",
+        "hindiSentence": "कविता का मीटर आइएमबिक पेंटामीटर है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-312",
+    "word": "Milk",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-milk-1",
+        "sno": 738,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The white liquid produced by mammals",
+        "hindiMeaning": "दूध",
+        "englishSentence": "She drinks milk every morning.",
+        "hindiSentence": "वह हर सुबह दूध पीती है।"
+      },
+      {
+        "id": "hg-milk-2",
+        "sno": 739,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To extract (liquid or profit)",
+        "hindiMeaning": "(दूध/लाभ) निकालना / निचोड़ना",
+        "englishSentence": "He milked the opportunity for all it was worth.",
+        "hindiSentence": "उसने अवसर का पूरा लाभ उठाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-313",
+    "word": "Mince",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mince-1",
+        "sno": 742,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Meat chopped into very small pieces",
+        "hindiMeaning": "कीमा",
+        "englishSentence": "Use beef mince for the tacos.",
+        "hindiSentence": "टैकोस के लिए गोमांस का कीमा प्रयोग करें।"
+      },
+      {
+        "id": "hg-mince-2",
+        "sno": 743,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To speak or walk daintily (Figurative)",
+        "hindiMeaning": "नाज़ुक बोलना / संभलकर शब्द चुनना",
+        "englishSentence": "He minced his words carefully.",
+        "hindiSentence": "उसने सावधानी से अपने शब्द चुने।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-314",
+    "word": "Mind",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mind-1",
+        "sno": 740,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The seat of thought and feeling",
+        "hindiMeaning": "मन / दिमाग",
+        "englishSentence": "Her mind is full of ideas.",
+        "hindiSentence": "उसके मन में विचार भरे हुए हैं।"
+      },
+      {
+        "id": "hg-mind-2",
+        "sno": 741,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To pay attention to; to care about",
+        "hindiMeaning": "ध्यान रखना / परवाह करना",
+        "englishSentence": "Mind the gap when you step off the train.",
+        "hindiSentence": "ट्रेन से उतरते समय गैप पर ध्यान दें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-315",
+    "word": "Mine",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mine-1",
+        "sno": 719,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A pit from which minerals or coal are extracted",
+        "hindiMeaning": "खान / खदान",
+        "englishSentence": "The workers entered the coal mine.",
+        "hindiSentence": "मजदूर कोयला खदान में गए।"
+      },
+      {
+        "id": "hg-mine-2",
+        "sno": 720,
+        "partOfSpeech": "Pronoun",
+        "posCategory": "noun",
+        "englishMeaning": "Belonging to me",
+        "hindiMeaning": "मेरा",
+        "englishSentence": "That book is mine.",
+        "hindiSentence": "वह किताब मेरी है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-316",
+    "word": "Mint",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mint-1",
+        "sno": 771,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An herb with aromatic leaves",
+        "hindiMeaning": "पुदीना",
+        "englishSentence": "Add fresh mint to the salad.",
+        "hindiSentence": "सलाद में ताज़ा पुदीना डालें।"
+      },
+      {
+        "id": "hg-mint-2",
+        "sno": 772,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A place where coins are made",
+        "hindiMeaning": "टकसाल",
+        "englishSentence": "The mint produces our currency.",
+        "hindiSentence": "टकसाल हमारी मुद्रा बनाती है।"
+      },
+      {
+        "id": "hg-mint-3",
+        "sno": 773,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To produce coins",
+        "hindiMeaning": "सिक्के ढालना",
+        "englishSentence": "They minted commemorative coins.",
+        "hindiSentence": "उन्होंने स्मरणीय सिक्के ढाले।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-317",
+    "word": "Mirror",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mirror-1",
+        "sno": 769,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A reflective surface",
+        "hindiMeaning": "दर्पण / आईना",
+        "englishSentence": "She checked herself in the mirror.",
+        "hindiSentence": "उसने खुद को दर्पण में देखा।"
+      },
+      {
+        "id": "hg-mirror-2",
+        "sno": 770,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To reflect or give a likeness to",
+        "hindiMeaning": "प्रतिबिंबित करना",
+        "englishSentence": "The lake mirrored the mountains.",
+        "hindiSentence": "झील ने पहाड़ों का प्रतिबिंब दिखाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-318",
+    "word": "Miss",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-miss-1",
+        "sno": 744,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A failure to hit or catch",
+        "hindiMeaning": "चूक",
+        "englishSentence": "That was a miss by the striker.",
+        "hindiSentence": "वह स्ट्राइकर की चूक थी।"
+      },
+      {
+        "id": "hg-miss-2",
+        "sno": 745,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A young girl or unmarried woman (title)",
+        "hindiMeaning": "सुश्री / कुमारी",
+        "englishSentence": "Miss Sharma is our class monitor.",
+        "hindiSentence": "सुश्री शर्मा हमारे क्लास मॉनिटर हैं।"
+      },
+      {
+        "id": "hg-miss-3",
+        "sno": 746,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To fail to attend or notice / feel absence",
+        "hindiMeaning": "न पहुँच पाना / कमी खलना",
+        "englishSentence": "I’ll miss you when you leave.",
+        "hindiSentence": "जब तुम जाओगे तो मुझे तुम्हारी कमी खलेगी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-319",
+    "word": "Moan",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-moan-1",
+        "sno": 787,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A low, prolonged sound of pain or complaint",
+        "hindiMeaning": "कराह / चीख",
+        "englishSentence": "He let out a moan when he stubbed his toe.",
+        "hindiSentence": "उसने अपनी उँगली ठोकर मारने पर कराह निकाली।"
+      },
+      {
+        "id": "hg-moan-2",
+        "sno": 788,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To complain or grumble",
+        "hindiMeaning": "शिकायत करना / कुड़कुड़ाना",
+        "englishSentence": "She moaned that the work was too hard.",
+        "hindiSentence": "उसने शिकायत की कि काम बहुत कठिन है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-320",
+    "word": "Mob",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mob-1",
+        "sno": 721,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large disorderly crowd",
+        "hindiMeaning": "भीड़ / उग्र भीड़",
+        "englishSentence": "A mob gathered outside the courthouse.",
+        "hindiSentence": "न्यायालय के बाहर एक भीड़ इकट्ठा हो गई।"
+      },
+      {
+        "id": "hg-mob-2",
+        "sno": 722,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To surround and harass",
+        "hindiMeaning": "घेरे में लेना / परेशान करना",
+        "englishSentence": "Reporters mobbed the celebrity.",
+        "hindiSentence": "रिपोर्टर्स ने सेलिब्रिटी को घेरे में लिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-321",
+    "word": "Mobile",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mobile-1",
+        "sno": 747,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Able to move freely or easily",
+        "hindiMeaning": "गतिशील / चलायमान",
+        "englishSentence": "Monkeys are very mobile in trees.",
+        "hindiSentence": "बंदर पेड़ों पर बहुत गतिशील होते हैं।"
+      },
+      {
+        "id": "hg-mobile-2",
+        "sno": 748,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A mobile phone",
+        "hindiMeaning": "मोबाइल फोन",
+        "englishSentence": "He called me on his mobile.",
+        "hindiSentence": "उसने मुझे अपने मोबाइल से कॉल किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-322",
+    "word": "Mock",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mock-1",
+        "sno": 760,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Not authentic or real; imitation",
+        "hindiMeaning": "नकली / कृत्रिम",
+        "englishSentence": "They held a mock election.",
+        "hindiSentence": "उन्होंने नकली चुनाव कराया।"
+      },
+      {
+        "id": "hg-mock-2",
+        "sno": 761,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A practice test or trial assessment",
+        "hindiMeaning": "अभ्यास परीक्षा / मॉक टेस्ट",
+        "englishSentence": "We took a mock before the final exam.",
+        "hindiSentence": "हमने अंतिम परीक्षा से पहले अभ्यास परीक्षा दी।"
+      },
+      {
+        "id": "hg-mock-3",
+        "sno": 762,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To ridicule or make fun of",
+        "hindiMeaning": "उपहास करना / मज़ाक उड़ाना",
+        "englishSentence": "The others mocked his accent.",
+        "hindiSentence": "दूसरों ने उसकी बोली का उपहास किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-323",
+    "word": "Mode",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mode-1",
+        "sno": 782,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A way or manner of doing something; a fashion",
+        "hindiMeaning": "तरीका / ढंग / मोड",
+        "englishSentence": "Please switch your phone to silent mode.",
+        "hindiSentence": "कृपया अपना फ़ोन साइलेंट मोड में रखो।"
+      },
+      {
+        "id": "hg-mode-2",
+        "sno": 783,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The value that appears most frequently in a data set (Statistics)",
+        "hindiMeaning": "बहुलक",
+        "englishSentence": "The mode of these test scores is 78.",
+        "hindiSentence": "इन परीक्षण अंकों का बहुलक 78 है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-324",
+    "word": "Model",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-model-1",
+        "sno": 723,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A representation or example for imitation",
+        "hindiMeaning": "नमूना / प्रतिरूप",
+        "englishSentence": "The architect built a scale model of the building.",
+        "hindiSentence": "वास्तुविद ने इमारत का पैमाना नमूना बनाया।"
+      },
+      {
+        "id": "hg-model-2",
+        "sno": 724,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To shape or fashion",
+        "hindiMeaning": "आकार देना / ढालना",
+        "englishSentence": "She modeled the clay into a vase.",
+        "hindiSentence": "उसने मिट्टी को फूलदान का आकार दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-325",
+    "word": "Mold",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mold-1",
+        "sno": 749,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A hollow container for giving shape to molten material",
+        "hindiMeaning": "साँचा",
+        "englishSentence": "They poured the metal into the mold.",
+        "hindiSentence": "उन्होंने धातु को साँचे में डाला।"
+      },
+      {
+        "id": "hg-mold-2",
+        "sno": 750,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A fungus that grows in damp conditions",
+        "hindiMeaning": "फफूंदी",
+        "englishSentence": "There’s mold on the bathroom wall.",
+        "hindiSentence": "बाथरूम की दीवार पर फफूंदी है।"
+      },
+      {
+        "id": "hg-mold-3",
+        "sno": 751,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To shape or form",
+        "hindiMeaning": "आकार देना / ढालना",
+        "englishSentence": "The artist molded the clay into a vase.",
+        "hindiSentence": "कलाकार ने मिट्टी को फूलदान का आकार दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-326",
+    "word": "Mole",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mole-1",
+        "sno": 725,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small burrowing mammal",
+        "hindiMeaning": "गिलहरी जैसा कीट / छछूंदर",
+        "englishSentence": "The mole created tunnels in the garden.",
+        "hindiSentence": "छछूंदर बगीचे में सुरंगें बनाता है।"
+      },
+      {
+        "id": "hg-mole-2",
+        "sno": 726,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A spy who infiltrates an organization",
+        "hindiMeaning": "जासूस / भेदिया",
+        "englishSentence": "He was exposed as a mole in the agency.",
+        "hindiSentence": "एजेंसी में वह जासूस के रूप में उजागर हुआ।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-327",
+    "word": "Moor",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-moor-1",
+        "sno": 758,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An expanse of open, rolling infertile land",
+        "hindiMeaning": "दलदली भूमि / बंजर भूमि",
+        "englishSentence": "We hiked across the moor at dawn.",
+        "hindiSentence": "हम सुबह दलदली भूमि पर गए।"
+      },
+      {
+        "id": "hg-moor-2",
+        "sno": 759,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To secure (a boat) by attaching it",
+        "hindiMeaning": "बाँधना / लंगर डालना",
+        "englishSentence": "They moored the boat at the quay.",
+        "hindiSentence": "उन्होंने नाव को घाट पर बाँधा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-328",
+    "word": "Moot",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-moot-1",
+        "sno": 784,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Subject to debate or no longer important",
+        "hindiMeaning": "विवादास्पद / अर्थहीन",
+        "englishSentence": "That point is now moot.",
+        "hindiSentence": "वह मुद्दा अब विवादास्पद हो गया है।"
+      },
+      {
+        "id": "hg-moot-2",
+        "sno": 785,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A hypothetical case argued as an exercise",
+        "hindiMeaning": "वाद-विवाद अभ्यास (मूट कोर्ट)",
+        "englishSentence": "Law students participated in a moot.",
+        "hindiSentence": "विधि छात्रों ने वाद-विवाद अभ्यास में भाग लिया।"
+      },
+      {
+        "id": "hg-moot-3",
+        "sno": 786,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To raise (a question or topic) for discussion",
+        "hindiMeaning": "प्रस्तावित करना / चर्चा के लिए उठाना",
+        "englishSentence": "She mooted the idea of a citywide recycling program.",
+        "hindiSentence": "उसने पूरे शहर में रीसाइक्लिंग कार्यक्रम की अवधारणा प्रस्तावित की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-329",
+    "word": "Mount",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mount-1",
+        "sno": 752,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A horse or other animal for riding",
+        "hindiMeaning": "सवारियाँ / सवारी का घोड़ा",
+        "englishSentence": "He cleaned his mount before the race.",
+        "hindiSentence": "उसने दौड़ से पहले अपनी सवारी साफ की।"
+      },
+      {
+        "id": "hg-mount-2",
+        "sno": 753,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To climb or get up on",
+        "hindiMeaning": "चढ़ना / आरूढ़ होना",
+        "englishSentence": "She mounted the platform to speak.",
+        "hindiSentence": "वह बोलने के लिए मंच पर चढ़ी।"
+      },
+      {
+        "id": "hg-mount-3",
+        "sno": 754,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To organize or initiate",
+        "hindiMeaning": "आयोजित करना / शुरू करना",
+        "englishSentence": "They mounted a major campaign.",
+        "hindiSentence": "उन्होंने एक बड़ा अभियान आयोजित किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-330",
+    "word": "Move",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-move-1",
+        "sno": 755,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To change position or go from one place to another",
+        "hindiMeaning": "हिलना / स्थान बदलना",
+        "englishSentence": "They moved to a new house.",
+        "hindiSentence": "वे एक नए घर में चले गए।"
+      },
+      {
+        "id": "hg-move-2",
+        "sno": 756,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An action or step, especially in chess or a game",
+        "hindiMeaning": "चाल / कदम",
+        "englishSentence": "That was a clever move!",
+        "hindiSentence": "वह चाल बहुत होशियार थी!"
+      },
+      {
+        "id": "hg-move-3",
+        "sno": 757,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cause someone to feel strong emotion (Emotional)",
+        "hindiMeaning": "प्रभावित करना / भावुक करना",
+        "englishSentence": "The speech moved the audience to tears.",
+        "hindiSentence": "भाषण ने दर्शकों को आंसू ला दिए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-331",
+    "word": "Mug",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-mug-1",
+        "sno": 727,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large cup with a handle",
+        "hindiMeaning": "प्याला / मग",
+        "englishSentence": "He drank coffee from a mug.",
+        "hindiSentence": "उसने एक प्याले से कॉफ़ी पी।"
+      },
+      {
+        "id": "hg-mug-2",
+        "sno": 728,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person’s face (informal/slang)",
+        "hindiMeaning": "चेहरा / थोबड़ा",
+        "englishSentence": "I couldn’t recognize him by his mug.",
+        "hindiSentence": "मैं उसे उसके चेहरे से पहचान नहीं पाया।"
+      },
+      {
+        "id": "hg-mug-3",
+        "sno": 729,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To assault and rob someone in a public place",
+        "hindiMeaning": "लूटपाट करना",
+        "englishSentence": "She was mugged on her way home.",
+        "hindiSentence": "उसे घर जाते समय लूट लिया गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-332",
+    "word": "Mull",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mull-1",
+        "sno": 789,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To think about carefully; to ponder",
+        "hindiMeaning": "विचार करना / मनन करना",
+        "englishSentence": "He mulled over the decision for days.",
+        "hindiSentence": "उसने निर्णय पर कई दिन विचार किया।"
+      },
+      {
+        "id": "hg-mull-2",
+        "sno": 790,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A warm spiced wine or cider (Culinary)",
+        "hindiMeaning": "मसालेदार शराब / गरम पेय",
+        "englishSentence": "On cold nights they drank hot mull.",
+        "hindiSentence": "ठंडी रातों में वे गरम मसालेदार शराब पीते थे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-333",
+    "word": "Mummy",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-mummy-1",
+        "sno": 791,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A preserved corpse, especially of an ancient Egyptian",
+        "hindiMeaning": "ममी (संरक्षित शव)",
+        "englishSentence": "The museum displayed a pharaoh’s mummy.",
+        "hindiSentence": "म्यूज़ियम में एक फ़राओ के ममी को प्रदर्शित किया गया।"
+      },
+      {
+        "id": "hg-mummy-2",
+        "sno": 792,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Mother (child’s pronunciation, informal)",
+        "hindiMeaning": "मम्मी / माँ",
+        "englishSentence": "“Mummy, can I have some juice?” she asked.",
+        "hindiSentence": "“मम्मी, क्या मुझे थोड़ा जूस मिल सकता है?” उसने पूछा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-334",
+    "word": "Muse",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-muse-1",
+        "sno": 763,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A source of inspiration, especially a goddess or artistic figure",
+        "hindiMeaning": "प्रेरणा स्रोत",
+        "englishSentence": "The poet’s muse was the beauty of nature.",
+        "hindiSentence": "कवि की प्रेरणा स्रोत प्रकृति की सुंदरता थी।"
+      },
+      {
+        "id": "hg-muse-2",
+        "sno": 764,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To think about something carefully and for a long time",
+        "hindiMeaning": "चिन्तन करना / गहराई से सोचना",
+        "englishSentence": "She mused on the question all night.",
+        "hindiSentence": "उसने सारी रात उस प्रश्न पर चिन्तन किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-335",
+    "word": "Must",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-must-1",
+        "sno": 765,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To be required or have to (Modal)",
+        "hindiMeaning": "ज़रूरी होना / अवश्य करना",
+        "englishSentence": "You must finish your homework.",
+        "hindiSentence": "तुम्हें अपना होमवर्क पूरा करना होगा।"
+      },
+      {
+        "id": "hg-must-2",
+        "sno": 766,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The solid residue of grapes, olives, etc., used in winemaking",
+        "hindiMeaning": "किण्वित अंगूर का गूदा (मस्ट) / जाँघ",
+        "englishSentence": "The winemaker added yeast to the must.",
+        "hindiSentence": "वाइनमेकर ने जाँघ में खमीर मिलाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-336",
+    "word": "Muzzle",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-muzzle-1",
+        "sno": 793,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The projecting part of an animal’s head (nose and mouth)",
+        "hindiMeaning": "नाक/मुँह का हिस्सा / थूथन",
+        "englishSentence": "The dog’s muzzle was covered in snow.",
+        "hindiSentence": "कुत्ते का नाक-मुँह बर्फ़ से ढका हुआ था।"
+      },
+      {
+        "id": "hg-muzzle-2",
+        "sno": 794,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A guard placed over an animal’s mouth to prevent biting",
+        "hindiMeaning": "मक़ाना / मँहछींका",
+        "englishSentence": "Fit the muzzle on the horse before approaching.",
+        "hindiSentence": "पास आने से पहले घोड़े की मक़ाना लगाओ।"
+      },
+      {
+        "id": "hg-muzzle-3",
+        "sno": 795,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To silence or prevent from speaking",
+        "hindiMeaning": "बोलने से रोकना / चुप कराना",
+        "englishSentence": "The law muzzled the critical press.",
+        "hindiSentence": "कानून ने आलोचनात्मक प्रेस को चुप करा दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-337",
+    "word": "Nab",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nab-1",
+        "sno": 796,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To catch or seize suddenly",
+        "hindiMeaning": "पकड़ना / ज़ब्त करना / दबोचना",
+        "englishSentence": "The police nabbed the suspect as he fled.",
+        "hindiSentence": "पुलिस ने भागने वाले संदिग्ध को पकड़ लिया।"
+      },
+      {
+        "id": "hg-nab-2",
+        "sno": 797,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person who steals or is caught (Slang)",
+        "hindiMeaning": "चोर / बंदी",
+        "englishSentence": "He’s known as a skilled nab in the underworld.",
+        "hindiSentence": "वह अंडरवर्ल्ड में एक निपुण चोर के रूप में जाना जाता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-338",
+    "word": "Near",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-near-1",
+        "sno": 798,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "At a short distance in space or time",
+        "hindiMeaning": "पास / निकट",
+        "englishSentence": "The grocery store is near my house.",
+        "hindiSentence": "किराने की दुकान मेरे घर के पास है।"
+      },
+      {
+        "id": "hg-near-2",
+        "sno": 799,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Almost; nearly",
+        "hindiMeaning": "लगभग / करीब-करीब",
+        "englishSentence": "He’s near finishing the project.",
+        "hindiSentence": "वह लगभग परियोजना पूरा करने ही वाला है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-339",
+    "word": "Nest",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nest-1",
+        "sno": 800,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A structure built by birds or other animals to hold eggs or young",
+        "hindiMeaning": "घोंसला",
+        "englishSentence": "The robin built its nest in the tree.",
+        "hindiSentence": "रॉबिन ने पेड़ में अपना घोंसला बनाया।"
+      },
+      {
+        "id": "hg-nest-2",
+        "sno": 801,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To settle or arrange oneself comfortably",
+        "hindiMeaning": "आराम से जगह बनाना / व्यवस्थित करना",
+        "englishSentence": "They nested the chairs for the ceremony.",
+        "hindiSentence": "उन्होंने समारोह के लिए कुर्सियों को आराम से रखा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-340",
+    "word": "Nick",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nick-1",
+        "sno": 802,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small cut or notch",
+        "hindiMeaning": "चीरा / निशान",
+        "englishSentence": "There’s a nick in the blade.",
+        "hindiSentence": "ब्लेड में एक निशान है।"
+      },
+      {
+        "id": "hg-nick-2",
+        "sno": 803,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To pinch or steal / tease",
+        "hindiMeaning": "चुराना / चिढ़ाना",
+        "englishSentence": "Someone nicked my wallet on the train.",
+        "hindiSentence": "किसी ने ट्रेन में मेरा वॉलेट चुरा लिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-341",
+    "word": "Nurse",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nurse-1",
+        "sno": 804,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person trained to care for the sick or infirm",
+        "hindiMeaning": "नर्स / परिचारिका",
+        "englishSentence": "The nurse checked his temperature.",
+        "hindiSentence": "नर्स ने उसका तापमान मापा।"
+      },
+      {
+        "id": "hg-nurse-2",
+        "sno": 805,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To care for or tend",
+        "hindiMeaning": "देखभाल करना / सेवा करना",
+        "englishSentence": "She nursed him back to health.",
+        "hindiSentence": "उसने उनकी देखभाल करके उन्हें स्वस्थ किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-342",
+    "word": "Nut",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nut-1",
+        "sno": 806,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A hard-shelled seed",
+        "hindiMeaning": "अखरोट / बीज / काष्ठफल",
+        "englishSentence": "He cracked the nut with a hammer.",
+        "hindiSentence": "उसने हथौड़े से अखरोट फोड़ा।"
+      },
+      {
+        "id": "hg-nut-2",
+        "sno": 807,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person who is very enthusiastic about something (Slang)",
+        "hindiMeaning": "दीवाना / जुनूनी",
+        "englishSentence": "He’s a real baseball nut.",
+        "hindiSentence": "वह बेसबॉल का असली दीवाना है।"
       }
     ]
   }
