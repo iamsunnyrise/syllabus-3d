@@ -9,8 +9,9 @@
 //   - Set 03: 100 OWS (Full)
 //   - Set 04: 100 OWS (Full)
 //   - Set 05: 100 OWS (Full)
-//   - Set 06: 50 OWS (In Progress: 50 slots available until 100)
-//   - Set 07 - 10: Available for future sets
+//   - Set 06: 100 OWS (Full)
+//   - Set 07: 66 OWS (In Progress: 34 slots available until 100)
+//   - Set 08 - 10: Available for future sets
 // ============================================================================
 
 import { VocabItem } from './highYieldVocabData';
@@ -19723,9 +19724,4122 @@ export const LEVEL_1_SET_06_OWS: VocabItem[] = [
     "derivatives": "Nurse (verb/noun)",
     "level": "level-1",
     "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-51",
+    "word": "Oasis",
+    "phonetic": "/əʊˈeɪ.sɪs/",
+    "hindi": "मरूद्यान / नखलिस्तान / रेगिस्तान में जल व हरियाली वाला स्थान",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A shady fertile place in the desert with water and vegetation.",
+    "synonyms": [
+      "Watering hole",
+      "Haven",
+      "Sanctuary",
+      "Refuge",
+      "Spring"
+    ],
+    "antonyms": [
+      "Arid desert",
+      "Barren wasteland"
+    ],
+    "example": "The exhausted caravan finally reached a palm-fringed oasis after days in the Sahara.",
+    "mnemonic": "रेगिस्तान में प्यास बुझाने के लिए पानी की Aasha -> Oasis.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Desert oasis / green oasis",
+    "derivatives": "Oases (plural)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-52",
+    "word": "Oblivious",
+    "phonetic": "/əˈblɪv.i.əs/",
+    "hindi": "अपरिचित / बेखबर / अनजान / विस्मृत",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Not informed about or aware of something or somebody.",
+    "synonyms": [
+      "Unaware",
+      "Heedless",
+      "Unmindful",
+      "Ignorant",
+      "Unconscious"
+    ],
+    "antonyms": [
+      "Conscious",
+      "Aware",
+      "Mindful",
+      "Alert"
+    ],
+    "example": "Engrossed in his headphones, he remained completely oblivious to the commotion around him.",
+    "mnemonic": "अब Leave us, हमें कुछ नहीं पता (पूरी तरह बेखबर) -> Oblivious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Oblivious to danger / oblivious of surroundings",
+    "derivatives": "Oblivion (noun), Obliviously (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-53",
+    "word": "Obituary",
+    "phonetic": "/əˈbɪtʃ.u.ər.i/",
+    "hindi": "शोक समाचार / निधन-सूचना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A news article that reports the recent death of a person, typically with a short biography.",
+    "synonyms": [
+      "Necrology",
+      "Death notice",
+      "Memorial article",
+      "Eulogy"
+    ],
+    "antonyms": [
+      "Birth notice",
+      "Celebration profile"
+    ],
+    "example": "The morning newspaper featured a glowing obituary honoring the philanthropist's lifelong charity.",
+    "mnemonic": "अब तू नहीं रही, अखबार में छपी तेरी निधन सूचना -> Obituary.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Write an obituary / newspaper obituary",
+    "derivatives": "Obituarist (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-54",
+    "word": "Obscure",
+    "phonetic": "/əbˈskjʊər/",
+    "hindi": "अस्पष्ट / धुंधला / अज्ञात / जिसे समझना कठिन हो",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Not clear; difficult to understand, see, or recognize; not well-known.",
+    "synonyms": [
+      "Vague",
+      "Ambiguous",
+      "Murky",
+      "Unclear",
+      "Recondite"
+    ],
+    "antonyms": [
+      "Clear",
+      "Lucid",
+      "Famous",
+      "Prominent",
+      "Obvious"
+    ],
+    "example": "The archaic poem was packed with obscure references that confused modern readers.",
+    "mnemonic": "धुंध में अब Score बोर्ड नहीं दिख रहा (अस्पष्ट) -> Obscure.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Obscure reason / obscure village",
+    "derivatives": "Obscurity (noun), Obscurely (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-55",
+    "word": "Oaf",
+    "phonetic": "/əʊf/",
+    "hindi": "मूर्ख व्यक्ति / अनाड़ी / भद्दा व मंदबुद्धि आदमी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A big clumsy often slow-witted person.",
+    "synonyms": [
+      "Boor",
+      "Clod",
+      "Lout",
+      "Blockhead",
+      "Simpleton"
+    ],
+    "antonyms": [
+      "Genius",
+      "Intellectual",
+      "Gentleman"
+    ],
+    "example": "The clumsy oaf accidentally knocked the crystal vase off the banquet table.",
+    "mnemonic": "Oof! ये कैसा बेवकूफ़ और अनाड़ी आदमी है -> Oaf.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Clumsy oaf / ignorant oaf",
+    "derivatives": "Oafish (adjective), Oafishness (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-56",
+    "word": "Observatory",
+    "phonetic": "/əbˈzɜː.və.tri/",
+    "hindi": "वेधशाला / खगोलीय प्रेक्षण केंद्र",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place equipped with telescopes where astronomical observations are made.",
+    "synonyms": [
+      "Watchtower",
+      "Lookout",
+      "Astronomical station"
+    ],
+    "antonyms": [
+      "Bunker",
+      "Basement"
+    ],
+    "example": "Scientists at the mountaintop observatory tracked the trajectory of the newly discovered comet.",
+    "mnemonic": "जहाँ से वैज्ञानिक तारों और ग्रहों को Observe करें -> Observatory (वेधशाला)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Astronomical observatory / solar observatory",
+    "derivatives": "Observe (verb), Observation (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-57",
+    "word": "Obsolete",
+    "phonetic": "/ˈɒb.sə.liːt/",
+    "hindi": "प्रचलन से बाहर / अप्रचलित / पुराना",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Something that is no longer in use; superseded by newer inventions.",
+    "synonyms": [
+      "Outdated",
+      "Antiquated",
+      "Archaic",
+      "Defunct",
+      "Disused"
+    ],
+    "antonyms": [
+      "Modern",
+      "Contemporary",
+      "Current",
+      "Up-to-date"
+    ],
+    "example": "Floppy disks and cassette tapes are now virtually obsolete in the digital era.",
+    "mnemonic": "अब So (बहुत) लेट और पुराना हो गया, प्रचलन से बाहर -> Obsolete.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Render obsolete / obsolete technology",
+    "derivatives": "Obsolescence (noun), Obsolescent (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-58",
+    "word": "Oculist",
+    "phonetic": "/ˈɒk.jə.lɪst/",
+    "hindi": "नेत्र-विशेषज्ञ / आँखों का डॉक्टर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who attends to the diseases and defects of the eye; ophthalmologist.",
+    "synonyms": [
+      "Ophthalmologist",
+      "Eye specialist",
+      "Optometrist"
+    ],
+    "antonyms": [
+      "Dentist",
+      "Cardiologist"
+    ],
+    "example": "He scheduled an urgent consultation with an experienced oculist to check his failing eyesight.",
+    "mnemonic": "Ocular (आँख) का विशेषज्ञ डॉक्टर -> Oculist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Consult an oculist / skilled oculist",
+    "derivatives": "Ocular (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-59",
+    "word": "Odyssey",
+    "phonetic": "/ˈɒd.ɪ.si/",
+    "hindi": "लम्बी एवं रोमांचक यात्रा / जीवन का उतार-चढ़ाव भरा सफर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A long wandering or voyage usually marked by many changes of fortune.",
+    "synonyms": [
+      "Epic journey",
+      "Pilgrimage",
+      "Trek",
+      "Voyage",
+      "Sojourn"
+    ],
+    "antonyms": [
+      "Short trip",
+      "Stationary life"
+    ],
+    "example": "His decade-long odyssey through remote African wilderness shaped his acclaimed novels.",
+    "mnemonic": "Audi से ओडिशा घूमने गए एक लंबी और रोमांचक यात्रा पर -> Odyssey.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Spiritual odyssey / epic odyssey",
+    "derivatives": "Odyssean (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-60",
+    "word": "Off-centre",
+    "phonetic": "/ˌɒfˈsen.tər/",
+    "hindi": "केंद्र से अलग / असंतुलित / सनकी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Not quite coinciding with a central position; eccentric or unconventional.",
+    "synonyms": [
+      "Eccentric",
+      "Unbalanced",
+      "Asymmetrical",
+      "Quirky",
+      "Skewed"
+    ],
+    "antonyms": [
+      "Centered",
+      "Balanced",
+      "Symmetrical"
+    ],
+    "example": "The artist deliberately hung the centerpiece slightly off-centre to create dynamic visual tension.",
+    "mnemonic": "जो Centre से Off (हटा हुआ) हो -> Off-centre.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Slightly off-centre / off-centre humour",
+    "derivatives": "Off-centredness (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-61",
+    "word": "Oligarchy",
+    "phonetic": "/ˈɒl.ɪ.ɡɑː.ki/",
+    "hindi": "अल्पतंत्र / कुलीनतंत्र / कुछ लोगों का शासन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Government run by a small group of people or powerful families.",
+    "synonyms": [
+      "Junta",
+      "Factional rule",
+      "Elite rule",
+      "Plutocracy"
+    ],
+    "antonyms": [
+      "Democracy",
+      "Republic",
+      "Anarchy"
+    ],
+    "example": "Critics warned that the concentration of media power was turning the republic into an oligarchy.",
+    "mnemonic": "Only कुछ Ghar (परिवारों) की सरकार -> Oligarchy (अल्पतंत्र)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Rule by oligarchy / corrupt oligarchy",
+    "derivatives": "Oligarch (noun), Oligarchic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-62",
+    "word": "Paparazzi",
+    "phonetic": "/ˌpæp.ərˈæt.si/",
+    "hindi": "प्रसिद्ध लोगों की तस्वीरें लेने वाले स्वतंत्र फोटोग्राफर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Photographers who follow celebrities to get their pictures to sell them to media.",
+    "synonyms": [
+      "Freelance photographers",
+      "Press photographers",
+      "Snappers"
+    ],
+    "antonyms": [
+      "Celebrity",
+      "Private citizen"
+    ],
+    "example": "Crowds of aggressive paparazzi ambushed the actress as she stepped out of the hotel lobby.",
+    "mnemonic": "जो लोग Papa की फोटो के लिए नहीं, मशहूर हस्तियों की फोटो के लिए Crazy हों -> Paparazzi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Hounded by paparazzi / paparazzi lens",
+    "derivatives": "Paparazzo (singular noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-63",
+    "word": "Ombudsman",
+    "phonetic": "/ˈɒm.bʊdz.mən/",
+    "hindi": "लोकपाल / जन-शिकायत निवारक अधिकारी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An official appointed to investigate, report on, and help settle individuals' complaints against public administration.",
+    "synonyms": [
+      "Public investigator",
+      "Complaint mediator",
+      "Grievance officer",
+      "Watchdog"
+    ],
+    "antonyms": [
+      "Perpetrator",
+      "Bureaucrat"
+    ],
+    "example": "Consumers can file an official grievance with the banking ombudsman if service disputes persist.",
+    "mnemonic": "आम जनता का Buddy (दोस्त) Man जो शिकायतों का निपटारा करे -> Ombudsman.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Banking ombudsman / parliamentary ombudsman",
+    "derivatives": "Ombudsmanship (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-64",
+    "word": "Ominous",
+    "phonetic": "/ˈɒm.ɪ.nəs/",
+    "hindi": "अपशकुन / अनिष्टसूचक / अशुभ संकेत देने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Giving the worrying impression that something bad or harmful is going to happen.",
+    "synonyms": [
+      "Threatening",
+      "Menacing",
+      "Sinister",
+      "Baleful",
+      "Fateful"
+    ],
+    "antonyms": [
+      "Auspicious",
+      "Promising",
+      "Propitious",
+      "Heartening"
+    ],
+    "example": "Dark, swirling clouds and an ominous rumble of thunder signaled a looming tempest.",
+    "mnemonic": "अमावस की काली रात में अशुभ संकेत दिखना -> Ominous.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Ominous silence / ominous clouds",
+    "derivatives": "Ominously (adverb), Ominousness (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-65",
+    "word": "Omnibus",
+    "phonetic": "/ˈɒm.nɪ.bəs/",
+    "hindi": "रचनाओं या कथाओं का समग्र संग्रह / सर्वसंग्रह",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A volume containing several books, articles, or stories previously published separately.",
+    "synonyms": [
+      "Anthology",
+      "Compendium",
+      "Collection",
+      "Compilation",
+      "Treasury"
+    ],
+    "antonyms": [
+      "Single edition",
+      "Fragment"
+    ],
+    "example": "The publisher released a handsome omnibus edition compiling all seven Sherlock Holmes novellas.",
+    "mnemonic": "Omni (सभी कहानियाँ) को एक ही Bus (किताब) में समेट देना -> Omnibus.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Omnibus edition / omnibus bill",
+    "derivatives": "Omnibus (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-66",
+    "word": "Opaque",
+    "phonetic": "/əʊˈpeɪk/",
+    "hindi": "अपारदर्शी / जिसके आर-पार न देखा जा सके / अस्पष्ट",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "That which cannot be seen through; not transparent or luminous.",
+    "synonyms": [
+      "Non-transparent",
+      "Cloudy",
+      "Obscure",
+      "Impenetrable",
+      "Dense"
+    ],
+    "antonyms": [
+      "Transparent",
+      "Translucent",
+      "Clear",
+      "Pellucid"
+    ],
+    "example": "Bathroom shower cubicles often use frosted opaque glass to safeguard privacy.",
+    "mnemonic": "जो पूरी तरह Pack हो और आर-पार न दिखे -> Opaque (अपारदर्शी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Opaque glass / opaque bureaucracy",
+    "derivatives": "Opacity (noun), Opaquely (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-67",
+    "word": "Opinionated",
+    "phonetic": "/əˈpɪn.jə.neɪ.tɪd/",
+    "hindi": "हठधर्मी / अपनी राय पर अड़ने वाला / दुराग्रही",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "To be dogmatic in one's opinions; clinging obstinately to one's beliefs.",
+    "synonyms": [
+      "Dogmatic",
+      "Prejudiced",
+      "Stubborn",
+      "Intolerant",
+      "Inflexible"
+    ],
+    "antonyms": [
+      "Open-minded",
+      "Receptive",
+      "Tolerant",
+      "Broad-minded"
+    ],
+    "example": "It is exhausting debating politics with someone so rigidly opinionated and unwilling to listen.",
+    "mnemonic": "जो दूसरों की Opinion ate (खा जाए) और सिर्फ अपनी राय थोपे -> Opinionated.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Highly opinionated / opinionated columnist",
+    "derivatives": "Opinion (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-68",
+    "word": "Orator",
+    "phonetic": "/ˈɒr.ə.tər/",
+    "hindi": "कुशल वक्ता / सुवक्ता / प्रभावी भाषण देने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who is skilled, eloquent, and persuasive in public speaking.",
+    "synonyms": [
+      "Speaker",
+      "Rhetorician",
+      "Declaimer",
+      "Public speaker"
+    ],
+    "antonyms": [
+      "Inarticulate speaker",
+      "Mumbler"
+    ],
+    "example": "Swami Vivekananda was celebrated as a peerless orator who mesmerized the Parliament of Religions.",
+    "mnemonic": "Oral-Actor (मंच पर शब्दों से जादू करने वाला कुशल वक्ता) -> Orator.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Gifted orator / eloquent orator",
+    "derivatives": "Oratory (noun), Oratorical (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-69",
+    "word": "Orchard",
+    "phonetic": "/ˈɔː.tʃəd/",
+    "hindi": "फलोद्यान / फलों का बगीचा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place or piece of land where fruit trees are grown.",
+    "synonyms": [
+      "Fruit garden",
+      "Grove",
+      "Plantation",
+      "Citrus yard"
+    ],
+    "antonyms": [
+      "Barren field",
+      "Pasture"
+    ],
+    "example": "Kashmir valleys are celebrated for sprawling orchards laden with crisp apples and walnuts.",
+    "mnemonic": "Orange का Yard (फलों का बगीचा) -> Orchard.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Apple orchard / fruit orchard",
+    "derivatives": "Orchardist (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-70",
+    "word": "Orifice",
+    "phonetic": "/ˈɒr.ɪ.fɪs/",
+    "hindi": "छिद्र / द्वार / छोटा मुख",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Something like an opening, hole, or vent, particularly one in the body such as a nostril.",
+    "synonyms": [
+      "Aperture",
+      "Opening",
+      "Vent",
+      "Pore",
+      "Outlet"
+    ],
+    "antonyms": [
+      "Closure",
+      "Obstruction",
+      "Seal"
+    ],
+    "example": "The gas cylinder regulator expelled vapor through a tiny calibrated orifice.",
+    "mnemonic": "Office की दीवार में बना छोटा छेद (Orifice) -> Orifice.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Nasal orifice / tiny orifice",
+    "derivatives": "Orificial (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-71",
+    "word": "Palpable",
+    "phonetic": "/ˈpæl.pə.bəl/",
+    "hindi": "स्पर्शनीय / प्रत्यक्ष / जिसे स्पष्ट रूप से महसूस किया जा सके",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Thing that can be felt or touched; so intense as to seem almost tangible.",
+    "synonyms": [
+      "Tangible",
+      "Perceptible",
+      "Noticeable",
+      "Manifest",
+      "Concrete"
+    ],
+    "antonyms": [
+      "Intangible",
+      "Imperceptible",
+      "Subtle",
+      "Insubstantial"
+    ],
+    "example": "There was a palpable sense of tension across the courtroom as the jury entered.",
+    "mnemonic": "जिसे पल-पल Palm (हथेली) से touch और महसूस किया जा सके -> Palpable.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Palpable relief / palpable tension",
+    "derivatives": "Palpability (noun), Palpably (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-72",
+    "word": "Orphan",
+    "phonetic": "/ˈɔː.fən/",
+    "hindi": "अनाथ / यतीम / जिसके माता-पिता न हों",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A child whose parents are dead.",
+    "synonyms": [
+      "Parentless child",
+      "Foundling",
+      "Waif",
+      "Ward"
+    ],
+    "antonyms": [
+      "Parented child"
+    ],
+    "example": "The generous philanthropist built an academy to educate war orphans.",
+    "mnemonic": "माता-पिता का साया खो चुके मासूम बच्चे -> Orphan (अनाथ)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "War orphan / orphan home",
+    "derivatives": "Orphanage (noun), Orphanhood (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-73",
+    "word": "Orthodox",
+    "phonetic": "/ˈɔː.θə.dɒks/",
+    "hindi": "रूढ़िवादी / परंपरावादी / प्राचीन मान्यताओं को मानने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "One who holds established opinions; adhering strictly to traditional religion or social customs.",
+    "synonyms": [
+      "Traditional",
+      "Conformist",
+      "Conservative",
+      "Conventional",
+      "Devout"
+    ],
+    "antonyms": [
+      "Heterodox",
+      "Unorthodox",
+      "Heretical",
+      "Radical"
+    ],
+    "example": "His orthodox family opposed inter-caste alliances in favor of ancestral customs.",
+    "mnemonic": "Old thought (पुरानी पारंपरिक सोच) में यकीन रखने वाला -> Orthodox.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Orthodox views / orthodox medicine",
+    "derivatives": "Orthodoxy (noun), Orthodoxly (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-74",
+    "word": "Orthopaedist",
+    "phonetic": "/ˌɔː.θəˈpiː.dɪst/",
+    "hindi": "हड्डी रोग विशेषज्ञ / अस्थि शल्य चिकित्सक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A doctor who deals with bone problems, skeletal disorders, and joint injuries.",
+    "synonyms": [
+      "Orthopedic surgeon",
+      "Bone specialist",
+      "Osteopath"
+    ],
+    "antonyms": [
+      "Cardiologist",
+      "Neurologist"
+    ],
+    "example": "Following the motorcycle fracture, the orthopaedist surgically reset the patient's femur.",
+    "mnemonic": "Ortho (हड्डी) का Specialist डॉक्टर -> Orthopaedist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Consult an orthopaedist / pediatric orthopaedist",
+    "derivatives": "Orthopaedics (noun), Orthopaedic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-75",
+    "word": "Ostracise",
+    "phonetic": "/ˈɒs.trə.saɪz/",
+    "hindi": "निष्कासित करना / समाज से बहिष्कृत करना / हुक्का-पानी बंद करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To banish or turn out of society, community, and fellowship.",
+    "synonyms": [
+      "Boycott",
+      "Exile",
+      "Banish",
+      "Blackball",
+      "Shun"
+    ],
+    "antonyms": [
+      "Welcome",
+      "Integrate",
+      "Include",
+      "Admit"
+    ],
+    "example": "Villagers chose to ostracise the family after they defied the village council's diktat.",
+    "mnemonic": "Extra Size या गलती होने पर बिरादरी से Out (बहिष्कृत) कर देना -> Ostracise.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Ostracised by society / socially ostracised",
+    "derivatives": "Ostracism (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-76",
+    "word": "Outlandish",
+    "phonetic": "/ˌaʊtˈlæn.dɪʃ/",
+    "hindi": "विचित्र / बेढंगा / अनोखा / विदेशी जैसा अजीब",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Looking or sounding foreign, bizarre, strange, and unfamiliar.",
+    "synonyms": [
+      "Bizarre",
+      "Peculiar",
+      "Eccentric",
+      "Grotesque",
+      "Odd"
+    ],
+    "antonyms": [
+      "Conventional",
+      "Familiar",
+      "Ordinary",
+      "Normal"
+    ],
+    "example": "She turned heads at the gala dressed in an outlandish futuristic metallic jumpsuit.",
+    "mnemonic": "Out (बाहर) के Land (देश) की डिश जैसी विचित्र और अजीब चीज़ -> Outlandish.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Outlandish costume / outlandish theory",
+    "derivatives": "Outlandishly (adverb), Outlandishness (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-77",
+    "word": "Outlaw",
+    "phonetic": "/ˈaʊt.lɔː/",
+    "hindi": "नियमविरोधी / डाकू / कानून से भागा हुआ अपराधी / भगोड़ा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who has broken the law, especially one who remains at large or is a fugitive.",
+    "synonyms": [
+      "Fugitive",
+      "Bandit",
+      "Desperado",
+      "Robber",
+      "Brigand"
+    ],
+    "antonyms": [
+      "Law-abiding citizen",
+      "Policeman",
+      "Judge"
+    ],
+    "example": "Robin Hood is celebrated in English folklore as a heroic forest outlaw.",
+    "mnemonic": "Out from law (कानून की पकड़ से बाहर भागा हुआ डाकू) -> Outlaw.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Notorious outlaw / live as an outlaw",
+    "derivatives": "Outlaw (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-78",
+    "word": "Outreach",
+    "phonetic": "/ˈaʊt.riːtʃ/",
+    "hindi": "सामुदायिक पहुँच / जन-कल्याण विस्तार कार्यक्रम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An organisation's involvement with or influence in the community, especially for social welfare.",
+    "synonyms": [
+      "Community service",
+      "Public involvement",
+      "Social service",
+      "Extension"
+    ],
+    "antonyms": [
+      "Isolationism",
+      "Withdrawal"
+    ],
+    "example": "The hospital organized a rural outreach clinic to administer immunizations to tribal children.",
+    "mnemonic": "Out + Reach (संस्था द्वारा समाज के दूरदराज लोगों तक पहुँचना) -> Outreach.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Community outreach / outreach program",
+    "derivatives": "Outreach (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-79",
+    "word": "Outrider",
+    "phonetic": "/ˈaʊtˌraɪ.dər/",
+    "hindi": "अंगरक्षक / वीआईपी वाहन के आगे-पीछे चलने वाला रक्षक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person in a vehicle or on horseback escorting another vehicle.",
+    "synonyms": [
+      "Escort",
+      "Bodyguard",
+      "Guard",
+      "Motorcycle scout"
+    ],
+    "antonyms": [
+      "Pedestrian",
+      "Lone traveler"
+    ],
+    "example": "Motorcycle outriders cleared traffic ahead of the visiting foreign prime minister's motorcade.",
+    "mnemonic": "Out-side-Rider (वीआईपी गाड़ी के साथ चलने वाला रक्षक सवार) -> Outrider.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Police outrider / presidential outrider",
+    "derivatives": "Ride (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-80",
+    "word": "Overlook",
+    "phonetic": "/ˌəʊ.vəˈlʊk/",
+    "hindi": "ध्यान न देना / नज़रअंदाज़ करना / अनदेखा करना / ऊपर से देखना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To fail to notice; ignore; condone an offence or defect.",
+    "synonyms": [
+      "Ignore",
+      "Disregard",
+      "Neglect",
+      "Pass over",
+      "Condone"
+    ],
+    "antonyms": [
+      "Notice",
+      "Scrutinize",
+      "Spot",
+      "Observe"
+    ],
+    "example": "We can overlook minor typographical errors, but factual discrepancies are unacceptable.",
+    "mnemonic": "ऊपर-ऊपर से देखना और गलती को अनदेखा कर देना -> Overlook.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Overlook a mistake / overlook the sea",
+    "derivatives": "Overlooked (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-81",
+    "word": "Overwhelm",
+    "phonetic": "/ˌəʊ.vəˈwelm/",
+    "hindi": "अभिभूत करना / भावनाओं से सराबोर होना / परास्त करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To have a strong emotional effect on; or to defeat by greater strength or numbers.",
+    "synonyms": [
+      "Overpower",
+      "Submerge",
+      "Engulf",
+      "Overcome",
+      "Inundate"
+    ],
+    "antonyms": [
+      "Underwhelm",
+      "Leave unaffected",
+      "Surrender"
+    ],
+    "example": "The emotional soldier was completely overwhelmed with joy upon reuniting with his family.",
+    "mnemonic": "भावनाओं से Over (ऊपर तक) भर जाना -> Overwhelm.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Overwhelmed with gratitude / overwhelm the enemy",
+    "derivatives": "Overwhelming (adjective), Overwhelmingly (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-82",
+    "word": "Pessimist",
+    "phonetic": "/ˈpes.ɪ.mɪst/",
+    "hindi": "निराशावादी / हमेशा नकारात्मक पहलू देखने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who looks at the dark or negative side of life; expects the worst.",
+    "synonyms": [
+      "Cynic",
+      "Defeatist",
+      "Doom-monger",
+      "Skeptic"
+    ],
+    "antonyms": [
+      "Optimist",
+      "Idealist",
+      "Hopeful soul"
+    ],
+    "example": "While an optimist sees opportunity in crisis, a pessimist sees only catastrophe.",
+    "mnemonic": "हर वक्त पैसे Miss (खोने) का डर रखने वाला निराशावादी -> Pessimist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Hardcore pessimist / confirmed pessimist",
+    "derivatives": "Pessimism (noun), Pessimistic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-83",
+    "word": "Pacifist",
+    "phonetic": "/ˈpæs.ɪ.fɪst/",
+    "hindi": "शांतिवादी / युद्ध व हिंसा का विरोधी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who believes that war and violence are unjustifiable; pursues total peace.",
+    "synonyms": [
+      "Peacemaker",
+      "Conscientious objector",
+      "Anti-war advocate",
+      "Dove"
+    ],
+    "antonyms": [
+      "Warmonger",
+      "Militarist",
+      "Hawk",
+      "Bellicist"
+    ],
+    "example": "As a devoted pacifist, Mahatma Gandhi championed nonviolent resistance across the world.",
+    "mnemonic": "जिसके लिए Peace first priority हो (शांतिवादी) -> Pacifist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Lifelong pacifist / ardent pacifist",
+    "derivatives": "Pacifism (noun), Pacifistic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-84",
+    "word": "Paediatrics",
+    "phonetic": "/ˌpiː.diˈæt.rɪks/",
+    "hindi": "बाल चिकित्सा / बच्चों के रोगों का विज्ञान",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Branch of medicine concerned with children and their illnesses.",
+    "synonyms": [
+      "Child medicine",
+      "Pediatric medicine"
+    ],
+    "antonyms": [
+      "Geriatrics (elderly care)"
+    ],
+    "example": "Dr. Sharma chose to specialize in paediatrics because of her deep affection for infants.",
+    "mnemonic": "'Paida' हुए नन्हे बच्चों के इलाज की चिकित्सा -> Paediatrics.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Department of paediatrics / clinical paediatrics",
+    "derivatives": "Paediatrician (noun), Paediatric (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-85",
+    "word": "Panacea",
+    "phonetic": "/ˌpæn.əˈsiː.ə/",
+    "hindi": "रामबाण औषधि / सभी रोगों का अचूक इलाज / सर्वरोगहारी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A remedy for all ills or difficulties; a universal cure.",
+    "synonyms": [
+      "Cure-all",
+      "Universal remedy",
+      "Elixir",
+      "Nostrum",
+      "Catholicon"
+    ],
+    "antonyms": [
+      "Poison",
+      "Toxin",
+      "Bane"
+    ],
+    "example": "Technology is wonderful, but it should not be considered an instant panacea for poverty.",
+    "mnemonic": "Asia का पान = हर बीमारी का रामबाण इलाज -> Panacea.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Universal panacea / panacea for all evils",
+    "derivatives": "Panacean (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-86",
+    "word": "Panorama",
+    "phonetic": "/ˌpæn.ərˈɑː.mə/",
+    "hindi": "चित्रमाला / परिदृश्य / चारों ओर का विहंगम दृश्य",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Wide, uninterrupted view of an extensive area in all directions.",
+    "synonyms": [
+      "Prospect",
+      "Landscape",
+      "Vista",
+      "Broad view",
+      "Bird's-eye view"
+    ],
+    "antonyms": [
+      "Blind spot",
+      "Obstructed view"
+    ],
+    "example": "The hill resort offers an enchanting panorama of misty tea gardens and valleys.",
+    "mnemonic": "जब पूरा नज़ारा आँखों में रम जाए -> Panorama.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Breathtaking panorama / panoramic shot",
+    "derivatives": "Panoramic (adjective), Panoramisly (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-87",
+    "word": "Pant",
+    "phonetic": "/pænt/",
+    "hindi": "हाँफना / तेजी से सांस लेना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To breathe hard and quickly with difficulty; gasp for breath.",
+    "synonyms": [
+      "Gasp",
+      "Puff",
+      "Wheeze",
+      "Blow",
+      "Breathe heavily"
+    ],
+    "antonyms": [
+      "Breathe evenly",
+      "Exhale steadily"
+    ],
+    "example": "The dog lay on the porch, panting heavily in the scorching summer heat.",
+    "mnemonic": "टाइट पैंट पहनकर दौड़ोगे तो हाँफने (Pant) लगोगे।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Pant for breath / panting runner",
+    "derivatives": "Panting (noun/adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-88",
+    "word": "Pantry",
+    "phonetic": "/ˈpæn.tri/",
+    "hindi": "रसोई भंडार / बर्तन व खाद्य सामग्री रखने का कमरा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A small room where food, crockery and cutlery are kept.",
+    "synonyms": [
+      "Larder",
+      "Storeroom",
+      "Scullery",
+      "Buttery",
+      "Cupboard"
+    ],
+    "antonyms": [
+      "Dining hall"
+    ],
+    "example": "The train attendant fetched steaming cups of tea directly from the coach pantry.",
+    "mnemonic": "जहाँ रसोई के सारे बर्तन और Tray सजाकर रखे जाते हैं -> Pantry.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Pantry car / kitchen pantry",
+    "derivatives": "Pantler (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-89",
+    "word": "Perseverance",
+    "phonetic": "/ˌpɜː.sɪˈvɪə.rəns/",
+    "hindi": "दृढ़ता / लगन / अध्यवसाय / कठिनाइयों में भी जुटे रहना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The quality of continuing to try despite difficulties, obstacles, or delays in success.",
+    "synonyms": [
+      "Persistence",
+      "Tenacity",
+      "Steadfastness",
+      "Determination",
+      "Endurance"
+    ],
+    "antonyms": [
+      "Giving up",
+      "Lethargy",
+      "Vacillation",
+      "Irresolution"
+    ],
+    "example": "Through unyielding perseverance and midnight study, she cleared the civil services exam.",
+    "mnemonic": "हर Severe परिस्थिति में भी निरंतर डटे रहना -> Perseverance.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Patient perseverance / reward for perseverance",
+    "derivatives": "Persevere (verb), Persevering (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-90",
+    "word": "Parasite",
+    "phonetic": "/ˈpær.ə.saɪt/",
+    "hindi": "परजीवी / दूसरों के टुकड़ों पर पलने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A creature which depends on others for sustenance without providing any benefit.",
+    "synonyms": [
+      "Sponge",
+      "Leech",
+      "Blood-sucker",
+      "Freeloader",
+      "Hanger-on"
+    ],
+    "antonyms": [
+      "Host",
+      "Benefactor",
+      "Independent organism"
+    ],
+    "example": "Fleas and tapeworms are common parasites that sap vitality from their hosts.",
+    "mnemonic": "पराया + Site (दूसरों के शरीर पर मुफ़्त में पलने वाला) -> Parasite.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Intestinal parasite / social parasite",
+    "derivatives": "Parasitic (adjective), Parasitism (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-91",
+    "word": "Parboil",
+    "phonetic": "/ˈpɑː.bɔɪl/",
+    "hindi": "अधूरा पकाना / अधपका उबालना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "A method of boiling briefly to cook food slightly or partially.",
+    "synonyms": [
+      "Blanch",
+      "Precook",
+      "Half-boil",
+      "Simmer briefly"
+    ],
+    "antonyms": [
+      "Overcook",
+      "Roast dry"
+    ],
+    "example": "The chef parboiled the potatoes for five minutes before roasting them to a golden crisp.",
+    "mnemonic": "Partial Boil (आधा उबालना) -> Parboil.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Parboil the rice / parboiled vegetables",
+    "derivatives": "Parboiled (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-92",
+    "word": "Pariah",
+    "phonetic": "/pəˈraɪ.ə/",
+    "hindi": "अछूत / समाज-बहिष्कृत व्यक्ति / त्यागा हुआ",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who is not accepted by a social group; an outcast.",
+    "synonyms": [
+      "Outcast",
+      "Leper",
+      "Untouchable",
+      "Exile",
+      "Undesirable"
+    ],
+    "antonyms": [
+      "Favorite",
+      "Insider",
+      "Beloved member"
+    ],
+    "example": "After leaking classified trade secrets, the corrupt executive became a corporate pariah.",
+    "mnemonic": "जिसे समाज ने पराया मानकर बाहर निकाल दिया -> Pariah (बहिष्कृत)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Social pariah / global pariah state",
+    "derivatives": "Pariahdom (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-93",
+    "word": "Parole",
+    "phonetic": "/pəˈrəʊl/",
+    "hindi": "सशर्त रिहाई / कारावास से सदाचार की शर्त पर मुक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Permission that is given to a prisoner to leave prison early on the condition of good behavior.",
+    "synonyms": [
+      "Conditional release",
+      "Probation",
+      "Furlough",
+      "Pardon"
+    ],
+    "antonyms": [
+      "Incarceration",
+      "Imprisonment",
+      "Solitary detention"
+    ],
+    "example": "Having demonstrated exemplary conduct, the convict was granted a twenty-day parole.",
+    "mnemonic": "सदाचार की शर्त पर जेल से मिली सशर्त रिहाई -> Parole.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Release on parole / parole board",
+    "derivatives": "Parolee (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-94",
+    "word": "Parse",
+    "phonetic": "/pɑːz/",
+    "hindi": "व्याकरणिक विश्लेषण करना / वाक्य रचना समझाना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To resolve a sentence into its component parts and describe their syntactic roles.",
+    "synonyms": [
+      "Analyze",
+      "Deconstruct",
+      "Dissect",
+      "Interpret",
+      "Decipher"
+    ],
+    "antonyms": [
+      "Synthesize",
+      "Assemble",
+      "Conflate"
+    ],
+    "example": "The linguist carefully parsed the complex Latin clause to identify its hidden subject.",
+    "mnemonic": "वाक्य को Part by part अलग करके विश्लेषण करना -> Parse.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Parse a sentence / parser software",
+    "derivatives": "Parser (noun), Parsing (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-95",
+    "word": "Parvenu",
+    "phonetic": "/ˈpɑː.və.njuː/",
+    "hindi": "नयी दौलत वाला / नवधनाढ्य / नया रईस",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who has suddenly gained new wealth, power or prestige but lacks social refinement.",
+    "synonyms": [
+      "Upstart",
+      "Nouveau riche",
+      "Social climber",
+      "Arriviste"
+    ],
+    "antonyms": [
+      "Aristocrat",
+      "Old money",
+      "Patrician"
+    ],
+    "example": "Aristocrats sneered at the flashy parvenu flaunting diamond watches and golden luxury cars.",
+    "mnemonic": "Paise-very-new (जिसके पास अभी-अभी नई-नई दौलत आई हो) -> Parvenu.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Wealthy parvenu / parvenu lifestyle",
+    "derivatives": "Parvenue (feminine noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-96",
+    "word": "Patent",
+    "phonetic": "/ˈpeɪ.tənt/",
+    "hindi": "अधिकार पत्र / एकस्व / आविष्कार पर कानूनी हक़",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Sole right to make, use, or sell an invention granted by a government.",
+    "synonyms": [
+      "Copyright",
+      "License",
+      "Charter",
+      "Exclusive right",
+      "Franchise"
+    ],
+    "antonyms": [
+      "Public domain",
+      "Open source"
+    ],
+    "example": "The pharmaceutical laboratory filed an international patent for its breakthrough antibiotic.",
+    "mnemonic": "Parents के पास बच्चे पर पूरा हक़ होता है, वैसे ही आविष्कारक के पास Patent.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Apply for a patent / patent infringement",
+    "derivatives": "Patentee (noun), Patentable (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-97",
+    "word": "Patrimony",
+    "phonetic": "/ˈpæt.rɪ.mə.ni/",
+    "hindi": "पैतृक संपत्ति / बपौती / विरासत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Property that is given to somebody when his father dies; inherited heritage.",
+    "synonyms": [
+      "Heritage",
+      "Inheritance",
+      "Birthright",
+      "Legacy",
+      "Paternal estate"
+    ],
+    "antonyms": [
+      "Self-earned fortune",
+      "Acquisition"
+    ],
+    "example": "He squandered his vast ancestral patrimony on reckless gambling in less than two years.",
+    "mnemonic": "पितृ Money (पिता व पूर्वजों से मिली संपत्ति) -> Patrimony.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Cultural patrimony / squander patrimony",
+    "derivatives": "Patrimonial (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-98",
+    "word": "Patriot",
+    "phonetic": "/ˈpæt.ri.ət/",
+    "hindi": "देशभक्त / स्वदेशप्रेमी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who loves his country, supports its authority, and is ready to defend it.",
+    "synonyms": [
+      "Nationalist",
+      "Loyalist",
+      "Chauvinist",
+      "Jingoist"
+    ],
+    "antonyms": [
+      "Traitor",
+      "Betrayer",
+      "Deserter",
+      "Turncoat"
+    ],
+    "example": "Braving frosty mountain peaks, the brave patriot stood vigilant guard on the border.",
+    "mnemonic": "अपने वतन और तिरंगे पर जान न्योछावर करने वाला -> Patriot.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "True patriot / ardent patriot",
+    "derivatives": "Patriotic (adjective), Patriotism (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-99",
+    "word": "Pauper",
+    "phonetic": "/ˈpɔː.pər/",
+    "hindi": "कंगाल / निर्धन व्यक्ति / अत्यंत गरीब",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who has no money or means of livelihood left; a very poor person.",
+    "synonyms": [
+      "Beggar",
+      "Destitute",
+      "Mendicant",
+      "Bankrupt",
+      "Indigent"
+    ],
+    "antonyms": [
+      "Tycoon",
+      "Billionaire",
+      "Millionaire",
+      "Magnate"
+    ],
+    "example": "The once-wealthy merchant died a penniless pauper in a dilapidated charity hospice.",
+    "mnemonic": "किए पाप अगर, तो बनोगे पाई-पाई के मोहताज Pauper (कंगाल)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Die a pauper / pauper's grave",
+    "derivatives": "Pauperism (noun), Pauperize (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-100",
+    "word": "Pecuniary",
+    "phonetic": "/pɪˈkjuː.ni.ər.i/",
+    "hindi": "धन संबंधी / आर्थिक / वित्तीय",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Of, concerning or consisting of money.",
+    "synonyms": [
+      "Monetary",
+      "Financial",
+      "Fiscal",
+      "Economic",
+      "Capital"
+    ],
+    "antonyms": [
+      "Non-financial",
+      "Moral",
+      "Spiritual"
+    ],
+    "example": "The arbitrator awarded five million rupees in pecuniary compensation to the injured victim.",
+    "mnemonic": "पे (Pay) क्यों नहीं कर रहे, धन की समस्या है क्या? -> Pecuniary.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Pecuniary benefit / pecuniary loss",
+    "derivatives": "Pecuniarily (adverb)",
+    "level": "level-1",
+    "set": "set-06"
   }
 ];
-export const LEVEL_1_SET_07_OWS: VocabItem[] = [];
+
+export const LEVEL_1_SET_07_OWS: VocabItem[] = [
+  {
+    "id": "v-ows-l1-s7-1",
+    "word": "Pedagogy",
+    "phonetic": "/ˈped.ə.ɡɒdʒ.i/",
+    "hindi": "शिक्षा शास्त्र / अध्यापन कला व शिक्षण विधि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The method and practice of teaching, especially as an academic subject or theoretical concept.",
+    "synonyms": [
+      "Teaching method",
+      "Instruction",
+      "Educational science",
+      "Didactics"
+    ],
+    "antonyms": [
+      "Ignorance",
+      "Unsystematic training"
+    ],
+    "example": "Interactive pedagogy helps modern school students retain mathematical theorems effortlessly.",
+    "mnemonic": "बच्चों को वैज्ञानिक विधि से पढ़ाओ जी -> Pedagogy.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Modern pedagogy / pedagogical approach",
+    "derivatives": "Pedagogue (noun), Pedagogical (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-2",
+    "word": "Pedantic",
+    "phonetic": "/pəˈdæn.tɪk/",
+    "hindi": "रूढ़िवादी / पंडिताऊ / छोटी-छोटी औपचारिक बातों पर ज्ञान बघारने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Overly concerned with minute details, formal rules, or displaying academic learning.",
+    "synonyms": [
+      "Fastidious",
+      "Fussy",
+      "Over-exacting",
+      "Hair-splitting",
+      "Pompous"
+    ],
+    "antonyms": [
+      "Broad-minded",
+      "Informal",
+      "Simple",
+      "Unpretentious"
+    ],
+    "example": "The examiner took a pedantic approach, deducting whole marks for a single missing comma.",
+    "mnemonic": "पंडित-जी-टिक-टिक (हर छोटी-मोटी बात पर टोकना) -> Pedantic.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pedantic style / pedantic scholar",
+    "derivatives": "Pedantry (noun), Pedantically (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-3",
+    "word": "Penchant",
+    "phonetic": "/ˈpɒ̃ŋ.ʃɒ̃ŋ/",
+    "hindi": "झुकाव / विशेष लगाव / विशेष रुचि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A strong or habitual liking for something or a tendency to do something.",
+    "synonyms": [
+      "Liking",
+      "Affinity",
+      "Predilection",
+      "Proclivity",
+      "Fondness"
+    ],
+    "antonyms": [
+      "Aversion",
+      "Dislike",
+      "Antipathy",
+      "Hatred"
+    ],
+    "example": "She displayed an unmistakable penchant for reading historical mystery thrillers.",
+    "mnemonic": "पेन (लिखने-पढ़ने) की चाहत व विशेष लगाव -> Penchant.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Penchant for luxury / natural penchant",
+    "derivatives": "Penchant (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-4",
+    "word": "Pendant",
+    "phonetic": "/ˈpen.dənt/",
+    "hindi": "लॉकेट / गले के हार में लटकने वाला आभूषण",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A small ornament which hangs down especially from a necklace.",
+    "synonyms": [
+      "Locket",
+      "Medallion",
+      "Charm",
+      "Drop"
+    ],
+    "antonyms": [
+      "Brooch (pin)",
+      "Earring"
+    ],
+    "example": "She wore an exquisite emerald pendant suspended from an eighteen-carat gold chain.",
+    "mnemonic": "Pen की तरह हार के नीचे लटकता हुआ लॉकेट -> Pendant.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Gold pendant / diamond pendant",
+    "derivatives": "Pendulous (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-5",
+    "word": "Peninsula",
+    "phonetic": "/pəˈnɪn.sjə.lə/",
+    "hindi": "प्रायद्वीप / तीन ओर से जल से घिरा भू-भाग",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A large mass of land projecting into a body of water and surrounded by water on three sides.",
+    "synonyms": [
+      "Cape",
+      "Promontory",
+      "Headland",
+      "Chersonese"
+    ],
+    "antonyms": [
+      "Island (all sides water)",
+      "Inland basin"
+    ],
+    "example": "The southern half of India forms an enormous fertile peninsula jutting into the Indian Ocean.",
+    "mnemonic": "पानी में सुरला दिया तीन तरफ से जो भू-भाग -> Peninsula.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Arabian peninsula / peninsular region",
+    "derivatives": "Peninsular (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-6",
+    "word": "Pensive",
+    "phonetic": "/ˈpen.sɪv/",
+    "hindi": "चिंताग्रस्त / विचारमग्न / गहरी सोच में डूबा हुआ",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Engaged in, involving, or reflecting deep or serious thought, often with sadness.",
+    "synonyms": [
+      "Thoughtful",
+      "Contemplative",
+      "Reflective",
+      "Meditative",
+      "Brooding"
+    ],
+    "antonyms": [
+      "Carefree",
+      "Frivolous",
+      "Thoughtless",
+      "Cheerful"
+    ],
+    "example": "Sitting silently on the riverbank, she wore a pensive expression as she reflected on the past.",
+    "mnemonic": "पेन सिर पर लगाकर गहरी चिंता और सोच में डूबना -> Pensive.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pensive mood / pensive gaze",
+    "derivatives": "Pensively (adverb), Pensiveness (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-7",
+    "word": "Pillion",
+    "phonetic": "/ˈpɪl.jən/",
+    "hindi": "पीछे की सीट / दोपहिया वाहन पर सवार के बैठने की पिछली सीट",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A seat for a passenger on a bicycle or motorbike behind the driver.",
+    "synonyms": [
+      "Back seat",
+      "Rumble seat",
+      "Passenger saddle"
+    ],
+    "antonyms": [
+      "Driver's saddle",
+      "Handlebars"
+    ],
+    "example": "Motorcycle safety regulations require the pillion rider to wear a certified helmet.",
+    "mnemonic": "पीछे की सीट पर लीन होकर बैठना -> Pillion.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pillion rider / ride pillion",
+    "derivatives": "Pillionist (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-8",
+    "word": "Perennial",
+    "phonetic": "/pəˈren.i.əl/",
+    "hindi": "चिरस्थायी / बारहमासी / निरंतर चलने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Something that happens often or that lasts for a long time; enduring or continually recurring.",
+    "synonyms": [
+      "Everlasting",
+      "Permanent",
+      "Perpetual",
+      "Enduring",
+      "Persistent"
+    ],
+    "antonyms": [
+      "Annual",
+      "Ephemeral",
+      "Fleeting",
+      "Short-lived"
+    ],
+    "example": "Water scarcity remains a perennial headache for municipal authorities every single summer.",
+    "mnemonic": "Permanent-Annual (जो सालों-साल बिना रुके सदा बना रहे) -> Perennial.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Perennial river / perennial problem",
+    "derivatives": "Perennially (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-9",
+    "word": "Perfunctory",
+    "phonetic": "/pəˈfʌŋk.tər.i/",
+    "hindi": "बिना मन के कुछ करना / बेपरवाह / खानापूर्ति करना",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Carried out with a minimum of effort or reflection; done merely as a routine.",
+    "synonyms": [
+      "Cursory",
+      "Superficial",
+      "Desultory",
+      "Casual",
+      "Mechanical"
+    ],
+    "antonyms": [
+      "Thorough",
+      "Careful",
+      "Diligent",
+      "Conscientious"
+    ],
+    "example": "The security guard cast merely a perfunctory glance at our tickets before nodding us through.",
+    "mnemonic": "Pure Fake Try (सिर्फ रस्म अदायगी या खानापूर्ति करना) -> Perfunctory.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Perfunctory nod / perfunctory inspection",
+    "derivatives": "Perfunctorily (adverb), Perfunctoriness (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-10",
+    "word": "Pergola",
+    "phonetic": "/ˈpɜː.ɡəl.ə/",
+    "hindi": "लतागृह / कुंज / बगीचे में लताओं से ढका मेहराबदार मार्ग",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An arched structure in a garden having climbing plants and vines trained over it.",
+    "synonyms": [
+      "Arbour",
+      "Bower",
+      "Trellis",
+      "Colonade"
+    ],
+    "antonyms": [
+      "Open patio",
+      "Roofless yard"
+    ],
+    "example": "Fragrant climbing wisteria covered the wooden garden pergola with delicate purple blossoms.",
+    "mnemonic": "ऊपर गोला जिस पर सुंदर बेलें और लताएँ चढ़ी हों -> Pergola (लतागृह)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Garden pergola / shaded pergola",
+    "derivatives": "Pergolas (plural)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-11",
+    "word": "Perpetual",
+    "phonetic": "/pəˈpetʃ.u.əl/",
+    "hindi": "निरंतर / शाश्वत / अनवरत / कभी न रुकने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Eternal; never ending or changing; occurring repeatedly.",
+    "synonyms": [
+      "Eternal",
+      "Everlasting",
+      "Continuous",
+      "Unceasing",
+      "Incessant"
+    ],
+    "antonyms": [
+      "Temporary",
+      "Transient",
+      "Intermittent",
+      "Episodic"
+    ],
+    "example": "High mountain peaks are clothed in perpetual snow that resists even the fiercest summer sun.",
+    "mnemonic": "Permanent & Actual (जो हमेशा के लिए निरंतर चलता रहे) -> Perpetual.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Perpetual motion / perpetual calendar",
+    "derivatives": "Perpetuate (verb), Perpetually (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-12",
+    "word": "Perquisite",
+    "phonetic": "/ˈpɜː.kwɪ.zɪt/",
+    "hindi": "अतिरिक्त लाभ / भत्ते / वेतन के अलावा सुविधा या लाभ",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An extra profit or allowance additional to a main income, salary, or position.",
+    "synonyms": [
+      "Perk",
+      "Privilege",
+      "Bonus",
+      "Fringe benefit",
+      "Prerogative"
+    ],
+    "antonyms": [
+      "Disadvantage",
+      "Forfeiture",
+      "Penalty"
+    ],
+    "example": "A chauffeur-driven car and subsidized housing were lucrative perquisites of the diplomatic post.",
+    "mnemonic": "Perks site (नौकरी में वेतन के अतिरिक्त मिलने वाले आकर्षक लाभ) -> Perquisite.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Executive perquisite / perquisite of office",
+    "derivatives": "Perk (informal noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-13",
+    "word": "Placebo",
+    "phonetic": "/pləˈsiː.bəʊ/",
+    "hindi": "निष्क्रिय औषधि / डमी दवा / रोगी के मानसिक संतोष के लिए दी जाने वाली औषधि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A substance that has no therapeutic effect, used as a control in testing new drugs.",
+    "synonyms": [
+      "Inactive tablet",
+      "Sugar pill",
+      "Dummy pill",
+      "Mock drug"
+    ],
+    "antonyms": [
+      "Active medication",
+      "Potent drug"
+    ],
+    "example": "In clinical medical trials, half the volunteer cohort received the vaccine and half received a placebo.",
+    "mnemonic": "पिला के बोलो कि 'दवा असरदार है' (मानसिक तसल्ली की दवा) -> Placebo.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Placebo effect / placebo trial",
+    "derivatives": "Placeboic (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-14",
+    "word": "Persecute",
+    "phonetic": "/ˈpɜː.sɪ.kjuːt/",
+    "hindi": "अत्याचार करना / सताना / धर्म या जाति के आधार पर प्रताड़ित करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "Subject someone to hostility and ill-treatment, especially because of their race, political or religious beliefs.",
+    "synonyms": [
+      "Oppress",
+      "Victimize",
+      "Torment",
+      "Tyrannize",
+      "Harass"
+    ],
+    "antonyms": [
+      "Protect",
+      "Shelter",
+      "Cherish",
+      "Defend"
+    ],
+    "example": "Minorities were ruthlessly persecuted under the tyrannical regime until democratic reform arrived.",
+    "mnemonic": "पैर से कूटना और बुरी तरह सताना -> Persecute.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Religious persecution / persecuted minority",
+    "derivatives": "Persecution (noun), Persecutor (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-15",
+    "word": "Personnel",
+    "phonetic": "/ˌpɜː.sənˈel/",
+    "hindi": "कार्मिक / कर्मचारी गण / सेना या संस्थान में कार्यरत लोग",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "People employed in an organization or engaged in an organized undertaking such as military service.",
+    "synonyms": [
+      "Staff",
+      "Employees",
+      "Workforce",
+      "Crew",
+      "Troops"
+    ],
+    "antonyms": [
+      "Employer",
+      "Management board"
+    ],
+    "example": "Only authorized security personnel are permitted access beyond this biometric checkpoint.",
+    "mnemonic": "Personal (निजी) Vs Personnel (संस्थान का स्टाफ या सेना के जवान)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Military personnel / personnel manager",
+    "derivatives": "Person (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-16",
+    "word": "Perusal",
+    "phonetic": "/pəˈruː.zəl/",
+    "hindi": "ध्यानपूर्वक पढ़ना / गहराई से अवलोकन / अध्ययन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The action of examining with care or reading carefully.",
+    "synonyms": [
+      "Scrutiny",
+      "Inspection",
+      "Careful reading",
+      "Examination",
+      "Study"
+    ],
+    "antonyms": [
+      "Careless glance",
+      "Ignoring",
+      "Neglect"
+    ],
+    "example": "The advocate handed over the contract documents for my detailed perusal.",
+    "mnemonic": "पूरे साल ध्यान से पढ़ना और परीक्षा की तैयारी करना -> Perusal.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Careful perusal / submit for perusal",
+    "derivatives": "Peruse (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-17",
+    "word": "Pestiferous",
+    "phonetic": "/pesˈtɪf.ər.əs/",
+    "hindi": "विनाशक / महामारी फैलाने वाला / हानिकारक / कष्टप्रद",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Carrying or spreading infectious disease; pestilent or troublesome.",
+    "synonyms": [
+      "Pestilent",
+      "Infectious",
+      "Contagious",
+      "Harmful",
+      "Deadly"
+    ],
+    "antonyms": [
+      "Healthful",
+      "Innocuous",
+      "Salubrious",
+      "Beneficial"
+    ],
+    "example": "Stagnant drainage ditches became breeding grounds for pestiferous swarms of mosquitoes.",
+    "mnemonic": "Pest जो महामारी और बीमारियाँ फैलाए -> Pestiferous.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pestiferous insects / pestiferous air",
+    "derivatives": "Pest (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-18",
+    "word": "Pestle",
+    "phonetic": "/ˈpes.əl/",
+    "hindi": "मूसल / खरल में कूटने का भारी डंडा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A heavy tool with a rounded end, used for crushing and grinding substances in a mortar.",
+    "synonyms": [
+      "Pounder",
+      "Grinder",
+      "Crusher",
+      "Muller"
+    ],
+    "antonyms": [
+      "Mortar (bowl)"
+    ],
+    "example": "The traditional apothecary crushed dry medicinal herbs into fine powder using a granite pestle.",
+    "mnemonic": "मूसल से मसाले पीस डालना -> Pestle.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Mortar and pestle / grind with a pestle",
+    "derivatives": "Pestle (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-19",
+    "word": "Peter",
+    "phonetic": "/ˈpiː.tər/",
+    "hindi": "धीरे-धीरे समाप्त होना / क्षीण होना / फीका पड़ना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To decrease or fade gradually before coming to an end (peter out).",
+    "synonyms": [
+      "Dwindle",
+      "Fade out",
+      "Diminish",
+      "Taper off",
+      "Wane"
+    ],
+    "antonyms": [
+      "Intensify",
+      "Increase",
+      "Escalate",
+      "Flourish"
+    ],
+    "example": "The loud campaign enthusiasm began to peter out as election day drew nearer.",
+    "mnemonic": "Peter पी-पीकर खुद की ऊर्जा को धीरे-धीरे खत्म कर रहा है -> Peter (out).",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Peter out / enthusiasm petered out",
+    "derivatives": "Petering (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-20",
+    "word": "Philistine",
+    "phonetic": "/ˈfɪl.ɪ.staɪn/",
+    "hindi": "असंस्कृत व्यक्ति / कला, संगीत व साहित्य से विमुख व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who dislikes, is indifferent to, or fails to understand art and culture.",
+    "synonyms": [
+      "Lowbrow",
+      "Anti-intellectual",
+      "Boor",
+      "Materialist",
+      "Vandal"
+    ],
+    "antonyms": [
+      "Connoisseur",
+      "Aesthete",
+      "Highbrow",
+      "Intellectual"
+    ],
+    "example": "Anyone who dismisses classical ballet as foolish jumping is an uncultured philistine.",
+    "mnemonic": "Feel less for स्थानीय culture और कला -> Philistine.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Cultural philistine / philistine attitude",
+    "derivatives": "Philistinism (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-21",
+    "word": "Philogynist",
+    "phonetic": "/fɪˈlɒdʒ.ɪ.nɪst/",
+    "hindi": "नारी प्रशंसक / महिलाओं से प्रेम व आदर करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who likes, admires, or champions women.",
+    "synonyms": [
+      "Woman lover",
+      "Feminist supporter",
+      "Admirer of women"
+    ],
+    "antonyms": [
+      "Misogynist (woman hater)"
+    ],
+    "example": "Unlike his cynical peers, the poet was a genuine philogynist who praised feminine virtues.",
+    "mnemonic": "Philo (Love) + Gyn (Women) -> महिलाओं का प्रशंसक -> Philogynist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "True philogynist / poetic philogynist",
+    "derivatives": "Philogyny (noun), Philogynous (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-22",
+    "word": "Phonetics",
+    "phonetic": "/fəˈnet.ɪks/",
+    "hindi": "ध्वनि विज्ञान / बोली की आवाज़ों का अध्ययन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The scientific study of speech sounds and their physiological production.",
+    "synonyms": [
+      "Acoustic linguistics",
+      "Speech science",
+      "Phonology"
+    ],
+    "antonyms": [
+      "Semantics",
+      "Grammar"
+    ],
+    "example": "Mastering the International Phonetic Alphabet is essential in modern English phonetics.",
+    "mnemonic": "Phone की तकनीक में ध्वनि (Sound) का विज्ञान -> Phonetics.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "English phonetics / phonetic transcription",
+    "derivatives": "Phonetic (adjective), Phonetician (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-23",
+    "word": "Physiotherapy",
+    "phonetic": "/ˌfɪz.i.əʊˈθer.ə.pi/",
+    "hindi": "भौतिक चिकित्सा / कसरत व मालिश द्वारा उपचार",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Treatment of disease, injury, or deformity by means of exercise, massage, and heat.",
+    "synonyms": [
+      "Physical therapy",
+      "Kinesitherapy",
+      "Rehabilitation therapy"
+    ],
+    "antonyms": [
+      "Chemotherapy",
+      "Surgery"
+    ],
+    "example": "Six months of dedicated physiotherapy helped the injured batsman regain full knee mobility.",
+    "mnemonic": "Physical therapy से अंगों का इलाज -> Physiotherapy.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Undergo physiotherapy / physiotherapy clinic",
+    "derivatives": "Physiotherapist (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-24",
+    "word": "Pile",
+    "phonetic": "/paɪl/",
+    "hindi": "ढेर / अंबार / एक के ऊपर एक रखी वस्तुएं",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A large number of things placed one on top of another; a heap.",
+    "synonyms": [
+      "Heap",
+      "Stack",
+      "Mound",
+      "Mass",
+      "Collection"
+    ],
+    "antonyms": [
+      "Ditch",
+      "Hole",
+      "Scattered units"
+    ],
+    "example": "A huge pile of unreviewed case dossiers lay towering across the magistrate's desk.",
+    "mnemonic": "Files का एक के ऊपर एक लगा Pile (ढेर) -> Pile.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pile of books / pile of rubble",
+    "derivatives": "Pile (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-25",
+    "word": "Pilferage",
+    "phonetic": "/ˈpɪl.fər.ɪdʒ/",
+    "hindi": "छुट-पुट चोरी / उठाईगीरी / छोटी मात्रा में चोरी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The act of stealing something repeatedly in small quantities or petty values.",
+    "synonyms": [
+      "Petty theft",
+      "Filching",
+      "Thieving",
+      "Larceny",
+      "Embezzlement"
+    ],
+    "antonyms": [
+      "Honesty",
+      "Grand robbery"
+    ],
+    "example": "Warehouse cameras were installed to curb inventory pilferage by night-shift workers.",
+    "mnemonic": "Pill और छोटी-मोटी चीज़ें चोरी करके फ़रार होना -> Pilferage.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Cargo pilferage / petty pilferage",
+    "derivatives": "Pilfer (verb), Pilferer (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-26",
+    "word": "Pioneer",
+    "phonetic": "/ˌpaɪəˈnɪər/",
+    "hindi": "अग्रगामी / पथप्रदर्शक / प्रथम अन्वेषक / प्रणेता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who is one of the first to do something, explore new land, or develop a field of study.",
+    "synonyms": [
+      "Trailblazer",
+      "Innovator",
+      "Groundbreaker",
+      "Pathfinder",
+      "Founder"
+    ],
+    "antonyms": [
+      "Follower",
+      "Imitator",
+      "Traditionalist"
+    ],
+    "example": "Marie Curie was a fearless scientific pioneer in the study of natural radioactivity.",
+    "mnemonic": "Pahle-One (जो सबसे पहले राह दिखाए और नया करे) -> Pioneer.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pioneer in aviation / pioneering spirit",
+    "derivatives": "Pioneering (adjective), Pioneer (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-27",
+    "word": "Placid",
+    "phonetic": "/ˈplæs.ɪd/",
+    "hindi": "शांत / सौम्य / स्थिर / जो आसानी से उत्तेजित न हो",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Not easily excited, irritated, or upset; calm and peaceful.",
+    "synonyms": [
+      "Calm",
+      "Tranquil",
+      "Serene",
+      "Equable",
+      "Undisturbed"
+    ],
+    "antonyms": [
+      "Furious",
+      "Stormy",
+      "Agitated",
+      "Excitable",
+      "Turbulent"
+    ],
+    "example": "The mirror-like surface of the placid lake reflected the distant snowcapped peaks.",
+    "mnemonic": "Lake Placid (शांत और सौम्य स्वभाव) -> Placid.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Placid lake / placid temperament",
+    "derivatives": "Placidity (noun), Placidly (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-28",
+    "word": "Plagiarise",
+    "phonetic": "/ˈpleɪ.dʒər.aɪz/",
+    "hindi": "साहित्यिक चोरी करना / विचारों या रचना की नकल करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To take and use the thoughts, writings, or inventions of another person as one's own without attribution.",
+    "synonyms": [
+      "Copy",
+      "Infringe copyright",
+      "Appropriate",
+      "Steal ideas",
+      "Bootleg"
+    ],
+    "antonyms": [
+      "Originate",
+      "Create authentically",
+      "Attribute properly"
+    ],
+    "example": "The student was expelled after software revealed he had plagiarised his thesis from an online journal.",
+    "mnemonic": "Play में Rise करने के लिए किसी और का दिमाग चुराना -> Plagiarise.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Plagiarise text / accused of plagiarising",
+    "derivatives": "Plagiarism (noun), Plagiarist (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-29",
+    "word": "Plaintiff",
+    "phonetic": "/ˈpleɪn.tɪf/",
+    "hindi": "अर्जीदार / वादी / न्यायालय में मुकद्दमा दायर करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who brings a legal action or suit against another in a court of law.",
+    "synonyms": [
+      "Complainant",
+      "Accuser",
+      "Litigant",
+      "Prosecutor",
+      "Suitor"
+    ],
+    "antonyms": [
+      "Defendant",
+      "Accused",
+      "Respondent"
+    ],
+    "example": "The plaintiff produced sworn eyewitness testimonies proving breach of contract.",
+    "mnemonic": "जो कोर्ट में Tiff (विवाद) के खिलाफ अर्जी लगाए -> Plaintiff (वादी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Case for the plaintiff / plaintiff's attorney",
+    "derivatives": "Plaintive (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-30",
+    "word": "Plaque",
+    "phonetic": "/plɑːk/",
+    "hindi": "स्मृति-पट्ट / दीवार पर जड़ा हुआ सजावटी या स्मारक धातु-फलक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A flat metal, wood, or porcelain plate fixed on a wall as an ornament or memorial.",
+    "synonyms": [
+      "Tablet",
+      "Memorial plate",
+      "Inscribed panel",
+      "Brass plate"
+    ],
+    "antonyms": [
+      "Unmarked stone"
+    ],
+    "example": "A bronze plaque was erected outside the ancestral home of the freedom fighter.",
+    "mnemonic": "Plug the plate on wall (दीवार पर स्मृति पट्ट लगाना) -> Plaque.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Memorial plaque / commemorative plaque",
+    "derivatives": "Plaqueless (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-31",
+    "word": "Plausible",
+    "phonetic": "/ˈplɔː.zə.bəl/",
+    "hindi": "विश्वसनीय लगने वाला / तर्कसंगत / संभावित",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Seeming reasonable, probable, or worthy of approval or acceptance.",
+    "synonyms": [
+      "Credible",
+      "Believable",
+      "Feasible",
+      "Likely",
+      "Tenet-worthy"
+    ],
+    "antonyms": [
+      "Implausible",
+      "Unbelievable",
+      "Doubtful",
+      "Far-fetched"
+    ],
+    "example": "The criminal offered a plausible explanation for why his fingerprints were on the door.",
+    "mnemonic": "जो सच और 'Possible' लगे, वही Plausible (विश्वसनीय)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Plausible excuse / plausible theory",
+    "derivatives": "Plausibility (noun), Plausibly (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-32",
+    "word": "Pledge",
+    "phonetic": "/pledʒ/",
+    "hindi": "प्रतिज्ञा / संकल्प / गंभीर वादा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A solemn promise, undertaking, or agreement.",
+    "synonyms": [
+      "Promise",
+      "Vow",
+      "Oath",
+      "Commitment",
+      "Guarantee"
+    ],
+    "antonyms": [
+      "Breach",
+      "Betrayal",
+      "Renunciation"
+    ],
+    "example": "Graduating physicians take the solemn Hippocratic oath as a professional pledge.",
+    "mnemonic": "Property को दांव पर रखकर लिया गया सच्चा संकल्प -> Pledge.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Take a pledge / honor a pledge",
+    "derivatives": "Pledge (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-33",
+    "word": "Plenitude",
+    "phonetic": "/ˈplen.ɪ.tjuːd/",
+    "hindi": "प्रचुरता / भरपूर मात्रा / आधिक्य / पूर्णता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The state of being full or complete; an abundance.",
+    "synonyms": [
+      "Abundance",
+      "Profusion",
+      "Cornucopia",
+      "Wealth",
+      "Plenty"
+    ],
+    "antonyms": [
+      "Scarcity",
+      "Dearth",
+      "Paucity",
+      "Shortage"
+    ],
+    "example": "After monsoon showers, the fertile plains bore a glorious plenitude of green harvest.",
+    "mnemonic": "Plenty Attitude और भरपूर प्रचुरता (Abundance) -> Plenitude.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Plenitude of food / plenitude of ideas",
+    "derivatives": "Plentiful (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-34",
+    "word": "Pliable",
+    "phonetic": "/ˈplaɪ.ə.bəl/",
+    "hindi": "लचीला / कोमल / आसानी से मुड़ने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Capable of bending easily without breaking; easily influenced or flexible.",
+    "synonyms": [
+      "Flexible",
+      "Supple",
+      "Bendable",
+      "Pliant",
+      "Malleable"
+    ],
+    "antonyms": [
+      "Rigid",
+      "Stiff",
+      "Inflexible",
+      "Brittle"
+    ],
+    "example": "Fresh wicker cane is soft and pliable, making it ideal for weaving picnic baskets.",
+    "mnemonic": "Pliable = Flexible (बिना टूटे आसानी से मुड़ने योग्य) -> Pliable.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pliable wire / pliable nature",
+    "derivatives": "Pliability (noun), Pliably (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-35",
+    "word": "Poignant",
+    "phonetic": "/ˈpɔɪ.njənt/",
+    "hindi": "मर्मस्पर्शी / हृदयविदारक / तीखा व गहरा दुख पहुँचाने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Evoking a keen sense of sadness, sorrow, or regret; touching deeply.",
+    "synonyms": [
+      "Touching",
+      "Heart-rending",
+      "Moving",
+      "Affecting",
+      "Pathos-filled"
+    ],
+    "antonyms": [
+      "Cheerful",
+      "Unaffecting",
+      "Painless",
+      "Happy"
+    ],
+    "example": "The partition film concluded with a poignant reunion between two estranged childhood friends.",
+    "mnemonic": "Pain Giant (मन में गहरा दर्द व भावुकता जगाने वाला दृश्य) -> Poignant.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Poignant reminder / poignant scene",
+    "derivatives": "Poignancy (noun), Poignantly (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-36",
+    "word": "Populous",
+    "phonetic": "/ˈpɒp.jə.ləs/",
+    "hindi": "घनी आबादी वाला / जनबहुल",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Full of people; having a large population; densely inhabited.",
+    "synonyms": [
+      "Densely populated",
+      "Crowded",
+      "Teeming",
+      "Swarming",
+      "Packed"
+    ],
+    "antonyms": [
+      "Unpopulated",
+      "Deserted",
+      "Sparsely inhabited",
+      "Desolate"
+    ],
+    "example": "Tokyo is ranked among the most populous metropolitan regions on the globe.",
+    "mnemonic": "Population जहाँ Plus (अति घनी) हो -> Populous (घनी आबादी वाला)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Populous city / populous nation",
+    "derivatives": "Population (noun), Populousness (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-37",
+    "word": "Portfolio",
+    "phonetic": "/pɔːtˈfəʊ.li.əʊ/",
+    "hindi": "बस्ता / निवेश सूची / प्रपत्र संचिका / विभाग",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A portable case for holding papers, drawings; or a collection of financial investments.",
+    "synonyms": [
+      "Briefcase",
+      "Dossier",
+      "Folder",
+      "Investment package"
+    ],
+    "antonyms": [
+      "Single document"
+    ],
+    "example": "The finance minister carefully reviewed the sovereign investment portfolio.",
+    "mnemonic": "जिसमें Folio को Port (ले जाया) जाए -> Portfolio.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Ministerial portfolio / investment portfolio",
+    "derivatives": "Portfolios (plural)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-38",
+    "word": "Posthumous",
+    "phonetic": "/ˈpɒs.tʃə.məs/",
+    "hindi": "मरणोपरांत / मरणोत्तर / मृत्यु के बाद होने वाला या प्रकाशित",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Awarded, published, or born after the death of the person or author concerned.",
+    "synonyms": [
+      "Post-mortem",
+      "After-death",
+      "Post-oblique"
+    ],
+    "antonyms": [
+      "Antemortem",
+      "During lifetime"
+    ],
+    "example": "The gallant soldier was conferred the Param Vir Chakra as a posthumous honor.",
+    "mnemonic": "Post (बाद) + Human (व्यक्ति के मरणोपरांत मिलने वाला सम्मान) -> Posthumous.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Posthumous award / posthumous novel",
+    "derivatives": "Posthumously (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-39",
+    "word": "Potable",
+    "phonetic": "/ˈpəʊ.tə.bəl/",
+    "hindi": "पीने योग्य / स्वच्छ पेय जल",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Safe to drink; suitable for drinking.",
+    "synonyms": [
+      "Drinkable",
+      "Clean",
+      "Pure",
+      "Fit to drink",
+      "Untainted"
+    ],
+    "antonyms": [
+      "Non-potable",
+      "Contaminated",
+      "Polluted",
+      "Poisonous"
+    ],
+    "example": "Access to clean potable water has drastically reduced waterborne epidemics in rural sectors.",
+    "mnemonic": "Pot (मटके) में रखा पीने योग्य शुद्ध पानी -> Potable.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Potable water / potable supply",
+    "derivatives": "Potability (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-40",
+    "word": "Potion",
+    "phonetic": "/ˈpəʊ.ʃən/",
+    "hindi": "पेय औषधि / जादुई काढ़ा / विष-रस",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A liquid with healing, magical, or poisonous properties.",
+    "synonyms": [
+      "Elixir",
+      "Draught",
+      "Brew",
+      "Concoction",
+      "Tonic"
+    ],
+    "antonyms": [
+      "Solid tablet"
+    ],
+    "example": "The witch brewed a bubbling herbal potion in her black iron cauldron.",
+    "mnemonic": "पीते ही On हो जाने वाली जादुई पेय औषधि -> Potion.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Magic potion / sleeping potion",
+    "derivatives": "Potions (plural)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-41",
+    "word": "Potpourri",
+    "phonetic": "/ˌpəʊ.pʊˈriː/",
+    "hindi": "इत्र / विविध सुगंधित फूलों का मिश्रण / विविध संकलन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A mixture or collection of various diverse things; a miscellaneous assortment.",
+    "synonyms": [
+      "Medley",
+      "Miscellany",
+      "Assortment",
+      "Jumble",
+      "Melange"
+    ],
+    "antonyms": [
+      "Uniform batch",
+      "Single entity"
+    ],
+    "example": "The evening concert presented a delightful potpourri of jazz, folk, and classical melodies.",
+    "mnemonic": "Pot पूरी खुशबूदार विविध फूलों से भरी पड़ी है -> Potpourri.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Bowl of potpourri / musical potpourri",
+    "derivatives": "Potpourris (plural)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-42",
+    "word": "Pragmatic",
+    "phonetic": "/præɡˈmæt.ɪk/",
+    "hindi": "व्यावहारिक / यथार्थवादी / कार्यसाधक",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Dealing with things in a practical and sensible way rather than theoretical or ideological.",
+    "synonyms": [
+      "Practical",
+      "Realistic",
+      "Sensible",
+      "Hard-headed",
+      "Expedient"
+    ],
+    "antonyms": [
+      "Idealistic",
+      "Impractical",
+      "Quixotic",
+      "Visionary"
+    ],
+    "example": "Rather than relying on abstract dogmas, the prime minister adopted a pragmatic economic policy.",
+    "mnemonic": "जिंदगी में Pragati (प्रगति) करने के लिए व्यावहारिक (Pragmatic) होना जरूरी है।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pragmatic solution / pragmatic approach",
+    "derivatives": "Pragmatism (noun), Pragmatically (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-43",
+    "word": "Precarious",
+    "phonetic": "/prɪˈkeə.ri.əs/",
+    "hindi": "अनिश्चित / अस्थिर / जोखिम भरा / संकटपूर्ण",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Dependent on chance or uncertainty; not securely in position; dangerously unstable.",
+    "synonyms": [
+      "Unstable",
+      "Insecure",
+      "Perilous",
+      "Hazardous",
+      "Risky"
+    ],
+    "antonyms": [
+      "Stable",
+      "Secure",
+      "Safe",
+      "Reliable",
+      "Certain"
+    ],
+    "example": "The climber balanced on a precarious rock ledge overlooking a sheer thousand-foot drop.",
+    "mnemonic": "जिसमें कदम-कदम पर Precaution (सावधानी) लेनी पड़े, ऐसा जोखिम भरा -> Precarious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Precarious position / precarious foothold",
+    "derivatives": "Precariousness (noun), Precariously (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-44",
+    "word": "Predator",
+    "phonetic": "/ˈpred.ə.tər/",
+    "hindi": "हिंसक जानवर / शिकारी प्राणी / दूसरों का शिकार करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An animal that lives by killing and eating other animals; an exploiter.",
+    "synonyms": [
+      "Carnivore",
+      "Hunter",
+      "Beast of prey",
+      "Scavenger"
+    ],
+    "antonyms": [
+      "Prey",
+      "Herbivore",
+      "Victim"
+    ],
+    "example": "Lions and leopards are top apex predators that regulate deer herds across the reserve.",
+    "mnemonic": "जो पहले शिकार को डराए और फिर मार खाए -> Predator (शिकारी प्राणी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Apex predator / natural predator",
+    "derivatives": "Predatory (adjective), Predation (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-45",
+    "word": "Predecessor",
+    "phonetic": "/ˈpriː.dɪˌses.ər/",
+    "hindi": "पूर्ववर्ती / पूर्वाधिकारी / पूर्वज",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who held a job or office before the person who is in it now.",
+    "synonyms": [
+      "Forerunner",
+      "Precursor",
+      "Antecedent",
+      "Pre-occupant"
+    ],
+    "antonyms": [
+      "Successor",
+      "Heir",
+      "Follower"
+    ],
+    "example": "The incoming governor vowed to continue the fiscal reforms begun by her predecessor.",
+    "mnemonic": "Pre-service (जो आपसे पहले उस पद पर सेवा दे चुका हो) -> Predecessor.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Immediate predecessor / worthy predecessor",
+    "derivatives": "Predecessors (plural)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-46",
+    "word": "Prevaricate",
+    "phonetic": "/prɪˈvær.ɪ.keɪt/",
+    "hindi": "टालमटोल करना / कपटपूर्ण बातें करना / सच्चाई से बचना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To make evasive or misleading statements; speak falsely or ambiguously.",
+    "synonyms": [
+      "Equivocate",
+      "Hedge",
+      "Evade",
+      "Stall",
+      "Quibble"
+    ],
+    "antonyms": [
+      "Speak plainly",
+      "Be candid",
+      "Tell the whole truth"
+    ],
+    "example": "When cross-examined about the secret offshore accounts, the witness began to prevaricate.",
+    "mnemonic": "Price को बार-बार vary करके बात को घुमाना-टालना -> Prevaricate.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Prevaricate on the facts / continue to prevaricate",
+    "derivatives": "Prevarication (noun), Prevaricator (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-47",
+    "word": "Pride",
+    "phonetic": "/praɪd/",
+    "hindi": "शेरों का झुण्ड",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A group of lions forming a collective social unit.",
+    "synonyms": [
+      "Troop of lions",
+      "Lion family",
+      "Pack of lions"
+    ],
+    "antonyms": [
+      "Solitary lion"
+    ],
+    "example": "A magnificent pride of lions rested beneath the shady acacia tree in Serengeti.",
+    "mnemonic": "Proud शेरों का गौरवमयी झुंड -> Pride of lions.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pride of lions / hunt with the pride",
+    "derivatives": "Proud (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-48",
+    "word": "Probationer",
+    "phonetic": "/prəˈbeɪ.ʃən.ər/",
+    "hindi": "काम सीखने वाला / परिवीक्षाधीन व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person working on a trial period in a job or subject to probation.",
+    "synonyms": [
+      "Trainee",
+      "Apprentice",
+      "Novice",
+      "Intern",
+      "Trial candidate"
+    ],
+    "antonyms": [
+      "Tenured officer",
+      "Permanent employee"
+    ],
+    "example": "After completing two arduous training years, the IPS probationer received her first posting.",
+    "mnemonic": "Proper ऑफिसर बनने के लिए टेस्ट पीरियड पर काम करने वाला बेटा -> Probationer.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Police probationer / probationer officer",
+    "derivatives": "Probation (noun), Probationary (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-49",
+    "word": "Prodigal",
+    "phonetic": "/ˈprɒd.ɪ.ɡəl/",
+    "hindi": "खर्चीला / अपव्ययी / उड़ाऊ",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Spending money freely and rather wastefully; recklessly extravagant.",
+    "synonyms": [
+      "Extravagant",
+      "Wasteful",
+      "Spendthrift",
+      "Profligate",
+      "Improvident"
+    ],
+    "antonyms": [
+      "Thrifty",
+      "Frugal",
+      "Parsimonious",
+      "Economical"
+    ],
+    "example": "The prodigal son squandered his rich inheritance on lavish banquets and gambling.",
+    "mnemonic": "पूरा दिन गलियों में घूमकर फिजूल पैसा उड़ाने वाला -> Prodigal (खर्चीला)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Prodigal habits / return of the prodigal",
+    "derivatives": "Prodigality (noun), Prodigally (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-50",
+    "word": "Prodigy",
+    "phonetic": "/ˈprɒd.ɪ.dʒi/",
+    "hindi": "असाधारण प्रतिभाशाली व्यक्ति / विलक्षण बालक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person, especially a young one, with exceptional abilities or qualities.",
+    "synonyms": [
+      "Child genius",
+      "Wonder child",
+      "Virtuoso",
+      "Marvel",
+      "Phenomenon"
+    ],
+    "antonyms": [
+      "Simpleton",
+      "Dunce",
+      "Mediocrity"
+    ],
+    "example": "Mozart was recognized as a child musical prodigy who composed sonatas at age five.",
+    "mnemonic": "जिस अद्भुत बच्चे पर सबको Proud हो -> Prodigy (विलक्षण बालक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Maths prodigy / child prodigy",
+    "derivatives": "Prodigious (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-51",
+    "word": "Proficiency",
+    "phonetic": "/prəˈfɪʃ.ən.si/",
+    "hindi": "निपुणता / प्रवीणता / उच्च स्तरीय कुशलता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A high degree of skill, competence, or expertise in an activity or branch of knowledge.",
+    "synonyms": [
+      "Competence",
+      "Expertise",
+      "Mastery",
+      "Skill",
+      "Aptitude"
+    ],
+    "antonyms": [
+      "Incompetence",
+      "Ineptitude",
+      "Clumsiness",
+      "Ignorance"
+    ],
+    "example": "Candidates must demonstrate clear proficiency in English comprehension to pass the tier exam.",
+    "mnemonic": "Pro की तरह कार्य में Efficiency दिखाना -> Proficiency (निपुणता)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Language proficiency / attain proficiency",
+    "derivatives": "Proficient (adjective), Proficiently (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-52",
+    "word": "Prop",
+    "phonetic": "/prɒp/",
+    "hindi": "टेक / सहारा / आलंब / गिरने से रोकने वाला आधार",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A piece of wood, metal etc. used for supporting something or keeping it in position.",
+    "synonyms": [
+      "Support",
+      "Brace",
+      "Strut",
+      "Stanchion",
+      "Stay"
+    ],
+    "antonyms": [
+      "Destabilizer",
+      "Detractor"
+    ],
+    "example": "Miners jammed heavy wooden props against the tunnel roof to avert sudden cave-ins.",
+    "mnemonic": "दीवार या छत को गिरने से बचाने के लिए लगाया गया सहारा -> Prop.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Prop up / stage prop",
+    "derivatives": "Propping (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-53",
+    "word": "Pseudonym",
+    "phonetic": "/ˈsjuː.də.nɪm/",
+    "hindi": "उपनाम / छद्म नाम / लेखक द्वारा प्रयुक्त काल्पनिक नाम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An imaginary name assumed by an author; pen name.",
+    "synonyms": [
+      "Pen name",
+      "Nom de plume",
+      "Alias",
+      "Incognito label",
+      "False name"
+    ],
+    "antonyms": [
+      "Real name",
+      "Legal moniker"
+    ],
+    "example": "Eric Arthur Blair wrote his celebrated dystopian novels under the famous pseudonym George Orwell.",
+    "mnemonic": "Pseudo (झूठा/काल्पनिक) + Nym (नाम) -> Pseudonym.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Write under a pseudonym / literary pseudonym",
+    "derivatives": "Pseudonymous (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-54",
+    "word": "Punctilious",
+    "phonetic": "/pʌŋkˈtɪl.i.əs/",
+    "hindi": "छोटी-छोटी बातों पर ध्यान देने वाला / शिष्टाचारप्रिय / अतिसूक्ष्मग्राही",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Showing great attention to detail, protocol, and correct behaviour.",
+    "synonyms": [
+      "Meticulous",
+      "Conscientious",
+      "Scrupulous",
+      "Fastidious",
+      "Precise"
+    ],
+    "antonyms": [
+      "Careless",
+      "Slapdash",
+      "Negligent",
+      "Easygoing"
+    ],
+    "example": "The diplomatic protocol officer was punctilious about the precise seating order at state dinners.",
+    "mnemonic": "Punctual होकर हर Point को नियम से देखने वाला व्यक्ति -> Punctilious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Punctilious about etiquette / punctilious host",
+    "derivatives": "Punctiliousness (noun), Punctiliously (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-55",
+    "word": "Pungent",
+    "phonetic": "/ˈpʌn.dʒənt/",
+    "hindi": "तीखा / कटु / तेज़ गंध या स्वाद वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Having a sharply strong taste or smell; biting or caustic in tone.",
+    "synonyms": [
+      "Sharp",
+      "Acrid",
+      "Biting",
+      "Piquant",
+      "Caustic"
+    ],
+    "antonyms": [
+      "Bland",
+      "Mild",
+      "Pleasant",
+      "Insipid"
+    ],
+    "example": "The pungent aroma of roasting garlic and chillies wafted out of the bustling street kitchen.",
+    "mnemonic": "Puncture glue की तीखी और तेज़ गंध -> Pungent.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pungent smell / pungent critique",
+    "derivatives": "Pungency (noun), Pungently (adverb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-56",
+    "word": "Purr",
+    "phonetic": "/pɜːr/",
+    "hindi": "म्याऊँ करना / घुरघुराना / बिल्ली का संतोषजनक धीमा स्वर",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To make a low continuous vibratory sound expressing contentment (characteristic of cats).",
+    "synonyms": [
+      "Hum",
+      "Drone",
+      "Murmur",
+      "Vibrate gently"
+    ],
+    "antonyms": [
+      "Hiss",
+      "Growl",
+      "Snarl"
+    ],
+    "example": "The tabby cat purred happily as the child stroked its soft fur.",
+    "mnemonic": "बिल्ली प्यार में Purr करके घुरघुराती है -> Purr.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Purr with satisfaction / engine purrs",
+    "derivatives": "Purring (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-57",
+    "word": "Pursue",
+    "phonetic": "/pəˈsjuː/",
+    "hindi": "पीछे लगे रहना / पीछा करना / लक्ष्य पाने में जुटे रहना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To run after; chase or follow in order to catch, attain, or accomplish.",
+    "synonyms": [
+      "Chase",
+      "Track",
+      "Follow",
+      "Strive for",
+      "Seek"
+    ],
+    "antonyms": [
+      "Abandon",
+      "Flee",
+      "Give up",
+      "Relinquish"
+    ],
+    "example": "Police vehicles pursued the fleeing bank robber down the interstate highway.",
+    "mnemonic": "Purse छीनकर भागने वाले चोर के पीछे भागना -> Pursue.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Pursue a goal / pursue a career",
+    "derivatives": "Pursuit (noun), Pursuer (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-58",
+    "word": "Putrefy",
+    "phonetic": "/ˈpjuː.trɪ.faɪ/",
+    "hindi": "सड़ना / दुर्गंध छोड़ना / गलना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "(Of organic matter) to decay, rot, and produce a fetid smell.",
+    "synonyms": [
+      "Decompose",
+      "Rot",
+      "Decay",
+      "Spoil",
+      "Fester"
+    ],
+    "antonyms": [
+      "Preserve",
+      "Cure",
+      "Fresh remain"
+    ],
+    "example": "Without proper refrigeration, leftover meat will putrefy within twenty-four hours in summer.",
+    "mnemonic": "Put free outside in sun, and food will Putrefy (सड़ना)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Begin to putrefy / putrefying flesh",
+    "derivatives": "Putrefaction (noun), Putrid (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-59",
+    "word": "Quack",
+    "phonetic": "/kwæk/",
+    "hindi": "डींग हाँकना / नीम-हकीम / झोलाछाप डॉक्टर / अयोग्य व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who dishonestly pretends to have medical skills or specialized knowledge.",
+    "synonyms": [
+      "Charlatan",
+      "Mountebank",
+      "Fake doctor",
+      "Fraud",
+      "Imposter"
+    ],
+    "antonyms": [
+      "Certified physician",
+      "Expert doctor"
+    ],
+    "example": "Health inspectors shuttered the clinic after uncovering that the surgeon was a fraudulent quack.",
+    "mnemonic": "बत्तख की तरह Quack-quack करके झूठे ज्ञान की डींग हाँकने वाला नीम-हकीम -> Quack.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Medical quack / exposed as a quack",
+    "derivatives": "Quackery (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-60",
+    "word": "Quadrangle",
+    "phonetic": "/ˈkwɒd.ræŋ.ɡəl/",
+    "hindi": "चतुर्भुजाकार आँगन / चौकोर चौक / चार कोणों वाला अहाता",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A four-sided court or open space, usually rectangular and enclosed by buildings.",
+    "synonyms": [
+      "Courtyard",
+      "Quad",
+      "Square",
+      "Plaza",
+      "Atrium"
+    ],
+    "antonyms": [
+      "Round circle",
+      "Street"
+    ],
+    "example": "Students lounged on the grassy quadrangle between university library and science halls.",
+    "mnemonic": "Quad (चार) + Angle (कोणों) वाला खुला अहाता -> Quadrangle.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "College quadrangle / sunny quadrangle",
+    "derivatives": "Quadrangular (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-61",
+    "word": "Quaver",
+    "phonetic": "/ˈkweɪ.vər/",
+    "hindi": "थरथराहट / आवाज़ का काँपना / कांपता स्वर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A shake or tremble in a person's voice, typically through nervousness or emotion.",
+    "synonyms": [
+      "Tremor",
+      "Shake",
+      "Flutter",
+      "Vibration",
+      "Quiver"
+    ],
+    "antonyms": [
+      "Steady tone",
+      "Steadfast voice"
+    ],
+    "example": "Despite her valiant effort to remain composed, a noticeable quaver betrayed her sorrow.",
+    "mnemonic": "Quick waver (नर्वस होकर आवाज़ का लड़खड़ाना या काँपना) -> Quaver.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Quaver in voice / speak with a quaver",
+    "derivatives": "Quavering (adjective), Quaver (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-62",
+    "word": "Quest",
+    "phonetic": "/kwest/",
+    "hindi": "खोज / तलाश / अन्वेषण / दीर्घ प्रयास",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A long or arduous search for something valuable or significant.",
+    "synonyms": [
+      "Search",
+      "Hunt",
+      "Pursuit",
+      "Expedition",
+      "Mission"
+    ],
+    "antonyms": [
+      "Abandonment",
+      "Retreat"
+    ],
+    "example": "The dedicated archaeologist spent decades in a quest to locate the submerged ruins.",
+    "mnemonic": "When we search for something, we ask Questions during our Quest (खोज)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Quest for knowledge / noble quest",
+    "derivatives": "Quest (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-63",
+    "word": "Quill",
+    "phonetic": "/kwɪl/",
+    "hindi": "पंख की कलम / बड़ा पर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A feather used as a pen in ancient and medieval times; or large spine of porcupine.",
+    "synonyms": [
+      "Quill pen",
+      "Feather pen",
+      "Calamus",
+      "Shaft"
+    ],
+    "antonyms": [
+      "Ballpoint pen",
+      "Digital stylus"
+    ],
+    "example": "The historical declaration was formally inscribed upon parchment using an eagle quill.",
+    "mnemonic": "Quail (पक्षी) के पंख (Quill) से बनी सुंदर कलम -> Quill.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Quill pen / dip a quill",
+    "derivatives": "Quilled (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-64",
+    "word": "Quite",
+    "phonetic": "/kwaɪt/",
+    "hindi": "पूर्णरूप से / सर्वथा / काफी हद तक",
+    "type": "ows",
+    "partOfSpeech": "Adverb (OWS)",
+    "meaning": "To the utmost or most absolute extent or degree; completely or entirely.",
+    "synonyms": [
+      "Completely",
+      "Entirely",
+      "Wholly",
+      "Totally",
+      "Utterly"
+    ],
+    "antonyms": [
+      "Partially",
+      "Incompletely",
+      "Slightly"
+    ],
+    "example": "The test turned out to be quite straightforward for students who had revised thoroughly.",
+    "mnemonic": "Quite (पूर्णरूप से) vs Quiet (शांत) vs Quit (छोड़ना) -> Quite.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Quite right / quite sure",
+    "derivatives": "Quit (verb)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-65",
+    "word": "Quixotic",
+    "phonetic": "/kwɪkˈsɒt.ɪk/",
+    "hindi": "अवास्तविक / अव्यावहारिक / खयाली पुलाव पकाने वाला / कल्पनाशील",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Preoccupied with an unrealistically optimistic approach to life; impractical and visionary.",
+    "synonyms": [
+      "Impractical",
+      "Utopian",
+      "Idealistic",
+      "Visionary",
+      "Chimerical"
+    ],
+    "antonyms": [
+      "Pragmatic",
+      "Realistic",
+      "Practical",
+      "Sensible"
+    ],
+    "example": "His plan to eradicate worldwide poverty in six months was dismissed as noble but quixotic.",
+    "mnemonic": "Don Quixote की तरह Quick खयाली पुलाव पकाना -> Quixotic (अव्यावहारिक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Quixotic quest / quixotic dream",
+    "derivatives": "Quixotically (adverb), Quixotism (noun)",
+    "level": "level-1",
+    "set": "set-07"
+  },
+  {
+    "id": "v-ows-l1-s7-66",
+    "word": "Quorum",
+    "phonetic": "/ˈkwɔː.rəm/",
+    "hindi": "गणपूर्ति / न्यूनतम उपस्थिति संख्या",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The minimum number of members of an assembly or society that must be present at any of its meetings to make proceedings valid.",
+    "synonyms": [
+      "Minimum attendance",
+      "Required representation",
+      "Legal proportion"
+    ],
+    "antonyms": [
+      "Inadequate attendance",
+      "Absence"
+    ],
+    "example": "Due to lack of a statutory quorum, parliamentary debate was adjourned until the next morning.",
+    "mnemonic": "Core लोगों का Room में उपस्थित होना अनिवार्य है बैठक वैध करने के लिए -> Quorum.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 07",
+      "OWS"
+    ],
+    "collocation": "Constitutional quorum / lack of quorum",
+    "derivatives": "Quorate (adjective)",
+    "level": "level-1",
+    "set": "set-07"
+  }
+];
 export const LEVEL_1_SET_08_OWS: VocabItem[] = [];
 export const LEVEL_1_SET_09_OWS: VocabItem[] = [];
 export const LEVEL_1_SET_10_OWS: VocabItem[] = [];
