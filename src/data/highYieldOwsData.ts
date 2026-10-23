@@ -8,8 +8,9 @@
 //   - Set 02: 100 OWS (Full)
 //   - Set 03: 100 OWS (Full)
 //   - Set 04: 100 OWS (Full)
-//   - Set 05: 59 OWS (In Progress: 41 slots available until 100)
-//   - Set 06 - 10: Available for future sets
+//   - Set 05: 100 OWS (Full)
+//   - Set 06: 50 OWS (In Progress: 50 slots available until 100)
+//   - Set 07 - 10: Available for future sets
 // ============================================================================
 
 import { VocabItem } from './highYieldVocabData';
@@ -16467,9 +16468,3263 @@ export const LEVEL_1_SET_05_OWS: VocabItem[] = [
     "derivatives": "Leer (verb), Leering (adjective)",
     "level": "level-1",
     "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-60",
+    "word": "Lexicon",
+    "phonetic": "/ˈlek.sɪ.kən/",
+    "hindi": "शब्दकोश / शब्द संग्रह / किसी भाषा की शब्दावली",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A list of explanations of rare technical or obsolete words; a dictionary.",
+    "synonyms": [
+      "Dictionary",
+      "Glossary",
+      "Wordbook",
+      "Vocabulary",
+      "Thesaurus"
+    ],
+    "antonyms": [
+      "Misinterpretation",
+      "Gibberish"
+    ],
+    "example": "Medical students must master an extensive lexicon of specialized anatomical terms.",
+    "mnemonic": "Lexi (Words) की खान जहाँ हज़ारों शब्द मिलें -> Lexicon.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Technical lexicon / archaic lexicon",
+    "derivatives": "Lexical (adjective), Lexicographer (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-61",
+    "word": "Libertarian",
+    "phonetic": "/ˌlɪb.əˈteə.ri.ən/",
+    "hindi": "मुक्तिवादी / स्वाधीनतावादी / व्यक्तिगत स्वतंत्रता का समर्थक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who strongly believes that people should have the freedom to do and think as they like.",
+    "synonyms": [
+      "Advocate of liberty",
+      "Individualist",
+      "Freethinker",
+      "Civil libertarian"
+    ],
+    "antonyms": [
+      "Authoritarian",
+      "Statist",
+      "Totalitarian",
+      "Oppressor"
+    ],
+    "example": "As a passionate libertarian, the philosopher opposed unnecessary government censorship.",
+    "mnemonic": "अपने Area में Liberty (आज़ादी) लाने वाला -> Libertarian.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Libertarian views / civil libertarian",
+    "derivatives": "Libertarianism (noun), Liberty (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-62",
+    "word": "Linger",
+    "phonetic": "/ˈlɪŋ.ɡər/",
+    "hindi": "विलम्ब करना / देर तक ठहरना / सुस्ताना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To stay longer than necessary; remain in a place slower to leave.",
+    "synonyms": [
+      "Loiter",
+      "Tarry",
+      "Dally",
+      "Delay",
+      "Dawdle"
+    ],
+    "antonyms": [
+      "Hurry",
+      "Depart",
+      "Rush",
+      "Leave promptly"
+    ],
+    "example": "Tourists tended to linger by the scenic waterfall even as twilight began to fall.",
+    "mnemonic": "लंगर में स्वादिष्ट भोजन के लालच में देर तक Linger (रुकना) -> Linger.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Linger over coffee / lingering scent",
+    "derivatives": "Lingering (adjective), Lingerer (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-63",
+    "word": "Linguist",
+    "phonetic": "/ˈlɪŋ.ɡwɪst/",
+    "hindi": "बहुभाषी / भाषाविद / भाषा वैज्ञानिक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who knows several foreign languages well or who studies languages scientifically.",
+    "synonyms": [
+      "Polyglot",
+      "Philologist",
+      "Grammarian",
+      "Language specialist"
+    ],
+    "antonyms": [
+      "Monoglot",
+      "Illiterate"
+    ],
+    "example": "The diplomatic delegation hired an expert linguist who was fluent in six Asian dialects.",
+    "mnemonic": "Language का Specialist जो अनेक भाषाएँ जाने -> Linguist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Gifted linguist / comparative linguist",
+    "derivatives": "Linguistic (adjective), Linguistics (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-64",
+    "word": "Livestock",
+    "phonetic": "/ˈlaɪv.stɒk/",
+    "hindi": "पशुधन / मवेशी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Animals especially on a farm, regarded as an asset.",
+    "synonyms": [
+      "Farm animals",
+      "Cattle",
+      "Domestic animals",
+      "Herd",
+      "Flock"
+    ],
+    "antonyms": [
+      "Wild predators",
+      "Fauna in the wild"
+    ],
+    "example": "Farmers rushed to shelter their valuable livestock before the hailstorm struck the valley.",
+    "mnemonic": "Live जानवरों का Stock जिसे संपत्ति माना जाए -> Livestock.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Raise livestock / livestock market",
+    "derivatives": "Stock (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-65",
+    "word": "Loquacious",
+    "phonetic": "/ləˈkweɪ.ʃəs/",
+    "hindi": "बातूनी / वाचाल / गप्पी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "One who loves to speak; tending to talk a great deal.",
+    "synonyms": [
+      "Talkative",
+      "Garrulous",
+      "Voluble",
+      "Chatty",
+      "Effusive"
+    ],
+    "antonyms": [
+      "Taciturn",
+      "Reticent",
+      "Laconic",
+      "Silent"
+    ],
+    "example": "The loquacious guide kept sharing anecdotes throughout the four-hour bus journey.",
+    "mnemonic": "लाख कोशिश के बाद भी यह बंदा चुप नहीं होगा, बहुत बातूनी है -> Loquacious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Loquacious companion / loquacious neighbor",
+    "derivatives": "Loquacity (noun), Loquaciously (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-66",
+    "word": "Lucid",
+    "phonetic": "/ˈluː.sɪd/",
+    "hindi": "समझने में आसान / स्पष्ट / सुबोध",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Easy to understand; clearly expressed; bright or luminous.",
+    "synonyms": [
+      "Clear",
+      "Intelligible",
+      "Coherent",
+      "Transparent",
+      "Luminous"
+    ],
+    "antonyms": [
+      "Ambiguous",
+      "Confusing",
+      "Vague",
+      "Obscure",
+      "Muddled"
+    ],
+    "example": "The physics professor gave a wonderfully lucid explanation of quantum entanglement.",
+    "mnemonic": "Liquid (साफ पानी) जैसा पारदर्शी और स्पष्ट -> Lucid.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Lucid explanation / lucid dream",
+    "derivatives": "Lucidity (noun), Lucidly (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-67",
+    "word": "Lucrative",
+    "phonetic": "/ˈluː.krə.tɪv/",
+    "hindi": "लाभदायक / मुनाफे का / फलदायी",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Profitable, yielding financial gain or substantial profit.",
+    "synonyms": [
+      "Profitable",
+      "Remunerative",
+      "Gainful",
+      "Commercial",
+      "Rewarding"
+    ],
+    "antonyms": [
+      "Unprofitable",
+      "Loss-making",
+      "Disadvantageous",
+      "Barren"
+    ],
+    "example": "He resigned from his clerical post to pursue a lucrative career in software consultancy.",
+    "mnemonic": "लो! Creative काम जो कम समय में भारी मुनाफा दे -> Lucrative.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Lucrative business / lucrative deal",
+    "derivatives": "Lucrativeness (noun), Lucre (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-68",
+    "word": "Lump sum",
+    "phonetic": "/ˌlʌmp ˈsʌm/",
+    "hindi": "कुल देय राशि / एकमुश्त रकम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An amount of money that is paid at one time rather than in installments.",
+    "synonyms": [
+      "One-off payment",
+      "Single payment",
+      "Full settlement",
+      "Aggregate sum"
+    ],
+    "antonyms": [
+      "Installment",
+      "Recurring payment",
+      "Staggered pay"
+    ],
+    "example": "Upon formal retirement, government employees receive a lump sum pension benefit.",
+    "mnemonic": "लम-सम (एक साथ सारा) पैसा एक ही बार में चुकाना -> Lump sum.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Lump sum payment / lump sum settlement",
+    "derivatives": "Lump (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-69",
+    "word": "Lullaby",
+    "phonetic": "/ˈlʌl.ə.baɪ/",
+    "hindi": "लोरी / बच्चे को सुलाने का मधुर गीत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A gentle song sung to put a child to sleep.",
+    "synonyms": [
+      "Cradle song",
+      "Berceuse",
+      "Soothing tune",
+      "Bedtime song"
+    ],
+    "antonyms": [
+      "Alarm",
+      "Battle cry",
+      "Loud fanfare"
+    ],
+    "example": "The mother gently sang a traditional lullaby until the restless infant dozed off.",
+    "mnemonic": "Lalla Lalla Lori दूध की कटोरी -> Lullaby.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Sing a lullaby / gentle lullaby",
+    "derivatives": "Lull (verb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-70",
+    "word": "Lumen",
+    "phonetic": "/ˈluː.mən/",
+    "hindi": "ज्योति-तीव्रता का मात्रक (ल्यूमेन)",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A unit to measure light or luminous flux.",
+    "synonyms": [
+      "Light unit",
+      "Photometric unit",
+      "Flux measure"
+    ],
+    "antonyms": [
+      "Darkness measure"
+    ],
+    "example": "Modern LED lightbulbs provide over eight hundred lumens while consuming very little energy.",
+    "mnemonic": "To see anything clearly, human eyes need sufficient Lumen (प्रकाश का मात्रक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "High lumen output / measured in lumens",
+    "derivatives": "Luminous (adjective), Luminosity (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-71",
+    "word": "Luminary",
+    "phonetic": "/ˈluː.mɪ.nər.i/",
+    "hindi": "अपूर्व बुद्धि का मनुष्य / विद्वान व्यक्ति / प्रकाश स्तंभ",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person as a source of intellectual light or moral inspiration; celebrated figure.",
+    "synonyms": [
+      "Leading light",
+      "Intellectual giant",
+      "Celebrity",
+      "Dignitary",
+      "VIP"
+    ],
+    "antonyms": [
+      "Nobody",
+      "Nonentity",
+      "Obscure person"
+    ],
+    "example": "Literary luminaries from across the globe assembled at the annual international book festival.",
+    "mnemonic": "जिस महान व्यक्ति के लिए लोग Line में लगकर नारे लगाएँ -> Luminary.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Literary luminary / legal luminary",
+    "derivatives": "Luminance (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-72",
+    "word": "Lunar",
+    "phonetic": "/ˈluː.nər/",
+    "hindi": "चंद्रमा-संबंधी / चंद्र",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Of or relating to the moon.",
+    "synonyms": [
+      "Moony",
+      "Cestian",
+      "Moon-related"
+    ],
+    "antonyms": [
+      "Solar",
+      "Terrestrial"
+    ],
+    "example": "The Indian Space Research Organisation achieved a historic milestone with its lunar south pole rover.",
+    "mnemonic": "Luna = Moon (चंद्रमा) -> Lunar.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Lunar eclipse / lunar surface",
+    "derivatives": "Luna (noun), Lunation (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-73",
+    "word": "Lunatic",
+    "phonetic": "/ˈluː.nə.tɪk/",
+    "hindi": "पागल / विक्षिप्त व्यक्ति / उन्मादी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who is mentally not sound; insane or wildly eccentric person.",
+    "synonyms": [
+      "Madman",
+      "Maniac",
+      "Psychopath",
+      "Deranged person"
+    ],
+    "antonyms": [
+      "Sane person",
+      "Wise sage",
+      "Sensible individual"
+    ],
+    "example": "Driving at two hundred kilometers per hour on a crowded city lane is the act of a lunatic.",
+    "mnemonic": "लो! नैतिक पगला गया है (मानसिक संतुलन खो चुका) -> Lunatic.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Lunatic asylum / lunatic behavior",
+    "derivatives": "Lunacy (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-74",
+    "word": "Lurch",
+    "phonetic": "/lɜːtʃ/",
+    "hindi": "झटका / अचानक लड़खड़ाहट / एकाएक झुक जाना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A sudden unsteady movement; a stagger or sway to one side.",
+    "synonyms": [
+      "Stagger",
+      "Sway",
+      "Jolt",
+      "Reel",
+      "Pitch"
+    ],
+    "antonyms": [
+      "Steady motion",
+      "Equilibrium",
+      "Poise"
+    ],
+    "example": "With a sudden violent lurch, the ocean liner tilted as an enormous wave struck.",
+    "mnemonic": "गाड़ी का Clutch तेजी से छोड़ते ही लगा जोर का Lurch (झटका)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Leave in the lurch / sudden lurch",
+    "derivatives": "Lurcher (noun), Lurching (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-75",
+    "word": "Mausoleum",
+    "phonetic": "/ˌmɔː.zəˈliː.əm/",
+    "hindi": "मकबरा / भव्य समाधि भवन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A very expensive and elaborately built tomb.",
+    "synonyms": [
+      "Tomb",
+      "Sepulchre",
+      "Crypt",
+      "Monumental grave",
+      "Vault"
+    ],
+    "antonyms": [
+      "Pyre",
+      "Crematorium"
+    ],
+    "example": "The Taj Mahal in Agra is universally celebrated as the world's most glorious marble mausoleum.",
+    "mnemonic": "मौसा का म्यूजियम जैसा विशाल मकबरा -> Mausoleum.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Marble mausoleum / family mausoleum",
+    "derivatives": "Mausolean (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-76",
+    "word": "Maestro",
+    "phonetic": "/ˈmaɪ.strəʊ/",
+    "hindi": "उस्ताद संगीतज्ञ / महारथी / कला शिरोमणि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A distinguished conductor or master of classical music or fine arts.",
+    "synonyms": [
+      "Virtuoso",
+      "Master",
+      "Genius",
+      "Doyen",
+      "Conductor"
+    ],
+    "antonyms": [
+      "Novice",
+      "Amateur",
+      "Beginner",
+      "Tyro"
+    ],
+    "example": "The audience stood in rapturous ovation as the elderly sitar maestro concluded his raga.",
+    "mnemonic": "जो Maestro स्कूटर पर चलते हुए भी Music का Master हो -> Maestro.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Musical maestro / chess maestro",
+    "derivatives": "Mastery (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-77",
+    "word": "Magnanimous",
+    "phonetic": "/mæɡˈnæn.ɪ.məs/",
+    "hindi": "उदार / बड़े दिल वाला / क्षमाशील",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Kind, generous, and forgiving, especially towards a rival or less powerful person.",
+    "synonyms": [
+      "Generous",
+      "Charitable",
+      "Benevolent",
+      "Noble-minded",
+      "Big-hearted"
+    ],
+    "antonyms": [
+      "Pettyminded",
+      "Vindictive",
+      "Mean",
+      "Spiteful",
+      "Grudging"
+    ],
+    "example": "The victor proved magnanimous in triumph, praising the tenacity of his fallen challenger.",
+    "mnemonic": "मगन की नानी बहुत उदार (Magnanimous) और दयालु हैं।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Magnanimous gesture / magnanimous defeat",
+    "derivatives": "Magnanimity (noun), Magnanimously (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-78",
+    "word": "Magnificent",
+    "phonetic": "/mæɡˈnɪf.ɪ.sənt/",
+    "hindi": "शानदार / भव्य / वैभवशाली",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Extremely beautiful, elaborate or impressive in appearance or scale.",
+    "synonyms": [
+      "Splendid",
+      "Grand",
+      "Superb",
+      "Glorious",
+      "Majestic"
+    ],
+    "antonyms": [
+      "Modest",
+      "Drab",
+      "Squallid",
+      "Ordinary",
+      "Insignificant"
+    ],
+    "example": "From the fortress tower, travelers enjoyed a magnificent panorama of the snowy Himalayas.",
+    "mnemonic": "Magan के सुगंधित Scent से सारा माहौल Magnificent (शानदार) हो गया।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Magnificent view / magnificent palace",
+    "derivatives": "Magnificence (noun), Magnificently (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-79",
+    "word": "Maiden",
+    "phonetic": "/ˈmeɪ.dən/",
+    "hindi": "अविवाहिता / कुंवारी कन्या / प्रथम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A girl or young woman, especially an unmarried one.",
+    "synonyms": [
+      "Damsel",
+      "Virgin",
+      "Girl",
+      "Young lady",
+      "Miss"
+    ],
+    "antonyms": [
+      "Matron",
+      "Wife",
+      "Married woman"
+    ],
+    "example": "Folktales recount the gallant knight rescuing a distressed maiden from the enchanted woods.",
+    "mnemonic": "शादी से पहले Maiden (कुंवारी कन्या), बाद में Madam -> Maiden.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Fair maiden / maiden voyage",
+    "derivatives": "Maidenhood (noun), Maidenly (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-80",
+    "word": "Maiden-speech",
+    "phonetic": "/ˈmeɪ.dən spiːtʃ/",
+    "hindi": "प्रथम भाषण / किसी सभा में दिया गया पहला संबोधन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The first public speech delivered by a newly elected person or parliamentarian.",
+    "synonyms": [
+      "Inaugural address",
+      "First address",
+      "Debut speech"
+    ],
+    "antonyms": [
+      "Valedictory address",
+      "Farewell speech"
+    ],
+    "example": "The newly elected member of parliament earned widespread applause for her maiden-speech.",
+    "mnemonic": "राजनीति के मैदान में दिया गया पहला भाषण -> Maiden-speech.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Deliver a maiden-speech / parliamentary maiden-speech",
+    "derivatives": "Maiden (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-81",
+    "word": "Malevolent",
+    "phonetic": "/məˈlev.əl.ənt/",
+    "hindi": "ईर्ष्यालु / दुर्भावनापूर्ण / दूसरों का अनिष्ट चाहने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Causing or wanting to cause harm or evil to somebody; having ill will.",
+    "synonyms": [
+      "Spiteful",
+      "Malicious",
+      "Vindictive",
+      "Hostile",
+      "Baleful"
+    ],
+    "antonyms": [
+      "Benevolent",
+      "Kind-hearted",
+      "Well-meaning",
+      "Altruistic"
+    ],
+    "example": "The wicked sorcerer cast a malevolent glare upon the unsuspecting travelers.",
+    "mnemonic": "Violent Male जो हमेशा दूसरों के प्रति दुर्भावना रखे -> Malevolent.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Malevolent glance / malevolent intent",
+    "derivatives": "Malevolence (noun), Malevolently (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-82",
+    "word": "Malleable",
+    "phonetic": "/ˈmæl.i.ə.bəl/",
+    "hindi": "लचीला / आघातवर्धनीय / जिसे पीटकर चादर बनाया जा सके",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Easy to shape in any desired form by hammering or pressure; easily influenced.",
+    "synonyms": [
+      "Pliable",
+      "Ductile",
+      "Plastic",
+      "Tractable",
+      "Adaptable"
+    ],
+    "antonyms": [
+      "Brittle",
+      "Rigid",
+      "Inflexible",
+      "Stiff"
+    ],
+    "example": "Gold and copper are exceptionally malleable metals utilized since antiquity.",
+    "mnemonic": "जो हर किसी के साथ मेल खाने में Able (लचीला) हो -> Malleable.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Malleable metal / malleable mind",
+    "derivatives": "Malleability (noun), Malleably (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-83",
+    "word": "Mammal",
+    "phonetic": "/ˈmæm.əl/",
+    "hindi": "स्तनपायी प्राणी / स्तनधारी जीव",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Any female animal which feeds its young on milk from her own body.",
+    "synonyms": [
+      "Vertebrate",
+      "Warm-blooded animal",
+      "Placental creature"
+    ],
+    "antonyms": [
+      "Reptile",
+      "Amphibian",
+      "Invertebrate"
+    ],
+    "example": "Whales and dolphins look like fish but breathe air and are classified as warm-blooded mammals.",
+    "mnemonic": "जिसकी Mumma जन्म के बाद बच्चे को दूध पिलाए -> Mammal (स्तनपायी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Marine mammal / terrestrial mammal",
+    "derivatives": "Mammalian (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-84",
+    "word": "Manifest",
+    "phonetic": "/ˈmæn.ɪ.fest/",
+    "hindi": "साफ़ / स्पष्ट / प्रत्यक्ष / प्रकट करना",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Clear or obvious to the eye or mind; plainly visible or evident.",
+    "synonyms": [
+      "Obvious",
+      "Evident",
+      "Patent",
+      "Conspicuous",
+      "Unmistakable"
+    ],
+    "antonyms": [
+      "Hidden",
+      "Concealed",
+      "Secret",
+      "Latent"
+    ],
+    "example": "His nervousness was manifest in his trembling hands and trembling tone of voice.",
+    "mnemonic": "मन में फँसाओ मत, बात को Clear और प्रत्यक्ष (Manifest) कर दो।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Manifest error / manifest itself",
+    "derivatives": "Manifestation (noun), Manifestly (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-85",
+    "word": "Manifesto",
+    "phonetic": "/ˌmæn.ɪˈfes.təʊ/",
+    "hindi": "घोषणापत्र / नीति-पत्र",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A written statement in which a group of people, especially a political party, publicize their aims.",
+    "synonyms": [
+      "Policy statement",
+      "Declaration",
+      "Platform",
+      "Proclamation",
+      "Charter"
+    ],
+    "antonyms": [
+      "Secret agenda",
+      "Covert plan"
+    ],
+    "example": "Prior to state polls, the coalition released an ambitious election manifesto focusing on employment.",
+    "mnemonic": "Money और सरकारी नीतियां जनता में कैसे बाँटेंगे, उसका घोषणापत्र -> Manifesto.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Election manifesto / party manifesto",
+    "derivatives": "Manifest (verb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-86",
+    "word": "Manoeuvre",
+    "phonetic": "/məˈnuː.vər/",
+    "hindi": "पैंतरेबाज़ी / चालबाज़ी / रणनीतिक कदम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An underhand device resorted to in order to justify misconduct; a calculated move.",
+    "synonyms": [
+      "Tactic",
+      "Stratagem",
+      "Ploy",
+      "Ruse",
+      "Gambit"
+    ],
+    "antonyms": [
+      "Blunder",
+      "Honest action",
+      "Directness"
+    ],
+    "example": "Through a shrewd corporate manoeuvre, the venture capitalist bought out the majority shares.",
+    "mnemonic": "मन को U-turn कराने वाला चतुर पैंतरा -> Manoeuvre (पैंतरेबाज़ी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Diplomatic manoeuvre / tactical manoeuvre",
+    "derivatives": "Manoeuvrable (adjective), Manoeuvring (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-87",
+    "word": "Mansion",
+    "phonetic": "/ˈmæn.ʃən/",
+    "hindi": "बड़ी हवेली / भव्य कोठी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A very large, impressive, and stately residence or house.",
+    "synonyms": [
+      "Estate",
+      "Manor",
+      "Villa",
+      "Palace",
+      "Chateau"
+    ],
+    "antonyms": [
+      "Hovel",
+      "Hut",
+      "Shanty"
+    ],
+    "example": "The millionaire purchased an opulent coastal mansion featuring private beachfront access.",
+    "mnemonic": "जिस घर से समाज में मान और शान बढ़े, ऐसी बड़ी हवेली -> Mansion.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Sprawling mansion / historic mansion",
+    "derivatives": "Mansioned (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-88",
+    "word": "Manuscript",
+    "phonetic": "/ˈmæn.jə.skrɪpt/",
+    "hindi": "हस्तलिपि / पाण्डुलिपि",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A book, document, or piece of music written by hand rather than typed or printed.",
+    "synonyms": [
+      "Handwritten document",
+      "Draft",
+      "Scroll",
+      "Original text",
+      "Autograph"
+    ],
+    "antonyms": [
+      "Printout",
+      "Printed book",
+      "Digital edition"
+    ],
+    "example": "Curators at the British Museum safely guard rare Sanskrit manuscripts dating to antiquity.",
+    "mnemonic": "Maun ने Script अपने हाथ से लिखी -> Manuscript (हस्तलिपि)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Ancient manuscript / submit a manuscript",
+    "derivatives": "Script (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-89",
+    "word": "Martial",
+    "phonetic": "/ˈmɑː.ʃəl/",
+    "hindi": "सैनिक या युद्ध से संबंधित / सामरिक",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Relating to soldiers, fighting, or war; appropriate to a warrior.",
+    "synonyms": [
+      "Military",
+      "Warlike",
+      "Soldierly",
+      "Bellicose",
+      "Combatant"
+    ],
+    "antonyms": [
+      "Civilian",
+      "Peaceful",
+      "Pacifist",
+      "Non-military"
+    ],
+    "example": "Under martial law, citizen assemblies and non-essential commerce were temporarily banned.",
+    "mnemonic": "मरते-मरते भी जो दुश्मन को मारे, ऐसा वीर सैनिक -> Martial (सामरिक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Martial law / martial arts",
+    "derivatives": "Martially (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-90",
+    "word": "Mason",
+    "phonetic": "/ˈmeɪ.sən/",
+    "hindi": "राजमिस्त्री / पत्थर तराशने व मकान बनाने वाला कारीगर",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person skilled in cutting, dressing, and laying stone in buildings.",
+    "synonyms": [
+      "Stonecutter",
+      "Bricklayer",
+      "Builder",
+      "Stonemason"
+    ],
+    "antonyms": [
+      "Demolition worker",
+      "Wrecker"
+    ],
+    "example": "The skilled master mason aligned every carved sandstone block on the temple facade.",
+    "mnemonic": "Man और उसका Son मिलकर मकान की दीवार बना रहे हैं -> Mason.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Master mason / stone mason",
+    "derivatives": "Masonry (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-91",
+    "word": "Matinee",
+    "phonetic": "/ˈmæt.ɪ.neɪ/",
+    "hindi": "दोपहर का सिनेमा या नाटक कार्यक्रम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An afternoon performance in a theatre or cinema.",
+    "synonyms": [
+      "Afternoon show",
+      "Day show",
+      "Early performance"
+    ],
+    "antonyms": [
+      "Evening show",
+      "Night performance"
+    ],
+    "example": "School children were taken on a field trip to enjoy the matinee screening of the wildlife film.",
+    "mnemonic": "मैं तीन (Teen) बजे दोपहर का Movie show देखने जाऊँगा -> Matinee.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Matinee show / matinee ticket",
+    "derivatives": "Matinee idol (noun phrase)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-92",
+    "word": "Matriarch",
+    "phonetic": "/ˈmeɪ.tri.ɑːk/",
+    "hindi": "कुल माता / परिवार की मुखिया महिला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A woman who is the head of a family, tribe, or matriarchal society.",
+    "synonyms": [
+      "Family head",
+      "Grand dame",
+      "Female ruler",
+      "Elder woman"
+    ],
+    "antonyms": [
+      "Patriarch",
+      "Subordinate"
+    ],
+    "example": "The elderly matriarch made all authoritative decisions concerning property and marriages.",
+    "mnemonic": "Matri (Mother / माता) + Arch (Ruler / शासक) -> कुल माता -> Matriarch.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Revered matriarch / family matriarch",
+    "derivatives": "Matriarchy (noun), Matriarchal (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-93",
+    "word": "Maverick",
+    "phonetic": "/ˈmæv.ər.ɪk/",
+    "hindi": "स्वतंत्र विचारों वाला / गैर-परंपरावादी / लीक से हटकर चलने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who does not think or behave like everyone else but has independent unusual opinions.",
+    "synonyms": [
+      "Individualist",
+      "Nonconformist",
+      "Free spirit",
+      "Iconoclast",
+      "Dissenter"
+    ],
+    "antonyms": [
+      "Conformist",
+      "Follower",
+      "Traditionalist",
+      "Yes-man"
+    ],
+    "example": "The tech maverick ignored industry sceptics and launched the reusable orbital rocket.",
+    "mnemonic": "मैं ही Risk लूँगा, दूसरों की लकीर का फकीर नहीं बनूँगा -> Maverick.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Political maverick / maverick scientist",
+    "derivatives": "Maverick (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-94",
+    "word": "Melodious",
+    "phonetic": "/məˈləʊ.di.əs/",
+    "hindi": "सुरीली / मधुर / कर्णप्रिय",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "A sound or music that is pleasant and tuneful to hear.",
+    "synonyms": [
+      "Tuneful",
+      "Harmonious",
+      "Melodic",
+      "Dulcet",
+      "Sweet-sounding"
+    ],
+    "antonyms": [
+      "Discordant",
+      "Harsh",
+      "Dissonant",
+      "Gratings"
+    ],
+    "example": "The nightingale filled the dusky valley with its sweet and melodious song.",
+    "mnemonic": "मेला दिलों का आता है (सुरीला व कर्णप्रिय संगीत) -> Melodious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Melodious voice / melodious tune",
+    "derivatives": "Melody (noun), Melodiously (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-95",
+    "word": "Maxim",
+    "phonetic": "/ˈmæk.sɪm/",
+    "hindi": "कहावत / सूक्ति / नीति-वाक्य / सिद्धांत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A short statement of a general truth or rule of conduct; adage.",
+    "synonyms": [
+      "Proverb",
+      "Adage",
+      "Aphorism",
+      "Motto",
+      "Saying"
+    ],
+    "antonyms": [
+      "Fallacy",
+      "Absurdity"
+    ],
+    "example": "He strictly governed his professional deals by the old maxim: 'Honesty is the best policy.'",
+    "mnemonic": "Maximum लोग जिस नीति-वाक्य को सच मानें -> Maxim (कहावत)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Moral maxim / ancient maxim",
+    "derivatives": "Maximal (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-96",
+    "word": "Memoir",
+    "phonetic": "/ˈmem.wɑːr/",
+    "hindi": "संस्मरण / आत्मकथात्मक वृतांत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A historical account or biography written from personal knowledge.",
+    "synonyms": [
+      "Reminiscence",
+      "Autobiography",
+      "Chronicle",
+      "Life story",
+      "Diary"
+    ],
+    "antonyms": [
+      "Fiction",
+      "Fantasy"
+    ],
+    "example": "The former president published a best-selling memoir chronicling his years in public office.",
+    "mnemonic": "मेरी Memory अब इस book में संस्मरण बनकर दर्ज है -> Memoir.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Personal memoir / published memoirs",
+    "derivatives": "Memoirist (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-97",
+    "word": "Meadow",
+    "phonetic": "/ˈmed.əʊ/",
+    "hindi": "घास का मैदान / चारागाह",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An area of grassland where animals graze or wildflowers bloom.",
+    "synonyms": [
+      "Pasture",
+      "Lea",
+      "Grassland",
+      "Mead",
+      "Paddock"
+    ],
+    "antonyms": [
+      "Arid desert",
+      "Barren wasteland"
+    ],
+    "example": "Horses galloped freely across the lush green meadow dotted with yellow buttercups.",
+    "mnemonic": "एक आम आदमी Meadow में घूमते हुए सुरीला गाना गा रहा है -> Meadow.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Alpine meadow / green meadow",
+    "derivatives": "Meadowlark (noun)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-98",
+    "word": "Melancholy",
+    "phonetic": "/ˈmel.əŋ.kɒl.i/",
+    "hindi": "उदासी की अवस्था / विषाद / गहरा शोक",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A feeling of being very sad that lasts for a long time and often cannot be explained.",
+    "synonyms": [
+      "Gloom",
+      "Despondency",
+      "Sorrow",
+      "Sadness",
+      "Depression"
+    ],
+    "antonyms": [
+      "Euphoria",
+      "Cheerfulness",
+      "Joy",
+      "Exuberance"
+    ],
+    "example": "A veil of quiet melancholy settled over the family following their grandmother's demise.",
+    "mnemonic": "जब मिला ना कोई सहारा, तो मन में छा गई उदासी -> Melancholy.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Deep melancholy / touch of melancholy",
+    "derivatives": "Melancholic (adjective)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-99",
+    "word": "Menace",
+    "phonetic": "/ˈmen.ɪs/",
+    "hindi": "हानिकारक / संकट / खतरा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person or thing that is likely to cause harm, injury, or threat.",
+    "synonyms": [
+      "Threat",
+      "Peril",
+      "Danger",
+      "Hazard",
+      "Risk"
+    ],
+    "antonyms": [
+      "Protector",
+      "Shield",
+      "Safeguard",
+      "Benefit"
+    ],
+    "example": "Illegal drag-racing on city bypass roads has grown into a major public menace.",
+    "mnemonic": "Men with weapons = Danger / Threat -> Menace.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Public menace / menace to society",
+    "derivatives": "Menacing (adjective), Menacingly (adverb)",
+    "level": "level-1",
+    "set": "set-05"
+  },
+  {
+    "id": "v-ows-l1-s5-100",
+    "word": "Mendicant",
+    "phonetic": "/ˈmen.dɪ.kənt/",
+    "hindi": "भिक्षुक / याचक / भिक्षा माँगने वाला साधु या भिखारी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who goes from place to place for begging; a religious beggar.",
+    "synonyms": [
+      "Beggar",
+      "Almsman",
+      "Suppliant",
+      "Pauper",
+      "Friar"
+    ],
+    "antonyms": [
+      "Benefactor",
+      "Philanthropist",
+      "Wealthy patron"
+    ],
+    "example": "The barefoot mendicant survived solely on the frugal alms given by pious pilgrims.",
+    "mnemonic": "सब्जी मंडी के बाहर कटोरा लेकर भिक्षा माँगने वाला -> Mendicant (भिक्षुक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "OWS"
+    ],
+    "collocation": "Mendicant monk / wandering mendicant",
+    "derivatives": "Mendicancy (noun)",
+    "level": "level-1",
+    "set": "set-05"
   }
 ];
-export const LEVEL_1_SET_06_OWS: VocabItem[] = [];
+
+export const LEVEL_1_SET_06_OWS: VocabItem[] = [
+  {
+    "id": "v-ows-l1-s6-1",
+    "word": "Mercenary",
+    "phonetic": "/ˈmɜː.sən.ri/",
+    "hindi": "भाड़े का सैनिक / सिर्फ धन के लिए काम करने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A soldier who fights for the sake of money; or one solely motivated by financial gain.",
+    "synonyms": [
+      "Soldier of fortune",
+      "Hired gun",
+      "Hireling",
+      "Venal person"
+    ],
+    "antonyms": [
+      "Patriot",
+      "Volunteer",
+      "Ideological soldier"
+    ],
+    "example": "The warlord recruited foreign mercenaries to stage a bloody border insurgency.",
+    "mnemonic": "जिसे Mercy (दया) न आए, बस Money चाहिए -> Mercenary (भाड़े का टट्टू/सैनिक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Hired mercenary / mercenary motives",
+    "derivatives": "Mercenariness (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-2",
+    "word": "Meritorious",
+    "phonetic": "/ˌmer.ɪˈtɔː.ri.əs/",
+    "hindi": "सराहनीय / गुणवान / पुरस्कार या प्रशंसा के योग्य",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Deserving reward or praise; commendable.",
+    "synonyms": [
+      "Praiseworthy",
+      "Commendable",
+      "Admirable",
+      "Exemplary",
+      "Honorable"
+    ],
+    "antonyms": [
+      "Blameworthy",
+      "Discreditable",
+      "Worthless",
+      "Reprehensible"
+    ],
+    "example": "The police inspector was honored with a gallantry medal for his meritorious service.",
+    "mnemonic": "Merit List में उच्च स्थान हासिल करने वाला कार्य -> Meritorious (सराहनीय)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Meritorious conduct / meritorious service",
+    "derivatives": "Merit (noun/verb), Meritoriously (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-3",
+    "word": "Meticulous",
+    "phonetic": "/məˈtɪk.jə.ləs/",
+    "hindi": "कुशल / अति सावधान / छोटी-छोटी बातों का ध्यान रखने वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "A perfectionist; very careful and showing great attention to detail.",
+    "synonyms": [
+      "Painstaking",
+      "Scrupulous",
+      "Fastidious",
+      "Conscientious",
+      "Diligent"
+    ],
+    "antonyms": [
+      "Careless",
+      "Sloppy",
+      "Slapdash",
+      "Negligent"
+    ],
+    "example": "The forensic investigator conducted a meticulous search of the crime scene for hair fibers.",
+    "mnemonic": "मिट्टी का कलश (करवा चौथ) बहुत बारीकी से सजाया -> Meticulous.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Meticulous planning / meticulous researcher",
+    "derivatives": "Meticulousness (noun), Meticulously (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-4",
+    "word": "Migrant",
+    "phonetic": "/ˈmaɪ.ɡrənt/",
+    "hindi": "प्रवासी / एक स्थान से दूसरे स्थान जाने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person or animal that moves from one place to another, especially for work or better living conditions.",
+    "synonyms": [
+      "Immigrant",
+      "Emigrant",
+      "Nomad",
+      "Wanderer",
+      "Traveler"
+    ],
+    "antonyms": [
+      "Native",
+      "Permanent resident",
+      "Indigenous inhabitant"
+    ],
+    "example": "Thousands of migrant workers move to coastal cities each year seeking construction employment.",
+    "mnemonic": "रोज़ी-रोटी के लिए Migration करने वाले लोग -> Migrant (प्रवासी)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Migrant workers / migratory birds",
+    "derivatives": "Migrate (verb), Migration (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-5",
+    "word": "Mindful",
+    "phonetic": "/ˈmaɪnd.fəl/",
+    "hindi": "सचेत / सावधान / सजग",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Taking heed or care; conscious or aware of something.",
+    "synonyms": [
+      "Conscious",
+      "Aware",
+      "Heedful",
+      "Attentive",
+      "Wary"
+    ],
+    "antonyms": [
+      "Mindless",
+      "Oblivious",
+      "Heedless",
+      "Unaware"
+    ],
+    "example": "A disciplined mountaineer is always mindful of rapid changes in summit weather.",
+    "mnemonic": "Mind जब वर्तमान के प्रति पूरी तरह Full और सावधान रहे -> Mindful.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Mindful of the risks / practice mindfulness",
+    "derivatives": "Mindfulness (noun), Mindfully (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-6",
+    "word": "Mint",
+    "phonetic": "/mɪnt/",
+    "hindi": "टकसाल / सिक्के ढालने का सरकारी कारखाना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place where coins, medals, or tokens are made under public authority.",
+    "synonyms": [
+      "Coinage factory",
+      "Coin foundry",
+      "Money press",
+      "Stamp office"
+    ],
+    "antonyms": [
+      "Counterfeiter's den"
+    ],
+    "example": "The government mint in Kolkata stamps millions of commemorative rupees annually.",
+    "mnemonic": "जहाँ Money print (सिक्के ढाले) होते हों -> Mint (टकसाल)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Government mint / mint condition",
+    "derivatives": "Mintage (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-7",
+    "word": "Mishap",
+    "phonetic": "/ˈmɪs.hæp/",
+    "hindi": "दुर्घटना / अप्रिय घटना / अनहोनी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "An unforeseen happening which creates some damage; an unlucky accident.",
+    "synonyms": [
+      "Accident",
+      "Misfortune",
+      "Casualty",
+      "Disaster",
+      "Mischance"
+    ],
+    "antonyms": [
+      "Good fortune",
+      "Lucky break",
+      "Blessing",
+      "Fluke"
+    ],
+    "example": "The school picnic concluded safely without a single vehicular or health mishap.",
+    "mnemonic": "Mis + Happen (कुछ अप्रिय या बुरा घटित होना) -> Mishap.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Minor mishap / avoid mishaps",
+    "derivatives": "Hap (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-8",
+    "word": "Misnomer",
+    "phonetic": "/ˌmɪsˈnəʊ.mər/",
+    "hindi": "शब्द या नाम का गलत प्रयोग / अनुपयुक्त संज्ञा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Word or a name that is inappropriate, misleading, or inaccurate.",
+    "synonyms": [
+      "Inaccurate name",
+      "Wrong designation",
+      "Misnaming",
+      "False label"
+    ],
+    "antonyms": [
+      "Accurate name",
+      "Apt title",
+      "Proper term"
+    ],
+    "example": "Calling the gentle great dane 'Killer' turned out to be an utter misnomer.",
+    "mnemonic": "Miss के नाम में Error (गलत नाम पुकारना) -> Misnomer.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Complete misnomer / misnomer to call",
+    "derivatives": "Misname (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-9",
+    "word": "Misogamist",
+    "phonetic": "/mɪˈsɒɡ.ə.mɪst/",
+    "hindi": "विवाह से घृणा करने वाला व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One who hates the institution of marriage.",
+    "synonyms": [
+      "Marriage hater",
+      "Anti-matrimonialist",
+      "Celibate advocate"
+    ],
+    "antonyms": [
+      "Philogamist",
+      "Pro-marriage enthusiast"
+    ],
+    "example": "Confirmed in his bachelorhood, the cynical uncle declared himself a lifelong misogamist.",
+    "mnemonic": "Miso (घृणा) + Gamy (विवाह) करने वाला -> Misogamist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Staunch misogamist / self-declared misogamist",
+    "derivatives": "Misogamy (noun), Misogamous (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-10",
+    "word": "Modicum",
+    "phonetic": "/ˈmɒd.ɪ.kəm/",
+    "hindi": "थोड़ी-सी मात्रा / लेशमात्र / अल्प मात्रा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A small portion or limited quantity of a particular thing, especially something desirable.",
+    "synonyms": [
+      "Little bit",
+      "Fragment",
+      "Pittance",
+      "Scrap",
+      "Particle"
+    ],
+    "antonyms": [
+      "Abundance",
+      "Profusion",
+      "Surplus",
+      "Excess"
+    ],
+    "example": "Even a modicum of sincerity in your apology would have healed our frayed friendship.",
+    "mnemonic": "Modi किसी से कम नहीं, पर विरोधियों में Modicum (लेशमात्र) भी शिष्टाचार नहीं -> Modicum.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Modicum of truth / modicum of doubt",
+    "derivatives": "Moderate (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-11",
+    "word": "Modus operandi",
+    "phonetic": "/ˌməʊ.dəs ˌɒp.ərˈæn.di/",
+    "hindi": "कार्य-प्रणाली / काम करने का विशिष्ट तरीका (अपराधी का)",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A particular method of working, especially one that is characteristic of a criminal.",
+    "synonyms": [
+      "Method of operation",
+      "Technique",
+      "Procedure",
+      "Strategy",
+      "System"
+    ],
+    "antonyms": [
+      "Random behavior",
+      "Unplanned action"
+    ],
+    "example": "The detective identified the burglar by his distinctive modus operandi of cutting phone lines first.",
+    "mnemonic": "Mode of Operation (काम करने की विशिष्ट शैली) -> Modus operandi.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Criminal's modus operandi / company's modus operandi",
+    "derivatives": "Operandi (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-12",
+    "word": "Mole",
+    "phonetic": "/məʊl/",
+    "hindi": "गुप्तचर / जासूस / घर का भेदी / संस्था के भीतर का जासूस",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person who works for an organisation but secretly gives information to its competitor or enemy.",
+    "synonyms": [
+      "Secret agent",
+      "Infiltrator",
+      "Spy",
+      "Double agent",
+      "Informant"
+    ],
+    "antonyms": [
+      "Loyal patriot",
+      "Faithful officer"
+    ],
+    "example": "Intelligence agencies worked frantically to uncover the high-ranking mole inside the ministry.",
+    "mnemonic": "जो दुश्मन के सामने खोल दे सारी पोल, वही अंदर का Mole (जासूस)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Uncover a mole / high-level mole",
+    "derivatives": "Mole-hunting (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-13",
+    "word": "Momentary",
+    "phonetic": "/ˈməʊ.mən.tri/",
+    "hindi": "क्षणिक / पल भर का / अल्पकालिक",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Lasting for a very short time; brief or fleeting.",
+    "synonyms": [
+      "Brief",
+      "Fleeting",
+      "Transient",
+      "Ephemeral",
+      "Passing"
+    ],
+    "antonyms": [
+      "Eternal",
+      "Permanent",
+      "Everlasting",
+      "Perpetual"
+    ],
+    "example": "A momentary lapse in concentration caused the race driver to skid off the asphalt track.",
+    "mnemonic": "Moment जो Temporary हो, कुछ पल का -> Momentary.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Momentary hesitation / momentary pause",
+    "derivatives": "Momentarily (adverb), Moment (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-14",
+    "word": "Monition",
+    "phonetic": "/məˈnɪʃ.ən/",
+    "hindi": "चेतावनी / आगाही / संकट की पूर्व सूचना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A warning of impending danger; an authoritative or official notice.",
+    "synonyms": [
+      "Warning",
+      "Caution",
+      "Admonition",
+      "Caveat",
+      "Forewarning"
+    ],
+    "antonyms": [
+      "Compliment",
+      "Praise",
+      "Reassurance"
+    ],
+    "example": "The coastal radar issued an urgent monition regarding the approaching gale storm.",
+    "mnemonic": "मन की सुनो, खतरे की पूर्व चेतावनी (Monition) को अनदेखा मत करो।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Official monition / timely monition",
+    "derivatives": "Monitor (noun/verb), Monitory (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-15",
+    "word": "Monotonous",
+    "phonetic": "/məˈnɒt.ən.əs/",
+    "hindi": "एकरस / उबाऊ / जिसमें विविधता न हो",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Lacking in variety and interest; dull, tedious, and repetitious.",
+    "synonyms": [
+      "Tedious",
+      "Boring",
+      "Humdrum",
+      "Dull",
+      "Repetitive"
+    ],
+    "antonyms": [
+      "Exciting",
+      "Varied",
+      "Dynamic",
+      "Engaging",
+      "Diverse"
+    ],
+    "example": "Stamping envelopes all afternoon was a monotonous chore that put the clerk to sleep.",
+    "mnemonic": "Mono-Tone (एक ही बोरिंग सुर में बात करना) -> Monotonous.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Monotonous routine / monotonous voice",
+    "derivatives": "Monotony (noun), Monotonously (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-16",
+    "word": "Mores",
+    "phonetic": "/ˈmɔː.reɪz/",
+    "hindi": "रीति-रिवाज / सामाजिक आचार-व्यवहार / प्रथाएं",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Customs, values, and moral habits of a particular group or society.",
+    "synonyms": [
+      "Customs",
+      "Traditions",
+      "Conventions",
+      "Moral standards",
+      "Etiquette"
+    ],
+    "antonyms": [
+      "Unconventionalities",
+      "Deviance",
+      "Taboo breaches"
+    ],
+    "example": "Anthropologists study how traditional social mores evolve across successive generations.",
+    "mnemonic": "Moral standards और सामाजिक रीति-रिवाज -> Mores.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Social mores / cultural mores",
+    "derivatives": "Moral (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-17",
+    "word": "Mosaic",
+    "phonetic": "/məʊˈzeɪ.ɪk/",
+    "hindi": "मोज़ेक / रंगीन पत्थरों या काँच के टुकड़ों से बना चित्र",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Art consisting of a design made of small pieces of coloured stone, tile, or glass.",
+    "synonyms": [
+      "Inlay work",
+      "Tilework",
+      "Tessellation",
+      "Collage",
+      "Montage"
+    ],
+    "antonyms": [
+      "Monochrome canvas",
+      "Plain slab"
+    ],
+    "example": "The floor of the Roman cathedral featured a breathtaking mosaic depicting biblical scenes.",
+    "mnemonic": "मोती और रंगीन पत्थर सारे एक साथ जोड़कर सुंदर कला बनाना -> Mosaic.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Mosaic floor / mosaic artist",
+    "derivatives": "Mosaist (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-18",
+    "word": "Mottle",
+    "phonetic": "/ˈmɒt.əl/",
+    "hindi": "छोटे-छोटे धब्बे करना / चितकबरा करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "Mark with spots, patches, or smears of different colours.",
+    "synonyms": [
+      "Speckle",
+      "Dapple",
+      "Variegate",
+      "Fleck",
+      "Blotch"
+    ],
+    "antonyms": [
+      "Bleach",
+      "Make uniform",
+      "Plain coat"
+    ],
+    "example": "Sunlight filtering through the canopy served to mottle the forest path with dancing shadows.",
+    "mnemonic": "तेंदुए की Tail पर मोटे-मोटे काले धब्बे (चितकबरा करना) -> Mottle.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Mottled skin / mottled texture",
+    "derivatives": "Mottled (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-19",
+    "word": "Mundane",
+    "phonetic": "/mʌnˈdeɪn/",
+    "hindi": "साधारण / सांसारिक / नीरस / दैनिक कामकाज",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Ordinary and dull; lacking interest or excitement; earthly rather than heavenly.",
+    "synonyms": [
+      "Ordinary",
+      "Routine",
+      "Prosaic",
+      "Earthly",
+      "Secular"
+    ],
+    "antonyms": [
+      "Extraordinary",
+      "Exotic",
+      "Spiritual",
+      "Heavenly",
+      "Thrilling"
+    ],
+    "example": "He longed to escape the mundane duties of office paperwork and travel into the wilderness.",
+    "mnemonic": "Mundane = रोज़ का मुंडन और साधारण सांसारिक कामकाज -> Mundane.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Mundane task / mundane life",
+    "derivatives": "Mundanely (adverb), Mundanity (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-20",
+    "word": "Mutiny",
+    "phonetic": "/ˈmjuː.tɪ.ni/",
+    "hindi": "सैनिक विद्रोह / बगावत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Open rebellion of soldiers, sailors, or troops against the authorities.",
+    "synonyms": [
+      "Rebellion",
+      "Insurrection",
+      "Uprising",
+      "Revolt",
+      "Riot"
+    ],
+    "antonyms": [
+      "Obedience",
+      "Loyalty",
+      "Subordination",
+      "Compliance"
+    ],
+    "example": "The historic Indian Mutiny of 1857 challenged the foundation of British colonial rule.",
+    "mnemonic": "अब सेना Mute नहीं रहेगी, Mutiny (विद्रोह) करेगी -> Mutiny.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Stage a mutiny / quell a mutiny",
+    "derivatives": "Mutineer (noun), Mutinous (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-21",
+    "word": "Myopic",
+    "phonetic": "/maɪˈɒp.ɪk/",
+    "hindi": "अदूरदर्शी / निकट दृष्टि वाला / संकीर्ण सोच वाला",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Lacking foresight or intellectual insight; short-sighted.",
+    "synonyms": [
+      "Short-sighted",
+      "Unimaginative",
+      "Narrow-minded",
+      "Improvident"
+    ],
+    "antonyms": [
+      "Far-sighted",
+      "Visionary",
+      "Prescient",
+      "Astute"
+    ],
+    "example": "Slashing the education budget for temporary savings was a dangerously myopic policy.",
+    "mnemonic": "Myopia (निकट दृष्टि दोष) से ग्रसित जो आगे का न सोच सके -> Myopic.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Myopic approach / myopic view",
+    "derivatives": "Myopia (noun), Myopically (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-22",
+    "word": "Muffle",
+    "phonetic": "/ˈmʌf.əl/",
+    "hindi": "ओढ़ना / लपेटना / आवाज़ को दबाना या धीमा करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To wrap or cover for warmth; or deaden the sound of something.",
+    "synonyms": [
+      "Deaden",
+      "Dampen",
+      "Smother",
+      "Stifle",
+      "Mute"
+    ],
+    "antonyms": [
+      "Amplify",
+      "Louden",
+      "Expose",
+      "Uncover"
+    ],
+    "example": "He pressed a thick woolen cushion against the alarm clock to muffle the ringing sound.",
+    "mnemonic": "ठंड में Muffler से कान लपेटना और आवाज़ दबाना -> Muffle.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Muffle the sound / muffled voices",
+    "derivatives": "Muffler (noun), Muffled (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-23",
+    "word": "Multitudinous",
+    "phonetic": "/ˌmʌl.tɪˈtjuː.dɪ.nəs/",
+    "hindi": "बहुसंख्यक / अनगिनत / विविध",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Consisting of many things or parts; very numerous.",
+    "synonyms": [
+      "Countless",
+      "Innumerable",
+      "Manifold",
+      "Myriad",
+      "Copious"
+    ],
+    "antonyms": [
+      "Scant",
+      "Few",
+      "Limited",
+      "Scarce"
+    ],
+    "example": "Astronomers gazed at the multitudinous stars blazing across the clear desert sky.",
+    "mnemonic": "Multi संख्या में अनगिनत टिड्डियाँ -> Multitudinous (बहुसंख्यक)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Multitudinous varieties / multitudinous challenges",
+    "derivatives": "Multitude (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-24",
+    "word": "Mortgage",
+    "phonetic": "/ˈmɔː.ɡɪdʒ/",
+    "hindi": "गिरवी / बंधक / ऋण के बदले संपत्ति बंधक रखना",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A legal agreement by which a person borrows money from a bank usually to buy a house.",
+    "synonyms": [
+      "Pledge",
+      "Security",
+      "Home loan",
+      "Bond",
+      "Hypothecation"
+    ],
+    "antonyms": [
+      "Full ownership",
+      "Outright release"
+    ],
+    "example": "After twenty-five years of diligent payments, they finally settled their home mortgage.",
+    "mnemonic": "बाबू भईया ने मोटी रकम के लिए garage गिरवी रख दिया -> Mortgage.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Pay off a mortgage / mortgage rate",
+    "derivatives": "Mortgagor (noun), Mortgagee (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-25",
+    "word": "Morgue",
+    "phonetic": "/mɔːɡ/",
+    "hindi": "मुर्दाघर / शवगृह",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place where dead bodies are kept for identification, post-mortem, or burial.",
+    "synonyms": [
+      "Mortuary",
+      "Deadhouse",
+      "Charnel house"
+    ],
+    "antonyms": [
+      "Hospital ward",
+      "Maternity clinic"
+    ],
+    "example": "Police escorted the grieving relatives into the hospital morgue to identify the accident victim.",
+    "mnemonic": "जो मर गया, वह Morgue (मुर्दाघर) गया -> Morgue.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Hospital morgue / city morgue",
+    "derivatives": "Mortuary (noun/adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-26",
+    "word": "Monastery",
+    "phonetic": "/ˈmɒn.ə.stri/",
+    "hindi": "मठ / विहार / साधुओं का आश्रम",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A residence for monks or priests living under religious vows.",
+    "synonyms": [
+      "Abbey",
+      "Friary",
+      "Cloister",
+      "Hermitage",
+      "Priyory"
+    ],
+    "antonyms": [
+      "Bustling bazaar",
+      "Secular estate"
+    ],
+    "example": "Perched atop the rugged cliff, the ancient Buddhist monastery offered serene peace.",
+    "mnemonic": "जहाँ मन शांत व स्थिर हो जाए (साधुओं का आश्रम) -> Monastery.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Buddhist monastery / secluded monastery",
+    "derivatives": "Monastic (adjective), Monasticism (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-27",
+    "word": "Notorious",
+    "phonetic": "/nəʊˈtɔː.ri.əs/",
+    "hindi": "कुख्यात / बदनाम / बुरे कार्यों के लिए मशहूर",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Well known for bad qualities or evil reputation; infamous.",
+    "synonyms": [
+      "Infamous",
+      "Disreputable",
+      "Ill-famed",
+      "Scandalous",
+      "Flagrant"
+    ],
+    "antonyms": [
+      "Famous",
+      "Renowned",
+      "Celebrated",
+      "Illustrious",
+      "Prestigious"
+    ],
+    "example": "The highway through the gorge was notorious for frequent bandit ambushes.",
+    "mnemonic": "No + तौर-तरीका (गलत हरकतों के लिए जो बदनाम हो) -> Notorious.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Notorious criminal / notorious for fraud",
+    "derivatives": "Notoriety (noun), Notoriously (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-28",
+    "word": "Naive",
+    "phonetic": "/naɪˈiːv/",
+    "hindi": "भोला-भाला / सीधा-सादा / अनुभवहीन",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Showing a lack of experience, wisdom or judgement; innocent and unsuspecting.",
+    "synonyms": [
+      "Innocent",
+      "Gullible",
+      "Ingenuous",
+      "Credulous",
+      "Simple-minded"
+    ],
+    "antonyms": [
+      "Sophisticated",
+      "Shrewd",
+      "Worldly-wise",
+      "Cynical"
+    ],
+    "example": "It was naive of him to believe that stranger would return the borrowed briefcase.",
+    "mnemonic": "जो बिल्कुल Nayi (नयी) हो दुनियादारी में -> Naive (सीधा-सादा)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Naive belief / politically naive",
+    "derivatives": "Naivety (noun), Naively (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-29",
+    "word": "Namesake",
+    "phonetic": "/ˈneɪm.seɪk/",
+    "hindi": "हमनाम / एक ही नाम का व्यक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person or thing with the same name as another.",
+    "synonyms": [
+      "Same-named person",
+      "Doublet",
+      "Cognomen bearer"
+    ],
+    "antonyms": [
+      "Opposite label",
+      "Unique title"
+    ],
+    "example": "Named after his illustrious grandfather, the young architect strove to honor his namesake.",
+    "mnemonic": "Name - Same (जिसका नाम बिल्कुल समान हो) -> Namesake.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Famous namesake / namesake grandson",
+    "derivatives": "Name (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-30",
+    "word": "Narcissist",
+    "phonetic": "/ˈnɑː.sɪ.sɪst/",
+    "hindi": "आत्ममुग्ध व्यक्ति / खुद की प्रशंसा में लीन रहने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "One having excessive interest in or admiration of oneself and one's physical appearance.",
+    "synonyms": [
+      "Egoist",
+      "Self-admirer",
+      "Egotist",
+      "Self-centered person"
+    ],
+    "antonyms": [
+      "Altruist",
+      "Selfless soul",
+      "Humbler"
+    ],
+    "example": "The vain actor was such a narcissist that his apartment was lined entirely with mirrors.",
+    "mnemonic": "जो नर सिर्फ शीशा देखता रहे और अपनी ही तारीफ करे -> Narcissist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Extreme narcissist / narcissist personality",
+    "derivatives": "Narcissism (noun), Narcissistic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-31",
+    "word": "Nascent",
+    "phonetic": "/ˈnæs.ənt/",
+    "hindi": "उत्पन्न / नवजात / आरंभिक अवस्था में विकसित होता हुआ",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Beginning to exist; recently formed or developing rapidly.",
+    "synonyms": [
+      "Emerging",
+      "Budding",
+      "Fledgling",
+      "Inchoate",
+      "Incipient"
+    ],
+    "antonyms": [
+      "Mature",
+      "Dying",
+      "Declining",
+      "Moribund"
+    ],
+    "example": "Government venture funds offered subsidies to bolster the nation's nascent green hydrogen sector.",
+    "mnemonic": "नये पनपते हुए पौधे या कारोबार की आरंभिक महक -> Nascent.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Nascent industry / nascent democracy",
+    "derivatives": "Nascence (noun), Nascency (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-32",
+    "word": "Neophyte",
+    "phonetic": "/ˈniː.ə.faɪt/",
+    "hindi": "नौसिखिया / नया-नया शामिल हुआ व्यक्ति / नौदीक्षित",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Any new participant in some activity; a novice or beginner.",
+    "synonyms": [
+      "Novice",
+      "Beginner",
+      "Tyro",
+      "Trainee",
+      "Apprentice"
+    ],
+    "antonyms": [
+      "Veteran",
+      "Expert",
+      "Old hand",
+      "Master"
+    ],
+    "example": "Even a tech neophyte can navigate this intuitive smartphone interface with ease.",
+    "mnemonic": "Life की New fight में उतरा नया खिलाड़ी -> Neophyte (नौसिखिया)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Political neophyte / computer neophyte",
+    "derivatives": "Neophytic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-33",
+    "word": "Nasty",
+    "phonetic": "/ˈnɑː.sti/",
+    "hindi": "बहुत खराब / घिनौना / कटु / द्वेषपूर्ण",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Unpleasant; physically repulsive; or mean, spiteful, and disagreeable.",
+    "synonyms": [
+      "Unpleasant",
+      "Disgusting",
+      "Malicious",
+      "Offensive",
+      "Foul"
+    ],
+    "antonyms": [
+      "Pleasant",
+      "Agreeable",
+      "Delightful",
+      "Kind"
+    ],
+    "example": "He received a nasty wound on his forehead after slipping on the mossy rock.",
+    "mnemonic": "जो सबका नाश ही करे, ऐसी गंदी और अप्रिय चीज़ -> Nasty.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Nasty habit / nasty shock",
+    "derivatives": "Nastiness (noun), Nastily (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-34",
+    "word": "Navigate",
+    "phonetic": "/ˈnæv.ɪ.ɡeɪt/",
+    "hindi": "दिशा निर्देश करना / जहाज़ या नाव का मार्ग तय करना",
+    "type": "ows",
+    "partOfSpeech": "Verb (OWS)",
+    "meaning": "To find ways and directions or guide the course of a ship/vehicle using instruments or maps.",
+    "synonyms": [
+      "Steer",
+      "Pilot",
+      "Guide",
+      "Chart a course",
+      "Maneuver"
+    ],
+    "antonyms": [
+      "Lose one's way",
+      "Drift aimlessly"
+    ],
+    "example": "Ancient mariners used celestial constellations to navigate uncharted oceans.",
+    "mnemonic": "नाव (Navy) को गाइड करना और दिशा तय करना -> Navigate.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Navigate rough waters / navigate the menu",
+    "derivatives": "Navigation (noun), Navigator (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-35",
+    "word": "Nectar",
+    "phonetic": "/ˈnek.tər/",
+    "hindi": "पुष्प रस / मकरंद / अमृत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Fluid secreted by flowers which is collected by bees for making honey; delicious drink.",
+    "synonyms": [
+      "Flower juice",
+      "Ambrosia",
+      "Honey dew",
+      "Sweet beverage"
+    ],
+    "antonyms": [
+      "Poison",
+      "Gall",
+      "Venom"
+    ],
+    "example": "Honeybees hummed contentedly around the clover blossoms, gathering sweet nectar.",
+    "mnemonic": "पुष्पा की Neck को तर करने वाला मीठा पुष्प रस -> Nectar.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Sip nectar / sweet nectar",
+    "derivatives": "Nectareous (adjective), Nectarine (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-36",
+    "word": "Neigh",
+    "phonetic": "/neɪ/",
+    "hindi": "हिनहिनाना / घोड़े की तेज़ आवाज़",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The characteristic high-pitched sound uttered by a horse.",
+    "synonyms": [
+      "Whinny",
+      "Horse whinny",
+      "Snort",
+      "Bray"
+    ],
+    "antonyms": [
+      "Silence",
+      "Mute animal"
+    ],
+    "example": "The stallion gave a loud, spirited neigh as the stable door swung open.",
+    "mnemonic": "नई घास देखकर घोड़े का खुशी से हिनहिनाना -> Neigh.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Loud neigh / neigh of a horse",
+    "derivatives": "Neigh (verb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-37",
+    "word": "Nemesis",
+    "phonetic": "/ˈnem.ə.sɪs/",
+    "hindi": "नियति / कर्मफल / अचूक प्रतिद्वंद्वी / दंड देने वाली शक्ति",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Downfall that satisfies natural justice; an inescapable rival or undoing.",
+    "synonyms": [
+      "Archenemy",
+      "Retribution",
+      "Downfall",
+      "Scourge",
+      "Vengeance"
+    ],
+    "antonyms": [
+      "Guardian angel",
+      "Allied savior",
+      "Helper"
+    ],
+    "example": "Pride and blind arrogance ultimately proved to be the ruthless emperor's nemesis.",
+    "mnemonic": "Nature के Niyam के सामने सिर झुकाना ही पड़ता है, वही कर्मफल है -> Nemesis.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Meet one's nemesis / bitter nemesis",
+    "derivatives": "Nemesic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-38",
+    "word": "Neologism",
+    "phonetic": "/niˈɒl.ə.dʒɪ.zəm/",
+    "hindi": "नवनिर्मित शब्द / भाषा में गढ़ा गया नया शब्द प्रयोग",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A new word or expression coined by an author or in popular culture.",
+    "synonyms": [
+      "Coinage",
+      "New phrase",
+      "Novel expression",
+      "Modern term"
+    ],
+    "antonyms": [
+      "Archaism",
+      "Obsolete word",
+      "Old idiom"
+    ],
+    "example": "Terms like 'selfie' and 'webinar' originated as popular 21st-century neologisms.",
+    "mnemonic": "New + Logic से बनाया गया नया शब्द -> Neologism.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Coin a neologism / modern neologism",
+    "derivatives": "Neologist (noun), Neologistic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-39",
+    "word": "Neuroscience",
+    "phonetic": "/ˌnjʊə.rəʊˈsaɪ.əns/",
+    "hindi": "तंत्रिका विज्ञान / मस्तिष्क व तंत्रिका तंत्र का अध्ययन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Scientific study of the nervous system and brain.",
+    "synonyms": [
+      "Neurobiology",
+      "Brain study",
+      "Neurology",
+      "Neural science"
+    ],
+    "antonyms": [
+      "Metaphysics"
+    ],
+    "example": "Breakthroughs in neuroscience have unraveled how human memory consolidation occurs during sleep.",
+    "mnemonic": "Neuro (Nerve) + Science (विज्ञान) -> Neuroscience (तंत्रिका विज्ञान)।",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Cognitive neuroscience / neuroscience research",
+    "derivatives": "Neuroscientist (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-40",
+    "word": "Niche",
+    "phonetic": "/niːʃ/",
+    "hindi": "आला / ताक / दीवार में मूर्ति या वस्तु रखने की जगह / उपयुक्त स्थान",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A hollow space in a wall for a statue or ornament; or a comfortable, specialized role.",
+    "synonyms": [
+      "Alcove",
+      "Recess",
+      "Nook",
+      "Specialized slot",
+      "Compartment"
+    ],
+    "antonyms": [
+      "Bulge",
+      "Exposure",
+      "Crowded mainstream"
+    ],
+    "example": "A marble bust of Shakespeare stood poised within the library's arched wall niche.",
+    "mnemonic": "दीवार के नीचे/भीतर बनी खाली जगह (आला/ताक) -> Niche.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Carve a niche / wall niche",
+    "derivatives": "Niched (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-41",
+    "word": "Nihilism",
+    "phonetic": "/ˈnaɪ.hɪ.lɪ.zəm/",
+    "hindi": "शून्यवाद / सभी नैतिक व धार्मिक मूल्यों की निरर्थकता का सिद्धांत",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The rejection of all religious and moral principles, in the belief that life is meaningless.",
+    "synonyms": [
+      "Skepticism",
+      "Negativism",
+      "Anarchy",
+      "Pessimism",
+      "Cynicism"
+    ],
+    "antonyms": [
+      "Faith",
+      "Optimism",
+      "Idealism",
+      "Belief in meaning"
+    ],
+    "example": "Overwhelmed by war trauma, the disillusioned novelist embraced dark philosophical nihilism.",
+    "mnemonic": "सब कुछ Nahi या Nil (Zero) मानना कि जीवन में कोई अर्थ नहीं -> Nihilism.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Philosophical nihilism / embrace nihilism",
+    "derivatives": "Nihilist (noun), Nihilistic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-42",
+    "word": "Nirvana",
+    "phonetic": "/nɪəˈvɑː.nə/",
+    "hindi": "निर्वाण / मोक्ष / समस्त वासना व दुःख से मुक्ति की अवस्था",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A transcendent state in which there is neither suffering, desire, nor sense of self; final liberation.",
+    "synonyms": [
+      "Moksha",
+      "Enlightenment",
+      "Bliss",
+      "Paradise",
+      "Salvation"
+    ],
+    "antonyms": [
+      "Samsara",
+      "Eternal torment",
+      "Misery"
+    ],
+    "example": "Under the sacred Bodhi tree, Gautama Buddha attained supreme spiritual nirvana.",
+    "mnemonic": "अब तो केवल नीर पीकर वन में रहकर मोक्ष (Nirvana) प्राप्त करना है -> Nirvana.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Attain nirvana / state of nirvana",
+    "derivatives": "Nirvanic (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-43",
+    "word": "Nocturnal",
+    "phonetic": "/nɒkˈtɜː.nəl/",
+    "hindi": "निशाचर / रात में होने वाला या रात में सक्रिय",
+    "type": "ows",
+    "partOfSpeech": "Adjective (OWS)",
+    "meaning": "Done, occurring, or active at night rather than during the day.",
+    "synonyms": [
+      "Nightly",
+      "Night-active",
+      "Nighttime",
+      "Dark-loving"
+    ],
+    "antonyms": [
+      "Diurnal",
+      "Daytime-active"
+    ],
+    "example": "Owls and bats possess specialized night-vision faculties typical of nocturnal predators.",
+    "mnemonic": "Night Cultural programme (रात में जागने और सक्रिय रहने वाले) -> Nocturnal.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Nocturnal habits / nocturnal animal",
+    "derivatives": "Nocturnally (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-44",
+    "word": "Nomad",
+    "phonetic": "/ˈnəʊ.mæd/",
+    "hindi": "खानाबदोश / घुमंतू / जिसका कोई स्थायी निवास न हो",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person with no fixed abode who moves from place to place according to seasonal pasture.",
+    "synonyms": [
+      "Wanderer",
+      "Itinerant",
+      "Roamer",
+      "Wayfarer",
+      "Drifter"
+    ],
+    "antonyms": [
+      "Settler",
+      "Dweller",
+      "Inhabitant",
+      "Sedentary citizen"
+    ],
+    "example": "Bedouin nomads have traversed the Arabian dunes for centuries in search of oases.",
+    "mnemonic": "No मोह-माया, झोला उठाकर घूमने वाला बंजारा -> Nomad.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Desert nomad / digital nomad",
+    "derivatives": "Nomadic (adjective), Nomadism (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-45",
+    "word": "Nomenclature",
+    "phonetic": "/nəˈmeŋ.klə.tʃər/",
+    "hindi": "नामपद्धति / पारिभाषिक नामावली / वैज्ञानिक नामकरण",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A system of naming things, especially in a particular science or artistic discipline.",
+    "synonyms": [
+      "Terminology",
+      "Classification",
+      "Taxonomy",
+      "Naming system"
+    ],
+    "antonyms": [
+      "Disorder",
+      "Mislabeling"
+    ],
+    "example": "Linnaeus introduced the standardized binomial nomenclature still used in biological sciences.",
+    "mnemonic": "Name देने का वैज्ञानिक Culture (नियमपूर्वक नामकरण) -> Nomenclature.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Binomial nomenclature / chemical nomenclature",
+    "derivatives": "Nomenclative (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-46",
+    "word": "Nonconformist",
+    "phonetic": "/ˌnɒn.kənˈfɔː.mɪst/",
+    "hindi": "नियम व परंपरा विरोधी / रूढ़िमुक्त व्यक्ति / गैर-परंपरावादी",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "Someone who does not care about rules or accepted traditional standards; dissenter.",
+    "synonyms": [
+      "Rebel",
+      "Dissenter",
+      "Maverick",
+      "Individualist",
+      "Iconoclast"
+    ],
+    "antonyms": [
+      "Conformist",
+      "Traditionalist",
+      "Orthodox follower"
+    ],
+    "example": "As an artistic nonconformist, he shunned commercial galleries to paint street murals.",
+    "mnemonic": "कौन Formality पाले? No Formality, परंपराओं को न मानने वाला -> Nonconformist.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "True nonconformist / nonconformist lifestyle",
+    "derivatives": "Nonconformity (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-47",
+    "word": "Nostalgia",
+    "phonetic": "/nɒsˈtæl.dʒə/",
+    "hindi": "अतीत-मोह / पुरानी यादें / पुराने दिनों की लालसा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A sentimental longing or wistful affection for a period in the past.",
+    "synonyms": [
+      "Reminiscence",
+      "Wistfulness",
+      "Yearning",
+      "Homesickness",
+      "Longing"
+    ],
+    "antonyms": [
+      "Futurism",
+      "Indifference to past"
+    ],
+    "example": "Flipping through the faded high school album evoked a bittersweet wave of nostalgia.",
+    "mnemonic": "New Hostel में रहकर पुराने घर व दोस्तों की याद सताना -> Nostalgia.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Wave of nostalgia / pure nostalgia",
+    "derivatives": "Nostalgic (adjective), Nostalgically (adverb)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-48",
+    "word": "Novelty",
+    "phonetic": "/ˈnɒv.əl.ti/",
+    "hindi": "नवीनता / नयापन / अनोखापन",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "The quality of being new, original, or unusual; a small interesting object.",
+    "synonyms": [
+      "Newness",
+      "Originality",
+      "Freshness",
+      "Uniqueness",
+      "Innovation"
+    ],
+    "antonyms": [
+      "Staleness",
+      "Banality",
+      "Familiarity",
+      "Triteness"
+    ],
+    "example": "Once the initial novelty of the electric scooter wore off, commuters returned to the metro.",
+    "mnemonic": "नई वाली Quality (नयापन) -> Novelty.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Wear off the novelty / novelty item",
+    "derivatives": "Novel (adjective)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-49",
+    "word": "Novice",
+    "phonetic": "/ˈnɒv.ɪs/",
+    "hindi": "अनुभवहीन व्यक्ति / नौसिखिया / नया सीखने वाला",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A person inexperienced at a job, sport, or situation; a beginner.",
+    "synonyms": [
+      "Beginner",
+      "Tyro",
+      "Neophyte",
+      "Greenhorn",
+      "Apprentice"
+    ],
+    "antonyms": [
+      "Expert",
+      "Veteran",
+      "Connoisseur",
+      "Professional"
+    ],
+    "example": "Though merely a novice at chess, she displayed a remarkable grasp of opening tactics.",
+    "mnemonic": "No - Wise (जिसमें अभी तक पूर्ण ज्ञान व अनुभव न हो) -> Novice.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Novice player / novice driver",
+    "derivatives": "Novitiate (noun)",
+    "level": "level-1",
+    "set": "set-06"
+  },
+  {
+    "id": "v-ows-l1-s6-50",
+    "word": "Nursery",
+    "phonetic": "/ˈnɜː.sər.i/",
+    "hindi": "पौधशाला / नर्सरी / छोटे बच्चों का कमरा",
+    "type": "ows",
+    "partOfSpeech": "Noun (OWS)",
+    "meaning": "A place where young plants and trees are grown for sale or transplanting.",
+    "synonyms": [
+      "Plantation",
+      "Greenhouse",
+      "Glasshouse",
+      "Hothouse",
+      "Arboretum"
+    ],
+    "antonyms": [
+      "Wasteland",
+      "Barren land"
+    ],
+    "example": "We drove to the suburban plant nursery to pick flowering bougainvillea saplings.",
+    "mnemonic": "जहाँ Nature (plants) की Surgery और नन्हे पौधों का संवर्धन हो -> Nursery.",
+    "frequency": "Repeated",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "OWS"
+    ],
+    "collocation": "Plant nursery / tree nursery",
+    "derivatives": "Nurse (verb/noun)",
+    "level": "level-1",
+    "set": "set-06"
+  }
+];
 export const LEVEL_1_SET_07_OWS: VocabItem[] = [];
 export const LEVEL_1_SET_08_OWS: VocabItem[] = [];
 export const LEVEL_1_SET_09_OWS: VocabItem[] = [];
