@@ -40,7 +40,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Eye,
-  EyeOff
+  EyeOff,
+  Sparkles
 } from 'lucide-react';
 import { ambientEngine, AmbientSoundType } from '../../utils/ambientSounds';
 import { soundManager } from '../../utils/soundEffects';
@@ -174,20 +175,20 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   const cardBaseStyle = useMemo(() => {
     if (enableWallpaper) {
       if (isSepia) {
-        return 'bg-[#FFFDF8]/55 dark:bg-[#FFFDF8]/55 border-[#E6D7B9]/60 text-[#38370D] shadow-[0_8px_30px_rgba(180,140,80,0.14)] backdrop-blur-xl';
+        return 'bg-[#FFFDF8]/80 dark:bg-[#FFFDF8]/80 border border-[#E6D7B9]/80 text-[#38370D] shadow-[0_12px_40px_rgba(180,140,80,0.18),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-2xl';
       }
       if (isDark) {
-        return 'bg-[#0E101D]/60 border-white/10 text-white shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl';
+        return 'bg-[#0E101D]/75 border border-white/10 text-white shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.12)] backdrop-blur-2xl';
       }
-      return 'bg-white/55 border-white/70 text-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl';
+      return 'bg-white/85 border border-slate-200/80 text-slate-900 shadow-[0_12px_40px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.9)] backdrop-blur-2xl';
     }
     if (isSepia) {
-      return 'bg-[#FFF9EE]/92 dark:bg-[#FFF9EE]/92 border-[#E6D7B9]/90 text-[#38370D] shadow-[0_10px_35px_rgba(180,140,80,0.16)] backdrop-blur-2xl';
+      return 'bg-[#FFF9EE]/95 dark:bg-[#FFF9EE]/95 border border-[#E6D7B9]/90 text-[#38370D] shadow-[0_12px_40px_rgba(180,140,80,0.18)] backdrop-blur-2xl';
     }
     if (isDark) {
-      return 'bg-[#111322]/90 border-white/[0.12] text-white shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl';
+      return 'bg-[#111322]/95 border border-white/[0.12] text-white shadow-[0_16px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl';
     }
-    return 'bg-white/92 border-slate-200/90 text-slate-900 shadow-[0_10px_35px_rgba(0,0,0,0.08)] backdrop-blur-2xl';
+    return 'bg-white/95 border border-slate-200/90 text-slate-900 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-2xl';
   }, [enableWallpaper, isSepia, isDark]);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -467,7 +468,12 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
   // Today's Focus Checklist from Planner or Syllabus
   const todayTasks = useMemo(() => {
     const list = plannerTasks.filter(t => t.status === 'today' || t.status === 'in_progress' || t.status === 'completed');
-    if (list.length > 0) return list.slice(0, 5);
+    if (list.length > 0) {
+      return list.slice(0, 5).map(t => ({
+        ...t,
+        title: (t as any).title || (t as any).topicName || 'Study Target'
+      }));
+    }
     return allTopics.slice(0, 5).map(t => ({
       id: t.topic.id,
       title: t.topic.name,
@@ -763,10 +769,15 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       <div className="space-y-2 pt-1 max-h-48 overflow-y-auto no-scrollbar">
         {todayTasks.map((t, idx) => {
           const isDone = t.status === 'completed';
+          const taskTitle = t.title || (t as any).topicName || `Study Target #${idx + 1}`;
           return (
             <div
               key={t.id || idx}
-              className="flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors cursor-pointer group"
+              className={`flex items-center gap-2.5 p-2 rounded-xl transition-all cursor-pointer group border ${
+                selectedTopicId === (t.topicId || t.id)
+                  ? 'bg-blue-500/15 border-blue-500/30 text-blue-900 dark:text-blue-200 shadow-xs'
+                  : 'bg-slate-100/70 dark:bg-white/[0.04] hover:bg-slate-200/70 dark:hover:bg-white/[0.08] border-slate-200/60 dark:border-white/5 shadow-2xs'
+              }`}
             >
               <button
                 type="button"
@@ -777,7 +788,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-transform active:scale-90 ${
                   isDone
                     ? 'bg-gradient-to-br from-[#0066FF] to-[#2563EB] text-white shadow-xs'
-                    : 'border-2 border-slate-300 dark:border-white/30 group-hover:border-[#0066FF]'
+                    : 'border-2 border-slate-400/60 dark:border-white/30 group-hover:border-[#0066FF]'
                 }`}
                 title={isDone ? "Mark as in-progress" : "Mark as completed"}
               >
@@ -792,19 +803,19 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   if (matching) {
                     setSessionTopic(matching.topic.id, matching.topic.name, matching.subjectName, matching.chapterName, matching.subjectColor);
                   } else {
-                    setSessionTopic(targetId, t.title, t.subjectName);
+                    setSessionTopic(targetId, taskTitle, t.subjectName);
                   }
                   soundManager.playClick();
                 }}
-                className={`text-xs font-semibold truncate select-none ${
+                className={`text-xs font-semibold truncate select-none flex-1 ${
                   isDone
                     ? 'line-through text-slate-400 dark:text-slate-500'
                     : selectedTopicId === (t.topicId || t.id)
-                    ? 'text-[#0066FF] dark:text-[#38BDF8] font-bold'
+                    ? 'text-[#0066FF] dark:text-[#38BDF8] font-black'
                     : 'text-slate-800 dark:text-slate-200'
                 }`}
               >
-                {t.title}
+                {taskTitle}
               </span>
             </div>
           );
@@ -1223,6 +1234,9 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 }}
               />
             )}
+
+            {/* Subtle atmospheric vignette scrim over wallpaper to reduce glare & maximize card readability */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/[0.04] via-transparent to-black/[0.12] dark:to-black/[0.35]" />
           </div>
         )}
 
@@ -1283,6 +1297,23 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 Focus Mode
               </h1>
             </div>
+          </div>
+
+          {/* Center Zen View Quick Switcher Pill (Desktop / Tablet) */}
+          <div className="hidden sm:flex items-center">
+            <button
+              type="button"
+              onClick={handleToggleSideCards}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 border ${
+                hideSideCards
+                  ? 'bg-blue-500/10 text-[#0066FF] dark:text-[#38BDF8] border-blue-500/30 shadow-xs'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+              }`}
+              title={hideSideCards ? "Switch to Studio View (Z)" : "Switch to Zen Clean View (Z)"}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{hideSideCards ? 'Zen View Active' : 'Zen View'}</span>
+            </button>
           </div>
 
           {/* Right Tools & Navigation */}
@@ -1673,25 +1704,25 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                       <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold opacity-40 text-slate-700 dark:text-slate-300">
                         {hStr}:
                       </span>
-                      <span className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white drop-shadow-xs">
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white drop-shadow-sm">
                         {mStr}
                       </span>
-                      <span className={`text-3xl sm:text-4xl md:text-5xl font-black px-0.5 ${isRunning ? 'animate-pulse' : ''}`} style={{ color: modeTheme.primary }}>
+                      <span className={`text-3xl sm:text-4xl md:text-5xl font-black px-0.5 transition-colors ${isRunning ? 'animate-pulse text-[#0066FF] dark:text-[#38BDF8]' : 'text-slate-300 dark:text-slate-600'}`}>
                         :
                       </span>
-                      <span className="text-4xl sm:text-5xl md:text-6xl font-black drop-shadow-xs" style={{ color: modeTheme.accent }}>
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white drop-shadow-sm">
                         {sStr}
                       </span>
                     </div>
                   ) : (
                     <div className="flex items-baseline justify-center gap-0.5">
-                      <span className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 dark:text-white drop-shadow-xs">
+                      <span className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-950 dark:text-white drop-shadow-sm">
                         {mStr}
                       </span>
-                      <span className={`text-4xl sm:text-5xl md:text-6xl font-black px-0.5 ${isRunning ? 'animate-pulse' : ''}`} style={{ color: modeTheme.primary }}>
+                      <span className={`text-4xl sm:text-5xl md:text-6xl font-black px-0.5 transition-colors ${isRunning ? 'animate-pulse text-[#0066FF] dark:text-[#38BDF8]' : 'text-slate-300 dark:text-slate-600'}`}>
                         :
                       </span>
-                      <span className="text-5xl sm:text-6xl md:text-7xl font-black drop-shadow-xs" style={{ color: modeTheme.accent }}>
+                      <span className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-950 dark:text-white drop-shadow-sm">
                         {sStr}
                       </span>
                     </div>
@@ -1721,6 +1752,17 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Zen Mode Study Goal Pill */}
+            {hideSideCards && (
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 dark:bg-[#111322]/80 border border-slate-200/90 dark:border-white/10 backdrop-blur-xl shadow-xs text-xs font-semibold text-slate-800 dark:text-slate-200 animate-fade-in max-w-sm">
+                <span className="w-2 h-2 rounded-full bg-[#0066FF] animate-pulse shrink-0" />
+                <span className="text-slate-400 dark:text-slate-500 font-medium shrink-0">Focusing:</span>
+                <span className="truncate font-bold text-slate-900 dark:text-white">
+                  {selectedTopic ? selectedTopic.topic.name : session.topicName || (todayTasks.length > 0 ? todayTasks[0].title : 'General Study Session')}
+                </span>
+              </div>
+            )}
 
             {/* TACTILE HARDWARE DOCK */}
             <div className={`transition-all duration-300 ${
@@ -1803,7 +1845,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               {/* Keyboard Shortcut Hint (Desktop only) */}
               {!isBrowserFullscreen && (
                 <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 dark:text-slate-500">
-                  Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> to {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> to reset
+                  Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Space</kbd> {isRunning ? 'pause' : 'start'} · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">R</kbd> reset · <kbd className="px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-mono text-[10px]">Z</kbd> zen view
                 </span>
               )}
 
@@ -1933,7 +1975,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
       {/* 3. FLOATING BOTTOM SEGMENTED TIMER SELECTOR CAPSULE */}
       {!isBrowserFullscreen && (
         <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xs sm:max-w-sm pointer-events-auto">
-          <div className="flex items-center p-1 sm:p-1.5 rounded-full bg-slate-900/90 dark:bg-[#0E101D]/95 border border-slate-700/60 dark:border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl">
+          <div className="flex items-center p-1 sm:p-1.5 rounded-full bg-white/90 dark:bg-[#0E101D]/95 border border-slate-200/90 dark:border-white/[0.12] shadow-[0_12px_36px_rgba(0,0,0,0.1),0_0_0_1px_rgba(0,0,0,0.04)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-2xl">
             {[
               { id: 'pomodoro', label: 'Pomodoro', icon: Zap, mode: 'pomodoro' },
               { id: 'countdown', label: 'Countdown', icon: Hourglass, mode: 'timer' },
@@ -1969,7 +2011,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
                   className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
                     isActive
                       ? `${activeColorClass} font-black`
-                      : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -1983,7 +2025,7 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
 
       {/* Smooth Bottom Ambient Scrim to prevent content clashes when scrolling behind bottom bar */}
       {!isBrowserFullscreen && (
-        <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-30 sm:hidden" />
+        <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/90 dark:from-slate-950/85 via-white/40 dark:via-slate-950/40 to-transparent pointer-events-none z-30 sm:hidden" />
       )}
 
       {/* TOPIC SEARCH MODAL OVERLAY */}
