@@ -2019,10 +2019,21 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     }}
                     className="w-full p-5 sm:p-6 flex items-center justify-between text-left hover:bg-slate-50/50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center font-bold shrink-0">
-                        <Compass className="w-4 h-4" />
-                      </div>
+                    <div className="flex items-center gap-3.5">
+                      {topic.subject === 'Polity' ? (
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 shadow-md border border-amber-400/40 bg-black flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                          <img
+                            src="/polity-constitution-icon.jpg"
+                            alt="Constitution of India"
+                            className="w-full h-full object-cover transform scale-[1.06]"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center font-bold shrink-0">
+                          <Compass className="w-4 h-4" />
+                        </div>
+                      )}
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-300">
@@ -2071,16 +2082,25 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       {/* Masterclass Banner for interactive HTML capsule */}
                       {topic.htmlFile && (
                         <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-purple-900/30 via-indigo-900/20 to-purple-900/30 border border-purple-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-slate-950 uppercase tracking-wider">
-                                Interactive Master Chapter
-                              </span>
-                              <span className="text-xs text-purple-600 dark:text-purple-300 font-medium">10 Modules • PYQ Quiz • Self-Test Mode</span>
+                          <div className="flex items-center gap-3.5">
+                            {topic.subject === 'Polity' && (
+                              <img
+                                src="/polity-constitution-icon.jpg"
+                                alt="Constitution of India"
+                                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover shadow-lg border border-amber-400/40 shrink-0 transform scale-[1.05]"
+                              />
+                            )}
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-slate-950 uppercase tracking-wider">
+                                  Interactive Master Chapter
+                                </span>
+                                <span className="text-xs text-purple-600 dark:text-purple-300 font-medium">10 Modules • PYQ Quiz • Self-Test Mode</span>
+                              </div>
+                              <p className="text-xs text-slate-600 dark:text-slate-300">
+                                Complete high-yield Hinglish notes with interactive self-testing, PYQ practice quiz, and student note taking.
+                              </p>
                             </div>
-                            <p className="text-xs text-slate-600 dark:text-slate-300">
-                              Complete high-yield Hinglish notes with interactive self-testing, PYQ practice quiz, and student note taking.
-                            </p>
                           </div>
                           <div className="flex items-center gap-2 w-full sm:w-auto">
                             <button
@@ -2144,9 +2164,17 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           {/* Header Bar */}
           <div className="h-14 px-4 sm:px-6 bg-slate-900/90 border-b border-white/10 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-                <BookOpen className="w-4 h-4" />
-              </div>
+              {interactiveGaModal.url.includes('polity') ? (
+                <img
+                  src="/polity-constitution-icon.jpg"
+                  alt="Constitution of India"
+                  className="w-8 h-8 rounded-lg object-cover shadow-sm border border-amber-400/40 shrink-0 transform scale-[1.05]"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+              )}
               <div className="min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white truncate">
                   {interactiveGaModal.title}
