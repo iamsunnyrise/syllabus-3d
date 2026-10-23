@@ -1,0 +1,359 @@
+/* ==========================================================================
+   SSC SPECIAL ENGLISH MASTERY — MAIN WEBSITE THEME HARMONIZATION SYSTEM
+   Synchronizes all SSC Vocab modules with the SYLLABUS 3D Gold & Warm-Cream
+   Color System (Dark Obsidian & Royal Warm Cream).
+   ========================================================================== */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   1. DARK THEME: DEEP OBSIDIAN BRONZE & RADIANT GOLD
+   ────────────────────────────────────────────────────────────────────────── */
+:root,
+[data-theme="dark"],
+html.dark {
+  /* Core Canvas & Surfaces */
+  --bg-primary: #121104;
+  --bg-base: #121104;
+  --bg-sidebar: #171605;
+  --bg-secondary: #1c1b05;
+  --bg-card: #262507;
+  --bg-card-hover: #38370d;
+  --bg-hover: #38370d;
+  --border-color: rgba(141, 122, 2, 0.42);
+
+  /* Primary Brand Accents */
+  --accent-primary: #E1A837;      /* Royal Warm Gold */
+  --accent-secondary: #C084FC;    /* Radiant Purple */
+  --accent-amber: #FBBF24;        /* Luminous Amber */
+  --accent-emerald: #22C55E;
+  --accent-rose: #F87171;
+  --accent-cyan: #38BDF8;
+
+  /* Typography */
+  --text-main: #FAEED9;           /* Warm Parchment Cream */
+  --text-muted: #D6C7A8;          /* Soft Bronze Cream */
+  --text-hindi: #FDE047;          /* Luminous Golden Yellow */
+
+  /* Badges & Tags */
+  --tag-bg: rgba(225, 168, 55, 0.16);
+  --tag-color: #FBBF24;
+  --tag-root-bg: rgba(225, 168, 55, 0.16);
+  --tag-root-color: #FBBF24;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 30px -5px rgba(0, 0, 0, 0.7);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   2. LIGHT THEME: ROYAL WARM CREAM & PARCHMENT GOLD
+   ────────────────────────────────────────────────────────────────────────── */
+[data-theme="light"],
+[data-theme="warm-cream"],
+html.warm-cream {
+  /* Core Canvas & Surfaces */
+  --bg-primary: #FAEED9;          /* Royal Warm Cream */
+  --bg-base: #FAEED9;
+  --bg-sidebar: #F6EBD4;
+  --bg-secondary: #F6EBD4;        /* Soft Warm Parchment */
+  --bg-card: #FFFDF8;             /* Crisp Clean Parchment Card */
+  --bg-card-hover: #FBF4E6;
+  --bg-hover: #F6EBD4;
+  --border-color: #E2D1B3;         /* Warm Sand Border */
+
+  /* Primary Brand Accents */
+  --accent-primary: #D97706;      /* Rich Amber Gold */
+  --accent-secondary: #7C3AED;    /* Royal Violet */
+  --accent-amber: #B45309;        /* Deep Golden Bronze */
+  --accent-emerald: #059669;
+  --accent-rose: #E11D48;
+  --accent-cyan: #0D9488;
+
+  /* Typography */
+  --text-main: #38370D;           /* Deep Olive Bronze */
+  --text-muted: #655602;          /* Medium Olive Bronze */
+  --text-hindi: #8D7A02;          /* Warm Earthy Bronze */
+
+  /* Badges & Tags */
+  --tag-bg: rgba(225, 168, 55, 0.18);
+  --tag-color: #B45309;
+  --tag-root-bg: rgba(225, 168, 55, 0.18);
+  --tag-root-color: #B45309;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgba(56, 55, 13, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(56, 55, 13, 0.09);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   3. BODY BACKGROUND & AMBIENT GLOW
+   ────────────────────────────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-main) !important;
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.10) 0%, transparent 50%) !important;
+  background-attachment: fixed !important;
+  transition: background-color 0.25s ease, color 0.25s ease !important;
+}
+
+[data-theme="light"] body,
+[data-theme="warm-cream"] body,
+html.warm-cream body {
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(225, 168, 55, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 95% 40%, rgba(141, 122, 2, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.14) 0%, transparent 50%) !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   4. HEADER BANNER & BRAND STYLING
+   ────────────────────────────────────────────────────────────────────────── */
+.header-banner {
+  background: linear-gradient(135deg, #1c1b05 0%, #262507 50%, #171604 100%) !important;
+  border: 1.5px solid rgba(225, 168, 55, 0.35) !important;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.65), 0 0 25px rgba(225, 168, 55, 0.08) !important;
+}
+
+.header-banner::before {
+  background: radial-gradient(circle, rgba(225, 168, 55, 0.22) 0%, rgba(141, 122, 2, 0.12) 60%, transparent 100%) !important;
+}
+
+[data-theme="light"] .header-banner,
+[data-theme="warm-cream"] .header-banner,
+html.warm-cream .header-banner {
+  background: linear-gradient(135deg, #FFFDF8 0%, #FBF4E6 50%, #F6EBD4 100%) !important;
+  border: 1.5px solid #E2D1B3 !important;
+  box-shadow: 0 6px 20px rgba(56, 55, 13, 0.06), 0 0 15px rgba(225, 168, 55, 0.08) !important;
+}
+
+[data-theme="light"] .header-banner::before,
+[data-theme="warm-cream"] .header-banner::before,
+html.warm-cream .header-banner::before {
+  background: radial-gradient(circle, rgba(225, 168, 55, 0.18) 0%, rgba(141, 122, 2, 0.08) 60%, transparent 100%) !important;
+}
+
+.brand-icon {
+  background: linear-gradient(135deg, #E1A837 0%, #8D7A02 100%) !important;
+  color: #121104 !important;
+  box-shadow: 0 4px 14px rgba(225, 168, 55, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="light"] .brand-icon,
+[data-theme="warm-cream"] .brand-icon,
+html.warm-cream .brand-icon {
+  color: #FFFDF8 !important;
+  box-shadow: 0 4px 14px rgba(225, 168, 55, 0.28) !important;
+}
+
+/* Stat Cards in Banner */
+.stat-box {
+  background: rgba(28, 27, 5, 0.75) !important;
+  border: 1px solid rgba(141, 122, 2, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+}
+.stat-box i {
+  color: #E1A837 !important;
+}
+
+[data-theme="light"] .stat-box,
+[data-theme="warm-cream"] .stat-box,
+html.warm-cream .stat-box {
+  background: rgba(255, 253, 248, 0.95) !important;
+  border: 1.5px solid #E2D1B3 !important;
+}
+[data-theme="light"] .stat-box i,
+[data-theme="warm-cream"] .stat-box i,
+html.warm-cream .stat-box i {
+  color: #D97706 !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   5. CONTROLS, SEARCH & VIEW SWITCHER
+   ────────────────────────────────────────────────────────────────────────── */
+.controls-panel {
+  background: var(--bg-secondary) !important;
+  border: 1.5px solid var(--border-color) !important;
+}
+
+.search-input {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+.search-input:focus {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(225, 168, 55, 0.25) !important;
+}
+
+.view-switcher {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-color) !important;
+}
+
+.view-btn.active {
+  background: #E1A837 !important;
+  color: #121104 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(225, 168, 55, 0.4) !important;
+}
+[data-theme="light"] .view-btn.active,
+[data-theme="warm-cream"] .view-btn.active,
+html.warm-cream .view-btn.active {
+  color: #38370D !important;
+}
+
+/* Alphabet Filter Pills */
+.pill-btn {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-muted) !important;
+}
+.pill-btn:hover {
+  border-color: var(--accent-primary) !important;
+  color: var(--text-main) !important;
+}
+.pill-btn.active {
+  background: #E1A837 !important;
+  border-color: #8D7A02 !important;
+  color: #121104 !important;
+  font-weight: 800 !important;
+}
+[data-theme="light"] .pill-btn.active,
+[data-theme="warm-cream"] .pill-btn.active,
+html.warm-cream .pill-btn.active {
+  color: #38370D !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   6. CARDS, GLOSSARY & VOCABULARY TILES
+   ────────────────────────────────────────────────────────────────────────── */
+.vocab-card,
+.card,
+.module-card,
+.confused-card,
+.phrase-card,
+.idiom-card {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.vocab-card:hover,
+.card:hover,
+.module-card:hover,
+.confused-card:hover,
+.phrase-card:hover,
+.idiom-card:hover {
+  border-color: var(--accent-primary) !important;
+  box-shadow: var(--shadow-lg), 0 0 16px rgba(225, 168, 55, 0.12) !important;
+}
+
+/* Word ID & Badges */
+.word-id-pill {
+  background: rgba(225, 168, 55, 0.16) !important;
+  color: #FBBF24 !important;
+  border: 1px solid rgba(225, 168, 55, 0.25) !important;
+}
+[data-theme="light"] .word-id-pill,
+[data-theme="warm-cream"] .word-id-pill,
+html.warm-cream .word-id-pill {
+  color: #8D7A02 !important;
+  border-color: rgba(141, 122, 2, 0.3) !important;
+}
+
+.word-pos-tag {
+  color: var(--accent-secondary) !important;
+  background: rgba(192, 132, 252, 0.14) !important;
+  border: 1px solid rgba(192, 132, 252, 0.22) !important;
+}
+
+.hindi-meaning-badge {
+  background: rgba(225, 168, 55, 0.16) !important;
+  color: var(--text-hindi) !important;
+  border: 1px solid rgba(225, 168, 55, 0.28) !important;
+}
+
+/* Mnemonic Memory Boxes */
+.mnemonic-box {
+  background: rgba(28, 27, 5, 0.8) !important;
+  border-left: 4px solid #E1A837 !important;
+  color: var(--text-main) !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-right: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+[data-theme="light"] .mnemonic-box,
+[data-theme="warm-cream"] .mnemonic-box,
+html.warm-cream .mnemonic-box {
+  background: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  border-left: 4px solid #D97706 !important;
+}
+
+/* Example Sentences */
+.example-section {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-left: 3px solid rgba(141, 122, 2, 0.5) !important;
+}
+[data-theme="light"] .example-section,
+[data-theme="warm-cream"] .example-section,
+html.warm-cream .example-section {
+  background: rgba(246, 235, 212, 0.5) !important;
+  border-left: 3px solid #8D7A02 !important;
+}
+
+/* Synonym Pills */
+.syno-pill {
+  background: rgba(225, 168, 55, 0.12) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Master Table Styling */
+.master-table th {
+  background: var(--bg-secondary) !important;
+  color: var(--accent-primary) !important;
+  border-bottom: 2px solid var(--border-color) !important;
+}
+.master-table tr:hover td {
+  background: var(--bg-card-hover) !important;
+}
+
+/* Quiz & Practice Zone */
+.quiz-option {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+.quiz-option:hover {
+  border-color: var(--accent-primary) !important;
+  background: var(--bg-card-hover) !important;
+}
+.quiz-option.selected {
+  border-color: #E1A837 !important;
+  background: rgba(225, 168, 55, 0.15) !important;
+}
+.quiz-option.correct {
+  border-color: #22C55E !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+}
+.quiz-option.wrong {
+  border-color: #F87171 !important;
+  background: rgba(248, 113, 113, 0.15) !important;
+}
+
+/* Buttons */
+.btn-action,
+.theme-toggle {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+.btn-action:hover,
+.theme-toggle:hover {
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+}

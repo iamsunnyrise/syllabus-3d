@@ -162,7 +162,7 @@ interface SscSpecialVocabViewProps {
 export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
   initialModuleId = 'practice_zone'
 }) => {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark, theme, toggleTheme } = useTheme();
   const [activeModuleId, setActiveModuleId] = useState<string>(initialModuleId);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [searchFilter, setSearchFilter] = useState('');
@@ -187,31 +187,37 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
 
   // Sync theme to a specific iframe or all loaded iframes
   const syncThemeToFrames = useCallback(() => {
-    const theme = isDark ? 'dark' : 'light';
+    const targetTheme = isDark ? 'dark' : (theme === 'warm-cream' ? 'warm-cream' : 'light');
     Object.keys(iframeRefs.current).forEach(modId => {
       try {
         const iframe = iframeRefs.current[modId];
-        if (!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
+        if (!iframe || !iframe.contentWindow) return;
 
-        const frameDoc = iframe.contentWindow.document.documentElement;
-        if (
-          (iframe.contentWindow as any).toggleTheme &&
-          typeof (iframe.contentWindow as any).toggleTheme === 'function'
-        ) {
-          const frameTheme = frameDoc.getAttribute('data-theme') || 'dark';
-          if (frameTheme !== theme) {
-            (iframe.contentWindow as any).toggleTheme();
+        // 1. Post message for cross-context theme synchronization
+        iframe.contentWindow.postMessage({ type: 'THEME_SYNC', theme: targetTheme }, '*');
+
+        // 2. Direct DOM sync (same-origin iframe)
+        if (iframe.contentWindow.document) {
+          const frameDoc = iframe.contentWindow.document.documentElement;
+          frameDoc.setAttribute('data-theme', targetTheme);
+          if (isDark) {
+            frameDoc.classList.add('dark');
+            frameDoc.classList.remove('warm-cream', 'light');
+          } else {
+            frameDoc.classList.add('warm-cream', 'light');
+            frameDoc.classList.remove('dark');
           }
-        } else {
-          frameDoc.setAttribute('data-theme', theme);
+          if ((iframe.contentWindow as any).__applyWebsiteTheme) {
+            (iframe.contentWindow as any).__applyWebsiteTheme(targetTheme);
+          }
         }
       } catch {}
     });
-  }, [isDark]);
+  }, [isDark, theme]);
 
   useEffect(() => {
     syncThemeToFrames();
-  }, [isDark, syncThemeToFrames]);
+  }, [isDark, theme, syncThemeToFrames]);
 
   // Preload secondary high-yield module in background after 400ms idle
   useEffect(() => {
@@ -377,16 +383,16 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
 
   // Render the iframe canvas: contains all cached iframes (active shown, inactive hidden)
   const renderIframeCanvas = (isFs: boolean) => (
-    <div className={`relative w-full max-w-full h-full bg-[#090D16] overflow-hidden ${isFs ? '' : 'rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-lg'}`}>
+    <div className={`relative w-full max-w-full h-full bg-[#FAEED9] dark:bg-[#121104] overflow-hidden ${isFs ? '' : 'rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-lg'}`}>
       {/* Loading Overlay */}
       {isCurrentLoading && (
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-[#090D16]/95 backdrop-blur-xs space-y-3">
-          <div className="w-10 h-10 border-4 border-pink-500/20 border-t-pink-500 rounded-full animate-spin" />
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-[#FAEED9]/95 dark:bg-[#121104]/95 backdrop-blur-xs space-y-3">
+          <div className="w-10 h-10 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
           <div className="text-center px-4">
-            <p className="text-sm font-bold text-white tracking-wide">
+            <p className="text-sm font-bold text-slate-900 dark:text-white tracking-wide">
               Loading {activeModule.shortTitle}...
             </p>
-            <p className="text-xs text-slate-400 mt-0.5">{activeModule.hindiTitle}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{activeModule.hindiTitle}</p>
           </div>
         </div>
       )}
@@ -406,7 +412,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
             src={`/ssc-vocab/${mod.fileName}`}
             title={mod.title}
             onLoad={() => handleIframeLoaded(mod.id)}
-            className="w-full max-w-full h-full border-0 bg-[#090D16]"
+            className="w-full max-w-full h-full border-0 bg-[#FAEED9] dark:bg-[#121104]"
             style={{
               display: isCurrent ? 'block' : 'none',
               width: '100%',
@@ -432,7 +438,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
         <div className="flex flex-col gap-4 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-sky-500/20 border border-pink-500/30 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 via-purple-500/20 to-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold shadow-xs">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <div>
@@ -440,7 +446,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
                   <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                     SSC Special English Mastery
                   </h2>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30">
                     EXCLUSIVE NOTES
                   </span>
                 </div>
@@ -455,7 +461,7 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
                 value={searchFilter}
                 onChange={e => setSearchFilter(e.target.value)}
                 placeholder="Search module..."
-                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-pink-500"
+                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
               />
             </div>
           </div>
@@ -473,8 +479,8 @@ export const SscSpecialVocabView: React.FC<SscSpecialVocabViewProps> = ({
                   onClick={() => handleSelectModule(mod.id)}
                   className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
                     isActive
-                      ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-md border-transparent font-black ring-2 ring-pink-500/40'
-                      : 'bg-slate-50 dark:bg-[#151726] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-pink-500/40 hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                      ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-md border-transparent font-black ring-2 ring-amber-500/50'
+                      : 'bg-slate-50 dark:bg-[#151726] text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-white/10 hover:border-amber-500/40 hover:bg-slate-100 dark:hover:bg-white/[0.04]'
                   }`}
                 >
                   <Icon

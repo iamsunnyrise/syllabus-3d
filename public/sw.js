@@ -30,6 +30,8 @@ const PRECACHE_ASSETS = [
   'study-tools-ga/polity/president_and_vice_president.html',
   'study-tools-ga/polity/parliament_part_1.html',
   'study-tools-ga/polity/parliament_part_2.html',
+  'ssc-vocab/theme-sync.css',
+  'ssc-vocab/theme-sync.js',
   'ssc-vocab/vocabulary_mastery_457.html',
   'ssc-vocab/phrasal_verbs_mastery.html',
   'ssc-vocab/idioms_mastery_notes.html',
