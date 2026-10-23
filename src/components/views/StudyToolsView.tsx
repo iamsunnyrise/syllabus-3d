@@ -800,7 +800,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [gaSubject, gaSearch]);
 
   return (
-    <div className="w-full max-w-[1650px] mx-auto space-y-5 sm:space-y-6 pb-32 sm:pb-16 pt-1 sm:pt-2 px-2.5 sm:px-4 animate-view-fade">
+    <div className="w-full max-w-[1920px] mx-auto space-y-5 sm:space-y-6 pb-32 sm:pb-16 pt-1 sm:pt-2 px-2.5 sm:px-4 lg:px-6 animate-view-fade">
       
       {/* 🌟 Top Hero Portal Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-4 sm:p-8 shadow-xs">

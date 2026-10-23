@@ -559,7 +559,7 @@ export const CalculationBoosterSubtraction: React.FC = () => {
   }, [weakPairs]);
 
   return (
-    <div className="space-y-6 w-full max-w-7xl mx-auto">
+    <div className="w-full space-y-6 animate-fade-in pb-12">
       {/* =========================================================
           TOP HERO: LEVEL, XP, STREAK, AND PROFILE STATS
           ========================================================= */}
