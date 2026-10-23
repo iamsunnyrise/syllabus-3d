@@ -816,11 +816,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="hidden sm:inline">Vocabulary</span>
               <span className="sm:hidden">Vocab</span>
-              <span className={`hidden xs:inline-block px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold ${
-                activeTab === 'vocab' ? 'bg-black/15 text-slate-950' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
-              }`}>
-                {DEFAULT_VOCAB_DATA.length}
-              </span>
             </button>
 
             <button
@@ -840,11 +835,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
               <span className="hidden sm:inline">Calculation Booster</span>
               <span className="sm:hidden">Math Booster</span>
-              <span className={`hidden md:inline-block px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                activeTab === 'maths' ? 'bg-white/20 text-white' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
-              }`}>
-                7 Tools
-              </span>
             </button>
 
             <button
@@ -864,11 +854,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="hidden sm:inline">General Awareness</span>
               <span className="sm:hidden">GA Notes</span>
-              <span className={`hidden md:inline-block px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                activeTab === 'ga' ? 'bg-white/20 text-white' : 'bg-white dark:bg-white/15 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5'
-              }`}>
-                {GA_TOPICS.length}
-              </span>
             </button>
           </div>
         </div>
