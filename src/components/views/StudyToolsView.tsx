@@ -861,7 +861,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   ? 'bg-black/20 text-slate-950 font-black'
                   : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
               }`}>
-                519 Groups
+                603 Groups
               </span>
             </button>
 
