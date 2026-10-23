@@ -1833,7 +1833,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'maths' && (
         <div className="space-y-6 animate-fade-in">
               {/* Calculation Booster Tool Sub-Navigation */}
-              <div className="flex items-center p-1.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto no-scrollbar scrollbar-none">
+              <div className="flex items-center p-1.5 pb-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto visible-pill-scrollbar-indigo">
                 <button
                   type="button"
                   onClick={() => {

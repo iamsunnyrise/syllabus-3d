@@ -2822,6 +2822,39 @@ html:not(.warm-cream) .study-hub-hero-banner .study-hub-pill-badge {
   background: rgba(16, 185, 129, 1);
 }
 
+.visible-pill-scrollbar-indigo {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.6) rgba(0, 0, 0, 0.06);
+}
+.dark .visible-pill-scrollbar-indigo {
+  scrollbar-color: rgba(129, 140, 248, 0.7) rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar-indigo::-webkit-scrollbar {
+  height: 6px !important;
+  display: block !important;
+}
+.visible-pill-scrollbar-indigo::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 9999px;
+  margin: 0 4px;
+}
+.dark .visible-pill-scrollbar-indigo::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.visible-pill-scrollbar-indigo::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.7);
+  border-radius: 9999px;
+}
+.dark .visible-pill-scrollbar-indigo::-webkit-scrollbar-thumb {
+  background: rgba(129, 140, 248, 0.7);
+}
+.visible-pill-scrollbar-indigo::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 1);
+}
+.dark .visible-pill-scrollbar-indigo::-webkit-scrollbar-thumb:hover {
+  background: rgba(129, 140, 248, 1);
+}
+
 .pb-safe {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
