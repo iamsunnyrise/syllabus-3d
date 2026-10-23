@@ -9285,7 +9285,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The teacher read an inspiring excerpt from Dr. Kalam's autobiography Wings of Fire.",
     "mnemonic": "Extra Part -> Excerpt (किताब से निकाला गया खास अंश)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9354,7 +9354,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The scholar offered an insightful exegesis of ancient Vedic hymns.",
     "mnemonic": "Explain करने वाली thesis -> Exegesis.",
-    "frequency": "High-Yield",
+    "frequency": "High",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9427,7 +9427,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The sudden industrial closure led to a mass exodus of migrant workers to their hometowns.",
     "mnemonic": "जब एक साथ दस (Ex-दस) लोग निकले -> सामूहिक प्रस्थान (Exodus)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9464,7 +9464,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "Fresh DNA forensic findings completely exonerated the falsely accused suspect.",
     "mnemonic": "Ex को honour के साथ free (Exonerate) कर दिया।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9501,7 +9501,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The roadside restaurant charged an exorbitant fee for ordinary bottled mineral water.",
     "mnemonic": "Ex + orbit -> जो बजट की orbit से बाहर निकल जाए, वह Exorbitant है।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9643,7 +9643,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "He spent decades serving at the orphanage to expiate the mistakes of his reckless youth.",
     "mnemonic": "Extra peace पाने के लिए अपनी गलतियों का Expiate (प्रायश्चित) करना पड़ता है।",
-    "frequency": "High-Yield",
+    "frequency": "High",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9715,7 +9715,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "His extempore address at the youth symposium captivated the entire auditorium.",
     "mnemonic": "Extra time लिए बिना दिया गया भाषण -> Extempore.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9787,7 +9787,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The local gangster attempted to extort protection money from small shopkeepers.",
     "mnemonic": "Ex को torture करके जबरन वसूली (Extort) करना।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9824,7 +9824,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "His extravagant lifestyle led to severe financial distress despite his lucrative income.",
     "mnemonic": "Extra Bag लेकर गधा ज्यादा खर्च (Extravagant) करता है।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9898,7 +9898,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "It is a dangerous fallacy to assume that rapid reading equates to deep comprehension.",
     "mnemonic": "Daily नई-नई Fallacy (भ्रांति) बाज़ार में फैलाई जाती है।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9934,7 +9934,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The National Archives displayed an exquisite facsimile of the original Constitution draft.",
     "mnemonic": "Fake file जो एकदम Similar (Facsimile) दिखे।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -9970,7 +9970,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "Human memory is fallible, which is why making organized handwritten notes is essential.",
     "mnemonic": "हर इंसान कभी न कभी fall (गलती) कर सकता है, इसलिए Fallible है।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10041,7 +10041,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The political fanatic refused to engage in rational debate or acknowledge verified facts.",
     "mnemonic": "जो किसी का अंधा Fan बनकर सीमा पार अटक जाए -> Fanatic (कट्टर)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10078,7 +10078,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The head chef was fastidious about culinary cleanliness and plate presentation.",
     "mnemonic": "Fast रखने वाले लोग खाने-पीने की चीज़ों में बहुत Fastidious (नखरे दिखाने वाले) होते हैं।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10115,7 +10115,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "Driving at high speed without a seatbelt can prove fatal in head-on collisions.",
     "mnemonic": "कातिल का हमला हमेशा Fatal (घातक/जानलेवा) होता है।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10189,7 +10189,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The civil committee evaluated whether building an overhead bypass bridge was financially feasible.",
     "mnemonic": "Fee + easy + able -> जिसका खर्च आसानी से वहन कर संभव बनाया जा सके (Feasible)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10364,7 +10364,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "A bitter land feud between the two aristocratic families dragged on for four generations.",
     "mnemonic": "चल फुट यहाँ से -> इसी बात पर खानदानी Feud (दुश्मनी) शुरू हो गई।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10438,7 +10438,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The loyal guard was commended for his unwavering fidelity to the royal family.",
     "mnemonic": "Friend वाली सबसे बड़ी ability = Fidelity (वफ़ादारी/निष्ठा)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10583,7 +10583,7 @@ export const LEVEL_1_SET_03_OWS: VocabItem[] = [
     ],
     "example": "The rock musician was renowned for his flamboyant onstage costumes and guitar pyrotechnics.",
     "mnemonic": "Flame (आग) जैसा चमकने वाला Boy -> Flamboyant (भड़कीला/शानदार)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10838,7 +10838,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The forensic detective proved that the signature on the bank deed was an outright forgery.",
     "mnemonic": "फ़र्ज़ी दस्तावेज़ और जाली दस्तखत बनाना -> Forgery.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10875,7 +10875,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Her forthright critique of administrative mismanagement earned deep public respect.",
     "mnemonic": "जो हमेशा Right बात के लिए सीधा बोले -> Forthright.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -10944,7 +10944,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Their fortuitous encounter at the educational seminar laid the cornerstone of a successful start-up.",
     "mnemonic": "Fortune (किस्मत) पर निर्भर अचानक हुआ संयोग -> Fortuitous.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11017,7 +11017,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Interpol issued an international Red Corner notice to capture the economic fugitive.",
     "mnemonic": "फ़ौजी और पुलिस को देखते ही फुर्र हो जाने वाला -> Fugitive (भगोड़ा)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11195,7 +11195,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The gallant soldier was posthumously decorated with the Param Vir Chakra for exemplary valor.",
     "mnemonic": "Gun लेकर मातृभूमि (Land) की रक्षा करने वाला वीर -> Gallant.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11268,7 +11268,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Her opening gambit in the salary negotiation took the management entirely by surprise.",
     "mnemonic": "Game में Bet लगाकर सोची-समझी चाल चलना -> Gambit.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11341,7 +11341,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Due to poor radio reception, the distress message received by the coastguard was completely garbled.",
     "mnemonic": "संदेश में गड़बड़ हो जाना -> Garbled.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11516,7 +11516,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Daily flossing and regular dental cleanings prevent the onset of painful gingivitis.",
     "mnemonic": "Gums में swelling (Inflammation) होना -> Gingivitis.",
-    "frequency": "High-Yield",
+    "frequency": "High",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11548,7 +11548,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The school summoned a skilled glazier to replace the shattered library window panes.",
     "mnemonic": "Glass लगाने और ठीक करने वाला मिस्त्री -> Glazier.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11581,7 +11581,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Refer to the comprehensive glossary at the back of the physics textbook for definition of terms.",
     "mnemonic": "कांच (Glass) की तरह शब्दों का अर्थ साफ कर देने वाली सूची -> Glossary.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11684,7 +11684,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "As an unrepentant gourmand, he traveled across Europe sampling regional delicacies.",
     "mnemonic": "घर में मन भर के खाने वाला शौकीन इंसान -> Gourmand.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11718,7 +11718,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The metro rail boundary walls were brightly decorated with spray-painted anti-pollution graffiti.",
     "mnemonic": "Graph-City -> शहर की दीवारों पर बने चित्र यानी Graffiti.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11787,7 +11787,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The digital mock test analysis was provided gratis to all enrolled aspirants.",
     "mnemonic": "Gift is always Gratis (मुफ़्त/निःशुल्क).",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11856,7 +11856,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Elephants are highly gregarious creatures that thrive in closely bonded family herds.",
     "mnemonic": "Group में रहने वाला मिलनसार व्यक्ति -> Gregarious.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -11892,7 +11892,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The fraudulent telemarketer preyed on gullible senior citizens.",
     "mnemonic": "गली का भोला-भाला बच्चा जो सबकी बातों में आ जाए -> Gullible.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -12029,7 +12029,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "A sleek black hearse led the solemn funeral procession towards the cemetery.",
     "mnemonic": "फ़र्श से अर्श का अंतिम सफ़र कराने वाली गाड़ी -> Hearse.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -12135,7 +12135,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "The political orator subjected the restless crowd to an hour-long harangue.",
     "mnemonic": "भड़काऊ भाषण जिससे हर अंग उत्तेजित हो जाए -> Harangue.",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -12206,7 +12206,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Disorderly protestors attempted to heckle the minister throughout his keynote address.",
     "mnemonic": "Tackle with loud words -> Heckle (बोलते हुए वक्ता को टोकना)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -12241,7 +12241,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "Unlike his frugal business partner, he lived as an unapologetic hedonist indulging in luxury.",
     "mnemonic": "Hey Don, you only enjoy life -> सुखवादी (Hedonist)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
@@ -12380,7 +12380,7 @@ export const LEVEL_1_SET_04_OWS: VocabItem[] = [
     ],
     "example": "In the comedic play, the protagonist portrayed a comically henpecked husband.",
     "mnemonic": "मुर्गी (Hen) की चोंच के डर से दबे रहना -> जोरू का गुलाम (Henpecked)।",
-    "frequency": "Most Repeated",
+    "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
       "CHSL",
