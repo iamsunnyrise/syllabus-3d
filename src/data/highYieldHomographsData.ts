@@ -1,9 +1,9 @@
 // ============================================================================
 // HIGH-YIELD HOMOGRAPHS (समान वर्तनी, भिन्न अर्थ)
 // Curated for SSC CGL, CHSL, CPO, CDS, NDA & Banking Exams
-// Source: RBE Officer Batch (Shubham Jain) - Complete Parts 1, 2, 3 & 4 (1 to 807)
-// Total Groups: 342
-// Total Entries: 809
+// Source: RBE Officer Batch (Shubham Jain) - Complete Parts 1 to 5 (1 to 1000)
+// Total Groups: 429
+// Total Entries: 1002
 // ============================================================================
 
 export interface HomographSense {
@@ -10377,6 +10377,60 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
   },
   {
     "id": "hg-group-338",
+    "word": "Naught",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-naught-1",
+        "sno": 830,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Nothing; zero",
+        "hindiMeaning": "शून्य / कुछ नहीं",
+        "englishSentence": "All his efforts came to naught.",
+        "hindiSentence": "उसकी सभी कोशिशें शून्य हो गईं।"
+      },
+      {
+        "id": "hg-naught-2",
+        "sno": 831,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Worthless; of no value",
+        "hindiMeaning": "बेकार / व्यर्थ",
+        "englishSentence": "His excuses were naught.",
+        "hindiSentence": "उसके बहाने बेकार थे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-339",
+    "word": "Navel",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-navel-1",
+        "sno": 818,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person’s belly button",
+        "hindiMeaning": "नाभि",
+        "englishSentence": "His navel was pierced.",
+        "hindiSentence": "उसकी नाभि छिदी हुई थी।"
+      },
+      {
+        "id": "hg-navel-2",
+        "sno": 819,
+        "partOfSpeech": "Noun (Geology)",
+        "posCategory": "noun",
+        "englishMeaning": "A central point or nucleus",
+        "hindiMeaning": "केंद्र बिंदु",
+        "englishSentence": "The city is the navel of the region.",
+        "hindiSentence": "शहर इस क्षेत्र का केंद्र बिंदु है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-340",
     "word": "Near",
     "sensesCount": 2,
     "senses": [
@@ -10403,7 +10457,88 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-339",
+    "id": "hg-group-341",
+    "word": "Neat",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-neat-1",
+        "sno": 810,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Tidy and well arranged",
+        "hindiMeaning": "साफ-सुथरा",
+        "englishSentence": "Keep your desk neat.",
+        "hindiSentence": "अपनी मेज़ साफ-सुथरी रखें।"
+      },
+      {
+        "id": "hg-neat-2",
+        "sno": 811,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "(of a drink) without any mixer",
+        "hindiMeaning": "सीधे / बिना मिलावट",
+        "englishSentence": "He prefers whiskey neat.",
+        "hindiSentence": "वह बिना मिलावट व्हिस्की पसंद करता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-342",
+    "word": "Needle",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-needle-1",
+        "sno": 822,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A slender, pointed implement for sewing",
+        "hindiMeaning": "सिलाई की सुई",
+        "englishSentence": "Thread the needle carefully.",
+        "hindiSentence": "सुई में ध्यान से धागा डालें।"
+      },
+      {
+        "id": "hg-needle-2",
+        "sno": 823,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To tease or provoke someone (informal)",
+        "hindiMeaning": "चिढ़ाना / उकसाना",
+        "englishSentence": "He needled his brother about his new haircut.",
+        "hindiSentence": "वह अपने भाई को नए हेयरकट के लिए चिढ़ा रहा था।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-343",
+    "word": "Nerve",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nerve-1",
+        "sno": 812,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A bundle of fibers transmitting impulses",
+        "hindiMeaning": "तंत्रिका / नस",
+        "englishSentence": "He damaged a nerve in his hand.",
+        "hindiSentence": "उसने अपने हाथ में एक तंत्रिका को चोट पहुँचाई।"
+      },
+      {
+        "id": "hg-nerve-2",
+        "sno": 813,
+        "partOfSpeech": "Noun (Figurative)",
+        "posCategory": "noun",
+        "englishMeaning": "Courage or boldness",
+        "hindiMeaning": "साहस / हिम्मत",
+        "englishSentence": "It took nerve to stand up and speak.",
+        "hindiSentence": "बोलने के लिए हिम्मत चाहिए थी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-344",
     "word": "Nest",
     "sensesCount": 2,
     "senses": [
@@ -10430,7 +10565,142 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-340",
+    "id": "hg-group-345",
+    "word": "Nestle",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nestle-1",
+        "sno": 820,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To settle or lie comfortably within or against something",
+        "hindiMeaning": "आराम से स्थित होना",
+        "englishSentence": "The cabin nestles in the valley.",
+        "hindiSentence": "केबिन घाटी में आराम से स्थित है।"
+      },
+      {
+        "id": "hg-nestle-2",
+        "sno": 821,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cuddle or snuggle",
+        "hindiMeaning": "गले लगाना / सिमटना",
+        "englishSentence": "The child nestles against her mother.",
+        "hindiSentence": "बच्चा अपनी माँ के गले में सिमट गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-346",
+    "word": "Net",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-net-1",
+        "sno": 839,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A mesh fabric used for catching or filtering",
+        "hindiMeaning": "जाल",
+        "englishSentence": "Cast the net into the water.",
+        "hindiSentence": "जाल को पानी में फेंको।"
+      },
+      {
+        "id": "hg-net-2",
+        "sno": 840,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Income remaining after deductions (net profit)",
+        "hindiMeaning": "शुद्ध आय",
+        "englishSentence": "Their net last year was ₹2 lakhs.",
+        "hindiSentence": "उनकी पिछले साल की शुद्ध आय ₹2 लाख थी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-347",
+    "word": "Nettle",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nettle-1",
+        "sno": 835,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A stinging plant of the genus Urtica",
+        "hindiMeaning": "बिच्छू पौधा / कंडाली",
+        "englishSentence": "He brushed against a patch of nettles.",
+        "hindiSentence": "वह बिच्छू पौधों के पास से गुजर गया।"
+      },
+      {
+        "id": "hg-nettle-2",
+        "sno": 836,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To irritate or provoke",
+        "hindiMeaning": "चिढ़ाना / परेशान करना",
+        "englishSentence": "His careless remarks nettled her deeply.",
+        "hindiSentence": "उसकी लापरवाही वाली टिप्पणियों ने उसे गहराई से चिढ़ाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-348",
+    "word": "Nib",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nib-1",
+        "sno": 816,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The pointed end of a pen",
+        "hindiMeaning": "कलम का निब",
+        "englishSentence": "The fountain pen’s nib was gold-plated.",
+        "hindiSentence": "फाउंटेन पेन का निब स्वर्ण-परत वाला था।"
+      },
+      {
+        "id": "hg-nib-2",
+        "sno": 817,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cut or shape into a nib",
+        "hindiMeaning": "निब बनाना / नोक तराशना",
+        "englishSentence": "He nibbed the wood to form a join.",
+        "hindiSentence": "उसने जोड़ बनाने के लिए लकड़ी पर निब बनाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-349",
+    "word": "Niche",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-niche-1",
+        "sno": 824,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A shallow recess in a wall, typically for a statue",
+        "hindiMeaning": "दीवार की कोठरी / आला",
+        "englishSentence": "A statue stood in the garden’s stone niche.",
+        "hindiSentence": "बगीचे की पत्थर की कोठरी में एक मूर्ति खड़ी थी।"
+      },
+      {
+        "id": "hg-niche-2",
+        "sno": 825,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A comfortable or suitable position in life or work",
+        "hindiMeaning": "अनुकूल स्थान / उपयुक्त क्षेत्र",
+        "englishSentence": "She found her niche in teaching foreign languages.",
+        "hindiSentence": "उसे विदेशी भाषाएं सिखाने में अनुकूल स्थान मिला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-350",
     "word": "Nick",
     "sensesCount": 2,
     "senses": [
@@ -10457,7 +10727,243 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-341",
+    "id": "hg-group-351",
+    "word": "Nickel",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nickel-1",
+        "sno": 814,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A silvery-white metal",
+        "hindiMeaning": "निकल (धातु)",
+        "englishSentence": "The statue is made of pure nickel.",
+        "hindiSentence": "मूर्ति शुद्ध निकल की बनी है।"
+      },
+      {
+        "id": "hg-nickel-2",
+        "sno": 815,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To coat with a thin layer of nickel",
+        "hindiMeaning": "निकल की परत चढ़ाना",
+        "englishSentence": "They nickeled the car rims for shine.",
+        "hindiSentence": "उन्होंने रिम्स को चमक के लिए निकल की परत से ढका।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-352",
+    "word": "Nil",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nil-1",
+        "sno": 826,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The number zero; nothing at all",
+        "hindiMeaning": "शून्य",
+        "englishSentence": "The score remained at two-all, two-nil.",
+        "hindiSentence": "स्कोर दो-दो, दो-शून्य पर स्थिर रहा।"
+      },
+      {
+        "id": "hg-nil-2",
+        "sno": 827,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Having no legal or binding force (archaic usage)",
+        "hindiMeaning": "अमान्य / शून्य",
+        "englishSentence": "The contract was declared nil by the court.",
+        "hindiSentence": "न्यायालय द्वारा अनुबंध को अमान्य घोषित किया गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-353",
+    "word": "None",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-none-1",
+        "sno": 844,
+        "partOfSpeech": "Pronoun",
+        "posCategory": "noun",
+        "englishMeaning": "Not any; no part or share",
+        "hindiMeaning": "कोई नहीं",
+        "englishSentence": "None of the answers were correct.",
+        "hindiSentence": "उत्तरों में से कोई भी सही नहीं था।"
+      },
+      {
+        "id": "hg-none-2",
+        "sno": 845,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "By no means",
+        "hindiMeaning": "बिल्कुल नहीं",
+        "englishSentence": "I can none agree with that view.",
+        "hindiSentence": "मैं उस दृष्टिकोण से बिल्कुल सहमत नहीं हूँ।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-354",
+    "word": "Nook",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-nook-1",
+        "sno": 837,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A corner or recess, especially one offering seclusion",
+        "hindiMeaning": "कोना / नुक्कड़",
+        "englishSentence": "She read her book in a cozy nook by the window.",
+        "hindiSentence": "उसने खिड़की के पास एक आरामदायक नुक्कड़ में किताब पढ़ी।"
+      },
+      {
+        "id": "hg-nook-2",
+        "sno": 838,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Barnes & Noble’s e-reading device",
+        "hindiMeaning": "नूक (ई-रीडर)",
+        "englishSentence": "He bought a Nook to carry his library everywhere.",
+        "hindiSentence": "उसने अपनी पुस्तकालय साथ ले जाने के लिए नूक खरीदा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-355",
+    "word": "Note",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-note-1",
+        "sno": 841,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A brief record or written remark",
+        "hindiMeaning": "नोट / संक्षिप्त टिप्पणी",
+        "englishSentence": "I made a note of the appointment time.",
+        "hindiSentence": "मैंने अपॉइंटमेंट के समय का नोट बनाया।"
+      },
+      {
+        "id": "hg-note-2",
+        "sno": 842,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A musical tone or pitch",
+        "hindiMeaning": "स्वर / सुर",
+        "englishSentence": "She held the final note perfectly.",
+        "hindiSentence": "उसने अंतिम स्वर को पूरी तरह से पकड़ा।"
+      },
+      {
+        "id": "hg-note-3",
+        "sno": 843,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To notice or pay attention to",
+        "hindiMeaning": "ध्यान देना / गौर करना",
+        "englishSentence": "Please note the change in schedule.",
+        "hindiSentence": "कृपया कार्यक्रम में बदलाव पर ध्यान दें।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-356",
+    "word": "Notice",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-notice-1",
+        "sno": 832,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A written or printed announcement",
+        "hindiMeaning": "सूचना / घोषणा",
+        "englishSentence": "There was a notice on the door about the meeting.",
+        "hindiSentence": "बैठक के बारे में दरवाज़े पर सूचना लगी थी।"
+      },
+      {
+        "id": "hg-notice-2",
+        "sno": 833,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Attention taken to something",
+        "hindiMeaning": "ध्यान / गौर",
+        "englishSentence": "She paid no notice to the noise.",
+        "hindiSentence": "उसने शोर पर कोई ध्यान नहीं दिया।"
+      },
+      {
+        "id": "hg-notice-3",
+        "sno": 834,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To become aware of; to observe",
+        "hindiMeaning": "पहचानना / देखना / गौर करना",
+        "englishSentence": "Did you notice the typo in the report?",
+        "hindiSentence": "क्या आपने रिपोर्ट में त्रुटि देखी?"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-357",
+    "word": "Novel",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-novel-1",
+        "sno": 828,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A long fictional narrative",
+        "hindiMeaning": "उपन्यास",
+        "englishSentence": "She’s reading a mystery novel.",
+        "hindiSentence": "वह एक रहस्य उपन्यास पढ़ रही है।"
+      },
+      {
+        "id": "hg-novel-2",
+        "sno": 829,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "New or unusual in an interesting way",
+        "hindiMeaning": "नया / अनोखा",
+        "englishSentence": "They developed a novel approach to solve the problem.",
+        "hindiSentence": "उन्होंने समस्या हल करने के लिए एक अनोखी विधि विकसित की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-358",
+    "word": "Number",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-number-1",
+        "sno": 808,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A quantity or count",
+        "hindiMeaning": "संख्या",
+        "englishSentence": "What is the number of participants?",
+        "hindiSentence": "प्रतिभागियों की संख्या क्या है?"
+      },
+      {
+        "id": "hg-number-2",
+        "sno": 809,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "More numb",
+        "hindiMeaning": "अधिक सुन्न",
+        "englishSentence": "His hand felt number after the injection.",
+        "hindiSentence": "इंजेक्शन के बाद उसका हाथ और सुन्न हो गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-359",
     "word": "Nurse",
     "sensesCount": 2,
     "senses": [
@@ -10484,7 +10990,7 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
     ]
   },
   {
-    "id": "hg-group-342",
+    "id": "hg-group-360",
     "word": "Nut",
     "sensesCount": 2,
     "senses": [
@@ -10507,6 +11013,2039 @@ export const HOMOGRAPHS_DATA: HomographGroup[] = [
         "hindiMeaning": "दीवाना / जुनूनी",
         "englishSentence": "He’s a real baseball nut.",
         "hindiSentence": "वह बेसबॉल का असली दीवाना है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-361",
+    "word": "Oath",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-oath-1",
+        "sno": 864,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A solemn promise",
+        "hindiMeaning": "कसम / शपथ",
+        "englishSentence": "He took an oath to serve his country.",
+        "hindiSentence": "उसने देश की सेवा करने की शपथ ली।"
+      },
+      {
+        "id": "hg-oath-2",
+        "sno": 865,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A curse or profane word",
+        "hindiMeaning": "गाली / अपशब्द",
+        "englishSentence": "The outburst included several oaths.",
+        "hindiSentence": "चिल्लाने में कई गालियाँ शामिल थीं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-362",
+    "word": "Object",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-object-1",
+        "sno": 848,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A thing that can be seen or touched",
+        "hindiMeaning": "वस्तु / चीज़",
+        "englishSentence": "Pick up any object you find.",
+        "hindiSentence": "जो भी वस्तु मिले, उसे उठा लें।"
+      },
+      {
+        "id": "hg-object-2",
+        "sno": 849,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To express disapproval",
+        "hindiMeaning": "आपत्ति करना / विरोध करना",
+        "englishSentence": "They objected to the new rule.",
+        "hindiSentence": "उन्होंने नए नियम पर आपत्ति जताई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-363",
+    "word": "Oblige",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-oblige-1",
+        "sno": 850,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To do someone a favor or service",
+        "hindiMeaning": "एहसान करना / अनुग्रहित करना",
+        "englishSentence": "Could you oblige me with a glass of water?",
+        "hindiSentence": "क्या आप मुझे एक गिलास पानी दे सकते हैं?"
+      },
+      {
+        "id": "hg-oblige-2",
+        "sno": 851,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To make (someone) legally or morally bound",
+        "hindiMeaning": "बाध्य करना",
+        "englishSentence": "The contract obliges you to pay on time.",
+        "hindiSentence": "अनुबंध आपको समय पर भुगतान के लिए बाध्य करता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-364",
+    "word": "Occasion",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-occasion-1",
+        "sno": 846,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A particular time or instance",
+        "hindiMeaning": "अवसर / मौका",
+        "englishSentence": "We’ll meet on that occasion.",
+        "hindiSentence": "हम उस अवसर पर मिलेंगे।"
+      },
+      {
+        "id": "hg-occasion-2",
+        "sno": 847,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cause or bring about",
+        "hindiMeaning": "कारण बनना / उत्पन्न करना",
+        "englishSentence": "The storm occasioned widespread damage.",
+        "hindiSentence": "तूफान ने व्यापक तबाही मचाई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-365",
+    "word": "Occur",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-occur-1",
+        "sno": 870,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To happen or take place",
+        "hindiMeaning": "होना / घटित होना",
+        "englishSentence": "The earthquake occurred at midnight.",
+        "hindiSentence": "भूकंप आधी रात को हुआ।"
+      },
+      {
+        "id": "hg-occur-2",
+        "sno": 871,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To come to mind; be perceived",
+        "hindiMeaning": "याद आना / विचार में आना",
+        "englishSentence": "An idea occurred to her while she was driving.",
+        "hindiSentence": "ड्राइव करते समय उसे एक विचार आया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-366",
+    "word": "Off",
+    "sensesCount": 4,
+    "senses": [
+      {
+        "id": "hg-off-1",
+        "sno": 866,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Away from a place or position",
+        "hindiMeaning": "दूर / हटकर",
+        "englishSentence": "She ran off into the woods.",
+        "hindiSentence": "वह जंगल की ओर भाग गई।"
+      },
+      {
+        "id": "hg-off-2",
+        "sno": 867,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "From; starting at",
+        "hindiMeaning": "से / छूट पर",
+        "englishSentence": "The sale is off Tuesday through Friday.",
+        "hindiSentence": "बिक्री मंगलवार से शुक्रवार तक चलेगी।"
+      },
+      {
+        "id": "hg-off-3",
+        "sno": 868,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Not operating; deactivated",
+        "hindiMeaning": "बंद / निष्क्रिय",
+        "englishSentence": "The server is currently off.",
+        "hindiSentence": "सर्वर अभी बंद है।"
+      },
+      {
+        "id": "hg-off-4",
+        "sno": 869,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A discount or reduction",
+        "hindiMeaning": "छूट",
+        "englishSentence": "The shop offered ten percent off all items.",
+        "hindiSentence": "दुकान ने सभी वस्तुओं पर दस प्रतिशत छूट दी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-367",
+    "word": "Offend",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-offend-1",
+        "sno": 872,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cause hurt feelings; insult",
+        "hindiMeaning": "आहत करना / अपमानित करना",
+        "englishSentence": "He didn’t mean to offend anyone.",
+        "hindiSentence": "उसका उद्देश्य किसी को अपमानित करना नहीं था।"
+      },
+      {
+        "id": "hg-offend-2",
+        "sno": 873,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To commit a crime or violation",
+        "hindiMeaning": "अपराध करना / उल्लंघन करना",
+        "englishSentence": "They offended against the new law.",
+        "hindiSentence": "उन्होंने नए कानून का उल्लंघन किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-368",
+    "word": "Old",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-old-1",
+        "sno": 874,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Having lived for a long time; aged",
+        "hindiMeaning": "बूढ़ा / पुराना",
+        "englishSentence": "She has a picture of her old dog.",
+        "hindiSentence": "उसके पास अपने बूढ़े कुत्ते की तस्वीर है।"
+      },
+      {
+        "id": "hg-old-2",
+        "sno": 875,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An elderly person",
+        "hindiMeaning": "बूढ़े लोग / वृद्ध",
+        "englishSentence": "The shelter cares for the old and infirm.",
+        "hindiSentence": "आश्रय बूढ़ों और दुर्बलों की देखभाल करता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-369",
+    "word": "Olive",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-olive-1",
+        "sno": 876,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small oval fruit used for oil and table consumption",
+        "hindiMeaning": "जैतून",
+        "englishSentence": "He served bread with olives and cheese.",
+        "hindiSentence": "उसने ब्रेड के साथ जैतून और पनीर परोसे।"
+      },
+      {
+        "id": "hg-olive-2",
+        "sno": 877,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "A yellowish-green color",
+        "hindiMeaning": "जैतूनी हरा",
+        "englishSentence": "She chose an olive dress for the event.",
+        "hindiSentence": "उसने कार्यक्रम के लिए जैतूनी हरे रंग की पोशाक चुनी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-370",
+    "word": "On",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-on-1",
+        "sno": 852,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "Physically in contact with and supported by a surface",
+        "hindiMeaning": "पर / ऊपर",
+        "englishSentence": "The book is on the table.",
+        "hindiSentence": "किताब मेज़ पर है।"
+      },
+      {
+        "id": "hg-on-2",
+        "sno": 853,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Functioning; operational",
+        "hindiMeaning": "चालू / सक्रिय",
+        "englishSentence": "The lights are on in every room.",
+        "hindiSentence": "हर कमरे में बत्तियाँ चालू हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-371",
+    "word": "Once",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-once-1",
+        "sno": 854,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "On one occasion; one time only",
+        "hindiMeaning": "एक बार",
+        "englishSentence": "I have only been there once.",
+        "hindiSentence": "मैं वहां केवल एक बार गया हूँ।"
+      },
+      {
+        "id": "hg-once-2",
+        "sno": 855,
+        "partOfSpeech": "Conjunction",
+        "posCategory": "other",
+        "englishMeaning": "As soon as",
+        "hindiMeaning": "जैसे ही",
+        "englishSentence": "Once he arrives, we’ll start.",
+        "hindiSentence": "जैसे ही वह पहुंचता है, हम शुरू करेंगे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-372",
+    "word": "Only",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-only-1",
+        "sno": 856,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Single; sole",
+        "hindiMeaning": "एकमात्र / अकेला",
+        "englishSentence": "He was the only candidate.",
+        "hindiSentence": "वह एकमात्र उम्मीदवार था।"
+      },
+      {
+        "id": "hg-only-2",
+        "sno": 857,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Exclusively; merely",
+        "hindiMeaning": "केवल / सिर्फ",
+        "englishSentence": "I only have ten rupees left.",
+        "hindiSentence": "मेरे पास केवल दस रुपये बचे हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-373",
+    "word": "Organ",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-organ-1",
+        "sno": 878,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A musical instrument with pipes and a keyboard",
+        "hindiMeaning": "ऑर्गन (वाद्य यंत्र)",
+        "englishSentence": "The cathedral’s organ is famous for its sound.",
+        "hindiSentence": "कैथेड्रल का ऑर्गन अपनी ध्वनि के लिए प्रसिद्ध है।"
+      },
+      {
+        "id": "hg-organ-2",
+        "sno": 879,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A part of an organism that performs a specific function",
+        "hindiMeaning": "अंग",
+        "englishSentence": "The liver is a vital organ.",
+        "hindiSentence": "यकृत एक महत्वपूर्ण अंग है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-374",
+    "word": "Out",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-out-1",
+        "sno": 858,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Away from the inside or center",
+        "hindiMeaning": "बाहर",
+        "englishSentence": "She went out of the room.",
+        "hindiSentence": "वह कमरे से बाहर चली गई।"
+      },
+      {
+        "id": "hg-out-2",
+        "sno": 859,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Not in fashion; unfashionable",
+        "hindiMeaning": "फैशन से बाहर",
+        "englishSentence": "Bell-bottom pants are out now.",
+        "hindiSentence": "बेल-बॉटम पैंट्स अब फैशन से बाहर हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-375",
+    "word": "Outline",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-outline-1",
+        "sno": 880,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A general description covering the main points",
+        "hindiMeaning": "रूपरेखा",
+        "englishSentence": "The outline of the speech was given in advance.",
+        "hindiSentence": "भाषण की रूपरेखा पहले प्रदान की गई थी।"
+      },
+      {
+        "id": "hg-outline-2",
+        "sno": 881,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To give a summary or sketch",
+        "hindiMeaning": "संक्षेप में बताना",
+        "englishSentence": "Please outline your plan in three sentences.",
+        "hindiSentence": "कृपया तीन वाक्यों में अपनी योजना संक्षेप में बताएं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-376",
+    "word": "Over",
+    "sensesCount": 4,
+    "senses": [
+      {
+        "id": "hg-over-1",
+        "sno": 860,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "Above; across the top of",
+        "hindiMeaning": "ऊपर / पार से",
+        "englishSentence": "The bird flew over the roof.",
+        "hindiSentence": "पक्षी छत के ऊपर से उड़ गया।"
+      },
+      {
+        "id": "hg-over-2",
+        "sno": 861,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Finished; ended",
+        "hindiMeaning": "समाप्त / खत्म",
+        "englishSentence": "The show is over.",
+        "hindiSentence": "शो खत्म हो गया।"
+      },
+      {
+        "id": "hg-over-3",
+        "sno": 862,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Again; one more time (“do it over”)",
+        "hindiMeaning": "दोबारा / फिर से",
+        "englishSentence": "She asked him to do the task over.",
+        "hindiSentence": "उसने उसे काम को फिर से करने को कहा।"
+      },
+      {
+        "id": "hg-over-4",
+        "sno": 863,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "In cricket, the set of six balls bowled by one bowler",
+        "hindiMeaning": "ओवर (क्रिकेट में छह गेंद)",
+        "englishSentence": "He bowled a maiden over.",
+        "hindiSentence": "उसने एक मेडियन ओवर फेंका।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-377",
+    "word": "Overboard",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-overboard-1",
+        "sno": 882,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Over the side of a boat or ship",
+        "hindiMeaning": "नाव से बाहर / जहाज के पार",
+        "englishSentence": "He fell overboard but was rescued.",
+        "hindiSentence": "वह नाव से बाहर गिर गया, लेकिन बचाया गया।"
+      },
+      {
+        "id": "hg-overboard-2",
+        "sno": 883,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Excessive; going to extremes",
+        "hindiMeaning": "अत्यधिक / अति कर देना",
+        "englishSentence": "She went overboard with decorations.",
+        "hindiSentence": "उसने सजावट में अत्यधिक कर दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-378",
+    "word": "Overlook",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-overlook-1",
+        "sno": 884,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To fail to notice or consider",
+        "hindiMeaning": "अनदेखा करना / नज़रअंदाज़ करना",
+        "englishSentence": "I overlooked a typo in the report.",
+        "hindiSentence": "मैंने रिपोर्ट में एक त्रुटि अनदेखी कर दी।"
+      },
+      {
+        "id": "hg-overlook-2",
+        "sno": 885,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To supervise or oversee",
+        "hindiMeaning": "निरीक्षण करना / देखरेख करना",
+        "englishSentence": "He was asked to overlook the project.",
+        "hindiSentence": "उसे परियोजना का निरीक्षण करने के लिए कहा गया।"
+      },
+      {
+        "id": "hg-overlook-3",
+        "sno": 886,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A high place giving a broad view",
+        "hindiMeaning": "दृश्य बिंदु / ऊँचा नज़ारा स्थल",
+        "englishSentence": "The hill’s overlook offers a stunning panorama.",
+        "hindiSentence": "पहाड़ी का दृश्य बिंदु आश्चर्यजनक दृश्य प्रस्तुत करता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-379",
+    "word": "Owing",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-owing-1",
+        "sno": 887,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Unpaid; due",
+        "hindiMeaning": "बकाया / देय",
+        "englishSentence": "His account shows owing taxes.",
+        "hindiSentence": "उसके खाते में बकाया कर दिख रहा है।"
+      },
+      {
+        "id": "hg-owing-2",
+        "sno": 888,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "Because of (Owing to)",
+        "hindiMeaning": "के कारण",
+        "englishSentence": "Owing to the storm, the flight was delayed.",
+        "hindiSentence": "तूफान के कारण उड़ान में देरी हुई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-380",
+    "word": "Own",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-own-1",
+        "sno": 889,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To possess or have as property",
+        "hindiMeaning": "रखना / स्वामित्व होना",
+        "englishSentence": "She owns three cars.",
+        "hindiSentence": "उसके पास तीन कारें हैं।"
+      },
+      {
+        "id": "hg-own-2",
+        "sno": 890,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Belonging to oneself or itself",
+        "hindiMeaning": "अपना / स्वयं का",
+        "englishSentence": "He prepared his own report.",
+        "hindiSentence": "उसने अपनी ही रिपोर्ट तैयार की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-381",
+    "word": "Pallet",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-pallet-1",
+        "sno": 938,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A flat wooden platform for storage or transport",
+        "hindiMeaning": "तख्ता मंच / पैलेट",
+        "englishSentence": "The boxes were stacked on a pallet.",
+        "hindiSentence": "डिब्बे एक तख्ता मंच पर रखे गए थे।"
+      },
+      {
+        "id": "hg-pallet-2",
+        "sno": 939,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A simple bed or mattress",
+        "hindiMeaning": "साधारण पलंग / गद्देदार बिछौना",
+        "englishSentence": "They slept on wooden pallets during the trip.",
+        "hindiSentence": "उन्होंने यात्रा के दौरान लकड़ी के साधारण पलंग पर सोया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-382",
+    "word": "Park",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-park-1",
+        "sno": 903,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large public green area",
+        "hindiMeaning": "पार्क / उद्यान",
+        "englishSentence": "We had a picnic in the park.",
+        "hindiSentence": "हमने पार्क में पिकनिक मनाया।"
+      },
+      {
+        "id": "hg-park-2",
+        "sno": 904,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To bring a vehicle to a stop and leave it there",
+        "hindiMeaning": "पार्क करना / गाड़ी खड़ी करना",
+        "englishSentence": "She parked her car outside the mall.",
+        "hindiSentence": "उसने मॉल के बाहर अपनी कार पार्क की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-383",
+    "word": "Parrot",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-parrot-1",
+        "sno": 924,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A tropical bird known for mimicking speech",
+        "hindiMeaning": "तोता",
+        "englishSentence": "The parrot repeated every word we said.",
+        "hindiSentence": "तोते ने हमारे हर शब्द की नकल की।"
+      },
+      {
+        "id": "hg-parrot-2",
+        "sno": 925,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To repeat mechanically or mindlessly",
+        "hindiMeaning": "रटना / बिना सोचे दोहराना",
+        "englishSentence": "He just parrots what he hears on TV.",
+        "hindiSentence": "वह बस टीवी पर सुनी बातें बिना सोचे दोहराता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-384",
+    "word": "Past",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-past-1",
+        "sno": 905,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The time before the present",
+        "hindiMeaning": "अतीत / भूतकाल",
+        "englishSentence": "We cannot change the past.",
+        "hindiSentence": "हम अतीत को नहीं बदल सकते।"
+      },
+      {
+        "id": "hg-past-2",
+        "sno": 906,
+        "partOfSpeech": "Preposition",
+        "posCategory": "other",
+        "englishMeaning": "Beyond in position or time",
+        "hindiMeaning": "से परे / अधिक होने पर (बाद)",
+        "englishSentence": "The deadline is past Friday.",
+        "hindiSentence": "समय सीमा शुक्रवार के बाद है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-385",
+    "word": "Patent",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-patent-1",
+        "sno": 907,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A government grant giving exclusive rights to an inventor",
+        "hindiMeaning": "पेटेंट / एकस्व अधिकार",
+        "englishSentence": "She applied for a patent on her new device.",
+        "hindiSentence": "उसने अपने नए यंत्र के लिए पेटेंट के लिए आवेदन किया।"
+      },
+      {
+        "id": "hg-patent-2",
+        "sno": 908,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Obvious or readily apparent",
+        "hindiMeaning": "स्पष्ट / प्रत्यक्ष",
+        "englishSentence": "It was a patent mistake.",
+        "hindiSentence": "यह एक स्पष्ट गलती थी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-386",
+    "word": "Peer",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-peer-1",
+        "sno": 909,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A person of the same age, rank, or ability",
+        "hindiMeaning": "समकक्ष / साथी",
+        "englishSentence": "He’s well respected by his peers.",
+        "hindiSentence": "उसे उसके साथियों द्वारा आदर दिया जाता है।"
+      },
+      {
+        "id": "hg-peer-2",
+        "sno": 910,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To look closely or inquisitively",
+        "hindiMeaning": "झांकना / ध्यान से देखना",
+        "englishSentence": "She peered through the fog.",
+        "hindiSentence": "उसने कोहरे में झाँककर देखा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-387",
+    "word": "Permit",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-permit-1",
+        "sno": 926,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An official document giving permission",
+        "hindiMeaning": "अनुमति-पत्र / परमिट",
+        "englishSentence": "You need a permit to camp here.",
+        "hindiSentence": "यहाँ कैंपिंग के लिए आपको अनुमति-पत्र चाहिए।"
+      },
+      {
+        "id": "hg-permit-2",
+        "sno": 927,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To allow or authorize",
+        "hindiMeaning": "अनुमति देना / मंज़ूरी देना",
+        "englishSentence": "The council permitted outdoor dining.",
+        "hindiSentence": "परिषद ने बाहरी भोजन की अनुमति दी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-388",
+    "word": "Pet",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-pet-1",
+        "sno": 936,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A domesticated animal kept for companionship",
+        "hindiMeaning": "पालतू जानवर",
+        "englishSentence": "They adopted a cat as a pet.",
+        "hindiSentence": "उन्होंने एक बिल्ली को पालतू जानवर के रूप में गोद लिया।"
+      },
+      {
+        "id": "hg-pet-2",
+        "sno": 937,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To stroke or caress gently",
+        "hindiMeaning": "प्यार से सहलाना",
+        "englishSentence": "She petted the dog affectionately.",
+        "hindiSentence": "उसने प्रेम से कुत्ते को सहलाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-389",
+    "word": "Pick",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-pick-1",
+        "sno": 911,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To choose or select",
+        "hindiMeaning": "चुनना",
+        "englishSentence": "Please pick a card from the deck.",
+        "hindiSentence": "कृपया डेक से एक कार्ड चुनें।"
+      },
+      {
+        "id": "hg-pick-2",
+        "sno": 912,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small pointed tool or a thin piece",
+        "hindiMeaning": "पिक / छोटा नुकीला औज़ार",
+        "englishSentence": "He used a pick to loosen the soil.",
+        "hindiSentence": "उसने मिट्टी को ढीला करने के लिए पिक का इस्तेमाल किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-390",
+    "word": "Plate",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-plate-1",
+        "sno": 913,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A flat dish from which food is eaten",
+        "hindiMeaning": "थाली / प्लेट",
+        "englishSentence": "He served salad on a blue plate.",
+        "hindiSentence": "उसने सलाद नीली थाली में परोसा।"
+      },
+      {
+        "id": "hg-plate-2",
+        "sno": 914,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cover with a layer of metal",
+        "hindiMeaning": "प्लेट चढ़ाना / परत चढ़ाना",
+        "englishSentence": "The rims were plated with chrome.",
+        "hindiSentence": "रिम्स पर क्रोम की परत चढ़ाई गई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-391",
+    "word": "Plug",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-plug-1",
+        "sno": 915,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A device for making an electrical connection",
+        "hindiMeaning": "प्लग",
+        "englishSentence": "Make sure the plug is inserted firmly.",
+        "hindiSentence": "सुनिश्चित करें कि प्लग अच्छी तरह से लगा हुआ है।"
+      },
+      {
+        "id": "hg-plug-2",
+        "sno": 916,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To fill a hole or gap",
+        "hindiMeaning": "छेद भरना / बंद करना",
+        "englishSentence": "They plugged the leak in the roof.",
+        "hindiSentence": "उन्होंने छत के रिसाव को भरा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-392",
+    "word": "Police",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-police-1",
+        "sno": 928,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The civil force responsible for law enforcement",
+        "hindiMeaning": "पुलिस / आरक्षी बल",
+        "englishSentence": "The police arrived within minutes of the call.",
+        "hindiSentence": "कॉल के कुछ ही मिनटों में पुलिस पहुँच गई।"
+      },
+      {
+        "id": "hg-police-2",
+        "sno": 929,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To maintain order or enforce regulations",
+        "hindiMeaning": "नियंत्रित करना / निगरानी करना",
+        "englishSentence": "Volunteers policed the event to keep it safe.",
+        "hindiSentence": "स्वयंसेवकों ने कार्यक्रम को सुरक्षित रखने के लिए निगरानी की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-393",
+    "word": "Poll",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-poll-1",
+        "sno": 930,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A survey of public opinion",
+        "hindiMeaning": "जनमत सर्वेक्षण / पोल",
+        "englishSentence": "The poll showed most people support the plan.",
+        "hindiSentence": "सर्वेक्षण से पता चला कि अधिकांश लोग योजना का समर्थन करते हैं।"
+      },
+      {
+        "id": "hg-poll-2",
+        "sno": 931,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The top of the head",
+        "hindiMeaning": "सिर की खोपड़ी / सिर का ऊपरी भाग",
+        "englishSentence": "He was struck on the poll by the cricket ball.",
+        "hindiSentence": "उसे क्रिकेट गेंद से सिर पर चोट लगी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-394",
+    "word": "Port",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-port-1",
+        "sno": 932,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A harbor or town with docks",
+        "hindiMeaning": "बंदरगाह / पत्तन",
+        "englishSentence": "The ship docked at the nearest port.",
+        "hindiSentence": "जहाज़ निकटतम बंदरगाह पर पहुँचा।"
+      },
+      {
+        "id": "hg-port-2",
+        "sno": 933,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To carry or bring to another place",
+        "hindiMeaning": "स्थानांतरित करना / ले जाना",
+        "englishSentence": "They ported the data from the old system.",
+        "hindiSentence": "उन्होंने पुराने सिस्टम से डेटा स्थानांतरित किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-395",
+    "word": "Post",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-post-1",
+        "sno": 917,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Mail or letters carried by postal service",
+        "hindiMeaning": "डाक",
+        "englishSentence": "He received the post this morning.",
+        "hindiSentence": "उसे आज सुबह डाक मिली।"
+      },
+      {
+        "id": "hg-post-2",
+        "sno": 918,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A pole or stake",
+        "hindiMeaning": "खंभा / लट्ठा",
+        "englishSentence": "The fence posts were wooden.",
+        "hindiSentence": "बाड़ के खंभे लकड़ी के थे।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-396",
+    "word": "Pour",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-pour-1",
+        "sno": 919,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cause a liquid to flow from one container into another",
+        "hindiMeaning": "बहाना / उंडेलना / डालना",
+        "englishSentence": "She poured tea into his cup.",
+        "hindiSentence": "उसने उसके कप में चाय डाली।"
+      },
+      {
+        "id": "hg-pour-2",
+        "sno": 920,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "(of rain) to fall heavily",
+        "hindiMeaning": "जमकर गिरना / मूसलाधार बारिश होना",
+        "englishSentence": "It poured all night.",
+        "hindiSentence": "सारी रात तेज़ बारिश हुई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-397",
+    "word": "Present",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-present-1",
+        "sno": 921,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A gift",
+        "hindiMeaning": "उपहार / भेंट",
+        "englishSentence": "He gave her a birthday present.",
+        "hindiSentence": "उसने उसे जन्मदिन का उपहार दिया।"
+      },
+      {
+        "id": "hg-present-2",
+        "sno": 922,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Existing now; current",
+        "hindiMeaning": "वर्तमान / उपस्थित",
+        "englishSentence": "Let’s discuss present conditions.",
+        "hindiSentence": "आइए वर्तमान परिस्थितियों पर चर्चा करें।"
+      },
+      {
+        "id": "hg-present-3",
+        "sno": 923,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To give or show something to someone",
+        "hindiMeaning": "पेश करना / दिखाना / प्रस्तुत करना",
+        "englishSentence": "She presented her findings at the conference.",
+        "hindiSentence": "उसने सम्मेलन में अपने निष्कर्ष पेश किए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-398",
+    "word": "Process",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-process-1",
+        "sno": 934,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A series of actions taken to achieve a result",
+        "hindiMeaning": "प्रक्रिया",
+        "englishSentence": "Quality control is part of the manufacturing process.",
+        "hindiSentence": "निर्माण प्रक्रिया के हिस्से के रूप में गुणवत्ता नियंत्रण होता है।"
+      },
+      {
+        "id": "hg-process-2",
+        "sno": 935,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To perform a series of actions on (data, materials, etc.)",
+        "hindiMeaning": "संसाधित करना / प्रोसेस करना",
+        "englishSentence": "They process the orders within 24 hours.",
+        "hindiSentence": "वे 24 घंटे के भीतर ऑर्डर संसाधित करते हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-399",
+    "word": "Project",
+    "sensesCount": 4,
+    "senses": [
+      {
+        "id": "hg-project-1",
+        "sno": 891,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A planned undertaking",
+        "hindiMeaning": "परियोजना",
+        "englishSentence": "They completed the research project on time.",
+        "hindiSentence": "उन्होंने समय पर शोध परियोजना पूरी की।"
+      },
+      {
+        "id": "hg-project-2",
+        "sno": 892,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A school assignment",
+        "hindiMeaning": "गृहकार्य / प्रोजेक्ट असाइनमेंट",
+        "englishSentence": "My project for school is due Monday.",
+        "hindiSentence": "मेरा स्कूल का गृहकार्य सोमवार तक जमा करना है।"
+      },
+      {
+        "id": "hg-project-3",
+        "sno": 893,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A protruding structure or overhang",
+        "hindiMeaning": "उभरा हुआ भाग",
+        "englishSentence": "The balcony projects over the courtyard.",
+        "hindiSentence": "बालकनी आंगनों पर उभरी हुई है।"
+      },
+      {
+        "id": "hg-project-4",
+        "sno": 894,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To make a public display (e.g., film onto a screen)",
+        "hindiMeaning": "प्रदर्शित करना / प्रक्षेपित करना",
+        "englishSentence": "They projected the movie outdoors.",
+        "hindiSentence": "उन्होंने फिल्म बाहर प्रदर्शित की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-400",
+    "word": "Prop",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-prop-1",
+        "sno": 895,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A support placed under or against something",
+        "hindiMeaning": "सहारा / टेक",
+        "englishSentence": "He used a wedge as a prop to keep the door open.",
+        "hindiSentence": "उसने दरवाज़ा खुला रखने के लिए कील का सहारा लगाया।"
+      },
+      {
+        "id": "hg-prop-2",
+        "sno": 896,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An object used by actors on stage",
+        "hindiMeaning": "मंच वस्तु / प्रोप",
+        "englishSentence": "The actor forgot his prop during the play.",
+        "hindiSentence": "अभिनेता ने नाटक के दौरान अपनी वस्तु भुला दी।"
+      },
+      {
+        "id": "hg-prop-3",
+        "sno": 897,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Short for “property” (theatre technical equipment)",
+        "hindiMeaning": "तकनीकी संपत्ति",
+        "englishSentence": "The stage manager organized all the props.",
+        "hindiSentence": "मंच प्रबंधक ने सभी तकनीकी संपत्ति व्यवस्थित की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-401",
+    "word": "Prospect",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-prospect-1",
+        "sno": 898,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The possibility or likelihood of some future event",
+        "hindiMeaning": "संभावना / आशा",
+        "englishSentence": "The prospect of rain kept us indoors.",
+        "hindiSentence": "बारिश की संभावना ने हमें घर में रोके रखा।"
+      },
+      {
+        "id": "hg-prospect-2",
+        "sno": 899,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A potential customer or candidate",
+        "hindiMeaning": "संभावित ग्राहक / उम्मीदवार",
+        "englishSentence": "Sales reps called every prospect.",
+        "hindiSentence": "सेल्स रेप ने हर संभावित ग्राहक को फोन किया।"
+      },
+      {
+        "id": "hg-prospect-3",
+        "sno": 900,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To explore an area for minerals",
+        "hindiMeaning": "खोज करना (खनिज)",
+        "englishSentence": "They prospected for gold along the river.",
+        "hindiSentence": "उन्होंने नदी किनारे सोना खोजा।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-402",
+    "word": "Protest",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-protest-1",
+        "sno": 901,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A public demonstration of objection",
+        "hindiMeaning": "विरोध प्रदर्शन",
+        "englishSentence": "Thousands joined the protest against the law.",
+        "hindiSentence": "हज़ारों लोग कानून के खिलाफ विरोध प्रदर्शन में शामिल हुए।"
+      },
+      {
+        "id": "hg-protest-2",
+        "sno": 902,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An expression of disapproval",
+        "hindiMeaning": "असहमति की अभिव्यक्ति",
+        "englishSentence": "His harsh words earned him many protests.",
+        "hindiSentence": "उसकी कठोर टिप्पणियों ने कई असहमतियाँ पैदा कीं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-403",
+    "word": "Quack",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quack-1",
+        "sno": 940,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The characteristic sound of a duck",
+        "hindiMeaning": "बतख की कर्कश ध्वनि / क्वैक",
+        "englishSentence": "The duck gave a loud quack.",
+        "hindiSentence": "बतख ने जोरदार कर्कश ध्वनि निकाली।"
+      },
+      {
+        "id": "hg-quack-2",
+        "sno": 941,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A fraudulent or incompetent doctor",
+        "hindiMeaning": "झूठा डॉक्टर / नीम-हकीम / ठग",
+        "englishSentence": "The “doctor” turned out to be a quack.",
+        "hindiSentence": "वह “डॉक्टर” झूठा निकला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-404",
+    "word": "Quad",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quad-1",
+        "sno": 963,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A quadrangle or courtyard",
+        "hindiMeaning": "चौकोर आंगन / अहाता",
+        "englishSentence": "Students gathered in the campus quad at noon.",
+        "hindiSentence": "छात्र दोपहर में कैंपस के चौकोर आंगन में इकट्ठे हुए।"
+      },
+      {
+        "id": "hg-quad-2",
+        "sno": 964,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The quadriceps muscle in the front of the thigh",
+        "hindiMeaning": "जांघ की मांसपेशी (क्वाड्रिसेप्स)",
+        "englishSentence": "He pulled his quad during the sprint.",
+        "hindiSentence": "उसने दौड़ के दौरान अपनी जांघ की मांसपेशी खींच ली।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-405",
+    "word": "Quadrant",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quadrant-1",
+        "sno": 965,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "One of four equal parts of a circle",
+        "hindiMeaning": "वृत्त का एक-चौथाई भाग (चतुर्थांश)",
+        "englishSentence": "Plot the point in the second quadrant.",
+        "hindiSentence": "बिंदु को दूसरे चतुर्थांश में चित्रित करें।"
+      },
+      {
+        "id": "hg-quadrant-2",
+        "sno": 966,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An instrument for measuring angles",
+        "hindiMeaning": "कोण मापक यंत्र / चतुर्थांश यंत्र",
+        "englishSentence": "The sailor used a quadrant to measure the sun’s altitude.",
+        "hindiSentence": "नाविक ने सूर्य की ऊँचाई मापने के लिए कोण यंत्र का उपयोग किया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-406",
+    "word": "Quail",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quail-1",
+        "sno": 942,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A small game bird",
+        "hindiMeaning": "बटेर / कोयलची",
+        "englishSentence": "They hunted quail in the marsh.",
+        "hindiSentence": "उन्होंने दलदली इलाके में बटेर का शिकार किया।"
+      },
+      {
+        "id": "hg-quail-2",
+        "sno": 943,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cower, shrink back in fear",
+        "hindiMeaning": "डर से सिकुड़ जाना / कांपना",
+        "englishSentence": "He quailed at the thought of speaking in public.",
+        "hindiSentence": "भीड़ में बोलने का विचार सुनकर वह डर के मारे सिकुड़ गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-407",
+    "word": "Qualify",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-qualify-1",
+        "sno": 944,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To meet the necessary requirements",
+        "hindiMeaning": "पात्र होना / अहर्ता प्राप्त करना",
+        "englishSentence": "She qualified for the finals.",
+        "hindiSentence": "वह फाइनल में पात्र हो गई।"
+      },
+      {
+        "id": "hg-qualify-2",
+        "sno": 945,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To modify or limit in meaning",
+        "hindiMeaning": "सीमित करना / परिष्कृत करना",
+        "englishSentence": "He qualified his statement with an apology.",
+        "hindiSentence": "उसने माफी मांगकर अपनी टिप्पणी सीमित की।"
+      },
+      {
+        "id": "hg-qualify-3",
+        "sno": 946,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To become eligible by passing tests",
+        "hindiMeaning": "प्रतियोगी परीक्षा पास कर योग्य बनना",
+        "englishSentence": "He qualified as a lawyer last year.",
+        "hindiSentence": "वह पिछले साल वकील बनने के लिए चयनित हुआ।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-408",
+    "word": "Quantum",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quantum-1",
+        "sno": 959,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "In physics, the smallest discrete quantity of a physical property",
+        "hindiMeaning": "क्वांटा / भौतिक गुण की न्यूनतम मात्रा",
+        "englishSentence": "Photons are quanta of light.",
+        "hindiSentence": "फोटॉन प्रकाश के क्वांटा हैं।"
+      },
+      {
+        "id": "hg-quantum-2",
+        "sno": 960,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An amount or portion",
+        "hindiMeaning": "हिस्सा / निश्चित परिमाण",
+        "englishSentence": "He received a quantum of the profits.",
+        "hindiSentence": "उसे मुनाफे में एक हिस्सा मिला।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-409",
+    "word": "Quarter",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quarter-1",
+        "sno": 947,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "One-fourth part of something",
+        "hindiMeaning": "एक चौथाई / पाव",
+        "englishSentence": "She ate a quarter of the cake.",
+        "hindiSentence": "उसने केक का एक चौथाई हिस्सा खा लिया।"
+      },
+      {
+        "id": "hg-quarter-2",
+        "sno": 948,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "Housing or lodging",
+        "hindiMeaning": "ठहरने की जगह / आवास (क्वार्टर)",
+        "englishSentence": "The soldiers were given quarters on base.",
+        "hindiSentence": "सैनिकों को अड्डे पर ठहरने की व्यवस्था दी गई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-410",
+    "word": "Queer",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-queer-1",
+        "sno": 967,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Strange or odd",
+        "hindiMeaning": "अजीब / विचित्र",
+        "englishSentence": "That’s a queer way to solve the problem.",
+        "hindiSentence": "समस्या हल करने का वह तरीका अजीब है।"
+      },
+      {
+        "id": "hg-queer-2",
+        "sno": 968,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A homosexual person (colloquial)",
+        "hindiMeaning": "समलैंगिक व्यक्ति",
+        "englishSentence": "He was one of the first openly queer artists.",
+        "hindiSentence": "वह पहले खुलेआम समलैंगिक कलाकारों में से एक था।"
+      },
+      {
+        "id": "hg-queer-3",
+        "sno": 969,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To spoil or ruin",
+        "hindiMeaning": "बिगाड़ना / चौपट करना",
+        "englishSentence": "The scandal queered her chances of election.",
+        "hindiSentence": "घोटाले ने उसके चुनाव की संभावनाएं बिगाड़ दीं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-411",
+    "word": "Quick",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quick-1",
+        "sno": 957,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Moving fast; rapid",
+        "hindiMeaning": "तेज़ / शीघ्र",
+        "englishSentence": "She took a quick glance at her email.",
+        "hindiSentence": "उसने अपना ईमेल जल्दी से देखा।"
+      },
+      {
+        "id": "hg-quick-2",
+        "sno": 958,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Alive; living (archaic usage)",
+        "hindiMeaning": "जीवित / सजीव",
+        "englishSentence": "The quick and the dead.",
+        "hindiSentence": "जीवित और मृत।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-412",
+    "word": "Quirk",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quirk-1",
+        "sno": 955,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A peculiar trait or mannerism",
+        "hindiMeaning": "विचित्र स्वभाव / अनोखी आदत",
+        "englishSentence": "His quirk of tapping his foot annoyed everyone.",
+        "hindiSentence": "पैरों की थपथपाहट की उसकी विचित्र शैली ने सबको चिढ़ाया।"
+      },
+      {
+        "id": "hg-quirk-2",
+        "sno": 956,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To twist or bend suddenly",
+        "hindiMeaning": "झटका लगाना / भौंह मटकाना",
+        "englishSentence": "She quirked her eyebrow in surprise.",
+        "hindiSentence": "उसने आश्चर्य में अपनी भौंह उठा ली।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-413",
+    "word": "Quit",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quit-1",
+        "sno": 951,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To stop doing something",
+        "hindiMeaning": "छोड़ देना / त्यागना",
+        "englishSentence": "He decided to quit smoking.",
+        "hindiSentence": "उसने धूम्रपान छोड़ने का फैसला किया।"
+      },
+      {
+        "id": "hg-quit-2",
+        "sno": 952,
+        "partOfSpeech": "Adjective",
+        "posCategory": "adj",
+        "englishMeaning": "Finished; ended (archaic usage)",
+        "hindiMeaning": "समाप्त / मुक्त",
+        "englishSentence": "The race was over and the crowd was quit.",
+        "hindiSentence": "दौड़ समाप्त हो गई और भीड़ शांत हो गई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-414",
+    "word": "Quite",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quite-1",
+        "sno": 961,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "Completely; entirely",
+        "hindiMeaning": "पूरी तरह / बिल्कुल",
+        "englishSentence": "She was quite surprised by the news.",
+        "hindiSentence": "वह खबर सुनकर पूरी तरह चौंक गई थी।"
+      },
+      {
+        "id": "hg-quite-2",
+        "sno": 962,
+        "partOfSpeech": "Adverb",
+        "posCategory": "verb",
+        "englishMeaning": "To a considerable extent; fairly",
+        "hindiMeaning": "काफी / बहुत",
+        "englishSentence": "It’s quite cold today.",
+        "hindiSentence": "आज काफी ठंड है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-415",
+    "word": "Quiver",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quiver-1",
+        "sno": 949,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To tremble or shake",
+        "hindiMeaning": "कांपना / थरथराना",
+        "englishSentence": "Her voice quivered with emotion.",
+        "hindiSentence": "उसकी आवाज़ भावुकता से कांपी।"
+      },
+      {
+        "id": "hg-quiver-2",
+        "sno": 950,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A container for holding arrows",
+        "hindiMeaning": "बाण थैला / तरकश",
+        "englishSentence": "The archer reached for his quiver.",
+        "hindiSentence": "धनुर्धर ने अपने बाण थैले (तरकश) को हाथ लगाया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-416",
+    "word": "Quote",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quote-1",
+        "sno": 953,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To repeat exactly what someone has said",
+        "hindiMeaning": "उद्धृत करना / हवाला देना",
+        "englishSentence": "He quoted Shakespeare in his speech.",
+        "hindiSentence": "उसने अपने भाषण में शेक्सपियर को उद्धृत किया।"
+      },
+      {
+        "id": "hg-quote-2",
+        "sno": 954,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To state a price",
+        "hindiMeaning": "कीमत बताना / दर बताना",
+        "englishSentence": "The contractor quoted a high price for repairs.",
+        "hindiSentence": "ठेकेदार ने मरम्मत के लिए ऊँची कीमत बताई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-417",
+    "word": "Quotient",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-quotient-1",
+        "sno": 970,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The result obtained by dividing one number by another",
+        "hindiMeaning": "भागफल",
+        "englishSentence": "Divide 15 by 3 to get the quotient.",
+        "hindiSentence": "15 को 3 से भाग करने पर भागफल प्राप्त करें।"
+      },
+      {
+        "id": "hg-quotient-2",
+        "sno": 971,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A share or portion of a whole",
+        "hindiMeaning": "हिस्सा / अनुपात",
+        "englishSentence": "A high poverty quotient in the region points to widespread need.",
+        "hindiSentence": "उस क्षेत्र में उच्च गरीबी हिस्सा व्यापक आवश्यकता दर्शाता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-418",
+    "word": "Race",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-race-1",
+        "sno": 977,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A competition of speed (running, cars, etc.)",
+        "hindiMeaning": "दौड़ / स्पर्धा",
+        "englishSentence": "He won the 100-meter race.",
+        "hindiSentence": "उसने 100 मीटर की दौड़ जीती।"
+      },
+      {
+        "id": "hg-race-2",
+        "sno": 978,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A distinct ethnic or cultural group",
+        "hindiMeaning": "जाति / नस्ल",
+        "englishSentence": "They study the history of different races.",
+        "hindiSentence": "वे विभिन्न जातियों का इतिहास पढ़ते हैं।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-419",
+    "word": "Rack",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-rack-1",
+        "sno": 972,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A framework of bars for storage (e.g., dishes, clothes)",
+        "hindiMeaning": "रैक / धारक / खांचा",
+        "englishSentence": "She placed the plates on the drying rack.",
+        "hindiSentence": "उसने प्लेटें सुखाने वाले रैक पर रखीं।"
+      },
+      {
+        "id": "hg-rack-2",
+        "sno": 973,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To cause extreme physical or mental pain (torture)",
+        "hindiMeaning": "यातना देना / पीड़ा देना",
+        "englishSentence": "They racked the prisoner for information.",
+        "hindiSentence": "उन्होंने जानकारी के लिए कैदी को यातना दी।"
+      },
+      {
+        "id": "hg-rack-3",
+        "sno": 974,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To arrange or store by placing on a rack",
+        "hindiMeaning": "सजाना / रैक पर चढ़ाना",
+        "englishSentence": "He racked his golf clubs in the garage.",
+        "hindiSentence": "उसने अपने गोल्फ क्लब गैराज में चढ़ा दिए।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-420",
+    "word": "Racket",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-racket-1",
+        "sno": 975,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A loud, unpleasant noise",
+        "hindiMeaning": "कर्कश शोर / कोलाहल",
+        "englishSentence": "The children made a terrible racket in the yard.",
+        "hindiSentence": "बच्चों ने यार्ड में कर्कश शोर मचाया।"
+      },
+      {
+        "id": "hg-racket-2",
+        "sno": 976,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An illegal scheme for profit",
+        "hindiMeaning": "अवैध कारोबार / ठगी का गिरोह",
+        "englishSentence": "The police broke up the drug racket.",
+        "hindiSentence": "पुलिस ने ड्रग रैकेट तोड़ दिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-421",
+    "word": "Rail",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-rail-1",
+        "sno": 979,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A bar or series of bars, often as a guard or support",
+        "hindiMeaning": "रेलिंग / छड़ / बार",
+        "englishSentence": "She held onto the rail as she climbed the stairs.",
+        "hindiSentence": "उसने सीढ़ियाँ चढ़ते समय रेलिंग को पकड़ा।"
+      },
+      {
+        "id": "hg-rail-2",
+        "sno": 980,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To complain bitterly or criticize harshly",
+        "hindiMeaning": "शिकायत करना / कड़ी आलोचना करना",
+        "englishSentence": "Critics railed against the new policy.",
+        "hindiSentence": "आलोचकों ने नई नीति की कड़ी आलोचना की।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-422",
+    "word": "Raise",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-raise-1",
+        "sno": 981,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To lift or move to a higher position",
+        "hindiMeaning": "उठाना / ऊपर करना",
+        "englishSentence": "He raised his hand to ask a question.",
+        "hindiSentence": "उसने सवाल पूछने के लिए अपना हाथ उठाया।"
+      },
+      {
+        "id": "hg-raise-2",
+        "sno": 982,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To collect or bring together (funds, animals, children)",
+        "hindiMeaning": "इकट्ठा करना / पालन-पोषण करना",
+        "englishSentence": "They raised money for charity.",
+        "hindiSentence": "उन्होंने चैरिटी के लिए धन इकट्ठा किया।"
+      },
+      {
+        "id": "hg-raise-3",
+        "sno": 983,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "An increase in salary or wages",
+        "hindiMeaning": "वेतन वृद्धि / बढ़त",
+        "englishSentence": "She got a raise after her performance review.",
+        "hindiSentence": "प्रदर्शन समीक्षा के बाद उसे वेतन वृद्धि मिली।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-423",
+    "word": "Ram",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-ram-1",
+        "sno": 984,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A male sheep",
+        "hindiMeaning": "भेड़ का नर / मेंढ़ा",
+        "englishSentence": "The farmer showed off his prize-winning ram.",
+        "hindiSentence": "किसान ने अपने पुरस्कार विजेता मेंढ़े को दिखाया।"
+      },
+      {
+        "id": "hg-ram-2",
+        "sno": 985,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A heavy battering implement",
+        "hindiMeaning": "तोड़ने वाला भारी यंत्र / मूसल",
+        "englishSentence": "They used a ram to break down the door.",
+        "hindiSentence": "उन्होंने दरवाज़ा तोड़ने के लिए भारी यंत्र का इस्तेमाल किया।"
+      },
+      {
+        "id": "hg-ram-3",
+        "sno": 986,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To drive or force violently against something",
+        "hindiMeaning": "टक्कर मारना / ज़ोर से टकराना",
+        "englishSentence": "The car rammed into the barrier.",
+        "hindiSentence": "कार ने बाधा से टक्कर मारी।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-424",
+    "word": "Range",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-range-1",
+        "sno": 987,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A variety or scope",
+        "hindiMeaning": "विविधता / श्रेणी / दायरा",
+        "englishSentence": "The store offers a wide range of products.",
+        "hindiSentence": "स्टोर विभिन्न प्रकार के उत्पाद पेश करता है।"
+      },
+      {
+        "id": "hg-range-2",
+        "sno": 988,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A mountain range",
+        "hindiMeaning": "पर्वत श्रेणी / शृंखला",
+        "englishSentence": "The Himalayas are an immense mountain range.",
+        "hindiSentence": "हिमालय एक विशाल पर्वत श्रेणी है।"
+      },
+      {
+        "id": "hg-range-3",
+        "sno": 989,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To extend or vary between limits",
+        "hindiMeaning": "सीमाओं में फैलना / विस्तार होना",
+        "englishSentence": "Temperatures range from 10°C to 30°C.",
+        "hindiSentence": "तापमान 10°C से 30°C तक रहता है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-425",
+    "word": "Rank",
+    "sensesCount": 3,
+    "senses": [
+      {
+        "id": "hg-rank-1",
+        "sno": 990,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A position in a hierarchy",
+        "hindiMeaning": "रैंक / पद",
+        "englishSentence": "She achieved the rank of captain.",
+        "hindiSentence": "उसने कप्तान का पद प्राप्त किया।"
+      },
+      {
+        "id": "hg-rank-2",
+        "sno": 991,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A foul or offensive smell",
+        "hindiMeaning": "बदबूदार / दुर्गंध",
+        "englishSentence": "There was a rank odor in the basement.",
+        "hindiSentence": "तहखाने में बदबू आ रही थी।"
+      },
+      {
+        "id": "hg-rank-3",
+        "sno": 992,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To arrange in order",
+        "hindiMeaning": "क्रमबद्ध करना / श्रेणीबद्ध करना",
+        "englishSentence": "The data were ranked by importance.",
+        "hindiSentence": "डेटा को महत्व के अनुसार क्रमबद्ध किया गया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-426",
+    "word": "Raven",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-raven-1",
+        "sno": 993,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A large, glossy black bird",
+        "hindiMeaning": "कौआ (विशाल काला कौआ)",
+        "englishSentence": "He spotted a raven perched on the branch.",
+        "hindiSentence": "उसने शाखा पर बैठे विशाल कौए को देखा।"
+      },
+      {
+        "id": "hg-raven-2",
+        "sno": 994,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To devour greedily",
+        "hindiMeaning": "लपेटना / बड़ी भूख से खाना / हड़पना",
+        "englishSentence": "The lion ravens its prey in minutes.",
+        "hindiSentence": "शेर ने अपने शिकार को मिनटों में लपेट लिया।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-427",
+    "word": "Reach",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-reach-1",
+        "sno": 995,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To stretch out an arm or hand to touch something",
+        "hindiMeaning": "पहुँचाना / हाथ बढ़ाना",
+        "englishSentence": "She reached for the book on the top shelf.",
+        "hindiSentence": "उसने ऊपरी शेल्फ से किताब तक हाथ पहुँचाया।"
+      },
+      {
+        "id": "hg-reach-2",
+        "sno": 996,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The extent or range of one’s ability or influence",
+        "hindiMeaning": "क्षमता की सीमा / पहुँच",
+        "englishSentence": "His reach extends to international markets.",
+        "hindiSentence": "उसकी पहुँच अंतर्राष्ट्रीय बाज़ारों तक फैली है।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-428",
+    "word": "Ream",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-ream-1",
+        "sno": 999,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "A quantity of paper (typically 500 sheets)",
+        "hindiMeaning": "रीम (कागज़ के 500 पन्नों का गट्ठा)",
+        "englishSentence": "He bought a ream of printing paper.",
+        "hindiSentence": "उसने प्रिंटिंग पेपर की एक रीम खरीदी।"
+      },
+      {
+        "id": "hg-ream-2",
+        "sno": 1000,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To criticize or scold severely",
+        "hindiMeaning": "खरी-खरी सुनाना / डांटना",
+        "englishSentence": "The coach reamed the team after their poor performance.",
+        "hindiSentence": "खराब प्रदर्शन के बाद कोच ने टीम को खरी-खरी सुनाई।"
+      }
+    ]
+  },
+  {
+    "id": "hg-group-429",
+    "word": "Rear",
+    "sensesCount": 2,
+    "senses": [
+      {
+        "id": "hg-rear-1",
+        "sno": 997,
+        "partOfSpeech": "Noun",
+        "posCategory": "noun",
+        "englishMeaning": "The back part of something",
+        "hindiMeaning": "पिछला हिस्सा / पृष्ठ भाग",
+        "englishSentence": "He was hit in the rear in the collision.",
+        "hindiSentence": "टक्कर में वह पीछे के हिस्से में टकराया।"
+      },
+      {
+        "id": "hg-rear-2",
+        "sno": 998,
+        "partOfSpeech": "Verb",
+        "posCategory": "verb",
+        "englishMeaning": "To raise young (children or animals)",
+        "hindiMeaning": "पालन-पोषण करना / बड़ा करना",
+        "englishSentence": "They reared three children on a small farm.",
+        "hindiSentence": "उन्होंने एक छोटे खेत में तीन बच्चों की परवरिश की।"
       }
     ]
   }
