@@ -87,14 +87,29 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           </div>
 
           {/* Main Title: Compact Bold Sans Typography with Platinum & 3D Gold Sheen */}
-          <h1 className="relative font-sans font-black tracking-tight text-4xl sm:text-5xl md:text-6xl leading-none select-none my-2 sm:my-2.5 flex items-center justify-center gap-3 sm:gap-3.5 flex-wrap">
-            <span className="bg-gradient-to-b from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_3px_14px_rgba(0,0,0,0.8)]">
-              SYLLABUS
-            </span>
-            <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_2px_22px_rgba(245,158,11,0.6)]">
-              3D
-            </span>
-          </h1>
+          <div className="relative my-2 sm:my-2.5 flex items-center justify-center">
+            {/* Ambient Breathing Background Glow Disc behind Title */}
+            <div className="absolute -inset-x-10 -inset-y-5 bg-gradient-to-r from-blue-500/0 via-amber-400/15 to-orange-500/15 rounded-full blur-2xl pointer-events-none animate-pulse-slow opacity-80" />
+
+            <h1 className="relative font-sans font-black tracking-tight text-4xl sm:text-5xl md:text-6xl leading-none select-none flex items-center justify-center gap-3 sm:gap-4 flex-wrap group cursor-default transition-transform duration-300 hover:scale-[1.02]">
+              {/* "SYLLABUS" with Liquid Platinum Shimmer Sweep */}
+              <span className="relative animate-syllabus-shimmer drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
+                SYLLABUS
+              </span>
+
+              {/* "3D" with Floating Levitation + Liquid Gold Gradient + Radiant Holographic Glow + Specular Glint */}
+              <span className="relative inline-flex items-center animate-float-3d">
+                <span className="relative inline-block animate-gold-flow animate-pulse-glow-3d font-black">
+                  3D
+                </span>
+
+                {/* Specular Glint Twinkle Star at the Apex of 3D */}
+                <span className="absolute -top-1.5 -right-3 sm:-top-2 sm:-right-3.5 pointer-events-none select-none animate-glint-twinkle">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200 fill-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.95)]" />
+                </span>
+              </span>
+            </h1>
+          </div>
 
           {/* Exam Target Capsule: Clean Modern Segmented Pill */}
           <div className="mt-1.5 sm:mt-2 inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5 rounded-full border border-amber-400/35 bg-[#0C0F1D]/90 px-3.5 sm:px-4.5 py-1.5 shadow-md backdrop-blur-md text-xs sm:text-[13px]">
