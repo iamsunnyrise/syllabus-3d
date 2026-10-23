@@ -480,6 +480,27 @@ const GA_TOPICS: GaTopic[] = [
     summaryNote: 'Trick for 6 Bicameral States: KUMBAT (KA, UP, MH, BR, AP, TS). Trick for Articles: +89 (72-111) & +90 (112-124). LC Delay: Max 4 months (3+1). NO Joint Sitting in States! Governor Age: 35 yrs (Oath: CJ of High Court).'
   },
   {
+    id: 'ga-polity-courts-in-india',
+    subject: 'Polity',
+    title: 'Courts in India (Supreme Court, High Court & Lok Adalat)',
+    badge: 'Chapter 11 • Master Notes',
+    chapterTag: 'Polity Masterclass',
+    htmlFile: '/study-tools-ga/polity/courts_in_india.html',
+    isInteractiveMasterChapter: true,
+    keyPoints: [
+      { label: '01. SC Basics & Part V (Art 124)', detail: 'Integrated & Independent (GoI Act 1935). Replaced Federal Court (est. 1937) & Privy Council. 1st Sitting: 28 Jan 1950. Strength: 1+7=8 (1950) -> 1 CJI + 33 = 34 Judges (Present). Known as Guardian of the Constitution.' },
+      { label: '02. Qualifications, Tenure & Removal', detail: 'Max age 65 yrs. 3 Qualifications (5 yrs HC Judge OR 10 yrs HC Advocate OR Distinguished Jurist). Removal: Judges Enquiry Act 1968, 100 LS / 50 RS motion, Special Majority (Proved misbehaviour/incapacity). No SC Judge removed till date. 1st CJI: H.J. Kania; 53rd CJI: Justice Surya Kant.' },
+      { label: '03. Collegium System & 4 Judges Cases', detail: '1st Case 1982 (SP Gupta, Executive primacy) -> 2nd Case 1993 (Collegium born, CJI + 2, Consultation = Concurrence) -> 3rd Case 1998 (CJI + 4 seniormost) -> 99th CA 2014 (NJAC) struck down in 4th Case 2015 (Collegium restored). Not in Constitution!' },
+      { label: '04. Mnemonic: "SC ne SAARC ko SEAT OFFER Kari"', detail: 'Art 124 (SC), 125 (Salaries), 126 (Acting CJ), 127 (Ad Hoc - SC only), 128 (Retired judges), 129 (Court of Record & Contempt), 130 (Seat at Delhi), 131 (Original jurisdiction: GoI vs States; Excludes Water disputes & Pre-const treaties).' },
+      { label: '05. SC Articles (132-147) & Advisory (143)', detail: 'Appeals: 132 (Constitutional), 133 (Civil), 134 (Criminal). 136 (SLP, Armed forces exception). 137 (Judicial Review - USA). 141 (Binding on all courts). 142 (Complete Justice). 143 (Advisory: Pre-const treaty advice is mandatory, but not binding on President).' },
+      { label: '06. Part VI: High Courts & Mnemonic "NHRC AAO REST"', detail: '25 High Courts in India (1st Calcutta 1862). Art 214 (HC in each State), 215 (Court of Record), 216 (Constitution - No distinguished jurist), 217 (Appointed by Pres, Age 62), 219 (Oath before Governor), 220 (Practice only in SC & other HCs), 221 (Salary from State, Pension from India), 222 (Transfer).' },
+      { label: '07. HC Writs (Art 226) & Common HCs (Art 231)', detail: 'Art 226 is wider than Art 32 (FR + Legal rights). Chandra Kumar (1997): Judicial Review is Basic Feature. Common HCs: Mumbai (MH + Goa), Guwahati (Assam, Nagaland, Mizoram, Arunachal). 1st Female HC Judge: Anna Chandy; 1st Female HC CJ: Leila Seth; 1st Female SC Judge: Fathima Beevi (1989).' },
+      { label: '08. Subordinate Courts (Art 233 to 235)', detail: 'District Judges appointed by Governor in consultation with High Court. Qualification: Not less than 7 years an advocate/pleader. Other judicial officers appointed by Governor. High Court exercises superintendence (Art 227) and control (Art 235).' },
+      { label: '09. Lok Adalats & NALSA (LSA Act, 1987)', detail: 'Alternative Dispute Redressal (ADR), zero court fees. Patron Chief: CJI, Executive Chief: Seniormost SC Judge. Non-compoundable offences excluded. Award = Civil Court Decree (Final & Binding, No Appeal). Unsatisfied parties can initiate fresh litigation.' }
+    ],
+    summaryNote: 'Trick for Art 124-131: "SC ne SAARC countries ko SEAT OFFER Kari". Trick for Art 214-222: "NHRC AAO REST karo". HC Judge: Salary from State, Pension from India. District Judge: 7 yrs Advocate.'
+  },
+  {
     id: 'ga1',
     subject: 'Polity',
     title: 'Most Repeated Constitutional Articles',

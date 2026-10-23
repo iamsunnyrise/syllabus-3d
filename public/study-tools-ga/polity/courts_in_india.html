@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts in India (Supreme Court, High Court, Subordinate Courts & Lok Adalat) — Master Notes</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAEED9',
+            gold: '#E1A837',
+            olive: '#8D7A02',
+            dark: '#38370D'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAEED9;
+      background-image: radial-gradient(rgba(141, 122, 2, 0.14) 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: #38370D;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .note-card {
+      background: rgba(250, 238, 217, 0.94);
+      border: 2px solid #8D7A02;
+      box-shadow: 6px 6px 0px #38370D;
+      border-radius: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .note-card:hover {
+      box-shadow: 8px 8px 0px #38370D;
+    }
+
+    .sub-card {
+      background: #FAEED9;
+      border: 1.5px solid #8D7A02;
+      border-radius: 0.75rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .sub-card:hover {
+      border-color: #38370D;
+    }
+
+    .gold-badge {
+      background: #E1A837;
+      color: #38370D;
+      font-weight: 700;
+      border: 1px solid #38370D;
+    }
+
+    .dark-badge {
+      background: #38370D;
+      color: #FAEED9;
+      font-weight: 600;
+    }
+
+    .trick-box {
+      background: #38370D;
+      color: #FAEED9;
+      border-left: 6px solid #E1A837;
+      border-radius: 0.65rem;
+    }
+
+    .hinglish-box {
+      background: rgba(225, 168, 55, 0.18);
+      border-left: 5px solid #8D7A02;
+      border-top: 1px solid rgba(141, 122, 2, 0.35);
+      border-right: 1px solid rgba(141, 122, 2, 0.35);
+      border-bottom: 1px solid rgba(141, 122, 2, 0.35);
+      border-radius: 0.65rem;
+    }
+
+    /* Self-Test Blur Mode */
+    .quiz-item {
+      transition: filter 0.25s ease, background-color 0.2s ease;
+      border-radius: 4px;
+      padding: 0 3px;
+    }
+    .quiz-blur {
+      filter: blur(6px);
+      background-color: rgba(225, 168, 55, 0.45);
+      cursor: pointer;
+      user-select: none;
+    }
+    .quiz-blur:hover, .quiz-blur.revealed {
+      filter: blur(0px);
+      background-color: rgba(225, 168, 55, 0.25);
+    }
+
+    /* Section Active Pulse Animation */
+    @keyframes pulseGold {
+      0% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0.9), 6px 6px 0px #38370D; }
+      50% { box-shadow: 0 0 0 14px rgba(225, 168, 55, 0), 8px 8px 0px #E1A837; }
+      100% { box-shadow: 0 0 0 0 rgba(225, 168, 55, 0), 6px 6px 0px #38370D; }
+    }
+    .section-active-pulse {
+      animation: pulseGold 1.4s ease-out 2;
+    }
+
+    /* Click-to-Note Hover Trigger */
+    [data-note-anchor] {
+      position: relative;
+    }
+    .add-note-inline-btn {
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    [data-note-anchor]:hover > .add-note-inline-btn,
+    body.note-mode-active [data-note-anchor] > .add-note-inline-btn {
+      opacity: 1;
+    }
+    body.note-mode-active [data-note-anchor] {
+      cursor: cell;
+    }
+    body.note-mode-active [data-note-anchor]:hover {
+      outline: 2px dashed #E1A837;
+      outline-offset: 3px;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .note-card { box-shadow: none !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24">
+
+  <!-- Floating Cursor Badge for Click-to-Note Mode -->
+  <div id="cursorNoteBadge" class="fixed pointer-events-none z-50 hidden bg-dark text-cream text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gold shadow-lg flex items-center gap-1.5">
+    <span>➕ Click here to add your extra note</span>
+  </div>
+
+  <!-- ================= 1. STICKY TOP HEADER BAR ================= -->
+  <header class="sticky top-0 z-40 bg-dark text-cream border-b-4 border-gold shadow-lg no-print">
+    <!-- Top Scroll Progress Bar -->
+    <div class="w-full h-1.5 bg-dark overflow-hidden">
+      <div id="scrollProgress" class="h-full bg-gold transition-all duration-100" style="width: 0%;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Title & Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gold text-dark flex items-center justify-center font-black text-xl border-2 border-cream shadow">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <div>
+          <span class="text-[11px] uppercase tracking-widest text-gold font-bold block">PARMAR SSC • POLITY MASTER NOTES</span>
+          <h1 class="font-serif text-lg md:text-xl font-bold tracking-wide text-cream leading-tight">
+            Courts in India (Art. 124–147 & 214–235)
+          </h1>
+        </div>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="relative flex-1 min-w-[210px] max-w-md">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-olive text-sm"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Article (e.g., 124, 143, 226), Judge, Case, Trick..."
+          class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-cream text-dark placeholder-olive/70 text-sm font-medium border-2 border-gold focus:outline-none"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-dark hover:text-red-700 text-xs font-bold">
+          <i class="fa-solid fa-circle-xmark text-base"></i>
+        </button>
+      </div>
+
+      <!-- Interactive Action Controls -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          id="toggleNoteModeBtn"
+          onclick="toggleNoteMode()"
+          class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-gold bg-dark text-cream hover:bg-gold hover:text-dark transition flex items-center gap-1.5"
+        >
+          <span>📝 Click-to-Note:</span>
+          <span id="noteModeStatus" class="underline">OFF</span>
+        </button>
+
+        <button
+          onclick="toggleNotesDrawer(true)"
+          class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gold text-dark border-2 border-cream hover:opacity-90 transition flex items-center gap-1.5"
+        >
+          <i class="fa-solid fa-bookmark"></i>
+          <span>My Notes</span>
+          <span id="savedNotesBadge" class="px-1.5 py-0.5 text-[10px] rounded-full bg-dark text-cream font-extrabold">0</span>
+        </button>
+
+        <button
+          id="selfTestBtn"
+          onclick="toggleSelfTest()"
+          class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-olive bg-cream text-dark hover:bg-gold transition flex items-center gap-1.5"
+        >
+          <i class="fa-solid fa-eye-slash"></i>
+          <span>Self-Test: <strong id="selfTestStatus">OFF</strong></span>
+        </button>
+
+        <button
+          onclick="window.print()"
+          class="px-3 py-1.5 rounded-lg text-xs font-bold border-2 border-cream/40 bg-dark text-cream hover:border-gold transition flex items-center gap-1"
+          title="Print Notes"
+        >
+          <i class="fa-solid fa-print"></i>
+          <span class="hidden sm:inline">Print</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 pt-6 space-y-10">
+
+    <!-- ================= 2. HERO BANNER SECTION ================= -->
+    <section class="note-card p-6 md:p-8 relative overflow-hidden" data-note-anchor="hero-banner">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Left Column: Intro + Pills -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full gold-badge text-xs uppercase tracking-wider">
+            <i class="fa-solid fa-gavel"></i> Complete 100% Zero-Omission Revision Sheet
+          </div>
+          <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-dark leading-tight">
+            Indian Judiciary: Supreme Court, High Courts, Subordinate Courts & Lok Adalats
+          </h2>
+          <p class="text-sm md:text-base text-dark/90 leading-relaxed font-medium">
+            <strong>💡 Hinglish Overview:</strong> Bharat ka Judicial System <strong>Integrated aur Independent</strong> hai (jo Government of India Act, 1935 se liya gaya hai). Sabse upar <strong>Supreme Court (Part V: Art. 124–147)</strong> hai jise <em>'Guardian of the Constitution'</em> kaha jata hai, uske neeche state level par <strong>High Courts (Part VI: Art. 214–231)</strong>, district level par <strong>Subordinate Courts (Art. 233–235)</strong>, aur amicable settlement ke liye <strong>Lok Adalats (Legal Services Authorities Act, 1987)</strong> kaam karte hain.
+          </p>
+
+          <!-- Highlight Pills -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1.5 rounded-lg dark-badge text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-calendar-check text-gold"></i>
+              SC 1st Sitting: <strong class="quiz-item text-gold">28 Jan, 1950</strong>
+            </span>
+            <span class="px-3 py-1.5 rounded-lg dark-badge text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-users text-gold"></i>
+              SC Judges: <strong class="quiz-item text-gold">1 CJI + 33 = 34</strong>
+            </span>
+            <span class="px-3 py-1.5 rounded-lg dark-badge text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-building-columns text-gold"></i>
+              Total High Courts: <strong class="quiz-item text-gold">25</strong>
+            </span>
+            <span class="px-3 py-1.5 rounded-lg dark-badge text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-user-tie text-gold"></i>
+              53rd CJI: <strong class="quiz-item text-gold">Justice Surya Kant</strong>
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: Fast Facts Summary Graphic Card -->
+        <div class="lg:col-span-5 bg-dark text-cream p-5 rounded-xl border-2 border-gold shadow-md">
+          <div class="flex items-center justify-between border-b border-gold/40 pb-2 mb-4">
+            <span class="font-serif font-bold text-lg text-gold"><i class="fa-solid fa-bolt mr-1.5"></i> Fast Facts At A Glance</span>
+            <span class="text-[11px] bg-gold text-dark font-extrabold px-2 py-0.5 rounded">EXAM HOTSPOTS</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-lg bg-cream/10 border border-gold/30">
+              <span class="text-gold font-bold block uppercase text-[10px]">SC Part & Articles</span>
+              <span class="text-base font-extrabold block mt-0.5 quiz-item">Part V (Art. 124–147)</span>
+              <span class="text-[11px] text-cream/80">Chapter IV • Max Age: <strong class="quiz-item">65 Yrs</strong></span>
+            </div>
+            <div class="p-3 rounded-lg bg-cream/10 border border-gold/30">
+              <span class="text-gold font-bold block uppercase text-[10px]">HC Part & Articles</span>
+              <span class="text-base font-extrabold block mt-0.5 quiz-item">Part VI (Art. 214–231)</span>
+              <span class="text-[11px] text-cream/80">25 HCs • Max Age: <strong class="quiz-item">62 Yrs</strong></span>
+            </div>
+            <div class="p-3 rounded-lg bg-cream/10 border border-gold/30">
+              <span class="text-gold font-bold block uppercase text-[10px]">Federal Court</span>
+              <span class="text-base font-extrabold block mt-0.5 quiz-item">Est. 1937</span>
+              <span class="text-[11px] text-cream/80">Under <strong class="quiz-item">GoI Act, 1935</strong></span>
+            </div>
+            <div class="p-3 rounded-lg bg-cream/10 border border-gold/30">
+              <span class="text-gold font-bold block uppercase text-[10px]">Lok Adalat Status</span>
+              <span class="text-base font-extrabold block mt-0.5 quiz-item">LSA Act, 1987</span>
+              <span class="text-[11px] text-cream/80">Statutory • <strong class="quiz-item">Zero Court Fee</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. INTERACTIVE "TOPICS AT A GLANCE" ================= -->
+    <section id="topics-at-a-glance" class="note-card p-6" data-note-anchor="topics-glance">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4 border-b-2 border-olive/30 pb-3">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-olive">Quick Navigation Hub</span>
+          <h3 class="font-serif text-2xl font-bold text-dark">🧭 Topics at a Glance (Click to Jump)</h3>
+        </div>
+        <span class="text-xs font-semibold text-dark/80 bg-gold/30 px-3 py-1 rounded-full border border-olive">
+          6 Comprehensive Modules • 100% PDF Coverage
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <button onclick="jumpToTopic('topic-1')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">01</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">SC Basics, Art. 124 & Collegium</h4>
+            <p class="text-xs text-dark/80 mt-1">GoI Act 1935, Strength (8→34), Qualifications, Removal (Judges Enquiry Act 1968), 4 Judges Cases & NJAC.</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-2')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">02</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">SC Articles (125–147) & SAARC Trick</h4>
+            <p class="text-xs text-dark/80 mt-1">Salaries, Acting/Ad-hoc/Retired Judges, Court of Record, Original, Appellate, SLP (136), Advisory (143) & Trick.</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-3')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">03</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">High Courts (Art. 214–224A) & Trick</h4>
+            <p class="text-xs text-dark/80 mt-1">Constitution, Appointment, Age (62), Oath, Salary vs Pension Fund, Transfer, Additional Judges & NHRC Trick.</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-4')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">04</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">HC Jurisdiction, Writs & Common HCs</h4>
+            <p class="text-xs text-dark/80 mt-1">Art. 225–232, Wider Writ Power (226), Chandra Kumar Case 1997, UTs & State Common HCs, Firsts in HC.</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-5')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">05</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">Subordinate Courts & SC vs HC Table</h4>
+            <p class="text-xs text-dark/80 mt-1">Art. 233–235 (District Judges, 7 yrs Advocate rule, Governor's role) + Complete SC vs HC Comparison.</p>
+          </div>
+        </button>
+
+        <button onclick="jumpToTopic('topic-6')" class="sub-card p-4 text-left hover:bg-gold/20 group flex items-start gap-3">
+          <span class="px-2.5 py-1 rounded gold-badge text-sm font-black">06</span>
+          <div>
+            <h4 class="font-bold text-dark group-hover:underline">Lok Adalats & NALSA</h4>
+            <p class="text-xs text-dark/80 mt-1">ADR Mechanism, LSA Act 1987, Patron vs Executive Chief, Civil Court Decree, No Appeal rule & Exceptions.</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 01: SC BASICS, ART. 124 & COLLEGIUM ================= -->
+    <section id="topic-1" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-1-main">
+      <!-- Header -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 01 • PDF Page 2–3</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            Supreme Court: Basic Pointers, Article 124 & Collegium System
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- 1.1 Some Basic Pointers -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="sc-basic-pointers">
+        <div class="flex items-center justify-between">
+          <h4 class="font-bold text-lg text-dark flex items-center gap-2">
+            <i class="fa-solid fa-star text-gold"></i> 1. Some Basic Pointers (Part V • Chapter IV: Article 124–147)
+          </h4>
+          <span class="text-xs px-2.5 py-0.5 rounded dark-badge">Historical Foundation</span>
+        </div>
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+          <li class="p-3 rounded-lg bg-white/60 border border-olive/40" data-note-anchor="basic-p1">
+            <strong>• Integrated & Independent Judiciary:</strong> Judiciary in India is <span class="quiz-item font-bold">Integrated</span> (borrowed from <span class="quiz-item font-bold">GoI Act of 1935</span>) and <span class="quiz-item font-bold">Independent</span>.
+          </li>
+          <li class="p-3 rounded-lg bg-white/60 border border-olive/40" data-note-anchor="basic-p2">
+            <strong>• Replaced Bodies:</strong> The Supreme Court replaced the <span class="quiz-item font-bold">Federal Court</span> and the <span class="quiz-item font-bold">Judicial Committee of Privy Council</span> after India gained Independence.
+          </li>
+          <li class="p-3 rounded-lg bg-white/60 border border-olive/40" data-note-anchor="basic-p3">
+            <strong>• 1st Sitting of SC:</strong> <span class="quiz-item font-extrabold text-dark bg-gold/40 px-1.5 rounded">28 Jan, 1950</span>
+          </li>
+          <li class="p-3 rounded-lg bg-white/60 border border-olive/40" data-note-anchor="basic-p4">
+            <strong>• Federal Court Establishment:</strong> Federal Court was established in <span class="quiz-item font-bold">1937</span> under the provisions of <span class="quiz-item font-bold">GoI Act 1935</span>.
+          </li>
+          <li class="p-3 rounded-lg bg-white/60 border border-olive/40 md:col-span-2" data-note-anchor="basic-p5">
+            <strong>• Title of Supreme Court:</strong> SC is also known as <span class="quiz-item font-extrabold text-dark bg-gold/40 px-1.5 rounded">'The Guardian of the Constitution'</span>.
+          </li>
+        </ul>
+
+        <div class="hinglish-box p-3.5 text-xs md:text-sm">
+          <strong>💡 Hinglish Mein Samjho:</strong> Exam mein aksar confusion hota hai ki <em>Integrated Judiciary</em> kahan se liya gaya aur <em>Independent Judiciary / Judicial Review / Removal of Judges</em> kahan se! Dhyan rakho: <strong>Integrated Judiciary = GoI Act, 1935</strong> (jiske tahat 1937 mein Federal Court bana tha). Azaadi ke baad <strong>28 January 1950</strong> ko Supreme Court ki pehli baithak hui aur isne Federal Court + Privy Council dono ko replace kar diya!
+        </div>
+      </div>
+
+      <!-- 1.2 Article 124 (Clauses 1 to 7) -->
+      <div class="sub-card p-5 space-y-5" data-note-anchor="art-124-main">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-lg text-dark flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-sm">Article 124</span>
+            Establishment and Constitution of Supreme Court (Clauses 1 to 7)
+          </h4>
+          <span class="text-xs font-bold text-olive">Part V • Chapter IV [Art. 124–147]</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+          <!-- Clause 1: Strength -->
+          <div class="p-4 rounded-xl bg-white/70 border-2 border-olive/50 space-y-2" data-note-anchor="art-124-1">
+            <span class="px-2 py-0.5 rounded dark-badge text-xs">Clause 1: Strength of Judges</span>
+            <p><strong>• Originally, strength:</strong> <span class="quiz-item font-bold">1 Chief Justice + 7 Judges = 8 Judges</span></p>
+            <p><strong>• Present, strength:</strong> <span class="quiz-item font-bold">1 Chief Justice + 33 Judges = 34 Judges</span></p>
+            <p class="text-xs font-bold text-olive">(Maximum sanctioned strength: <span class="quiz-item">34</span>)</p>
+          </div>
+
+          <!-- Clause 2 & 2(A): Appointment, Tenure & Age -->
+          <div class="p-4 rounded-xl bg-white/70 border-2 border-olive/50 space-y-2" data-note-anchor="art-124-2">
+            <span class="px-2 py-0.5 rounded dark-badge text-xs">Clause 2 & 2(A): Appointment & Tenure</span>
+            <p><strong>• Appointment (124(2)):</strong> Every judge of SC shall be appointed by the <span class="quiz-item font-bold">President</span> after consultation with <span class="quiz-item font-bold">CJI</span>.</p>
+            <p><strong>• Tenure:</strong> Serves till the age of <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">65 years</span>, provided that:</p>
+            <ul class="text-xs space-y-1 pl-3 list-disc">
+              <li>(a) a Judge may resign his office by writing to the <span class="quiz-item font-bold">President</span>.</li>
+              <li>(b) a Judge to be removed in the manner provided in clause (4).</li>
+            </ul>
+            <p class="text-xs pt-1 border-t border-olive/30">
+              <strong>• Clause 2(A):</strong> The age of a SC Judge to be determined in such manner as <span class="quiz-item font-bold">Parliament may by law provide</span> (<span class="quiz-item font-bold">15th CAA, 1963</span>).
+            </p>
+          </div>
+
+          <!-- Clause 3: Qualification -->
+          <div class="p-4 rounded-xl bg-white/70 border-2 border-olive/50 space-y-2" data-note-anchor="art-124-3">
+            <span class="px-2 py-0.5 rounded dark-badge text-xs">Clause 3: Qualification for SC Judges</span>
+            <p class="font-bold text-dark">Must be a <span class="quiz-item">Citizen of India</span> + ANY ONE of:</p>
+            <ul class="text-xs space-y-1.5 pl-2">
+              <li><strong>(a)</strong> At least <span class="quiz-item font-bold">5 years as a Judge</span> of a High Court, <strong>OR</strong></li>
+              <li><strong>(b)</strong> At least <span class="quiz-item font-bold">10 years as an Advocate</span> of a High Court, <strong>OR</strong></li>
+              <li><strong>(c)</strong> <span class="quiz-item font-bold">Distinguished jurist</span> in the opinion of the <span class="quiz-item font-bold">President</span>.</li>
+            </ul>
+          </div>
+
+          <!-- Clause 4 & 5: Removal -->
+          <div class="p-4 rounded-xl bg-white/70 border-2 border-olive/50 space-y-2 lg:col-span-2" data-note-anchor="art-124-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-2 py-0.5 rounded dark-badge text-xs">Clause 4 & 5: Removal of SC Judges (Brought from <span class="quiz-item">USA</span>)</span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded gold-badge">Judges Enquiry Act, 1968</span>
+            </div>
+            <p>
+              <strong>• Clause 4:</strong> A Judge can be removed by <span class="quiz-item font-bold">President</span> after Parliament passes an address by <span class="quiz-item font-bold">Special Majority</span> (i.e. <em>majority of total membership + <span class="quiz-item">2/3rd of members present and voting</span></em>) on grounds of: <span class="quiz-item font-extrabold bg-gold/40 px-1.5 rounded">Proved misbehaviour or Incapacity</span>.
+            </p>
+            <p>
+              <strong>• Statutory Procedure:</strong> Procedure of Removal for Supreme Court/High Court Judges is mentioned in <span class="quiz-item font-bold">Judges Enquiry Act, 1968</span>. Motion to remove judges should be signed by <span class="quiz-item font-extrabold">50 members of Rajya Sabha</span> or <span class="quiz-item font-extrabold">100 members of Lok Sabha</span>.
+            </p>
+            <p class="text-xs border-t border-olive/30 pt-1.5">
+              <strong>• Clause 5:</strong> <span class="quiz-item font-bold">Parliament</span> may by law establish procedure for investigating judge's misconduct as mentioned in clause (4).
+            </p>
+          </div>
+
+          <!-- Clause 6 & 7: Oath & Post-Retirement Restrictions -->
+          <div class="p-4 rounded-xl bg-white/70 border-2 border-olive/50 space-y-2" data-note-anchor="art-124-6-7">
+            <span class="px-2 py-0.5 rounded dark-badge text-xs">Clause 6 & 7: Oath & Restrictions</span>
+            <p><strong>• Clause 6 (Oath):</strong> A Judge of SC to subscribe an Oath or affirmation before the <span class="quiz-item font-bold">President</span>.</p>
+            <p><strong>• Clause 7 (Restrictions):</strong> After retirement, a SC judge <span class="quiz-item font-bold">cannot practice law in any court within the territory of India</span>.</p>
+          </div>
+        </div>
+
+        <!-- Important Facts Strip on CJI & Removal -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          <div class="p-3 rounded-lg bg-dark text-cream border border-gold text-xs" data-note-anchor="cji-fact-1">
+            <span class="text-gold font-bold block">Removal Record</span>
+            <strong class="text-sm quiz-item">No SC Judge has been removed till Date.</strong>
+          </div>
+          <div class="p-3 rounded-lg bg-dark text-cream border border-gold text-xs" data-note-anchor="cji-fact-2">
+            <span class="text-gold font-bold block">1st Chief Justice of SC</span>
+            <strong class="text-sm quiz-item">Sir Harilal Jekisundas Kania</strong>
+          </div>
+          <div class="p-3 rounded-lg bg-dark text-cream border border-gold text-xs" data-note-anchor="cji-fact-3">
+            <span class="text-gold font-bold block">52nd Chief Justice of India</span>
+            <strong class="text-sm quiz-item">Bhushan Ramkrishna Gavai</strong>
+          </div>
+          <div class="p-3 rounded-lg bg-dark text-cream border border-gold text-xs" data-note-anchor="cji-fact-4">
+            <span class="text-gold font-bold block">53rd Chief Justice of India</span>
+            <strong class="text-sm quiz-item">Justice Surya Kant</strong>
+          </div>
+        </div>
+
+        <div class="hinglish-box p-3.5 text-xs md:text-sm">
+          <strong>💡 Hinglish Mein Samjho:</strong> SC Judge ke liye <strong>minimum age</strong> Constitution mein kahin nahi di gayi hai, sirf maximum retirement age <strong>65 years</strong> hai! Qualification ka formula yaad rakho: <strong>5 साल Judge + 10 साल Advocate + Distinguished Jurist</strong>. Aur hatane (Removal) ke liye Lok Sabha mein <strong>100 MPs</strong> ya Rajya Sabha mein <strong>50 MPs</strong> ke sign chahiye under <em>Judges Enquiry Act, 1968</em>. Aaj tak ek bhi SC Judge remove nahi hua hai!
+        </div>
+      </div>
+
+      <!-- 1.3 Collegium System & Four Judges Cases -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="collegium-system">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-lg text-dark flex items-center gap-2">
+            <i class="fa-solid fa-sitemap text-gold"></i> 3. Collegium System & The Four Judges Cases
+          </h4>
+          <span class="px-2.5 py-0.5 rounded bg-red-800 text-cream text-xs font-bold">⚠️ Not Mentioned in Constitution</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs md:text-sm">
+          <!-- 1st Judges Case -->
+          <div class="p-3.5 rounded-xl bg-white/80 border-2 border-olive space-y-1.5" data-note-anchor="judges-case-1">
+            <span class="px-2 py-0.5 rounded gold-badge text-xs">1st Judges Case (<span class="quiz-item">1982</span>)</span>
+            <h5 class="font-extrabold text-dark quiz-item">S.P. Gupta Case</h5>
+            <ul class="space-y-1 text-xs list-disc pl-4">
+              <li>Recommendation of CJI <span class="quiz-item font-bold">not binding</span> on the President.</li>
+              <li>Gave primacy to the <span class="quiz-item font-bold">executive</span> in judicial appointments.</li>
+            </ul>
+          </div>
+
+          <!-- 2nd Judges Case -->
+          <div class="p-3.5 rounded-xl bg-white/80 border-2 border-olive space-y-1.5" data-note-anchor="judges-case-2">
+            <span class="px-2 py-0.5 rounded gold-badge text-xs">2nd Judges Case (<span class="quiz-item">1993</span>)</span>
+            <h5 class="font-extrabold text-dark">Birth of Collegium</h5>
+            <ul class="space-y-1 text-xs list-disc pl-4">
+              <li>Introduced the <span class="quiz-item font-bold">Collegium system</span>, holding that <em>"Consultation" means <span class="quiz-item font-bold">Concurrence</span></em>.</li>
+              <li>Recommendation made by <span class="quiz-item font-bold">CJI + 2 senior-most judges</span>.</li>
+              <li>Recommendation given by CJI will be <span class="quiz-item font-bold">binding on President</span>.</li>
+            </ul>
+          </div>
+
+          <!-- 3rd Judges Case -->
+          <div class="p-3.5 rounded-xl bg-white/80 border-2 border-olive space-y-1.5" data-note-anchor="judges-case-3">
+            <span class="px-2 py-0.5 rounded gold-badge text-xs">3rd Judges Case (<span class="quiz-item">1998</span>)</span>
+            <h5 class="font-extrabold text-dark">5-Member Expansion</h5>
+            <ul class="space-y-1 text-xs list-disc pl-4">
+              <li>Collegium expanded to a <span class="quiz-item font-bold">5 member body</span>.</li>
+              <li>Composition: <span class="quiz-item font-bold">CJI + 4 senior-most judges</span>.</li>
+              <li>Decision <span class="quiz-item font-bold">binding on the President</span>.</li>
+            </ul>
+          </div>
+
+          <!-- 99th CA 2014 (NJAC) -->
+          <div class="p-3.5 rounded-xl bg-dark text-cream border-2 border-gold space-y-1.5" data-note-anchor="njac-2014">
+            <span class="px-2 py-0.5 rounded bg-gold text-dark font-bold text-xs"><span class="quiz-item">99th CA, 2014</span></span>
+            <h5 class="font-extrabold text-gold quiz-item">NJAC Introduced</h5>
+            <p class="text-xs leading-relaxed">
+              The Parliament replaced the collegium system by <span class="quiz-item font-bold text-gold">National Judicial Appointments Commission (NJAC)</span> through <span class="quiz-item font-bold">99th CA, 2014</span> to provide recommendations to the President.
+            </p>
+          </div>
+
+          <!-- 4th Judges Case -->
+          <div class="p-3.5 rounded-xl bg-white/80 border-2 border-olive space-y-1.5" data-note-anchor="judges-case-4">
+            <span class="px-2 py-0.5 rounded gold-badge text-xs">4th Judges Case (<span class="quiz-item">2015</span>)</span>
+            <h5 class="font-extrabold text-dark">NJAC Struck Down</h5>
+            <ul class="space-y-1 text-xs list-disc pl-4">
+              <li><span class="quiz-item font-bold">99th CA</span> was declared unconstitutional and <span class="quiz-item font-bold">NJAC Act was struck down</span>.</li>
+              <li><span class="quiz-item font-bold">Collegium System was restored</span>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trick-box p-4 text-xs md:text-sm">
+          <strong>🧠 Trick to Remember (Judges Cases Timeline — 1982 → 1993 → 1998 → 2015):</strong><br/>
+          • <strong>1982 (1st Case - S.P. Gupta):</strong> Executive boss tha (Consultation ≠ Concurrence).<br/>
+          • <strong>1993 (2nd Case):</strong> Collegium aaya (<strong>1 CJI + 2 Judges = 3</strong>) aur Consultation = Concurrence ban gaya.<br/>
+          • <strong>1998 (3rd Case):</strong> Collegium bada hua (<strong>1 CJI + 4 Judges = 5</strong>).<br/>
+          • <strong>2014–2015 (99th CA & 4th Case):</strong> Parliament ne 99th CA (2014) se NJAC banaya, par 2015 (4th Case) mein SC ne NJAC ko khatam karke wapas Collegium chalu kar diya!
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 02: SC ARTICLES (125–147) & SAARC TRICK ================= -->
+    <section id="topic-2" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-2-main">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 02 • PDF Page 4–6</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            Supreme Court Articles (Art. 125–147), Jurisdictions & Memory Trick
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Mnemonic Trick Box (Art 124 to 131) -->
+      <div class="trick-box p-5 space-y-3" data-note-anchor="saarc-trick-box">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-gold font-extrabold uppercase tracking-wider text-xs"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Official Parmar SSC Mnemonic (Art. 124–131)</span>
+          <span class="px-2.5 py-0.5 rounded bg-gold text-dark text-xs font-black">MUST MEMORIZE</span>
+        </div>
+        <h4 class="font-serif text-xl md:text-2xl font-bold text-gold">
+          "SC ne SAARC countries ko SEAT OFFER Kari"
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 text-xs pt-1">
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">SC → Art. 124</strong>
+            <span>SC (Supreme Court)</span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">S → Art. 125</strong>
+            <span><span class="quiz-item">Salaries</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">A → Art. 126</strong>
+            <span><span class="quiz-item">Acting Chief Justice</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">A → Art. 127</strong>
+            <span><span class="quiz-item">Ad Hoc judges</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">R → Art. 128</strong>
+            <span><span class="quiz-item">Retired judges</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">C → Art. 129</strong>
+            <span><span class="quiz-item">Court of record</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">SEAT → Art. 130</strong>
+            <span><span class="quiz-item">Delhi as a seat</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">OFFER → Art. 131</strong>
+            <span><span class="quiz-item">Original jurisdiction</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Female Judge Highlight Banner -->
+      <div class="p-4 rounded-xl bg-dark text-cream border-2 border-gold flex flex-wrap items-center justify-between gap-4" data-note-anchor="sc-female-judges">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold text-dark flex items-center justify-center font-bold text-lg">
+            <i class="fa-solid fa-venus"></i>
+          </div>
+          <div>
+            <span class="text-xs uppercase text-gold font-bold">Supreme Court Women Pioneers</span>
+            <p class="text-sm md:text-base font-bold">
+              • First Female Judge of SC: <span class="quiz-item text-gold underline">Justice Fathima Beevi (1989)</span>
+            </p>
+          </div>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-red-900/90 border border-gold text-xs font-bold">
+          ⚠️ <span class="quiz-item">No Female Chief Justice of SC till date.</span>
+        </div>
+      </div>
+
+      <!-- Articles 125 to 131(A) Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Art 125 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-125">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 125</span>
+          <h5 class="font-bold text-base text-dark">Salaries, etc., of Judges</h5>
+          <p class="text-xs md:text-sm">• Salaries & allowances are determined by <span class="quiz-item font-bold">Parliament</span>.</p>
+        </div>
+
+        <!-- Art 126 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-126">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 126</span>
+          <h5 class="font-bold text-base text-dark">Appointment of Acting Chief Justice</h5>
+          <p class="text-xs md:text-sm"><strong><span class="quiz-item">President</span> appoints Acting Chief Justice when:</strong></p>
+          <ul class="text-xs list-disc pl-4 space-y-0.5">
+            <li>Chief Justice's seat is vacant, or</li>
+            <li>Chief Justice is unable to perform duties.</li>
+          </ul>
+        </div>
+
+        <!-- Art 128 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-128">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 128</span>
+          <h5 class="font-bold text-base text-dark">Attendance of Retired Judges</h5>
+          <p class="text-xs md:text-sm">• <span class="quiz-item font-bold">Retired SC Judges</span> can be invited to sit and act as Judge of SC.</p>
+        </div>
+
+        <!-- Art 127 -->
+        <div class="sub-card p-4 space-y-1.5 md:col-span-2" data-note-anchor="art-127">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 127</span>
+          <h5 class="font-bold text-base text-dark">Appointment of Ad Hoc Judges (Temporary Judges)</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1">
+            <li><span class="quiz-item font-bold">CJI</span>, with prior consent of the <span class="quiz-item font-bold">President</span> and in consultation with the <span class="quiz-item font-bold">Chief Justice of the concerned High Court</span>, may request a High Court judge (qualified for SC) to sit as an <span class="quiz-item font-bold">ad hoc judge (temporary judge)</span> in the Supreme Court.</li>
+            <li>Such ad hoc judge enjoys powers, jurisdiction, and privileges of SC judges during the time.</li>
+          </ul>
+        </div>
+
+        <!-- Art 129 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-129">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 129</span>
+          <h5 class="font-bold text-base text-dark">Supreme Court as a Court of Record</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1">
+            <li>Its decisions are preserved as <span class="quiz-item font-bold">legal precedents</span>.</li>
+            <li>Has power to punish for <span class="quiz-item font-bold">'Contempt of court'</span> (<em>Not mentioned in Constitution</em>).</li>
+          </ul>
+        </div>
+
+        <!-- Art 130 -->
+        <div class="sub-card p-4 space-y-1.5" data-note-anchor="art-130">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 130</span>
+          <h5 class="font-bold text-base text-dark">Seat of Supreme Court</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1">
+            <li>The seat of the Supreme Court is at <span class="quiz-item font-bold">Delhi</span>.</li>
+            <li>SC can sit elsewhere if <span class="quiz-item font-bold">CJI recommends</span> and <span class="quiz-item font-bold">President approves</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Art 131 -->
+        <div class="sub-card p-4 space-y-1.5 md:col-span-2" data-note-anchor="art-131">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 131</span>
+          <h5 class="font-bold text-base text-dark">Original Jurisdiction of Supreme Court</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm pt-1">
+            <div class="p-2.5 rounded bg-white/70 border border-olive/40">
+              <strong class="block text-dark mb-1">✅ Exclusive Original Jurisdiction in disputes:</strong>
+              <ul class="list-disc pl-4 space-y-1">
+                <li>Between <span class="quiz-item font-semibold">Government of India and one or more States</span>.</li>
+                <li>Between <span class="quiz-item font-semibold">GoI and any state or states on one side and one or more states on the other side</span>.</li>
+                <li>Between <span class="quiz-item font-semibold">two or more States</span>.</li>
+              </ul>
+            </div>
+            <div class="p-2.5 rounded bg-red-50 border border-red-300">
+              <strong class="block text-red-900 mb-1">❌ Exceptions (NOT under Art. 131):</strong>
+              <ul class="list-disc pl-4 space-y-1 text-red-950">
+                <li>Dispute arising of <span class="quiz-item font-bold">Pre-Constitution Treaty</span></li>
+                <li><span class="quiz-item font-bold">Inter State Water Dispute</span></li>
+                <li>Matters (Manners) related to <span class="quiz-item font-bold">Finance Commission</span>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 131(A) to 147 Complete Reference Table -->
+      <div class="sub-card p-5 space-y-4" data-note-anchor="art-131a-147-table">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-lg text-dark">
+            <i class="fa-solid fa-table-list text-gold mr-1.5"></i> Complete Breakdown: Article 131(A) to Article 147
+          </h4>
+          <span class="text-xs font-bold text-olive">Zero-Omission Article Matrix</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-dark text-cream">
+                <th class="p-3 border border-olive w-32">Article</th>
+                <th class="p-3 border border-olive w-56">Subject / Title</th>
+                <th class="p-3 border border-olive">Exact Constitutional Provisions & Exam Pointers</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-olive/30 bg-white/70">
+              <tr data-note-anchor="row-131a">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 131 (A)</span></td>
+                <td class="p-3 font-bold">Validity of Central Laws (Repealed)</td>
+                <td class="p-3">Introduced by <span class="quiz-item font-bold">42nd CA, 1976</span>. It granted SC exclusive authority to determine the validity of central laws; it was further repealed by <span class="quiz-item font-bold">43rd CA, 1977</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-132">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 132</span></td>
+                <td class="p-3 font-bold">Appellate Jurisdiction (Constitutional Matters)</td>
+                <td class="p-3">By way of appeal from High Court in <span class="quiz-item font-bold">Constitutional matters</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-133">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 133</span></td>
+                <td class="p-3 font-bold">Appellate Jurisdiction (Civil Matters)</td>
+                <td class="p-3">Appeal to SC from HC on judgments in <span class="quiz-item font-bold">civil cases</span> like: Property, Marriage, Divorce, etc.</td>
+              </tr>
+              <tr data-note-anchor="row-134">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 134</span></td>
+                <td class="p-3 font-bold">Appellate Jurisdiction (Criminal Matters)</td>
+                <td class="p-3">Appellate Jurisdiction of Supreme Court in regard to <span class="quiz-item font-bold">Criminal Matters</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-135">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 135</span></td>
+                <td class="p-3 font-bold">Federal Court's Powers</td>
+                <td class="p-3">SC can exercise powers of the <span class="quiz-item font-bold">Federal Court</span> under pre-Constitution laws.</td>
+              </tr>
+              <tr data-note-anchor="row-136">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 136</span></td>
+                <td class="p-3 font-bold">Special Leave to Appeal (SLP)</td>
+                <td class="p-3">SC can grant <span class="quiz-item font-bold">Special Leave to appeal</span> from any court/tribunal judgment (<strong>Exception:</strong> except those related to <span class="quiz-item font-bold">Armed forces courts or Military Tribunals/Court-Martial</span>).</td>
+              </tr>
+              <tr data-note-anchor="row-137">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 137</span></td>
+                <td class="p-3 font-bold">Review of Judgments</td>
+                <td class="p-3">SC can review its own judgments or orders. <span class="quiz-item font-bold">"Judicial review"</span> borrowed from the <span class="quiz-item font-bold">U.S. Constitution</span> and this term is <span class="quiz-item font-bold">not mentioned in Indian Constitution</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-138">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 138</span></td>
+                <td class="p-3 font-bold">Enlargement of SC Jurisdiction</td>
+                <td class="p-3"><span class="quiz-item font-bold">Parliament</span> may expand SC's jurisdiction by law.</td>
+              </tr>
+              <tr data-note-anchor="row-139">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 139</span></td>
+                <td class="p-3 font-bold">Power to Issue Certain Writs</td>
+                <td class="p-3">SC can issue writs for enforcement of Fundamental Rights given under <span class="quiz-item font-bold">Article 32</span>. For <span class="quiz-item font-bold">other purposes</span>, it requires <span class="quiz-item font-bold">Parliamentary permission</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-140">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 140</span></td>
+                <td class="p-3 font-bold">Ancillary Powers of SC</td>
+                <td class="p-3">Ancillary Powers of Supreme Court.</td>
+              </tr>
+              <tr data-note-anchor="row-141">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 141</span></td>
+                <td class="p-3 font-bold">Law Declared by SC</td>
+                <td class="p-3">Law Declared by SC to be <span class="quiz-item font-bold">binding on all Courts</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-142">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 142</span></td>
+                <td class="p-3 font-bold">Enforcement of Decrees and Orders</td>
+                <td class="p-3">SC may pass any decree/order for <span class="quiz-item font-bold">complete justice</span>.</td>
+              </tr>
+              <tr data-note-anchor="row-143">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 143</span></td>
+                <td class="p-3 font-bold">Advisory Jurisdiction</td>
+                <td class="p-3">
+                  <span class="quiz-item font-bold">President</span> may refer 2 kinds of matters to SC for advice:<br/>
+                  <strong>1) Pre-constitutional matters</strong> (SC <span class="quiz-item font-bold">must give</span> its advice to President)<br/>
+                  <strong>2) Matters of General importance</strong><br/>
+                  <em>Note: In both the cases, the advice is <span class="quiz-item font-bold">not binding</span> on the President.</em>
+                </td>
+              </tr>
+              <tr data-note-anchor="row-144">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 144</span></td>
+                <td class="p-3 font-bold">Authorities to Act in Aid</td>
+                <td class="p-3">Civil and Judicial Authorities to Act in Aid of SC.</td>
+              </tr>
+              <tr data-note-anchor="row-145">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 145</span></td>
+                <td class="p-3 font-bold">Rules of Court, etc.</td>
+                <td class="p-3">SC can make its own procedural rules with <span class="quiz-item font-bold">President's approval</span> as long as it does not conflict with the laws made by the Parliament.</td>
+              </tr>
+              <tr data-note-anchor="row-146">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 146</span></td>
+                <td class="p-3 font-bold">Officers and Servants of SC</td>
+                <td class="p-3">
+                  <strong>• Appointments:</strong> <span class="quiz-item font-bold">CJI of SC</span> appoints the Court's officers and Staff.<br/>
+                  <strong>• Service Conditions:</strong> <span class="quiz-item font-bold">CJI</span> sets the rules for the staff employment and salaries.<br/>
+                  <strong>• Expenses:</strong> SC operating cost, like staff salaries, pensions are paid from <span class="quiz-item font-bold">Consolidated Fund of India</span>.
+                </td>
+              </tr>
+              <tr data-note-anchor="row-147">
+                <td class="p-3 font-extrabold text-dark"><span class="quiz-item">Article 147</span></td>
+                <td class="p-3 font-bold">Interpretation</td>
+                <td class="p-3">Constitution clarifies that when interpreting the constitution, any significant legal question should also be considered: <span class="quiz-item font-bold">GOI Act, 1935</span>, <span class="quiz-item font-bold">Indian Independence Act, 1947</span> and related orders and amendments to both of these Acts.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hinglish-box p-3.5 text-xs md:text-sm">
+          <strong>💡 Hinglish Mein Samjho (Super Exam Points):</strong><br/>
+          1. <strong>Art. 127 (Ad Hoc Judges):</strong> Sirf Supreme Court mein hote hain (High Court mein Additional & Acting Judges hote hain, Art. 224). CJI unhe President ki prior consent aur concerned HC ke Chief Justice se consult karke bulate hain.<br/>
+          2. <strong>Art. 132, 133, 134 (Appeals):</strong> Line se yaad rakho — <strong>132 = Constitutional</strong>, <strong>133 = Civil</strong> (Property, Marriage, Divorce), <strong>134 = Criminal</strong>.<br/>
+          3. <strong>Art. 143 (Advisory Jurisdiction):</strong> President SC se salah maang sakta hai. Pre-constitutional treaty/matter par SC ko salah dena <strong>compulsory (must)</strong> hai, par general importance ke matter par SC mana bhi kar sakta hai. Dono hi cases mein SC ki salah President par <strong>binding NAHI</strong> hoti!
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 03: HIGH COURTS (ART. 214–224A) & TRICK ================= -->
+    <section id="topic-3" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-3-main">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 03 • PDF Page 7–9</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            Part VI: High Courts — Establishment, Judges & Articles (214–224A)
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Mnemonic Trick Box (Art 214 to 222) -->
+      <div class="trick-box p-5 space-y-3" data-note-anchor="nhrc-trick-box">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-gold font-extrabold uppercase tracking-wider text-xs"><i class="fa-solid fa-lightbulb mr-1"></i> Official Parmar SSC Mnemonic (Art. 214–222)</span>
+          <span class="px-2.5 py-0.5 rounded bg-gold text-dark text-xs font-black">PART VI [Art. 214–231]</span>
+        </div>
+        <h4 class="font-serif text-xl md:text-2xl font-bold text-gold">
+          "NHRC AAO REST karo" (for Article 214–222)
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2 text-xs pt-1">
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">N</strong>
+            <span>No Article</span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">H → 214</strong>
+            <span><span class="quiz-item">High Court</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">R → 215</strong>
+            <span><span class="quiz-item">Court of Records</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">C → 216</strong>
+            <span><span class="quiz-item">Constitution</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">A → 217</strong>
+            <span><span class="quiz-item">Appointment</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">A → 218</strong>
+            <span><span class="quiz-item">Application of provisions</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">O → 219</strong>
+            <span><span class="quiz-item">Oath</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">R → 220</strong>
+            <span><span class="quiz-item">Restrictions</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">S → 221</strong>
+            <span><span class="quiz-item">Salary</span></span>
+          </div>
+          <div class="p-2 rounded bg-cream/10 border border-gold/40">
+            <strong class="text-gold block">T → 222</strong>
+            <span><span class="quiz-item">Transfer</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles 214 to 224A Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Art 214 & 215 -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art-214-215">
+          <div>
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 214</span>
+            <h5 class="font-bold text-base text-dark mt-1">Establishment of High Courts</h5>
+            <p class="text-xs md:text-sm">• <span class="quiz-item font-bold">Each State shall have a High Court.</span></p>
+          </div>
+          <div class="pt-2 border-t border-olive/30">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 215</span>
+            <h5 class="font-bold text-base text-dark mt-1">High Court to be Court of Record</h5>
+          </div>
+        </div>
+
+        <!-- Art 216 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-216">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 216</span>
+          <h5 class="font-bold text-base text-dark">Constitution of High Courts</h5>
+          <p class="text-xs md:text-sm">• One Chief Justice and other Judges as <span class="quiz-item font-bold">Parliament may decide</span>.</p>
+          <div class="p-2 rounded bg-red-100 border border-red-400 text-xs text-red-950 font-semibold">
+            ⚠️ <span class="quiz-item">No provision for "Distinguished Jurist" in HC</span> like Supreme Court.
+          </div>
+        </div>
+
+        <!-- Art 218 & 219 -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art-218-219">
+          <div>
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 218</span>
+            <h5 class="font-bold text-base text-dark mt-1">Application of Certain Provisions</h5>
+            <p class="text-xs">• Applies SC Judges' removal procedure to HC Judges (<span class="quiz-item font-bold">Judges Inquiry Act, 1968</span>).</p>
+          </div>
+          <div class="pt-2 border-t border-olive/30">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 219</span>
+            <h5 class="font-bold text-base text-dark mt-1">Oath or Affirmation</h5>
+            <p class="text-xs">• HC judge takes oath before the <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">Governor</span>.</p>
+          </div>
+        </div>
+
+        <!-- Art 217 (Full Details) -->
+        <div class="sub-card p-4 space-y-2 md:col-span-2" data-note-anchor="art-217">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 217</span>
+          <h5 class="font-bold text-base text-dark">Appointment and Conditions of HC Judges</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+            <div class="space-y-1">
+              <p><strong>1. Appointment:</strong> Done by the <span class="quiz-item font-bold">President</span> after consultation with:</p>
+              <ul class="list-disc pl-4 font-semibold">
+                <li><span class="quiz-item">Chief Justice of India</span></li>
+                <li><span class="quiz-item">Governor of State</span></li>
+                <li><span class="quiz-item">Chief Justice of the High Court</span> (Collegium)</li>
+              </ul>
+              <p><strong>• Maximum Age:</strong> <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">62 years</span></p>
+              <p><strong>• Resignation:</strong> Handed to the <span class="quiz-item font-bold">President</span>.</p>
+              <p><strong>• Removal:</strong> Same as that of SC Judge.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-white/70 border border-olive/40 space-y-1.5">
+              <strong class="block text-dark">2. Qualifications for HC Judge:</strong>
+              <ul class="list-disc pl-4 space-y-1">
+                <li><span class="quiz-item font-bold">10 years advocate of HC</span>, <strong>OR</strong></li>
+                <li><span class="quiz-item font-bold">10 years holding judicial office</span>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Art 220 & 222 -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art-220-222">
+          <div>
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 220</span>
+            <h5 class="font-bold text-base text-dark mt-1">Restriction on Practice After Retirement</h5>
+            <p class="text-xs">• Former HC judges cannot practice law before any court <strong>except: <span class="quiz-item">SC & other HCs</span></strong>.</p>
+          </div>
+          <div class="pt-2 border-t border-olive/30">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 222</span>
+            <h5 class="font-bold text-base text-dark mt-1">Transfer of Judges</h5>
+            <p class="text-xs">• <span class="quiz-item font-bold">President</span> can transfer HC judges after consultation with <span class="quiz-item font-bold">CJI</span>.</p>
+          </div>
+        </div>
+
+        <!-- Art 221 (Salary vs Pension Trap) -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-221">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 221 • 🔥 Exam Trap</span>
+          <h5 class="font-bold text-base text-dark">Salaries and Allowances of HC Judges</h5>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li><strong>Salaries & allowances:</strong> Drawn from <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">Consolidated Fund of State</span>.</li>
+            <li><strong>Pensions:</strong> Drawn from <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">Consolidated Fund of India</span>.</li>
+            <li>Salaries, allowances, leaves and pension rights are determined by the <span class="quiz-item font-bold">Parliament</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Art 223 & 224A -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art-223-224a">
+          <div>
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 223</span>
+            <h5 class="font-bold text-base text-dark mt-1">Appointment of Acting Chief Justice (HC)</h5>
+            <p class="text-xs">• <span class="quiz-item font-bold">President</span> can appoint an Acting Chief Justice when: (a) office of CJ of HC is vacant, or (b) CJ is unable to perform duties due to absence or any other reason.</p>
+          </div>
+          <div class="pt-2 border-t border-olive/30">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 224A</span>
+            <h5 class="font-bold text-base text-dark mt-1">Retired Judges at Sittings of HC</h5>
+            <p class="text-xs">• The <span class="quiz-item font-bold">Chief Justice of a HC</span> can request the attendance of a retired judge of that HC or any other HC.</p>
+          </div>
+        </div>
+
+        <!-- Art 224 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-224">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 224</span>
+          <h5 class="font-bold text-base text-dark">Additional and Acting Judges</h5>
+          <ul class="text-xs space-y-1.5 list-disc pl-4">
+            <li><strong>(1) Additional Judges:</strong> If workload of HC increases (e.g. due to arrears), the <span class="quiz-item font-bold">President</span> may appoint additional judges for a temporary period <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">not exceeding 2 years</span>.</li>
+            <li><strong>(2) Acting Judges:</strong> If a judge is absent, unable to perform duties, or seat is vacant, the <span class="quiz-item font-bold">President</span> may appoint an acting judge.</li>
+            <li>Both appointments are done in consultation with <span class="quiz-item font-bold">CJI</span>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hinglish-box p-3.5 text-xs md:text-sm">
+        <strong>💡 Hinglish Mein Samjho (High Court Traps):</strong><br/>
+        • <strong>Oath vs Resignation/Removal:</strong> HC Judge ko <strong>Oath (Art. 219) Governor</strong> dilata hai, lekin HC Judge apna <strong>Appointment, Resignation aur Removal</strong> sab <strong>President</strong> ke haatho hota hai!<br/>
+        • <strong>Salary vs Pension (Art. 221):</strong> HC Judge state mein kaam karta hai isliye uski <strong>Salary → Consolidated Fund of State</strong> se aati hai, par retire hone ke baad <strong>Pension → Consolidated Fund of India</strong> se di jaati hai!
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 04: HC JURISDICTION, WRITS & COMMON HCs ================= -->
+    <section id="topic-4" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-4-main">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 04 • PDF Page 8–9</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            HC Jurisdiction, Writs (Art. 226), Common HCs & Historical Firsts
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Articles 225 to 229 + Chandra Kumar Case -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Art 225 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-225">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 225</span>
+          <h5 class="font-bold text-base text-dark">Jurisdiction of High Court</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1">
+            <li><strong>Original Jurisdiction:</strong> <span class="quiz-item font-bold">Revenue matters, election disputes of MPs and MLAs</span>.</li>
+            <li><strong>Appellate Jurisdiction:</strong> Hear appeals about decisions made by lower courts.</li>
+            <li><strong>Writ jurisdiction.</strong></li>
+          </ul>
+        </div>
+
+        <!-- Art 226 -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-226">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 226 • ⭐ V. Imp</span>
+          <h5 class="font-bold text-base text-dark">Power of HC to Issue Writs</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1">
+            <li>HC has <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">wider writ jurisdiction than SC</span>.</li>
+            <li>It can issue writs on <span class="quiz-item font-bold">Legal + Fundamental Rights</span>.</li>
+            <li><span class="quiz-item font-bold">HC may refuse to issue writ, SC cannot</span> (under Art. 32).</li>
+          </ul>
+        </div>
+
+        <!-- Chandra Kumar Case, 1997 -->
+        <div class="sub-card p-4 bg-dark text-cream border-2 border-gold space-y-2" data-note-anchor="chandra-kumar-1997">
+          <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs"><span class="quiz-item">Chandra Kumar Case, 1997</span></span>
+          <h5 class="font-bold text-base text-gold">Judicial Review = Basic Feature</h5>
+          <p class="text-xs leading-relaxed">
+            The power of <span class="quiz-item font-bold text-gold">Judicial Review</span> held by the High Courts (under <span class="quiz-item font-bold">Articles 226 and 227</span>) is a <span class="quiz-item font-bold">basic feature of the Constitution</span> and cannot be excluded by Parliament through the creation of tribunals.
+          </p>
+        </div>
+
+        <!-- Art 227, 228, 229, 232 -->
+        <div class="sub-card p-4 md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs md:text-sm" data-note-anchor="art-227-232">
+          <div class="p-3 rounded bg-white/70 border border-olive/40">
+            <span class="font-extrabold text-dark block"><span class="quiz-item">Article 227</span></span>
+            <span><span class="quiz-item font-semibold">Superintendence over Subordinate Courts</span>.</span>
+          </div>
+          <div class="p-3 rounded bg-white/70 border border-olive/40">
+            <span class="font-extrabold text-dark block"><span class="quiz-item">Article 228</span></span>
+            <span><span class="quiz-item font-semibold">Transfer of Certain Cases to HC</span>.</span>
+          </div>
+          <div class="p-3 rounded bg-white/70 border border-olive/40">
+            <span class="font-extrabold text-dark block"><span class="quiz-item">Article 229</span></span>
+            <span><span class="quiz-item font-semibold">Officers and Servants of HC</span> — appointed by <span class="quiz-item font-bold">Chief Justice of HC</span>.</span>
+          </div>
+          <div class="p-3 rounded bg-red-50 border border-red-300">
+            <span class="font-extrabold text-red-900 block"><span class="quiz-item">Article 232 (Repealed)</span></span>
+            <span>Transfer of Cases to Federal Court — Repealed by <span class="quiz-item font-bold">7th Constitutional Amendment Act, 1956</span>.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 230 & 231: Union Territories & Common High Courts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Art 230: UTs -->
+        <div class="sub-card p-5 space-y-3" data-note-anchor="art-230-uts">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 230</span>
+            <span class="text-xs font-bold text-olive">Power of <span class="quiz-item">Parliament</span></span>
+          </div>
+          <h4 class="font-bold text-base text-dark">Extension of High Court Jurisdiction to Union Territories</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs md:text-sm border-collapse">
+              <thead>
+                <tr class="bg-dark text-cream">
+                  <th class="p-2 border border-olive">Union Territory</th>
+                  <th class="p-2 border border-olive">Concerned High Court</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-olive/30 bg-white/80">
+                <tr data-note-anchor="ut-1">
+                  <td class="p-2 font-semibold">Andaman & Nicobar</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Calcutta HC</span></td>
+                </tr>
+                <tr data-note-anchor="ut-2">
+                  <td class="p-2 font-semibold">Lakshadweep</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Kerala HC</span></td>
+                </tr>
+                <tr data-note-anchor="ut-3">
+                  <td class="p-2 font-semibold">Puducherry</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Madras HC</span></td>
+                </tr>
+                <tr data-note-anchor="ut-4">
+                  <td class="p-2 font-semibold">Dadra and Nagar Haveli & Daman and Diu</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Maharashtra HC</span></td>
+                </tr>
+                <tr data-note-anchor="ut-5">
+                  <td class="p-2 font-semibold">Chandigarh</td>
+                  <td class="p-2 font-bold text-dark"><span class="quiz-item">Punjab and Haryana HC</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Art 231 & HC Historical Facts -->
+        <div class="space-y-4">
+          <div class="sub-card p-5 space-y-2.5" data-note-anchor="art-231-common-hc">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 231</span>
+              <span class="px-2 py-0.5 rounded dark-badge text-xs"><span class="quiz-item">7th CA, 1956</span></span>
+            </div>
+            <h4 class="font-bold text-base text-dark">Establishment of Common High Court for Two or More States</h4>
+            <ul class="text-xs md:text-sm space-y-2 list-disc pl-4">
+              <li>
+                <strong>a. Mumbai, Maharashtra:</strong> <span class="quiz-item font-bold">Maharashtra and Goa</span> have a common HC at <span class="quiz-item font-bold">Mumbai, Maharashtra</span>.
+              </li>
+              <li>
+                <strong>b. Guwahati, Assam (4 States):</strong> <span class="quiz-item font-bold">Arunachal Pradesh, Nagaland, Mizoram and Assam</span> have a common HC at <span class="quiz-item font-bold">Guwahati, Assam</span>.
+              </li>
+            </ul>
+          </div>
+
+          <!-- HC Historical Firsts & Total Count -->
+          <div class="sub-card p-4 bg-dark text-cream border-2 border-gold space-y-2" data-note-anchor="hc-key-facts">
+            <span class="text-xs uppercase font-extrabold text-gold block">📌 High Court Static GK Pointers</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div class="p-2 rounded bg-cream/10 border border-gold/30">
+                <span class="text-gold block font-bold">1st High Court (1862):</span>
+                <strong class="quiz-item text-sm">Calcutta High Court</strong>
+              </div>
+              <div class="p-2 rounded bg-cream/10 border border-gold/30">
+                <span class="text-gold block font-bold">Total High Courts in India:</span>
+                <strong class="quiz-item text-sm">25 High Courts</strong>
+              </div>
+              <div class="p-2 rounded bg-cream/10 border border-gold/30">
+                <span class="text-gold block font-bold">1st Female HC Judge:</span>
+                <strong class="quiz-item text-sm">Justice Anna Chandy (Kerala)</strong>
+              </div>
+              <div class="p-2 rounded bg-cream/10 border border-gold/30">
+                <span class="text-gold block font-bold">1st Female Chief Justice of HC:</span>
+                <strong class="quiz-item text-sm">Justice Leila Seth (Himachal Pradesh)</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hinglish-box p-3.5 text-xs md:text-sm">
+        <strong>💡 Hinglish Mein Samjho (Female Judges Confusion Clear Karo!):</strong><br/>
+        • <strong>Justice Anna Chandy:</strong> Bharat mein kisi High Court ki <strong>pehli Mahila Judge</strong> (Kerala HC).<br/>
+        • <strong>Justice Leila Seth:</strong> Kisi High Court ki <strong>pehli Mahila Chief Justice</strong> (Himachal Pradesh HC).<br/>
+        • <strong>Justice Fathima Beevi (1989):</strong> <strong>Supreme Court ki pehli Mahila Judge</strong> (aur SC mein aaj tak koi Female CJI nahi bani hain)!
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 05: SUBORDINATE COURTS & SC vs HC COMPARISON ================= -->
+    <section id="topic-5" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-5-main">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 05 • PDF Page 9</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            Subordinate Courts (Art. 233–235) & SC vs HC Master Comparison
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <!-- Subordinate Courts Articles 233 to 235 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+        <!-- Art 233 -->
+        <div class="sub-card p-4 space-y-2 md:col-span-2" data-note-anchor="art-233">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 233</span>
+          <h5 class="font-bold text-base text-dark">Appointment of District Judges</h5>
+          <ul class="text-xs md:text-sm space-y-1.5 list-disc pl-4">
+            <li>
+              <strong>(1) Appointment:</strong> District Judge to be appointed by the <span class="quiz-item font-bold">Governor</span> in consultation with the <span class="quiz-item font-bold">High Court</span>.
+            </li>
+            <li>
+              <strong>(2) Eligibility Qualification:</strong> A person not already in the service of the Union or of the State shall only be eligible to be appointed a district judge if he has been for <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">not less than seven years (7 years) an advocate or a pleader</span> and is <span class="quiz-item font-bold">recommended by the High Court</span> for appointment.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Art 233A -->
+        <div class="sub-card p-4 space-y-2" data-note-anchor="art-233a">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 233A</span>
+          <h5 class="font-bold text-base text-dark">Validation of Appointments</h5>
+          <p class="text-xs md:text-sm">• <span class="quiz-item font-semibold">Validation of Appointments of District Judges.</span></p>
+        </div>
+
+        <!-- Art 234 & 235 -->
+        <div class="sub-card p-4 space-y-3" data-note-anchor="art-234-235">
+          <div>
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 234</span>
+            <h5 class="font-bold text-sm text-dark mt-1">Recruitment of Other Judicial Officers</h5>
+            <p class="text-xs">• Recruitment of Persons Other than District Judges to the Judicial Services shall be made by the <span class="quiz-item font-bold">Governor of the state</span>.</p>
+          </div>
+          <div class="pt-2 border-t border-olive/30">
+            <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Article 235</span>
+            <h5 class="font-bold text-sm text-dark mt-1">Control Over Subordinate Courts</h5>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Comparison Matrix: SC vs HC vs District Judge -->
+      <div class="sub-card p-5 space-y-3" data-note-anchor="sc-hc-comparison">
+        <h4 class="font-bold text-lg text-dark flex items-center gap-2">
+          <i class="fa-solid fa-code-compare text-gold"></i> High-Yield Revision Table: Supreme Court vs High Court vs District Court
+        </h4>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-dark text-cream">
+                <th class="p-2.5 border border-olive">Feature</th>
+                <th class="p-2.5 border border-olive">Supreme Court (Part V)</th>
+                <th class="p-2.5 border border-olive">High Court (Part VI)</th>
+                <th class="p-2.5 border border-olive">Subordinate Court</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-olive/30 bg-white/80">
+              <tr>
+                <td class="p-2.5 font-bold">Articles</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Art. 124 to 147</span></td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Art. 214 to 231</span></td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Art. 233 to 235</span></td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Appointed By</td>
+                <td class="p-2.5"><span class="quiz-item">President</span></td>
+                <td class="p-2.5"><span class="quiz-item">President</span></td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Governor</span> (in consultation with HC)</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Oath Before</td>
+                <td class="p-2.5"><span class="quiz-item">President</span> (Art. 124(6))</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Governor</span> (Art. 219)</td>
+                <td class="p-2.5">State Rules</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Retirement Age</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">65 Years</span></td>
+                <td class="p-2.5"><span class="quiz-item font-bold">62 Years</span></td>
+                <td class="p-2.5">—</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Advocate Exp. Required</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">10 Years</span> (HC Advocate) or 5 Yrs HC Judge</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">10 Years</span> (HC Advocate / Judicial Office)</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">7 Years</span> (Advocate or Pleader)</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Distinguished Jurist?</td>
+                <td class="p-2.5"><span class="quiz-item font-bold text-green-800">Yes</span> (in opinion of President)</td>
+                <td class="p-2.5"><span class="quiz-item font-bold text-red-800">No provision</span></td>
+                <td class="p-2.5">No</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Practice After Retirement</td>
+                <td class="p-2.5"><span class="quiz-item font-bold">Banned in ANY court in India</span> (Art. 124(7))</td>
+                <td class="p-2.5">Allowed ONLY in <span class="quiz-item font-bold">SC & other HCs</span> (Art. 220)</td>
+                <td class="p-2.5">—</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold">Writ Power</td>
+                <td class="p-2.5">Art. 32 (<span class="quiz-item">Fundamental Rights only</span>; cannot refuse)</td>
+                <td class="p-2.5">Art. 226 (<span class="quiz-item font-bold">Fundamental + Legal Rights</span>; wider; may refuse)</td>
+                <td class="p-2.5">No</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TOPIC 06: LOK ADALATS & NALSA ================= -->
+    <section id="topic-6" class="note-card p-6 md:p-8 searchable-section space-y-6" data-note-anchor="topic-6-main">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg gold-badge text-sm font-black">TOPIC 06 • PDF Page 10</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            Lok Adalats & National Legal Services Authority (NALSA)
+          </h3>
+        </div>
+        <button onclick="jumpToTopic('topics-at-a-glance')" class="px-3 py-1 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+          <i class="fa-solid fa-arrow-up mr-1"></i> Topics at a Glance
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+        <!-- Meaning & Statutory Status -->
+        <div class="sub-card p-4 space-y-2.5" data-note-anchor="lok-adalat-meaning">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Concept & Statutory Status</span>
+          <h5 class="font-bold text-base text-dark">What is a Lok Adalat?</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1.5">
+            <li>It is one of the <span class="quiz-item font-bold">alternative dispute redressal (ADR) mechanisms</span>.</li>
+            <li>It is a forum where disputes/cases <span class="quiz-item font-semibold">pending in the court of law</span> or at the <span class="quiz-item font-semibold">pre-litigation stage</span> are settled or compromised <span class="quiz-item font-bold">amicably</span>.</li>
+            <li><strong>Statutory Status:</strong> Lok Adalats have been given statutory status under the <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">Legal Services Authorities Act, 1987</span>.</li>
+            <li><strong>Court Fees:</strong> There is <span class="quiz-item font-extrabold text-green-800">no court fee payable</span> when a matter is filed in a Lok Adalat.</li>
+          </ul>
+        </div>
+
+        <!-- Who Conducts Lok Adalats & NALSA -->
+        <div class="sub-card p-4 bg-dark text-cream border-2 border-gold space-y-3" data-note-anchor="nalsa-box">
+          <span class="px-2.5 py-0.5 rounded bg-gold text-dark font-extrabold text-xs">Conducting Body: NALSA</span>
+          <h5 class="font-bold text-base text-gold">Who Conducts Lok Adalats?</h5>
+          <p class="text-xs">
+            <span class="quiz-item font-bold text-gold">NALSA</span> (National Legal Services Authority), along with other legal services institutions.
+          </p>
+          <div class="space-y-2 pt-1">
+            <div class="p-2.5 rounded bg-cream/10 border border-gold/40 text-xs">
+              <span class="text-gold font-bold block">👑 Patron Chief (NALSA):</span>
+              <strong class="text-sm quiz-item">Chief Justice of India (CJI)</strong>
+            </div>
+            <div class="p-2.5 rounded bg-cream/10 border border-gold/40 text-xs">
+              <span class="text-gold font-bold block">⚖️ Executive Chief (NALSA):</span>
+              <strong class="text-sm quiz-item">Seniormost Judge of Supreme Court</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nature of Cases Referred -->
+        <div class="sub-card p-4 space-y-2.5" data-note-anchor="lok-adalat-cases">
+          <span class="px-2.5 py-0.5 rounded gold-badge text-xs">Jurisdiction & Scope</span>
+          <h5 class="font-bold text-base text-dark">Nature of Cases Referred to Lok Adalats</h5>
+          <ul class="text-xs md:text-sm list-disc pl-4 space-y-1.5">
+            <li>Any case <span class="quiz-item font-semibold">pending before any court</span>.</li>
+            <li>Any dispute that has <span class="quiz-item font-semibold">not been brought before any court</span> and is likely to be filed before the court (pre-litigation).</li>
+          </ul>
+          <div class="p-3 rounded-lg bg-red-100 border-2 border-red-500 text-xs text-red-950 font-bold">
+            🚫 <span class="quiz-item">Non-Compoundable offences cannot be dealt by Lok Adalats.</span>
+          </div>
+        </div>
+
+        <!-- Award & Appeal Rules (Full Width) -->
+        <div class="sub-card p-5 md:col-span-3 space-y-2" data-note-anchor="lok-adalat-appeal">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h5 class="font-bold text-base text-dark flex items-center gap-2">
+              <i class="fa-solid fa-file-signature text-gold"></i> Award (Decision) & Appeal Rules in Lok Adalats
+            </h5>
+            <span class="px-2.5 py-0.5 rounded dark-badge text-xs">Final & Binding</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm pt-1">
+            <div class="p-3.5 rounded-lg bg-white/80 border border-olive/40">
+              <strong class="text-dark block mb-1">1. Status of Award & No Appeal Rule:</strong>
+              The award (Decision) made by the Lok Adalats is deemed to be a <span class="quiz-item font-bold">decree of a civil court</span> and is <span class="quiz-item font-bold">final and binding on all parties</span>, and <span class="quiz-item font-extrabold bg-gold/40 px-1 rounded">no appeal against such an award lies before any court of law</span>.
+            </div>
+            <div class="p-3.5 rounded-lg bg-white/80 border border-olive/40">
+              <strong class="text-dark block mb-1">2. What if Parties are NOT Satisfied?</strong>
+              If the parties are not satisfied with the award of the Lok Adalats, though there is no provision for an appeal against such an award, they are free to <span class="quiz-item font-bold">Initiate Litigation</span> by approaching the court of appropriate jurisdiction by filing a case by following the required procedure, in exercise of their <span class="quiz-item font-bold">right to litigate</span>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hinglish-box p-3.5 text-xs md:text-sm">
+        <strong>💡 Hinglish Mein Samjho (Lok Adalat Most Asked MCQs):</strong><br/>
+        • Lok Adalat ka faisla <strong>Civil Court ki decree</strong> ke barabar maana jata hai aur iske khilaaf kisi bhi court mein <strong>Appeal NAHI</strong> ho sakti (kyunki faisla dono parties ki aapsi sahmati/compromise se hota hai).<br/>
+        • Lekin agar parties संतुष्ट (satisfied) nahi hain, toh wo appeal toh nahi kar sakti, par apne <em>Right to Litigate</em> ka istemal karke normal court mein naya case file (<strong>Initiate Litigation</strong>) kar sakti hain!<br/>
+        • <strong>Non-compoundable offences</strong> (gambhir apradh jinmein samjhauta kanoonan mana hai) Lok Adalat mein solve <strong>NAHI</strong> ho sakte.
+      </div>
+    </section>
+
+    <!-- ================= 5. INTERACTIVE PYQ / PRACTICE QUIZ SECTION ================= -->
+    <section id="practice-quiz" class="note-card p-6 md:p-8 space-y-6 no-print" data-note-anchor="quiz-section">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-olive pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-olive">Test Your Retention</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-dark">
+            🎯 Interactive SSC PYQ & Concept Quiz (6 Questions)
+          </h3>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="quizScoreBadge" class="px-3 py-1 rounded-lg gold-badge text-xs">Score: 0 / 6</span>
+          <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-dark text-cream hover:bg-gold hover:text-dark transition">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Reset Quiz
+          </button>
+        </div>
+      </div>
+
+      <div id="quizContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+  </main>
+
+  <!-- ================= 6. FLOATING BOTTOM-RIGHT ACTION BUTTONS ================= -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5 no-print">
+    <button
+      onclick="openNoteModal('general-custom-notes', 'General Study Note')"
+      class="px-4 py-2.5 rounded-full bg-gold text-dark font-extrabold text-xs border-2 border-dark shadow-lg hover:scale-105 transition flex items-center gap-2"
+    >
+      <i class="fa-solid fa-plus-circle text-sm"></i>
+      <span>Add Extra Note</span>
+    </button>
+    <button
+      onclick="jumpToTopic('topics-at-a-glance')"
+      class="px-4 py-2.5 rounded-full bg-dark text-cream font-extrabold text-xs border-2 border-gold shadow-lg hover:scale-105 transition flex items-center gap-2"
+    >
+      <i class="fa-solid fa-compass text-gold text-sm"></i>
+      <span>Topics at a Glance</span>
+    </button>
+  </div>
+
+  <!-- ================= SLIDE-OVER DRAWER: MY SAVED NOTES ================= -->
+  <div id="notesDrawerBackdrop" onclick="toggleNotesDrawer(false)" class="fixed inset-0 bg-black/50 z-50 hidden"></div>
+  <aside
+    id="notesDrawer"
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-cream border-l-4 border-dark z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl no-print"
+  >
+    <div class="p-4 bg-dark text-cream flex items-center justify-between border-b-2 border-gold">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark text-gold text-lg"></i>
+        <h3 class="font-serif font-bold text-lg">My Saved Custom Notes</h3>
+      </div>
+      <button onclick="toggleNotesDrawer(false)" class="text-cream hover:text-gold text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="p-3 bg-gold/20 border-b border-olive flex flex-wrap items-center justify-between gap-2">
+      <button
+        onclick="openNoteModal('general-custom-notes', 'General Study Note')"
+        class="px-3 py-1.5 rounded-lg bg-dark text-cream text-xs font-bold hover:bg-gold hover:text-dark transition"
+      >
+        <i class="fa-solid fa-plus mr-1"></i> Add General Note
+      </button>
+      <div class="flex items-center gap-2">
+        <button
+          onclick="exportNotesTxt()"
+          class="px-3 py-1.5 rounded-lg bg-gold text-dark border border-dark text-xs font-bold hover:opacity-90 transition"
+        >
+          <i class="fa-solid fa-download mr-1"></i> Export (.txt)
+        </button>
+        <button
+          onclick="clearAllNotes()"
+          class="px-2.5 py-1.5 rounded-lg bg-red-800 text-cream text-xs font-bold hover:bg-red-700 transition"
+        >
+          <i class="fa-solid fa-trash-can"></i> Clear All
+        </button>
+      </div>
+    </div>
+
+    <div id="drawerNotesList" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  </aside>
+
+  <!-- ================= MODAL: ADD / EDIT CUSTOM NOTE ================= -->
+  <div id="noteModalBackdrop" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 no-print">
+    <div class="bg-cream border-4 border-dark rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b-2 border-olive/40 pb-2">
+        <h4 id="noteModalHeading" class="font-serif text-xl font-extrabold text-dark">➕ Add Extra Study Note</h4>
+        <button onclick="closeNoteModal()" class="text-dark hover:text-red-700 text-lg font-bold">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="noteAnchorInput" />
+      <input type="hidden" id="noteEditIdInput" />
+
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase text-olive block">Quick Tag Chips (Click to Insert):</label>
+        <div class="flex flex-wrap gap-1.5">
+          <button type="button" onclick="setQuickTag('⭐ Exam Point')" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gold/40 border border-dark hover:bg-gold">⭐ Exam Point</button>
+          <button type="button" onclick="setQuickTag('🧠 Memory Trick')" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gold/40 border border-dark hover:bg-gold">🧠 Memory Trick</button>
+          <button type="button" onclick="setQuickTag('🔥 PYQ Fact')" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gold/40 border border-dark hover:bg-gold">🔥 PYQ Fact</button>
+          <button type="button" onclick="setQuickTag('📌 Extra Detail')" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gold/40 border border-dark hover:bg-gold">📌 Extra Detail</button>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-xs font-bold uppercase text-olive block mb-1">Note Title / Tag:</label>
+        <input
+          id="noteTitleInput"
+          type="text"
+          placeholder="e.g., ⭐ Exam Point — Article 124 Amendment"
+          class="w-full px-3 py-2 rounded-lg bg-white border-2 border-olive text-dark text-sm font-semibold focus:outline-none focus:border-dark"
+        />
+      </div>
+
+      <div>
+        <label class="text-xs font-bold uppercase text-olive block mb-1">Your Note (Hinglish or English):</label>
+        <textarea
+          id="noteBodyInput"
+          rows="4"
+          placeholder="Write your extra points, teacher's classroom remarks, or PYQ notes here..."
+          class="w-full px-3 py-2 rounded-lg bg-white border-2 border-olive text-dark text-sm focus:outline-none focus:border-dark"
+        ></textarea>
+      </div>
+
+      <div>
+        <label class="text-xs font-bold uppercase text-olive block mb-1.5">Highlight Style Theme:</label>
+        <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="golden" checked class="peer hidden" />
+            <div class="p-2.5 rounded-lg border-2 border-olive peer-checked:border-dark peer-checked:ring-2 peer-checked:ring-dark bg-gold text-dark text-center">
+              Golden Card
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="dark" class="peer hidden" />
+            <div class="p-2.5 rounded-lg border-2 border-olive peer-checked:border-gold peer-checked:ring-2 peer-checked:ring-gold bg-dark text-cream text-center">
+              Dark Royal
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="noteTheme" value="cream" class="peer hidden" />
+            <div class="p-2.5 rounded-lg border-2 border-olive peer-checked:border-dark peer-checked:ring-2 peer-checked:ring-dark bg-cream text-dark text-center">
+              Warm Cream
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeNoteModal()" class="px-4 py-2 rounded-lg text-xs font-bold border-2 border-olive text-dark hover:bg-olive/20">
+          Cancel
+        </button>
+        <button onclick="saveCustomNote()" class="px-5 py-2 rounded-lg text-xs font-extrabold bg-dark text-cream border-2 border-gold hover:bg-gold hover:text-dark transition">
+          💾 Save Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- General Notes Container at Bottom of Page -->
+  <div class="max-w-7xl mx-auto px-4 mt-6" data-note-anchor="general-custom-notes"></div>
+
+  <!-- ================= JAVASCRIPT ENGINE ================= -->
+  <script>
+    const STORAGE_KEY = 'parmar_ssc_courts_master_notes_v1';
+    let noteModeActive = false;
+    let selfTestActive = false;
+    let customNotes = [];
+
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.round((scrollTop / docHeight) * 100)) : 0;
+      document.getElementById('scrollProgress').style.width = pct + '%';
+    });
+
+    // 2. Smooth Jump to Topic with Golden Pulse
+    function jumpToTopic(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.remove('section-active-pulse');
+      void el.offsetWidth;
+      el.classList.add('section-active-pulse');
+    }
+
+    // 3. Live Search Filter
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      clearSearchBtn.classList.toggle('hidden', query.length === 0);
+      document.querySelectorAll('.searchable-section').forEach(sec => {
+        const text = sec.innerText.toLowerCase();
+        sec.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      document.querySelectorAll('.searchable-section').forEach(sec => sec.style.display = '');
+    });
+
+    // 4. Self-Test (Revision Blur) Mode
+    function toggleSelfTest() {
+      selfTestActive = !selfTestActive;
+      document.getElementById('selfTestStatus').innerText = selfTestActive ? 'ON' : 'OFF';
+      const btn = document.getElementById('selfTestBtn');
+      btn.classList.toggle('bg-gold', selfTestActive);
+      document.querySelectorAll('.quiz-item').forEach(el => {
+        el.classList.remove('revealed');
+        el.classList.toggle('quiz-blur', selfTestActive);
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const quizEl = e.target.closest('.quiz-item');
+      if (quizEl && selfTestActive) {
+        quizEl.classList.toggle('revealed');
+      }
+    });
+
+    // 5. Click-to-Note System
+    function initNoteAnchors() {
+      document.querySelectorAll('[data-note-anchor]').forEach(el => {
+        const anchorId = el.getAttribute('data-note-anchor');
+        if (!el.querySelector('.add-note-inline-btn')) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'add-note-inline-btn no-print absolute top-2 right-2 z-10 px-2 py-0.5 rounded bg-gold text-dark border border-dark text-[10px] font-extrabold shadow hover:scale-105';
+          btn.innerHTML = '➕ Note';
+          btn.onclick = (ev) => {
+            ev.stopPropagation();
+            openNoteModal(anchorId);
+          };
+          el.appendChild(btn);
+        }
+      });
+    }
+
+    function toggleNoteMode() {
+      noteModeActive = !noteModeActive;
+      document.body.classList.toggle('note-mode-active', noteModeActive);
+      document.getElementById('noteModeStatus').innerText = noteModeActive ? 'ON' : 'OFF';
+      const toggleBtn = document.getElementById('toggleNoteModeBtn');
+      toggleBtn.classList.toggle('bg-gold', noteModeActive);
+      toggleBtn.classList.toggle('text-dark', noteModeActive);
+      document.getElementById('cursorNoteBadge').classList.toggle('hidden', !noteModeActive);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      if (!noteModeActive) return;
+      const badge = document.getElementById('cursorNoteBadge');
+      badge.style.left = (e.clientX + 14) + 'px';
+      badge.style.top = (e.clientY + 14) + 'px';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!noteModeActive) return;
+      if (e.target.closest('#noteModalBackdrop') || e.target.closest('#notesDrawer') || e.target.closest('header') || e.target.closest('.custom-rendered-note')) return;
+      const targetAnchor = e.target.closest('[data-note-anchor]');
+      if (targetAnchor) {
+        e.preventDefault();
+        openNoteModal(targetAnchor.getAttribute('data-note-anchor'));
+      }
+    });
+
+    function setQuickTag(tag) {
+      const input = document.getElementById('noteTitleInput');
+      if (!input.value.includes(tag)) {
+        input.value = tag + (input.value ? ' — ' + input.value : '');
+      }
+      input.focus();
+    }
+
+    function openNoteModal(anchorId, defaultTitle = '⭐ Exam Point', editId = null) {
+      document.getElementById('noteAnchorInput').value = anchorId;
+      document.getElementById('noteEditIdInput').value = editId || '';
+      if (editId) {
+        const existing = customNotes.find(n => n.id === editId);
+        if (existing) {
+          document.getElementById('noteModalHeading').innerText = '✏️ Edit Your Study Note';
+          document.getElementById('noteTitleInput').value = existing.title;
+          document.getElementById('noteBodyInput').value = existing.body;
+          const radio = document.querySelector(`input[name="noteTheme"][value="${existing.theme}"]`);
+          if (radio) radio.checked = true;
+        }
+      } else {
+        document.getElementById('noteModalHeading').innerText = '➕ Add Extra Study Note';
+        document.getElementById('noteTitleInput').value = defaultTitle;
+        document.getElementById('noteBodyInput').value = '';
+      }
+      const modal = document.getElementById('noteModalBackdrop');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeNoteModal() {
+      const modal = document.getElementById('noteModalBackdrop');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveCustomNote() {
+      const anchor = document.getElementById('noteAnchorInput').value || 'general-custom-notes';
+      const editId = document.getElementById('noteEditIdInput').value;
+      const title = document.getElementById('noteTitleInput').value.trim() || '📌 Extra Note';
+      const body = document.getElementById('noteBodyInput').value.trim();
+      const theme = document.querySelector('input[name="noteTheme"]:checked')?.value || 'golden';
+
+      if (!body) {
+        alert('Please write your note content before saving!');
+        return;
+      }
+
+      if (editId) {
+        const idx = customNotes.findIndex(n => n.id === editId);
+        if (idx > -1) {
+          customNotes[idx] = { ...customNotes[idx], title, body, theme, updatedAt: new Date().toLocaleString() };
+        }
+      } else {
+        customNotes.push({
+          id: 'note_' + Date.now(),
+          anchor,
+          title,
+          body,
+          theme,
+          createdAt: new Date().toLocaleString()
+        });
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(customNotes));
+      closeNoteModal();
+      renderAllCustomNotes();
+    }
+
+    function deleteCustomNote(id) {
+      customNotes = customNotes.filter(n => n.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(customNotes));
+      renderAllCustomNotes();
+    }
+
+    function clearAllNotes() {
+      if (!customNotes.length) return;
+      if (confirm('Delete all your saved custom notes?')) {
+        customNotes = [];
+        localStorage.removeItem(STORAGE_KEY);
+        renderAllCustomNotes();
+      }
+    }
+
+    function getThemeClasses(theme) {
+      if (theme === 'dark') return 'bg-dark text-cream border-2 border-gold';
+      if (theme === 'cream') return 'bg-cream text-dark border-2 border-dark';
+      return 'bg-gold/30 text-dark border-2 border-dark';
+    }
+
+    function renderAllCustomNotes() {
+      document.querySelectorAll('.custom-rendered-note').forEach(el => el.remove());
+      document.getElementById('savedNotesBadge').innerText = customNotes.length;
+
+      customNotes.forEach(note => {
+        const anchorEl = document.querySelector(`[data-note-anchor="${note.anchor}"]`) || document.querySelector('[data-note-anchor="general-custom-notes"]');
+        if (anchorEl) {
+          const noteDiv = document.createElement('div');
+          noteDiv.id = 'inline_' + note.id;
+          noteDiv.className = `custom-rendered-note mt-3 p-3.5 rounded-xl shadow-sm ${getThemeClasses(note.theme)}`;
+          noteDiv.innerHTML = `
+            <div class="flex items-center justify-between gap-2 border-b border-current/20 pb-1.5 mb-1.5">
+              <span class="font-extrabold text-xs uppercase tracking-wide">${escapeHtml(note.title)}</span>
+              <div class="flex items-center gap-2 no-print text-xs">
+                <button onclick="openNoteModal('${note.anchor}', '', '${note.id}')" class="hover:underline font-bold" title="Edit"><i class="fa-solid fa-pen"></i> Edit</button>
+                <button onclick="deleteCustomNote('${note.id}')" class="hover:underline font-bold text-red-500" title="Delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+            <p class="text-xs md:text-sm whitespace-pre-line leading-relaxed">${escapeHtml(note.body)}</p>
+          `;
+          anchorEl.appendChild(noteDiv);
+        }
+      });
+
+      renderDrawerNotes();
+    }
+
+    function renderDrawerNotes() {
+      const list = document.getElementById('drawerNotesList');
+      if (!customNotes.length) {
+        list.innerHTML = `
+          <div class="text-center py-12 text-olive space-y-2">
+            <i class="fa-regular fa-note-sticky text-4xl"></i>
+            <p class="text-sm font-bold text-dark">No Custom Notes Yet</p>
+            <p class="text-xs">Turn ON "Click-to-Note" or click "+ Note" on any card to add your personal revision points.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = customNotes.map(n => `
+        <div class="p-3.5 rounded-xl shadow ${getThemeClasses(n.theme)} space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-xs">${escapeHtml(n.title)}</span>
+            <span class="text-[10px] opacity-75">${n.createdAt || ''}</span>
+          </div>
+          <p class="text-xs whitespace-pre-line">${escapeHtml(n.body)}</p>
+          <div class="flex items-center justify-end gap-3 pt-2 border-t border-current/20 text-xs font-bold">
+            <button onclick="jumpToSavedNote('${n.id}')" class="hover:underline"><i class="fa-solid fa-location-arrow mr-0.5"></i> Jump</button>
+            <button onclick="openNoteModal('${n.anchor}', '', '${n.id}')" class="hover:underline"><i class="fa-solid fa-pen mr-0.5"></i> Edit</button>
+            <button onclick="deleteCustomNote('${n.id}')" class="text-red-500 hover:underline"><i class="fa-solid fa-trash mr-0.5"></i> Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function jumpToSavedNote(noteId) {
+      toggleNotesDrawer(false);
+      const el = document.getElementById('inline_' + noteId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('section-active-pulse');
+      }
+    }
+
+    function toggleNotesDrawer(open) {
+      const drawer = document.getElementById('notesDrawer');
+      const backdrop = document.getElementById('notesDrawerBackdrop');
+      drawer.classList.toggle('translate-x-full', !open);
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function exportNotesTxt() {
+      if (!customNotes.length) {
+        alert('No custom notes to export!');
+        return;
+      }
+      let content = '=== PARMAR SSC: COURTS IN INDIA — MY CUSTOM STUDY NOTES ===\n\n';
+      customNotes.forEach((n, i) => {
+        content += `${i + 1}. [${n.title}] (${n.createdAt || ''})\n${n.body}\n----------------------------------------\n`;
+      });
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Courts_In_India_Custom_Notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
+    // 6. Interactive PYQ Practice Quiz
+    const quizData = [
+      {
+        q: "Q1. Under which Constitutional Amendment Act was the National Judicial Appointments Commission (NJAC) introduced, and in which case was it struck down?",
+        options: [
+          "99th CA, 2014 & Fourth Judges Case (2015)",
+          "42nd CA, 1976 & Second Judges Case (1993)",
+          "99th CA, 2014 & Third Judges Case (1998)",
+          "15th CA, 1963 & First Judges Case (1982)"
+        ],
+        correct: 0,
+        explanation: "💡 Hinglish Explanation: Parliament ne 99th Constitutional Amendment Act, 2014 ke zariye Collegium ko replace karke NJAC banaya tha, lekin Fourth Judges Case (2015) mein Supreme Court ne 99th CA aur NJAC Act ko unconstitutional ghoshit karke Collegium System restore kar diya!"
+      },
+      {
+        q: "Q2. Which of the following statements regarding the Salaries and Pensions of High Court Judges (Article 221) is CORRECT?",
+        options: [
+          "Both Salary and Pension are drawn from Consolidated Fund of State",
+          "Both Salary and Pension are drawn from Consolidated Fund of India",
+          "Salaries are drawn from Consolidated Fund of State, while Pensions are drawn from Consolidated Fund of India",
+          "Salaries are drawn from Consolidated Fund of India, while Pensions are drawn from Consolidated Fund of State"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Article 221 ke tahat High Court Judges ki Salary aur allowances 'Consolidated Fund of State' se aate hain, jabki unki Pension 'Consolidated Fund of India' se di jaati hai (aur inhe determine Parliament karta hai)."
+      },
+      {
+        q: "Q3. Under Article 131, which of the following disputes is EXCLUDED from the Exclusive Original Jurisdiction of the Supreme Court?",
+        options: [
+          "Dispute between Government of India and one or more States",
+          "Dispute between two or more States",
+          "Inter-State Water Disputes, Pre-Constitution Treaties & Finance Commission matters",
+          "Dispute between GoI & a State on one side and other States on the other side"
+        ],
+        correct: 2,
+        explanation: "💡 Hinglish Explanation: Article 131 mein SC ke Original Jurisdiction ke 3 mukhya exceptions hain: (1) Pre-Constitution Treaty se jude vivad, (2) Inter-State Water Disputes, aur (3) Finance Commission se jude matters."
+      },
+      {
+        q: "Q4. According to the Judges Enquiry Act, 1968 (under Article 124(4)), a motion to remove a Supreme Court Judge must be signed by at least:",
+        options: [
+          "100 members of Rajya Sabha or 50 members of Lok Sabha",
+          "50 members of Rajya Sabha or 100 members of Lok Sabha",
+          "50 members of either House of Parliament",
+          "100 members of either House of Parliament"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Judges Enquiry Act, 1968 ke anusaar Judge ko hatane ka motion Rajya Sabha mein aaye toh 50 members aur Lok Sabha mein aaye toh 100 members ke signature hona zaroori hai."
+      },
+      {
+        q: "Q5. Who serves as the Patron-in-Chief and Executive Chief of the National Legal Services Authority (NALSA) respectively?",
+        options: [
+          "President of India & Law Minister",
+          "Chief Justice of India & Seniormost Judge of Supreme Court",
+          "Law Minister & Chief Justice of India",
+          "Prime Minister & Chief Justice of India"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: NALSA (jo Lok Adalats conduct karta hai under Legal Services Authorities Act, 1987) ke Patron Chief 'Chief Justice of India (CJI)' hote hain aur Executive Chief 'Seniormost Judge of Supreme Court' hote hain."
+      },
+      {
+        q: "Q6. Under Article 233, a person not already in the service of the Union or of the State is eligible to be appointed as a District Judge only if he has been an advocate or a pleader for not less than:",
+        options: [
+          "5 years",
+          "7 years",
+          "10 years",
+          "12 years"
+        ],
+        correct: 1,
+        explanation: "💡 Hinglish Explanation: Article 233(2) ke mutabik District Judge banne ke liye kam se kam 7 saal (not less than seven years) advocate ya pleader ka experience hona chahiye aur High Court ki recommendation par Governor appoint karta hai."
+      }
+    ];
+
+    let userAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizData.map((item, qIdx) => `
+        <div class="sub-card p-5 space-y-3">
+          <p class="font-bold text-sm md:text-base text-dark">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map((opt, oIdx) => {
+              const answered = userAnswers[qIdx] !== undefined;
+              const isSelected = userAnswers[qIdx] === oIdx;
+              const isCorrect = item.correct === oIdx;
+              let btnStyle = 'bg-white hover:bg-gold/20 border-olive text-dark';
+              let icon = '';
+              if (answered) {
+                if (isCorrect) {
+                  btnStyle = 'bg-green-100 border-green-700 text-green-950 font-bold';
+                  icon = '✅ ';
+                } else if (isSelected) {
+                  btnStyle = 'bg-red-100 border-red-700 text-red-950 font-bold';
+                  icon = '❌ ';
+                }
+              }
+              return `
+                <button
+                  onclick="selectQuizOption(${qIdx}, ${oIdx})"
+                  ${answered ? 'disabled' : ''}
+                  class="w-full text-left p-2.5 rounded-lg border-2 text-xs md:text-sm transition ${btnStyle}"
+                >
+                  ${icon}${opt}
+                </button>
+              `;
+            }).join('')}
+          </div>
+          <div id="quizExp_${qIdx}" class="${userAnswers[qIdx] !== undefined ? '' : 'hidden'} p-3 rounded-lg bg-dark text-cream border-l-4 border-gold text-xs leading-relaxed">
+            ${item.explanation}
+          </div>
+        </div>
+      `).join('');
+
+      const score = Object.keys(userAnswers).reduce((acc, k) => acc + (userAnswers[k] === quizData[k].correct ? 1 : 0), 0);
+      document.getElementById('quizScoreBadge').innerText = `Score: ${score} / ${quizData.length}`;
+    }
+
+    function selectQuizOption(qIdx, oIdx) {
+      if (userAnswers[qIdx] !== undefined) return;
+      userAnswers[qIdx] = oIdx;
+      renderQuiz();
+    }
+
+    function resetQuiz() {
+      userAnswers = {};
+      renderQuiz();
+    }
+
+    // Initialize on DOM Load
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) customNotes = JSON.parse(saved);
+      } catch (e) {
+        customNotes = [];
+      }
+      initNoteAnchors();
+      renderAllCustomNotes();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
