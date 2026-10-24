@@ -173,6 +173,14 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     return saved && saved.pageNum >= 1 ? String(saved.pageNum) : '1';
   });
 
+  // Keep live references to prevent stale closures during rapid keyboard navigation
+  const currentPageRef = useRef<number>(currentPage);
+  currentPageRef.current = currentPage;
+  const totalPagesRef = useRef<number>(totalPages);
+  totalPagesRef.current = totalPages;
+  const viewModeRef = useRef<PdfViewMode>(viewMode);
+  viewModeRef.current = viewMode;
+
   // Keep page input text synced with live page scroll
   useEffect(() => {
     setPageInputValue(String(currentPage));
@@ -322,7 +330,10 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
   // Memoized page navigation callbacks to prevent child prop reference changes
   const handlePageChange = useCallback((page: number, total: number) => {
+    currentPageRef.current = page;
+    totalPagesRef.current = total;
     setCurrentPage(page);
+    setPageInputValue(String(page));
     setTotalPages(total);
     if (selectedAttachmentId) {
       savePdfReadingProgress(selectedAttachmentId, page, total);
@@ -333,35 +344,38 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   }, [selectedAttachmentId, topicId, updateTopicPdfProgress]);
 
   const handleLoadSuccess = useCallback((total: number, doc?: any) => {
+    totalPagesRef.current = total;
     setTotalPages(total);
     if (doc) setPdfDoc(doc);
   }, []);
 
   // Fast jump or scroll to specific page with performance optimization
   const scrollToPage = useCallback((pageNum: number) => {
-    if (pageNum < 1 || (totalPages > 0 && pageNum > totalPages)) return;
+    const total = totalPagesRef.current;
+    if (pageNum < 1 || (total > 0 && pageNum > total)) return;
     soundManager.playClick();
+    currentPageRef.current = pageNum;
     setCurrentPage(pageNum);
     setPageInputValue(String(pageNum));
 
     if (selectedAttachmentId) {
-      savePdfReadingProgress(selectedAttachmentId, pageNum, totalPages);
+      savePdfReadingProgress(selectedAttachmentId, pageNum, total);
       if (topicId && updateTopicPdfProgress) {
-        updateTopicPdfProgress(topicId, selectedAttachmentId, pageNum, totalPages);
+        updateTopicPdfProgress(topicId, selectedAttachmentId, pageNum, total);
       }
     }
 
-    if (viewMode === 'single') {
+    if (viewModeRef.current === 'single') {
       return;
     }
 
     const el = modalRef.current?.querySelector<HTMLDivElement>(`[data-page-number="${pageNum}"]`);
     if (el) {
       // For jumps > 2 pages, jump instantly ('auto') to prevent rendering storms across all intermediate pages
-      const behavior = Math.abs(pageNum - currentPage) > 2 ? 'auto' : 'smooth';
+      const behavior = Math.abs(pageNum - currentPageRef.current) > 2 ? 'auto' : 'smooth';
       el.scrollIntoView({ behavior, block: 'start' });
     }
-  }, [totalPages, viewMode, selectedAttachmentId, topicId, updateTopicPdfProgress, currentPage]);
+  }, [selectedAttachmentId, topicId, updateTopicPdfProgress]);
 
   // Load Saved Highlights & Comments when attachment changes
   useEffect(() => {
@@ -467,9 +481,25 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
     };
   }, []);
 
-  // Keyboard shortcut listener (ESC to exit fullscreen or close, H to toggle highlighter, Ctrl+Z to undo)
+  // Helper to check if an element is an active text-editing field (so hotkeys don't collide with typing)
+  const isTextEditingElement = (el: Element | null): boolean => {
+    if (!el) return false;
+    const tag = el.tagName;
+    if (tag === 'TEXTAREA') return true;
+    if ((el as HTMLElement).isContentEditable) return true;
+    if (tag === 'INPUT') {
+      const type = (el as HTMLInputElement).type?.toLowerCase();
+      return type === 'text' || type === 'search' || type === 'password' || type === 'email' || type === 'number';
+    }
+    return false;
+  };
+
+  // Keyboard shortcut listener (ESC to exit fullscreen, Arrow keys for page flips, H/N/R/T/V shortcuts)
   useEffect(() => {
     if (!isOpen) return;
+
+    // Auto-focus modal on mount so arrow navigation works immediately without requiring a manual click
+    modalRef.current?.focus();
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -485,8 +515,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
           handleCloseReader();
         }
       } else if (e.key === 'h' || e.key === 'H') {
-        // Toggle highlight mode if not focusing an input
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        // Toggle highlight mode if not focusing a text input
+        if (!isTextEditingElement(document.activeElement)) {
           soundManager.playClick();
           setIsHighlightMode(prev => {
             const next = !prev;
@@ -496,7 +526,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
         }
       } else if (e.key === 'n' || e.key === 'N') {
         // Toggle sticky notes / comment mode
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           soundManager.playClick();
           setIsCommentMode(prev => {
             const next = !prev;
@@ -506,37 +536,48 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
         }
       } else if (e.key === 'r' || e.key === 'R') {
         // Rotate PDF 90 degrees clockwise
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           soundManager.playClick();
           setRotation(r => (r + 90) % 360);
         }
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      // NEXT PAGE: ArrowRight, ArrowDown, PageDown, Space
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+        if (!isTextEditingElement(document.activeElement)) {
           e.preventDefault();
-          scrollToPage(currentPage - 1);
+          const cur = currentPageRef.current;
+          const total = totalPagesRef.current;
+          if (total > 0 ? cur < total : true) {
+            scrollToPage(cur + 1);
+          }
         }
-      } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      // PREVIOUS PAGE: ArrowLeft, ArrowUp, PageUp, Shift+Space, Backspace
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey) || e.key === 'Backspace') {
+        if (!isTextEditingElement(document.activeElement)) {
           e.preventDefault();
-          scrollToPage(currentPage + 1);
+          const cur = currentPageRef.current;
+          if (cur > 1) {
+            scrollToPage(cur - 1);
+          }
         }
       } else if (e.key === 'Home') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           e.preventDefault();
           scrollToPage(1);
         }
       } else if (e.key === 'End') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           e.preventDefault();
-          scrollToPage(totalPages);
+          if (totalPagesRef.current > 0) {
+            scrollToPage(totalPagesRef.current);
+          }
         }
       } else if (e.key === 't' || e.key === 'T') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           soundManager.playClick();
           setShowThumbnailSidebar(prev => !prev);
         }
       } else if (e.key === 'v' || e.key === 'V') {
-        if (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        if (!isTextEditingElement(document.activeElement)) {
           soundManager.playClick();
           setViewMode(prev => prev === 'flow' ? 'single' : 'flow');
         }
@@ -548,7 +589,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose, isFullscreen, highlights, selectedAttachmentId, currentPage, totalPages, scrollToPage]);
+  }, [isOpen, onClose, isFullscreen, highlights, selectedAttachmentId, scrollToPage]);
 
   // Sticky Notes Handlers
   const handleAddComment = (newComment: PdfComment) => {
@@ -706,11 +747,17 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
   return createPortal(
     <div
       ref={modalRef}
+      tabIndex={-1}
       onMouseMove={handleMouseMove}
-      onClick={e => e.stopPropagation()}
+      onClick={e => {
+        e.stopPropagation();
+        if (document.activeElement instanceof HTMLInputElement && document.activeElement.type === 'text') {
+          document.activeElement.blur();
+        }
+      }}
       onMouseDown={e => e.stopPropagation()}
       onTouchStart={e => e.stopPropagation()}
-      className={`pdf-reader-isolated fixed inset-0 z-[9999] flex flex-col bg-[#16161E] text-[#C0CAF5] animate-fade-in select-none overflow-hidden font-sans ${
+      className={`pdf-reader-isolated fixed inset-0 z-[9999] flex flex-col bg-[#16161E] text-[#C0CAF5] animate-fade-in select-none overflow-hidden font-sans outline-none ${
         isFullscreen ? 'w-screen h-screen' : ''
       }`}
     >
@@ -865,6 +912,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   onSubmit={(e) => {
                     e.preventDefault();
                     handlePageInputSubmit();
+                    (document.activeElement as HTMLElement)?.blur();
                   }}
                   className="inline-flex items-center"
                 >
@@ -876,6 +924,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                     onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
                     onFocus={(e) => e.target.select()}
                     onBlur={handlePageInputSubmit}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handlePageInputSubmit();
+                        (e.target as HTMLElement).blur();
+                      } else if (e.key === 'Escape') {
+                        (e.target as HTMLElement).blur();
+                      }
+                    }}
                     className="w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-semibold text-xs border !border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all"
                     title="Click to jump to any page number (Press Enter)"
                   />
@@ -916,6 +973,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   onClick={() => {
                     soundManager.playClick();
                     setViewMode('single');
+                    (document.activeElement as HTMLElement)?.blur();
+                    modalRef.current?.focus();
                   }}
                   className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     viewMode === 'single'
@@ -957,6 +1016,8 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                 onClick={() => {
                   soundManager.playClick();
                   setViewMode('single');
+                  (document.activeElement as HTMLElement)?.blur();
+                  modalRef.current?.focus();
                 }}
                 className={`p-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   viewMode === 'single'
@@ -1755,6 +1816,17 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   onChange={(e) => {
                     const val = Number(e.target.value);
                     scrollToPage(val);
+                  }}
+                  onKeyDown={(e) => {
+                    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown'].includes(e.key)) {
+                      e.preventDefault();
+                      const cur = currentPageRef.current;
+                      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') {
+                        if (cur < totalPagesRef.current) scrollToPage(cur + 1);
+                      } else {
+                        if (cur > 1) scrollToPage(cur - 1);
+                      }
+                    }
                   }}
                   className="w-full h-1.5 bg-[#292E42] rounded-lg appearance-none cursor-pointer accent-indigo-500"
                   title={`Scrub through pages (Current: ${currentPage}/${totalPages})`}

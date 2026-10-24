@@ -661,7 +661,7 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
 
   // Sync external page change (e.g. from parent header input, thumbnail click, or keyboard shortcut)
   useEffect(() => {
-    if (isUserScrollingRef.current) return;
+    if (viewMode !== 'single' && isUserScrollingRef.current) return;
     const target = propTargetPage || propCurrentPage;
     if (target && target >= 1 && target <= numPages && target !== currentPage) {
       if (viewMode === 'single') {
@@ -674,6 +674,50 @@ export const PdfCanvasViewer: React.FC<PdfCanvasViewerProps> = ({
       }
     }
   }, [propTargetPage, propCurrentPage, numPages, viewMode, currentPage]);
+
+  // Direct Single-Page Keyboard Navigation Listener (for standalone viewer or direct canvas interaction)
+  useEffect(() => {
+    if (viewMode !== 'single') return;
+
+    const handleSingleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return; // Handled by parent container
+      const target = e.target as HTMLElement | null;
+      if (target) {
+        const tag = target.tagName;
+        if (tag === 'TEXTAREA' || target.isContentEditable) return;
+        if (tag === 'INPUT') {
+          const type = (target as HTMLInputElement).type?.toLowerCase();
+          if (type === 'text' || type === 'search' || type === 'password' || type === 'email' || type === 'number') return;
+        }
+      }
+
+      const total = numPagesRef.current;
+      const cur = currentPageRef.current;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+        e.preventDefault();
+        if (total > 0 ? cur < total : true) {
+          scrollToPage(cur + 1);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey) || e.key === 'Backspace') {
+        e.preventDefault();
+        if (cur > 1) {
+          scrollToPage(cur - 1);
+        }
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        scrollToPage(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        if (total > 0) {
+          scrollToPage(total);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleSingleKeyDown);
+    return () => window.removeEventListener('keydown', handleSingleKeyDown);
+  }, [viewMode]);
 
   // Background Lookahead Pre-rendering: Pre-render adjacent pages (N+1, N-1, N+2) into RAM cache
   useEffect(() => {
