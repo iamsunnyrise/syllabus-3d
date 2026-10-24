@@ -1774,6 +1774,957 @@ export const HIGH_YIELD_ROOT_WORDS: VocabItem[] = [
   }
 },
 
+    // =========================================================================
+  // LEVEL 1 - SET 3: SENSES, PERCEPTION, MOTION, HARSHNESS & VOICE (10 ROOT WORDS)
+  // =========================================================================
+  {
+  "id": "v-root-l1-s3-1",
+  "word": "Sens- / Sent-",
+  "phonetic": "/sɛns/",
+  "hindi": "संवेदना / भावना / महसूस करना",
+  "type": "root",
+  "partOfSpeech": "Verb Base / Root",
+  "meaning": "Latin root \"Sentire / Sensus\" meaning \"To feel\", \"To perceive\", or \"To think / judge\". It forms words describing sensory awareness, emotional feelings, agreement, and deep resentment.",
+  "synonyms": [
+    "Feel",
+    "Perceive",
+    "Emotion",
+    "Awareness",
+    "Sentiment"
+  ],
+  "antonyms": [
+    "Apathy",
+    "Insensitivity",
+    "Numbness",
+    "Insensate"
+  ],
+  "example": "The moral debate centers on whether non-human animals are sentient beings capable of suffering.",
+  "mnemonic": "Sens = Sense / Sensation (jo feel kiya ja sake). Dissent = dis (alag) + sent (feeling / asahmat hona).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Sentient, Sentiment, Resent, Dissent, Assent, Sensuous",
+  "derivatives": "Sentient, Sentiment, Resent, Dissent, Assent, Sensuous, Insensate, Sensitive",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Feel / Perceive / Emotion (संवेदना / भावना / महसूस करना)",
+    "counterRoot": {
+      "root": "Apathy / Insens-",
+      "meaning": "Lack of feeling / Callous (संवेदनहीनता / बेरुखी)"
+    },
+    "derivatives": [
+      {
+        "word": "Sentient",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Sent (Feel) + ient (Having quality)",
+        "hindi": "चेतन / संवेदनशील / जिसमें संवेदना हो",
+        "meaning": "Able to perceive or feel things; conscious and responsive to sensations.",
+        "example": "Philosophers argue that all sentient creatures deserve humane treatment and legal protection.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Dissent",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "Dis (Apart / Differ) + Sent (Feel)",
+        "hindi": "असमर्थन / असहमति / मतभेद व्यक्त करना",
+        "meaning": "The expression or holding of opinions at variance with those previously, commonly, or officially held.",
+        "example": "Justice Khanna registered a courageous note of dissent against the executive emergency decree.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Assent",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "Ad (To / Toward) + Sent (Feel / Agree)",
+        "hindi": "सहमति / औपचारिक स्वीकृति देना",
+        "meaning": "The expression of formal approval or agreement to a proposal or bill.",
+        "example": "The bill became enforceable law immediately after receiving the President’s official assent.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Resent",
+        "partOfSpeech": "Verb",
+        "breakdown": "Re (Again) + Sent (Feel bitter)",
+        "hindi": "बुरा मानना / क्रोधित होना / मनमुटाव रखना",
+        "meaning": "Feel bitterness or indignation at a circumstance, action, or unfair treatment.",
+        "example": "He bitterly resented being passed over for promotion in favor of the chairman’s nephew.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Sensuous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Sens (Senses) + uous (Full of)",
+        "hindi": "इंद्रियसुख देने वाला / मनमोहक / सौंदर्यपूर्ण",
+        "meaning": "Relating to or affecting the physical senses rather than the intellect; aesthetically pleasing.",
+        "example": "Keats is renowned for his richly sensuous poetry that vividly evokes tactile and visual imagery.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Insensate",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Sens (Feel) + ate",
+        "hindi": "संवेदनहीन / जड़ / मूर्खतापूर्ण / निर्दयी",
+        "meaning": "Lacking physical sensation; devoid of feeling, compassion, or rational judgment.",
+        "example": "The tyrant ordered an insensate bombardment of civilian residential quarters.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-2",
+  "word": "Tort- / Tors-",
+  "phonetic": "/tɔːrt/",
+  "hindi": "मरोड़ना / घुमाना / कष्ट देना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Torquere / Tortus\" meaning \"To twist, bend, wring, or distort\". It forms words describing winding paths, distorted speech, cruel extortion, and physical agony.",
+  "synonyms": [
+    "Twist",
+    "Wring",
+    "Distort",
+    "Bend",
+    "Agony"
+  ],
+  "antonyms": [
+    "Straight",
+    "Direct",
+    "Rectify",
+    "Untwist"
+  ],
+  "example": "The witness gave a distorted version of events, deliberately contorting the simple facts.",
+  "mnemonic": "Tort = Twist (Tor-maror kar pesh karna). Tortuous = twisty/ghoomawdaar rasta. Extort = twist karke paise nikaalna.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Tortuous, Extort, Retort, Contort, Distort",
+  "derivatives": "Tortuous, Contort, Extort, Retort, Distort, Torture",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Twist / Wring / Distort (मरोड़ना / घुमाना / ऐंठना)",
+    "counterRoot": {
+      "root": "Rect- / Direct-",
+      "meaning": "Straight / Upright (सीधा / खरा)"
+    },
+    "derivatives": [
+      {
+        "word": "Tortuous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Tort (Twist) + uous (Full of)",
+        "hindi": "घुमावदार / पेचीदा / जटिल / टेढ़ा-मेढ़ा",
+        "meaning": "Full of twists and turns; excessively lengthy, devious, and complex.",
+        "example": "The convoy navigated a tortuous mountain pass shrouded in heavy monsoon fog.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Contort",
+        "partOfSpeech": "Verb",
+        "breakdown": "Con (Together) + Tort (Twist)",
+        "hindi": "ऐंठना / विकृत रूप में मरोड़ना",
+        "meaning": "Twist or bend out of its normal natural shape.",
+        "example": "His face contorted in agony as the orthopedic surgeon realigned the fractured bone.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Extort",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ex (Out) + Tort (Twist / Wring)",
+        "hindi": "जबरन वसूली करना / धमका कर ऐंठना",
+        "meaning": "Obtain money or favor from someone by using threats, force, or intimidation.",
+        "example": "The gangsters attempted to extort protection money from local shopkeepers.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Retort",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "Re (Back) + Tort (Twist / Turn)",
+        "hindi": "करारा जवाब देना / मुंहतोड़ उत्तर",
+        "meaning": "Say something in answer to a remark or accusation, typically in a sharp, witty manner.",
+        "example": "“I may be slow, but at least I am thorough,” she retorted with a composed smile.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Distort",
+        "partOfSpeech": "Verb",
+        "breakdown": "Dis (Away) + Tort (Twist)",
+        "hindi": "विकृत करना / तोड़-मरोड़ कर पेश करना",
+        "meaning": "Pull or twist out of shape; misrepresent facts to mislead others.",
+        "example": "Yellow journalism sensationalized and distorted the politician’s original statement.",
+        "examTag": "SSC CPO"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-3",
+  "word": "Gred- / Gress-",
+  "phonetic": "/ɡrɛs/",
+  "hindi": "कदम बढ़ाना / चलना / आगे बढ़ना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Gradi / Gressus\" meaning \"To step, walk, or go\". It forms words describing movement forward, wandering off-topic, crossing boundaries into sin, and entry/exit passages.",
+  "synonyms": [
+    "Step",
+    "Walk",
+    "Move",
+    "Advance",
+    "Passage"
+  ],
+  "antonyms": [
+    "Stagnant",
+    "Stationary",
+    "Halt",
+    "Motionless"
+  ],
+  "example": "He cautioned the speaker not to digress too far from the central theme of the symposium.",
+  "mnemonic": "Gress = Progress / Congress (aage badhna ya kadam rakhna). Transgress = paar karna boundary (kanoon todna).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Transgress, Digress, Regress, Aggressive, Egress, Ingress",
+  "derivatives": "Transgress, Digress, Regress, Progress, Aggressive, Egress, Ingress",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Step / Walk / Move (कदम बढ़ाना / चलना / गति)",
+    "counterRoot": {
+      "root": "Stagn- / Static",
+      "meaning": "Stationary / Unmoving (स्थिर / ठहरा हुआ)"
+    },
+    "derivatives": [
+      {
+        "word": "Transgress",
+        "partOfSpeech": "Verb",
+        "breakdown": "Trans (Across / Beyond) + Gress (Step)",
+        "hindi": "मर्यादा लांघना / उल्लंघन करना / पाप करना",
+        "meaning": "Go beyond the limits of what is morally, socially, or legally acceptable.",
+        "example": "Citizens who deliberately transgress environmental regulations face severe administrative fines.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Digress",
+        "partOfSpeech": "Verb",
+        "breakdown": "Di (Away / Aside) + Gress (Step)",
+        "hindi": "विषय से भटकना / विषयांतर करना",
+        "meaning": "Leave the main subject temporarily in speech or writing; wander off topic.",
+        "example": "The professor digressed into an amusing anecdote about his student days in Oxford.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Regress",
+        "partOfSpeech": "Verb",
+        "breakdown": "Re (Back) + Gress (Step)",
+        "hindi": "पीछे लौटना / पतन होना / पुरानी स्थिति में जाना",
+        "meaning": "Return to a former or less developed, worse state.",
+        "example": "Without continuous rehabilitation exercises, the patient’s knee mobility may regress.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Egress",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "E (Out) + Gress (Step)",
+        "hindi": "निकास / बाहर निकलने का मार्ग",
+        "meaning": "The action of going out of or leaving a place; a way out.",
+        "example": "Fire safety inspectors mandated three clear points of emergency egress in the theatre.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Ingress",
+        "partOfSpeech": "Noun",
+        "breakdown": "In (Into) + Gress (Step)",
+        "hindi": "प्रवेश / अंदर आने का मार्ग / अधिकार",
+        "meaning": "The action or right of entering; an entrance or means of access.",
+        "example": "Heavy military blockades barred all unauthorized vehicular ingress into the cantonment.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-4",
+  "word": "Dol- / Dolo-",
+  "phonetic": "/dɒl/",
+  "hindi": "शोक / दुख / पीड़ा / वेदना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Dolere\" (to feel pain / grieve) and \"Dolor\" (pain, sorrow, distress). It forms words describing melancholy, deep grief, indolent avoidance of effort, and sympathy.",
+  "synonyms": [
+    "Pain",
+    "Sorrow",
+    "Grief",
+    "Melancholy",
+    "Suffering"
+  ],
+  "antonyms": [
+    "Joy",
+    "Cheerfulness",
+    "Jocund",
+    "Ecstasy"
+  ],
+  "example": "Neighbors visited the bereaved family to extend their heartfelt condolences.",
+  "mnemonic": "Dol = Dil me dard (dard/dukh). Indolent = jo dard/kasht na uthana chahe (aalsi). Condolence = dukh me shamil hona.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Indolent, Dolorous, Doleful, Condolence, Dolor",
+  "derivatives": "Indolent, Dolorous, Doleful, Condolence, Dolor",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Pain / Grief / Sorrow (शोक / दुख / पीड़ा / वेदना)",
+    "counterRoot": {
+      "root": "Joc- / Gaud-",
+      "meaning": "Joy / Delight (हर्ष / उल्लास)"
+    },
+    "derivatives": [
+      {
+        "word": "Indolent",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Dol (Pain / Exertion) + ent",
+        "hindi": "आलसी / अकर्मण्य / कामचोर",
+        "meaning": "Wanting to avoid activity or exertion; habitually lazy (originally: not feeling pain).",
+        "example": "The indolent heir spent his afternoons lounging beside the pool while his estate decayed.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Dolorous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Dolor (Pain / Grief) + ous (Full of)",
+        "hindi": "शोकग्रस्त / दुखद / उदास / गमगीन",
+        "meaning": "Feeling or expressing great sorrow or distress; mournful.",
+        "example": "The church bell tolled in a slow, dolorous rhythm during the state funeral procession.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Doleful",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Dole (Pain) + ful (Full of)",
+        "hindi": "उदासीन / विषादपूर्ण / शोकपूर्ण",
+        "meaning": "Expressing sorrow; mournful and melancholy.",
+        "example": "The abandoned puppy looked up at the rescuer with doleful, beseeching eyes.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Condolence",
+        "partOfSpeech": "Noun",
+        "breakdown": "Con (Together) + Dol (Grieve) + ence",
+        "hindi": "शोक-संवेदना / सांत्वना",
+        "meaning": "An expression of sympathy, especially on the occasion of the death of someone’s relative.",
+        "example": "The Prime Minister sent a message of deep condolence to the earthquake victims.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Dolor",
+        "partOfSpeech": "Noun",
+        "breakdown": "Dolor (Sorrow)",
+        "hindi": "गहरा शोक / मानसिक या शारीरिक वेदना",
+        "meaning": "A state of great sorrow, physical suffering, or deep mental distress.",
+        "example": "Ancient Greek tragedy explored the inescapable themes of mortal fate and cosmic dolor.",
+        "examTag": "SSC CPO"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-5",
+  "word": "Viv- / Vit-",
+  "phonetic": "/vɪv/",
+  "hindi": "जीवन / प्राण / ऊर्जा / जिंदादिली",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Vivere\" (to live) and \"Vita\" (life). It forms words describing exuberant energy, striking clarity, survival, essential requirements for health, and sociable warmth.",
+  "synonyms": [
+    "Life",
+    "Vitality",
+    "Energy",
+    "Liveliness",
+    "Vigor"
+  ],
+  "antonyms": [
+    "Mort- (Death)",
+    "Lifeless",
+    "Inanimate",
+    "Moribund"
+  ],
+  "example": "Her vivacious personality illuminated the room and instantly put everyone at ease.",
+  "mnemonic": "Viv = Vivaah / Jeevan (Zinda). Vivacious = Zindadil. Vitamin = Jo jeevan ke liye zaroori ho.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Vivacious, Vivid, Vital, Convivial, Revive, Bon vivant",
+  "derivatives": "Vivacious, Vivid, Vital, Convivial, Revive, Bon vivant, Vitality",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Live / Life / Vitality (जीवन / प्राण / ऊर्जा / जिंदादिली)",
+    "counterRoot": {
+      "root": "Mort- / Moribund",
+      "meaning": "Death / Dying (मृत्यु / मरणासन्न)"
+    },
+    "derivatives": [
+      {
+        "word": "Vivacious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Viv (Life) + acious (Full of)",
+        "hindi": "जिंदादिल / हंसमुख / ऊर्जावान / फुर्तीला",
+        "meaning": "Attractively lively and animated; full of high spirits and vitality.",
+        "example": "The vivacious host captivated the audience with humorous stories and boundless enthusiasm.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Convivial",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Con (Together) + Viv (Live / Feast) + ial",
+        "hindi": "मिलनसार / खुशनुमा / दावत-प्रेमी",
+        "meaning": "Friendly, lively, and enjoyable; fond of feasting, drinking, and good company.",
+        "example": "The reunion dinner was celebrated in a warm and convivial atmosphere among childhood friends.",
+        "examTag": "SSC CGL OWS"
+      },
+      {
+        "word": "Vivid",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Viv (Life) + id",
+        "hindi": "सजीव / सुस्पष्ट / चमकीला",
+        "meaning": "Producing powerful feelings or strong, clear images in the mind.",
+        "example": "Even after fifty years, the veteran retained a vivid recollection of the historic landing.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Revive",
+        "partOfSpeech": "Verb",
+        "breakdown": "Re (Again) + Viv (Live)",
+        "hindi": "पुनर्जीवित करना / फिर से होश में लाना",
+        "meaning": "Restore to life, consciousness, vigor, or active use.",
+        "example": "Paramedics applied CPR and oxygen to revive the collapsed marathon runner.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Bon vivant",
+        "partOfSpeech": "Noun",
+        "breakdown": "Bon (Good) + Vivant (Living [French/Latin])",
+        "hindi": "विलासी / ऐशो-आराम और अच्छे भोजन का शौकीन",
+        "meaning": "A person who enjoys a sociable and luxurious lifestyle, especially good food and wine.",
+        "example": "As a renowned culinary critic and bon vivant, he frequented Europe’s finest Michelin restaurants.",
+        "examTag": "SSC CGL Mains"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-6",
+  "word": "Acri- / Acer- / Ac-",
+  "phonetic": "/ˈækrɪ/",
+  "hindi": "तीखा / कड़वा / तीक्ष्ण / उग्र",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Acer / Acris\" meaning \"Sharp\", \"Sour\", \"Piercing\", or \"Bitter\". It forms words describing bitter speech, caustic remarks, intellectual sharpness, and intensifying pain.",
+  "synonyms": [
+    "Bitter",
+    "Sharp",
+    "Caustic",
+    "Pungent",
+    "Severe"
+  ],
+  "antonyms": [
+    "Dulcet",
+    "Mellifluous",
+    "Sweet",
+    "Soothing"
+  ],
+  "example": "The bitter board meeting descended into an acrimonious exchange of accusations.",
+  "mnemonic": "Acri = Acid (jo teekha/kadwa aur kaatne wala ho). Acumen = sharp dimaag. Acrimonious = kadwahat se bhara.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Acrimonious, Acerbic, Acrid, Acumen, Acute, Exacerbate",
+  "derivatives": "Acrimonious, Acerbic, Acrid, Acumen, Acute, Exacerbate",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Sharp / Bitter / Harsh (तीखा / कड़वा / तीक्ष्ण / उग्र)",
+    "counterRoot": {
+      "root": "Dulce- / Melli-",
+      "meaning": "Sweet / Gentle (मधुर / कोमल)"
+    },
+    "derivatives": [
+      {
+        "word": "Acrimonious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Acri (Bitter) + mony (State) + ous",
+        "hindi": "कटुतापूर्ण / उग्र / झगड़ालू / तल्ख",
+        "meaning": "Angry and bitter in tone, speech, or debate.",
+        "example": "The acrimonious divorce proceedings dragged on in court for more than three years.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Acerbic",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Acer (Sharp / Sour) + bic",
+        "hindi": "कड़वा / तीखा / व्यंग्यपूर्ण",
+        "meaning": "Sharp and forthright in expression; tasting sour or bitter.",
+        "example": "The literary critic was notorious for her acerbic wit and merciless book reviews.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Acrid",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Acr (Sharp) + id",
+        "hindi": "तीखा / दुर्गंधयुक्त / नाक में चुभने वाला",
+        "meaning": "Having an irritatingly strong and unpleasantly pungent taste or smell.",
+        "example": "Thick, acrid smoke from the burning chemical factory filled the entire industrial zone.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Acumen",
+        "partOfSpeech": "Noun",
+        "breakdown": "Acu (Sharp) + men (Mental ability)",
+        "hindi": "कुशाग्र बुद्धि / तीक्ष्ण समझ / सूक्ष्मदर्शिता",
+        "meaning": "The ability to make good judgments and quick decisions, especially in a particular domain.",
+        "example": "Her exceptional financial acumen allowed the startup to achieve profitability in its first quarter.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Exacerbate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ex (Thoroughly) + Acerb (Bitter / Harsh) + ate",
+        "hindi": "बदतर करना / स्थिति को और भड़काना / तीव्र करना",
+        "meaning": "Make a problem, bad situation, or negative feeling worse.",
+        "example": "Cutting fuel subsidies in winter will inevitably exacerbate public discontent.",
+        "examTag": "SSC CGL Mains"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-7",
+  "word": "Cap- / Cept- / Cip-",
+  "phonetic": "/kæp/",
+  "hindi": "पकड़ना / ग्रहण करना / स्वीकारना / वश में करना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Capere / Captus\" meaning \"To take, seize, catch, or hold\". It forms words describing seizing control, nitpicking criticism, setting slaves free, and mental receptivity.",
+  "synonyms": [
+    "Seize",
+    "Take",
+    "Hold",
+    "Grasp",
+    "Catch"
+  ],
+  "antonyms": [
+    "Release",
+    "Relinquish",
+    "Surrender",
+    "Let go"
+  ],
+  "example": "The captivating performance held the audience spellbound until the final curtain call.",
+  "mnemonic": "Cap = Capture (giraftaar karna / pakadna). Captious = jo galtiyan pakadne me laga rahe (nuktaacheen).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Captious, Emancipate, Susceptible, Inception, Precept, Captivate",
+  "derivatives": "Captious, Emancipate, Susceptible, Inception, Precept, Captivate, Receptive",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Take / Seize / Hold (पकड़ना / ग्रहण करना / वश में करना)",
+    "counterRoot": {
+      "root": "Relinquish",
+      "meaning": "Surrender / Give up (त्यागना / छोड़ना)"
+    },
+    "derivatives": [
+      {
+        "word": "Captious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Cap (Catch / Seize) + tious (Inclined to)",
+        "hindi": "छिद्रान्वेषी / नुक्ताचीनी करने वाला / दोष निकालने वाला",
+        "meaning": "Tending to find fault or raise petty objections; hypercritical.",
+        "example": "The captious reviewer ignored the brilliant acting and obsessed over minor historical inaccuracies.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Emancipate",
+        "partOfSpeech": "Verb",
+        "breakdown": "E (Out) + Manus (Hand) + Cip (Take / Seize) + ate",
+        "hindi": "मुक्त करना / बंधनों से आजाद करना",
+        "meaning": "Set free, especially from legal, social, or political restrictions and enslavement.",
+        "example": "Abraham Lincoln issued the historic proclamation to emancipate millions of enslaved people.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Susceptible",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Sus (Under) + Cept (Take / Receive) + ible",
+        "hindi": "अतिसंवेदनशील / सहज प्रभावित होने वाला / vulnerable",
+        "meaning": "Likely or liable to be influenced or harmed by a particular disease or emotional appeal.",
+        "example": "Elderly patients with weakened immune systems are highly susceptible to respiratory viruses.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Inception",
+        "partOfSpeech": "Noun",
+        "breakdown": "In (In) + Cept (Take / Seize) + ion",
+        "hindi": "आरंभ / शुरुआत / सूत्रपात",
+        "meaning": "The establishment or starting point of an institution, era, or activity.",
+        "example": "Since its inception in 2010, the non-profit organization has planted two million saplings.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Precept",
+        "partOfSpeech": "Noun",
+        "breakdown": "Pre (Before) + Cept (Take / Grasp)",
+        "hindi": "नियम / उपदेश / आचार-सिद्धांत",
+        "meaning": "A general rule intended to regulate behavior or thought; a guiding moral tenet.",
+        "example": "Ancient sages taught that personal example influences youth far more effectively than verbal precept.",
+        "examTag": "SSC CPO"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-8",
+  "word": "Mand- / Mandat-",
+  "phonetic": "/mænd/",
+  "hindi": "आदेश / आज्ञा / अधिकार सौंपना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Mandare\" (from Manus [hand] + Dare [to give/entrust]). It forms words describing official orders, compulsory rules, revoking commands, and high judicial writs.",
+  "synonyms": [
+    "Command",
+    "Order",
+    "Authorize",
+    "Decree",
+    "Obligate"
+  ],
+  "antonyms": [
+    "Prohibit",
+    "Revoke",
+    "Optional",
+    "Voluntary"
+  ],
+  "example": "Wearing helmets while riding two-wheelers is mandatory under national motor vehicle statutes.",
+  "mnemonic": "Mand = Command / Demand (aadesh dena). Countermand = counter (ulta) + mand (aadesh radd karna).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Mandatory, Countermand, Remand, Mandate, Commend",
+  "derivatives": "Mandatory, Countermand, Remand, Mandate, Commend, Mandamus",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Command / Order / Entrust (आदेश / आज्ञा / अधिकार सौंपना)",
+    "counterRoot": {
+      "root": "Revoke / Prohibit",
+      "meaning": "Cancel / Forbid (रद्द करना / मना करना)"
+    },
+    "derivatives": [
+      {
+        "word": "Mandatory",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Mandat (Command) + ory (Obligatory)",
+        "hindi": "अनिवार्य / बाध्यकारी / लाजिमी",
+        "meaning": "Required by law or rules; compulsory and not optional.",
+        "example": "Bio-metric attendance is mandatory for all central government employees.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Countermand",
+        "partOfSpeech": "Verb",
+        "breakdown": "Counter (Against / Opposite) + Mand (Command)",
+        "hindi": "आदेश रद्द करना / पिछला हुक्म वापस लेना",
+        "meaning": "Revoke or cancel a previous order or command, typically by issuing an opposite one.",
+        "example": "The general countermanded the order to advance after intelligence warned of enemy minefields.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Remand",
+        "partOfSpeech": "Verb / Noun",
+        "breakdown": "Re (Back) + Mand (Command / Entrust)",
+        "hindi": "न्यायिक हिरासत में भेजना / हवालात में भेजना",
+        "meaning": "Send back a prisoner into custody, especially while awaiting further investigation or trial.",
+        "example": "The magistrate remanded the cyber-crime suspect to police custody for seven days.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Mandate",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "Mandat (Command / Authorization)",
+        "hindi": "जनादेश / आधिकारिक आज्ञा",
+        "meaning": "An official order or commission to do something; authority granted by a constituency.",
+        "example": "Winning a landslide majority gave the ruling coalition a clear democratic mandate to enact tax reforms.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Commend",
+        "partOfSpeech": "Verb",
+        "breakdown": "Com (Thoroughly) + Mend/Mand (Entrust / Praise)",
+        "hindi": "सराहना करना / प्रशंसा करना / सुपुर्द करना",
+        "meaning": "Praise formally or officially; present as suitable for approval.",
+        "example": "The police commissioner commended the brave constable for disarming the armed burglar.",
+        "examTag": "SSC MTS"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-9",
+  "word": "Noc- / Nox-",
+  "phonetic": "/nɒks/",
+  "hindi": "हानि / नुकसान / विषैला / घातक",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Nocere\" (to harm, hurt, or injure) and \"Noxius\" (harmful, poisonous). It forms words describing toxic fumes, innocent harmlessness, destructive rivalry, and offensive conduct.",
+  "synonyms": [
+    "Harm",
+    "Damage",
+    "Poison",
+    "Injure",
+    "Toxicity"
+  ],
+  "antonyms": [
+    "Innocuous",
+    "Harmless",
+    "Benign",
+    "Safe"
+  ],
+  "example": "The lab reported that the chemical reaction released noxious chlorine fumes.",
+  "mnemonic": "Nox = Noxious / Poison (jo nuksan kare). Innocuous = in (nahi) + noc (nuksan) -> behad seedha-saadha/a-hanikarak.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Innocuous, Noxious, Pernicious, Obnoxious, Innocent",
+  "derivatives": "Innocuous, Noxious, Pernicious, Obnoxious, Innocent",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Harm / Hurt / Poison (हानि / नुकसान / विषैला / घातक)",
+    "counterRoot": {
+      "root": "Innoc- / Benign",
+      "meaning": "Harmless / Gentle (हानिरहित / सौम्य)"
+    },
+    "derivatives": [
+      {
+        "word": "Innocuous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Noc (Harm) + uous",
+        "hindi": "हानिरहित / सीधा-साधा / अहानिकर / जिससे कोई चोट न पहुंचे",
+        "meaning": "Not harmful or offensive; innocuous remarks or benign substances.",
+        "example": "What seemed like an innocuous software bug actually exposed sensitive encrypted passwords.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Noxious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Nox (Harm / Poison) + ious",
+        "hindi": "हानिकारक / विषैला / जानलेवा / सड़ांध भरा",
+        "meaning": "Harmful, poisonous, or very unpleasant to physical health or moral well-being.",
+        "example": "Wearing gas masks is mandatory inside tunnels where noxious fumes accumulate.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Pernicious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Per (Thoroughly) + Nic/Noc (Harm) + ious",
+        "hindi": "घातक / विनाशकारी / अत्यंत हानिकर (धीरे-धीरे नुकसान करने वाला)",
+        "meaning": "Having a harmful effect, especially in a gradual or subtle, insidious way.",
+        "example": "Unregulated gambling has a pernicious influence on vulnerable low-income households.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Obnoxious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Ob (Toward) + Nox (Harm / Offense) + ious",
+        "hindi": "अप्रिय / घिनौना / आपत्तिजनक / असभ्य",
+        "meaning": "Extremely unpleasant, objectionable, and highly offensive to others.",
+        "example": "Security escorted the obnoxious, intoxicated patron out of the dining lounge.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Innocent",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Noc (Harm) + ent",
+        "hindi": "निर्दोष / बेकसूर / निष्पाप",
+        "meaning": "Not guilty of a crime or other misdeed; not intended to cause harm.",
+        "example": "The appellate bench overturned the wrongful conviction and declared the defendant innocent.",
+        "examTag": "SSC MTS"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s3-10",
+  "word": "Voc- / Vok-",
+  "phonetic": "/vɒk/",
+  "hindi": "पुकारना / वाणी / आवाज / आह्वान करना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Vocare\" (to call, name, summon) and \"Vox\" (voice). It forms words describing loud outspokenness, ambiguous double-talk, provoking wrath, and irreversible decisions.",
+  "synonyms": [
+    "Call",
+    "Voice",
+    "Speak",
+    "Summon",
+    "Utter"
+  ],
+  "antonyms": [
+    "Taciturn",
+    "Silent",
+    "Mute",
+    "Reticent"
+  ],
+  "example": "The leader issued an unequivocal commitment to uphold fundamental constitutional guarantees.",
+  "mnemonic": "Voc = Voice / Vocal (awaaz nikaalna ya pukaarna). Vociferous = aawaz buland karne wala. Provoke = uksana.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 03",
+    "Root Words"
+  ],
+  "collocation": "Root in Equivocal, Unequivocal, Vociferous, Irrevocable, Provoke, Evoke",
+  "derivatives": "Equivocal, Unequivocal, Vociferous, Irrevocable, Provoke, Evoke, Revoke, Advocate",
+  "level": "level-1",
+  "set": "set-03",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Call / Voice / Speak (पुकारना / वाणी / आवाज / आह्वान करना)",
+    "counterRoot": {
+      "root": "Tac- / Tacit-",
+      "meaning": "Silent / Unspoken (मौन / शांत)"
+    },
+    "derivatives": [
+      {
+        "word": "Equivocal",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Equi (Equal) + Voc (Voice) + al",
+        "hindi": "द्व्यर्थी / संदिग्ध / गोलमोल / अस्पष्ट",
+        "meaning": "Open to more than one interpretation; ambiguous; deliberately vague.",
+        "example": "The politician gave an equivocal response when questioned directly about election funding.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Unequivocal",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Un (Not) + Equivocal (Ambiguous)",
+        "hindi": "स्पष्ट / असंदिग्ध / साफ-साफ",
+        "meaning": "Leaving no doubt; completely clear and unambiguous.",
+        "example": "The chief scientist provided unequivocal evidence proving the groundwater was contaminated.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Vociferous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Voc (Voice) + Fer (Carry / Bring) + ous",
+        "hindi": "मुखर / शोरगुल मचाने वाला / जोरदार आवाज में विरोध करने वाला",
+        "meaning": "Expressing feelings or opinions in a very loud, forceful, or clamorous way.",
+        "example": "Vociferous protests erupted outside the city hall against the proposed utility fee hike.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Irrevocable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Ir (Not) + Re (Back) + Voc (Call) + able",
+        "hindi": "अटल / जिसे बदला न जा सके / अपरिवर्तनीय",
+        "meaning": "Not able to be changed, reversed, or recovered; final and permanent.",
+        "example": "Signing the deed made the transfer of property irrevocable under commercial law.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Provoke",
+        "partOfSpeech": "Verb",
+        "breakdown": "Pro (Forward) + Voke/Voc (Call)",
+        "hindi": "उकसाना / भड़काना / उत्तेजित करना",
+        "meaning": "Stimulate or incite someone to do or feel something, especially anger or violence.",
+        "example": "Do not allow political rhetoric to provoke communal friction in our peaceful community.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Evoke",
+        "partOfSpeech": "Verb",
+        "breakdown": "E (Out) + Voke/Voc (Call)",
+        "hindi": "याद दिलाना / जाग्रत करना / भावना उत्पन्न करना",
+        "meaning": "Bring or recall a feeling, memory, or image to the conscious mind.",
+        "example": "The classical melody evoked nostalgic memories of golden childhood summers in the village.",
+        "examTag": "SSC CHSL"
+      }
+    ]
+  }
+},
+
   // LEVEL 2: SCIENCE, PERCEPTION, TIME, BODY & PHYSICAL WORLD (10 ROOT WORDS)
   // =========================================================================
   {
