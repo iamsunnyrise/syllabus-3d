@@ -743,6 +743,1037 @@ export const HIGH_YIELD_ROOT_WORDS: VocabItem[] = [
   },
 
   // =========================================================================
+    // =========================================================================
+  // LEVEL 1 - SET 2: MIND, BELIEF, TRUTH, EMOTIONS & ACTION ROOTS (10 ROOT WORDS)
+  // =========================================================================
+  {
+  "id": "v-root-l1-s2-1",
+  "word": "Cred- / Credit-",
+  "phonetic": "/krɛd/",
+  "hindi": "विश्वास / भरोसा / साख",
+  "type": "root",
+  "partOfSpeech": "Verb Base / Root",
+  "meaning": "Latin root \"Credere\" meaning \"To believe\", \"To trust\", or \"To have faith in\". It forms words describing trust, credibility, acceptance, and religious doctrines.",
+  "synonyms": [
+    "Belief",
+    "Trust",
+    "Faith",
+    "Confidence",
+    "Reliance"
+  ],
+  "antonyms": [
+    "Skepticism",
+    "Disbelief",
+    "Incredulity",
+    "Doubt"
+  ],
+  "example": "A credible witness provided compelling evidence that gave immediate credence to the claim.",
+  "mnemonic": "Cred = Credit card (bank apko vishwas/bharose par paisa deta hai). Credulous = aasani se vishwas karne wala.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Credence, Credible, Credulous, Incredulous, Creed",
+  "derivatives": "Credulous, Incredulous, Credible, Incredible, Credence, Creed, Credentials, Accredit",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Believe / Trust / Faith (विश्वास / भरोसा / साख)",
+    "counterRoot": {
+      "root": "Skept- / Incred-",
+      "meaning": "Doubt / Disbelief (संदेह / अविश्वास)"
+    },
+    "derivatives": [
+      {
+        "word": "Credulous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Cred (Believe) + ulous (Tendency to)",
+        "hindi": "कान का कच्चा / सहज विश्वासी / भोला-भाला",
+        "meaning": "Having or showing too great a readiness to believe things without proper evidence.",
+        "example": "Credulous investors fell into the fraudulent scheme and lost their lifetime savings.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Incredulous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Cred (Believe) + ulous",
+        "hindi": "संदेही / अविश्वासी / जिसे विश्वास न हो",
+        "meaning": "Unwilling or unable to believe something; feeling or showing disbelief.",
+        "example": "The detective listened to the suspect’s improbable alibi with an incredulous smile.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Credible",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Cred (Believe) + ible (Able to be)",
+        "hindi": "विश्वसनीय / भरोसेमंद / प्रमाणिक",
+        "meaning": "Able to be believed; convincing and trustworthy.",
+        "example": "The intelligence agency gathered credible reports regarding the border infiltration.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Incredible",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Cred (Believe) + ible",
+        "hindi": "अविश्वसनीय / अद्भुत / असाधारण",
+        "meaning": "Impossible or very difficult to believe; extraordinary in quality.",
+        "example": "The athlete staged an incredible comeback in the final moments of the tournament.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Credence",
+        "partOfSpeech": "Noun",
+        "breakdown": "Cred (Believe) + ence (State of)",
+        "hindi": "विश्वास / साख / प्रमाणिकता",
+        "meaning": "Belief in or acceptance of something as true and valid.",
+        "example": "Recent scientific discoveries have lent substantial credence to the alternate hypothesis.",
+        "examTag": "SSC CGL / CPO"
+      },
+      {
+        "word": "Creed",
+        "partOfSpeech": "Noun",
+        "breakdown": "Cred (Belief)",
+        "hindi": "धर्मसिद्धांत / मत / आस्था",
+        "meaning": "A system of Christian or other religious belief; a formal statement of basic principles.",
+        "example": "The constitution guarantees equal fundamental rights to all citizens irrespective of creed.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Credentials",
+        "partOfSpeech": "Noun",
+        "breakdown": "Cred (Trust) + entials (Qualifications)",
+        "hindi": "योग्यता प्रमाण-पत्र / साख / परिचय-पत्र",
+        "meaning": "Qualifications, achievements, or personal quality used to indicate suitability for a role.",
+        "example": "The ambassador presented his official diplomatic credentials to the President.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-2",
+  "word": "Fid- / Fide-",
+  "phonetic": "/fɪd/",
+  "hindi": "निष्ठा / वफादारी / विश्वास",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Fidere / Fides\" meaning \"To trust\" or \"Faith / Loyalty\". It forms words relating to honesty, betrayal, confidence, and sworn loyalty.",
+  "synonyms": [
+    "Faith",
+    "Loyalty",
+    "Trust",
+    "Allegiance",
+    "Constancy"
+  ],
+  "antonyms": [
+    "Perfidy",
+    "Treachery",
+    "Betrayal",
+    "Disloyalty"
+  ],
+  "example": "High fidelity audio equipment reproduces the exact recorded sound with absolute precision.",
+  "mnemonic": "Fid = Fida / Vafadar (Dog is famous for fidelity = wafaadari). Perfidious = bura/dhokhebaaz (paraya kar de jo faith).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Fidelity, Perfidious, Diffident, Confident, Affidavit",
+  "derivatives": "Fidelity, Perfidious, Diffident, Confident, Bona fide, Affidavit, Infidelity",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Faith / Trust / Loyalty (निष्ठा / वफादारी / विश्वास)",
+    "counterRoot": {
+      "root": "Perfidy / Diffid-",
+      "meaning": "Treachery / Lack of Confidence (विश्वासघात / संकोच)"
+    },
+    "derivatives": [
+      {
+        "word": "Fidelity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Fid (Faith) + elity (State)",
+        "hindi": "सत्यनिष्ठा / वफादारी / निष्ठा",
+        "meaning": "Faithfulness to a person, cause, or belief, demonstrated by continuing loyalty and support.",
+        "example": "The devoted bodyguard served the royal family with unswerving fidelity for forty years.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Perfidious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Per (Away/Through) + Fid (Faith) + ious",
+        "hindi": "विश्वासघाती / धोखेबाज / नमकहराम",
+        "meaning": "Deceitful and untrustworthy; deliberately breaking faith or trust.",
+        "example": "History condemns the perfidious general who sold defense blueprints to foreign adversaries.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Diffident",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Dif (Away/Not) + Fid (Trust/Confidence) + ent",
+        "hindi": "संकोची / आत्मसंशयग्रस्त / शर्मीला",
+        "meaning": "Modest or shy because of a lack of self-confidence; hesitating to assert oneself.",
+        "example": "Though exceptionally brilliant, the young scholar remained diffident during public presentations.",
+        "examTag": "SSC CGL / CHSL"
+      },
+      {
+        "word": "Confident",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Con (Thoroughly) + Fid (Trust) + ent",
+        "hindi": "आत्मविश्वासी / आश्वस्त / निडर",
+        "meaning": "Feeling or showing certainty about something; sure of one’s ability or successful outcome.",
+        "example": "Rigorous preparation made him completely confident of securing a top rank in the exam.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Bona fide",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Bona (Good) + Fide (Faith)",
+        "hindi": "वास्तविक / प्रामाणिक / नेकनीयत",
+        "meaning": "Genuine, real, and undertaken in good faith without intent to deceive.",
+        "example": "Only bona fide members holding valid photo identity cards were admitted into the symposium.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Affidavit",
+        "partOfSpeech": "Noun",
+        "breakdown": "Ad (To) + Fid (Faith / Sworn trust)",
+        "hindi": "शपथ-पत्र / हलफनामा",
+        "meaning": "A written statement confirmed by oath or affirmation, used as official evidence in court.",
+        "example": "The witness submitted a notarized affidavit detailing the exact sequence of the collision.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Infidelity",
+        "partOfSpeech": "Noun",
+        "breakdown": "In (Not) + Fid (Faith) + elity",
+        "hindi": "बेवफाई / विश्वासघात / अविश्वास",
+        "meaning": "The action or state of being unfaithful to a partner, pledge, or sworn moral duty.",
+        "example": "Marital infidelity and prolonged deception ultimately led to their legal separation.",
+        "examTag": "SSC CHSL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-3",
+  "word": "Ver- / Veri-",
+  "phonetic": "/vɛr/",
+  "hindi": "सत्य / यथार्थ / सच्चाई",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Verus\" meaning \"True\" or \"Truth\". It forms words describing genuine facts, honesty, verification, and realistic depiction.",
+  "synonyms": [
+    "Truth",
+    "Accuracy",
+    "Fact",
+    "Genuineness",
+    "Authenticity"
+  ],
+  "antonyms": [
+    "Falsity",
+    "Deception",
+    "Fabrication",
+    "Fallacy"
+  ],
+  "example": "The court scrutinized the document to ensure the absolute veracity of the claims.",
+  "mnemonic": "Ver = Very True (Sach / Satya). Verify = sachhai jaanch-na. Veracity = sach bolne ki aadat.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Veracity, Veracious, Verify, Verdict, Verisimilitude",
+  "derivatives": "Veracity, Veracious, Verify, Verisimilitude, Verdict, Aver, Veritable",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Truth / True / Genuine (सत्य / यथार्थ / सच्चाई)",
+    "counterRoot": {
+      "root": "Fall- / Fals-",
+      "meaning": "False / Deceptive (असत्य / भ्रामक)"
+    },
+    "derivatives": [
+      {
+        "word": "Veracity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Ver (Truth) + acity (Quality of)",
+        "hindi": "सत्यवादिता / यथार्थता / सच्चाई",
+        "meaning": "Conformity to facts; habitual truthfulness and precision of reporting.",
+        "example": "The committee cross-examined officials to verify the veracity of the viral allegations.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Veracious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Ver (Truth) + acious (Full of)",
+        "hindi": "सत्यवादी / सच्चा / निष्कपट",
+        "meaning": "Habitually speaking or representing the truth; honest and factual.",
+        "example": "A veracious historian documents events objectively without romanticizing political figures.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Verisimilitude",
+        "partOfSpeech": "Noun",
+        "breakdown": "Veri (True) + Similis (Similar / Like) + tude",
+        "hindi": "सत्य जैसा आभास / वास्तविकता की प्रतीति",
+        "meaning": "The appearance or semblance of truth; realism in art, theatre, or literature.",
+        "example": "The director added authentic street sounds and costumes to impart total verisimilitude to the period film.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Verify",
+        "partOfSpeech": "Verb",
+        "breakdown": "Veri (True) + fy (To make / Prove)",
+        "hindi": "सत्यापित करना / जांच करना / पुष्ट करना",
+        "meaning": "Make sure or demonstrate that something is true, accurate, or justified.",
+        "example": "Users must enter a one-time passcode to verify their login identity securely.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Verdict",
+        "partOfSpeech": "Noun",
+        "breakdown": "Ver (True) + Dict (Speak / State)",
+        "hindi": "फैसला / निर्णय / सर्वसम्मत राय",
+        "meaning": "A decision on an issue of fact in a civil or criminal case, delivered by a judge or jury.",
+        "example": "The jury deliberated for eight hours before returning a unanimous verdict of not guilty.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Aver",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ad (To) + Ver (True)",
+        "hindi": "दृढ़तापूर्वक सच बताना / दावा करना",
+        "meaning": "State or assert to be the case firmly and positively.",
+        "example": "The lead scientist averred that the newly synthesized vaccine would prevent viral transmission.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Veritable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Ver (True) + itable (Fit to be)",
+        "hindi": "वास्तविक / यथार्थ / असली",
+        "meaning": "Used as an intensifier, often to qualify a metaphor (meaning real or genuine).",
+        "example": "The city library was a veritable treasure trove of ancient manuscripts and rare folios.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-4",
+  "word": "Anim-",
+  "phonetic": "/ænɪm/",
+  "hindi": "मन / चेतना / प्राण / साहस",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin roots \"Animus\" (mind, soul, spirit, courage) and \"Anima\" (breath, life). It forms words representing mental state, boldness, living breath, and forgiveness.",
+  "synonyms": [
+    "Spirit",
+    "Mind",
+    "Soul",
+    "Life",
+    "Courage"
+  ],
+  "antonyms": [
+    "Inanimate",
+    "Pusillanimity",
+    "Lifelessness"
+  ],
+  "example": "She faced the daunting tragedy with extraordinary fortitude and equanimity.",
+  "mnemonic": "Anim = Animal (jisme jeev/jaan ho). Magnanimous = bada dil/mann wala. Animosity = dushmani ka mann.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Magnanimous, Pusillanimous, Equanimity, Animosity, Unanimous",
+  "derivatives": "Magnanimous, Pusillanimous, Equanimity, Animosity, Unanimous, Animated",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Mind / Soul / Spirit / Courage (मन / चेतना / प्राण / साहस)",
+    "counterRoot": {
+      "root": "Pusill- / Inanim-",
+      "meaning": "Cowardly / Small-spirited / Lifeless (कायर / निर्जीव)"
+    },
+    "derivatives": [
+      {
+        "word": "Magnanimous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Magn (Great / Large) + Anim (Mind / Spirit) + ous",
+        "hindi": "उदार / बड़े दिल वाला / क्षमाशील",
+        "meaning": "Generous or forgiving, especially toward a rival, vanquished foe, or subordinate.",
+        "example": "In a magnanimous gesture, the victorious captain praised the defeated squad’s heroic defense.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Pusillanimous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Pusill (Tiny / Weak) + Anim (Spirit) + ous",
+        "hindi": "कायर / डरपोक / क्षुद्रहृदय",
+        "meaning": "Showing a lack of courage, resolve, or determination; timid and cowardly.",
+        "example": "The cowardly minister was criticized for his pusillanimous refusal to confront corrupt officials.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Equanimity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Equ (Equal / Even) + Anim (Mind) + ity",
+        "hindi": "समभाव / धैर्य / मानसिक संतुलन",
+        "meaning": "Mental calmness, composure, and evenness of temper, especially in difficult circumstances.",
+        "example": "The seasoned pilot handled the engine emergency with exceptional poise and equanimity.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Animosity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Anim (Hostile spirit) + osity (State of)",
+        "hindi": "शत्रुता / बैर / दुर्भावना",
+        "meaning": "Strong hostility, bitter antipathy, and ill will between rivals.",
+        "example": "Generations of boundary disputes fueled bitter animosity between the two clan elders.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Unanimous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Un (One) + Anim (Mind) + ous",
+        "hindi": "सर्वसम्मत / एकमत / सभी की सहमति से",
+        "meaning": "Fully in agreement; held or decided with the collective approval of all participants.",
+        "example": "The committee passed the welfare resolution by an enthusiastic and unanimous vote.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Animated",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Anim (Life / Spirit) + ated",
+        "hindi": "जीवंत / उत्साहित / फुर्तीला",
+        "meaning": "Full of life, vigor, or excitement; lively and spirited in conversation.",
+        "example": "The discussion grew lively and animated as students exchanged innovative startup concepts.",
+        "examTag": "SSC MTS"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-5",
+  "word": "Cord- / Card- / Cour-",
+  "phonetic": "/kɔːrd/",
+  "hindi": "हृदय / आत्मीयता / सद्भाव / साहस",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Cor / Cordis\" meaning \"Heart\". It forms words describing warmth, mutual affection, harmony of spirits, agreement, and brave conviction.",
+  "synonyms": [
+    "Heart",
+    "Harmony",
+    "Sincerity",
+    "Affection",
+    "Agreement"
+  ],
+  "antonyms": [
+    "Discord",
+    "Strife",
+    "Hostility",
+    "Dissension"
+  ],
+  "example": "The summit concluded in a cordial atmosphere of mutual trust and peaceful concord.",
+  "mnemonic": "Cord = Heart (Dil). Cordial invitation = dil se nimantran. Discord = dilon ki doori/kalah.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Cordial, Discord, Concord, Accord, Courage",
+  "derivatives": "Cordial, Discord, Concord, Courage, Accord, Discordant",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Heart / Harmony / Sincerity (हृदय / आत्मीयता / सद्भाव)",
+    "counterRoot": {
+      "root": "Discord-",
+      "meaning": "Conflict / Strife (कलह / अनबन)"
+    },
+    "derivatives": [
+      {
+        "word": "Cordial",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Cord (Heart) + ial (Relating to)",
+        "hindi": "सौहार्दपूर्ण / आत्मीय / हार्दिक",
+        "meaning": "Warm and friendly; deeply sincere and coming straight from the heart.",
+        "example": "The diplomats shared a cordial handshake and exchanged gifts before bilateral trade talks began.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Discord",
+        "partOfSpeech": "Noun",
+        "breakdown": "Dis (Apart / Not) + Cord (Heart)",
+        "hindi": "कलह / अनबन / असहमति",
+        "meaning": "Disagreement, lack of harmony, and friction between people or factions.",
+        "example": "Petty disagreements over inheritance sowed bitter seeds of discord among the siblings.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Concord",
+        "partOfSpeech": "Noun",
+        "breakdown": "Con (Together) + Cord (Heart)",
+        "hindi": "सामंजस्य / मेल-जोल / सहमति",
+        "meaning": "Agreement or harmony between people, states, or groups.",
+        "example": "The historic treaty ushered in an era of mutual concord and economic cooperation.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Courage",
+        "partOfSpeech": "Noun",
+        "breakdown": "Cour (Heart) + age (State)",
+        "hindi": "साहस / हिम्मत / शौर्य",
+        "meaning": "The ability to confront danger, pain, or intimidation without losing heart.",
+        "example": "The brave firefighter showed exemplary courage while rescuing victims from the inferno.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Accord",
+        "partOfSpeech": "Noun / Verb",
+        "breakdown": "Ac (To) + Cord (Heart)",
+        "hindi": "समझौता / सहमति / प्रदान करना",
+        "meaning": "An official agreement or treaty; to give or grant someone power, respect, or recognition.",
+        "example": "The two prime ministers signed a historic peace accord in front of global media delegates.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Discordant",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Dis + Cord + ant",
+        "hindi": "बेसुरा / असंगत / कलहकारी",
+        "meaning": "Disagreeing or incongruous; harsh and jarring due to a lack of musical or social harmony.",
+        "example": "A series of discordant violin notes interrupted the orchestra’s peaceful melody.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-6",
+  "word": "Culp-",
+  "phonetic": "/kʌlp/",
+  "hindi": "दोष / कसूर / अपराध",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Culpa\" meaning \"Blame\", \"Fault\", or \"Crime\". It forms words relating to legal culpability, criminal liability, and exoneration.",
+  "synonyms": [
+    "Blame",
+    "Fault",
+    "Guilt",
+    "Crime",
+    "Liability"
+  ],
+  "antonyms": [
+    "Innocence",
+    "Exoneration",
+    "Acquittal",
+    "Absolution"
+  ],
+  "example": "The special investigation team determined that both contractors were culpable for the bridge failure.",
+  "mnemonic": "Culp = Culprit (aprādhī). Exculpate = ex (baahar) + culp (dosh se baahar nikaalna / doshmukt karna).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Culpable, Exculpate, Inculpate, Culprit, Mea culpa",
+  "derivatives": "Culpable, Exculpate, Inculpate, Culprit, Mea culpa",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Blame / Fault / Guilt (दोष / कसूर / अपराध)",
+    "counterRoot": {
+      "root": "Innoc- / Exculp-",
+      "meaning": "Harmless / Absolved of Guilt (निर्दोष / दोषमुक्त)"
+    },
+    "derivatives": [
+      {
+        "word": "Culpable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Culp (Blame) + able (Worthy of)",
+        "hindi": "दोषी / दंडनीय / कसूरवार",
+        "meaning": "Deserving blame; responsible for a wrongdoing, offense, or fatal negligence.",
+        "example": "The reckless motorist was charged with culpable homicide not amounting to murder.",
+        "examTag": "SSC Repeated OWS"
+      },
+      {
+        "word": "Exculpate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ex (Out of) + Culp (Blame) + ate (Make)",
+        "hindi": "दोषमुक्त करना / बेकसूर साबित करना / बरी करना",
+        "meaning": "Show or officially declare that someone is not guilty of wrongdoing.",
+        "example": "Unassailable surveillance footage completely exculpated the security guard of all theft accusations.",
+        "examTag": "SSC CGL Syn/Ant"
+      },
+      {
+        "word": "Inculpate",
+        "partOfSpeech": "Verb",
+        "breakdown": "In (Into / Upon) + Culp (Blame) + ate",
+        "hindi": "आरोप लगाना / दोषी ठहराना / फंसाना",
+        "meaning": "Accuse or blame; incriminate and suggest that someone is involved in an illegal act.",
+        "example": "The co-conspirator turned state approver to inculpate the syndicate’s masterminds.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Culprit",
+        "partOfSpeech": "Noun",
+        "breakdown": "Culp (Guilt) + prit (Ready for trial)",
+        "hindi": "अपराधी / कसूरवार व्यक्ति / दोषी",
+        "meaning": "A person who is responsible for a crime, offense, or damaging mishap.",
+        "example": "Forensic investigators dusted the safe for fingerprints to track down the culprit.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Mea culpa",
+        "partOfSpeech": "Noun / Phrase",
+        "breakdown": "Mea (My) + Culpa (Fault)",
+        "hindi": "अपनी गलती मानना / अपराध-स्वीकृति",
+        "meaning": "An acknowledgment of one’s own fault, error, or professional mistake.",
+        "example": "The chief editor issued a public mea culpa for running the unverified sensational report.",
+        "examTag": "SSC CPO"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-7",
+  "word": "Pugn- / Pugil-",
+  "phonetic": "/pʌɡn/",
+  "hindi": "लड़ना / मुक्का / कलह / युद्ध",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Pugnare\" (to fight) and \"Pugnus\" (fist). It forms words describing aggressive quarrels, boxing, challenges to integrity, and resistance.",
+  "synonyms": [
+    "Fight",
+    "Combat",
+    "Hostility",
+    "Aggression",
+    "Belligerence"
+  ],
+  "antonyms": [
+    "Peaceful",
+    "Pacifist",
+    "Conciliatory",
+    "Submissive"
+  ],
+  "example": "His pugnacious demeanor frequently provoked bitter shouting matches during council debates.",
+  "mnemonic": "Pugn = Panga lena (ladai karna / jhagda karna). Pugilist = jo fist/ghoonse se lade (boxer).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Pugnacious, Impugn, Repugnant, Pugilist, Inexpugnable",
+  "derivatives": "Pugnacious, Impugn, Repugnant, Pugilist, Inexpugnable",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Fight / Fist / Aggression (लड़ना / मुक्का / कलह)",
+    "counterRoot": {
+      "root": "Pac- / Plac-",
+      "meaning": "Peace / Calm (शांति / सुलह)"
+    },
+    "derivatives": [
+      {
+        "word": "Pugnacious",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Pugn (Fight) + acious (Tendency)",
+        "hindi": "झगड़ालू / लड़ाकू / कलहप्रिय",
+        "meaning": "Eager or quick to argue, quarrel, or physically fight; aggressively combative.",
+        "example": "The pugnacious boy repeatedly picked fights with neighborhood kids over small disputes.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Impugn",
+        "partOfSpeech": "Verb",
+        "breakdown": "Im (Against) + Pugn (Fight / Challenge)",
+        "hindi": "सत्यता पर सवाल उठाना / आक्षेप लगाना / चुनौती देना",
+        "meaning": "Dispute the truth, validity, or integrity of a statement or person’s character.",
+        "example": "The defense attorney sought to impugn the credibility of the prosecution witness.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Repugnant",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Re (Back) + Pugn (Fight) + ant",
+        "hindi": "घृणास्पद / अत्यंत अरुचिकर / प्रतिकूल",
+        "meaning": "Extremely distasteful and unacceptable; completely in conflict with moral principles.",
+        "example": "The notion of racial discrimination is utterly repugnant to any civilized democratic society.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Pugilist",
+        "partOfSpeech": "Noun",
+        "breakdown": "Pugil (Fist) + ist (Practitioner)",
+        "hindi": "मुक्केबाज / बॉक्सर",
+        "meaning": "A professional boxer or fighter skilled in fist combat.",
+        "example": "The legendary pugilist knocked out his challenger in the third round with a devastating hook.",
+        "examTag": "SSC OWS"
+      },
+      {
+        "word": "Inexpugnable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Ex (Out) + Pugn (Fight) + able",
+        "hindi": "अजेय / जिसे जीता न जा सके / अभेद्य",
+        "meaning": "Incapable of being taken by force, overthrown, or defeated; impregnable.",
+        "example": "Perched on high cliffs, the ancient fortress proved completely inexpugnable to enemy invaders.",
+        "examTag": "SSC CGL Mains"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-8",
+  "word": "Lev- / Levi-",
+  "phonetic": "/lɛv/",
+  "hindi": "हल्का / शांत करना / ऊपर उठाना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Levis\" (light in weight) and \"Levare\" (to raise or lift). It forms words describing the reduction of pain, upward movement, lighthearted humor, and elevation.",
+  "synonyms": [
+    "Light",
+    "Lift",
+    "Relieve",
+    "Alleviate",
+    "Float"
+  ],
+  "antonyms": [
+    "Aggravate",
+    "Gravity",
+    "Heaviness",
+    "Weigh down"
+  ],
+  "example": "Doctors prescribed analgesics to alleviate the severe postoperative pain.",
+  "mnemonic": "Lev = Lever (bhaari cheez ko halka karke uthana). Alleviate = dard ko halka karna.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Alleviate, Levity, Levitate, Elevate, Relevant",
+  "derivatives": "Alleviate, Levity, Levitate, Elevate, Relevant",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Light / Lift / Relieve (हल्का / ऊपर उठाना / शांत करना)",
+    "counterRoot": {
+      "root": "Grav- / Griev-",
+      "meaning": "Heavy / Severe (भारी / गंभीर / कष्टकारी)"
+    },
+    "derivatives": [
+      {
+        "word": "Alleviate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ad (To) + Lev (Light) + ate (Make)",
+        "hindi": "कम करना / पीड़ा शांत करना / हल्का करना / राहत देना",
+        "meaning": "Make suffering, distress, or a deficiency less severe and more bearable.",
+        "example": "Government relief camps distributed food and clean water to alleviate rural drought distress.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Levity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Lev (Light) + ity (State)",
+        "hindi": "छिछोरापन / गंभीरता का अभाव / चंचलता",
+        "meaning": "The treatment of a serious matter with humor or in a manner lacking due respect.",
+        "example": "The solemn magistrate reprimanded the young intern for introducing inappropriate levity into the courtroom.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Levitate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Lev (Light) + itate (Act)",
+        "hindi": "हवा में उड़ना / अधर में तैरना",
+        "meaning": "Rise or cause to rise and hover in the air, especially in apparent defiance of gravity.",
+        "example": "The magician astonished the audience by appearing to levitate three feet above the stage floor.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Elevate",
+        "partOfSpeech": "Verb",
+        "breakdown": "E (Up / Out) + Lev (Lift) + ate",
+        "hindi": "ऊपर उठाना / पदोन्नति करना / बढ़ावा देना",
+        "meaning": "Raise to a more important or higher cultural, intellectual, or professional level.",
+        "example": "Her exceptional leadership skills elevated her to the rank of managing partner within five years.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Relevant",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Re (Again) + Lev (Lift / Bear upon) + ant",
+        "hindi": "प्रासंगिक / उपयुक्त / सुसंगत",
+        "meaning": "Closely connected or appropriate to what is being done or currently considered.",
+        "example": "Only candidate details strictly relevant to job qualifications should be reviewed during screening.",
+        "examTag": "SSC CHSL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-9",
+  "word": "Grav- / Griev-",
+  "phonetic": "/ɡræv/",
+  "hindi": "गंभीर / भारी / गहरा / कष्टदायी",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Gravis\" meaning \"Heavy\", \"Severe\", or \"Weighty\". It forms words describing extreme seriousness, worsening conditions, deep grief, and planetary attraction.",
+  "synonyms": [
+    "Heavy",
+    "Serious",
+    "Severe",
+    "Weighty",
+    "Solemn"
+  ],
+  "antonyms": [
+    "Alleviate",
+    "Levity",
+    "Lighthearted",
+    "Trivial"
+  ],
+  "example": "The minister warned that retaliatory sanctions would aggravate the already delicate economic crisis.",
+  "mnemonic": "Grav = Gravity / Grave (kabra/gambhir). Aggravate = aag me ghee daal kar sthiti aur gambhir karna.",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Aggravate, Grievous, Gravity, Grave, Grievance, Gravitate",
+  "derivatives": "Aggravate, Grievous, Gravity, Grave, Grievance, Gravitate",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Heavy / Serious / Burden (गंभीर / भारी / कष्टदायी)",
+    "counterRoot": {
+      "root": "Lev- / Levi-",
+      "meaning": "Light / Relieve (हल्का / राहत देना)"
+    },
+    "derivatives": [
+      {
+        "word": "Aggravate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ad (To) + Grav (Heavy) + ate (Make)",
+        "hindi": "बदतर करना / स्थिति बिगाड़ना / भड़काना",
+        "meaning": "Make a problem, injury, or offense worse or more serious.",
+        "example": "Walking on the sprained ankle without support will only aggravate the ligament inflammation.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Grievous",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Griev (Heavy / Sorrow) + ous",
+        "hindi": "अत्यंत गंभीर / कष्टदायी / दारुण / घातक",
+        "meaning": "Very severe, painful, or causing deep sorrow (e.g., grievous bodily injury or grievous loss).",
+        "example": "The soldiers suffered grievous casualties during the midnight ambush on the valley post.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Gravity",
+        "partOfSpeech": "Noun",
+        "breakdown": "Grav (Heavy) + ity (State)",
+        "hindi": "गंभीरता / गुरुत्वाकर्षण / महत्व",
+        "meaning": "Extreme importance or seriousness; also the natural physical force that pulls objects toward earth.",
+        "example": "The prime minister reminded citizens of the profound gravity of the national emergency.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Grave",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Grav (Heavy / Serious)",
+        "hindi": "अत्यंत गंभीर / चिंताजनक / विचारणीय",
+        "meaning": "Giving cause for alarm; serious, solemn, and fraught with danger.",
+        "example": "The doctor’s grave expression signaled to the anxious family that the patient was in critical condition.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Grievance",
+        "partOfSpeech": "Noun",
+        "breakdown": "Griev (Heavy sorrow / Hurt) + ance",
+        "hindi": "शिकायत / व्यथा / कष्ट / परिवाद",
+        "meaning": "A real or imagined wrong or cause for official complaint, protest, or resentment.",
+        "example": "The employee union submitted a formal list of wage grievances to the company management.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Gravitate",
+        "partOfSpeech": "Verb",
+        "breakdown": "Grav (Heavy) + itate",
+        "hindi": "आकर्षित होना / खिंचे चले आना",
+        "meaning": "Move toward or be powerfully attracted to a person, place, or pursuit.",
+        "example": "Young tech entrepreneurs naturally gravitate toward metropolitan innovation hubs.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
+  {
+  "id": "v-root-l1-s2-10",
+  "word": "Tract-",
+  "phonetic": "/trækt/",
+  "hindi": "खींचना / आकर्षित करना / संभालना",
+  "type": "root",
+  "partOfSpeech": "Root Word",
+  "meaning": "Latin root \"Trahere / Tractus\" meaning \"To pull, draw, or drag\". It forms words describing pulling in attention, withdrawing statements, lingering delays, and manageable behavior.",
+  "synonyms": [
+    "Pull",
+    "Draw",
+    "Drag",
+    "Traction",
+    "Haul"
+  ],
+  "antonyms": [
+    "Repel",
+    "Push",
+    "Expel",
+    "Release"
+  ],
+  "example": "The stubborn negotiator refused to retract his controversial terms during the protracted dispute.",
+  "mnemonic": "Tract = Tractor (jo bhaari bojh kheenche). Retract = re (peeche) + tract (kheenchna / bayaan wapas lena).",
+  "frequency": "Repeated",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 02",
+    "Root Words"
+  ],
+  "collocation": "Root in Intractable, Retract, Protracted, Tractable, Attract",
+  "derivatives": "Intractable, Retract, Protracted, Tractable, Attract, Distract, Abstract",
+  "level": "level-1",
+  "set": "set-02",
+  "rootFamily": {
+    "origin": "Latin",
+    "coreMeaning": "Pull / Draw / Drag / Handle (खींचना / आकर्षित करना / संभालना)",
+    "counterRoot": {
+      "root": "Pell- / Puls-",
+      "meaning": "Drive / Push Away (धकेलना / भगाना)"
+    },
+    "derivatives": [
+      {
+        "word": "Intractable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "In (Not) + Tract (Handle / Pull) + able",
+        "hindi": "अड़ियल / हठी / जिसका समाधान कठिन हो",
+        "meaning": "Hard to control, manage, deal with, or solve; obstinate and unyielding.",
+        "example": "Chronic fiscal deficit has proven to be an intractable macroeconomic challenge for developing states.",
+        "examTag": "SSC Repeated Syn/Ant"
+      },
+      {
+        "word": "Retract",
+        "partOfSpeech": "Verb",
+        "breakdown": "Re (Back) + Tract (Pull)",
+        "hindi": "बयान वापस लेना / मुकरना / पीछे खींचना",
+        "meaning": "Draw back or withdraw a public statement, accusation, or promise.",
+        "example": "Faced with legal libel notices, the magazine was forced to retract the defamatory article.",
+        "examTag": "SSC CGL"
+      },
+      {
+        "word": "Protracted",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Pro (Forward) + Tract (Draw) + ed",
+        "hindi": "लंबा खिंचा हुआ / दीर्घकालिक / बहुत समय लेने वाला",
+        "meaning": "Lasting for an unusually long time or longer than expected; prolonged.",
+        "example": "Following protracted negotiations lasting six months, the warring factions signed an armistice.",
+        "examTag": "SSC CGL Mains"
+      },
+      {
+        "word": "Tractable",
+        "partOfSpeech": "Adjective",
+        "breakdown": "Tract (Handle) + able (Capable)",
+        "hindi": "सीधा-साधा / विनीत / वश में आने योग्य",
+        "meaning": "Easy to control, direct, or influence; docile and manageable.",
+        "example": "Unlike his temperamental predecessor, the new committee chairman is amiable and tractable.",
+        "examTag": "SSC CPO"
+      },
+      {
+        "word": "Attract",
+        "partOfSpeech": "Verb",
+        "breakdown": "Ad (To) + Tract (Pull)",
+        "hindi": "आकर्षित करना / लुभाना / खींचना",
+        "meaning": "Cause to come to a place or participate in a venture by offering something desirable.",
+        "example": "The cultural carnival attracted thousands of domestic and international visitors.",
+        "examTag": "SSC MTS"
+      },
+      {
+        "word": "Distract",
+        "partOfSpeech": "Verb",
+        "breakdown": "Dis (Away) + Tract (Pull)",
+        "hindi": "ध्यान भटकाना / विचलित करना",
+        "meaning": "Prevent someone from giving full attention to something; draw mind away.",
+        "example": "Constant smartphone notifications can severely distract aspirants during revision hours.",
+        "examTag": "SSC CHSL"
+      },
+      {
+        "word": "Abstract",
+        "partOfSpeech": "Adjective / Verb",
+        "breakdown": "Abs (Away) + Tract (Draw)",
+        "hindi": "अमूर्त / सार निकालना / सैद्धांतिक",
+        "meaning": "Existing in thought or as an idea but having no physical or concrete existence.",
+        "example": "Concepts like justice and freedom are abstract values that require concrete civic safeguards.",
+        "examTag": "SSC CGL"
+      }
+    ]
+  }
+},
+
   // LEVEL 2: SCIENCE, PERCEPTION, TIME, BODY & PHYSICAL WORLD (10 ROOT WORDS)
   // =========================================================================
   {
