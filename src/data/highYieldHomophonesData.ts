@@ -3035,221 +3035,3649 @@ export const HOMOPHONES_DATA: HomophoneGroup[] = [
     ]
   },
   {
-    id: 'hp-lade-laid',
-    groupTitle: 'Lade vs Laid',
-    phonetic: '/leɪd/',
-    soundKey: 'leɪd',
-    letter: 'L',
-    examFrequency: 'High',
-    confusableTip: 'Lade = माल या बोझ लादना (जहाज पर); Laid = रखा / लिटाया (Lay का Past)',
-    words: [
-      {
-        id: 'hp-lade',
-        sno: 186,
-        word: 'Lade',
-        partOfSpeech: 'Verb',
-        posCategory: 'verb',
-        englishMeaning: 'To load cargo, goods, or burden onto a ship or cart',
-        hindiMeaning: 'लादना / माल चढ़ाना',
-        englishSentence: 'They laded the cart with goods.',
-        hindiSentence: 'उन्होंने गाड़ी पर सामान लादा।',
-        memoryTip: 'Bill of Lading (जहाज का माल पत्र)'
-      },
-      {
-        id: 'hp-laid',
-        sno: 187,
-        word: 'Laid',
-        partOfSpeech: 'Verb',
-        posCategory: 'verb',
-        englishMeaning: 'Past tense of "lay" (put down gently)',
-        hindiMeaning: 'रखा / लिटाया',
-        englishSentence: 'She laid the book on the table.',
-        hindiSentence: 'उसने किताब मेज़ पर रखी।',
-        memoryTip: 'Lay → Laid'
-      }
-    ]
-  },
-
-  // ─── P ───
+  "id": "hp-lade-laid-lain",
+  "groupTitle": "Lade vs Laid vs Lain",
+  "phonetic": "/leɪd/ - /leɪn/",
+  "soundKey": "leɪd",
+  "letter": "L",
+  "examFrequency": "Very High",
+  "confusableTip": "Lade = माल लादना; Laid = रखा/लिटाया (Lay का Past); Lain = लेटा हुआ (Lie का Past Participle)",
+  "words": [
+    {
+      "id": "hp-186",
+      "sno": 186,
+      "word": "Lade",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To load cargo, goods, or burden onto a ship or cart",
+      "hindiMeaning": "लादना / माल चढ़ाना",
+      "englishSentence": "They laded the cart with goods.",
+      "hindiSentence": "उन्होंने गाड़ी पर सामान लादा।",
+      "memoryTip": "Bill of Lading (जहाज का माल पत्र)"
+    },
+    {
+      "id": "hp-187",
+      "sno": 187,
+      "word": "Laid",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"lay\"; to place something down gently",
+      "hindiMeaning": "रखा हुआ / लिटाया",
+      "englishSentence": "He laid the book on the table.",
+      "hindiSentence": "उसने किताब मेज़ पर रखी।",
+      "memoryTip": "Lay → Laid"
+    },
+    {
+      "id": "hp-188",
+      "sno": 188,
+      "word": "Lain",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past participle of \"lie\" (to rest horizontally)",
+      "hindiMeaning": "लेटा हुआ / विश्राम कर रहा",
+      "englishSentence": "She has lain in bed all day.",
+      "hindiSentence": "वह पूरे दिन बिस्तर पर लेटी रही है।",
+      "memoryTip": "Lie → Lay → Lain"
+    }
+  ]
+},
   {
-    id: 'hp-principal-principle',
-    groupTitle: 'Principal vs Principle',
-    phonetic: '/ˈprɪnsəpəl/',
-    soundKey: 'prɪnsəpəl',
-    letter: 'P',
-    examFrequency: 'Very High',
-    confusableTip: 'PrincipAL (Pal) = प्रधानाचार्य / मूलधन; PrincipLE (Rule) = सिद्धांत / नियम',
-    words: [
-      {
-        id: 'hp-principal',
-        sno: 188,
-        word: 'Principal',
-        partOfSpeech: 'Noun / Adjective',
-        posCategory: 'noun',
-        englishMeaning: 'Head of a school / main amount of money / chief',
-        hindiMeaning: 'प्रधानाचार्य / मुख्य / मूलधन',
-        englishSentence: 'The school principal gave a speech.',
-        hindiSentence: 'स्कूल के प्रधानाचार्य ने भाषण दिया।',
-        memoryTip: 'The principAL is your PAL (school head)'
-      },
-      {
-        id: 'hp-principle',
-        sno: 189,
-        word: 'Principle',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'A fundamental truth, moral rule, or scientific law',
-        hindiMeaning: 'सिद्धांत / नैतिक नियम',
-        englishSentence: 'He is a man of high principles.',
-        hindiSentence: 'वह उच्च सिद्धांतों वाले व्यक्ति हैं।',
-        memoryTip: 'PrincipLE ends in LE like ruLE'
-      }
-    ]
-  },
+  "id": "hp-lane-lays-laze",
+  "groupTitle": "Lane vs Lays vs Laze",
+  "phonetic": "/leɪn/ - /leɪz/",
+  "soundKey": "leɪn",
+  "letter": "L",
+  "examFrequency": "High",
+  "confusableTip": "Lane = संकरी सड़क/गली; Lays = रखता है/गीत; Laze = सुस्ती/आराम करना",
+  "words": [
+    {
+      "id": "hp-189",
+      "sno": 189,
+      "word": "Lane",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A narrow road, path, or traffic division",
+      "hindiMeaning": "गली / संकरा रास्ता",
+      "englishSentence": "Walk down the quiet lane.",
+      "hindiSentence": "शांत गली में चलो।",
+      "memoryTip": "Traffic lane / Bowling lane"
+    },
+    {
+      "id": "hp-190",
+      "sno": 190,
+      "word": "Lays",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "Places something down / plural of \"lay\" (short narrative poems/songs)",
+      "hindiMeaning": "रखता है / गीत या कविताएं",
+      "englishSentence": "She lays the baby in the crib. The poet’s lays are famous.",
+      "hindiSentence": "वह बच्चे को पालने में रखती है। कवि के गीत प्रसिद्ध हैं।",
+      "memoryTip": "Hen lays eggs / Lays of ancient Rome"
+    },
+    {
+      "id": "hp-191",
+      "sno": 191,
+      "word": "Laze",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To spend time idly and relaxedly",
+      "hindiMeaning": "आराम करना / सुस्ती करना",
+      "englishSentence": "They lazed around all day.",
+      "hindiSentence": "वे पूरे दिन आराम करते रहे।",
+      "memoryTip": "Laze around = be lazy"
+    }
+  ]
+},
   {
-    id: 'hp-peace-piece',
-    groupTitle: 'Peace vs Piece',
-    phonetic: '/piːs/',
-    soundKey: 'piːs',
-    letter: 'P',
-    examFrequency: 'Frequent',
-    confusableTip: 'Peace = शांति / अमन; Piece = टुकड़ा / हिस्सा',
-    words: [
-      {
-        id: 'hp-peace',
-        sno: 190,
-        word: 'Peace',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'Freedom from disturbance / tranquility',
-        hindiMeaning: 'शांति / अमन',
-        englishSentence: 'We all desire world peace.',
-        hindiSentence: 'हम सब विश्व शांति चाहते हैं।',
-        memoryTip: 'Peace treaty'
-      },
-      {
-        id: 'hp-piece',
-        sno: 191,
-        word: 'Piece',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'A portion of an object / single item',
-        hindiMeaning: 'टुकड़ा / भाग',
-        englishSentence: 'Can I have a piece of cake?',
-        hindiSentence: 'क्या मुझे केक का एक टुकड़ा मिल सकता है?',
-        memoryTip: 'A piece of PIE (both have "pie")'
-      }
-    ]
-  },
-
-  // ─── S ───
+  "id": "hp-lead-led",
+  "groupTitle": "Lead vs Led",
+  "phonetic": "/lɛd/ - /liːd/",
+  "soundKey": "lɛd",
+  "letter": "L",
+  "examFrequency": "Very High",
+  "confusableTip": "Lead (धातु) = सीसा; Led = नेतृत्व किया (Lead क्रिया का Past Tense)",
+  "words": [
+    {
+      "id": "hp-192",
+      "sno": 192,
+      "word": "Lead",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A heavy metal / to guide or direct the way",
+      "hindiMeaning": "सीसा (धातु) / मार्गदर्शन करना",
+      "englishSentence": "Lead pipes are harmful. Please lead the way.",
+      "hindiSentence": "सीसे की पाइप्स हानिकारक हैं। कृपया रास्ता दिखाएं।",
+      "memoryTip": "Lead pencil / Lead the team"
+    },
+    {
+      "id": "hp-193",
+      "sno": 193,
+      "word": "Led",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense and past participle of \"lead\" (guided)",
+      "hindiMeaning": "मार्गदर्शन किया / आगे बढ़ाया",
+      "englishSentence": "He led the team to victory.",
+      "hindiSentence": "उसने टीम को जीत की ओर मार्गदर्शित किया।",
+      "memoryTip": "Lead (present) → Led (past)"
+    }
+  ]
+},
   {
-    id: 'hp-stationary-stationery',
-    groupTitle: 'Stationary vs Stationery',
-    phonetic: '/ˈsteɪʃənɛri/',
-    soundKey: 'steɪʃənɛri',
-    letter: 'S',
-    examFrequency: 'Very High',
-    confusableTip: 'StationAry (A) = स्थिर (At rest); StationEry (E) = कलम/कॉपी (Envelope, pEn)',
-    words: [
-      {
-        id: 'hp-stationary',
-        sno: 192,
-        word: 'Stationary',
-        partOfSpeech: 'Adjective',
-        posCategory: 'adj',
-        englishMeaning: 'Not moving, staying in one place',
-        hindiMeaning: 'स्थिर / अचल / गतिहीन',
-        englishSentence: 'The car hit a stationary truck.',
-        hindiSentence: 'कार ने एक खड़े (स्थिर) ट्रक को टक्कर मार दी।',
-        memoryTip: 'StationAry has "A" for "At rest"'
-      },
-      {
-        id: 'hp-stationery',
-        sno: 193,
-        word: 'Stationery',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'Writing materials such as pens, paper, and envelopes',
-        hindiMeaning: 'लेखन सामग्री (कलम, कागज, पेंसिल)',
-        englishSentence: 'I bought pens and notebooks from the stationery shop.',
-        hindiSentence: 'मैंने स्टेशनरी की दुकान से पेन और नोटबुक खरीदे।',
-        memoryTip: 'StationEry has "E" for "Envelope" and "pEn"'
-      }
-    ]
-  },
+  "id": "hp-leak-leek",
+  "groupTitle": "Leak vs Leek",
+  "phonetic": "/liːk/",
+  "soundKey": "liːk",
+  "letter": "L",
+  "examFrequency": "High",
+  "confusableTip": "Leak = रिसाव/छेद से टपकना; Leek = हरे प्याज जैसी सब्जी",
+  "words": [
+    {
+      "id": "hp-194",
+      "sno": 194,
+      "word": "Leak",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To let liquid or gas escape through a hole or crack",
+      "hindiMeaning": "रिसाव / टपकना / भेद खुलना",
+      "englishSentence": "The pipe started to leak.",
+      "hindiSentence": "पाइप से रिसाव शुरू हो गया।",
+      "memoryTip": "Water leak / Paper leak"
+    },
+    {
+      "id": "hp-195",
+      "sno": 195,
+      "word": "Leek",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A vegetable related to the onion, with flat leaves",
+      "hindiMeaning": "हरा प्याज / लीक सब्जी",
+      "englishSentence": "I added leek to the soup.",
+      "hindiSentence": "मैंने सूप में हरा प्याज डाला।",
+      "memoryTip": "Leek soup"
+    }
+  ]
+},
   {
-    id: 'hp-steal-steel',
-    groupTitle: 'Steal vs Steel',
-    phonetic: '/stiːl/',
-    soundKey: 'stiːl',
-    letter: 'S',
-    examFrequency: 'Frequent',
-    confusableTip: 'Steal = चोरी करना; Steel = इस्पात / फौलाद (धातु)',
-    words: [
-      {
-        id: 'hp-steal',
-        sno: 194,
-        word: 'Steal',
-        partOfSpeech: 'Verb',
-        posCategory: 'verb',
-        englishMeaning: 'To take someone\'s property without permission',
-        hindiMeaning: 'चोरी करना / चुराना',
-        englishSentence: 'Thou shalt not steal.',
-        hindiSentence: 'तुम्हें चोरी नहीं करनी चाहिए।',
-        memoryTip: 'Thief steals'
-      },
-      {
-        id: 'hp-steel',
-        sno: 195,
-        word: 'Steel',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'A hard, strong alloy of iron and carbon',
-        hindiMeaning: 'इस्पात / स्टील / फौलाद',
-        englishSentence: 'The bridge is built of strong steel.',
-        hindiSentence: 'पुल मज़बूत इस्पात से बना है।',
-        memoryTip: 'Stainless steel'
-      }
-    ]
-  },
-
-  // ─── W ───
+  "id": "hp-loan-lone",
+  "groupTitle": "Loan vs Lone",
+  "phonetic": "/loʊn/",
+  "soundKey": "loʊn",
+  "letter": "L",
+  "examFrequency": "Very High",
+  "confusableTip": "Loan = बैंक ऋण या उधार; Lone = अकेला / एकाकी (Single)",
+  "words": [
+    {
+      "id": "hp-196",
+      "sno": 196,
+      "word": "Loan",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A borrowed sum of money / to lend",
+      "hindiMeaning": "ऋण / कर्ज़ / उधार देना",
+      "englishSentence": "She took a loan from the bank.",
+      "hindiSentence": "उसने बैंक से ऋण लिया।",
+      "memoryTip": "Bank loan"
+    },
+    {
+      "id": "hp-197",
+      "sno": 197,
+      "word": "Lone",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Solitary, single, without companions",
+      "hindiMeaning": "अकेला / एकाकी",
+      "englishSentence": "He was the lone survivor.",
+      "hindiSentence": "वह अकेला जीवित बचा।",
+      "memoryTip": "Lone wolf / Lonely"
+    }
+  ]
+},
   {
-    id: 'hp-weather-whether',
-    groupTitle: 'Weather vs Whether',
-    phonetic: '/ˈwɛðər/',
-    soundKey: 'wɛðər',
-    letter: 'W',
-    examFrequency: 'Very High',
-    confusableTip: 'Weather = मौसम (धूप/बारिश); Whether = यदि / या (संशय दर्शाने वाला संयोजक)',
-    words: [
-      {
-        id: 'hp-weather',
-        sno: 196,
-        word: 'Weather',
-        partOfSpeech: 'Noun',
-        posCategory: 'noun',
-        englishMeaning: 'Atmospheric conditions (rain, sun, wind)',
-        hindiMeaning: 'मौसम / जलवायु',
-        englishSentence: 'The weather is pleasant today.',
-        hindiSentence: 'आज मौसम सुहावना है।',
-        memoryTip: 'Sunny weather'
-      },
-      {
-        id: 'hp-whether',
-        sno: 197,
-        word: 'Whether',
-        partOfSpeech: 'Conjunction',
-        posCategory: 'other',
-        englishMeaning: 'Expressing a doubt or choice between alternatives',
-        hindiMeaning: 'कि क्या / यदि / चाहे',
-        englishSentence: 'I don’t know whether she will come.',
-        hindiSentence: 'मुझे नहीं पता कि वह आएगी या नहीं।',
-        memoryTip: 'Whether ... or not'
-      }
-    ]
-  }
+  "id": "hp-louder-louver",
+  "groupTitle": "Louder vs Louver",
+  "phonetic": "/ˈlaʊdər/ - /ˈluːvər/",
+  "soundKey": "laʊdər",
+  "letter": "L",
+  "examFrequency": "Frequent",
+  "confusableTip": "Louder = अधिक तेज़ आवाज़; Louver = खिड़की की तिरछी पट्टियां/ब्लाइंड्स",
+  "words": [
+    {
+      "id": "hp-198",
+      "sno": 198,
+      "word": "Louder",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Producing or communicating with greater sound volume",
+      "hindiMeaning": "अधिक जोरदार / ऊँची आवाज़",
+      "englishSentence": "The music is louder than before.",
+      "hindiSentence": "संगीत पहले से ज्यादा तेज़ है।",
+      "memoryTip": "Loud → Louder"
+    },
+    {
+      "id": "hp-199",
+      "sno": 199,
+      "word": "Louver",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A window blind or shutter with angled horizontal slats",
+      "hindiMeaning": "खिड़की की पट्टियां / झरोखा",
+      "englishSentence": "The air came through the louver.",
+      "hindiSentence": "खिड़की की पट्टियों से हवा आ रही थी।",
+      "memoryTip": "Louvered doors & windows"
+    }
+  ]
+},
+  {
+  "id": "hp-links-lynx",
+  "groupTitle": "Links vs Lynx",
+  "phonetic": "/lɪŋks/",
+  "soundKey": "lɪŋks",
+  "letter": "L",
+  "examFrequency": "High",
+  "confusableTip": "Links = कड़ियां/संबंध या गोल्फ कोर्स; Lynx = जंगली बिल्ली (कानों पर बाल वाली)",
+  "words": [
+    {
+      "id": "hp-200",
+      "sno": 200,
+      "word": "Links",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Connections / hyperlinks / coastal golf courses",
+      "hindiMeaning": "जोड़ / कड़ियां / गोल्फ मैदान",
+      "englishSentence": "The links between them are strong. He played on the Scottish links.",
+      "hindiSentence": "उनके बीच संबंध मजबूत हैं। उसने स्कॉटलैंड के गोल्फ मैदानों में खेला।",
+      "memoryTip": "Hyperlinks / Missing link"
+    },
+    {
+      "id": "hp-201",
+      "sno": 201,
+      "word": "Lynx",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A wild cat with yellowish-brown coat and tufted ears",
+      "hindiMeaning": "लिंक्स (एक प्रकार की जंगली बिल्ली)",
+      "englishSentence": "The lynx hunted silently at night.",
+      "hindiSentence": "लिंक्स रात में चुपचाप शिकार करता है।",
+      "memoryTip": "Lynx is an animal with lynx eyes (sharp sight)"
+    }
+  ]
+},
+  {
+  "id": "hp-literal-litteral",
+  "groupTitle": "Literal vs Litteral",
+  "phonetic": "/ˈlɪtərəl/",
+  "soundKey": "lɪtərəl",
+  "letter": "L",
+  "examFrequency": "High",
+  "confusableTip": "Literal = अक्षरशः / शाब्दिक अर्थ; Litteral = उपनाम (दुर्लभ व्यक्तिवाचक संज्ञा)",
+  "words": [
+    {
+      "id": "hp-202",
+      "sno": 202,
+      "word": "Literal",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Taking words in their usual, basic, and exact sense",
+      "hindiMeaning": "शाब्दिक / अक्षरशः अर्थ",
+      "englishSentence": "A literal translation may miss emotion.",
+      "hindiSentence": "एक शाब्दिक अनुवाद भावना खो सकता है।",
+      "memoryTip": "Literal meaning vs Figurative meaning"
+    },
+    {
+      "id": "hp-203",
+      "sno": 203,
+      "word": "Litteral",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A rare surname or proper noun",
+      "hindiMeaning": "उपनाम (दुर्लभ संज्ञा)",
+      "englishSentence": "Mr. Litteral will join us today.",
+      "hindiSentence": "मिस्टर लिटल आज हमसे जुड़ेंगे।",
+      "memoryTip": "Proper name Litteral"
+    }
+  ]
+},
+  {
+  "id": "hp-made-maid",
+  "groupTitle": "Made vs Maid",
+  "phonetic": "/meɪd/",
+  "soundKey": "meɪd",
+  "letter": "M",
+  "examFrequency": "Frequent",
+  "confusableTip": "Made = बनाया (Make का Past); Maid = घरेलू नौकरानी / कुंवारी कन्या",
+  "words": [
+    {
+      "id": "hp-204",
+      "sno": 204,
+      "word": "Made",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"make\"; produced or created",
+      "hindiMeaning": "बनाया / निर्मित किया",
+      "englishSentence": "She made a cake for the party.",
+      "hindiSentence": "उसने पार्टी के लिए केक बनाया।",
+      "memoryTip": "Make → Made"
+    },
+    {
+      "id": "hp-205",
+      "sno": 205,
+      "word": "Maid",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A female domestic servant / young unmarried woman",
+      "hindiMeaning": "नौकरानी / दासी / कन्या",
+      "englishSentence": "The maid cleaned the house.",
+      "hindiSentence": "नौकरानी ने घर साफ़ किया।",
+      "memoryTip": "Maid of honour"
+    }
+  ]
+},
+  {
+  "id": "hp-mail-male",
+  "groupTitle": "Mail vs Male",
+  "phonetic": "/meɪl/",
+  "soundKey": "meɪd",
+  "letter": "M",
+  "examFrequency": "Frequent",
+  "confusableTip": "Mail = डाक या पत्र भेजना; Male = पुरुष / नर प्राणी",
+  "words": [
+    {
+      "id": "hp-206",
+      "sno": 206,
+      "word": "Mail",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "Letters and parcels sent by post / armor",
+      "hindiMeaning": "डाक / पत्र भेजना / कवच",
+      "englishSentence": "I received a letter in the mail.",
+      "hindiSentence": "मुझे डाक में एक पत्र मिला।",
+      "memoryTip": "E-mail, Voice mail"
+    },
+    {
+      "id": "hp-207",
+      "sno": 207,
+      "word": "Male",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "A person or animal of the masculine sex",
+      "hindiMeaning": "पुरुष / नर",
+      "englishSentence": "The male lion protects the pride.",
+      "hindiSentence": "नर शेर अपने समूह की रक्षा करता है।",
+      "memoryTip": "Male vs Female"
+    }
+  ]
+},
+  {
+  "id": "hp-marry-merry",
+  "groupTitle": "Marry vs Merry",
+  "phonetic": "/ˈmæri/ - /ˈmɛri/",
+  "soundKey": "mæri",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Marry (A) = विवाह करना; Merry (E) = आनंदित/प्रसन्न (Merry Christmas)",
+  "words": [
+    {
+      "id": "hp-208",
+      "sno": 208,
+      "word": "Marry",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To join in marriage with someone",
+      "hindiMeaning": "विवाह करना / शादी करना",
+      "englishSentence": "She will marry next year.",
+      "hindiSentence": "वह अगले साल शादी करेगी।",
+      "memoryTip": "Marriage, Married"
+    },
+    {
+      "id": "hp-209",
+      "sno": 209,
+      "word": "Merry",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Cheerful, lively, and full of joy",
+      "hindiMeaning": "प्रसन्न / हर्षित / आनंदमय",
+      "englishSentence": "We had a merry celebration.",
+      "hindiSentence": "हमने आनंदित उत्सव मनाया।",
+      "memoryTip": "Merry Christmas!"
+    }
+  ]
+},
+  {
+  "id": "hp-meat-meet",
+  "groupTitle": "Meat vs Meet",
+  "phonetic": "/miːt/",
+  "soundKey": "miːt",
+  "letter": "M",
+  "examFrequency": "Frequent",
+  "confusableTip": "Meat = पशुओं का खाद्य मांस; Meet = मिलना / मुलाकात करना",
+  "words": [
+    {
+      "id": "hp-210",
+      "sno": 210,
+      "word": "Meat",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The flesh of an animal as food",
+      "hindiMeaning": "मांस / खाद्य मांस",
+      "englishSentence": "They don’t eat meat.",
+      "hindiSentence": "वे मांस नहीं खाते।",
+      "memoryTip": "Meat has EAT inside it!"
+    },
+    {
+      "id": "hp-211",
+      "sno": 211,
+      "word": "Meet",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To come into the presence of / encounter",
+      "hindiMeaning": "मिलना / भेंट करना",
+      "englishSentence": "Let’s meet at 5 PM.",
+      "hindiSentence": "चलो 5 बजे मिलते हैं।",
+      "memoryTip": "Meet has two \"e\"s meeting each other"
+    }
+  ]
+},
+  {
+  "id": "hp-medal-meddle",
+  "groupTitle": "Medal vs Meddle",
+  "phonetic": "/ˈmɛdl/",
+  "soundKey": "mɛdl",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Medal = पदक/इनाम; Meddle = दूसरों के मामले में टांग अड़ाना/दखल देना",
+  "words": [
+    {
+      "id": "hp-212",
+      "sno": 212,
+      "word": "Medal",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A metal disc awarded for distinction in sports or bravery",
+      "hindiMeaning": "पदक / मेडल",
+      "englishSentence": "He won a gold medal.",
+      "hindiSentence": "उसने स्वर्ण पदक जीता।",
+      "memoryTip": "Olympic gold medal"
+    },
+    {
+      "id": "hp-213",
+      "sno": 213,
+      "word": "Meddle",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To interfere in something that is not one's concern",
+      "hindiMeaning": "दखल देना / हस्तक्षेप करना",
+      "englishSentence": "Don’t meddle in my business.",
+      "hindiSentence": "मेरे काम में दखल मत दो।",
+      "memoryTip": "Meddlesome neighbor"
+    }
+  ]
+},
+  {
+  "id": "hp-miner-minor",
+  "groupTitle": "Miner vs Minor",
+  "phonetic": "/ˈmaɪnər/",
+  "soundKey": "maɪnər",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Miner (er) = खदान में काम करने वाला खनिक; Minor (or) = 18 से कम उम्र का नाबालिग या गौण",
+  "words": [
+    {
+      "id": "hp-214",
+      "sno": 214,
+      "word": "Miner",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A person who works in a mine extracting ore or coal",
+      "hindiMeaning": "खनिक / खदान कर्मी",
+      "englishSentence": "The miner found gold.",
+      "hindiSentence": "खनिक को सोना मिला।",
+      "memoryTip": "Coal miner"
+    },
+    {
+      "id": "hp-215",
+      "sno": 215,
+      "word": "Minor",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Under legal age / lesser in size, extent, or importance",
+      "hindiMeaning": "नाबालिग / गौण / छोटा",
+      "englishSentence": "The boy is still a minor.",
+      "hindiSentence": "लड़का अभी नाबालिग है।",
+      "memoryTip": "Minor injury / Major vs Minor"
+    }
+  ]
+},
+  {
+  "id": "hp-missed-mist",
+  "groupTitle": "Missed vs Mist",
+  "phonetic": "/mɪst/",
+  "soundKey": "mɪst",
+  "letter": "M",
+  "examFrequency": "High",
+  "confusableTip": "Missed = चूक गया / छूट गया; Mist = सुबह का हल्का कोहरा/धुंध",
+  "words": [
+    {
+      "id": "hp-216",
+      "sno": 216,
+      "word": "Missed",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"miss\"; failed to catch, hit, or attend",
+      "hindiMeaning": "चूका / छूट गया / याद किया",
+      "englishSentence": "I missed the train.",
+      "hindiSentence": "मैं ट्रेन पकड़ने से चूक गया।",
+      "memoryTip": "Missed opportunity"
+    },
+    {
+      "id": "hp-217",
+      "sno": 217,
+      "word": "Mist",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A cloud of tiny water droplets in the atmosphere; light fog",
+      "hindiMeaning": "धुंध / हल्का कोहरा",
+      "englishSentence": "Morning mist covered the valley.",
+      "hindiSentence": "सुबह की धुंध ने घाटी को ढक लिया।",
+      "memoryTip": "Misty morning"
+    }
+  ]
+},
+  {
+  "id": "hp-mute-moot",
+  "groupTitle": "Mute vs Moot",
+  "phonetic": "/mjuːt/ - /muːt/",
+  "soundKey": "mjuːt",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Mute = मूक / शांत; Moot = विवादास्पद या अप्रासंगिक (Moot point)",
+  "words": [
+    {
+      "id": "hp-218",
+      "sno": 218,
+      "word": "Mute",
+      "partOfSpeech": "Adjective / Verb",
+      "posCategory": "adj",
+      "englishMeaning": "Refraining from speech / silent",
+      "hindiMeaning": "मौन / मूक / चुप कराना",
+      "englishSentence": "He remained mute in court.",
+      "hindiSentence": "वह अदालत में मौन रहा।",
+      "memoryTip": "Mute button on TV"
+    },
+    {
+      "id": "hp-219",
+      "sno": 219,
+      "word": "Moot",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Subject to debate, dispute, or having no practical significance",
+      "hindiMeaning": "विवादास्पद / अप्रासंगिक / बहस योग्य",
+      "englishSentence": "The point is moot now.",
+      "hindiSentence": "वह बात अब अप्रासंगिक है।",
+      "memoryTip": "Moot court / Moot point"
+    }
+  ]
+},
+  {
+  "id": "hp-naval-navel",
+  "groupTitle": "Naval vs Navel",
+  "phonetic": "/ˈneɪvəl/",
+  "soundKey": "neɪvəl",
+  "letter": "N",
+  "examFrequency": "Very High",
+  "confusableTip": "Naval (al) = नौसेना/जलसेना से संबंधित; Navel (el) = पेट की नाभि (Belly button)",
+  "words": [
+    {
+      "id": "hp-220",
+      "sno": 220,
+      "word": "Naval",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Relating to a country's navy or warships",
+      "hindiMeaning": "नौसेना से संबंधित / नौसैनिक",
+      "englishSentence": "He joined the naval academy.",
+      "hindiSentence": "उसने नौसेना अकादमी में प्रवेश लिया।",
+      "memoryTip": "Naval fleet / Navy"
+    },
+    {
+      "id": "hp-221",
+      "sno": 221,
+      "word": "Navel",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The belly button / central point of abdomen",
+      "hindiMeaning": "नाभि / तोंद का गड्ढा",
+      "englishSentence": "The doctor examined the baby’s navel.",
+      "hindiSentence": "डॉक्टर ने बच्चे की नाभि की जांच की।",
+      "memoryTip": "Navel orange"
+    }
+  ]
+},
+  {
+  "id": "hp-oar-or-ore",
+  "groupTitle": "Oar vs Or vs Ore",
+  "phonetic": "/ɔːr/",
+  "soundKey": "ɔːr",
+  "letter": "O",
+  "examFrequency": "High",
+  "confusableTip": "Oar = नाव का चप्पू; Or = या (Conjunction); Ore = कच्ची धातु (खनिज)",
+  "words": [
+    {
+      "id": "hp-222",
+      "sno": 222,
+      "word": "Oar",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A long pole with a flat blade used to row a boat",
+      "hindiMeaning": "चप्पू (नाव चलाने का डंडा)",
+      "englishSentence": "He rowed the boat with an oar.",
+      "hindiSentence": "उसने चप्पू से नाव चलाई।",
+      "memoryTip": "Boat oar"
+    },
+    {
+      "id": "hp-223",
+      "sno": 223,
+      "word": "Or",
+      "partOfSpeech": "Conjunction",
+      "posCategory": "other",
+      "englishMeaning": "Used to link alternatives",
+      "hindiMeaning": "या / अथवा",
+      "englishSentence": "Would you like tea or coffee?",
+      "hindiSentence": "क्या आप चाय या कॉफी लेंगे?",
+      "memoryTip": "Tea OR coffee"
+    },
+    {
+      "id": "hp-224",
+      "sno": 224,
+      "word": "Ore",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A naturally occurring rock from which metal is extracted",
+      "hindiMeaning": "अयस्क / कच्ची धातु",
+      "englishSentence": "Iron ore is found in this region.",
+      "hindiSentence": "इस क्षेत्र में लौह अयस्क पाया जाता है।",
+      "memoryTip": "Iron ore, Bauxite ore"
+    }
+  ]
+},
+  {
+  "id": "hp-overdo-overdue",
+  "groupTitle": "Overdo vs Overdue",
+  "phonetic": "/ˌoʊvərˈduː/",
+  "soundKey": "oʊvərduː",
+  "letter": "O",
+  "examFrequency": "Very High",
+  "confusableTip": "Overdo = अति करना / हद से ज्यादा करना; Overdue = समय सीमा से देर / विलंबित",
+  "words": [
+    {
+      "id": "hp-225",
+      "sno": 225,
+      "word": "Overdo",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To do, use, or carry to excess",
+      "hindiMeaning": "अति करना / हद से ज्यादा करना",
+      "englishSentence": "Don’t overdo the salt.",
+      "hindiSentence": "नमक ज्यादा मत डालो।",
+      "memoryTip": "Over + Do"
+    },
+    {
+      "id": "hp-226",
+      "sno": 226,
+      "word": "Overdue",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Not having arrived or occurred at the expected time; late",
+      "hindiMeaning": "विलंबित / बकाया / समय से अधिक देर",
+      "englishSentence": "The payment is overdue.",
+      "hindiSentence": "भुगतान विलंबित है।",
+      "memoryTip": "Due date passed → Overdue"
+    }
+  ]
+},
+  {
+  "id": "hp-pain-pane",
+  "groupTitle": "Pain vs Pane",
+  "phonetic": "/peɪn/",
+  "soundKey": "peɪn",
+  "letter": "P",
+  "examFrequency": "Frequent",
+  "confusableTip": "Pain = शारीरिक या मानसिक दर्द; Pane = खिड़की या दरवाजे का कांच",
+  "words": [
+    {
+      "id": "hp-227",
+      "sno": 227,
+      "word": "Pain",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Physical or mental suffering",
+      "hindiMeaning": "दर्द / पीड़ा",
+      "englishSentence": "He felt sharp pain in his leg.",
+      "hindiSentence": "उसे पैर में तेज़ दर्द महसूस हुआ।",
+      "memoryTip": "Pain killer"
+    },
+    {
+      "id": "hp-228",
+      "sno": 228,
+      "word": "Pane",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A single sheet of glass in a window or door",
+      "hindiMeaning": "कांच की पट्टी / खिड़की का शीशा",
+      "englishSentence": "The window pane was broken.",
+      "hindiSentence": "खिड़की का कांच टूट गया था।",
+      "memoryTip": "Window pane"
+    }
+  ]
+},
+  {
+  "id": "hp-pair-pear-pare",
+  "groupTitle": "Pair vs Pear vs Pare",
+  "phonetic": "/pɛər/",
+  "soundKey": "pɛər",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Pair = जोड़ा; Pear = नाशपाती (फल); Pare = छीलना या छांटकर कम करना",
+  "words": [
+    {
+      "id": "hp-229",
+      "sno": 229,
+      "word": "Pair",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A set of two things used together",
+      "hindiMeaning": "जोड़ा / युग्म",
+      "englishSentence": "I bought a pair of shoes.",
+      "hindiSentence": "मैंने एक जोड़ी जूते खरीदे।",
+      "memoryTip": "Pair of socks"
+    },
+    {
+      "id": "hp-230",
+      "sno": 230,
+      "word": "Pear",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A sweet, juicy fruit shaped like a teardrop",
+      "hindiMeaning": "नाशपाती (फल)",
+      "englishSentence": "I ate a ripe pear.",
+      "hindiSentence": "मैंने एक पकी हुई नाशपाती खाई।",
+      "memoryTip": "Pear fruit"
+    },
+    {
+      "id": "hp-231",
+      "sno": 231,
+      "word": "Pare",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To trim by cutting away outer edges or peel",
+      "hindiMeaning": "छीलना / छांटना / कम करना",
+      "englishSentence": "Pare the apples before cooking.",
+      "hindiSentence": "पकाने से पहले सेब छीलो।",
+      "memoryTip": "Paring knife (सब्जी छीलने वाला चाकू)"
+    }
+  ]
+},
+  {
+  "id": "hp-passed-past",
+  "groupTitle": "Passed vs Past",
+  "phonetic": "/pɑːst/ - /pæst/",
+  "soundKey": "pɑːst",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Passed = परीक्षा उत्तीर्ण की / आगे से गुजरा (Verb); Past = बीता हुआ समय / भूतकाल (Noun/Adj)",
+  "words": [
+    {
+      "id": "hp-232",
+      "sno": 232,
+      "word": "Passed",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"pass\"; moved beyond or succeeded",
+      "hindiMeaning": "गुजरा / पार किया / उत्तीर्ण किया",
+      "englishSentence": "She passed the test.",
+      "hindiSentence": "उसने परीक्षा पास कर ली।",
+      "memoryTip": "Pass + ed"
+    },
+    {
+      "id": "hp-233",
+      "sno": 233,
+      "word": "Past",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "Gone by in time and no longer existing",
+      "hindiMeaning": "भूतकाल / बीता हुआ समय",
+      "englishSentence": "He spoke about his past life.",
+      "hindiSentence": "उसने अपने पिछले जीवन के बारे में बात की।",
+      "memoryTip": "Past tense / In the past"
+    }
+  ]
+},
+  {
+  "id": "hp-patience-patients",
+  "groupTitle": "Patience vs Patients",
+  "phonetic": "/ˈpeɪʃəns/",
+  "soundKey": "peɪʃəns",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Patience (CE) = धैर्य/धीरज (गुण); Patients (TS) = अस्पताल में इलाज करा रहे मरीज़",
+  "words": [
+    {
+      "id": "hp-234",
+      "sno": 234,
+      "word": "Patience",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The capacity to accept or tolerate delay and trouble calmly",
+      "hindiMeaning": "धैर्य / सब्र / धीरज",
+      "englishSentence": "She has great patience with kids.",
+      "hindiSentence": "उसमें बच्चों के प्रति बहुत धैर्य है।",
+      "memoryTip": "Have patience"
+    },
+    {
+      "id": "hp-235",
+      "sno": 235,
+      "word": "Patients",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Plural of patient (persons receiving medical treatment)",
+      "hindiMeaning": "मरीज़ / रोगी (बहुवचन)",
+      "englishSentence": "The doctor treated several patients.",
+      "hindiSentence": "डॉक्टर ने कई मरीज़ों का इलाज किया।",
+      "memoryTip": "Hospital patients"
+    }
+  ]
+},
+  {
+  "id": "hp-peace-piece",
+  "groupTitle": "Peace vs Piece",
+  "phonetic": "/piːs/",
+  "soundKey": "piːs",
+  "letter": "P",
+  "examFrequency": "Frequent",
+  "confusableTip": "Peace = शांति / अमन; Piece = टुकड़ा / हिस्सा",
+  "words": [
+    {
+      "id": "hp-236",
+      "sno": 236,
+      "word": "Peace",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Freedom from disturbance; tranquility, absence of war",
+      "hindiMeaning": "शांति / अमन",
+      "englishSentence": "The country is enjoying peace.",
+      "hindiSentence": "देश शांति का अनुभव कर रहा है।",
+      "memoryTip": "Peace treaty"
+    },
+    {
+      "id": "hp-237",
+      "sno": 237,
+      "word": "Piece",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A portion of an object / single item",
+      "hindiMeaning": "टुकड़ा / भाग",
+      "englishSentence": "Give me a piece of cake.",
+      "hindiSentence": "मुझे केक का एक टुकड़ा दो।",
+      "memoryTip": "A piece of PIE (both have \"pie\")"
+    }
+  ]
+},
+  {
+  "id": "hp-peak-peek",
+  "groupTitle": "Peak vs Peek",
+  "phonetic": "/piːk/",
+  "soundKey": "piːk",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Peak (A) = पर्वत की चोटी / शिखर; Peek (EE) = चुपके से झांकना (दो आँखें \"ee\")",
+  "words": [
+    {
+      "id": "hp-238",
+      "sno": 238,
+      "word": "Peak",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The pointed top of a mountain / highest point",
+      "hindiMeaning": "शिखर / चोटी / उच्चतम स्तर",
+      "englishSentence": "He climbed to the mountain’s peak.",
+      "hindiSentence": "वह पहाड़ की चोटी पर चढ़ गया।",
+      "memoryTip": "Peak hours / Mountain peak"
+    },
+    {
+      "id": "hp-239",
+      "sno": 239,
+      "word": "Peek",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To look quickly or furtively",
+      "hindiMeaning": "झांकना / चुपके से देखना / झलक",
+      "englishSentence": "She peeked through the curtain.",
+      "hindiSentence": "उसने पर्दे से झांका।",
+      "memoryTip": "P-EE-k: The two \"e\"s look like eyes peeking!"
+    }
+  ]
+},
+  {
+  "id": "hp-plain-plane",
+  "groupTitle": "Plain vs Plane",
+  "phonetic": "/pleɪn/",
+  "soundKey": "pleɪn",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Plain = सादा / विस्तृत समतल मैदान; Plane = हवाई जहाज / ज्यामितीय समतल",
+  "words": [
+    {
+      "id": "hp-240",
+      "sno": 240,
+      "word": "Plain",
+      "partOfSpeech": "Adjective / Noun",
+      "posCategory": "adj",
+      "englishMeaning": "Simple, not decorated / large area of flat land",
+      "hindiMeaning": "साधारण / सादा / मैदान",
+      "englishSentence": "She wore a plain dress. The plains are vast.",
+      "hindiSentence": "उसने एक सादा ड्रेस पहनी। मैदान बहुत विस्तृत हैं।",
+      "memoryTip": "Plain paper / Indo-Gangetic plain"
+    },
+    {
+      "id": "hp-241",
+      "sno": 241,
+      "word": "Plane",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An airplane / flat surface in geometry",
+      "hindiMeaning": "विमान / समतल सतह",
+      "englishSentence": "The plane landed safely.",
+      "hindiSentence": "विमान सुरक्षित उतरा।",
+      "memoryTip": "Aeroplane"
+    }
+  ]
+},
+  {
+  "id": "hp-pole-poll",
+  "groupTitle": "Pole vs Poll",
+  "phonetic": "/poʊl/",
+  "soundKey": "poʊl",
+  "letter": "P",
+  "examFrequency": "High",
+  "confusableTip": "Pole = खंभा या पृथ्वी का ध्रुव; Poll = चुनाव / जनमत सर्वेक्षण (वोटिंग)",
+  "words": [
+    {
+      "id": "hp-242",
+      "sno": 242,
+      "word": "Pole",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A long slender rounded rod / North or South pole",
+      "hindiMeaning": "खंभा / ध्रुव",
+      "englishSentence": "He climbed the pole.",
+      "hindiSentence": "वह खंभे पर चढ़ गया।",
+      "memoryTip": "North Pole / Electric pole"
+    },
+    {
+      "id": "hp-243",
+      "sno": 243,
+      "word": "Poll",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "Voting in an election / opinion survey",
+      "hindiMeaning": "चुनाव / जनमत सर्वेक्षण / वोट लेना",
+      "englishSentence": "The opinion poll predicted the winner.",
+      "hindiSentence": "जनमत सर्वेक्षण ने विजेता की भविष्यवाणी की।",
+      "memoryTip": "Exit poll / Polling booth"
+    }
+  ]
+},
+  {
+  "id": "hp-pray-prey",
+  "groupTitle": "Pray vs Prey",
+  "phonetic": "/preɪ/",
+  "soundKey": "preɪ",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Pray (A) = भगवान से प्रार्थना करना; Prey (E) = शिकारी का शिकार",
+  "words": [
+    {
+      "id": "hp-244",
+      "sno": 244,
+      "word": "Pray",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To address a prayer to God",
+      "hindiMeaning": "प्रार्थना करना / विनती करना",
+      "englishSentence": "We pray every morning.",
+      "hindiSentence": "हम हर सुबह प्रार्थना करते हैं।",
+      "memoryTip": "Pray to God"
+    },
+    {
+      "id": "hp-245",
+      "sno": 245,
+      "word": "Prey",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "An animal hunted and killed by another for food",
+      "hindiMeaning": "शिकार / भक्ष्य",
+      "englishSentence": "The lion hunted its prey silently.",
+      "hindiSentence": "शेर ने अपने शिकार को चुपचाप मारा।",
+      "memoryTip": "Bird of prey / Predator and prey"
+    }
+  ]
+},
+  {
+  "id": "hp-principal-principle",
+  "groupTitle": "Principal vs Principle",
+  "phonetic": "/ˈprɪnsəpəl/",
+  "soundKey": "prɪnsəpəl",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "PrincipAL (Pal) = प्रधानाचार्य / मूलधन; PrincipLE (Rule) = सिद्धांत / नियम",
+  "words": [
+    {
+      "id": "hp-246",
+      "sno": 246,
+      "word": "Principal",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "Head of a school / main amount of money / chief",
+      "hindiMeaning": "प्रधानाचार्य / मुख्य / मूलधन",
+      "englishSentence": "The principal gave a speech. This is the principal reason.",
+      "hindiSentence": "प्रधानाचार्य ने भाषण दिया। यह मुख्य कारण है।",
+      "memoryTip": "The principAL is your PAL (school head)"
+    },
+    {
+      "id": "hp-247",
+      "sno": 247,
+      "word": "Principle",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A fundamental truth, moral rule, or scientific law",
+      "hindiMeaning": "सिद्धांत / नैतिक नियम",
+      "englishSentence": "Honesty is a good principle.",
+      "hindiSentence": "ईमानदारी एक अच्छा सिद्धांत है।",
+      "memoryTip": "PrincipLE ends in LE like ruLE"
+    }
+  ]
+},
+  {
+  "id": "hp-quarts-quartz",
+  "groupTitle": "Quarts vs Quartz",
+  "phonetic": "/kwɔːrts/",
+  "soundKey": "kwɔːrts",
+  "letter": "Q",
+  "examFrequency": "High",
+  "confusableTip": "Quarts = 1/4 गैलन द्रव माप (प्लुरल); Quartz = घड़ी व गहनों का कठोर खनिज",
+  "words": [
+    {
+      "id": "hp-248",
+      "sno": 248,
+      "word": "Quarts",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Units of liquid measurement (1 quart ≈ 0.95 litre)",
+      "hindiMeaning": "क्वार्ट (द्रव माप)",
+      "englishSentence": "The recipe needs two quarts of milk.",
+      "hindiSentence": "इस रेसिपी में दो क्वार्ट दूध चाहिए।",
+      "memoryTip": "Quarter of a gallon"
+    },
+    {
+      "id": "hp-249",
+      "sno": 249,
+      "word": "Quartz",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A hard, white or colourless mineral used in watches",
+      "hindiMeaning": "क्वार्ट्ज (खनिज पत्थर)",
+      "englishSentence": "The countertop is made of quartz.",
+      "hindiSentence": "किचन की सतह क्वार्ट्ज से बनी है।",
+      "memoryTip": "Quartz watch"
+    }
+  ]
+},
+  {
+  "id": "hp-quean-queen",
+  "groupTitle": "Quean vs Queen",
+  "phonetic": "/kwiːn/",
+  "soundKey": "kwiːn",
+  "letter": "Q",
+  "examFrequency": "High",
+  "confusableTip": "Quean = बदचलन/दुश्चरित्र स्त्री (पुराना शब्द); Queen = रानी / महारानी",
+  "words": [
+    {
+      "id": "hp-250",
+      "sno": 250,
+      "word": "Quean",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An impudent or ill-behaved woman (archaic)",
+      "hindiMeaning": "दुश्चरित्र स्त्री / बदचलन महिला",
+      "englishSentence": "The old play had a villainous quean.",
+      "hindiSentence": "पुराने नाटक में एक दुश्चरित्र स्त्री थी।",
+      "memoryTip": "Quean is archaic English insult"
+    },
+    {
+      "id": "hp-251",
+      "sno": 251,
+      "word": "Queen",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The female ruler of an independent state / king's wife",
+      "hindiMeaning": "रानी / महारानी",
+      "englishSentence": "The queen addressed the nation.",
+      "hindiSentence": "रानी ने राष्ट्र को संबोधित किया।",
+      "memoryTip": "Queen Elizabeth"
+    }
+  ]
+},
+  {
+  "id": "hp-quire-choir",
+  "groupTitle": "Quire vs Choir",
+  "phonetic": "/kwaɪər/",
+  "soundKey": "kwaɪər",
+  "letter": "Q",
+  "examFrequency": "Very High",
+  "confusableTip": "Quire = कागज़ के 24-25 पन्नों की गड्डी; Choir = चर्च के गायकों का दल",
+  "words": [
+    {
+      "id": "hp-252",
+      "sno": 252,
+      "word": "Quire",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A set of 24 or 25 sheets of paper of the same size",
+      "hindiMeaning": "कागज़ की गड्डी (24 पन्नों का दस्ता)",
+      "englishSentence": "He bought a quire of writing paper.",
+      "hindiSentence": "उसने लेखन कागज की एक गड्डी खरीदी।",
+      "memoryTip": "Quire of paper"
+    },
+    {
+      "id": "hp-253",
+      "sno": 253,
+      "word": "Choir",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An organized group of singers in church",
+      "hindiMeaning": "गायक दल / कोरस",
+      "englishSentence": "The church choir sang beautifully.",
+      "hindiSentence": "चर्च के कोरस ने सुंदर गान गाया।",
+      "memoryTip": "Choir is pronounced like Quire!"
+    }
+  ]
+},
+  {
+  "id": "hp-queue-cue",
+  "groupTitle": "Queue vs Cue",
+  "phonetic": "/kjuː/",
+  "soundKey": "kjuː",
+  "letter": "Q",
+  "examFrequency": "Very High",
+  "confusableTip": "Queue = पंक्ति/कतार; Cue = संकेत/इशारा या बिलियर्ड्स की छड़ी",
+  "words": [
+    {
+      "id": "hp-254",
+      "sno": 254,
+      "word": "Queue",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A line or sequence of people or vehicles awaiting their turn",
+      "hindiMeaning": "कतार / लाइन लगाना",
+      "englishSentence": "We stood in a queue for tickets.",
+      "hindiSentence": "हम टिकट के लिए कतार में खड़े थे।",
+      "memoryTip": "Stand in a queue"
+    },
+    {
+      "id": "hp-255",
+      "sno": 255,
+      "word": "Cue",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A signal to an actor to speak; a hint / billiard rod",
+      "hindiMeaning": "संकेत / इशारा / बिलियर्ड्स की छड़ी",
+      "englishSentence": "That was my cue to leave.",
+      "hindiSentence": "वह मेरे जाने का संकेत था।",
+      "memoryTip": "Cue card / Pool cue"
+    }
+  ]
+},
+  {
+  "id": "hp-reign-rein-rain",
+  "groupTitle": "Reign vs Rein vs Rain",
+  "phonetic": "/reɪn/",
+  "soundKey": "reɪn",
+  "letter": "R",
+  "examFrequency": "Very High",
+  "confusableTip": "Reign = राजा का शासनकाल; Rein = घोड़े की लगाम; Rain = बारिश",
+  "words": [
+    {
+      "id": "hp-256",
+      "sno": 256,
+      "word": "Reign",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "The period of a monarch’s rule; to rule as king",
+      "hindiMeaning": "शासन / राज करना",
+      "englishSentence": "The king’s reign lasted 40 years.",
+      "hindiSentence": "राजा का शासन 40 वर्षों तक चला।",
+      "memoryTip": "Sovereign → Reign (King)"
+    },
+    {
+      "id": "hp-257",
+      "sno": 257,
+      "word": "Rein",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A leather strap used to control a horse; restrain",
+      "hindiMeaning": "घोड़े की लगाम / नियंत्रण करना",
+      "englishSentence": "He pulled the reins of the horse.",
+      "hindiSentence": "उसने घोड़े की लगाम खींची।",
+      "memoryTip": "Free rein / Hold the reins"
+    },
+    {
+      "id": "hp-368",
+      "sno": 368,
+      "word": "Rain",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Water falling in drops from the atmosphere",
+      "hindiMeaning": "बारिश / वर्षा",
+      "englishSentence": "I love walking in the rain.",
+      "hindiSentence": "मुझे बारिश में चलना पसंद है।",
+      "memoryTip": "Raincoat"
+    }
+  ]
+},
+  {
+  "id": "hp-raise-rays-raze",
+  "groupTitle": "Raise vs Rays vs Raze",
+  "phonetic": "/reɪz/",
+  "soundKey": "reɪz",
+  "letter": "R",
+  "examFrequency": "Very High",
+  "confusableTip": "Raise = ऊपर उठाना/बढ़ाना; Rays = किरणें; Raze = इमारत को पूरी तरह ध्वस्त करना",
+  "words": [
+    {
+      "id": "hp-258",
+      "sno": 258,
+      "word": "Raise",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To lift or move upward; increase",
+      "hindiMeaning": "उठाना / बढ़ाना / पालना",
+      "englishSentence": "Please raise your hand.",
+      "hindiSentence": "कृपया अपना हाथ उठाएं।",
+      "memoryTip": "Raise your hand / Pay raise"
+    },
+    {
+      "id": "hp-259",
+      "sno": 259,
+      "word": "Rays",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Beams of light or radiation (plural)",
+      "hindiMeaning": "किरणें",
+      "englishSentence": "Sun rays entered the room.",
+      "hindiSentence": "सूरज की किरणें कमरे में आईं।",
+      "memoryTip": "Sun rays / X-rays"
+    },
+    {
+      "id": "hp-260",
+      "sno": 260,
+      "word": "Raze",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To completely destroy a building or town to the ground",
+      "hindiMeaning": "पूरी तरह से नष्ट करना / ज़मींदोज़ करना",
+      "englishSentence": "The building was razed to the ground.",
+      "hindiSentence": "इमारत को ज़मीन से मिला दिया गया।",
+      "memoryTip": "Raze to the ground"
+    }
+  ]
+},
+  {
+  "id": "hp-rest-wrest",
+  "groupTitle": "Rest vs Wrest",
+  "phonetic": "/rɛst/",
+  "soundKey": "rɛst",
+  "letter": "R",
+  "examFrequency": "High",
+  "confusableTip": "Rest = आराम करना / शेष भाग; Wrest = बलपूर्वक छीनना (कुश्ती जैसा)",
+  "words": [
+    {
+      "id": "hp-261",
+      "sno": 261,
+      "word": "Rest",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Cease work or movement to relax; remainder",
+      "hindiMeaning": "विश्राम / आराम करना / बाकी बचा हुआ",
+      "englishSentence": "You need rest after hard work.",
+      "hindiSentence": "कठिन परिश्रम के बाद आपको आराम चाहिए।",
+      "memoryTip": "Rest in peace / Rest of the story"
+    },
+    {
+      "id": "hp-262",
+      "sno": 262,
+      "word": "Wrest",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To forcibly pull or snatch something away from someone's grasp",
+      "hindiMeaning": "बलपूर्वक छीनना / झटकना",
+      "englishSentence": "He wrested the phone from my hand.",
+      "hindiSentence": "उसने मेरे हाथ से फोन छीन लिया।",
+      "memoryTip": "Wrestle → Wrest control"
+    }
+  ]
+},
+  {
+  "id": "hp-right-write-rite",
+  "groupTitle": "Right vs Write vs Rite",
+  "phonetic": "/raɪt/",
+  "soundKey": "raɪt",
+  "letter": "R",
+  "examFrequency": "Very High",
+  "confusableTip": "Right = सही/दायाँ/अधिकार; Write = लिखना; Rite = धार्मिक रीति-रिवाज/संस्कार",
+  "words": [
+    {
+      "id": "hp-263",
+      "sno": 263,
+      "word": "Right",
+      "partOfSpeech": "Adjective / Noun",
+      "posCategory": "adj",
+      "englishMeaning": "Correct, accurate / opposite of left / moral entitlement",
+      "hindiMeaning": "सही / दायाँ / अधिकार",
+      "englishSentence": "You made the right decision.",
+      "hindiSentence": "तुमने सही निर्णय लिया।",
+      "memoryTip": "Right answer / Human rights"
+    },
+    {
+      "id": "hp-264",
+      "sno": 264,
+      "word": "Write",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To compose text or form letters on paper",
+      "hindiMeaning": "लिखना",
+      "englishSentence": "Please write your name here.",
+      "hindiSentence": "कृपया यहाँ अपना नाम लिखिए।",
+      "memoryTip": "Read and Write"
+    },
+    {
+      "id": "hp-265",
+      "sno": 265,
+      "word": "Rite",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A religious or other solemn ceremony or act",
+      "hindiMeaning": "धार्मिक अनुष्ठान / रस्म / संस्कार",
+      "englishSentence": "The funeral rites were performed.",
+      "hindiSentence": "अंतिम संस्कार की रस्में निभाई गईं।",
+      "memoryTip": "Last rites / Rituals"
+    }
+  ]
+},
+  {
+  "id": "hp-rung-wrung",
+  "groupTitle": "Rung vs Wrung",
+  "phonetic": "/rʌŋ/",
+  "soundKey": "rʌŋ",
+  "letter": "R",
+  "examFrequency": "High",
+  "confusableTip": "Rung = सीढ़ी का डंडा / घंटी बजाई; Wrung = कपड़े से पानी निचोड़ा (Wring का Past)",
+  "words": [
+    {
+      "id": "hp-266",
+      "sno": 266,
+      "word": "Rung",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A horizontal support on a ladder / past of \"ring\"",
+      "hindiMeaning": "सीढ़ी का डंडा / घंटी बजाई",
+      "englishSentence": "She stepped on the second rung. He rung the bell.",
+      "hindiSentence": "वह दूसरी डंडी पर चढ़ी। उसने घंटी बजाई।",
+      "memoryTip": "Ladder rung"
+    },
+    {
+      "id": "hp-267",
+      "sno": 267,
+      "word": "Wrung",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"wring\" (squeezed or twisted water out)",
+      "hindiMeaning": "निचोड़ा / मरोड़ा",
+      "englishSentence": "She wrung the water from the cloth.",
+      "hindiSentence": "उसने कपड़े से पानी निचोड़ा।",
+      "memoryTip": "Wring → Wrung hands"
+    }
+  ]
+},
+  {
+  "id": "hp-road-rode-rowed",
+  "groupTitle": "Road vs Rode",
+  "phonetic": "/roʊd/",
+  "soundKey": "roʊd",
+  "letter": "R",
+  "examFrequency": "Frequent",
+  "confusableTip": "Road = पक्की सड़क; Rode = सवारी की (Ride का Past)",
+  "words": [
+    {
+      "id": "hp-268",
+      "sno": 268,
+      "word": "Road",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A wide path for vehicles to travel along",
+      "hindiMeaning": "सड़क / मार्ग",
+      "englishSentence": "The road is under construction.",
+      "hindiSentence": "सड़क निर्माणाधीन है।",
+      "memoryTip": "Highway road"
+    },
+    {
+      "id": "hp-99-dup",
+      "sno": 99,
+      "word": "Rode",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"ride\" (travelled on horse/bicycle)",
+      "hindiMeaning": "सवारी की / चलाई",
+      "englishSentence": "He rode his bicycle to school yesterday.",
+      "hindiSentence": "उसने कल साइकिल से स्कूल गया।",
+      "memoryTip": "Ride → Rode"
+    }
+  ]
+},
+  {
+  "id": "hp-role-roll",
+  "groupTitle": "Role vs Roll",
+  "phonetic": "/roʊl/",
+  "soundKey": "roʊl",
+  "letter": "R",
+  "examFrequency": "Very High",
+  "confusableTip": "Role = नाटक में भूमिका या दायित्व; Roll = लुढ़कना / हाजिरी रजिस्टर / ब्रेड रोल",
+  "words": [
+    {
+      "id": "hp-371",
+      "sno": 371,
+      "word": "Role",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An actor’s part in a play / person's function",
+      "hindiMeaning": "भूमिका / पद / कर्तव्य",
+      "englishSentence": "He played the lead role.",
+      "hindiSentence": "उसने मुख्य भूमिका निभाई।",
+      "memoryTip": "Role model / Lead role"
+    },
+    {
+      "id": "hp-372",
+      "sno": 372,
+      "word": "Roll",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To turn over and over / a cylinder / small bread bun",
+      "hindiMeaning": "लुढ़कना / रोल करना / ब्रेड रोल / हाजिरी",
+      "englishSentence": "He ate a butter roll.",
+      "hindiSentence": "उसने मक्खन वाला रोल खाया।",
+      "memoryTip": "Roll call / Egg roll"
+    }
+  ]
+},
+  {
+  "id": "hp-root-route",
+  "groupTitle": "Root vs Route",
+  "phonetic": "/ruːt/",
+  "soundKey": "ruːt",
+  "letter": "R",
+  "examFrequency": "Very High",
+  "confusableTip": "Root = पौधे की जड़ या मूल कारण; Route = रास्ता / मार्ग",
+  "words": [
+    {
+      "id": "hp-373",
+      "sno": 373,
+      "word": "Root",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The underground part of a plant / origin",
+      "hindiMeaning": "जड़ / मूल स्त्रोत",
+      "englishSentence": "The tree’s roots are deep.",
+      "hindiSentence": "पेड़ की जड़ें गहरी हैं।",
+      "memoryTip": "Root cause of problem"
+    },
+    {
+      "id": "hp-374",
+      "sno": 374,
+      "word": "Route",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A way or course taken in getting from starting point to destination",
+      "hindiMeaning": "रास्ता / मार्ग / रूट",
+      "englishSentence": "This is the fastest route.",
+      "hindiSentence": "यह सबसे तेज़ रास्ता है।",
+      "memoryTip": "Bus route / GPS route"
+    }
+  ]
+},
+  {
+  "id": "hp-sail-sale",
+  "groupTitle": "Sail vs Sale",
+  "phonetic": "/seɪl/",
+  "soundKey": "seɪl",
+  "letter": "S",
+  "examFrequency": "Frequent",
+  "confusableTip": "Sail = नाव चलाना / जहाज़ का पाल; Sale = बिक्री / सेल छूट",
+  "words": [
+    {
+      "id": "hp-270",
+      "sno": 270,
+      "word": "Sail",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To travel by boat / piece of canvas to catch wind",
+      "hindiMeaning": "नाव चलाना / पाल",
+      "englishSentence": "We sailed across the lake.",
+      "hindiSentence": "हमने झील के पार नाव चलाई।",
+      "memoryTip": "Sailboat"
+    },
+    {
+      "id": "hp-271",
+      "sno": 271,
+      "word": "Sale",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The exchange of goods for money; discount period",
+      "hindiMeaning": "बिक्री / सेल",
+      "englishSentence": "There is a sale on shoes today.",
+      "hindiSentence": "आज जूतों पर सेल है।",
+      "memoryTip": "For sale / 50% off sale"
+    }
+  ]
+},
+  {
+  "id": "hp-scene-seen",
+  "groupTitle": "Scene vs Seen",
+  "phonetic": "/siːn/",
+  "soundKey": "siːn",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Scene = नाटक का दृश्य / दृश्यावली; Seen = देखा हुआ (See का Past Participle)",
+  "words": [
+    {
+      "id": "hp-272",
+      "sno": 272,
+      "word": "Scene",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A sequence of action in a movie / location of incident",
+      "hindiMeaning": "दृश्य / दृश्यावली / घटना स्थल",
+      "englishSentence": "The opening scene was dramatic.",
+      "hindiSentence": "शुरुआती दृश्य नाटकीय था।",
+      "memoryTip": "Crime scene / Beautiful scenery"
+    },
+    {
+      "id": "hp-273",
+      "sno": 273,
+      "word": "Seen",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past participle of \"see\"",
+      "hindiMeaning": "देखा हुआ",
+      "englishSentence": "I have seen that movie.",
+      "hindiSentence": "मैंने वह फिल्म देखी है।",
+      "memoryTip": "See → Saw → Seen"
+    }
+  ]
+},
+  {
+  "id": "hp-seam-seem",
+  "groupTitle": "Seam vs Seem",
+  "phonetic": "/siːm/",
+  "soundKey": "siːm",
+  "letter": "S",
+  "examFrequency": "High",
+  "confusableTip": "Seam = कपड़े की सिलाई का जोड़; Seem = प्रतीत होना / दिखाई देना",
+  "words": [
+    {
+      "id": "hp-274",
+      "sno": 274,
+      "word": "Seam",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A line where two pieces of fabric are sewn together",
+      "hindiMeaning": "सीवन / सिलाई का जोड़",
+      "englishSentence": "There’s a tear at the seam.",
+      "hindiSentence": "सिलाई की जगह पर कपड़ा फट गया है।",
+      "memoryTip": "Cricket ball seam"
+    },
+    {
+      "id": "hp-275",
+      "sno": 275,
+      "word": "Seem",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To give the impression of being; appear",
+      "hindiMeaning": "प्रतीत होना / लगना",
+      "englishSentence": "You seem tired today.",
+      "hindiSentence": "तुम आज थके हुए लग रहे हो।",
+      "memoryTip": "It seems to me"
+    }
+  ]
+},
+  {
+  "id": "hp-serial-cereal",
+  "groupTitle": "Serial vs Cereal",
+  "phonetic": "/ˈsɪəriəl/",
+  "soundKey": "sɪəriəl",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Serial = धारावाहिक / क्रमबद्ध; Cereal = खाने वाला अनाज (कॉर्नफ्लेक्स/गेहूं)",
+  "words": [
+    {
+      "id": "hp-276",
+      "sno": 276,
+      "word": "Serial",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "A story or drama published in installments; sequential",
+      "hindiMeaning": "धारावाहिक / क्रमिक",
+      "englishSentence": "This serial airs every night.",
+      "hindiSentence": "यह धारावाहिक हर रात आता है।",
+      "memoryTip": "TV serial / Serial number"
+    },
+    {
+      "id": "hp-277",
+      "sno": 277,
+      "word": "Cereal",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A grain used for food, such as wheat or oats; breakfast food",
+      "hindiMeaning": "अनाज / दलिया",
+      "englishSentence": "I had cereal for breakfast.",
+      "hindiSentence": "मैंने नाश्ते में अनाज खाया।",
+      "memoryTip": "Breakfast cereal"
+    }
+  ]
+},
+  {
+  "id": "hp-sole-soul",
+  "groupTitle": "Sole vs Soul",
+  "phonetic": "/soʊl/",
+  "soundKey": "soʊl",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Sole = जूते का तलवा / एकमात्र अकेला; Soul = आत्मा / रूह",
+  "words": [
+    {
+      "id": "hp-278",
+      "sno": 278,
+      "word": "Sole",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "The underside of the foot or shoe / only; single",
+      "hindiMeaning": "तलवा / एकमात्र / अकेला",
+      "englishSentence": "His shoe sole is worn out. He is the sole owner.",
+      "hindiSentence": "उसके जूते का तलवा घिस चुका है। वह अकेला मालिक है।",
+      "memoryTip": "Sole proprietor / Shoe sole"
+    },
+    {
+      "id": "hp-279",
+      "sno": 279,
+      "word": "Soul",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The spiritual or immaterial part of a human being",
+      "hindiMeaning": "आत्मा / रूह",
+      "englishSentence": "May his soul rest in peace.",
+      "hindiSentence": "उसकी आत्मा को शांति मिले।",
+      "memoryTip": "RIP = Rest in peace soul"
+    }
+  ]
+},
+  {
+  "id": "hp-stare-stair",
+  "groupTitle": "Stare vs Stair",
+  "phonetic": "/stɛər/",
+  "soundKey": "stɛər",
+  "letter": "S",
+  "examFrequency": "Frequent",
+  "confusableTip": "Stare = टकटकी लगाकर घूरना; Stair = सीढ़ी का पायदान",
+  "words": [
+    {
+      "id": "hp-280",
+      "sno": 280,
+      "word": "Stare",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To look fixedly or vacantly at someone with wide open eyes",
+      "hindiMeaning": "घूरना / टकटकी लगाना",
+      "englishSentence": "Don’t stare at people.",
+      "hindiSentence": "लोगों को घूरना मत।",
+      "memoryTip": "Stare into space"
+    },
+    {
+      "id": "hp-281",
+      "sno": 281,
+      "word": "Stair",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A set of steps leading from one floor of a building to another",
+      "hindiMeaning": "सीढ़ी / पायदान",
+      "englishSentence": "She slipped on the stair.",
+      "hindiSentence": "वह सीढ़ी पर फिसल गई।",
+      "memoryTip": "Staircase / Climb the stairs"
+    }
+  ]
+},
+  {
+  "id": "hp-suit-suite",
+  "groupTitle": "Suit vs Suite",
+  "phonetic": "/suːt/ - /swiːt/",
+  "soundKey": "suːt",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Suit = कोट-पैंट / अनुकूल होना; Suite (उच्चारण स्वीट) = होटल के कमरों का सेट",
+  "words": [
+    {
+      "id": "hp-284",
+      "sno": 284,
+      "word": "Suit",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "Formal matching jacket and trousers / to be convenient or appropriate",
+      "hindiMeaning": "सूट / वस्त्र / अनुकूल होना",
+      "englishSentence": "This colour suits you.",
+      "hindiSentence": "यह रंग तुम्हारे ऊपर जंचता है।",
+      "memoryTip": "Business suit"
+    },
+    {
+      "id": "hp-285",
+      "sno": 285,
+      "word": "Suite",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A set of connected rooms in a hotel / musical movement",
+      "hindiMeaning": "कमरों का समूह / सुइट (होटल का कमरा)",
+      "englishSentence": "We booked a suite in the hotel.",
+      "hindiSentence": "हमने होटल में एक सुइट बुक किया।",
+      "memoryTip": "Suite is pronounced SWEET!"
+    }
+  ]
+},
+  {
+  "id": "hp-tail-tale",
+  "groupTitle": "Tail vs Tale",
+  "phonetic": "/teɪl/",
+  "soundKey": "teɪl",
+  "letter": "T",
+  "examFrequency": "Frequent",
+  "confusableTip": "Tail = जानवर की पूंछ; Tale = काल्पनिक कहानी या किस्सा",
+  "words": [
+    {
+      "id": "hp-286",
+      "sno": 286,
+      "word": "Tail",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The rear end of an animal’s body",
+      "hindiMeaning": "पूंछ",
+      "englishSentence": "The dog wagged its tail.",
+      "hindiSentence": "कुत्ते ने अपनी पूंछ हिलाई।",
+      "memoryTip": "Heads or tails"
+    },
+    {
+      "id": "hp-287",
+      "sno": 287,
+      "word": "Tale",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A fictitious or true narrative or story",
+      "hindiMeaning": "कहानी / किस्सा / लोककथा",
+      "englishSentence": "He told an old folk tale.",
+      "hindiSentence": "उसने एक पुरानी लोककथा सुनाई।",
+      "memoryTip": "Fairy tale"
+    }
+  ]
+},
+  {
+  "id": "hp-team-teem",
+  "groupTitle": "Team vs Teem",
+  "phonetic": "/tiːm/",
+  "soundKey": "tiːm",
+  "letter": "T",
+  "examFrequency": "Very High",
+  "confusableTip": "Team = खिलाड़ियों का दल / समूह; Teem = भरा होना / उमड़ना (Teeming with life)",
+  "words": [
+    {
+      "id": "hp-288",
+      "sno": 288,
+      "word": "Team",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A group of players or workers collaborating together",
+      "hindiMeaning": "टीम / दल / समूह",
+      "englishSentence": "Our team won the match.",
+      "hindiSentence": "हमारी टीम ने मैच जीता।",
+      "memoryTip": "Cricket team"
+    },
+    {
+      "id": "hp-289",
+      "sno": 289,
+      "word": "Teem",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To be full of or swarming with",
+      "hindiMeaning": "भरा होना / उमड़ना / प्रचुर मात्रा में होना",
+      "englishSentence": "The river teems with fish.",
+      "hindiSentence": "नदी में मछलियाँ भरी हुई हैं।",
+      "memoryTip": "Teeming with crowd"
+    }
+  ]
+},
+  {
+  "id": "hp-their-there",
+  "groupTitle": "Their vs There",
+  "phonetic": "/ðɛər/",
+  "soundKey": "ðɛər",
+  "letter": "T",
+  "examFrequency": "Frequent",
+  "confusableTip": "Their = उनका (स्वामित्व); There = वहाँ (स्थान)",
+  "words": [
+    {
+      "id": "hp-290",
+      "sno": 290,
+      "word": "Their",
+      "partOfSpeech": "Determiner",
+      "posCategory": "other",
+      "englishMeaning": "Belonging to or associated with them",
+      "hindiMeaning": "उनका / उनकी",
+      "englishSentence": "Their house is very big.",
+      "hindiSentence": "उनका घर बहुत बड़ा है।",
+      "memoryTip": "Their has HEIR (ownership)"
+    },
+    {
+      "id": "hp-291",
+      "sno": 291,
+      "word": "There",
+      "partOfSpeech": "Adverb",
+      "posCategory": "adv",
+      "englishMeaning": "In, at, or to that place",
+      "hindiMeaning": "वहाँ / उस स्थान पर",
+      "englishSentence": "He is standing over there.",
+      "hindiSentence": "वह वहाँ खड़ा है।",
+      "memoryTip": "There has HERE (place)"
+    }
+  ]
+},
+  {
+  "id": "hp-threw-through",
+  "groupTitle": "Threw vs Through",
+  "phonetic": "/θruː/",
+  "soundKey": "θruː",
+  "letter": "T",
+  "examFrequency": "Very High",
+  "confusableTip": "Threw = फेंका (Throw का Past); Through = आर-पार / के माध्यम से (सुरंग आदि से)",
+  "words": [
+    {
+      "id": "hp-292",
+      "sno": 292,
+      "word": "Threw",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"throw\"; propelled with force",
+      "hindiMeaning": "फेंका / उछाला",
+      "englishSentence": "He threw the ball far.",
+      "hindiSentence": "उसने गेंद दूर फेंकी।",
+      "memoryTip": "Throw → Threw"
+    },
+    {
+      "id": "hp-293",
+      "sno": 293,
+      "word": "Through",
+      "partOfSpeech": "Preposition",
+      "posCategory": "prep",
+      "englishMeaning": "Moving in one side and out of the other side",
+      "hindiMeaning": "के माध्यम से / के आर-पार",
+      "englishSentence": "We drove through the tunnel.",
+      "hindiSentence": "हम सुरंग के माध्यम से गुज़रे।",
+      "memoryTip": "Through the tunnel"
+    }
+  ]
+},
+  {
+  "id": "hp-throne-thrown",
+  "groupTitle": "Throne vs Thrown",
+  "phonetic": "/θroʊn/",
+  "soundKey": "θroʊn",
+  "letter": "T",
+  "examFrequency": "High",
+  "confusableTip": "Throne = राजा का राजसिंहासन; Thrown = फेंका गया (Throw का Past Participle)",
+  "words": [
+    {
+      "id": "hp-294",
+      "sno": 294,
+      "word": "Throne",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A ceremonial chair for a sovereign, bishop, or monarch",
+      "hindiMeaning": "सिंहासन / राजगादी",
+      "englishSentence": "The king sat on his throne.",
+      "hindiSentence": "राजा अपने सिंहासन पर बैठा।",
+      "memoryTip": "Game of Thrones"
+    },
+    {
+      "id": "hp-295",
+      "sno": 295,
+      "word": "Thrown",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past participle of \"throw\"",
+      "hindiMeaning": "फेंका गया",
+      "englishSentence": "The bag was thrown into the bin.",
+      "hindiSentence": "बैग को कूड़ेदान में फेंक दिया गया।",
+      "memoryTip": "Throw → Threw → Thrown"
+    }
+  ]
+},
+  {
+  "id": "hp-tire-tyre",
+  "groupTitle": "Tire vs Tyre",
+  "phonetic": "/ˈtaɪər/",
+  "soundKey": "taɪər",
+  "letter": "T",
+  "examFrequency": "Frequent",
+  "confusableTip": "Tire = थक जाना (Verb) या अमेरिकी स्पेलिंग; Tyre = ब्रिटिश स्पेलिंग (गाड़ी का पहिया)",
+  "words": [
+    {
+      "id": "hp-296",
+      "sno": 296,
+      "word": "Tire",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Rubber wheel cover (US) / to become weary",
+      "hindiMeaning": "टायर / थक जाना",
+      "englishSentence": "The tire burst. I tire easily.",
+      "hindiSentence": "टायर फट गया। मैं जल्दी थक जाता हूँ।",
+      "memoryTip": "Tired of waiting"
+    },
+    {
+      "id": "hp-297",
+      "sno": 297,
+      "word": "Tyre",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Rubber wheel covering (UK/Commonwealth spelling)",
+      "hindiMeaning": "टायर (गाड़ी का पहिया)",
+      "englishSentence": "The car’s rear tyre is flat.",
+      "hindiSentence": "कार का पिछला टायर पंचर है।",
+      "memoryTip": "Punctured tyre"
+    }
+  ]
+},
+  {
+  "id": "hp-to-too-two",
+  "groupTitle": "To vs Too vs Two",
+  "phonetic": "/tuː/",
+  "soundKey": "tuː",
+  "letter": "T",
+  "examFrequency": "Frequent",
+  "confusableTip": "To = को/की ओर; Too = भी या अत्यधिक (Too much); Two = संख्या 2",
+  "words": [
+    {
+      "id": "hp-298",
+      "sno": 298,
+      "word": "To",
+      "partOfSpeech": "Preposition",
+      "posCategory": "prep",
+      "englishMeaning": "Expressing direction towards a point or person",
+      "hindiMeaning": "को / तक / की ओर",
+      "englishSentence": "I’m going to school.",
+      "hindiSentence": "मैं स्कूल जा रहा हूँ।",
+      "memoryTip": "Go to work"
+    },
+    {
+      "id": "hp-299",
+      "sno": 299,
+      "word": "Too",
+      "partOfSpeech": "Adverb",
+      "posCategory": "adv",
+      "englishMeaning": "To an excessive degree; also",
+      "hindiMeaning": "भी / बहुत ज्यादा",
+      "englishSentence": "I’m coming too. That’s too much.",
+      "hindiSentence": "मैं भी आ रहा हूँ। वह बहुत ज्यादा है।",
+      "memoryTip": "Too hot / Me too"
+    },
+    {
+      "id": "hp-300",
+      "sno": 300,
+      "word": "Two",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "The number 2",
+      "hindiMeaning": "दो (संख्या)",
+      "englishSentence": "I have two brothers.",
+      "hindiSentence": "मेरे दो भाई हैं।",
+      "memoryTip": "One, Two, Three"
+    }
+  ]
+},
+  {
+  "id": "hp-toe-tow",
+  "groupTitle": "Toe vs Tow",
+  "phonetic": "/toʊ/",
+  "soundKey": "toʊ",
+  "letter": "T",
+  "examFrequency": "High",
+  "confusableTip": "Toe = पैर की उंगली; Tow = वाहन को खींचकर ले जाना (Tow truck)",
+  "words": [
+    {
+      "id": "hp-301",
+      "sno": 301,
+      "word": "Toe",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Any of the five digits at the end of the human foot",
+      "hindiMeaning": "पैर की उंगली / अंगूठा",
+      "englishSentence": "I stubbed my toe on the chair.",
+      "hindiSentence": "मेरा पैर की उंगली कुर्सी से टकरा गई।",
+      "memoryTip": "Tip of your toes"
+    },
+    {
+      "id": "hp-302",
+      "sno": 302,
+      "word": "Tow",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To pull another vehicle along with a rope or chain",
+      "hindiMeaning": "खींचना / टो करना (गाड़ी)",
+      "englishSentence": "The truck towed the car.",
+      "hindiSentence": "ट्रक ने कार को खींचा।",
+      "memoryTip": "Tow-truck / No parking toe zone"
+    }
+  ]
+},
+  {
+  "id": "hp-vain-vein-vane",
+  "groupTitle": "Vain vs Vein vs Vane",
+  "phonetic": "/veɪn/",
+  "soundKey": "veɪn",
+  "letter": "V",
+  "examFrequency": "Very High",
+  "confusableTip": "Vain = घमंडी / व्यर्थ; Vein = खून की नस; Vane = पवन की दिशा बताने वाला यंत्र",
+  "words": [
+    {
+      "id": "hp-303",
+      "sno": 303,
+      "word": "Vain",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Having excessive pride in one’s looks / producing no result",
+      "hindiMeaning": "घमंडी / व्यर्थ / निष्फल",
+      "englishSentence": "He is too vain about his looks.",
+      "hindiSentence": "वह अपनी शक्ल को लेकर बहुत घमंडी है।",
+      "memoryTip": "All efforts went in vain (व्यर्थ)"
+    },
+    {
+      "id": "hp-304",
+      "sno": 304,
+      "word": "Vein",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A blood vessel carrying blood to the heart / mineral streak",
+      "hindiMeaning": "नस / रक्त वाहिनी / खनिज की धार",
+      "englishSentence": "The nurse found a vein to insert the needle.",
+      "hindiSentence": "नर्स ने सुई लगाने के लिए नस ढूंढी।",
+      "memoryTip": "Veins and arteries"
+    },
+    {
+      "id": "hp-305",
+      "sno": 305,
+      "word": "Vane",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A broad blade attached to a spire to show wind direction",
+      "hindiMeaning": "पवनदर्शक / हवा का रुख बताने वाला फलक",
+      "englishSentence": "The weather vane turned with the breeze.",
+      "hindiSentence": "मौसम पवनदर्शक हवा के साथ घूम गया।",
+      "memoryTip": "Weather vane"
+    }
+  ]
+},
+  {
+  "id": "hp-vale-wail-veil",
+  "groupTitle": "Vale vs Wail vs Veil",
+  "phonetic": "/veɪl/ - /weɪl/",
+  "soundKey": "veɪl",
+  "letter": "V",
+  "examFrequency": "Very High",
+  "confusableTip": "Vale = घाटी (Valley); Wail = विलाप करना/रोना; Veil = घूंघट/पर्दा",
+  "words": [
+    {
+      "id": "hp-306",
+      "sno": 306,
+      "word": "Vale",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A valley (used in poetic literature)",
+      "hindiMeaning": "घाटी / वादी",
+      "englishSentence": "The shepherd lived in a quiet vale.",
+      "hindiSentence": "चरवाहा एक शांत घाटी में रहता था।",
+      "memoryTip": "Vale of Kashmir"
+    },
+    {
+      "id": "hp-307",
+      "sno": 307,
+      "word": "Wail",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To cry out or mourn loudly in grief or pain",
+      "hindiMeaning": "रोना / विलाप करना",
+      "englishSentence": "The baby wailed all night.",
+      "hindiSentence": "बच्चा पूरी रात रोता रहा।",
+      "memoryTip": "Wailing of sirens / grief"
+    },
+    {
+      "id": "hp-308",
+      "sno": 308,
+      "word": "Veil",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A piece of thin fabric worn by women to protect or conceal the face",
+      "hindiMeaning": "घूंघट / पर्दा / नकाब",
+      "englishSentence": "She lifted her veil gently.",
+      "hindiSentence": "उसने धीरे से अपना घूंघट उठाया।",
+      "memoryTip": "Bridal veil"
+    }
+  ]
+},
+  {
+  "id": "hp-vice-vise",
+  "groupTitle": "Vice vs Vise",
+  "phonetic": "/vaɪs/",
+  "soundKey": "vaɪs",
+  "letter": "V",
+  "examFrequency": "High",
+  "confusableTip": "Vice = बुरी लत या अनैतिक बुराई; Vise = कार्यशाला में वस्तु कसने का शिकंजा/वाइस",
+  "words": [
+    {
+      "id": "hp-309",
+      "sno": 309,
+      "word": "Vice",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Immoral or wicked behavior; bad habit",
+      "hindiMeaning": "बुरी आदत / दोष / कुरीति",
+      "englishSentence": "Gambling is a dangerous vice.",
+      "hindiSentence": "जुआ एक खतरनाक बुरी आदत है।",
+      "memoryTip": "Vice and Virtue (पाप और पुण्य)"
+    },
+    {
+      "id": "hp-310",
+      "sno": 310,
+      "word": "Vise",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A metal tool with two jaws used to hold work firmly in place",
+      "hindiMeaning": "वाइस / बेंच का शिकंजा",
+      "englishSentence": "He held the pipe in a vise.",
+      "hindiSentence": "उसने पाइप को वाइस में कस कर पकड़ा।",
+      "memoryTip": "Carpenter vise"
+    }
+  ]
+},
+  {
+  "id": "hp-waist-waste",
+  "groupTitle": "Waist vs Waste",
+  "phonetic": "/weɪst/",
+  "soundKey": "weɪst",
+  "letter": "W",
+  "examFrequency": "Very High",
+  "confusableTip": "Waist = शरीर की कमर; Waste = कचरा / समय व धन बर्बाद करना",
+  "words": [
+    {
+      "id": "hp-311",
+      "sno": 311,
+      "word": "Waist",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The part of the human body between the ribs and the hips",
+      "hindiMeaning": "कमर",
+      "englishSentence": "The belt was too tight at the waist.",
+      "hindiSentence": "बेल्ट कमर पर बहुत टाइट थी।",
+      "memoryTip": "Waistband / Waistline"
+    },
+    {
+      "id": "hp-312",
+      "sno": 312,
+      "word": "Waste",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Unwanted or unusable material / to squander carelessely",
+      "hindiMeaning": "कचरा / बर्बाद करना / व्यर्थ गंवाना",
+      "englishSentence": "Don’t waste food.",
+      "hindiSentence": "खाना बर्बाद मत करो।",
+      "memoryTip": "Waste of time"
+    }
+  ]
+},
+  {
+  "id": "hp-wait-weight",
+  "groupTitle": "Wait vs Weight",
+  "phonetic": "/weɪt/",
+  "soundKey": "weɪt",
+  "letter": "W",
+  "examFrequency": "Frequent",
+  "confusableTip": "Wait = प्रतीक्षा / इंतज़ार करना; Weight = वजन / भार",
+  "words": [
+    {
+      "id": "hp-313",
+      "sno": 313,
+      "word": "Wait",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To stay where one is or delay action until a particular time",
+      "hindiMeaning": "प्रतीक्षा करना / इंतज़ार करना",
+      "englishSentence": "Please wait outside.",
+      "hindiSentence": "कृपया बाहर प्रतीक्षा करें।",
+      "memoryTip": "Wait for the bus"
+    },
+    {
+      "id": "hp-314",
+      "sno": 314,
+      "word": "Weight",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A body's relative mass or the quantity of matter contained",
+      "hindiMeaning": "वजन / भार",
+      "englishSentence": "He lifted a heavy weight.",
+      "hindiSentence": "उसने भारी वजन उठाया।",
+      "memoryTip": "Lose weight / Heavy weight"
+    }
+  ]
+},
+  {
+  "id": "hp-weak-week",
+  "groupTitle": "Weak vs Week",
+  "phonetic": "/wiːk/",
+  "soundKey": "wiːk",
+  "letter": "W",
+  "examFrequency": "Frequent",
+  "confusableTip": "Weak (EA) = कमजोर / निर्बल; Week (EE) = सप्ताह (7 दिन)",
+  "words": [
+    {
+      "id": "hp-315",
+      "sno": 315,
+      "word": "Weak",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Lacking physical strength and energy",
+      "hindiMeaning": "कमजोर / निर्बल",
+      "englishSentence": "He felt weak after the illness.",
+      "hindiSentence": "बीमारी के बाद वह कमजोर महसूस कर रहा था।",
+      "memoryTip": "Weak student / Strong vs Weak"
+    },
+    {
+      "id": "hp-316",
+      "sno": 316,
+      "word": "Week",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A period of seven consecutive days",
+      "hindiMeaning": "सप्ताह / हफ़्ता",
+      "englishSentence": "We will meet next week.",
+      "hindiSentence": "हम अगले सप्ताह मिलेंगे।",
+      "memoryTip": "Weekend"
+    }
+  ]
+},
+  {
+  "id": "hp-weather-whether-dup",
+  "groupTitle": "Weather vs Whether",
+  "phonetic": "/ˈwɛðər/",
+  "soundKey": "wɛðər",
+  "letter": "W",
+  "examFrequency": "Very High",
+  "confusableTip": "Weather = मौसम; Whether = यदि / या (Choice दर्शाना)",
+  "words": [
+    {
+      "id": "hp-317",
+      "sno": 317,
+      "word": "Weather",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The state of the atmosphere with respect to wind, temperature, rain",
+      "hindiMeaning": "मौसम / जलवायु",
+      "englishSentence": "The weather is very pleasant today.",
+      "hindiSentence": "आज मौसम बहुत सुहावना है।",
+      "memoryTip": "Rainy weather"
+    },
+    {
+      "id": "hp-318",
+      "sno": 318,
+      "word": "Whether",
+      "partOfSpeech": "Conjunction",
+      "posCategory": "other",
+      "englishMeaning": "Expressing a doubt or choice between alternatives",
+      "hindiMeaning": "क्या / चाहे",
+      "englishSentence": "I don’t know whether she will come.",
+      "hindiSentence": "मुझे नहीं पता वह आएगी या नहीं।",
+      "memoryTip": "Whether you like it or not"
+    }
+  ]
+},
+  {
+  "id": "hp-which-witch",
+  "groupTitle": "Which vs Witch",
+  "phonetic": "/wɪtʃ/",
+  "soundKey": "wɪtʃ",
+  "letter": "W",
+  "examFrequency": "Frequent",
+  "confusableTip": "Which = कौन-सा (प्रश्नवाचक सर्वनाम); Witch = जादूगरनी / डायन",
+  "words": [
+    {
+      "id": "hp-319",
+      "sno": 319,
+      "word": "Which",
+      "partOfSpeech": "Pronoun",
+      "posCategory": "pron",
+      "englishMeaning": "Asking for information specifying one or more people or things",
+      "hindiMeaning": "कौन-सा / कौन-सी",
+      "englishSentence": "Which colour do you like?",
+      "hindiSentence": "तुम्हें कौन-सा रंग पसंद है?",
+      "memoryTip": "Which one?"
+    },
+    {
+      "id": "hp-320",
+      "sno": 320,
+      "word": "Witch",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A woman thought to have magic powers, especially evil ones",
+      "hindiMeaning": "जादूगरनी / डायन",
+      "englishSentence": "The fairy tale had an evil witch.",
+      "hindiSentence": "उस परीकथा में एक दुष्ट जादूगरनी थी।",
+      "memoryTip": "Witch flies on a broom"
+    }
+  ]
+},
+  {
+  "id": "hp-wood-would",
+  "groupTitle": "Wood vs Would",
+  "phonetic": "/wʊd/",
+  "soundKey": "wʊd",
+  "letter": "W",
+  "examFrequency": "Frequent",
+  "confusableTip": "Wood = पेड़ की लकड़ी; Would = करेगा / चाहता था (Will का Past/Modal)",
+  "words": [
+    {
+      "id": "hp-321",
+      "sno": 321,
+      "word": "Wood",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The hard fibrous material forming the trunk or branches of a tree",
+      "hindiMeaning": "लकड़ी / जंगल",
+      "englishSentence": "The table is made of wood.",
+      "hindiSentence": "यह मेज़ लकड़ी की बनी है।",
+      "memoryTip": "Wooden furniture"
+    },
+    {
+      "id": "hp-322",
+      "sno": 322,
+      "word": "Would",
+      "partOfSpeech": "Modal Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Expressing a hypothetical condition, past intent or polite request",
+      "hindiMeaning": "चाहता / करता / करेगा",
+      "englishSentence": "I would go if I were free.",
+      "hindiSentence": "अगर मैं फ्री होता तो ज़रूर जाता।",
+      "memoryTip": "Would you please help me?"
+    }
+  ]
+},
+  {
+  "id": "hp-war-wore-warred-warned",
+  "groupTitle": "War vs Wore vs Warred vs Warned",
+  "phonetic": "/wɔːr/ - /wɔːrd/",
+  "soundKey": "wɔːr",
+  "letter": "W",
+  "examFrequency": "Very High",
+  "confusableTip": "War = युद्ध; Wore = पहना (Wear का Past); Warred = युद्ध किया; Warned = चेताया (Warn का Past)",
+  "words": [
+    {
+      "id": "hp-323",
+      "sno": 323,
+      "word": "War",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A state of armed conflict between different countries",
+      "hindiMeaning": "युद्ध / संग्राम",
+      "englishSentence": "The war lasted five years.",
+      "hindiSentence": "युद्ध पाँच साल चला।",
+      "memoryTip": "World War"
+    },
+    {
+      "id": "hp-324",
+      "sno": 324,
+      "word": "Wore",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense of \"wear\"; had on one’s person",
+      "hindiMeaning": "पहना हुआ / पहना था",
+      "englishSentence": "She wore a red dress.",
+      "hindiSentence": "उसने लाल ड्रेस पहनी थी।",
+      "memoryTip": "Wear → Wore → Worn"
+    },
+    {
+      "id": "hp-325",
+      "sno": 325,
+      "word": "Warred",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Engaged in a war or conflict",
+      "hindiMeaning": "युद्ध किया / लड़े",
+      "englishSentence": "The two countries warred for decades.",
+      "hindiSentence": "दोनों देशों ने दशकों तक युद्ध किया।",
+      "memoryTip": "War + red"
+    },
+    {
+      "id": "hp-326",
+      "sno": 326,
+      "word": "Warned",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Informed someone in advance of a possible danger or problem",
+      "hindiMeaning": "चेताया / चेतावनी दी",
+      "englishSentence": "I warned him about the risks.",
+      "hindiSentence": "मैंने उसे जोखिमों के बारे में चेताया।",
+      "memoryTip": "Warning"
+    }
+  ]
+},
+  {
+  "id": "hp-affect-effect",
+  "groupTitle": "Affect vs Effect",
+  "phonetic": "/əˈfɛkt/ - /ɪˈfɛkt/",
+  "soundKey": "əfɛkt",
+  "letter": "A",
+  "examFrequency": "Very High",
+  "confusableTip": "Affect (Action/Verb) = प्रभाव डालना; Effect (End result/Noun) = परिणाम या असर",
+  "words": [
+    {
+      "id": "hp-327",
+      "sno": 327,
+      "word": "Affect",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To produce an effect on / to influence",
+      "hindiMeaning": "प्रभाव डालना / असर करना",
+      "englishSentence": "The weather can affect your mood.",
+      "hindiSentence": "मौसम आपके मूड को प्रभावित कर सकता है।",
+      "memoryTip": "Affect = Action (Verb) RAVEN rule"
+    },
+    {
+      "id": "hp-328",
+      "sno": 328,
+      "word": "Effect",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A change which is a result or consequence of an action",
+      "hindiMeaning": "परिणाम / प्रभाव / असर",
+      "englishSentence": "The medicine had no side effect.",
+      "hindiSentence": "दवा का कोई साइड इफेक्ट नहीं था।",
+      "memoryTip": "Side effect (Noun)"
+    }
+  ]
+},
+  {
+  "id": "hp-accept-except",
+  "groupTitle": "Accept vs Except",
+  "phonetic": "/əkˈsɛpt/ - /ɪkˈsɛpt/",
+  "soundKey": "əksɛpt",
+  "letter": "A",
+  "examFrequency": "Very High",
+  "confusableTip": "Accept = स्वीकार करना; Except = को छोड़कर (Excluding)",
+  "words": [
+    {
+      "id": "hp-329",
+      "sno": 329,
+      "word": "Accept",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To receive willingly something offered",
+      "hindiMeaning": "स्वीकार करना / मान लेना",
+      "englishSentence": "He accepted the invitation.",
+      "hindiSentence": "उसने निमंत्रण स्वीकार कर लिया।",
+      "memoryTip": "Accept the offer"
+    },
+    {
+      "id": "hp-330",
+      "sno": 330,
+      "word": "Except",
+      "partOfSpeech": "Preposition",
+      "posCategory": "prep",
+      "englishMeaning": "Not including; other than",
+      "hindiMeaning": "को छोड़कर / के अतिरिक्त",
+      "englishSentence": "Everyone was present except Meena.",
+      "hindiSentence": "मीना को छोड़कर सभी उपस्थित थे।",
+      "memoryTip": "Except = Exception (बाहर करना)"
+    }
+  ]
+},
+  {
+  "id": "hp-advice-advise",
+  "groupTitle": "Advice vs Advise",
+  "phonetic": "/ədˈvaɪs/ - /ədˈvaɪz/",
+  "soundKey": "ədvaɪs",
+  "letter": "A",
+  "examFrequency": "Very High",
+  "confusableTip": "Advice (C) = सलाह (Noun); Advise (S) = सलाह देना (Verb)",
+  "words": [
+    {
+      "id": "hp-331",
+      "sno": 331,
+      "word": "Advice",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Guidance or recommendations offered with regard to prudent action",
+      "hindiMeaning": "सलाह / मशविरा / उपदेश",
+      "englishSentence": "His advice helped me a lot.",
+      "hindiSentence": "उसकी सलाह ने मेरी बहुत मदद की।",
+      "memoryTip": "Piece of advice (Noun)"
+    },
+    {
+      "id": "hp-332",
+      "sno": 332,
+      "word": "Advise",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To offer suggestions about the best course of action",
+      "hindiMeaning": "सलाह देना / राय देना",
+      "englishSentence": "Doctors advise drinking water.",
+      "hindiSentence": "डॉक्टर पानी पीने की सलाह देते हैं।",
+      "memoryTip": "Advise has \"S\" like \"Suggest\""
+    }
+  ]
+},
+  {
+  "id": "hp-break-brake",
+  "groupTitle": "Break vs Brake",
+  "phonetic": "/breɪk/",
+  "soundKey": "breɪk",
+  "letter": "B",
+  "examFrequency": "Very High",
+  "confusableTip": "Break = तोड़ना / अंतराल; Brake = वाहन रोकने वाला ब्रेक",
+  "words": [
+    {
+      "id": "hp-333",
+      "sno": 333,
+      "word": "Break",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To separate into pieces as a result of a blow / an interval",
+      "hindiMeaning": "तोड़ना / टूटना / विराम",
+      "englishSentence": "Don’t break the mirror.",
+      "hindiSentence": "आईना मत तोड़ो।",
+      "memoryTip": "Lunch break / Break the glass"
+    },
+    {
+      "id": "hp-334",
+      "sno": 334,
+      "word": "Brake",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A device for slowing or stopping a moving vehicle",
+      "hindiMeaning": "ब्रेक (गति रोकने का यंत्र)",
+      "englishSentence": "The bus driver applied the brake suddenly.",
+      "hindiSentence": "बस चालक ने अचानक ब्रेक लगाया।",
+      "memoryTip": "Car brakes"
+    }
+  ]
+},
+  {
+  "id": "hp-counsel-council",
+  "groupTitle": "Counsel vs Council",
+  "phonetic": "/ˈkaʊnsəl/",
+  "soundKey": "kaʊnsəl",
+  "letter": "C",
+  "examFrequency": "Very High",
+  "confusableTip": "Counsel = कानूनी सलाह या वकील; Council = निर्णय लेने वाली निर्वाचित परिषद/समिति",
+  "words": [
+    {
+      "id": "hp-335",
+      "sno": 335,
+      "word": "Counsel",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "Advice given formally / legal adviser or advocate",
+      "hindiMeaning": "सलाह / वकील / परामर्श देना",
+      "englishSentence": "The counsel suggested a new strategy.",
+      "hindiSentence": "वकील ने एक नई रणनीति सुझाई।",
+      "memoryTip": "Legal counsel"
+    },
+    {
+      "id": "hp-336",
+      "sno": 336,
+      "word": "Council",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An advisory, deliberative, or legislative body of people",
+      "hindiMeaning": "परिषद / समिति / सभा",
+      "englishSentence": "The city council passed the new law.",
+      "hindiSentence": "नगर परिषद ने नया कानून पारित किया।",
+      "memoryTip": "City council / Student council"
+    }
+  ]
+},
+  {
+  "id": "hp-desert-dessert",
+  "groupTitle": "Desert vs Dessert",
+  "phonetic": "/ˈdɛzərt/ - /dɪˈzɜːrt/",
+  "soundKey": "dɛzərt",
+  "letter": "D",
+  "examFrequency": "Very High",
+  "confusableTip": "Desert (1 S) = रेगिस्तान / त्याग देना; Dessert (2 S) = भोजन के बाद की मीठी मिठाई (Sweet Strawberry)",
+  "words": [
+    {
+      "id": "hp-337",
+      "sno": 337,
+      "word": "Desert",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A dry barren sandy area / to abandon",
+      "hindiMeaning": "रेगिस्तान / मरुस्थल / छोड़ देना",
+      "englishSentence": "The camel lives in the desert.",
+      "hindiSentence": "ऊंट रेगिस्तान में रहता है।",
+      "memoryTip": "Sahara desert (One S for Sand)"
+    },
+    {
+      "id": "hp-338",
+      "sno": 338,
+      "word": "Dessert",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The sweet course eaten at the end of a meal",
+      "hindiMeaning": "मिठाई / मीठा व्यंजन",
+      "englishSentence": "We had ice cream for dessert.",
+      "hindiSentence": "हमने मिठाई में आइसक्रीम खाई।",
+      "memoryTip": "Dessert has \"SS\" = Sweet Stuff!"
+    }
+  ]
+},
+  {
+  "id": "hp-its-it-is",
+  "groupTitle": "Its vs It's",
+  "phonetic": "/ɪts/",
+  "soundKey": "ɪts",
+  "letter": "I",
+  "examFrequency": "Very High",
+  "confusableTip": "Its = इसका/उसका (स्वामित्व); It's = It is का संक्षिप्त रूप (यह है)",
+  "words": [
+    {
+      "id": "hp-339",
+      "sno": 339,
+      "word": "Its",
+      "partOfSpeech": "Pronoun",
+      "posCategory": "pron",
+      "englishMeaning": "Belonging to or associated with a thing previously mentioned",
+      "hindiMeaning": "इसका / अपना",
+      "englishSentence": "The cat licked its paws.",
+      "hindiSentence": "बिल्ली ने अपने पंजे चाटे।",
+      "memoryTip": "Its is possessive like His and Her"
+    },
+    {
+      "id": "hp-340",
+      "sno": 340,
+      "word": "It's",
+      "partOfSpeech": "Contraction",
+      "posCategory": "other",
+      "englishMeaning": "Contraction of \"it is\" or \"it has\"",
+      "hindiMeaning": "यह है / यह हो चुका है",
+      "englishSentence": "It’s raining outside.",
+      "hindiSentence": "बाहर बारिश हो रही है।",
+      "memoryTip": "It's = It is"
+    }
+  ]
+},
+  {
+  "id": "hp-loose-lose",
+  "groupTitle": "Loose vs Lose",
+  "phonetic": "/luːs/ - /luːz/",
+  "soundKey": "luːs",
+  "letter": "L",
+  "examFrequency": "Very High",
+  "confusableTip": "Loose (Double O) = ढीला / खुला; Lose (Single O) = खो देना या हार जाना",
+  "words": [
+    {
+      "id": "hp-341",
+      "sno": 341,
+      "word": "Loose",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Not firmly or tightly fixed in place / free",
+      "hindiMeaning": "ढीला / खुला / मुक्त",
+      "englishSentence": "This shirt is too loose.",
+      "hindiSentence": "यह शर्ट बहुत ढीली है।",
+      "memoryTip": "Loose pants / Loose knot"
+    },
+    {
+      "id": "hp-342",
+      "sno": 342,
+      "word": "Lose",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To be deprived of / fail to win",
+      "hindiMeaning": "खोना / गँवाना / हारना",
+      "englishSentence": "Don’t lose your keys.",
+      "hindiSentence": "अपनी चाबियाँ मत खोओ।",
+      "memoryTip": "Win or Lose"
+    }
+  ]
+},
+  {
+  "id": "hp-moral-morale",
+  "groupTitle": "Moral vs Morale",
+  "phonetic": "/ˈmɒrəl/ - /məˈrɑːl/",
+  "soundKey": "mɒrəl",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Moral = नैतिक शिक्षा या सिद्धांत; Morale (उच्चारण मोराल) = आत्मविश्वास या मनोबल",
+  "words": [
+    {
+      "id": "hp-343",
+      "sno": 343,
+      "word": "Moral",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "A lesson taught by a story / ethical values",
+      "hindiMeaning": "नैतिकता / नैतिक शिक्षा",
+      "englishSentence": "The story teaches a moral.",
+      "hindiSentence": "कहानी एक नैतिक शिक्षा देती है।",
+      "memoryTip": "Moral of the story"
+    },
+    {
+      "id": "hp-344",
+      "sno": 344,
+      "word": "Morale",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The confidence, enthusiasm, and discipline of a person or group",
+      "hindiMeaning": "मनोबल / मानसिक साहस",
+      "englishSentence": "The team's morale is high.",
+      "hindiSentence": "टीम का मनोबल ऊँचा है।",
+      "memoryTip": "High team morale"
+    }
+  ]
+},
+  {
+  "id": "hp-your-you-are",
+  "groupTitle": "Your vs You're",
+  "phonetic": "/jɔːr/",
+  "soundKey": "jɔːr",
+  "letter": "Y",
+  "examFrequency": "Frequent",
+  "confusableTip": "Your = तुम्हारा (स्वामित्व); You're = You are का संक्षिप्त रूप (तुम हो)",
+  "words": [
+    {
+      "id": "hp-345",
+      "sno": 345,
+      "word": "Your",
+      "partOfSpeech": "Pronoun",
+      "posCategory": "pron",
+      "englishMeaning": "Belonging to or associated with the person being addressed",
+      "hindiMeaning": "तुम्हारा / आपका",
+      "englishSentence": "Your shoes are here.",
+      "hindiSentence": "तुम्हारे जूते यहाँ हैं।",
+      "memoryTip": "Your book"
+    },
+    {
+      "id": "hp-346",
+      "sno": 346,
+      "word": "You’re",
+      "partOfSpeech": "Contraction",
+      "posCategory": "other",
+      "englishMeaning": "Contraction of \"you are\"",
+      "hindiMeaning": "तुम हो / आप हैं",
+      "englishSentence": "You’re my best friend.",
+      "hindiSentence": "तुम मेरे सबसे अच्छे दोस्त हो।",
+      "memoryTip": "You're welcome"
+    }
+  ]
+},
+  {
+  "id": "hp-born-borne",
+  "groupTitle": "Born vs Borne",
+  "phonetic": "/bɔːrn/",
+  "soundKey": "bɔːrn",
+  "letter": "B",
+  "examFrequency": "Very High",
+  "confusableTip": "Born = जन्म लेना; Borne = वहन किया गया / सहा गया (Bear का Past Participle)",
+  "words": [
+    {
+      "id": "hp-347",
+      "sno": 347,
+      "word": "Born",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Existing as a result of birth",
+      "hindiMeaning": "जन्म लेना / पैदा होना",
+      "englishSentence": "He was born in March.",
+      "hindiSentence": "उसका जन्म मार्च में हुआ था।",
+      "memoryTip": "Born in India"
+    },
+    {
+      "id": "hp-348",
+      "sno": 348,
+      "word": "Borne",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past participle of \"bear\"; carried, endured, or transported",
+      "hindiMeaning": "वहन किया गया / सहा गया / ढोया गया",
+      "englishSentence": "The costs will be borne by the company.",
+      "hindiSentence": "खर्च कंपनी द्वारा वहन किया जाएगा।",
+      "memoryTip": "Airborne / Mosquito-borne disease"
+    }
+  ]
+},
+  {
+  "id": "hp-bridal-bridle",
+  "groupTitle": "Bridal vs Bridle",
+  "phonetic": "/ˈbraɪdl/",
+  "soundKey": "braɪdl",
+  "letter": "B",
+  "examFrequency": "Very High",
+  "confusableTip": "Bridal (al) = दुल्हन से संबंधित; Bridle (le) = घोड़े की लगाम या वश में रखना",
+  "words": [
+    {
+      "id": "hp-349",
+      "sno": 349,
+      "word": "Bridal",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Concerning or belonging to a bride or a wedding",
+      "hindiMeaning": "दुल्हन से संबंधित / वैवाहिक",
+      "englishSentence": "She visited a bridal boutique.",
+      "hindiSentence": "वह एक दुल्हन की दुकान पर गई।",
+      "memoryTip": "Bridal gown / Bridal makeup"
+    },
+    {
+      "id": "hp-350",
+      "sno": 350,
+      "word": "Bridle",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "The headgear used to control a horse / to show resentment",
+      "hindiMeaning": "घोड़े की लगाम / काबू में रखना",
+      "englishSentence": "He held the horse by the bridle.",
+      "hindiSentence": "उसने घोड़े की लगाम पकड़ी।",
+      "memoryTip": "Bridle path / Bridle anger"
+    }
+  ]
+},
+  {
+  "id": "hp-dam-damn",
+  "groupTitle": "Dam vs Damn",
+  "phonetic": "/dæm/",
+  "soundKey": "dæm",
+  "letter": "D",
+  "examFrequency": "High",
+  "confusableTip": "Dam = पानी रोकने वाला बाँध; Damn = धिक्कारना या शाप देना",
+  "words": [
+    {
+      "id": "hp-351",
+      "sno": 351,
+      "word": "Dam",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A barrier constructed to hold back water and raise its level",
+      "hindiMeaning": "बाँध / जलबंधक",
+      "englishSentence": "The dam stores rainwater.",
+      "hindiSentence": "बाँध बारिश का पानी संग्रहित करता है।",
+      "memoryTip": "Bhakra Nangal Dam"
+    },
+    {
+      "id": "hp-352",
+      "sno": 352,
+      "word": "Damn",
+      "partOfSpeech": "Interjection / Verb",
+      "posCategory": "other",
+      "englishMeaning": "An expression of anger / to condemn",
+      "hindiMeaning": "धिक्कारना / शाप देना",
+      "englishSentence": "He shouted \"Damn!\" when he dropped his phone.",
+      "hindiSentence": "जब उसका फोन गिरा तो उसने \"धत्त!\" चिल्लाया।",
+      "memoryTip": "Damn it!"
+    }
+  ]
+},
+  {
+  "id": "hp-faint-feint",
+  "groupTitle": "Faint vs Feint",
+  "phonetic": "/feɪnt/",
+  "soundKey": "feɪnt",
+  "letter": "F",
+  "examFrequency": "Very High",
+  "confusableTip": "Faint (AI) = बेहोश होना / धुंधला या हल्का; Feint (EI) = चकमा देना / छल की चाल (मुक्केबाजी)",
+  "words": [
+    {
+      "id": "hp-353",
+      "sno": 353,
+      "word": "Faint",
+      "partOfSpeech": "Adjective / Verb",
+      "posCategory": "adj",
+      "englishMeaning": "Barely perceptible / to lose consciousness briefly",
+      "hindiMeaning": "मंद / बेहोश होना / हल्का",
+      "englishSentence": "She gave a faint smile.",
+      "hindiSentence": "उसने हल्की सी मुस्कान दी।",
+      "memoryTip": "Faint voice / Faint from hunger"
+    },
+    {
+      "id": "hp-354",
+      "sno": 354,
+      "word": "Feint",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A deceptive or distracting movement, especially in boxing or war",
+      "hindiMeaning": "छलावा / झांसा / चकमा देने वाली चाल",
+      "englishSentence": "The boxer used a clever feint.",
+      "hindiSentence": "मुक्केबाज ने चालाकी से एक चाल चली।",
+      "memoryTip": "Feint move in chess/boxing"
+    }
+  ]
+},
+  {
+  "id": "hp-grate-great",
+  "groupTitle": "Grate vs Great",
+  "phonetic": "/ɡreɪt/",
+  "soundKey": "ɡreɪt",
+  "letter": "G",
+  "examFrequency": "Frequent",
+  "confusableTip": "Grate = कद्दूकस करना / जाली; Great = महान / बहुत बड़ा",
+  "words": [
+    {
+      "id": "hp-355",
+      "sno": 355,
+      "word": "Grate",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "To shred food into small pieces by rubbing / a metal framework of bars",
+      "hindiMeaning": "कद्दूकस करना / चिढ़ाना / धातु की जाली",
+      "englishSentence": "Grate the cheese before adding it.",
+      "hindiSentence": "चीज़ को डालने से पहले कद्दूकस करें।",
+      "memoryTip": "Cheese grater"
+    },
+    {
+      "id": "hp-131-dup",
+      "sno": 131,
+      "word": "Great",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Of an extent, amount, or intensity considerably above normal; famous",
+      "hindiMeaning": "महान / बड़ा / शानदार",
+      "englishSentence": "He is a great leader.",
+      "hindiSentence": "वह एक महान नेता है।",
+      "memoryTip": "Great Wall of China"
+    }
+  ]
+},
+  {
+  "id": "hp-here-hear",
+  "groupTitle": "Here vs Hear",
+  "phonetic": "/hɪər/",
+  "soundKey": "hɪər",
+  "letter": "H",
+  "examFrequency": "Frequent",
+  "confusableTip": "Here = यहाँ (स्थान); Hear = कानों से सुनना (EAR अंदर है)",
+  "words": [
+    {
+      "id": "hp-356",
+      "sno": 356,
+      "word": "Here",
+      "partOfSpeech": "Adverb",
+      "posCategory": "adv",
+      "englishMeaning": "In, at, or to this place or position",
+      "hindiMeaning": "यहाँ / इस स्थान पर",
+      "englishSentence": "Come here quickly.",
+      "hindiSentence": "जल्दी यहाँ आओ।",
+      "memoryTip": "Here and there"
+    },
+    {
+      "id": "hp-357",
+      "sno": 357,
+      "word": "Hear",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To perceive with the ear the sound made by someone or something",
+      "hindiMeaning": "सुनना / कान से सुनना",
+      "englishSentence": "Can you hear that noise?",
+      "hindiSentence": "क्या तुम वह आवाज़ सुन सकते हो?",
+      "memoryTip": "hEAR has EAR inside it!"
+    }
+  ]
+},
+  {
+  "id": "hp-key-quay",
+  "groupTitle": "Key vs Quay",
+  "phonetic": "/kiː/",
+  "soundKey": "kiː",
+  "letter": "K",
+  "examFrequency": "Very High",
+  "confusableTip": "Key = ताले की चाबी / महत्वपूर्ण; Quay (उच्चारण की) = जहाज़ का बंदरगाह/घाट",
+  "words": [
+    {
+      "id": "hp-358",
+      "sno": 358,
+      "word": "Key",
+      "partOfSpeech": "Noun / Adjective",
+      "posCategory": "noun",
+      "englishMeaning": "A small metal tool used for opening locks / crucial element",
+      "hindiMeaning": "चाबी / कुंजी / महत्वपूर्ण",
+      "englishSentence": "I lost my house key.",
+      "hindiSentence": "मेरे घर की चाबी खो गई।",
+      "memoryTip": "Key to success"
+    },
+    {
+      "id": "hp-359",
+      "sno": 359,
+      "word": "Quay",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A stone or concrete platform lying alongside or projecting into water for loading ships",
+      "hindiMeaning": "घाट / जहाज़ लंगरगाह (बंदरगाह)",
+      "englishSentence": "The ship docked at the quay.",
+      "hindiSentence": "जहाज घाट पर रुका।",
+      "memoryTip": "Quay is pronounced exactly like KEY!"
+    }
+  ]
+},
+  {
+  "id": "hp-morning-mourning",
+  "groupTitle": "Morning vs Mourning",
+  "phonetic": "/ˈmɔːrnɪŋ/",
+  "soundKey": "mɔːrnɪŋ",
+  "letter": "M",
+  "examFrequency": "Very High",
+  "confusableTip": "Morning = प्रातःकाल / सुबह; Mourning (U) = किसी की मृत्यु पर शोक मनाना",
+  "words": [
+    {
+      "id": "hp-360",
+      "sno": 360,
+      "word": "Morning",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The period of time between midnight and noon, especially sunrise to noon",
+      "hindiMeaning": "सुबह / प्रातःकाल",
+      "englishSentence": "I go jogging every morning.",
+      "hindiSentence": "मैं हर सुबह दौड़ने जाता हूँ।",
+      "memoryTip": "Good morning"
+    },
+    {
+      "id": "hp-361",
+      "sno": 361,
+      "word": "Mourning",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The expression of deep sorrow for someone who has died",
+      "hindiMeaning": "शोक / मातम मनाना",
+      "englishSentence": "The family is in mourning.",
+      "hindiSentence": "परिवार शोक में है।",
+      "memoryTip": "National mourning"
+    }
+  ]
+},
+  {
+  "id": "hp-one-won",
+  "groupTitle": "One vs Won",
+  "phonetic": "/wʌn/",
+  "soundKey": "wʌn",
+  "letter": "O",
+  "examFrequency": "Frequent",
+  "confusableTip": "One = संख्या 1; Won = मैच जीता (Win का Past)",
+  "words": [
+    {
+      "id": "hp-362",
+      "sno": 362,
+      "word": "One",
+      "partOfSpeech": "Number",
+      "posCategory": "other",
+      "englishMeaning": "The lowest cardinal number; 1",
+      "hindiMeaning": "एक (संख्या)",
+      "englishSentence": "He has one brother.",
+      "hindiSentence": "उसका एक भाई है।",
+      "memoryTip": "One and only"
+    },
+    {
+      "id": "hp-363",
+      "sno": 363,
+      "word": "Won",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Past tense and past participle of \"win\"",
+      "hindiMeaning": "जीता / विजय प्राप्त की",
+      "englishSentence": "India won the match.",
+      "hindiSentence": "भारत ने मैच जीता।",
+      "memoryTip": "Win → Won"
+    }
+  ]
+},
+  {
+  "id": "hp-pale-pail",
+  "groupTitle": "Pale vs Pail",
+  "phonetic": "/peɪl/",
+  "soundKey": "peɪl",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Pale = बीमारी या डर से पीला पड़ना; Pail = पानी की बाल्टी (Bucket)",
+  "words": [
+    {
+      "id": "hp-364",
+      "sno": 364,
+      "word": "Pale",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Light in colour or having little color; whitish",
+      "hindiMeaning": "पीला / फीका / कांतिहीन",
+      "englishSentence": "Her face looked pale.",
+      "hindiSentence": "उसका चेहरा पीला लग रहा था।",
+      "memoryTip": "Pale with fear"
+    },
+    {
+      "id": "hp-365",
+      "sno": 365,
+      "word": "Pail",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A bucket, typically a cylindrical vessel with handle",
+      "hindiMeaning": "बाल्टी",
+      "englishSentence": "He carried water in a pail.",
+      "hindiSentence": "वह बाल्टी में पानी लाया।",
+      "memoryTip": "Jack and Jill went up the hill to fetch a pail of water"
+    }
+  ]
+},
+  {
+  "id": "hp-profit-prophet",
+  "groupTitle": "Profit vs Prophet",
+  "phonetic": "/ˈprɒfɪt/",
+  "soundKey": "prɒfɪt",
+  "letter": "P",
+  "examFrequency": "Very High",
+  "confusableTip": "Profit = व्यापार में वित्तीय लाभ/मुनाफा; Prophet = ईश्वर का पैगंबर / भविष्यवक्ता",
+  "words": [
+    {
+      "id": "hp-366",
+      "sno": 366,
+      "word": "Profit",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A financial gain, especially the difference between amount earned and spent",
+      "hindiMeaning": "लाभ / मुनाफा",
+      "englishSentence": "He made a big profit in business.",
+      "hindiSentence": "उसे व्यापार में बड़ा लाभ हुआ।",
+      "memoryTip": "Profit and loss"
+    },
+    {
+      "id": "hp-367",
+      "sno": 367,
+      "word": "Prophet",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A person regarded as an inspired teacher or proclaimer of the will of God",
+      "hindiMeaning": "पैगंबर / नबी / भविष्यवक्ता",
+      "englishSentence": "Muhammad was a prophet.",
+      "hindiSentence": "मोहम्मद एक पैगंबर थे।",
+      "memoryTip": "Prophet foresaw the future"
+    }
+  ]
+},
+  {
+  "id": "hp-ring-wring",
+  "groupTitle": "Ring vs Wring",
+  "phonetic": "/rɪŋ/",
+  "soundKey": "rɪŋ",
+  "letter": "R",
+  "examFrequency": "High",
+  "confusableTip": "Ring = अंगूठी या घंटी बजना; Wring = निचोड़ना (कपड़ा या हाथ)",
+  "words": [
+    {
+      "id": "hp-369",
+      "sno": 369,
+      "word": "Ring",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A small circular band of precious metal / to make a clear resonant sound",
+      "hindiMeaning": "अंगूठी / छल्ला / बजना",
+      "englishSentence": "The phone will ring soon.",
+      "hindiSentence": "फोन जल्दी बजेगा।",
+      "memoryTip": "Wedding ring"
+    },
+    {
+      "id": "hp-370",
+      "sno": 370,
+      "word": "Wring",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To squeeze and twist something to extract liquid",
+      "hindiMeaning": "निचोड़ना / ऐंठना",
+      "englishSentence": "Wring the cloth before drying.",
+      "hindiSentence": "कपड़ा सुखाने से पहले निचोड़ लो।",
+      "memoryTip": "Wring out wet towel"
+    }
+  ]
+},
+  {
+  "id": "hp-sense-cents",
+  "groupTitle": "Sense vs Cents",
+  "phonetic": "/sɛns/",
+  "soundKey": "sɛns",
+  "letter": "S",
+  "examFrequency": "High",
+  "confusableTip": "Sense = इंद्रिय / समझ या विवेक; Cents = अमेरिकी सिक्के/पैसे",
+  "words": [
+    {
+      "id": "hp-375",
+      "sno": 375,
+      "word": "Sense",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Faculty of perception / sound practical judgement",
+      "hindiMeaning": "समझ / बुद्धि / इंद्रिय",
+      "englishSentence": "He has a strong sense of justice.",
+      "hindiSentence": "उसमें न्याय की गहरी समझ है।",
+      "memoryTip": "Common sense"
+    },
+    {
+      "id": "hp-376",
+      "sno": 376,
+      "word": "Cents",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "Monetary units equal to one hundredth of a dollar",
+      "hindiMeaning": "सेंट (पैसे / सिक्के)",
+      "englishSentence": "It costs fifty cents.",
+      "hindiSentence": "इसकी कीमत पचास सेंट है।",
+      "memoryTip": "50 cents"
+    }
+  ]
+},
+  {
+  "id": "hp-shore-sure",
+  "groupTitle": "Shore vs Sure",
+  "phonetic": "/ʃɔːr/ - /ʃʊər/",
+  "soundKey": "ʃɔːr",
+  "letter": "S",
+  "examFrequency": "High",
+  "confusableTip": "Shore = समुद्र या नदी का तट; Sure = पक्का / निश्चित",
+  "words": [
+    {
+      "id": "hp-377",
+      "sno": 377,
+      "word": "Shore",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The land along the edge of a sea, lake, or large body of water",
+      "hindiMeaning": "तट / किनारा",
+      "englishSentence": "They walked along the shore.",
+      "hindiSentence": "वे तट के किनारे चले।",
+      "memoryTip": "Sea shore"
+    },
+    {
+      "id": "hp-378",
+      "sno": 378,
+      "word": "Sure",
+      "partOfSpeech": "Adjective",
+      "posCategory": "adj",
+      "englishMeaning": "Confident in what one thinks or knows; certain",
+      "hindiMeaning": "निश्चित / आश्वस्त",
+      "englishSentence": "Are you sure about your answer?",
+      "hindiSentence": "क्या तुम्हें अपने उत्तर पर यकीन है?",
+      "memoryTip": "Are you sure?"
+    }
+  ]
+},
+  {
+  "id": "hp-slay-sleigh",
+  "groupTitle": "Slay vs Sleigh",
+  "phonetic": "/sleɪ/",
+  "soundKey": "sleɪ",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Slay = वध करना / मार डालना; Sleigh = बर्फ पर चलने वाली बिना पहिए की गाड़ी",
+  "words": [
+    {
+      "id": "hp-379",
+      "sno": 379,
+      "word": "Slay",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "To kill in a violent way",
+      "hindiMeaning": "वध करना / मार डालना",
+      "englishSentence": "The knight slayed the dragon.",
+      "hindiSentence": "योद्धा ने ड्रैगन का वध किया।",
+      "memoryTip": "Slay the monster"
+    },
+    {
+      "id": "hp-380",
+      "sno": 380,
+      "word": "Sleigh",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A sledge driven by horses or reindeer on snow and ice",
+      "hindiMeaning": "बर्फ पर चलने वाली गाड़ी (स्लेज)",
+      "englishSentence": "Santa rides a sleigh.",
+      "hindiSentence": "सांता बर्फ की गाड़ी में चलते हैं।",
+      "memoryTip": "Jingle bells sleigh"
+    }
+  ]
+},
+  {
+  "id": "hp-son-sun",
+  "groupTitle": "Son vs Sun",
+  "phonetic": "/sʌn/",
+  "soundKey": "sʌn",
+  "letter": "S",
+  "examFrequency": "Frequent",
+  "confusableTip": "Son = बेटा / पुत्र; Sun = सूरज / सूर्य",
+  "words": [
+    {
+      "id": "hp-381",
+      "sno": 381,
+      "word": "Son",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A boy or man in relation to his parents",
+      "hindiMeaning": "बेटा / पुत्र",
+      "englishSentence": "He has one son.",
+      "hindiSentence": "उसका एक बेटा है।",
+      "memoryTip": "Father and Son"
+    },
+    {
+      "id": "hp-382",
+      "sno": 382,
+      "word": "Sun",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The star around which the earth orbits",
+      "hindiMeaning": "सूरज / सूर्य",
+      "englishSentence": "The sun is shining bright.",
+      "hindiSentence": "सूरज तेज चमक रहा है।",
+      "memoryTip": "Sunlight"
+    }
+  ]
+},
+  {
+  "id": "hp-stake-steak",
+  "groupTitle": "Stake vs Steak",
+  "phonetic": "/steɪk/",
+  "soundKey": "steɪk",
+  "letter": "S",
+  "examFrequency": "Very High",
+  "confusableTip": "Stake = दांव / खूँटा; Steak = भुना हुआ मांस का टुकड़ा",
+  "words": [
+    {
+      "id": "hp-383",
+      "sno": 383,
+      "word": "Stake",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A strong wooden or metal post / a share or financial interest in business",
+      "hindiMeaning": "दांव / खूँटा / हिस्सेदारी",
+      "englishSentence": "He has a big stake in the company.",
+      "hindiSentence": "कंपनी में उसका बड़ा दांव है।",
+      "memoryTip": "At stake (दांव पर)"
+    },
+    {
+      "id": "hp-384",
+      "sno": 384,
+      "word": "Steak",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "High-quality beef, or other meat, cut into thick slices",
+      "hindiMeaning": "मांस का टुकड़ा (स्टेक)",
+      "englishSentence": "He ordered a beef steak.",
+      "hindiSentence": "उसने बीफ स्टेक ऑर्डर किया।",
+      "memoryTip": "Steakhouse restaurant"
+    }
+  ]
+},
+  {
+  "id": "hp-than-then",
+  "groupTitle": "Than vs Then",
+  "phonetic": "/ðæn/ - /ðɛn/",
+  "soundKey": "ðæn",
+  "letter": "T",
+  "examFrequency": "Very High",
+  "confusableTip": "Than (A) = तुलना के लिए (se); Then (E) = तब / फिर / उसके बाद (समय)",
+  "words": [
+    {
+      "id": "hp-387",
+      "sno": 387,
+      "word": "Than",
+      "partOfSpeech": "Conjunction",
+      "posCategory": "other",
+      "englishMeaning": "Introducing the second element in a comparison",
+      "hindiMeaning": "की तुलना में / से",
+      "englishSentence": "She is taller than me.",
+      "hindiSentence": "वह मुझसे लंबी है।",
+      "memoryTip": "Bigger thAn, smaller thAn"
+    },
+    {
+      "id": "hp-388",
+      "sno": 388,
+      "word": "Then",
+      "partOfSpeech": "Adverb",
+      "posCategory": "adv",
+      "englishMeaning": "At that time / after that; next",
+      "hindiMeaning": "तब / फिर / उसके बाद",
+      "englishSentence": "First we eat, then we go.",
+      "hindiSentence": "पहले हम खाएंगे, फिर चलेंगे।",
+      "memoryTip": "Then = timE"
+    }
+  ]
+},
+  {
+  "id": "hp-yolk-yoke",
+  "groupTitle": "Yolk vs Yoke",
+  "phonetic": "/joʊk/",
+  "soundKey": "joʊk",
+  "letter": "Y",
+  "examFrequency": "Very High",
+  "confusableTip": "Yolk = अंडे की पीली ज़र्दी; Yoke = बैलों के कंधे पर रखा जाने वाला जुआ / बंधन",
+  "words": [
+    {
+      "id": "hp-389",
+      "sno": 389,
+      "word": "Yolk",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The yellow internal part of a bird’s egg",
+      "hindiMeaning": "अंडे की ज़र्दी (पीला भाग)",
+      "englishSentence": "The yolk is rich in protein.",
+      "hindiSentence": "अंडे की ज़र्दी में प्रोटीन भरपूर होता है।",
+      "memoryTip": "Egg yolk"
+    },
+    {
+      "id": "hp-390",
+      "sno": 390,
+      "word": "Yoke",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "A wooden crosspiece fastened over the necks of two animals to pull a plow",
+      "hindiMeaning": "जुआ (बैलों का) / बंधन / जोड़ना",
+      "englishSentence": "The farmer put a yoke on the oxen.",
+      "hindiSentence": "किसान ने बैलों पर जुआ रखा।",
+      "memoryTip": "Yoke of slavery / Oxen yoke"
+    }
+  ]
+},
+  {
+  "id": "hp-aisle-isle",
+  "groupTitle": "Aisle vs Isle",
+  "phonetic": "/aɪl/",
+  "soundKey": "aɪl",
+  "letter": "A",
+  "examFrequency": "Very High",
+  "confusableTip": "Aisle = सीटों के बीच का चलने का रास्ता (गलियारा); Isle = छोटा द्वीप/टापू",
+  "words": [
+    {
+      "id": "hp-391",
+      "sno": 391,
+      "word": "Aisle",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A passage between rows of seats in a plane, church, or supermarket",
+      "hindiMeaning": "गलियारा / दो कतारों के बीच का रास्ता",
+      "englishSentence": "She walked down the aisle slowly.",
+      "hindiSentence": "वह धीरे-धीरे गलियारे में चली।",
+      "memoryTip": "Aisle seat on aircraft"
+    },
+    {
+      "id": "hp-392",
+      "sno": 392,
+      "word": "Isle",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "An island or peninsula, especially a small one",
+      "hindiMeaning": "टापू / छोटा द्वीप",
+      "englishSentence": "They spent the vacation on a remote isle.",
+      "hindiSentence": "उन्होंने छुट्टियाँ एक दूर टापू पर बिताईं।",
+      "memoryTip": "British Isles / Isle of Wight"
+    }
+  ]
+},
+  {
+  "id": "hp-all-awl",
+  "groupTitle": "All vs Awl",
+  "phonetic": "/ɔːl/",
+  "soundKey": "ɔːl",
+  "letter": "A",
+  "examFrequency": "High",
+  "confusableTip": "All = सभी / संपूर्ण; Awl = मोची का चमड़े में छेद करने वाला नुकीला औजार",
+  "words": [
+    {
+      "id": "hp-393",
+      "sno": 393,
+      "word": "All",
+      "partOfSpeech": "Determiner",
+      "posCategory": "other",
+      "englishMeaning": "Used to refer to the whole quantity or extent of a group",
+      "hindiMeaning": "सभी / सब",
+      "englishSentence": "All students must attend.",
+      "hindiSentence": "सभी छात्रों को उपस्थित होना चाहिए।",
+      "memoryTip": "All of us"
+    },
+    {
+      "id": "hp-394",
+      "sno": 394,
+      "word": "Awl",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A small pointed tool used for piercing holes, especially in leather",
+      "hindiMeaning": "छेद करने का औज़ार / सुआ (मोची का)",
+      "englishSentence": "The cobbler used an awl.",
+      "hindiSentence": "मोची ने छेद करने का औज़ार इस्तेमाल किया।",
+      "memoryTip": "Cobbler pierces leather with an awl"
+    }
+  ]
+},
+  {
+  "id": "hp-ascent-assent",
+  "groupTitle": "Ascent vs Assent",
+  "phonetic": "/əˈsɛnt/",
+  "soundKey": "əsɛnt",
+  "letter": "A",
+  "examFrequency": "Very High",
+  "confusableTip": "Ascent (SC) = ऊपर चढ़ाई (Ascend); Assent (SS) = सहमति / स्वीकृति (Consent)",
+  "words": [
+    {
+      "id": "hp-395",
+      "sno": 395,
+      "word": "Ascent",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A climb or walk to the summit of a mountain; upward movement",
+      "hindiMeaning": "चढ़ाई / आरोहण",
+      "englishSentence": "The plane began its ascent.",
+      "hindiSentence": "विमान ने अपनी चढ़ाई शुरू की।",
+      "memoryTip": "Ascent has SC like aSCend (going up)"
+    },
+    {
+      "id": "hp-396",
+      "sno": 396,
+      "word": "Assent",
+      "partOfSpeech": "Noun / Verb",
+      "posCategory": "noun",
+      "englishMeaning": "The expression of approval or agreement",
+      "hindiMeaning": "सहमति / मंजूरी देना",
+      "englishSentence": "He gave his assent to the proposal.",
+      "hindiSentence": "उसने प्रस्ताव को अपनी सहमति दी।",
+      "memoryTip": "Presidential assent to bill"
+    }
+  ]
+},
+  {
+  "id": "hp-byte-bite",
+  "groupTitle": "Byte vs Bite",
+  "phonetic": "/baɪt/",
+  "soundKey": "baɪt",
+  "letter": "B",
+  "examFrequency": "Frequent",
+  "confusableTip": "Byte = 8 बिट्स की कंप्यूटर मेमोरी इकाई; Bite = दांतों से काटना या निवाला",
+  "words": [
+    {
+      "id": "hp-397",
+      "sno": 397,
+      "word": "Byte",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "A unit of memory in computer storage, usually 8 bits",
+      "hindiMeaning": "बाइट (कंप्यूटर डेटा इकाई)",
+      "englishSentence": "The file is 4 megabytes large.",
+      "hindiSentence": "फाइल 4 मेगाबाइट की है।",
+      "memoryTip": "Kilobyte, Gigabyte"
+    },
+    {
+      "id": "hp-398",
+      "sno": 398,
+      "word": "Bite",
+      "partOfSpeech": "Verb / Noun",
+      "posCategory": "verb",
+      "englishMeaning": "Use teeth to cut into something / a mouthful",
+      "hindiMeaning": "दांत से काटना / निवाला",
+      "englishSentence": "The dog gave me a bite.",
+      "hindiSentence": "कुत्ते ने मुझे काट लिया।",
+      "memoryTip": "Bite an apple"
+    }
+  ]
+},
+  {
+  "id": "hp-ceiling-sealing",
+  "groupTitle": "Ceiling vs Sealing",
+  "phonetic": "/ˈsiːlɪŋ/",
+  "soundKey": "siːlɪŋ",
+  "letter": "C",
+  "examFrequency": "Very High",
+  "confusableTip": "Ceiling = कमरे की भीतरी छत; Sealing = डिब्बा या लिफाफा चिपका कर सील करना",
+  "words": [
+    {
+      "id": "hp-399",
+      "sno": 399,
+      "word": "Ceiling",
+      "partOfSpeech": "Noun",
+      "posCategory": "noun",
+      "englishMeaning": "The upper interior surface of a room",
+      "hindiMeaning": "कमरे की भीतरी छत",
+      "englishSentence": "The ceiling was leaking.",
+      "hindiSentence": "छत से पानी टपक रहा था।",
+      "memoryTip": "Ceiling fan"
+    },
+    {
+      "id": "hp-400",
+      "sno": 400,
+      "word": "Sealing",
+      "partOfSpeech": "Verb",
+      "posCategory": "verb",
+      "englishMeaning": "Fastening or closing securely with a seal",
+      "hindiMeaning": "सील करना / बंद करना",
+      "englishSentence": "He is sealing the box.",
+      "hindiSentence": "वह डिब्बा सील कर रहा है।",
+      "memoryTip": "Sealing the envelope"
+    }
+  ]
+}
 ];
 
 // ---------------------------------------------------------------------------
@@ -3257,111 +6685,220 @@ export const HOMOPHONES_DATA: HomophoneGroup[] = [
 // ---------------------------------------------------------------------------
 export const HOMOPHONE_QUIZ_QUESTIONS: HomophoneQuizQuestion[] = [
   {
-    id: 'hq-1',
-    sentenceWithBlank: 'Smoking is strictly ______ inside the auditorium.',
-    blankTranslation: 'सभागार के अंदर धूम्रपान पूरी तरह से प्रतिबंधित है।',
-    correctWord: 'banned',
-    options: ['band', 'banned'],
-    explanation: '"Banned" means prohibited by law or rule, whereas "band" is a group of musicians.',
-    groupTitle: 'Band vs Banned'
+    "id": "hq-1",
+    "sentenceWithBlank": "Smoking is strictly ______ inside the auditorium.",
+    "blankTranslation": "सभागार के अंदर धूम्रपान पूरी तरह से प्रतिबंधित है।",
+    "correctWord": "banned",
+    "options": [
+      "band",
+      "banned"
+    ],
+    "explanation": "\"Banned\" means prohibited by law or rule, whereas \"band\" is a group of musicians.",
+    "groupTitle": "Band vs Banned"
   },
   {
-    id: 'hq-2',
-    sentenceWithBlank: 'She was declared the sole ______ to her grandfather\'s massive estate.',
-    blankTranslation: 'उसे अपने दादाजी की विशाल संपत्ति की एकमात्र उत्तराधिकारी घोषित किया गया।',
-    correctWord: 'heir',
-    options: ['air', 'heir'],
-    explanation: '"Heir" (pronounced /eər/) is a person who inherits property. "Air" is the gaseous atmosphere.',
-    groupTitle: 'Air vs Heir'
+    "id": "hq-2",
+    "sentenceWithBlank": "She was declared the sole ______ to her grandfather's massive estate.",
+    "blankTranslation": "उसे अपने दादाजी की विशाल संपत्ति की एकमात्र उत्तराधिकारी घोषित किया गया।",
+    "correctWord": "heir",
+    "options": [
+      "air",
+      "heir"
+    ],
+    "explanation": "\"Heir\" (pronounced /eər/) is a person who inherits property. \"Air\" is the gaseous atmosphere.",
+    "groupTitle": "Air vs Heir"
   },
   {
-    id: 'hq-3',
-    sentenceWithBlank: 'The doctor advised him to cut down on ______ sugar consumption.',
-    blankTranslation: 'डॉक्टर ने उसे अत्यधिक चीनी के सेवन में कटौती करने की सलाह दी।',
-    correctWord: 'excess',
-    options: ['access', 'excess', 'axis'],
-    explanation: '"Excess" means more than necessary or allowed. "Access" means permission or entry to something.',
-    groupTitle: 'Axis vs Access vs Excess'
+    "id": "hq-3",
+    "sentenceWithBlank": "The doctor advised him to cut down on ______ sugar consumption.",
+    "blankTranslation": "डॉक्टर ने उसे अत्यधिक चीनी के सेवन में कटौती करने की सलाह दी।",
+    "correctWord": "excess",
+    "options": [
+      "access",
+      "excess",
+      "axis"
+    ],
+    "explanation": "\"Excess\" means more than necessary or allowed. \"Access\" means permission or entry to something.",
+    "groupTitle": "Axis vs Access vs Excess"
   },
   {
-    id: 'hq-4',
-    sentenceWithBlank: 'The court granted him temporary release on ______ of Rs 50,000.',
-    blankTranslation: 'अदालत ने उसे 50,000 रुपये की ज़मानत पर अस्थायी रिहा किया।',
-    correctWord: 'bail',
-    options: ['bail', 'bale'],
-    explanation: '"Bail" is legal security money for temporary release, while "bale" is a large bundle of hay/cotton.',
-    groupTitle: 'Bail vs Bale'
+    "id": "hq-4",
+    "sentenceWithBlank": "The court granted him temporary release on ______ of Rs 50,000.",
+    "blankTranslation": "अदालत ने उसे 50,000 रुपये की ज़मानत पर अस्थायी रिहा किया।",
+    "correctWord": "bail",
+    "options": [
+      "bail",
+      "bale"
+    ],
+    "explanation": "\"Bail\" is legal security money for temporary release, while \"bale\" is a large bundle of hay/cotton.",
+    "groupTitle": "Bail vs Bale"
   },
   {
-    id: 'hq-5',
-    sentenceWithBlank: 'He could not ______ the severe cold without proper winter clothing.',
-    blankTranslation: 'वह उचित सर्दियों के कपड़ों के बिना भीषण ठंड को बर्दाश्त नहीं कर सका।',
-    correctWord: 'bear',
-    options: ['bare', 'bear'],
-    explanation: '"Bear" as a verb means to tolerate or endure. "Bare" means uncovered or naked.',
-    groupTitle: 'Bare vs Bear'
+    "id": "hq-5",
+    "sentenceWithBlank": "He could not ______ the severe cold without proper winter clothing.",
+    "blankTranslation": "वह उचित सर्दियों के कपड़ों के बिना भीषण ठंड को बर्दाश्त नहीं कर सका।",
+    "correctWord": "bear",
+    "options": [
+      "bare",
+      "bear"
+    ],
+    "explanation": "\"Bear\" as a verb means to tolerate or endure. \"Bare\" means uncovered or naked.",
+    "groupTitle": "Bare vs Bear"
   },
   {
-    id: 'hq-6',
-    sentenceWithBlank: 'The sauce serves as a wonderful ______ to the roast chicken.',
-    blankTranslation: 'यह चटनी भुने हुए चिकन के लिए एक शानदार पूरक का काम करती है।',
-    correctWord: 'complement',
-    options: ['complement', 'compliment'],
-    explanation: '"Complement" (with E) means something that completes. "Compliment" (with I) is praise.',
-    groupTitle: 'Complement vs Compliment'
+    "id": "hq-6",
+    "sentenceWithBlank": "The sauce serves as a wonderful ______ to the roast chicken.",
+    "blankTranslation": "यह चटनी भुने हुए चिकन के लिए एक शानदार पूरक का काम करती है।",
+    "correctWord": "complement",
+    "options": [
+      "complement",
+      "compliment"
+    ],
+    "explanation": "\"Complement\" (with E) means something that completes. \"Compliment\" (with I) is praise.",
+    "groupTitle": "Complement vs Compliment"
   },
   {
-    id: 'hq-7',
-    sentenceWithBlank: 'Please be ______ when discussing confidential office matters in public.',
-    blankTranslation: 'सार्वजनिक रूप से गोपनीय कार्यालय मामलों पर चर्चा करते समय सतर्क रहें।',
-    correctWord: 'discreet',
-    options: ['discreet', 'discrete'],
-    explanation: '"Discreet" means careful, prudent and keeping secrets. "Discrete" means separate or distinct.',
-    groupTitle: 'Discreet vs Discrete'
+    "id": "hq-7",
+    "sentenceWithBlank": "Please be ______ when discussing confidential office matters in public.",
+    "blankTranslation": "सार्वजनिक रूप से गोपनीय कार्यालय मामलों पर चर्चा करते समय सतर्क रहें।",
+    "correctWord": "discreet",
+    "options": [
+      "discreet",
+      "discrete"
+    ],
+    "explanation": "\"Discreet\" means careful, prudent and keeping secrets. \"Discrete\" means separate or distinct.",
+    "groupTitle": "Discreet vs Discrete"
   },
   {
-    id: 'hq-8',
-    sentenceWithBlank: 'The police raided the warehouse and seized a huge ______ of smuggled weapons.',
-    blankTranslation: 'पुलिस ने गोदाम पर छापा मारा और तस्करी के हथियारों का एक बड़ा गुप्त भंडार जब्त किया।',
-    correctWord: 'cache',
-    options: ['cache', 'cash'],
-    explanation: '"Cache" is a hidden storage space for weapons/provisions. "Cash" refers to physical money.',
-    groupTitle: 'Cache vs Cash'
+    "id": "hq-8",
+    "sentenceWithBlank": "The police raided the warehouse and seized a huge ______ of smuggled weapons.",
+    "blankTranslation": "पुलिस ने गोदाम पर छापा मारा और तस्करी के हथियारों का एक बड़ा गुप्त भंडार जब्त किया।",
+    "correctWord": "cache",
+    "options": [
+      "cache",
+      "cash"
+    ],
+    "explanation": "\"Cache\" is a hidden storage space for weapons/provisions. \"Cash\" refers to physical money.",
+    "groupTitle": "Cache vs Cash"
   },
   {
-    id: 'hq-9',
-    sentenceWithBlank: 'Volunteers went door to door to ______ support for the clean energy bill.',
-    blankTranslation: 'स्वयंसेवकों ने स्वच्छ ऊर्जा विधेयक के लिए समर्थन जुटाने हेतु घर-घर जाकर जनमत मांगा।',
-    correctWord: 'canvass',
-    options: ['canvas', 'canvass'],
-    explanation: '"Canvass" (with double S) means to solicit support or votes. "Canvas" is heavy fabric.',
-    groupTitle: 'Canvas vs Canvass'
+    "id": "hq-9",
+    "sentenceWithBlank": "Volunteers went door to door to ______ support for the clean energy bill.",
+    "blankTranslation": "स्वयंसेवकों ने स्वच्छ ऊर्जा विधेयक के लिए समर्थन जुटाने हेतु घर-घर जाकर जनमत मांगा।",
+    "correctWord": "canvass",
+    "options": [
+      "canvas",
+      "canvass"
+    ],
+    "explanation": "\"Canvass\" (with double S) means to solicit support or votes. \"Canvas\" is heavy fabric.",
+    "groupTitle": "Canvas vs Canvass"
   },
   {
-    id: 'hq-10',
-    sentenceWithBlank: 'The car crashed into a ______ vehicle parked beside the highway.',
-    blankTranslation: 'कार राजमार्ग के किनारे खड़े एक स्थिर (खड़े) वाहन से टकरा गई।',
-    correctWord: 'stationary',
-    options: ['stationary', 'stationery'],
-    explanation: '"Stationary" (with A) means motionless or at rest. "Stationery" (with E) means writing paper/pens.',
-    groupTitle: 'Stationary vs Stationery'
+    "id": "hq-10",
+    "sentenceWithBlank": "The car crashed into a ______ vehicle parked beside the highway.",
+    "blankTranslation": "कार राजमार्ग के किनारे खड़े एक स्थिर (खड़े) वाहन से टकरा गई।",
+    "correctWord": "stationary",
+    "options": [
+      "stationary",
+      "stationery"
+    ],
+    "explanation": "\"Stationary\" (with A) means motionless or at rest. \"Stationery\" (with E) means writing paper/pens.",
+    "groupTitle": "Stationary vs Stationery"
   },
   {
-    id: 'hq-11',
-    sentenceWithBlank: 'He refused to compromise on his moral ______ even under intense political pressure.',
-    blankTranslation: 'उसने तीव्र राजनीतिक दबाव में भी अपने नैतिक सिद्धांतों से समझौता करने से इनकार कर दिया।',
-    correctWord: 'principles',
-    options: ['principals', 'principles'],
-    explanation: '"Principles" means moral rules or fundamental truths. "Principal" is the head of a school or capital.',
-    groupTitle: 'Principal vs Principle'
+    "id": "hq-11",
+    "sentenceWithBlank": "He refused to compromise on his moral ______ even under intense political pressure.",
+    "blankTranslation": "उसने तीव्र राजनीतिक दबाव में भी अपने नैतिक सिद्धांतों से समझौता करने से इनकार कर दिया।",
+    "correctWord": "principles",
+    "options": [
+      "principals",
+      "principles"
+    ],
+    "explanation": "\"Principles\" means moral rules or fundamental truths. \"Principal\" is the head of a school or capital.",
+    "groupTitle": "Principal vs Principle"
   },
   {
-    id: 'hq-12',
-    sentenceWithBlank: 'The defense attorney tried hard to ______ the key facts from the reluctant witness.',
-    blankTranslation: 'बचाव पक्ष के वकील ने अनिच्छुक गवाह से मुख्य तथ्य निकलवाने की बहुत कोशिश की।',
-    correctWord: 'elicit',
-    options: ['elicit', 'illicit'],
-    explanation: '"Elicit" means to draw out or evoke information. "Illicit" means unlawful or prohibited.',
-    groupTitle: 'Elicit vs Illicit'
+    "id": "hq-12",
+    "sentenceWithBlank": "The defense attorney tried hard to ______ the key facts from the reluctant witness.",
+    "blankTranslation": "बचाव पक्ष के वकील ने अनिच्छुक गवाह से मुख्य तथ्य निकलवाने की बहुत कोशिश की।",
+    "correctWord": "elicit",
+    "options": [
+      "elicit",
+      "illicit"
+    ],
+    "explanation": "\"Elicit\" means to draw out or evoke information. \"Illicit\" means unlawful or prohibited.",
+    "groupTitle": "Elicit vs Illicit"
+  },
+  {
+    "id": "hq-13",
+    "sentenceWithBlank": "The harsh winter cold began to ______ the health of the elderly residents.",
+    "blankTranslation": "कड़ाके की ठंड ने बुजुर्ग निवासियों के स्वास्थ्य पर प्रतिकूल प्रभाव डालना शुरू कर दिया।",
+    "correctWord": "affect",
+    "options": [
+      "affect",
+      "effect"
+    ],
+    "explanation": "\"Affect\" is a verb meaning to influence or produce a change. \"Effect\" is usually a noun meaning the result.",
+    "groupTitle": "Affect vs Effect"
+  },
+  {
+    "id": "hq-14",
+    "sentenceWithBlank": "Everyone cleared the qualifying examination ______ Rohit.",
+    "blankTranslation": "रोहित को छोड़कर बाकी सभी ने प्रारंभिक परीक्षा पास कर ली।",
+    "correctWord": "except",
+    "options": [
+      "accept",
+      "except"
+    ],
+    "explanation": "\"Except\" means apart from or not including. \"Accept\" means to receive or agree to.",
+    "groupTitle": "Accept vs Except"
+  },
+  {
+    "id": "hq-15",
+    "sentenceWithBlank": "Make sure you tighten your belt so your trousers don't slip down your ______.",
+    "blankTranslation": "अपनी बेल्ट कस लें ताकि आपकी पतलून कमर से नीचे न खिसके।",
+    "correctWord": "waist",
+    "options": [
+      "waist",
+      "waste"
+    ],
+    "explanation": "\"Waist\" is the human body part between the ribs and hips. \"Waste\" means rubbish or careless loss.",
+    "groupTitle": "Waist vs Waste"
+  },
+  {
+    "id": "hq-16",
+    "sentenceWithBlank": "After a delicious four-course dinner, we were served chocolate lava cake for ______.",
+    "blankTranslation": "स्वादिष्ट रात्रिभोज के बाद, हमें मिठाई में चॉकलेट लावा केक परोसा गया।",
+    "correctWord": "dessert",
+    "options": [
+      "desert",
+      "dessert"
+    ],
+    "explanation": "\"Dessert\" (with double S for Sweet Stuff) is a sweet dish eaten after a meal. \"Desert\" is dry sandy land.",
+    "groupTitle": "Desert vs Dessert"
+  },
+  {
+    "id": "hq-17",
+    "sentenceWithBlank": "The airplane gradually began its steep ______ toward the cloud line.",
+    "blankTranslation": "विमान ने बादलों की रेखा की ओर अपनी तीव्र चढ़ाई शुरू की।",
+    "correctWord": "ascent",
+    "options": [
+      "ascent",
+      "assent"
+    ],
+    "explanation": "\"Ascent\" (with SC) refers to an upward movement or climb. \"Assent\" means official approval/agreement.",
+    "groupTitle": "Ascent vs Assent"
+  },
+  {
+    "id": "hq-18",
+    "sentenceWithBlank": "Due to severe torrential rains, rainwater started leaking through the old ______.",
+    "blankTranslation": "मूसलाधार बारिश के कारण पुरानी छत से पानी टपकने लगा।",
+    "correctWord": "ceiling",
+    "options": [
+      "ceiling",
+      "sealing"
+    ],
+    "explanation": "\"Ceiling\" is the overhead upper surface of a room. \"Sealing\" is the action of closing something tightly.",
+    "groupTitle": "Ceiling vs Sealing"
   }
 ];
