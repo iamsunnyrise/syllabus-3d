@@ -59,6 +59,7 @@ const CalculationBoosterTriplets = lazy(() => import('./CalculationBoosterTriple
 const CalculationBoosterPowers = lazy(() => import('./CalculationBoosterPowers').then(m => ({ default: m.CalculationBoosterPowers })));
 const CalculationBoosterPrimes = lazy(() => import('./CalculationBoosterPrimes').then(m => ({ default: m.CalculationBoosterPrimes })));
 const SscSpecialVocabView = lazy(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
+const HomophonesView = lazy(() => import('./HomophonesView').then(m => ({ default: m.HomophonesView })));
 const HomographsView = lazy(() => import('./HomographsView').then(m => ({ default: m.HomographsView })));
 const ThemeBasedIdiomsView = lazy(() => import('./ThemeBasedIdiomsView').then(m => ({ default: m.ThemeBasedIdiomsView })));
 import { 
@@ -98,7 +99,7 @@ import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
-export type VocabSubTab = 'core' | 'homographs' | 'ssc-special';
+export type VocabSubTab = 'core' | 'homophones' | 'homographs' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
 export type CalcBoosterTool = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
@@ -915,6 +916,30 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
+                setVocabSubTab('homophones');
+              }}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                vocabSubTab === 'homophones'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-xs font-black ring-1 ring-emerald-400/40'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <Volume2 className="w-4 h-4 text-emerald-500 shrink-0" />
+              <span>Homophones</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                vocabSubTab === 'homophones'
+                  ? 'bg-black/20 text-slate-950 font-black'
+                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+              }`}>
+                Top 400
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
                 setVocabSubTab('homographs');
               }}
               className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
@@ -959,7 +984,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             </button>
           </div>
 
-          {vocabSubTab === 'homographs' ? (
+          {vocabSubTab === 'homophones' ? (
+            <Suspense fallback={
+              <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                <Volume2 className="w-8 h-8 text-emerald-500 animate-spin mb-3" />
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Homophones Mastery...</span>
+              </div>
+            }>
+              <HomophonesView />
+            </Suspense>
+          ) : vocabSubTab === 'homographs' ? (
             <Suspense fallback={
               <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
                 <Layers className="w-8 h-8 text-amber-500 animate-spin mb-3" />
