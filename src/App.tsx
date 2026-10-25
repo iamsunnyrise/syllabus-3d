@@ -267,9 +267,11 @@ export const App: React.FC = () => {
     storageManager.checkStorageHealthAndAutoHeal();
   }, []);
 
-  // 🔒 Lock Home/Overview Screen to Viewport without scrollbar
+  // 🔒 Lock Home/Overview Screen to Viewport without scrollbar on Desktop only (Mobile & Tablet must scroll freely)
   useEffect(() => {
-    if (currentView === 'overview') {
+    if (typeof window === 'undefined') return;
+    const isDesktop = window.innerWidth >= 1024;
+    if (currentView === 'overview' && isDesktop) {
       document.documentElement.classList.add('overview-screen');
       document.body.classList.add('overview-screen');
     } else {
@@ -851,7 +853,7 @@ export const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-300 relative bg-[#F8FAFC] dark:bg-[#090A12] warm-cream:bg-[#FAEED9] text-slate-900 dark:text-[#F8FAFC] warm-cream:text-[#38370D] ${
-      currentView === 'overview' ? 'h-screen overflow-hidden' : ''
+      currentView === 'overview' ? 'lg:h-screen lg:overflow-hidden' : ''
     }`}>
       {/* 🌑 Clean Obsidian Ambient Canvas (Dark Mode, GPU-Accelerated) */}
       <div className="hidden dark:block fixed inset-0 pointer-events-none z-0 overflow-hidden select-none print:hidden bg-[#090A12]">
@@ -938,7 +940,7 @@ export const App: React.FC = () => {
       </ViewErrorBoundary>
 
       {/* Main Workspace Frame (Gemini-Style Smooth Width Transition) */}
-      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+      <div className={`flex-1 flex flex-col min-w-0 lg:min-h-0 lg:h-full transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
         isSidebarCollapsed ? 'md:pl-[70px]' : 'md:pl-[260px]'
       }`}>
         <Header
@@ -963,7 +965,7 @@ export const App: React.FC = () => {
           onTouchEnd={handleMainTouchEnd}
           className={`flex-1 w-full touch-pan-y overscroll-contain focus:outline-none ${
             currentView === 'overview'
-              ? 'p-3 sm:p-4 md:px-6 md:pt-4 md:pb-2 overflow-y-auto no-scrollbar'
+              ? 'p-3 sm:p-4 md:px-6 md:pt-4 md:pb-2 pb-28 sm:pb-32 lg:pb-2 lg:overflow-y-auto lg:no-scrollbar'
               : 'p-3 sm:p-4 md:px-6 md:py-5 pb-24 md:pb-10'
           }`}
         >
