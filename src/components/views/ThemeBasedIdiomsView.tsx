@@ -5,7 +5,6 @@ import {
   Sparkles,
   ChevronRight,
   ChevronLeft,
-  RotateCw,
   Plus,
   Volume2,
   CheckCircle2,
@@ -761,11 +760,11 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                     </div>
 
                     {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 pt-0.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2.5 pt-0.5">
                       <span className="self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
                         हिंदी अर्थ
                       </span>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-sans text-slate-950 dark:text-white tracking-wide break-words leading-snug">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-sans text-slate-900 dark:text-slate-100 tracking-normal break-words leading-snug">
                         {currentIdiom?.hindi}
                       </h3>
                     </div>
@@ -795,7 +794,7 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                         {isFlipped ? (
                           <>
                             <EyeOff className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" />
-                            <span>Hide</span>
+                            <span>Hide Details</span>
                           </>
                         ) : (
                           <>
@@ -874,57 +873,28 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                         )}
                       </div>
                     ) : (
-                      /* 🌟 UN-FLIPPED ACTIVE RECALL PROMPT & DRILL TEASER */
-                      <div
-                        onClick={() => {
-                          soundManager.playClick();
-                          setIsFlipped(true);
-                        }}
-                        className="group mt-3 p-3 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border-2 border-dashed border-amber-500/40 dark:border-amber-400/50 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs hover:shadow-sm"
-                      >
-                        <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-                          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
-                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-1.5 sm:gap-2">
-                              <span className="text-xs sm:text-base font-black text-slate-900 dark:text-white">
-                                Active Recall Drill
-                              </span>
-                              <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shrink-0">
-                                Tap to Reveal
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-[10.5px] sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 flex-wrap font-medium">
-                              {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
-                                <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                                  ✓ {currentIdiom.synonyms.length} Synonyms
-                                </span>
-                              )}
-                              {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
-                                <>
-                                  <span className="text-slate-400">•</span>
-                                  <span className="font-bold text-rose-700 dark:text-rose-300">
-                                    ✕ {currentIdiom.antonyms.length} Antonyms
-                                  </span>
-                                </>
-                              )}
-                              {currentIdiom?.mnemonic && (
-                                <>
-                                  <span className="text-slate-400">•</span>
-                                  <span className="font-bold text-purple-700 dark:text-purple-300">
-                                    💡 Trick
-                                  </span>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs transition-transform shrink-0 w-full sm:w-auto text-center">
-                          <span>Reveal All</span>
-                          <RotateCw className="w-3.5 h-3.5 text-slate-950" />
-                        </div>
+                      <div className="flex items-center gap-2.5 pt-2 text-xs font-semibold text-slate-500 dark:text-slate-400 flex-wrap border-t border-slate-200/60 dark:border-white/10 mt-3">
+                        {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
+                          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <span>✓</span> {currentIdiom.synonyms.length} Synonyms
+                          </span>
+                        )}
+                        {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
+                          <>
+                            <span className="text-slate-300 dark:text-white/20">•</span>
+                            <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1">
+                              <span>✕</span> {currentIdiom.antonyms.length} Antonyms
+                            </span>
+                          </>
+                        )}
+                        {currentIdiom?.mnemonic && (
+                          <>
+                            <span className="text-slate-300 dark:text-white/20">•</span>
+                            <span className="text-purple-700 dark:text-purple-300 font-bold flex items-center gap-1">
+                              <span>💡</span> Origin & Memory Trick Available
+                            </span>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
