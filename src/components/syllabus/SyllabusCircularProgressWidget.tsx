@@ -74,58 +74,58 @@ export const SyllabusCircularProgressWidget: React.FC<SyllabusCircularProgressWi
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl p-4 sm:p-7 bg-white dark:bg-[#151728] border border-slate-200/90 dark:border-white/15 shadow-sm print:hidden select-none transition-colors ${className}`}
+      className={`rounded-xl sm:rounded-2xl p-3 sm:py-3.5 sm:px-4.5 bg-white dark:bg-[#151728] border border-slate-200/90 dark:border-white/10 shadow-xs print:hidden select-none transition-colors ${className}`}
     >
-      {/* Top Header: Title & Completion Fraction */}
-      <div className="flex items-center justify-between gap-2 pb-4 sm:pb-7">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          <span className="text-[12px] sm:text-[13px] font-black tracking-wider text-slate-700 dark:text-slate-200 uppercase font-sans truncate">
+      {/* Top Header: Title & Completion Fraction (Compact) */}
+      <div className="flex items-center justify-between gap-2 pb-2 sm:pb-2.5 mb-2 sm:mb-2.5 border-b border-slate-100 dark:border-white/[0.06]">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span className="text-[11px] sm:text-xs font-black tracking-wider text-slate-700 dark:text-slate-300 uppercase font-sans truncate">
             {title}
           </span>
         </div>
         {completionText && (
-          <span className="text-[11px] sm:text-sm font-black text-slate-900 dark:text-white font-sans tabular-nums bg-slate-100 dark:bg-white/10 px-3 py-1 rounded-full border border-slate-300 dark:border-white/20 shadow-xs shrink-0 whitespace-nowrap">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums bg-slate-100 dark:bg-white/[0.08] px-2.5 py-0.5 rounded-full border border-slate-200/80 dark:border-white/10 shrink-0 whitespace-nowrap">
             {completionText}
           </span>
         )}
       </div>
 
-      {/* Circular Ring Gauges */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-8 py-1 sm:py-3 items-start justify-items-center">
+      {/* Circular Ring Gauges (Compact & Space-Efficient) */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 py-0.5 items-start justify-items-center">
         {items.map((item) => {
           const theme = getThemeClasses(item.colorTheme);
           return (
             <div
               key={item.id}
               onClick={item.onClick}
-              className={`flex flex-col items-center group w-full max-w-[190px] ${
+              className={`flex flex-col items-center group w-full max-w-[170px] py-0.5 rounded-xl hover:bg-slate-50/80 dark:hover:bg-white/[0.03] transition-colors ${
                 item.onClick ? 'cursor-pointer' : ''
               }`}
             >
               {/* The Circular Shape Gauge */}
               <div
-                className={`w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-full border-2 sm:border-[2.5px] ${theme.border} ${theme.bg} flex flex-col items-center justify-center shadow-inner transition-transform group-hover:scale-105 relative`}
+                className={`w-12 h-12 sm:w-13.5 sm:h-13.5 md:w-14 md:h-14 rounded-full border-[1.8px] sm:border-2 ${theme.border} ${theme.bg} flex flex-col items-center justify-center transition-transform group-hover:scale-105 relative shrink-0 shadow-2xs`}
               >
                 <span
-                  className={`text-lg sm:text-2xl font-black ${theme.text} tabular-nums leading-none tracking-tight`}
+                  className={`text-sm sm:text-base font-black ${theme.text} tabular-nums leading-none tracking-tight`}
                 >
                   {item.topValue}
                 </span>
-                <div className={`w-7 sm:w-8 h-[1px] ${theme.divider} my-1 sm:my-1.5`} />
-                <span className="text-xs sm:text-sm font-extrabold text-slate-700 dark:text-slate-200 tabular-nums leading-none">
+                <div className={`w-4 sm:w-5 h-[1px] ${theme.divider} my-0.5`} />
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-600 dark:text-slate-300 tabular-nums leading-none">
                   {item.bottomValue}
                 </span>
               </div>
 
               {/* Title below circle */}
-              <span className="text-xs sm:text-[13.5px] font-black text-slate-900 dark:text-white mt-2.5 sm:mt-3 font-sans text-center tracking-tight">
+              <span className="text-[11px] sm:text-xs font-bold text-slate-900 dark:text-white mt-1.5 font-sans text-center tracking-tight leading-tight truncate max-w-full">
                 {item.label}
               </span>
 
               {/* Subtitle / Context below title */}
               {item.subtext && (
-                <span className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-bold font-sans text-center truncate max-w-full mt-0.5">
+                <span className="text-[9.5px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium font-sans text-center truncate max-w-full mt-0.5 leading-tight">
                   {item.subtext}
                 </span>
               )}
