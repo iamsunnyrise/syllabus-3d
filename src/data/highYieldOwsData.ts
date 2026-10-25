@@ -15,7 +15,8 @@
 //   - Set 09: 100 OWS (Full)
 //   - Set 10: 155 OWS (Full - Prashant Solanki English)
 //   - Set 11: 167 OWS (Full - Prashant Solanki English)
-//   Total Level 1 OWS: 1,222 Words
+//   - Set 12: 91 OWS (Rarely Asked - Prashant Solanki English)
+//   Total Level 1 OWS: 1,313 Words
 // ============================================================================
 
 import { VocabItem } from './highYieldVocabData';
@@ -43427,5 +43428,3193 @@ export const LEVEL_1_SET_11_OWS: VocabItem[] = [
   "derivatives": "",
   "level": "level-1",
   "set": "set-11"
+}
+];
+
+export const LEVEL_1_SET_12_OWS: VocabItem[] = [
+{
+  "id": "v-ows-l1-s12-1",
+  "word": "Alcove",
+  "phonetic": "/ˈæl.kəʊv/",
+  "hindi": "छोटा कोना / ताक / आड़ा कक्ष",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A recess in the wall of a room or garden, typically providing a secluded or sheltered space.",
+  "synonyms": [
+    "Recess",
+    "Nook",
+    "Niche",
+    "Bay",
+    "Inglenook"
+  ],
+  "antonyms": [
+    "Open hall",
+    "Promontory"
+  ],
+  "example": "She placed an antique reading lamp and an armchair inside the cozy library alcove.",
+  "mnemonic": "All-cove: Ek chhota cove (kona) jo deewar ke andar bana ho = Alcove.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Alcove",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-2",
+  "word": "Alpinism",
+  "phonetic": "/ˈæl.pɪ.nɪ.zəm/",
+  "hindi": "पर्वतारोहण / पहाड़ों पर चढ़ने का खेल",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The sport or activity of climbing high mountains, especially in the Alps or Himalayas.",
+  "synonyms": [
+    "Mountaineering",
+    "Mountain climbing",
+    "Rock climbing"
+  ],
+  "antonyms": [
+    "Spelunking (caving)"
+  ],
+  "example": "His passion for alpinism drove him to summit six of the world's highest fourteen peaks.",
+  "mnemonic": "Alps mountains par climb karne ki technique aur sport = Alpinism.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Alpinism",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-3",
+  "word": "Analgesic",
+  "phonetic": "/ˌæn.əlˈdʒiː.zɪk/",
+  "hindi": "दर्द निवारक दवा / पीड़ाहर औषधि",
+  "type": "ows",
+  "partOfSpeech": "Noun / Adjective (OWS)",
+  "meaning": "A medicine or drug acting to relieve pain without causing loss of consciousness.",
+  "synonyms": [
+    "Painkiller",
+    "Anodyne",
+    "Sedative",
+    "Palliative"
+  ],
+  "antonyms": [
+    "Irritant",
+    "Pain inducer"
+  ],
+  "example": "The doctor prescribed a mild analgesic to relieve the patient's acute toothache.",
+  "mnemonic": "An (without) + Algos (pain) = Dard door karne wali dawai = Analgesic.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Analgesic",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-4",
+  "word": "Antithesis",
+  "phonetic": "/ænˈtɪθ.ə.sɪs/",
+  "hindi": "पूर्ण विपरीत / विलोम भाव / विरोधाभास",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person or thing that is the direct opposite of someone or something else; contrast of ideas.",
+  "synonyms": [
+    "Direct opposite",
+    "Reverse",
+    "Contrary",
+    "Inverse",
+    "Polar opposite"
+  ],
+  "antonyms": [
+    "Identical",
+    "Equivalent",
+    "Same",
+    "Twin"
+  ],
+  "example": "His reckless extravagance in spending was the complete antithesis of his father's frugality.",
+  "mnemonic": "Anti (opposite) + Thesis (statement/idea) = Bilkul ulat cheez = Antithesis.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Antithesis",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-5",
+  "word": "Appertain",
+  "phonetic": "/ˌæp.əˈteɪn/",
+  "hindi": "संबंधित होना / का हिस्सा होना / अधिकार में होना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To relate to; to belong to as a proper possession, attribute, or right.",
+  "synonyms": [
+    "Pertain",
+    "Belong",
+    "Apply",
+    "Relate",
+    "Attach"
+  ],
+  "antonyms": [
+    "Be irrelevant",
+    "Disagree"
+  ],
+  "example": "Candidates must familiarize themselves with the statutory duties that appertain to the civil service post.",
+  "mnemonic": "Pertain / Belong karna kisi authority ya department se = Appertain.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Appertain",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-6",
+  "word": "Armistice",
+  "phonetic": "/ˈɑː.mɪ.stɪs/",
+  "hindi": "युद्धविराम / संघर्ष रोकने का औपचारिक समझौता",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An agreement made by opposing sides in a war to stop fighting for a certain time; a truce.",
+  "synonyms": [
+    "Truce",
+    "Ceasefire",
+    "Suspension of arms",
+    "Peace pact"
+  ],
+  "antonyms": [
+    "Hostilities",
+    "War declaration",
+    "Offensive"
+  ],
+  "example": "World War I formally concluded with the signing of the historic armistice on November 11, 1918.",
+  "mnemonic": "Arms (weapons) ka stand-still ho jana = Armistice (yuddh-viram).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Armistice",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-7",
+  "word": "Ascribe",
+  "phonetic": "/əˈskraɪb/",
+  "hindi": "श्रेय देना / किसी के नाम या कारण से जोड़ना / मढ़ना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To attribute something to a cause, person, or origin.",
+  "synonyms": [
+    "Attribute",
+    "Credit",
+    "Assign",
+    "Impute",
+    "Accredit"
+  ],
+  "antonyms": [
+    "Deny",
+    "Disconnect",
+    "Dissociate"
+  ],
+  "example": "Historians ascribe the rapid expansion of the Mauryan Empire to Chanakya's political strategy.",
+  "mnemonic": "Kisi ke naam par likh dena (scribe) ki yeh uski wajah se hua = Ascribe.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Ascribe",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-8",
+  "word": "Askance",
+  "phonetic": "/əˈskɑːns/",
+  "hindi": "संदेह से / टेढ़ी नज़र से / अविश्वासपूर्वक",
+  "type": "ows",
+  "partOfSpeech": "Adverb (OWS)",
+  "meaning": "With an attitude or look of suspicion, doubt, or disapproval.",
+  "synonyms": [
+    "Suspiciously",
+    "Skeptically",
+    "Distrustfully",
+    "Dubiously",
+    "Sideways glance"
+  ],
+  "antonyms": [
+    "Approvingly",
+    "Trustingly",
+    "Favorably"
+  ],
+  "example": "Traditional elders looked askance at the youngster's unconventional lifestyle choices.",
+  "mnemonic": "Ask + glance: Sawal bhari tedhi aankhon se shaq ke sath dekhna = Look askance.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Askance",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-9",
+  "word": "Avalanche",
+  "phonetic": "/ˈæv.əl.ɑːnʃ/",
+  "hindi": "हिमस्खलन / बर्फ या पत्थरों का पहाड़ से अचानक गिरना",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "A mass of snow, ice, and rocks falling rapidly down a mountainside.",
+  "synonyms": [
+    "Snowslide",
+    "Landslide",
+    "Rockfall",
+    "Deluge"
+  ],
+  "antonyms": [
+    "Snow flurry"
+  ],
+  "example": "Heavy fresh snowfall triggered a massive avalanche that blocked the strategic mountain highway.",
+  "mnemonic": "Pahar se achanak barf ka vishal tufaani dher girna = Avalanche.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Avalanche",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-10",
+  "word": "Biopsy",
+  "phonetic": "/ˈbaɪ.ɒp.si/",
+  "hindi": "जांच हेतु जीवित ऊतक निकालना / बायोप्सी",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An examination of tissue removed from a living body to discover the presence, cause, or extent of a disease.",
+  "synonyms": [
+    "Tissue examination",
+    "Cell diagnostic test",
+    "Histological probe"
+  ],
+  "antonyms": [
+    "Autopsy (dead tissue exam)"
+  ],
+  "example": "The oncologist performed a needle biopsy of the lump to verify if it was benign or malignant.",
+  "mnemonic": "Bio (living tissue) ki microscopic scrutiny = Biopsy (unlike Autopsy of dead body).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Biopsy",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-11",
+  "word": "Balderdash",
+  "phonetic": "/ˈbɔːl.də.dæʃ/",
+  "hindi": "बकवास / निरर्थक व मूर्खतापूर्ण बात",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Senseless talk or writing; utter nonsense.",
+  "synonyms": [
+    "Nonsense",
+    "Gibberish",
+    "Rubbish",
+    "Twaddle",
+    "Poppycock"
+  ],
+  "antonyms": [
+    "Wisdom",
+    "Sense",
+    "Truth",
+    "Reason"
+  ],
+  "example": "The judge dismissed the defendant's bizarre conspiracy defense as pure, unadulterated balderdash.",
+  "mnemonic": "Bole daash: bina sar-pair ki bematlab bakwaas = Balderdash.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Balderdash",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-12",
+  "word": "Barn",
+  "phonetic": "/bɑːn/",
+  "hindi": "खलिहान / अनाज व मवेशी रखने का बड़ा गोदाम",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A large farm building used for storing grain, hay, or straw or for housing livestock.",
+  "synonyms": [
+    "Farm building",
+    "Granary",
+    "Shed",
+    "Outhouse",
+    "Byre"
+  ],
+  "antonyms": [
+    "Dwelling house"
+  ],
+  "example": "The farmer stacked the harvested golden hay bales high inside the wooden barn before winter.",
+  "mnemonic": "Farm par cereal/grain aur cows/horses rakhne ki badi jagah = Barn.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Barn",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-13",
+  "word": "Biodegradable",
+  "phonetic": "/ˌbaɪ.əʊ.dɪˈɡreɪ.də.bəl/",
+  "hindi": "प्राकृतिक रूप से नष्ट होने योग्य / जैव अपघटनीय",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Capable of being decomposed by bacteria or other living organisms and thereby avoiding pollution.",
+  "synonyms": [
+    "Decomposable",
+    "Eco-friendly",
+    "Perishable",
+    "Organic"
+  ],
+  "antonyms": [
+    "Non-biodegradable",
+    "Synthetic",
+    "Indestructible"
+  ],
+  "example": "Eco-conscious food vendors use biodegradable plates made from fallen areca palm leaves.",
+  "mnemonic": "Bio (nature) dwara degrade (decompose) hone yogya = Biodegradable.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Biodegradable",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-14",
+  "word": "Boer",
+  "phonetic": "/bɔːr/",
+  "hindi": "दक्षिण अफ्रीका का डच मूल निवासी किसान",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A South African of Dutch, German, or Huguenot descent, especially one of the early farmer settlers.",
+  "synonyms": [
+    "Afrikaner",
+    "Dutch-descended farmer",
+    "Voortrekker"
+  ],
+  "antonyms": [
+    "Indigenous African",
+    "British colonist"
+  ],
+  "example": "The historical Boer War was fought between the British Empire and the two Boer republics.",
+  "mnemonic": "Boer = Dutch language me Farmer: South Africa ke Dutch settlers.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Boer",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-15",
+  "word": "Bombard",
+  "phonetic": "/bɒmˈbɑːd/",
+  "hindi": "लगातार हमला करना / गोलों या प्रश्नों की बौछार करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To attack continuously with bombs, shells, or other missiles; also to overwhelm with questions.",
+  "synonyms": [
+    "Shell",
+    "Pound",
+    "Barrage",
+    "Assail",
+    "Pepper"
+  ],
+  "antonyms": [
+    "Shield",
+    "Protect",
+    "Defend"
+  ],
+  "example": "Reporters bombarded the newly appointed finance minister with urgent questions regarding inflation.",
+  "mnemonic": "Bomb ki tarah continuous questions ya golo ki bauchhar karna = Bombard.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Bombard",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-16",
+  "word": "Bizarre",
+  "phonetic": "/bɪˈzɑːr/",
+  "hindi": "अजीब / विचित्र / अनोखा",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Very strange or unusual, especially so as to cause interest or amusement.",
+  "synonyms": [
+    "Strange",
+    "Peculiar",
+    "Odd",
+    "Eccentric",
+    "Weird",
+    "Outlandish"
+  ],
+  "antonyms": [
+    "Normal",
+    "Ordinary",
+    "Conventional",
+    "Typical"
+  ],
+  "example": "The artist's modern abstract sculpture had a bizarre shape that puzzled all museum visitors.",
+  "mnemonic": "Bazaar me aisi anokhi ajeeb cheez dekhna jo kabhi na dekhi ho = Bizarre.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Bizarre",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-17",
+  "word": "Bluestocking",
+  "phonetic": "/ˈbluːˌstɒk.ɪŋ/",
+  "hindi": "विदुषी महिला / विद्वान व अध्ययनशील स्त्री",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An educated, intellectual, and literary woman (historically used for women interested in scholarly debate).",
+  "synonyms": [
+    "Intellectual woman",
+    "Literary lady",
+    "Scholarly woman",
+    "Bookish woman"
+  ],
+  "antonyms": [
+    "Ignoramus",
+    "Frivolous woman"
+  ],
+  "example": "In eighteenth-century London, she formed an influential society of bluestockings devoted to science.",
+  "mnemonic": "Blue stocking pehan kar literary circles me gyan charcha karne wali vidushi = Bluestocking.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Bluestocking",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-18",
+  "word": "Bookworm",
+  "phonetic": "/ˈbʊk.wɜːm/",
+  "hindi": "किताबी कीड़ा / किताबों का अत्यधिक शौकीन व्यक्ति",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person who loves reading books and spends a great deal of time doing so.",
+  "synonyms": [
+    "Avid reader",
+    "Bibliophile",
+    "Literary enthusiast"
+  ],
+  "antonyms": [
+    "Illiterate",
+    "Book hater"
+  ],
+  "example": "A quiet bookworm from childhood, she spent almost every school weekend lost inside the library.",
+  "mnemonic": "Book me worm ki tarah ghusa rehne wala reader = Bookworm.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Bookworm",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-19",
+  "word": "Breach",
+  "phonetic": "/briːtʃ/",
+  "hindi": "उल्लंघन / दरार / नियम भंग",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "An act of breaking or failing to observe a law, agreement, or code of conduct; also a gap in a wall.",
+  "synonyms": [
+    "Violation",
+    "Infringement",
+    "Rupture",
+    "Break",
+    "Contravention"
+  ],
+  "antonyms": [
+    "Observance",
+    "Compliance",
+    "Fulfillment",
+    "Repair"
+  ],
+  "example": "Failing to deliver the goods on the stipulated date constituted a serious breach of contract.",
+  "mnemonic": "Agreement ya boundary wall me break (darar/chhed) kar dena = Breach.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Breach",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-20",
+  "word": "Boomerang",
+  "phonetic": "/ˈbuː.mə.ræŋ/",
+  "hindi": "लौटकर आने वाला हथियार / उल्टा असर करने वाली चाल",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "A curved flat wooden missile used by Australian Aborigines which can be thrown so as to return to the thrower.",
+  "synonyms": [
+    "Returning missile",
+    "Backfiring scheme"
+  ],
+  "antonyms": [
+    "Straight arrow"
+  ],
+  "example": "The minister's negative smear campaign boomeranged against his own party in the elections.",
+  "mnemonic": "Fekne ke baad wapis laut kar thrower ke paas aane wala curved weapon = Boomerang.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Boomerang",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-21",
+  "word": "Boulevard",
+  "phonetic": "/ˈbuː.lə.vɑːd/",
+  "hindi": "चौड़ी मुख्य सड़क / वृक्षों से घिरी चौड़ी सड़क",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A wide street in a town or city, typically one lined with trees on both sides.",
+  "synonyms": [
+    "Avenue",
+    "Broad thoroughfare",
+    "Artery",
+    "Main drive"
+  ],
+  "antonyms": [
+    "Alley",
+    "Narrow lane"
+  ],
+  "example": "The presidential motorcade drove down the grand, tree-lined boulevard leading to the palace.",
+  "mnemonic": "Badi, chaudi, khubsurat city road = Boulevard (jaise Rajpath/Kartavya Path).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Boulevard",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-22",
+  "word": "Bourgeois",
+  "phonetic": "/ˈbʊəʒ.wɑː/",
+  "hindi": "मध्यम वर्गीय / बुर्जुआ / पारंपरिक सांसारिक मूल्यों वाला",
+  "type": "ows",
+  "partOfSpeech": "Adjective / Noun (OWS)",
+  "meaning": "Belonging to or characteristic of the middle class, typically with reference to its perceived materialistic values.",
+  "synonyms": [
+    "Middle-class",
+    "Materialistic",
+    "Conventional",
+    "Philistine"
+  ],
+  "antonyms": [
+    "Proletariat (working class)",
+    "Aristocratic"
+  ],
+  "example": "Karl Marx critiqued the bourgeois class for exploiting factory laborers during the industrial era.",
+  "mnemonic": "French word for middle-class city residents = Bourgeois (Burjua).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Bourgeois",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-23",
+  "word": "Chiromancy",
+  "phonetic": "/ˈkaɪ.rə.mæn.si/",
+  "hindi": "हस्तरेखा विद्या / हथेली देखकर भविष्य बताना",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The prediction of a person's future from the lines on the palms of their hands; palmistry.",
+  "synonyms": [
+    "Palmistry",
+    "Palm reading",
+    "Cheiromancy"
+  ],
+  "antonyms": [
+    "Empirical science"
+  ],
+  "example": "Believers in chiromancy consult astrologers to read their lifeline and marriage prospects.",
+  "mnemonic": "Chiro (hand) + Mancy (divination) = Haath ki rekhaon se bhavishya padhna = Chiromancy.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Chiromancy",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-24",
+  "word": "Chutzpah",
+  "phonetic": "/ˈhʊt.spə/",
+  "hindi": "अत्यधिक ढिठाई / दुस्साहस / निर्लज्जता",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Extreme self-confidence or audacity; shameless nerve.",
+  "synonyms": [
+    "Audacity",
+    "Nerve",
+    "Gall",
+    "Effrontery",
+    "Impudence",
+    "Cheek"
+  ],
+  "antonyms": [
+    "Timidity",
+    "Meekness",
+    "Diffidence",
+    "Modesty"
+  ],
+  "example": "It took colossal chutzpah for the burglar to ask the judge for compensation for injured ankles.",
+  "mnemonic": "Itna dussahas ki sharam bhi na aaye = Chutzpah.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Chutzpah",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-25",
+  "word": "Coalesce",
+  "phonetic": "/kəʊ.əˈles/",
+  "hindi": "एकत्र होना / मिलकर एक हो जाना / विलय होना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To come together to form one mass or whole; to unite or merge.",
+  "synonyms": [
+    "Merge",
+    "Unite",
+    "Fuse",
+    "Blend",
+    "Amalgamate",
+    "Combine"
+  ],
+  "antonyms": [
+    "Separate",
+    "Disperse",
+    "Fragment",
+    "Divide"
+  ],
+  "example": "Several regional political parties decided to coalesce into a united national coalition.",
+  "mnemonic": "Co (together) + alesce (grow) = Sab milkar ek badi unit ban jana = Coalesce.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Coalesce",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-26",
+  "word": "Cadaverous",
+  "phonetic": "/kəˈdæv.ər.əs/",
+  "hindi": "मुर्दे जैसा / अत्यंत पीला, कंकालनुमा व कमजोर",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Resembling a corpse in being very pale, thin, or bony.",
+  "synonyms": [
+    "Deathly pale",
+    "Gaunt",
+    "Ghastly",
+    "Haggard",
+    "Skeletal"
+  ],
+  "antonyms": [
+    "Ruddy",
+    "Robust",
+    "Healthy",
+    "Flushed",
+    "Blooming"
+  ],
+  "example": "After three months of harsh captivity in the freezing bunker, the prisoner looked emaciated and cadaverous.",
+  "mnemonic": "Cadaver (dead body/shav) ki tarah pale aur haddiyo ka dhancha = Cadaverous.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Cadaverous",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-27",
+  "word": "Chandler",
+  "phonetic": "/ˈtʃɑːnd.lər/",
+  "hindi": "मोमबत्ती बनाने या बेचने वाला / जहाज का सामान विक्रेता",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A dealer in supplies and equipment for ships; historically a maker and seller of candles.",
+  "synonyms": [
+    "Candlemaker",
+    "Ship chandler",
+    "Providore",
+    "Provisioner"
+  ],
+  "antonyms": [
+    "Customer"
+  ],
+  "example": "Before modern electricity, the town's busy chandler supplied beeswax tapers and lanterns.",
+  "mnemonic": "Chandelier (jhoomar) ke liye candle banane wala = Chandler.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Chandler",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-28",
+  "word": "Cobweb",
+  "phonetic": "/ˈkɒb.web/",
+  "hindi": "मकड़ी का जाला / पुरानी धूल-भरी उलझन",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A spider's web, especially when old, dusty, and abandoned in the corner of a room.",
+  "synonyms": [
+    "Spiderweb",
+    "Gossamer",
+    "Dusty web"
+  ],
+  "antonyms": [
+    "Clean wall"
+  ],
+  "example": "Thick, dusty cobwebs hung from the wooden rafters of the long-abandoned haunted mansion.",
+  "mnemonic": "Co-web: Makdi ka dusty purana jaala = Cobweb.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Cobweb",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-29",
+  "word": "Codicil",
+  "phonetic": "/ˈkɒd.ɪ.sɪl/",
+  "hindi": "वसीयतनामा में परिशिष्ट / वसीयत का पूरक लेख",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An addition or supplement that explains, modifies, or revokes a specified part of an existing will.",
+  "synonyms": [
+    "Appendix to a will",
+    "Supplement",
+    "Addendum",
+    "Postscript"
+  ],
+  "antonyms": [
+    "Original unaltered text"
+  ],
+  "example": "Before undergoing heart surgery, the grandfather added a legal codicil granting a share to his newborn granddaughter.",
+  "mnemonic": "Code / Will ke neeche likha supplementary clause = Codicil.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Codicil",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-30",
+  "word": "Coffer",
+  "phonetic": "/ˈkɒf.ər/",
+  "hindi": "खजाने का संदूक / तिजोरी / राजकोष",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A strongbox or small chest for holding valuables and money; also financial reserves.",
+  "synonyms": [
+    "Strongbox",
+    "Safe",
+    "Chest",
+    "Treasury",
+    "Repository"
+  ],
+  "antonyms": [
+    "Empty pocket"
+  ],
+  "example": "The monarch filled the royal coffers with gold tributes collected from vassal kingdoms.",
+  "mnemonic": "Coffee box nahi, keemti sona-chandi rakhne wali lohe ki tijori = Coffer.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Coffer",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-31",
+  "word": "Coffle",
+  "phonetic": "/ˈkɒf.əl/",
+  "hindi": "बेड़ियों में बंधे कैदियों या दासों का समूह",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A line of animals, prisoners, or enslaved people fastened together in a chain.",
+  "synonyms": [
+    "Chained gang",
+    "Chain-gang",
+    "Caravan of captives"
+  ],
+  "antonyms": [
+    "Freed individuals"
+  ],
+  "example": "Historical slave traders marched a wretched coffle of captives toward the Atlantic port.",
+  "mnemonic": "Handcuff aur chains me bandha hua qaidiyon ka group = Coffle.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Coffle",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-32",
+  "word": "Comatose",
+  "phonetic": "/ˈkəʊ.mə.təʊs/",
+  "hindi": "बेहोशी की अवस्था में / कोमा में पड़ा हुआ / अचेत",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Of or in a state of deep unconsciousness for a prolonged or indefinite period, especially as a result of severe injury or illness.",
+  "synonyms": [
+    "Unconscious",
+    "In a coma",
+    "Insensible",
+    "Torpid",
+    "Catatonic"
+  ],
+  "antonyms": [
+    "Conscious",
+    "Alert",
+    "Awake",
+    "Responsive"
+  ],
+  "example": "The accident victim remained in a comatose state on life support for twelve critical days.",
+  "mnemonic": "Coma me pada hua insaan = Comatose.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Comatose",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-33",
+  "word": "Concubinage",
+  "phonetic": "/kɒnˈkjuː.bɪ.nɪdʒ/",
+  "hindi": "उपपत्नी प्रथा / रखैल रखने की सामाजिक प्रथा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The state of a man and woman living together in a relationship akin to marriage without being legally married, typically where the woman has an inferior social status.",
+  "synonyms": [
+    "Cohabitation",
+    "State of being a concubine"
+  ],
+  "antonyms": [
+    "Lawful marriage",
+    "Monogamy"
+  ],
+  "example": "Feudal lords in medieval dynasties maintained harems under the accepted practice of concubinage.",
+  "mnemonic": "Concubine (rakhail) ke sath rehne ki pratha = Concubinage.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Concubinage",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-34",
+  "word": "Condominium",
+  "phonetic": "/ˌkɒn.dəˈmɪn.i.əm/",
+  "hindi": "सामूहिक स्वामित्व वाला भवन / सम्मिलित स्वामित्व का अपार्टमेंट",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A building or complex of buildings containing a number of individually owned apartments or houses.",
+  "synonyms": [
+    "Condo",
+    "Jointly owned apartment",
+    "Cooperative housing"
+  ],
+  "antonyms": [
+    "Single-family house",
+    "Rented tenement"
+  ],
+  "example": "He purchased a luxury two-bedroom condominium with stunning views of the city skyline.",
+  "mnemonic": "Con (together) + Dominium (ownership) = Har flat ka alag owner wala building = Condominium.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Condominium",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-35",
+  "word": "Conjecture",
+  "phonetic": "/kənˈdʒek.tʃər/",
+  "hindi": "अनुमान / अटकल / अपुष्ट राय",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "An opinion or conclusion formed on the basis of incomplete information; a guess.",
+  "synonyms": [
+    "Guess",
+    "Speculation",
+    "Surmise",
+    "Inference",
+    "Hypothesis"
+  ],
+  "antonyms": [
+    "Fact",
+    "Certainty",
+    "Proof",
+    "Evidence"
+  ],
+  "example": "Without hard forensic evidence, the police theory about the crime motive remained mere conjecture.",
+  "mnemonic": "Jahan concrete proof na ho aur sirf guess kiya jaye = Conjecture.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Conjecture",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-36",
+  "word": "Connote",
+  "phonetic": "/kəˈnəʊt/",
+  "hindi": "संकेत देना / मुख्य अर्थ के अतिरिक्त भाव व्यक्त करना / लक्षित करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To imply or suggest an idea or feeling in addition to the literal or primary meaning.",
+  "synonyms": [
+    "Imply",
+    "Suggest",
+    "Hint",
+    "Intimate",
+    "Signify"
+  ],
+  "antonyms": [
+    "Denote (state directly)"
+  ],
+  "example": "While 'home' denotes a physical shelter, it connotes warmth, love, safety, and family.",
+  "mnemonic": "Co + Note = Direct meaning ke sath ek extra sentiment note karwana = Connote.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Connote",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-37",
+  "word": "Couplet",
+  "phonetic": "/ˈkʌp.lət/",
+  "hindi": "दो पंक्तियों का छंद / दोहा / शे'र",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Two lines of verse, usually in the same meter and joined by rhyme, that form a unit.",
+  "synonyms": [
+    "Pair of verses",
+    "Rhyming distich",
+    "Stanza",
+    "Doha"
+  ],
+  "antonyms": [
+    "Prose paragraph"
+  ],
+  "example": "The immortal couplets of Kabir Das deliver timeless moral wisdom in two rhyming lines.",
+  "mnemonic": "Couple (do) lines ka rhyming poem piece = Couplet.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Couplet",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-38",
+  "word": "Cortex",
+  "phonetic": "/ˈkɔː.teks/",
+  "hindi": "वल्कुट / किसी अंग या मस्तिष्क की बाहरी परत",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The outer layer of an organ or other body structure, as distinguished from the internal substance (especially of the brain or kidneys).",
+  "synonyms": [
+    "Outer layer",
+    "Bark",
+    "Cerebral shell",
+    "Crust"
+  ],
+  "antonyms": [
+    "Medulla",
+    "Inner core",
+    "Nucleus"
+  ],
+  "example": "Complex conscious thought and decision-making processes take place in the cerebral cortex.",
+  "mnemonic": "Core (center) ke upar chadhi hui outer protective layer = Cortex.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Cortex",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-39",
+  "word": "Contusion",
+  "phonetic": "/kənˈtjuː.ʒən/",
+  "hindi": "गुम चोट / नील / त्वचा फटे बिना आंतरिक चोट",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A region of injured tissue or skin in which blood capillaries have been ruptured; a bruise.",
+  "synonyms": [
+    "Bruise",
+    "Ecchymosis",
+    "Lump",
+    "Black-and-blue mark"
+  ],
+  "antonyms": [
+    "Open cut",
+    "Laceration",
+    "Incision"
+  ],
+  "example": "The batsman suffered a painful contusion on his forearm after being hit by a ninety-mile-per-hour bouncer.",
+  "mnemonic": "Bina skin kate khoon ka jam kar neela pad jana = Contusion (gum chot).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Contusion",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-40",
+  "word": "Decanter",
+  "phonetic": "/dɪˈkæn.tər/",
+  "hindi": "सुराही / तरल या मदिरा रखने की कांच की बोतल",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An ornamental glass bottle into which wine or other liquor is poured before serving.",
+  "synonyms": [
+    "Glass bottle",
+    "Carafe",
+    "Flagon",
+    "Flask",
+    "Jug"
+  ],
+  "antonyms": [
+    "Saucer",
+    "Cask"
+  ],
+  "example": "The butler poured aged French port from a cut-crystal decanter into sparkling wine glasses.",
+  "mnemonic": "Can / Bottle se nikal kar wine serve karne wali fancy glass surahi = Decanter.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Decanter",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-41",
+  "word": "Deprecate",
+  "phonetic": "/ˈdep.rɪ.keɪt/",
+  "hindi": "निंदा करना / कम आंकना / अस्वीकृति प्रकट करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To express strong disapproval of; to belittle or deplore.",
+  "synonyms": [
+    "Deplore",
+    "Disapprove of",
+    "Condemn",
+    "Derogate",
+    "Belittle"
+  ],
+  "antonyms": [
+    "Praise",
+    "Applaud",
+    "Endorse",
+    "Commend"
+  ],
+  "example": "Responsible educators deprecate the practice of comparing one child's academic marks with another's.",
+  "mnemonic": "De-praise: Kisi cheez ko appreciate karne ke bajaye disapprove karna = Deprecate.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Deprecate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-42",
+  "word": "Diatribe",
+  "phonetic": "/ˈdaɪ.ə.traɪb/",
+  "hindi": "कटु निंदात्मक भाषण / आक्षेप / तीखा मौखिक प्रहार",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A forceful, bitter, and abusive verbal attack or piece of writing against someone.",
+  "synonyms": [
+    "Tirade",
+    "Harangue",
+    "Denunciation",
+    "Invective",
+    "Broadside"
+  ],
+  "antonyms": [
+    "Eulogy",
+    "Praise",
+    "Tribute",
+    "Encomium"
+  ],
+  "example": "The opposition leader launched a blistering diatribe against the government's economic policies.",
+  "mnemonic": "Dia (through) + tribe: Kisi ke khilaaf gusse me lamba bhashan dekar khari-khoti sunana = Diatribe.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Diatribe",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-43",
+  "word": "Deterrence",
+  "phonetic": "/dɪˈter.əns/",
+  "hindi": "निवारण / रोकथाम / भय दिखाकर अपराध से रोकना",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The action of discouraging an action or event through instilling doubt or fear of the consequences.",
+  "synonyms": [
+    "Dissuasion",
+    "Prevention",
+    "Disincentive",
+    "Precaution"
+  ],
+  "antonyms": [
+    "Encouragement",
+    "Incitement",
+    "Stimulus"
+  ],
+  "example": "Capital punishment and strict surveillance are argued by proponents to act as an effective deterrence against crime.",
+  "mnemonic": "Deter (rokna) karne ki shakti ya process = Deterrence.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Deterrence",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-44",
+  "word": "Dyke",
+  "phonetic": "/daɪk/",
+  "hindi": "तटबंध / बाध / बाढ़ रोकने वाली लंबी दीवार",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A long wall, embankment, or barrier built to prevent flooding from the sea or a river.",
+  "synonyms": [
+    "Embankment",
+    "Levee",
+    "Ditch",
+    "Dam",
+    "Bund"
+  ],
+  "antonyms": [
+    "Breach",
+    "Spillway"
+  ],
+  "example": "The Netherlands constructed an ingenious network of concrete dykes to protect its low-lying terrain from storm tides.",
+  "mnemonic": "Sea ka paani land par aane se roKne wala wall = Dyke / Levee.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Dyke",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-45",
+  "word": "Dorsal",
+  "phonetic": "/ˈdɔː.səl/",
+  "hindi": "पृष्ठीय / पीठ से संबंधित",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Of, on, or relating to the upper side or back of an animal, plant, or organ.",
+  "synonyms": [
+    "Back",
+    "Posterior",
+    "Rear"
+  ],
+  "antonyms": [
+    "Ventral (front/belly side)"
+  ],
+  "example": "The shark's sharp dorsal fin sliced ominously through the calm surface of the coastal waters.",
+  "mnemonic": "Dorsum = Back: Shark ya fish ki peeth par nikalne wala fin = Dorsal fin.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Dorsal",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-46",
+  "word": "Dilatory",
+  "phonetic": "/ˈdɪl.ə.tər.i/",
+  "hindi": "विलंबकारी / सुस्त / टालमटोल करने वाला",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Slow to act; intended to cause delay or procrastinate.",
+  "synonyms": [
+    "Procrastinating",
+    "Delaying",
+    "Tardy",
+    "Sluggish",
+    "Lax"
+  ],
+  "antonyms": [
+    "Prompt",
+    "Expeditious",
+    "Speedy",
+    "Punctual"
+  ],
+  "example": "The defense lawyer utilized dilatory tactics to postpone the court hearing until next session.",
+  "mnemonic": "Delay karne ki aadat rakhne wala insaan = Dilatory.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Dilatory",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-47",
+  "word": "Denigrate",
+  "phonetic": "/ˈden.ɪ.ɡreɪt/",
+  "hindi": "अपमानित करना / बदनाम करना / नीचा दिखाना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To criticize unfairly; to attack the reputation of; to belittle.",
+  "synonyms": [
+    "Disparage",
+    "Belittle",
+    "Defame",
+    "Slander",
+    "Vilify"
+  ],
+  "antonyms": [
+    "Praise",
+    "Extol",
+    "Laud",
+    "Magnify"
+  ],
+  "example": "Spiteful rivals attempted to denigrate the scientist's breakthrough discovery in the media.",
+  "mnemonic": "De-nigrate = kisi par kaalikh potna ya badnaam karna.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Denigrate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-48",
+  "word": "Disenfranchisement",
+  "phonetic": "/ˌdɪs.ɪnˈfræn.tʃaɪz.mənt/",
+  "hindi": "मताधिकार या नागरिक अधिकार से वंचित करना",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The state of being deprived of a right or privilege, especially the right to vote.",
+  "synonyms": [
+    "Deprivation of vote",
+    "Disqualification",
+    "Marginalization"
+  ],
+  "antonyms": [
+    "Enfranchisement",
+    "Suffrage",
+    "Empowerment"
+  ],
+  "example": "Complex voter ID rules led to the unlawful disenfranchisement of thousands of rural citizens.",
+  "mnemonic": "Enfranchise (vote ka adhikar) ko Dis (chheen lena) = Disenfranchisement.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Disenfranchisement",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-49",
+  "word": "Depraved",
+  "phonetic": "/dɪˈpreɪvd/",
+  "hindi": "भ्रष्ट / चरित्रहीन / दुराचारी",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Morally corrupt; wicked and perverted in character.",
+  "synonyms": [
+    "Corrupt",
+    "Perverted",
+    "Degenerate",
+    "Vicious",
+    "Debased"
+  ],
+  "antonyms": [
+    "Virtuous",
+    "Upright",
+    "Moral",
+    "Pure",
+    "Noble"
+  ],
+  "example": "The serial criminal was sentenced to life imprisonment for his depraved and heinous acts.",
+  "mnemonic": "Moral values se completely deprived (vanchit) ho jana = Depraved.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Depraved",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-50",
+  "word": "Deliquesce",
+  "phonetic": "/ˌdel.ɪˈkwes/",
+  "hindi": "घुल जाना / नमी सोखकर द्रव बन जाना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To become liquid, typically by absorbing moisture from the air, or during organic decomposition.",
+  "synonyms": [
+    "Liquefy",
+    "Melt",
+    "Dissolve",
+    "Thaw"
+  ],
+  "antonyms": [
+    "Solidify",
+    "Crystallize",
+    "Coagulate"
+  ],
+  "example": "Certain chemical salts left exposed in humid air will gradually deliquesce into a watery solution.",
+  "mnemonic": "Liquid ban jana hawa ki nami se = Deliquesce.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Deliquesce",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-51",
+  "word": "Discus",
+  "phonetic": "/ˈdɪs.kəs/",
+  "hindi": "चक्का / क्रीड़ा का भारी गोलाकार फेंकने वाला सामान",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A heavy, flat, circular disk thrown in track-and-field athletics competitions.",
+  "synonyms": [
+    "Athletic disc",
+    "Throwing plate"
+  ],
+  "antonyms": [
+    "Javelin",
+    "Shot put"
+  ],
+  "example": "The Olympic athlete set a national record by hurling the two-kilogram discus beyond seventy meters.",
+  "mnemonic": "Discus throw me jo flat heavy plate feki jaati hai = Discus.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Discus",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-52",
+  "word": "Denature",
+  "phonetic": "/diːˈneɪ.tʃər/",
+  "hindi": "विकृत करना / प्राकृतिक गुणों को रासायनिक क्रिया से बदलना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To alter the natural qualities or structure of something, especially proteins by heat or acid; to render unfit for drinking.",
+  "synonyms": [
+    "Alter",
+    "Deform",
+    "Modify",
+    "Debase",
+    "Inactivate"
+  ],
+  "antonyms": [
+    "Restore",
+    "Purify"
+  ],
+  "example": "Boiling an egg uses extreme heat to denature the transparent liquid albumen into a solid white mass.",
+  "mnemonic": "De (remove) + Nature (natural properties) = Kisi cheez ke natural gun badal dena = Denature.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Denature",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-53",
+  "word": "Epilepsy",
+  "phonetic": "/ˈep.ɪ.lep.si/",
+  "hindi": "मिरगी / अपस्मार रोग / दौरे पड़ने की बीमारी",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A neurological disorder marked by sudden recurrent episodes of sensory disturbance, loss of consciousness, or convulsions.",
+  "synonyms": [
+    "Seizure disorder",
+    "Falling sickness",
+    "Convulsive disease"
+  ],
+  "antonyms": [
+    "Normal neurological state"
+  ],
+  "example": "With modern anticonvulsant medication, patients with epilepsy can lead completely normal lives.",
+  "mnemonic": "Brain ke electrical disturbance se behosh hokar daure padna = Epilepsy.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Epilepsy",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-54",
+  "word": "Egalitarian",
+  "phonetic": "/ɪˌɡæl.ɪˈteər.i.ən/",
+  "hindi": "समानाधिकारवादी / समतावादी",
+  "type": "ows",
+  "partOfSpeech": "Adjective / Noun (OWS)",
+  "meaning": "Believing in or based on the principle that all people are equal and deserve equal rights and opportunities.",
+  "synonyms": [
+    "Democratic",
+    "Equalitarian",
+    "Classless",
+    "Fair"
+  ],
+  "antonyms": [
+    "Elitist",
+    "Hierarchical",
+    "Aristocratic",
+    "Feudal"
+  ],
+  "example": "The socialist constitution envisions an egalitarian society free from caste and class divides.",
+  "mnemonic": "Equal rights for all human beings = Egalitarian.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Egalitarian",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-55",
+  "word": "Elysium",
+  "phonetic": "/ɪˈlɪz.i.əm/",
+  "hindi": "स्वर्ग / परम आनंद का स्थान / बैकुंठ",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A place or state of ideal and perfect happiness; in Greek mythology, the abode of the blessed after death.",
+  "synonyms": [
+    "Paradise",
+    "Heaven",
+    "Eden",
+    "Utopia",
+    "Nirvana"
+  ],
+  "antonyms": [
+    "Hell",
+    "Inferno",
+    "Underworld",
+    "Abyss"
+  ],
+  "example": "The idyllic tropical island with its turquoise lagoons felt like a tranquil earthly Elysium.",
+  "mnemonic": "Greek myth me heroic atmaon ke rehne ka anandmay swarg = Elysium.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Elysium",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-56",
+  "word": "Enshrine",
+  "phonetic": "/ɪnˈʃraɪn/",
+  "hindi": "पवित्र समझ कर सुरक्षित रखना / प्रतिष्ठापित करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To place a revered object or relic in a shrine; to preserve a right or principle in a respected form.",
+  "synonyms": [
+    "Preserve",
+    "Cherish",
+    "Sanctify",
+    "Immortalize",
+    "Incorporate"
+  ],
+  "antonyms": [
+    "Desecrate",
+    "Violate",
+    "Abolish",
+    "Forget"
+  ],
+  "example": "Fundamental human rights are permanently enshrined in Part III of the Indian Constitution.",
+  "mnemonic": "Shrine (mandir) me sacred tareeqe se sthaapit karke surakshit rakhna = Enshrine.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Enshrine",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-57",
+  "word": "Enviable",
+  "phonetic": "/ˈen.vi.ə.bəl/",
+  "hindi": "वांछनीय / ईर्ष्या उत्पन्न करने योग्य / सराहनीय",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Likely to arouse envy or admiration; very desirable.",
+  "synonyms": [
+    "Desirable",
+    "Covetable",
+    "Admirable",
+    "Fortunate",
+    "Privileged"
+  ],
+  "antonyms": [
+    "Unenviable",
+    "Pitiable",
+    "Undesirable",
+    "Wretched"
+  ],
+  "example": "She secured All India Rank 1, placing herself in an enviable position for civil service cadre allocation.",
+  "mnemonic": "Itna achha jisko dekh kar doosro ko envy (eershya ya lalach) ho jaye = Enviable.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Enviable",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-58",
+  "word": "Epistle",
+  "phonetic": "/ɪˈpɪs.əl/",
+  "hindi": "काव्यपत्र / पद्य पत्र / उपदेशात्मक पत्र",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A letter, especially a formal, elegant, or didactic one; a literary composition in the form of a letter.",
+  "synonyms": [
+    "Letter",
+    "Missive",
+    "Communication",
+    "Dispatch",
+    "Verse letter"
+  ],
+  "antonyms": [
+    "Oral speech"
+  ],
+  "example": "Saint Paul's theological epistles in the New Testament provided profound pastoral guidance to the early church.",
+  "mnemonic": "Post se bheja gaya formal poetic letter = Epistle.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Epistle",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-59",
+  "word": "Emetic",
+  "phonetic": "/ɪˈmet.ɪk/",
+  "hindi": "उल्टी कराने वाली दवा / वमनकारी औषधि",
+  "type": "ows",
+  "partOfSpeech": "Noun / Adjective (OWS)",
+  "meaning": "A medicine or substance that causes or induces vomiting, especially after accidental poisoning.",
+  "synonyms": [
+    "Vomiting agent",
+    "Nauseant"
+  ],
+  "antonyms": [
+    "Antiemetic (stops vomiting)"
+  ],
+  "example": "The emergency room doctor administered an emetic to expel the ingested poison from the patient's stomach.",
+  "mnemonic": "Emit (bahar phekna/vomit) karwane wali dawa = Emetic.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Emetic",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-60",
+  "word": "Emeritus",
+  "phonetic": "/ɪˈmer.ɪ.təs/",
+  "hindi": "अवकाश प्राप्त मानद / सेवानिवृत्त किंतु सम्मानपूर्वक पदवी धारक",
+  "type": "ows",
+  "partOfSpeech": "Adjective / Noun (OWS)",
+  "meaning": "A person retired from professional life but permitted to retain as an honorary title the rank of the last office held.",
+  "synonyms": [
+    "Honorary retired",
+    "Retired professor",
+    "Distinguished veteran"
+  ],
+  "antonyms": [
+    "Active in-service official",
+    "Novice"
+  ],
+  "example": "Even after retirement, Professor Sharma continued guiding PhD research scholars as Professor Emeritus.",
+  "mnemonic": "Merit ke aadhar par retire hone ke baad bhi title retain karne wala = Emeritus.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Emeritus",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-61",
+  "word": "Etiolate",
+  "phonetic": "/ˈiː.ti.ə.leɪt/",
+  "hindi": "निस्तेज करना / धूप न मिलने से पीला व कमजोर पड़ना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To make pale and weak by excluding natural sunlight; to cause a plant to grow pale through lack of light.",
+  "synonyms": [
+    "Blanch",
+    "Bleach",
+    "Weaken",
+    "Drain of color",
+    "Pale"
+  ],
+  "antonyms": [
+    "Invigorate",
+    "Darken",
+    "Strengthen"
+  ],
+  "example": "Plants kept in pitch-dark cupboards etiolate, turning yellow and developing long, fragile stems.",
+  "mnemonic": "Light se door rakh kar kisi plant ko tezaab ki tarah nistej/peela kar dena = Etiolate.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Etiolate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-62",
+  "word": "Elucidate",
+  "phonetic": "/iˈluː.sɪ.deɪt/",
+  "hindi": "स्पष्ट करना / विशद व्याख्या करना / सुलझाना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To make something clear; to explain lucidly in detail.",
+  "synonyms": [
+    "Explain",
+    "Clarify",
+    "Illuminate",
+    "Explicate",
+    "Unravel"
+  ],
+  "antonyms": [
+    "Confuse",
+    "Obscure",
+    "Buddle",
+    "Complicate"
+  ],
+  "example": "The physics lecturer used everyday life analogies to elucidate Einstein's theory of relativity.",
+  "mnemonic": "Lucid (clear) bana dena = Elucidate karna.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Elucidate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-63",
+  "word": "Evanescent",
+  "phonetic": "/ˌev.əˈnes.ənt/",
+  "hindi": "क्षणिक / शीघ्र लुप्त होने वाला / भाप की तरह उड़ जाने वाला",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Soon passing out of sight, memory, or existence; quickly fading or vanishing.",
+  "synonyms": [
+    "Fleeting",
+    "Transient",
+    "Ephemeral",
+    "Fading",
+    "Short-lived"
+  ],
+  "antonyms": [
+    "Permanent",
+    "Enduring",
+    "Lasting",
+    "Everlasting"
+  ],
+  "example": "The radiant colors of the post-monsoon rainbow were beautiful but sadly evanescent.",
+  "mnemonic": "Evaporate hone ki tarah jald gayab ho jane wala = Evanescent.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Evanescent",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-64",
+  "word": "Esoteric",
+  "phonetic": "/ˌes.əˈter.ɪk/",
+  "hindi": "गूढ़ / गोपनीय / केवल विशेषज्ञों द्वारा समझा जाने वाला",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Intended for or likely to be understood by only a small number of people with specialized knowledge.",
+  "synonyms": [
+    "Obscure",
+    "Arcane",
+    "Recondite",
+    "Cryptic",
+    "Occult"
+  ],
+  "antonyms": [
+    "Exoteric",
+    "Common",
+    "Familiar",
+    "Simple",
+    "Public"
+  ],
+  "example": "Theoretical quantum physics involves highly esoteric mathematical models beyond ordinary comprehension.",
+  "mnemonic": "E-so-teric: Itna secret aur deep gyan jo aam public na samajh sake = Esoteric.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Esoteric",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-65",
+  "word": "Evict",
+  "phonetic": "/ɪˈvɪkt/",
+  "hindi": "बेदखल करना / कानूनन संपत्ति से बाहर निकालना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To expel someone from a property, especially with the support of the law.",
+  "synonyms": [
+    "Expel",
+    "Oust",
+    "Turn out",
+    "Dispossess",
+    "Eject"
+  ],
+  "antonyms": [
+    "House",
+    "Admit",
+    "Welcome",
+    "Lease to"
+  ],
+  "example": "The landlord obtained a court order to evict the non-paying commercial tenant.",
+  "mnemonic": "Exit karwana legally kisi premises se = Evict.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Evict",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-66",
+  "word": "Extradite",
+  "phonetic": "/ˈek.strə.daɪt/",
+  "hindi": "प्रत्यर्पित करना / अपराधी को उसके मूल देश को सौंपना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To hand over a person accused or convicted of a crime to the jurisdiction of the foreign state in which the crime was committed.",
+  "synonyms": [
+    "Deport",
+    "Hand over",
+    "Surrender",
+    "Repatriate"
+  ],
+  "antonyms": [
+    "Harbor",
+    "Grant asylum"
+  ],
+  "example": "The Indian government filed formal legal documents in London to extradite the fugitive economic offender.",
+  "mnemonic": "Extra + Territory me chhupe criminal ko wapis bhejna = Extradite.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Extradite",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-67",
+  "word": "Emissary",
+  "phonetic": "/ˈem.ɪ.sər.i/",
+  "hindi": "गुप्त दूत / विशेष संदेशवाहक",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A person sent on a special official mission, especially as a diplomatic representative or secret messenger.",
+  "synonyms": [
+    "Envoy",
+    "Delegate",
+    "Messenger",
+    "Agent",
+    "Plenipotentiary"
+  ],
+  "antonyms": [
+    "Receiver"
+  ],
+  "example": "The president dispatched a confidential emissary to negotiate a covert ceasefire.",
+  "mnemonic": "Special mission par bheja gaya envoy = Emissary.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Emissary",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-68",
+  "word": "Filch",
+  "phonetic": "/fɪltʃ/",
+  "hindi": "चुराना / छोटी-मोटी चीज़ उड़ा लेना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To pilfer or steal something, especially of small value, in a casual or furtive manner.",
+  "synonyms": [
+    "Pilfer",
+    "Steal",
+    "Thieve",
+    "Purloin",
+    "Swipe"
+  ],
+  "antonyms": [
+    "Return",
+    "Give",
+    "Gift"
+  ],
+  "example": "The naughty child filched an extra bar of chocolate from the kitchen cupboard.",
+  "mnemonic": "Flick karke pocket se chori kar lena = Filch.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Filch",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-69",
+  "word": "Feint",
+  "phonetic": "/feɪnt/",
+  "hindi": "छल से हमला / झांसा / चकमा देने वाली चाल",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "A deceptive or pretended blow, thrust, or other movement, especially in boxing or military tactics.",
+  "synonyms": [
+    "Deceptive movement",
+    "Trick",
+    "Ruse",
+    "Ploy",
+    "Sham attack"
+  ],
+  "antonyms": [
+    "Direct strike",
+    "Genuine blow"
+  ],
+  "example": "The boxer made a clever left feint before landing a decisive right hook on his opponent's jaw.",
+  "mnemonic": "Fake attack karke enemy ko jhansa dena = Feint.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Feint",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-70",
+  "word": "Felonious",
+  "phonetic": "/fɪˈləʊ.ni.əs/",
+  "hindi": "आपराधिक / जघन्य / घोर अपराध से संबंधित",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Relating to, involved in, or of the nature of a serious felony or crime.",
+  "synonyms": [
+    "Criminal",
+    "Illegal",
+    "Unlawful",
+    "Nefarious",
+    "Iniquitous"
+  ],
+  "antonyms": [
+    "Lawful",
+    "Innocent",
+    "Legitimate",
+    "Righteous"
+  ],
+  "example": "The gang members were booked under harsh statutes for felonious assault and armed robbery.",
+  "mnemonic": "Felony (bada apradh) se juda hua = Felonious.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Felonious",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-71",
+  "word": "Ferret",
+  "phonetic": "/ˈfer.ɪt/",
+  "hindi": "ढूँढ निकालना / टटोलना / खोजबीन करना",
+  "type": "ows",
+  "partOfSpeech": "Verb / Noun (OWS)",
+  "meaning": "To search tenaciously and uncover something hidden (derived from the hunting animal ferret).",
+  "synonyms": [
+    "Unearth",
+    "Search out",
+    "Track down",
+    "Dig up",
+    "Root out"
+  ],
+  "antonyms": [
+    "Conceal",
+    "Bury",
+    "Ignore"
+  ],
+  "example": "The investigative journalist managed to ferret out the confidential banking audit files.",
+  "mnemonic": "Ferret janwar jaisa har bil me ghus kar cheez dhoond nikalna = Ferret out.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Ferret",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-72",
+  "word": "Fuselage",
+  "phonetic": "/ˈfjuː.zəl.ɑːʒ/",
+  "hindi": "वायुयान का मूल ढाँचा / विमान की मुख्य धड़",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The main body of an aircraft, to which the wings and tail unit are attached and which holds crew and passengers.",
+  "synonyms": [
+    "Aircraft body",
+    "Cabin shell",
+    "Airplane chassis"
+  ],
+  "antonyms": [
+    "Wings",
+    "Cockpit alone"
+  ],
+  "example": "The aerospace engineers used lightweight composite carbon fibers to build the airliner's fuselage.",
+  "mnemonic": "Plane ka main cylindrical body/dhancha = Fuselage.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Fuselage",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-73",
+  "word": "Illeism",
+  "phonetic": "/ˈɪl.i.ɪ.zəm/",
+  "hindi": "स्वयं को अन्य पुरुष (तीसरे व्यक्ति) में संबोधित करने की प्रथा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The practice of referring to oneself in the third person rather than the first person.",
+  "synonyms": [
+    "Third-person self-reference",
+    "Self-distancing"
+  ],
+  "antonyms": [
+    "First-person speech"
+  ],
+  "example": "Julius Caesar famously practiced illeism in his war memoirs, always writing 'Caesar conquered' rather than 'I conquered'.",
+  "mnemonic": "Ille (Latin: he/that one) = Khud ko 'I' na bolkar 'He' (third person) bolna = Illeism.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Illeism",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-74",
+  "word": "Idyllic",
+  "phonetic": "/ɪˈdɪl.ɪk/",
+  "hindi": "शांतिपूर्ण / सुखद / मनोहर व रमणीय",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Like an idyll; extremely happy, peaceful, simple, or picturesque.",
+  "synonyms": [
+    "Picturesque",
+    "Heavenly",
+    "Arcadian",
+    "Pastoral",
+    "Tranquil"
+  ],
+  "antonyms": [
+    "Chaotic",
+    "Hellish",
+    "Stressful",
+    "Dismal"
+  ],
+  "example": "They spent a delightful fortnight in an idyllic Swiss village surrounded by green meadows and alpine streams.",
+  "mnemonic": "Ideal + Idyllic: Ekdum perfect aur shant sukoon wali jagah = Idyllic.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Idyllic",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-75",
+  "word": "Idolatry",
+  "phonetic": "/aɪˈdɒl.ə.tri/",
+  "hindi": "मूर्ति पूजा / बुतपरस्ती / अत्यधिक अंधभक्ति",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "The worship of idols or statues as gods; also extreme admiration, love, or reverence for something.",
+  "synonyms": [
+    "Icon worship",
+    "Image worship",
+    "Fetishism",
+    "Adoration"
+  ],
+  "antonyms": [
+    "Iconoclasm",
+    "Monotheism (formless)"
+  ],
+  "example": "Ancient temples practiced sacred rituals centered around the ritual bathing and idolatry of deity figures.",
+  "mnemonic": "Idol (murti) ki pooja karna = Idolatry.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Idolatry",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-76",
+  "word": "Impervious",
+  "phonetic": "/ɪmˈpɜː.vi.əs/",
+  "hindi": "अभेद्य / जिसमें से द्रव न गुजर सके / अप्रभावित",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Not allowing fluid or light to pass through; unable to be affected by criticism, pain, or argument.",
+  "synonyms": [
+    "Impenetrable",
+    "Waterproof",
+    "Immune",
+    "Invulnerable",
+    "Impermeable"
+  ],
+  "antonyms": [
+    "Permeable",
+    "Vulnerable",
+    "Porous",
+    "Susceptible"
+  ],
+  "example": "The rubberized rain poncho is completely impervious to torrential monsoon downpours.",
+  "mnemonic": "Im (not) + Pervious (pass through) = Jisko bheda ya asar na kiya ja sake = Impervious.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Impervious",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-77",
+  "word": "Inundate",
+  "phonetic": "/ˈɪn.ʌn.deɪt/",
+  "hindi": "जलमग्न करना / डुबोना / बहुत बड़ी संख्या में घेर लेना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To overwhelm someone with things or people to be dealt with; also to flood with water.",
+  "synonyms": [
+    "Flood",
+    "Submerge",
+    "Deluge",
+    "Overwhelm",
+    "Swamp"
+  ],
+  "antonyms": [
+    "Drain",
+    "Dry up",
+    "Unload"
+  ],
+  "example": "The customer service hotline was inundated with thousands of complaint calls after the software outage.",
+  "mnemonic": "In + unda (wave): flood ke paani me doob jana = Inundate.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Inundate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-78",
+  "word": "Incivism",
+  "phonetic": "/ɪnˈsɪv.ɪ.zəm/",
+  "hindi": "देश-प्रेम का अभाव / नागरिकता व सामाजिक कर्तव्य विहीनता",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "Lack of civic-mindedness or patriotism; neglect of duty toward one's community or nation.",
+  "synonyms": [
+    "Unpatriotic conduct",
+    "Civic neglect",
+    "Anti-social apathy"
+  ],
+  "antonyms": [
+    "Civic duty",
+    "Patriotism",
+    "Public spirit"
+  ],
+  "example": "Littering public parks and defacing historical monuments are deplorable acts of incivism.",
+  "mnemonic": "In (not) + Civic-minded = Desh ya samaj ke prati duty na nibhana = Incivism.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Incivism",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-79",
+  "word": "Imagism",
+  "phonetic": "/ˈɪm.ɪ.dʒɪ.zəm/",
+  "hindi": "बिंबवाद / स्पष्ट व सटीक बिंबों का काव्य-आंदोलन",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A movement in early 20th-century Anglo-American poetry that favored precision of imagery and clear, sharp language.",
+  "synonyms": [
+    "Precision poetry",
+    "Visual verse school",
+    "Symbolic imagism"
+  ],
+  "antonyms": [
+    "Abstract prose"
+  ],
+  "example": "Ezra Pound was a leading pioneer of imagism, urging poets to use direct and unadorned visual images.",
+  "mnemonic": "Poetry me precise Images use karne ka school of thought = Imagism.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Imagism",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-80",
+  "word": "Imbroglio",
+  "phonetic": "/ɪmˈbrəʊl.jəʊ/",
+  "hindi": "उलझन / अत्यधिक जटिल व शर्मनाक स्थिति / पेचीदा मामला",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An extremely confused, complicated, or embarrassing situation.",
+  "synonyms": [
+    "Complication",
+    "Mess",
+    "Entanglement",
+    "Quandary",
+    "Predicament"
+  ],
+  "antonyms": [
+    "Simple solution",
+    "Clarity",
+    "Harmony"
+  ],
+  "example": "The sovereign debt default created a protracted financial and diplomatic imbroglio for the European Union.",
+  "mnemonic": "Broth/Boil ho kar sab kuch aapas me ulajh jana = Imbroglio.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Imbroglio",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-81",
+  "word": "Impeachment",
+  "phonetic": "/ɪmˈpiːtʃ.mənt/",
+  "hindi": "महाभियोग / उच्च पदस्थ अधिकारी पर औपचारिक दोषारोपण",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A formal charge or process by which a legislative body initiates charges against a public official for misconduct.",
+  "synonyms": [
+    "Indictment",
+    "Accusation",
+    "Trial of official",
+    "Arraignment"
+  ],
+  "antonyms": [
+    "Acquittal",
+    "Exoneration",
+    "Commendation"
+  ],
+  "example": "The parliament passed a motion for the impeachment of the supreme court justice for gross misconduct.",
+  "mnemonic": "President ya judge ko hatane ka constitutional court trial = Impeachment (mahabhiyog).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Impeachment",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-82",
+  "word": "Flounder",
+  "phonetic": "/ˈflaʊn.dər/",
+  "hindi": "लड़खड़ाना / छटपटाना / असहाय होकर संघर्ष करना",
+  "type": "ows",
+  "partOfSpeech": "Verb (OWS)",
+  "meaning": "To struggle or stagger clumsily in mud, water, or deep difficulty; to proceed with great confusion.",
+  "synonyms": [
+    "Struggle",
+    "Stagger",
+    "Stumble",
+    "Flail",
+    "Fumble"
+  ],
+  "antonyms": [
+    "Prosper",
+    "Glide",
+    "Succeed",
+    "Prevail"
+  ],
+  "example": "Without proper conceptual revision, the unprepared student began to flounder in the advanced math section.",
+  "mnemonic": "Keenchad ya mushkil me fisal kar ladkhadana = Flounder.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Flounder",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-83",
+  "word": "Faction",
+  "phonetic": "/ˈfæk.ʃən/",
+  "hindi": "गुट / दल / असंतुष्टों का आंतरिक समूह",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A small, organized, dissenting group within a larger one, especially in politics.",
+  "synonyms": [
+    "Clique",
+    "Bloc",
+    "Camp",
+    "Caucus",
+    "Splinter group"
+  ],
+  "antonyms": [
+    "United party",
+    "Harmony",
+    "Consensus"
+  ],
+  "example": "Bitter internal rivalry between rival factions severely weakened the ruling political party.",
+  "mnemonic": "Fraction (tukda): party ke andar bana chhota virodhi gut = Faction.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Faction",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-84",
+  "word": "Figment",
+  "phonetic": "/ˈfɪɡ.mənt/",
+  "hindi": "मनगढ़ंत / कल्पित बात / कोरी कल्पना",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A thing that someone believes to be real but that exists only in their imagination.",
+  "synonyms": [
+    "Invention",
+    "Creation of the mind",
+    "Illusion",
+    "Phantom",
+    "Chimera"
+  ],
+  "antonyms": [
+    "Fact",
+    "Reality",
+    "Verity"
+  ],
+  "example": "The ghost that the frightened boy claimed to see was purely a figment of his feverish imagination.",
+  "mnemonic": "Figment of imagination: jo sach me na ho, bas mann me ghada gaya ho.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Figment",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-85",
+  "word": "Fusillade",
+  "phonetic": "/ˌfjuː.zɪˈleɪd/",
+  "hindi": "गोलियों की बौछार / तीखी आलोचनाओं की झड़ी",
+  "type": "ows",
+  "partOfSpeech": "Noun / Verb (OWS)",
+  "meaning": "A series of shots fired or missiles thrown all at the same time or in rapid continuous succession.",
+  "synonyms": [
+    "Salvo",
+    "Barrage",
+    "Volley",
+    "Bombardment",
+    "Burst"
+  ],
+  "antonyms": [
+    "Single shot",
+    "Ceasefire"
+  ],
+  "example": "The elite commando team answered the terrorist assault with a ferocious fusillade of automatic rifle fire.",
+  "mnemonic": "Fuse jaisi goliyaan lagaataar fire hona = Fusillade (goli-baari ki bochhar).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Fusillade",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-86",
+  "word": "Incarnate",
+  "phonetic": "/ɪnˈkɑː.nət/",
+  "hindi": "अवतार / अवतरित / देहधारी / साकार रूप",
+  "type": "ows",
+  "partOfSpeech": "Adjective / Verb (OWS)",
+  "meaning": "Embodied in flesh or taking human form, especially of a deity or spirit.",
+  "synonyms": [
+    "Embodied",
+    "In the flesh",
+    "Personified",
+    "Avatar"
+  ],
+  "antonyms": [
+    "Disembodied",
+    "Formless",
+    "Abstract"
+  ],
+  "example": "To his grateful patients, the selfless rural doctor was kindness and compassion incarnate.",
+  "mnemonic": "Carn (flesh/shareer) me aana = Bhagwan ka insaan ke roop me avataar lena = Incarnate.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Incarnate",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-87",
+  "word": "Imperialism",
+  "phonetic": "/ɪmˈpɪə.ri.ə.lɪ.zəm/",
+  "hindi": "साम्राज्यवाद / अपने साम्राज्य का बलपूर्वक विस्तार करने की नीति",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "A policy of extending a country's power and influence through diplomacy or military force.",
+  "synonyms": [
+    "Colonialism",
+    "Empire-building",
+    "Expansionism",
+    "Dominion"
+  ],
+  "antonyms": [
+    "Anti-colonialism",
+    "Self-determination",
+    "Isolationism"
+  ],
+  "example": "The anti-colonial freedom movement fought bravely to liberate India from centuries of British imperialism.",
+  "mnemonic": "Empire ko har jagah zabardasti failane ki policy = Imperialism.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Imperialism",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-88",
+  "word": "Idiosyncratic",
+  "phonetic": "/ˌɪd.i.ə.sɪŋˈkræt.ɪk/",
+  "hindi": "विशेष स्वभाव का / विचित्र व्यक्तिगत आदत वाला / अनूठा",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Relating to idiosyncrasy; peculiar, individualistic, or distinctive in personality or habits.",
+  "synonyms": [
+    "Peculiar",
+    "Eccentric",
+    "Quirky",
+    "Unique",
+    "Characteristic"
+  ],
+  "antonyms": [
+    "Common",
+    "Ordinary",
+    "Conventional",
+    "Standard"
+  ],
+  "example": "The professor had an idiosyncratic habit of tapping his spectacles three times before answering a student.",
+  "mnemonic": "Idio (personal/individual) + sync: Kisi person ki unique ajeeb aadat = Idiosyncratic.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Idiosyncratic",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-89",
+  "word": "Indebted",
+  "phonetic": "/ɪnˈdet.ɪd/",
+  "hindi": "ऋणी / आभारी / कृतज्ञ / कर्जदार",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Owing money to someone; also owing gratitude for a service, favor, or kindness.",
+  "synonyms": [
+    "Obligated",
+    "Beholden",
+    "Thankful",
+    "Grateful",
+    "In debt"
+  ],
+  "antonyms": [
+    "Debt-free",
+    "Ungrateful",
+    "Unobligated"
+  ],
+  "example": "I am deeply indebted to my high school mathematics teacher for mentoring me throughout my career.",
+  "mnemonic": "Debt (karz ya aabhar) ke bojh tale hona = Indebted.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Indebted",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-90",
+  "word": "Innuendo",
+  "phonetic": "/ˌɪn.juˈen.dəʊ/",
+  "hindi": "कटाक्ष / परोक्ष संकेत / गलत भावना में इशारा",
+  "type": "ows",
+  "partOfSpeech": "Noun (OWS)",
+  "meaning": "An allusive or oblique remark or hint, typically a suggestive, derogatory, or disparaging one.",
+  "synonyms": [
+    "Insinuation",
+    "Implication",
+    "Intimation",
+    "Sly hint",
+    "Aspersion"
+  ],
+  "antonyms": [
+    "Direct statement",
+    "Frankness",
+    "Candor"
+  ],
+  "example": "The rival politician attacked his opponent's personal life through malicious whisperings and indirect innuendo.",
+  "mnemonic": "In your ear: Kaan me aakar kisi ke baare me buri baat ka taana ya hint marna = Innuendo.",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Innuendo",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
+},
+{
+  "id": "v-ows-l1-s12-91",
+  "word": "Inquisitive",
+  "phonetic": "/ɪnˈkwɪz.ɪ.tɪv/",
+  "hindi": "जिज्ञासु / सवाल पूछने का शौकीन / खोजबीन करने वाला",
+  "type": "ows",
+  "partOfSpeech": "Adjective (OWS)",
+  "meaning": "Curious or inquiring; having an intense desire to investigate and know things.",
+  "synonyms": [
+    "Curious",
+    "Inquiring",
+    "Questioning",
+    "Probing",
+    "Investigative"
+  ],
+  "antonyms": [
+    "Indifferent",
+    "Incurious",
+    "Apathetic",
+    "Uninterested"
+  ],
+  "example": "The inquisitive young girl amazed her science teachers with insightful questions about black holes.",
+  "mnemonic": "Inquire (sawal poochna) karne ki aadat rakhne wala insaan = Inquisitive (jigyasu).",
+  "frequency": "Very High",
+  "examTags": [
+    "SSC CGL",
+    "CHSL",
+    "CPO",
+    "Level 1",
+    "Set 12",
+    "OWS"
+  ],
+  "collocation": "OWS: Inquisitive",
+  "derivatives": "",
+  "level": "level-1",
+  "set": "set-12"
 }
 ];
