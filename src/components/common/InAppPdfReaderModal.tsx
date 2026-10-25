@@ -832,12 +832,12 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
             {/* Stepper on Mobile (compact & high contrast) */}
             <div className="flex md:hidden items-center gap-1 shrink-0">
               {totalPages > 0 && (
-                <div className="flex items-center gap-1 px-2 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-bold !text-[#C0CAF5] shrink-0 shadow-xs">
+                <div className="pdf-stepper flex items-center gap-1 px-2 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-bold !text-[#C0CAF5] shrink-0 shadow-xs">
                   <button
                     type="button"
                     disabled={currentPage <= 1}
                     onClick={() => scrollToPage(currentPage - 1)}
-                    className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                    className="pdf-stepper-btn p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
@@ -857,11 +857,11 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                       onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
                       onFocus={(e) => e.target.select()}
                       onBlur={handlePageInputSubmit}
-                      style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
-                      className="w-8 text-center py-0.5 px-0.5 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 outline-none tabular-nums"
+                      style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF', backgroundColor: '#13141F', borderColor: '#3B4261' }}
+                      className="pdf-stepper-input w-8 text-center py-0.5 px-0.5 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 outline-none tabular-nums"
                     />
                   </form>
-                  <span className="text-slate-400 font-bold px-0.5">/</span>
+                  <span style={{ color: '#94A3B8', WebkitTextFillColor: '#94A3B8' }} className="pdf-stepper-slash font-bold px-0.5">/</span>
                   <span
                     style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
                     className="pdf-page-count text-white font-bold tabular-nums pr-0.5"
@@ -872,7 +872,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                     type="button"
                     disabled={currentPage >= totalPages}
                     onClick={() => scrollToPage(currentPage + 1)}
-                    className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                    className="pdf-stepper-btn p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                     title="Next Page"
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -899,17 +899,17 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
           {totalPages > 0 && (
             <div className="hidden md:flex items-center gap-2 shrink-0">
               {/* Stepper with Direct Numeric Page Input */}
-              <div className="flex items-center gap-1.5 px-2 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-bold !text-[#C0CAF5] shrink-0 shadow-xs">
+              <div className="pdf-stepper flex items-center gap-1.5 px-2 py-1 rounded-xl !bg-[#24283B] border !border-[#292E42] text-xs font-bold !text-[#C0CAF5] shrink-0 shadow-xs">
                 <button
                   type="button"
                   disabled={currentPage <= 1}
                   onClick={() => scrollToPage(currentPage - 1)}
-                  className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                  className="pdf-stepper-btn p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                   title="Previous Page (Left Arrow / Page Up)"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
-                <span className="hidden lg:inline text-slate-300 text-xs font-semibold px-0.5">Page</span>
+                <span style={{ color: '#C0CAF5', WebkitTextFillColor: '#C0CAF5' }} className="pdf-stepper-label hidden lg:inline text-xs font-semibold px-0.5">Page</span>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -935,12 +935,12 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                         (e.target as HTMLElement).blur();
                       }
                     }}
-                    style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
-                    className="w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all"
+                    style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF', backgroundColor: '#13141F', borderColor: '#3B4261' }}
+                    className="pdf-stepper-input w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all"
                     title="Click to jump to any page number (Press Enter)"
                   />
                 </form>
-                <span className="text-slate-400 font-bold px-0.5">/</span>
+                <span style={{ color: '#94A3B8', WebkitTextFillColor: '#94A3B8' }} className="pdf-stepper-slash font-bold px-0.5">/</span>
                 <span
                   style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
                   className="pdf-page-count text-white font-bold tabular-nums pr-0.5"
@@ -951,7 +951,7 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   type="button"
                   disabled={currentPage >= totalPages}
                   onClick={() => scrollToPage(currentPage + 1)}
-                  className="p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
+                  className="pdf-stepper-btn p-1 hover:!text-white disabled:opacity-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all"
                   title="Next Page (Right Arrow / Page Down / Space)"
                 >
                   <ChevronRight className="w-3.5 h-3.5" />

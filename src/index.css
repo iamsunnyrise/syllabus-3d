@@ -527,8 +527,67 @@
     border-color: #292E42 !important;
   }
 
-  html.warm-cream header .text-slate-400,
-  html.warm-cream header .text-slate-500 {
+  /* ═══════════════════════════════════════════════════════════════
+     PDF READER STEPPER & CONTROLS ISOLATION (ALL THEMES)
+     Ensures page input, slash, total pages, and arrow buttons
+     have 100% crystal-clear contrast in Light, Warm-Cream & Dark modes.
+     ═══════════════════════════════════════════════════════════════ */
+  .pdf-reader-isolated .pdf-stepper,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper {
+    background-color: #24283B !important;
+    border-color: #292E42 !important;
+    color: #C0CAF5 !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-input,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-input,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-input {
+    background-color: #13141F !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    border-color: #3B4261 !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-slash,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-slash,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-slash {
+    color: #94A3B8 !important;
+    -webkit-text-fill-color: #94A3B8 !important;
+    font-weight: 700 !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-label,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-label,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-label {
+    color: #C0CAF5 !important;
+    -webkit-text-fill-color: #C0CAF5 !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-btn,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-btn,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-btn {
+    background-color: transparent !important;
+    color: #C0CAF5 !important;
+    border-color: transparent !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-btn:hover,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-btn:hover,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+  }
+
+  .pdf-reader-isolated .pdf-stepper-btn:disabled,
+  html.warm-cream .pdf-reader-isolated .pdf-stepper-btn:disabled,
+  html.warm-cream header .pdf-reader-isolated .pdf-stepper-btn:disabled {
+    background-color: transparent !important;
+    opacity: 0.3 !important;
+  }
+
+  html.warm-cream header:not(.pdf-reader-isolated *) .text-slate-400,
+  html.warm-cream header:not(.pdf-reader-isolated *) .text-slate-500 {
     color: #524E12 !important;
   }
 
@@ -1356,9 +1415,9 @@
   }
 
   /* 6. Form Elements & Search Inputs in Warm Parchment */
-  html.warm-cream input,
-  html.warm-cream textarea,
-  html.warm-cream select {
+  html.warm-cream input:not(.pdf-reader-isolated *),
+  html.warm-cream textarea:not(.pdf-reader-isolated *),
+  html.warm-cream select:not(.pdf-reader-isolated *) {
     background-color: #FFFDF8 !important;
     border-color: #D8C6A5 !important;
     color: #1C1B05 !important;
