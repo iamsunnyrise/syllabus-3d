@@ -483,13 +483,48 @@
     color: #1C1B05 !important;
   }
 
-  html.warm-cream header .text-slate-900,
-  html.warm-cream header .text-slate-800,
-  html.warm-cream header h1,
-  html.warm-cream header h2,
-  html.warm-cream header h3,
-  html.warm-cream header span.font-bold {
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) .text-slate-900,
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) .text-slate-800,
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) h1,
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) h2,
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) h3,
+  html.warm-cream header:not(.pdf-reader-isolated *):not(.pdf-reader-isolated) span.font-bold {
     color: #1C1B05 !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PDF READER HIGH-CONTRAST ISOLATION (ALL THEMES)
+     Prevents theme background and color leaks from blinding document title,
+     stepper, and controls in light or warm-cream modes.
+     ═══════════════════════════════════════════════════════════════ */
+  .pdf-reader-isolated .pdf-title-badge,
+  html.warm-cream .pdf-reader-isolated .pdf-title-badge,
+  html.warm-cream header .pdf-reader-isolated .pdf-title-badge {
+    background-color: #13141F !important;
+    border-color: #292E42 !important;
+  }
+
+  .pdf-reader-isolated .pdf-title-text,
+  .pdf-reader-isolated .pdf-title-badge span,
+  .pdf-reader-isolated .pdf-page-count,
+  html.warm-cream .pdf-reader-isolated .pdf-title-text,
+  html.warm-cream .pdf-reader-isolated header .pdf-title-text,
+  html.warm-cream .pdf-reader-isolated .pdf-title-badge span,
+  html.warm-cream .pdf-reader-isolated .pdf-page-count,
+  html.warm-cream header .pdf-reader-isolated .pdf-title-text,
+  html.warm-cream header .pdf-reader-isolated .pdf-title-badge span,
+  html.warm-cream header .pdf-reader-isolated .pdf-page-count {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+  }
+
+  .pdf-reader-isolated select.pdf-title-select,
+  html.warm-cream .pdf-reader-isolated select.pdf-title-select,
+  html.warm-cream header .pdf-reader-isolated select.pdf-title-select {
+    background-color: #13141F !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    border-color: #292E42 !important;
   }
 
   html.warm-cream header .text-slate-400,

@@ -793,14 +793,15 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
               {/* Document Title & Attachment Switcher with enhanced high-contrast visibility */}
               <div className="min-w-0 flex items-center gap-2 shrink-0">
                 {attachments.length > 1 ? (
-                  <div className="relative max-w-[200px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[500px] shrink-0">
+                  <div className="pdf-title-badge relative max-w-[200px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[500px] shrink-0">
                     <select
                       value={selectedAttachmentId}
                       onChange={e => {
                         soundManager.playClick();
                         setSelectedAttachmentId(e.target.value);
                       }}
-                      className="w-full pl-3 pr-8 py-1.5 rounded-xl !bg-[#13141F] border !border-[#292E42] hover:!border-slate-600 text-xs font-bold !text-white focus:outline-none focus:!border-indigo-400 appearance-none cursor-pointer truncate shadow-xs tracking-wide transition-colors"
+                      style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF', backgroundColor: '#13141F' }}
+                      className="pdf-title-select w-full pl-3 pr-8 py-1.5 rounded-xl !bg-[#13141F] border !border-[#292E42] hover:!border-slate-600 text-xs font-bold !text-white focus:outline-none focus:!border-indigo-400 appearance-none cursor-pointer truncate shadow-xs tracking-wide transition-colors"
                       title={currentAttachment?.name || topicName}
                     >
                       {attachments.map(att => (
@@ -813,11 +814,14 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                   </div>
                 ) : (
                   <div
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-xl !bg-[#13141F] border !border-[#292E42] shadow-xs max-w-[190px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[500px] shrink-0"
+                    className="pdf-title-badge flex items-center gap-2 px-3 py-1.5 rounded-xl !bg-[#13141F] border !border-[#292E42] shadow-xs max-w-[190px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[500px] shrink-0"
                     title={currentAttachment?.name || topicName}
                   >
                     <img src="/pdf_icon_3d.png" alt="PDF" className="w-4 h-4 object-contain shrink-0 drop-shadow-sm" />
-                    <span className="text-xs font-bold text-white tracking-wide truncate select-text">
+                    <span
+                      style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
+                      className="pdf-title-text text-xs font-bold !text-white tracking-wide truncate select-text"
+                    >
                       {currentAttachment?.name || topicName}
                     </span>
                   </div>
@@ -853,11 +857,17 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                       onChange={(e) => setPageInputValue(e.target.value.replace(/[^0-9]/g, ''))}
                       onFocus={(e) => e.target.select()}
                       onBlur={handlePageInputSubmit}
+                      style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
                       className="w-8 text-center py-0.5 px-0.5 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 outline-none tabular-nums"
                     />
                   </form>
                   <span className="text-slate-400 font-bold px-0.5">/</span>
-                  <span className="text-white font-bold tabular-nums pr-0.5">{totalPages}</span>
+                  <span
+                    style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
+                    className="pdf-page-count text-white font-bold tabular-nums pr-0.5"
+                  >
+                    {totalPages}
+                  </span>
                   <button
                     type="button"
                     disabled={currentPage >= totalPages}
@@ -925,12 +935,18 @@ export const InAppPdfReaderModal: React.FC<InAppPdfReaderModalProps> = ({
                         (e.target as HTMLElement).blur();
                       }
                     }}
+                    style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
                     className="w-10 sm:w-11 text-center py-0.5 px-1 rounded-lg !bg-[#13141F] !text-white font-bold text-xs border !border-slate-700/80 focus:!border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none tabular-nums transition-all"
                     title="Click to jump to any page number (Press Enter)"
                   />
                 </form>
                 <span className="text-slate-400 font-bold px-0.5">/</span>
-                <span className="text-white font-bold tabular-nums pr-0.5">{totalPages}</span>
+                <span
+                  style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF' }}
+                  className="pdf-page-count text-white font-bold tabular-nums pr-0.5"
+                >
+                  {totalPages}
+                </span>
                 <button
                   type="button"
                   disabled={currentPage >= totalPages}
