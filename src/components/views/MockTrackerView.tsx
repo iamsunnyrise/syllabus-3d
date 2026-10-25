@@ -9,10 +9,6 @@ import {
   BarChart2, 
   Settings as SettingsIcon,
   Plus,
-  Search,
-  Volume2,
-  VolumeX,
-  Flame,
   ArrowLeft
 } from 'lucide-react';
 import { MockProvider, useMocks, NavView } from '../../context/MockContext';
@@ -45,10 +41,6 @@ const MockTrackerContent: React.FC = () => {
     isSearchModalOpen,
     setIsAddModalOpen, 
     setEditingMock,
-    setIsSearchModalOpen,
-    isSoundEnabled,
-    toggleSound,
-    gamification,
     settings,
     navigateBack,
     canNavigateBack
@@ -79,123 +71,73 @@ const MockTrackerContent: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in font-sans pb-36 sm:pb-24">
       
-      {/* 1. MOCK TRACKER HEADER BAR WITH METRICS & QUICK ACTIONS */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-sm transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      {/* 1. MOCK TRACKER HEADER BAR WITH STREAMLINED CONTROLS */}
+      <div className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs transition-colors space-y-3">
+        <div className="flex items-center justify-between gap-3">
           
-          {/* Brand & Target Info */}
-          <div className="flex items-center gap-3 min-w-0">
+          {/* Left: Brand, Exam & Target Info */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             {canNavigateBack && (
               <button
                 type="button"
                 onClick={navigateBack}
                 title="Go Back"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer select-none active:scale-95 shadow-sm shrink-0"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all cursor-pointer select-none active:scale-95 shadow-2xs shrink-0"
               >
                 <ArrowLeft className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="hidden sm:inline">Back</span>
               </button>
             )}
 
-            <SectionBadgeIcon section="mock-tracker" size="lg" />
+            <SectionBadgeIcon section="mock-tracker" size="md" />
 
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                <h1 className="text-base sm:text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white font-sans">
                   Mock Tracker
                 </h1>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold font-mono">
                   {settings.selectedExam || 'SSC CGL'}
                 </span>
                 <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium inline-flex items-center gap-1">
                   Target: <span className="text-indigo-600 dark:text-indigo-400 font-bold tabular-nums">{settings.targetPercentile || 90}%ile</span>
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Quick Metrics & Actions Strip */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-            
-            {/* Streak Badge */}
-            <div 
-              title={`${gamification.streakDays} Day Active Mock Streak!`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-600 dark:text-amber-400 text-xs font-bold font-sans tabular-nums"
-            >
-              <Flame className="w-3.5 h-3.5 fill-amber-500" />
-              <span>{gamification.streakDays}d Streak</span>
-            </div>
-
-            {/* XP Level Badge */}
-            <div 
-              title={`Level ${gamification.level} (${gamification.levelTitle})`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-xs font-extrabold font-sans tabular-nums"
-            >
-              <span className="text-xs">⚡</span>
-              <span>Lvl {gamification.level} • {gamification.totalXp} XP</span>
-            </div>
-
-            {/* Quick Search */}
-            <button
-              onClick={() => {
-                audioFX.playClickSound();
-                setIsSearchModalOpen(true);
-              }}
-              title="Search Mocks (Ctrl+K)"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-xs font-semibold cursor-pointer active:scale-95"
-            >
-              <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden sm:inline">Search</span>
-              <kbd className="hidden md:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">
-                Ctrl+K
-              </kbd>
-            </button>
-
-            {/* Audio Toggle */}
-            <button
-              onClick={toggleSound}
-              title={isSoundEnabled ? 'Mute Sound Effects' : 'Enable Sound Effects'}
-              className="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
-            >
-              {isSoundEnabled ? (
-                <Volume2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              ) : (
-                <VolumeX className="w-4 h-4 text-slate-400" />
-              )}
-            </button>
-
-            {/* Add Mock CTA */}
+          {/* Right: Primary Log Mock CTA */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleOpenAddMock}
-              className="px-3.5 sm:px-4 py-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs sm:text-[13px] font-bold shadow-md shadow-indigo-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+              className="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white text-xs sm:text-[13px] font-extrabold shadow-sm hover:shadow-md hover:shadow-indigo-500/25 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               <span>Log Mock</span>
             </button>
-
           </div>
         </div>
 
-        {/* 2. SUB-NAVIGATION PILL TABS */}
-        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/5 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth">
+        {/* 2. SUB-NAVIGATION PILL TABS (Clean, Compact Segmented Track) */}
+        <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar scroll-smooth">
           {navTabs.map(tab => {
             const isActive = activeView === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => handleTabClick(tab.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-2 select-none cursor-pointer ${
+                className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 sm:gap-2 select-none cursor-pointer active:scale-95 ${
                   isActive
-                    ? 'bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-black'
-                    : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/10'
+                    ? 'bg-indigo-600 text-white shadow-xs shadow-indigo-500/25 font-black'
+                    : 'bg-slate-100/90 dark:bg-white/[0.05] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-white/10 border border-slate-200/60 dark:border-white/[0.06]'
                 }`}
               >
                 {tab.icon}
                 <span>{tab.label}</span>
                 {tab.badge && (
                   <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-black ${
-                    isActive ? 'bg-white/25 text-white' : 'bg-[#F43F5E] text-white'
+                    isActive ? 'bg-white/25 text-white' : 'bg-rose-500 text-white'
                   }`}>
                     {tab.badge}
                   </span>
