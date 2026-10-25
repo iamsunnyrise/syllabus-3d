@@ -96,7 +96,8 @@ import {
   LEVEL_1_SET_07_OWS,
   LEVEL_1_SET_08_OWS,
   LEVEL_1_SET_09_OWS,
-  LEVEL_1_SET_10_OWS
+  LEVEL_1_SET_10_OWS,
+  LEVEL_1_SET_11_OWS
 } from '../../data/highYieldOwsData';
 import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 
@@ -145,7 +146,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-07', label: 'Set 07' },
       { id: 'set-08', label: 'Set 08' },
       { id: 'set-09', label: 'Set 09' },
-      { id: 'set-10', label: 'Set 10' }
+      { id: 'set-10', label: 'Set 10' },
+      { id: 'set-11', label: 'Set 11' }
     ]
   },
   {
@@ -164,7 +166,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-07', label: 'Set 07' },
       { id: 'set-08', label: 'Set 08' },
       { id: 'set-09', label: 'Set 09' },
-      { id: 'set-10', label: 'Set 10' }
+      { id: 'set-10', label: 'Set 10' },
+      { id: 'set-11', label: 'Set 11' }
     ]
   },
   {
@@ -183,7 +186,8 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-07', label: 'Set 07' },
       { id: 'set-08', label: 'Set 08' },
       { id: 'set-09', label: 'Set 09' },
-      { id: 'set-10', label: 'Set 10' }
+      { id: 'set-10', label: 'Set 10' },
+      { id: 'set-11', label: 'Set 11' }
     ]
   },
   {
@@ -232,6 +236,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_08_OWS,
   ...LEVEL_1_SET_09_OWS,
   ...LEVEL_1_SET_10_OWS,
+  ...LEVEL_1_SET_11_OWS,
   ...HIGH_YIELD_ROOT_WORDS,
   // Idioms & Roots Mock Examples
   {
@@ -1042,7 +1047,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     ? 'bg-white/20 text-white font-black'
                     : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
                 }`}>
-                  700+ Terms
+                  1200+ Terms
                 </span>
               </button>
 
@@ -1294,7 +1299,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       vocabSubTab === 'roots'
                         ? 'Search root words, prefixes, suffixes, meanings...'
                         : vocabSubTab === 'ows'
-                        ? 'Search 700+ One Word Substitutions, meanings, Hindi...'
+                        ? 'Search 1,200+ One Word Substitutions, meanings, Hindi...'
                         : vocabSubTab === 'idioms'
                         ? 'Search idioms & phrases, meanings, Hindi...'
                         : 'Search core words, hindi meanings...'
@@ -1359,11 +1364,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
                           <span>One Word Substitution (OWS) Master Curriculum</span>
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30">
-                            700+ Terms
+                            1200+ Terms
                           </span>
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                          10 High-Yield Sets curated from 15 years of SSC CGL, CHSL, MTS & CPO papers
+                          11 High-Yield Sets curated from 15 years of SSC CGL, CHSL, MTS & CPO papers
                         </p>
                       </div>
                     </div>
