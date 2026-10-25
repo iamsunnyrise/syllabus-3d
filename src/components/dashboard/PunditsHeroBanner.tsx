@@ -86,14 +86,14 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   }, [currentExam]);
 
   return (
-    <div className="relative w-full rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#121626] via-[#0E111E] to-[#0A0C16] text-[#F8FAFC] border border-amber-400/25 shadow-xl dark:shadow-[0_14px_40px_rgba(0,0,0,0.55)] overflow-hidden select-none">
+    <div className="relative w-full rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#12162A] via-[#0D101E] to-[#080A16] text-[#F8FAFC] border border-amber-400/30 shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden select-none">
       {/* 🌟 Atmospheric Golden Background Lighting */}
-      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-amber-400/15 via-amber-500/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-amber-400/20 via-amber-500/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
       <div className="absolute -bottom-16 -left-10 w-48 h-48 bg-blue-500/10 rounded-full blur-[70px] pointer-events-none" />
       <div className="absolute -bottom-16 -right-10 w-48 h-48 bg-amber-500/10 rounded-full blur-[70px] pointer-events-none" />
 
       {/* Modern Radial Dot Matrix Accent */}
-      <div className="absolute inset-0 pointer-events-none opacity-15 bg-[radial-gradient(#F59E0B_0.75px,transparent_0.75px)] [background-size:24px_24px]" />
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#F59E0B_0.75px,transparent_0.75px)] [background-size:24px_24px]" />
 
       {/* Main Banner Content Area */}
       <div className="relative z-10 px-4 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 flex flex-col items-center justify-center">
@@ -101,12 +101,12 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
         {/* Center: Brand Typography & 4 Feature Pillars */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto w-full">
           
-          {/* Top Badge: "WELCOME to" */}
+          {/* Top Badge: "WELCOME TO" */}
           <div className="flex items-center justify-center mb-1.5 sm:mb-2">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1 rounded-full bg-amber-500/15 border border-amber-400/40 shadow-[0_0_16px_rgba(245,158,11,0.2)] backdrop-blur-md group cursor-default">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1 rounded-full bg-amber-500/15 border border-amber-400/40 shadow-[0_0_18px_rgba(245,158,11,0.25)] backdrop-blur-md group cursor-default">
               <NamasteIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] animate-pulse-slow" />
-              <span className="text-[10.5px] sm:text-xs font-black tracking-[0.2em] uppercase text-amber-300 font-sans">
-                WELCOME to
+              <span className="text-[10.5px] sm:text-xs font-black tracking-[0.22em] uppercase text-amber-300 font-sans">
+                WELCOME TO
               </span>
             </div>
           </div>
@@ -166,15 +166,15 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 setIsContinueStudyModalOpen(true);
               }}
               title="Continue Study - Jump Back In"
-              className="p-3 sm:p-4 rounded-2xl bg-[#141829]/80 hover:bg-[#1A2035] border border-white/10 hover:border-amber-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-sm hover:shadow-lg hover:shadow-amber-500/10"
+              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-amber-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-amber-500/15 hover:-translate-y-1"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center mb-2 shadow-[0_0_16px_rgba(245,158,11,0.35)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
                 <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current ml-0.5" />
               </div>
-              <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-amber-300 transition-colors leading-tight">
+              <span className="text-xs sm:text-sm font-black text-white group-hover:text-amber-300 transition-colors leading-tight">
                 Continue Study
               </span>
-              <span className="text-[10.5px] sm:text-[11px] text-amber-300 font-semibold truncate max-w-full px-1 mt-0.5">
+              <span className="text-[11px] sm:text-xs text-amber-300/90 font-bold truncate max-w-full px-1 mt-1">
                 {activeTopic?.topic?.name || 'Resume Study'}
               </span>
             </div>
@@ -191,15 +191,15 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Focus Mode & Pomodoro Timer"
-              className="p-3 sm:p-4 rounded-2xl bg-[#141829]/80 hover:bg-[#1A2035] border border-white/10 hover:border-sky-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-sm hover:shadow-lg hover:shadow-sky-500/10"
+              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-sky-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-sky-500/15 hover:-translate-y-1"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 text-white flex items-center justify-center mb-2 shadow-[0_0_16px_rgba(56,189,248,0.35)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform">
                 <Timer className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
-              <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-sky-300 transition-colors leading-tight">
+              <span className="text-xs sm:text-sm font-black text-white group-hover:text-sky-300 transition-colors leading-tight">
                 Focus Mode
               </span>
-              <span className="text-[10.5px] sm:text-[11px] text-sky-300 font-semibold mt-0.5">
+              <span className="text-[11px] sm:text-xs text-sky-300/90 font-bold mt-1">
                 & Pomodoro
               </span>
             </div>
@@ -212,15 +212,15 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 onNavigate('routine');
               }}
               title="Open Daily Routine & Schedule"
-              className="p-3 sm:p-4 rounded-2xl bg-[#141829]/80 hover:bg-[#1A2035] border border-white/10 hover:border-indigo-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-sm hover:shadow-lg hover:shadow-indigo-500/10"
+              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-indigo-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-indigo-500/15 hover:-translate-y-1"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-600 text-white flex items-center justify-center mb-2 shadow-[0_0_16px_rgba(99,102,241,0.35)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-indigo-400 to-purple-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(99,102,241,0.4)] group-hover:scale-110 transition-transform">
                 <CalendarDays className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
-              <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-indigo-300 transition-colors leading-tight">
+              <span className="text-xs sm:text-sm font-black text-white group-hover:text-indigo-300 transition-colors leading-tight">
                 Daily Schedule
               </span>
-              <span className="text-[10.5px] sm:text-[11px] text-indigo-300 font-semibold mt-0.5">
+              <span className="text-[11px] sm:text-xs text-indigo-300/90 font-bold mt-1">
                 & Practice
               </span>
             </div>
@@ -237,15 +237,15 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Exam Date & Live Countdown"
-              className="p-3 sm:p-4 rounded-2xl bg-[#141829]/80 hover:bg-[#1A2035] border border-white/10 hover:border-rose-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-sm hover:shadow-lg hover:shadow-rose-500/10"
+              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-rose-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-rose-500/15 hover:-translate-y-1"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-rose-400 to-orange-500 text-white flex items-center justify-center mb-2 shadow-[0_0_16px_rgba(244,63,94,0.35)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-rose-400 to-orange-500 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(244,63,94,0.4)] group-hover:scale-110 transition-transform">
                 <CalendarClock className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
-              <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-rose-300 transition-colors leading-tight">
+              <span className="text-xs sm:text-sm font-black text-white group-hover:text-rose-300 transition-colors leading-tight">
                 Exam Date
               </span>
-              <span className="text-[10.5px] sm:text-[11px] text-rose-300 font-semibold mt-0.5">
+              <span className="text-[11px] sm:text-xs text-rose-300/90 font-bold mt-1">
                 & Countdown
               </span>
             </div>
