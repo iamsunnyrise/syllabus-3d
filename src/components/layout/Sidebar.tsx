@@ -649,14 +649,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               )}
             </div>
 
-            {/* Sidebar Progress Track with smooth #8D7A02 -> #E1A837 -> #FAEED9 gradient */}
-            <div className="h-[2px] w-full bg-[#8D7A02]/20 overflow-hidden shrink-0">
-              <div 
-                className="h-full bg-gradient-to-r from-[#8D7A02] via-[#E1A837] to-[#FAEED9] transition-all duration-700 ease-out shadow-[0_0_8px_rgba(225,168,55,0.6)]" 
-                style={{ width: `${Math.max(5, overallStats?.completionPercentage || 0)}%` }} 
-              />
-            </div>
-
             {/* Scrollable Navigation Body */}
             <div className="sidebar-scroll-rail p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0 bg-[#FFFDF8] dark:bg-black">
               {/* 2. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
