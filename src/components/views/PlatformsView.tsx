@@ -1072,17 +1072,56 @@ export const PlatformsView: React.FC = () => {
                   }}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 flex items-center gap-1.5 shrink-0 ${
                     isSelected
-                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm'
-                      : 'bg-slate-100 dark:bg-[#1B1C28] text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
+                      ? isWarmCream
+                        ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] shadow-sm'
+                        : isDark
+                          ? 'bg-white text-slate-950 shadow-sm'
+                          : 'bg-slate-900 text-white shadow-sm'
+                      : isWarmCream
+                        ? 'bg-[#FAF0DC] hover:bg-[#F5E8CF] text-[#5A4E03] hover:text-[#1C1B05] border border-[#E2D1B3]'
+                        : 'bg-slate-100 dark:bg-[#1B1C28] text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
                   }`}
+                  style={
+                    isSelected
+                      ? {
+                          color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                        }
+                      : undefined
+                  }
                 >
-                  <span>{tab.label}</span>
-                  {tab.count > 0 && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-black ${
+                  <span
+                    className="font-bold"
+                    style={
                       isSelected
-                        ? 'bg-white/30 text-white dark:bg-slate-900/30 dark:text-slate-900'
-                        : 'bg-slate-200 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200'
-                    }`}>
+                        ? {
+                            color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                          }
+                        : undefined
+                    }
+                  >
+                    {tab.label}
+                  </span>
+                  {tab.count > 0 && (
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-black ${
+                        isSelected
+                          ? isWarmCream
+                            ? 'bg-[#121104]/15 text-[#121104]'
+                            : isDark
+                              ? 'bg-slate-900/15 text-slate-950'
+                              : 'bg-white/25 text-white'
+                          : isWarmCream
+                            ? 'bg-[#EAD9BC] text-[#38370D]'
+                            : 'bg-slate-200 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200'
+                      }`}
+                      style={
+                        isSelected
+                          ? {
+                              color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                            }
+                          : undefined
+                      }
+                    >
                       {tab.count}
                     </span>
                   )}
@@ -1287,15 +1326,32 @@ export const PlatformsView: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => soundManager.playClick()}
-                      className={`py-1.5 px-3 sm:px-3.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shadow-2xs ${
+                      className={`py-1.5 px-3.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md ${
                         isWarmCream
                           ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] hover:brightness-105'
-                          : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900'
+                          : isDark
+                            ? 'bg-white hover:bg-slate-100 text-slate-950 shadow-sm'
+                            : 'bg-slate-900 hover:bg-slate-800 text-white shadow-sm'
                       }`}
+                      style={{
+                        color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                      }}
                       aria-label={`Open ${platform.name}`}
                     >
-                      <span>Open</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <span
+                        className="font-bold"
+                        style={{
+                          color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                        }}
+                      >
+                        Open
+                      </span>
+                      <ArrowUpRight
+                        className="w-3.5 h-3.5 stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                        style={{
+                          color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
+                        }}
+                      />
                     </a>
                   </div>
                 </div>

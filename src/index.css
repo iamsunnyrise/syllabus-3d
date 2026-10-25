@@ -2310,17 +2310,25 @@ html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h3:not(.text-white):no
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h4:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h5:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
 html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) h6:not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([class*="reader-theme"] *):not(.reader-theme-oled *):not(.book-page-sheet *),
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-900,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class*="text-slate-900"],
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-black,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-800,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-900,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-800,
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#11120F\],
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#191A17\],
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#38370D\],
-html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#0F172A\] {
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-900:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) [class~="text-slate-900"]:not(.text-white):not([class*="text-white"]):not([class*="dark:text-slate-900"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-black:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-slate-800:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-900:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-gray-800:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#11120F\]:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#191A17\]:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#38370D\]:not(.text-white):not([class*="text-white"]),
+html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .text-\[\#0F172A\]:not(.text-white):not([class*="text-white"]) {
   color: #0F172A !important;
+}
+
+/* White text protection on dark pills / badges / buttons across light modes */
+html:not(.dark):not(.warm-cream) .text-white,
+html:not(.dark):not(.warm-cream) [class~="text-white"],
+html:not(.dark):not(.warm-cream) .text-white > *,
+html:not(.dark):not(.warm-cream) [class~="text-white"] > * {
+  color: #FFFFFF !important;
 }
 
 /* Secondary Body, Descriptions & Labels */
