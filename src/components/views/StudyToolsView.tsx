@@ -2259,54 +2259,26 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         </div>
                       ) : (
-                        <div
-                          onClick={() => {
-                            soundManager.playClick();
-                            setIsCardFlipped(true);
-                          }}
-                          className="group mt-3 p-3.5 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border border-amber-500/30 dark:border-amber-400/40 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs hover:shadow-sm"
-                        >
-                          <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-                            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
-                              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5 sm:gap-2">
-                                <span className="text-xs sm:text-base font-black text-slate-900 dark:text-white">
-                                  Active Recall Drill
-                                </span>
-                                <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shrink-0">
-                                  Tap to Reveal
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 text-[10.5px] sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 flex-wrap font-medium">
-                                <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                                  ✓ {currentFlashcard.synonyms.length} Synonyms
-                                </span>
-                                {currentFlashcard.antonyms.length > 0 && (
-                                  <>
-                                    <span className="text-slate-400">•</span>
-                                    <span className="font-bold text-rose-700 dark:text-rose-300">
-                                      ✕ {currentFlashcard.antonyms.length} Antonyms
-                                    </span>
-                                  </>
-                                )}
-                                {currentFlashcard.mnemonic && (
-                                  <>
-                                    <span className="text-slate-400">•</span>
-                                    <span className="font-bold text-purple-700 dark:text-purple-300">
-                                      💡 Trick
-                                    </span>
-                                  </>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs transition-transform shrink-0 w-full sm:w-auto text-center">
-                            <span>Reveal All</span>
-                            <RotateCw className="w-3.5 h-3.5 text-slate-950" />
-                          </div>
+                        <div className="flex items-center gap-2.5 pt-2 text-xs font-semibold text-slate-500 dark:text-slate-400 flex-wrap border-t border-slate-200/60 dark:border-white/10 mt-3">
+                          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <span>✓</span> {currentFlashcard.synonyms.length} Synonyms
+                          </span>
+                          {currentFlashcard.antonyms.length > 0 && (
+                            <>
+                              <span className="text-slate-300 dark:text-white/20">•</span>
+                              <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1">
+                                <span>✕</span> {currentFlashcard.antonyms.length} Antonyms
+                              </span>
+                            </>
+                          )}
+                          {currentFlashcard.mnemonic && (
+                            <>
+                              <span className="text-slate-300 dark:text-white/20">•</span>
+                              <span className="text-purple-700 dark:text-purple-300 font-bold flex items-center gap-1">
+                                <span>💡</span> Memory Trick Available
+                              </span>
+                            </>
+                          )}
                         </div>
                       )
                     )}
