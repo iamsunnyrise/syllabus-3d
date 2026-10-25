@@ -79,30 +79,51 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   const top3TargetsSafe = Array.isArray(top3Targets) ? top3Targets : [];
   const completedTargets = top3TargetsSafe.filter(t => t.text && t.text.trim() && t.completed);
 
-  // Mobile Swipe-to-Dismiss Drawer Gesture State
+  // Mobile Swipe-to-Dismiss Drawer Gesture State (Direction-Aware & Jitter-Free)
   const drawerTouchStartX = useRef<number | null>(null);
+  const drawerTouchStartY = useRef<number | null>(null);
+  const isHorizontalDrawerSwipe = useRef<boolean | null>(null);
   const [drawerDragX, setDrawerDragX] = useState(0);
 
   const handleDrawerTouchStart = (e: React.TouchEvent) => {
     drawerTouchStartX.current = e.touches[0].clientX;
+    drawerTouchStartY.current = e.touches[0].clientY;
+    isHorizontalDrawerSwipe.current = null;
   };
 
   const handleDrawerTouchMove = (e: React.TouchEvent) => {
-    if (drawerTouchStartX.current === null) return;
+    if (drawerTouchStartX.current === null || drawerTouchStartY.current === null) return;
+
     const diffX = e.touches[0].clientX - drawerTouchStartX.current;
-    if (diffX < 0) {
+    const diffY = e.touches[0].clientY - drawerTouchStartY.current;
+
+    // Detect direction intent once moved past a small threshold
+    if (isHorizontalDrawerSwipe.current === null) {
+      if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
+        // Only trigger horizontal drawer drag if user is predominantly swiping left
+        if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+          isHorizontalDrawerSwipe.current = true;
+        } else {
+          isHorizontalDrawerSwipe.current = false;
+        }
+      }
+    }
+
+    if (isHorizontalDrawerSwipe.current === true && diffX < 0) {
       setDrawerDragX(diffX);
     }
   };
 
   const handleDrawerTouchEnd = () => {
-    if (drawerDragX < -70) {
+    if (isHorizontalDrawerSwipe.current === true && drawerDragX < -75) {
       soundManager.playClick();
       haptics.light();
       onClose();
     }
     setDrawerDragX(0);
     drawerTouchStartX.current = null;
+    drawerTouchStartY.current = null;
+    isHorizontalDrawerSwipe.current = null;
   };
 
   useEffect(() => {
@@ -221,7 +242,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         className="fixed inset-0 bg-black/75 backdrop-blur-md animate-fade-in transition-opacity"
       />
 
-      {/* Drawer Sheet with Native Swipe-Left Dismiss */}
+      {/* Drawer Sheet with Native Direction-Aware Swipe-Left Dismiss */}
       <div
         onTouchStart={handleDrawerTouchStart}
         onTouchMove={handleDrawerTouchMove}
@@ -231,16 +252,16 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           transform: drawerDragX < 0 ? `translateX(${drawerDragX}px)` : undefined,
           transition: drawerDragX === 0 ? 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none'
         }}
-        className="relative w-[88%] max-w-[335px] bg-white dark:bg-[#0E101B] border-r border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between z-10 shadow-[0_0_60px_rgba(0,0,0,0.6)] animate-slide-right overflow-y-auto custom-scrollbar"
+        className="relative w-[85%] max-w-[310px] bg-[#FFFDF8] dark:bg-[#0E101B] border-r border-[#E2D1B3] dark:border-white/[0.08] flex flex-col justify-between z-10 shadow-[0_0_50px_rgba(0,0,0,0.55)] animate-slide-right overflow-y-auto overscroll-contain no-scrollbar"
       >
-        <div className="p-4 sm:p-5 space-y-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pl-[max(1rem,env(safe-area-inset-left,0px))]">
+        <div className="p-3 space-y-2.5 pt-[max(0.75rem,env(safe-area-inset-top,0px))] pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-3">
           
-          {/* 1. BRANDING & EXAM TARGET HEADER */}
-          <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/[0.08]">
-            <div className="flex items-center gap-2.5 min-w-0">
+          {/* 1. BRANDING & EXAM TARGET HEADER (Compact & Crisp) */}
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/[0.08]">
+            <div className="flex items-center gap-2 min-w-0">
               <BrandEmblemLogo size="sm" />
               <div className="min-w-0">
-                <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
+                <span className="text-xs font-black tracking-tight text-slate-900 dark:text-white uppercase font-serif block leading-none">
                   SYLLABUS 3D
                 </span>
                 <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400 font-mono tracking-wider truncate mt-0.5">
@@ -255,38 +276,38 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 haptics.light();
                 onClose();
               }}
-              className="w-8 h-8 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200/80 dark:hover:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
+              className="w-7 h-7 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 border border-slate-200/80 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-90 shrink-0"
               title="Close Navigation Drawer"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* 1.5 USER PROFILE CARD (Exact Match with Reference Image) */}
-          <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex items-center justify-between shadow-2xs">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
+          {/* 1.5 USER PROFILE CARD (Compact & High Contrast) */}
+          <div className="px-2.5 py-1.5 rounded-xl bg-slate-50/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 flex items-center justify-between shadow-2xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 overflow-hidden font-bold text-xs border border-slate-300/60 dark:border-white/15">
                 {profileSafe.avatarUrl ? (
                   <img src={profileSafe.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                 ) : profileSafe.avatarEmoji ? (
-                  <span>{profileSafe.avatarEmoji}</span>
+                  <span className="text-sm">{profileSafe.avatarEmoji}</span>
                 ) : (
-                  <User className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+                  <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 )}
               </div>
               <div className="truncate min-w-0">
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
-                  {user?.name || profileSafe.name || 'Guest User'}
+                  {user?.name || profileSafe.name || 'Scholar'}
                 </p>
-                <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
+                <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate leading-none mt-0.5">
                   Signed in
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 1.6 HOME, TOP 3 TARGETS & NIGHT JOURNAL */}
-          <div className="space-y-1">
+          {/* 1.6 HOME & TOP 3 TARGETS (Compact Side-by-Side Grid) */}
+          <div className="grid grid-cols-2 gap-1.5">
             <button
               type="button"
               onMouseEnter={() => preloadView('overview')}
@@ -296,17 +317,16 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 onSelectView('overview');
                 onClose();
               }}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none font-bold ${
                 activeView === 'overview'
                   ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-700 dark:text-slate-300 bg-slate-50/60 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
               }`}
             >
-              <Home className="w-4 h-4 stroke-[2.2]" />
+              <Home className="w-3.5 h-3.5 stroke-[2.2] text-amber-600 dark:text-amber-400 shrink-0" />
               <span className="truncate">Home</span>
             </button>
 
-            {/* Top 3 Daily Targets Link */}
             <button
               type="button"
               onMouseEnter={() => preloadView('targets')}
@@ -316,19 +336,19 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 onSelectView('targets');
                 onClose();
               }}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-xs sm:text-sm transition-all duration-150 cursor-pointer select-none font-bold ${
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none font-bold ${
                 activeView === 'targets'
                   ? 'bg-[#FFF4D2] text-[#8C6B00] border border-[#FDE68A] shadow-xs dark:bg-[#F59E0B]/20 dark:text-[#FCD34D] dark:border-[#F59E0B]/30'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-700 dark:text-slate-300 bg-slate-50/60 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
               }`}
             >
-              <Target className="w-4 h-4 stroke-[2.2] text-amber-500 shrink-0" />
-              <span className="truncate">Top 3 Daily Targets</span>
+              <Target className="w-3.5 h-3.5 stroke-[2.2] text-amber-500 shrink-0" />
+              <span className="truncate">3 Targets</span>
             </button>
           </div>
 
-          {/* 2. ACTION BUTTONS: AI ARCHITECT, ADD TARGET & FOCUS MODE */}
-          <div className="space-y-2 pt-1">
+          {/* 2. ACTION BUTTONS: COMPACT & CLEAN */}
+          <div className="space-y-1.5 pt-0.5">
             {onOpenAiArchitect && (
               <button
                 onClick={() => {
@@ -337,60 +357,58 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                   onOpenAiArchitect();
                 }}
-                className="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-black text-xs flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all cursor-pointer border border-white/20 tap-bounce"
+                className="w-full py-2 px-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 dark:from-blue-600 dark:via-indigo-600 dark:to-purple-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer border border-white/20 tap-bounce"
               >
-                <Sparkles className="w-4 h-4 stroke-[2.5]" />
-                <span>AI Syllabus Architect (PDF / Text)</span>
+                <Sparkles className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>AI Syllabus Architect</span>
               </button>
             )}
 
-            <div className="grid grid-cols-2 gap-2">
-            {onOpenAddTopic && (
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.light();
-                  onClose();
-                  onOpenAddTopic();
-                }}
-                className="py-2.5 px-3 rounded-2xl bg-gradient-to-r from-[#2563EB] to-blue-700 dark:from-[#7AA2F7] dark:to-[#5B8BF5] text-white dark:text-[#0B0B0D] font-black text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer border border-white/10 tap-bounce"
-              >
-                <Plus className="w-4 h-4 stroke-[3]" />
-                <span>Add Target</span>
-              </button>
-            )}
+            <div className="grid grid-cols-2 gap-1.5">
+              {onOpenAddTopic && (
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.light();
+                    onClose();
+                    onOpenAddTopic();
+                  }}
+                  className="py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-blue-700 dark:from-[#7AA2F7] dark:to-[#5B8BF5] text-white dark:text-[#0B0B0D] font-bold text-xs flex items-center justify-center gap-1 shadow-xs active:scale-95 transition-all cursor-pointer border border-white/10 tap-bounce"
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Add Target</span>
+                </button>
+              )}
 
-            {onOpenFocus && (
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  haptics.light();
-                  onClose();
-                  onOpenFocus();
-                }}
-                className="py-2.5 px-3 rounded-2xl bg-slate-50 dark:bg-[#131522] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs border border-slate-200/80 dark:border-white/[0.08] active:scale-95 transition-all cursor-pointer tap-bounce"
-              >
-                <Timer className="w-4 h-4 text-[#C49A3A]" />
-                <span>Focus Mode</span>
-              </button>
-            )}
+              {onOpenFocus && (
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.light();
+                    onClose();
+                    onOpenFocus();
+                  }}
+                  className="py-1.5 px-2.5 rounded-xl bg-slate-50 dark:bg-[#131522] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1 shadow-xs border border-slate-200/80 dark:border-white/[0.08] active:scale-95 transition-all cursor-pointer tap-bounce"
+                >
+                  <Timer className="w-3.5 h-3.5 text-[#C49A3A]" />
+                  <span>Focus Mode</span>
+                </button>
+              )}
+            </div>
           </div>
-        </div>
 
-          {/* 3. GROUPED NAVIGATION SECTIONS */}
-          <div className="space-y-4 pt-1">
+          {/* 3. GROUPED NAVIGATION SECTIONS (Unified Card Wells for Maximum Cleanliness) */}
+          <div className="space-y-2.5 pt-0.5">
             {sections.map(sec => (
-              <div key={sec.title} className="space-y-1.5">
-                <div className="flex items-center gap-2 px-2">
-                  <h5 className="text-xs font-semibold tracking-normal text-slate-500 dark:text-slate-400">
+              <div key={sec.title} className="space-y-1">
+                <div className="flex items-center gap-1.5 px-1">
+                  <h5 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     {sec.title}
                   </h5>
-                  <div className="flex-1 h-[1px] bg-slate-200/80 dark:bg-white/[0.08]" />
                 </div>
 
-                <div className="space-y-1">
+                <div className="rounded-xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.07] overflow-hidden divide-y divide-slate-200/60 dark:divide-white/[0.04]">
                   {sec.items.map(item => {
-                    const Icon = item.icon;
                     const isActive = activeView === item.id;
                     return (
                       <button
@@ -404,38 +422,38 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                           onClose();
                         }}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`w-full min-h-[42px] flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all active:scale-[0.98] cursor-pointer group tap-bounce ${
+                        className={`w-full min-h-[36px] flex items-center justify-between px-2.5 py-1.5 text-xs transition-colors cursor-pointer group select-none ${
                           isActive
-                            ? 'bg-purple-500/15 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-black border border-purple-500/30 shadow-xs'
-                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white border border-transparent'
+                            ? 'bg-amber-500/15 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-bold'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/[0.06] active:bg-slate-200/60 dark:active:bg-white/[0.1]'
                         }`}
                       >
-                        <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-1.5">
-                          {/* 3D Diamond Squircle Section Badge */}
+                        <div className="flex items-center gap-2 min-w-0 flex-1 pr-1.5">
+                          {/* Compact squircle icon badge */}
                           <SectionBadgeIcon
                             section={item.id}
-                            size="md"
+                            size="sm"
                             isActive={isActive}
                           />
 
-                          {/* Clean Single-Line Title */}
-                          <span className="font-extrabold text-sm tracking-tight truncate text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {/* Clean Title */}
+                          <span className="font-bold text-xs tracking-tight truncate text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">
                             {item.label}
                           </span>
                         </div>
 
-                        {/* Right Pill Badge or Chevron */}
-                        <div className="flex items-center gap-1.5 shrink-0">
+                        {/* Right Badge or Chevron */}
+                        <div className="flex items-center gap-1 shrink-0">
                           {Boolean(item.badge) ? (
                             <span
-                              className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold border shadow-2xs ${item.badgeStyle}`}
+                              className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold border shadow-2xs ${item.badgeStyle}`}
                             >
                               {item.badge}
                             </span>
                           ) : (
                             <ChevronRight
-                              className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                                isActive ? 'text-blue-600 dark:text-blue-400' : 'text-[#A1A1AA] dark:text-[#5A5C75]'
+                              className={`w-3 h-3 transition-transform group-hover:translate-x-0.5 ${
+                                isActive ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'
                               }`}
                             />
                           )}
@@ -447,8 +465,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               </div>
             ))}
 
-            {/* Red Logout Button */}
-            <div className="pt-2">
+            {/* Logout Button */}
+            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => {
@@ -458,9 +476,9 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                     logout?.();
                   }
                 }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-900/30 hover:bg-rose-100/80 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
               >
-                <LogOut className="w-4 h-4 stroke-[2.2]" />
+                <LogOut className="w-3.5 h-3.5 stroke-[2.2]" />
                 <span>Logout</span>
               </button>
             </div>
@@ -469,7 +487,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
         {/* 5.5. INSTALL APP ON PHONE (PWA) */}
         {!isInstalled && (
-          <div className="px-3 py-2 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-[#131522]/60">
+          <div className="px-3 py-1.5 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/60 dark:bg-[#131522]/60">
             <button
               type="button"
               onMouseEnter={() => preloadView('settings')}
@@ -485,35 +503,35 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   onClose();
                 }
               }}
-              className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] tap-bounce cursor-pointer group"
+              className="w-full flex items-center justify-between p-2 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 dark:from-blue-600 dark:via-indigo-600 dark:to-purple-600 text-white shadow-xs transition-all active:scale-[0.98] cursor-pointer group"
               title="Install App on Phone"
               aria-label="Install App on Phone"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30 group-hover:scale-110 transition-transform">
-                  <Smartphone className="w-4 h-4 text-white" />
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30">
+                  <Smartphone className="w-3.5 h-3.5 text-white" />
                 </div>
                 <div className="text-left min-w-0">
-                  <div className="text-xs font-black tracking-tight flex items-center gap-1.5 leading-tight">
+                  <div className="text-xs font-bold tracking-tight flex items-center gap-1 leading-tight">
                     <span>Install App on Phone</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-xs font-mono leading-none">PWA</span>
+                    <span className="px-1 py-0.2 rounded-full bg-white/20 text-[9px] font-mono leading-none">PWA</span>
                   </div>
-                  <div className="text-xs text-blue-100/90 font-medium truncate">Offline ready & instant 1-tap open</div>
+                  <div className="text-[10px] text-amber-100/90 dark:text-blue-100/90 font-medium truncate">Offline ready & 1-tap open</div>
                 </div>
               </div>
-              <Download className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform shrink-0 ml-1.5" />
+              <Download className="w-3.5 h-3.5 text-white group-hover:translate-y-0.5 transition-transform shrink-0 ml-1" />
             </button>
           </div>
         )}
 
         {/* 6. EXECUTIVE FOOTER WITH LIVE CLOUD RADAR */}
-        <div className="p-3.5 pb-[max(1rem,env(safe-area-inset-bottom,0px))] border-t border-slate-200/80 dark:border-white/[0.08] bg-white/50 dark:bg-[#0E101B]/90 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 select-none">
+        <div className="py-2 px-3 pb-[max(0.6rem,env(safe-area-inset-bottom,0px))] border-t border-slate-200/80 dark:border-white/[0.08] bg-white/60 dark:bg-[#0E101B]/90 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400 select-none">
           <span className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="font-bold text-slate-900 dark:text-slate-200">Cloud Synced</span>
+            <span className="font-bold text-slate-800 dark:text-slate-200">Cloud Synced</span>
           </span>
 
           <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
