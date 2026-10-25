@@ -134,7 +134,7 @@
     letter-spacing: -0.025em;
   }
 
-  html:not(.dark) body,
+  /* 👑 Warm Parchment Gold Theme (#FAEED9, #E1A837, #8D7A02, #38370D) */
   html.warm-cream body,
   html.warm-cream #root,
   html.warm-cream .min-h-screen,
@@ -146,6 +146,18 @@
       radial-gradient(ellipse at 5% 80%, rgba(225, 168, 55, 0.14) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #38370D !important;
+  }
+
+  /* ☀️ Pure Pro Alabaster (Light) Theme (#F8FAFC canvas, #0F172A slate text) */
+  html:not(.dark):not(.warm-cream) body,
+  html.light:not(.warm-cream) body,
+  html:not(.dark):not(.warm-cream) #root,
+  html:not(.dark):not(.warm-cream) .min-h-screen,
+  html:not(.dark):not(.warm-cream) main:not(.pomodoro-focus-main):not(.focus-chamber-main) {
+    background-color: #F8FAFC !important;
+    background-image: none !important;
+    background-attachment: scroll !important;
+    color: #0F172A !important;
   }
 
   .dark body {
@@ -784,10 +796,8 @@
      Dark Mode: Deep Pitch-Black Canvas (#000000) & Radiant Amber Gold Capsule
      ═══════════════════════════════════════════════════════════════ */
 
-  /* 1. LIGHT MODE / WARM PARCHMENT SIDEBAR */
-  html.warm-cream aside,
-  html.light aside,
-  html:not(.dark) aside {
+  /* 1. WARM PARCHMENT GOLD SIDEBAR */
+  html.warm-cream aside {
     background-color: #FFFDF8 !important;
     background: #FFFDF8 !important;
     border-right: 1px solid #E2D1B3 !important;
@@ -795,42 +805,28 @@
     color: #38370D !important;
   }
 
-  html.warm-cream aside .sidebar-header-bar,
-  html.light aside .sidebar-header-bar,
-  html:not(.dark) aside .sidebar-header-bar {
+  html.warm-cream aside .sidebar-header-bar {
     border-color: #E2D1B3 !important;
     background-color: #FFFDF8 !important;
   }
 
   html.warm-cream aside .sidebar-inner-container,
   html.warm-cream aside .sidebar-scroll-rail,
-  html.warm-cream aside .sidebar-bottom-bar,
-  html.light aside .sidebar-inner-container,
-  html.light aside .sidebar-scroll-rail,
-  html.light aside .sidebar-bottom-bar,
-  html:not(.dark) aside .sidebar-inner-container,
-  html:not(.dark) aside .sidebar-scroll-rail,
-  html:not(.dark) aside .sidebar-bottom-bar {
+  html.warm-cream aside .sidebar-bottom-bar {
     background-color: #FFFDF8 !important;
     background: #FFFDF8 !important;
     color: #38370D !important;
   }
 
-  html.warm-cream aside .sidebar-title,
-  html.light aside .sidebar-title,
-  html:not(.dark) aside .sidebar-title {
+  html.warm-cream aside .sidebar-title {
     color: #1C1B05 !important;
   }
 
-  html.warm-cream aside .sidebar-subtitle,
-  html.light aside .sidebar-subtitle,
-  html:not(.dark) aside .sidebar-subtitle {
+  html.warm-cream aside .sidebar-subtitle {
     color: #655602 !important;
   }
 
-  html.warm-cream aside .sidebar-section-header,
-  html.light aside .sidebar-section-header,
-  html:not(.dark) aside .sidebar-section-header {
+  html.warm-cream aside .sidebar-section-header {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
@@ -840,19 +836,13 @@
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
   }
-  html.warm-cream aside .sidebar-section-header:hover,
-  html.light aside .sidebar-section-header:hover,
-  html:not(.dark) aside .sidebar-section-header:hover {
+  html.warm-cream aside .sidebar-section-header:hover {
     color: #1C1B05 !important;
   }
 
-  /* Light Mode Inactive Tabs */
+  /* Warm Parchment Inactive Tabs */
   html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
-  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
@@ -863,36 +853,24 @@
     font-weight: 600 !important;
   }
 
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
     color: #7D6C02 !important;
   }
 
   html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html.light aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
-  html:not(.dark) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+  html.warm-cream aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
     background-color: #FAF0DC !important;
     background: #FAF0DC !important;
     color: #1C1B05 !important;
   }
 
-  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  html.light aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
-  html:not(.dark) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+  html.warm-cream aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
     color: #1C1B05 !important;
   }
 
-  /* Light Mode Active Capsule Pill */
+  /* Warm Parchment Active Capsule Pill */
   html.warm-cream aside [data-sidebar-active="true"],
-  html.warm-cream aside button[data-sidebar-active="true"],
-  html.light aside [data-sidebar-active="true"],
-  html.light aside button[data-sidebar-active="true"],
-  html:not(.dark) aside [data-sidebar-active="true"],
-  html:not(.dark) aside button[data-sidebar-active="true"] {
+  html.warm-cream aside button[data-sidebar-active="true"] {
     background: linear-gradient(135deg, #FAF0DC 0%, #F5E5C9 100%) !important;
     background-color: #F5E8CF !important;
     border: 1px solid #D8C6A5 !important;
@@ -903,27 +881,17 @@
   }
 
   html.warm-cream aside [data-sidebar-active="true"] *,
-  html.warm-cream aside button[data-sidebar-active="true"] *,
-  html.light aside [data-sidebar-active="true"] *,
-  html.light aside button[data-sidebar-active="true"] *,
-  html:not(.dark) aside [data-sidebar-active="true"] *,
-  html:not(.dark) aside button[data-sidebar-active="true"] * {
+  html.warm-cream aside button[data-sidebar-active="true"] * {
     color: #38370D !important;
   }
 
-  html.warm-cream aside [data-sidebar-active="true"] svg,
-  html.light aside [data-sidebar-active="true"] svg,
-  html:not(.dark) aside [data-sidebar-active="true"] svg {
+  html.warm-cream aside [data-sidebar-active="true"] svg {
     color: #8D7A02 !important;
   }
 
-  /* Light Mode Logout */
+  /* Warm Parchment Logout */
   html.warm-cream aside [data-sidebar-logout="true"],
-  html.warm-cream aside button[data-sidebar-logout="true"],
-  html.light aside [data-sidebar-logout="true"],
-  html.light aside button[data-sidebar-logout="true"],
-  html:not(.dark) aside [data-sidebar-logout="true"],
-  html:not(.dark) aside button[data-sidebar-logout="true"] {
+  html.warm-cream aside button[data-sidebar-logout="true"] {
     background-color: transparent !important;
     background: transparent !important;
     border: none !important;
@@ -932,24 +900,18 @@
     box-shadow: none !important;
   }
 
-  html.warm-cream aside [data-sidebar-logout="true"] *,
-  html.light aside [data-sidebar-logout="true"] *,
-  html:not(.dark) aside [data-sidebar-logout="true"] * {
+  html.warm-cream aside [data-sidebar-logout="true"] * {
     color: #DC2626 !important;
   }
 
-  html.warm-cream aside [data-sidebar-logout="true"]:hover,
-  html.light aside [data-sidebar-logout="true"]:hover,
-  html:not(.dark) aside [data-sidebar-logout="true"]:hover {
+  html.warm-cream aside [data-sidebar-logout="true"]:hover {
     background-color: rgba(239, 68, 68, 0.08) !important;
     background: rgba(239, 68, 68, 0.08) !important;
     color: #B91C1C !important;
   }
 
-  /* Light Mode Bottom Utilities */
-  html.warm-cream aside .sidebar-utility-btn,
-  html.light aside .sidebar-utility-btn,
-  html:not(.dark) aside .sidebar-utility-btn {
+  /* Warm Parchment Bottom Utilities */
+  html.warm-cream aside .sidebar-utility-btn {
     background-color: #FAF4E6 !important;
     background: #FAF4E6 !important;
     border: 1px solid #E2D1B3 !important;
@@ -957,12 +919,153 @@
     box-shadow: 0 1px 3px rgba(56, 55, 13, 0.04) !important;
   }
 
-  html.warm-cream aside .sidebar-utility-btn:hover,
-  html.light aside .sidebar-utility-btn:hover,
-  html:not(.dark) aside .sidebar-utility-btn:hover {
+  html.warm-cream aside .sidebar-utility-btn:hover {
     background-color: #F7EBD3 !important;
     background: #F7EBD3 !important;
     color: #1C1B05 !important;
+  }
+
+  /* 2. PURE PRO ALABASTER (LIGHT) SIDEBAR */
+  html:not(.dark):not(.warm-cream) aside,
+  html.light:not(.warm-cream) aside {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    border-right: 1px solid #E2E8F0 !important;
+    box-shadow: 1px 0 8px rgba(15, 23, 42, 0.04) !important;
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-header-bar,
+  html.light:not(.warm-cream) aside .sidebar-header-bar {
+    border-color: #E2E8F0 !important;
+    background-color: #FFFFFF !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-inner-container,
+  html:not(.dark):not(.warm-cream) aside .sidebar-scroll-rail,
+  html:not(.dark):not(.warm-cream) aside .sidebar-bottom-bar,
+  html.light:not(.warm-cream) aside .sidebar-inner-container,
+  html.light:not(.warm-cream) aside .sidebar-scroll-rail,
+  html.light:not(.warm-cream) aside .sidebar-bottom-bar {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-title,
+  html.light:not(.warm-cream) aside .sidebar-title {
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-subtitle,
+  html.light:not(.warm-cream) aside .sidebar-subtitle {
+    color: #64748B !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-section-header,
+  html.light:not(.warm-cream) aside .sidebar-section-header {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #64748B !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-section-header:hover,
+  html.light:not(.warm-cream) aside .sidebar-section-header:hover {
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html:not(.dark):not(.warm-cream) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light:not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]),
+  html.light:not(.warm-cream) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]) {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    color: #334155 !important;
+    border-radius: 1rem !important;
+    font-weight: 600 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg,
+  html.light:not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]) svg {
+    color: #64748B !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html:not(.dark):not(.warm-cream) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.light:not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover,
+  html.light:not(.warm-cream) aside button[data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover {
+    background-color: #F1F5F9 !important;
+    background: #F1F5F9 !important;
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg,
+  html.light:not(.warm-cream) aside [data-sidebar-item="true"]:not([data-sidebar-active="true"]):hover svg {
+    color: #0F172A !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-active="true"],
+  html:not(.dark):not(.warm-cream) aside button[data-sidebar-active="true"],
+  html.light:not(.warm-cream) aside [data-sidebar-active="true"],
+  html.light:not(.warm-cream) aside button[data-sidebar-active="true"] {
+    background: #EEF2FF !important;
+    background-color: #EEF2FF !important;
+    border: 1px solid #C7D2FE !important;
+    color: #3730A3 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 1px 3px rgba(79, 70, 229, 0.1) !important;
+    font-weight: 800 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-active="true"] *,
+  html:not(.dark):not(.warm-cream) aside button[data-sidebar-active="true"] *,
+  html.light:not(.warm-cream) aside [data-sidebar-active="true"] *,
+  html.light:not(.warm-cream) aside button[data-sidebar-active="true"] * {
+    color: #3730A3 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-active="true"] svg,
+  html.light:not(.warm-cream) aside [data-sidebar-active="true"] svg {
+    color: #4F46E5 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-logout="true"],
+  html:not(.dark):not(.warm-cream) aside button[data-sidebar-logout="true"],
+  html.light:not(.warm-cream) aside [data-sidebar-logout="true"],
+  html.light:not(.warm-cream) aside button[data-sidebar-logout="true"] {
+    background-color: transparent !important;
+    color: #DC2626 !important;
+    border-radius: 1rem !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-logout="true"] *,
+  html.light:not(.warm-cream) aside [data-sidebar-logout="true"] * {
+    color: #DC2626 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside [data-sidebar-logout="true"]:hover,
+  html.light:not(.warm-cream) aside [data-sidebar-logout="true"]:hover {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    color: #B91C1C !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-utility-btn,
+  html.light:not(.warm-cream) aside .sidebar-utility-btn {
+    background-color: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #334155 !important;
+  }
+
+  html:not(.dark):not(.warm-cream) aside .sidebar-utility-btn:hover,
+  html.light:not(.warm-cream) aside .sidebar-utility-btn:hover {
+    background-color: #F1F5F9 !important;
+    color: #0F172A !important;
   }
 
   /* 2. DARK MODE SIDEBAR */

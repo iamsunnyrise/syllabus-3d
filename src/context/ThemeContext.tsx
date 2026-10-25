@@ -21,8 +21,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('syllabus3d_theme');
-        if (saved === 'dark') {
-          return 'dark';
+        if (saved === 'dark' || saved === 'light' || saved === 'warm-cream') {
+          return saved as Theme;
         }
         return 'warm-cream';
       } catch {
@@ -63,8 +63,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'dark', 'light', 'warm-cream');
     if (theme === 'dark') {
       root.classList.add('dark');
-    } else {
+    } else if (theme === 'warm-cream') {
       root.classList.add('warm-cream');
+    } else {
       root.classList.add('light');
     }
     try {
@@ -119,8 +120,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         root.classList.remove('oled', 'sepia', 'luxury', 'glass', 'dark', 'light', 'warm-cream');
         if (nextTheme === 'dark') {
           root.classList.add('dark');
-        } else {
+        } else if (nextTheme === 'warm-cream') {
           root.classList.add('warm-cream');
+        } else {
           root.classList.add('light');
         }
       });
@@ -162,7 +164,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     overlay.style.inset = '0';
     overlay.style.pointerEvents = 'none';
     overlay.style.zIndex = '999999';
-    overlay.style.backgroundColor = isGoingDark ? '#090A12' : '#FFFDF8';
+    overlay.style.backgroundColor = isGoingDark
+      ? '#090A12'
+      : nextTheme === 'warm-cream'
+      ? '#FFFDF8'
+      : '#FFFFFF';
     overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
     overlay.style.transition = 'clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease';
     anyDoc.body.appendChild(overlay);
@@ -191,21 +197,23 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     let resolvedTheme: Theme = 'warm-cream';
     if (newTheme === 'dark') {
       resolvedTheme = 'dark';
-    } else if (newTheme === 'light' || newTheme === 'warm-cream') {
+    } else if (newTheme === 'light') {
+      resolvedTheme = 'light';
+    } else if (newTheme === 'warm-cream') {
       resolvedTheme = 'warm-cream';
     } else if (newTheme === 'system') {
       if (typeof window !== 'undefined' && window.matchMedia) {
         const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        resolvedTheme = isSysDark ? 'dark' : 'warm-cream';
+        resolvedTheme = isSysDark ? 'dark' : 'light';
       } else {
-        resolvedTheme = 'warm-cream';
+        resolvedTheme = 'light';
       }
     }
     applyAnimatedThemeChange(resolvedTheme, event);
   };
 
   const toggleTheme = (event?: React.MouseEvent | MouseEvent) => {
-    const nextTheme: Theme = theme === 'dark' ? 'warm-cream' : 'dark';
+    const nextTheme: Theme = theme === 'dark' ? 'light' : theme === 'light' ? 'warm-cream' : 'dark';
     applyAnimatedThemeChange(nextTheme, event);
   };
 
