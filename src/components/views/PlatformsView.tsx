@@ -121,6 +121,21 @@ export const getBrandTheme = (
   const url = (rawUrl || '').toLowerCase();
   const name = (rawName || '').toLowerCase();
 
+  // 0. The Pundits
+  if (url.includes('thepunditsofficial.in') || url.includes('thepundits') || name.includes('the pundits') || name.includes('pundits')) {
+    return {
+      name: 'The Pundits',
+      brandColor: '#2563EB',
+      bannerGradient: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #60A5FA 100%)',
+      buttonBg: 'bg-blue-600 hover:bg-blue-700',
+      buttonTextColor: 'text-white',
+      buttonShadow: 'shadow-[0_4px_16px_rgba(37,99,235,0.45)]',
+      renderIcon: (cls) => (
+        <FileCheck2 className={cls || 'w-6 h-6 stroke-[2]'} />
+      )
+    };
+  }
+
   // 1. Instagram
   if (url.includes('instagram.com') || name.includes('instagram') || name.includes('insta')) {
     return {
@@ -438,6 +453,98 @@ export const getBrandTheme = (
       return <Globe className={cls || 'w-7 h-7 stroke-[2]'} />;
     }
   };
+};
+
+interface PlatformLogoProps {
+  url: string;
+  name: string;
+  accentColor: string;
+  theme: BrandTheme;
+  customIcon?: string;
+  className?: string;
+}
+
+export const PlatformLogo: React.FC<PlatformLogoProps> = ({
+  url,
+  name,
+  accentColor,
+  theme,
+  customIcon,
+  className
+}) => {
+  const [imgFailed, setImgFailed] = useState(false);
+  const cleanDomain = useMemo(() => {
+    try {
+      const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+      return parsed.hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  }, [url]);
+
+  const faviconUrl = cleanDomain ? `https://www.google.com/s2/favicons?domain=${cleanDomain}&sz=64` : null;
+
+  return (
+    <div
+      className={`relative rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300 group-hover:scale-105 shadow-2xs overflow-hidden ${className || 'w-11 h-11'}`}
+      style={{
+        backgroundColor: `${accentColor}12`,
+        borderColor: `${accentColor}30`
+      }}
+    >
+      {faviconUrl && !imgFailed ? (
+        <img
+          src={faviconUrl}
+          alt={name}
+          className="w-6 h-6 sm:w-6.5 sm:h-6.5 object-contain rounded-md transition-transform group-hover:scale-110"
+          loading="lazy"
+          decoding="async"
+          onError={() => setImgFailed(true)}
+        />
+      ) : (
+        <div style={{ color: accentColor }} className="flex items-center justify-center">
+          {theme.renderIcon('w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2]')}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const getCategoryMeta = (category: string, customName?: string) => {
+  const cleanCustom = stripEmojis(customName || '');
+  if (cleanCustom) {
+    return {
+      label: cleanCustom,
+      icon: <PenTool className="w-3 h-3 stroke-[2.2]" />,
+      badgeClass: 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-800 dark:text-amber-200 border-amber-500/30 dark:border-amber-500/35'
+    };
+  }
+  switch (category) {
+    case 'course':
+      return {
+        label: 'Course Batch',
+        icon: <GraduationCap className="w-3 h-3 stroke-[2.2]" />,
+        badgeClass: 'bg-purple-500/10 dark:bg-purple-500/15 text-purple-800 dark:text-purple-200 border-purple-500/30 dark:border-purple-500/35'
+      };
+    case 'test_series':
+      return {
+        label: 'Mock Series',
+        icon: <FileCheck2 className="w-3 h-3 stroke-[2.2]" />,
+        badgeClass: 'bg-sky-500/10 dark:bg-sky-500/15 text-sky-800 dark:text-sky-200 border-sky-500/30 dark:border-sky-500/35'
+      };
+    case 'reference':
+      return {
+        label: 'Reference Tool',
+        icon: <BookOpen className="w-3 h-3 stroke-[2.2]" />,
+        badgeClass: 'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border-emerald-500/30 dark:border-emerald-500/35'
+      };
+    default:
+      return {
+        label: 'Study Portal',
+        icon: <Globe className="w-3 h-3 stroke-[2.2]" />,
+        badgeClass: 'bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10'
+      };
+  }
 };
 
 export const PlatformsView: React.FC = () => {
@@ -1026,172 +1133,170 @@ export const PlatformsView: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4.5">
           {filteredPlatforms.map((platform, index) => {
             const hasLoginHint = Boolean(platform.loginHint);
             const isCopied = copiedId === platform.id;
             const cleanDomain = formatCleanDomain(platform.url);
             const theme = getBrandTheme(platform.url, platform.name, platform.color, platform.icon);
+            const catMeta = getCategoryMeta(platform.category, platform.customCategoryName);
 
-            const categoryBadgeLabel = stripEmojis(platform.customCategoryName || '') || (
-              platform.category === 'course'
-                ? 'Course Batch'
-                : platform.category === 'test_series'
-                ? 'Mock Series'
-                : platform.category === 'reference'
-                ? 'Reference Tool'
-                : 'Study Portal'
-            );
-
-            // 5-Step Infographic styling matching the reference UI
+            // Clean 2-digit index
             const stepNumber = String(index + 1).padStart(2, '0');
-            const stepPalette = INFOGRAPHIC_STEP_THEMES[index % INFOGRAPHIC_STEP_THEMES.length];
             const isKnownBrand = Boolean(theme.brandColor && theme.brandColor !== '#2563EB');
-            const accentColor = isKnownBrand ? theme.brandColor : stepPalette.color;
-            const stepGradient = isKnownBrand ? theme.bannerGradient : stepPalette.gradient;
+            const accentColor = isKnownBrand ? theme.brandColor : (platform.color || '#6366F1');
 
             return (
               <div
                 key={platform.id}
-                className="group relative rounded-2xl sm:rounded-3xl bg-slate-100/90 dark:bg-[#121422] p-1.5 sm:p-2 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 select-none flex flex-col"
+                tabIndex={0}
+                role="button"
+                onClick={() => handleDirectLaunch(platform.url)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleDirectLaunch(platform.url);
+                  }
+                }}
+                className={`group relative rounded-2xl transition-all duration-200 select-none flex flex-col justify-between p-4 sm:p-4.5 border cursor-pointer active:scale-[0.99] shadow-xs hover:shadow-md hover:-translate-y-0.5 ${
+                  isWarmCream
+                    ? 'bg-[#FFFDF8] hover:bg-white border-[#EAD9BC] hover:border-[#D49B28] shadow-[0_2px_12px_rgba(28,27,5,0.04)] hover:shadow-[0_10px_24px_rgba(212,155,40,0.12)]'
+                    : isDark
+                      ? 'bg-[#131525] hover:bg-[#16182C] border-white/[0.08] hover:border-white/20 shadow-[0_2px_12px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.5)]'
+                      : 'bg-white hover:bg-slate-50/60 border-slate-200/90 hover:border-slate-300 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.07)]'
+                }`}
               >
-                {/* Inner Elevated Card Plate */}
-                <div className="relative w-full rounded-xl sm:rounded-2xl bg-white dark:bg-[#181A2A] border border-slate-200/70 dark:border-white/[0.07] shadow-xs flex flex-col sm:flex-row items-stretch overflow-hidden flex-1">
-                  
-                  {/* LEFT STEP INFOGRAPHIC BLOCK */}
-                  <div
-                    className="relative w-full sm:w-24 md:w-28 shrink-0 py-4 sm:py-5 px-3 flex items-center justify-center text-center overflow-hidden select-none"
-                    style={{ background: stepGradient }}
-                  >
-                    {/* Top Gloss Highlight Edge */}
-                    <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-white/30 pointer-events-none" />
-                    <div className="absolute -top-10 -left-10 w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
+                <div className="space-y-3">
+                  {/* Top Header: Platform Identity & Actions */}
+                  <div className="flex items-start justify-between gap-3">
                     
-                    {/* Pure Centered Number */}
-                    <span className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-white tracking-tighter leading-none drop-shadow-sm">
-                      {stepNumber}
-                    </span>
+                    {/* Left: Avatar & Title & Category */}
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <PlatformLogo
+                        url={platform.url}
+                        name={platform.name}
+                        accentColor={accentColor}
+                        theme={theme}
+                        customIcon={platform.icon}
+                        className="w-11 h-11 sm:w-12 sm:h-12"
+                      />
+
+                      <div className="min-w-0 flex-1">
+                        {/* Title */}
+                        <div className="flex items-center gap-2">
+                          <h2
+                            className="text-base sm:text-[17px] font-bold text-slate-900 dark:text-white truncate font-sans tracking-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+                            title={platform.name}
+                          >
+                            {formatTitleCase(platform.name)}
+                          </h2>
+                          {platform.pinned && (
+                            <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_#FBBF24] shrink-0" title="Pinned Platform" />
+                          )}
+                        </div>
+
+                        {/* Category & Step Number Badge */}
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold border ${catMeta.badgeClass}`}>
+                            {catMeta.icon}
+                            <span className="truncate max-w-[130px] sm:max-w-[180px]">{formatTitleCase(catMeta.label)}</span>
+                          </span>
+
+                          <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200/60 dark:border-white/[0.06] px-1.5 py-0.5 rounded-md">
+                            #{stepNumber}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right: Quick Action Controls */}
+                    <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        type="button"
+                        onClick={(e) => handleTogglePin(e, platform.id)}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all cursor-pointer active:scale-90 border ${
+                          platform.pinned
+                            ? 'bg-amber-400 text-slate-950 font-bold border-amber-500 shadow-xs'
+                            : 'bg-slate-100/80 hover:bg-amber-50 dark:bg-white/[0.04] dark:hover:bg-amber-950/30 text-slate-500 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-300 border-slate-200/70 dark:border-white/[0.08]'
+                        }`}
+                        title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
+                        aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
+                      >
+                        <Bookmark className={`w-3.5 h-3.5 ${platform.pinned ? 'fill-current' : ''}`} />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={(e) => handleEdit(e, platform)}
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100/80 hover:bg-blue-50 dark:bg-white/[0.04] dark:hover:bg-blue-950/30 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-300 border border-slate-200/70 dark:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                        title="Edit portal"
+                        aria-label={`Edit ${platform.name}`}
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={(e) => handleDelete(e, platform)}
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100/80 hover:bg-rose-50 dark:bg-white/[0.04] dark:hover:bg-rose-950/30 text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-300 border border-slate-200/70 dark:border-white/[0.08] flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                        title="Delete portal"
+                        aria-label={`Delete ${platform.name}`}
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
-                  {/* RIGHT MAIN CONTENT AREA */}
-                  <div className="flex-1 p-3.5 sm:p-4 md:p-5 flex flex-col justify-between min-w-0 space-y-2.5">
-                    
-                    {/* Header Row: Icon + Title + Controls */}
-                    <div className="flex items-center justify-between gap-2 min-w-0">
-                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                        <div
-                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
-                          style={{ color: accentColor }}
-                          title={platform.name}
-                        >
-                          {theme.renderIcon('w-4 h-4 sm:w-4.5 sm:h-4.5 drop-shadow-xs')}
-                        </div>
-                        <h2
-                          className="text-base sm:text-[17px] font-bold tracking-tight truncate font-sans text-slate-900 dark:text-white"
-                          title={platform.name}
-                        >
-                          {formatTitleCase(platform.name)}
-                        </h2>
-                      </div>
+                  {/* Description Text */}
+                  {platform.description?.trim() ? (
+                    <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 font-normal line-clamp-2 leading-relaxed">
+                      {formatReadableText(platform.description)}
+                    </p>
+                  ) : null}
+                </div>
 
-                      {/* Quick Card Tool Controls: Pin, Edit, Delete */}
-                      <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-                        <button
-                          type="button"
-                          onClick={(e) => handleTogglePin(e, platform.id)}
-                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer active:scale-90 border shadow-2xs ${
-                            platform.pinned
-                              ? 'bg-amber-400 text-slate-950 font-bold border-amber-500 shadow-xs'
-                              : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700'
-                          }`}
-                          title={platform.pinned ? 'Unpin portal' : 'Pin to top'}
-                          aria-label={platform.pinned ? 'Unpin portal' : 'Pin portal to top'}
-                        >
-                          <Bookmark className={`w-3.5 h-3.5 ${platform.pinned ? 'fill-current' : ''}`} />
-                        </button>
+                {/* Bottom Footer: Domain & Login Hint & Launch Button */}
+                <div className="pt-3 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-2 mt-3">
+                  <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                    <span
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100/90 dark:bg-white/[0.05] text-[11px] font-mono font-medium text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-white/[0.08] truncate max-w-[150px] sm:max-w-[210px]"
+                      title={`Domain: ${cleanDomain}`}
+                    >
+                      <Globe className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <span className="truncate">{cleanDomain}</span>
+                    </span>
 
-                        <button
-                          type="button"
-                          onClick={(e) => handleEdit(e, platform)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-blue-950/40 text-slate-700 hover:text-blue-600 dark:text-slate-200 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-2xs"
-                          title="Edit portal"
-                          aria-label={`Edit ${platform.name}`}
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={(e) => handleDelete(e, platform)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-slate-100 hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-rose-950/40 text-slate-700 hover:text-rose-600 dark:text-slate-200 dark:hover:text-rose-400 border border-slate-200 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-600 flex items-center justify-center transition-all cursor-pointer active:scale-90 shadow-2xs"
-                          title="Delete portal"
-                          aria-label={`Delete ${platform.name}`}
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Middle Row: Category Badge */}
-                    <div className="flex items-center gap-2 select-none py-0.5">
-                      <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80">
-                        {formatTitleCase(categoryBadgeLabel)}
-                      </span>
-                    </div>
-
-                    {/* Description Text */}
-                    {platform.description?.trim() ? (
-                      <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-normal line-clamp-2 leading-relaxed">
-                        {formatReadableText(platform.description)}
-                      </p>
-                    ) : null}
-
-                    {/* Bottom Row: Domain Badge, Login Hint & Open Button */}
-                    <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.08] flex items-center justify-between gap-2 mt-auto">
-                      <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                        <a
-                          href={platform.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[11px] font-mono font-bold text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 truncate transition-colors max-w-[140px] sm:max-w-[200px] shadow-2xs"
-                          title={`Visit ${cleanDomain}`}
-                        >
-                          <Globe className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
-                          <span className="truncate">{cleanDomain}</span>
-                        </a>
-
-                        {hasLoginHint && (
-                          <button
-                            type="button"
-                            onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
-                            className="hidden min-[480px]:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-[10px] font-mono font-bold text-amber-800 dark:text-amber-200 transition-all cursor-pointer shadow-2xs"
-                            title={`Click to copy login: ${platform.loginHint}`}
-                            aria-label={`Copy credentials: ${platform.loginHint}`}
-                          >
-                            <KeyRound className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                            <span className="truncate max-w-[90px]">{isCopied ? 'Copied!' : platform.loginHint}</span>
-                          </button>
-                        )}
-                      </div>
-
-                      <a
-                        href={platform.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          soundManager.playClick();
-                        }}
-                        className={`py-1.5 px-3.5 rounded-xl text-xs font-black inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shrink-0 shadow-sm ${theme.buttonBg || ''} ${theme.buttonTextColor} ${theme.buttonShadow}`}
-                        style={theme.buttonStyle || { backgroundColor: accentColor, color: '#FFFFFF' }}
-                        aria-label={`Open ${platform.name}`}
+                    {hasLoginHint && (
+                      <button
+                        type="button"
+                        onClick={(e) => handleCopyHint(e, platform.id, platform.loginHint!)}
+                        className="hidden xs:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 transition-all cursor-pointer shadow-2xs shrink-0"
+                        title={`Click to copy login: ${platform.loginHint}`}
+                        aria-label={`Copy credentials: ${platform.loginHint}`}
                       >
-                        <span>Open</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </a>
-                    </div>
+                        <KeyRound className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                        <span className="truncate max-w-[90px]">{isCopied ? 'Copied!' : platform.loginHint}</span>
+                      </button>
+                    )}
+                  </div>
 
+                  {/* Launch CTA */}
+                  <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                    <a
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => soundManager.playClick()}
+                      className={`py-1.5 px-3 sm:px-3.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shadow-2xs ${
+                        isWarmCream
+                          ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] hover:brightness-105'
+                          : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900'
+                      }`}
+                      aria-label={`Open ${platform.name}`}
+                    >
+                      <span>Open</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
                   </div>
                 </div>
               </div>
