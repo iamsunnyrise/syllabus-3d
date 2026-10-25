@@ -33,6 +33,8 @@ import {
   Plus,
   Minus,
   ArrowRight,
+  ArrowLeftRight,
+  Globe2,
   Hash,
   Boxes,
   Volume2,
@@ -1831,7 +1833,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
                     {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
                     <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 pt-0.5">
-                      <span className="self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
+                      <span className={`self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider ${
+                        vocabTypeFilter === 'root'
+                          ? 'bg-emerald-500/20 text-emerald-950 dark:text-emerald-200 border-emerald-500/30 dark:border-emerald-400/30'
+                          : 'bg-amber-500/20 text-amber-900 dark:text-amber-200 border-amber-500/30 dark:border-amber-400/30'
+                      } border shrink-0`}>
                         हिंदी अर्थ
                       </span>
                       <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-sans text-slate-950 dark:text-white tracking-wide break-words leading-snug">
@@ -1841,11 +1847,31 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </div>
 
                   {/* 3. Exam Definition & Synonyms Panel */}
-                  <div className="p-3 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border border-slate-200/90 dark:border-white/10 sm:border-2 shadow-xs space-y-3 sm:space-y-4">
+                  <div className={`p-3.5 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl ${
+                    vocabTypeFilter === 'root'
+                      ? 'bg-slate-50/90 dark:bg-[#121528] border-emerald-500/35 dark:border-emerald-500/25 shadow-emerald-500/5'
+                      : 'bg-slate-50/90 dark:bg-[#121528] border-slate-200/90 dark:border-white/10'
+                  } border sm:border-2 shadow-xs space-y-3.5 sm:space-y-4`}>
                     <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono min-w-0">
-                        <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
-                        <span className="truncate">{currentFlashcard.type === 'idiom' ? 'Exam Meaning' : currentFlashcard.type === 'ows' ? 'OWS Definition' : currentFlashcard.type === 'root' ? 'Root Meaning' : 'Exam Meaning & Synonyms'}</span>
+                      <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl ${
+                        currentFlashcard.type === 'root'
+                          ? 'bg-emerald-500/15 dark:bg-emerald-400/20 border-emerald-500/30 dark:border-emerald-400/35 text-emerald-950 dark:text-emerald-200'
+                          : 'bg-amber-500/15 dark:bg-amber-400/20 border-amber-500/30 dark:border-amber-400/35 text-amber-950 dark:text-amber-200'
+                      } border text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider font-mono min-w-0 shadow-2xs`}>
+                        {currentFlashcard.type === 'root' ? (
+                          <TreePine className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-300 shrink-0" />
+                        ) : (
+                          <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
+                        )}
+                        <span className="truncate">
+                          {currentFlashcard.type === 'idiom'
+                            ? 'Exam Meaning'
+                            : currentFlashcard.type === 'ows'
+                              ? 'OWS Definition'
+                              : currentFlashcard.type === 'root'
+                                ? 'Root Architecture & Meaning'
+                                : 'Exam Meaning & Synonyms'}
+                        </span>
                       </div>
                       
                       {/* High-Contrast Interactive Toggle Button */}
@@ -1866,7 +1892,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         {isCardFlipped ? (
                           <>
                             <EyeOff className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" />
-                            <span>{currentFlashcard.type === 'root' ? 'Hide Details' : 'Hide'}</span>
+                            <span>{currentFlashcard.type === 'root' ? 'Hide Family Tree' : 'Hide Details'}</span>
                           </>
                         ) : (
                           <>
@@ -1877,27 +1903,63 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </button>
                     </div>
 
-                    <div className="space-y-1">
-                      {!isCardFlipped && (
-                        <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block">
-                          Primary Exam Meaning
-                        </span>
-                      )}
-                      <p className="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-950 dark:text-white leading-snug tracking-tight break-words">
-                        {currentFlashcard.meaning}
-                      </p>
-                    </div>
+                    {/* Content Section: Root Word Bespoke Etymology Card vs Standard Meaning */}
+                    {currentFlashcard.type === 'root' ? (
+                      <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-[#0E101B]/90 border border-emerald-500/30 dark:border-white/10 shadow-2xs space-y-3">
+                        <div className="flex items-center justify-between gap-2 flex-wrap pb-1 border-b border-slate-100 dark:border-white/10">
+                          <div className="flex items-center gap-1.5 text-[10.5px] sm:text-xs font-mono font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                            <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                            <span>Root Concept & Linguistic Foundation</span>
+                          </div>
+                          {currentFlashcard.rootFamily?.origin && (
+                            <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 shadow-2xs">
+                              {currentFlashcard.rootFamily.origin} Origin
+                            </span>
+                          )}
+                        </div>
 
-                    {/* Root Word Quick Badges (Origin & Counter Root) */}
+                        {/* Core Stem Meaning Headline */}
+                        {currentFlashcard.rootFamily?.coreMeaning && (
+                          <div className="flex items-center gap-2.5 flex-wrap">
+                            <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-[10px] font-mono font-black text-emerald-900 dark:text-emerald-200 uppercase tracking-wider shrink-0">
+                              Core Stem
+                            </span>
+                            <span className="text-base sm:text-xl md:text-2xl font-black text-slate-950 dark:text-white font-sans tracking-tight">
+                              {currentFlashcard.rootFamily.coreMeaning}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Etymology & Exam Significance Quote Callout */}
+                        <div className="p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-white/[0.04] border-l-4 border-emerald-500">
+                          <p className="text-sm sm:text-base font-medium text-slate-800 dark:text-slate-100 leading-relaxed">
+                            {currentFlashcard.meaning}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        {!isCardFlipped && (
+                          <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block">
+                            Primary Exam Meaning
+                          </span>
+                        )}
+                        <p className="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-950 dark:text-white leading-snug tracking-tight break-words">
+                          {currentFlashcard.meaning}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Root Word Quick Badges (Origin, Core Stem & Counter Root) */}
                     {currentFlashcard.type === 'root' && currentFlashcard.rootFamily && (
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1.5">
-                        <div className="p-2.5 sm:p-3 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/25 flex items-center gap-2.5 shadow-2xs">
-                          <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-base shrink-0 font-bold">
-                            🏛️
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-0.5">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/25 flex items-center gap-2.5 shadow-2xs hover:border-indigo-500/40 transition-colors">
+                          <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 flex items-center justify-center shrink-0">
+                            <Globe2 className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
                             <span className="text-[10px] font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold block">
-                              Origin
+                              Language Origin
                             </span>
                             <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate block">
                               {currentFlashcard.rootFamily.origin || 'Classical'} Language
@@ -1905,9 +1967,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         </div>
 
-                        <div className="p-2.5 sm:p-3 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 flex items-center gap-2.5 shadow-2xs">
-                          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-base shrink-0 font-bold">
-                            🌳
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 flex items-center gap-2.5 shadow-2xs hover:border-emerald-500/40 transition-colors">
+                          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0">
+                            <TreePine className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
                             <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-bold block">
@@ -1920,9 +1982,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         </div>
 
                         {currentFlashcard.rootFamily.counterRoot ? (
-                          <div className="p-2.5 sm:p-3 rounded-2xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 flex items-center gap-2.5 shadow-2xs">
-                            <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-700 dark:text-rose-300 flex items-center justify-center text-base shrink-0 font-bold">
-                              ⚔️
+                          <div className="p-2.5 sm:p-3 rounded-2xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 flex items-center gap-2.5 shadow-2xs hover:border-rose-500/40 transition-colors">
+                            <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-700 dark:text-rose-300 flex items-center justify-center shrink-0">
+                              <ArrowLeftRight className="w-4 h-4" />
                             </div>
                             <div className="min-w-0">
                               <span className="text-[10px] font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 font-bold block">
@@ -1934,9 +1996,9 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             </div>
                           </div>
                         ) : (
-                          <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 flex items-center gap-2.5 shadow-2xs">
-                            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center text-base shrink-0 font-bold">
-                              💡
+                          <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 flex items-center gap-2.5 shadow-2xs hover:border-amber-500/40 transition-colors">
+                            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0">
+                              <Zap className="w-4 h-4" />
                             </div>
                             <div className="min-w-0">
                               <span className="text-[10px] font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold block">
@@ -2080,7 +2142,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         </div>
 
                         {/* Collocation & Word Family */}
-                        {(currentFlashcard.collocation || currentFlashcard.derivatives) && (
+                        {currentFlashcard.type !== 'root' && (currentFlashcard.collocation || currentFlashcard.derivatives) && (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs sm:text-sm">
                             {currentFlashcard.collocation && (
                               <div className="p-3 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/25 text-blue-900 dark:text-blue-300">
@@ -2092,6 +2154,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 🌳 <strong>Word Family:</strong> {currentFlashcard.derivatives}
                               </div>
                             )}
+                          </div>
+                        )}
+                        {currentFlashcard.type === 'root' && currentFlashcard.collocation && (
+                          <div className="p-3 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/25 text-blue-900 dark:text-blue-300 text-xs sm:text-sm">
+                            📌 <strong>Root Collocations:</strong> {currentFlashcard.collocation}
                           </div>
                         )}
 
@@ -2119,78 +2186,114 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                         )}
                       </div>
                     ) : (
-                      /* 🌟 UN-FLIPPED ACTIVE RECALL PROMPT & DRILL TEASER */
-                      <div
-                        onClick={() => {
-                          soundManager.playClick();
-                          setIsCardFlipped(true);
-                        }}
-                        className={`group mt-3 p-3.5 sm:p-5 rounded-2xl ${
-                          vocabTypeFilter === 'root'
-                            ? 'bg-emerald-500/10 dark:bg-emerald-950/20 hover:bg-emerald-500/15 border-emerald-500/40 dark:border-emerald-500/30'
-                            : 'bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border-amber-500/40 dark:border-amber-400/50'
-                        } border-2 border-dashed transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs hover:shadow-sm`}
-                      >
-                        <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-                          <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl ${
-                            vocabTypeFilter === 'root' ? 'bg-emerald-500' : 'bg-amber-500'
-                          } text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0`}>
-                            {vocabTypeFilter === 'root' ? (
-                              <span className="text-base sm:text-lg">🌳</span>
-                            ) : (
-                              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
+                      /* 🌟 UN-FLIPPED ACTIVE RECALL PROMPT & WORD FAMILY TEASER */
+                      vocabTypeFilter === 'root' && currentFlashcard.rootFamily ? (
+                        <div
+                          onClick={() => {
+                            soundManager.playClick();
+                            setIsCardFlipped(true);
+                          }}
+                          className="group mt-3 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-500/[0.08] via-slate-100/60 dark:via-white/[0.03] to-teal-500/[0.08] hover:from-emerald-500/[0.14] hover:to-teal-500/[0.14] border border-emerald-500/35 dark:border-emerald-500/30 transition-all cursor-pointer shadow-xs hover:shadow-md space-y-3"
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                                <TreePine className="w-5 h-5 text-slate-950" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <h4 className="text-sm sm:text-base font-black text-slate-950 dark:text-white leading-tight">
+                                    Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-sm">(एक रूट, अनेक शब्द Matrix)</span>
+                                  </h4>
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-500 text-slate-950 shadow-2xs shrink-0">
+                                    {currentFlashcard.rootFamily.derivatives.length} Words Matrix
+                                  </span>
+                                </div>
+                                <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+                                  Click to explore formulas, Hindi meanings, exam examples & audio pronunciation
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs transition-all group-hover:translate-x-0.5 shrink-0 w-full sm:w-auto text-center">
+                              <span>Explore All Derivatives</span>
+                              <ArrowRight className="w-4 h-4 text-slate-950" />
+                            </div>
+                          </div>
+
+                          {/* Quick Interactive Derived Words Strip */}
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap pt-2 border-t border-emerald-500/20">
+                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 shrink-0">
+                              Derivatives:
+                            </span>
+                            {currentFlashcard.rootFamily.derivatives.slice(0, 6).map((deriv) => (
+                              <span
+                                key={deriv.word}
+                                className="px-2.5 py-1 rounded-lg text-xs font-bold bg-white dark:bg-white/[0.08] text-slate-900 dark:text-slate-100 border border-emerald-500/25 group-hover:border-emerald-500/40 shadow-2xs transition-colors flex items-center gap-1.5"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{deriv.word}</span>
+                                <span className="text-[10px] text-slate-600 dark:text-slate-300 font-normal">({deriv.partOfSpeech})</span>
+                              </span>
+                            ))}
+                            {currentFlashcard.rootFamily.derivatives.length > 6 && (
+                              <span className="px-2 py-0.5 rounded-lg text-[11px] font-bold font-mono bg-emerald-500/20 text-emerald-800 dark:text-emerald-300">
+                                +{currentFlashcard.rootFamily.derivatives.length - 6} more
+                              </span>
                             )}
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-1.5 sm:gap-2">
-                              <span className="text-xs sm:text-base font-black text-slate-900 dark:text-white">
-                                {vocabTypeFilter === 'root' ? 'Word Family Tree & Active Recall' : 'Active Recall Drill'}
-                              </span>
-                              <span className={`px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider ${
-                                vocabTypeFilter === 'root' ? 'bg-emerald-500' : 'bg-amber-500'
-                              } text-slate-950 shrink-0`}>
-                                Tap to Reveal
-                              </span>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => {
+                            soundManager.playClick();
+                            setIsCardFlipped(true);
+                          }}
+                          className="group mt-3 p-3.5 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-white/[0.04] hover:bg-amber-500/15 dark:hover:bg-white/[0.07] border border-amber-500/30 dark:border-amber-400/40 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs hover:shadow-sm"
+                        >
+                          <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+                            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
                             </div>
-                            <div className="flex items-center gap-2 text-[10.5px] sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 flex-wrap font-medium">
-                              {currentFlashcard.type === 'root' && currentFlashcard.rootFamily ? (
-                                <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                                  🌳 {currentFlashcard.rootFamily.derivatives.length} Derived Exam Words & Formulas
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5 sm:gap-2">
+                                <span className="text-xs sm:text-base font-black text-slate-900 dark:text-white">
+                                  Active Recall Drill
                                 </span>
-                              ) : (
+                                <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shrink-0">
+                                  Tap to Reveal
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-[10.5px] sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 flex-wrap font-medium">
                                 <span className="font-bold text-emerald-700 dark:text-emerald-300">
                                   ✓ {currentFlashcard.synonyms.length} Synonyms
                                 </span>
-                              )}
-                              {currentFlashcard.antonyms.length > 0 && (
-                                <>
-                                  <span className="text-slate-400">•</span>
-                                  <span className="font-bold text-rose-700 dark:text-rose-300">
-                                    ✕ {currentFlashcard.antonyms.length} Antonyms
-                                  </span>
-                                </>
-                              )}
-                              {currentFlashcard.mnemonic && (
-                                <>
-                                  <span className="text-slate-400">•</span>
-                                  <span className="font-bold text-purple-700 dark:text-purple-300">
-                                    💡 Trick
-                                  </span>
-                                </>
-                              )}
+                                {currentFlashcard.antonyms.length > 0 && (
+                                  <>
+                                    <span className="text-slate-400">•</span>
+                                    <span className="font-bold text-rose-700 dark:text-rose-300">
+                                      ✕ {currentFlashcard.antonyms.length} Antonyms
+                                    </span>
+                                  </>
+                                )}
+                                {currentFlashcard.mnemonic && (
+                                  <>
+                                    <span className="text-slate-400">•</span>
+                                    <span className="font-bold text-purple-700 dark:text-purple-300">
+                                      💡 Trick
+                                    </span>
+                                  </>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className={`flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl ${
-                          vocabTypeFilter === 'root'
-                            ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950'
-                            : 'bg-amber-500 hover:bg-amber-400 text-slate-950'
-                        } font-black text-xs sm:text-sm shadow-xs transition-transform shrink-0 w-full sm:w-auto text-center`}>
-                          <span>{vocabTypeFilter === 'root' ? 'Explore Family Tree' : 'Reveal All'}</span>
-                          <RotateCw className="w-3.5 h-3.5 text-slate-950" />
+                          <div className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shadow-xs transition-transform shrink-0 w-full sm:w-auto text-center">
+                            <span>Reveal All</span>
+                            <RotateCw className="w-3.5 h-3.5 text-slate-950" />
+                          </div>
                         </div>
-                      </div>
+                      )
                     )}
                   </div>
                 </div>
